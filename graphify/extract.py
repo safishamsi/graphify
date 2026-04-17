@@ -4458,7 +4458,7 @@ def _hcl_count_ast_nodes(node) -> int:
     return count
 
 
-def extract_hcl(path: Path, repo_root: Path) -> dict:
+def extract_hcl(path: Path, repo_root: Path, resolvable_module_directories: set[str] | None = None) -> dict:
     """Extract HCL structural blocks from a single .tf or .tfvars file.
 
     Parses the file using tree-sitter-hcl and produces block-level nodes
@@ -4661,7 +4661,7 @@ def extract_hcl(path: Path, repo_root: Path) -> dict:
                     source_value,
                     path.parent,
                     repo_root,
-                    set(),  # resolvable dirs filled at pipeline level
+                    resolvable_module_directories or set(),
                 )
                 diagnostics.extend(source_result.get("diagnostics", []))
 
@@ -4716,6 +4716,177 @@ def extract_hcl(path: Path, repo_root: Path) -> dict:
 
     return hcl_make_result(nodes, edges,
                            hcl_cap_diagnostics(diagnostics), deferred_refs)
+
+
+_HCL_OUT_OF_SCOPE_EXPR_TYPES = {"index", "splat", "function_call", "conditional", "for_expr"}
+
+
+def _hcl_detect_module_output_refs(block_node, block_nid: str, file_path: str) -> tuple[list[dict], list[dict]]:
+    """Scan a block's body for module.x.y expressions and emit deferred output refs.
+
+    Returns (deferred_refs, diagnostics).
+    """
+    refs: list[dict] = []
+    diags: list[dict] = []
+
+    def _scan_expressions(node):
+        if node.type == "expression":
+            children = node.children
+            named = [c for c in children if c.type not in {".", ",", "(", ")", "[", "]", "{", "}"}]
+            # Check for module.x.y pattern: variable_expr("module"), get_attr, get_attr
+            if (len(named) >= 3
+                and named[0].type == "variable_expr"
+                and named[0].children
+                and named[0].children[0].text == b"module"
+                and named[1].type == "get_attr"
+                and named[2].type == "get_attr"):
+                # Check for out-of-scope nodes
+                out_of_scope = [c for c in named[3:] if c.type in _HCL_OUT_OF_SCOPE_EXPR_TYPES]
+                if out_of_scope or any(c.type in _HCL_OUT_OF_SCOPE_EXPR_TYPES for c in named):
+                    diags.append(hcl_make_diagnostic(
+                        "hcl_unsupported_expression",
+                        f"Complex module expression skipped",
+                        file_path=file_path,
+                        source_span={
+                            "start_line": node.start_point[0] + 1,
+                            "start_column": node.start_point[1] + 1,
+                            "end_line": node.end_point[0] + 1,
+                            "end_column": node.end_point[1] + 1,
+                        },
+                        related_entity_id=block_nid,
+                    ))
+                    return
+                # Check if inside template_interpolation (parent chain)
+                p = node.parent
+                while p:
+                    if p.type == "template_interpolation":
+                        diags.append(hcl_make_diagnostic(
+                            "hcl_unsupported_expression",
+                            "Module expression inside interpolation skipped",
+                            file_path=file_path,
+                            related_entity_id=block_nid,
+                        ))
+                        return
+                    p = p.parent
+
+                module_name_node = named[1].children[-1] if named[1].children else named[1]
+                output_name_node = named[2].children[-1] if named[2].children else named[2]
+                module_name = module_name_node.text.decode("utf-8", errors="replace")
+                output_name = output_name_node.text.decode("utf-8", errors="replace")
+
+                refs.append({
+                    "kind": "module_output",
+                    "enclosing_block_nid": block_nid,
+                    "module_name": module_name,
+                    "output_name": output_name,
+                    "source_dir": None,  # filled by resolver
+                    "source_file": file_path,
+                    "source_location": f"L{node.start_point[0] + 1}",
+                })
+                return  # Don't descend into this expression further
+
+        for child in node.children:
+            _scan_expressions(child)
+
+    _scan_expressions(block_node)
+    return refs, diags
+
+
+def resolve_hcl_cross_file(
+    per_file: list[dict],
+    all_nodes: list[dict],
+    all_edges: list[dict],
+    existing_pairs: set[tuple[str, str, str, str]],
+) -> tuple[list[dict], list[dict]]:
+    """Resolve HCL cross-file variable and output references.
+
+    Builds a child module index from per-file results, then resolves
+    deferred module-input and module-output refs into edges.
+
+    Returns (new_edges, new_diagnostics).
+    """
+    new_edges: list[dict] = []
+    new_diagnostics: list[dict] = []
+
+    # Build child module index: dir_path -> {variable_name -> nid, output_name -> nid}
+    var_index: dict[str, dict[str, str]] = {}   # dir -> {var_name -> nid}
+    out_index: dict[str, dict[str, str]] = {}   # dir -> {out_name -> nid}
+
+    for result in per_file:
+        for node in result.get("nodes", []):
+            nid = node["id"]
+            if "::" not in nid:
+                continue
+            # Parse: hcl_file:<path>::<kind>:<identity>
+            parts = nid.split("::", 1)
+            if len(parts) != 2:
+                continue
+            file_prefix = parts[0]  # hcl_file:<path>
+            kind_id = parts[1]      # <kind>:<identity>
+            if ":" not in kind_id:
+                continue
+            kind, identity = kind_id.split(":", 1)
+
+            # Get directory from file path
+            # hcl_file:<path> -> <path> -> parent dir
+            file_path = file_prefix.replace("hcl_file:", "", 1)
+            dir_path = str(Path(file_path).parent).replace("\\", "/")
+            if dir_path == ".":
+                dir_path = ""
+
+            if kind == "variable":
+                var_index.setdefault(dir_path, {})[identity] = nid
+            elif kind == "output":
+                out_index.setdefault(dir_path, {})[identity] = nid
+
+    # Resolve deferred refs
+    for result in per_file:
+        for ref in result.get("hcl_deferred_refs", []):
+            source_dir = ref.get("source_dir")
+            if source_dir is None:
+                continue
+
+            if ref["kind"] == "module_input":
+                child_vars = var_index.get(source_dir, {})
+                arg_key = ref["argument_key"]
+                target_nid = child_vars.get(arg_key)
+                if target_nid:
+                    pair = (ref["caller_nid"], target_nid, "module_input", "resolved")
+                    if pair not in existing_pairs:
+                        existing_pairs.add(pair)
+                        new_edges.append(hcl_make_edge(
+                            ref["caller_nid"], target_nid, "module_input",
+                            ref["source_file"], int(ref["source_location"].lstrip("L")),
+                        ))
+                else:
+                    new_diagnostics.append(hcl_make_diagnostic(
+                        "hcl_unresolved_variable",
+                        f"No variable '{arg_key}' in child module at {source_dir}",
+                        file_path=ref["source_file"],
+                        related_entity_id=ref["caller_nid"],
+                    ))
+
+            elif ref["kind"] == "module_output":
+                child_outs = out_index.get(source_dir, {})
+                output_name = ref["output_name"]
+                target_nid = child_outs.get(output_name)
+                if target_nid:
+                    pair = (ref["enclosing_block_nid"], target_nid, "module_output_ref", "resolved")
+                    if pair not in existing_pairs:
+                        existing_pairs.add(pair)
+                        new_edges.append(hcl_make_edge(
+                            ref["enclosing_block_nid"], target_nid, "module_output_ref",
+                            ref["source_file"], int(ref["source_location"].lstrip("L")),
+                        ))
+                else:
+                    new_diagnostics.append(hcl_make_diagnostic(
+                        "hcl_unresolved_output",
+                        f"No output '{output_name}' in child module at {source_dir}",
+                        file_path=ref["source_file"],
+                        related_entity_id=ref.get("enclosing_block_nid"),
+                    ))
+
+    return new_edges, new_diagnostics
 
 
 def _resolve_cross_file_imports(
@@ -6814,6 +6985,19 @@ def extract(
                     "source_location": rc.get("source_location"),
                     "weight": 1.0,
                 })
+
+    # HCL cross-file resolution (module-input and module-output edges)
+    hcl_results = [r for r, p in zip(per_file, paths) if p.suffix in {".tf", ".tfvars"}]
+    if hcl_results:
+        existing_pairs = {
+            (e["source"], e["target"], e["relation"], e.get("resolution_status", "resolved"))
+            for e in all_edges
+        }
+        hcl_cross_edges, hcl_cross_diags = resolve_hcl_cross_file(
+            hcl_results, all_nodes, all_edges, existing_pairs,
+        )
+        all_edges.extend(hcl_cross_edges)
+        all_diagnostics.extend(hcl_cross_diags)
 
     # Relativize source_file fields so paths are portable across machines (#555)
     for item in all_nodes + all_edges:

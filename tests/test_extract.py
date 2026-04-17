@@ -10,6 +10,7 @@ from graphify.extract import (
     extract_hcl,
     _HCL_MAX_FILE_BYTES, _HCL_MAX_AST_NODES,
     hcl_resolve_control_surface, hcl_resolve_all_surfaces,
+    resolve_hcl_cross_file,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -1200,3 +1201,54 @@ def test_extract_no_diagnostics_for_python():
         result = extract(files)
         diags = result.get("diagnostics", [])
         assert len(diags) == 0
+
+
+# --- Cross-file resolution tests ---
+
+TF_CROSSFILE = FIXTURES / "tf_crossfile"
+
+
+def test_cross_file_module_input_resolution():
+    """Parent module argument 'cidr' resolves to child variable 'cidr'."""
+    tf_files = sorted(TF_CROSSFILE.rglob("*.tf"))
+    result = extract(tf_files)
+    input_edges = [e for e in result["edges"] if e["relation"] == "module_input"]
+    # cidr and name should resolve
+    target_ids = {e["target"] for e in input_edges}
+    target_labels = {n["label"] for n in result["nodes"] if n["id"] in target_ids}
+    assert "variable:cidr" in target_labels
+    assert "variable:name" in target_labels
+
+
+def test_cross_file_module_input_edge_count():
+    """Two arguments (cidr, name) should produce two module_input edges."""
+    tf_files = sorted(TF_CROSSFILE.rglob("*.tf"))
+    result = extract(tf_files)
+    input_edges = [e for e in result["edges"] if e["relation"] == "module_input"]
+    assert len(input_edges) == 2
+
+
+def test_cross_file_unresolved_variable():
+    """Argument with no matching child variable emits diagnostic."""
+    # Create a module with an arg that doesn't match any child variable
+    from graphify.extract import extract_hcl, hcl_make_edge
+    parent = extract_hcl(TF_CROSSFILE / "main.tf", TF_CROSSFILE)
+    child = extract_hcl(TF_CROSSFILE / "modules" / "vpc" / "variables.tf", TF_CROSSFILE)
+
+    # Add a fake deferred ref for a non-existent variable
+    parent["hcl_deferred_refs"].append({
+        "kind": "module_input",
+        "caller_nid": "fake_caller",
+        "module_name": "vpc",
+        "source_dir": "modules/vpc",
+        "argument_key": "nonexistent_var",
+        "source_file": "main.tf",
+        "source_location": "L1",
+    })
+
+    per_file = [parent, child]
+    all_nodes = parent["nodes"] + child["nodes"]
+    all_edges = parent["edges"] + child["edges"]
+    new_edges, new_diags = resolve_hcl_cross_file(per_file, all_nodes, all_edges, set())
+    unresolved = [d for d in new_diags if d["code"] == "hcl_unresolved_variable"]
+    assert len(unresolved) >= 1
