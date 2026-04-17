@@ -4655,20 +4655,36 @@ def extract_hcl(path: Path, repo_root: Path) -> dict:
                     elif attr_name not in _HCL_META_ARGUMENTS:
                         arg_keys.append(attr_name)
 
-            # Emit deferred module-input refs for non-meta argument keys
+            # Emit module_source edge + target node, and deferred refs
             if source_is_literal and source_value:
-                # Resolve source to get source_dir
                 source_result = resolve_module_source(
                     source_value,
                     path.parent,
                     repo_root,
                     set(),  # resolvable dirs filled at pipeline level
                 )
+                diagnostics.extend(source_result.get("diagnostics", []))
+
+                # Create target node and module_source edge
+                target_nid = source_result["target_nid"]
+                if target_nid:
+                    is_resolved = source_result["resolution_status"] == "resolved"
+                    target_label = source_result["target_label"]
+                    target_source_file = rel_path if is_resolved else ""
+                    nodes.append(hcl_make_node(
+                        target_nid, target_label, target_source_file, line,
+                    ))
+                    edges.append(hcl_make_edge(
+                        block_id, target_nid, "module_source", rel_path, line,
+                        resolved=is_resolved,
+                        resolution_reason=source_result["resolution_reason"],
+                        unresolved_target_key=source_result["unresolved_target_key"],
+                    ))
+
+                # Extract source_dir for deferred refs
                 source_dir = None
                 if source_result["resolution_status"] == "resolved":
-                    # Extract dir from canonical path in target_nid
                     nid = source_result["target_nid"]
-                    # hcl_target:module_source_local:<path>
                     source_dir = nid.split(":", 2)[-1] if "module_source_local" in nid else None
 
                 for key in arg_keys:

@@ -905,9 +905,9 @@ def test_extract_hcl_no_attribute_nodes():
 
 
 def test_extract_hcl_node_count():
-    """1 file + 7 blocks = 8 nodes."""
+    """1 file + 7 blocks + 1 module source target = 9 nodes."""
     result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
-    assert len(result["nodes"]) == 8
+    assert len(result["nodes"]) == 9
 
 
 def test_extract_hcl_deterministic():
@@ -947,6 +947,23 @@ def test_extract_hcl_passes_validate():
     result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
     errors = validate_extraction(result)
     assert errors == [], f"validate_extraction errors: {errors}"
+
+
+def test_extract_hcl_module_source_edge():
+    """Module blocks with string literal source emit module_source edges."""
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    source_edges = [e for e in result["edges"] if e["relation"] == "module_source"]
+    assert len(source_edges) == 1
+    assert source_edges[0]["source"].endswith("::module:network")
+
+
+def test_extract_hcl_module_source_target_node():
+    """Module source edges point to a target node that exists in the result."""
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    source_edges = [e for e in result["edges"] if e["relation"] == "module_source"]
+    node_ids = {n["id"] for n in result["nodes"]}
+    for edge in source_edges:
+        assert edge["target"] in node_ids
 
 
 # --- Module source detection and deferred refs tests ---
