@@ -38,6 +38,7 @@ dependencies = [
     "tree-sitter-julia",
     "tree-sitter-verilog",
     "tree-sitter-fortran",
+    "tree-sitter-hcl",
 ]
 
 [project.urls]

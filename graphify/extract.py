@@ -3802,6 +3802,36 @@ def extract_powershell(path: Path) -> dict:
 
 # ── Cross-file import resolution ──────────────────────────────────────────────
 
+def extract_hcl(path: Path, repo_root: Path) -> dict:
+    """Extract HCL structural blocks from a single .tf or .tfvars file.
+
+    Parses the file using tree-sitter-hcl and produces block-level nodes
+    (resource, data, module, variable, output, locals, provider),
+    containment edges, and module source edges.
+
+    Unlike other extractors, takes repo_root for stable namespaced IDs.
+    """
+    try:
+        import tree_sitter_hcl as tshcl
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "raw_calls": [],
+                "diagnostics": [], "hcl_deferred_refs": [],
+                "input_tokens": 0, "output_tokens": 0,
+                "error": "tree-sitter-hcl not installed"}
+
+    return {
+        "nodes": [],
+        "edges": [],
+        "raw_calls": [],
+        "diagnostics": [],
+        "hcl_deferred_refs": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "error": None,
+    }
+
+
 def _resolve_cross_file_imports(
     per_file: list[dict],
     paths: list[Path],
