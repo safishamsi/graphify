@@ -4376,6 +4376,7 @@ def _hcl_body_hash8(block_node) -> str:
 
 
 _HCL_BLOCK_TYPES = {"resource", "data", "module", "variable", "output", "locals", "provider"}
+_HCL_META_ARGUMENTS = {"providers", "depends_on", "count", "for_each", "source", "version"}
 
 
 def extract_hcl(path: Path, repo_root: Path) -> dict:
@@ -4493,6 +4494,99 @@ def extract_hcl(path: Path, repo_root: Path) -> dict:
         block_id = hcl_make_block_id(file_id, block_kind, logical_id)
         nodes.append(hcl_make_node(block_id, label, rel_path, line))
         edges.append(hcl_make_edge(file_id, block_id, "contains", rel_path, line))
+
+        # Module-specific: extract source and record deferred refs
+        if block_kind == "module":
+            source_value = None
+            source_is_literal = False
+            arg_keys: list[str] = []
+
+            # Find body node and scan attributes
+            for bc in child.children:
+                if bc.type != "body":
+                    continue
+                for attr in bc.children:
+                    if attr.type != "attribute":
+                        continue
+                    attr_name_node = None
+                    attr_expr_node = None
+                    for ac in attr.children:
+                        if ac.type == "identifier":
+                            attr_name_node = ac
+                        elif ac.type == "expression":
+                            attr_expr_node = ac
+
+                    if attr_name_node is None:
+                        continue
+                    attr_name = attr_name_node.text.decode("utf-8", errors="replace")
+
+                    if attr_name == "source" and attr_expr_node is not None:
+                        # Check if literal or interpolation
+                        first_child = attr_expr_node.children[0] if attr_expr_node.children else None
+                        if first_child and first_child.type == "literal_value":
+                            sl = first_child.children[0] if first_child.children else first_child
+                            source_value = sl.text.decode("utf-8", errors="replace").strip('"')
+                            source_is_literal = True
+                        else:
+                            # Non-literal source (interpolation, function, etc.)
+                            diagnostics.append(hcl_make_diagnostic(
+                                "hcl_ineligible_module",
+                                "Module source is not a string literal",
+                                reason="non_literal_source",
+                                file_path=rel_path,
+                                source_span={
+                                    "start_line": attr.start_point[0] + 1,
+                                    "start_column": attr.start_point[1] + 1,
+                                    "end_line": attr.end_point[0] + 1,
+                                    "end_column": attr.end_point[1] + 1,
+                                },
+                                related_entity_id=block_id,
+                            ))
+                    elif attr_name not in _HCL_META_ARGUMENTS:
+                        arg_keys.append(attr_name)
+
+            # Emit deferred module-input refs for non-meta argument keys
+            if source_is_literal and source_value:
+                # Resolve source to get source_dir
+                source_result = resolve_module_source(
+                    source_value,
+                    path.parent,
+                    repo_root,
+                    set(),  # resolvable dirs filled at pipeline level
+                )
+                source_dir = None
+                if source_result["resolution_status"] == "resolved":
+                    # Extract dir from canonical path in target_nid
+                    nid = source_result["target_nid"]
+                    # hcl_target:module_source_local:<path>
+                    source_dir = nid.split(":", 2)[-1] if "module_source_local" in nid else None
+
+                for key in arg_keys:
+                    deferred_refs.append({
+                        "kind": "module_input",
+                        "caller_nid": block_id,
+                        "module_name": logical_id,
+                        "source_dir": source_dir,
+                        "argument_key": key,
+                        "source_file": rel_path,
+                        "source_location": f"L{line}",
+                    })
+            elif source_value is None and source_is_literal is False:
+                # No source attribute found at all
+                has_source_attr = any(
+                    ac.text == b"source"
+                    for bc in child.children if bc.type == "body"
+                    for attr in bc.children if attr.type == "attribute"
+                    for ac in attr.children if ac.type == "identifier"
+                )
+                if not has_source_attr:
+                    diagnostics.append(hcl_make_diagnostic(
+                        "hcl_ineligible_module",
+                        "Module has no source attribute",
+                        reason="missing_source_attr",
+                        file_path=rel_path,
+                        related_entity_id=block_id,
+                    ))
 
     return hcl_make_result(nodes, edges,
                            hcl_cap_diagnostics(diagnostics), deferred_refs)

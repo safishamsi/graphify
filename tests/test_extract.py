@@ -945,3 +945,57 @@ def test_extract_hcl_passes_validate():
     result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
     errors = validate_extraction(result)
     assert errors == [], f"validate_extraction errors: {errors}"
+
+
+# --- Module source detection and deferred refs tests ---
+
+def test_extract_hcl_module_deferred_refs():
+    """Module blocks emit deferred refs for non-meta argument keys."""
+    result = extract_hcl(FIXTURES / "sample_modules.tf", FIXTURES)
+    refs = result["hcl_deferred_refs"]
+    input_refs = [r for r in refs if r["kind"] == "module_input"]
+    # "network" module has cidr and name as non-meta args
+    network_refs = [r for r in input_refs if r["module_name"] == "network"]
+    keys = {r["argument_key"] for r in network_refs}
+    assert "cidr" in keys
+    assert "name" in keys
+    # Meta-arguments must be excluded
+    assert "providers" not in keys
+    assert "depends_on" not in keys
+    assert "source" not in keys
+
+
+def test_extract_hcl_module_no_refs_for_remote():
+    """Remote/registry modules don't produce deferred refs (no resolvable source_dir)."""
+    result = extract_hcl(FIXTURES / "sample_modules.tf", FIXTURES)
+    refs = result["hcl_deferred_refs"]
+    remote_refs = [r for r in refs if r["module_name"] == "remote"]
+    assert len(remote_refs) == 0
+
+
+def test_extract_hcl_interpolated_source_diagnostic():
+    """Non-literal source expression emits hcl_ineligible_module diagnostic."""
+    result = extract_hcl(FIXTURES / "sample_modules.tf", FIXTURES)
+    diags = [d for d in result["diagnostics"] if d["code"] == "hcl_ineligible_module"
+             and d.get("reason") == "non_literal_source"]
+    assert len(diags) >= 1
+
+
+def test_extract_hcl_missing_source_diagnostic():
+    """Module with no source attribute emits hcl_ineligible_module diagnostic."""
+    result = extract_hcl(FIXTURES / "sample_modules.tf", FIXTURES)
+    diags = [d for d in result["diagnostics"] if d["code"] == "hcl_ineligible_module"
+             and d.get("reason") == "missing_source_attr"]
+    assert len(diags) >= 1
+
+
+def test_extract_hcl_deferred_ref_schema():
+    """Deferred refs have all required fields."""
+    result = extract_hcl(FIXTURES / "sample_modules.tf", FIXTURES)
+    for ref in result["hcl_deferred_refs"]:
+        assert "kind" in ref
+        assert "caller_nid" in ref
+        assert "module_name" in ref
+        assert "argument_key" in ref
+        assert "source_file" in ref
+        assert "source_location" in ref
