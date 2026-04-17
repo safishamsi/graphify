@@ -1,5 +1,10 @@
 from pathlib import Path
-from graphify.extract import extract_python, extract, collect_files, _make_id, hcl_make_file_id, hcl_make_block_id, hcl_make_target_id
+from graphify.extract import (
+    extract_python, extract, collect_files, _make_id,
+    hcl_make_file_id, hcl_make_block_id, hcl_make_target_id,
+    hcl_make_diagnostic, hcl_cap_diagnostics, _hcl_scrub_secrets,
+    _HCL_DIAGNOSTIC_CODES, _HCL_MAX_DIAGNOSTICS_PER_FILE,
+)
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -503,3 +508,69 @@ def test_hcl_ids_different_kinds_distinct():
     data_id = hcl_make_block_id(fid, "data", "foo")
     module_id = hcl_make_block_id(fid, "module", "foo")
     assert resource_id != data_id != module_id
+
+
+# --- HCL diagnostic collector tests ---
+
+def test_hcl_diagnostic_schema_file_scoped():
+    d = hcl_make_diagnostic(
+        "hcl_partial_parse", "Partial parse in main.tf",
+        file_path="terraform/main.tf",
+        source_span={"start_line": 1, "start_column": 1, "end_line": 5, "end_column": 2},
+    )
+    assert d["code"] == "hcl_partial_parse"
+    assert d["severity"] == "warning"
+    assert d["file_path"] == "terraform/main.tf"
+    assert d["source_span"]["start_line"] == 1
+    assert d["reason"] is None
+    assert d["related_entity_id"] is None
+
+
+def test_hcl_diagnostic_schema_run_scoped():
+    d = hcl_make_diagnostic("hcl_parse_error", "tree-sitter-hcl not installed", reason="missing_dependency")
+    assert d["file_path"] is None
+    assert d["source_span"] is None
+    assert d["reason"] == "missing_dependency"
+    assert d["severity"] == "error"
+
+
+def test_hcl_diagnostic_all_codes_have_severity():
+    for code, expected_severity in _HCL_DIAGNOSTIC_CODES.items():
+        d = hcl_make_diagnostic(code, f"test {code}")
+        assert d["severity"] == expected_severity
+
+
+def test_hcl_diagnostic_cap_under_limit():
+    diags = [hcl_make_diagnostic("hcl_partial_parse", f"msg {i}") for i in range(10)]
+    capped = hcl_cap_diagnostics(diags)
+    assert len(capped) == 10
+
+
+def test_hcl_diagnostic_cap_over_limit():
+    diags = [hcl_make_diagnostic("hcl_partial_parse", f"msg {i}") for i in range(250)]
+    capped = hcl_cap_diagnostics(diags)
+    assert len(capped) == _HCL_MAX_DIAGNOSTICS_PER_FILE
+    assert capped[0]["message"] == "msg 0"  # deterministic: keeps first entries
+
+
+def test_hcl_scrub_secrets_token():
+    text = "source = https://github.com?token=abc123secret"
+    scrubbed = _hcl_scrub_secrets(text)
+    assert "abc123secret" not in scrubbed
+    assert "[REDACTED]" in scrubbed
+
+
+def test_hcl_scrub_secrets_aws_key():
+    text = "Found key AKIAIOSFODNN7EXAMPLE in config"
+    scrubbed = _hcl_scrub_secrets(text)
+    assert "AKIAIOSFODNN7EXAMPLE" not in scrubbed
+
+
+def test_hcl_scrub_secrets_clean_text():
+    text = "Normal diagnostic message about module vpc"
+    assert _hcl_scrub_secrets(text) == text
+
+
+def test_hcl_diagnostic_scrubs_message():
+    d = hcl_make_diagnostic("hcl_parse_error", "Failed with token=supersecret123")
+    assert "supersecret123" not in d["message"]

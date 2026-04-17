@@ -3802,6 +3802,72 @@ def extract_powershell(path: Path) -> dict:
 
 # ── Cross-file import resolution ──────────────────────────────────────────────
 
+_HCL_SECRET_PATTERNS = [
+    re.compile(r'(?i)(token|secret|password|api_key|private_key|credential|auth_token|client_secret|access_key)[=:]\s*\S+'),
+    re.compile(r'(?i)(AKIA|ASIA)[A-Z0-9]{16}'),  # AWS access key ID
+    re.compile(r'ghp_[A-Za-z0-9]{36}'),  # GitHub PAT
+    re.compile(r'-----BEGIN\s+(RSA\s+)?PRIVATE\s+KEY-----'),
+]
+
+_HCL_DIAGNOSTIC_CODES = {
+    "hcl_parse_error": "error",
+    "hcl_partial_parse": "warning",
+    "hcl_unsupported_expression": "info",
+    "hcl_unresolved_module_source": "warning",
+    "hcl_unresolved_variable": "info",
+    "hcl_unresolved_output": "info",
+    "hcl_ineligible_module": "info",
+    "hcl_source_outside_repo": "warning",
+    "hcl_resource_limit_exceeded": "warning",
+    "hcl_migration_apply_required": "error",
+    "hcl_target_identity_collision": "warning",
+    "hcl_invalid_deferred_ref": "warning",
+    "hcl_edge_dedup_conflict": "info",
+}
+
+_HCL_MAX_DIAGNOSTICS_PER_FILE = 200
+
+
+def _hcl_scrub_secrets(text: str) -> str:
+    """Remove secret-like patterns from text before persistence."""
+    result = text
+    for pattern in _HCL_SECRET_PATTERNS:
+        result = pattern.sub("[REDACTED]", result)
+    return result
+
+
+def hcl_make_diagnostic(
+    code: str,
+    message: str,
+    *,
+    reason: str | None = None,
+    file_path: str | None = None,
+    source_span: dict | None = None,
+    related_entity_id: str | None = None,
+) -> dict:
+    """Create a structured diagnostic entry with secret scrubbing."""
+    severity = _HCL_DIAGNOSTIC_CODES.get(code, "info")
+    return {
+        "code": code,
+        "reason": reason,
+        "message": _hcl_scrub_secrets(message),
+        "severity": severity,
+        "file_path": file_path,
+        "source_span": source_span,
+        "related_entity_id": related_entity_id,
+    }
+
+
+def hcl_cap_diagnostics(diagnostics: list[dict], max_per_file: int = _HCL_MAX_DIAGNOSTICS_PER_FILE) -> list[dict]:
+    """Enforce per-file diagnostic cap with deterministic truncation.
+
+    Keeps the first max_per_file entries (deterministic by insertion order).
+    """
+    if len(diagnostics) <= max_per_file:
+        return diagnostics
+    return diagnostics[:max_per_file]
+
+
 def _hcl_canonical_path(repo_root: Path, file_path: Path) -> str:
     """Return repo-root-relative path with forward slashes."""
     try:
