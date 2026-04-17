@@ -3868,6 +3868,68 @@ def hcl_cap_diagnostics(diagnostics: list[dict], max_per_file: int = _HCL_MAX_DI
     return diagnostics[:max_per_file]
 
 
+def hcl_make_node(
+    nid: str, label: str, source_file: str, line: int,
+    *, confidence_score: float = 1.0,
+) -> dict:
+    """Create a node dict in Graphify extraction format."""
+    return {
+        "id": nid,
+        "label": label,
+        "file_type": "code",
+        "source_file": source_file,
+        "source_location": f"L{line}",
+        "confidence_score": confidence_score,
+    }
+
+
+def hcl_make_edge(
+    source: str, target: str, relation: str,
+    source_file: str, line: int,
+    *, resolved: bool = True,
+    resolution_reason: str = "",
+    unresolved_target_key: str | None = None,
+) -> dict:
+    """Create an edge dict with confidence mapping.
+
+    resolved=True  -> EXTRACTED/1.0
+    resolved=False -> INFERRED/0.8 (declared-only)
+    """
+    confidence = "EXTRACTED" if resolved else "INFERRED"
+    confidence_score = 1.0 if resolved else 0.8
+    return {
+        "source": source,
+        "target": target,
+        "relation": relation,
+        "confidence": confidence,
+        "confidence_score": confidence_score,
+        "source_file": source_file,
+        "source_location": f"L{line}",
+        "weight": 1.0,
+        "resolution_status": "resolved" if resolved else "declared_only",
+        "resolution_reason": resolution_reason,
+        "unresolved_target_key": unresolved_target_key,
+    }
+
+
+def hcl_make_result(
+    nodes: list[dict], edges: list[dict],
+    diagnostics: list[dict], deferred_refs: list[dict],
+    *, error: str | None = None,
+) -> dict:
+    """Assemble the full extract_hcl return dict."""
+    return {
+        "nodes": nodes,
+        "edges": edges,
+        "raw_calls": [],
+        "diagnostics": diagnostics,
+        "hcl_deferred_refs": deferred_refs,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "error": error,
+    }
+
+
 def _hcl_canonical_path(repo_root: Path, file_path: Path) -> str:
     """Return repo-root-relative path with forward slashes."""
     try:

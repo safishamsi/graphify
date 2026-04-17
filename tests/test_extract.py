@@ -4,6 +4,7 @@ from graphify.extract import (
     hcl_make_file_id, hcl_make_block_id, hcl_make_target_id,
     hcl_make_diagnostic, hcl_cap_diagnostics, _hcl_scrub_secrets,
     _HCL_DIAGNOSTIC_CODES, _HCL_MAX_DIAGNOSTICS_PER_FILE,
+    hcl_make_node, hcl_make_edge, hcl_make_result,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -574,3 +575,76 @@ def test_hcl_scrub_secrets_clean_text():
 def test_hcl_diagnostic_scrubs_message():
     d = hcl_make_diagnostic("hcl_parse_error", "Failed with token=supersecret123")
     assert "supersecret123" not in d["message"]
+
+
+# --- HCL output builder tests ---
+
+def test_hcl_make_node_required_fields():
+    n = hcl_make_node("hcl_file:main.tf", "main.tf", "main.tf", 1)
+    assert n["id"] == "hcl_file:main.tf"
+    assert n["label"] == "main.tf"
+    assert n["file_type"] == "code"
+    assert n["source_file"] == "main.tf"
+    assert n["source_location"] == "L1"
+    assert n["confidence_score"] == 1.0
+
+
+def test_hcl_make_node_empty_source_file():
+    """Non-repo-backed target nodes use empty string for source_file."""
+    n = hcl_make_node("hcl_target:module_source_remote:x", "remote:x", "", 5)
+    assert n["source_file"] == ""
+    assert n["source_location"] == "L5"
+
+
+def test_hcl_make_edge_resolved():
+    e = hcl_make_edge("src", "tgt", "contains", "main.tf", 3)
+    assert e["confidence"] == "EXTRACTED"
+    assert e["confidence_score"] == 1.0
+    assert e["resolution_status"] == "resolved"
+    assert e["unresolved_target_key"] is None
+
+
+def test_hcl_make_edge_declared_only():
+    e = hcl_make_edge(
+        "src", "tgt", "module_source", "main.tf", 10,
+        resolved=False, resolution_reason="remote_source",
+        unresolved_target_key="hcl:module_source_remote:example.com",
+    )
+    assert e["confidence"] == "INFERRED"
+    assert e["confidence_score"] == 0.8
+    assert e["resolution_status"] == "declared_only"
+    assert e["resolution_reason"] == "remote_source"
+    assert e["unresolved_target_key"] == "hcl:module_source_remote:example.com"
+
+
+def test_hcl_make_edge_has_weight():
+    e = hcl_make_edge("s", "t", "contains", "a.tf", 1)
+    assert e["weight"] == 1.0
+
+
+def test_hcl_make_result_shape():
+    r = hcl_make_result([], [], [], [])
+    assert set(r.keys()) == {
+        "nodes", "edges", "raw_calls", "diagnostics",
+        "hcl_deferred_refs", "input_tokens", "output_tokens", "error",
+    }
+    assert r["raw_calls"] == []
+    assert r["input_tokens"] == 0
+    assert r["output_tokens"] == 0
+    assert r["error"] is None
+
+
+def test_hcl_make_result_with_error():
+    r = hcl_make_result([], [], [], [], error="parse failed")
+    assert r["error"] == "parse failed"
+
+
+def test_hcl_make_result_passes_validate():
+    """Output must pass Graphify's validate.py checks."""
+    from graphify.validate import validate_extraction
+    node = hcl_make_node("hcl_file:main.tf", "main.tf", "main.tf", 1)
+    block = hcl_make_node("hcl_file:main.tf::resource:aws_vpc.main", "resource:aws_vpc.main", "main.tf", 3)
+    edge = hcl_make_edge("hcl_file:main.tf", block["id"], "contains", "main.tf", 1)
+    r = hcl_make_result([node, block], [edge], [], [])
+    errors = validate_extraction(r)
+    assert errors == [], f"validate_extraction errors: {errors}"
