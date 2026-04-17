@@ -8,6 +8,7 @@ from graphify.extract import (
     hcl_redact_for_external, _hcl_hash_redact,
     resolve_module_source, _hcl_classify_source, _hcl_canonicalize_remote_uri,
     extract_hcl,
+    _HCL_MAX_FILE_BYTES, _HCL_MAX_AST_NODES,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -999,3 +1000,61 @@ def test_extract_hcl_deferred_ref_schema():
         assert "argument_key" in ref
         assert "source_file" in ref
         assert "source_location" in ref
+
+
+# --- Error resilience and resource limits tests ---
+
+def test_extract_hcl_complete_parse_failure(tmp_path):
+    """Unparseable file returns valid result shape with error and diagnostic."""
+    bad_file = tmp_path / "bad.tf"
+    bad_file.write_bytes(b'\x00\x01\x02\x03')  # binary garbage
+    result = extract_hcl(bad_file, tmp_path)
+    # Must still return valid shape
+    assert "nodes" in result
+    assert "edges" in result
+    assert "diagnostics" in result
+    # File node should exist
+    assert len(result["nodes"]) >= 1
+
+
+def test_extract_hcl_partial_parse(tmp_path):
+    """File with ERROR nodes emits hcl_partial_parse and still returns valid shape."""
+    mixed = tmp_path / "mixed.tf"
+    # A block followed by a malformed attribute — tree-sitter recovers the block
+    mixed.write_text('resource "aws_vpc" "main" {\n  cidr = "10.0.0.0/16"\n}\n\nthis is not valid hcl at all\n')
+    result = extract_hcl(mixed, tmp_path)
+    # Must always return valid result shape
+    assert "nodes" in result and "diagnostics" in result
+    # File node always present
+    assert len(result["nodes"]) >= 1
+    # Should emit partial parse warning if ERROR nodes detected
+    partial_diags = [d for d in result["diagnostics"] if d["code"] == "hcl_partial_parse"]
+    assert len(partial_diags) >= 1
+
+
+def test_extract_hcl_file_too_large(tmp_path):
+    """File exceeding size limit returns diagnostic without parsing."""
+    big_file = tmp_path / "huge.tf"
+    big_file.write_bytes(b'x' * (_HCL_MAX_FILE_BYTES + 1))
+    result = extract_hcl(big_file, tmp_path)
+    assert result["error"] is not None
+    assert "too large" in result["error"]
+    diags = [d for d in result["diagnostics"] if d["code"] == "hcl_resource_limit_exceeded"]
+    assert len(diags) == 1
+
+
+def test_extract_hcl_missing_file(tmp_path):
+    """Non-existent file returns error result."""
+    result = extract_hcl(tmp_path / "nonexistent.tf", tmp_path)
+    assert result["error"] is not None
+
+
+def test_extract_hcl_error_result_shape(tmp_path):
+    """Error results still have all required keys."""
+    big_file = tmp_path / "huge.tf"
+    big_file.write_bytes(b'x' * (_HCL_MAX_FILE_BYTES + 1))
+    result = extract_hcl(big_file, tmp_path)
+    assert set(result.keys()) == {
+        "nodes", "edges", "raw_calls", "diagnostics",
+        "hcl_deferred_refs", "input_tokens", "output_tokens", "error",
+    }

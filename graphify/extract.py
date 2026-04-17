@@ -4378,6 +4378,19 @@ def _hcl_body_hash8(block_node) -> str:
 _HCL_BLOCK_TYPES = {"resource", "data", "module", "variable", "output", "locals", "provider"}
 _HCL_META_ARGUMENTS = {"providers", "depends_on", "count", "for_each", "source", "version"}
 
+# Resource limits for parser safety
+_HCL_MAX_FILE_BYTES = 5_000_000      # 5 MB
+_HCL_MAX_AST_NODES = 200_000
+_HCL_PARSE_TIMEOUT_MS = 10_000       # 10 seconds
+
+
+def _hcl_count_ast_nodes(node) -> int:
+    """Count total nodes in AST tree."""
+    count = 1
+    for child in node.children:
+        count += _hcl_count_ast_nodes(child)
+    return count
+
 
 def extract_hcl(path: Path, repo_root: Path) -> dict:
     """Extract HCL structural blocks from a single .tf or .tfvars file.
@@ -4411,6 +4424,26 @@ def extract_hcl(path: Path, repo_root: Path) -> dict:
     if path.suffix == ".tfvars":
         return hcl_make_result(nodes, edges, diagnostics, deferred_refs)
 
+    # Resource limit: file size
+    try:
+        file_size = path.stat().st_size
+    except OSError as e:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_parse_error", f"Cannot stat file: {e}",
+            reason="unusable_ast", file_path=rel_path,
+        ))
+        return hcl_make_result(nodes, edges, diagnostics, deferred_refs,
+                               error=str(e))
+
+    if file_size > _HCL_MAX_FILE_BYTES:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_resource_limit_exceeded",
+            f"File size {file_size} exceeds limit {_HCL_MAX_FILE_BYTES}",
+            file_path=rel_path,
+        ))
+        return hcl_make_result(nodes, edges, diagnostics, deferred_refs,
+                               error=f"file too large: {file_size} bytes")
+
     # Parse
     try:
         language = Language(tshcl.language())
@@ -4426,6 +4459,17 @@ def extract_hcl(path: Path, repo_root: Path) -> dict:
                                error=str(e))
 
     root = tree.root_node
+
+    # Resource limit: AST node count
+    node_count = _hcl_count_ast_nodes(root)
+    if node_count > _HCL_MAX_AST_NODES:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_resource_limit_exceeded",
+            f"AST node count {node_count} exceeds limit {_HCL_MAX_AST_NODES}",
+            file_path=rel_path,
+        ))
+        return hcl_make_result(nodes, edges, diagnostics, deferred_refs,
+                               error=f"AST too large: {node_count} nodes")
 
     # Check for parse errors (partial parse)
     has_errors = False
