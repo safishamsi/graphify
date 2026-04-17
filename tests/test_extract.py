@@ -6,6 +6,7 @@ from graphify.extract import (
     _HCL_DIAGNOSTIC_CODES, _HCL_MAX_DIAGNOSTICS_PER_FILE,
     hcl_make_node, hcl_make_edge, hcl_make_result,
     hcl_redact_for_external, _hcl_hash_redact,
+    resolve_module_source, _hcl_classify_source, _hcl_canonicalize_remote_uri,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -695,3 +696,166 @@ def test_hcl_redact_preserves_file_node_ids():
     node = hcl_make_node("hcl_file:main.tf", "main.tf", "main.tf", 1)
     r = hcl_redact_for_external(hcl_make_result([node], [], [], []))
     assert r["nodes"][0]["id"] == "hcl_file:main.tf"
+
+
+# --- Module source resolver tests ---
+
+def test_classify_local_relative():
+    assert _hcl_classify_source("./modules/vpc") == "local_relative"
+    assert _hcl_classify_source("../modules/vpc") == "local_relative"
+
+
+def test_classify_local_absolute():
+    assert _hcl_classify_source("/opt/modules/vpc") == "local_absolute"
+    assert _hcl_classify_source("C:/modules/vpc") == "local_absolute"
+
+
+def test_classify_remote_url():
+    assert _hcl_classify_source("https://github.com/org/repo") == "remote_url"
+    assert _hcl_classify_source("git::https://github.com/org/repo") == "remote_url"
+
+
+def test_classify_registry():
+    assert _hcl_classify_source("hashicorp/consul/aws") == "registry"
+
+
+def test_classify_opaque():
+    assert _hcl_classify_source("s3::https://bucket/key") == "remote_url"
+    assert _hcl_classify_source("some-unknown-source") == "opaque"
+
+
+def test_resolve_missing_source():
+    r = resolve_module_source(None, Path("/repo"), Path("/repo"), set())
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "missing_source_attr"
+    assert len(r["diagnostics"]) == 1
+    assert r["diagnostics"][0]["code"] == "hcl_ineligible_module"
+
+
+def test_resolve_empty_source():
+    r = resolve_module_source("", Path("/repo"), Path("/repo"), set())
+    assert r["resolution_reason"] == "empty_source_literal"
+
+
+def test_resolve_local_relative_resolved(tmp_path):
+    (tmp_path / "modules" / "vpc").mkdir(parents=True)
+    (tmp_path / "clusters").mkdir()
+    r = resolve_module_source(
+        "../modules/vpc",
+        tmp_path / "clusters",
+        tmp_path,
+        {"modules/vpc"},
+    )
+    assert r["resolution_status"] == "resolved"
+    assert r["target_nid"] == "hcl_target:module_source_local:modules/vpc"
+    assert r["unresolved_target_key"] is None
+
+
+def test_resolve_local_relative_excluded_by_scope(tmp_path):
+    (tmp_path / "other" / "mod").mkdir(parents=True)
+    r = resolve_module_source(
+        "./other/mod",
+        tmp_path,
+        tmp_path,
+        set(),
+        dependency_discovery_dirs={"other/mod"},
+    )
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "excluded_by_scope"
+
+
+def test_resolve_local_relative_not_in_scope(tmp_path):
+    (tmp_path / "somewhere").mkdir()
+    r = resolve_module_source("./somewhere", tmp_path, tmp_path, set())
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "not_in_scope"
+    assert r["unresolved_target_key"] is not None
+
+
+def test_resolve_local_absolute_never_resolved():
+    r = resolve_module_source("/etc/terraform/modules", Path("/repo"), Path("/repo"), set())
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "absolute_source_path"
+    assert "/etc" not in r["target_nid"]  # raw path must not leak
+
+
+def test_resolve_outside_repo(tmp_path):
+    (tmp_path / "repo").mkdir()
+    r = resolve_module_source(
+        "../../outside",
+        tmp_path / "repo",
+        tmp_path / "repo",
+        set(),
+    )
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "outside_repo"
+
+
+def test_resolve_remote_url():
+    r = resolve_module_source(
+        "git::https://GitHub.com/org/repo//subdir?ref=v1.0",
+        Path("/repo"), Path("/repo"), set(),
+    )
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "remote_source"
+    assert "github.com" in r["target_nid"].lower()
+    assert r["collision_suffix_sha256"] is not None
+
+
+def test_resolve_remote_mutable_ref():
+    r = resolve_module_source(
+        "git::https://github.com/org/repo?ref=main",
+        Path("/repo"), Path("/repo"), set(),
+    )
+    assert r["resolution_reason"] == "temporal_instability"
+
+
+def test_resolve_registry():
+    r = resolve_module_source("hashicorp/consul/aws", Path("/repo"), Path("/repo"), set())
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "registry_source"
+
+
+def test_resolve_control_chars_rejected():
+    r = resolve_module_source("./modules/\x00evil", Path("/repo"), Path("/repo"), set())
+    assert r["resolution_reason"] == "non_literal_source"
+
+
+def test_canonical_uri_lowercase_host():
+    canonical, _, _ = _hcl_canonicalize_remote_uri("https://GitHub.COM/org/repo")
+    assert "github.com" in canonical
+
+
+def test_canonical_uri_sorted_params():
+    c1, _, _ = _hcl_canonicalize_remote_uri("https://host/p?b=2&a=1")
+    c2, _, _ = _hcl_canonicalize_remote_uri("https://host/p?a=1&b=2")
+    assert c1 == c2
+
+
+def test_canonical_uri_strips_default_port():
+    c, _, _ = _hcl_canonicalize_remote_uri("https://host:443/path")
+    assert ":443" not in c
+
+
+def test_canonical_uri_preserves_ref():
+    c, _, _ = _hcl_canonicalize_remote_uri("https://host/p?ref=v1.0")
+    assert "ref=v1.0" in c
+
+
+def test_canonical_uri_strips_sensitive_keys():
+    c, _, _ = _hcl_canonicalize_remote_uri("https://host/p?token=secret&ref=v1")
+    assert "secret" not in c
+    assert "ref=v1" in c
+
+
+def test_canonical_uri_deterministic():
+    a, _, _ = _hcl_canonicalize_remote_uri("git::https://github.com/org/repo//sub?ref=v1")
+    b, _, _ = _hcl_canonicalize_remote_uri("git::https://github.com/org/repo//sub?ref=v1")
+    assert a == b
+
+
+def test_resolve_hmac_absent():
+    """Missing HMAC key produces empty fingerprint, extraction still works."""
+    r = resolve_module_source("./modules/vpc", Path("/repo"), Path("/repo"), set())
+    assert r["source_fingerprint_hmac_sha256"] == ""
+    assert r["resolution_status"] in ("resolved", "declared_only")

@@ -1,14 +1,17 @@
 """Deterministic structural extraction from source code using tree-sitter. Outputs nodes+edges dicts."""
 from __future__ import annotations
 import hashlib
+import hmac
 import importlib
 import json
 import os
 import re
 import sys
+import unicodedata
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Any
+from urllib.parse import urlparse, parse_qs, urlencode
 from .cache import load_cached, save_cached
 
 _RECURSION_LIMIT = 10_000
@@ -3968,6 +3971,354 @@ def hcl_redact_for_external(result: dict) -> dict:
     out["nodes"] = redacted_nodes
     out["edges"] = redacted_edges
     return out
+
+
+# --- Module source resolver ---
+
+_HCL_SENSITIVE_QUERY_KEYS = re.compile(
+    r'^(token|sig|signature|private_token|client_secret|auth|key|x-amz-.*|x-goog-.*)$',
+    re.IGNORECASE,
+)
+_HCL_REGISTRY_PATTERN = re.compile(r'^[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+$')
+_HCL_MUTABLE_REFS = {"main", "master", "develop", "dev", "HEAD"}
+_HCL_CONTROL_CHARS = re.compile(r'[\x00-\x1f\x7f]')
+_HCL_ALLOWED_QUERY_KEYS = {"ref", "version"}
+_HCL_HMAC_KEY_ENV = "GRAPHIFY_HCL_FINGERPRINT_KEY"
+
+
+def _hcl_get_hmac_key() -> bytes | None:
+    """Load HMAC key from environment. Returns None if absent."""
+    raw = os.environ.get(_HCL_HMAC_KEY_ENV)
+    if raw:
+        return raw.encode()
+    return None
+
+
+def _hcl_hmac_fingerprint(raw_source: str, key: bytes | None) -> str:
+    """Compute HMAC-SHA256 fingerprint for telemetry. Falls back to empty string."""
+    if key is None:
+        return ""
+    return hmac.new(key, raw_source.encode(), hashlib.sha256).hexdigest()
+
+
+def _hcl_classify_source(source: str) -> str:
+    """Classify a module source string into a category."""
+    if source.startswith("./") or source.startswith("../"):
+        return "local_relative"
+    if source.startswith("/") or (len(source) >= 2 and source[1] == ":"):
+        return "local_absolute"
+    if "://" in source or source.startswith("git::"):
+        return "remote_url"
+    if _HCL_REGISTRY_PATTERN.match(source):
+        return "registry"
+    return "opaque"
+
+
+def _hcl_canonicalize_remote_uri(uri: str) -> tuple[str, str, dict]:
+    """Canonicalize a remote URI for stable identity.
+
+    Returns: (canonical_identity, path_sha256, qualifier_metadata)
+    """
+    # Strip git:: prefix for parsing
+    raw = uri
+    prefix = ""
+    if uri.startswith("git::"):
+        prefix = "git::"
+        uri = uri[5:]
+
+    # Handle double-slash subdirectory (Terraform convention: repo_url//subdir)
+    # Must not match the :// in scheme
+    subdir = ""
+    scheme_end = uri.find("://")
+    search_start = scheme_end + 3 if scheme_end >= 0 else 0
+    dslash_pos = uri.find("//", search_start)
+    if dslash_pos >= 0:
+        base = uri[:dslash_pos]
+        rest = uri[dslash_pos + 2:]
+        if "?" in rest:
+            subdir, query_part = rest.split("?", 1)
+            base = base + "?" + query_part
+        else:
+            subdir = rest
+        uri = base
+
+    parsed = urlparse(uri)
+
+    # Lowercase scheme and host
+    scheme = parsed.scheme.lower()
+    host = parsed.hostname or ""
+    try:
+        host = host.encode("idna").decode("ascii").lower()
+    except (UnicodeError, UnicodeDecodeError):
+        host = host.lower()
+
+    # Remove default ports
+    port = parsed.port
+    if (scheme == "http" and port == 80) or (scheme == "https" and port == 443):
+        port = None
+    host_part = f"{host}:{port}" if port else host
+
+    # Strip userinfo
+    # Hash the path
+    path_sha = hashlib.sha256(parsed.path.encode()).hexdigest()[:16]
+
+    # Process query params
+    params = parse_qs(parsed.query, keep_blank_values=True)
+    allowed_params = {}
+    hashed_params = {}
+    for k, vals in sorted(params.items()):
+        if k in _HCL_ALLOWED_QUERY_KEYS:
+            allowed_params[k] = vals[0] if vals else ""
+        elif not _HCL_SENSITIVE_QUERY_KEYS.match(k):
+            hashed_params[k] = hashlib.sha256(",".join(vals).encode()).hexdigest()[:8]
+
+    # Build canonical identity
+    parts = [f"{scheme}://{host_part}", f"path_sha256={path_sha}"]
+    if subdir:
+        parts.append(f"subdir={subdir}")
+    for k, v in sorted(allowed_params.items()):
+        parts.append(f"{k}={v}")
+
+    canonical = ":".join(parts)
+
+    qualifier_meta = {
+        "prefix": prefix,
+        "hashed_params": hashed_params,
+        "subdir": subdir,
+    }
+    return canonical, path_sha, qualifier_meta
+
+
+def resolve_module_source(
+    source_value: str | None,
+    declaring_file_dir: Path,
+    repo_root: Path,
+    resolvable_module_directories: set[str],
+    dependency_discovery_dirs: set[str] | None = None,
+) -> dict:
+    """Resolve a module source string to a target node ID and metadata.
+
+    Returns dict with keys: target_nid, target_label, resolution_status,
+    resolution_reason, unresolved_target_key, collision_suffix_sha256,
+    source_fingerprint_hmac_sha256, diagnostics.
+    """
+    if dependency_discovery_dirs is None:
+        dependency_discovery_dirs = set()
+
+    diagnostics: list[dict] = []
+    hmac_key = _hcl_get_hmac_key()
+
+    # Missing or empty source
+    if source_value is None:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module", "Module has no source attribute",
+            reason="missing_source_attr",
+        ))
+        return {
+            "target_nid": "",
+            "target_label": "",
+            "resolution_status": "declared_only",
+            "resolution_reason": "missing_source_attr",
+            "unresolved_target_key": None,
+            "collision_suffix_sha256": None,
+            "source_fingerprint_hmac_sha256": "",
+            "diagnostics": diagnostics,
+        }
+
+    source_value = source_value.strip()
+    if not source_value:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module", "Module source is empty string",
+            reason="empty_source_literal",
+        ))
+        return {
+            "target_nid": "",
+            "target_label": "",
+            "resolution_status": "declared_only",
+            "resolution_reason": "empty_source_literal",
+            "unresolved_target_key": None,
+            "collision_suffix_sha256": None,
+            "source_fingerprint_hmac_sha256": "",
+            "diagnostics": diagnostics,
+        }
+
+    # Reject control characters
+    if _HCL_CONTROL_CHARS.search(source_value):
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module",
+            "Module source contains control characters",
+            reason="non_literal_source",
+        ))
+        return {
+            "target_nid": "",
+            "target_label": "",
+            "resolution_status": "declared_only",
+            "resolution_reason": "non_literal_source",
+            "unresolved_target_key": None,
+            "collision_suffix_sha256": None,
+            "source_fingerprint_hmac_sha256": "",
+            "diagnostics": diagnostics,
+        }
+
+    # Normalize unicode
+    source_value = unicodedata.normalize("NFC", source_value)
+    fingerprint = _hcl_hmac_fingerprint(source_value, hmac_key)
+
+    classification = _hcl_classify_source(source_value)
+
+    if classification == "local_absolute":
+        hashed_path = _hcl_hash_redact(source_value)
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module",
+            f"Absolute source path (redacted: {hashed_path})",
+            reason="absolute_source_path",
+        ))
+        target_nid = hcl_make_target_id("module_source_local", hashed_path)
+        return {
+            "target_nid": target_nid,
+            "target_label": f"module_source_local:{hashed_path}",
+            "resolution_status": "declared_only",
+            "resolution_reason": "absolute_source_path",
+            "unresolved_target_key": f"hcl:module_source_local:{hashed_path}",
+            "collision_suffix_sha256": None,
+            "source_fingerprint_hmac_sha256": fingerprint,
+            "diagnostics": diagnostics,
+        }
+
+    if classification == "local_relative":
+        resolved_path = (declaring_file_dir / source_value).resolve()
+        repo_root_real = repo_root.resolve()
+        try:
+            rel = resolved_path.relative_to(repo_root_real)
+            canonical = str(rel).replace("\\", "/")
+        except ValueError:
+            # Outside repo root
+            hashed = _hcl_hash_redact(str(resolved_path))
+            diagnostics.append(hcl_make_diagnostic(
+                "hcl_source_outside_repo",
+                f"Local source resolves outside repo root (redacted: {hashed})",
+            ))
+            target_nid = hcl_make_target_id("module_source_local", hashed)
+            return {
+                "target_nid": target_nid,
+                "target_label": f"module_source_local:{hashed}",
+                "resolution_status": "declared_only",
+                "resolution_reason": "outside_repo",
+                "unresolved_target_key": f"hcl:module_source_local:{hashed}",
+                "collision_suffix_sha256": None,
+                "source_fingerprint_hmac_sha256": fingerprint,
+                "diagnostics": diagnostics,
+            }
+
+        target_nid = hcl_make_target_id("module_source_local", canonical)
+        target_label = f"module_source_local:{canonical}"
+        ukey = f"hcl:module_source_local:{canonical}"
+
+        if canonical in resolvable_module_directories:
+            return {
+                "target_nid": target_nid,
+                "target_label": target_label,
+                "resolution_status": "resolved",
+                "resolution_reason": "",
+                "unresolved_target_key": None,
+                "collision_suffix_sha256": None,
+                "source_fingerprint_hmac_sha256": fingerprint,
+                "diagnostics": diagnostics,
+            }
+        elif canonical in dependency_discovery_dirs:
+            return {
+                "target_nid": target_nid,
+                "target_label": target_label,
+                "resolution_status": "declared_only",
+                "resolution_reason": "excluded_by_scope",
+                "unresolved_target_key": ukey,
+                "collision_suffix_sha256": None,
+                "source_fingerprint_hmac_sha256": fingerprint,
+                "diagnostics": diagnostics,
+            }
+        else:
+            diagnostics.append(hcl_make_diagnostic(
+                "hcl_unresolved_module_source",
+                f"Local source '{canonical}' not in extraction scope",
+            ))
+            return {
+                "target_nid": target_nid,
+                "target_label": target_label,
+                "resolution_status": "declared_only",
+                "resolution_reason": "not_in_scope",
+                "unresolved_target_key": ukey,
+                "collision_suffix_sha256": None,
+                "source_fingerprint_hmac_sha256": fingerprint,
+                "diagnostics": diagnostics,
+            }
+
+    if classification == "remote_url":
+        canonical, path_sha, _ = _hcl_canonicalize_remote_uri(source_value)
+        collision_suffix = hashlib.sha256(
+            _hcl_scrub_secrets(source_value).encode()
+        ).hexdigest()[:12]
+
+        # Check for mutable ref
+        reason = "remote_source"
+        parsed_qs = parse_qs(urlparse(source_value.split("::", 1)[-1]).query)
+        ref_val = parsed_qs.get("ref", [""])[0]
+        if ref_val in _HCL_MUTABLE_REFS:
+            reason = "temporal_instability"
+
+        target_nid = hcl_make_target_id("module_source_remote", canonical)
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module",
+            f"Remote module source",
+            reason="remote_source",
+        ))
+        return {
+            "target_nid": target_nid,
+            "target_label": f"module_source_remote:{canonical}",
+            "resolution_status": "declared_only",
+            "resolution_reason": reason,
+            "unresolved_target_key": f"hcl:module_source_remote:{canonical}",
+            "collision_suffix_sha256": collision_suffix,
+            "source_fingerprint_hmac_sha256": fingerprint,
+            "diagnostics": diagnostics,
+        }
+
+    if classification == "registry":
+        canonical = source_value.lower()
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module",
+            f"Registry module source: {canonical}",
+            reason="registry_source",
+        ))
+        target_nid = hcl_make_target_id("module_source_remote", canonical)
+        return {
+            "target_nid": target_nid,
+            "target_label": f"module_source_remote:{canonical}",
+            "resolution_status": "declared_only",
+            "resolution_reason": "registry_source",
+            "unresolved_target_key": f"hcl:module_source_remote:{canonical}",
+            "collision_suffix_sha256": None,
+            "source_fingerprint_hmac_sha256": fingerprint,
+            "diagnostics": diagnostics,
+        }
+
+    # Opaque
+    hashed = _hcl_hash_redact(source_value)
+    diagnostics.append(hcl_make_diagnostic(
+        "hcl_ineligible_module",
+        f"Opaque module source (redacted: {hashed})",
+        reason="remote_source",
+    ))
+    target_nid = hcl_make_target_id("module_source_remote", hashed)
+    return {
+        "target_nid": target_nid,
+        "target_label": f"module_source_remote:{hashed}",
+        "resolution_status": "declared_only",
+        "resolution_reason": "remote_source",
+        "unresolved_target_key": f"hcl:module_source_remote:{hashed}",
+        "collision_suffix_sha256": None,
+        "source_fingerprint_hmac_sha256": fingerprint,
+        "diagnostics": diagnostics,
+    }
 
 
 def _hcl_canonical_path(repo_root: Path, file_path: Path) -> str:
