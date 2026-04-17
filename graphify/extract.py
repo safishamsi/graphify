@@ -4351,6 +4351,33 @@ def hcl_make_target_id(target_kind: str, canonical_identity: str) -> str:
     return f"hcl_target:{target_kind}:{canonical_identity}"
 
 
+def _hcl_string_lit_value(node) -> str:
+    """Extract the text content from a tree-sitter string_lit node."""
+    if node.child_count >= 2:
+        return node.children[1].text.decode("utf-8", errors="replace")
+    return node.text.decode("utf-8", errors="replace").strip('"')
+
+
+def _hcl_block_labels(block_node) -> list[str]:
+    """Extract string_lit label values from a block node."""
+    return [
+        _hcl_string_lit_value(child)
+        for child in block_node.children
+        if child.type == "string_lit"
+    ]
+
+
+def _hcl_body_hash8(block_node) -> str:
+    """Compute a short hash of a block's body for locals identity."""
+    for child in block_node.children:
+        if child.type == "body":
+            return hashlib.sha256(child.text).hexdigest()[:8]
+    return hashlib.sha256(block_node.text).hexdigest()[:8]
+
+
+_HCL_BLOCK_TYPES = {"resource", "data", "module", "variable", "output", "locals", "provider"}
+
+
 def extract_hcl(path: Path, repo_root: Path) -> dict:
     """Extract HCL structural blocks from a single .tf or .tfvars file.
 
@@ -4364,21 +4391,111 @@ def extract_hcl(path: Path, repo_root: Path) -> dict:
         import tree_sitter_hcl as tshcl
         from tree_sitter import Language, Parser
     except ImportError:
-        return {"nodes": [], "edges": [], "raw_calls": [],
-                "diagnostics": [], "hcl_deferred_refs": [],
-                "input_tokens": 0, "output_tokens": 0,
-                "error": "tree-sitter-hcl not installed"}
+        return hcl_make_result([], [], [
+            hcl_make_diagnostic("hcl_parse_error", "tree-sitter-hcl not installed",
+                                reason="missing_dependency"),
+        ], [], error="tree-sitter-hcl not installed")
 
-    return {
-        "nodes": [],
-        "edges": [],
-        "raw_calls": [],
-        "diagnostics": [],
-        "hcl_deferred_refs": [],
-        "input_tokens": 0,
-        "output_tokens": 0,
-        "error": None,
-    }
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    diagnostics: list[dict] = []
+    deferred_refs: list[dict] = []
+    rel_path = _hcl_canonical_path(repo_root, path)
+
+    # Create file node
+    file_id = hcl_make_file_id(repo_root, path)
+    nodes.append(hcl_make_node(file_id, path.name, rel_path, 1))
+
+    # .tfvars: file node + diagnostics only, no block extraction
+    if path.suffix == ".tfvars":
+        return hcl_make_result(nodes, edges, diagnostics, deferred_refs)
+
+    # Parse
+    try:
+        language = Language(tshcl.language())
+        parser = Parser(language)
+        source_bytes = path.read_bytes()
+        tree = parser.parse(source_bytes)
+    except Exception as e:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_parse_error", str(e), reason="unusable_ast",
+            file_path=rel_path,
+        ))
+        return hcl_make_result(nodes, edges, diagnostics, deferred_refs,
+                               error=str(e))
+
+    root = tree.root_node
+
+    # Check for parse errors (partial parse)
+    has_errors = False
+    def _check_errors(node):
+        nonlocal has_errors
+        if node.type == "ERROR":
+            has_errors = True
+            return
+        for child in node.children:
+            _check_errors(child)
+    _check_errors(root)
+    if has_errors:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_partial_parse",
+            "File contains parse errors; extracting from valid portions",
+            file_path=rel_path,
+        ))
+
+    # Walk body for blocks
+    body_node = root.children[0] if root.children and root.children[0].type == "body" else root
+    locals_hashes_seen: dict[str, int] = {}
+
+    for child in body_node.children:
+        if child.type != "block":
+            continue
+
+        # First identifier child is the block type
+        block_type_node = None
+        for gc in child.children:
+            if gc.type == "identifier":
+                block_type_node = gc
+                break
+
+        if block_type_node is None:
+            continue
+
+        block_kind = block_type_node.text.decode("utf-8", errors="replace")
+        if block_kind not in _HCL_BLOCK_TYPES:
+            continue
+
+        labels = _hcl_block_labels(child)
+        line = child.start_point[0] + 1  # 1-based
+
+        # Build logical_identity per dispatch table
+        if block_kind in ("resource", "data"):
+            if len(labels) >= 2:
+                logical_id = f"{labels[0]}.{labels[1]}"
+            elif labels:
+                logical_id = labels[0]
+            else:
+                continue
+        elif block_kind in ("module", "variable", "output", "provider"):
+            if labels:
+                logical_id = labels[0]
+            else:
+                continue
+        elif block_kind == "locals":
+            body_hash = _hcl_body_hash8(child)
+            count = locals_hashes_seen.get(body_hash, 0)
+            locals_hashes_seen[body_hash] = count + 1
+            logical_id = f"locals_{body_hash}" if count == 0 else f"locals_{body_hash}:dup{count}"
+        else:
+            continue
+
+        label = f"{block_kind}:{logical_id}"
+        block_id = hcl_make_block_id(file_id, block_kind, logical_id)
+        nodes.append(hcl_make_node(block_id, label, rel_path, line))
+        edges.append(hcl_make_edge(file_id, block_id, "contains", rel_path, line))
+
+    return hcl_make_result(nodes, edges,
+                           hcl_cap_diagnostics(diagnostics), deferred_refs)
 
 
 def _resolve_cross_file_imports(

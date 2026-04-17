@@ -7,6 +7,7 @@ from graphify.extract import (
     hcl_make_node, hcl_make_edge, hcl_make_result,
     hcl_redact_for_external, _hcl_hash_redact,
     resolve_module_source, _hcl_classify_source, _hcl_canonicalize_remote_uri,
+    extract_hcl,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -859,3 +860,88 @@ def test_resolve_hmac_absent():
     r = resolve_module_source("./modules/vpc", Path("/repo"), Path("/repo"), set())
     assert r["source_fingerprint_hmac_sha256"] == ""
     assert r["resolution_status"] in ("resolved", "declared_only")
+
+
+# --- AST walker / extract_hcl tests ---
+
+def test_extract_hcl_all_7_block_types():
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    labels = [n["label"] for n in result["nodes"]]
+    assert any("resource:aws_vpc.main" in l for l in labels)
+    assert any("data:aws_ami.ubuntu" in l for l in labels)
+    assert any("module:network" in l for l in labels)
+    assert any("variable:region" in l for l in labels)
+    assert any("output:vpc_id" in l for l in labels)
+    assert any("locals:" in l for l in labels)
+    assert any("provider:aws" in l for l in labels)
+
+
+def test_extract_hcl_file_node():
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    file_nodes = [n for n in result["nodes"] if n["id"].startswith("hcl_file:") and "::" not in n["id"]]
+    assert len(file_nodes) == 1
+    assert file_nodes[0]["label"] == "sample.tf"
+
+
+def test_extract_hcl_containment_edges():
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    block_nodes = [n for n in result["nodes"] if "::" in n["id"]]
+    contains_edges = [e for e in result["edges"] if e["relation"] == "contains"]
+    assert len(contains_edges) == len(block_nodes)
+    block_ids = {n["id"] for n in block_nodes}
+    for edge in contains_edges:
+        assert edge["target"] in block_ids
+
+
+def test_extract_hcl_no_attribute_nodes():
+    """No nodes for individual attributes within blocks."""
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    for node in result["nodes"]:
+        assert "cidr_block" not in node["label"]
+        assert "most_recent" not in node["label"]
+        assert "default" not in node["label"]
+
+
+def test_extract_hcl_node_count():
+    """1 file + 7 blocks = 8 nodes."""
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    assert len(result["nodes"]) == 8
+
+
+def test_extract_hcl_deterministic():
+    r1 = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    r2 = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    assert r1["nodes"] == r2["nodes"]
+    assert r1["edges"] == r2["edges"]
+
+
+def test_extract_hcl_tfvars_file_node_only():
+    result = extract_hcl(FIXTURES / "sample.tfvars", FIXTURES)
+    assert len(result["nodes"]) == 1
+    assert result["nodes"][0]["id"].startswith("hcl_file:")
+    assert len(result["edges"]) == 0
+
+
+def test_extract_hcl_result_shape():
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    assert "nodes" in result
+    assert "edges" in result
+    assert "raw_calls" in result
+    assert "diagnostics" in result
+    assert "hcl_deferred_refs" in result
+    assert result["input_tokens"] == 0
+    assert result["output_tokens"] == 0
+    assert result["error"] is None
+
+
+def test_extract_hcl_block_ids_use_namespaces():
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    for node in result["nodes"]:
+        assert node["id"].startswith("hcl_file:") or node["id"].startswith("hcl_target:")
+
+
+def test_extract_hcl_passes_validate():
+    from graphify.validate import validate_extraction
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    errors = validate_extraction(result)
+    assert errors == [], f"validate_extraction errors: {errors}"
