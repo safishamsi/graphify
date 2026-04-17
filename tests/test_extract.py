@@ -9,6 +9,7 @@ from graphify.extract import (
     resolve_module_source, _hcl_classify_source, _hcl_canonicalize_remote_uri,
     extract_hcl,
     _HCL_MAX_FILE_BYTES, _HCL_MAX_AST_NODES,
+    hcl_resolve_control_surface, hcl_resolve_all_surfaces,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -1087,3 +1088,79 @@ def test_detect_classifies_tf_as_code():
     from graphify.detect import classify_file, FileType
     assert classify_file(Path("main.tf")) == FileType.CODE
     assert classify_file(Path("terraform.tfvars")) == FileType.CODE
+
+
+# --- Control surface resolution tests ---
+
+def test_resolve_control_surface_cli_wins():
+    r = hcl_resolve_control_surface(
+        "hcl_phase", {"phase1", "phase2", "phase3"},
+        cli_value="phase2", env_var="GRAPHIFY_HCL_PHASE",
+        default="phase1",
+    )
+    assert r["effective_hcl_phase"] == "phase2"
+    assert r["hcl_phase_source"] == "cli"
+
+
+def test_resolve_control_surface_env_fallback(monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_HCL_PHASE", "phase3")
+    r = hcl_resolve_control_surface(
+        "hcl_phase", {"phase1", "phase2", "phase3"},
+        env_var="GRAPHIFY_HCL_PHASE", default="phase1",
+    )
+    assert r["effective_hcl_phase"] == "phase3"
+    assert r["hcl_phase_source"] == "env"
+
+
+def test_resolve_control_surface_default():
+    r = hcl_resolve_control_surface(
+        "hcl_phase", {"phase1", "phase2", "phase3"},
+        env_var="GRAPHIFY_HCL_PHASE_NONEXISTENT", default="phase1",
+    )
+    assert r["effective_hcl_phase"] == "phase1"
+    assert r["hcl_phase_source"] == "config_unavailable"
+
+
+def test_resolve_control_surface_config_unavailable_source():
+    """When config is not available and value falls to default, source is config_unavailable."""
+    r = hcl_resolve_control_surface(
+        "hcl_phase", {"phase1"}, default="phase1", config_available=False,
+    )
+    assert r["hcl_phase_source"] == "config_unavailable"
+
+
+def test_resolve_control_surface_config_available_default():
+    r = hcl_resolve_control_surface(
+        "hcl_phase", {"phase1"}, default="phase1", config_available=True,
+    )
+    assert r["hcl_phase_source"] == "default"
+
+
+def test_resolve_control_surface_invalid_exits():
+    """Invalid value should cause SystemExit(2)."""
+    import pytest
+    with pytest.raises(SystemExit) as exc:
+        hcl_resolve_control_surface(
+            "hcl_phase", {"phase1", "phase2", "phase3"},
+            cli_value="phase99", default="phase1",
+        )
+    assert exc.value.code == 2
+
+
+def test_resolve_all_surfaces_defaults():
+    meta = hcl_resolve_all_surfaces()
+    assert meta["effective_hcl_phase"] == "phase1"
+    assert meta["effective_hcl_migration_mode"] == "detect"
+    assert meta["effective_decision_scope"] == "phase_progression"
+    assert meta["effective_output_scope"] == "external"
+
+
+def test_resolve_all_surfaces_cli_overrides():
+    meta = hcl_resolve_all_surfaces(
+        cli_phase="phase2",
+        cli_decision_scope="default_on",
+    )
+    assert meta["effective_hcl_phase"] == "phase2"
+    assert meta["hcl_phase_source"] == "cli"
+    assert meta["effective_decision_scope"] == "default_on"
+    assert meta["decision_scope_source"] == "cli"

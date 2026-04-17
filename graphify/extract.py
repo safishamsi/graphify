@@ -3934,6 +3934,72 @@ def hcl_make_result(
     }
 
 
+def hcl_resolve_control_surface(
+    name: str,
+    allowed: set[str],
+    *,
+    cli_value: str | None = None,
+    env_var: str | None = None,
+    config_value: str | None = None,
+    default: str,
+    config_available: bool = False,
+) -> dict:
+    """Resolve a control surface value with CLI > env > config > default precedence.
+
+    Returns dict with effective value and source provenance.
+    Raises SystemExit on invalid values (fail-fast before extraction).
+    """
+    env_value = os.environ.get(env_var) if env_var else None
+
+    for value, source in [
+        (cli_value, "cli"),
+        (env_value, "env"),
+        (config_value if config_available else None, "config"),
+    ]:
+        if value is not None:
+            if value not in allowed:
+                print(f"error: invalid {name} '{value}' (allowed: {sorted(allowed)})",
+                      file=sys.stderr)
+                sys.exit(2)
+            return {f"effective_{name}": value, f"{name}_source": source}
+
+    source = "default" if config_available else "config_unavailable"
+    return {f"effective_{name}": default, f"{name}_source": source}
+
+
+def hcl_resolve_all_surfaces(
+    *,
+    cli_phase: str | None = None,
+    cli_migration_mode: str | None = None,
+    cli_decision_scope: str | None = None,
+    cli_output_scope: str | None = None,
+    config_available: bool = False,
+) -> dict:
+    """Resolve all four HCL control surfaces and return merged metadata."""
+    meta: dict = {}
+    meta.update(hcl_resolve_control_surface(
+        "hcl_phase", {"phase1", "phase2", "phase3"},
+        cli_value=cli_phase, env_var="GRAPHIFY_HCL_PHASE",
+        default="phase1", config_available=config_available,
+    ))
+    meta.update(hcl_resolve_control_surface(
+        "hcl_migration_mode", {"detect", "apply"},
+        cli_value=cli_migration_mode, env_var="GRAPHIFY_HCL_MIGRATION_MODE",
+        default="detect", config_available=config_available,
+    ))
+    meta.update(hcl_resolve_control_surface(
+        "decision_scope", {"phase_progression", "default_on"},
+        cli_value=cli_decision_scope, env_var="GRAPHIFY_DECISION_SCOPE",
+        default="phase_progression", config_available=config_available,
+    ))
+    meta.update(hcl_resolve_control_surface(
+        "output_scope", {"external", "internal"},
+        cli_value=cli_output_scope, env_var="GRAPHIFY_OUTPUT_SCOPE",
+        default="external", config_available=config_available,
+    ))
+    return meta
+
+
 def _hcl_hash_redact(value: str) -> str:
     """Hash a string for external-scope redaction. Returns sha256[:16]."""
     return hashlib.sha256(value.encode()).hexdigest()[:16]
@@ -6793,13 +6859,26 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python -m graphify.extract <file_or_dir> ...", file=sys.stderr)
-        sys.exit(1)
+    import argparse
+    ap = argparse.ArgumentParser(description="Graphify structural extraction")
+    ap.add_argument("paths", nargs="+", help="Files or directories to extract")
+    ap.add_argument("--hcl-phase", choices=["phase1", "phase2", "phase3"])
+    ap.add_argument("--hcl-migration-mode", choices=["detect", "apply"])
+    ap.add_argument("--decision-scope", choices=["phase_progression", "default_on"])
+    ap.add_argument("--output-scope", choices=["external", "internal"])
+    args = ap.parse_args()
+
+    meta = hcl_resolve_all_surfaces(
+        cli_phase=args.hcl_phase,
+        cli_migration_mode=args.hcl_migration_mode,
+        cli_decision_scope=args.decision_scope,
+        cli_output_scope=args.output_scope,
+    )
 
     paths: list[Path] = []
-    for arg in sys.argv[1:]:
-        paths.extend(collect_files(Path(arg)))
+    for p in args.paths:
+        paths.extend(collect_files(Path(p)))
 
     result = extract(paths)
+    result["hcl_metadata"] = meta
     print(json.dumps(result, indent=2))
