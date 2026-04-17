@@ -69,7 +69,7 @@ def test_extract_merges_multiple_files():
 def test_collect_files_from_dir():
     from graphify.extract import _DISPATCH
     files = collect_files(FIXTURES)
-    supported = set(_DISPATCH.keys())
+    supported = set(_DISPATCH.keys()) | {".tf", ".tfvars"}
     assert all(f.suffix in supported for f in files)
     assert len(files) > 0
 
@@ -1058,3 +1058,32 @@ def test_extract_hcl_error_result_shape(tmp_path):
         "nodes", "edges", "raw_calls", "diagnostics",
         "hcl_deferred_refs", "input_tokens", "output_tokens", "error",
     }
+
+
+# --- Pipeline dispatch and discovery tests ---
+
+def test_collect_files_includes_tf():
+    """collect_files() discovers .tf and .tfvars files."""
+    files = collect_files(FIXTURES)
+    tf_files = [f for f in files if f.suffix in (".tf", ".tfvars")]
+    assert len(tf_files) >= 2  # sample.tf + sample.tfvars + sample_modules.tf
+
+
+def test_extract_dispatches_tf():
+    """extract() processes .tf files through the HCL extractor."""
+    tf_files = [FIXTURES / "sample.tf"]
+    result = extract(tf_files)
+    labels = [n["label"] for n in result["nodes"]]
+    assert any("resource:" in l for l in labels)
+
+
+def test_extract_dispatches_tfvars():
+    """extract() processes .tfvars files."""
+    result = extract([FIXTURES / "sample.tfvars"])
+    assert len(result["nodes"]) >= 1
+
+
+def test_detect_classifies_tf_as_code():
+    from graphify.detect import classify_file, FileType
+    assert classify_file(Path("main.tf")) == FileType.CODE
+    assert classify_file(Path("terraform.tfvars")) == FileType.CODE

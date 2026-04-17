@@ -6531,6 +6531,19 @@ def extract(
     root = root.resolve()
 
     effective_root = cache_root or root
+
+    # Build resolvable module directories from HCL file paths
+    _hcl_resolvable_dirs: set[str] = set()
+    for p in paths:
+        if p.suffix in {".tf", ".tfvars"}:
+            try:
+                rel_dir = str(p.resolve().relative_to(root.resolve()).parent).replace("\\", "/")
+                if rel_dir == ".":
+                    rel_dir = ""
+                _hcl_resolvable_dirs.add(rel_dir)
+            except ValueError:
+                pass
+
     total = len(paths)
 
     # Phase 1: separate cached hits from uncached work
@@ -6538,6 +6551,17 @@ def extract(
     uncached_work: list[tuple[int, Path]] = []
 
     for i, path in enumerate(paths):
+        # HCL files need special handling (extra repo_root + resolvable_dirs args)
+        if path.suffix in {".tf", ".tfvars"}:
+            cached = load_cached(path, effective_root)
+            if cached is not None:
+                per_file[i] = cached
+                continue
+            result = extract_hcl(path, root, _hcl_resolvable_dirs)
+            if "error" not in result:
+                save_cached(path, result, effective_root)
+            per_file[i] = result
+            continue
         if _get_extractor(path) is None:
             per_file[i] = {"nodes": [], "edges": []}
             continue
@@ -6731,7 +6755,7 @@ def extract(
 def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | None = None) -> list[Path]:
     if target.is_file():
         return [target]
-    _EXTENSIONS = set(_DISPATCH.keys())
+    _EXTENSIONS = set(_DISPATCH.keys()) | {".tf", ".tfvars"}
     from graphify.detect import _load_graphifyignore, _is_ignored
     ignore_root = root if root is not None else target
     patterns = _load_graphifyignore(ignore_root)
