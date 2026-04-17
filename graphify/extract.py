@@ -1,5 +1,6 @@
 """Deterministic structural extraction from source code using tree-sitter. Outputs nodes+edges dicts."""
 from __future__ import annotations
+import hashlib
 import importlib
 import json
 import os
@@ -3928,6 +3929,45 @@ def hcl_make_result(
         "output_tokens": 0,
         "error": error,
     }
+
+
+def _hcl_hash_redact(value: str) -> str:
+    """Hash a string for external-scope redaction. Returns sha256[:16]."""
+    return hashlib.sha256(value.encode()).hexdigest()[:16]
+
+
+def hcl_redact_for_external(result: dict) -> dict:
+    """Apply external-scope redaction to an extraction result.
+
+    Hashes source_file, host-bearing labels/IDs, and unresolved_target_key
+    to prevent leaking sensitive path/host information in external reports.
+    """
+    redacted_nodes = []
+    for node in result.get("nodes", []):
+        n = dict(node)
+        if n.get("source_file"):
+            n["source_file"] = _hcl_hash_redact(n["source_file"])
+        if n.get("label") and (":" in n["label"]):
+            parts = n["label"].split(":", 1)
+            n["label"] = f"{parts[0]}:{_hcl_hash_redact(parts[1])}"
+        if n.get("id") and n["id"].startswith("hcl_target:"):
+            prefix, rest = n["id"].split(":", 1)
+            n["id"] = f"{prefix}:{_hcl_hash_redact(rest)}"
+        redacted_nodes.append(n)
+
+    redacted_edges = []
+    for edge in result.get("edges", []):
+        e = dict(edge)
+        if e.get("source_file"):
+            e["source_file"] = _hcl_hash_redact(e["source_file"])
+        if e.get("unresolved_target_key"):
+            e["unresolved_target_key"] = _hcl_hash_redact(e["unresolved_target_key"])
+        redacted_edges.append(e)
+
+    out = dict(result)
+    out["nodes"] = redacted_nodes
+    out["edges"] = redacted_edges
+    return out
 
 
 def _hcl_canonical_path(repo_root: Path, file_path: Path) -> str:

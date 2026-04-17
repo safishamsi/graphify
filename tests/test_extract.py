@@ -5,6 +5,7 @@ from graphify.extract import (
     hcl_make_diagnostic, hcl_cap_diagnostics, _hcl_scrub_secrets,
     _HCL_DIAGNOSTIC_CODES, _HCL_MAX_DIAGNOSTICS_PER_FILE,
     hcl_make_node, hcl_make_edge, hcl_make_result,
+    hcl_redact_for_external, _hcl_hash_redact,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -648,3 +649,49 @@ def test_hcl_make_result_passes_validate():
     r = hcl_make_result([node, block], [edge], [], [])
     errors = validate_extraction(r)
     assert errors == [], f"validate_extraction errors: {errors}"
+
+
+# --- HCL redaction tests ---
+
+def test_hcl_scrub_deterministic():
+    """Same input always produces same scrubbed output."""
+    text = "error with token=abc123 in module"
+    assert _hcl_scrub_secrets(text) == _hcl_scrub_secrets(text)
+
+
+def test_hcl_hash_redact_deterministic():
+    assert _hcl_hash_redact("modules/vpc") == _hcl_hash_redact("modules/vpc")
+
+
+def test_hcl_hash_redact_different_inputs():
+    assert _hcl_hash_redact("a") != _hcl_hash_redact("b")
+
+
+def test_hcl_redact_external_source_file():
+    node = hcl_make_node("hcl_file:main.tf", "resource:aws_vpc.main", "terraform/main.tf", 1)
+    r = hcl_redact_for_external(hcl_make_result([node], [], [], []))
+    assert r["nodes"][0]["source_file"] != "terraform/main.tf"
+    assert len(r["nodes"][0]["source_file"]) == 16  # sha256[:16]
+
+
+def test_hcl_redact_external_unresolved_key():
+    edge = hcl_make_edge(
+        "s", "t", "module_source", "main.tf", 1,
+        resolved=False, unresolved_target_key="hcl:module_source_remote:github.com/org/repo",
+    )
+    r = hcl_redact_for_external(hcl_make_result([], [edge], [], []))
+    assert "github.com" not in r["edges"][0]["unresolved_target_key"]
+
+
+def test_hcl_redact_external_target_id():
+    node = hcl_make_node("hcl_target:module_source_remote:github.com/org/repo", "remote:x", "", 1)
+    r = hcl_redact_for_external(hcl_make_result([node], [], [], []))
+    assert "github.com" not in r["nodes"][0]["id"]
+    assert r["nodes"][0]["id"].startswith("hcl_target:")
+
+
+def test_hcl_redact_preserves_file_node_ids():
+    """File node IDs (hcl_file:) are not target nodes and keep their IDs."""
+    node = hcl_make_node("hcl_file:main.tf", "main.tf", "main.tf", 1)
+    r = hcl_redact_for_external(hcl_make_result([node], [], [], []))
+    assert r["nodes"][0]["id"] == "hcl_file:main.tf"
