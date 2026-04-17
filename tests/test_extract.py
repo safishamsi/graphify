@@ -1164,3 +1164,22 @@ def test_resolve_all_surfaces_cli_overrides():
     assert meta["hcl_phase_source"] == "cli"
     assert meta["effective_decision_scope"] == "default_on"
     assert meta["decision_scope_source"] == "cli"
+
+
+# --- Diagnostic aggregation tests ---
+
+def test_extract_aggregates_hcl_diagnostics():
+    """extract() includes HCL diagnostics in top-level output when present."""
+    result = extract([FIXTURES / "sample_modules.tf"])
+    # sample_modules.tf has interpolated source and missing source -> diagnostics
+    assert "diagnostics" in result
+    assert len(result["diagnostics"]) >= 1
+
+
+def test_extract_no_diagnostics_for_python():
+    """Python-only extraction should not produce diagnostics key (or empty)."""
+    files = list(FIXTURES.glob("*.py"))[:1]
+    if files:
+        result = extract(files)
+        diags = result.get("diagnostics", [])
+        assert len(diags) == 0

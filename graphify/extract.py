@@ -6654,9 +6654,11 @@ def extract(
 
     all_nodes: list[dict] = []
     all_edges: list[dict] = []
+    all_diagnostics: list[dict] = []
     for result in per_file:
         all_nodes.extend(result.get("nodes", []))
         all_edges.extend(result.get("edges", []))
+        all_diagnostics.extend(result.get("diagnostics", []))
 
     # Remap file node IDs from absolute-path-derived to project-relative so
     # graph.json edge endpoints are stable across machines (#502)
@@ -6810,12 +6812,15 @@ def extract(
         except ValueError:
             pass
 
-    return {
+    output = {
         "nodes": all_nodes,
         "edges": all_edges,
         "input_tokens": 0,
         "output_tokens": 0,
     }
+    if all_diagnostics:
+        output["diagnostics"] = all_diagnostics
+    return output
 
 
 def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | None = None) -> list[Path]:
