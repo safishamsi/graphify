@@ -3802,6 +3802,36 @@ def extract_powershell(path: Path) -> dict:
 
 # ── Cross-file import resolution ──────────────────────────────────────────────
 
+def _hcl_canonical_path(repo_root: Path, file_path: Path) -> str:
+    """Return repo-root-relative path with forward slashes."""
+    try:
+        rel = file_path.resolve().relative_to(repo_root.resolve())
+    except ValueError:
+        rel = file_path
+    return str(rel).replace("\\", "/")
+
+
+def hcl_make_file_id(repo_root: Path, file_path: Path) -> str:
+    """Generate node ID for a file node.
+    Returns: 'hcl_file:<repo-relative-path>'
+    """
+    return f"hcl_file:{_hcl_canonical_path(repo_root, file_path)}"
+
+
+def hcl_make_block_id(file_id: str, block_kind: str, logical_identity: str) -> str:
+    """Generate node ID for a block node.
+    Returns: '<file_id>::<block_kind>:<logical_identity>'
+    """
+    return f"{file_id}::{block_kind}:{logical_identity}"
+
+
+def hcl_make_target_id(target_kind: str, canonical_identity: str) -> str:
+    """Generate node ID for a non-repository-backed target node.
+    Returns: 'hcl_target:<target_kind>:<canonical_identity>'
+    """
+    return f"hcl_target:{target_kind}:{canonical_identity}"
+
+
 def extract_hcl(path: Path, repo_root: Path) -> dict:
     """Extract HCL structural blocks from a single .tf or .tfvars file.
 
