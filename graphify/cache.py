@@ -13,7 +13,7 @@ def file_hash(path: Path) -> str:
 
 def cache_dir(root: Path = Path(".")) -> Path:
     """Returns graphify-out/cache/ - creates it if needed."""
-    d = Path(root) / "graphify-out" / "cache"
+    d = Path(root).resolve() / "graphify-out" / "cache"
     d.mkdir(parents=True, exist_ok=True)
     return d
 

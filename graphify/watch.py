@@ -23,6 +23,7 @@ def _rebuild_code(watch_path: Path) -> bool:
 
     Returns True on success, False on error.
     """
+    watch_path = Path(watch_path).resolve()
     try:
         from graphify.extract import collect_files, extract
         from graphify.build import build_from_json

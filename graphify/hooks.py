@@ -1,5 +1,6 @@
 # git hook integration - install/uninstall graphify post-commit hook
 from __future__ import annotations
+import subprocess
 from pathlib import Path
 
 _HOOK_MARKER = "# graphify-hook"
@@ -53,6 +54,32 @@ def _git_root(path: Path) -> Path | None:
     return None
 
 
+def _hooks_dir(root: Path) -> Path:
+    """Return the active hooks directory for this repo.
+
+    Respects core.hooksPath if set (e.g. repos using Husky). Falls back to
+    .git/hooks so we never write hooks into the wrong location.
+    """
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(root), "config", "core.hooksPath"],
+            capture_output=True, text=True,
+        )
+        if result.returncode == 0:
+            custom = result.stdout.strip()
+            if custom:
+                p = Path(custom)
+                if not p.is_absolute():
+                    p = root / p
+                p.mkdir(parents=True, exist_ok=True)
+                return p
+    except (OSError, FileNotFoundError):
+        pass
+    d = root / ".git" / "hooks"
+    d.mkdir(exist_ok=True)
+    return d
+
+
 def install(path: Path = Path(".")) -> str:
     """Install graphify post-commit hook in the nearest git repo.
 
@@ -62,8 +89,7 @@ def install(path: Path = Path(".")) -> str:
     if root is None:
         raise RuntimeError(f"No git repository found at or above {path.resolve()}")
 
-    hooks_dir = root / ".git" / "hooks"
-    hooks_dir.mkdir(exist_ok=True)
+    hooks_dir = _hooks_dir(root)
     hook_path = hooks_dir / "post-commit"
 
     if hook_path.exists():
@@ -85,7 +111,7 @@ def uninstall(path: Path = Path(".")) -> str:
     if root is None:
         raise RuntimeError(f"No git repository found at or above {path.resolve()}")
 
-    hook_path = root / ".git" / "hooks" / "post-commit"
+    hook_path = _hooks_dir(root) / "post-commit"
     if not hook_path.exists():
         return "No post-commit hook found - nothing to remove."
 
@@ -110,7 +136,7 @@ def status(path: Path = Path(".")) -> str:
     root = _git_root(path)
     if root is None:
         return "Not in a git repository."
-    hook_path = root / ".git" / "hooks" / "post-commit"
+    hook_path = _hooks_dir(root) / "post-commit"
     if not hook_path.exists():
         return "graphify hook: not installed"
     if _HOOK_MARKER in hook_path.read_text():

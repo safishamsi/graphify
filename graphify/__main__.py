@@ -87,6 +87,41 @@ def claude_install(project_dir: Path | None = None) -> None:
     print("codebase questions and rebuild it after code changes.")
 
 
+_COPILOT_INSTRUCTIONS = """\
+## graphify knowledge graph
+
+This project has a graphify knowledge graph at graphify-out/.
+
+- Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
+- If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- After modifying code files, run: python3 -c "from graphify.watch import _rebuild_code; from pathlib import Path; _rebuild_code(Path('.'))"
+"""
+
+_COPILOT_MARKER = "## graphify knowledge graph"
+
+
+def vscode_install(project_dir: Path | None = None) -> None:
+    """Write graphify context to .github/copilot-instructions.md."""
+    base = (project_dir or Path(".")).resolve()
+    github_dir = base / ".github"
+    github_dir.mkdir(exist_ok=True)
+    target = github_dir / "copilot-instructions.md"
+
+    if target.exists():
+        content = target.read_text()
+        if _COPILOT_MARKER in content:
+            print("graphify already configured in .github/copilot-instructions.md")
+            return
+        target.write_text(content.rstrip() + "\n\n" + _COPILOT_INSTRUCTIONS)
+    else:
+        target.write_text(_COPILOT_INSTRUCTIONS)
+
+    print(f"graphify instructions written to {target}")
+    print()
+    print("GitHub Copilot Chat will now use the knowledge graph when answering")
+    print("questions about this codebase.")
+
+
 def claude_uninstall(project_dir: Path | None = None) -> None:
     """Remove the graphify section from the local CLAUDE.md."""
     target = (project_dir or Path(".")) / "CLAUDE.md"
@@ -123,6 +158,7 @@ def main() -> None:
         print()
         print("Commands:")
         print("  install                 copy skill to ~/.claude/skills/ and register in CLAUDE.md")
+        print("  vscode install          write graphify context to .github/copilot-instructions.md")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
         print("  hook install            install post-commit git hook (auto-rebuilds graph on commit)")
         print("  hook uninstall          remove post-commit git hook")
@@ -135,6 +171,13 @@ def main() -> None:
     cmd = sys.argv[1]
     if cmd == "install":
         install()
+    elif cmd == "vscode":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            vscode_install()
+        else:
+            print("Usage: graphify vscode install", file=sys.stderr)
+            sys.exit(1)
     elif cmd == "claude":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":

@@ -32,6 +32,9 @@ pip install graphifyy && graphify install
 
 > The PyPI package is temporarily named `graphifyy` while the `graphify` name is being reclaimed. The CLI and skill command are still `graphify`.
 
+> **Windows:** If `graphify` is not recognized after install, add the Python Scripts folder to your PATH: `%APPDATA%\Python\Python3xx\Scripts` (replace `3xx` with your Python version, e.g. `313`). Or use `pipx install graphifyy` which handles PATH automatically.
+> **macOS (externally managed):** Use `pipx install graphifyy` if `pip install` fails with an "externally-managed-environment" error.
+
 Then open Claude Code in any directory and type:
 
 ```
