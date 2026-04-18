@@ -54,6 +54,14 @@ def _run_output_dir(config: IntelligenceConfig, run_id: str) -> Path:
     return out
 
 
+def _source_repo_root(source: GraphSource) -> Path | None:
+    meta = source.get_source_metadata()
+    repo_path = meta.get("repo_path")
+    if repo_path:
+        return Path(repo_path)
+    return None
+
+
 # ---------------------------------------------------------------------------
 # coverage (Module 1 only, no reasoning)
 # ---------------------------------------------------------------------------
@@ -73,7 +81,7 @@ def run_coverage(args) -> int:
     if enrich_graph is None:
         report = StitcherCoverageReport()
     else:
-        _, report = enrich_graph(graph, config=config)
+        _, report = enrich_graph(graph, config=config, repo_root=_source_repo_root(source))
 
     # Emit as structured JSON so scripts can consume it.
     print(json.dumps(report.model_dump(), indent=2, default=str))
@@ -233,13 +241,22 @@ def _run_pipeline(
         enrich_graph = None
 
     if enrich_graph is not None:
-        graph, coverage = enrich_graph(graph, config=config)
+        repo_root = _source_repo_root(source)
+        graph, coverage = enrich_graph(graph, config=config, repo_root=repo_root)
         run_meta.stitcher_coverage = coverage
         run_meta.low_stitcher_coverage = coverage.low_coverage
+    else:
+        repo_root = _source_repo_root(source)
 
     try:
         from depos.analysis.pipeline import run_modules_2_through_7  # type: ignore
     except ImportError:
         return []
 
-    return run_modules_2_through_7(graph, config=config, run_meta=run_meta, diff_path=diff_path)
+    return run_modules_2_through_7(
+        graph,
+        config=config,
+        run_meta=run_meta,
+        diff_path=diff_path,
+        repo_root=repo_root,
+    )

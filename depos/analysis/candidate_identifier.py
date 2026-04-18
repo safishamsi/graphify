@@ -39,7 +39,29 @@ from depos.analysis.schemas import (
     ChangeManifestEntry,
     SeedType,
 )
+from depos.enrichment.semantic_edges import CONSUMES_PAYLOAD
 from depos.enrichment.semantic_edges import HTTP_CALLS_ROUTE
+from depos.enrichment.semantic_edges import PRODUCES_PAYLOAD
+from depos.enrichment.semantic_edges import TASK_CONSUMES
+from depos.enrichment.semantic_edges import TASK_ENQUEUES
+
+_QUEUE_RELATIONS = {TASK_ENQUEUES, TASK_CONSUMES, PRODUCES_PAYLOAD, CONSUMES_PAYLOAD}
+_AI_SEED_KEYWORDS = (
+    "auth",
+    "guard",
+    "permission",
+    "policy",
+    "rls",
+    "session",
+    "token",
+    "admin",
+    "queue",
+    "task",
+    "webhook",
+    "callback",
+    "delete",
+    "update",
+)
 
 
 # ---------------------------------------------------------------------------
@@ -124,7 +146,13 @@ def _attach_graph_nodes(graph: nx.DiGraph, manifest: ChangeManifest) -> ChangeMa
         if not entry.path:
             continue
         key = str(Path(entry.path).as_posix())
-        entry.node_ids = list(dict.fromkeys(entry.node_ids + by_path.get(key, [])))
+        matched = list(by_path.get(key, []))
+        if not matched:
+            suffix = f"/{key}"
+            for source_path, node_ids in by_path.items():
+                if source_path.endswith(suffix):
+                    matched.extend(node_ids)
+        entry.node_ids = list(dict.fromkeys(entry.node_ids + matched))
     return manifest
 
 
@@ -167,6 +195,23 @@ def _diff_anchor_candidates(
 ) -> list[Candidate]:
     out: list[Candidate] = []
     for entry in manifest.entries:
+        if not entry.node_ids and entry.path:
+            scope_id = f"file:{entry.path}"
+            out.append(
+                Candidate(
+                    candidate_id=_candidate_id(scope_id, SeedType.diff_anchor, entry.path),
+                    scope_id=scope_id,
+                    seed_type=SeedType.diff_anchor,
+                    priority_score=0.88 + (0.05 if entry.migration_change else 0.0),
+                    analysis_mode=mode,
+                    extra={
+                        "path": entry.path,
+                        "migration_change": entry.migration_change,
+                        "file_only": True,
+                        "removed_entity_references": 1,
+                    },
+                )
+            )
         for node_id in entry.node_ids:
             scope_id = f"file:{entry.path}" if entry.path else f"node:{node_id}"
             out.append(
@@ -180,6 +225,91 @@ def _diff_anchor_candidates(
                     extra={"path": entry.path, "migration_change": entry.migration_change},
                 )
             )
+    return out
+
+
+def _node_text(attrs: dict[str, Any]) -> str:
+    parts = [
+        str(attrs.get("label") or ""),
+        str(attrs.get("source_file") or ""),
+        str(attrs.get("route_pattern") or ""),
+        str(attrs.get("http_method") or ""),
+    ]
+    return " ".join(p for p in parts if p).lower()
+
+
+def _is_public_route_node(attrs: dict[str, Any]) -> bool:
+    if attrs.get("is_fastapi_route"):
+        return True
+    source_file = str(attrs.get("source_file") or "").replace("\\", "/").lower()
+    if source_file.endswith(("/route.ts", "/route.tsx", "/route.js", "/route.jsx")):
+        return True
+    return bool(attrs.get("http_method") and attrs.get("route_pattern"))
+
+
+def _is_auth_boundary_node(attrs: dict[str, Any]) -> bool:
+    source_file = str(attrs.get("source_file") or "").replace("\\", "/").lower()
+    label = str(attrs.get("label") or "").lower()
+    auth_path = any(part in source_file for part in ("/auth/", "/middleware", "auth.py"))
+    auth_label = any(token in label for token in ("auth", "jwt", "session", "token"))
+    return auth_path or auth_label
+
+
+def _is_queue_surface_node(graph: nx.DiGraph, node_id: str) -> bool:
+    for _, _, data in graph.in_edges(node_id, data=True):
+        if data.get("relation") in _QUEUE_RELATIONS:
+            return True
+    for _, _, data in graph.out_edges(node_id, data=True):
+        if data.get("relation") in _QUEUE_RELATIONS:
+            return True
+    return False
+
+
+def _surface_candidates_for_node(graph: nx.DiGraph, node_id: str, attrs: dict[str, Any], mode: AnalysisMode) -> list[Candidate]:
+    out: list[Candidate] = []
+    if _is_public_route_node(attrs):
+        method = str(attrs.get("http_method") or "ANY").upper()
+        route = str(attrs.get("route_pattern") or node_id)
+        scope_id = f"surface:http:{method}:{route}"
+        out.append(
+            Candidate(
+                candidate_id=_candidate_id(scope_id, SeedType.interface_surface, node_id),
+                scope_id=scope_id,
+                seed_type=SeedType.interface_surface,
+                priority_score=0.76,
+                language_pair="public->service",
+                diff_anchors=[node_id],
+                analysis_mode=mode,
+                extra={"surface_type": "public_route", "route": route, "method": method},
+            )
+        )
+    if _is_queue_surface_node(graph, node_id):
+        scope_id = f"surface:queue:{node_id}"
+        out.append(
+            Candidate(
+                candidate_id=_candidate_id(scope_id, SeedType.interface_surface, node_id),
+                scope_id=scope_id,
+                seed_type=SeedType.interface_surface,
+                priority_score=0.72,
+                language_pair="producer->queue",
+                diff_anchors=[node_id],
+                analysis_mode=mode,
+                extra={"surface_type": "queue_task"},
+            )
+        )
+    if _is_auth_boundary_node(attrs):
+        scope_id = f"surface:auth:{node_id}"
+        out.append(
+            Candidate(
+                candidate_id=_candidate_id(scope_id, SeedType.interface_surface, node_id),
+                scope_id=scope_id,
+                seed_type=SeedType.interface_surface,
+                priority_score=0.68,
+                diff_anchors=[node_id],
+                analysis_mode=mode,
+                extra={"surface_type": "auth_boundary"},
+            )
+        )
     return out
 
 
@@ -210,49 +340,157 @@ def _interface_surface_candidates(graph: nx.DiGraph, mode: AnalysisMode) -> list
                     extra={"relation": rel, "inferred": bool(data.get("inferred", False))},
                 )
             )
+    for node_id, attrs in graph.nodes(data=True):
+        for cand in _surface_candidates_for_node(graph, node_id, attrs, mode):
+            if cand.scope_id in seen:
+                continue
+            seen.add(cand.scope_id)
+            out.append(cand)
     return out
 
 
+def _node_has_unresolved_signal(attrs: dict[str, Any]) -> bool:
+    if "<<unresolved>>" in str(attrs.get("label") or "").lower():
+        return True
+    categories = attrs.get("diagnostic_categories") or attrs.get("error_categories") or []
+    if any(str(cat).lower() == "unresolved" for cat in categories):
+        return True
+    for err in attrs.get("errors") or []:
+        if not isinstance(err, dict):
+            continue
+        category = str(err.get("category") or "").lower()
+        message = str(err.get("message") or "").lower()
+        if "unresolved" in category or "unresolved" in message or "cannot find" in message:
+            return True
+    return False
+
+
+def _non_self_degree(graph: nx.DiGraph, node_id: str) -> tuple[int, int]:
+    incoming = sum(1 for u, _, _ in graph.in_edges(node_id, data=True) if u != node_id)
+    outgoing = sum(1 for _, v, _ in graph.out_edges(node_id, data=True) if v != node_id)
+    return incoming, outgoing
+
+
 def _graph_anomaly_candidates(graph: nx.DiGraph, mode: AnalysisMode) -> list[Candidate]:
-    """Very conservative anomaly seeds: FastAPI routes with ZERO incoming
-    HTTP_CALLS_ROUTE edges. Avoids flooding the ranker with every orphan
-    node in the graph.
+    """Structural anomaly seeds kept conservative but broader than a single
+    missing-route-client case.
     """
     out: list[Candidate] = []
     for nid, attrs in graph.nodes(data=True):
-        if not attrs.get("is_fastapi_route"):
-            continue
-        has_caller = any(
-            data.get("relation") == HTTP_CALLS_ROUTE
-            for _, _, data in graph.in_edges(nid, data=True)
-        )
-        if has_caller:
-            continue
-        scope_id = f"route:unused:{nid}"
-        out.append(
-            Candidate(
-                candidate_id=_candidate_id(scope_id, SeedType.graph_anomaly, nid),
-                scope_id=scope_id,
-                seed_type=SeedType.graph_anomaly,
-                priority_score=0.55,
-                analysis_mode=mode,
-                extra={
-                    "anomaly": "fastapi_route_without_client_calls",
-                    "route": attrs.get("route_pattern"),
-                    "method": attrs.get("http_method"),
-                },
+        if _is_public_route_node(attrs):
+            has_caller = any(
+                data.get("relation") == HTTP_CALLS_ROUTE
+                for _, _, data in graph.in_edges(nid, data=True)
             )
-        )
+            if not has_caller:
+                scope_id = f"route:unused:{nid}"
+                out.append(
+                    Candidate(
+                        candidate_id=_candidate_id(scope_id, SeedType.graph_anomaly, nid),
+                        scope_id=scope_id,
+                        seed_type=SeedType.graph_anomaly,
+                        priority_score=0.55,
+                        analysis_mode=mode,
+                        extra={
+                            "anomaly": "fastapi_route_without_client_calls",
+                            "route": attrs.get("route_pattern"),
+                            "method": attrs.get("http_method"),
+                        },
+                    )
+                )
+
+        if attrs.get("http_call_sites"):
+            has_route_match = any(
+                data.get("relation") == HTTP_CALLS_ROUTE
+                for _, _, data in graph.out_edges(nid, data=True)
+            )
+            if not has_route_match:
+                scope_id = f"http:unmatched:{nid}"
+                out.append(
+                    Candidate(
+                        candidate_id=_candidate_id(scope_id, SeedType.graph_anomaly, nid),
+                        scope_id=scope_id,
+                        seed_type=SeedType.graph_anomaly,
+                        priority_score=0.57,
+                        diff_anchors=[nid],
+                        analysis_mode=mode,
+                        extra={
+                            "anomaly": "unmatched_http_client_call",
+                            "urls": [site.get("url_literal") for site in attrs.get("http_call_sites", [])],
+                            "unresolved_symbol_count": len(attrs.get("http_call_sites", [])),
+                        },
+                    )
+                )
+
+        incoming, outgoing = _non_self_degree(graph, nid)
+        if (_is_public_route_node(attrs) or _is_queue_surface_node(graph, nid)) and incoming == 0 and outgoing == 0:
+            scope_id = f"surface:orphan:{nid}"
+            out.append(
+                Candidate(
+                    candidate_id=_candidate_id(scope_id, SeedType.graph_anomaly, nid),
+                    scope_id=scope_id,
+                    seed_type=SeedType.graph_anomaly,
+                    priority_score=0.53,
+                    diff_anchors=[nid],
+                    analysis_mode=mode,
+                    extra={"anomaly": "orphan_interface_surface"},
+                )
+            )
+
+        if _node_has_unresolved_signal(attrs):
+            scope_id = f"node:unresolved:{nid}"
+            out.append(
+                Candidate(
+                    candidate_id=_candidate_id(scope_id, SeedType.graph_anomaly, nid),
+                    scope_id=scope_id,
+                    seed_type=SeedType.graph_anomaly,
+                    priority_score=0.59,
+                    diff_anchors=[nid],
+                    analysis_mode=mode,
+                    extra={"anomaly": "unresolved_symbol", "unresolved_symbol_count": 1},
+                )
+            )
     return out
 
 
 def _ai_driven_candidates(graph: nx.DiGraph, config: IntelligenceConfig, mode: AnalysisMode) -> list[Candidate]:
-    """Placeholder: only emits when ``config.enable_ai_driven_seeds`` is set.
-    We honor the flag so Module 4's prompt shape never changes between runs.
-    """
-    if not getattr(config, "enable_ai_driven_seeds", False):
+    """Deterministic lexical fallback until a real embedding model lands."""
+    if not config.enable_ai_driven_seeds:
         return []
-    return []
+    scored: list[tuple[float, str, dict[str, Any]]] = []
+    for nid, attrs in graph.nodes(data=True):
+        haystack = _node_text(attrs)
+        hits = [kw for kw in _AI_SEED_KEYWORDS if kw in haystack]
+        if not hits:
+            continue
+        score = min(0.69, 0.45 + (0.04 * len(hits)))
+        extra = {
+            "strategy": "lexical_similarity_fallback",
+            "keywords": hits,
+            "surface_hint": (
+                "public_route" if _is_public_route_node(attrs) else
+                "queue_task" if _is_queue_surface_node(graph, nid) else
+                "auth_boundary" if _is_auth_boundary_node(attrs) else
+                "generic"
+            ),
+        }
+        scored.append((score, nid, extra))
+    scored.sort(key=lambda row: (-row[0], row[1]))
+    out: list[Candidate] = []
+    for score, nid, extra in scored[:10]:
+        scope_id = f"ai:{nid}"
+        out.append(
+            Candidate(
+                candidate_id=_candidate_id(scope_id, SeedType.ai_driven, nid),
+                scope_id=scope_id,
+                seed_type=SeedType.ai_driven,
+                priority_score=score,
+                diff_anchors=[nid],
+                analysis_mode=mode,
+                extra=extra,
+            )
+        )
+    return out
 
 
 # ---------------------------------------------------------------------------

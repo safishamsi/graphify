@@ -64,7 +64,7 @@ def _extract_kwargs(signature: str) -> list[str]:
     return kwargs
 
 
-def _find_task_defs(graph: nx.DiGraph) -> dict[str, _TaskDef]:
+def _find_task_defs(graph: nx.DiGraph, repo_root: Path | None = None) -> dict[str, _TaskDef]:
     """Find Celery task definitions by scanning source files referenced by
     graph nodes. Returns a map keyed by function name to task def.
     """
@@ -76,7 +76,10 @@ def _find_task_defs(graph: nx.DiGraph) -> dict[str, _TaskDef]:
             continue
         seen_files.add(sf)
         try:
-            text = Path(sf).read_text(encoding="utf-8", errors="replace")
+            path = Path(sf)
+            if not path.is_absolute() and repo_root is not None:
+                path = repo_root / path
+            text = path.read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
         for m in _TASK_DEF_RE.finditer(text):
@@ -107,7 +110,7 @@ def _find_task_defs(graph: nx.DiGraph) -> dict[str, _TaskDef]:
 
 
 def _find_enqueue_sites(
-    graph: nx.DiGraph, tasks: dict[str, _TaskDef]
+    graph: nx.DiGraph, tasks: dict[str, _TaskDef], repo_root: Path | None = None
 ) -> list[tuple[str, str, list[str]]]:
     """Return (caller_node_id, task_name, provided_kwargs)."""
     sites: list[tuple[str, str, list[str]]] = []
@@ -118,7 +121,10 @@ def _find_enqueue_sites(
             continue
         seen_files.add(sf)
         try:
-            text = Path(sf).read_text(encoding="utf-8", errors="replace")
+            path = Path(sf)
+            if not path.is_absolute() and repo_root is not None:
+                path = repo_root / path
+            text = path.read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
         for m in _ENQUEUE.finditer(text):
@@ -142,11 +148,11 @@ def _find_enqueue_sites(
     return sites
 
 
-def emit_celery_payload_edges(graph: nx.DiGraph) -> int:
-    tasks = _find_task_defs(graph)
+def emit_celery_payload_edges(graph: nx.DiGraph, *, repo_root: Path | None = None) -> int:
+    tasks = _find_task_defs(graph, repo_root=repo_root)
     if not tasks:
         return 0
-    sites = _find_enqueue_sites(graph, tasks)
+    sites = _find_enqueue_sites(graph, tasks, repo_root=repo_root)
     added = 0
     for caller_id, task_name, provided_kwargs in sites:
         task = tasks[task_name]

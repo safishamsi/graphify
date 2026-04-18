@@ -113,12 +113,17 @@ def classify(row: Optional[_TableRLS]) -> Optional[RLSCoverage]:
 # ---------------------------------------------------------------------------
 
 
-def _find_migration_files(graph: nx.DiGraph, default_glob: str = "supabase/migrations/*.sql") -> list[Path]:
+def _find_migration_files(
+    graph: nx.DiGraph,
+    default_glob: str = "supabase/migrations/*.sql",
+    repo_root: Optional[Path] = None,
+) -> list[Path]:
     meta_glob = graph.graph.get("migration_glob") or default_glob
-    return sorted(Path().glob(meta_glob))
+    base = repo_root or Path()
+    return sorted(base.glob(meta_glob))
 
 
-def _iter_route_table_pairs(graph: nx.DiGraph) -> Iterable[tuple[str, str]]:
+def _iter_route_table_pairs(graph: nx.DiGraph, repo_root: Optional[Path] = None) -> Iterable[tuple[str, str]]:
     table_name_re = re.compile(
         r"\b(?:from|into|update|join)\s+(?:public\.)?([a-zA-Z_][a-zA-Z0-9_]*)", re.IGNORECASE
     )
@@ -129,7 +134,10 @@ def _iter_route_table_pairs(graph: nx.DiGraph) -> Iterable[tuple[str, str]]:
         if not sf:
             continue
         try:
-            text = Path(sf).read_text(encoding="utf-8", errors="replace")
+            path = Path(sf)
+            if not path.is_absolute() and repo_root is not None:
+                path = repo_root / path
+            text = path.read_text(encoding="utf-8", errors="replace")
         except OSError:
             continue
         seen: set[str] = set()
@@ -141,8 +149,8 @@ def _iter_route_table_pairs(graph: nx.DiGraph) -> Iterable[tuple[str, str]]:
             yield nid, t
 
 
-def emit_rls_edges(graph: nx.DiGraph) -> int:
-    migration_files = _find_migration_files(graph)
+def emit_rls_edges(graph: nx.DiGraph, *, repo_root: Optional[Path] = None) -> int:
+    migration_files = _find_migration_files(graph, repo_root=repo_root)
     tables = build_table_model(migration_files)
 
     graph.graph.setdefault("run_metadata", {})
@@ -150,7 +158,7 @@ def emit_rls_edges(graph: nx.DiGraph) -> int:
         graph.graph["run_metadata"]["needs_manual_rls_config"] = True
 
     added = 0
-    for handler_id, table_name in _iter_route_table_pairs(graph):
+    for handler_id, table_name in _iter_route_table_pairs(graph, repo_root=repo_root):
         coverage = classify(tables.get(table_name))
         attrs = graph.nodes[handler_id]
         per_table = attrs.setdefault("rls_coverage_per_table", {})

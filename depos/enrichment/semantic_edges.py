@@ -122,12 +122,13 @@ def _discover_rls_policy_nodes(graph: nx.DiGraph) -> int:
     return count
 
 
-def _discover_migration_files(graph: nx.DiGraph, glob: str) -> int:
+def _discover_migration_files(graph: nx.DiGraph, glob: str, repo_root: Optional[Path] = None) -> int:
     """Count migration files present in the graph (via source_file) AND on
     disk at the configured glob. We report the on-disk number so the
     coverage report reflects what Module 1 can actually sequence over.
     """
-    on_disk = sorted(Path().glob(glob))
+    base = repo_root or Path()
+    on_disk = sorted(base.glob(glob))
     return len(on_disk)
 
 
@@ -135,6 +136,7 @@ def compute_coverage(
     graph: nx.DiGraph,
     *,
     config: IntelligenceConfig,
+    repo_root: Optional[Path] = None,
 ) -> StitcherCoverageReport:
     routes = list(iter_fastapi_route_nodes(graph))
     total = len(routes)
@@ -159,7 +161,7 @@ def compute_coverage(
         coverage_ratio=round(ratio, 4),
         low_coverage=total > 0 and ratio < config.low_stitcher_coverage_threshold,
         rls_nodes_found=_discover_rls_policy_nodes(graph),
-        migration_files_found=_discover_migration_files(graph, config.migration_glob),
+        migration_files_found=_discover_migration_files(graph, config.migration_glob, repo_root),
     )
     return report
 
@@ -176,6 +178,8 @@ def enrich_graph(
     Graceful degradation: each probe catches its own errors so a bug in one
     does not prevent the others from running.
     """
+    graph.graph["migration_glob"] = config.migration_glob
+
     # 1. HTTP probes (annotate nodes)
     try:
         annotate_fastapi_routes(graph, repo_root=repo_root)
@@ -197,7 +201,7 @@ def enrich_graph(
     try:
         from depos.enrichment.rls_resolver import emit_rls_edges
 
-        emit_rls_edges(graph)
+        emit_rls_edges(graph, repo_root=repo_root)
     except ImportError:
         pass
     except Exception:  # noqa: BLE001
@@ -206,7 +210,7 @@ def enrich_graph(
     try:
         from depos.enrichment.migrations import emit_migration_edges
 
-        emit_migration_edges(graph, config=config)
+        emit_migration_edges(graph, config=config, repo_root=repo_root)
     except ImportError:
         pass
     except Exception:  # noqa: BLE001
@@ -215,13 +219,13 @@ def enrich_graph(
     try:
         from depos.enrichment.celery_payload import emit_celery_payload_edges
 
-        emit_celery_payload_edges(graph)
+        emit_celery_payload_edges(graph, repo_root=repo_root)
     except ImportError:
         pass
     except Exception:  # noqa: BLE001
         pass
 
-    coverage = compute_coverage(graph, config=config)
+    coverage = compute_coverage(graph, config=config, repo_root=repo_root)
     # Expose run-level metadata so downstream modules / CLI can read flags.
     graph.graph.setdefault("run_metadata", {})
     graph.graph["run_metadata"]["low_stitcher_coverage"] = coverage.low_coverage

@@ -80,6 +80,10 @@ class IntelligenceConfig(BaseModel):
     # Replay
     replay_stale_threshold_days: int = 7
 
+    # Module 2 optional expansion: lexical/heuristic AI-style seeds until a
+    # real embedding model is wired in.
+    enable_ai_driven_seeds: bool = False
+
     # Branch ref for migration branch-state resolution. ``None`` means "HEAD".
     branch_ref: Optional[str] = None
 

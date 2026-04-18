@@ -33,11 +33,13 @@ from depos.analysis.verifier import verify_all
 def _build_ranker_input(candidate, bundle) -> RankerInput:
     cross_lang = len(bundle.cross_language_seams)
     changed_nodes = len(candidate.diff_anchors) + len([c for c in bundle.call_chain_in if c.get("depth", 0) == 1])
+    unresolved = int(candidate.extra.get("unresolved_symbol_count", 0))
+    removed_refs = int(candidate.extra.get("removed_entity_references", 0))
     features = RankerDiffFeatures(
         changed_nodes_on_path=changed_nodes,
         cross_lang_seams_on_path=cross_lang,
-        unresolved_symbols=0,
-        removed_entities_referenced=0,
+        unresolved_symbols=unresolved,
+        removed_entities_referenced=removed_refs,
     )
     return RankerInput(
         candidate_id=candidate.candidate_id,
@@ -120,6 +122,7 @@ def run_modules_2_through_7(
         config=config,
         run_id=run_meta.run_id,
         run_low_stitcher_coverage=run_meta.low_stitcher_coverage,
+        graph=graph,
     )
     persist_gray_zone(gray_rows, config=config, run_id=run_meta.run_id)
 

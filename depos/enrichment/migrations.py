@@ -40,8 +40,9 @@ _DROP_TABLE = re.compile(
 )
 
 
-def _find_migrations(config: IntelligenceConfig) -> list[Path]:
-    return sorted(Path().glob(config.migration_glob))
+def _find_migrations(config: IntelligenceConfig, repo_root: Path | None = None) -> list[Path]:
+    base = repo_root or Path()
+    return sorted(base.glob(config.migration_glob))
 
 
 def _table_ops_in(text: str) -> list[tuple[str, str]]:
@@ -55,8 +56,13 @@ def _table_ops_in(text: str) -> list[tuple[str, str]]:
     return ops
 
 
-def emit_migration_edges(graph: nx.DiGraph, *, config: IntelligenceConfig) -> int:
-    migrations = _find_migrations(config)
+def emit_migration_edges(
+    graph: nx.DiGraph,
+    *,
+    config: IntelligenceConfig,
+    repo_root: Path | None = None,
+) -> int:
+    migrations = _find_migrations(config, repo_root)
     if not migrations:
         return 0
 
