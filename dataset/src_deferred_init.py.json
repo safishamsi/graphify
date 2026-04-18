@@ -1,0 +1,3366 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:37+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:23:34:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:23:34:identifier:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:23:34:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:23:34:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:34:future_import_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:23:34:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:34:future_import_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:23:34:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:802:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:34:future_import_statement:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:802:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:34:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:43:54:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:43:54:identifier:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:43:54:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:43:54:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:38:71:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:43:54:dotted_name:4",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:38:71:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:43:54:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:62:71:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:62:71:identifier:5",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:62:71:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:62:71:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:38:71:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:62:71:dotted_name:6",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:38:71:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:62:71:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:802:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:38:71:import_from_statement:7",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:802:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:38:71:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:100:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:87:identifier:8",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:100:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:87:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:99:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:94:identifier:9",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:99:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:94:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:99:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:95:99:true:10",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:99:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:95:99:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:87:100:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:99:keyword_argument:11",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:87:100:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:99:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:100:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:87:100:argument_list:12",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:100:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:87:100:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:100:decorator->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:100:call:13",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:100:decorator",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:100:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:519:decorated_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:100:decorator:14",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:519:decorated_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:100:decorator",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:102:519:class_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:108:126:identifier:15",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:102:519:class_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:108:126:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:146:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:140:identifier:16",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:146:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:140:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:142:146:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:142:146:identifier:17",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:142:146:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:142:146:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:146:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:142:146:type:18",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:146:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:142:146:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:146:assignment:19",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:146:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:169:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:163:identifier:20",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:169:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:163:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:165:169:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:165:169:identifier:21",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:165:169:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:165:169:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:169:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:165:169:type:22",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:169:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:165:169:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:169:assignment:23",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:169:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:191:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:185:identifier:24",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:191:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:185:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:187:191:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:187:191:identifier:25",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:187:191:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:187:191:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:191:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:187:191:type:26",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:191:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:187:191:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:191:assignment:27",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:191:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:215:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:209:identifier:28",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:215:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:209:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:211:215:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:211:215:identifier:29",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:211:215:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:211:215:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:215:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:211:215:type:30",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:215:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:211:215:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:215:assignment:31",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:215:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:240:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:234:identifier:32",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:240:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:234:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:236:240:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:236:240:identifier:33",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:236:240:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:236:240:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:240:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:236:240:type:34",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:240:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:236:240:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:240:assignment:35",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:240:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:252:260:identifier:36",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:252:260:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:260:266:parameters->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:261:265:identifier:37",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:260:266:parameters",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:261:265:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:260:266:parameters:38",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:260:266:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:generic_type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:275:identifier:39",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:generic_type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:275:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:276:279:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:276:279:identifier:40",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:276:279:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:276:279:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:275:285:type_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:276:279:type:41",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:275:285:type_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:276:279:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:281:284:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:281:284:ellipsis:42",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:281:284:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:281:284:ellipsis",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:275:285:type_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:281:284:type:43",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:275:285:type_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:281:284:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:generic_type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:275:285:type_parameter:44",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:generic_type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:275:285:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:generic_type:45",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:type:46",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:320:string_start:47",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:320:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:320:334:string_content:48",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:320:334:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:351:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:339:identifier:49",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:351:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:339:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:351:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:340:351:identifier:50",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:351:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:340:351:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:334:352:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:351:attribute:51",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:334:352:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:351:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:334:352:interpolation:52",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:334:352:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:352:353:string_end:53",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:352:353:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string:54",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:370:string_start:55",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:370:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:370:383:string_content:56",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:370:383:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:399:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:388:identifier:57",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:399:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:388:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:399:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:389:399:identifier:58",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:399:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:389:399:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:383:400:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:399:attribute:59",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:383:400:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:399:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:383:400:interpolation:60",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:383:400:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:400:401:string_end:61",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:400:401:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string:62",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:418:string_start:63",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:418:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:418:433:string_content:64",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:418:433:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:451:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:438:identifier:65",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:451:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:438:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:451:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:439:451:identifier:66",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:451:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:439:451:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:433:452:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:451:attribute:67",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:433:452:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:451:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:433:452:interpolation:68",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:433:452:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:452:453:string_end:69",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:452:453:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string:70",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:470:string_start:71",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:470:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:470:486:string_content:72",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:470:486:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:505:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:491:identifier:73",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:505:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:491:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:505:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:492:505:identifier:74",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:505:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:492:505:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:486:506:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:505:attribute:75",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:486:506:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:505:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:486:506:interpolation:76",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:486:506:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:506:507:string_end:77",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:506:507:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string:78",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:return_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple:79",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:return_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:return_statement:80",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:block:81",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition:82",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:102:519:class_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block:83",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:102:519:class_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:519:decorated_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:102:519:class_definition:84",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:519:decorated_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:102:519:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:802:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:519:decorated_definition:85",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:802:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:519:decorated_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:529:546:identifier:86",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:529:546:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:560:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:554:identifier:87",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:560:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:554:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:556:560:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:556:560:identifier:88",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:556:560:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:556:560:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:560:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:556:560:type:89",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:560:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:556:560:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:546:561:parameters->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:560:typed_parameter:90",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:546:561:parameters",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:560:typed_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:546:561:parameters:91",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:546:561:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:565:583:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:565:583:identifier:92",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:565:583:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:565:583:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:565:583:type:93",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:565:583:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:613:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:597:identifier:94",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:613:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:597:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:613:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:604:identifier:95",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:613:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:604:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:604:613:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:605:612:identifier:96",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:604:613:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:605:612:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:613:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:604:613:argument_list:97",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:613:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:604:613:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:613:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:613:call:98",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:613:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:613:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:800:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:613:assignment:99",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:800:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:613:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:800:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:644:identifier:100",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:800:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:644:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:670:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:662:identifier:101",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:670:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:662:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:670:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:663:670:identifier:102",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:670:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:663:670:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:670:keyword_argument:103",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:670:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:700:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:692:identifier:104",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:700:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:692:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:700:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:693:700:identifier:105",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:700:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:693:700:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:700:keyword_argument:106",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:700:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:729:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:721:identifier:107",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:729:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:721:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:729:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:722:729:identifier:108",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:729:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:722:729:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:729:keyword_argument:109",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:729:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:760:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:752:identifier:110",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:760:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:752:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:760:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:753:760:identifier:111",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:760:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:753:760:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:760:keyword_argument:112",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:760:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:792:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:784:identifier:113",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:792:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:784:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:792:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:785:792:identifier:114",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:792:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:785:792:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:792:keyword_argument:115",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:792:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:800:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list:116",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:800:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:619:800:return_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:800:call:117",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:619:800:return_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:800:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:800:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:619:800:return_statement:118",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:800:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:619:800:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:800:block:119",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:800:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:802:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition:120",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:802:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:23:34:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:23:34:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:23:34:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:23:34:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:34:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:43:54:identifier",
+      "kind": "identifier",
+      "label": "dataclasses",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:43:54:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:43:54:dotted_name",
+      "kind": "dotted_name",
+      "label": "dataclasses",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:62:71:identifier",
+      "kind": "identifier",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 24,
+          "line": 3
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:62:71:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:62:71:dotted_name",
+      "kind": "dotted_name",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 24,
+          "line": 3
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:43:54:dotted_name",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:62:71:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:38:71:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from dataclasses import dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:87:identifier",
+      "kind": "identifier",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 6
+        },
+        "end_byte": 87,
+        "start": {
+          "column": 1,
+          "line": 6
+        },
+        "start_byte": 78
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:94:identifier",
+      "kind": "identifier",
+      "label": "frozen",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 6
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 88
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:95:99:true",
+      "kind": "true",
+      "label": "True",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 99,
+        "start": {
+          "column": 18,
+          "line": 6
+        },
+        "start_byte": 95
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:94:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:95:99:true"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:99:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "frozen=True",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 99,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 88
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:88:99:keyword_argument"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:87:100:argument_list",
+      "kind": "argument_list",
+      "label": "(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 10,
+          "line": 6
+        },
+        "start_byte": 87
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:87:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:87:100:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:100:call",
+      "kind": "call",
+      "label": "dataclass(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 1,
+          "line": 6
+        },
+        "start_byte": 78
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:78:100:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:100:decorator",
+      "kind": "decorator",
+      "label": "@dataclass(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:108:126:identifier",
+      "kind": "identifier",
+      "label": "DeferredInitResult",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 7
+        },
+        "end_byte": 126,
+        "start": {
+          "column": 6,
+          "line": 7
+        },
+        "start_byte": 108
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:140:identifier",
+      "kind": "identifier",
+      "label": "trusted",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 8
+        },
+        "end_byte": 140,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 133
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:142:146:identifier",
+      "kind": "identifier",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 8
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 13,
+          "line": 8
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:142:146:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:142:146:type",
+      "kind": "type",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 8
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 13,
+          "line": 8
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:140:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:142:146:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:146:assignment",
+      "kind": "assignment",
+      "label": "trusted: bool",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 8
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 133
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:163:identifier",
+      "kind": "identifier",
+      "label": "plugin_init",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 9
+        },
+        "end_byte": 163,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 152
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:165:169:identifier",
+      "kind": "identifier",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 9
+        },
+        "end_byte": 169,
+        "start": {
+          "column": 17,
+          "line": 9
+        },
+        "start_byte": 165
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:165:169:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:165:169:type",
+      "kind": "type",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 9
+        },
+        "end_byte": 169,
+        "start": {
+          "column": 17,
+          "line": 9
+        },
+        "start_byte": 165
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:163:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:165:169:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:169:assignment",
+      "kind": "assignment",
+      "label": "plugin_init: bool",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 9
+        },
+        "end_byte": 169,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 152
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:185:identifier",
+      "kind": "identifier",
+      "label": "skill_init",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 10
+        },
+        "end_byte": 185,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 175
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:187:191:identifier",
+      "kind": "identifier",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 10
+        },
+        "end_byte": 191,
+        "start": {
+          "column": 16,
+          "line": 10
+        },
+        "start_byte": 187
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:187:191:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:187:191:type",
+      "kind": "type",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 10
+        },
+        "end_byte": 191,
+        "start": {
+          "column": 16,
+          "line": 10
+        },
+        "start_byte": 187
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:185:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:187:191:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:191:assignment",
+      "kind": "assignment",
+      "label": "skill_init: bool",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 10
+        },
+        "end_byte": 191,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 175
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:209:identifier",
+      "kind": "identifier",
+      "label": "mcp_prefetch",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 11
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 197
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:211:215:identifier",
+      "kind": "identifier",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 11
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 18,
+          "line": 11
+        },
+        "start_byte": 211
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:211:215:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:211:215:type",
+      "kind": "type",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 11
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 18,
+          "line": 11
+        },
+        "start_byte": 211
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:209:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:211:215:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:215:assignment",
+      "kind": "assignment",
+      "label": "mcp_prefetch: bool",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 11
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 197
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:234:identifier",
+      "kind": "identifier",
+      "label": "session_hooks",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 12
+        },
+        "end_byte": 234,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 221
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:236:240:identifier",
+      "kind": "identifier",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 12
+        },
+        "end_byte": 240,
+        "start": {
+          "column": 19,
+          "line": 12
+        },
+        "start_byte": 236
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:236:240:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:236:240:type",
+      "kind": "type",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 12
+        },
+        "end_byte": 240,
+        "start": {
+          "column": 19,
+          "line": 12
+        },
+        "start_byte": 236
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:234:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:236:240:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:240:assignment",
+      "kind": "assignment",
+      "label": "session_hooks: bool",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 12
+        },
+        "end_byte": 240,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 221
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:252:260:identifier",
+      "kind": "identifier",
+      "label": "as_lines",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 14
+        },
+        "end_byte": 260,
+        "start": {
+          "column": 8,
+          "line": 14
+        },
+        "start_byte": 252
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:261:265:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 14
+        },
+        "end_byte": 265,
+        "start": {
+          "column": 17,
+          "line": 14
+        },
+        "start_byte": 261
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:261:265:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:260:266:parameters",
+      "kind": "parameters",
+      "label": "(self)",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 14
+        },
+        "end_byte": 266,
+        "start": {
+          "column": 16,
+          "line": 14
+        },
+        "start_byte": 260
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:275:identifier",
+      "kind": "identifier",
+      "label": "tuple",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 14
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 26,
+          "line": 14
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:276:279:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 14
+        },
+        "end_byte": 279,
+        "start": {
+          "column": 32,
+          "line": 14
+        },
+        "start_byte": 276
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:276:279:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:276:279:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 14
+        },
+        "end_byte": 279,
+        "start": {
+          "column": 32,
+          "line": 14
+        },
+        "start_byte": 276
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:281:284:ellipsis",
+      "kind": "ellipsis",
+      "label": "...",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 14
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 37,
+          "line": 14
+        },
+        "start_byte": 281
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:281:284:ellipsis"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:281:284:type",
+      "kind": "type",
+      "label": "...",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 14
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 37,
+          "line": 14
+        },
+        "start_byte": 281
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:276:279:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:281:284:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:275:285:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str, ...]",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 285,
+        "start": {
+          "column": 31,
+          "line": 14
+        },
+        "start_byte": 275
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:275:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:275:285:type_parameter"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:generic_type",
+      "kind": "generic_type",
+      "label": "tuple[str, ...]",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 285,
+        "start": {
+          "column": 26,
+          "line": 14
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:generic_type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:type",
+      "kind": "type",
+      "label": "tuple[str, ...]",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 285,
+        "start": {
+          "column": 26,
+          "line": 14
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:320:string_start",
+      "kind": "string_start",
+      "label": "f'",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 16
+        },
+        "end_byte": 320,
+        "start": {
+          "column": 12,
+          "line": 16
+        },
+        "start_byte": 318
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:320:334:string_content",
+      "kind": "string_content",
+      "label": "- plugin_init=",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 16
+        },
+        "end_byte": 334,
+        "start": {
+          "column": 14,
+          "line": 16
+        },
+        "start_byte": 320
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:339:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 16
+        },
+        "end_byte": 339,
+        "start": {
+          "column": 29,
+          "line": 16
+        },
+        "start_byte": 335
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:340:351:identifier",
+      "kind": "identifier",
+      "label": "plugin_init",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 16
+        },
+        "end_byte": 351,
+        "start": {
+          "column": 34,
+          "line": 16
+        },
+        "start_byte": 340
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:339:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:340:351:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:351:attribute",
+      "kind": "attribute",
+      "label": "self.plugin_init",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 16
+        },
+        "end_byte": 351,
+        "start": {
+          "column": 29,
+          "line": 16
+        },
+        "start_byte": 335
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:335:351:attribute"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:334:352:interpolation",
+      "kind": "interpolation",
+      "label": "{self.plugin_init}",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 16
+        },
+        "end_byte": 352,
+        "start": {
+          "column": 28,
+          "line": 16
+        },
+        "start_byte": 334
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:352:353:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 16
+        },
+        "end_byte": 353,
+        "start": {
+          "column": 46,
+          "line": 16
+        },
+        "start_byte": 352
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:320:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:320:334:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:334:352:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:352:353:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string",
+      "kind": "string",
+      "label": "f'- plugin_init={self.plugin_init}'",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 16
+        },
+        "end_byte": 353,
+        "start": {
+          "column": 12,
+          "line": 16
+        },
+        "start_byte": 318
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:370:string_start",
+      "kind": "string_start",
+      "label": "f'",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 17
+        },
+        "end_byte": 370,
+        "start": {
+          "column": 12,
+          "line": 17
+        },
+        "start_byte": 368
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:370:383:string_content",
+      "kind": "string_content",
+      "label": "- skill_init=",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 17
+        },
+        "end_byte": 383,
+        "start": {
+          "column": 14,
+          "line": 17
+        },
+        "start_byte": 370
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:388:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 17
+        },
+        "end_byte": 388,
+        "start": {
+          "column": 28,
+          "line": 17
+        },
+        "start_byte": 384
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:389:399:identifier",
+      "kind": "identifier",
+      "label": "skill_init",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 17
+        },
+        "end_byte": 399,
+        "start": {
+          "column": 33,
+          "line": 17
+        },
+        "start_byte": 389
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:388:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:389:399:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:399:attribute",
+      "kind": "attribute",
+      "label": "self.skill_init",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 17
+        },
+        "end_byte": 399,
+        "start": {
+          "column": 28,
+          "line": 17
+        },
+        "start_byte": 384
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:384:399:attribute"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:383:400:interpolation",
+      "kind": "interpolation",
+      "label": "{self.skill_init}",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 17
+        },
+        "end_byte": 400,
+        "start": {
+          "column": 27,
+          "line": 17
+        },
+        "start_byte": 383
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:400:401:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 17
+        },
+        "end_byte": 401,
+        "start": {
+          "column": 44,
+          "line": 17
+        },
+        "start_byte": 400
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:370:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:370:383:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:383:400:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:400:401:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string",
+      "kind": "string",
+      "label": "f'- skill_init={self.skill_init}'",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 17
+        },
+        "end_byte": 401,
+        "start": {
+          "column": 12,
+          "line": 17
+        },
+        "start_byte": 368
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:418:string_start",
+      "kind": "string_start",
+      "label": "f'",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 18
+        },
+        "end_byte": 418,
+        "start": {
+          "column": 12,
+          "line": 18
+        },
+        "start_byte": 416
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:418:433:string_content",
+      "kind": "string_content",
+      "label": "- mcp_prefetch=",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 18
+        },
+        "end_byte": 433,
+        "start": {
+          "column": 14,
+          "line": 18
+        },
+        "start_byte": 418
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:438:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 18
+        },
+        "end_byte": 438,
+        "start": {
+          "column": 30,
+          "line": 18
+        },
+        "start_byte": 434
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:439:451:identifier",
+      "kind": "identifier",
+      "label": "mcp_prefetch",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 18
+        },
+        "end_byte": 451,
+        "start": {
+          "column": 35,
+          "line": 18
+        },
+        "start_byte": 439
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:438:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:439:451:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:451:attribute",
+      "kind": "attribute",
+      "label": "self.mcp_prefetch",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 18
+        },
+        "end_byte": 451,
+        "start": {
+          "column": 30,
+          "line": 18
+        },
+        "start_byte": 434
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:434:451:attribute"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:433:452:interpolation",
+      "kind": "interpolation",
+      "label": "{self.mcp_prefetch}",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 18
+        },
+        "end_byte": 452,
+        "start": {
+          "column": 29,
+          "line": 18
+        },
+        "start_byte": 433
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:452:453:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 18
+        },
+        "end_byte": 453,
+        "start": {
+          "column": 48,
+          "line": 18
+        },
+        "start_byte": 452
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:418:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:418:433:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:433:452:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:452:453:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string",
+      "kind": "string",
+      "label": "f'- mcp_prefetch={self.mcp_prefetch}'",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 18
+        },
+        "end_byte": 453,
+        "start": {
+          "column": 12,
+          "line": 18
+        },
+        "start_byte": 416
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:470:string_start",
+      "kind": "string_start",
+      "label": "f'",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 19
+        },
+        "end_byte": 470,
+        "start": {
+          "column": 12,
+          "line": 19
+        },
+        "start_byte": 468
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:470:486:string_content",
+      "kind": "string_content",
+      "label": "- session_hooks=",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 19
+        },
+        "end_byte": 486,
+        "start": {
+          "column": 14,
+          "line": 19
+        },
+        "start_byte": 470
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:491:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 19
+        },
+        "end_byte": 491,
+        "start": {
+          "column": 31,
+          "line": 19
+        },
+        "start_byte": 487
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:492:505:identifier",
+      "kind": "identifier",
+      "label": "session_hooks",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 19
+        },
+        "end_byte": 505,
+        "start": {
+          "column": 36,
+          "line": 19
+        },
+        "start_byte": 492
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:491:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:492:505:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:505:attribute",
+      "kind": "attribute",
+      "label": "self.session_hooks",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 19
+        },
+        "end_byte": 505,
+        "start": {
+          "column": 31,
+          "line": 19
+        },
+        "start_byte": 487
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:487:505:attribute"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:486:506:interpolation",
+      "kind": "interpolation",
+      "label": "{self.session_hooks}",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 19
+        },
+        "end_byte": 506,
+        "start": {
+          "column": 30,
+          "line": 19
+        },
+        "start_byte": 486
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:506:507:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 19
+        },
+        "end_byte": 507,
+        "start": {
+          "column": 50,
+          "line": 19
+        },
+        "start_byte": 506
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:470:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:470:486:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:486:506:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:506:507:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string",
+      "kind": "string",
+      "label": "f'- session_hooks={self.session_hooks}'",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 19
+        },
+        "end_byte": 507,
+        "start": {
+          "column": 12,
+          "line": 19
+        },
+        "start_byte": 468
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:318:353:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:368:401:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:416:453:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:468:507:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple",
+      "kind": "tuple",
+      "label": "(\r\n            f'- plugin_init={self.plugin_init}',\r\n            f'- skill_init={self.skill_init}',\r\n            f'- mcp_prefetch={self.mcp_prefetch}',\r\n            f'- session_hooks={self.session_hoo",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 20
+        },
+        "end_byte": 519,
+        "start": {
+          "column": 15,
+          "line": 15
+        },
+        "start_byte": 303
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:303:519:tuple"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:return_statement",
+      "kind": "return_statement",
+      "label": "return (\r\n            f'- plugin_init={self.plugin_init}',\r\n            f'- skill_init={self.skill_init}',\r\n            f'- mcp_prefetch={self.mcp_prefetch}',\r\n            f'- session_hooks={self.sess",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 20
+        },
+        "end_byte": 519,
+        "start": {
+          "column": 8,
+          "line": 15
+        },
+        "start_byte": 296
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:return_statement"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:block",
+      "kind": "block",
+      "label": "return (\r\n            f'- plugin_init={self.plugin_init}',\r\n            f'- skill_init={self.skill_init}',\r\n            f'- mcp_prefetch={self.mcp_prefetch}',\r\n            f'- session_hooks={self.sess",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 20
+        },
+        "end_byte": 519,
+        "start": {
+          "column": 8,
+          "line": 15
+        },
+        "start_byte": 296
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:252:260:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:260:266:parameters",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:270:285:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:296:519:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition",
+      "kind": "function_definition",
+      "label": "def as_lines(self) -> tuple[str, ...]:\r\n        return (\r\n            f'- plugin_init={self.plugin_init}',\r\n            f'- skill_init={self.skill_init}',\r\n            f'- mcp_prefetch={self.mcp_prefe",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 20
+        },
+        "end_byte": 519,
+        "start": {
+          "column": 4,
+          "line": 14
+        },
+        "start_byte": 248
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:146:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:152:169:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:175:191:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:197:215:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:221:240:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:248:519:function_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block",
+      "kind": "block",
+      "label": "trusted: bool\r\n    plugin_init: bool\r\n    skill_init: bool\r\n    mcp_prefetch: bool\r\n    session_hooks: bool\r\n\r\n    def as_lines(self) -> tuple[str, ...]:\r\n        return (\r\n            f'- plugin_init",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 20
+        },
+        "end_byte": 519,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 133
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:108:126:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:133:519:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:102:519:class_definition",
+      "kind": "class_definition",
+      "label": "class DeferredInitResult:\r\n    trusted: bool\r\n    plugin_init: bool\r\n    skill_init: bool\r\n    mcp_prefetch: bool\r\n    session_hooks: bool\r\n\r\n    def as_lines(self) -> tuple[str, ...]:\r\n        return",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 20
+        },
+        "end_byte": 519,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 102
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:100:decorator",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:102:519:class_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:519:decorated_definition",
+      "kind": "decorated_definition",
+      "label": "@dataclass(frozen=True)\r\nclass DeferredInitResult:\r\n    trusted: bool\r\n    plugin_init: bool\r\n    skill_init: bool\r\n    mcp_prefetch: bool\r\n    session_hooks: bool\r\n\r\n    def as_lines(self) -> tuple[s",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 20
+        },
+        "end_byte": 519,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:529:546:identifier",
+      "kind": "identifier",
+      "label": "run_deferred_init",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 23
+        },
+        "end_byte": 546,
+        "start": {
+          "column": 4,
+          "line": 23
+        },
+        "start_byte": 529
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:554:identifier",
+      "kind": "identifier",
+      "label": "trusted",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 23
+        },
+        "end_byte": 554,
+        "start": {
+          "column": 22,
+          "line": 23
+        },
+        "start_byte": 547
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:556:560:identifier",
+      "kind": "identifier",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 23
+        },
+        "end_byte": 560,
+        "start": {
+          "column": 31,
+          "line": 23
+        },
+        "start_byte": 556
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:556:560:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:556:560:type",
+      "kind": "type",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 23
+        },
+        "end_byte": 560,
+        "start": {
+          "column": 31,
+          "line": 23
+        },
+        "start_byte": 556
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:554:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:556:560:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:560:typed_parameter",
+      "kind": "typed_parameter",
+      "label": "trusted: bool",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 23
+        },
+        "end_byte": 560,
+        "start": {
+          "column": 22,
+          "line": 23
+        },
+        "start_byte": 547
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:547:560:typed_parameter"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:546:561:parameters",
+      "kind": "parameters",
+      "label": "(trusted: bool)",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 23
+        },
+        "end_byte": 561,
+        "start": {
+          "column": 21,
+          "line": 23
+        },
+        "start_byte": 546
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:565:583:identifier",
+      "kind": "identifier",
+      "label": "DeferredInitResult",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 23
+        },
+        "end_byte": 583,
+        "start": {
+          "column": 40,
+          "line": 23
+        },
+        "start_byte": 565
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:565:583:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:565:583:type",
+      "kind": "type",
+      "label": "DeferredInitResult",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 23
+        },
+        "end_byte": 583,
+        "start": {
+          "column": 40,
+          "line": 23
+        },
+        "start_byte": 565
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:597:identifier",
+      "kind": "identifier",
+      "label": "enabled",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 24
+        },
+        "end_byte": 597,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 590
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:604:identifier",
+      "kind": "identifier",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 24
+        },
+        "end_byte": 604,
+        "start": {
+          "column": 14,
+          "line": 24
+        },
+        "start_byte": 600
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:605:612:identifier",
+      "kind": "identifier",
+      "label": "trusted",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 24
+        },
+        "end_byte": 612,
+        "start": {
+          "column": 19,
+          "line": 24
+        },
+        "start_byte": 605
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:605:612:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:604:613:argument_list",
+      "kind": "argument_list",
+      "label": "(trusted)",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 24
+        },
+        "end_byte": 613,
+        "start": {
+          "column": 18,
+          "line": 24
+        },
+        "start_byte": 604
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:604:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:604:613:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:613:call",
+      "kind": "call",
+      "label": "bool(trusted)",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 24
+        },
+        "end_byte": 613,
+        "start": {
+          "column": 14,
+          "line": 24
+        },
+        "start_byte": 600
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:597:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:600:613:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:613:assignment",
+      "kind": "assignment",
+      "label": "enabled = bool(trusted)",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 24
+        },
+        "end_byte": 613,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 590
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:644:identifier",
+      "kind": "identifier",
+      "label": "DeferredInitResult",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 25
+        },
+        "end_byte": 644,
+        "start": {
+          "column": 11,
+          "line": 25
+        },
+        "start_byte": 626
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:662:identifier",
+      "kind": "identifier",
+      "label": "trusted",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 26
+        },
+        "end_byte": 662,
+        "start": {
+          "column": 8,
+          "line": 26
+        },
+        "start_byte": 655
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:663:670:identifier",
+      "kind": "identifier",
+      "label": "trusted",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 26
+        },
+        "end_byte": 670,
+        "start": {
+          "column": 16,
+          "line": 26
+        },
+        "start_byte": 663
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:662:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:663:670:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:670:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "trusted=trusted",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 26
+        },
+        "end_byte": 670,
+        "start": {
+          "column": 8,
+          "line": 26
+        },
+        "start_byte": 655
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:692:identifier",
+      "kind": "identifier",
+      "label": "plugin_init",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 27
+        },
+        "end_byte": 692,
+        "start": {
+          "column": 8,
+          "line": 27
+        },
+        "start_byte": 681
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:693:700:identifier",
+      "kind": "identifier",
+      "label": "enabled",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 27
+        },
+        "end_byte": 700,
+        "start": {
+          "column": 20,
+          "line": 27
+        },
+        "start_byte": 693
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:692:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:693:700:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:700:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "plugin_init=enabled",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 27
+        },
+        "end_byte": 700,
+        "start": {
+          "column": 8,
+          "line": 27
+        },
+        "start_byte": 681
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:721:identifier",
+      "kind": "identifier",
+      "label": "skill_init",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 28
+        },
+        "end_byte": 721,
+        "start": {
+          "column": 8,
+          "line": 28
+        },
+        "start_byte": 711
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:722:729:identifier",
+      "kind": "identifier",
+      "label": "enabled",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 28
+        },
+        "end_byte": 729,
+        "start": {
+          "column": 19,
+          "line": 28
+        },
+        "start_byte": 722
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:721:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:722:729:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:729:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "skill_init=enabled",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 28
+        },
+        "end_byte": 729,
+        "start": {
+          "column": 8,
+          "line": 28
+        },
+        "start_byte": 711
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:752:identifier",
+      "kind": "identifier",
+      "label": "mcp_prefetch",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 29
+        },
+        "end_byte": 752,
+        "start": {
+          "column": 8,
+          "line": 29
+        },
+        "start_byte": 740
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:753:760:identifier",
+      "kind": "identifier",
+      "label": "enabled",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 29
+        },
+        "end_byte": 760,
+        "start": {
+          "column": 21,
+          "line": 29
+        },
+        "start_byte": 753
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:752:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:753:760:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:760:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "mcp_prefetch=enabled",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 29
+        },
+        "end_byte": 760,
+        "start": {
+          "column": 8,
+          "line": 29
+        },
+        "start_byte": 740
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:784:identifier",
+      "kind": "identifier",
+      "label": "session_hooks",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 30
+        },
+        "end_byte": 784,
+        "start": {
+          "column": 8,
+          "line": 30
+        },
+        "start_byte": 771
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:785:792:identifier",
+      "kind": "identifier",
+      "label": "enabled",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 30
+        },
+        "end_byte": 792,
+        "start": {
+          "column": 22,
+          "line": 30
+        },
+        "start_byte": 785
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:784:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:785:792:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:792:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "session_hooks=enabled",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 30
+        },
+        "end_byte": 792,
+        "start": {
+          "column": 8,
+          "line": 30
+        },
+        "start_byte": 771
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:655:670:keyword_argument",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:681:700:keyword_argument",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:711:729:keyword_argument",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:740:760:keyword_argument",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:771:792:keyword_argument"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list",
+      "kind": "argument_list",
+      "label": "(\r\n        trusted=trusted,\r\n        plugin_init=enabled,\r\n        skill_init=enabled,\r\n        mcp_prefetch=enabled,\r\n        session_hooks=enabled,\r\n    )",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 31
+        },
+        "end_byte": 800,
+        "start": {
+          "column": 29,
+          "line": 25
+        },
+        "start_byte": 644
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:644:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:644:800:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:800:call",
+      "kind": "call",
+      "label": "DeferredInitResult(\r\n        trusted=trusted,\r\n        plugin_init=enabled,\r\n        skill_init=enabled,\r\n        mcp_prefetch=enabled,\r\n        session_hooks=enabled,\r\n    )",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 31
+        },
+        "end_byte": 800,
+        "start": {
+          "column": 11,
+          "line": 25
+        },
+        "start_byte": 626
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:626:800:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:619:800:return_statement",
+      "kind": "return_statement",
+      "label": "return DeferredInitResult(\r\n        trusted=trusted,\r\n        plugin_init=enabled,\r\n        skill_init=enabled,\r\n        mcp_prefetch=enabled,\r\n        session_hooks=enabled,\r\n    )",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 31
+        },
+        "end_byte": 800,
+        "start": {
+          "column": 4,
+          "line": 25
+        },
+        "start_byte": 619
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:613:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:619:800:return_statement"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:800:block",
+      "kind": "block",
+      "label": "enabled = bool(trusted)\r\n    return DeferredInitResult(\r\n        trusted=trusted,\r\n        plugin_init=enabled,\r\n        skill_init=enabled,\r\n        mcp_prefetch=enabled,\r\n        session_hooks=enabl",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 31
+        },
+        "end_byte": 800,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 590
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:529:546:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:546:561:parameters",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:565:583:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:590:800:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition",
+      "kind": "function_definition",
+      "label": "def run_deferred_init(trusted: bool) -> DeferredInitResult:\r\n    enabled = bool(trusted)\r\n    return DeferredInitResult(\r\n        trusted=trusted,\r\n        plugin_init=enabled,\r\n        skill_init=ena",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 31
+        },
+        "end_byte": 800,
+        "start": {
+          "column": 0,
+          "line": 23
+        },
+        "start_byte": 525
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:34:future_import_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:38:71:import_from_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:77:519:decorated_definition",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:525:800:function_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/deferred_init.py:0:802:module",
+      "kind": "module",
+      "label": "from __future__ import annotations\r\n\r\nfrom dataclasses import dataclass\r\n\r\n\r\n@dataclass(frozen=True)\r\nclass DeferredInitResult:\r\n    trusted: bool\r\n    plugin_init: bool\r\n    skill_init: bool\r\n    mcp",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 32
+        },
+        "end_byte": 802,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/deferred_init.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}

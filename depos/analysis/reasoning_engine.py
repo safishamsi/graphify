@@ -101,8 +101,12 @@ class _HTTPProvider(ReasoningProvider):
 class GemmaProvider(_HTTPProvider):
     name = "gemma"
 
+    def __init__(self, url: Optional[str], *, model: str = "gemma-4"):
+        super().__init__(url)
+        self.model = model
+
     def _build_body(self, prompt: str, *, max_tokens: int) -> dict[str, Any]:
-        return {"prompt": prompt, "max_tokens": max_tokens, "format": "json"}
+        return {"model": self.model, "prompt": prompt, "max_tokens": max_tokens, "format": "json"}
 
     def _extract(self, data: Any) -> str:
         if isinstance(data, dict):
@@ -155,7 +159,7 @@ def get_provider(config: IntelligenceConfig, mode: ReasonerMode) -> ReasoningPro
         return OpenAIProvider(config.reasoner.openai_api_key)
     if name == "gemma":
         if config.reasoner.gemma_api_url:
-            return GemmaProvider(config.reasoner.gemma_api_url)
+            return GemmaProvider(config.reasoner.gemma_api_url, model=config.reasoner.gemma_model)
         return StubProvider(mode)
     if name == "ollama":
         return OllamaProvider(config.reasoner.ollama_host)
@@ -176,7 +180,12 @@ NEVER include natural language outside the JSON document.
 """
 
 
-def _render_prompt(mode: ReasonerMode, bundle: ContextBundle) -> str:
+def _render_prompt(
+    mode: ReasonerMode,
+    bundle: ContextBundle,
+    *,
+    graphcodebert_hint: Optional[dict[str, Any]] = None,
+) -> str:
     header = _PROMPT_HEAD
     body = {
         "candidate_id": bundle.candidate_id,
@@ -192,6 +201,8 @@ def _render_prompt(mode: ReasonerMode, bundle: ContextBundle) -> str:
             for s in bundle.code_snippets
         ],
     }
+    if graphcodebert_hint:
+        body["graphcodebert_hint"] = graphcodebert_hint
     return f"{header}\n```json\n{json.dumps(body, indent=2)}\n```"
 
 
@@ -227,14 +238,24 @@ def _queue_path(config: IntelligenceConfig, run_id: str) -> Path:
     return out / "reasoner_queue.jsonl"
 
 
-def _enqueue(config: IntelligenceConfig, run_id: str, bundle: ContextBundle, mode: ReasonerMode, ranking_phase: int) -> None:
+def _enqueue(
+    config: IntelligenceConfig,
+    run_id: str,
+    bundle: ContextBundle,
+    mode: ReasonerMode,
+    ranking_phase: int,
+    *,
+    graphcodebert_score: float = 0.0,
+    graphcodebert_pattern: str = "",
+) -> None:
     row = ReasonerQueueRow(
         bundle_id=bundle.bundle_id,
         candidate_id=bundle.candidate_id,
         mode=mode,
         evidence_pack={"data_reads": bundle.data_reads, "data_writes": bundle.data_writes},
         pack_manifest=bundle.pack_manifest,
-        graphcodebert_score=0.0,
+        graphcodebert_score=graphcodebert_score,
+        graphcodebert_pattern=graphcodebert_pattern,
         ranking_phase=ranking_phase,
         queued_at=datetime.now(tz=timezone.utc),
     )
@@ -249,9 +270,10 @@ def run_reasoner(
     config: IntelligenceConfig,
     run_id: str,
     ranking_phase: int = 0,
+    graphcodebert_hint: Optional[dict[str, Any]] = None,
 ) -> Optional[ModeAOutput | ModeBOutput | ModeCOutput]:
     provider = get_provider(config, mode)
-    prompt = _render_prompt(mode, bundle)
+    prompt = _render_prompt(mode, bundle, graphcodebert_hint=graphcodebert_hint)
     attempts = max(1, config.reasoner.max_retries + 1)
     last_error: Optional[Exception] = None
     for _ in range(attempts):
@@ -262,7 +284,15 @@ def run_reasoner(
             last_error = exc
             time.sleep(0.1)
     # Exhausted: enqueue for later replay.
-    _enqueue(config, run_id, bundle, mode, ranking_phase)
+    _enqueue(
+        config,
+        run_id,
+        bundle,
+        mode,
+        ranking_phase,
+        graphcodebert_score=float((graphcodebert_hint or {}).get("score", 0.0)),
+        graphcodebert_pattern=str((graphcodebert_hint or {}).get("pattern", "")),
+    )
     return None
 
 
@@ -272,10 +302,18 @@ def run_all_modes(
     config: IntelligenceConfig,
     run_id: str,
     ranking_phase: int = 0,
+    graphcodebert_hint: Optional[dict[str, Any]] = None,
 ) -> dict[ReasonerMode, Any]:
     out: dict[ReasonerMode, Any] = {}
     for mode in (ReasonerMode.A, ReasonerMode.B, ReasonerMode.C):
-        result = run_reasoner(bundle, mode=mode, config=config, run_id=run_id, ranking_phase=ranking_phase)
+        result = run_reasoner(
+            bundle,
+            mode=mode,
+            config=config,
+            run_id=run_id,
+            ranking_phase=ranking_phase,
+            graphcodebert_hint=graphcodebert_hint,
+        )
         if result is not None:
             out[mode] = result
     return out

@@ -1,0 +1,2229 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:51+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:68:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:68:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:3:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:68:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:3:65:string_content:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:68:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:3:65:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:68:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:65:68:string_end:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:68:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:65:68:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:68:string:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:68:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:95:106:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:95:106:identifier:4",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:95:106:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:95:106:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:72:106:future_import_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:95:106:dotted_name:5",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:72:106:future_import_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:95:106:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:72:106:future_import_statement:6",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:72:106:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:134:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:118:identifier:7",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:134:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:118:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:134:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:119:134:identifier:8",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:134:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:119:134:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:110:163:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:134:dotted_name:9",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:110:163:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:134:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:142:163:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:142:163:identifier:10",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:142:163:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:142:163:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:110:163:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:142:163:dotted_name:11",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:110:163:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:142:163:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:110:163:import_from_statement:12",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:110:163:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:209:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:176:identifier:13",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:209:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:176:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:209:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:200:identifier:14",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:209:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:200:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:208:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:202:string_start:15",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:208:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:202:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:208:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:202:207:string_content:16",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:208:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:202:207:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:208:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:207:208:string_end:17",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:208:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:207:208:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:200:209:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:208:string:18",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:200:209:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:208:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:209:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:200:209:argument_list:19",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:209:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:200:209:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:209:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:209:call:20",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:209:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:209:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:209:assignment:21",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:209:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:253:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:225:identifier:22",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:253:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:225:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:253:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:237:identifier:23",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:253:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:237:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:252:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:239:string_start:24",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:252:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:239:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:252:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:239:251:string_content:25",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:252:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:239:251:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:252:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:251:252:string_end:26",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:252:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:251:252:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:253:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:252:string:27",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:253:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:252:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:253:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:253:subscript:28",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:253:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:253:subscript",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:253:assignment:29",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:253:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:295:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:267:identifier:30",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:295:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:267:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:295:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:279:identifier:31",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:295:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:279:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:294:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:281:string_start:32",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:294:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:281:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:294:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:281:293:string_content:33",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:294:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:281:293:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:294:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:293:294:string_end:34",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:294:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:293:294:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:295:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:294:string:35",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:295:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:294:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:295:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:295:subscript:36",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:295:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:295:subscript",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:295:assignment:37",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:295:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:344:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:309:identifier:38",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:344:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:309:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:344:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:317:identifier:39",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:344:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:317:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:343:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:327:identifier:40",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:343:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:327:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:342:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:329:string_start:41",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:342:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:329:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:342:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:329:341:string_content:42",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:342:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:329:341:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:342:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:341:342:string_end:43",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:342:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:341:342:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:343:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:342:string:44",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:343:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:342:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:317:344:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:343:subscript:45",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:317:344:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:343:subscript",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:344:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:317:344:argument_list:46",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:344:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:317:344:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:344:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:344:call:47",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:344:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:344:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:344:assignment:48",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:344:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:459:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:358:identifier:49",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:459:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:358:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:363:string_start:50",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:363:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:363:395:string_content:51",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:363:395:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:395:409:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:396:408:identifier:52",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:395:409:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:396:408:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:395:409:interpolation:53",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:395:409:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:409:416:string_content:54",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:409:416:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:416:430:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:417:429:identifier:55",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:416:430:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:417:429:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:416:430:interpolation:56",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:416:430:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:430:458:string_content:57",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:430:458:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:458:459:string_end:58",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:458:459:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:459:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string:59",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:459:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:459:assignment:60",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:459:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:537:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:470:identifier:61",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:537:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:470:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:488:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:475:string_start:62",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:488:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:475:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:488:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:475:487:string_content:63",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:488:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:475:487:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:488:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:487:488:string_end:64",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:488:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:487:488:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:488:string:65",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:488:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:504:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:491:string_start:66",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:504:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:491:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:504:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:491:503:string_content:67",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:504:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:491:503:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:504:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:503:504:string_end:68",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:504:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:503:504:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:504:string:69",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:504:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:520:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:507:string_start:70",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:520:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:507:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:520:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:507:519:string_content:71",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:520:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:507:519:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:520:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:519:520:string_end:72",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:520:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:519:520:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:520:string:73",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:520:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:536:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:523:string_start:74",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:536:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:523:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:536:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:523:535:string_content:75",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:536:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:523:535:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:536:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:535:536:string_end:76",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:536:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:535:536:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:536:string:77",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:536:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:537:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list:78",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:537:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:537:assignment:79",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:537:assignment",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 1
+        },
+        "end_byte": 3,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:3:65:string_content",
+      "kind": "string_content",
+      "label": "Python package placeholder for the archived `voice` subsystem.",
+      "span": {
+        "end": {
+          "column": 65,
+          "line": 1
+        },
+        "end_byte": 65,
+        "start": {
+          "column": 3,
+          "line": 1
+        },
+        "start_byte": 3
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:65:68:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 68,
+          "line": 1
+        },
+        "end_byte": 68,
+        "start": {
+          "column": 65,
+          "line": 1
+        },
+        "start_byte": 65
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:3:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:3:65:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:65:68:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:68:string",
+      "kind": "string",
+      "label": "\"\"\"Python package placeholder for the archived `voice` subsystem.\"\"\"",
+      "span": {
+        "end": {
+          "column": 68,
+          "line": 1
+        },
+        "end_byte": 68,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:95:106:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 3
+        },
+        "end_byte": 106,
+        "start": {
+          "column": 23,
+          "line": 3
+        },
+        "start_byte": 95
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:95:106:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:95:106:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 3
+        },
+        "end_byte": 106,
+        "start": {
+          "column": 23,
+          "line": 3
+        },
+        "start_byte": 95
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:95:106:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:72:106:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 3
+        },
+        "end_byte": 106,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 72
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:118:identifier",
+      "kind": "identifier",
+      "label": "src",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 5
+        },
+        "end_byte": 118,
+        "start": {
+          "column": 5,
+          "line": 5
+        },
+        "start_byte": 115
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:119:134:identifier",
+      "kind": "identifier",
+      "label": "_archive_helper",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 134,
+        "start": {
+          "column": 9,
+          "line": 5
+        },
+        "start_byte": 119
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:118:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:119:134:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:134:dotted_name",
+      "kind": "dotted_name",
+      "label": "src._archive_helper",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 134,
+        "start": {
+          "column": 5,
+          "line": 5
+        },
+        "start_byte": 115
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:142:163:identifier",
+      "kind": "identifier",
+      "label": "load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 5
+        },
+        "end_byte": 163,
+        "start": {
+          "column": 32,
+          "line": 5
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:142:163:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:142:163:dotted_name",
+      "kind": "dotted_name",
+      "label": "load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 5
+        },
+        "end_byte": 163,
+        "start": {
+          "column": 32,
+          "line": 5
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:115:134:dotted_name",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:142:163:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:110:163:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from src._archive_helper import load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 5
+        },
+        "end_byte": 163,
+        "start": {
+          "column": 0,
+          "line": 5
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:176:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 7
+        },
+        "end_byte": 176,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 167
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:200:identifier",
+      "kind": "identifier",
+      "label": "load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 7
+        },
+        "end_byte": 200,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:202:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 7
+        },
+        "end_byte": 202,
+        "start": {
+          "column": 34,
+          "line": 7
+        },
+        "start_byte": 201
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:202:207:string_content",
+      "kind": "string_content",
+      "label": "voice",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 7
+        },
+        "end_byte": 207,
+        "start": {
+          "column": 35,
+          "line": 7
+        },
+        "start_byte": 202
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:207:208:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 7
+        },
+        "end_byte": 208,
+        "start": {
+          "column": 40,
+          "line": 7
+        },
+        "start_byte": 207
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:202:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:202:207:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:207:208:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:208:string",
+      "kind": "string",
+      "label": "\"voice\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 7
+        },
+        "end_byte": 208,
+        "start": {
+          "column": 34,
+          "line": 7
+        },
+        "start_byte": 201
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:201:208:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:200:209:argument_list",
+      "kind": "argument_list",
+      "label": "(\"voice\")",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 7
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 33,
+          "line": 7
+        },
+        "start_byte": 200
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:200:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:200:209:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:209:call",
+      "kind": "call",
+      "label": "load_archive_metadata(\"voice\")",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 7
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:176:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:179:209:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:209:assignment",
+      "kind": "assignment",
+      "label": "_SNAPSHOT = load_archive_metadata(\"voice\")",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 7
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 167
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:225:identifier",
+      "kind": "identifier",
+      "label": "ARCHIVE_NAME",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 9
+        },
+        "end_byte": 225,
+        "start": {
+          "column": 0,
+          "line": 9
+        },
+        "start_byte": 213
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:237:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 9
+        },
+        "end_byte": 237,
+        "start": {
+          "column": 15,
+          "line": 9
+        },
+        "start_byte": 228
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:239:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 9
+        },
+        "end_byte": 239,
+        "start": {
+          "column": 25,
+          "line": 9
+        },
+        "start_byte": 238
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:239:251:string_content",
+      "kind": "string_content",
+      "label": "archive_name",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 9
+        },
+        "end_byte": 251,
+        "start": {
+          "column": 26,
+          "line": 9
+        },
+        "start_byte": 239
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:251:252:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 9
+        },
+        "end_byte": 252,
+        "start": {
+          "column": 38,
+          "line": 9
+        },
+        "start_byte": 251
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:239:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:239:251:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:251:252:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:252:string",
+      "kind": "string",
+      "label": "\"archive_name\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 9
+        },
+        "end_byte": 252,
+        "start": {
+          "column": 25,
+          "line": 9
+        },
+        "start_byte": 238
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:237:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:238:252:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:253:subscript",
+      "kind": "subscript",
+      "label": "_SNAPSHOT[\"archive_name\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 9
+        },
+        "end_byte": 253,
+        "start": {
+          "column": 15,
+          "line": 9
+        },
+        "start_byte": 228
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:225:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:228:253:subscript"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:253:assignment",
+      "kind": "assignment",
+      "label": "ARCHIVE_NAME = _SNAPSHOT[\"archive_name\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 9
+        },
+        "end_byte": 253,
+        "start": {
+          "column": 0,
+          "line": 9
+        },
+        "start_byte": 213
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:267:identifier",
+      "kind": "identifier",
+      "label": "MODULE_COUNT",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 10
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 255
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:279:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 10
+        },
+        "end_byte": 279,
+        "start": {
+          "column": 15,
+          "line": 10
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:281:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 10
+        },
+        "end_byte": 281,
+        "start": {
+          "column": 25,
+          "line": 10
+        },
+        "start_byte": 280
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:281:293:string_content",
+      "kind": "string_content",
+      "label": "module_count",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 10
+        },
+        "end_byte": 293,
+        "start": {
+          "column": 26,
+          "line": 10
+        },
+        "start_byte": 281
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:293:294:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 10
+        },
+        "end_byte": 294,
+        "start": {
+          "column": 38,
+          "line": 10
+        },
+        "start_byte": 293
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:281:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:281:293:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:293:294:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:294:string",
+      "kind": "string",
+      "label": "\"module_count\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 10
+        },
+        "end_byte": 294,
+        "start": {
+          "column": 25,
+          "line": 10
+        },
+        "start_byte": 280
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:279:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:280:294:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:295:subscript",
+      "kind": "subscript",
+      "label": "_SNAPSHOT[\"module_count\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 295,
+        "start": {
+          "column": 15,
+          "line": 10
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:267:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:270:295:subscript"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:295:assignment",
+      "kind": "assignment",
+      "label": "MODULE_COUNT = _SNAPSHOT[\"module_count\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 295,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 255
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:309:identifier",
+      "kind": "identifier",
+      "label": "SAMPLE_FILES",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 11
+        },
+        "end_byte": 309,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 297
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:317:identifier",
+      "kind": "identifier",
+      "label": "tuple",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 11
+        },
+        "end_byte": 317,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 312
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:327:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 11
+        },
+        "end_byte": 327,
+        "start": {
+          "column": 21,
+          "line": 11
+        },
+        "start_byte": 318
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:329:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 11
+        },
+        "end_byte": 329,
+        "start": {
+          "column": 31,
+          "line": 11
+        },
+        "start_byte": 328
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:329:341:string_content",
+      "kind": "string_content",
+      "label": "sample_files",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 11
+        },
+        "end_byte": 341,
+        "start": {
+          "column": 32,
+          "line": 11
+        },
+        "start_byte": 329
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:341:342:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 11
+        },
+        "end_byte": 342,
+        "start": {
+          "column": 44,
+          "line": 11
+        },
+        "start_byte": 341
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:329:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:329:341:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:341:342:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:342:string",
+      "kind": "string",
+      "label": "\"sample_files\"",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 11
+        },
+        "end_byte": 342,
+        "start": {
+          "column": 31,
+          "line": 11
+        },
+        "start_byte": 328
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:327:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:328:342:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:343:subscript",
+      "kind": "subscript",
+      "label": "_SNAPSHOT[\"sample_files\"]",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 11
+        },
+        "end_byte": 343,
+        "start": {
+          "column": 21,
+          "line": 11
+        },
+        "start_byte": 318
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:318:343:subscript"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:317:344:argument_list",
+      "kind": "argument_list",
+      "label": "(_SNAPSHOT[\"sample_files\"])",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 11
+        },
+        "end_byte": 344,
+        "start": {
+          "column": 20,
+          "line": 11
+        },
+        "start_byte": 317
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:317:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:317:344:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:344:call",
+      "kind": "call",
+      "label": "tuple(_SNAPSHOT[\"sample_files\"])",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 11
+        },
+        "end_byte": 344,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 312
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:309:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:312:344:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:344:assignment",
+      "kind": "assignment",
+      "label": "SAMPLE_FILES = tuple(_SNAPSHOT[\"sample_files\"])",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 11
+        },
+        "end_byte": 344,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 297
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:358:identifier",
+      "kind": "identifier",
+      "label": "PORTING_NOTE",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 12
+        },
+        "end_byte": 358,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 346
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:363:string_start",
+      "kind": "string_start",
+      "label": "f\"",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 12
+        },
+        "end_byte": 363,
+        "start": {
+          "column": 15,
+          "line": 12
+        },
+        "start_byte": 361
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:363:395:string_content",
+      "kind": "string_content",
+      "label": "Python placeholder package for '",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 12
+        },
+        "end_byte": 395,
+        "start": {
+          "column": 17,
+          "line": 12
+        },
+        "start_byte": 363
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:396:408:identifier",
+      "kind": "identifier",
+      "label": "ARCHIVE_NAME",
+      "span": {
+        "end": {
+          "column": 62,
+          "line": 12
+        },
+        "end_byte": 408,
+        "start": {
+          "column": 50,
+          "line": 12
+        },
+        "start_byte": 396
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:396:408:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:395:409:interpolation",
+      "kind": "interpolation",
+      "label": "{ARCHIVE_NAME}",
+      "span": {
+        "end": {
+          "column": 63,
+          "line": 12
+        },
+        "end_byte": 409,
+        "start": {
+          "column": 49,
+          "line": 12
+        },
+        "start_byte": 395
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:409:416:string_content",
+      "kind": "string_content",
+      "label": "' with ",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 12
+        },
+        "end_byte": 416,
+        "start": {
+          "column": 63,
+          "line": 12
+        },
+        "start_byte": 409
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:417:429:identifier",
+      "kind": "identifier",
+      "label": "MODULE_COUNT",
+      "span": {
+        "end": {
+          "column": 83,
+          "line": 12
+        },
+        "end_byte": 429,
+        "start": {
+          "column": 71,
+          "line": 12
+        },
+        "start_byte": 417
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:417:429:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:416:430:interpolation",
+      "kind": "interpolation",
+      "label": "{MODULE_COUNT}",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 12
+        },
+        "end_byte": 430,
+        "start": {
+          "column": 70,
+          "line": 12
+        },
+        "start_byte": 416
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:430:458:string_content",
+      "kind": "string_content",
+      "label": " archived module references.",
+      "span": {
+        "end": {
+          "column": 112,
+          "line": 12
+        },
+        "end_byte": 458,
+        "start": {
+          "column": 84,
+          "line": 12
+        },
+        "start_byte": 430
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:458:459:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 113,
+          "line": 12
+        },
+        "end_byte": 459,
+        "start": {
+          "column": 112,
+          "line": 12
+        },
+        "start_byte": 458
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:363:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:363:395:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:395:409:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:409:416:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:416:430:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:430:458:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:458:459:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string",
+      "kind": "string",
+      "label": "f\"Python placeholder package for '{ARCHIVE_NAME}' with {MODULE_COUNT} archived module references.\"",
+      "span": {
+        "end": {
+          "column": 113,
+          "line": 12
+        },
+        "end_byte": 459,
+        "start": {
+          "column": 15,
+          "line": 12
+        },
+        "start_byte": 361
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:358:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:361:459:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:459:assignment",
+      "kind": "assignment",
+      "label": "PORTING_NOTE = f\"Python placeholder package for '{ARCHIVE_NAME}' with {MODULE_COUNT} archived module references.\"",
+      "span": {
+        "end": {
+          "column": 113,
+          "line": 12
+        },
+        "end_byte": 459,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 346
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:470:identifier",
+      "kind": "identifier",
+      "label": "__all__",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 14
+        },
+        "end_byte": 470,
+        "start": {
+          "column": 0,
+          "line": 14
+        },
+        "start_byte": 463
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:475:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 14
+        },
+        "end_byte": 475,
+        "start": {
+          "column": 11,
+          "line": 14
+        },
+        "start_byte": 474
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:475:487:string_content",
+      "kind": "string_content",
+      "label": "ARCHIVE_NAME",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 14
+        },
+        "end_byte": 487,
+        "start": {
+          "column": 12,
+          "line": 14
+        },
+        "start_byte": 475
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:487:488:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 488,
+        "start": {
+          "column": 24,
+          "line": 14
+        },
+        "start_byte": 487
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:475:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:475:487:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:487:488:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:488:string",
+      "kind": "string",
+      "label": "\"ARCHIVE_NAME\"",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 488,
+        "start": {
+          "column": 11,
+          "line": 14
+        },
+        "start_byte": 474
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:491:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 14
+        },
+        "end_byte": 491,
+        "start": {
+          "column": 27,
+          "line": 14
+        },
+        "start_byte": 490
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:491:503:string_content",
+      "kind": "string_content",
+      "label": "MODULE_COUNT",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 14
+        },
+        "end_byte": 503,
+        "start": {
+          "column": 28,
+          "line": 14
+        },
+        "start_byte": 491
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:503:504:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 504,
+        "start": {
+          "column": 40,
+          "line": 14
+        },
+        "start_byte": 503
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:491:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:491:503:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:503:504:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:504:string",
+      "kind": "string",
+      "label": "\"MODULE_COUNT\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 504,
+        "start": {
+          "column": 27,
+          "line": 14
+        },
+        "start_byte": 490
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:507:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 14
+        },
+        "end_byte": 507,
+        "start": {
+          "column": 43,
+          "line": 14
+        },
+        "start_byte": 506
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:507:519:string_content",
+      "kind": "string_content",
+      "label": "PORTING_NOTE",
+      "span": {
+        "end": {
+          "column": 56,
+          "line": 14
+        },
+        "end_byte": 519,
+        "start": {
+          "column": 44,
+          "line": 14
+        },
+        "start_byte": 507
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:519:520:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 14
+        },
+        "end_byte": 520,
+        "start": {
+          "column": 56,
+          "line": 14
+        },
+        "start_byte": 519
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:507:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:507:519:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:519:520:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:520:string",
+      "kind": "string",
+      "label": "\"PORTING_NOTE\"",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 14
+        },
+        "end_byte": 520,
+        "start": {
+          "column": 43,
+          "line": 14
+        },
+        "start_byte": 506
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:523:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 14
+        },
+        "end_byte": 523,
+        "start": {
+          "column": 59,
+          "line": 14
+        },
+        "start_byte": 522
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:523:535:string_content",
+      "kind": "string_content",
+      "label": "SAMPLE_FILES",
+      "span": {
+        "end": {
+          "column": 72,
+          "line": 14
+        },
+        "end_byte": 535,
+        "start": {
+          "column": 60,
+          "line": 14
+        },
+        "start_byte": 523
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:535:536:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 14
+        },
+        "end_byte": 536,
+        "start": {
+          "column": 72,
+          "line": 14
+        },
+        "start_byte": 535
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:523:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:523:535:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:535:536:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:536:string",
+      "kind": "string",
+      "label": "\"SAMPLE_FILES\"",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 14
+        },
+        "end_byte": 536,
+        "start": {
+          "column": 59,
+          "line": 14
+        },
+        "start_byte": 522
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:474:488:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:490:504:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:506:520:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:522:536:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list",
+      "kind": "list",
+      "label": "[\"ARCHIVE_NAME\", \"MODULE_COUNT\", \"PORTING_NOTE\", \"SAMPLE_FILES\"]",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 14
+        },
+        "end_byte": 537,
+        "start": {
+          "column": 10,
+          "line": 14
+        },
+        "start_byte": 473
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:470:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:473:537:list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:537:assignment",
+      "kind": "assignment",
+      "label": "__all__ = [\"ARCHIVE_NAME\", \"MODULE_COUNT\", \"PORTING_NOTE\", \"SAMPLE_FILES\"]",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 14
+        },
+        "end_byte": 537,
+        "start": {
+          "column": 0,
+          "line": 14
+        },
+        "start_byte": 463
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:68:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:72:106:future_import_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:110:163:import_from_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:167:209:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:213:253:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:255:295:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:297:344:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:346:459:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:463:537:assignment"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/voice/__init__.py:0:539:module",
+      "kind": "module",
+      "label": "\"\"\"Python package placeholder for the archived `voice` subsystem.\"\"\"\r\n\r\nfrom __future__ import annotations\r\n\r\nfrom src._archive_helper import load_archive_metadata\r\n\r\n_SNAPSHOT = load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 15
+        },
+        "end_byte": 539,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/voice/__init__.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}

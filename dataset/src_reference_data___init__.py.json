@@ -1,0 +1,147 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:49+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:76:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:76:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:3:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:76:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:3:73:string_content:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:76:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:3:73:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:76:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:73:76:string_end:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:76:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:73:76:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:78:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:76:string:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:78:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:76:string",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 1
+        },
+        "end_byte": 3,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:3:73:string_content",
+      "kind": "string_content",
+      "label": "Tracked snapshot metadata extracted from the local TypeScript archive.",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 1
+        },
+        "end_byte": 73,
+        "start": {
+          "column": 3,
+          "line": 1
+        },
+        "start_byte": 3
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:73:76:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 76,
+          "line": 1
+        },
+        "end_byte": 76,
+        "start": {
+          "column": 73,
+          "line": 1
+        },
+        "start_byte": 73
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:3:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:3:73:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:73:76:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:76:string",
+      "kind": "string",
+      "label": "\"\"\"Tracked snapshot metadata extracted from the local TypeScript archive.\"\"\"",
+      "span": {
+        "end": {
+          "column": 76,
+          "line": 1
+        },
+        "end_byte": 76,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:76:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/reference_data/__init__.py:0:78:module",
+      "kind": "module",
+      "label": "\"\"\"Tracked snapshot metadata extracted from the local TypeScript archive.\"\"\"\r\n",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 2
+        },
+        "end_byte": 78,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/reference_data/__init__.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}

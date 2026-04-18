@@ -1,0 +1,12 @@
+{
+  "artifact_kind": "ast_per_file",
+  "graph_kind": "ast",
+  "max_part_bytes": 52428800,
+  "part_count": 2,
+  "parts": [
+    "rust_crates_tools_src_lib.rs_part000.json",
+    "rust_crates_tools_src_lib.rs_part001.json"
+  ],
+  "relative_path": "rust/crates/tools/src/lib.rs",
+  "shard_format_version": 1
+}

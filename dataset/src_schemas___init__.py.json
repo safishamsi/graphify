@@ -1,0 +1,2229 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:49+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:70:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:70:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:3:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:70:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:3:67:string_content:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:70:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:3:67:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:70:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:67:70:string_end:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:70:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:67:70:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:70:string:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:70:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:97:108:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:97:108:identifier:4",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:97:108:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:97:108:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:74:108:future_import_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:97:108:dotted_name:5",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:74:108:future_import_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:97:108:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:74:108:future_import_statement:6",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:74:108:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:136:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:120:identifier:7",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:136:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:120:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:136:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:121:136:identifier:8",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:136:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:121:136:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:112:165:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:136:dotted_name:9",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:112:165:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:136:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:144:165:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:144:165:identifier:10",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:144:165:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:144:165:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:112:165:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:144:165:dotted_name:11",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:112:165:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:144:165:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:112:165:import_from_statement:12",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:112:165:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:213:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:178:identifier:13",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:213:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:178:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:213:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:202:identifier:14",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:213:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:202:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:212:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:204:string_start:15",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:212:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:204:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:212:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:204:211:string_content:16",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:212:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:204:211:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:212:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:211:212:string_end:17",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:212:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:211:212:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:202:213:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:212:string:18",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:202:213:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:212:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:213:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:202:213:argument_list:19",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:213:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:202:213:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:213:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:213:call:20",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:213:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:213:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:213:assignment:21",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:213:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:257:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:229:identifier:22",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:257:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:229:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:257:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:241:identifier:23",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:257:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:241:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:256:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:243:string_start:24",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:256:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:243:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:256:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:243:255:string_content:25",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:256:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:243:255:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:256:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:255:256:string_end:26",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:256:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:255:256:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:257:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:256:string:27",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:257:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:256:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:257:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:257:subscript:28",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:257:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:257:subscript",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:257:assignment:29",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:257:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:299:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:271:identifier:30",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:299:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:271:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:299:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:283:identifier:31",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:299:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:283:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:285:string_start:32",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:285:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:285:297:string_content:33",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:285:297:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:297:298:string_end:34",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:297:298:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:299:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:298:string:35",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:299:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:298:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:299:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:299:subscript:36",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:299:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:299:subscript",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:299:assignment:37",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:299:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:348:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:313:identifier:38",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:348:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:313:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:348:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:321:identifier:39",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:348:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:321:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:347:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:331:identifier:40",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:347:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:331:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:346:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:333:string_start:41",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:346:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:333:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:346:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:333:345:string_content:42",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:346:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:333:345:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:346:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:345:346:string_end:43",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:346:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:345:346:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:347:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:346:string:44",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:347:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:346:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:321:348:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:347:subscript:45",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:321:348:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:347:subscript",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:348:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:321:348:argument_list:46",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:348:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:321:348:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:348:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:348:call:47",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:348:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:348:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:348:assignment:48",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:348:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:463:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:362:identifier:49",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:463:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:362:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:367:string_start:50",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:367:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:367:399:string_content:51",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:367:399:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:399:413:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:400:412:identifier:52",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:399:413:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:400:412:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:399:413:interpolation:53",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:399:413:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:413:420:string_content:54",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:413:420:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:420:434:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:421:433:identifier:55",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:420:434:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:421:433:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:420:434:interpolation:56",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:420:434:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:434:462:string_content:57",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:434:462:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:462:463:string_end:58",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:462:463:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:463:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string:59",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:463:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:463:assignment:60",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:463:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:541:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:474:identifier:61",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:541:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:474:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:492:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:479:string_start:62",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:492:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:479:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:492:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:479:491:string_content:63",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:492:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:479:491:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:492:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:491:492:string_end:64",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:492:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:491:492:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:492:string:65",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:492:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:508:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:495:string_start:66",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:508:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:495:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:508:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:495:507:string_content:67",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:508:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:495:507:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:508:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:507:508:string_end:68",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:508:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:507:508:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:508:string:69",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:508:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:524:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:511:string_start:70",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:524:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:511:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:524:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:511:523:string_content:71",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:524:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:511:523:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:524:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:523:524:string_end:72",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:524:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:523:524:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:524:string:73",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:524:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:540:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:527:string_start:74",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:540:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:527:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:540:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:527:539:string_content:75",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:540:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:527:539:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:540:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:539:540:string_end:76",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:540:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:539:540:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:540:string:77",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:540:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:541:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list:78",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:541:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:541:assignment:79",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:541:assignment",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 1
+        },
+        "end_byte": 3,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:3:67:string_content",
+      "kind": "string_content",
+      "label": "Python package placeholder for the archived `schemas` subsystem.",
+      "span": {
+        "end": {
+          "column": 67,
+          "line": 1
+        },
+        "end_byte": 67,
+        "start": {
+          "column": 3,
+          "line": 1
+        },
+        "start_byte": 3
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:67:70:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 1
+        },
+        "end_byte": 70,
+        "start": {
+          "column": 67,
+          "line": 1
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:3:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:3:67:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:67:70:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:70:string",
+      "kind": "string",
+      "label": "\"\"\"Python package placeholder for the archived `schemas` subsystem.\"\"\"",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 1
+        },
+        "end_byte": 70,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:97:108:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 3
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 23,
+          "line": 3
+        },
+        "start_byte": 97
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:97:108:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:97:108:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 3
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 23,
+          "line": 3
+        },
+        "start_byte": 97
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:97:108:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:74:108:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 3
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 74
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:120:identifier",
+      "kind": "identifier",
+      "label": "src",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 5
+        },
+        "end_byte": 120,
+        "start": {
+          "column": 5,
+          "line": 5
+        },
+        "start_byte": 117
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:121:136:identifier",
+      "kind": "identifier",
+      "label": "_archive_helper",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 136,
+        "start": {
+          "column": 9,
+          "line": 5
+        },
+        "start_byte": 121
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:120:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:121:136:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:136:dotted_name",
+      "kind": "dotted_name",
+      "label": "src._archive_helper",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 136,
+        "start": {
+          "column": 5,
+          "line": 5
+        },
+        "start_byte": 117
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:144:165:identifier",
+      "kind": "identifier",
+      "label": "load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 5
+        },
+        "end_byte": 165,
+        "start": {
+          "column": 32,
+          "line": 5
+        },
+        "start_byte": 144
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:144:165:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:144:165:dotted_name",
+      "kind": "dotted_name",
+      "label": "load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 5
+        },
+        "end_byte": 165,
+        "start": {
+          "column": 32,
+          "line": 5
+        },
+        "start_byte": 144
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:117:136:dotted_name",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:144:165:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:112:165:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from src._archive_helper import load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 5
+        },
+        "end_byte": 165,
+        "start": {
+          "column": 0,
+          "line": 5
+        },
+        "start_byte": 112
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:178:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 7
+        },
+        "end_byte": 178,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:202:identifier",
+      "kind": "identifier",
+      "label": "load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 7
+        },
+        "end_byte": 202,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 181
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:204:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 7
+        },
+        "end_byte": 204,
+        "start": {
+          "column": 34,
+          "line": 7
+        },
+        "start_byte": 203
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:204:211:string_content",
+      "kind": "string_content",
+      "label": "schemas",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 7
+        },
+        "end_byte": 211,
+        "start": {
+          "column": 35,
+          "line": 7
+        },
+        "start_byte": 204
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:211:212:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 7
+        },
+        "end_byte": 212,
+        "start": {
+          "column": 42,
+          "line": 7
+        },
+        "start_byte": 211
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:204:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:204:211:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:211:212:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:212:string",
+      "kind": "string",
+      "label": "\"schemas\"",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 7
+        },
+        "end_byte": 212,
+        "start": {
+          "column": 34,
+          "line": 7
+        },
+        "start_byte": 203
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:203:212:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:202:213:argument_list",
+      "kind": "argument_list",
+      "label": "(\"schemas\")",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 7
+        },
+        "end_byte": 213,
+        "start": {
+          "column": 33,
+          "line": 7
+        },
+        "start_byte": 202
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:202:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:202:213:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:213:call",
+      "kind": "call",
+      "label": "load_archive_metadata(\"schemas\")",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 7
+        },
+        "end_byte": 213,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 181
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:178:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:181:213:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:213:assignment",
+      "kind": "assignment",
+      "label": "_SNAPSHOT = load_archive_metadata(\"schemas\")",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 7
+        },
+        "end_byte": 213,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:229:identifier",
+      "kind": "identifier",
+      "label": "ARCHIVE_NAME",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 9
+        },
+        "end_byte": 229,
+        "start": {
+          "column": 0,
+          "line": 9
+        },
+        "start_byte": 217
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:241:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 9
+        },
+        "end_byte": 241,
+        "start": {
+          "column": 15,
+          "line": 9
+        },
+        "start_byte": 232
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:243:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 9
+        },
+        "end_byte": 243,
+        "start": {
+          "column": 25,
+          "line": 9
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:243:255:string_content",
+      "kind": "string_content",
+      "label": "archive_name",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 9
+        },
+        "end_byte": 255,
+        "start": {
+          "column": 26,
+          "line": 9
+        },
+        "start_byte": 243
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:255:256:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 9
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 38,
+          "line": 9
+        },
+        "start_byte": 255
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:243:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:243:255:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:255:256:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:256:string",
+      "kind": "string",
+      "label": "\"archive_name\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 9
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 25,
+          "line": 9
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:241:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:242:256:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:257:subscript",
+      "kind": "subscript",
+      "label": "_SNAPSHOT[\"archive_name\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 9
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 15,
+          "line": 9
+        },
+        "start_byte": 232
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:229:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:232:257:subscript"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:257:assignment",
+      "kind": "assignment",
+      "label": "ARCHIVE_NAME = _SNAPSHOT[\"archive_name\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 9
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 0,
+          "line": 9
+        },
+        "start_byte": 217
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:271:identifier",
+      "kind": "identifier",
+      "label": "MODULE_COUNT",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 10
+        },
+        "end_byte": 271,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:283:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 10
+        },
+        "end_byte": 283,
+        "start": {
+          "column": 15,
+          "line": 10
+        },
+        "start_byte": 274
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:285:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 10
+        },
+        "end_byte": 285,
+        "start": {
+          "column": 25,
+          "line": 10
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:285:297:string_content",
+      "kind": "string_content",
+      "label": "module_count",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 10
+        },
+        "end_byte": 297,
+        "start": {
+          "column": 26,
+          "line": 10
+        },
+        "start_byte": 285
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:297:298:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 10
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 38,
+          "line": 10
+        },
+        "start_byte": 297
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:285:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:285:297:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:297:298:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:298:string",
+      "kind": "string",
+      "label": "\"module_count\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 10
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 25,
+          "line": 10
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:283:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:284:298:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:299:subscript",
+      "kind": "subscript",
+      "label": "_SNAPSHOT[\"module_count\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 299,
+        "start": {
+          "column": 15,
+          "line": 10
+        },
+        "start_byte": 274
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:271:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:274:299:subscript"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:299:assignment",
+      "kind": "assignment",
+      "label": "MODULE_COUNT = _SNAPSHOT[\"module_count\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 299,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:313:identifier",
+      "kind": "identifier",
+      "label": "SAMPLE_FILES",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 11
+        },
+        "end_byte": 313,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 301
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:321:identifier",
+      "kind": "identifier",
+      "label": "tuple",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 11
+        },
+        "end_byte": 321,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 316
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:331:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 11
+        },
+        "end_byte": 331,
+        "start": {
+          "column": 21,
+          "line": 11
+        },
+        "start_byte": 322
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:333:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 11
+        },
+        "end_byte": 333,
+        "start": {
+          "column": 31,
+          "line": 11
+        },
+        "start_byte": 332
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:333:345:string_content",
+      "kind": "string_content",
+      "label": "sample_files",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 11
+        },
+        "end_byte": 345,
+        "start": {
+          "column": 32,
+          "line": 11
+        },
+        "start_byte": 333
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:345:346:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 11
+        },
+        "end_byte": 346,
+        "start": {
+          "column": 44,
+          "line": 11
+        },
+        "start_byte": 345
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:333:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:333:345:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:345:346:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:346:string",
+      "kind": "string",
+      "label": "\"sample_files\"",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 11
+        },
+        "end_byte": 346,
+        "start": {
+          "column": 31,
+          "line": 11
+        },
+        "start_byte": 332
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:331:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:332:346:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:347:subscript",
+      "kind": "subscript",
+      "label": "_SNAPSHOT[\"sample_files\"]",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 11
+        },
+        "end_byte": 347,
+        "start": {
+          "column": 21,
+          "line": 11
+        },
+        "start_byte": 322
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:322:347:subscript"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:321:348:argument_list",
+      "kind": "argument_list",
+      "label": "(_SNAPSHOT[\"sample_files\"])",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 11
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 20,
+          "line": 11
+        },
+        "start_byte": 321
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:321:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:321:348:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:348:call",
+      "kind": "call",
+      "label": "tuple(_SNAPSHOT[\"sample_files\"])",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 11
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 316
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:313:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:316:348:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:348:assignment",
+      "kind": "assignment",
+      "label": "SAMPLE_FILES = tuple(_SNAPSHOT[\"sample_files\"])",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 11
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 301
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:362:identifier",
+      "kind": "identifier",
+      "label": "PORTING_NOTE",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 12
+        },
+        "end_byte": 362,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 350
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:367:string_start",
+      "kind": "string_start",
+      "label": "f\"",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 12
+        },
+        "end_byte": 367,
+        "start": {
+          "column": 15,
+          "line": 12
+        },
+        "start_byte": 365
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:367:399:string_content",
+      "kind": "string_content",
+      "label": "Python placeholder package for '",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 12
+        },
+        "end_byte": 399,
+        "start": {
+          "column": 17,
+          "line": 12
+        },
+        "start_byte": 367
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:400:412:identifier",
+      "kind": "identifier",
+      "label": "ARCHIVE_NAME",
+      "span": {
+        "end": {
+          "column": 62,
+          "line": 12
+        },
+        "end_byte": 412,
+        "start": {
+          "column": 50,
+          "line": 12
+        },
+        "start_byte": 400
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:400:412:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:399:413:interpolation",
+      "kind": "interpolation",
+      "label": "{ARCHIVE_NAME}",
+      "span": {
+        "end": {
+          "column": 63,
+          "line": 12
+        },
+        "end_byte": 413,
+        "start": {
+          "column": 49,
+          "line": 12
+        },
+        "start_byte": 399
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:413:420:string_content",
+      "kind": "string_content",
+      "label": "' with ",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 12
+        },
+        "end_byte": 420,
+        "start": {
+          "column": 63,
+          "line": 12
+        },
+        "start_byte": 413
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:421:433:identifier",
+      "kind": "identifier",
+      "label": "MODULE_COUNT",
+      "span": {
+        "end": {
+          "column": 83,
+          "line": 12
+        },
+        "end_byte": 433,
+        "start": {
+          "column": 71,
+          "line": 12
+        },
+        "start_byte": 421
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:421:433:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:420:434:interpolation",
+      "kind": "interpolation",
+      "label": "{MODULE_COUNT}",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 12
+        },
+        "end_byte": 434,
+        "start": {
+          "column": 70,
+          "line": 12
+        },
+        "start_byte": 420
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:434:462:string_content",
+      "kind": "string_content",
+      "label": " archived module references.",
+      "span": {
+        "end": {
+          "column": 112,
+          "line": 12
+        },
+        "end_byte": 462,
+        "start": {
+          "column": 84,
+          "line": 12
+        },
+        "start_byte": 434
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:462:463:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 113,
+          "line": 12
+        },
+        "end_byte": 463,
+        "start": {
+          "column": 112,
+          "line": 12
+        },
+        "start_byte": 462
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:367:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:367:399:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:399:413:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:413:420:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:420:434:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:434:462:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:462:463:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string",
+      "kind": "string",
+      "label": "f\"Python placeholder package for '{ARCHIVE_NAME}' with {MODULE_COUNT} archived module references.\"",
+      "span": {
+        "end": {
+          "column": 113,
+          "line": 12
+        },
+        "end_byte": 463,
+        "start": {
+          "column": 15,
+          "line": 12
+        },
+        "start_byte": 365
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:362:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:365:463:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:463:assignment",
+      "kind": "assignment",
+      "label": "PORTING_NOTE = f\"Python placeholder package for '{ARCHIVE_NAME}' with {MODULE_COUNT} archived module references.\"",
+      "span": {
+        "end": {
+          "column": 113,
+          "line": 12
+        },
+        "end_byte": 463,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 350
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:474:identifier",
+      "kind": "identifier",
+      "label": "__all__",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 14
+        },
+        "end_byte": 474,
+        "start": {
+          "column": 0,
+          "line": 14
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:479:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 14
+        },
+        "end_byte": 479,
+        "start": {
+          "column": 11,
+          "line": 14
+        },
+        "start_byte": 478
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:479:491:string_content",
+      "kind": "string_content",
+      "label": "ARCHIVE_NAME",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 14
+        },
+        "end_byte": 491,
+        "start": {
+          "column": 12,
+          "line": 14
+        },
+        "start_byte": 479
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:491:492:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 492,
+        "start": {
+          "column": 24,
+          "line": 14
+        },
+        "start_byte": 491
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:479:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:479:491:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:491:492:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:492:string",
+      "kind": "string",
+      "label": "\"ARCHIVE_NAME\"",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 492,
+        "start": {
+          "column": 11,
+          "line": 14
+        },
+        "start_byte": 478
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:495:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 14
+        },
+        "end_byte": 495,
+        "start": {
+          "column": 27,
+          "line": 14
+        },
+        "start_byte": 494
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:495:507:string_content",
+      "kind": "string_content",
+      "label": "MODULE_COUNT",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 14
+        },
+        "end_byte": 507,
+        "start": {
+          "column": 28,
+          "line": 14
+        },
+        "start_byte": 495
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:507:508:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 508,
+        "start": {
+          "column": 40,
+          "line": 14
+        },
+        "start_byte": 507
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:495:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:495:507:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:507:508:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:508:string",
+      "kind": "string",
+      "label": "\"MODULE_COUNT\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 508,
+        "start": {
+          "column": 27,
+          "line": 14
+        },
+        "start_byte": 494
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:511:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 14
+        },
+        "end_byte": 511,
+        "start": {
+          "column": 43,
+          "line": 14
+        },
+        "start_byte": 510
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:511:523:string_content",
+      "kind": "string_content",
+      "label": "PORTING_NOTE",
+      "span": {
+        "end": {
+          "column": 56,
+          "line": 14
+        },
+        "end_byte": 523,
+        "start": {
+          "column": 44,
+          "line": 14
+        },
+        "start_byte": 511
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:523:524:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 14
+        },
+        "end_byte": 524,
+        "start": {
+          "column": 56,
+          "line": 14
+        },
+        "start_byte": 523
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:511:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:511:523:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:523:524:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:524:string",
+      "kind": "string",
+      "label": "\"PORTING_NOTE\"",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 14
+        },
+        "end_byte": 524,
+        "start": {
+          "column": 43,
+          "line": 14
+        },
+        "start_byte": 510
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:527:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 14
+        },
+        "end_byte": 527,
+        "start": {
+          "column": 59,
+          "line": 14
+        },
+        "start_byte": 526
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:527:539:string_content",
+      "kind": "string_content",
+      "label": "SAMPLE_FILES",
+      "span": {
+        "end": {
+          "column": 72,
+          "line": 14
+        },
+        "end_byte": 539,
+        "start": {
+          "column": 60,
+          "line": 14
+        },
+        "start_byte": 527
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:539:540:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 14
+        },
+        "end_byte": 540,
+        "start": {
+          "column": 72,
+          "line": 14
+        },
+        "start_byte": 539
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:527:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:527:539:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:539:540:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:540:string",
+      "kind": "string",
+      "label": "\"SAMPLE_FILES\"",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 14
+        },
+        "end_byte": 540,
+        "start": {
+          "column": 59,
+          "line": 14
+        },
+        "start_byte": 526
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:478:492:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:494:508:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:510:524:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:526:540:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list",
+      "kind": "list",
+      "label": "[\"ARCHIVE_NAME\", \"MODULE_COUNT\", \"PORTING_NOTE\", \"SAMPLE_FILES\"]",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 14
+        },
+        "end_byte": 541,
+        "start": {
+          "column": 10,
+          "line": 14
+        },
+        "start_byte": 477
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:474:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:477:541:list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:541:assignment",
+      "kind": "assignment",
+      "label": "__all__ = [\"ARCHIVE_NAME\", \"MODULE_COUNT\", \"PORTING_NOTE\", \"SAMPLE_FILES\"]",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 14
+        },
+        "end_byte": 541,
+        "start": {
+          "column": 0,
+          "line": 14
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:70:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:74:108:future_import_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:112:165:import_from_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:169:213:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:217:257:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:259:299:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:301:348:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:350:463:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:467:541:assignment"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/schemas/__init__.py:0:543:module",
+      "kind": "module",
+      "label": "\"\"\"Python package placeholder for the archived `schemas` subsystem.\"\"\"\r\n\r\nfrom __future__ import annotations\r\n\r\nfrom src._archive_helper import load_archive_metadata\r\n\r\n_SNAPSHOT = load_archive_metada",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 15
+        },
+        "end_byte": 543,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/schemas/__init__.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}

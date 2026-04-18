@@ -1,0 +1,506 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:50+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:23:34:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:23:34:identifier:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:23:34:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:23:34:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:34:future_import_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:23:34:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:34:future_import_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:23:34:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:98:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:34:future_import_statement:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:98:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:34:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:48:relative_import->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:44:import_prefix:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:48:relative_import",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:44:import_prefix",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:44:48:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:44:48:identifier:4",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:44:48:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:44:48:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:48:relative_import->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:44:48:dotted_name:5",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:48:relative_import",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:44:48:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:38:67:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:48:relative_import:6",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:38:67:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:48:relative_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:56:67:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:56:67:identifier:7",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:56:67:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:56:67:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:38:67:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:56:67:dotted_name:8",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:38:67:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:56:67:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:98:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:38:67:import_from_statement:9",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:98:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:38:67:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:96:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:78:identifier:10",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:96:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:78:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:95:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:83:string_start:11",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:95:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:83:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:95:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:83:94:string_content:12",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:95:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:83:94:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:95:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:94:95:string_end:13",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:95:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:94:95:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:81:96:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:95:string:14",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:81:96:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:95:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:96:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:81:96:list:15",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:96:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:81:96:list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:98:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:96:assignment:16",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:98:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:96:assignment",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:23:34:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:23:34:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:23:34:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:23:34:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:34:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:44:import_prefix",
+      "kind": "import_prefix",
+      "label": ".",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 3
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:44:48:identifier",
+      "kind": "identifier",
+      "label": "task",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 3
+        },
+        "end_byte": 48,
+        "start": {
+          "column": 6,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:44:48:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:44:48:dotted_name",
+      "kind": "dotted_name",
+      "label": "task",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 3
+        },
+        "end_byte": 48,
+        "start": {
+          "column": 6,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:44:import_prefix",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:44:48:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:48:relative_import",
+      "kind": "relative_import",
+      "label": ".task",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 3
+        },
+        "end_byte": 48,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:56:67:identifier",
+      "kind": "identifier",
+      "label": "PortingTask",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 3
+        },
+        "end_byte": 67,
+        "start": {
+          "column": 18,
+          "line": 3
+        },
+        "start_byte": 56
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:56:67:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:56:67:dotted_name",
+      "kind": "dotted_name",
+      "label": "PortingTask",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 3
+        },
+        "end_byte": 67,
+        "start": {
+          "column": 18,
+          "line": 3
+        },
+        "start_byte": 56
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:43:48:relative_import",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:56:67:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:38:67:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from .task import PortingTask",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 3
+        },
+        "end_byte": 67,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:78:identifier",
+      "kind": "identifier",
+      "label": "__all__",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 5
+        },
+        "end_byte": 78,
+        "start": {
+          "column": 0,
+          "line": 5
+        },
+        "start_byte": 71
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:83:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 83,
+        "start": {
+          "column": 11,
+          "line": 5
+        },
+        "start_byte": 82
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:83:94:string_content",
+      "kind": "string_content",
+      "label": "PortingTask",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 5
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 12,
+          "line": 5
+        },
+        "start_byte": 83
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:94:95:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 95,
+        "start": {
+          "column": 23,
+          "line": 5
+        },
+        "start_byte": 94
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:83:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:83:94:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:94:95:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:95:string",
+      "kind": "string",
+      "label": "'PortingTask'",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 95,
+        "start": {
+          "column": 11,
+          "line": 5
+        },
+        "start_byte": 82
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:82:95:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:81:96:list",
+      "kind": "list",
+      "label": "['PortingTask']",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 5
+        },
+        "end_byte": 96,
+        "start": {
+          "column": 10,
+          "line": 5
+        },
+        "start_byte": 81
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:78:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:81:96:list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:96:assignment",
+      "kind": "assignment",
+      "label": "__all__ = ['PortingTask']",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 5
+        },
+        "end_byte": 96,
+        "start": {
+          "column": 0,
+          "line": 5
+        },
+        "start_byte": 71
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:34:future_import_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:38:67:import_from_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:71:96:assignment"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/task.py:0:98:module",
+      "kind": "module",
+      "label": "from __future__ import annotations\r\n\r\nfrom .task import PortingTask\r\n\r\n__all__ = ['PortingTask']\r\n",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 6
+        },
+        "end_byte": 98,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/task.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}

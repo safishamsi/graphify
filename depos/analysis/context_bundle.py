@@ -169,19 +169,26 @@ def _collect_migration_state(graph: nx.DiGraph) -> dict[str, MigrationState]:
 
 def _read_snippet_for(node_attrs: dict) -> Optional[CodeSnippet]:
     sf = node_attrs.get("source_file")
-    if not sf:
-        return None
-    try:
-        text = Path(sf).read_text(encoding="utf-8", errors="replace")
-    except OSError:
+    embedded_text = str(node_attrs.get("embedded_text") or node_attrs.get("label") or "").strip()
+    text = ""
+    if sf:
+        try:
+            text = Path(sf).read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            text = ""
+    if not sf and not embedded_text:
         return None
     start = int(node_attrs.get("start_line") or 0)
     end = int(node_attrs.get("end_line") or 0)
-    if start > 0 and end >= start:
+    if text and start > 0 and end >= start:
         lines = text.splitlines()
         snippet = "\n".join(lines[max(0, start - 1) : end])
-    else:
+    elif text:
         snippet = text
+    else:
+        snippet = embedded_text
+    if not snippet.strip():
+        return None
     return CodeSnippet(
         node_id=node_attrs.get("id", ""),
         source_file=sf,

@@ -1,0 +1,2229 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:40+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:75:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:75:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:3:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:75:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:3:72:string_content:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:75:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:3:72:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:75:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:72:75:string_end:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:75:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:72:75:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:75:string:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:75:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:102:113:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:102:113:identifier:4",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:102:113:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:102:113:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:79:113:future_import_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:102:113:dotted_name:5",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:79:113:future_import_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:102:113:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:79:113:future_import_statement:6",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:79:113:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:141:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:125:identifier:7",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:141:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:125:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:141:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:126:141:identifier:8",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:141:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:126:141:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:117:170:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:141:dotted_name:9",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:117:170:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:141:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:149:170:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:149:170:identifier:10",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:149:170:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:149:170:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:117:170:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:149:170:dotted_name:11",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:117:170:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:149:170:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:117:170:import_from_statement:12",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:117:170:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:223:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:183:identifier:13",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:223:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:183:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:223:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:207:identifier:14",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:223:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:207:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:222:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:209:string_start:15",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:222:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:209:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:222:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:209:221:string_content:16",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:222:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:209:221:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:222:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:221:222:string_end:17",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:222:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:221:222:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:207:223:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:222:string:18",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:207:223:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:222:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:223:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:207:223:argument_list:19",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:223:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:207:223:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:223:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:223:call:20",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:223:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:223:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:223:assignment:21",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:223:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:267:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:239:identifier:22",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:267:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:239:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:267:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:251:identifier:23",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:267:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:251:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:266:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:253:string_start:24",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:266:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:253:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:266:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:253:265:string_content:25",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:266:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:253:265:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:266:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:265:266:string_end:26",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:266:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:265:266:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:267:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:266:string:27",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:267:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:266:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:267:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:267:subscript:28",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:267:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:267:subscript",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:267:assignment:29",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:267:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:309:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:281:identifier:30",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:309:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:281:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:309:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:293:identifier:31",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:309:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:293:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:308:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:295:string_start:32",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:308:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:295:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:308:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:295:307:string_content:33",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:308:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:295:307:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:308:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:307:308:string_end:34",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:308:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:307:308:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:309:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:308:string:35",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:309:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:308:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:309:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:309:subscript:36",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:309:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:309:subscript",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:309:assignment:37",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:309:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:358:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:323:identifier:38",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:358:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:323:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:358:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:331:identifier:39",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:358:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:331:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:357:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:341:identifier:40",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:357:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:341:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:356:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:343:string_start:41",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:356:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:343:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:356:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:343:355:string_content:42",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:356:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:343:355:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:356:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:355:356:string_end:43",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:356:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:355:356:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:357:subscript->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:356:string:44",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:357:subscript",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:356:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:331:358:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:357:subscript:45",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:331:358:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:357:subscript",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:358:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:331:358:argument_list:46",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:358:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:331:358:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:358:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:358:call:47",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:358:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:358:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:358:assignment:48",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:358:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:473:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:372:identifier:49",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:473:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:372:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:377:string_start:50",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:377:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:377:409:string_content:51",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:377:409:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:409:423:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:410:422:identifier:52",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:409:423:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:410:422:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:409:423:interpolation:53",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:409:423:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:423:430:string_content:54",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:423:430:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:430:444:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:431:443:identifier:55",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:430:444:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:431:443:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:430:444:interpolation:56",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:430:444:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:444:472:string_content:57",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:444:472:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:472:473:string_end:58",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:472:473:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:473:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string:59",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:473:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:473:assignment:60",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:473:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:551:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:484:identifier:61",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:551:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:484:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:502:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:489:string_start:62",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:502:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:489:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:502:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:489:501:string_content:63",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:502:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:489:501:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:502:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:501:502:string_end:64",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:502:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:501:502:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:502:string:65",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:502:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:518:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:505:string_start:66",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:518:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:505:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:518:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:505:517:string_content:67",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:518:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:505:517:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:518:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:517:518:string_end:68",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:518:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:517:518:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:518:string:69",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:518:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:534:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:521:string_start:70",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:534:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:521:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:534:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:521:533:string_content:71",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:534:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:521:533:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:534:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:533:534:string_end:72",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:534:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:533:534:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:534:string:73",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:534:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:550:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:537:string_start:74",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:550:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:537:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:550:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:537:549:string_content:75",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:550:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:537:549:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:550:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:549:550:string_end:76",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:550:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:549:550:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:550:string:77",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:550:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:551:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list:78",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:551:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:551:assignment:79",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:551:assignment",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 1
+        },
+        "end_byte": 3,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:3:72:string_content",
+      "kind": "string_content",
+      "label": "Python package placeholder for the archived `outputStyles` subsystem.",
+      "span": {
+        "end": {
+          "column": 72,
+          "line": 1
+        },
+        "end_byte": 72,
+        "start": {
+          "column": 3,
+          "line": 1
+        },
+        "start_byte": 3
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:72:75:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 1
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 72,
+          "line": 1
+        },
+        "start_byte": 72
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:3:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:3:72:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:72:75:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:75:string",
+      "kind": "string",
+      "label": "\"\"\"Python package placeholder for the archived `outputStyles` subsystem.\"\"\"",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 1
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:102:113:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 3
+        },
+        "end_byte": 113,
+        "start": {
+          "column": 23,
+          "line": 3
+        },
+        "start_byte": 102
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:102:113:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:102:113:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 3
+        },
+        "end_byte": 113,
+        "start": {
+          "column": 23,
+          "line": 3
+        },
+        "start_byte": 102
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:102:113:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:79:113:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 3
+        },
+        "end_byte": 113,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 79
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:125:identifier",
+      "kind": "identifier",
+      "label": "src",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 5
+        },
+        "end_byte": 125,
+        "start": {
+          "column": 5,
+          "line": 5
+        },
+        "start_byte": 122
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:126:141:identifier",
+      "kind": "identifier",
+      "label": "_archive_helper",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 141,
+        "start": {
+          "column": 9,
+          "line": 5
+        },
+        "start_byte": 126
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:125:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:126:141:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:141:dotted_name",
+      "kind": "dotted_name",
+      "label": "src._archive_helper",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 141,
+        "start": {
+          "column": 5,
+          "line": 5
+        },
+        "start_byte": 122
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:149:170:identifier",
+      "kind": "identifier",
+      "label": "load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 5
+        },
+        "end_byte": 170,
+        "start": {
+          "column": 32,
+          "line": 5
+        },
+        "start_byte": 149
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:149:170:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:149:170:dotted_name",
+      "kind": "dotted_name",
+      "label": "load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 5
+        },
+        "end_byte": 170,
+        "start": {
+          "column": 32,
+          "line": 5
+        },
+        "start_byte": 149
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:122:141:dotted_name",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:149:170:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:117:170:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from src._archive_helper import load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 5
+        },
+        "end_byte": 170,
+        "start": {
+          "column": 0,
+          "line": 5
+        },
+        "start_byte": 117
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:183:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 7
+        },
+        "end_byte": 183,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 174
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:207:identifier",
+      "kind": "identifier",
+      "label": "load_archive_metadata",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 7
+        },
+        "end_byte": 207,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 186
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:209:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 7
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 34,
+          "line": 7
+        },
+        "start_byte": 208
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:209:221:string_content",
+      "kind": "string_content",
+      "label": "outputStyles",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 7
+        },
+        "end_byte": 221,
+        "start": {
+          "column": 35,
+          "line": 7
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:221:222:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 7
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 47,
+          "line": 7
+        },
+        "start_byte": 221
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:209:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:209:221:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:221:222:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:222:string",
+      "kind": "string",
+      "label": "\"outputStyles\"",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 7
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 34,
+          "line": 7
+        },
+        "start_byte": 208
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:208:222:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:207:223:argument_list",
+      "kind": "argument_list",
+      "label": "(\"outputStyles\")",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 7
+        },
+        "end_byte": 223,
+        "start": {
+          "column": 33,
+          "line": 7
+        },
+        "start_byte": 207
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:207:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:207:223:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:223:call",
+      "kind": "call",
+      "label": "load_archive_metadata(\"outputStyles\")",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 7
+        },
+        "end_byte": 223,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 186
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:183:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:186:223:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:223:assignment",
+      "kind": "assignment",
+      "label": "_SNAPSHOT = load_archive_metadata(\"outputStyles\")",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 7
+        },
+        "end_byte": 223,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 174
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:239:identifier",
+      "kind": "identifier",
+      "label": "ARCHIVE_NAME",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 9
+        },
+        "end_byte": 239,
+        "start": {
+          "column": 0,
+          "line": 9
+        },
+        "start_byte": 227
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:251:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 9
+        },
+        "end_byte": 251,
+        "start": {
+          "column": 15,
+          "line": 9
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:253:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 9
+        },
+        "end_byte": 253,
+        "start": {
+          "column": 25,
+          "line": 9
+        },
+        "start_byte": 252
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:253:265:string_content",
+      "kind": "string_content",
+      "label": "archive_name",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 9
+        },
+        "end_byte": 265,
+        "start": {
+          "column": 26,
+          "line": 9
+        },
+        "start_byte": 253
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:265:266:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 9
+        },
+        "end_byte": 266,
+        "start": {
+          "column": 38,
+          "line": 9
+        },
+        "start_byte": 265
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:253:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:253:265:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:265:266:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:266:string",
+      "kind": "string",
+      "label": "\"archive_name\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 9
+        },
+        "end_byte": 266,
+        "start": {
+          "column": 25,
+          "line": 9
+        },
+        "start_byte": 252
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:251:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:252:266:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:267:subscript",
+      "kind": "subscript",
+      "label": "_SNAPSHOT[\"archive_name\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 9
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 15,
+          "line": 9
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:239:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:242:267:subscript"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:267:assignment",
+      "kind": "assignment",
+      "label": "ARCHIVE_NAME = _SNAPSHOT[\"archive_name\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 9
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 0,
+          "line": 9
+        },
+        "start_byte": 227
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:281:identifier",
+      "kind": "identifier",
+      "label": "MODULE_COUNT",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 10
+        },
+        "end_byte": 281,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 269
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:293:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 10
+        },
+        "end_byte": 293,
+        "start": {
+          "column": 15,
+          "line": 10
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:295:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 10
+        },
+        "end_byte": 295,
+        "start": {
+          "column": 25,
+          "line": 10
+        },
+        "start_byte": 294
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:295:307:string_content",
+      "kind": "string_content",
+      "label": "module_count",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 10
+        },
+        "end_byte": 307,
+        "start": {
+          "column": 26,
+          "line": 10
+        },
+        "start_byte": 295
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:307:308:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 10
+        },
+        "end_byte": 308,
+        "start": {
+          "column": 38,
+          "line": 10
+        },
+        "start_byte": 307
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:295:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:295:307:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:307:308:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:308:string",
+      "kind": "string",
+      "label": "\"module_count\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 10
+        },
+        "end_byte": 308,
+        "start": {
+          "column": 25,
+          "line": 10
+        },
+        "start_byte": 294
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:293:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:294:308:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:309:subscript",
+      "kind": "subscript",
+      "label": "_SNAPSHOT[\"module_count\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 309,
+        "start": {
+          "column": 15,
+          "line": 10
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:281:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:284:309:subscript"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:309:assignment",
+      "kind": "assignment",
+      "label": "MODULE_COUNT = _SNAPSHOT[\"module_count\"]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 309,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 269
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:323:identifier",
+      "kind": "identifier",
+      "label": "SAMPLE_FILES",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 11
+        },
+        "end_byte": 323,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 311
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:331:identifier",
+      "kind": "identifier",
+      "label": "tuple",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 11
+        },
+        "end_byte": 331,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 326
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:341:identifier",
+      "kind": "identifier",
+      "label": "_SNAPSHOT",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 11
+        },
+        "end_byte": 341,
+        "start": {
+          "column": 21,
+          "line": 11
+        },
+        "start_byte": 332
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:343:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 11
+        },
+        "end_byte": 343,
+        "start": {
+          "column": 31,
+          "line": 11
+        },
+        "start_byte": 342
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:343:355:string_content",
+      "kind": "string_content",
+      "label": "sample_files",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 11
+        },
+        "end_byte": 355,
+        "start": {
+          "column": 32,
+          "line": 11
+        },
+        "start_byte": 343
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:355:356:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 11
+        },
+        "end_byte": 356,
+        "start": {
+          "column": 44,
+          "line": 11
+        },
+        "start_byte": 355
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:343:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:343:355:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:355:356:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:356:string",
+      "kind": "string",
+      "label": "\"sample_files\"",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 11
+        },
+        "end_byte": 356,
+        "start": {
+          "column": 31,
+          "line": 11
+        },
+        "start_byte": 342
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:341:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:342:356:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:357:subscript",
+      "kind": "subscript",
+      "label": "_SNAPSHOT[\"sample_files\"]",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 11
+        },
+        "end_byte": 357,
+        "start": {
+          "column": 21,
+          "line": 11
+        },
+        "start_byte": 332
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:332:357:subscript"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:331:358:argument_list",
+      "kind": "argument_list",
+      "label": "(_SNAPSHOT[\"sample_files\"])",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 11
+        },
+        "end_byte": 358,
+        "start": {
+          "column": 20,
+          "line": 11
+        },
+        "start_byte": 331
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:331:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:331:358:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:358:call",
+      "kind": "call",
+      "label": "tuple(_SNAPSHOT[\"sample_files\"])",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 11
+        },
+        "end_byte": 358,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 326
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:323:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:326:358:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:358:assignment",
+      "kind": "assignment",
+      "label": "SAMPLE_FILES = tuple(_SNAPSHOT[\"sample_files\"])",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 11
+        },
+        "end_byte": 358,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 311
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:372:identifier",
+      "kind": "identifier",
+      "label": "PORTING_NOTE",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 12
+        },
+        "end_byte": 372,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 360
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:377:string_start",
+      "kind": "string_start",
+      "label": "f\"",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 12
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 15,
+          "line": 12
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:377:409:string_content",
+      "kind": "string_content",
+      "label": "Python placeholder package for '",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 12
+        },
+        "end_byte": 409,
+        "start": {
+          "column": 17,
+          "line": 12
+        },
+        "start_byte": 377
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:410:422:identifier",
+      "kind": "identifier",
+      "label": "ARCHIVE_NAME",
+      "span": {
+        "end": {
+          "column": 62,
+          "line": 12
+        },
+        "end_byte": 422,
+        "start": {
+          "column": 50,
+          "line": 12
+        },
+        "start_byte": 410
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:410:422:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:409:423:interpolation",
+      "kind": "interpolation",
+      "label": "{ARCHIVE_NAME}",
+      "span": {
+        "end": {
+          "column": 63,
+          "line": 12
+        },
+        "end_byte": 423,
+        "start": {
+          "column": 49,
+          "line": 12
+        },
+        "start_byte": 409
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:423:430:string_content",
+      "kind": "string_content",
+      "label": "' with ",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 12
+        },
+        "end_byte": 430,
+        "start": {
+          "column": 63,
+          "line": 12
+        },
+        "start_byte": 423
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:431:443:identifier",
+      "kind": "identifier",
+      "label": "MODULE_COUNT",
+      "span": {
+        "end": {
+          "column": 83,
+          "line": 12
+        },
+        "end_byte": 443,
+        "start": {
+          "column": 71,
+          "line": 12
+        },
+        "start_byte": 431
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:431:443:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:430:444:interpolation",
+      "kind": "interpolation",
+      "label": "{MODULE_COUNT}",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 12
+        },
+        "end_byte": 444,
+        "start": {
+          "column": 70,
+          "line": 12
+        },
+        "start_byte": 430
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:444:472:string_content",
+      "kind": "string_content",
+      "label": " archived module references.",
+      "span": {
+        "end": {
+          "column": 112,
+          "line": 12
+        },
+        "end_byte": 472,
+        "start": {
+          "column": 84,
+          "line": 12
+        },
+        "start_byte": 444
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:472:473:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 113,
+          "line": 12
+        },
+        "end_byte": 473,
+        "start": {
+          "column": 112,
+          "line": 12
+        },
+        "start_byte": 472
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:377:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:377:409:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:409:423:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:423:430:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:430:444:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:444:472:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:472:473:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string",
+      "kind": "string",
+      "label": "f\"Python placeholder package for '{ARCHIVE_NAME}' with {MODULE_COUNT} archived module references.\"",
+      "span": {
+        "end": {
+          "column": 113,
+          "line": 12
+        },
+        "end_byte": 473,
+        "start": {
+          "column": 15,
+          "line": 12
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:372:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:375:473:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:473:assignment",
+      "kind": "assignment",
+      "label": "PORTING_NOTE = f\"Python placeholder package for '{ARCHIVE_NAME}' with {MODULE_COUNT} archived module references.\"",
+      "span": {
+        "end": {
+          "column": 113,
+          "line": 12
+        },
+        "end_byte": 473,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 360
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:484:identifier",
+      "kind": "identifier",
+      "label": "__all__",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 14
+        },
+        "end_byte": 484,
+        "start": {
+          "column": 0,
+          "line": 14
+        },
+        "start_byte": 477
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:489:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 14
+        },
+        "end_byte": 489,
+        "start": {
+          "column": 11,
+          "line": 14
+        },
+        "start_byte": 488
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:489:501:string_content",
+      "kind": "string_content",
+      "label": "ARCHIVE_NAME",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 14
+        },
+        "end_byte": 501,
+        "start": {
+          "column": 12,
+          "line": 14
+        },
+        "start_byte": 489
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:501:502:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 24,
+          "line": 14
+        },
+        "start_byte": 501
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:489:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:489:501:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:501:502:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:502:string",
+      "kind": "string",
+      "label": "\"ARCHIVE_NAME\"",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 11,
+          "line": 14
+        },
+        "start_byte": 488
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:505:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 14
+        },
+        "end_byte": 505,
+        "start": {
+          "column": 27,
+          "line": 14
+        },
+        "start_byte": 504
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:505:517:string_content",
+      "kind": "string_content",
+      "label": "MODULE_COUNT",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 14
+        },
+        "end_byte": 517,
+        "start": {
+          "column": 28,
+          "line": 14
+        },
+        "start_byte": 505
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:517:518:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 518,
+        "start": {
+          "column": 40,
+          "line": 14
+        },
+        "start_byte": 517
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:505:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:505:517:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:517:518:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:518:string",
+      "kind": "string",
+      "label": "\"MODULE_COUNT\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 518,
+        "start": {
+          "column": 27,
+          "line": 14
+        },
+        "start_byte": 504
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:521:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 14
+        },
+        "end_byte": 521,
+        "start": {
+          "column": 43,
+          "line": 14
+        },
+        "start_byte": 520
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:521:533:string_content",
+      "kind": "string_content",
+      "label": "PORTING_NOTE",
+      "span": {
+        "end": {
+          "column": 56,
+          "line": 14
+        },
+        "end_byte": 533,
+        "start": {
+          "column": 44,
+          "line": 14
+        },
+        "start_byte": 521
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:533:534:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 14
+        },
+        "end_byte": 534,
+        "start": {
+          "column": 56,
+          "line": 14
+        },
+        "start_byte": 533
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:521:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:521:533:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:533:534:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:534:string",
+      "kind": "string",
+      "label": "\"PORTING_NOTE\"",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 14
+        },
+        "end_byte": 534,
+        "start": {
+          "column": 43,
+          "line": 14
+        },
+        "start_byte": 520
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:537:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 14
+        },
+        "end_byte": 537,
+        "start": {
+          "column": 59,
+          "line": 14
+        },
+        "start_byte": 536
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:537:549:string_content",
+      "kind": "string_content",
+      "label": "SAMPLE_FILES",
+      "span": {
+        "end": {
+          "column": 72,
+          "line": 14
+        },
+        "end_byte": 549,
+        "start": {
+          "column": 60,
+          "line": 14
+        },
+        "start_byte": 537
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:549:550:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 14
+        },
+        "end_byte": 550,
+        "start": {
+          "column": 72,
+          "line": 14
+        },
+        "start_byte": 549
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:537:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:537:549:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:549:550:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:550:string",
+      "kind": "string",
+      "label": "\"SAMPLE_FILES\"",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 14
+        },
+        "end_byte": 550,
+        "start": {
+          "column": 59,
+          "line": 14
+        },
+        "start_byte": 536
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:488:502:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:504:518:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:520:534:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:536:550:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list",
+      "kind": "list",
+      "label": "[\"ARCHIVE_NAME\", \"MODULE_COUNT\", \"PORTING_NOTE\", \"SAMPLE_FILES\"]",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 14
+        },
+        "end_byte": 551,
+        "start": {
+          "column": 10,
+          "line": 14
+        },
+        "start_byte": 487
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:484:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:487:551:list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:551:assignment",
+      "kind": "assignment",
+      "label": "__all__ = [\"ARCHIVE_NAME\", \"MODULE_COUNT\", \"PORTING_NOTE\", \"SAMPLE_FILES\"]",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 14
+        },
+        "end_byte": 551,
+        "start": {
+          "column": 0,
+          "line": 14
+        },
+        "start_byte": 477
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:75:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:79:113:future_import_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:117:170:import_from_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:174:223:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:227:267:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:269:309:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:311:358:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:360:473:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:477:551:assignment"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/outputStyles/__init__.py:0:553:module",
+      "kind": "module",
+      "label": "\"\"\"Python package placeholder for the archived `outputStyles` subsystem.\"\"\"\r\n\r\nfrom __future__ import annotations\r\n\r\nfrom src._archive_helper import load_archive_metadata\r\n\r\n_SNAPSHOT = load_archive_m",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 15
+        },
+        "end_byte": 553,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/outputStyles/__init__.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}

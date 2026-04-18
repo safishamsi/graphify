@@ -8,6 +8,7 @@
 2. **[Architecture](architecture.md)** — High-level components, data flow, CI integration, and how diagnostics attach to graphs.
 3. **[Graphify internals](graphify-internals.md)** — The vendored `graphify/` Python package: pipeline, modules, and extending extraction.
 4. **[Development](development.md)** — Local setup, tests, and packaging notes.
+5. **[Dataset pipeline](dataset-pipeline.md)** — How to run the raw AST dataset through normalization, GraphCodeBERT, Gemma, verifier, and gray-zone evaluation.
 
 ## Relationship to graphify
 

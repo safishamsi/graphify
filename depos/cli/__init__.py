@@ -43,6 +43,47 @@ def _build_parser() -> argparse.ArgumentParser:
     replay.add_argument("--output")
     replay.add_argument("--provider", default=None)
 
+    score_bundles = a_sub.add_parser("score-bundles", help="Score context bundles with GraphCodeBERT.")
+    score_bundles.add_argument("--bundles-json", required=True)
+    score_bundles.add_argument("--output")
+    score_bundles.add_argument("--model-name", default="microsoft/graphcodebert-base")
+    score_bundles.add_argument("--cache-dir")
+    score_bundles.add_argument("--device")
+    score_bundles.add_argument("--local-files-only", action="store_true")
+
+    bundle_pipeline = a_sub.add_parser("bundle-pipeline", help="Run GraphCodeBERT -> Gemma -> verifier on bundles.")
+    bundle_pipeline.add_argument("--bundles-json", required=True)
+    bundle_pipeline.add_argument("--scores-json")
+    bundle_pipeline.add_argument("--graph-json")
+    bundle_pipeline.add_argument("--output-dir")
+    bundle_pipeline.add_argument("--top-n", type=int, default=20)
+    bundle_pipeline.add_argument("--min-score", type=float, default=None)
+    bundle_pipeline.add_argument("--provider", default=None)
+    bundle_pipeline.add_argument("--model-name", default="microsoft/graphcodebert-base")
+    bundle_pipeline.add_argument("--cache-dir")
+    bundle_pipeline.add_argument("--device")
+    bundle_pipeline.add_argument("--local-files-only", action="store_true")
+
+    normalize_dataset = a_sub.add_parser("normalize-dataset", help="Normalize raw dataset AST JSON into a richer node-link graph.")
+    normalize_dataset.add_argument("--dataset-dir", required=True)
+    normalize_dataset.add_argument("--output", required=True)
+    normalize_dataset.add_argument("--repo-root", default=".")
+    normalize_dataset.add_argument("--extraction-output")
+
+    dataset_pipeline = a_sub.add_parser("dataset-pipeline", help="Run raw dataset AST files through normalize -> bundles -> GraphCodeBERT -> Gemma -> verifier.")
+    dataset_pipeline.add_argument("--dataset-dir", required=True)
+    dataset_pipeline.add_argument("--output-dir", required=True)
+    dataset_pipeline.add_argument("--repo-root", default=".")
+    dataset_pipeline.add_argument("--provider", default=None)
+    dataset_pipeline.add_argument("--top-n", type=int, default=20)
+    dataset_pipeline.add_argument("--max-bundles", type=int, default=None)
+    dataset_pipeline.add_argument("--min-score", type=float, default=None)
+    dataset_pipeline.add_argument("--write-extraction", action="store_true")
+    dataset_pipeline.add_argument("--model-name", default="microsoft/graphcodebert-base")
+    dataset_pipeline.add_argument("--cache-dir")
+    dataset_pipeline.add_argument("--device")
+    dataset_pipeline.add_argument("--local-files-only", action="store_true")
+
     coverage = a_sub.add_parser("coverage", help="Print StitcherCoverageReport only.")
     coverage.add_argument("--path")
     coverage.add_argument("--graph-json")
@@ -76,6 +117,22 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         from depos.cli.analyze import run_replay
 
         return run_replay(args)
+    if args.analyze_command == "score-bundles":
+        from depos.cli.analyze import run_score_bundles
+
+        return run_score_bundles(args)
+    if args.analyze_command == "bundle-pipeline":
+        from depos.cli.analyze import run_bundle_pipeline
+
+        return run_bundle_pipeline(args)
+    if args.analyze_command == "normalize-dataset":
+        from depos.cli.analyze import run_normalize_dataset
+
+        return run_normalize_dataset(args)
+    if args.analyze_command == "dataset-pipeline":
+        from depos.cli.analyze import run_dataset_pipeline
+
+        return run_dataset_pipeline(args)
     parser.error(f"unknown analyze subcommand: {args.analyze_command}")
     return 2
 

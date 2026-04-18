@@ -1,0 +1,1057 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:37+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:23:34:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:23:34:identifier:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:23:34:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:23:34:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:34:future_import_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:23:34:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:34:future_import_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:23:34:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:218:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:34:future_import_statement:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:218:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:34:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:56:relative_import->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:44:import_prefix:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:56:relative_import",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:44:import_prefix",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:44:56:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:44:56:identifier:4",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:44:56:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:44:56:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:56:relative_import->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:44:56:dotted_name:5",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:56:relative_import",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:44:56:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:38:75:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:56:relative_import:6",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:38:75:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:56:relative_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:64:75:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:64:75:identifier:7",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:64:75:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:64:75:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:38:75:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:64:75:dotted_name:8",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:38:75:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:64:75:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:218:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:38:75:import_from_statement:9",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:218:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:38:75:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:85:100:identifier:10",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:85:100:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:121:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:108:identifier:11",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:121:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:108:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:110:121:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:110:121:identifier:12",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:110:121:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:110:121:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:121:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:110:121:type:13",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:121:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:110:121:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:100:146:parameters->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:121:typed_parameter:14",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:100:146:parameters",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:121:typed_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:133:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:128:identifier:15",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:133:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:128:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:130:133:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:130:133:identifier:16",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:130:133:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:130:133:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:133:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:130:133:type:17",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:133:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:130:133:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:100:146:parameters->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:133:typed_parameter:18",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:100:146:parameters",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:133:typed_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:145:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:140:identifier:19",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:145:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:140:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:142:145:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:142:145:identifier:20",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:142:145:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:142:145:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:145:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:142:145:type:21",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:145:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:142:145:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:100:146:parameters->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:145:typed_parameter:22",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:100:146:parameters",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:145:typed_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:100:146:parameters:23",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:100:146:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:150:161:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:150:161:identifier:24",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:150:161:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:150:161:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:150:161:type:25",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:150:161:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:182:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:175:identifier:26",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:182:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:175:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:182:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:176:182:identifier:27",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:182:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:176:182:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:196:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:182:attribute:28",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:196:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:182:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:182:196:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:183:188:identifier:29",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:182:196:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:183:188:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:182:196:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:190:195:identifier:30",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:182:196:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:190:195:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:196:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:182:196:argument_list:31",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:196:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:182:196:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:216:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:196:call:32",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:216:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:196:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:202:216:return_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:209:216:identifier:33",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:202:216:return_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:209:216:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:216:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:202:216:return_statement:34",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:216:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:202:216:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:216:block:35",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:216:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:218:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition:36",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:218:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:23:34:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:23:34:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:23:34:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:23:34:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:34:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:44:import_prefix",
+      "kind": "import_prefix",
+      "label": ".",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 3
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:44:56:identifier",
+      "kind": "identifier",
+      "label": "cost_tracker",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 3
+        },
+        "end_byte": 56,
+        "start": {
+          "column": 6,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:44:56:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:44:56:dotted_name",
+      "kind": "dotted_name",
+      "label": "cost_tracker",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 3
+        },
+        "end_byte": 56,
+        "start": {
+          "column": 6,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:44:import_prefix",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:44:56:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:56:relative_import",
+      "kind": "relative_import",
+      "label": ".cost_tracker",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 3
+        },
+        "end_byte": 56,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:64:75:identifier",
+      "kind": "identifier",
+      "label": "CostTracker",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 3
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 26,
+          "line": 3
+        },
+        "start_byte": 64
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:64:75:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:64:75:dotted_name",
+      "kind": "dotted_name",
+      "label": "CostTracker",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 3
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 26,
+          "line": 3
+        },
+        "start_byte": 64
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:43:56:relative_import",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:64:75:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:38:75:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from .cost_tracker import CostTracker",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 3
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:85:100:identifier",
+      "kind": "identifier",
+      "label": "apply_cost_hook",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 4,
+          "line": 6
+        },
+        "start_byte": 85
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:108:identifier",
+      "kind": "identifier",
+      "label": "tracker",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 6
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 20,
+          "line": 6
+        },
+        "start_byte": 101
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:110:121:identifier",
+      "kind": "identifier",
+      "label": "CostTracker",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 6
+        },
+        "end_byte": 121,
+        "start": {
+          "column": 29,
+          "line": 6
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:110:121:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:110:121:type",
+      "kind": "type",
+      "label": "CostTracker",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 6
+        },
+        "end_byte": 121,
+        "start": {
+          "column": 29,
+          "line": 6
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:108:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:110:121:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:121:typed_parameter",
+      "kind": "typed_parameter",
+      "label": "tracker: CostTracker",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 6
+        },
+        "end_byte": 121,
+        "start": {
+          "column": 20,
+          "line": 6
+        },
+        "start_byte": 101
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:128:identifier",
+      "kind": "identifier",
+      "label": "label",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 6
+        },
+        "end_byte": 128,
+        "start": {
+          "column": 42,
+          "line": 6
+        },
+        "start_byte": 123
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:130:133:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 6
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 49,
+          "line": 6
+        },
+        "start_byte": 130
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:130:133:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:130:133:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 6
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 49,
+          "line": 6
+        },
+        "start_byte": 130
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:128:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:130:133:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:133:typed_parameter",
+      "kind": "typed_parameter",
+      "label": "label: str",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 6
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 42,
+          "line": 6
+        },
+        "start_byte": 123
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:140:identifier",
+      "kind": "identifier",
+      "label": "units",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 6
+        },
+        "end_byte": 140,
+        "start": {
+          "column": 54,
+          "line": 6
+        },
+        "start_byte": 135
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:142:145:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 64,
+          "line": 6
+        },
+        "end_byte": 145,
+        "start": {
+          "column": 61,
+          "line": 6
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:142:145:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:142:145:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 64,
+          "line": 6
+        },
+        "end_byte": 145,
+        "start": {
+          "column": 61,
+          "line": 6
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:140:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:142:145:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:145:typed_parameter",
+      "kind": "typed_parameter",
+      "label": "units: int",
+      "span": {
+        "end": {
+          "column": 64,
+          "line": 6
+        },
+        "end_byte": 145,
+        "start": {
+          "column": 54,
+          "line": 6
+        },
+        "start_byte": 135
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:101:121:typed_parameter",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:123:133:typed_parameter",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:135:145:typed_parameter"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:100:146:parameters",
+      "kind": "parameters",
+      "label": "(tracker: CostTracker, label: str, units: int)",
+      "span": {
+        "end": {
+          "column": 65,
+          "line": 6
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 19,
+          "line": 6
+        },
+        "start_byte": 100
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:150:161:identifier",
+      "kind": "identifier",
+      "label": "CostTracker",
+      "span": {
+        "end": {
+          "column": 80,
+          "line": 6
+        },
+        "end_byte": 161,
+        "start": {
+          "column": 69,
+          "line": 6
+        },
+        "start_byte": 150
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:150:161:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:150:161:type",
+      "kind": "type",
+      "label": "CostTracker",
+      "span": {
+        "end": {
+          "column": 80,
+          "line": 6
+        },
+        "end_byte": 161,
+        "start": {
+          "column": 69,
+          "line": 6
+        },
+        "start_byte": 150
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:175:identifier",
+      "kind": "identifier",
+      "label": "tracker",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 7
+        },
+        "end_byte": 175,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:176:182:identifier",
+      "kind": "identifier",
+      "label": "record",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 7
+        },
+        "end_byte": 182,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 176
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:175:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:176:182:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:182:attribute",
+      "kind": "attribute",
+      "label": "tracker.record",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 7
+        },
+        "end_byte": 182,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:183:188:identifier",
+      "kind": "identifier",
+      "label": "label",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 7
+        },
+        "end_byte": 188,
+        "start": {
+          "column": 19,
+          "line": 7
+        },
+        "start_byte": 183
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:190:195:identifier",
+      "kind": "identifier",
+      "label": "units",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 7
+        },
+        "end_byte": 195,
+        "start": {
+          "column": 26,
+          "line": 7
+        },
+        "start_byte": 190
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:183:188:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:190:195:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:182:196:argument_list",
+      "kind": "argument_list",
+      "label": "(label, units)",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 7
+        },
+        "end_byte": 196,
+        "start": {
+          "column": 18,
+          "line": 7
+        },
+        "start_byte": 182
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:182:attribute",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:182:196:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:196:call",
+      "kind": "call",
+      "label": "tracker.record(label, units)",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 7
+        },
+        "end_byte": 196,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:209:216:identifier",
+      "kind": "identifier",
+      "label": "tracker",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 8
+        },
+        "end_byte": 216,
+        "start": {
+          "column": 11,
+          "line": 8
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:209:216:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:202:216:return_statement",
+      "kind": "return_statement",
+      "label": "return tracker",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 8
+        },
+        "end_byte": 216,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 202
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:196:call",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:202:216:return_statement"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:216:block",
+      "kind": "block",
+      "label": "tracker.record(label, units)\r\n    return tracker",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 8
+        },
+        "end_byte": 216,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:85:100:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:100:146:parameters",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:150:161:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:168:216:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition",
+      "kind": "function_definition",
+      "label": "def apply_cost_hook(tracker: CostTracker, label: str, units: int) -> CostTracker:\r\n    tracker.record(label, units)\r\n    return tracker",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 8
+        },
+        "end_byte": 216,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 81
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:34:future_import_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:38:75:import_from_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:81:216:function_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/costHook.py:0:218:module",
+      "kind": "module",
+      "label": "from __future__ import annotations\r\n\r\nfrom .cost_tracker import CostTracker\r\n\r\n\r\ndef apply_cost_hook(tracker: CostTracker, label: str, units: int) -> CostTracker:\r\n    tracker.record(label, units)\r\n  ",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 9
+        },
+        "end_byte": 218,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/costHook.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}

@@ -40,6 +40,7 @@ class ReasonerProviderConfig(BaseModel):
     provider: str = "gemma"  # gemma | openai | ollama
     max_retries: int = 2
     gemma_api_url: Optional[str] = None
+    gemma_model: str = "gemma-4"
     openai_api_key: Optional[str] = None
     ollama_host: Optional[str] = None
     default_max_tokens: int = 1000
@@ -102,6 +103,7 @@ def load_config_from_env() -> IntelligenceConfig:
     cfg.reasoner.provider = os.environ.get("DEPOS_INTEL_PROVIDER", cfg.reasoner.provider)
     cfg.reasoner.openai_api_key = os.environ.get("OPENAI_API_KEY", cfg.reasoner.openai_api_key)
     cfg.reasoner.gemma_api_url = os.environ.get("GEMMA_API_URL", cfg.reasoner.gemma_api_url)
+    cfg.reasoner.gemma_model = os.environ.get("GEMMA_MODEL", cfg.reasoner.gemma_model)
     cfg.reasoner.ollama_host = os.environ.get("OLLAMA_HOST", cfg.reasoner.ollama_host)
     try:
         cfg.bundles.token_budget_default = int(os.environ.get("DEPOS_INTEL_TOKEN_BUDGET", cfg.bundles.token_budget_default))

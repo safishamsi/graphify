@@ -80,3 +80,31 @@ def test_candidate_identifier_keeps_file_only_diff_entries() -> None:
     assert diff_candidates
     assert diff_candidates[0].extra["file_only"] is True
     assert diff_candidates[0].extra["removed_entity_references"] == 1
+
+
+def test_candidate_identifier_prefers_synthetic_entities_over_leaf_nodes() -> None:
+    graph = nx.DiGraph()
+    graph.add_node(
+        "leaf:identifier",
+        label="auth",
+        source_file="frontend/src/auth.ts",
+        kind="identifier",
+    )
+    graph.add_node(
+        "entity:function:verify",
+        label="verify_token()",
+        source_file="backend/app/auth.py",
+        synthetic_entity=True,
+        entity_kind="function",
+        embedded_text="def verify_token():\n    return True",
+    )
+
+    candidates, _ = identify_candidates(
+        graph,
+        config=IntelligenceConfig(enable_ai_driven_seeds=True),
+        mode=AnalysisMode.full_repo_scan,
+    )
+
+    anchor_ids = {anchor for candidate in candidates for anchor in candidate.diff_anchors}
+    assert "entity:function:verify" in anchor_ids
+    assert "leaf:identifier" not in anchor_ids

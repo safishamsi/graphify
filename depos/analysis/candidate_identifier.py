@@ -62,6 +62,18 @@ _AI_SEED_KEYWORDS = (
     "delete",
     "update",
 )
+_NOISY_AST_KINDS = {
+    "identifier",
+    "string",
+    "string_fragment",
+    "dotted_name",
+    "argument_list",
+    "parameters",
+    "formal_parameters",
+    "import_clause",
+    "named_imports",
+    "pair",
+}
 
 
 # ---------------------------------------------------------------------------
@@ -234,8 +246,23 @@ def _node_text(attrs: dict[str, Any]) -> str:
         str(attrs.get("source_file") or ""),
         str(attrs.get("route_pattern") or ""),
         str(attrs.get("http_method") or ""),
+        str(attrs.get("entity_kind") or ""),
     ]
     return " ".join(p for p in parts if p).lower()
+
+
+def _is_seedable_node(attrs: dict[str, Any]) -> bool:
+    if attrs.get("synthetic_entity"):
+        return True
+    if attrs.get("is_fastapi_route") or attrs.get("http_call_sites"):
+        return True
+    ast_kind = str(attrs.get("ast_kind") or attrs.get("kind") or "").lower()
+    if ast_kind in _NOISY_AST_KINDS:
+        return False
+    label = str(attrs.get("label") or "").strip()
+    if len(label) <= 1:
+        return False
+    return bool(attrs.get("source_file") or label)
 
 
 def _is_public_route_node(attrs: dict[str, Any]) -> bool:
@@ -267,6 +294,8 @@ def _is_queue_surface_node(graph: nx.DiGraph, node_id: str) -> bool:
 
 def _surface_candidates_for_node(graph: nx.DiGraph, node_id: str, attrs: dict[str, Any], mode: AnalysisMode) -> list[Candidate]:
     out: list[Candidate] = []
+    if not _is_seedable_node(attrs):
+        return out
     if _is_public_route_node(attrs):
         method = str(attrs.get("http_method") or "ANY").upper()
         route = str(attrs.get("route_pattern") or node_id)
@@ -377,6 +406,8 @@ def _graph_anomaly_candidates(graph: nx.DiGraph, mode: AnalysisMode) -> list[Can
     """
     out: list[Candidate] = []
     for nid, attrs in graph.nodes(data=True):
+        if not _is_seedable_node(attrs):
+            continue
         if _is_public_route_node(attrs):
             has_caller = any(
                 data.get("relation") == HTTP_CALLS_ROUTE
@@ -459,11 +490,13 @@ def _ai_driven_candidates(graph: nx.DiGraph, config: IntelligenceConfig, mode: A
         return []
     scored: list[tuple[float, str, dict[str, Any]]] = []
     for nid, attrs in graph.nodes(data=True):
+        if not _is_seedable_node(attrs):
+            continue
         haystack = _node_text(attrs)
         hits = [kw for kw in _AI_SEED_KEYWORDS if kw in haystack]
         if not hits:
             continue
-        score = min(0.69, 0.45 + (0.04 * len(hits)))
+        score = min(0.74, 0.45 + (0.04 * len(hits)) + (0.08 if attrs.get("synthetic_entity") else 0.0))
         extra = {
             "strategy": "lexical_similarity_fallback",
             "keywords": hits,

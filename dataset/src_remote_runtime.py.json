@@ -1,0 +1,3724 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:49+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:23:34:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:23:34:identifier:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:23:34:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:23:34:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:34:future_import_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:23:34:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:34:future_import_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:23:34:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:34:future_import_statement:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:34:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:43:54:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:43:54:identifier:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:43:54:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:43:54:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:38:71:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:43:54:dotted_name:4",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:38:71:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:43:54:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:62:71:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:62:71:identifier:5",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:62:71:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:62:71:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:38:71:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:62:71:dotted_name:6",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:38:71:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:62:71:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:38:71:import_from_statement:7",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:38:71:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:100:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:87:identifier:8",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:100:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:87:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:99:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:94:identifier:9",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:99:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:94:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:99:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:95:99:true:10",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:99:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:95:99:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:87:100:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:99:keyword_argument:11",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:87:100:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:99:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:100:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:87:100:argument_list:12",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:100:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:87:100:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:100:decorator->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:100:call:13",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:100:decorator",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:100:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:298:decorated_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:100:decorator:14",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:298:decorated_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:100:decorator",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:102:298:class_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:108:125:identifier:15",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:102:298:class_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:108:125:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:141:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:136:identifier:16",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:141:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:136:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:138:141:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:138:141:identifier:17",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:138:141:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:138:141:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:141:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:138:141:type:18",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:141:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:138:141:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:141:assignment:19",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:141:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:162:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:156:identifier:20",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:162:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:156:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:158:162:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:158:162:identifier:21",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:158:162:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:158:162:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:162:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:158:162:type:22",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:162:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:158:162:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:162:assignment:23",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:162:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:179:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:174:identifier:24",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:179:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:174:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:176:179:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:176:179:identifier:25",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:176:179:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:176:179:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:179:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:176:179:type:26",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:179:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:176:179:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:179:assignment:27",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:179:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:191:198:identifier:28",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:191:198:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:198:204:parameters->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:199:203:identifier:29",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:198:204:parameters",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:199:203:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:198:204:parameters:30",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:198:204:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:208:211:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:208:211:identifier:31",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:208:211:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:208:211:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:208:211:type:32",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:208:211:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:231:string_start:33",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:231:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:231:236:string_content:34",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:231:236:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:246:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:241:identifier:35",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:246:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:241:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:246:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:242:246:identifier:36",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:246:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:242:246:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:236:247:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:246:attribute:37",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:236:247:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:246:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:236:247:interpolation:38",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:236:247:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:247:259:string_content->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:247:249:escape_sequence:39",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:247:259:string_content",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:247:249:escape_sequence",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:247:259:string_content:40",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:247:259:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:274:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:264:identifier:41",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:274:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:264:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:274:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:265:274:identifier:42",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:274:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:265:274:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:259:275:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:274:attribute:43",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:259:275:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:274:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:259:275:interpolation:44",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:259:275:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:275:284:string_content->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:275:277:escape_sequence:45",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:275:284:string_content",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:275:277:escape_sequence",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:275:284:string_content:46",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:275:284:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:296:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:289:identifier:47",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:296:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:289:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:296:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:290:296:identifier:48",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:296:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:290:296:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:284:297:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:296:attribute:49",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:284:297:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:296:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:284:297:interpolation:50",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:284:297:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:297:298:string_end:51",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:297:298:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:return_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string:52",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:return_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:return_statement:53",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:block:54",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition:55",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:102:298:class_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block:56",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:102:298:class_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:298:decorated_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:102:298:class_definition:57",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:298:decorated_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:102:298:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:298:decorated_definition:58",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:298:decorated_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:308:323:identifier:59",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:308:323:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:335:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:330:identifier:60",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:335:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:330:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:332:335:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:332:335:identifier:61",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:332:335:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:332:335:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:335:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:332:335:type:62",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:335:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:332:335:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:323:336:parameters->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:335:typed_parameter:63",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:323:336:parameters",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:335:typed_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:323:336:parameters:64",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:323:336:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:340:357:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:340:357:identifier:65",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:340:357:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:340:357:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:340:357:type:66",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:340:357:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:457:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:388:identifier:67",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:457:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:388:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:397:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:390:string_start:68",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:397:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:390:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:397:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:390:396:string_content:69",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:397:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:390:396:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:397:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:396:397:string_end:70",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:397:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:396:397:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:388:457:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:397:string:71",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:388:457:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:397:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:388:457:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:399:403:true:72",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:388:457:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:399:403:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:407:string_start:73",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:407:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:407:447:string_content:74",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:407:447:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:447:455:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:448:454:identifier:75",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:447:455:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:448:454:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:447:455:interpolation:76",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:447:455:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:455:456:string_end:77",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:455:456:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:388:457:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string:78",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:388:457:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:457:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:388:457:argument_list:79",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:457:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:388:457:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:return_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:457:call:80",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:return_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:457:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:return_statement:81",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:block:82",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition:83",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:467:479:identifier:84",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:467:479:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:491:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:486:identifier:85",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:491:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:486:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:488:491:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:488:491:identifier:86",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:488:491:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:488:491:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:491:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:488:491:type:87",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:491:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:488:491:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:479:492:parameters->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:491:typed_parameter:88",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:479:492:parameters",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:491:typed_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:479:492:parameters:89",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:479:492:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:496:513:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:496:513:identifier:90",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:496:513:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:496:513:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:496:513:type:91",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:496:513:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:605:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:544:identifier:92",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:605:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:544:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:550:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:546:string_start:93",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:550:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:546:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:550:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:546:549:string_content:94",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:550:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:546:549:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:550:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:549:550:string_end:95",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:550:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:549:550:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:544:605:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:550:string:96",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:544:605:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:550:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:544:605:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:552:556:true:97",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:544:605:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:552:556:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:560:string_start:98",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:560:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:560:595:string_content:99",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:560:595:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:595:603:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:596:602:identifier:100",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:595:603:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:596:602:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:595:603:interpolation:101",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:595:603:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:603:604:string_end:102",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:603:604:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:544:605:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string:103",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:544:605:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:605:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:544:605:argument_list:104",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:605:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:544:605:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:return_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:605:call:105",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:return_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:605:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:return_statement:106",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:block:107",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition:108",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:615:632:identifier:109",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:615:632:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:644:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:639:identifier:110",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:644:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:639:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:641:644:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:641:644:identifier:111",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:641:644:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:641:644:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:644:typed_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:641:644:type:112",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:644:typed_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:641:644:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:632:645:parameters->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:644:typed_parameter:113",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:632:645:parameters",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:644:typed_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:632:645:parameters:114",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:632:645:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:649:666:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:649:666:identifier:115",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:649:666:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:649:666:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:649:666:type:116",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:649:666:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:776:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:697:identifier:117",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:776:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:697:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:708:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:699:string_start:118",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:708:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:699:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:708:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:699:707:string_content:119",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:708:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:699:707:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:708:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:707:708:string_end:120",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:708:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:707:708:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:697:776:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:708:string:121",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:697:776:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:708:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:697:776:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:710:714:true:122",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:697:776:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:710:714:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:718:string_start:123",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:718:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:718:766:string_content:124",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:718:766:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:766:774:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:767:773:identifier:125",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:766:774:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:767:773:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:766:774:interpolation:126",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:766:774:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:774:775:string_end:127",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:774:775:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:697:776:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string:128",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:697:776:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:776:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:697:776:argument_list:129",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:776:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:697:776:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:return_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:776:call:130",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:return_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:776:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:return_statement:131",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:block:132",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition:133",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:23:34:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:23:34:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:23:34:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:23:34:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:34:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:43:54:identifier",
+      "kind": "identifier",
+      "label": "dataclasses",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:43:54:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:43:54:dotted_name",
+      "kind": "dotted_name",
+      "label": "dataclasses",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:62:71:identifier",
+      "kind": "identifier",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 24,
+          "line": 3
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:62:71:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:62:71:dotted_name",
+      "kind": "dotted_name",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 24,
+          "line": 3
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:43:54:dotted_name",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:62:71:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:38:71:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from dataclasses import dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:87:identifier",
+      "kind": "identifier",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 6
+        },
+        "end_byte": 87,
+        "start": {
+          "column": 1,
+          "line": 6
+        },
+        "start_byte": 78
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:94:identifier",
+      "kind": "identifier",
+      "label": "frozen",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 6
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 88
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:95:99:true",
+      "kind": "true",
+      "label": "True",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 99,
+        "start": {
+          "column": 18,
+          "line": 6
+        },
+        "start_byte": 95
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:94:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:95:99:true"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:99:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "frozen=True",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 99,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 88
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:88:99:keyword_argument"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:87:100:argument_list",
+      "kind": "argument_list",
+      "label": "(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 10,
+          "line": 6
+        },
+        "start_byte": 87
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:87:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:87:100:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:100:call",
+      "kind": "call",
+      "label": "dataclass(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 1,
+          "line": 6
+        },
+        "start_byte": 78
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:78:100:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:100:decorator",
+      "kind": "decorator",
+      "label": "@dataclass(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:108:125:identifier",
+      "kind": "identifier",
+      "label": "RuntimeModeReport",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 7
+        },
+        "end_byte": 125,
+        "start": {
+          "column": 6,
+          "line": 7
+        },
+        "start_byte": 108
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:136:identifier",
+      "kind": "identifier",
+      "label": "mode",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 8
+        },
+        "end_byte": 136,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 132
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:138:141:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 8
+        },
+        "end_byte": 141,
+        "start": {
+          "column": 10,
+          "line": 8
+        },
+        "start_byte": 138
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:138:141:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:138:141:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 8
+        },
+        "end_byte": 141,
+        "start": {
+          "column": 10,
+          "line": 8
+        },
+        "start_byte": 138
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:136:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:138:141:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:141:assignment",
+      "kind": "assignment",
+      "label": "mode: str",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 8
+        },
+        "end_byte": 141,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 132
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:156:identifier",
+      "kind": "identifier",
+      "label": "connected",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 9
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 147
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:158:162:identifier",
+      "kind": "identifier",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 162,
+        "start": {
+          "column": 15,
+          "line": 9
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:158:162:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:158:162:type",
+      "kind": "type",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 162,
+        "start": {
+          "column": 15,
+          "line": 9
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:156:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:158:162:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:162:assignment",
+      "kind": "assignment",
+      "label": "connected: bool",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 162,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 147
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:174:identifier",
+      "kind": "identifier",
+      "label": "detail",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 10
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:176:179:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 10
+        },
+        "end_byte": 179,
+        "start": {
+          "column": 12,
+          "line": 10
+        },
+        "start_byte": 176
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:176:179:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:176:179:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 10
+        },
+        "end_byte": 179,
+        "start": {
+          "column": 12,
+          "line": 10
+        },
+        "start_byte": 176
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:174:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:176:179:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:179:assignment",
+      "kind": "assignment",
+      "label": "detail: str",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 10
+        },
+        "end_byte": 179,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:191:198:identifier",
+      "kind": "identifier",
+      "label": "as_text",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 12
+        },
+        "end_byte": 198,
+        "start": {
+          "column": 8,
+          "line": 12
+        },
+        "start_byte": 191
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:199:203:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 203,
+        "start": {
+          "column": 16,
+          "line": 12
+        },
+        "start_byte": 199
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:199:203:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:198:204:parameters",
+      "kind": "parameters",
+      "label": "(self)",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 12
+        },
+        "end_byte": 204,
+        "start": {
+          "column": 15,
+          "line": 12
+        },
+        "start_byte": 198
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:208:211:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 12
+        },
+        "end_byte": 211,
+        "start": {
+          "column": 25,
+          "line": 12
+        },
+        "start_byte": 208
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:208:211:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:208:211:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 12
+        },
+        "end_byte": 211,
+        "start": {
+          "column": 25,
+          "line": 12
+        },
+        "start_byte": 208
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:231:string_start",
+      "kind": "string_start",
+      "label": "f'",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 13
+        },
+        "end_byte": 231,
+        "start": {
+          "column": 15,
+          "line": 13
+        },
+        "start_byte": 229
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:231:236:string_content",
+      "kind": "string_content",
+      "label": "mode=",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 13
+        },
+        "end_byte": 236,
+        "start": {
+          "column": 17,
+          "line": 13
+        },
+        "start_byte": 231
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:241:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 13
+        },
+        "end_byte": 241,
+        "start": {
+          "column": 23,
+          "line": 13
+        },
+        "start_byte": 237
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:242:246:identifier",
+      "kind": "identifier",
+      "label": "mode",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 246,
+        "start": {
+          "column": 28,
+          "line": 13
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:241:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:242:246:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:246:attribute",
+      "kind": "attribute",
+      "label": "self.mode",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 246,
+        "start": {
+          "column": 23,
+          "line": 13
+        },
+        "start_byte": 237
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:237:246:attribute"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:236:247:interpolation",
+      "kind": "interpolation",
+      "label": "{self.mode}",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 13
+        },
+        "end_byte": 247,
+        "start": {
+          "column": 22,
+          "line": 13
+        },
+        "start_byte": 236
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:247:249:escape_sequence",
+      "kind": "escape_sequence",
+      "label": "\\n",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 13
+        },
+        "end_byte": 249,
+        "start": {
+          "column": 33,
+          "line": 13
+        },
+        "start_byte": 247
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:247:249:escape_sequence"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:247:259:string_content",
+      "kind": "string_content",
+      "label": "\\nconnected=",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 13
+        },
+        "end_byte": 259,
+        "start": {
+          "column": 33,
+          "line": 13
+        },
+        "start_byte": 247
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:264:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 13
+        },
+        "end_byte": 264,
+        "start": {
+          "column": 46,
+          "line": 13
+        },
+        "start_byte": 260
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:265:274:identifier",
+      "kind": "identifier",
+      "label": "connected",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 13
+        },
+        "end_byte": 274,
+        "start": {
+          "column": 51,
+          "line": 13
+        },
+        "start_byte": 265
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:264:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:265:274:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:274:attribute",
+      "kind": "attribute",
+      "label": "self.connected",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 13
+        },
+        "end_byte": 274,
+        "start": {
+          "column": 46,
+          "line": 13
+        },
+        "start_byte": 260
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:260:274:attribute"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:259:275:interpolation",
+      "kind": "interpolation",
+      "label": "{self.connected}",
+      "span": {
+        "end": {
+          "column": 61,
+          "line": 13
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 45,
+          "line": 13
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:275:277:escape_sequence",
+      "kind": "escape_sequence",
+      "label": "\\n",
+      "span": {
+        "end": {
+          "column": 63,
+          "line": 13
+        },
+        "end_byte": 277,
+        "start": {
+          "column": 61,
+          "line": 13
+        },
+        "start_byte": 275
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:275:277:escape_sequence"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:275:284:string_content",
+      "kind": "string_content",
+      "label": "\\ndetail=",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 13
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 61,
+          "line": 13
+        },
+        "start_byte": 275
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:289:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 13
+        },
+        "end_byte": 289,
+        "start": {
+          "column": 71,
+          "line": 13
+        },
+        "start_byte": 285
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:290:296:identifier",
+      "kind": "identifier",
+      "label": "detail",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 13
+        },
+        "end_byte": 296,
+        "start": {
+          "column": 76,
+          "line": 13
+        },
+        "start_byte": 290
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:289:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:290:296:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:296:attribute",
+      "kind": "attribute",
+      "label": "self.detail",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 13
+        },
+        "end_byte": 296,
+        "start": {
+          "column": 71,
+          "line": 13
+        },
+        "start_byte": 285
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:285:296:attribute"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:284:297:interpolation",
+      "kind": "interpolation",
+      "label": "{self.detail}",
+      "span": {
+        "end": {
+          "column": 83,
+          "line": 13
+        },
+        "end_byte": 297,
+        "start": {
+          "column": 70,
+          "line": 13
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:297:298:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 13
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 83,
+          "line": 13
+        },
+        "start_byte": 297
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:231:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:231:236:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:236:247:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:247:259:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:259:275:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:275:284:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:284:297:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:297:298:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string",
+      "kind": "string",
+      "label": "f'mode={self.mode}\\nconnected={self.connected}\\ndetail={self.detail}'",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 13
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 15,
+          "line": 13
+        },
+        "start_byte": 229
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:229:298:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:return_statement",
+      "kind": "return_statement",
+      "label": "return f'mode={self.mode}\\nconnected={self.connected}\\ndetail={self.detail}'",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 13
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 8,
+          "line": 13
+        },
+        "start_byte": 222
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:return_statement"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:block",
+      "kind": "block",
+      "label": "return f'mode={self.mode}\\nconnected={self.connected}\\ndetail={self.detail}'",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 13
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 8,
+          "line": 13
+        },
+        "start_byte": 222
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:191:198:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:198:204:parameters",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:208:211:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:222:298:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition",
+      "kind": "function_definition",
+      "label": "def as_text(self) -> str:\r\n        return f'mode={self.mode}\\nconnected={self.connected}\\ndetail={self.detail}'",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 13
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 187
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:141:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:147:162:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:168:179:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:187:298:function_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block",
+      "kind": "block",
+      "label": "mode: str\r\n    connected: bool\r\n    detail: str\r\n\r\n    def as_text(self) -> str:\r\n        return f'mode={self.mode}\\nconnected={self.connected}\\ndetail={self.detail}'",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 13
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 132
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:108:125:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:132:298:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:102:298:class_definition",
+      "kind": "class_definition",
+      "label": "class RuntimeModeReport:\r\n    mode: str\r\n    connected: bool\r\n    detail: str\r\n\r\n    def as_text(self) -> str:\r\n        return f'mode={self.mode}\\nconnected={self.connected}\\ndetail={self.detail}'",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 13
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 102
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:100:decorator",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:102:298:class_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:298:decorated_definition",
+      "kind": "decorated_definition",
+      "label": "@dataclass(frozen=True)\r\nclass RuntimeModeReport:\r\n    mode: str\r\n    connected: bool\r\n    detail: str\r\n\r\n    def as_text(self) -> str:\r\n        return f'mode={self.mode}\\nconnected={self.connected}\\n",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 13
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:308:323:identifier",
+      "kind": "identifier",
+      "label": "run_remote_mode",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 16
+        },
+        "end_byte": 323,
+        "start": {
+          "column": 4,
+          "line": 16
+        },
+        "start_byte": 308
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:330:identifier",
+      "kind": "identifier",
+      "label": "target",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 16
+        },
+        "end_byte": 330,
+        "start": {
+          "column": 20,
+          "line": 16
+        },
+        "start_byte": 324
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:332:335:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 16
+        },
+        "end_byte": 335,
+        "start": {
+          "column": 28,
+          "line": 16
+        },
+        "start_byte": 332
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:332:335:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:332:335:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 16
+        },
+        "end_byte": 335,
+        "start": {
+          "column": 28,
+          "line": 16
+        },
+        "start_byte": 332
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:330:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:332:335:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:335:typed_parameter",
+      "kind": "typed_parameter",
+      "label": "target: str",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 16
+        },
+        "end_byte": 335,
+        "start": {
+          "column": 20,
+          "line": 16
+        },
+        "start_byte": 324
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:324:335:typed_parameter"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:323:336:parameters",
+      "kind": "parameters",
+      "label": "(target: str)",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 16
+        },
+        "end_byte": 336,
+        "start": {
+          "column": 19,
+          "line": 16
+        },
+        "start_byte": 323
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:340:357:identifier",
+      "kind": "identifier",
+      "label": "RuntimeModeReport",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 16
+        },
+        "end_byte": 357,
+        "start": {
+          "column": 36,
+          "line": 16
+        },
+        "start_byte": 340
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:340:357:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:340:357:type",
+      "kind": "type",
+      "label": "RuntimeModeReport",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 16
+        },
+        "end_byte": 357,
+        "start": {
+          "column": 36,
+          "line": 16
+        },
+        "start_byte": 340
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:388:identifier",
+      "kind": "identifier",
+      "label": "RuntimeModeReport",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 17
+        },
+        "end_byte": 388,
+        "start": {
+          "column": 11,
+          "line": 17
+        },
+        "start_byte": 371
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:390:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 17
+        },
+        "end_byte": 390,
+        "start": {
+          "column": 29,
+          "line": 17
+        },
+        "start_byte": 389
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:390:396:string_content",
+      "kind": "string_content",
+      "label": "remote",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 17
+        },
+        "end_byte": 396,
+        "start": {
+          "column": 30,
+          "line": 17
+        },
+        "start_byte": 390
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:396:397:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 17
+        },
+        "end_byte": 397,
+        "start": {
+          "column": 36,
+          "line": 17
+        },
+        "start_byte": 396
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:390:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:390:396:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:396:397:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:397:string",
+      "kind": "string",
+      "label": "'remote'",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 17
+        },
+        "end_byte": 397,
+        "start": {
+          "column": 29,
+          "line": 17
+        },
+        "start_byte": 389
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:399:403:true",
+      "kind": "true",
+      "label": "True",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 17
+        },
+        "end_byte": 403,
+        "start": {
+          "column": 39,
+          "line": 17
+        },
+        "start_byte": 399
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:407:string_start",
+      "kind": "string_start",
+      "label": "f'",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 17
+        },
+        "end_byte": 407,
+        "start": {
+          "column": 45,
+          "line": 17
+        },
+        "start_byte": 405
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:407:447:string_content",
+      "kind": "string_content",
+      "label": "Remote control placeholder prepared for ",
+      "span": {
+        "end": {
+          "column": 87,
+          "line": 17
+        },
+        "end_byte": 447,
+        "start": {
+          "column": 47,
+          "line": 17
+        },
+        "start_byte": 407
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:448:454:identifier",
+      "kind": "identifier",
+      "label": "target",
+      "span": {
+        "end": {
+          "column": 94,
+          "line": 17
+        },
+        "end_byte": 454,
+        "start": {
+          "column": 88,
+          "line": 17
+        },
+        "start_byte": 448
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:448:454:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:447:455:interpolation",
+      "kind": "interpolation",
+      "label": "{target}",
+      "span": {
+        "end": {
+          "column": 95,
+          "line": 17
+        },
+        "end_byte": 455,
+        "start": {
+          "column": 87,
+          "line": 17
+        },
+        "start_byte": 447
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:455:456:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 96,
+          "line": 17
+        },
+        "end_byte": 456,
+        "start": {
+          "column": 95,
+          "line": 17
+        },
+        "start_byte": 455
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:407:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:407:447:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:447:455:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:455:456:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string",
+      "kind": "string",
+      "label": "f'Remote control placeholder prepared for {target}'",
+      "span": {
+        "end": {
+          "column": 96,
+          "line": 17
+        },
+        "end_byte": 456,
+        "start": {
+          "column": 45,
+          "line": 17
+        },
+        "start_byte": 405
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:389:397:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:399:403:true",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:405:456:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:388:457:argument_list",
+      "kind": "argument_list",
+      "label": "('remote', True, f'Remote control placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 97,
+          "line": 17
+        },
+        "end_byte": 457,
+        "start": {
+          "column": 28,
+          "line": 17
+        },
+        "start_byte": 388
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:388:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:388:457:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:457:call",
+      "kind": "call",
+      "label": "RuntimeModeReport('remote', True, f'Remote control placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 97,
+          "line": 17
+        },
+        "end_byte": 457,
+        "start": {
+          "column": 11,
+          "line": 17
+        },
+        "start_byte": 371
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:371:457:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:return_statement",
+      "kind": "return_statement",
+      "label": "return RuntimeModeReport('remote', True, f'Remote control placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 97,
+          "line": 17
+        },
+        "end_byte": 457,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 364
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:return_statement"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:block",
+      "kind": "block",
+      "label": "return RuntimeModeReport('remote', True, f'Remote control placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 97,
+          "line": 17
+        },
+        "end_byte": 457,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 364
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:308:323:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:323:336:parameters",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:340:357:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:364:457:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition",
+      "kind": "function_definition",
+      "label": "def run_remote_mode(target: str) -> RuntimeModeReport:\r\n    return RuntimeModeReport('remote', True, f'Remote control placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 97,
+          "line": 17
+        },
+        "end_byte": 457,
+        "start": {
+          "column": 0,
+          "line": 16
+        },
+        "start_byte": 304
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:467:479:identifier",
+      "kind": "identifier",
+      "label": "run_ssh_mode",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 20
+        },
+        "end_byte": 479,
+        "start": {
+          "column": 4,
+          "line": 20
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:486:identifier",
+      "kind": "identifier",
+      "label": "target",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 20
+        },
+        "end_byte": 486,
+        "start": {
+          "column": 17,
+          "line": 20
+        },
+        "start_byte": 480
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:488:491:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 20
+        },
+        "end_byte": 491,
+        "start": {
+          "column": 25,
+          "line": 20
+        },
+        "start_byte": 488
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:488:491:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:488:491:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 20
+        },
+        "end_byte": 491,
+        "start": {
+          "column": 25,
+          "line": 20
+        },
+        "start_byte": 488
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:486:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:488:491:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:491:typed_parameter",
+      "kind": "typed_parameter",
+      "label": "target: str",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 20
+        },
+        "end_byte": 491,
+        "start": {
+          "column": 17,
+          "line": 20
+        },
+        "start_byte": 480
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:480:491:typed_parameter"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:479:492:parameters",
+      "kind": "parameters",
+      "label": "(target: str)",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 20
+        },
+        "end_byte": 492,
+        "start": {
+          "column": 16,
+          "line": 20
+        },
+        "start_byte": 479
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:496:513:identifier",
+      "kind": "identifier",
+      "label": "RuntimeModeReport",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 20
+        },
+        "end_byte": 513,
+        "start": {
+          "column": 33,
+          "line": 20
+        },
+        "start_byte": 496
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:496:513:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:496:513:type",
+      "kind": "type",
+      "label": "RuntimeModeReport",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 20
+        },
+        "end_byte": 513,
+        "start": {
+          "column": 33,
+          "line": 20
+        },
+        "start_byte": 496
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:544:identifier",
+      "kind": "identifier",
+      "label": "RuntimeModeReport",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 21
+        },
+        "end_byte": 544,
+        "start": {
+          "column": 11,
+          "line": 21
+        },
+        "start_byte": 527
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:546:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 21
+        },
+        "end_byte": 546,
+        "start": {
+          "column": 29,
+          "line": 21
+        },
+        "start_byte": 545
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:546:549:string_content",
+      "kind": "string_content",
+      "label": "ssh",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 21
+        },
+        "end_byte": 549,
+        "start": {
+          "column": 30,
+          "line": 21
+        },
+        "start_byte": 546
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:549:550:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 21
+        },
+        "end_byte": 550,
+        "start": {
+          "column": 33,
+          "line": 21
+        },
+        "start_byte": 549
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:546:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:546:549:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:549:550:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:550:string",
+      "kind": "string",
+      "label": "'ssh'",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 21
+        },
+        "end_byte": 550,
+        "start": {
+          "column": 29,
+          "line": 21
+        },
+        "start_byte": 545
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:552:556:true",
+      "kind": "true",
+      "label": "True",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 21
+        },
+        "end_byte": 556,
+        "start": {
+          "column": 36,
+          "line": 21
+        },
+        "start_byte": 552
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:560:string_start",
+      "kind": "string_start",
+      "label": "f'",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 21
+        },
+        "end_byte": 560,
+        "start": {
+          "column": 42,
+          "line": 21
+        },
+        "start_byte": 558
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:560:595:string_content",
+      "kind": "string_content",
+      "label": "SSH proxy placeholder prepared for ",
+      "span": {
+        "end": {
+          "column": 79,
+          "line": 21
+        },
+        "end_byte": 595,
+        "start": {
+          "column": 44,
+          "line": 21
+        },
+        "start_byte": 560
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:596:602:identifier",
+      "kind": "identifier",
+      "label": "target",
+      "span": {
+        "end": {
+          "column": 86,
+          "line": 21
+        },
+        "end_byte": 602,
+        "start": {
+          "column": 80,
+          "line": 21
+        },
+        "start_byte": 596
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:596:602:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:595:603:interpolation",
+      "kind": "interpolation",
+      "label": "{target}",
+      "span": {
+        "end": {
+          "column": 87,
+          "line": 21
+        },
+        "end_byte": 603,
+        "start": {
+          "column": 79,
+          "line": 21
+        },
+        "start_byte": 595
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:603:604:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 88,
+          "line": 21
+        },
+        "end_byte": 604,
+        "start": {
+          "column": 87,
+          "line": 21
+        },
+        "start_byte": 603
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:560:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:560:595:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:595:603:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:603:604:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string",
+      "kind": "string",
+      "label": "f'SSH proxy placeholder prepared for {target}'",
+      "span": {
+        "end": {
+          "column": 88,
+          "line": 21
+        },
+        "end_byte": 604,
+        "start": {
+          "column": 42,
+          "line": 21
+        },
+        "start_byte": 558
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:545:550:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:552:556:true",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:558:604:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:544:605:argument_list",
+      "kind": "argument_list",
+      "label": "('ssh', True, f'SSH proxy placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 89,
+          "line": 21
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 28,
+          "line": 21
+        },
+        "start_byte": 544
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:544:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:544:605:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:605:call",
+      "kind": "call",
+      "label": "RuntimeModeReport('ssh', True, f'SSH proxy placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 89,
+          "line": 21
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 11,
+          "line": 21
+        },
+        "start_byte": 527
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:527:605:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:return_statement",
+      "kind": "return_statement",
+      "label": "return RuntimeModeReport('ssh', True, f'SSH proxy placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 89,
+          "line": 21
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 520
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:return_statement"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:block",
+      "kind": "block",
+      "label": "return RuntimeModeReport('ssh', True, f'SSH proxy placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 89,
+          "line": 21
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 520
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:467:479:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:479:492:parameters",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:496:513:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:520:605:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition",
+      "kind": "function_definition",
+      "label": "def run_ssh_mode(target: str) -> RuntimeModeReport:\r\n    return RuntimeModeReport('ssh', True, f'SSH proxy placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 89,
+          "line": 21
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 0,
+          "line": 20
+        },
+        "start_byte": 463
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:615:632:identifier",
+      "kind": "identifier",
+      "label": "run_teleport_mode",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 24
+        },
+        "end_byte": 632,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 615
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:639:identifier",
+      "kind": "identifier",
+      "label": "target",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 24
+        },
+        "end_byte": 639,
+        "start": {
+          "column": 22,
+          "line": 24
+        },
+        "start_byte": 633
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:641:644:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 24
+        },
+        "end_byte": 644,
+        "start": {
+          "column": 30,
+          "line": 24
+        },
+        "start_byte": 641
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:641:644:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:641:644:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 24
+        },
+        "end_byte": 644,
+        "start": {
+          "column": 30,
+          "line": 24
+        },
+        "start_byte": 641
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:639:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:641:644:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:644:typed_parameter",
+      "kind": "typed_parameter",
+      "label": "target: str",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 24
+        },
+        "end_byte": 644,
+        "start": {
+          "column": 22,
+          "line": 24
+        },
+        "start_byte": 633
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:633:644:typed_parameter"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:632:645:parameters",
+      "kind": "parameters",
+      "label": "(target: str)",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 24
+        },
+        "end_byte": 645,
+        "start": {
+          "column": 21,
+          "line": 24
+        },
+        "start_byte": 632
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:649:666:identifier",
+      "kind": "identifier",
+      "label": "RuntimeModeReport",
+      "span": {
+        "end": {
+          "column": 55,
+          "line": 24
+        },
+        "end_byte": 666,
+        "start": {
+          "column": 38,
+          "line": 24
+        },
+        "start_byte": 649
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:649:666:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:649:666:type",
+      "kind": "type",
+      "label": "RuntimeModeReport",
+      "span": {
+        "end": {
+          "column": 55,
+          "line": 24
+        },
+        "end_byte": 666,
+        "start": {
+          "column": 38,
+          "line": 24
+        },
+        "start_byte": 649
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:697:identifier",
+      "kind": "identifier",
+      "label": "RuntimeModeReport",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 25
+        },
+        "end_byte": 697,
+        "start": {
+          "column": 11,
+          "line": 25
+        },
+        "start_byte": 680
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:699:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 25
+        },
+        "end_byte": 699,
+        "start": {
+          "column": 29,
+          "line": 25
+        },
+        "start_byte": 698
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:699:707:string_content",
+      "kind": "string_content",
+      "label": "teleport",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 25
+        },
+        "end_byte": 707,
+        "start": {
+          "column": 30,
+          "line": 25
+        },
+        "start_byte": 699
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:707:708:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 25
+        },
+        "end_byte": 708,
+        "start": {
+          "column": 38,
+          "line": 25
+        },
+        "start_byte": 707
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:699:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:699:707:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:707:708:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:708:string",
+      "kind": "string",
+      "label": "'teleport'",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 25
+        },
+        "end_byte": 708,
+        "start": {
+          "column": 29,
+          "line": 25
+        },
+        "start_byte": 698
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:710:714:true",
+      "kind": "true",
+      "label": "True",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 25
+        },
+        "end_byte": 714,
+        "start": {
+          "column": 41,
+          "line": 25
+        },
+        "start_byte": 710
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:718:string_start",
+      "kind": "string_start",
+      "label": "f'",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 25
+        },
+        "end_byte": 718,
+        "start": {
+          "column": 47,
+          "line": 25
+        },
+        "start_byte": 716
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:718:766:string_content",
+      "kind": "string_content",
+      "label": "Teleport resume/create placeholder prepared for ",
+      "span": {
+        "end": {
+          "column": 97,
+          "line": 25
+        },
+        "end_byte": 766,
+        "start": {
+          "column": 49,
+          "line": 25
+        },
+        "start_byte": 718
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:767:773:identifier",
+      "kind": "identifier",
+      "label": "target",
+      "span": {
+        "end": {
+          "column": 104,
+          "line": 25
+        },
+        "end_byte": 773,
+        "start": {
+          "column": 98,
+          "line": 25
+        },
+        "start_byte": 767
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:767:773:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:766:774:interpolation",
+      "kind": "interpolation",
+      "label": "{target}",
+      "span": {
+        "end": {
+          "column": 105,
+          "line": 25
+        },
+        "end_byte": 774,
+        "start": {
+          "column": 97,
+          "line": 25
+        },
+        "start_byte": 766
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:774:775:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 106,
+          "line": 25
+        },
+        "end_byte": 775,
+        "start": {
+          "column": 105,
+          "line": 25
+        },
+        "start_byte": 774
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:718:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:718:766:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:766:774:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:774:775:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string",
+      "kind": "string",
+      "label": "f'Teleport resume/create placeholder prepared for {target}'",
+      "span": {
+        "end": {
+          "column": 106,
+          "line": 25
+        },
+        "end_byte": 775,
+        "start": {
+          "column": 47,
+          "line": 25
+        },
+        "start_byte": 716
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:698:708:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:710:714:true",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:716:775:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:697:776:argument_list",
+      "kind": "argument_list",
+      "label": "('teleport', True, f'Teleport resume/create placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 107,
+          "line": 25
+        },
+        "end_byte": 776,
+        "start": {
+          "column": 28,
+          "line": 25
+        },
+        "start_byte": 697
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:697:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:697:776:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:776:call",
+      "kind": "call",
+      "label": "RuntimeModeReport('teleport', True, f'Teleport resume/create placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 107,
+          "line": 25
+        },
+        "end_byte": 776,
+        "start": {
+          "column": 11,
+          "line": 25
+        },
+        "start_byte": 680
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:680:776:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:return_statement",
+      "kind": "return_statement",
+      "label": "return RuntimeModeReport('teleport', True, f'Teleport resume/create placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 107,
+          "line": 25
+        },
+        "end_byte": 776,
+        "start": {
+          "column": 4,
+          "line": 25
+        },
+        "start_byte": 673
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:return_statement"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:block",
+      "kind": "block",
+      "label": "return RuntimeModeReport('teleport', True, f'Teleport resume/create placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 107,
+          "line": 25
+        },
+        "end_byte": 776,
+        "start": {
+          "column": 4,
+          "line": 25
+        },
+        "start_byte": 673
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:615:632:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:632:645:parameters",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:649:666:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:673:776:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition",
+      "kind": "function_definition",
+      "label": "def run_teleport_mode(target: str) -> RuntimeModeReport:\r\n    return RuntimeModeReport('teleport', True, f'Teleport resume/create placeholder prepared for {target}')",
+      "span": {
+        "end": {
+          "column": 107,
+          "line": 25
+        },
+        "end_byte": 776,
+        "start": {
+          "column": 0,
+          "line": 24
+        },
+        "start_byte": 611
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:34:future_import_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:38:71:import_from_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:77:298:decorated_definition",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:304:457:function_definition",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:463:605:function_definition",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:611:776:function_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/remote_runtime.py:0:778:module",
+      "kind": "module",
+      "label": "from __future__ import annotations\r\n\r\nfrom dataclasses import dataclass\r\n\r\n\r\n@dataclass(frozen=True)\r\nclass RuntimeModeReport:\r\n    mode: str\r\n    connected: bool\r\n    detail: str\r\n\r\n    def as_text(s",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 26
+        },
+        "end_byte": 778,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/remote_runtime.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}

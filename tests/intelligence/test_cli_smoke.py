@@ -39,3 +39,27 @@ def test_cli_coverage_reads_real_migrations(capsys, tmp_path: Path) -> None:
     # We ship 6 migrations in supabase/migrations, so the CLI should see them.
     assert payload["migration_files_found"] >= 1
     assert "coverage_ratio" in payload
+
+
+def test_cli_score_bundles_help_exits_zero(capsys) -> None:
+    with pytest.raises(SystemExit) as exc:
+        main(["analyze", "score-bundles", "--help"])
+    assert exc.value.code == 0
+
+
+def test_cli_bundle_pipeline_help_exits_zero(capsys) -> None:
+    with pytest.raises(SystemExit) as exc:
+        main(["analyze", "bundle-pipeline", "--help"])
+    assert exc.value.code == 0
+
+
+def test_cli_normalize_dataset_help_exits_zero(capsys) -> None:
+    with pytest.raises(SystemExit) as exc:
+        main(["analyze", "normalize-dataset", "--help"])
+    assert exc.value.code == 0
+
+
+def test_cli_dataset_pipeline_help_exits_zero(capsys) -> None:
+    with pytest.raises(SystemExit) as exc:
+        main(["analyze", "dataset-pipeline", "--help"])
+    assert exc.value.code == 0

@@ -1,0 +1,1468 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:50+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:23:34:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:23:34:identifier:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:23:34:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:23:34:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:34:future_import_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:23:34:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:34:future_import_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:23:34:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:341:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:34:future_import_statement:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:341:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:34:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:43:54:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:43:54:identifier:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:43:54:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:43:54:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:38:71:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:43:54:dotted_name:4",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:38:71:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:43:54:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:62:71:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:62:71:identifier:5",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:62:71:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:62:71:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:38:71:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:62:71:dotted_name:6",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:38:71:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:62:71:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:341:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:38:71:import_from_statement:7",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:341:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:38:71:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:100:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:87:identifier:8",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:100:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:87:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:99:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:94:identifier:9",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:99:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:94:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:99:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:95:99:true:10",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:99:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:95:99:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:87:100:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:99:keyword_argument:11",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:87:100:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:99:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:100:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:87:100:argument_list:12",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:100:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:87:100:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:100:decorator->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:100:call:13",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:100:decorator",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:100:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:156:decorated_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:100:decorator:14",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:156:decorated_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:100:decorator",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:102:156:class_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:108:122:identifier:15",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:102:156:class_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:108:122:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:138:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:133:identifier:16",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:138:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:133:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:135:138:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:135:138:identifier:17",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:135:138:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:135:138:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:138:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:135:138:type:18",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:138:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:135:138:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:156:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:138:assignment:19",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:156:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:138:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:156:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:151:identifier:20",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:156:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:151:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:153:156:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:153:156:identifier:21",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:153:156:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:153:156:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:156:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:153:156:type:22",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:156:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:153:156:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:156:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:156:assignment:23",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:156:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:156:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:102:156:class_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:156:block:24",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:102:156:class_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:156:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:156:decorated_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:102:156:class_definition:25",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:156:decorated_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:102:156:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:341:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:156:decorated_definition:26",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:341:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:156:decorated_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:339:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:175:identifier:27",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:339:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:175:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:257:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:199:identifier:28",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:257:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:199:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:215:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:201:string_start:29",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:215:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:201:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:215:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:201:214:string_content:30",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:215:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:201:214:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:215:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:214:215:string_end:31",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:215:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:214:215:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:199:257:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:215:string:32",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:199:257:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:215:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:256:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:218:string_start:33",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:256:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:218:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:256:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:218:255:string_content:34",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:256:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:218:255:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:256:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:255:256:string_end:35",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:256:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:255:256:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:199:257:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:256:string:36",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:199:257:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:256:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:257:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:199:257:argument_list:37",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:257:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:199:257:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:178:339:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:257:call:38",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:178:339:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:257:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:335:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:278:identifier:39",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:335:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:278:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:293:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:280:string_start:40",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:293:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:280:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:293:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:280:292:string_content:41",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:293:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:280:292:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:293:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:292:293:string_end:42",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:293:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:292:293:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:278:335:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:293:string:43",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:278:335:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:293:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:334:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:296:string_start:44",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:334:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:296:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:334:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:296:333:string_content:45",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:334:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:296:333:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:334:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:333:334:string_end:46",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:334:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:333:334:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:278:335:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:334:string:47",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:278:335:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:334:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:335:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:278:335:argument_list:48",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:335:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:278:335:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:178:339:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:335:call:49",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:178:339:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:335:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:339:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:178:339:tuple:50",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:339:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:178:339:tuple",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:341:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:339:assignment:51",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:341:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:339:assignment",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:23:34:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:23:34:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:23:34:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:23:34:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:34:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:43:54:identifier",
+      "kind": "identifier",
+      "label": "dataclasses",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:43:54:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:43:54:dotted_name",
+      "kind": "dotted_name",
+      "label": "dataclasses",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:62:71:identifier",
+      "kind": "identifier",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 24,
+          "line": 3
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:62:71:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:62:71:dotted_name",
+      "kind": "dotted_name",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 24,
+          "line": 3
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:43:54:dotted_name",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:62:71:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:38:71:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from dataclasses import dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:87:identifier",
+      "kind": "identifier",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 6
+        },
+        "end_byte": 87,
+        "start": {
+          "column": 1,
+          "line": 6
+        },
+        "start_byte": 78
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:94:identifier",
+      "kind": "identifier",
+      "label": "frozen",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 6
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 88
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:95:99:true",
+      "kind": "true",
+      "label": "True",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 99,
+        "start": {
+          "column": 18,
+          "line": 6
+        },
+        "start_byte": 95
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:94:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:95:99:true"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:99:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "frozen=True",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 99,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 88
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:88:99:keyword_argument"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:87:100:argument_list",
+      "kind": "argument_list",
+      "label": "(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 10,
+          "line": 6
+        },
+        "start_byte": 87
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:87:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:87:100:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:100:call",
+      "kind": "call",
+      "label": "dataclass(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 1,
+          "line": 6
+        },
+        "start_byte": 78
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:78:100:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:100:decorator",
+      "kind": "decorator",
+      "label": "@dataclass(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:108:122:identifier",
+      "kind": "identifier",
+      "label": "ToolDefinition",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 7
+        },
+        "end_byte": 122,
+        "start": {
+          "column": 6,
+          "line": 7
+        },
+        "start_byte": 108
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:133:identifier",
+      "kind": "identifier",
+      "label": "name",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 8
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:135:138:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 8
+        },
+        "end_byte": 138,
+        "start": {
+          "column": 10,
+          "line": 8
+        },
+        "start_byte": 135
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:135:138:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:135:138:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 8
+        },
+        "end_byte": 138,
+        "start": {
+          "column": 10,
+          "line": 8
+        },
+        "start_byte": 135
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:133:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:135:138:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:138:assignment",
+      "kind": "assignment",
+      "label": "name: str",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 8
+        },
+        "end_byte": 138,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:151:identifier",
+      "kind": "identifier",
+      "label": "purpose",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 9
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 144
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:153:156:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 9
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 13,
+          "line": 9
+        },
+        "start_byte": 153
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:153:156:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:153:156:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 9
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 13,
+          "line": 9
+        },
+        "start_byte": 153
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:151:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:153:156:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:156:assignment",
+      "kind": "assignment",
+      "label": "purpose: str",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 9
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 144
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:138:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:144:156:assignment"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:156:block",
+      "kind": "block",
+      "label": "name: str\r\n    purpose: str",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 9
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:108:122:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:129:156:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:102:156:class_definition",
+      "kind": "class_definition",
+      "label": "class ToolDefinition:\r\n    name: str\r\n    purpose: str",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 9
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 102
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:100:decorator",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:102:156:class_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:156:decorated_definition",
+      "kind": "decorated_definition",
+      "label": "@dataclass(frozen=True)\r\nclass ToolDefinition:\r\n    name: str\r\n    purpose: str",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 9
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:175:identifier",
+      "kind": "identifier",
+      "label": "DEFAULT_TOOLS",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 12
+        },
+        "end_byte": 175,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 162
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:199:identifier",
+      "kind": "identifier",
+      "label": "ToolDefinition",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 13
+        },
+        "end_byte": 199,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 185
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:201:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 13
+        },
+        "end_byte": 201,
+        "start": {
+          "column": 19,
+          "line": 13
+        },
+        "start_byte": 200
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:201:214:string_content",
+      "kind": "string_content",
+      "label": "port_manifest",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 13
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 20,
+          "line": 13
+        },
+        "start_byte": 201
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:214:215:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 13
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 33,
+          "line": 13
+        },
+        "start_byte": 214
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:201:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:201:214:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:214:215:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:215:string",
+      "kind": "string",
+      "label": "'port_manifest'",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 13
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 19,
+          "line": 13
+        },
+        "start_byte": 200
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:218:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 13
+        },
+        "end_byte": 218,
+        "start": {
+          "column": 36,
+          "line": 13
+        },
+        "start_byte": 217
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:218:255:string_content",
+      "kind": "string_content",
+      "label": "Summarize the active Python workspace",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 13
+        },
+        "end_byte": 255,
+        "start": {
+          "column": 37,
+          "line": 13
+        },
+        "start_byte": 218
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:255:256:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 13
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 74,
+          "line": 13
+        },
+        "start_byte": 255
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:218:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:218:255:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:255:256:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:256:string",
+      "kind": "string",
+      "label": "'Summarize the active Python workspace'",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 13
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 36,
+          "line": 13
+        },
+        "start_byte": 217
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:200:215:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:217:256:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:199:257:argument_list",
+      "kind": "argument_list",
+      "label": "('port_manifest', 'Summarize the active Python workspace')",
+      "span": {
+        "end": {
+          "column": 76,
+          "line": 13
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 18,
+          "line": 13
+        },
+        "start_byte": 199
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:199:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:199:257:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:257:call",
+      "kind": "call",
+      "label": "ToolDefinition('port_manifest', 'Summarize the active Python workspace')",
+      "span": {
+        "end": {
+          "column": 76,
+          "line": 13
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 185
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:278:identifier",
+      "kind": "identifier",
+      "label": "ToolDefinition",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 14
+        },
+        "end_byte": 278,
+        "start": {
+          "column": 4,
+          "line": 14
+        },
+        "start_byte": 264
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:280:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 14
+        },
+        "end_byte": 280,
+        "start": {
+          "column": 19,
+          "line": 14
+        },
+        "start_byte": 279
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:280:292:string_content",
+      "kind": "string_content",
+      "label": "query_engine",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 14
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 20,
+          "line": 14
+        },
+        "start_byte": 280
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:292:293:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 14
+        },
+        "end_byte": 293,
+        "start": {
+          "column": 32,
+          "line": 14
+        },
+        "start_byte": 292
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:280:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:280:292:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:292:293:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:293:string",
+      "kind": "string",
+      "label": "'query_engine'",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 14
+        },
+        "end_byte": 293,
+        "start": {
+          "column": 19,
+          "line": 14
+        },
+        "start_byte": 279
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:296:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 14
+        },
+        "end_byte": 296,
+        "start": {
+          "column": 35,
+          "line": 14
+        },
+        "start_byte": 295
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:296:333:string_content",
+      "kind": "string_content",
+      "label": "Render a Python-first porting summary",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 14
+        },
+        "end_byte": 333,
+        "start": {
+          "column": 36,
+          "line": 14
+        },
+        "start_byte": 296
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:333:334:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 14
+        },
+        "end_byte": 334,
+        "start": {
+          "column": 73,
+          "line": 14
+        },
+        "start_byte": 333
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:296:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:296:333:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:333:334:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:334:string",
+      "kind": "string",
+      "label": "'Render a Python-first porting summary'",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 14
+        },
+        "end_byte": 334,
+        "start": {
+          "column": 35,
+          "line": 14
+        },
+        "start_byte": 295
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:279:293:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:295:334:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:278:335:argument_list",
+      "kind": "argument_list",
+      "label": "('query_engine', 'Render a Python-first porting summary')",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 14
+        },
+        "end_byte": 335,
+        "start": {
+          "column": 18,
+          "line": 14
+        },
+        "start_byte": 278
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:278:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:278:335:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:335:call",
+      "kind": "call",
+      "label": "ToolDefinition('query_engine', 'Render a Python-first porting summary')",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 14
+        },
+        "end_byte": 335,
+        "start": {
+          "column": 4,
+          "line": 14
+        },
+        "start_byte": 264
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:185:257:call",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:264:335:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:178:339:tuple",
+      "kind": "tuple",
+      "label": "(\r\n    ToolDefinition('port_manifest', 'Summarize the active Python workspace'),\r\n    ToolDefinition('query_engine', 'Render a Python-first porting summary'),\r\n)",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 15
+        },
+        "end_byte": 339,
+        "start": {
+          "column": 16,
+          "line": 12
+        },
+        "start_byte": 178
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:175:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:178:339:tuple"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:339:assignment",
+      "kind": "assignment",
+      "label": "DEFAULT_TOOLS = (\r\n    ToolDefinition('port_manifest', 'Summarize the active Python workspace'),\r\n    ToolDefinition('query_engine', 'Render a Python-first porting summary'),\r\n)",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 15
+        },
+        "end_byte": 339,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 162
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:34:future_import_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:38:71:import_from_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:77:156:decorated_definition",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:162:339:assignment"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/Tool.py:0:341:module",
+      "kind": "module",
+      "label": "from __future__ import annotations\r\n\r\nfrom dataclasses import dataclass\r\n\r\n\r\n@dataclass(frozen=True)\r\nclass ToolDefinition:\r\n    name: str\r\n    purpose: str\r\n\r\n\r\nDEFAULT_TOOLS = (\r\n    ToolDefinition(",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 16
+        },
+        "end_byte": 341,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/Tool.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}

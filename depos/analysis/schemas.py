@@ -394,6 +394,7 @@ class ReasonerQueueRow(BaseModel):
     evidence_pack: dict[str, Any] = Field(default_factory=dict)
     pack_manifest: PackManifest
     graphcodebert_score: float = 0.0
+    graphcodebert_pattern: str = ""
     ranking_phase: int = 0
     queued_at: datetime
 

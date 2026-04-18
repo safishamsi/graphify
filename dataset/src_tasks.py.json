@@ -1,0 +1,1549 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:50+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:23:34:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:23:34:identifier:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:23:34:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:23:34:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:34:future_import_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:23:34:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:34:future_import_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:23:34:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:432:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:34:future_import_statement:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:432:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:34:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:48:relative_import->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:44:import_prefix:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:48:relative_import",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:44:import_prefix",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:44:48:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:44:48:identifier:4",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:44:48:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:44:48:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:48:relative_import->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:44:48:dotted_name:5",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:48:relative_import",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:44:48:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:38:67:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:48:relative_import:6",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:38:67:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:48:relative_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:56:67:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:56:67:identifier:7",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:56:67:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:56:67:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:38:67:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:56:67:dotted_name:8",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:38:67:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:56:67:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:432:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:38:67:import_from_statement:9",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:432:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:38:67:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:77:90:identifier:10",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:77:90:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:90:92:parameters:11",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:90:92:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:generic_type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:100:identifier:12",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:generic_type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:100:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:101:112:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:101:112:identifier:13",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:101:112:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:101:112:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:100:113:type_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:101:112:type:14",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:100:113:type_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:101:112:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:generic_type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:100:113:type_parameter:15",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:generic_type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:100:113:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:generic_type:16",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:type:17",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:230:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:149:identifier:18",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:230:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:149:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:170:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:151:string_start:19",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:170:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:151:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:170:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:151:169:string_content:20",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:170:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:151:169:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:170:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:169:170:string_end:21",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:170:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:169:170:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:149:230:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:170:string:22",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:149:230:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:170:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:229:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:173:string_start:23",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:229:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:173:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:229:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:173:228:string_content:24",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:229:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:173:228:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:229:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:228:229:string_end:25",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:229:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:228:229:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:149:230:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:229:string:26",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:149:230:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:229:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:230:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:149:230:argument_list:27",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:230:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:149:230:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:127:430:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:230:call:28",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:127:430:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:230:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:327:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:252:identifier:29",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:327:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:252:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:271:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:254:string_start:30",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:271:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:254:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:271:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:254:270:string_content:31",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:271:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:254:270:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:271:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:270:271:string_end:32",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:271:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:270:271:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:252:327:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:271:string:33",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:252:327:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:271:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:326:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:274:string_start:34",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:326:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:274:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:326:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:274:325:string_content:35",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:326:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:274:325:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:326:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:325:326:string_end:36",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:326:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:325:326:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:252:327:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:326:string:37",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:252:327:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:326:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:327:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:252:327:argument_list:38",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:327:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:252:327:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:127:430:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:327:call:39",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:127:430:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:327:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:422:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:349:identifier:40",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:422:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:349:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:364:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:351:string_start:41",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:364:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:351:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:364:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:351:363:string_content:42",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:364:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:351:363:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:364:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:363:364:string_end:43",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:364:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:363:364:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:349:422:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:364:string:44",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:349:422:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:364:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:421:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:367:string_start:45",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:421:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:367:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:421:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:367:420:string_content:46",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:421:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:367:420:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:421:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:420:421:string_end:47",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:421:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:420:421:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:349:422:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:421:string:48",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:349:422:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:421:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:422:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:349:422:argument_list:49",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:422:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:349:422:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:127:430:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:422:call:50",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:127:430:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:422:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:return_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:127:430:list:51",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:return_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:127:430:list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:return_statement:52",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:block:53",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:432:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition:54",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:432:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:23:34:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:23:34:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:23:34:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:23:34:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:34:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:44:import_prefix",
+      "kind": "import_prefix",
+      "label": ".",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 3
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:44:48:identifier",
+      "kind": "identifier",
+      "label": "task",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 3
+        },
+        "end_byte": 48,
+        "start": {
+          "column": 6,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:44:48:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:44:48:dotted_name",
+      "kind": "dotted_name",
+      "label": "task",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 3
+        },
+        "end_byte": 48,
+        "start": {
+          "column": 6,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:44:import_prefix",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:44:48:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:48:relative_import",
+      "kind": "relative_import",
+      "label": ".task",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 3
+        },
+        "end_byte": 48,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:56:67:identifier",
+      "kind": "identifier",
+      "label": "PortingTask",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 3
+        },
+        "end_byte": 67,
+        "start": {
+          "column": 18,
+          "line": 3
+        },
+        "start_byte": 56
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:56:67:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:56:67:dotted_name",
+      "kind": "dotted_name",
+      "label": "PortingTask",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 3
+        },
+        "end_byte": 67,
+        "start": {
+          "column": 18,
+          "line": 3
+        },
+        "start_byte": 56
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:43:48:relative_import",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:56:67:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:38:67:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from .task import PortingTask",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 3
+        },
+        "end_byte": 67,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:77:90:identifier",
+      "kind": "identifier",
+      "label": "default_tasks",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 6
+        },
+        "end_byte": 90,
+        "start": {
+          "column": 4,
+          "line": 6
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:90:92:parameters",
+      "kind": "parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 6
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 17,
+          "line": 6
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:100:identifier",
+      "kind": "identifier",
+      "label": "list",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 23,
+          "line": 6
+        },
+        "start_byte": 96
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:101:112:identifier",
+      "kind": "identifier",
+      "label": "PortingTask",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 6
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 28,
+          "line": 6
+        },
+        "start_byte": 101
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:101:112:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:101:112:type",
+      "kind": "type",
+      "label": "PortingTask",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 6
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 28,
+          "line": 6
+        },
+        "start_byte": 101
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:101:112:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:100:113:type_parameter",
+      "kind": "type_parameter",
+      "label": "[PortingTask]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 6
+        },
+        "end_byte": 113,
+        "start": {
+          "column": 27,
+          "line": 6
+        },
+        "start_byte": 100
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:100:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:100:113:type_parameter"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:generic_type",
+      "kind": "generic_type",
+      "label": "list[PortingTask]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 6
+        },
+        "end_byte": 113,
+        "start": {
+          "column": 23,
+          "line": 6
+        },
+        "start_byte": 96
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:generic_type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:type",
+      "kind": "type",
+      "label": "list[PortingTask]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 6
+        },
+        "end_byte": 113,
+        "start": {
+          "column": 23,
+          "line": 6
+        },
+        "start_byte": 96
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:149:identifier",
+      "kind": "identifier",
+      "label": "PortingTask",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 8
+        },
+        "end_byte": 149,
+        "start": {
+          "column": 8,
+          "line": 8
+        },
+        "start_byte": 138
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:151:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 8
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 20,
+          "line": 8
+        },
+        "start_byte": 150
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:151:169:string_content",
+      "kind": "string_content",
+      "label": "root-module-parity",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 8
+        },
+        "end_byte": 169,
+        "start": {
+          "column": 21,
+          "line": 8
+        },
+        "start_byte": 151
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:169:170:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 8
+        },
+        "end_byte": 170,
+        "start": {
+          "column": 39,
+          "line": 8
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:151:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:151:169:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:169:170:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:170:string",
+      "kind": "string",
+      "label": "'root-module-parity'",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 8
+        },
+        "end_byte": 170,
+        "start": {
+          "column": 20,
+          "line": 8
+        },
+        "start_byte": 150
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:173:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 8
+        },
+        "end_byte": 173,
+        "start": {
+          "column": 42,
+          "line": 8
+        },
+        "start_byte": 172
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:173:228:string_content",
+      "kind": "string_content",
+      "label": "Mirror the root module surface of the archived snapshot",
+      "span": {
+        "end": {
+          "column": 98,
+          "line": 8
+        },
+        "end_byte": 228,
+        "start": {
+          "column": 43,
+          "line": 8
+        },
+        "start_byte": 173
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:228:229:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 99,
+          "line": 8
+        },
+        "end_byte": 229,
+        "start": {
+          "column": 98,
+          "line": 8
+        },
+        "start_byte": 228
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:173:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:173:228:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:228:229:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:229:string",
+      "kind": "string",
+      "label": "'Mirror the root module surface of the archived snapshot'",
+      "span": {
+        "end": {
+          "column": 99,
+          "line": 8
+        },
+        "end_byte": 229,
+        "start": {
+          "column": 42,
+          "line": 8
+        },
+        "start_byte": 172
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:150:170:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:172:229:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:149:230:argument_list",
+      "kind": "argument_list",
+      "label": "('root-module-parity', 'Mirror the root module surface of the archived snapshot')",
+      "span": {
+        "end": {
+          "column": 100,
+          "line": 8
+        },
+        "end_byte": 230,
+        "start": {
+          "column": 19,
+          "line": 8
+        },
+        "start_byte": 149
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:149:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:149:230:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:230:call",
+      "kind": "call",
+      "label": "PortingTask('root-module-parity', 'Mirror the root module surface of the archived snapshot')",
+      "span": {
+        "end": {
+          "column": 100,
+          "line": 8
+        },
+        "end_byte": 230,
+        "start": {
+          "column": 8,
+          "line": 8
+        },
+        "start_byte": 138
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:252:identifier",
+      "kind": "identifier",
+      "label": "PortingTask",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 252,
+        "start": {
+          "column": 8,
+          "line": 9
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:254:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 9
+        },
+        "end_byte": 254,
+        "start": {
+          "column": 20,
+          "line": 9
+        },
+        "start_byte": 253
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:254:270:string_content",
+      "kind": "string_content",
+      "label": "directory-parity",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 9
+        },
+        "end_byte": 270,
+        "start": {
+          "column": 21,
+          "line": 9
+        },
+        "start_byte": 254
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:270:271:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 9
+        },
+        "end_byte": 271,
+        "start": {
+          "column": 37,
+          "line": 9
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:254:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:254:270:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:270:271:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:271:string",
+      "kind": "string",
+      "label": "'directory-parity'",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 9
+        },
+        "end_byte": 271,
+        "start": {
+          "column": 20,
+          "line": 9
+        },
+        "start_byte": 253
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:274:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 9
+        },
+        "end_byte": 274,
+        "start": {
+          "column": 40,
+          "line": 9
+        },
+        "start_byte": 273
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:274:325:string_content",
+      "kind": "string_content",
+      "label": "Mirror top-level subsystem names as Python packages",
+      "span": {
+        "end": {
+          "column": 92,
+          "line": 9
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 41,
+          "line": 9
+        },
+        "start_byte": 274
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:325:326:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 93,
+          "line": 9
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 92,
+          "line": 9
+        },
+        "start_byte": 325
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:274:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:274:325:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:325:326:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:326:string",
+      "kind": "string",
+      "label": "'Mirror top-level subsystem names as Python packages'",
+      "span": {
+        "end": {
+          "column": 93,
+          "line": 9
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 40,
+          "line": 9
+        },
+        "start_byte": 273
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:253:271:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:273:326:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:252:327:argument_list",
+      "kind": "argument_list",
+      "label": "('directory-parity', 'Mirror top-level subsystem names as Python packages')",
+      "span": {
+        "end": {
+          "column": 94,
+          "line": 9
+        },
+        "end_byte": 327,
+        "start": {
+          "column": 19,
+          "line": 9
+        },
+        "start_byte": 252
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:252:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:252:327:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:327:call",
+      "kind": "call",
+      "label": "PortingTask('directory-parity', 'Mirror top-level subsystem names as Python packages')",
+      "span": {
+        "end": {
+          "column": 94,
+          "line": 9
+        },
+        "end_byte": 327,
+        "start": {
+          "column": 8,
+          "line": 9
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:349:identifier",
+      "kind": "identifier",
+      "label": "PortingTask",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 10
+        },
+        "end_byte": 349,
+        "start": {
+          "column": 8,
+          "line": 10
+        },
+        "start_byte": 338
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:351:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 10
+        },
+        "end_byte": 351,
+        "start": {
+          "column": 20,
+          "line": 10
+        },
+        "start_byte": 350
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:351:363:string_content",
+      "kind": "string_content",
+      "label": "parity-audit",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 10
+        },
+        "end_byte": 363,
+        "start": {
+          "column": 21,
+          "line": 10
+        },
+        "start_byte": 351
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:363:364:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 10
+        },
+        "end_byte": 364,
+        "start": {
+          "column": 33,
+          "line": 10
+        },
+        "start_byte": 363
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:351:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:351:363:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:363:364:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:364:string",
+      "kind": "string",
+      "label": "'parity-audit'",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 10
+        },
+        "end_byte": 364,
+        "start": {
+          "column": 20,
+          "line": 10
+        },
+        "start_byte": 350
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:367:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 10
+        },
+        "end_byte": 367,
+        "start": {
+          "column": 36,
+          "line": 10
+        },
+        "start_byte": 366
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:367:420:string_content",
+      "kind": "string_content",
+      "label": "Continuously measure parity against the local archive",
+      "span": {
+        "end": {
+          "column": 90,
+          "line": 10
+        },
+        "end_byte": 420,
+        "start": {
+          "column": 37,
+          "line": 10
+        },
+        "start_byte": 367
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:420:421:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 91,
+          "line": 10
+        },
+        "end_byte": 421,
+        "start": {
+          "column": 90,
+          "line": 10
+        },
+        "start_byte": 420
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:367:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:367:420:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:420:421:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:421:string",
+      "kind": "string",
+      "label": "'Continuously measure parity against the local archive'",
+      "span": {
+        "end": {
+          "column": 91,
+          "line": 10
+        },
+        "end_byte": 421,
+        "start": {
+          "column": 36,
+          "line": 10
+        },
+        "start_byte": 366
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:350:364:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:366:421:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:349:422:argument_list",
+      "kind": "argument_list",
+      "label": "('parity-audit', 'Continuously measure parity against the local archive')",
+      "span": {
+        "end": {
+          "column": 92,
+          "line": 10
+        },
+        "end_byte": 422,
+        "start": {
+          "column": 19,
+          "line": 10
+        },
+        "start_byte": 349
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:349:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:349:422:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:422:call",
+      "kind": "call",
+      "label": "PortingTask('parity-audit', 'Continuously measure parity against the local archive')",
+      "span": {
+        "end": {
+          "column": 92,
+          "line": 10
+        },
+        "end_byte": 422,
+        "start": {
+          "column": 8,
+          "line": 10
+        },
+        "start_byte": 338
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:138:230:call",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:241:327:call",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:338:422:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:127:430:list",
+      "kind": "list",
+      "label": "[\r\n        PortingTask('root-module-parity', 'Mirror the root module surface of the archived snapshot'),\r\n        PortingTask('directory-parity', 'Mirror top-level subsystem names as Python packages')",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 11
+        },
+        "end_byte": 430,
+        "start": {
+          "column": 11,
+          "line": 7
+        },
+        "start_byte": 127
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:127:430:list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:return_statement",
+      "kind": "return_statement",
+      "label": "return [\r\n        PortingTask('root-module-parity', 'Mirror the root module surface of the archived snapshot'),\r\n        PortingTask('directory-parity', 'Mirror top-level subsystem names as Python pac",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 11
+        },
+        "end_byte": 430,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 120
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:return_statement"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:block",
+      "kind": "block",
+      "label": "return [\r\n        PortingTask('root-module-parity', 'Mirror the root module surface of the archived snapshot'),\r\n        PortingTask('directory-parity', 'Mirror top-level subsystem names as Python pac",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 11
+        },
+        "end_byte": 430,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 120
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:77:90:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:90:92:parameters",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:96:113:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:120:430:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition",
+      "kind": "function_definition",
+      "label": "def default_tasks() -> list[PortingTask]:\r\n    return [\r\n        PortingTask('root-module-parity', 'Mirror the root module surface of the archived snapshot'),\r\n        PortingTask('directory-parity', ",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 11
+        },
+        "end_byte": 430,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 73
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:34:future_import_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:38:67:import_from_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:73:430:function_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/tasks.py:0:432:module",
+      "kind": "module",
+      "label": "from __future__ import annotations\r\n\r\nfrom .task import PortingTask\r\n\r\n\r\ndef default_tasks() -> list[PortingTask]:\r\n    return [\r\n        PortingTask('root-module-parity', 'Mirror the root module surf",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 12
+        },
+        "end_byte": 432,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/tasks.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}

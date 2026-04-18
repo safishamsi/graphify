@@ -1,0 +1,3170 @@
+{
+  "analysis_timestamp": "2026-04-17T23:06:36+00:00",
+  "branch": "main",
+  "commit_sha": "00d0eb61d4cfc1abd345dc76023dd21e420f6488",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:23:34:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:23:34:identifier:0",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:23:34:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:23:34:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:34:future_import_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:23:34:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:34:future_import_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:23:34:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:830:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:34:future_import_statement:2",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:830:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:34:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:43:54:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:43:54:identifier:3",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:43:54:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:43:54:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:38:71:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:43:54:dotted_name:4",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:38:71:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:43:54:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:62:71:dotted_name->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:62:71:identifier:5",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:62:71:dotted_name",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:62:71:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:38:71:import_from_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:62:71:dotted_name:6",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:38:71:import_from_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:62:71:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:830:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:38:71:import_from_statement:7",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:830:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:38:71:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:100:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:87:identifier:8",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:100:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:87:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:99:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:94:identifier:9",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:99:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:94:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:99:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:95:99:true:10",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:99:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:95:99:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:87:100:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:99:keyword_argument:11",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:87:100:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:99:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:100:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:87:100:argument_list:12",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:100:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:87:100:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:100:decorator->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:100:call:13",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:100:decorator",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:100:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:326:decorated_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:100:decorator:14",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:326:decorated_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:100:decorator",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:102:326:class_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:108:122:identifier:15",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:102:326:class_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:108:122:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:152:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:135:identifier:16",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:152:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:135:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:generic_type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:142:identifier:17",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:generic_type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:142:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:143:146:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:143:146:identifier:18",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:143:146:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:143:146:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:142:152:type_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:143:146:type:19",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:142:152:type_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:143:146:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:148:151:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:148:151:ellipsis:20",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:148:151:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:148:151:ellipsis",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:142:152:type_parameter->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:148:151:type:21",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:142:152:type_parameter",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:148:151:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:generic_type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:142:152:type_parameter:22",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:generic_type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:142:152:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:generic_type:23",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:152:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:type:24",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:152:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:326:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:152:assignment:25",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:326:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:152:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:164:175:identifier:26",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:164:175:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:175:181:parameters->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:176:180:identifier:27",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:175:181:parameters",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:176:180:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:175:181:parameters:28",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:175:181:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:185:188:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:185:188:identifier:29",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:185:188:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:185:188:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:185:188:type:30",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:185:188:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:232:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:204:identifier:31",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:232:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:204:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:227:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:209:string_start:32",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:227:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:209:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:227:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:209:226:string_content:33",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:227:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:209:226:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:227:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:226:227:string_end:34",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:227:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:226:227:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:207:232:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:227:string:35",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:207:232:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:227:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:231:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:230:string_start:36",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:231:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:230:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:231:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:230:231:string_end:37",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:231:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:230:231:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:207:232:list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:231:string:38",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:207:232:list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:231:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:232:assignment->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:207:232:list:39",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:232:assignment",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:207:232:list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:326:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:232:assignment:40",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:326:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:232:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:254:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:247:identifier:41",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:254:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:247:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:254:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:248:254:identifier:42",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:254:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:248:254:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:293:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:254:attribute:43",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:293:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:254:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:257:string_start:44",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:257:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:257:259:string_content:45",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:257:259:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:259:266:interpolation->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:260:265:identifier:46",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:259:266:interpolation",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:260:265:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:259:266:interpolation:47",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:259:266:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:266:267:string_end:48",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:266:267:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:254:293:generator_expression->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string:49",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:254:293:generator_expression",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:268:292:for_in_clause->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:272:277:identifier:50",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:268:292:for_in_clause",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:272:277:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:292:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:285:identifier:51",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:292:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:285:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:292:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:286:292:identifier:52",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:292:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:286:292:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:268:292:for_in_clause->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:292:attribute:53",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:268:292:for_in_clause",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:292:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:254:293:generator_expression->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:268:292:for_in_clause:54",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:254:293:generator_expression",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:268:292:for_in_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:293:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:254:293:generator_expression:55",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:293:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:254:293:generator_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:326:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:293:call:56",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:326:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:293:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:314:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:311:string_start:57",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:314:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:311:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:311:313:string_content->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:311:313:escape_sequence:58",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:311:313:string_content",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:311:313:escape_sequence",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:314:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:311:313:string_content:59",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:314:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:311:313:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:314:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:313:314:string_end:60",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:314:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:313:314:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:319:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:314:string:61",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:319:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:314:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:319:attribute->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:315:319:identifier:62",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:319:attribute",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:315:319:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:326:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:319:attribute:63",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:326:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:319:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:319:326:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:320:325:identifier:64",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:319:326:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:320:325:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:326:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:319:326:argument_list:65",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:326:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:319:326:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:303:326:return_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:326:call:66",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:303:326:return_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:326:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:326:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:303:326:return_statement:67",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:326:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:303:326:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:326:block:68",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:326:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:326:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition:69",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:326:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:102:326:class_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:326:block:70",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:102:326:class_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:326:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:326:decorated_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:102:326:class_definition:71",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:326:decorated_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:102:326:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:830:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:326:decorated_definition:72",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:830:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:326:decorated_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:336:357:identifier:73",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:336:357:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:357:359:parameters:74",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:357:359:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:363:377:type->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:363:377:identifier:75",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:363:377:type",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:363:377:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:363:377:type:76",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:363:377:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:828:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:405:identifier:77",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:828:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:405:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:821:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:422:identifier:78",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:821:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:422:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:471:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:439:string_start:79",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:471:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:439:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:471:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:439:470:string_content:80",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:471:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:439:470:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:471:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:470:471:string_end:81",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:471:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:470:471:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:471:string:82",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:471:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:526:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:487:string_start:83",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:526:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:487:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:526:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:487:525:string_content:84",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:526:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:487:525:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:526:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:525:526:string_end:85",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:526:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:525:526:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:526:string:86",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:526:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:579:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:542:string_start:87",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:579:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:542:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:579:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:542:578:string_content:88",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:579:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:542:578:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:579:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:578:579:string_end:89",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:579:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:578:579:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:579:string:90",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:579:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:635:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:595:string_start:91",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:635:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:595:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:635:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:595:634:string_content:92",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:635:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:595:634:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:635:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:634:635:string_end:93",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:635:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:634:635:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:635:string:94",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:635:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:677:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:651:string_start:95",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:677:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:651:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:677:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:651:676:string_content:96",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:677:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:651:676:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:677:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:676:677:string_end:97",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:677:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:676:677:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:677:string:98",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:677:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:768:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:693:string_start:99",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:768:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:693:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:768:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:693:767:string_content:100",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:768:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:693:767:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:768:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:767:768:string_end:101",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:768:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:767:768:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:768:string:102",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:768:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:809:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:784:string_start:103",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:809:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:784:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:809:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:784:808:string_content:104",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:809:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:784:808:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:809:string->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:808:809:string_end:105",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:809:string",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:808:809:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:809:string:106",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:809:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:821:keyword_argument->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple:107",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:821:keyword_argument",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:405:828:argument_list->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:821:keyword_argument:108",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:405:828:argument_list",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:821:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:828:call->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:405:828:argument_list:109",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:828:call",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:405:828:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:return_statement->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:828:call:110",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:return_statement",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:828:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:block->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:return_statement:111",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:block",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:block:112",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:edge:ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:830:module->ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition:113",
+      "role": "child",
+      "source_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:830:module",
+      "target_id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:23:34:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:23:34:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:23:34:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:23:34:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:34:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:43:54:identifier",
+      "kind": "identifier",
+      "label": "dataclasses",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:43:54:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:43:54:dotted_name",
+      "kind": "dotted_name",
+      "label": "dataclasses",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:62:71:identifier",
+      "kind": "identifier",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 24,
+          "line": 3
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:62:71:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:62:71:dotted_name",
+      "kind": "dotted_name",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 24,
+          "line": 3
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:43:54:dotted_name",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:62:71:dotted_name"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:38:71:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from dataclasses import dataclass",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:87:identifier",
+      "kind": "identifier",
+      "label": "dataclass",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 6
+        },
+        "end_byte": 87,
+        "start": {
+          "column": 1,
+          "line": 6
+        },
+        "start_byte": 78
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:94:identifier",
+      "kind": "identifier",
+      "label": "frozen",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 6
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 88
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:95:99:true",
+      "kind": "true",
+      "label": "True",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 99,
+        "start": {
+          "column": 18,
+          "line": 6
+        },
+        "start_byte": 95
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:94:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:95:99:true"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:99:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "frozen=True",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 99,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 88
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:88:99:keyword_argument"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:87:100:argument_list",
+      "kind": "argument_list",
+      "label": "(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 10,
+          "line": 6
+        },
+        "start_byte": 87
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:87:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:87:100:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:100:call",
+      "kind": "call",
+      "label": "dataclass(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 1,
+          "line": 6
+        },
+        "start_byte": 78
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:78:100:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:100:decorator",
+      "kind": "decorator",
+      "label": "@dataclass(frozen=True)",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:108:122:identifier",
+      "kind": "identifier",
+      "label": "BootstrapGraph",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 7
+        },
+        "end_byte": 122,
+        "start": {
+          "column": 6,
+          "line": 7
+        },
+        "start_byte": 108
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:135:identifier",
+      "kind": "identifier",
+      "label": "stages",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 8
+        },
+        "end_byte": 135,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:142:identifier",
+      "kind": "identifier",
+      "label": "tuple",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 8
+        },
+        "end_byte": 142,
+        "start": {
+          "column": 12,
+          "line": 8
+        },
+        "start_byte": 137
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:143:146:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 8
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 18,
+          "line": 8
+        },
+        "start_byte": 143
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:143:146:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:143:146:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 8
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 18,
+          "line": 8
+        },
+        "start_byte": 143
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:148:151:ellipsis",
+      "kind": "ellipsis",
+      "label": "...",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 8
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 23,
+          "line": 8
+        },
+        "start_byte": 148
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:148:151:ellipsis"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:148:151:type",
+      "kind": "type",
+      "label": "...",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 8
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 23,
+          "line": 8
+        },
+        "start_byte": 148
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:143:146:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:148:151:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:142:152:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str, ...]",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 8
+        },
+        "end_byte": 152,
+        "start": {
+          "column": 17,
+          "line": 8
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:142:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:142:152:type_parameter"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:generic_type",
+      "kind": "generic_type",
+      "label": "tuple[str, ...]",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 8
+        },
+        "end_byte": 152,
+        "start": {
+          "column": 12,
+          "line": 8
+        },
+        "start_byte": 137
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:generic_type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:type",
+      "kind": "type",
+      "label": "tuple[str, ...]",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 8
+        },
+        "end_byte": 152,
+        "start": {
+          "column": 12,
+          "line": 8
+        },
+        "start_byte": 137
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:135:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:137:152:type"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:152:assignment",
+      "kind": "assignment",
+      "label": "stages: tuple[str, ...]",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 8
+        },
+        "end_byte": 152,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:164:175:identifier",
+      "kind": "identifier",
+      "label": "as_markdown",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 10
+        },
+        "end_byte": 175,
+        "start": {
+          "column": 8,
+          "line": 10
+        },
+        "start_byte": 164
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:176:180:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 10
+        },
+        "end_byte": 180,
+        "start": {
+          "column": 20,
+          "line": 10
+        },
+        "start_byte": 176
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:176:180:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:175:181:parameters",
+      "kind": "parameters",
+      "label": "(self)",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 10
+        },
+        "end_byte": 181,
+        "start": {
+          "column": 19,
+          "line": 10
+        },
+        "start_byte": 175
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:185:188:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 10
+        },
+        "end_byte": 188,
+        "start": {
+          "column": 29,
+          "line": 10
+        },
+        "start_byte": 185
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:185:188:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:185:188:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 10
+        },
+        "end_byte": 188,
+        "start": {
+          "column": 29,
+          "line": 10
+        },
+        "start_byte": 185
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:204:identifier",
+      "kind": "identifier",
+      "label": "lines",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 11
+        },
+        "end_byte": 204,
+        "start": {
+          "column": 8,
+          "line": 11
+        },
+        "start_byte": 199
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:209:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 11
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 17,
+          "line": 11
+        },
+        "start_byte": 208
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:209:226:string_content",
+      "kind": "string_content",
+      "label": "# Bootstrap Graph",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 11
+        },
+        "end_byte": 226,
+        "start": {
+          "column": 18,
+          "line": 11
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:226:227:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 11
+        },
+        "end_byte": 227,
+        "start": {
+          "column": 35,
+          "line": 11
+        },
+        "start_byte": 226
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:209:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:209:226:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:226:227:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:227:string",
+      "kind": "string",
+      "label": "'# Bootstrap Graph'",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 11
+        },
+        "end_byte": 227,
+        "start": {
+          "column": 17,
+          "line": 11
+        },
+        "start_byte": 208
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:230:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 11
+        },
+        "end_byte": 230,
+        "start": {
+          "column": 38,
+          "line": 11
+        },
+        "start_byte": 229
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:230:231:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 11
+        },
+        "end_byte": 231,
+        "start": {
+          "column": 39,
+          "line": 11
+        },
+        "start_byte": 230
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:230:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:230:231:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:231:string",
+      "kind": "string",
+      "label": "''",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 11
+        },
+        "end_byte": 231,
+        "start": {
+          "column": 38,
+          "line": 11
+        },
+        "start_byte": 229
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:208:227:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:229:231:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:207:232:list",
+      "kind": "list",
+      "label": "['# Bootstrap Graph', '']",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 11
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 16,
+          "line": 11
+        },
+        "start_byte": 207
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:204:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:207:232:list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:232:assignment",
+      "kind": "assignment",
+      "label": "lines = ['# Bootstrap Graph', '']",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 11
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 8,
+          "line": 11
+        },
+        "start_byte": 199
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:247:identifier",
+      "kind": "identifier",
+      "label": "lines",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 12
+        },
+        "end_byte": 247,
+        "start": {
+          "column": 8,
+          "line": 12
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:248:254:identifier",
+      "kind": "identifier",
+      "label": "extend",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 254,
+        "start": {
+          "column": 14,
+          "line": 12
+        },
+        "start_byte": 248
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:247:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:248:254:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:254:attribute",
+      "kind": "attribute",
+      "label": "lines.extend",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 254,
+        "start": {
+          "column": 8,
+          "line": 12
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:257:string_start",
+      "kind": "string_start",
+      "label": "f'",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 12
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 21,
+          "line": 12
+        },
+        "start_byte": 255
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:257:259:string_content",
+      "kind": "string_content",
+      "label": "- ",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 12
+        },
+        "end_byte": 259,
+        "start": {
+          "column": 23,
+          "line": 12
+        },
+        "start_byte": 257
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:260:265:identifier",
+      "kind": "identifier",
+      "label": "stage",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 12
+        },
+        "end_byte": 265,
+        "start": {
+          "column": 26,
+          "line": 12
+        },
+        "start_byte": 260
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:260:265:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:259:266:interpolation",
+      "kind": "interpolation",
+      "label": "{stage}",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 12
+        },
+        "end_byte": 266,
+        "start": {
+          "column": 25,
+          "line": 12
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:266:267:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 12
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 32,
+          "line": 12
+        },
+        "start_byte": 266
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:257:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:257:259:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:259:266:interpolation",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:266:267:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string",
+      "kind": "string",
+      "label": "f'- {stage}'",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 12
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 21,
+          "line": 12
+        },
+        "start_byte": 255
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:272:277:identifier",
+      "kind": "identifier",
+      "label": "stage",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 12
+        },
+        "end_byte": 277,
+        "start": {
+          "column": 38,
+          "line": 12
+        },
+        "start_byte": 272
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:285:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 12
+        },
+        "end_byte": 285,
+        "start": {
+          "column": 47,
+          "line": 12
+        },
+        "start_byte": 281
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:286:292:identifier",
+      "kind": "identifier",
+      "label": "stages",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 12
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 52,
+          "line": 12
+        },
+        "start_byte": 286
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:285:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:286:292:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:292:attribute",
+      "kind": "attribute",
+      "label": "self.stages",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 12
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 47,
+          "line": 12
+        },
+        "start_byte": 281
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:272:277:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:281:292:attribute"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:268:292:for_in_clause",
+      "kind": "for_in_clause",
+      "label": "for stage in self.stages",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 12
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 34,
+          "line": 12
+        },
+        "start_byte": 268
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:255:267:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:268:292:for_in_clause"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:254:293:generator_expression",
+      "kind": "generator_expression",
+      "label": "(f'- {stage}' for stage in self.stages)",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 12
+        },
+        "end_byte": 293,
+        "start": {
+          "column": 20,
+          "line": 12
+        },
+        "start_byte": 254
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:254:attribute",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:254:293:generator_expression"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:293:call",
+      "kind": "call",
+      "label": "lines.extend(f'- {stage}' for stage in self.stages)",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 12
+        },
+        "end_byte": 293,
+        "start": {
+          "column": 8,
+          "line": 12
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:311:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 13
+        },
+        "end_byte": 311,
+        "start": {
+          "column": 15,
+          "line": 13
+        },
+        "start_byte": 310
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:311:313:escape_sequence",
+      "kind": "escape_sequence",
+      "label": "\\n",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 13
+        },
+        "end_byte": 313,
+        "start": {
+          "column": 16,
+          "line": 13
+        },
+        "start_byte": 311
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:311:313:escape_sequence"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:311:313:string_content",
+      "kind": "string_content",
+      "label": "\\n",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 13
+        },
+        "end_byte": 313,
+        "start": {
+          "column": 16,
+          "line": 13
+        },
+        "start_byte": 311
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:313:314:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 13
+        },
+        "end_byte": 314,
+        "start": {
+          "column": 18,
+          "line": 13
+        },
+        "start_byte": 313
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:311:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:311:313:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:313:314:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:314:string",
+      "kind": "string",
+      "label": "'\\n'",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 13
+        },
+        "end_byte": 314,
+        "start": {
+          "column": 15,
+          "line": 13
+        },
+        "start_byte": 310
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:315:319:identifier",
+      "kind": "identifier",
+      "label": "join",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 13
+        },
+        "end_byte": 319,
+        "start": {
+          "column": 20,
+          "line": 13
+        },
+        "start_byte": 315
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:314:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:315:319:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:319:attribute",
+      "kind": "attribute",
+      "label": "'\\n'.join",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 13
+        },
+        "end_byte": 319,
+        "start": {
+          "column": 15,
+          "line": 13
+        },
+        "start_byte": 310
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:320:325:identifier",
+      "kind": "identifier",
+      "label": "lines",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 13
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 25,
+          "line": 13
+        },
+        "start_byte": 320
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:320:325:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:319:326:argument_list",
+      "kind": "argument_list",
+      "label": "(lines)",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 24,
+          "line": 13
+        },
+        "start_byte": 319
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:319:attribute",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:319:326:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:326:call",
+      "kind": "call",
+      "label": "'\\n'.join(lines)",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 15,
+          "line": 13
+        },
+        "start_byte": 310
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:310:326:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:303:326:return_statement",
+      "kind": "return_statement",
+      "label": "return '\\n'.join(lines)",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 8,
+          "line": 13
+        },
+        "start_byte": 303
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:232:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:242:293:call",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:303:326:return_statement"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:326:block",
+      "kind": "block",
+      "label": "lines = ['# Bootstrap Graph', '']\r\n        lines.extend(f'- {stage}' for stage in self.stages)\r\n        return '\\n'.join(lines)",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 8,
+          "line": 11
+        },
+        "start_byte": 199
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:164:175:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:175:181:parameters",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:185:188:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:199:326:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition",
+      "kind": "function_definition",
+      "label": "def as_markdown(self) -> str:\r\n        lines = ['# Bootstrap Graph', '']\r\n        lines.extend(f'- {stage}' for stage in self.stages)\r\n        return '\\n'.join(lines)",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 160
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:152:assignment",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:160:326:function_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:326:block",
+      "kind": "block",
+      "label": "stages: tuple[str, ...]\r\n\r\n    def as_markdown(self) -> str:\r\n        lines = ['# Bootstrap Graph', '']\r\n        lines.extend(f'- {stage}' for stage in self.stages)\r\n        return '\\n'.join(lines)",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:108:122:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:129:326:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:102:326:class_definition",
+      "kind": "class_definition",
+      "label": "class BootstrapGraph:\r\n    stages: tuple[str, ...]\r\n\r\n    def as_markdown(self) -> str:\r\n        lines = ['# Bootstrap Graph', '']\r\n        lines.extend(f'- {stage}' for stage in self.stages)\r\n       ",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 102
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:100:decorator",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:102:326:class_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:326:decorated_definition",
+      "kind": "decorated_definition",
+      "label": "@dataclass(frozen=True)\r\nclass BootstrapGraph:\r\n    stages: tuple[str, ...]\r\n\r\n    def as_markdown(self) -> str:\r\n        lines = ['# Bootstrap Graph', '']\r\n        lines.extend(f'- {stage}' for stage",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:336:357:identifier",
+      "kind": "identifier",
+      "label": "build_bootstrap_graph",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 16
+        },
+        "end_byte": 357,
+        "start": {
+          "column": 4,
+          "line": 16
+        },
+        "start_byte": 336
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:357:359:parameters",
+      "kind": "parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 16
+        },
+        "end_byte": 359,
+        "start": {
+          "column": 25,
+          "line": 16
+        },
+        "start_byte": 357
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:363:377:identifier",
+      "kind": "identifier",
+      "label": "BootstrapGraph",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 16
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 31,
+          "line": 16
+        },
+        "start_byte": 363
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:363:377:identifier"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:363:377:type",
+      "kind": "type",
+      "label": "BootstrapGraph",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 16
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 31,
+          "line": 16
+        },
+        "start_byte": 363
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:405:identifier",
+      "kind": "identifier",
+      "label": "BootstrapGraph",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 17
+        },
+        "end_byte": 405,
+        "start": {
+          "column": 11,
+          "line": 17
+        },
+        "start_byte": 391
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:422:identifier",
+      "kind": "identifier",
+      "label": "stages",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 18
+        },
+        "end_byte": 422,
+        "start": {
+          "column": 8,
+          "line": 18
+        },
+        "start_byte": 416
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:439:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 19
+        },
+        "end_byte": 439,
+        "start": {
+          "column": 12,
+          "line": 19
+        },
+        "start_byte": 438
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:439:470:string_content",
+      "kind": "string_content",
+      "label": "top-level prefetch side effects",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 19
+        },
+        "end_byte": 470,
+        "start": {
+          "column": 13,
+          "line": 19
+        },
+        "start_byte": 439
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:470:471:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 19
+        },
+        "end_byte": 471,
+        "start": {
+          "column": 44,
+          "line": 19
+        },
+        "start_byte": 470
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:439:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:439:470:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:470:471:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:471:string",
+      "kind": "string",
+      "label": "'top-level prefetch side effects'",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 19
+        },
+        "end_byte": 471,
+        "start": {
+          "column": 12,
+          "line": 19
+        },
+        "start_byte": 438
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:487:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 20
+        },
+        "end_byte": 487,
+        "start": {
+          "column": 12,
+          "line": 20
+        },
+        "start_byte": 486
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:487:525:string_content",
+      "kind": "string_content",
+      "label": "warning handler and environment guards",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 20
+        },
+        "end_byte": 525,
+        "start": {
+          "column": 13,
+          "line": 20
+        },
+        "start_byte": 487
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:525:526:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 20
+        },
+        "end_byte": 526,
+        "start": {
+          "column": 51,
+          "line": 20
+        },
+        "start_byte": 525
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:487:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:487:525:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:525:526:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:526:string",
+      "kind": "string",
+      "label": "'warning handler and environment guards'",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 20
+        },
+        "end_byte": 526,
+        "start": {
+          "column": 12,
+          "line": 20
+        },
+        "start_byte": 486
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:542:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 21
+        },
+        "end_byte": 542,
+        "start": {
+          "column": 12,
+          "line": 21
+        },
+        "start_byte": 541
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:542:578:string_content",
+      "kind": "string_content",
+      "label": "CLI parser and pre-action trust gate",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 21
+        },
+        "end_byte": 578,
+        "start": {
+          "column": 13,
+          "line": 21
+        },
+        "start_byte": 542
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:578:579:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 21
+        },
+        "end_byte": 579,
+        "start": {
+          "column": 49,
+          "line": 21
+        },
+        "start_byte": 578
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:542:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:542:578:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:578:579:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:579:string",
+      "kind": "string",
+      "label": "'CLI parser and pre-action trust gate'",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 21
+        },
+        "end_byte": 579,
+        "start": {
+          "column": 12,
+          "line": 21
+        },
+        "start_byte": 541
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:595:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 22
+        },
+        "end_byte": 595,
+        "start": {
+          "column": 12,
+          "line": 22
+        },
+        "start_byte": 594
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:595:634:string_content",
+      "kind": "string_content",
+      "label": "setup() + commands/agents parallel load",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 22
+        },
+        "end_byte": 634,
+        "start": {
+          "column": 13,
+          "line": 22
+        },
+        "start_byte": 595
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:634:635:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 22
+        },
+        "end_byte": 635,
+        "start": {
+          "column": 52,
+          "line": 22
+        },
+        "start_byte": 634
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:595:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:595:634:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:634:635:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:635:string",
+      "kind": "string",
+      "label": "'setup() + commands/agents parallel load'",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 22
+        },
+        "end_byte": 635,
+        "start": {
+          "column": 12,
+          "line": 22
+        },
+        "start_byte": 594
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:651:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 23
+        },
+        "end_byte": 651,
+        "start": {
+          "column": 12,
+          "line": 23
+        },
+        "start_byte": 650
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:651:676:string_content",
+      "kind": "string_content",
+      "label": "deferred init after trust",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 23
+        },
+        "end_byte": 676,
+        "start": {
+          "column": 13,
+          "line": 23
+        },
+        "start_byte": 651
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:676:677:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 23
+        },
+        "end_byte": 677,
+        "start": {
+          "column": 38,
+          "line": 23
+        },
+        "start_byte": 676
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:651:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:651:676:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:676:677:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:677:string",
+      "kind": "string",
+      "label": "'deferred init after trust'",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 23
+        },
+        "end_byte": 677,
+        "start": {
+          "column": 12,
+          "line": 23
+        },
+        "start_byte": 650
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:693:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 24
+        },
+        "end_byte": 693,
+        "start": {
+          "column": 12,
+          "line": 24
+        },
+        "start_byte": 692
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:693:767:string_content",
+      "kind": "string_content",
+      "label": "mode routing: local / remote / ssh / teleport / direct-connect / deep-link",
+      "span": {
+        "end": {
+          "column": 87,
+          "line": 24
+        },
+        "end_byte": 767,
+        "start": {
+          "column": 13,
+          "line": 24
+        },
+        "start_byte": 693
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:767:768:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 88,
+          "line": 24
+        },
+        "end_byte": 768,
+        "start": {
+          "column": 87,
+          "line": 24
+        },
+        "start_byte": 767
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:693:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:693:767:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:767:768:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:768:string",
+      "kind": "string",
+      "label": "'mode routing: local / remote / ssh / teleport / direct-connect / deep-link'",
+      "span": {
+        "end": {
+          "column": 88,
+          "line": 24
+        },
+        "end_byte": 768,
+        "start": {
+          "column": 12,
+          "line": 24
+        },
+        "start_byte": 692
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:784:string_start",
+      "kind": "string_start",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 25
+        },
+        "end_byte": 784,
+        "start": {
+          "column": 12,
+          "line": 25
+        },
+        "start_byte": 783
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:784:808:string_content",
+      "kind": "string_content",
+      "label": "query engine submit loop",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 25
+        },
+        "end_byte": 808,
+        "start": {
+          "column": 13,
+          "line": 25
+        },
+        "start_byte": 784
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:808:809:string_end",
+      "kind": "string_end",
+      "label": "'",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 25
+        },
+        "end_byte": 809,
+        "start": {
+          "column": 37,
+          "line": 25
+        },
+        "start_byte": 808
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:784:string_start",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:784:808:string_content",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:808:809:string_end"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:809:string",
+      "kind": "string",
+      "label": "'query engine submit loop'",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 25
+        },
+        "end_byte": 809,
+        "start": {
+          "column": 12,
+          "line": 25
+        },
+        "start_byte": 783
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:438:471:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:486:526:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:541:579:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:594:635:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:650:677:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:692:768:string",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:783:809:string"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple",
+      "kind": "tuple",
+      "label": "(\r\n            'top-level prefetch side effects',\r\n            'warning handler and environment guards',\r\n            'CLI parser and pre-action trust gate',\r\n            'setup() + commands/agents pa",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 26
+        },
+        "end_byte": 821,
+        "start": {
+          "column": 15,
+          "line": 18
+        },
+        "start_byte": 423
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:422:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:423:821:tuple"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:821:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "stages=(\r\n            'top-level prefetch side effects',\r\n            'warning handler and environment guards',\r\n            'CLI parser and pre-action trust gate',\r\n            'setup() + commands/ag",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 26
+        },
+        "end_byte": 821,
+        "start": {
+          "column": 8,
+          "line": 18
+        },
+        "start_byte": 416
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:416:821:keyword_argument"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:405:828:argument_list",
+      "kind": "argument_list",
+      "label": "(\r\n        stages=(\r\n            'top-level prefetch side effects',\r\n            'warning handler and environment guards',\r\n            'CLI parser and pre-action trust gate',\r\n            'setup() + ",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 27
+        },
+        "end_byte": 828,
+        "start": {
+          "column": 25,
+          "line": 17
+        },
+        "start_byte": 405
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:405:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:405:828:argument_list"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:828:call",
+      "kind": "call",
+      "label": "BootstrapGraph(\r\n        stages=(\r\n            'top-level prefetch side effects',\r\n            'warning handler and environment guards',\r\n            'CLI parser and pre-action trust gate',\r\n         ",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 27
+        },
+        "end_byte": 828,
+        "start": {
+          "column": 11,
+          "line": 17
+        },
+        "start_byte": 391
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:391:828:call"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:return_statement",
+      "kind": "return_statement",
+      "label": "return BootstrapGraph(\r\n        stages=(\r\n            'top-level prefetch side effects',\r\n            'warning handler and environment guards',\r\n            'CLI parser and pre-action trust gate',\r\n  ",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 27
+        },
+        "end_byte": 828,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 384
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:return_statement"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:block",
+      "kind": "block",
+      "label": "return BootstrapGraph(\r\n        stages=(\r\n            'top-level prefetch side effects',\r\n            'warning handler and environment guards',\r\n            'CLI parser and pre-action trust gate',\r\n  ",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 27
+        },
+        "end_byte": 828,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 384
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:336:357:identifier",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:357:359:parameters",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:363:377:type",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:384:828:block"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition",
+      "kind": "function_definition",
+      "label": "def build_bootstrap_graph() -> BootstrapGraph:\r\n    return BootstrapGraph(\r\n        stages=(\r\n            'top-level prefetch side effects',\r\n            'warning handler and environment guards',\r\n   ",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 27
+        },
+        "end_byte": 828,
+        "start": {
+          "column": 0,
+          "line": 16
+        },
+        "start_byte": 332
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:34:future_import_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:38:71:import_from_statement",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:77:326:decorated_definition",
+        "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:332:828:function_definition"
+      ],
+      "id": "ast:00d0eb61d4cfc1abd345dc76023dd21e420f6488:src/bootstrap_graph.py:0:830:module",
+      "kind": "module",
+      "label": "from __future__ import annotations\r\n\r\nfrom dataclasses import dataclass\r\n\r\n\r\n@dataclass(frozen=True)\r\nclass BootstrapGraph:\r\n    stages: tuple[str, ...]\r\n\r\n    def as_markdown(self) -> str:\r\n        l",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 28
+        },
+        "end_byte": 830,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "src/bootstrap_graph.py",
+  "repository_name": "claw-code",
+  "repository_url": "https://github.com/ultraworkers/claw-code",
+  "source_language": "python",
+  "warnings": []
+}
