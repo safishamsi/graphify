@@ -2,45 +2,32 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 
-export default function SignupPage() {
+export function LoginForm() {
   const router = useRouter();
+  const params = useSearchParams();
+  const next = params.get("next") ?? "/orgs";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [message, setMessage] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setError(null);
-    setMessage(null);
     setLoading(true);
     try {
       const supabase = createClient();
-      const origin = typeof window !== "undefined" ? window.location.origin : undefined;
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { display_name: displayName },
-          emailRedirectTo: origin ? `${origin}/auth/callback` : undefined,
-        },
-      });
-      if (signUpError) {
-        setError(signUpError.message);
+      const { error: signInError } = await supabase.auth.signInWithPassword({ email, password });
+      if (signInError) {
+        setError(signInError.message);
         return;
       }
-      if (data.session) {
-        router.push("/orgs");
-        router.refresh();
-      } else {
-        setMessage("Check your email for a confirmation link.");
-      }
+      router.push(next);
+      router.refresh();
     } finally {
       setLoading(false);
     }
@@ -49,22 +36,12 @@ export default function SignupPage() {
   return (
     <div className="auth-card">
       <h1 className="font-display" style={{ margin: "0 0 0.35rem", fontSize: "1.5rem" }}>
-        Create an account
+        Log in
       </h1>
       <p className="text-muted" style={{ margin: "0 0 1.25rem" }}>
-        Supabase Auth backs sessions for the depOS console.
+        Use your Supabase account. You will land in the org console.
       </p>
       <form onSubmit={(e) => void onSubmit(e)}>
-        <div className="field">
-          <label htmlFor="dname">Display name</label>
-          <input
-            id="dname"
-            type="text"
-            className="input"
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-          />
-        </div>
         <div className="field">
           <label htmlFor="email">Email</label>
           <input
@@ -83,21 +60,19 @@ export default function SignupPage() {
             id="password"
             type="password"
             required
-            autoComplete="new-password"
-            minLength={8}
+            autoComplete="current-password"
             className="input"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
         {error ? <p className="text-danger">{error}</p> : null}
-        {message ? <p style={{ color: "var(--accent)" }}>{message}</p> : null}
         <Button type="submit" variant="primary" disabled={loading} style={{ width: "100%" }}>
-          {loading ? "Creating…" : "Sign up"}
+          {loading ? "Signing in…" : "Sign in"}
         </Button>
       </form>
       <p className="text-muted" style={{ marginTop: "1.25rem", marginBottom: 0 }}>
-        Already have an account? <Link href="/login">Log in</Link>
+        No account? <Link href="/signup">Create one</Link>
       </p>
     </div>
   );

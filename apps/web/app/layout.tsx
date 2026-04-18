@@ -1,5 +1,19 @@
 import type { Metadata } from "next";
+import { Fraunces, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
+
+const display = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const ui = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-ui",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "depOS — Dependency Map OS",
@@ -8,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${display.variable} ${ui.variable}`}>
       <body className="root">{children}</body>
     </html>
   );

@@ -7,7 +7,7 @@ import { createClient } from "@/lib/supabase/server";
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
-  const next = url.searchParams.get("next") ?? "/repos";
+  const next = url.searchParams.get("next") ?? "/orgs";
 
   if (code) {
     const supabase = createClient();
