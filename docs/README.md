@@ -10,6 +10,7 @@
 4. **[Development](development.md)** — Local setup, tests, and packaging notes.
 5. **[Dataset pipeline](dataset-pipeline.md)** — How to run the raw AST dataset through normalization, GraphCodeBERT, Gemma, verifier, and gray-zone evaluation.
 6. **[CI / OIDC trust](ci-oidc.md)** — How GitHub Actions should authenticate to the depOS API in production (short-lived tokens, OIDC).
+7. **[Handoff: last three commits (Apr 2026)](handoffs/2026-04-18-last-three-commits.md)** — Teammate summary of recent Postgres-only DB change, backend hardening + migrations, and the new `/orgs` Next.js console.
 
 ## Relationship to graphify
 
