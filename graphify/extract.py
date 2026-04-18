@@ -3345,6 +3345,39 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
     # Cross-file call resolution for all languages
     # Each extractor saved unresolved calls in raw_calls. Now that we have all
     # nodes from all files, resolve any callee that exists in another file.
+    _BCL_METHOD_BLOCKLIST = frozenset({
+        "contains", "equals", "gethashcode", "tostring", "gettype",
+        "compareto", "startswith", "endswith", "replace", "split",
+        "trim", "trimstart", "trimend", "substring", "indexof",
+        "lastindexof", "insert", "remove", "toarray", "tolist",
+        "todictionary", "count", "any", "all", "first", "firstordefault",
+        "last", "lastordefault", "single", "singleordefault",
+        "where", "select", "selectmany", "orderby", "orderbydescending",
+        "groupby", "skip", "take", "aggregate", "sum", "min", "max",
+        "average", "concat", "zip", "distinct", "union", "intersect",
+        "except", "reverse", "append", "prepend", "add", "clear",
+        "dispose", "close", "read", "write", "flush", "seek",
+        "getawaiter", "getresult", "configureawait",
+        "trygetvalue", "containskey", "containsvalue",
+        "format", "join", "isnullorempty", "isnullorwhitespace",
+        "parse", "tryparse",
+        "listasync", "getasync", "saveasync", "deleteasync",
+        "updateasync", "createasync", "findasync", "existsasync",
+        "executeasync", "sendasync", "receiveasync",
+        "openasync", "closeasync", "readasync", "writeasync",
+        "createdbcontext", "abortwithstatus",
+        "abortwithstatuscode", "map", "mapget", "mappost", "mapput",
+        "mapdelete", "useswagger", "useswaggerui",
+        "addsingleton", "addscoped", "addtransient",
+        "useendpoints", "userouting", "useauthorization",
+        "useauthentication", "usecors", "usehttpsredirection",
+        "getlogger", "loginformation", "logwarning", "logerror",
+        "logdebug", "logcritical",
+        "ok", "notfound", "badrequest", "unauthorized",
+        "nocontent", "created", "accepted",
+        "run", "build", "createbuilder",
+    })
+
     global_label_to_nid: dict[str, str] = {}
     for n in all_nodes:
         raw = n.get("label", "")
@@ -3357,6 +3390,8 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
         for rc in result.get("raw_calls", []):
             callee = rc.get("callee", "")
             if not callee:
+                continue
+            if callee.lower() in _BCL_METHOD_BLOCKLIST:
                 continue
             tgt = global_label_to_nid.get(callee.lower())
             caller = rc["caller_nid"]
