@@ -13,6 +13,29 @@ jobs:
       matrix:
         python-version: ["3.10", "3.12"]
 
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_DB: postgres
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd="pg_isready -U postgres"
+          --health-interval=5s
+          --health-timeout=5s
+          --health-retries=10
+
+    env:
+      DATABASE_URL: postgres://postgres:postgres@127.0.0.1:5432/postgres
+      SUPABASE_URL: http://127.0.0.1:54321
+      SUPABASE_ANON_KEY: ci-anon-key
+      SUPABASE_SERVICE_ROLE_KEY: ci-service-role-key
+      SUPABASE_JWT_ALG: HS256
+      SUPABASE_JWT_SECRET: ci-jwt-secret-please-override-in-production
+      SUPABASE_JWT_AUDIENCE: authenticated
+
     steps:
       - uses: actions/checkout@v4
 
@@ -23,8 +46,33 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -e ".[mcp,pdf,watch]"
+          pip install -e ".[depos,supabase,mcp,pdf,watch]"
           pip install pytest
+
+      - name: Apply Supabase migrations
+        run: |
+          # Create a fake `auth` schema + `auth.users` table so migrations
+          # that reference auth.users/auth.uid() work under bare Postgres
+          # (Supabase's auth schema isn't bundled with the postgres image).
+          psql "$DATABASE_URL" <<'SQL'
+          create schema if not exists auth;
+          create table if not exists auth.users (
+              id uuid primary key,
+              email text,
+              raw_user_meta_data jsonb default '{}'::jsonb,
+              created_at timestamptz default now()
+          );
+          create or replace function auth.uid() returns uuid
+              language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
+          create role authenticated nologin;
+          create role service_role nologin bypassrls;
+          grant usage on schema public to authenticated, service_role;
+          grant all on all tables in schema public to service_role;
+          SQL
+          for f in supabase/migrations/*.sql; do
+            echo "Applying $f"
+            psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f "$f"
+          done
 
       - name: Run tests
         run: |

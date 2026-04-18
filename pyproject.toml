@@ -48,6 +48,16 @@ depos = [
     "uvicorn[standard]>=0.30.0",
     "sqlalchemy>=2.0.0",
 ]
+supabase = [
+    "supabase>=2.0",
+    "psycopg[binary]>=3.2",
+    "python-jose[cryptography]>=3.3",
+    "httpx>=0.27",
+]
+intelligence = [
+    "torch>=2.0",
+    "transformers>=4.35",
+]
 mcp = ["mcp"]
 neo4j = ["neo4j"]
 pdf = ["pypdf", "html2text"]
@@ -56,11 +66,32 @@ svg = ["matplotlib"]
 leiden = ["graspologic; python_version < '3.13'"]
 office = ["python-docx", "openpyxl"]
 video = ["faster-whisper", "yt-dlp"]
-all = ["mcp", "neo4j", "pypdf", "html2text", "watchdog", "graspologic; python_version < '3.13'", "python-docx", "openpyxl", "faster-whisper", "yt-dlp", "matplotlib", "pydantic>=2.0", "fastapi>=0.115.0", "uvicorn[standard]>=0.30.0", "sqlalchemy>=2.0.0"]
+all = [
+    "mcp",
+    "neo4j",
+    "pypdf",
+    "html2text",
+    "watchdog",
+    "graspologic; python_version < '3.13'",
+    "python-docx",
+    "openpyxl",
+    "faster-whisper",
+    "yt-dlp",
+    "matplotlib",
+    "pydantic>=2.0",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "sqlalchemy>=2.0.0",
+    "supabase>=2.0",
+    "psycopg[binary]>=3.2",
+    "python-jose[cryptography]>=3.3",
+    "httpx>=0.27",
+]
 
 [project.scripts]
 graphify = "graphify.__main__:main"
 depos-api = "depos.api_server:main"
+depos-intel = "depos.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["."]

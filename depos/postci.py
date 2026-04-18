@@ -1,7 +1,6 @@
 """Post-CI: correlate failed jobs / files with predicted blast files."""
 from __future__ import annotations
 
-import json
 from typing import Any
 
 
@@ -33,10 +32,11 @@ def store_signal(session: Any, repo_slug: str, head_sha: str, payload: dict) -> 
     from depos.db import CISignal
 
     row = CISignal(
+        org_id=payload.get("org_id"),
         repo_slug=repo_slug,
         head_sha=head_sha,
         check_conclusion=payload.get("check_conclusion", ""),
-        predicted_files=json.dumps(payload.get("predicted_files", [])),
+        predicted_files=list(payload.get("predicted_files", [])),
         overlap_score=float(payload.get("overlap_score", 0.0)),
     )
     session.add(row)

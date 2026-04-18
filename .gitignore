@@ -25,3 +25,11 @@ uv.lock
 depos-data/
 apps/web/node_modules/
 apps/web/.next/
+.env
+.env.local
+.env.*.local
+apps/web/.env
+apps/web/.env.local
+apps/web/.env.*.local
+supabase/.branches/
+supabase/.temp/

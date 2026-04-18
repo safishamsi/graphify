@@ -18,23 +18,55 @@ Documentation lives in **[`docs/`](docs/README.md)**.
 
 For development setup of the vendored library, see [docs/development.md](docs/development.md).
 
-## depOS API (optional)
+## Running locally (Supabase + depOS API + web)
+
+depOS persists orgs, repos, audit logs, CI signals, and intelligence-layer
+artifacts in Supabase Postgres. Auth is Supabase Auth. Start the full stack:
 
 ```bash
-pip install -e ".[depos]"
+# 1. Supabase (Postgres + Auth + Studio). Requires Docker + Supabase CLI.
+supabase start
+supabase db reset          # applies supabase/migrations/*.sql + seed.sql
+
+# 2. Backend env: copy .env.example to .env and fill the keys supabase
+#    printed in step 1 (anon / service-role / jwt-secret).
+cp .env.example .env
+```
+
+See [`supabase/README.md`](supabase/README.md) for the full variable list and
+RLS model.
+
+### depOS API
+
+```bash
+pip install -e ".[depos,supabase]"
 depos-api
 # or: python -m uvicorn depos.api_server:app --host 0.0.0.0 --port 8080
 ```
 
-Endpoints include `POST /v1/snapshot`, `POST /v1/ci/analyze`, `POST /v1/ci/postci`, org/repo toggles, and `POST /v1/federation/preview`.
+Endpoints include `POST /v1/snapshot`, `POST /v1/ci/analyze`,
+`POST /v1/ci/postci`, `POST /v1/orgs`, `GET /v1/orgs/{slug}/repos`,
+`PATCH /v1/repos/toggle`, `GET /v1/me`, `POST /v1/federation/preview`, and
+`POST /v1/drift`. Tenant-scoped routes require an
+`Authorization: Bearer <supabase-jwt>` header.
 
-## Web dashboard (optional)
+### depOS intelligence CLI
 
 ```bash
+pip install -e ".[depos,supabase,intelligence]"
+depos-intel --help
+depos-intel analyze coverage --path .
+```
+
+### Web dashboard
+
+```bash
+cp apps/web/.env.local.example apps/web/.env.local    # edit with your keys
 cd apps/web && npm install && npm run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001).
+Open [http://localhost:3001](http://localhost:3001). Sign up or log in;
+protected routes under `/repos` require an authenticated session.
 
 ## Layout
 

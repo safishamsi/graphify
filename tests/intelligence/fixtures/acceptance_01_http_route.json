@@ -1,0 +1,18 @@
+{
+  "directed": true,
+  "nodes": [
+    {
+      "id": "ts:apps/web/app/repos/page.tsx",
+      "label": "ReposPage",
+      "file_type": "code",
+      "source_file": "apps/web/app/repos/page.tsx"
+    },
+    {
+      "id": "py:backend/routers/repos.py:list_repos",
+      "label": "list_repos()",
+      "file_type": "code",
+      "source_file": "backend/routers/repos.py"
+    }
+  ],
+  "links": []
+}
