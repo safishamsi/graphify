@@ -1,4 +1,4 @@
-# depOS — optional CI step: snapshot + analyze (requires depOS API URL for full fusion)
+# depOS — CI: snapshot graph JSON, optional upload + analyze via depOS API
 name: depOS
 
 on:
@@ -7,9 +7,17 @@ on:
   push:
     branches: [main, master]
 
+permissions:
+  contents: read
+  id-token: write
+
 jobs:
   analyze:
     runs-on: ubuntu-latest
+    env:
+      DEPOS_API_URL: ${{ secrets.DEPOS_API_URL }}
+      DEPOS_ORG_SLUG: ${{ secrets.DEPOS_ORG_SLUG }}
+      DEPOS_SUPABASE_JWT: ${{ secrets.DEPOS_SUPABASE_JWT }}
     steps:
       - uses: actions/checkout@v4
 
@@ -18,7 +26,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install package with depOS extras
-        run: pip install -e ".[depos]"
+        run: pip install -e ".[depos,supabase]"
 
       - name: Snapshot graph (graphify extract → build_from_json)
         run: |
@@ -37,12 +45,28 @@ jobs:
           name: depos-graph-json
           path: depos-data/graph-head.json
 
-      - name: Optional — POST to depOS API
-        if: env.DEPOS_API_URL != ''
-        env:
-          DEPOS_API_URL: ${{ vars.DEPOS_API_URL }}
+      - name: Optional — prepare → upload → complete → analyze on depOS API
         run: |
-          curl -sS -X POST "$DEPOS_API_URL/v1/ci/analyze" \
+          set -euo pipefail
+          if [ -z "${DEPOS_API_URL:-}" ] || [ -z "${DEPOS_ORG_SLUG:-}" ] || [ -z "${DEPOS_SUPABASE_JWT:-}" ]; then
+            echo "Skipping depOS API (set secrets DEPOS_API_URL, DEPOS_ORG_SLUG, DEPOS_SUPABASE_JWT)."
+            exit 0
+          fi
+          AUTH="Authorization: Bearer ${DEPOS_SUPABASE_JWT}"
+          JSON_TYPE="Content-Type: application/json"
+          REPO_SLUG="${GITHUB_REPOSITORY##*/}"
+          prep=$(curl -fsS -X POST "${DEPOS_API_URL%/}/v1/orgs/${DEPOS_ORG_SLUG}/graph-snapshots/prepare" \
+            -H "${AUTH}" -H "${JSON_TYPE}" \
+            -d "{\"repo_slug\":\"${REPO_SLUG}\",\"git_sha\":\"${GITHUB_SHA}\"}")
+          echo "$prep" | head -c 2000
+          sid=$(echo "$prep" | jq -r .snapshot_id)
+          upload=$(echo "$prep" | jq -r .signed_url)
+          curl -fsS -X PUT "$upload" \
             -H "Content-Type: application/json" \
-            -d "{\"root\":\"$GITHUB_WORKSPACE\",\"changed_files\":[]}" \
-            | head -c 4000 || true
+            --data-binary @depos-data/graph-head.json
+          curl -fsS -X POST "${DEPOS_API_URL%/}/v1/orgs/${DEPOS_ORG_SLUG}/graph-snapshots/${sid}/complete" \
+            -H "${AUTH}" -H "${JSON_TYPE}" -d '{}' | head -c 2000
+          curl -fsS -X POST "${DEPOS_API_URL%/}/v1/ci/analyze" \
+            -H "${AUTH}" -H "${JSON_TYPE}" \
+            -d "{\"org_slug\":\"${DEPOS_ORG_SLUG}\",\"repo_slug\":\"${REPO_SLUG}\",\"graph_snapshot_id\":\"${sid}\",\"changed_files\":[]}" \
+            | head -c 4000

@@ -44,11 +44,27 @@ depos-api
 # or: python -m uvicorn depos.api_server:app --host 0.0.0.0 --port 8080
 ```
 
-Endpoints include `POST /v1/snapshot`, `POST /v1/ci/analyze`,
+**Public:** `GET /health`, `GET /ready`.
+
+**Internal** (require `DEPOS_INTERNAL_API_KEY` via `X-DepOS-Internal-Key` or
+`Authorization: Bearer <same>` when that env var is set): `POST /v1/snapshot`,
+`POST /v1/federation/preview`, `POST /v1/drift` (server-local graph JSON paths).
+
+**Tenant** (`Authorization: Bearer <supabase-jwt>`): org/repo CRUD, CI, graph
+snapshots, federation/drift from Storage, intelligence runs — for example
+`POST /v1/orgs/{slug}/graph-snapshots/prepare` → upload JSON to the signed URL
+→ `POST /v1/orgs/{slug}/graph-snapshots/{id}/complete` →
+`POST /v1/ci/analyze` with `org_slug`, `repo_slug`, and `graph_snapshot_id`
+(optional `root` only together with the internal key for workers).
+`POST /v1/federation/snapshots`, `POST /v1/drift/snapshots`,
 `POST /v1/ci/postci`, `POST /v1/orgs`, `GET /v1/orgs/{slug}/repos`,
-`PATCH /v1/repos/toggle`, `GET /v1/me`, `POST /v1/federation/preview`, and
-`POST /v1/drift`. Tenant-scoped routes require an
-`Authorization: Bearer <supabase-jwt>` header.
+`PATCH /v1/repos/toggle`, `GET /v1/me`,
+`POST/GET /v1/orgs/{slug}/intelligence/runs`, `GET .../runs/{run_id}`.
+
+Production (`DEPOS_ENV=production`) requires `DEPOS_INTERNAL_API_KEY`,
+non-wildcard `DEPOS_CORS_ORIGINS`, and `DEPOS_GRAPH_BUCKET`. See
+[docs/ci-oidc.md](docs/ci-oidc.md) for GitHub Actions → API trust without
+long-lived passwords.
 
 ### depOS intelligence CLI
 

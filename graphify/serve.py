@@ -18,7 +18,7 @@ def _load_graph(graph_path: str) -> nx.Graph:
         safe = resolved
         data = json.loads(safe.read_text(encoding="utf-8"))
         try:
-            return json_graph.node_link_graph(data, edges="links")
+            return json_graph.node_link_graph(data, link="links")
         except TypeError:
             return json_graph.node_link_graph(data)
     except (ValueError, FileNotFoundError) as exc:

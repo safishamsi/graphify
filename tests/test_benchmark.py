@@ -23,7 +23,7 @@ def _make_graph() -> nx.Graph:
 
 
 def _write_graph(G: nx.Graph, path) -> None:
-    data = json_graph.node_link_data(G, edges="links")
+    data = json_graph.node_link_data(G, link="links")
     path.write_text(json.dumps(data))
 
 

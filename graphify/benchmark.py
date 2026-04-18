@@ -77,7 +77,7 @@ def run_benchmark(
     """
     data = json.loads(Path(graph_path).read_text(encoding="utf-8"))
     try:
-        G = json_graph.node_link_graph(data, edges="links")
+        G = json_graph.node_link_graph(data, link="links")
     except TypeError:
         G = json_graph.node_link_graph(data)
 

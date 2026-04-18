@@ -18,7 +18,12 @@ supabase/
     20260417120300_init_audit_logs.sql
     20260417120400_init_ci_signals.sql
     20260417120500_init_intelligence_runs.sql
+    20260418120000_init_graph_snapshots.sql
+    20260418120100_storage_graph_snapshots_bucket.sql
 ```
+
+Migrations also create the private Storage bucket **`graph-snapshots`** (override
+name with env `DEPOS_GRAPH_BUCKET` if you change it).
 
 ## Local development
 

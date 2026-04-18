@@ -9,6 +9,7 @@
 3. **[Graphify internals](graphify-internals.md)** — The vendored `graphify/` Python package: pipeline, modules, and extending extraction.
 4. **[Development](development.md)** — Local setup, tests, and packaging notes.
 5. **[Dataset pipeline](dataset-pipeline.md)** — How to run the raw AST dataset through normalization, GraphCodeBERT, Gemma, verifier, and gray-zone evaluation.
+6. **[CI / OIDC trust](ci-oidc.md)** — How GitHub Actions should authenticate to the depOS API in production (short-lived tokens, OIDC).
 
 ## Relationship to graphify
 

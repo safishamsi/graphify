@@ -34,7 +34,7 @@ def build_graph_for_root(
 
 def graph_to_node_link(G: nx.Graph) -> dict:
     """Serialize graph for storage (node-link format)."""
-    return json_graph.node_link_data(G, edges="links")
+    return json_graph.node_link_data(G, link="links")
 
 
 def persist_graph_json(G: nx.Graph, dest: Path) -> None:
@@ -46,6 +46,14 @@ def persist_graph_json(G: nx.Graph, dest: Path) -> None:
 def load_graph_json(path: Path) -> nx.Graph:
     data = json.loads(path.read_text(encoding="utf-8"))
     try:
-        return json_graph.node_link_graph(data, edges="links")
+        return json_graph.node_link_graph(data, link="links")
+    except TypeError:
+        return json_graph.node_link_graph(data)
+
+
+def load_graph_json_from_dict(data: dict) -> nx.Graph:
+    """Load node-link dict into a NetworkX graph (in-memory)."""
+    try:
+        return json_graph.node_link_graph(data, link="links")
     except TypeError:
         return json_graph.node_link_graph(data)

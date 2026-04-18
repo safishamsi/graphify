@@ -1116,7 +1116,7 @@ def main() -> None:
             import networkx as _nx
             _raw = _json.loads(gp.read_text(encoding="utf-8"))
             try:
-                G = json_graph.node_link_graph(_raw, edges="links")
+                G = json_graph.node_link_graph(_raw, link="links")
             except TypeError:
                 G = json_graph.node_link_graph(_raw)
         except Exception as exc:
@@ -1169,7 +1169,7 @@ def main() -> None:
             sys.exit(1)
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         try:
-            G = json_graph.node_link_graph(_raw, edges="links")
+            G = json_graph.node_link_graph(_raw, link="links")
         except TypeError:
             G = json_graph.node_link_graph(_raw)
         src_scored = _score_nodes(G, [t.lower() for t in source_label.split()])
@@ -1217,7 +1217,7 @@ def main() -> None:
             sys.exit(1)
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         try:
-            G = json_graph.node_link_graph(_raw, edges="links")
+            G = json_graph.node_link_graph(_raw, link="links")
         except TypeError:
             G = json_graph.node_link_graph(_raw)
         matches = _find_node(G, label)

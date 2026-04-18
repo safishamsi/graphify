@@ -139,7 +139,7 @@ def test_subgraph_to_text_edge_included():
 
 def test_load_graph_roundtrip(tmp_path):
     G = _make_graph()
-    data = json_graph.node_link_data(G, edges="links")
+    data = json_graph.node_link_data(G, link="links")
     p = tmp_path / "graph.json"
     p.write_text(json.dumps(data))
     G2 = _load_graph(str(p))

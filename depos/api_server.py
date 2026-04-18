@@ -1,29 +1,33 @@
 """FastAPI server for depOS (CI analyze, LLM export, org CRUD).
 
-Supabase-backed: tenant-scoped routes require a valid Supabase JWT via
-``Authorization: Bearer`` and write through SQLAlchemy against the
-Postgres schema defined in ``supabase/migrations/*.sql``. Internal routes
-(snapshot, federation, drift) remain unauthenticated for now and rely on
-network-level isolation.
+Tenant routes use Supabase JWT (``Authorization: Bearer``). Internal worker
+routes ``/v1/snapshot``, ``/v1/federation/preview``, ``/v1/drift`` require
+``DEPOS_INTERNAL_API_KEY`` when set. Production requires that key, explicit
+CORS, and ``DEPOS_GRAPH_BUCKET`` — see ``depos.settings.validate_production_config``.
 """
 from __future__ import annotations
 
 import json
 import os
+import uuid
 from contextlib import asynccontextmanager
+from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 from uuid import UUID
 
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field
-from sqlalchemy import select
+from pydantic import BaseModel, Field, model_validator
+from sqlalchemy import desc, select, text
 
 from depos.blast import drift_edge_jaccard
 from depos.db import (
     AuditLog,
     CISignal,
+    GraphSnapshot,
+    IntelligenceFinding,
+    IntelligenceRun,
     Organization,
     OrganizationMember,
     Repository,
@@ -33,9 +37,18 @@ from depos.db import (
 from depos.export_llm import build_llm_export
 from depos.federation import merge_repo_graphs
 from depos.fusion import attach_diagnostics
+from depos.internal_auth import internal_credentials_match, require_internal
+from depos.intelligence_store import persist_intelligence_run
 from depos.ownership import cross_owner_warnings, parse_codeowners
 from depos.postci import correlate_ci_failure, store_signal
-from depos.snapshot import build_graph_for_root, graph_to_node_link, load_graph_json, persist_graph_json
+from depos.settings import cors_allow_origins, validate_production_config
+from depos.snapshot import (
+    build_graph_for_root,
+    graph_to_node_link,
+    load_graph_json,
+    load_graph_json_from_dict,
+    persist_graph_json,
+)
 
 _DATA = Path(os.environ.get("DEPOS_DATA", "depos-data"))
 _DATA.mkdir(parents=True, exist_ok=True)
@@ -43,25 +56,31 @@ _DATA.mkdir(parents=True, exist_ok=True)
 
 @asynccontextmanager
 async def _lifespan(app: FastAPI):
-    # Eager-connect to Supabase Postgres (raises if DATABASE_URL is missing).
+    validate_production_config()
     get_engine()
     yield
 
 
-app = FastAPI(title="depOS API", version="0.2.0", lifespan=_lifespan)
+app = FastAPI(title="depOS API", version="0.3.0", lifespan=_lifespan)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=os.environ.get("DEPOS_CORS_ORIGINS", "*").split(","),
+    allow_origins=cors_allow_origins(),
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
+@app.middleware("http")
+async def _request_id_middleware(request: Request, call_next):
+    rid = request.headers.get("X-Request-ID") or str(uuid.uuid4())
+    request.state.request_id = rid
+    response = await call_next(request)
+    response.headers["X-Request-ID"] = rid
+    return response
+
+
 def _get_auth_dependency():
-    """Lazy import so the base package is importable without the
-    [supabase] extra (tests that don't touch protected routes can skip
-    the extra install)."""
     from depos.auth import AuthContext, require_user  # noqa: WPS433
 
     return require_user, AuthContext
@@ -70,7 +89,7 @@ def _get_auth_dependency():
 try:
     require_user, AuthContext = _get_auth_dependency()
     _AUTH_AVAILABLE = True
-except RuntimeError:  # [supabase] extra not installed
+except RuntimeError:
     require_user = None  # type: ignore[assignment]
     AuthContext = object  # type: ignore[assignment,misc]
     _AUTH_AVAILABLE = False
@@ -85,21 +104,51 @@ def _assert_auth_available() -> None:
         )
 
 
+def _auth_dep():
+    def stub() -> Any:
+        _assert_auth_available()
+
+    return Depends(require_user) if _AUTH_AVAILABLE else Depends(stub)
+
+
 # ---------------------------------------------------------------------------
 # Request / response models
 # ---------------------------------------------------------------------------
+
 
 class SnapshotRequest(BaseModel):
     root: str = Field(description="Absolute path to repo root")
     out_json: str | None = Field(None, description="Optional path to write graph.json")
 
 
+class GraphSnapshotPrepareBody(BaseModel):
+    repo_slug: str
+    git_sha: str = Field(min_length=7, max_length=64)
+
+
+class GraphSnapshotCompleteBody(BaseModel):
+    expected_sha256: str | None = Field(None, description="If set, must match uploaded bytes")
+
+
 class CIAnalyzeRequest(BaseModel):
-    root: str
+    org_slug: str
+    repo_slug: str
+    graph_snapshot_id: UUID | None = None
+    root: str | None = Field(
+        None,
+        description="Server-local checkout; only with X-DepOS-Internal-Key matching DEPOS_INTERNAL_API_KEY",
+    )
     changed_files: list[str] = Field(default_factory=list)
     sarif: dict[str, Any] | None = None
     hop_depth: int = 2
     codeowners_content: str | None = None
+
+    @model_validator(mode="after")
+    def _graph_source(self) -> "CIAnalyzeRequest":
+        has_root = bool(self.root and str(self.root).strip())
+        if not has_root and self.graph_snapshot_id is None:
+            raise ValueError("graph_snapshot_id is required unless root is provided for internal workers")
+        return self
 
 
 class PostCIRequest(BaseModel):
@@ -109,6 +158,7 @@ class PostCIRequest(BaseModel):
     failed_paths: list[str] | None = None
     check_conclusion: str = "success"
     org_slug: str | None = None
+    graph_snapshot_id: UUID | None = None
 
 
 class OrgCreate(BaseModel):
@@ -123,9 +173,55 @@ class RepoToggle(BaseModel):
     include_in_federated: bool = True
 
 
+class FederationSnapshotsBody(BaseModel):
+    org_slug: str
+    snapshot_ids: dict[str, str] = Field(description="repo_slug -> graph_snapshots.id")
+    allowed: list[str] | None = None
+
+
+class DriftSnapshotsBody(BaseModel):
+    org_slug: str
+    graph_a_snapshot_id: UUID
+    graph_b_snapshot_id: UUID
+
+
+class IntelligenceFindingIn(BaseModel):
+    trust_level: Literal["confirmed", "partially_confirmed", "evaluator_surfaced"]
+    mode: Literal["A", "B", "C"]
+    bug_type: str = ""
+    description: str = ""
+    affected_components: list[Any] = Field(default_factory=list)
+    witness_path: list[Any] = Field(default_factory=list)
+    missing_guard: str | None = None
+    recommended_fix: str | None = None
+    reasoner_confidence: float = 0.0
+    ranking_phase: int = 0
+    verifier_outcome: str = ""
+    verifier_checks_passed: list[Any] = Field(default_factory=list)
+    verifier_checks_inconclusive: list[Any] = Field(default_factory=list)
+    rls_verdict: str | None = None
+    migration_state_facts: dict[str, Any] = Field(default_factory=dict)
+    caveats: dict[str, Any] = Field(default_factory=dict)
+
+
+class IntelligenceRunCreate(BaseModel):
+    repo_slug: str
+    base_ref: str | None = None
+    head_ref: str | None = None
+    analysis_mode: Literal["diff_aware", "full_repo_scan"]
+    provider: str | None = None
+    low_stitcher_coverage: bool = False
+    token_estimator: str = "chars4"
+    ranking_phase: int = 0
+    status: Literal["running", "succeeded", "partial_reasoning", "failed"] = "succeeded"
+    pack_manifest_id: str | None = None
+    findings: list[IntelligenceFindingIn] = Field(default_factory=list)
+
+
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
+
 
 def _org_by_slug(session, slug: str) -> Organization:
     org = session.scalars(select(Organization).where(Organization.slug == slug)).first()
@@ -147,11 +243,78 @@ def _assert_member(session, org_id: UUID, user_id: UUID, admin_only: bool = Fals
         raise HTTPException(403, "admin or owner role required")
 
 
+def _internal_ok(request: Request) -> bool:
+    return internal_credentials_match(
+        request.headers.get("X-DepOS-Internal-Key"),
+        request.headers.get("Authorization"),
+    )
+
+
+def _load_snapshots_graphs(
+    session,
+    org_id: UUID,
+    user_id: UUID,
+    snapshot_ids: dict[str, str],
+) -> dict[str, Any]:
+    _assert_member(session, org_id, user_id)
+    graphs: dict[str, Any] = {}
+    from depos.graph_storage import download_graph_json_bytes
+
+    for repo_slug, sid in snapshot_ids.items():
+        try:
+            uid = UUID(str(sid))
+        except ValueError as exc:
+            raise HTTPException(400, f"invalid snapshot id for {repo_slug}") from exc
+        snap = session.scalars(
+            select(GraphSnapshot).where(
+                GraphSnapshot.id == uid,
+                GraphSnapshot.org_id == org_id,
+                GraphSnapshot.status == "ready",
+            )
+        ).first()
+        if not snap:
+            raise HTTPException(404, f"snapshot not found or not ready: {repo_slug}")
+        raw = download_graph_json_bytes(snap.storage_path)
+        graphs[repo_slug] = load_graph_json_from_dict(json.loads(raw.decode("utf-8")))
+    return graphs
+
+
 # ---------------------------------------------------------------------------
-# Internal (unauthenticated) graph / analysis endpoints
+# Health (public)
 # ---------------------------------------------------------------------------
 
-@app.post("/v1/snapshot")
+
+@app.get("/health")
+def health() -> dict[str, str]:
+    return {"status": "ok"}
+
+
+@app.get("/ready")
+def ready() -> dict[str, Any]:
+    session = get_session()
+    try:
+        session.execute(text("SELECT 1"))
+    finally:
+        session.close()
+    out: dict[str, Any] = {"status": "ready", "database": True}
+    try:
+        from depos.graph_storage import storage_bucket_configured, verify_bucket_exists
+
+        if storage_bucket_configured():
+            out["storage"] = verify_bucket_exists()
+        else:
+            out["storage"] = None
+    except Exception:
+        out["storage"] = None
+    return out
+
+
+# ---------------------------------------------------------------------------
+# Internal graph / analysis endpoints (paths on server)
+# ---------------------------------------------------------------------------
+
+
+@app.post("/v1/snapshot", dependencies=[Depends(require_internal)])
 def snapshot(req: SnapshotRequest) -> dict[str, Any]:
     root = Path(req.root)
     if not root.is_dir():
@@ -162,7 +325,7 @@ def snapshot(req: SnapshotRequest) -> dict[str, Any]:
     return {"ok": True, "nodes": G.number_of_nodes(), "edges": G.number_of_edges(), "graph_path": str(out)}
 
 
-@app.post("/v1/federation/preview")
+@app.post("/v1/federation/preview", dependencies=[Depends(require_internal)])
 def federation_preview(
     repo_paths: dict[str, str],
     allowed: list[str] | None = None,
@@ -180,7 +343,7 @@ def federation_preview(
     }
 
 
-@app.post("/v1/drift")
+@app.post("/v1/drift", dependencies=[Depends(require_internal)])
 def drift(body: dict[str, Any]) -> dict[str, Any]:
     p1 = Path(body["graph_a"])
     p2 = Path(body["graph_b"])
@@ -190,34 +353,221 @@ def drift(body: dict[str, Any]) -> dict[str, Any]:
 
 
 # ---------------------------------------------------------------------------
+# Tenant federation / drift (snapshots in Storage)
+# ---------------------------------------------------------------------------
+
+
+@app.post("/v1/federation/snapshots")
+def federation_snapshots(body: FederationSnapshotsBody, user: Any = _auth_dep()) -> dict[str, Any]:
+    _assert_auth_available()
+    session = get_session()
+    try:
+        org = _org_by_slug(session, body.org_slug)
+        graphs = _load_snapshots_graphs(session, org.id, user.user_id, body.snapshot_ids)
+        merged = merge_repo_graphs(graphs, allowed_repos=set(body.allowed) if body.allowed else None)
+        return {
+            "nodes": merged.number_of_nodes(),
+            "edges": merged.number_of_edges(),
+            "graph": graph_to_node_link(merged),
+        }
+    finally:
+        session.close()
+
+
+@app.post("/v1/drift/snapshots")
+def drift_snapshots(body: DriftSnapshotsBody, user: Any = _auth_dep()) -> dict[str, Any]:
+    _assert_auth_available()
+    session = get_session()
+    try:
+        org = _org_by_slug(session, body.org_slug)
+        _assert_member(session, org.id, user.user_id)
+        from depos.graph_storage import download_graph_json_bytes
+
+        def _load_one(snap_id: UUID):
+            snap = session.scalars(
+                select(GraphSnapshot).where(
+                    GraphSnapshot.id == snap_id,
+                    GraphSnapshot.org_id == org.id,
+                    GraphSnapshot.status == "ready",
+                )
+            ).first()
+            if not snap:
+                raise HTTPException(404, "snapshot not found or not ready")
+            raw = download_graph_json_bytes(snap.storage_path)
+            return load_graph_json_from_dict(json.loads(raw.decode("utf-8")))
+
+        g1 = _load_one(body.graph_a_snapshot_id)
+        g2 = _load_one(body.graph_b_snapshot_id)
+        return {"jaccard_edges": drift_edge_jaccard(g1, g2)}
+    finally:
+        session.close()
+
+
+# ---------------------------------------------------------------------------
+# Graph snapshots (prepare / complete)
+# ---------------------------------------------------------------------------
+
+
+@app.post("/v1/orgs/{slug}/graph-snapshots/prepare")
+def graph_snapshot_prepare(
+    slug: str,
+    body: GraphSnapshotPrepareBody,
+    user: Any = _auth_dep(),
+) -> dict[str, Any]:
+    _assert_auth_available()
+    from depos.graph_storage import create_signed_upload, graph_bucket
+
+    session = get_session()
+    try:
+        org = _org_by_slug(session, slug)
+        _assert_member(session, org.id, user.user_id)
+        repo = session.scalars(
+            select(Repository).where(Repository.org_id == org.id, Repository.slug == body.repo_slug)
+        ).first()
+        if not repo or not repo.enabled_for_analysis:
+            raise HTTPException(403, "repository not found or analysis disabled")
+        sid = uuid.uuid4()
+        storage_path = f"{org.id}/{body.repo_slug}/{body.git_sha}/{sid}.json"
+        row = GraphSnapshot(
+            id=sid,
+            org_id=org.id,
+            repo_slug=body.repo_slug,
+            git_sha=body.git_sha,
+            storage_path=storage_path,
+            status="pending",
+            created_by=user.user_id,
+        )
+        session.add(row)
+        session.commit()
+        signed = create_signed_upload(storage_path)
+        return {
+            "snapshot_id": str(sid),
+            "storage_path": storage_path,
+            "bucket": graph_bucket(),
+            "signed_url": signed.get("signed_url") or signed.get("signedUrl"),
+            "token": signed.get("token"),
+            "path": signed.get("path"),
+        }
+    finally:
+        session.close()
+
+
+@app.post("/v1/orgs/{slug}/graph-snapshots/{snapshot_id}/complete")
+def graph_snapshot_complete(
+    slug: str,
+    snapshot_id: UUID,
+    body: GraphSnapshotCompleteBody,
+    user: Any = _auth_dep(),
+) -> dict[str, Any]:
+    _assert_auth_available()
+    from depos.graph_storage import download_graph_json_bytes, verify_node_link_json
+
+    session = get_session()
+    try:
+        org = _org_by_slug(session, slug)
+        _assert_member(session, org.id, user.user_id)
+        row = session.scalars(
+            select(GraphSnapshot).where(GraphSnapshot.id == snapshot_id, GraphSnapshot.org_id == org.id)
+        ).first()
+        if not row:
+            raise HTTPException(404, "snapshot not found")
+        if row.status != "pending":
+            raise HTTPException(409, f"snapshot status is {row.status}, expected pending")
+        try:
+            raw = download_graph_json_bytes(row.storage_path)
+        except Exception as exc:
+            row.status = "failed"
+            row.updated_at = datetime.now(timezone.utc)
+            session.commit()
+            raise HTTPException(400, f"could not read uploaded object: {exc}") from exc
+        try:
+            byte_size, sha = verify_node_link_json(raw)
+        except (json.JSONDecodeError, ValueError) as exc:
+            row.status = "failed"
+            row.updated_at = datetime.now(timezone.utc)
+            session.commit()
+            raise HTTPException(400, f"invalid graph json: {exc}") from exc
+        if body.expected_sha256 and body.expected_sha256.lower() != sha.lower():
+            row.status = "failed"
+            row.updated_at = datetime.now(timezone.utc)
+            session.commit()
+            raise HTTPException(400, "sha256 mismatch")
+        row.byte_size = byte_size
+        row.content_sha256 = sha
+        row.status = "ready"
+        row.updated_at = datetime.now(timezone.utc)
+        session.commit()
+        return {"ok": True, "snapshot_id": str(row.id), "byte_size": byte_size, "content_sha256": sha}
+    finally:
+        session.close()
+
+
+# ---------------------------------------------------------------------------
 # Tenant-scoped (authenticated) endpoints
 # ---------------------------------------------------------------------------
 
-def _auth_dep():
-    """Return the require_user dep if available, otherwise a stub that
-    raises 503 so protected routes still declare the dependency."""
-
-    def stub() -> Any:
-        _assert_auth_available()
-
-    return Depends(require_user) if _AUTH_AVAILABLE else Depends(stub)
-
 
 @app.post("/v1/ci/analyze")
-def ci_analyze(req: CIAnalyzeRequest, user: Any = _auth_dep()) -> dict[str, Any]:
-    root = Path(req.root)
-    if not root.is_dir():
-        raise HTTPException(400, "root must be a directory")
-    _, G = build_graph_for_root(root, directed=True)
+def ci_analyze(req: CIAnalyzeRequest, request: Request, user: Any = _auth_dep()) -> dict[str, Any]:
+    internal = _internal_ok(request)
+    has_root = bool(req.root and str(req.root).strip())
+
+    if has_root and not internal:
+        raise HTTPException(
+            403,
+            detail="Using 'root' requires internal credentials (X-DepOS-Internal-Key or Bearer internal key).",
+        )
+
+    session = get_session()
+    try:
+        org = _org_by_slug(session, req.org_slug)
+        _assert_member(session, org.id, user.user_id)
+        repo = session.scalars(
+            select(Repository).where(Repository.org_id == org.id, Repository.slug == req.repo_slug)
+        ).first()
+        if not repo or not repo.enabled_for_analysis:
+            raise HTTPException(403, "repository not found or analysis disabled for this repo")
+        org_id = org.id
+    finally:
+        session.close()
+
+    if has_root and internal:
+        root = Path(req.root)  # type: ignore[arg-type]
+        if not root.is_dir():
+            raise HTTPException(400, "root must be a directory")
+        _, G = build_graph_for_root(root, directed=True)
+    else:
+        assert req.graph_snapshot_id is not None
+        session = get_session()
+        try:
+            snap = session.scalars(
+                select(GraphSnapshot).where(
+                    GraphSnapshot.id == req.graph_snapshot_id,
+                    GraphSnapshot.org_id == org_id,
+                    GraphSnapshot.status == "ready",
+                )
+            ).first()
+            if not snap:
+                raise HTTPException(404, "graph snapshot not found or not ready")
+        finally:
+            session.close()
+        from depos.graph_storage import download_graph_json_bytes
+
+        raw = download_graph_json_bytes(snap.storage_path)
+        G = load_graph_json_from_dict(json.loads(raw.decode("utf-8")))
+        root = Path(".")
+
     attach_diagnostics(G, req.sarif, repo_root=root)
     export = build_llm_export(G, changed_files=req.changed_files, hop_depth=req.hop_depth)
     blast = export.blast_radius
     warnings: list[str] = []
-    if req.codeowners_content and blast:
+    if req.codeowners_content and blast and has_root and internal:
         rules = parse_codeowners(req.codeowners_content)
         files = [G.nodes[n].get("source_file", "") for n in blast.impacted_node_ids if n in G]
         warnings = cross_owner_warnings([f for f in files if f], rules, root=root)
         blast.cross_owner_warnings = warnings
+    elif req.codeowners_content and blast:
+        blast.cross_owner_warnings = []
     return json.loads(export.model_dump_json())
 
 
@@ -235,11 +585,25 @@ def ci_postci(req: PostCIRequest, user: Any = _auth_dep()) -> dict[str, Any]:
             org = _org_by_slug(session, req.org_slug)
             _assert_member(session, org.id, user.user_id)
             org_id = org.id
+        if req.graph_snapshot_id is not None and org_id is not None:
+            snap = session.scalars(
+                select(GraphSnapshot).where(
+                    GraphSnapshot.id == req.graph_snapshot_id,
+                    GraphSnapshot.org_id == org_id,
+                )
+            ).first()
+            if not snap:
+                raise HTTPException(404, "graph snapshot not found for org")
         store_signal(
             session,
             req.repo_slug,
             req.head_sha,
-            {**payload, "predicted_files": req.predicted_files, "org_id": org_id},
+            {
+                **payload,
+                "predicted_files": req.predicted_files,
+                "org_id": org_id,
+                "graph_snapshot_id": req.graph_snapshot_id,
+            },
         )
     finally:
         session.close()
@@ -253,9 +617,6 @@ def create_org(body: OrgCreate, user: Any = _auth_dep()) -> dict[str, Any]:
         o = Organization(slug=body.slug, name=body.name)
         session.add(o)
         session.flush()
-        # Caller becomes owner. The DB trigger handle_new_organization also
-        # inserts this row via auth.uid(), but SQLAlchemy goes in as
-        # service-role, so replicate it explicitly.
         session.add(OrganizationMember(org_id=o.id, user_id=user.user_id, role="owner"))
         session.add(
             AuditLog(org_id=o.id, actor_user_id=user.user_id, action="org_create", detail={"slug": body.slug})
@@ -317,15 +678,16 @@ def toggle_repo(body: RepoToggle, user: Any = _auth_dep()) -> dict[str, Any]:
 
 @app.get("/v1/me")
 def me(user: Any = _auth_dep()) -> dict[str, Any]:
-    """Quick auth sanity-check endpoint for the UI."""
     session = get_session()
     try:
         memberships = session.scalars(
             select(OrganizationMember).where(OrganizationMember.user_id == user.user_id)
         ).all()
-        orgs = session.scalars(
-            select(Organization).where(Organization.id.in_([m.org_id for m in memberships]))
-        ).all() if memberships else []
+        orgs = (
+            session.scalars(select(Organization).where(Organization.id.in_([m.org_id for m in memberships]))).all()
+            if memberships
+            else []
+        )
         orgs_by_id = {o.id: o for o in orgs}
     finally:
         session.close()
@@ -337,6 +699,96 @@ def me(user: Any = _auth_dep()) -> dict[str, Any]:
             for m in memberships
         ],
     }
+
+
+# ---------------------------------------------------------------------------
+# Intelligence runs (persist + list)
+# ---------------------------------------------------------------------------
+
+
+@app.post("/v1/orgs/{slug}/intelligence/runs")
+def create_intelligence_run(slug: str, body: IntelligenceRunCreate, user: Any = _auth_dep()) -> dict[str, Any]:
+    session = get_session()
+    try:
+        org = _org_by_slug(session, slug)
+        _assert_member(session, org.id, user.user_id, admin_only=True)
+        run = persist_intelligence_run(session, org_id=org.id, body=body)
+        session.commit()
+        return {"run_id": str(run.id), "findings": len(body.findings)}
+    finally:
+        session.close()
+
+
+@app.get("/v1/orgs/{slug}/intelligence/runs")
+def list_intelligence_runs(slug: str, user: Any = _auth_dep()) -> dict[str, Any]:
+    session = get_session()
+    try:
+        org = _org_by_slug(session, slug)
+        _assert_member(session, org.id, user.user_id)
+        rows = session.scalars(
+            select(IntelligenceRun)
+            .where(IntelligenceRun.org_id == org.id)
+            .order_by(desc(IntelligenceRun.started_at))
+            .limit(100)
+        ).all()
+        return {
+            "runs": [
+                {
+                    "id": str(r.id),
+                    "repo_slug": r.repo_slug,
+                    "status": r.status,
+                    "analysis_mode": r.analysis_mode,
+                    "started_at": r.started_at.isoformat() if r.started_at else None,
+                    "finished_at": r.finished_at.isoformat() if r.finished_at else None,
+                }
+                for r in rows
+            ]
+        }
+    finally:
+        session.close()
+
+
+@app.get("/v1/orgs/{slug}/intelligence/runs/{run_id}")
+def get_intelligence_run(slug: str, run_id: UUID, user: Any = _auth_dep()) -> dict[str, Any]:
+    session = get_session()
+    try:
+        org = _org_by_slug(session, slug)
+        _assert_member(session, org.id, user.user_id)
+        run = session.scalars(
+            select(IntelligenceRun).where(IntelligenceRun.id == run_id, IntelligenceRun.org_id == org.id)
+        ).first()
+        if not run:
+            raise HTTPException(404, "run not found")
+        findings = session.scalars(select(IntelligenceFinding).where(IntelligenceFinding.run_id == run.id)).all()
+        return {
+            "run": {
+                "id": str(run.id),
+                "repo_slug": run.repo_slug,
+                "base_ref": run.base_ref,
+                "head_ref": run.head_ref,
+                "analysis_mode": run.analysis_mode,
+                "provider": run.provider,
+                "status": run.status,
+                "started_at": run.started_at.isoformat() if run.started_at else None,
+                "finished_at": run.finished_at.isoformat() if run.finished_at else None,
+            },
+            "findings": [
+                {
+                    "id": str(f.id),
+                    "trust_level": f.trust_level,
+                    "mode": f.mode,
+                    "bug_type": f.bug_type,
+                    "description": f.description,
+                    "affected_components": f.affected_components,
+                    "witness_path": f.witness_path,
+                    "verifier_outcome": f.verifier_outcome,
+                    "reasoner_confidence": f.reasoner_confidence,
+                }
+                for f in findings
+            ],
+        }
+    finally:
+        session.close()
 
 
 def main() -> None:

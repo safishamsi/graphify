@@ -29,10 +29,20 @@ def correlate_ci_failure(
 
 
 def store_signal(session: Any, repo_slug: str, head_sha: str, payload: dict) -> None:
+    from uuid import UUID
+
     from depos.db import CISignal
+
+    gid = payload.get("graph_snapshot_id")
+    if gid is not None and not isinstance(gid, UUID):
+        try:
+            gid = UUID(str(gid))
+        except (ValueError, TypeError):
+            gid = None
 
     row = CISignal(
         org_id=payload.get("org_id"),
+        graph_snapshot_id=gid,
         repo_slug=repo_slug,
         head_sha=head_sha,
         check_conclusion=payload.get("check_conclusion", ""),

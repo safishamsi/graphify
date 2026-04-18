@@ -18,6 +18,7 @@ from datetime import datetime
 from urllib.parse import urlparse
 
 from sqlalchemy import (
+    BigInteger,
     Boolean,
     CheckConstraint,
     DateTime,
@@ -107,12 +108,35 @@ class CISignal(Base):
     org_id: Mapped[uuid.UUID | None] = _uuid_column(
         ForeignKey("organizations.id", ondelete="CASCADE"), nullable=True, index=True
     )
+    graph_snapshot_id: Mapped[uuid.UUID | None] = _uuid_column(
+        ForeignKey("graph_snapshots.id", ondelete="SET NULL"), nullable=True, index=True
+    )
     repo_slug: Mapped[str] = mapped_column(String(512), index=True, nullable=False)
     head_sha: Mapped[str] = mapped_column(String(64), index=True, nullable=False)
     check_conclusion: Mapped[str] = mapped_column(String(32), default="", nullable=False)
     predicted_files: Mapped[list] = mapped_column(JSONB, default=list, nullable=False)
     overlap_score: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
+
+
+class GraphSnapshot(Base):
+    __tablename__ = "graph_snapshots"
+
+    id: Mapped[uuid.UUID] = _uuid_column(primary_key=True, default=uuid.uuid4)
+    org_id: Mapped[uuid.UUID] = _uuid_column(ForeignKey("organizations.id", ondelete="CASCADE"), index=True)
+    repo_slug: Mapped[str] = mapped_column(String(512), nullable=False)
+    git_sha: Mapped[str] = mapped_column(String(64), nullable=False)
+    storage_path: Mapped[str] = mapped_column(String(1024), unique=True, nullable=False)
+    status: Mapped[str] = mapped_column(String(32), default="pending", nullable=False)
+    byte_size: Mapped[int | None] = mapped_column(BigInteger, nullable=True)
+    content_sha256: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    created_by: Mapped[uuid.UUID | None] = _uuid_column(nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
+
+    __table_args__ = (
+        CheckConstraint("status in ('pending','ready','failed')", name="graph_snapshots_status_check"),
+    )
 
 
 class IntelligenceRun(Base):
