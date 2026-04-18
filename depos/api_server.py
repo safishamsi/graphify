@@ -43,8 +43,7 @@ _DATA.mkdir(parents=True, exist_ok=True)
 
 @asynccontextmanager
 async def _lifespan(app: FastAPI):
-    # Connect to Postgres (raises if DATABASE_URL missing unless
-    # DEPOS_ALLOW_SQLITE_FALLBACK=1 is explicitly set).
+    # Eager-connect to Supabase Postgres (raises if DATABASE_URL is missing).
     get_engine()
     yield
 

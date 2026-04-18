@@ -7,16 +7,15 @@ FastAPI backend. We deliberately do NOT call ``Base.metadata.create_all``
 here — running migrations is the only legitimate way to evolve the schema.
 
 Environment:
-    DATABASE_URL   Postgres connection string. Required when Supabase mode
-                   is enabled. Falls back to the legacy SQLite file only if
-                   ``DEPOS_ALLOW_SQLITE_FALLBACK=1`` is set (development).
+    DATABASE_URL   Supabase Postgres connection string (required). For local
+                   development use the URL printed by ``supabase start``.
 """
 from __future__ import annotations
 
 import os
 import uuid
 from datetime import datetime
-from pathlib import Path
+from urllib.parse import urlparse
 
 from sqlalchemy import (
     Boolean,
@@ -163,41 +162,42 @@ _engine = None
 _SessionLocal = None
 
 
-def _resolve_database_url(db_path: Path | None = None) -> str:
-    url = os.environ.get("DATABASE_URL")
-    if url:
+def _database_url() -> str:
+    url = (os.environ.get("DATABASE_URL") or "").strip()
+    if not url:
+        raise RuntimeError(
+            "DATABASE_URL is not set. Run Supabase locally (`supabase start`) and "
+            "set DATABASE_URL to the Postgres URL (see .env.example), or use your "
+            "hosted project's connection string."
+        )
+    scheme = urlparse(url).scheme.lower()
+    if scheme in ("postgres", "postgresql") or scheme.startswith("postgresql+"):
         return url
-    if os.environ.get("DEPOS_ALLOW_SQLITE_FALLBACK") == "1" or db_path is not None:
-        # Dev-only fallback. Schema won't match Postgres exactly (e.g. JSONB
-        # becomes JSON); migration-sensitive features will be disabled by
-        # the caller.
-        path = db_path or Path(os.environ.get("DEPOS_DATA", "depos-data")) / "depos.db"
-        path.parent.mkdir(parents=True, exist_ok=True)
-        return f"sqlite:///{path.resolve()}"
     raise RuntimeError(
-        "DATABASE_URL is not set. Configure Supabase Postgres or set "
-        "DEPOS_ALLOW_SQLITE_FALLBACK=1 for legacy SQLite (dev only)."
+        "DATABASE_URL must be a PostgreSQL URL for Supabase (e.g. postgres://, "
+        "postgresql://, or postgresql+psycopg://). See Project Settings → Database."
     )
 
 
-def get_engine(db_path: Path | None = None):
+def get_engine():
     global _engine
     if _engine is None:
-        url = _resolve_database_url(db_path)
-        _engine = create_engine(url, echo=False, future=True, pool_pre_ping=True)
+        _engine = create_engine(
+            _database_url(), echo=False, future=True, pool_pre_ping=True
+        )
     return _engine
 
 
-def get_session_factory(db_path: Path | None = None):
+def get_session_factory():
     global _SessionLocal
-    engine = get_engine(db_path)
+    engine = get_engine()
     if _SessionLocal is None:
         _SessionLocal = sessionmaker(bind=engine, autoflush=False, autocommit=False)
     return _SessionLocal
 
 
-def get_session(db_path: Path | None = None):
-    return get_session_factory(db_path)()
+def get_session():
+    return get_session_factory()()
 
 
 def reset_engine_for_tests() -> None:
