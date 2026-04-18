@@ -1,8 +1,15 @@
-## graphify
+## depOS
 
-This project has a graphify knowledge graph at graphify-out/.
+This repository is oriented around **depOS** (Dependency Map OS). Product and architecture docs are under [`docs/`](docs/README.md).
 
-Rules:
-- Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
-- If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
-- After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
+### When a graph exists
+
+If `graphify-out/GRAPH_REPORT.md` is present (from running the vendored `graphify` tooling), use it for high-level structure before deep file reads.
+
+### After code changes
+
+If you use the local graphify CLI, run `graphify update .` to refresh AST-only graphs when appropriate.
+
+### Documentation
+
+Prefer [`docs/architecture.md`](docs/architecture.md) and [`docs/product.md`](docs/product.md) for depOS direction.

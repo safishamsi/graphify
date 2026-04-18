@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "graphifyy"
 version = "0.4.21"
-description = "AI coding assistant skill (Claude Code, Codex, OpenCode, Cursor, Gemini CLI, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kiro, Google Antigravity) - turn any folder of code, docs, papers, images, or videos into a queryable knowledge graph"
+description = "depOS (Dependency Map OS) + vendored graphify: CI-centric graphs, blast radius, diagnostics fusion, FastAPI"
 readme = "README.md"
 license = { file = "LICENSE" }
 keywords = ["claude", "claude-code", "codex", "opencode", "cursor", "gemini", "aider", "kiro", "knowledge-graph", "rag", "graphrag", "obsidian", "community-detection", "tree-sitter", "leiden", "llm"]
@@ -42,6 +42,12 @@ Repository = "https://github.com/safishamsi/graphify"
 Issues = "https://github.com/safishamsi/graphify/issues"
 
 [project.optional-dependencies]
+depos = [
+    "pydantic>=2.0",
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.30.0",
+    "sqlalchemy>=2.0.0",
+]
 mcp = ["mcp"]
 neo4j = ["neo4j"]
 pdf = ["pypdf", "html2text"]
@@ -50,14 +56,15 @@ svg = ["matplotlib"]
 leiden = ["graspologic; python_version < '3.13'"]
 office = ["python-docx", "openpyxl"]
 video = ["faster-whisper", "yt-dlp"]
-all = ["mcp", "neo4j", "pypdf", "html2text", "watchdog", "graspologic; python_version < '3.13'", "python-docx", "openpyxl", "faster-whisper", "yt-dlp", "matplotlib"]
+all = ["mcp", "neo4j", "pypdf", "html2text", "watchdog", "graspologic; python_version < '3.13'", "python-docx", "openpyxl", "faster-whisper", "yt-dlp", "matplotlib", "pydantic>=2.0", "fastapi>=0.115.0", "uvicorn[standard]>=0.30.0", "sqlalchemy>=2.0.0"]
 
 [project.scripts]
 graphify = "graphify.__main__:main"
+depos-api = "depos.api_server:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["graphify*"]
+include = ["graphify*", "depos*"]
 
 [tool.setuptools.package-data]
 graphify = ["skill.md", "skill-codex.md", "skill-opencode.md", "skill-aider.md", "skill-copilot.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md", "skill-kiro.md", "skill-vscode.md"]

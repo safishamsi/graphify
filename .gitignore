@@ -22,3 +22,6 @@ docs/superpowers/
 .vscode/
 openspec/
 uv.lock
+depos-data/
+apps/web/node_modules/
+apps/web/.next/

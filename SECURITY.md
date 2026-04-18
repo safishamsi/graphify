@@ -1,53 +1,29 @@
-# Security Policy
+# Security policy — depOS
 
-## Supported Versions
+## Reporting
 
-| Version | Supported |
-|---------|-----------|
-| 0.3.x   | Yes       |
-| < 0.3   | No        |
+Do **not** open a public issue for undisclosed security vulnerabilities. Use GitHub private vulnerability reporting or contact maintainers privately. Include reproduction steps, impact, and affected components.
 
-## Reporting a Vulnerability
+## Supported versions
 
-**Do not open a public GitHub issue for security vulnerabilities.**
+Security support follows active **depOS** release branches; see release notes when published.
 
-Report security issues via GitHub's private vulnerability reporting, or email the maintainer directly. Please include:
+## Scope
 
-- Description of the vulnerability
-- Steps to reproduce
-- Potential impact
-- Suggested fix (if any)
+This repository contains:
 
-We will acknowledge receipt within 48 hours and aim to release a fix within 7 days for critical issues.
+1. **depOS application documentation** and future services (API, workers, web) — follow least privilege for tokens (GitHub App, CI secrets, database credentials).
+2. The **vendored graphify library** — primarily a local analysis tool and optional MCP server.
 
-## Security Model
+### Graphify (local library) — reference
 
-graphify is a **local development tool**. It runs as a Claude Code skill and optionally as a local MCP stdio server. It makes no network calls during graph analysis - only during `ingest` (explicit URL fetch by the user).
+When running graph analysis locally, graphify limits fetch URLs, response sizes, and path access for MCP; see `graphify/security.py` and upstream threat notes. Network use is limited to explicit user-driven ingest flows.
 
-### Threat Surface
+### depOS (planned SaaS)
 
-| Vector | Mitigation |
-|--------|-----------|
-| SSRF via URL fetch | `security.validate_url()` allows only `http` and `https` schemes, blocks private/loopback/link-local IPs, and blocks cloud metadata endpoints. Redirect targets are re-validated. All fetch paths including tweet oEmbed go through `safe_fetch()`. |
-| Oversized downloads | `safe_fetch()` streams responses and aborts at 50 MB. `safe_fetch_text()` aborts at 10 MB. |
-| Non-2xx HTTP responses | `safe_fetch()` raises `HTTPError` on non-2xx status codes - error pages are not silently treated as content. |
-| Path traversal in MCP server | `security.validate_graph_path()` resolves paths and requires them to be inside `graphify-out/`. Also requires the `graphify-out/` directory to exist. |
-| XSS in graph HTML output | `security.sanitize_label()` strips control characters, caps at 256 chars, and HTML-escapes all node labels and edge titles before pyvis embeds them. |
-| Prompt injection via node labels | `sanitize_label()` also applied to MCP text output - node labels from user-controlled source files cannot break the text format returned to agents. |
-| YAML frontmatter injection | `_yaml_str()` escapes backslashes, double quotes, and newlines before embedding user-controlled strings (webpage titles, query questions) in YAML frontmatter. |
-| Encoding crashes on source files | All tree-sitter byte slices decoded with `errors="replace"` - non-UTF-8 source files degrade gracefully instead of crashing extraction. |
-| Symlink traversal | `os.walk(..., followlinks=False)` is explicit throughout `detect.py`. |
-| Corrupted graph.json | `_load_graph()` in `serve.py` wraps `json.JSONDecodeError` and prints a clear recovery message instead of crashing. |
+- Enforce authentication and authorization on org/repo allowlists.
+- Never send repository contents to third parties without customer policy.
+- Treat SARIF and CI artifacts as sensitive; encrypt at rest and in transit.
+- Rotate GitHub App keys and API tokens on schedule.
 
-### What graphify does NOT do
-
-- Does not run a network listener (MCP server communicates over stdio only)
-- Does not execute code from source files (tree-sitter parses ASTs - no eval/exec)
-- Does not use `shell=True` in any subprocess call
-- Does not store credentials or API keys
-
-### Optional network calls
-
-- `ingest` subcommand: fetches URLs explicitly provided by the user
-- PDF extraction: reads local files only (pypdf does not make network calls)
-- watch mode: local filesystem events only (watchdog does not make network calls)
+Details will expand as the cloud surface ships.

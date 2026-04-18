@@ -1,0 +1,48 @@
+# depOS — optional CI step: snapshot + analyze (requires depOS API URL for full fusion)
+name: depOS
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches: [main, master]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install package with depOS extras
+        run: pip install -e ".[depos]"
+
+      - name: Snapshot graph (graphify extract → build_from_json)
+        run: |
+          python -c "
+          from pathlib import Path
+          from depos.snapshot import build_graph_for_root, persist_graph_json
+          root = Path('.')
+          _, G = build_graph_for_root(root, directed=True)
+          persist_graph_json(G, Path('depos-data/graph-head.json'))
+          print('nodes', G.number_of_nodes(), 'edges', G.number_of_edges())
+          "
+
+      - name: Upload graph artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: depos-graph-json
+          path: depos-data/graph-head.json
+
+      - name: Optional — POST to depOS API
+        if: env.DEPOS_API_URL != ''
+        env:
+          DEPOS_API_URL: ${{ vars.DEPOS_API_URL }}
+        run: |
+          curl -sS -X POST "$DEPOS_API_URL/v1/ci/analyze" \
+            -H "Content-Type: application/json" \
+            -d "{\"root\":\"$GITHUB_WORKSPACE\",\"changed_files\":[]}" \
+            | head -c 4000 || true
