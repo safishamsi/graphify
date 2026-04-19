@@ -11,6 +11,7 @@ from __future__ import annotations
 
 import argparse
 import sys
+from pathlib import Path
 from typing import Optional, Sequence
 
 
@@ -101,6 +102,35 @@ def _build_parser() -> argparse.ArgumentParser:
     normalize_dataset.add_argument("--output", required=True)
     normalize_dataset.add_argument("--repo-root", default=".")
     normalize_dataset.add_argument("--extraction-output")
+
+    prepare_dataset = a_sub.add_parser(
+        "prepare-dataset",
+        help="Clone or read a repo and export pipeline-compatible raw AST JSON into dataset/<repo_name>/.",
+    )
+    prepare_dataset_source = prepare_dataset.add_mutually_exclusive_group(required=True)
+    prepare_dataset_source.add_argument(
+        "--repo-url",
+        help="Public git repository URL to clone before exporting AST dataset files.",
+    )
+    prepare_dataset_source.add_argument(
+        "--repo-root",
+        help="Existing local repository checkout to export instead of cloning.",
+    )
+    prepare_dataset.add_argument(
+        "--dataset-root",
+        default="dataset",
+        help="Root directory under which dataset/<repo_name>/ will be created.",
+    )
+    prepare_dataset.add_argument(
+        "--checkout-root",
+        default=str(Path("worked") / "repos"),
+        help="Where cloned repositories should be stored when --repo-url is used.",
+    )
+    prepare_dataset.add_argument(
+        "--repo-name",
+        default=None,
+        help="Optional override for the dataset/<repo_name>/ directory name.",
+    )
 
     dataset_pipeline = a_sub.add_parser("dataset-pipeline", help="Run raw dataset AST files through normalize -> bundles -> GraphCodeBERT -> Gemma -> verifier.")
     dataset_pipeline.add_argument("--dataset-dir", required=True)
@@ -197,6 +227,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             from depos.cli.analyze import run_normalize_dataset
 
             return run_normalize_dataset(args)
+        if args.analyze_command == "prepare-dataset":
+            from depos.cli.analyze import run_prepare_dataset
+
+            return run_prepare_dataset(args)
         if args.analyze_command == "dataset-pipeline":
             from depos.cli.analyze import run_dataset_pipeline
 

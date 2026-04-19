@@ -62,6 +62,12 @@ def test_cli_normalize_dataset_help_exits_zero(capsys) -> None:
     assert exc.value.code == 0
 
 
+def test_cli_prepare_dataset_help_exits_zero(capsys) -> None:
+    with pytest.raises(SystemExit) as exc:
+        main(["analyze", "prepare-dataset", "--help"])
+    assert exc.value.code == 0
+
+
 def test_cli_dataset_pipeline_help_exits_zero(capsys) -> None:
     with pytest.raises(SystemExit) as exc:
         main(["analyze", "dataset-pipeline", "--help"])

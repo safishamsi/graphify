@@ -494,6 +494,49 @@ def run_normalize_dataset(args) -> int:
     return 0
 
 
+def run_prepare_dataset(args) -> int:
+    from depos.analysis.dataset_ast_export import prepare_dataset_from_source
+
+    progress = _make_progress_reporter()
+    dataset_root = Path(args.dataset_root)
+    checkout_root = Path(args.checkout_root)
+    progress(
+        "Preparing raw AST dataset export from "
+        + (f"repo URL {args.repo_url}." if getattr(args, "repo_url", None) else f"local repo {args.repo_root}.")
+    )
+    result = prepare_dataset_from_source(
+        repo_root=Path(args.repo_root) if getattr(args, "repo_root", None) else None,
+        repo_url=getattr(args, "repo_url", None),
+        dataset_root=dataset_root,
+        checkout_root=checkout_root,
+        repo_name=getattr(args, "repo_name", None),
+    )
+    progress(
+        f"Prepared dataset at {result.dataset_dir} from repo_root={result.repo_root}. "
+        f"Wrote {result.files_written} file(s), skipped {result.files_skipped}."
+    )
+    print(
+        json.dumps(
+            {
+                "repo_name": result.repo_name,
+                "repo_root": str(result.repo_root),
+                "dataset_dir": str(result.dataset_dir),
+                "commit_sha": result.commit_sha,
+                "files_written": result.files_written,
+                "files_skipped": result.files_skipped,
+                "skipped_files": result.skipped_files[:50],
+                "next_step": (
+                    "Run `depos-intel analyze dataset-pipeline "
+                    f"--dataset-dir {result.dataset_dir} --repo-root {result.repo_root} "
+                    "--output-dir graphify-out/<run-name>`."
+                ),
+            },
+            indent=2,
+        )
+    )
+    return 0
+
+
 def _normalize_dataset_to_graph(
     *,
     dataset_dir: Path,
