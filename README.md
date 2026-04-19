@@ -80,7 +80,7 @@ depos-intel analyze coverage --path .
 cd apps/web && npm install && npm run dev
 ```
 
-Open [http://localhost:3001](http://localhost:3001). Sign up or log in; the console lives under **`/orgs`** (middleware-protected). Legacy `/repos` and `/ci` paths redirect to `/orgs`.
+Open [http://localhost:3001](http://localhost:3001). **Auth** uses Supabase: **`/auth/sign-in`**, **`/auth/sign-up`**, plus forgot/reset/verify flows under **`/auth/*`** (legacy **`/login`** and **`/signup`** redirect there). The org console lives under **`/orgs`** (middleware-protected; sign-out confirmation at **`/orgs/logout`**). The marketing **landing page** (`/`) matches the dark graph-native design system in `apps/web/styles/theme.ts`. Legacy `/repos` and `/ci` paths redirect to `/orgs`.
 
 The web scripts sync the repo-root **`.env`** into `apps/web/.env.local` before `dev`, `build`, and `start`, so Next sees the expected `NEXT_PUBLIC_*` values at compile time. For local dev, set **`DEPOS_CORS_ORIGINS`** on the FastAPI process to include `http://localhost:3001` so the browser can call **`NEXT_PUBLIC_DEPOS_API_URL`** with `Authorization: Bearer <jwt>`. Postgres-backed lists (snapshots, CI signals, intelligence runs) use the Supabase anon client under the same RLS as the mobile/web clients.
 

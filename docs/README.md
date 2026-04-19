@@ -10,7 +10,8 @@
 4. **[Development](development.md)** — Local setup, tests, and packaging notes.
 5. **[Dataset pipeline](dataset-pipeline.md)** — How to run the raw AST dataset through normalization, GraphCodeBERT, Gemma, verifier, and gray-zone evaluation.
 6. **[CI / OIDC trust](ci-oidc.md)** — How GitHub Actions should authenticate to the depOS API in production (short-lived tokens, OIDC).
-7. **[Handoff: last three commits (Apr 2026)](handoffs/2026-04-18-last-three-commits.md)** — Teammate summary of recent Postgres-only DB change, backend hardening + migrations, and the new `/orgs` Next.js console.
+7. **[Handoff: web auth, landing, Supabase (Apr 2026)](handoffs/2026-04-19-web-auth-landing-supabase.md)** — **Current** teammate summary: Supabase auth + web alignment, landing redesign, `/auth/*` routes; **open:** review intelligence pipeline for Gemma 4 and GraphCodeBERT.
+8. **[Handoff: last three commits (Apr 2026)](handoffs/2026-04-18-last-three-commits.md)** — Historical note on Postgres-only DB, backend hardening + migrations, first `/orgs` console cut.
 
 ## Relationship to graphify
 

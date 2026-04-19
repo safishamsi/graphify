@@ -4,6 +4,8 @@ This guide explains how to run the depOS intelligence pipeline starting from the
 
 It is intended for contributors working with the current sample dataset format in this repo.
 
+> **Team note (Apr 2026):** The **GraphCodeBERT** and **Gemma 4** stages still need a **focused backend review** (model versions, prompts, artifact contracts, reproducibility). See the current handoff: [`handoffs/2026-04-19-web-auth-landing-supabase.md`](handoffs/2026-04-19-web-auth-landing-supabase.md) — *Still to do*.
+
 ## What this pipeline does
 
 The `dataset-pipeline` CLI command runs these stages:
