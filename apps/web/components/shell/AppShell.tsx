@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { MeMembership } from "@/lib/depos/types";
 import { OrgNav } from "@/components/shell/OrgNav";
 import { OrgSwitcher } from "@/components/shell/OrgSwitcher";
-import { SignOutButton } from "@/components/shell/SignOutButton";
+import { Button } from "@/components/ui/button";
 
 export function AppShell({
   orgSlug,
@@ -39,7 +39,9 @@ export function AppShell({
           <p className="text-muted" style={{ margin: "0 0 0.5rem", fontSize: "0.75rem" }}>
             {userEmail ?? "Signed in"}
           </p>
-          <SignOutButton />
+          <Button asChild variant="ghost" className="btn-sm">
+            <Link href="/orgs/logout">Sign out</Link>
+          </Button>
         </div>
       </aside>
 

@@ -28,8 +28,8 @@ artifacts in Supabase Postgres. Auth is Supabase Auth. Start the full stack:
 supabase start
 supabase db reset          # applies supabase/migrations/*.sql + seed.sql
 
-# 2. Backend env: copy .env.example to .env and fill the keys supabase
-#    printed in step 1 (anon / service-role / jwt-secret).
+# 2. Shared env: copy .env.example to .env in the repo root and fill the keys
+#    supabase printed in step 1 (anon / service-role / jwt-secret).
 cp .env.example .env
 ```
 
@@ -77,13 +77,12 @@ depos-intel analyze coverage --path .
 ### Web dashboard
 
 ```bash
-cp apps/web/.env.local.example apps/web/.env.local    # edit with your keys
 cd apps/web && npm install && npm run dev
 ```
 
 Open [http://localhost:3001](http://localhost:3001). Sign up or log in; the console lives under **`/orgs`** (middleware-protected). Legacy `/repos` and `/ci` paths redirect to `/orgs`.
 
-For local dev, set **`DEPOS_CORS_ORIGINS`** on the FastAPI process to include `http://localhost:3001` so the browser can call **`NEXT_PUBLIC_DEPOS_API_URL`** with `Authorization: Bearer <jwt>`. Postgres-backed lists (snapshots, CI signals, intelligence runs) use the Supabase anon client under the same RLS as the mobile/web clients.
+The web scripts sync the repo-root **`.env`** into `apps/web/.env.local` before `dev`, `build`, and `start`, so Next sees the expected `NEXT_PUBLIC_*` values at compile time. For local dev, set **`DEPOS_CORS_ORIGINS`** on the FastAPI process to include `http://localhost:3001` so the browser can call **`NEXT_PUBLIC_DEPOS_API_URL`** with `Authorization: Bearer <jwt>`. Postgres-backed lists (snapshots, CI signals, intelligence runs) use the Supabase anon client under the same RLS as the mobile/web clients.
 
 ## Layout
 

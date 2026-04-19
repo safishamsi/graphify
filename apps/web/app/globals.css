@@ -1,17 +1,53 @@
-/* depOS web — design tokens (extends prior dark shell) */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+ * depOS web — design tokens
+ * Mirrors styles/theme.ts so both Tailwind utilities and legacy
+ * CSS variables draw from the same color system.
+ */
 :root {
-  --bg: #0a0e12;
-  --bg-elevated: #10161d;
-  --bg-muted: #141c26;
-  --fg: #e8edf4;
-  --fg-muted: #9aa7b5;
-  --accent: #2ee59d;
-  --accent-dim: #1fa876;
-  --danger: #f85149;
-  --warning: #d4a72c;
-  --border: #2a3544;
-  --border-subtle: #1e2835;
-  --ring: #2ee59d;
+  /* Surfaces */
+  --bg:           #0A0F14;
+  --bg-elevated:  #161D27;
+  --bg-muted:     #121922;
+  --bg-sunken:    #080B10;
+  --bg-hover:     rgba(255, 255, 255, 0.04);
+  --bg-active:    rgba(255, 255, 255, 0.07);
+  --bg-selected:  rgba(61, 245, 176, 0.08);
+
+  /* Text — values mirror styles/theme.ts (WCAG AA on --bg) */
+  --fg:           #F5F8FC; /* 16.7 : 1 AAA */
+  --fg-secondary: #C8D2E0; /* 10.7 : 1 AAA */
+  --fg-muted:     #8B97AB; /*  5.6 : 1 AA  */
+  --fg-subtle:    #5C6677; /*  3.0 : 1 large/decorative only */
+  --fg-disabled:  #333B49;
+
+  /* Brand */
+  --accent:           #3DF5B0;
+  --accent-hover:     #5BFFC1;
+  --accent-active:    #2BD89A;
+  --accent-dim:       #1FA876;
+  --accent-cyan:      #5CE1FF;
+  --accent-cyan-hover:#85ECFF;
+  --accent-violet:       #8B7CFF;
+  --accent-violet-hover: #A395FF;
+
+  /* State */
+  --danger:       #F0556C;
+  --warning:      #F2C94C;
+  --success:      #3DF5B0;
+  --info:         #5CE1FF;
+
+  /* Border */
+  --border:         rgba(255, 255, 255, 0.10);
+  --border-subtle:  rgba(255, 255, 255, 0.06);
+  --border-strong:  rgba(255, 255, 255, 0.16);
+  --border-hover:   rgba(255, 255, 255, 0.22);
+  --border-focus:   #3DF5B0;
+  --ring:           #3DF5B0;
+  --ring-shadow:    0 0 0 2px #0A0F14, 0 0 0 4px rgba(61, 245, 176, 0.65);
   --radius-sm: 6px;
   --radius-md: 10px;
   --font-mono: ui-monospace, "SF Mono", Menlo, Monaco, Consolas, monospace;
@@ -115,8 +151,9 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 [role="switch"]:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
+  outline: none;
+  box-shadow: var(--ring-shadow);
+  border-radius: var(--radius-sm);
 }
 
 h1,
@@ -553,4 +590,114 @@ table.data tr:last-child td {
   height: 12rem;
   border-radius: var(--radius-md);
   border: 1px solid var(--border-subtle);
+}
+
+/* ---------------------------------------------------------------- *
+ * Marketing surface — utilities used by the landing page only.     *
+ * Scoped under .marketing-surface so the existing console UI is    *
+ * untouched.                                                       *
+ * ---------------------------------------------------------------- */
+
+.marketing-surface {
+  background: radial-gradient(
+      80% 60% at 50% -10%,
+      rgba(61, 245, 176, 0.08) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      60% 50% at 90% 110%,
+      rgba(139, 124, 255, 0.10) 0%,
+      transparent 65%
+    ),
+    #05070A;
+  color: var(--fg);
+  min-height: 100vh;
+  font-family: var(--font-ui), ui-sans-serif, system-ui, sans-serif;
+  position: relative;
+  overflow-x: clip;
+}
+
+@layer utilities {
+  .text-gradient-mint {
+    background-image: linear-gradient(
+      120deg,
+      #F5F8FC 0%,
+      #C8F8E2 40%,
+      #5CE1FF 75%,
+      #8B7CFF 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glass-panel {
+    background: rgba(14, 20, 27, 0.55);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .grid-backdrop {
+    background-image:
+      linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 56px 56px;
+    background-position: -1px -1px;
+  }
+
+  .dot-backdrop {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 0
+    );
+    background-size: 22px 22px;
+  }
+
+  .mask-fade-y {
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 20%,
+      black 75%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 20%,
+      black 75%,
+      transparent 100%
+    );
+  }
+
+  .mask-radial {
+    mask-image: radial-gradient(ellipse at center, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(
+      ellipse at center,
+      black 40%,
+      transparent 80%
+    );
+  }
+}
+
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee-x 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-pulse-glow,
+  .animate-drift-slow,
+  .animate-drift-fast,
+  .animate-shimmer,
+  .animate-ripple {
+    animation: none !important;
+  }
 }

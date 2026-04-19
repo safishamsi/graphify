@@ -41,7 +41,7 @@ supabase db reset    # applies migrations + seed.sql
 - Studio at `http://127.0.0.1:54323`
 - Inbucket (email testing) at `http://127.0.0.1:54324`
 
-Copy the printed anon and service-role keys into `.env` / `apps/web/.env.local`.
+Copy the printed anon and service-role keys into the repo-root `.env`.
 
 ## Environment variables
 
@@ -54,11 +54,13 @@ Backend (`.env`):
 - `SUPABASE_JWT_SECRET` — from `supabase start` output
 - `SUPABASE_JWT_ALG` — `HS256` locally, `RS256` with JWKS in production
 
-Next.js (`apps/web/.env.local`):
+Next.js (synced from the repo-root `.env` into `apps/web/.env.local` before
+`npm run dev` / `build` / `start`):
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `NEXT_PUBLIC_DEPOS_API_URL` — e.g. `http://127.0.0.1:8080`
+
+`NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY` are derived from
+`SUPABASE_URL` / `SUPABASE_ANON_KEY` unless you explicitly override them.
 
 ## RLS model
 

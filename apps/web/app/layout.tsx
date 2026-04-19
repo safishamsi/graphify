@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, IBM_Plex_Sans } from "next/font/google";
 import "./globals.css";
+import { AuthProvider } from "@/lib/auth/AuthProvider";
 
 const display = Fraunces({
   subsets: ["latin"],
@@ -23,7 +24,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${display.variable} ${ui.variable}`}>
-      <body className="root">{children}</body>
+      <body className="root">
+        <AuthProvider>{children}</AuthProvider>
+      </body>
     </html>
   );
 }

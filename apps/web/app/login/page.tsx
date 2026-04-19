@@ -1,10 +1,20 @@
-import { Suspense } from "react";
-import { LoginForm } from "./LoginForm";
+import { redirect } from "next/navigation";
+import { safeNext } from "@/lib/auth/redirects";
 
-export default function LoginPage() {
-  return (
-    <Suspense fallback={<div className="auth-card text-muted">Loading…</div>}>
-      <LoginForm />
-    </Suspense>
-  );
+type SearchParams = { [key: string]: string | string[] | undefined };
+
+/** Legacy /login route — redirect to the new /auth/sign-in path. */
+export default function LegacyLoginPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const params = new URLSearchParams();
+  const rawNext = typeof searchParams.next === "string" ? searchParams.next : null;
+  const next = safeNext(rawNext);
+  if (next !== "/orgs") params.set("next", next);
+  const error = searchParams.error;
+  if (typeof error === "string") params.set("error", error);
+  const qs = params.toString();
+  redirect(`/auth/sign-in${qs ? `?${qs}` : ""}`);
 }

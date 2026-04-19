@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "predev": "node scripts/sync-root-env.cjs",
     "dev": "next dev -p 3001",
+    "prebuild": "node scripts/sync-root-env.cjs",
     "build": "next build",
+    "prestart": "node scripts/sync-root-env.cjs",
     "start": "next start -p 3001",
     "lint": "next lint"
   },
@@ -15,17 +18,22 @@
     "@supabase/ssr": "^0.5.0",
     "@supabase/supabase-js": "^2.45.0",
     "clsx": "2.1.1",
+    "framer-motion": "^12.38.0",
     "lucide-react": "1.8.0",
     "next": "14.2.18",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1"
+    "react-dom": "^18.3.1",
+    "tailwind-merge": "^3.5.0"
   },
   "devDependencies": {
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "autoprefixer": "^10.5.0",
     "eslint": "^8.57.0",
     "eslint-config-next": "^14.2.18",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^3.4.19",
     "typescript": "^5.5.0"
   }
 }

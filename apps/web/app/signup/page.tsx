@@ -1,104 +1,18 @@
-"use client";
+import { redirect } from "next/navigation";
+import { safeNext } from "@/lib/auth/redirects";
 
-import Link from "next/link";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { createClient } from "@/lib/supabase/client";
-import { Button } from "@/components/ui/button";
+type SearchParams = { [key: string]: string | string[] | undefined };
 
-export default function SignupPage() {
-  const router = useRouter();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [displayName, setDisplayName] = useState("");
-  const [message, setMessage] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
-
-  async function onSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError(null);
-    setMessage(null);
-    setLoading(true);
-    try {
-      const supabase = createClient();
-      const origin = typeof window !== "undefined" ? window.location.origin : undefined;
-      const { data, error: signUpError } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { display_name: displayName },
-          emailRedirectTo: origin ? `${origin}/auth/callback` : undefined,
-        },
-      });
-      if (signUpError) {
-        setError(signUpError.message);
-        return;
-      }
-      if (data.session) {
-        router.push("/orgs");
-        router.refresh();
-      } else {
-        setMessage("Check your email for a confirmation link.");
-      }
-    } finally {
-      setLoading(false);
-    }
-  }
-
-  return (
-    <div className="auth-card">
-      <h1 className="font-display" style={{ margin: "0 0 0.35rem", fontSize: "1.5rem" }}>
-        Create an account
-      </h1>
-      <p className="text-muted" style={{ margin: "0 0 1.25rem" }}>
-        Supabase Auth backs sessions for the depOS console.
-      </p>
-      <form onSubmit={(e) => void onSubmit(e)}>
-        <div className="field">
-          <label htmlFor="dname">Display name</label>
-          <input
-            id="dname"
-            type="text"
-            className="input"
-            value={displayName}
-            onChange={(e) => setDisplayName(e.target.value)}
-          />
-        </div>
-        <div className="field">
-          <label htmlFor="email">Email</label>
-          <input
-            id="email"
-            type="email"
-            required
-            autoComplete="email"
-            className="input"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div className="field">
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            type="password"
-            required
-            autoComplete="new-password"
-            minLength={8}
-            className="input"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        {error ? <p className="text-danger">{error}</p> : null}
-        {message ? <p style={{ color: "var(--accent)" }}>{message}</p> : null}
-        <Button type="submit" variant="primary" disabled={loading} style={{ width: "100%" }}>
-          {loading ? "Creating…" : "Sign up"}
-        </Button>
-      </form>
-      <p className="text-muted" style={{ marginTop: "1.25rem", marginBottom: 0 }}>
-        Already have an account? <Link href="/login">Log in</Link>
-      </p>
-    </div>
-  );
+/** Legacy /signup route — redirect to the new /auth/sign-up path. */
+export default function LegacySignupPage({
+  searchParams,
+}: {
+  searchParams: SearchParams;
+}) {
+  const params = new URLSearchParams();
+  const rawNext = typeof searchParams.next === "string" ? searchParams.next : null;
+  const next = safeNext(rawNext);
+  if (next !== "/orgs") params.set("next", next);
+  const qs = params.toString();
+  redirect(`/auth/sign-up${qs ? `?${qs}` : ""}`);
 }

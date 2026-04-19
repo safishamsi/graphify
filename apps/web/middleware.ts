@@ -1,16 +1,20 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { safeNext } from "@/lib/auth/redirects";
 
 const PROTECTED_PREFIXES = ["/orgs"];
+const AUTH_PAGE_PREFIXES = [
+  "/auth/sign-in",
+  "/auth/sign-up",
+  "/auth/forgot-password",
+];
 
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request: { headers: request.headers } });
 
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
   const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anon) {
-    return response;
-  }
+  if (!url || !anon) return response;
 
   const supabase = createServerClient(url, anon, {
     cookies: {
@@ -35,12 +39,25 @@ export async function middleware(request: NextRequest) {
   } = await supabase.auth.getUser();
 
   const pathname = request.nextUrl.pathname;
-  const needsAuth = PROTECTED_PREFIXES.some((p) => pathname === p || pathname.startsWith(`${p}/`));
+  const isProtected = PROTECTED_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
+  const isAuthPage = AUTH_PAGE_PREFIXES.some(
+    (p) => pathname === p || pathname.startsWith(`${p}/`),
+  );
 
-  if (needsAuth && !user) {
-    const loginUrl = new URL("/login", request.url);
-    loginUrl.searchParams.set("next", pathname);
-    return NextResponse.redirect(loginUrl);
+  if (isProtected && !user) {
+    const signInUrl = new URL("/auth/sign-in", request.url);
+    if (pathname !== "/orgs") signInUrl.searchParams.set("next", pathname);
+    return NextResponse.redirect(signInUrl);
+  }
+
+  // Already signed in — bounce away from sign-in / sign-up so users don't
+  // re-authenticate by accident. Reset-password is intentionally excluded
+  // because it requires the active recovery session.
+  if (isAuthPage && user) {
+    const target = safeNext(request.nextUrl.searchParams.get("next"));
+    return NextResponse.redirect(new URL(target, request.url));
   }
 
   return response;

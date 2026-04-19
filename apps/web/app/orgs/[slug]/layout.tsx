@@ -12,7 +12,7 @@ export default async function OrgSlugLayout({ children, params }: Props) {
     data: { session },
   } = await supabase.auth.getSession();
   if (!session?.access_token) {
-    redirect(`/login?next=/orgs/${encodeURIComponent(params.slug)}`);
+    redirect(`/auth/sign-in?next=/orgs/${encodeURIComponent(params.slug)}`);
   }
 
   let me;
@@ -20,7 +20,7 @@ export default async function OrgSlugLayout({ children, params }: Props) {
     me = await fetchMe(session.access_token);
   } catch (e) {
     if (e instanceof DeposApiError && e.status === 401) {
-      redirect(`/login?next=/orgs/${encodeURIComponent(params.slug)}`);
+      redirect(`/auth/sign-in?next=/orgs/${encodeURIComponent(params.slug)}`);
     }
     notFound();
   }

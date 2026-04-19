@@ -10,7 +10,7 @@ export default async function OrgsIndexPage() {
     data: { session },
   } = await supabase.auth.getSession();
   if (!session?.access_token) {
-    redirect("/login?next=/orgs");
+    redirect("/auth/sign-in?next=/orgs");
   }
 
   let me;
@@ -30,14 +30,15 @@ export default async function OrgsIndexPage() {
 
   return (
     <main className="marketing-page">
-      <p className="text-muted" style={{ marginBottom: "2rem" }}>
+      <p className="text-muted" style={{ marginBottom: "2rem", display: "flex", flexWrap: "wrap", gap: "1rem", alignItems: "center" }}>
         <Link href="/">← depOS home</Link>
+        <Link href="/orgs/logout">Sign out</Link>
       </p>
       <h1 className="font-display page-title">Organizations</h1>
       <p className="page-desc">Pick an org or create one. You need API access configured for org-scoped actions.</p>
 
       {!process.env.NEXT_PUBLIC_DEPOS_API_URL && (
-        <p className="text-danger">Set NEXT_PUBLIC_DEPOS_API_URL in apps/web/.env.local to load memberships from the API.</p>
+        <p className="text-danger">Set NEXT_PUBLIC_DEPOS_API_URL in the repo root .env to load memberships from the API.</p>
       )}
 
       {orgSlugs.length > 0 && (
