@@ -80,6 +80,10 @@ def test_dataset_pipeline_cli_runs_with_stubbed_graphcodebert(tmp_path, monkeypa
 
     assert rc == 0
     payload = json.loads(captured.out)
+    assert "[depos-intel]" in captured.err
+    assert "Dataset pipeline: normalizing AST dataset" in captured.err
+    assert "Dataset pipeline: scoring" in captured.err
+    assert "Bundle pipeline:" in captured.err
     assert payload["normalized_nodes"] >= 2
     assert payload["candidates"] >= 1
     assert payload["bundles"] >= 1

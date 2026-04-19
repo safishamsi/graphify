@@ -1,0 +1,2632 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:14+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:7:94:type_alias_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:12:31:type_identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:7:94:type_alias_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:12:31:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:40:44:string_fragment:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:40:44:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:string:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:45:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:literal_type:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:45:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:62:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:45:union_type:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:62:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:45:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:52:61:string_fragment:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:52:61:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:string:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:62:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:literal_type:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:62:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:79:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:62:union_type:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:79:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:62:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:69:78:string_fragment:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:69:78:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:string:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:79:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:literal_type:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:79:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:93:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:79:union_type:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:93:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:79:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:86:92:string_fragment:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:86:92:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:string:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:93:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:literal_type:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:93:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:7:94:type_alias_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:93:union_type:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:7:94:type_alias_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:93:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:94:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:7:94:type_alias_declaration:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:94:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:7:94:type_alias_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:504:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:94:export_statement:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:504:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:94:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:105:502:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:115:126:type_identifier:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:105:502:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:115:126:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:142:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:134:property_identifier:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:142:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:134:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:134:142:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:136:142:predefined_type:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:134:142:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:136:142:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:142:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:134:142:type_annotation:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:142:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:134:142:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:142:property_signature:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:142:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:164:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:156:property_identifier:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:164:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:156:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:156:164:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:158:164:predefined_type:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:156:164:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:158:164:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:164:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:156:164:type_annotation:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:164:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:156:164:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:164:property_signature:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:164:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:192:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:177:property_identifier:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:192:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:177:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:192:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:185:predefined_type:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:192:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:185:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:188:192:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:188:192:null:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:188:192:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:188:192:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:192:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:188:192:literal_type:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:192:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:188:192:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:177:192:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:192:union_type:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:177:192:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:192:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:192:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:177:192:type_annotation:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:192:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:177:192:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:192:property_signature:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:192:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:222:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:207:property_identifier:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:222:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:207:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:222:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:215:predefined_type:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:222:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:215:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:218:222:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:218:222:null:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:218:222:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:218:222:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:222:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:218:222:literal_type:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:222:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:218:222:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:207:222:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:222:union_type:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:207:222:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:222:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:222:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:207:222:type_annotation:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:222:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:207:222:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:222:property_signature:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:222:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:254:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:239:property_identifier:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:254:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:239:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:254:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:247:predefined_type:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:254:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:247:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:250:254:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:250:254:null:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:250:254:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:250:254:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:254:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:250:254:literal_type:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:254:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:250:254:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:239:254:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:254:union_type:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:239:254:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:254:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:254:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:239:254:type_annotation:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:254:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:239:254:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:254:property_signature:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:254:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:284:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:269:property_identifier:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:284:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:269:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:284:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:277:predefined_type:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:284:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:277:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:280:284:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:280:284:null:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:280:284:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:280:284:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:284:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:280:284:literal_type:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:284:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:280:284:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:269:284:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:284:union_type:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:269:284:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:284:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:284:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:269:284:type_annotation:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:284:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:269:284:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:284:property_signature:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:284:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:312:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:297:property_identifier:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:312:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:297:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:312:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:305:predefined_type:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:312:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:305:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:308:312:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:308:312:null:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:308:312:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:308:312:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:312:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:308:312:literal_type:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:312:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:308:312:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:297:312:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:312:union_type:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:297:312:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:312:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:312:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:297:312:type_annotation:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:312:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:297:312:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:312:property_signature:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:312:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:343:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:328:property_identifier:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:343:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:328:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:343:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:336:predefined_type:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:343:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:336:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:339:343:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:339:343:null:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:339:343:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:339:343:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:343:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:339:343:literal_type:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:343:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:339:343:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:328:343:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:343:union_type:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:328:343:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:343:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:343:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:328:343:type_annotation:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:343:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:328:343:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:343:property_signature:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:343:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:382:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:367:property_identifier:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:382:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:367:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:382:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:375:predefined_type:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:382:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:375:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:378:382:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:378:382:null:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:378:382:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:378:382:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:382:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:378:382:literal_type:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:382:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:378:382:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:367:382:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:382:union_type:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:367:382:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:382:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:382:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:367:382:type_annotation:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:382:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:367:382:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:382:property_signature:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:382:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:405:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:397:property_identifier:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:405:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:397:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:397:405:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:399:405:predefined_type:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:397:405:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:399:405:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:405:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:397:405:type_annotation:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:405:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:397:405:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:405:property_signature:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:405:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:428:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:417:property_identifier:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:428:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:417:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:420:428:array_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:420:426:predefined_type:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:420:428:array_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:420:426:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:418:428:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:420:428:array_type:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:418:428:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:420:428:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:428:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:418:428:type_annotation:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:428:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:418:428:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:428:property_signature:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:428:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:433:466:comment:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:433:466:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:498:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:476:property_identifier:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:498:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:476:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:477:498:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:479:498:type_identifier:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:477:498:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:479:498:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:498:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:477:498:type_annotation:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:498:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:477:498:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:498:property_signature:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:498:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:105:502:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:105:502:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:98:502:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:105:502:interface_declaration:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:98:502:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:105:502:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:504:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:98:502:export_statement:93",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:504:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:98:502:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:12:31:type_identifier",
+      "kind": "type_identifier",
+      "label": "InvestigationStatus",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 1
+        },
+        "end_byte": 31,
+        "start": {
+          "column": 12,
+          "line": 1
+        },
+        "start_byte": 12
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:40:44:string_fragment",
+      "kind": "string_fragment",
+      "label": "open",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 2
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 5,
+          "line": 2
+        },
+        "start_byte": 40
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:40:44:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:string",
+      "kind": "string",
+      "label": "\"open\"",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 2
+        },
+        "end_byte": 45,
+        "start": {
+          "column": 4,
+          "line": 2
+        },
+        "start_byte": 39
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:literal_type",
+      "kind": "literal_type",
+      "label": "\"open\"",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 2
+        },
+        "end_byte": 45,
+        "start": {
+          "column": 4,
+          "line": 2
+        },
+        "start_byte": 39
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:39:45:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:45:union_type",
+      "kind": "union_type",
+      "label": "| \"open\"",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 2
+        },
+        "end_byte": 45,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:52:61:string_fragment",
+      "kind": "string_fragment",
+      "label": "in_review",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 3
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 52
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:52:61:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:string",
+      "kind": "string",
+      "label": "\"in_review\"",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 3
+        },
+        "end_byte": 62,
+        "start": {
+          "column": 4,
+          "line": 3
+        },
+        "start_byte": 51
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:literal_type",
+      "kind": "literal_type",
+      "label": "\"in_review\"",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 3
+        },
+        "end_byte": 62,
+        "start": {
+          "column": 4,
+          "line": 3
+        },
+        "start_byte": 51
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:45:union_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:51:62:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:62:union_type",
+      "kind": "union_type",
+      "label": "| \"open\"\r\n  | \"in_review\"",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 3
+        },
+        "end_byte": 62,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:69:78:string_fragment",
+      "kind": "string_fragment",
+      "label": "escalated",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 4
+        },
+        "end_byte": 78,
+        "start": {
+          "column": 5,
+          "line": 4
+        },
+        "start_byte": 69
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:69:78:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:string",
+      "kind": "string",
+      "label": "\"escalated\"",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 4
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 4,
+          "line": 4
+        },
+        "start_byte": 68
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:literal_type",
+      "kind": "literal_type",
+      "label": "\"escalated\"",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 4
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 4,
+          "line": 4
+        },
+        "start_byte": 68
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:62:union_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:68:79:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:79:union_type",
+      "kind": "union_type",
+      "label": "| \"open\"\r\n  | \"in_review\"\r\n  | \"escalated\"",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 4
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:86:92:string_fragment",
+      "kind": "string_fragment",
+      "label": "closed",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 5
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 5,
+          "line": 5
+        },
+        "start_byte": 86
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:86:92:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:string",
+      "kind": "string",
+      "label": "\"closed\"",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 93,
+        "start": {
+          "column": 4,
+          "line": 5
+        },
+        "start_byte": 85
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:literal_type",
+      "kind": "literal_type",
+      "label": "\"closed\"",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 93,
+        "start": {
+          "column": 4,
+          "line": 5
+        },
+        "start_byte": 85
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:79:union_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:85:93:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:93:union_type",
+      "kind": "union_type",
+      "label": "| \"open\"\r\n  | \"in_review\"\r\n  | \"escalated\"\r\n  | \"closed\"",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 93,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:12:31:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:37:93:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:7:94:type_alias_declaration",
+      "kind": "type_alias_declaration",
+      "label": "type InvestigationStatus =\r\n  | \"open\"\r\n  | \"in_review\"\r\n  | \"escalated\"\r\n  | \"closed\";",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 5
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:7:94:type_alias_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:94:export_statement",
+      "kind": "export_statement",
+      "label": "export type InvestigationStatus =\r\n  | \"open\"\r\n  | \"in_review\"\r\n  | \"escalated\"\r\n  | \"closed\";",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 5
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:115:126:type_identifier",
+      "kind": "type_identifier",
+      "label": "NetworkCase",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 7
+        },
+        "end_byte": 126,
+        "start": {
+          "column": 17,
+          "line": 7
+        },
+        "start_byte": 115
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:134:property_identifier",
+      "kind": "property_identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 4,
+          "line": 8
+        },
+        "end_byte": 134,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 132
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:136:142:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 8
+        },
+        "end_byte": 142,
+        "start": {
+          "column": 6,
+          "line": 8
+        },
+        "start_byte": 136
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:136:142:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:134:142:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 8
+        },
+        "end_byte": 142,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 134
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:134:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:134:142:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:142:property_signature",
+      "kind": "property_signature",
+      "label": "id: string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 8
+        },
+        "end_byte": 142,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 132
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:156:property_identifier",
+      "kind": "property_identifier",
+      "label": "case_name",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 9
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 147
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:158:164:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 164,
+        "start": {
+          "column": 13,
+          "line": 9
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:158:164:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:156:164:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 164,
+        "start": {
+          "column": 11,
+          "line": 9
+        },
+        "start_byte": 156
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:156:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:156:164:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:164:property_signature",
+      "kind": "property_signature",
+      "label": "case_name: string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 164,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 147
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:177:property_identifier",
+      "kind": "property_identifier",
+      "label": "typology",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 10
+        },
+        "end_byte": 177,
+        "start": {
+          "column": 2,
+          "line": 10
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:185:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 10
+        },
+        "end_byte": 185,
+        "start": {
+          "column": 12,
+          "line": 10
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:188:192:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 10
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 21,
+          "line": 10
+        },
+        "start_byte": 188
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:188:192:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:188:192:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 10
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 21,
+          "line": 10
+        },
+        "start_byte": 188
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:185:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:188:192:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:192:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 10
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 12,
+          "line": 10
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:179:192:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:177:192:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 10
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 10,
+          "line": 10
+        },
+        "start_byte": 177
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:177:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:177:192:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:192:property_signature",
+      "kind": "property_signature",
+      "label": "typology: string | null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 10
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 2,
+          "line": 10
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:207:property_identifier",
+      "kind": "property_identifier",
+      "label": "risk_score",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 11
+        },
+        "end_byte": 207,
+        "start": {
+          "column": 2,
+          "line": 11
+        },
+        "start_byte": 197
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:215:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 11
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 14,
+          "line": 11
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:218:222:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 11
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 23,
+          "line": 11
+        },
+        "start_byte": 218
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:218:222:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:218:222:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 11
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 23,
+          "line": 11
+        },
+        "start_byte": 218
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:215:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:218:222:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:222:union_type",
+      "kind": "union_type",
+      "label": "number | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 11
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 14,
+          "line": 11
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:209:222:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:207:222:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 11
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 12,
+          "line": 11
+        },
+        "start_byte": 207
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:207:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:207:222:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:222:property_signature",
+      "kind": "property_signature",
+      "label": "risk_score: number | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 11
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 2,
+          "line": 11
+        },
+        "start_byte": 197
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:239:property_identifier",
+      "kind": "property_identifier",
+      "label": "total_amount",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 12
+        },
+        "end_byte": 239,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 227
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:247:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 12
+        },
+        "end_byte": 247,
+        "start": {
+          "column": 16,
+          "line": 12
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:250:254:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 12
+        },
+        "end_byte": 254,
+        "start": {
+          "column": 25,
+          "line": 12
+        },
+        "start_byte": 250
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:250:254:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:250:254:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 12
+        },
+        "end_byte": 254,
+        "start": {
+          "column": 25,
+          "line": 12
+        },
+        "start_byte": 250
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:247:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:250:254:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:254:union_type",
+      "kind": "union_type",
+      "label": "number | null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 12
+        },
+        "end_byte": 254,
+        "start": {
+          "column": 16,
+          "line": 12
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:241:254:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:239:254:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number | null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 12
+        },
+        "end_byte": 254,
+        "start": {
+          "column": 14,
+          "line": 12
+        },
+        "start_byte": 239
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:239:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:239:254:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:254:property_signature",
+      "kind": "property_signature",
+      "label": "total_amount: number | null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 12
+        },
+        "end_byte": 254,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 227
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:269:property_identifier",
+      "kind": "property_identifier",
+      "label": "start_time",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 13
+        },
+        "end_byte": 269,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:277:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 13
+        },
+        "end_byte": 277,
+        "start": {
+          "column": 14,
+          "line": 13
+        },
+        "start_byte": 271
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:280:284:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 13
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 23,
+          "line": 13
+        },
+        "start_byte": 280
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:280:284:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:280:284:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 13
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 23,
+          "line": 13
+        },
+        "start_byte": 280
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:277:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:280:284:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:284:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 13
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 14,
+          "line": 13
+        },
+        "start_byte": 271
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:271:284:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:269:284:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 13
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 12,
+          "line": 13
+        },
+        "start_byte": 269
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:269:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:269:284:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:284:property_signature",
+      "kind": "property_signature",
+      "label": "start_time: string | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 13
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:297:property_identifier",
+      "kind": "property_identifier",
+      "label": "end_time",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 14
+        },
+        "end_byte": 297,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 289
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:305:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 14
+        },
+        "end_byte": 305,
+        "start": {
+          "column": 12,
+          "line": 14
+        },
+        "start_byte": 299
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:308:312:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 21,
+          "line": 14
+        },
+        "start_byte": 308
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:308:312:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:308:312:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 21,
+          "line": 14
+        },
+        "start_byte": 308
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:305:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:308:312:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:312:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 12,
+          "line": 14
+        },
+        "start_byte": 299
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:299:312:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:297:312:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 10,
+          "line": 14
+        },
+        "start_byte": 297
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:297:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:297:312:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:312:property_signature",
+      "kind": "property_signature",
+      "label": "end_time: string | null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 289
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:328:property_identifier",
+      "kind": "property_identifier",
+      "label": "explanation",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 15
+        },
+        "end_byte": 328,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 317
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:336:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 15
+        },
+        "end_byte": 336,
+        "start": {
+          "column": 15,
+          "line": 15
+        },
+        "start_byte": 330
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:339:343:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 15
+        },
+        "end_byte": 343,
+        "start": {
+          "column": 24,
+          "line": 15
+        },
+        "start_byte": 339
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:339:343:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:339:343:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 15
+        },
+        "end_byte": 343,
+        "start": {
+          "column": 24,
+          "line": 15
+        },
+        "start_byte": 339
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:336:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:339:343:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:343:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 15
+        },
+        "end_byte": 343,
+        "start": {
+          "column": 15,
+          "line": 15
+        },
+        "start_byte": 330
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:330:343:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:328:343:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 15
+        },
+        "end_byte": 343,
+        "start": {
+          "column": 13,
+          "line": 15
+        },
+        "start_byte": 328
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:328:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:328:343:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:343:property_signature",
+      "kind": "property_signature",
+      "label": "explanation: string | null",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 15
+        },
+        "end_byte": 343,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 317
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:367:property_identifier",
+      "kind": "property_identifier",
+      "label": "graph_snapshot_path",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 16
+        },
+        "end_byte": 367,
+        "start": {
+          "column": 2,
+          "line": 16
+        },
+        "start_byte": 348
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:375:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 375,
+        "start": {
+          "column": 23,
+          "line": 16
+        },
+        "start_byte": 369
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:378:382:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 16
+        },
+        "end_byte": 382,
+        "start": {
+          "column": 32,
+          "line": 16
+        },
+        "start_byte": 378
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:378:382:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:378:382:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 16
+        },
+        "end_byte": 382,
+        "start": {
+          "column": 32,
+          "line": 16
+        },
+        "start_byte": 378
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:375:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:378:382:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:382:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 16
+        },
+        "end_byte": 382,
+        "start": {
+          "column": 23,
+          "line": 16
+        },
+        "start_byte": 369
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:369:382:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:367:382:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 16
+        },
+        "end_byte": 382,
+        "start": {
+          "column": 21,
+          "line": 16
+        },
+        "start_byte": 367
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:367:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:367:382:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:382:property_signature",
+      "kind": "property_signature",
+      "label": "graph_snapshot_path: string | null",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 16
+        },
+        "end_byte": 382,
+        "start": {
+          "column": 2,
+          "line": 16
+        },
+        "start_byte": 348
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:397:property_identifier",
+      "kind": "property_identifier",
+      "label": "created_at",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 17
+        },
+        "end_byte": 397,
+        "start": {
+          "column": 2,
+          "line": 17
+        },
+        "start_byte": 387
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:399:405:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 17
+        },
+        "end_byte": 405,
+        "start": {
+          "column": 14,
+          "line": 17
+        },
+        "start_byte": 399
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:399:405:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:397:405:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 17
+        },
+        "end_byte": 405,
+        "start": {
+          "column": 12,
+          "line": 17
+        },
+        "start_byte": 397
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:397:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:397:405:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:405:property_signature",
+      "kind": "property_signature",
+      "label": "created_at: string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 17
+        },
+        "end_byte": 405,
+        "start": {
+          "column": 2,
+          "line": 17
+        },
+        "start_byte": 387
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:417:property_identifier",
+      "kind": "property_identifier",
+      "label": "wallets",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 18
+        },
+        "end_byte": 417,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 410
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:420:426:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 18
+        },
+        "end_byte": 426,
+        "start": {
+          "column": 12,
+          "line": 18
+        },
+        "start_byte": 420
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:420:426:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:420:428:array_type",
+      "kind": "array_type",
+      "label": "string[]",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 18
+        },
+        "end_byte": 428,
+        "start": {
+          "column": 12,
+          "line": 18
+        },
+        "start_byte": 420
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:420:428:array_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:418:428:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string[]",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 18
+        },
+        "end_byte": 428,
+        "start": {
+          "column": 10,
+          "line": 18
+        },
+        "start_byte": 418
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:417:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:418:428:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:428:property_signature",
+      "kind": "property_signature",
+      "label": "wallets?: string[]",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 18
+        },
+        "end_byte": 428,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 410
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:433:466:comment",
+      "kind": "comment",
+      "label": "/** UI: investigation workflow */",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 19
+        },
+        "end_byte": 466,
+        "start": {
+          "column": 2,
+          "line": 19
+        },
+        "start_byte": 433
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:476:property_identifier",
+      "kind": "property_identifier",
+      "label": "status",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 20
+        },
+        "end_byte": 476,
+        "start": {
+          "column": 2,
+          "line": 20
+        },
+        "start_byte": 470
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:479:498:type_identifier",
+      "kind": "type_identifier",
+      "label": "InvestigationStatus",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 20
+        },
+        "end_byte": 498,
+        "start": {
+          "column": 11,
+          "line": 20
+        },
+        "start_byte": 479
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:479:498:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:477:498:type_annotation",
+      "kind": "type_annotation",
+      "label": ": InvestigationStatus",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 20
+        },
+        "end_byte": 498,
+        "start": {
+          "column": 9,
+          "line": 20
+        },
+        "start_byte": 477
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:476:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:477:498:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:498:property_signature",
+      "kind": "property_signature",
+      "label": "status?: InvestigationStatus",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 20
+        },
+        "end_byte": 498,
+        "start": {
+          "column": 2,
+          "line": 20
+        },
+        "start_byte": 470
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:132:142:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:147:164:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:169:192:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:197:222:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:227:254:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:259:284:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:289:312:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:317:343:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:348:382:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:387:405:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:410:428:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:433:466:comment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:470:498:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  id: string;\r\n  case_name: string;\r\n  typology: string | null;\r\n  risk_score: number | null;\r\n  total_amount: number | null;\r\n  start_time: string | null;\r\n  end_time: string | null;\r\n  explanatio",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 21
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 29,
+          "line": 7
+        },
+        "start_byte": 127
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:115:126:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:127:502:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:105:502:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface NetworkCase {\r\n  id: string;\r\n  case_name: string;\r\n  typology: string | null;\r\n  risk_score: number | null;\r\n  total_amount: number | null;\r\n  start_time: string | null;\r\n  end_time: string",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 21
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 7,
+          "line": 7
+        },
+        "start_byte": 105
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:105:502:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:98:502:export_statement",
+      "kind": "export_statement",
+      "label": "export interface NetworkCase {\r\n  id: string;\r\n  case_name: string;\r\n  typology: string | null;\r\n  risk_score: number | null;\r\n  total_amount: number | null;\r\n  start_time: string | null;\r\n  end_time:",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 21
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 98
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:94:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:98:502:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/network.ts:0:504:program",
+      "kind": "program",
+      "label": "export type InvestigationStatus =\r\n  | \"open\"\r\n  | \"in_review\"\r\n  | \"escalated\"\r\n  | \"closed\";\r\n\r\nexport interface NetworkCase {\r\n  id: string;\r\n  case_name: string;\r\n  typology: string | null;\r\n  ris",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 22
+        },
+        "end_byte": 504,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/types/network.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

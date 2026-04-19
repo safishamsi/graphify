@@ -1,0 +1,2163 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:08+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:9:22:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:9:22:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:9:22:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:9:22:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:9:22:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:9:22:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:named_imports:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:38:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:import_clause:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:38:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:30:37:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:31:36:string_fragment:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:30:37:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:31:36:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:38:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:30:37:string:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:38:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:30:37:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:38:import_statement:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:38:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:54:68:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:54:68:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:54:68:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:54:68:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:54:68:import_specifier:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:54:68:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:70:81:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:70:81:identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:70:81:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:70:81:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:70:81:import_specifier:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:70:81:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:named_imports:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:40:109:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:import_clause:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:40:109:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:89:108:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:90:107:string_fragment:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:89:108:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:90:107:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:40:109:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:89:108:string:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:40:109:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:89:108:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:40:109:import_statement:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:40:109:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:120:290:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:130:153:type_identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:120:290:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:130:153:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:176:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:163:property_identifier:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:176:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:163:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:163:176:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:165:176:type_identifier:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:163:176:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:165:176:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:176:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:163:176:type_annotation:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:176:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:163:176:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:176:property_signature:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:176:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:214:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:188:property_identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:214:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:188:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:205:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:192:identifier:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:205:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:192:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:192:205:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:194:205:type_identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:192:205:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:194:205:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:205:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:192:205:type_annotation:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:205:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:192:205:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:206:formal_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:205:required_parameter:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:206:formal_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:205:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:214:function_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:206:formal_parameters:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:214:function_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:206:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:214:function_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:210:214:predefined_type:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:214:function_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:210:214:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:188:214:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:214:function_type:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:188:214:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:214:function_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:214:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:188:214:type_annotation:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:214:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:188:214:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:214:property_signature:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:214:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:242:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:226:property_identifier:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:242:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:226:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:226:242:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:228:242:type_identifier:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:226:242:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:228:242:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:242:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:226:242:type_annotation:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:242:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:226:242:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:242:property_signature:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:242:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:286:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:257:property_identifier:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:286:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:257:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:277:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:261:identifier:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:277:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:261:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:261:277:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:263:277:type_identifier:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:261:277:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:263:277:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:277:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:261:277:type_annotation:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:277:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:261:277:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:278:formal_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:277:required_parameter:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:278:formal_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:277:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:286:function_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:278:formal_parameters:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:286:function_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:278:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:286:function_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:282:286:predefined_type:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:286:function_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:282:286:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:257:286:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:286:function_type:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:257:286:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:286:function_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:286:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:257:286:type_annotation:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:286:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:257:286:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:286:property_signature:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:286:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:120:290:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:120:290:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:113:290:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:120:290:interface_declaration:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:113:290:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:120:290:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:113:290:export_statement:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:113:290:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:404:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:329:identifier:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:404:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:329:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:329:345:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:331:345:type_identifier:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:329:345:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:331:345:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:404:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:329:345:type_annotation:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:404:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:329:345:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:369:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:366:property_identifier:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:369:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:366:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:369:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:368:369:number:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:369:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:368:369:number",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:348:404:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:369:pair:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:348:404:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:369:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:387:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:384:property_identifier:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:387:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:384:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:387:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:386:387:number:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:387:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:386:387:number",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:348:404:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:387:pair:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:348:404:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:387:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:400:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:397:property_identifier:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:400:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:397:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:400:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:399:400:number:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:400:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:399:400:number",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:348:404:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:400:pair:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:348:404:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:400:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:404:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:348:404:object:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:404:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:348:404:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:301:405:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:404:variable_declarator:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:301:405:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:404:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:294:405:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:301:405:lexical_declaration:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:294:405:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:301:405:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:294:405:export_statement:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:294:405:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:490:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:436:identifier:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:490:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:436:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:490:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:452:identifier:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:490:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:452:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:483:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:476:type_identifier:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:483:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:476:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:479:483:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:479:483:null:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:479:483:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:479:483:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:483:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:479:483:literal_type:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:483:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:479:483:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:452:484:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:483:union_type:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:452:484:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:483:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:490:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:452:484:type_arguments:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:490:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:452:484:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:484:490:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:485:489:null:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:484:490:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:485:489:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:490:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:484:490:arguments:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:490:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:484:490:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:490:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:490:call_expression:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:490:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:490:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:416:491:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:490:variable_declarator:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:416:491:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:490:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:409:491:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:416:491:lexical_declaration:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:409:491:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:416:491:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:409:491:export_statement:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:409:491:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:9:22:identifier",
+      "kind": "identifier",
+      "label": "createContext",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 1
+        },
+        "end_byte": 22,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:9:22:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:9:22:import_specifier",
+      "kind": "import_specifier",
+      "label": "createContext",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 1
+        },
+        "end_byte": 22,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:9:22:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:named_imports",
+      "kind": "named_imports",
+      "label": "{ createContext }",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 1
+        },
+        "end_byte": 24,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:import_clause",
+      "kind": "import_clause",
+      "label": "{ createContext }",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 1
+        },
+        "end_byte": 24,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:31:36:string_fragment",
+      "kind": "string_fragment",
+      "label": "react",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 1
+        },
+        "end_byte": 36,
+        "start": {
+          "column": 31,
+          "line": 1
+        },
+        "start_byte": 31
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:31:36:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:30:37:string",
+      "kind": "string",
+      "label": "\"react\"",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 1
+        },
+        "end_byte": 37,
+        "start": {
+          "column": 30,
+          "line": 1
+        },
+        "start_byte": 30
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:7:24:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:30:37:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:38:import_statement",
+      "kind": "import_statement",
+      "label": "import { createContext } from \"react\";",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 1
+        },
+        "end_byte": 38,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:54:68:identifier",
+      "kind": "identifier",
+      "label": "ScoringMetrics",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 2
+        },
+        "end_byte": 68,
+        "start": {
+          "column": 14,
+          "line": 2
+        },
+        "start_byte": 54
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:54:68:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:54:68:import_specifier",
+      "kind": "import_specifier",
+      "label": "ScoringMetrics",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 2
+        },
+        "end_byte": 68,
+        "start": {
+          "column": 14,
+          "line": 2
+        },
+        "start_byte": 54
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:70:81:identifier",
+      "kind": "identifier",
+      "label": "ScoringMode",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 2
+        },
+        "end_byte": 81,
+        "start": {
+          "column": 30,
+          "line": 2
+        },
+        "start_byte": 70
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:70:81:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:70:81:import_specifier",
+      "kind": "import_specifier",
+      "label": "ScoringMode",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 2
+        },
+        "end_byte": 81,
+        "start": {
+          "column": 30,
+          "line": 2
+        },
+        "start_byte": 70
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:54:68:import_specifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:70:81:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:named_imports",
+      "kind": "named_imports",
+      "label": "{ ScoringMetrics, ScoringMode }",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 2
+        },
+        "end_byte": 83,
+        "start": {
+          "column": 12,
+          "line": 2
+        },
+        "start_byte": 52
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:import_clause",
+      "kind": "import_clause",
+      "label": "{ ScoringMetrics, ScoringMode }",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 2
+        },
+        "end_byte": 83,
+        "start": {
+          "column": 12,
+          "line": 2
+        },
+        "start_byte": 52
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:90:107:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/types/dashboard",
+      "span": {
+        "end": {
+          "column": 67,
+          "line": 2
+        },
+        "end_byte": 107,
+        "start": {
+          "column": 50,
+          "line": 2
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:90:107:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:89:108:string",
+      "kind": "string",
+      "label": "\"@/types/dashboard\"",
+      "span": {
+        "end": {
+          "column": 68,
+          "line": 2
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 49,
+          "line": 2
+        },
+        "start_byte": 89
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:52:83:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:89:108:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:40:109:import_statement",
+      "kind": "import_statement",
+      "label": "import type { ScoringMetrics, ScoringMode } from \"@/types/dashboard\";",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 2
+        },
+        "end_byte": 109,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 40
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:130:153:type_identifier",
+      "kind": "type_identifier",
+      "label": "ScoringModeContextValue",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 4
+        },
+        "end_byte": 153,
+        "start": {
+          "column": 17,
+          "line": 4
+        },
+        "start_byte": 130
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:163:property_identifier",
+      "kind": "property_identifier",
+      "label": "mode",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 5
+        },
+        "end_byte": 163,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 159
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:165:176:type_identifier",
+      "kind": "type_identifier",
+      "label": "ScoringMode",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 5
+        },
+        "end_byte": 176,
+        "start": {
+          "column": 8,
+          "line": 5
+        },
+        "start_byte": 165
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:165:176:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:163:176:type_annotation",
+      "kind": "type_annotation",
+      "label": ": ScoringMode",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 5
+        },
+        "end_byte": 176,
+        "start": {
+          "column": 6,
+          "line": 5
+        },
+        "start_byte": 163
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:163:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:163:176:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:176:property_signature",
+      "kind": "property_signature",
+      "label": "mode: ScoringMode",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 5
+        },
+        "end_byte": 176,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 159
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:188:property_identifier",
+      "kind": "property_identifier",
+      "label": "setMode",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 6
+        },
+        "end_byte": 188,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 181
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:192:identifier",
+      "kind": "identifier",
+      "label": "m",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 6
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 12,
+          "line": 6
+        },
+        "start_byte": 191
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:194:205:type_identifier",
+      "kind": "type_identifier",
+      "label": "ScoringMode",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 6
+        },
+        "end_byte": 205,
+        "start": {
+          "column": 15,
+          "line": 6
+        },
+        "start_byte": 194
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:194:205:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:192:205:type_annotation",
+      "kind": "type_annotation",
+      "label": ": ScoringMode",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 6
+        },
+        "end_byte": 205,
+        "start": {
+          "column": 13,
+          "line": 6
+        },
+        "start_byte": 192
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:192:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:192:205:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:205:required_parameter",
+      "kind": "required_parameter",
+      "label": "m: ScoringMode",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 6
+        },
+        "end_byte": 205,
+        "start": {
+          "column": 12,
+          "line": 6
+        },
+        "start_byte": 191
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:191:205:required_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:206:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(m: ScoringMode)",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 6
+        },
+        "end_byte": 206,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 190
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:210:214:predefined_type",
+      "kind": "predefined_type",
+      "label": "void",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 6
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 31,
+          "line": 6
+        },
+        "start_byte": 210
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:206:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:210:214:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:214:function_type",
+      "kind": "function_type",
+      "label": "(m: ScoringMode) => void",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 6
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 190
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:190:214:function_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:188:214:type_annotation",
+      "kind": "type_annotation",
+      "label": ": (m: ScoringMode) => void",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 6
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 9,
+          "line": 6
+        },
+        "start_byte": 188
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:188:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:188:214:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:214:property_signature",
+      "kind": "property_signature",
+      "label": "setMode: (m: ScoringMode) => void",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 6
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 181
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:226:property_identifier",
+      "kind": "property_identifier",
+      "label": "metrics",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 7
+        },
+        "end_byte": 226,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 219
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:228:242:type_identifier",
+      "kind": "type_identifier",
+      "label": "ScoringMetrics",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 7
+        },
+        "end_byte": 242,
+        "start": {
+          "column": 11,
+          "line": 7
+        },
+        "start_byte": 228
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:228:242:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:226:242:type_annotation",
+      "kind": "type_annotation",
+      "label": ": ScoringMetrics",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 7
+        },
+        "end_byte": 242,
+        "start": {
+          "column": 9,
+          "line": 7
+        },
+        "start_byte": 226
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:226:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:226:242:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:242:property_signature",
+      "kind": "property_signature",
+      "label": "metrics: ScoringMetrics",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 7
+        },
+        "end_byte": 242,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 219
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:257:property_identifier",
+      "kind": "property_identifier",
+      "label": "setMetrics",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 8
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 247
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:261:identifier",
+      "kind": "identifier",
+      "label": "m",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 8
+        },
+        "end_byte": 261,
+        "start": {
+          "column": 15,
+          "line": 8
+        },
+        "start_byte": 260
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:263:277:type_identifier",
+      "kind": "type_identifier",
+      "label": "ScoringMetrics",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 8
+        },
+        "end_byte": 277,
+        "start": {
+          "column": 18,
+          "line": 8
+        },
+        "start_byte": 263
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:263:277:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:261:277:type_annotation",
+      "kind": "type_annotation",
+      "label": ": ScoringMetrics",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 8
+        },
+        "end_byte": 277,
+        "start": {
+          "column": 16,
+          "line": 8
+        },
+        "start_byte": 261
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:261:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:261:277:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:277:required_parameter",
+      "kind": "required_parameter",
+      "label": "m: ScoringMetrics",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 8
+        },
+        "end_byte": 277,
+        "start": {
+          "column": 15,
+          "line": 8
+        },
+        "start_byte": 260
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:260:277:required_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:278:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(m: ScoringMetrics)",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 8
+        },
+        "end_byte": 278,
+        "start": {
+          "column": 14,
+          "line": 8
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:282:286:predefined_type",
+      "kind": "predefined_type",
+      "label": "void",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 8
+        },
+        "end_byte": 286,
+        "start": {
+          "column": 37,
+          "line": 8
+        },
+        "start_byte": 282
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:278:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:282:286:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:286:function_type",
+      "kind": "function_type",
+      "label": "(m: ScoringMetrics) => void",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 8
+        },
+        "end_byte": 286,
+        "start": {
+          "column": 14,
+          "line": 8
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:259:286:function_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:257:286:type_annotation",
+      "kind": "type_annotation",
+      "label": ": (m: ScoringMetrics) => void",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 8
+        },
+        "end_byte": 286,
+        "start": {
+          "column": 12,
+          "line": 8
+        },
+        "start_byte": 257
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:257:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:257:286:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:286:property_signature",
+      "kind": "property_signature",
+      "label": "setMetrics: (m: ScoringMetrics) => void",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 8
+        },
+        "end_byte": 286,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 247
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:159:176:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:181:214:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:219:242:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:247:286:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  mode: ScoringMode;\r\n  setMode: (m: ScoringMode) => void;\r\n  metrics: ScoringMetrics;\r\n  setMetrics: (m: ScoringMetrics) => void;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 41,
+          "line": 4
+        },
+        "start_byte": 154
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:130:153:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:154:290:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:120:290:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface ScoringModeContextValue {\r\n  mode: ScoringMode;\r\n  setMode: (m: ScoringMode) => void;\r\n  metrics: ScoringMetrics;\r\n  setMetrics: (m: ScoringMetrics) => void;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 7,
+          "line": 4
+        },
+        "start_byte": 120
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:120:290:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:113:290:export_statement",
+      "kind": "export_statement",
+      "label": "export interface ScoringModeContextValue {\r\n  mode: ScoringMode;\r\n  setMode: (m: ScoringMode) => void;\r\n  metrics: ScoringMetrics;\r\n  setMetrics: (m: ScoringMetrics) => void;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 113
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:329:identifier",
+      "kind": "identifier",
+      "label": "fallbackScoringMetrics",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 11
+        },
+        "end_byte": 329,
+        "start": {
+          "column": 13,
+          "line": 11
+        },
+        "start_byte": 307
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:331:345:type_identifier",
+      "kind": "type_identifier",
+      "label": "ScoringMetrics",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 11
+        },
+        "end_byte": 345,
+        "start": {
+          "column": 37,
+          "line": 11
+        },
+        "start_byte": 331
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:331:345:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:329:345:type_annotation",
+      "kind": "type_annotation",
+      "label": ": ScoringMetrics",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 11
+        },
+        "end_byte": 345,
+        "start": {
+          "column": 35,
+          "line": 11
+        },
+        "start_byte": 329
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:366:property_identifier",
+      "kind": "property_identifier",
+      "label": "precisionAt50",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 12
+        },
+        "end_byte": 366,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 353
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:368:369:number",
+      "kind": "number",
+      "label": "0",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 12
+        },
+        "end_byte": 369,
+        "start": {
+          "column": 17,
+          "line": 12
+        },
+        "start_byte": 368
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:366:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:368:369:number"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:369:pair",
+      "kind": "pair",
+      "label": "precisionAt50: 0",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 12
+        },
+        "end_byte": 369,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 353
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:384:property_identifier",
+      "kind": "property_identifier",
+      "label": "recallAt50",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 13
+        },
+        "end_byte": 384,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 374
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:386:387:number",
+      "kind": "number",
+      "label": "0",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 13
+        },
+        "end_byte": 387,
+        "start": {
+          "column": 14,
+          "line": 13
+        },
+        "start_byte": 386
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:384:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:386:387:number"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:387:pair",
+      "kind": "pair",
+      "label": "recallAt50: 0",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 13
+        },
+        "end_byte": 387,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 374
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:397:property_identifier",
+      "kind": "property_identifier",
+      "label": "prAuc",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 14
+        },
+        "end_byte": 397,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 392
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:399:400:number",
+      "kind": "number",
+      "label": "0",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 14
+        },
+        "end_byte": 400,
+        "start": {
+          "column": 9,
+          "line": 14
+        },
+        "start_byte": 399
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:397:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:399:400:number"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:400:pair",
+      "kind": "pair",
+      "label": "prAuc: 0",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 14
+        },
+        "end_byte": 400,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 392
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:353:369:pair",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:374:387:pair",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:392:400:pair"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:348:404:object",
+      "kind": "object",
+      "label": "{\r\n  precisionAt50: 0,\r\n  recallAt50: 0,\r\n  prAuc: 0,\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 15
+        },
+        "end_byte": 404,
+        "start": {
+          "column": 54,
+          "line": 11
+        },
+        "start_byte": 348
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:329:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:329:345:type_annotation",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:348:404:object"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:404:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "fallbackScoringMetrics: ScoringMetrics = {\r\n  precisionAt50: 0,\r\n  recallAt50: 0,\r\n  prAuc: 0,\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 15
+        },
+        "end_byte": 404,
+        "start": {
+          "column": 13,
+          "line": 11
+        },
+        "start_byte": 307
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:307:404:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:301:405:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const fallbackScoringMetrics: ScoringMetrics = {\r\n  precisionAt50: 0,\r\n  recallAt50: 0,\r\n  prAuc: 0,\r\n};",
+      "span": {
+        "end": {
+          "column": 2,
+          "line": 15
+        },
+        "end_byte": 405,
+        "start": {
+          "column": 7,
+          "line": 11
+        },
+        "start_byte": 301
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:301:405:lexical_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:294:405:export_statement",
+      "kind": "export_statement",
+      "label": "export const fallbackScoringMetrics: ScoringMetrics = {\r\n  precisionAt50: 0,\r\n  recallAt50: 0,\r\n  prAuc: 0,\r\n};",
+      "span": {
+        "end": {
+          "column": 2,
+          "line": 15
+        },
+        "end_byte": 405,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 294
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:436:identifier",
+      "kind": "identifier",
+      "label": "ScoringModeCtx",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 17
+        },
+        "end_byte": 436,
+        "start": {
+          "column": 13,
+          "line": 17
+        },
+        "start_byte": 422
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:452:identifier",
+      "kind": "identifier",
+      "label": "createContext",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 17
+        },
+        "end_byte": 452,
+        "start": {
+          "column": 30,
+          "line": 17
+        },
+        "start_byte": 439
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:476:type_identifier",
+      "kind": "type_identifier",
+      "label": "ScoringModeContextValue",
+      "span": {
+        "end": {
+          "column": 67,
+          "line": 17
+        },
+        "end_byte": 476,
+        "start": {
+          "column": 44,
+          "line": 17
+        },
+        "start_byte": 453
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:479:483:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 17
+        },
+        "end_byte": 483,
+        "start": {
+          "column": 70,
+          "line": 17
+        },
+        "start_byte": 479
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:479:483:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:479:483:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 17
+        },
+        "end_byte": 483,
+        "start": {
+          "column": 70,
+          "line": 17
+        },
+        "start_byte": 479
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:476:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:479:483:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:483:union_type",
+      "kind": "union_type",
+      "label": "ScoringModeContextValue | null",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 17
+        },
+        "end_byte": 483,
+        "start": {
+          "column": 44,
+          "line": 17
+        },
+        "start_byte": 453
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:453:483:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:452:484:type_arguments",
+      "kind": "type_arguments",
+      "label": "<ScoringModeContextValue | null>",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 17
+        },
+        "end_byte": 484,
+        "start": {
+          "column": 43,
+          "line": 17
+        },
+        "start_byte": 452
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:485:489:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 80,
+          "line": 17
+        },
+        "end_byte": 489,
+        "start": {
+          "column": 76,
+          "line": 17
+        },
+        "start_byte": 485
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:485:489:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:484:490:arguments",
+      "kind": "arguments",
+      "label": "(null)",
+      "span": {
+        "end": {
+          "column": 81,
+          "line": 17
+        },
+        "end_byte": 490,
+        "start": {
+          "column": 75,
+          "line": 17
+        },
+        "start_byte": 484
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:452:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:452:484:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:484:490:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:490:call_expression",
+      "kind": "call_expression",
+      "label": "createContext<ScoringModeContextValue | null>(null)",
+      "span": {
+        "end": {
+          "column": 81,
+          "line": 17
+        },
+        "end_byte": 490,
+        "start": {
+          "column": 30,
+          "line": 17
+        },
+        "start_byte": 439
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:436:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:439:490:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:490:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "ScoringModeCtx = createContext<ScoringModeContextValue | null>(null)",
+      "span": {
+        "end": {
+          "column": 81,
+          "line": 17
+        },
+        "end_byte": 490,
+        "start": {
+          "column": 13,
+          "line": 17
+        },
+        "start_byte": 422
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:422:490:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:416:491:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const ScoringModeCtx = createContext<ScoringModeContextValue | null>(null);",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 17
+        },
+        "end_byte": 491,
+        "start": {
+          "column": 7,
+          "line": 17
+        },
+        "start_byte": 416
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:416:491:lexical_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:409:491:export_statement",
+      "kind": "export_statement",
+      "label": "export const ScoringModeCtx = createContext<ScoringModeContextValue | null>(null);",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 17
+        },
+        "end_byte": 491,
+        "start": {
+          "column": 0,
+          "line": 17
+        },
+        "start_byte": 409
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:38:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:40:109:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:113:290:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:294:405:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:409:491:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/scoringModeContext.ts:0:493:program",
+      "kind": "program",
+      "label": "import { createContext } from \"react\";\r\nimport type { ScoringMetrics, ScoringMode } from \"@/types/dashboard\";\r\n\r\nexport interface ScoringModeContextValue {\r\n  mode: ScoringMode;\r\n  setMode: (m: Scorin",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 18
+        },
+        "end_byte": 493,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/contexts/scoringModeContext.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

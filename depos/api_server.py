@@ -237,6 +237,19 @@ class IntelligenceRunCreate(BaseModel):
     detector_policy: dict[str, Any] | None = None
     detector_stats: list[IntelligenceDetectorStatIn] = Field(default_factory=list)
     findings: list[IntelligenceFindingIn] = Field(default_factory=list)
+    # Reasoner health surfaced from RunMetadata. Optional so older callers
+    # keep working; defaults below match a clean run.
+    reasoner_run_health: Literal["ok", "degraded", "failed"] = "ok"
+    reasoner_health_reason: str = ""
+    reasoner_attempts: int = 0
+    reasoner_successes: int = 0
+    reasoner_failures: int = 0
+    reasoner_failure_breakdown: dict[str, Any] = Field(default_factory=dict)
+    evidence_summary: dict[str, Any] = Field(default_factory=dict)
+    bundles_built: int = 0
+    bundles_sent_to_reasoner: int = 0
+    bundles_skipped_low_evidence: int = 0
+    dataset_path_resolution: dict[str, Any] = Field(default_factory=dict)
 
 
 class DetectorPolicyBody(BaseModel):

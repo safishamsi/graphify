@@ -169,6 +169,23 @@ Useful options:
   Force GraphCodeBERT device, for example `cpu`.
 - `--model-name`
   Override GraphCodeBERT model name. Default is `microsoft/graphcodebert-base`.
+- `--source-root` *(repeatable)*
+  Extra source root the normalizer/bundler can use to resolve `source_file`
+  paths recorded in the dataset. Use this when your dataset was extracted
+  from a checkout layout that does not match `--repo-root` (for example
+  monorepos with `services/` or `packages/` prefixes).
+- `--path-alias from=to` *(repeatable)*
+  Rewrite `source_file` prefixes during resolution. Example:
+  `--path-alias services/api/=backend/app/`.
+- `--min-evidence {full,embedded,label_only}`
+  Floor for what evidence quality a bundle must reach before it is sent to
+  the reasoner. Bundles below the floor are recorded as
+  `bundles_skipped_low_evidence` instead of silently producing empty
+  prompts.
+- `--strict`
+  Map run health to a non-zero exit code so CI can surface degraded runs.
+  See [docs/runbooks/reasoner-zero-findings.md](runbooks/reasoner-zero-findings.md)
+  for the exit-code table.
 
 Example with extra controls:
 
@@ -186,11 +203,24 @@ The command writes these intermediate artifacts under the chosen output director
 - `bundles.json`
 - `bundle-scores.json`
 
+Top-level run artifacts also include:
+
+- `dataset_path_resolution.json` — per-file resolution report. Always check
+  this first when findings are empty: it records which `source_file`
+  references resolved against which root, and which were missing entirely.
+
 Final reasoning artifacts are written under:
 
 - `gemma4-run/violations.json`
 - `gemma4-run/gray_zone_audit.jsonl`
 - `gemma4-run/bundle_pipeline_trace.json`
+- `gemma4-run/run_summary.json` — aggregate run health, including
+  `reasoner_run_health` (`ok` / `degraded` / `failed`),
+  `reasoner_call_stats` (attempts, successes, failures, per-mode and
+  per-failure-reason breakdowns), and `evidence_summary` (bundle counts by
+  quality plus how many were skipped under the evidence floor). Use this
+  to decide whether a "0 findings" run is a clean negative or a silent
+  failure.
 
 ## What each artifact means
 
@@ -292,11 +322,51 @@ Gray-zone and Gemma outputs can help surface results, but they must not blur the
 
 If Gemma returns no findings and gray-zone is empty, first inspect:
 
-- `candidates.json`
-- `bundles.json`
-- `bundle-scores.json`
+- `dataset_path_resolution.json` — were `source_file` references resolved?
+- `gemma4-run/run_summary.json` — what does `reasoner_run_health` say?
+- `candidates.json` / `bundles.json` / `bundle-scores.json`
 
-In practice the most common cause is weak graph enrichment, not a broken reasoner.
+In practice the most common cause is either path resolution drift between
+the dataset and `--repo-root`, or a reasoner provider returning malformed
+output. Both now show up explicitly in `run_summary.json` instead of being
+hidden behind a misleading "success" exit code. The
+[reasoner-zero-findings runbook](runbooks/reasoner-zero-findings.md) maps
+each `failure_reason` value to a concrete fix.
+
+## Operational checklist
+
+Run this before declaring a "0 findings" run successful:
+
+1. `dataset_path_resolution.json` → `summary.resolution_ratio` is at least
+   `0.8`. If not, re-run with the right `--repo-root` and add
+   `--source-root` / `--path-alias` for the layouts that did not resolve.
+2. `gemma4-run/run_summary.json` → `reasoner_run_health == "ok"`. If it is
+   `degraded` or `failed`, look at
+   `reasoner_call_stats.by_reason` to see whether the cluster is
+   `not_json`, `json_but_invalid_schema`, `http_error`, `timeout`,
+   `auth_error`, or `validation_error` and follow the runbook.
+3. `evidence_summary.bundles_skipped_low_evidence` is reasonable. If every
+   bundle was skipped, the evidence floor is too aggressive *or* the
+   snippets never had real source text — usually a path-resolution problem
+   in step 1.
+4. If the run is genuinely clean (good resolution, healthy reasoner,
+   bundles sent), then "0 findings" is a real signal.
+
+For the same checklist in CI, add `--strict` to fail the job when the run
+is degraded.
+
+## Replaying queued reasoner calls
+
+When the reasoner queues failed attempts to `reasoner_queue.jsonl`, you can
+re-issue them after fixing the provider config without rerunning the entire
+pipeline:
+
+```powershell
+depos-intel detectors replay --run-id <run_id> --mode A --max 20
+```
+
+Pass `--provider gemma|openai|ollama|stub` to override the provider used for
+the replay.
 
 ## Troubleshooting
 

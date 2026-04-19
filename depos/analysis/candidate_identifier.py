@@ -327,13 +327,19 @@ def _surface_candidates_for_node(graph: nx.DiGraph, node_id: str, attrs: dict[st
             )
         )
     if _is_auth_boundary_node(attrs):
+        # In ``full_repo_scan`` the lexical "auth/jwt/session/token" filter
+        # used by ``_is_auth_boundary_node`` matches almost every web
+        # backend node and floods the candidate pool. We keep the seed so
+        # the surface is still investigated, but drop its priority below
+        # graph-anomaly seeds so other detector families can compete.
         scope_id = f"surface:auth:{node_id}"
+        auth_priority = 0.42 if mode == AnalysisMode.full_repo_scan else 0.68
         out.append(
             Candidate(
                 candidate_id=_candidate_id(scope_id, SeedType.interface_surface, node_id),
                 scope_id=scope_id,
                 seed_type=SeedType.interface_surface,
-                priority_score=0.68,
+                priority_score=auth_priority,
                 diff_anchors=[node_id],
                 analysis_mode=mode,
                 extra={"surface_type": "auth_boundary"},
@@ -400,10 +406,32 @@ def _non_self_degree(graph: nx.DiGraph, node_id: str) -> tuple[int, int]:
     return incoming, outgoing
 
 
+def _is_dataset_unresolved_node(attrs: dict[str, Any]) -> bool:
+    """Detect dataset nodes whose source text could not be resolved.
+
+    Either the normalizer failed to find any matching ``source_root`` (so
+    ``source_resolved_via`` is missing/empty), or the snippet collapsed to a
+    label (no ``embedded_text``). These nodes are valuable seeds because they
+    represent code we know about structurally but cannot inspect, which is the
+    exact condition that produced "0 findings" in the Gemma 4 dataset run.
+    """
+    resolved = str(attrs.get("source_resolved_via") or "").strip().lower()
+    if resolved in {"", "missing", "unresolved"}:
+        return True
+    if not str(attrs.get("embedded_text") or "").strip():
+        return True
+    return False
+
+
 def _graph_anomaly_candidates(graph: nx.DiGraph, mode: AnalysisMode) -> list[Candidate]:
     """Structural anomaly seeds kept conservative but broader than a single
     missing-route-client case.
     """
+    # In full_repo_scan the diff is empty, so graph anomalies become the most
+    # informative deterministic signal we have. Bump them above the lexical
+    # auth_boundary surfaces (0.42 in this mode) but keep them below
+    # diff-anchored seeds.
+    bump = 0.10 if mode == AnalysisMode.full_repo_scan else 0.0
     out: list[Candidate] = []
     for nid, attrs in graph.nodes(data=True):
         if not _is_seedable_node(attrs):
@@ -420,7 +448,7 @@ def _graph_anomaly_candidates(graph: nx.DiGraph, mode: AnalysisMode) -> list[Can
                         candidate_id=_candidate_id(scope_id, SeedType.graph_anomaly, nid),
                         scope_id=scope_id,
                         seed_type=SeedType.graph_anomaly,
-                        priority_score=0.55,
+                        priority_score=0.55 + bump,
                         analysis_mode=mode,
                         extra={
                             "anomaly": "fastapi_route_without_client_calls",
@@ -442,7 +470,7 @@ def _graph_anomaly_candidates(graph: nx.DiGraph, mode: AnalysisMode) -> list[Can
                         candidate_id=_candidate_id(scope_id, SeedType.graph_anomaly, nid),
                         scope_id=scope_id,
                         seed_type=SeedType.graph_anomaly,
-                        priority_score=0.57,
+                        priority_score=0.57 + bump,
                         diff_anchors=[nid],
                         analysis_mode=mode,
                         extra={
@@ -461,7 +489,7 @@ def _graph_anomaly_candidates(graph: nx.DiGraph, mode: AnalysisMode) -> list[Can
                     candidate_id=_candidate_id(scope_id, SeedType.graph_anomaly, nid),
                     scope_id=scope_id,
                     seed_type=SeedType.graph_anomaly,
-                    priority_score=0.53,
+                    priority_score=0.53 + bump,
                     diff_anchors=[nid],
                     analysis_mode=mode,
                     extra={"anomaly": "orphan_interface_surface"},
@@ -475,10 +503,32 @@ def _graph_anomaly_candidates(graph: nx.DiGraph, mode: AnalysisMode) -> list[Can
                     candidate_id=_candidate_id(scope_id, SeedType.graph_anomaly, nid),
                     scope_id=scope_id,
                     seed_type=SeedType.graph_anomaly,
-                    priority_score=0.59,
+                    priority_score=0.59 + bump,
                     diff_anchors=[nid],
                     analysis_mode=mode,
                     extra={"anomaly": "unresolved_symbol", "unresolved_symbol_count": 1},
+                )
+            )
+
+        # ``dataset_unresolved`` — surface dataset nodes whose source text was
+        # never read. These look fine structurally but feed empty snippets to
+        # the reasoner, so they are exactly the seeds to flag for the operator.
+        if mode == AnalysisMode.full_repo_scan and _is_dataset_unresolved_node(attrs):
+            scope_id = f"dataset:unresolved:{nid}"
+            out.append(
+                Candidate(
+                    candidate_id=_candidate_id(scope_id, SeedType.graph_anomaly, nid),
+                    scope_id=scope_id,
+                    seed_type=SeedType.graph_anomaly,
+                    priority_score=0.50 + bump,
+                    diff_anchors=[nid],
+                    analysis_mode=mode,
+                    extra={
+                        "anomaly": "dataset_unresolved_source",
+                        "source_resolved_via": str(attrs.get("source_resolved_via") or ""),
+                        "source_file": str(attrs.get("source_file") or ""),
+                        "has_embedded_text": bool(str(attrs.get("embedded_text") or "").strip()),
+                    },
                 )
             )
     return out

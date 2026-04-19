@@ -1,0 +1,4015 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:00+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:7:13:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:7:13:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:7:13:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:7:13:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:30:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:7:13:import_clause:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:30:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:7:13:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:19:29:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:20:28:string_fragment:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:19:29:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:20:28:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:30:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:19:29:string:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:30:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:19:29:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:30:import_statement:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:30:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:46:57:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:46:57:identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:46:57:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:46:57:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:46:57:import_specifier:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:46:57:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:59:75:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:59:75:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:59:75:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:59:75:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:59:75:import_specifier:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:59:75:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:named_imports:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:32:106:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:import_clause:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:32:106:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:83:105:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:84:104:string_fragment:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:83:105:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:84:104:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:32:106:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:83:105:string:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:32:106:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:83:105:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:32:106:import_statement:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:32:106:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:110:213:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:120:137:type_identifier:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:110:213:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:120:137:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:138:139:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:138:139:type_identifier:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:138:139:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:138:139:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:137:140:type_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:138:139:type_parameter:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:137:140:type_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:138:139:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:110:213:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:137:140:type_parameters:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:110:213:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:137:140:type_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:156:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:151:property_identifier:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:156:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:151:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:153:156:array_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:153:154:type_identifier:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:153:156:array_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:153:154:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:151:156:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:153:156:array_type:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:151:156:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:153:156:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:156:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:151:156:type_annotation:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:156:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:151:156:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:156:property_signature:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:156:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:174:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:166:property_identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:174:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:166:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:166:174:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:168:174:predefined_type:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:166:174:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:168:174:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:174:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:166:174:type_annotation:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:174:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:166:174:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:174:property_signature:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:174:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:191:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:183:property_identifier:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:191:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:183:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:183:191:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:185:191:predefined_type:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:183:191:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:185:191:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:191:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:183:191:type_annotation:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:191:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:183:191:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:191:property_signature:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:191:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:209:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:201:property_identifier:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:209:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:201:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:201:209:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:203:209:predefined_type:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:201:209:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:203:209:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:209:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:201:209:type_annotation:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:209:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:201:209:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:209:property_signature:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:209:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:110:213:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:110:213:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:110:213:interface_declaration:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:110:213:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:224:469:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:239:256:identifier:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:224:469:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:239:256:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:348:optional_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:263:identifier:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:348:optional_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:263:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:284:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:275:property_identifier:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:284:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:275:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:276:284:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:278:284:predefined_type:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:276:284:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:278:284:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:284:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:276:284:type_annotation:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:284:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:276:284:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:284:property_signature:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:284:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:303:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:294:property_identifier:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:303:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:294:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:295:303:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:297:303:predefined_type:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:295:303:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:297:303:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:303:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:295:303:type_annotation:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:303:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:295:303:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:303:property_signature:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:303:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:322:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:313:property_identifier:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:322:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:313:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:314:322:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:316:322:predefined_type:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:314:322:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:316:322:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:322:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:314:322:type_annotation:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:322:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:314:322:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:322:property_signature:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:322:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:344:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:335:property_identifier:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:344:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:335:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:336:344:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:338:344:predefined_type:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:336:344:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:338:344:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:344:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:336:344:type_annotation:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:344:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:336:344:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:344:property_signature:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:344:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:264:348:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:264:348:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:348:optional_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:264:348:type_annotation:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:348:optional_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:264:348:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:256:349:formal_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:348:optional_parameter:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:256:349:formal_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:348:optional_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:224:469:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:256:349:formal_parameters:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:224:469:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:256:349:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:369:object_pattern->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:363:367:shorthand_property_identifier_pattern:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:369:object_pattern",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:363:367:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:449:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:369:object_pattern:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:449:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:369:object_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:388:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:384:identifier:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:388:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:384:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:388:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:385:388:property_identifier:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:388:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:385:388:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:388:await_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:388:member_expression:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:388:await_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:388:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:449:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:388:await_expression:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:449:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:388:await_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:419:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:406:type_identifier:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:419:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:406:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:406:419:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:407:418:type_identifier:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:406:419:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:407:418:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:419:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:406:419:type_arguments:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:419:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:406:419:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:388:420:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:419:generic_type:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:388:420:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:419:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:449:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:388:420:type_arguments:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:449:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:388:420:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:421:436:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:422:435:string_fragment:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:421:436:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:422:435:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:420:449:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:421:436:string:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:420:449:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:421:436:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:438:448:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:440:446:shorthand_property_identifier:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:438:448:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:440:446:shorthand_property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:420:449:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:438:448:object:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:420:449:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:438:448:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:449:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:420:449:arguments:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:449:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:420:449:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:449:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:449:call_expression:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:449:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:449:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:355:450:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:449:variable_declarator:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:355:450:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:449:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:350:469:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:355:450:lexical_declaration:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:350:469:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:355:450:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:454:466:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:461:465:identifier:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:454:466:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:461:465:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:350:469:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:454:466:return_statement:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:350:469:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:454:466:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:224:469:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:350:469:statement_block:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:224:469:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:350:469:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:217:469:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:224:469:function_declaration:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:217:469:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:224:469:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:217:469:export_statement:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:217:469:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:480:655:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:495:511:identifier:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:480:655:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:495:511:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:522:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:514:identifier:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:522:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:514:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:514:522:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:516:522:predefined_type:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:514:522:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:516:522:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:522:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:514:522:type_annotation:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:522:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:514:522:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:511:523:formal_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:522:required_parameter:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:511:523:formal_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:522:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:480:655:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:511:523:formal_parameters:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:480:655:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:511:523:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:543:object_pattern->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:537:541:shorthand_property_identifier_pattern:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:543:object_pattern",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:537:541:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:635:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:543:object_pattern:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:635:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:543:object_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:562:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:558:identifier:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:562:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:558:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:562:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:559:562:property_identifier:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:562:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:559:562:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:562:await_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:562:member_expression:93",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:562:await_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:562:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:635:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:562:await_expression:94",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:635:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:562:await_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:611:intersection_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:574:type_identifier:95",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:611:intersection_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:574:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:609:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:584:property_identifier:96",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:609:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:584:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:609:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:602:type_identifier:97",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:609:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:602:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:605:609:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:605:609:null:98",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:605:609:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:605:609:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:609:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:605:609:literal_type:99",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:609:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:605:609:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:584:609:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:609:union_type:100",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:584:609:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:609:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:609:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:584:609:type_annotation:101",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:609:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:584:609:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:577:611:object_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:609:property_signature:102",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:577:611:object_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:609:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:611:intersection_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:577:611:object_type:103",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:611:intersection_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:577:611:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:562:612:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:611:intersection_type:104",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:562:612:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:611:intersection_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:635:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:562:612:type_arguments:105",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:635:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:562:612:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:613:634:template_string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:614:628:string_fragment:106",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:613:634:template_string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:614:628:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:628:633:template_substitution->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:630:632:identifier:107",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:628:633:template_substitution",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:630:632:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:613:634:template_string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:628:633:template_substitution:108",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:613:634:template_string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:628:633:template_substitution",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:612:635:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:613:634:template_string:109",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:612:635:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:613:634:template_string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:635:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:612:635:arguments:110",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:635:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:612:635:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:635:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:635:call_expression:111",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:635:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:635:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:529:636:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:635:variable_declarator:112",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:529:636:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:635:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:524:655:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:529:636:lexical_declaration:113",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:524:655:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:529:636:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:640:652:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:647:651:identifier:114",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:640:652:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:647:651:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:524:655:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:640:652:return_statement:115",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:524:655:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:640:652:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:480:655:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:524:655:statement_block:116",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:480:655:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:524:655:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:473:655:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:480:655:function_declaration:117",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:473:655:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:480:655:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:473:655:export_statement:118",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:473:655:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:666:803:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:681:698:identifier:119",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:666:803:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:681:698:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:666:803:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:698:700:formal_parameters:120",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:666:803:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:698:700:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:720:object_pattern->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:714:718:shorthand_property_identifier_pattern:121",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:720:object_pattern",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:714:718:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:783:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:720:object_pattern:122",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:783:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:720:object_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:740:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:735:identifier:123",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:740:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:735:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:740:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:736:740:property_identifier:124",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:740:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:736:740:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:740:await_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:740:member_expression:125",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:740:await_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:740:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:783:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:740:await_expression:126",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:783:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:740:await_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:757:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:749:property_identifier:127",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:757:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:749:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:749:757:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:751:757:predefined_type:128",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:749:757:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:751:757:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:757:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:749:757:type_annotation:129",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:757:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:749:757:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:741:759:object_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:757:property_signature:130",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:741:759:object_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:757:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:740:760:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:741:759:object_type:131",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:740:760:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:741:759:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:783:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:740:760:type_arguments:132",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:783:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:740:760:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:761:782:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:762:781:string_fragment:133",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:761:782:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:762:781:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:760:783:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:761:782:string:134",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:760:783:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:761:782:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:783:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:760:783:arguments:135",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:783:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:760:783:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:783:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:783:call_expression:136",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:783:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:783:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:706:784:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:783:variable_declarator:137",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:706:784:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:783:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:701:803:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:706:784:lexical_declaration:138",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:701:803:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:706:784:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:788:800:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:795:799:identifier:139",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:788:800:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:795:799:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:701:803:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:788:800:return_statement:140",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:701:803:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:788:800:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:666:803:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:701:803:statement_block:141",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:666:803:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:701:803:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:659:803:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:666:803:function_declaration:142",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:659:803:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:666:803:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:659:803:export_statement:143",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:659:803:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:7:13:identifier",
+      "kind": "identifier",
+      "label": "client",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 1
+        },
+        "end_byte": 13,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:7:13:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:7:13:import_clause",
+      "kind": "import_clause",
+      "label": "client",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 1
+        },
+        "end_byte": 13,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:20:28:string_fragment",
+      "kind": "string_fragment",
+      "label": "./client",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 1
+        },
+        "end_byte": 28,
+        "start": {
+          "column": 20,
+          "line": 1
+        },
+        "start_byte": 20
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:20:28:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:19:29:string",
+      "kind": "string",
+      "label": "\"./client\"",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 19,
+          "line": 1
+        },
+        "start_byte": 19
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:7:13:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:19:29:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:30:import_statement",
+      "kind": "import_statement",
+      "label": "import client from \"./client\";",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 1
+        },
+        "end_byte": 30,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:46:57:identifier",
+      "kind": "identifier",
+      "label": "Transaction",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 2
+        },
+        "end_byte": 57,
+        "start": {
+          "column": 14,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:46:57:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:46:57:import_specifier",
+      "kind": "import_specifier",
+      "label": "Transaction",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 2
+        },
+        "end_byte": 57,
+        "start": {
+          "column": 14,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:59:75:identifier",
+      "kind": "identifier",
+      "label": "TransactionScore",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 2
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 27,
+          "line": 2
+        },
+        "start_byte": 59
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:59:75:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:59:75:import_specifier",
+      "kind": "import_specifier",
+      "label": "TransactionScore",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 2
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 27,
+          "line": 2
+        },
+        "start_byte": 59
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:46:57:import_specifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:59:75:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:named_imports",
+      "kind": "named_imports",
+      "label": "{ Transaction, TransactionScore }",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 2
+        },
+        "end_byte": 77,
+        "start": {
+          "column": 12,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:import_clause",
+      "kind": "import_clause",
+      "label": "{ Transaction, TransactionScore }",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 2
+        },
+        "end_byte": 77,
+        "start": {
+          "column": 12,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:84:104:string_fragment",
+      "kind": "string_fragment",
+      "label": "../types/transaction",
+      "span": {
+        "end": {
+          "column": 72,
+          "line": 2
+        },
+        "end_byte": 104,
+        "start": {
+          "column": 52,
+          "line": 2
+        },
+        "start_byte": 84
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:84:104:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:83:105:string",
+      "kind": "string",
+      "label": "\"../types/transaction\"",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 2
+        },
+        "end_byte": 105,
+        "start": {
+          "column": 51,
+          "line": 2
+        },
+        "start_byte": 83
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:44:77:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:83:105:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:32:106:import_statement",
+      "kind": "import_statement",
+      "label": "import type { Transaction, TransactionScore } from \"../types/transaction\";",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 2
+        },
+        "end_byte": 106,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 32
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:120:137:type_identifier",
+      "kind": "type_identifier",
+      "label": "PaginatedResponse",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 4
+        },
+        "end_byte": 137,
+        "start": {
+          "column": 10,
+          "line": 4
+        },
+        "start_byte": 120
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:138:139:type_identifier",
+      "kind": "type_identifier",
+      "label": "T",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 4
+        },
+        "end_byte": 139,
+        "start": {
+          "column": 28,
+          "line": 4
+        },
+        "start_byte": 138
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:138:139:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:138:139:type_parameter",
+      "kind": "type_parameter",
+      "label": "T",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 4
+        },
+        "end_byte": 139,
+        "start": {
+          "column": 28,
+          "line": 4
+        },
+        "start_byte": 138
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:138:139:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:137:140:type_parameters",
+      "kind": "type_parameters",
+      "label": "<T>",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 4
+        },
+        "end_byte": 140,
+        "start": {
+          "column": 27,
+          "line": 4
+        },
+        "start_byte": 137
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:151:property_identifier",
+      "kind": "property_identifier",
+      "label": "items",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 5
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 146
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:153:154:type_identifier",
+      "kind": "type_identifier",
+      "label": "T",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 5
+        },
+        "end_byte": 154,
+        "start": {
+          "column": 9,
+          "line": 5
+        },
+        "start_byte": 153
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:153:154:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:153:156:array_type",
+      "kind": "array_type",
+      "label": "T[]",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 9,
+          "line": 5
+        },
+        "start_byte": 153
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:153:156:array_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:151:156:type_annotation",
+      "kind": "type_annotation",
+      "label": ": T[]",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 7,
+          "line": 5
+        },
+        "start_byte": 151
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:151:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:151:156:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:156:property_signature",
+      "kind": "property_signature",
+      "label": "items: T[]",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 156,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 146
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:166:property_identifier",
+      "kind": "property_identifier",
+      "label": "total",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 6
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 161
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:168:174:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 6
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 9,
+          "line": 6
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:168:174:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:166:174:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 6
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 7,
+          "line": 6
+        },
+        "start_byte": 166
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:166:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:166:174:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:174:property_signature",
+      "kind": "property_signature",
+      "label": "total: number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 6
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 161
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:183:property_identifier",
+      "kind": "property_identifier",
+      "label": "page",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 7
+        },
+        "end_byte": 183,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:185:191:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 7
+        },
+        "end_byte": 191,
+        "start": {
+          "column": 8,
+          "line": 7
+        },
+        "start_byte": 185
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:185:191:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:183:191:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 7
+        },
+        "end_byte": 191,
+        "start": {
+          "column": 6,
+          "line": 7
+        },
+        "start_byte": 183
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:183:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:183:191:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:191:property_signature",
+      "kind": "property_signature",
+      "label": "page: number",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 7
+        },
+        "end_byte": 191,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:201:property_identifier",
+      "kind": "property_identifier",
+      "label": "limit",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 8
+        },
+        "end_byte": 201,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 196
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:203:209:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 8
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 9,
+          "line": 8
+        },
+        "start_byte": 203
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:203:209:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:201:209:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 8
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 7,
+          "line": 8
+        },
+        "start_byte": 201
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:201:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:201:209:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:209:property_signature",
+      "kind": "property_signature",
+      "label": "limit: number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 8
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 196
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:146:156:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:161:174:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:179:191:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:196:209:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  items: T[];\r\n  total: number;\r\n  page: number;\r\n  limit: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 213,
+        "start": {
+          "column": 31,
+          "line": 4
+        },
+        "start_byte": 141
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:120:137:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:137:140:type_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:141:213:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:110:213:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface PaginatedResponse<T> {\r\n  items: T[];\r\n  total: number;\r\n  page: number;\r\n  limit: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 213,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:239:256:identifier",
+      "kind": "identifier",
+      "label": "fetchTransactions",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 11
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 22,
+          "line": 11
+        },
+        "start_byte": 239
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:263:identifier",
+      "kind": "identifier",
+      "label": "params",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 11
+        },
+        "end_byte": 263,
+        "start": {
+          "column": 40,
+          "line": 11
+        },
+        "start_byte": 257
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:275:property_identifier",
+      "kind": "property_identifier",
+      "label": "page",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 12
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 271
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:278:284:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 12
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 9,
+          "line": 12
+        },
+        "start_byte": 278
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:278:284:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:276:284:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 12
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 7,
+          "line": 12
+        },
+        "start_byte": 276
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:275:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:276:284:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:284:property_signature",
+      "kind": "property_signature",
+      "label": "page?: number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 12
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 271
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:294:property_identifier",
+      "kind": "property_identifier",
+      "label": "limit",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 13
+        },
+        "end_byte": 294,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 289
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:297:303:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 13
+        },
+        "end_byte": 303,
+        "start": {
+          "column": 10,
+          "line": 13
+        },
+        "start_byte": 297
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:297:303:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:295:303:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 13
+        },
+        "end_byte": 303,
+        "start": {
+          "column": 8,
+          "line": 13
+        },
+        "start_byte": 295
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:294:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:295:303:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:303:property_signature",
+      "kind": "property_signature",
+      "label": "limit?: number",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 13
+        },
+        "end_byte": 303,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 289
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:313:property_identifier",
+      "kind": "property_identifier",
+      "label": "label",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 14
+        },
+        "end_byte": 313,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 308
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:316:322:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 14
+        },
+        "end_byte": 322,
+        "start": {
+          "column": 10,
+          "line": 14
+        },
+        "start_byte": 316
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:316:322:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:314:322:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 14
+        },
+        "end_byte": 322,
+        "start": {
+          "column": 8,
+          "line": 14
+        },
+        "start_byte": 314
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:313:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:314:322:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:322:property_signature",
+      "kind": "property_signature",
+      "label": "label?: string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 14
+        },
+        "end_byte": 322,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 308
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:335:property_identifier",
+      "kind": "property_identifier",
+      "label": "min_risk",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 15
+        },
+        "end_byte": 335,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 327
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:338:344:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 15
+        },
+        "end_byte": 344,
+        "start": {
+          "column": 13,
+          "line": 15
+        },
+        "start_byte": 338
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:338:344:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:336:344:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 15
+        },
+        "end_byte": 344,
+        "start": {
+          "column": 11,
+          "line": 15
+        },
+        "start_byte": 336
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:335:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:336:344:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:344:property_signature",
+      "kind": "property_signature",
+      "label": "min_risk?: number",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 15
+        },
+        "end_byte": 344,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 327
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:271:284:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:289:303:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:308:322:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:327:344:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type",
+      "kind": "object_type",
+      "label": "{\r\n  page?: number;\r\n  limit?: number;\r\n  label?: string;\r\n  min_risk?: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 16
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 49,
+          "line": 11
+        },
+        "start_byte": 266
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:266:348:object_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:264:348:type_annotation",
+      "kind": "type_annotation",
+      "label": ": {\r\n  page?: number;\r\n  limit?: number;\r\n  label?: string;\r\n  min_risk?: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 16
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 47,
+          "line": 11
+        },
+        "start_byte": 264
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:263:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:264:348:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:348:optional_parameter",
+      "kind": "optional_parameter",
+      "label": "params?: {\r\n  page?: number;\r\n  limit?: number;\r\n  label?: string;\r\n  min_risk?: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 16
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 40,
+          "line": 11
+        },
+        "start_byte": 257
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:257:348:optional_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:256:349:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(params?: {\r\n  page?: number;\r\n  limit?: number;\r\n  label?: string;\r\n  min_risk?: number;\r\n})",
+      "span": {
+        "end": {
+          "column": 2,
+          "line": 16
+        },
+        "end_byte": 349,
+        "start": {
+          "column": 39,
+          "line": 11
+        },
+        "start_byte": 256
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:363:367:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 17
+        },
+        "end_byte": 367,
+        "start": {
+          "column": 10,
+          "line": 17
+        },
+        "start_byte": 363
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:363:367:shorthand_property_identifier_pattern"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:369:object_pattern",
+      "kind": "object_pattern",
+      "label": "{ data }",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 17
+        },
+        "end_byte": 369,
+        "start": {
+          "column": 8,
+          "line": 17
+        },
+        "start_byte": 361
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:384:identifier",
+      "kind": "identifier",
+      "label": "client",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 17
+        },
+        "end_byte": 384,
+        "start": {
+          "column": 25,
+          "line": 17
+        },
+        "start_byte": 378
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:385:388:property_identifier",
+      "kind": "property_identifier",
+      "label": "get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 17
+        },
+        "end_byte": 388,
+        "start": {
+          "column": 32,
+          "line": 17
+        },
+        "start_byte": 385
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:384:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:385:388:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:388:member_expression",
+      "kind": "member_expression",
+      "label": "client.get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 17
+        },
+        "end_byte": 388,
+        "start": {
+          "column": 25,
+          "line": 17
+        },
+        "start_byte": 378
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:378:388:member_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:388:await_expression",
+      "kind": "await_expression",
+      "label": "await client.get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 17
+        },
+        "end_byte": 388,
+        "start": {
+          "column": 19,
+          "line": 17
+        },
+        "start_byte": 372
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:406:type_identifier",
+      "kind": "type_identifier",
+      "label": "PaginatedResponse",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 17
+        },
+        "end_byte": 406,
+        "start": {
+          "column": 36,
+          "line": 17
+        },
+        "start_byte": 389
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:407:418:type_identifier",
+      "kind": "type_identifier",
+      "label": "Transaction",
+      "span": {
+        "end": {
+          "column": 65,
+          "line": 17
+        },
+        "end_byte": 418,
+        "start": {
+          "column": 54,
+          "line": 17
+        },
+        "start_byte": 407
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:407:418:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:406:419:type_arguments",
+      "kind": "type_arguments",
+      "label": "<Transaction>",
+      "span": {
+        "end": {
+          "column": 66,
+          "line": 17
+        },
+        "end_byte": 419,
+        "start": {
+          "column": 53,
+          "line": 17
+        },
+        "start_byte": 406
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:406:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:406:419:type_arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:419:generic_type",
+      "kind": "generic_type",
+      "label": "PaginatedResponse<Transaction>",
+      "span": {
+        "end": {
+          "column": 66,
+          "line": 17
+        },
+        "end_byte": 419,
+        "start": {
+          "column": 36,
+          "line": 17
+        },
+        "start_byte": 389
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:389:419:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:388:420:type_arguments",
+      "kind": "type_arguments",
+      "label": "<PaginatedResponse<Transaction>>",
+      "span": {
+        "end": {
+          "column": 67,
+          "line": 17
+        },
+        "end_byte": 420,
+        "start": {
+          "column": 35,
+          "line": 17
+        },
+        "start_byte": 388
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:422:435:string_fragment",
+      "kind": "string_fragment",
+      "label": "/transactions",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 17
+        },
+        "end_byte": 435,
+        "start": {
+          "column": 69,
+          "line": 17
+        },
+        "start_byte": 422
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:422:435:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:421:436:string",
+      "kind": "string",
+      "label": "\"/transactions\"",
+      "span": {
+        "end": {
+          "column": 83,
+          "line": 17
+        },
+        "end_byte": 436,
+        "start": {
+          "column": 68,
+          "line": 17
+        },
+        "start_byte": 421
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:440:446:shorthand_property_identifier",
+      "kind": "shorthand_property_identifier",
+      "label": "params",
+      "span": {
+        "end": {
+          "column": 93,
+          "line": 17
+        },
+        "end_byte": 446,
+        "start": {
+          "column": 87,
+          "line": 17
+        },
+        "start_byte": 440
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:440:446:shorthand_property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:438:448:object",
+      "kind": "object",
+      "label": "{ params }",
+      "span": {
+        "end": {
+          "column": 95,
+          "line": 17
+        },
+        "end_byte": 448,
+        "start": {
+          "column": 85,
+          "line": 17
+        },
+        "start_byte": 438
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:421:436:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:438:448:object"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:420:449:arguments",
+      "kind": "arguments",
+      "label": "(\"/transactions\", { params })",
+      "span": {
+        "end": {
+          "column": 96,
+          "line": 17
+        },
+        "end_byte": 449,
+        "start": {
+          "column": 67,
+          "line": 17
+        },
+        "start_byte": 420
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:388:await_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:388:420:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:420:449:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:449:call_expression",
+      "kind": "call_expression",
+      "label": "await client.get<PaginatedResponse<Transaction>>(\"/transactions\", { params })",
+      "span": {
+        "end": {
+          "column": 96,
+          "line": 17
+        },
+        "end_byte": 449,
+        "start": {
+          "column": 19,
+          "line": 17
+        },
+        "start_byte": 372
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:369:object_pattern",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:372:449:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:449:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "{ data } = await client.get<PaginatedResponse<Transaction>>(\"/transactions\", { params })",
+      "span": {
+        "end": {
+          "column": 96,
+          "line": 17
+        },
+        "end_byte": 449,
+        "start": {
+          "column": 8,
+          "line": 17
+        },
+        "start_byte": 361
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:361:449:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:355:450:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const { data } = await client.get<PaginatedResponse<Transaction>>(\"/transactions\", { params });",
+      "span": {
+        "end": {
+          "column": 97,
+          "line": 17
+        },
+        "end_byte": 450,
+        "start": {
+          "column": 2,
+          "line": 17
+        },
+        "start_byte": 355
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:461:465:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 18
+        },
+        "end_byte": 465,
+        "start": {
+          "column": 9,
+          "line": 18
+        },
+        "start_byte": 461
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:461:465:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:454:466:return_statement",
+      "kind": "return_statement",
+      "label": "return data;",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 18
+        },
+        "end_byte": 466,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 454
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:355:450:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:454:466:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:350:469:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const { data } = await client.get<PaginatedResponse<Transaction>>(\"/transactions\", { params });\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 19
+        },
+        "end_byte": 469,
+        "start": {
+          "column": 3,
+          "line": 16
+        },
+        "start_byte": 350
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:239:256:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:256:349:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:350:469:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:224:469:function_declaration",
+      "kind": "function_declaration",
+      "label": "async function fetchTransactions(params?: {\r\n  page?: number;\r\n  limit?: number;\r\n  label?: string;\r\n  min_risk?: number;\r\n}) {\r\n  const { data } = await client.get<PaginatedResponse<Transaction>>(\"/t",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 19
+        },
+        "end_byte": 469,
+        "start": {
+          "column": 7,
+          "line": 11
+        },
+        "start_byte": 224
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:224:469:function_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:217:469:export_statement",
+      "kind": "export_statement",
+      "label": "export async function fetchTransactions(params?: {\r\n  page?: number;\r\n  limit?: number;\r\n  label?: string;\r\n  min_risk?: number;\r\n}) {\r\n  const { data } = await client.get<PaginatedResponse<Transactio",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 19
+        },
+        "end_byte": 469,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 217
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:495:511:identifier",
+      "kind": "identifier",
+      "label": "fetchTransaction",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 21
+        },
+        "end_byte": 511,
+        "start": {
+          "column": 22,
+          "line": 21
+        },
+        "start_byte": 495
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:514:identifier",
+      "kind": "identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 21
+        },
+        "end_byte": 514,
+        "start": {
+          "column": 39,
+          "line": 21
+        },
+        "start_byte": 512
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:516:522:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 21
+        },
+        "end_byte": 522,
+        "start": {
+          "column": 43,
+          "line": 21
+        },
+        "start_byte": 516
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:516:522:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:514:522:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 21
+        },
+        "end_byte": 522,
+        "start": {
+          "column": 41,
+          "line": 21
+        },
+        "start_byte": 514
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:514:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:514:522:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:522:required_parameter",
+      "kind": "required_parameter",
+      "label": "id: string",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 21
+        },
+        "end_byte": 522,
+        "start": {
+          "column": 39,
+          "line": 21
+        },
+        "start_byte": 512
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:512:522:required_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:511:523:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(id: string)",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 21
+        },
+        "end_byte": 523,
+        "start": {
+          "column": 38,
+          "line": 21
+        },
+        "start_byte": 511
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:537:541:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 22
+        },
+        "end_byte": 541,
+        "start": {
+          "column": 10,
+          "line": 22
+        },
+        "start_byte": 537
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:537:541:shorthand_property_identifier_pattern"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:543:object_pattern",
+      "kind": "object_pattern",
+      "label": "{ data }",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 22
+        },
+        "end_byte": 543,
+        "start": {
+          "column": 8,
+          "line": 22
+        },
+        "start_byte": 535
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:558:identifier",
+      "kind": "identifier",
+      "label": "client",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 22
+        },
+        "end_byte": 558,
+        "start": {
+          "column": 25,
+          "line": 22
+        },
+        "start_byte": 552
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:559:562:property_identifier",
+      "kind": "property_identifier",
+      "label": "get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 22
+        },
+        "end_byte": 562,
+        "start": {
+          "column": 32,
+          "line": 22
+        },
+        "start_byte": 559
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:558:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:559:562:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:562:member_expression",
+      "kind": "member_expression",
+      "label": "client.get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 22
+        },
+        "end_byte": 562,
+        "start": {
+          "column": 25,
+          "line": 22
+        },
+        "start_byte": 552
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:552:562:member_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:562:await_expression",
+      "kind": "await_expression",
+      "label": "await client.get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 22
+        },
+        "end_byte": 562,
+        "start": {
+          "column": 19,
+          "line": 22
+        },
+        "start_byte": 546
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:574:type_identifier",
+      "kind": "type_identifier",
+      "label": "Transaction",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 22
+        },
+        "end_byte": 574,
+        "start": {
+          "column": 36,
+          "line": 22
+        },
+        "start_byte": 563
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:584:property_identifier",
+      "kind": "property_identifier",
+      "label": "score",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 22
+        },
+        "end_byte": 584,
+        "start": {
+          "column": 52,
+          "line": 22
+        },
+        "start_byte": 579
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:602:type_identifier",
+      "kind": "type_identifier",
+      "label": "TransactionScore",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 22
+        },
+        "end_byte": 602,
+        "start": {
+          "column": 59,
+          "line": 22
+        },
+        "start_byte": 586
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:605:609:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 22
+        },
+        "end_byte": 609,
+        "start": {
+          "column": 78,
+          "line": 22
+        },
+        "start_byte": 605
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:605:609:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:605:609:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 22
+        },
+        "end_byte": 609,
+        "start": {
+          "column": 78,
+          "line": 22
+        },
+        "start_byte": 605
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:602:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:605:609:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:609:union_type",
+      "kind": "union_type",
+      "label": "TransactionScore | null",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 22
+        },
+        "end_byte": 609,
+        "start": {
+          "column": 59,
+          "line": 22
+        },
+        "start_byte": 586
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:586:609:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:584:609:type_annotation",
+      "kind": "type_annotation",
+      "label": ": TransactionScore | null",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 22
+        },
+        "end_byte": 609,
+        "start": {
+          "column": 57,
+          "line": 22
+        },
+        "start_byte": 584
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:584:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:584:609:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:609:property_signature",
+      "kind": "property_signature",
+      "label": "score: TransactionScore | null",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 22
+        },
+        "end_byte": 609,
+        "start": {
+          "column": 52,
+          "line": 22
+        },
+        "start_byte": 579
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:579:609:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:577:611:object_type",
+      "kind": "object_type",
+      "label": "{ score: TransactionScore | null }",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 22
+        },
+        "end_byte": 611,
+        "start": {
+          "column": 50,
+          "line": 22
+        },
+        "start_byte": 577
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:574:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:577:611:object_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:611:intersection_type",
+      "kind": "intersection_type",
+      "label": "Transaction & { score: TransactionScore | null }",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 22
+        },
+        "end_byte": 611,
+        "start": {
+          "column": 36,
+          "line": 22
+        },
+        "start_byte": 563
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:563:611:intersection_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:562:612:type_arguments",
+      "kind": "type_arguments",
+      "label": "<Transaction & { score: TransactionScore | null }>",
+      "span": {
+        "end": {
+          "column": 85,
+          "line": 22
+        },
+        "end_byte": 612,
+        "start": {
+          "column": 35,
+          "line": 22
+        },
+        "start_byte": 562
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:614:628:string_fragment",
+      "kind": "string_fragment",
+      "label": "/transactions/",
+      "span": {
+        "end": {
+          "column": 101,
+          "line": 22
+        },
+        "end_byte": 628,
+        "start": {
+          "column": 87,
+          "line": 22
+        },
+        "start_byte": 614
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:630:632:identifier",
+      "kind": "identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 105,
+          "line": 22
+        },
+        "end_byte": 632,
+        "start": {
+          "column": 103,
+          "line": 22
+        },
+        "start_byte": 630
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:630:632:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:628:633:template_substitution",
+      "kind": "template_substitution",
+      "label": "${id}",
+      "span": {
+        "end": {
+          "column": 106,
+          "line": 22
+        },
+        "end_byte": 633,
+        "start": {
+          "column": 101,
+          "line": 22
+        },
+        "start_byte": 628
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:614:628:string_fragment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:628:633:template_substitution"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:613:634:template_string",
+      "kind": "template_string",
+      "label": "`/transactions/${id}`",
+      "span": {
+        "end": {
+          "column": 107,
+          "line": 22
+        },
+        "end_byte": 634,
+        "start": {
+          "column": 86,
+          "line": 22
+        },
+        "start_byte": 613
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:613:634:template_string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:612:635:arguments",
+      "kind": "arguments",
+      "label": "(`/transactions/${id}`)",
+      "span": {
+        "end": {
+          "column": 108,
+          "line": 22
+        },
+        "end_byte": 635,
+        "start": {
+          "column": 85,
+          "line": 22
+        },
+        "start_byte": 612
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:562:await_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:562:612:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:612:635:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:635:call_expression",
+      "kind": "call_expression",
+      "label": "await client.get<Transaction & { score: TransactionScore | null }>(`/transactions/${id}`)",
+      "span": {
+        "end": {
+          "column": 108,
+          "line": 22
+        },
+        "end_byte": 635,
+        "start": {
+          "column": 19,
+          "line": 22
+        },
+        "start_byte": 546
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:543:object_pattern",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:546:635:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:635:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "{ data } = await client.get<Transaction & { score: TransactionScore | null }>(`/transactions/${id}`)",
+      "span": {
+        "end": {
+          "column": 108,
+          "line": 22
+        },
+        "end_byte": 635,
+        "start": {
+          "column": 8,
+          "line": 22
+        },
+        "start_byte": 535
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:535:635:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:529:636:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const { data } = await client.get<Transaction & { score: TransactionScore | null }>(`/transactions/${id}`);",
+      "span": {
+        "end": {
+          "column": 109,
+          "line": 22
+        },
+        "end_byte": 636,
+        "start": {
+          "column": 2,
+          "line": 22
+        },
+        "start_byte": 529
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:647:651:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 23
+        },
+        "end_byte": 651,
+        "start": {
+          "column": 9,
+          "line": 23
+        },
+        "start_byte": 647
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:647:651:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:640:652:return_statement",
+      "kind": "return_statement",
+      "label": "return data;",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 23
+        },
+        "end_byte": 652,
+        "start": {
+          "column": 2,
+          "line": 23
+        },
+        "start_byte": 640
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:529:636:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:640:652:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:524:655:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const { data } = await client.get<Transaction & { score: TransactionScore | null }>(`/transactions/${id}`);\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 24
+        },
+        "end_byte": 655,
+        "start": {
+          "column": 51,
+          "line": 21
+        },
+        "start_byte": 524
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:495:511:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:511:523:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:524:655:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:480:655:function_declaration",
+      "kind": "function_declaration",
+      "label": "async function fetchTransaction(id: string) {\r\n  const { data } = await client.get<Transaction & { score: TransactionScore | null }>(`/transactions/${id}`);\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 24
+        },
+        "end_byte": 655,
+        "start": {
+          "column": 7,
+          "line": 21
+        },
+        "start_byte": 480
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:480:655:function_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:473:655:export_statement",
+      "kind": "export_statement",
+      "label": "export async function fetchTransaction(id: string) {\r\n  const { data } = await client.get<Transaction & { score: TransactionScore | null }>(`/transactions/${id}`);\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 24
+        },
+        "end_byte": 655,
+        "start": {
+          "column": 0,
+          "line": 21
+        },
+        "start_byte": 473
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:681:698:identifier",
+      "kind": "identifier",
+      "label": "scoreTransactions",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 26
+        },
+        "end_byte": 698,
+        "start": {
+          "column": 22,
+          "line": 26
+        },
+        "start_byte": 681
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:698:700:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 26
+        },
+        "end_byte": 700,
+        "start": {
+          "column": 39,
+          "line": 26
+        },
+        "start_byte": 698
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:714:718:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 27
+        },
+        "end_byte": 718,
+        "start": {
+          "column": 10,
+          "line": 27
+        },
+        "start_byte": 714
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:714:718:shorthand_property_identifier_pattern"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:720:object_pattern",
+      "kind": "object_pattern",
+      "label": "{ data }",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 27
+        },
+        "end_byte": 720,
+        "start": {
+          "column": 8,
+          "line": 27
+        },
+        "start_byte": 712
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:735:identifier",
+      "kind": "identifier",
+      "label": "client",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 27
+        },
+        "end_byte": 735,
+        "start": {
+          "column": 25,
+          "line": 27
+        },
+        "start_byte": 729
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:736:740:property_identifier",
+      "kind": "property_identifier",
+      "label": "post",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 27
+        },
+        "end_byte": 740,
+        "start": {
+          "column": 32,
+          "line": 27
+        },
+        "start_byte": 736
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:735:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:736:740:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:740:member_expression",
+      "kind": "member_expression",
+      "label": "client.post",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 27
+        },
+        "end_byte": 740,
+        "start": {
+          "column": 25,
+          "line": 27
+        },
+        "start_byte": 729
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:729:740:member_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:740:await_expression",
+      "kind": "await_expression",
+      "label": "await client.post",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 27
+        },
+        "end_byte": 740,
+        "start": {
+          "column": 19,
+          "line": 27
+        },
+        "start_byte": 723
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:749:property_identifier",
+      "kind": "property_identifier",
+      "label": "scored",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 27
+        },
+        "end_byte": 749,
+        "start": {
+          "column": 39,
+          "line": 27
+        },
+        "start_byte": 743
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:751:757:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 27
+        },
+        "end_byte": 757,
+        "start": {
+          "column": 47,
+          "line": 27
+        },
+        "start_byte": 751
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:751:757:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:749:757:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 27
+        },
+        "end_byte": 757,
+        "start": {
+          "column": 45,
+          "line": 27
+        },
+        "start_byte": 749
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:749:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:749:757:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:757:property_signature",
+      "kind": "property_signature",
+      "label": "scored: number",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 27
+        },
+        "end_byte": 757,
+        "start": {
+          "column": 39,
+          "line": 27
+        },
+        "start_byte": 743
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:743:757:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:741:759:object_type",
+      "kind": "object_type",
+      "label": "{ scored: number }",
+      "span": {
+        "end": {
+          "column": 55,
+          "line": 27
+        },
+        "end_byte": 759,
+        "start": {
+          "column": 37,
+          "line": 27
+        },
+        "start_byte": 741
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:741:759:object_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:740:760:type_arguments",
+      "kind": "type_arguments",
+      "label": "<{ scored: number }>",
+      "span": {
+        "end": {
+          "column": 56,
+          "line": 27
+        },
+        "end_byte": 760,
+        "start": {
+          "column": 36,
+          "line": 27
+        },
+        "start_byte": 740
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:762:781:string_fragment",
+      "kind": "string_fragment",
+      "label": "/transactions/score",
+      "span": {
+        "end": {
+          "column": 77,
+          "line": 27
+        },
+        "end_byte": 781,
+        "start": {
+          "column": 58,
+          "line": 27
+        },
+        "start_byte": 762
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:762:781:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:761:782:string",
+      "kind": "string",
+      "label": "\"/transactions/score\"",
+      "span": {
+        "end": {
+          "column": 78,
+          "line": 27
+        },
+        "end_byte": 782,
+        "start": {
+          "column": 57,
+          "line": 27
+        },
+        "start_byte": 761
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:761:782:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:760:783:arguments",
+      "kind": "arguments",
+      "label": "(\"/transactions/score\")",
+      "span": {
+        "end": {
+          "column": 79,
+          "line": 27
+        },
+        "end_byte": 783,
+        "start": {
+          "column": 56,
+          "line": 27
+        },
+        "start_byte": 760
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:740:await_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:740:760:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:760:783:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:783:call_expression",
+      "kind": "call_expression",
+      "label": "await client.post<{ scored: number }>(\"/transactions/score\")",
+      "span": {
+        "end": {
+          "column": 79,
+          "line": 27
+        },
+        "end_byte": 783,
+        "start": {
+          "column": 19,
+          "line": 27
+        },
+        "start_byte": 723
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:720:object_pattern",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:723:783:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:783:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "{ data } = await client.post<{ scored: number }>(\"/transactions/score\")",
+      "span": {
+        "end": {
+          "column": 79,
+          "line": 27
+        },
+        "end_byte": 783,
+        "start": {
+          "column": 8,
+          "line": 27
+        },
+        "start_byte": 712
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:712:783:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:706:784:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const { data } = await client.post<{ scored: number }>(\"/transactions/score\");",
+      "span": {
+        "end": {
+          "column": 80,
+          "line": 27
+        },
+        "end_byte": 784,
+        "start": {
+          "column": 2,
+          "line": 27
+        },
+        "start_byte": 706
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:795:799:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 28
+        },
+        "end_byte": 799,
+        "start": {
+          "column": 9,
+          "line": 28
+        },
+        "start_byte": 795
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:795:799:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:788:800:return_statement",
+      "kind": "return_statement",
+      "label": "return data;",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 28
+        },
+        "end_byte": 800,
+        "start": {
+          "column": 2,
+          "line": 28
+        },
+        "start_byte": 788
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:706:784:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:788:800:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:701:803:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const { data } = await client.post<{ scored: number }>(\"/transactions/score\");\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 29
+        },
+        "end_byte": 803,
+        "start": {
+          "column": 42,
+          "line": 26
+        },
+        "start_byte": 701
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:681:698:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:698:700:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:701:803:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:666:803:function_declaration",
+      "kind": "function_declaration",
+      "label": "async function scoreTransactions() {\r\n  const { data } = await client.post<{ scored: number }>(\"/transactions/score\");\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 29
+        },
+        "end_byte": 803,
+        "start": {
+          "column": 7,
+          "line": 26
+        },
+        "start_byte": 666
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:666:803:function_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:659:803:export_statement",
+      "kind": "export_statement",
+      "label": "export async function scoreTransactions() {\r\n  const { data } = await client.post<{ scored: number }>(\"/transactions/score\");\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 29
+        },
+        "end_byte": 803,
+        "start": {
+          "column": 0,
+          "line": 26
+        },
+        "start_byte": 659
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:30:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:32:106:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:110:213:interface_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:217:469:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:473:655:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:659:803:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/transactions.ts:0:805:program",
+      "kind": "program",
+      "label": "import client from \"./client\";\r\nimport type { Transaction, TransactionScore } from \"../types/transaction\";\r\n\r\ninterface PaginatedResponse<T> {\r\n  items: T[];\r\n  total: number;\r\n  page: number;\r\n  limi",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 30
+        },
+        "end_byte": 805,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/api/transactions.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

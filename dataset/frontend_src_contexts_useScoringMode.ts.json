@@ -1,0 +1,1117 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:08+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:9:19:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:9:19:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:9:19:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:9:19:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:9:19:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:9:19:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:named_imports:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:35:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:import_clause:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:35:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:27:34:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:28:33:string_fragment:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:27:34:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:28:33:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:35:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:27:34:string:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:35:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:27:34:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:301:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:35:import_statement:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:301:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:35:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:46:60:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:46:60:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:46:60:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:46:60:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:46:60:import_specifier:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:46:60:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:named_imports:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:37:100:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:import_clause:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:37:100:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:68:99:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:69:98:string_fragment:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:68:99:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:69:98:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:37:100:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:68:99:string:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:37:100:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:68:99:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:301:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:37:100:import_statement:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:301:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:37:100:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:111:299:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:120:134:identifier:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:111:299:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:120:134:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:111:299:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:134:136:formal_parameters:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:111:299:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:134:136:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:180:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:151:identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:180:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:151:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:180:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:164:identifier:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:180:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:164:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:164:180:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:165:179:identifier:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:164:180:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:165:179:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:180:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:164:180:arguments:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:180:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:164:180:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:180:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:180:call_expression:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:180:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:180:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:142:181:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:180:variable_declarator:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:142:181:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:180:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:137:299:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:142:181:lexical_declaration:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:137:299:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:142:181:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:189:193:unary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:190:193:identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:189:193:unary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:190:193:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:188:194:parenthesized_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:189:193:unary_expression:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:188:194:parenthesized_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:189:193:unary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:185:281:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:188:194:parenthesized_expression:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:185:281:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:188:194:parenthesized_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:208:275:new_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:212:217:identifier:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:208:275:new_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:212:217:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:218:274:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:219:273:string_fragment:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:218:274:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:219:273:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:217:275:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:218:274:string:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:217:275:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:218:274:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:208:275:new_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:217:275:arguments:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:208:275:new_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:217:275:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:202:276:throw_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:208:275:new_expression:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:202:276:throw_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:208:275:new_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:195:281:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:202:276:throw_statement:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:195:281:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:202:276:throw_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:185:281:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:195:281:statement_block:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:185:281:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:195:281:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:137:299:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:185:281:if_statement:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:137:299:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:185:281:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:285:296:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:292:295:identifier:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:285:296:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:292:295:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:137:299:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:285:296:return_statement:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:137:299:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:285:296:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:111:299:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:137:299:statement_block:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:111:299:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:137:299:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:104:299:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:111:299:function_declaration:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:104:299:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:111:299:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:301:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:104:299:export_statement:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:301:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:104:299:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:9:19:identifier",
+      "kind": "identifier",
+      "label": "useContext",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 1
+        },
+        "end_byte": 19,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:9:19:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:9:19:import_specifier",
+      "kind": "import_specifier",
+      "label": "useContext",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 1
+        },
+        "end_byte": 19,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:9:19:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:named_imports",
+      "kind": "named_imports",
+      "label": "{ useContext }",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:import_clause",
+      "kind": "import_clause",
+      "label": "{ useContext }",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:28:33:string_fragment",
+      "kind": "string_fragment",
+      "label": "react",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 1
+        },
+        "end_byte": 33,
+        "start": {
+          "column": 28,
+          "line": 1
+        },
+        "start_byte": 28
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:28:33:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:27:34:string",
+      "kind": "string",
+      "label": "\"react\"",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 27,
+          "line": 1
+        },
+        "start_byte": 27
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:7:21:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:27:34:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:35:import_statement",
+      "kind": "import_statement",
+      "label": "import { useContext } from \"react\";",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 1
+        },
+        "end_byte": 35,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:46:60:identifier",
+      "kind": "identifier",
+      "label": "ScoringModeCtx",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 2
+        },
+        "end_byte": 60,
+        "start": {
+          "column": 9,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:46:60:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:46:60:import_specifier",
+      "kind": "import_specifier",
+      "label": "ScoringModeCtx",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 2
+        },
+        "end_byte": 60,
+        "start": {
+          "column": 9,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:46:60:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:named_imports",
+      "kind": "named_imports",
+      "label": "{ ScoringModeCtx }",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 2
+        },
+        "end_byte": 62,
+        "start": {
+          "column": 7,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:import_clause",
+      "kind": "import_clause",
+      "label": "{ ScoringModeCtx }",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 2
+        },
+        "end_byte": 62,
+        "start": {
+          "column": 7,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:69:98:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/contexts/scoringModeContext",
+      "span": {
+        "end": {
+          "column": 61,
+          "line": 2
+        },
+        "end_byte": 98,
+        "start": {
+          "column": 32,
+          "line": 2
+        },
+        "start_byte": 69
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:69:98:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:68:99:string",
+      "kind": "string",
+      "label": "\"@/contexts/scoringModeContext\"",
+      "span": {
+        "end": {
+          "column": 62,
+          "line": 2
+        },
+        "end_byte": 99,
+        "start": {
+          "column": 31,
+          "line": 2
+        },
+        "start_byte": 68
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:44:62:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:68:99:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:37:100:import_statement",
+      "kind": "import_statement",
+      "label": "import { ScoringModeCtx } from \"@/contexts/scoringModeContext\";",
+      "span": {
+        "end": {
+          "column": 63,
+          "line": 2
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:120:134:identifier",
+      "kind": "identifier",
+      "label": "useScoringMode",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 4
+        },
+        "end_byte": 134,
+        "start": {
+          "column": 16,
+          "line": 4
+        },
+        "start_byte": 120
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:134:136:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 4
+        },
+        "end_byte": 136,
+        "start": {
+          "column": 30,
+          "line": 4
+        },
+        "start_byte": 134
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:151:identifier",
+      "kind": "identifier",
+      "label": "ctx",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 5
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 8,
+          "line": 5
+        },
+        "start_byte": 148
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:164:identifier",
+      "kind": "identifier",
+      "label": "useContext",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 164,
+        "start": {
+          "column": 14,
+          "line": 5
+        },
+        "start_byte": 154
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:165:179:identifier",
+      "kind": "identifier",
+      "label": "ScoringModeCtx",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 5
+        },
+        "end_byte": 179,
+        "start": {
+          "column": 25,
+          "line": 5
+        },
+        "start_byte": 165
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:165:179:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:164:180:arguments",
+      "kind": "arguments",
+      "label": "(ScoringModeCtx)",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 5
+        },
+        "end_byte": 180,
+        "start": {
+          "column": 24,
+          "line": 5
+        },
+        "start_byte": 164
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:164:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:164:180:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:180:call_expression",
+      "kind": "call_expression",
+      "label": "useContext(ScoringModeCtx)",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 5
+        },
+        "end_byte": 180,
+        "start": {
+          "column": 14,
+          "line": 5
+        },
+        "start_byte": 154
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:151:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:154:180:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:180:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "ctx = useContext(ScoringModeCtx)",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 5
+        },
+        "end_byte": 180,
+        "start": {
+          "column": 8,
+          "line": 5
+        },
+        "start_byte": 148
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:148:180:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:142:181:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const ctx = useContext(ScoringModeCtx);",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 5
+        },
+        "end_byte": 181,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:190:193:identifier",
+      "kind": "identifier",
+      "label": "ctx",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 6
+        },
+        "end_byte": 193,
+        "start": {
+          "column": 7,
+          "line": 6
+        },
+        "start_byte": 190
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:190:193:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:189:193:unary_expression",
+      "kind": "unary_expression",
+      "label": "!ctx",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 6
+        },
+        "end_byte": 193,
+        "start": {
+          "column": 6,
+          "line": 6
+        },
+        "start_byte": 189
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:189:193:unary_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:188:194:parenthesized_expression",
+      "kind": "parenthesized_expression",
+      "label": "(!ctx)",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 6
+        },
+        "end_byte": 194,
+        "start": {
+          "column": 5,
+          "line": 6
+        },
+        "start_byte": 188
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:212:217:identifier",
+      "kind": "identifier",
+      "label": "Error",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 7
+        },
+        "end_byte": 217,
+        "start": {
+          "column": 14,
+          "line": 7
+        },
+        "start_byte": 212
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:219:273:string_fragment",
+      "kind": "string_fragment",
+      "label": "useScoringMode must be used within ScoringModeProvider",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 7
+        },
+        "end_byte": 273,
+        "start": {
+          "column": 21,
+          "line": 7
+        },
+        "start_byte": 219
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:219:273:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:218:274:string",
+      "kind": "string",
+      "label": "\"useScoringMode must be used within ScoringModeProvider\"",
+      "span": {
+        "end": {
+          "column": 76,
+          "line": 7
+        },
+        "end_byte": 274,
+        "start": {
+          "column": 20,
+          "line": 7
+        },
+        "start_byte": 218
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:218:274:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:217:275:arguments",
+      "kind": "arguments",
+      "label": "(\"useScoringMode must be used within ScoringModeProvider\")",
+      "span": {
+        "end": {
+          "column": 77,
+          "line": 7
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 19,
+          "line": 7
+        },
+        "start_byte": 217
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:212:217:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:217:275:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:208:275:new_expression",
+      "kind": "new_expression",
+      "label": "new Error(\"useScoringMode must be used within ScoringModeProvider\")",
+      "span": {
+        "end": {
+          "column": 77,
+          "line": 7
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 10,
+          "line": 7
+        },
+        "start_byte": 208
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:208:275:new_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:202:276:throw_statement",
+      "kind": "throw_statement",
+      "label": "throw new Error(\"useScoringMode must be used within ScoringModeProvider\");",
+      "span": {
+        "end": {
+          "column": 78,
+          "line": 7
+        },
+        "end_byte": 276,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 202
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:202:276:throw_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:195:281:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n    throw new Error(\"useScoringMode must be used within ScoringModeProvider\");\r\n  }",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 8
+        },
+        "end_byte": 281,
+        "start": {
+          "column": 12,
+          "line": 6
+        },
+        "start_byte": 195
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:188:194:parenthesized_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:195:281:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:185:281:if_statement",
+      "kind": "if_statement",
+      "label": "if (!ctx) {\r\n    throw new Error(\"useScoringMode must be used within ScoringModeProvider\");\r\n  }",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 8
+        },
+        "end_byte": 281,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 185
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:292:295:identifier",
+      "kind": "identifier",
+      "label": "ctx",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 9
+        },
+        "end_byte": 295,
+        "start": {
+          "column": 9,
+          "line": 9
+        },
+        "start_byte": 292
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:292:295:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:285:296:return_statement",
+      "kind": "return_statement",
+      "label": "return ctx;",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 9
+        },
+        "end_byte": 296,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 285
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:142:181:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:185:281:if_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:285:296:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:137:299:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const ctx = useContext(ScoringModeCtx);\r\n  if (!ctx) {\r\n    throw new Error(\"useScoringMode must be used within ScoringModeProvider\");\r\n  }\r\n  return ctx;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 10
+        },
+        "end_byte": 299,
+        "start": {
+          "column": 33,
+          "line": 4
+        },
+        "start_byte": 137
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:120:134:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:134:136:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:137:299:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:111:299:function_declaration",
+      "kind": "function_declaration",
+      "label": "function useScoringMode() {\r\n  const ctx = useContext(ScoringModeCtx);\r\n  if (!ctx) {\r\n    throw new Error(\"useScoringMode must be used within ScoringModeProvider\");\r\n  }\r\n  return ctx;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 10
+        },
+        "end_byte": 299,
+        "start": {
+          "column": 7,
+          "line": 4
+        },
+        "start_byte": 111
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:111:299:function_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:104:299:export_statement",
+      "kind": "export_statement",
+      "label": "export function useScoringMode() {\r\n  const ctx = useContext(ScoringModeCtx);\r\n  if (!ctx) {\r\n    throw new Error(\"useScoringMode must be used within ScoringModeProvider\");\r\n  }\r\n  return ctx;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 10
+        },
+        "end_byte": 299,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 104
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:35:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:37:100:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:104:299:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/contexts/useScoringMode.ts:0:301:program",
+      "kind": "program",
+      "label": "import { useContext } from \"react\";\r\nimport { ScoringModeCtx } from \"@/contexts/scoringModeContext\";\r\n\r\nexport function useScoringMode() {\r\n  const ctx = useContext(ScoringModeCtx);\r\n  if (!ctx) {\r\n  ",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 11
+        },
+        "end_byte": 301,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/contexts/useScoringMode.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

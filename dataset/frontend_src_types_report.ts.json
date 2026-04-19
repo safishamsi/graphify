@@ -1,0 +1,782 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:14+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:7:137:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:17:23:type_identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:7:137:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:17:23:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:39:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:31:property_identifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:39:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:31:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:31:39:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:33:39:predefined_type:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:31:39:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:33:39:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:39:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:31:39:type_annotation:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:39:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:31:39:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:39:property_signature:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:39:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:59:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:51:property_identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:59:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:51:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:51:59:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:53:59:predefined_type:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:51:59:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:53:59:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:59:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:51:59:type_annotation:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:59:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:51:59:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:59:property_signature:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:59:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:77:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:69:property_identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:77:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:69:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:69:77:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:71:77:predefined_type:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:69:77:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:71:77:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:77:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:69:77:type_annotation:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:77:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:69:77:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:77:property_signature:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:77:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:108:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:93:property_identifier:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:108:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:93:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:108:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:101:predefined_type:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:108:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:101:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:104:108:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:104:108:null:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:104:108:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:104:108:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:108:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:104:108:literal_type:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:108:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:104:108:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:93:108:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:108:union_type:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:93:108:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:108:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:108:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:93:108:type_annotation:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:108:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:93:108:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:108:property_signature:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:108:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:133:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:125:property_identifier:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:133:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:125:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:125:133:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:127:133:predefined_type:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:125:133:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:127:133:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:133:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:125:133:type_annotation:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:133:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:125:133:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:133:property_signature:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:133:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:7:137:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:7:137:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:0:137:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:7:137:interface_declaration:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:0:137:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:7:137:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:0:139:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:0:137:export_statement:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:0:139:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:0:137:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:17:23:type_identifier",
+      "kind": "type_identifier",
+      "label": "Report",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 1
+        },
+        "end_byte": 23,
+        "start": {
+          "column": 17,
+          "line": 1
+        },
+        "start_byte": 17
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:31:property_identifier",
+      "kind": "property_identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 4,
+          "line": 2
+        },
+        "end_byte": 31,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 29
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:33:39:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 39,
+        "start": {
+          "column": 6,
+          "line": 2
+        },
+        "start_byte": 33
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:33:39:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:31:39:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 39,
+        "start": {
+          "column": 4,
+          "line": 2
+        },
+        "start_byte": 31
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:31:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:31:39:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:39:property_signature",
+      "kind": "property_signature",
+      "label": "id: string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 39,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 29
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:51:property_identifier",
+      "kind": "property_identifier",
+      "label": "case_id",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 3
+        },
+        "end_byte": 51,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:53:59:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 3
+        },
+        "end_byte": 59,
+        "start": {
+          "column": 11,
+          "line": 3
+        },
+        "start_byte": 53
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:53:59:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:51:59:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 3
+        },
+        "end_byte": 59,
+        "start": {
+          "column": 9,
+          "line": 3
+        },
+        "start_byte": 51
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:51:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:51:59:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:59:property_signature",
+      "kind": "property_signature",
+      "label": "case_id: string",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 3
+        },
+        "end_byte": 59,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:69:property_identifier",
+      "kind": "property_identifier",
+      "label": "title",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 4
+        },
+        "end_byte": 69,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 64
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:71:77:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 4
+        },
+        "end_byte": 77,
+        "start": {
+          "column": 9,
+          "line": 4
+        },
+        "start_byte": 71
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:71:77:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:69:77:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 4
+        },
+        "end_byte": 77,
+        "start": {
+          "column": 7,
+          "line": 4
+        },
+        "start_byte": 69
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:69:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:69:77:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:77:property_signature",
+      "kind": "property_signature",
+      "label": "title: string",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 4
+        },
+        "end_byte": 77,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 64
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:93:property_identifier",
+      "kind": "property_identifier",
+      "label": "report_path",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 5
+        },
+        "end_byte": 93,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 82
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:101:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 5
+        },
+        "end_byte": 101,
+        "start": {
+          "column": 15,
+          "line": 5
+        },
+        "start_byte": 95
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:104:108:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 5
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 24,
+          "line": 5
+        },
+        "start_byte": 104
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:104:108:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:104:108:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 5
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 24,
+          "line": 5
+        },
+        "start_byte": 104
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:101:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:104:108:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:108:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 5
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 15,
+          "line": 5
+        },
+        "start_byte": 95
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:95:108:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:93:108:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 5
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 13,
+          "line": 5
+        },
+        "start_byte": 93
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:93:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:93:108:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:108:property_signature",
+      "kind": "property_signature",
+      "label": "report_path: string | null",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 5
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 82
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:125:property_identifier",
+      "kind": "property_identifier",
+      "label": "generated_at",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 6
+        },
+        "end_byte": 125,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 113
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:127:133:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 16,
+          "line": 6
+        },
+        "start_byte": 127
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:127:133:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:125:133:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 14,
+          "line": 6
+        },
+        "start_byte": 125
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:125:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:125:133:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:133:property_signature",
+      "kind": "property_signature",
+      "label": "generated_at: string",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 113
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:29:39:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:44:59:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:64:77:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:82:108:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:113:133:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  id: string;\r\n  case_id: string;\r\n  title: string;\r\n  report_path: string | null;\r\n  generated_at: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 7
+        },
+        "end_byte": 137,
+        "start": {
+          "column": 24,
+          "line": 1
+        },
+        "start_byte": 24
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:17:23:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:24:137:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:7:137:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface Report {\r\n  id: string;\r\n  case_id: string;\r\n  title: string;\r\n  report_path: string | null;\r\n  generated_at: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 7
+        },
+        "end_byte": 137,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:7:137:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:0:137:export_statement",
+      "kind": "export_statement",
+      "label": "export interface Report {\r\n  id: string;\r\n  case_id: string;\r\n  title: string;\r\n  report_path: string | null;\r\n  generated_at: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 7
+        },
+        "end_byte": 137,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:0:137:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/report.ts:0:139:program",
+      "kind": "program",
+      "label": "export interface Report {\r\n  id: string;\r\n  case_id: string;\r\n  title: string;\r\n  report_path: string | null;\r\n  generated_at: string;\r\n}\r\n",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 8
+        },
+        "end_byte": 139,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/types/report.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

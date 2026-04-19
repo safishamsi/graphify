@@ -1,0 +1,2812 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:26+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:296:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:296:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:3:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:296:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:3:293:string_content:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:296:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:3:293:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:296:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:293:296:string_end:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:296:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:293:296:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:1140:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:296:string:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:1140:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:296:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:321:332:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:321:332:identifier:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:321:332:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:321:332:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:298:332:future_import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:321:332:dotted_name:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:298:332:future_import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:321:332:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:1140:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:298:332:future_import_statement:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:1140:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:298:332:future_import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:343:346:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:343:346:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:343:346:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:343:346:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:336:346:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:343:346:dotted_name:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:336:346:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:343:346:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:1140:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:336:346:import_statement:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:1140:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:336:346:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:356:390:identifier:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:356:390:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:390:392:parameters:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:390:392:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:396:400:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:396:400:none:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:396:400:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:396:400:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:396:400:type:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:396:400:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:494:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:410:string_start:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:494:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:410:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:494:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:410:491:string_content:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:494:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:410:491:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:494:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:491:494:string_end:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:494:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:491:494:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:494:string:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:494:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:535:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:526:identifier:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:535:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:526:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:535:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:527:535:identifier:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:535:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:527:535:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:535:dotted_name:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:535:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:559:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:559:identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:559:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:559:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:566:aliased_import->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:559:dotted_name:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:566:aliased_import",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:559:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:566:aliased_import->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:563:566:identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:566:aliased_import",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:563:566:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:566:aliased_import:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:566:aliased_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:import_from_statement:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:500:605:try_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:block:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:500:605:try_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:572:605:except_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:579:588:identifier:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:572:605:except_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:579:588:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:599:605:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:599:605:return_statement:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:599:605:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:599:605:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:572:605:except_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:599:605:block:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:572:605:except_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:599:605:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:500:605:try_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:572:605:except_clause:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:500:605:try_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:572:605:except_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:500:605:try_statement:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:500:605:try_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:619:637:identifier:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:619:637:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:637:642:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:638:641:identifier:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:637:642:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:638:641:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:637:642:argument_list:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:637:642:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:645:693:comment:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:645:693:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:706:721:identifier:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:706:721:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:722:726:identifier:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:722:726:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:728:733:identifier:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:728:733:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:735:740:identifier:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:735:740:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:742:751:identifier:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:742:751:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:774:779:false:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:774:779:false",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:return_statement:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:block:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:function_definition:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:block:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:821:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:791:identifier:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:821:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:791:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:805:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:797:identifier:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:805:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:797:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:805:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:798:805:identifier:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:805:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:798:805:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:809:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:805:attribute:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:809:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:805:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:809:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:806:809:identifier:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:809:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:806:809:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:821:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:809:attribute:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:821:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:809:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:820:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:811:string_start:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:820:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:811:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:820:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:811:819:string_content:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:820:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:811:819:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:820:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:819:820:string_end:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:820:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:819:820:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:809:821:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:820:string:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:809:821:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:820:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:821:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:809:821:argument_list:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:821:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:809:821:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:821:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:821:call:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:821:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:821:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:821:assignment:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:821:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:842:comparison_operator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:834:identifier:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:842:comparison_operator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:834:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:842:comparison_operator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:838:842:none:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:842:comparison_operator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:838:842:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:827:859:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:842:comparison_operator:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:827:859:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:842:comparison_operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:853:859:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:853:859:return_statement:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:853:859:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:853:859:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:827:859:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:853:859:block:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:827:859:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:853:859:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:827:859:if_statement:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:827:859:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:909:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:875:identifier:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:909:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:875:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:875:909:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:876:880:identifier:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:875:909:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:876:880:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:902:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:883:string_start:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:902:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:883:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:902:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:883:901:string_content:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:902:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:883:901:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:902:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:901:902:string_end:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:902:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:901:902:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:875:909:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:902:string:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:875:909:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:902:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:875:909:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:904:908:none:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:875:909:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:904:908:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:909:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:875:909:argument_list:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:909:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:875:909:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:921:comparison_operator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:909:call:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:921:comparison_operator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:909:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:921:comparison_operator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:917:921:none:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:921:comparison_operator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:917:921:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:865:938:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:921:comparison_operator:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:865:938:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:921:comparison_operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:932:938:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:932:938:return_statement:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:932:938:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:932:938:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:865:938:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:932:938:block:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:865:938:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:932:938:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:865:938:if_statement:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:865:938:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:965:identifier:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:965:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:965:1013:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:966:970:identifier:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:965:1013:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:966:970:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:992:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:973:string_start:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:992:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:973:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:992:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:973:991:string_content:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:992:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:973:991:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:992:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:991:992:string_end:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:992:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:991:992:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:965:1013:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:992:string:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:965:1013:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:992:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:965:1013:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:994:1012:identifier:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:965:1013:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:994:1012:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:965:1013:argument_list:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:965:1013:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:call:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:944:1138:try_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:block:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:944:1138:try_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1026:1053:tuple->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1027:1041:identifier:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1026:1053:tuple",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1027:1041:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1026:1053:tuple->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1043:1052:identifier:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1026:1053:tuple",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1043:1052:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1019:1138:except_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1026:1053:tuple:93",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1019:1138:except_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1026:1053:tuple",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1019:1138:except_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1064:1125:comment:94",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1019:1138:except_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1064:1125:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1134:1138:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1134:1138:pass_statement:95",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1134:1138:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1134:1138:pass_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1019:1138:except_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1134:1138:block:96",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1019:1138:except_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1134:1138:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:944:1138:try_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1019:1138:except_clause:97",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:944:1138:try_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1019:1138:except_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:944:1138:try_statement:98",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:944:1138:try_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block:99",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:1140:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition:100",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:1140:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 1
+        },
+        "end_byte": 3,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:3:293:string_content",
+      "kind": "string_content",
+      "label": "Unpickling compatibility for ``entity_classifier.pkl``.\r\n\r\nTraining was run as ``python -m app.ml.training.train_entity``, so XGBoost may\r\nserialize a callback class as ``__main__._EntityEpochLogger``",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 6
+        },
+        "end_byte": 293,
+        "start": {
+          "column": 3,
+          "line": 1
+        },
+        "start_byte": 3
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:293:296:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 6
+        },
+        "end_byte": 296,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 293
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:3:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:3:293:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:293:296:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:296:string",
+      "kind": "string",
+      "label": "\"\"\"Unpickling compatibility for ``entity_classifier.pkl``.\r\n\r\nTraining was run as ``python -m app.ml.training.train_entity``, so XGBoost may\r\nserialize a callback class as ``__main__._EntityEpochLogge",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 6
+        },
+        "end_byte": 296,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:321:332:identifier",
+      "kind": "identifier",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 7
+        },
+        "end_byte": 332,
+        "start": {
+          "column": 23,
+          "line": 7
+        },
+        "start_byte": 321
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:321:332:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:321:332:dotted_name",
+      "kind": "dotted_name",
+      "label": "annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 7
+        },
+        "end_byte": 332,
+        "start": {
+          "column": 23,
+          "line": 7
+        },
+        "start_byte": 321
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:321:332:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:298:332:future_import_statement",
+      "kind": "future_import_statement",
+      "label": "from __future__ import annotations",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 7
+        },
+        "end_byte": 332,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 298
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:343:346:identifier",
+      "kind": "identifier",
+      "label": "sys",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 9
+        },
+        "end_byte": 346,
+        "start": {
+          "column": 7,
+          "line": 9
+        },
+        "start_byte": 343
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:343:346:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:343:346:dotted_name",
+      "kind": "dotted_name",
+      "label": "sys",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 9
+        },
+        "end_byte": 346,
+        "start": {
+          "column": 7,
+          "line": 9
+        },
+        "start_byte": 343
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:343:346:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:336:346:import_statement",
+      "kind": "import_statement",
+      "label": "import sys",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 9
+        },
+        "end_byte": 346,
+        "start": {
+          "column": 0,
+          "line": 9
+        },
+        "start_byte": 336
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:356:390:identifier",
+      "kind": "identifier",
+      "label": "ensure_entity_epoch_logger_on_main",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 12
+        },
+        "end_byte": 390,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 356
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:390:392:parameters",
+      "kind": "parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 12
+        },
+        "end_byte": 392,
+        "start": {
+          "column": 38,
+          "line": 12
+        },
+        "start_byte": 390
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:396:400:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 12
+        },
+        "end_byte": 400,
+        "start": {
+          "column": 44,
+          "line": 12
+        },
+        "start_byte": 396
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:396:400:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:396:400:type",
+      "kind": "type",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 12
+        },
+        "end_byte": 400,
+        "start": {
+          "column": 44,
+          "line": 12
+        },
+        "start_byte": 396
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:410:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 13
+        },
+        "end_byte": 410,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 407
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:410:491:string_content",
+      "kind": "string_content",
+      "label": "Register a stub ``_EntityEpochLogger`` on ``__main__`` before loading the pickle.",
+      "span": {
+        "end": {
+          "column": 88,
+          "line": 13
+        },
+        "end_byte": 491,
+        "start": {
+          "column": 7,
+          "line": 13
+        },
+        "start_byte": 410
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:491:494:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 91,
+          "line": 13
+        },
+        "end_byte": 494,
+        "start": {
+          "column": 88,
+          "line": 13
+        },
+        "start_byte": 491
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:410:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:410:491:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:491:494:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:494:string",
+      "kind": "string",
+      "label": "\"\"\"Register a stub ``_EntityEpochLogger`` on ``__main__`` before loading the pickle.\"\"\"",
+      "span": {
+        "end": {
+          "column": 91,
+          "line": 13
+        },
+        "end_byte": 494,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 407
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:526:identifier",
+      "kind": "identifier",
+      "label": "xgboost",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 15
+        },
+        "end_byte": 526,
+        "start": {
+          "column": 13,
+          "line": 15
+        },
+        "start_byte": 519
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:527:535:identifier",
+      "kind": "identifier",
+      "label": "callback",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 15
+        },
+        "end_byte": 535,
+        "start": {
+          "column": 21,
+          "line": 15
+        },
+        "start_byte": 527
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:526:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:527:535:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:535:dotted_name",
+      "kind": "dotted_name",
+      "label": "xgboost.callback",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 15
+        },
+        "end_byte": 535,
+        "start": {
+          "column": 13,
+          "line": 15
+        },
+        "start_byte": 519
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:559:identifier",
+      "kind": "identifier",
+      "label": "TrainingCallback",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 15
+        },
+        "end_byte": 559,
+        "start": {
+          "column": 37,
+          "line": 15
+        },
+        "start_byte": 543
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:559:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:559:dotted_name",
+      "kind": "dotted_name",
+      "label": "TrainingCallback",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 15
+        },
+        "end_byte": 559,
+        "start": {
+          "column": 37,
+          "line": 15
+        },
+        "start_byte": 543
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:563:566:identifier",
+      "kind": "identifier",
+      "label": "_TC",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 15
+        },
+        "end_byte": 566,
+        "start": {
+          "column": 57,
+          "line": 15
+        },
+        "start_byte": 563
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:559:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:563:566:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:566:aliased_import",
+      "kind": "aliased_import",
+      "label": "TrainingCallback as _TC",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 15
+        },
+        "end_byte": 566,
+        "start": {
+          "column": 37,
+          "line": 15
+        },
+        "start_byte": 543
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:519:535:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:543:566:aliased_import"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from xgboost.callback import TrainingCallback as _TC",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 15
+        },
+        "end_byte": 566,
+        "start": {
+          "column": 8,
+          "line": 15
+        },
+        "start_byte": 514
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:import_from_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:block",
+      "kind": "block",
+      "label": "from xgboost.callback import TrainingCallback as _TC",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 15
+        },
+        "end_byte": 566,
+        "start": {
+          "column": 8,
+          "line": 15
+        },
+        "start_byte": 514
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:579:588:identifier",
+      "kind": "identifier",
+      "label": "Exception",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 16
+        },
+        "end_byte": 588,
+        "start": {
+          "column": 11,
+          "line": 16
+        },
+        "start_byte": 579
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:599:605:return_statement",
+      "kind": "return_statement",
+      "label": "return",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 17
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 8,
+          "line": 17
+        },
+        "start_byte": 599
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:599:605:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:599:605:block",
+      "kind": "block",
+      "label": "return",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 17
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 8,
+          "line": 17
+        },
+        "start_byte": 599
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:579:588:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:599:605:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:572:605:except_clause",
+      "kind": "except_clause",
+      "label": "except Exception:\r\n        return",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 17
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 4,
+          "line": 16
+        },
+        "start_byte": 572
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:514:566:block",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:572:605:except_clause"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:500:605:try_statement",
+      "kind": "try_statement",
+      "label": "try:\r\n        from xgboost.callback import TrainingCallback as _TC\r\n    except Exception:\r\n        return",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 17
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 4,
+          "line": 14
+        },
+        "start_byte": 500
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:619:637:identifier",
+      "kind": "identifier",
+      "label": "_EntityEpochLogger",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 19
+        },
+        "end_byte": 637,
+        "start": {
+          "column": 10,
+          "line": 19
+        },
+        "start_byte": 619
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:638:641:identifier",
+      "kind": "identifier",
+      "label": "_TC",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 19
+        },
+        "end_byte": 641,
+        "start": {
+          "column": 29,
+          "line": 19
+        },
+        "start_byte": 638
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:638:641:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:637:642:argument_list",
+      "kind": "argument_list",
+      "label": "(_TC)",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 19
+        },
+        "end_byte": 642,
+        "start": {
+          "column": 28,
+          "line": 19
+        },
+        "start_byte": 637
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:645:693:comment",
+      "kind": "comment",
+      "label": "# noqa: N801 — must match pickled global name\r",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 19
+        },
+        "end_byte": 693,
+        "start": {
+          "column": 36,
+          "line": 19
+        },
+        "start_byte": 645
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:706:721:identifier",
+      "kind": "identifier",
+      "label": "after_iteration",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 20
+        },
+        "end_byte": 721,
+        "start": {
+          "column": 12,
+          "line": 20
+        },
+        "start_byte": 706
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:722:726:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 20
+        },
+        "end_byte": 726,
+        "start": {
+          "column": 28,
+          "line": 20
+        },
+        "start_byte": 722
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:728:733:identifier",
+      "kind": "identifier",
+      "label": "model",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 20
+        },
+        "end_byte": 733,
+        "start": {
+          "column": 34,
+          "line": 20
+        },
+        "start_byte": 728
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:735:740:identifier",
+      "kind": "identifier",
+      "label": "epoch",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 20
+        },
+        "end_byte": 740,
+        "start": {
+          "column": 41,
+          "line": 20
+        },
+        "start_byte": 735
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:742:751:identifier",
+      "kind": "identifier",
+      "label": "evals_log",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 20
+        },
+        "end_byte": 751,
+        "start": {
+          "column": 48,
+          "line": 20
+        },
+        "start_byte": 742
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:722:726:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:728:733:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:735:740:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:742:751:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters",
+      "kind": "parameters",
+      "label": "(self, model, epoch, evals_log)",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 20
+        },
+        "end_byte": 752,
+        "start": {
+          "column": 27,
+          "line": 20
+        },
+        "start_byte": 721
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:774:779:false",
+      "kind": "false",
+      "label": "False",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 21
+        },
+        "end_byte": 779,
+        "start": {
+          "column": 19,
+          "line": 21
+        },
+        "start_byte": 774
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:774:779:false"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:return_statement",
+      "kind": "return_statement",
+      "label": "return False",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 21
+        },
+        "end_byte": 779,
+        "start": {
+          "column": 12,
+          "line": 21
+        },
+        "start_byte": 767
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:block",
+      "kind": "block",
+      "label": "return False",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 21
+        },
+        "end_byte": 779,
+        "start": {
+          "column": 12,
+          "line": 21
+        },
+        "start_byte": 767
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:706:721:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:721:752:parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:767:779:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:function_definition",
+      "kind": "function_definition",
+      "label": "def after_iteration(self, model, epoch, evals_log):\r\n            return False",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 21
+        },
+        "end_byte": 779,
+        "start": {
+          "column": 8,
+          "line": 20
+        },
+        "start_byte": 702
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:function_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:block",
+      "kind": "block",
+      "label": "def after_iteration(self, model, epoch, evals_log):\r\n            return False",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 21
+        },
+        "end_byte": 779,
+        "start": {
+          "column": 8,
+          "line": 20
+        },
+        "start_byte": 702
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:619:637:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:637:642:argument_list",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:645:693:comment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:702:779:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition",
+      "kind": "class_definition",
+      "label": "class _EntityEpochLogger(_TC):  # noqa: N801 — must match pickled global name\r\n        def after_iteration(self, model, epoch, evals_log):\r\n            return False",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 21
+        },
+        "end_byte": 779,
+        "start": {
+          "column": 4,
+          "line": 19
+        },
+        "start_byte": 613
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:791:identifier",
+      "kind": "identifier",
+      "label": "main",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 23
+        },
+        "end_byte": 791,
+        "start": {
+          "column": 4,
+          "line": 23
+        },
+        "start_byte": 787
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:797:identifier",
+      "kind": "identifier",
+      "label": "sys",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 23
+        },
+        "end_byte": 797,
+        "start": {
+          "column": 11,
+          "line": 23
+        },
+        "start_byte": 794
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:798:805:identifier",
+      "kind": "identifier",
+      "label": "modules",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 23
+        },
+        "end_byte": 805,
+        "start": {
+          "column": 15,
+          "line": 23
+        },
+        "start_byte": 798
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:797:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:798:805:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:805:attribute",
+      "kind": "attribute",
+      "label": "sys.modules",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 23
+        },
+        "end_byte": 805,
+        "start": {
+          "column": 11,
+          "line": 23
+        },
+        "start_byte": 794
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:806:809:identifier",
+      "kind": "identifier",
+      "label": "get",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 23
+        },
+        "end_byte": 809,
+        "start": {
+          "column": 23,
+          "line": 23
+        },
+        "start_byte": 806
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:805:attribute",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:806:809:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:809:attribute",
+      "kind": "attribute",
+      "label": "sys.modules.get",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 23
+        },
+        "end_byte": 809,
+        "start": {
+          "column": 11,
+          "line": 23
+        },
+        "start_byte": 794
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:811:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 23
+        },
+        "end_byte": 811,
+        "start": {
+          "column": 27,
+          "line": 23
+        },
+        "start_byte": 810
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:811:819:string_content",
+      "kind": "string_content",
+      "label": "__main__",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 23
+        },
+        "end_byte": 819,
+        "start": {
+          "column": 28,
+          "line": 23
+        },
+        "start_byte": 811
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:819:820:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 23
+        },
+        "end_byte": 820,
+        "start": {
+          "column": 36,
+          "line": 23
+        },
+        "start_byte": 819
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:811:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:811:819:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:819:820:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:820:string",
+      "kind": "string",
+      "label": "\"__main__\"",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 23
+        },
+        "end_byte": 820,
+        "start": {
+          "column": 27,
+          "line": 23
+        },
+        "start_byte": 810
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:810:820:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:809:821:argument_list",
+      "kind": "argument_list",
+      "label": "(\"__main__\")",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 23
+        },
+        "end_byte": 821,
+        "start": {
+          "column": 26,
+          "line": 23
+        },
+        "start_byte": 809
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:809:attribute",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:809:821:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:821:call",
+      "kind": "call",
+      "label": "sys.modules.get(\"__main__\")",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 23
+        },
+        "end_byte": 821,
+        "start": {
+          "column": 11,
+          "line": 23
+        },
+        "start_byte": 794
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:791:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:794:821:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:821:assignment",
+      "kind": "assignment",
+      "label": "main = sys.modules.get(\"__main__\")",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 23
+        },
+        "end_byte": 821,
+        "start": {
+          "column": 4,
+          "line": 23
+        },
+        "start_byte": 787
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:834:identifier",
+      "kind": "identifier",
+      "label": "main",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 24
+        },
+        "end_byte": 834,
+        "start": {
+          "column": 7,
+          "line": 24
+        },
+        "start_byte": 830
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:838:842:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 24
+        },
+        "end_byte": 842,
+        "start": {
+          "column": 15,
+          "line": 24
+        },
+        "start_byte": 838
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:834:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:838:842:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:842:comparison_operator",
+      "kind": "comparison_operator",
+      "label": "main is None",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 24
+        },
+        "end_byte": 842,
+        "start": {
+          "column": 7,
+          "line": 24
+        },
+        "start_byte": 830
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:853:859:return_statement",
+      "kind": "return_statement",
+      "label": "return",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 25
+        },
+        "end_byte": 859,
+        "start": {
+          "column": 8,
+          "line": 25
+        },
+        "start_byte": 853
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:853:859:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:853:859:block",
+      "kind": "block",
+      "label": "return",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 25
+        },
+        "end_byte": 859,
+        "start": {
+          "column": 8,
+          "line": 25
+        },
+        "start_byte": 853
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:830:842:comparison_operator",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:853:859:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:827:859:if_statement",
+      "kind": "if_statement",
+      "label": "if main is None:\r\n        return",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 25
+        },
+        "end_byte": 859,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 827
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:875:identifier",
+      "kind": "identifier",
+      "label": "getattr",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 26
+        },
+        "end_byte": 875,
+        "start": {
+          "column": 7,
+          "line": 26
+        },
+        "start_byte": 868
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:876:880:identifier",
+      "kind": "identifier",
+      "label": "main",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 26
+        },
+        "end_byte": 880,
+        "start": {
+          "column": 15,
+          "line": 26
+        },
+        "start_byte": 876
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:883:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 26
+        },
+        "end_byte": 883,
+        "start": {
+          "column": 21,
+          "line": 26
+        },
+        "start_byte": 882
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:883:901:string_content",
+      "kind": "string_content",
+      "label": "_EntityEpochLogger",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 26
+        },
+        "end_byte": 901,
+        "start": {
+          "column": 22,
+          "line": 26
+        },
+        "start_byte": 883
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:901:902:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 26
+        },
+        "end_byte": 902,
+        "start": {
+          "column": 40,
+          "line": 26
+        },
+        "start_byte": 901
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:883:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:883:901:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:901:902:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:902:string",
+      "kind": "string",
+      "label": "\"_EntityEpochLogger\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 26
+        },
+        "end_byte": 902,
+        "start": {
+          "column": 21,
+          "line": 26
+        },
+        "start_byte": 882
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:904:908:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 26
+        },
+        "end_byte": 908,
+        "start": {
+          "column": 43,
+          "line": 26
+        },
+        "start_byte": 904
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:876:880:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:882:902:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:904:908:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:875:909:argument_list",
+      "kind": "argument_list",
+      "label": "(main, \"_EntityEpochLogger\", None)",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 26
+        },
+        "end_byte": 909,
+        "start": {
+          "column": 14,
+          "line": 26
+        },
+        "start_byte": 875
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:875:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:875:909:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:909:call",
+      "kind": "call",
+      "label": "getattr(main, \"_EntityEpochLogger\", None)",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 26
+        },
+        "end_byte": 909,
+        "start": {
+          "column": 7,
+          "line": 26
+        },
+        "start_byte": 868
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:917:921:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 26
+        },
+        "end_byte": 921,
+        "start": {
+          "column": 56,
+          "line": 26
+        },
+        "start_byte": 917
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:909:call",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:917:921:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:921:comparison_operator",
+      "kind": "comparison_operator",
+      "label": "getattr(main, \"_EntityEpochLogger\", None) is not None",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 26
+        },
+        "end_byte": 921,
+        "start": {
+          "column": 7,
+          "line": 26
+        },
+        "start_byte": 868
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:932:938:return_statement",
+      "kind": "return_statement",
+      "label": "return",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 27
+        },
+        "end_byte": 938,
+        "start": {
+          "column": 8,
+          "line": 27
+        },
+        "start_byte": 932
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:932:938:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:932:938:block",
+      "kind": "block",
+      "label": "return",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 27
+        },
+        "end_byte": 938,
+        "start": {
+          "column": 8,
+          "line": 27
+        },
+        "start_byte": 932
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:868:921:comparison_operator",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:932:938:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:865:938:if_statement",
+      "kind": "if_statement",
+      "label": "if getattr(main, \"_EntityEpochLogger\", None) is not None:\r\n        return",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 27
+        },
+        "end_byte": 938,
+        "start": {
+          "column": 4,
+          "line": 26
+        },
+        "start_byte": 865
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:965:identifier",
+      "kind": "identifier",
+      "label": "setattr",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 29
+        },
+        "end_byte": 965,
+        "start": {
+          "column": 8,
+          "line": 29
+        },
+        "start_byte": 958
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:966:970:identifier",
+      "kind": "identifier",
+      "label": "main",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 29
+        },
+        "end_byte": 970,
+        "start": {
+          "column": 16,
+          "line": 29
+        },
+        "start_byte": 966
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:973:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 29
+        },
+        "end_byte": 973,
+        "start": {
+          "column": 22,
+          "line": 29
+        },
+        "start_byte": 972
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:973:991:string_content",
+      "kind": "string_content",
+      "label": "_EntityEpochLogger",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 29
+        },
+        "end_byte": 991,
+        "start": {
+          "column": 23,
+          "line": 29
+        },
+        "start_byte": 973
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:991:992:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 29
+        },
+        "end_byte": 992,
+        "start": {
+          "column": 41,
+          "line": 29
+        },
+        "start_byte": 991
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:973:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:973:991:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:991:992:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:992:string",
+      "kind": "string",
+      "label": "\"_EntityEpochLogger\"",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 29
+        },
+        "end_byte": 992,
+        "start": {
+          "column": 22,
+          "line": 29
+        },
+        "start_byte": 972
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:994:1012:identifier",
+      "kind": "identifier",
+      "label": "_EntityEpochLogger",
+      "span": {
+        "end": {
+          "column": 62,
+          "line": 29
+        },
+        "end_byte": 1012,
+        "start": {
+          "column": 44,
+          "line": 29
+        },
+        "start_byte": 994
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:966:970:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:972:992:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:994:1012:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:965:1013:argument_list",
+      "kind": "argument_list",
+      "label": "(main, \"_EntityEpochLogger\", _EntityEpochLogger)",
+      "span": {
+        "end": {
+          "column": 63,
+          "line": 29
+        },
+        "end_byte": 1013,
+        "start": {
+          "column": 15,
+          "line": 29
+        },
+        "start_byte": 965
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:965:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:965:1013:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:call",
+      "kind": "call",
+      "label": "setattr(main, \"_EntityEpochLogger\", _EntityEpochLogger)",
+      "span": {
+        "end": {
+          "column": 63,
+          "line": 29
+        },
+        "end_byte": 1013,
+        "start": {
+          "column": 8,
+          "line": 29
+        },
+        "start_byte": 958
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:block",
+      "kind": "block",
+      "label": "setattr(main, \"_EntityEpochLogger\", _EntityEpochLogger)",
+      "span": {
+        "end": {
+          "column": 63,
+          "line": 29
+        },
+        "end_byte": 1013,
+        "start": {
+          "column": 8,
+          "line": 29
+        },
+        "start_byte": 958
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1027:1041:identifier",
+      "kind": "identifier",
+      "label": "AttributeError",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 30
+        },
+        "end_byte": 1041,
+        "start": {
+          "column": 12,
+          "line": 30
+        },
+        "start_byte": 1027
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1043:1052:identifier",
+      "kind": "identifier",
+      "label": "TypeError",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 30
+        },
+        "end_byte": 1052,
+        "start": {
+          "column": 28,
+          "line": 30
+        },
+        "start_byte": 1043
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1027:1041:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1043:1052:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1026:1053:tuple",
+      "kind": "tuple",
+      "label": "(AttributeError, TypeError)",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 30
+        },
+        "end_byte": 1053,
+        "start": {
+          "column": 11,
+          "line": 30
+        },
+        "start_byte": 1026
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1064:1125:comment",
+      "kind": "comment",
+      "label": "# Rare: read-only __main__ (e.g. some embedded interpreters)\r",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 31
+        },
+        "end_byte": 1125,
+        "start": {
+          "column": 8,
+          "line": 31
+        },
+        "start_byte": 1064
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1134:1138:pass_statement",
+      "kind": "pass_statement",
+      "label": "pass",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 32
+        },
+        "end_byte": 1138,
+        "start": {
+          "column": 8,
+          "line": 32
+        },
+        "start_byte": 1134
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1134:1138:pass_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1134:1138:block",
+      "kind": "block",
+      "label": "pass",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 32
+        },
+        "end_byte": 1138,
+        "start": {
+          "column": 8,
+          "line": 32
+        },
+        "start_byte": 1134
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1026:1053:tuple",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1064:1125:comment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1134:1138:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1019:1138:except_clause",
+      "kind": "except_clause",
+      "label": "except (AttributeError, TypeError):\r\n        # Rare: read-only __main__ (e.g. some embedded interpreters)\r\n        pass",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 32
+        },
+        "end_byte": 1138,
+        "start": {
+          "column": 4,
+          "line": 30
+        },
+        "start_byte": 1019
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:958:1013:block",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:1019:1138:except_clause"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:944:1138:try_statement",
+      "kind": "try_statement",
+      "label": "try:\r\n        setattr(main, \"_EntityEpochLogger\", _EntityEpochLogger)\r\n    except (AttributeError, TypeError):\r\n        # Rare: read-only __main__ (e.g. some embedded interpreters)\r\n        pass",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 32
+        },
+        "end_byte": 1138,
+        "start": {
+          "column": 4,
+          "line": 28
+        },
+        "start_byte": 944
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:494:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:500:605:try_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:613:779:class_definition",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:787:821:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:827:859:if_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:865:938:if_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:944:1138:try_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block",
+      "kind": "block",
+      "label": "\"\"\"Register a stub ``_EntityEpochLogger`` on ``__main__`` before loading the pickle.\"\"\"\r\n    try:\r\n        from xgboost.callback import TrainingCallback as _TC\r\n    except Exception:\r\n        return\r\n",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 32
+        },
+        "end_byte": 1138,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 407
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:356:390:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:390:392:parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:396:400:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:407:1138:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition",
+      "kind": "function_definition",
+      "label": "def ensure_entity_epoch_logger_on_main() -> None:\r\n    \"\"\"Register a stub ``_EntityEpochLogger`` on ``__main__`` before loading the pickle.\"\"\"\r\n    try:\r\n        from xgboost.callback import TrainingC",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 32
+        },
+        "end_byte": 1138,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 352
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:296:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:298:332:future_import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:336:346:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:352:1138:function_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/ml/entity_pickle_compat.py:0:1140:module",
+      "kind": "module",
+      "label": "\"\"\"Unpickling compatibility for ``entity_classifier.pkl``.\r\n\r\nTraining was run as ``python -m app.ml.training.train_entity``, so XGBoost may\r\nserialize a callback class as ``__main__._EntityEpochLogge",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 33
+        },
+        "end_byte": 1140,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/app/ml/entity_pickle_compat.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

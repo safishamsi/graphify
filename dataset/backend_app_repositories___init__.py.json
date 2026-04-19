@@ -1,0 +1,147 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:37+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:43:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:43:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:3:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:43:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:3:40:string_content:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:43:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:3:40:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:43:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:40:43:string_end:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:43:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:40:43:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:45:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:43:string:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:45:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:43:string",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 1
+        },
+        "end_byte": 3,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:3:40:string_content",
+      "kind": "string_content",
+      "label": "Supabase-backed repository functions.",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 1
+        },
+        "end_byte": 40,
+        "start": {
+          "column": 3,
+          "line": 1
+        },
+        "start_byte": 3
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:40:43:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 1
+        },
+        "end_byte": 43,
+        "start": {
+          "column": 40,
+          "line": 1
+        },
+        "start_byte": 40
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:3:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:3:40:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:40:43:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:43:string",
+      "kind": "string",
+      "label": "\"\"\"Supabase-backed repository functions.\"\"\"",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 1
+        },
+        "end_byte": 43,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:43:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/repositories/__init__.py:0:45:module",
+      "kind": "module",
+      "label": "\"\"\"Supabase-backed repository functions.\"\"\"\r\n",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 2
+        },
+        "end_byte": 45,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/app/repositories/__init__.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

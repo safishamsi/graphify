@@ -37,6 +37,17 @@ def persist_intelligence_run(
         ingest_errors=list(getattr(body, "ingest_errors", [])),
         universes_present=list(getattr(body, "universes_present", [])),
         enabled_detectors=list(getattr(body, "enabled_detectors", [])),
+        reasoner_run_health=getattr(body, "reasoner_run_health", "ok"),
+        reasoner_health_reason=getattr(body, "reasoner_health_reason", ""),
+        reasoner_attempts=int(getattr(body, "reasoner_attempts", 0) or 0),
+        reasoner_successes=int(getattr(body, "reasoner_successes", 0) or 0),
+        reasoner_failures=int(getattr(body, "reasoner_failures", 0) or 0),
+        reasoner_failure_breakdown=dict(getattr(body, "reasoner_failure_breakdown", {}) or {}),
+        evidence_summary=dict(getattr(body, "evidence_summary", {}) or {}),
+        bundles_built=int(getattr(body, "bundles_built", 0) or 0),
+        bundles_sent_to_reasoner=int(getattr(body, "bundles_sent_to_reasoner", 0) or 0),
+        bundles_skipped_low_evidence=int(getattr(body, "bundles_skipped_low_evidence", 0) or 0),
+        dataset_path_resolution=dict(getattr(body, "dataset_path_resolution", {}) or {}),
         finished_at=datetime.now(timezone.utc) if body.status != "running" else None,
     )
     session.add(run)

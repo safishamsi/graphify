@@ -1,0 +1,2684 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:14+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:7:223:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:17:23:type_identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:7:223:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:17:23:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:39:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:31:property_identifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:39:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:31:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:31:39:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:33:39:predefined_type:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:31:39:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:33:39:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:39:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:31:39:type_annotation:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:39:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:31:39:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:39:property_signature:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:39:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:66:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:58:property_identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:66:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:58:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:58:66:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:60:66:predefined_type:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:58:66:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:60:66:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:66:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:58:66:type_annotation:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:66:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:58:66:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:66:property_signature:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:66:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:94:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:79:property_identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:94:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:79:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:94:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:87:predefined_type:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:94:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:87:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:90:94:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:90:94:null:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:90:94:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:90:94:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:94:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:90:94:literal_type:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:94:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:90:94:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:79:94:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:94:union_type:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:79:94:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:94:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:94:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:79:94:type_annotation:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:94:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:79:94:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:94:property_signature:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:94:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:124:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:109:property_identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:124:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:109:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:124:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:117:predefined_type:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:124:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:117:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:120:124:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:120:124:null:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:120:124:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:120:124:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:124:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:120:124:literal_type:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:124:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:120:124:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:109:124:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:124:union_type:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:109:124:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:124:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:124:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:109:124:type_annotation:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:124:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:109:124:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:124:property_signature:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:124:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:153:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:138:property_identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:153:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:138:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:153:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:146:predefined_type:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:153:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:146:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:149:153:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:149:153:null:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:149:153:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:149:153:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:153:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:149:153:literal_type:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:153:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:149:153:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:138:153:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:153:union_type:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:138:153:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:153:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:153:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:138:153:type_annotation:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:153:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:138:153:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:153:property_signature:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:153:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:174:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:166:property_identifier:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:174:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:166:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:166:174:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:168:174:predefined_type:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:166:174:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:168:174:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:174:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:166:174:type_annotation:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:174:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:166:174:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:174:property_signature:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:174:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:196:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:188:property_identifier:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:196:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:188:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:188:196:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:190:196:predefined_type:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:188:196:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:190:196:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:196:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:188:196:type_annotation:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:196:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:188:196:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:196:property_signature:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:196:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:219:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:211:property_identifier:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:219:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:211:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:211:219:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:213:219:predefined_type:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:211:219:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:213:219:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:219:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:211:219:type_annotation:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:219:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:211:219:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:219:property_signature:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:219:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:7:223:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:7:223:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:223:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:7:223:interface_declaration:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:223:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:7:223:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:489:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:223:export_statement:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:489:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:223:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:234:487:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:244:255:type_identifier:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:234:487:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:244:255:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:271:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:263:property_identifier:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:271:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:263:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:263:271:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:265:271:predefined_type:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:263:271:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:265:271:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:271:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:263:271:type_annotation:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:271:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:263:271:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:271:property_signature:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:271:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:298:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:290:property_identifier:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:298:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:290:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:290:298:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:292:298:predefined_type:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:290:298:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:292:298:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:298:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:290:298:type_annotation:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:298:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:290:298:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:298:property_signature:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:298:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:328:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:313:property_identifier:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:328:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:313:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:328:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:321:predefined_type:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:328:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:321:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:324:328:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:324:328:null:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:324:328:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:324:328:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:328:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:324:328:literal_type:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:328:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:324:328:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:313:328:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:328:union_type:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:313:328:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:328:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:328:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:313:328:type_annotation:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:328:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:313:328:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:328:property_signature:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:328:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:360:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:345:property_identifier:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:360:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:345:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:360:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:353:predefined_type:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:360:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:353:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:356:360:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:356:360:null:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:356:360:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:356:360:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:360:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:356:360:literal_type:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:360:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:356:360:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:345:360:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:360:union_type:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:345:360:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:360:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:360:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:345:360:type_annotation:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:360:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:345:360:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:360:property_signature:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:360:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:393:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:378:property_identifier:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:393:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:378:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:393:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:386:predefined_type:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:393:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:386:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:389:393:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:389:393:null:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:389:393:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:389:393:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:393:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:389:393:literal_type:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:393:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:389:393:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:378:393:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:393:union_type:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:378:393:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:393:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:393:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:378:393:type_annotation:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:393:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:378:393:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:393:property_signature:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:393:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:427:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:412:property_identifier:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:427:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:412:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:427:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:420:predefined_type:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:427:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:420:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:423:427:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:423:427:null:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:423:427:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:423:427:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:427:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:423:427:literal_type:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:427:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:423:427:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:412:427:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:427:union_type:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:412:427:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:427:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:427:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:412:427:type_annotation:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:427:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:412:427:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:427:property_signature:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:427:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:461:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:446:property_identifier:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:461:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:446:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:461:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:454:predefined_type:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:461:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:454:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:457:461:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:457:461:null:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:457:461:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:457:461:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:461:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:457:461:literal_type:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:461:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:457:461:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:446:461:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:461:union_type:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:446:461:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:461:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:461:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:446:461:type_annotation:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:461:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:446:461:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:461:property_signature:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:461:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:483:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:475:property_identifier:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:483:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:475:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:475:483:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:477:483:predefined_type:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:475:483:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:477:483:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:483:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:475:483:type_annotation:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:483:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:475:483:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:483:property_signature:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:483:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:234:487:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body:93",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:234:487:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:227:487:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:234:487:interface_declaration:94",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:227:487:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:234:487:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:489:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:227:487:export_statement:95",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:489:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:227:487:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:17:23:type_identifier",
+      "kind": "type_identifier",
+      "label": "Wallet",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 1
+        },
+        "end_byte": 23,
+        "start": {
+          "column": 17,
+          "line": 1
+        },
+        "start_byte": 17
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:31:property_identifier",
+      "kind": "property_identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 4,
+          "line": 2
+        },
+        "end_byte": 31,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 29
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:33:39:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 39,
+        "start": {
+          "column": 6,
+          "line": 2
+        },
+        "start_byte": 33
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:33:39:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:31:39:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 39,
+        "start": {
+          "column": 4,
+          "line": 2
+        },
+        "start_byte": 31
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:31:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:31:39:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:39:property_signature",
+      "kind": "property_signature",
+      "label": "id: string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 39,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 29
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:58:property_identifier",
+      "kind": "property_identifier",
+      "label": "wallet_address",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:60:66:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 3
+        },
+        "end_byte": 66,
+        "start": {
+          "column": 18,
+          "line": 3
+        },
+        "start_byte": 60
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:60:66:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:58:66:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 3
+        },
+        "end_byte": 66,
+        "start": {
+          "column": 16,
+          "line": 3
+        },
+        "start_byte": 58
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:58:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:58:66:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:66:property_signature",
+      "kind": "property_signature",
+      "label": "wallet_address: string",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 3
+        },
+        "end_byte": 66,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:79:property_identifier",
+      "kind": "property_identifier",
+      "label": "chain_id",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 4
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 71
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:87:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 4
+        },
+        "end_byte": 87,
+        "start": {
+          "column": 12,
+          "line": 4
+        },
+        "start_byte": 81
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:90:94:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 4
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 21,
+          "line": 4
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:90:94:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:90:94:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 4
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 21,
+          "line": 4
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:87:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:90:94:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:94:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 4
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 12,
+          "line": 4
+        },
+        "start_byte": 81
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:81:94:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:79:94:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 4
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 10,
+          "line": 4
+        },
+        "start_byte": 79
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:79:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:79:94:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:94:property_signature",
+      "kind": "property_signature",
+      "label": "chain_id: string | null",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 4
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 71
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:109:property_identifier",
+      "kind": "property_identifier",
+      "label": "first_seen",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 109,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 99
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:117:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 5
+        },
+        "end_byte": 117,
+        "start": {
+          "column": 14,
+          "line": 5
+        },
+        "start_byte": 111
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:120:124:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 5
+        },
+        "end_byte": 124,
+        "start": {
+          "column": 23,
+          "line": 5
+        },
+        "start_byte": 120
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:120:124:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:120:124:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 5
+        },
+        "end_byte": 124,
+        "start": {
+          "column": 23,
+          "line": 5
+        },
+        "start_byte": 120
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:117:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:120:124:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:124:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 5
+        },
+        "end_byte": 124,
+        "start": {
+          "column": 14,
+          "line": 5
+        },
+        "start_byte": 111
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:111:124:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:109:124:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 5
+        },
+        "end_byte": 124,
+        "start": {
+          "column": 12,
+          "line": 5
+        },
+        "start_byte": 109
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:109:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:109:124:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:124:property_signature",
+      "kind": "property_signature",
+      "label": "first_seen: string | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 5
+        },
+        "end_byte": 124,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 99
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:138:property_identifier",
+      "kind": "property_identifier",
+      "label": "last_seen",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 6
+        },
+        "end_byte": 138,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:146:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 6
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 13,
+          "line": 6
+        },
+        "start_byte": 140
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:149:153:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 6
+        },
+        "end_byte": 153,
+        "start": {
+          "column": 22,
+          "line": 6
+        },
+        "start_byte": 149
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:149:153:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:149:153:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 6
+        },
+        "end_byte": 153,
+        "start": {
+          "column": 22,
+          "line": 6
+        },
+        "start_byte": 149
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:146:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:149:153:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:153:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 6
+        },
+        "end_byte": 153,
+        "start": {
+          "column": 13,
+          "line": 6
+        },
+        "start_byte": 140
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:140:153:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:138:153:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 6
+        },
+        "end_byte": 153,
+        "start": {
+          "column": 11,
+          "line": 6
+        },
+        "start_byte": 138
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:138:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:138:153:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:153:property_signature",
+      "kind": "property_signature",
+      "label": "last_seen: string | null",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 6
+        },
+        "end_byte": 153,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:166:property_identifier",
+      "kind": "property_identifier",
+      "label": "total_in",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 7
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:168:174:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 7
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:168:174:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:166:174:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 7
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 10,
+          "line": 7
+        },
+        "start_byte": 166
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:166:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:166:174:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:174:property_signature",
+      "kind": "property_signature",
+      "label": "total_in: number",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 7
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:188:property_identifier",
+      "kind": "property_identifier",
+      "label": "total_out",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 8
+        },
+        "end_byte": 188,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:190:196:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 8
+        },
+        "end_byte": 196,
+        "start": {
+          "column": 13,
+          "line": 8
+        },
+        "start_byte": 190
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:190:196:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:188:196:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 8
+        },
+        "end_byte": 196,
+        "start": {
+          "column": 11,
+          "line": 8
+        },
+        "start_byte": 188
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:188:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:188:196:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:196:property_signature",
+      "kind": "property_signature",
+      "label": "total_out: number",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 8
+        },
+        "end_byte": 196,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:211:property_identifier",
+      "kind": "property_identifier",
+      "label": "created_at",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 9
+        },
+        "end_byte": 211,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 201
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:213:219:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 9
+        },
+        "end_byte": 219,
+        "start": {
+          "column": 14,
+          "line": 9
+        },
+        "start_byte": 213
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:213:219:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:211:219:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 9
+        },
+        "end_byte": 219,
+        "start": {
+          "column": 12,
+          "line": 9
+        },
+        "start_byte": 211
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:211:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:211:219:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:219:property_signature",
+      "kind": "property_signature",
+      "label": "created_at: string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 9
+        },
+        "end_byte": 219,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 201
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:29:39:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:44:66:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:71:94:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:99:124:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:129:153:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:158:174:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:179:196:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:201:219:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  id: string;\r\n  wallet_address: string;\r\n  chain_id: string | null;\r\n  first_seen: string | null;\r\n  last_seen: string | null;\r\n  total_in: number;\r\n  total_out: number;\r\n  created_at: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 10
+        },
+        "end_byte": 223,
+        "start": {
+          "column": 24,
+          "line": 1
+        },
+        "start_byte": 24
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:17:23:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:24:223:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:7:223:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface Wallet {\r\n  id: string;\r\n  wallet_address: string;\r\n  chain_id: string | null;\r\n  first_seen: string | null;\r\n  last_seen: string | null;\r\n  total_in: number;\r\n  total_out: number;\r\n  create",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 10
+        },
+        "end_byte": 223,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:7:223:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:223:export_statement",
+      "kind": "export_statement",
+      "label": "export interface Wallet {\r\n  id: string;\r\n  wallet_address: string;\r\n  chain_id: string | null;\r\n  first_seen: string | null;\r\n  last_seen: string | null;\r\n  total_in: number;\r\n  total_out: number;\r\n ",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 10
+        },
+        "end_byte": 223,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:244:255:type_identifier",
+      "kind": "type_identifier",
+      "label": "WalletScore",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 12
+        },
+        "end_byte": 255,
+        "start": {
+          "column": 17,
+          "line": 12
+        },
+        "start_byte": 244
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:263:property_identifier",
+      "kind": "property_identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 4,
+          "line": 13
+        },
+        "end_byte": 263,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 261
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:265:271:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 13
+        },
+        "end_byte": 271,
+        "start": {
+          "column": 6,
+          "line": 13
+        },
+        "start_byte": 265
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:265:271:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:263:271:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 13
+        },
+        "end_byte": 271,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 263
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:263:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:263:271:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:271:property_signature",
+      "kind": "property_signature",
+      "label": "id: string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 13
+        },
+        "end_byte": 271,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 261
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:290:property_identifier",
+      "kind": "property_identifier",
+      "label": "wallet_address",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 14
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 276
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:292:298:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 14
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 18,
+          "line": 14
+        },
+        "start_byte": 292
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:292:298:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:290:298:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 14
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 16,
+          "line": 14
+        },
+        "start_byte": 290
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:290:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:290:298:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:298:property_signature",
+      "kind": "property_signature",
+      "label": "wallet_address: string",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 14
+        },
+        "end_byte": 298,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 276
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:313:property_identifier",
+      "kind": "property_identifier",
+      "label": "risk_score",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 15
+        },
+        "end_byte": 313,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 303
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:321:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 15
+        },
+        "end_byte": 321,
+        "start": {
+          "column": 14,
+          "line": 15
+        },
+        "start_byte": 315
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:324:328:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 15
+        },
+        "end_byte": 328,
+        "start": {
+          "column": 23,
+          "line": 15
+        },
+        "start_byte": 324
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:324:328:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:324:328:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 15
+        },
+        "end_byte": 328,
+        "start": {
+          "column": 23,
+          "line": 15
+        },
+        "start_byte": 324
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:321:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:324:328:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:328:union_type",
+      "kind": "union_type",
+      "label": "number | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 15
+        },
+        "end_byte": 328,
+        "start": {
+          "column": 14,
+          "line": 15
+        },
+        "start_byte": 315
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:315:328:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:313:328:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 15
+        },
+        "end_byte": 328,
+        "start": {
+          "column": 12,
+          "line": 15
+        },
+        "start_byte": 313
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:313:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:313:328:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:328:property_signature",
+      "kind": "property_signature",
+      "label": "risk_score: number | null",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 15
+        },
+        "end_byte": 328,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 303
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:345:property_identifier",
+      "kind": "property_identifier",
+      "label": "fan_in_score",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 16
+        },
+        "end_byte": 345,
+        "start": {
+          "column": 2,
+          "line": 16
+        },
+        "start_byte": 333
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:353:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 16
+        },
+        "end_byte": 353,
+        "start": {
+          "column": 16,
+          "line": 16
+        },
+        "start_byte": 347
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:356:360:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 360,
+        "start": {
+          "column": 25,
+          "line": 16
+        },
+        "start_byte": 356
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:356:360:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:356:360:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 360,
+        "start": {
+          "column": 25,
+          "line": 16
+        },
+        "start_byte": 356
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:353:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:356:360:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:360:union_type",
+      "kind": "union_type",
+      "label": "number | null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 360,
+        "start": {
+          "column": 16,
+          "line": 16
+        },
+        "start_byte": 347
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:347:360:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:345:360:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number | null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 360,
+        "start": {
+          "column": 14,
+          "line": 16
+        },
+        "start_byte": 345
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:345:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:345:360:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:360:property_signature",
+      "kind": "property_signature",
+      "label": "fan_in_score: number | null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 360,
+        "start": {
+          "column": 2,
+          "line": 16
+        },
+        "start_byte": 333
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:378:property_identifier",
+      "kind": "property_identifier",
+      "label": "fan_out_score",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 17
+        },
+        "end_byte": 378,
+        "start": {
+          "column": 2,
+          "line": 17
+        },
+        "start_byte": 365
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:386:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 17
+        },
+        "end_byte": 386,
+        "start": {
+          "column": 17,
+          "line": 17
+        },
+        "start_byte": 380
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:389:393:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 17
+        },
+        "end_byte": 393,
+        "start": {
+          "column": 26,
+          "line": 17
+        },
+        "start_byte": 389
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:389:393:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:389:393:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 17
+        },
+        "end_byte": 393,
+        "start": {
+          "column": 26,
+          "line": 17
+        },
+        "start_byte": 389
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:386:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:389:393:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:393:union_type",
+      "kind": "union_type",
+      "label": "number | null",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 17
+        },
+        "end_byte": 393,
+        "start": {
+          "column": 17,
+          "line": 17
+        },
+        "start_byte": 380
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:380:393:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:378:393:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number | null",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 17
+        },
+        "end_byte": 393,
+        "start": {
+          "column": 15,
+          "line": 17
+        },
+        "start_byte": 378
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:378:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:378:393:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:393:property_signature",
+      "kind": "property_signature",
+      "label": "fan_out_score: number | null",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 17
+        },
+        "end_byte": 393,
+        "start": {
+          "column": 2,
+          "line": 17
+        },
+        "start_byte": 365
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:412:property_identifier",
+      "kind": "property_identifier",
+      "label": "velocity_score",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 18
+        },
+        "end_byte": 412,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 398
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:420:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 18
+        },
+        "end_byte": 420,
+        "start": {
+          "column": 18,
+          "line": 18
+        },
+        "start_byte": 414
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:423:427:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 18
+        },
+        "end_byte": 427,
+        "start": {
+          "column": 27,
+          "line": 18
+        },
+        "start_byte": 423
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:423:427:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:423:427:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 18
+        },
+        "end_byte": 427,
+        "start": {
+          "column": 27,
+          "line": 18
+        },
+        "start_byte": 423
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:420:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:423:427:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:427:union_type",
+      "kind": "union_type",
+      "label": "number | null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 18
+        },
+        "end_byte": 427,
+        "start": {
+          "column": 18,
+          "line": 18
+        },
+        "start_byte": 414
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:414:427:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:412:427:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number | null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 18
+        },
+        "end_byte": 427,
+        "start": {
+          "column": 16,
+          "line": 18
+        },
+        "start_byte": 412
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:412:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:412:427:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:427:property_signature",
+      "kind": "property_signature",
+      "label": "velocity_score: number | null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 18
+        },
+        "end_byte": 427,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 398
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:446:property_identifier",
+      "kind": "property_identifier",
+      "label": "exposure_score",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 19
+        },
+        "end_byte": 446,
+        "start": {
+          "column": 2,
+          "line": 19
+        },
+        "start_byte": 432
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:454:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 19
+        },
+        "end_byte": 454,
+        "start": {
+          "column": 18,
+          "line": 19
+        },
+        "start_byte": 448
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:457:461:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 19
+        },
+        "end_byte": 461,
+        "start": {
+          "column": 27,
+          "line": 19
+        },
+        "start_byte": 457
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:457:461:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:457:461:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 19
+        },
+        "end_byte": 461,
+        "start": {
+          "column": 27,
+          "line": 19
+        },
+        "start_byte": 457
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:454:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:457:461:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:461:union_type",
+      "kind": "union_type",
+      "label": "number | null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 19
+        },
+        "end_byte": 461,
+        "start": {
+          "column": 18,
+          "line": 19
+        },
+        "start_byte": 448
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:448:461:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:446:461:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number | null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 19
+        },
+        "end_byte": 461,
+        "start": {
+          "column": 16,
+          "line": 19
+        },
+        "start_byte": 446
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:446:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:446:461:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:461:property_signature",
+      "kind": "property_signature",
+      "label": "exposure_score: number | null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 19
+        },
+        "end_byte": 461,
+        "start": {
+          "column": 2,
+          "line": 19
+        },
+        "start_byte": 432
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:475:property_identifier",
+      "kind": "property_identifier",
+      "label": "scored_at",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 20
+        },
+        "end_byte": 475,
+        "start": {
+          "column": 2,
+          "line": 20
+        },
+        "start_byte": 466
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:477:483:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 20
+        },
+        "end_byte": 483,
+        "start": {
+          "column": 13,
+          "line": 20
+        },
+        "start_byte": 477
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:477:483:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:475:483:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 20
+        },
+        "end_byte": 483,
+        "start": {
+          "column": 11,
+          "line": 20
+        },
+        "start_byte": 475
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:475:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:475:483:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:483:property_signature",
+      "kind": "property_signature",
+      "label": "scored_at: string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 20
+        },
+        "end_byte": 483,
+        "start": {
+          "column": 2,
+          "line": 20
+        },
+        "start_byte": 466
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:261:271:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:276:298:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:303:328:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:333:360:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:365:393:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:398:427:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:432:461:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:466:483:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  id: string;\r\n  wallet_address: string;\r\n  risk_score: number | null;\r\n  fan_in_score: number | null;\r\n  fan_out_score: number | null;\r\n  velocity_score: number | null;\r\n  exposure_score: number |",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 21
+        },
+        "end_byte": 487,
+        "start": {
+          "column": 29,
+          "line": 12
+        },
+        "start_byte": 256
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:244:255:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:256:487:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:234:487:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface WalletScore {\r\n  id: string;\r\n  wallet_address: string;\r\n  risk_score: number | null;\r\n  fan_in_score: number | null;\r\n  fan_out_score: number | null;\r\n  velocity_score: number | null;\r\n  ex",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 21
+        },
+        "end_byte": 487,
+        "start": {
+          "column": 7,
+          "line": 12
+        },
+        "start_byte": 234
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:234:487:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:227:487:export_statement",
+      "kind": "export_statement",
+      "label": "export interface WalletScore {\r\n  id: string;\r\n  wallet_address: string;\r\n  risk_score: number | null;\r\n  fan_in_score: number | null;\r\n  fan_out_score: number | null;\r\n  velocity_score: number | null",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 21
+        },
+        "end_byte": 487,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 227
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:223:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:227:487:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/wallet.ts:0:489:program",
+      "kind": "program",
+      "label": "export interface Wallet {\r\n  id: string;\r\n  wallet_address: string;\r\n  chain_id: string | null;\r\n  first_seen: string | null;\r\n  last_seen: string | null;\r\n  total_in: number;\r\n  total_out: number;\r\n ",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 22
+        },
+        "end_byte": 489,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/types/wallet.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

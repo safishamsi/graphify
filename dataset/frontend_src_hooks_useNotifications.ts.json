@@ -1,0 +1,1199 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:08+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:9:19:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:9:19:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:9:19:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:9:19:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:9:19:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:9:19:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:named_imports:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:35:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:import_clause:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:35:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:27:34:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:28:33:string_fragment:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:27:34:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:28:33:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:35:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:27:34:string:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:35:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:27:34:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:351:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:35:import_statement:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:351:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:35:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:46:61:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:46:61:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:46:61:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:46:61:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:46:61:import_specifier:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:46:61:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:63:92:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:68:92:identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:63:92:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:68:92:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:63:92:import_specifier:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:63:92:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:named_imports:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:37:133:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:import_clause:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:37:133:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:100:132:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:101:131:string_fragment:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:100:132:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:101:131:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:37:133:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:100:132:string:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:37:133:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:100:132:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:351:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:37:133:import_statement:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:351:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:37:133:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:153:169:identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:153:169:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:169:171:formal_parameters:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:169:171:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:171:197:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:173:197:type_identifier:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:171:197:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:173:197:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:171:197:type_annotation:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:171:197:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:242:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:212:identifier:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:242:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:212:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:242:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:225:identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:242:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:225:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:225:242:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:226:241:identifier:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:225:242:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:226:241:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:242:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:225:242:arguments:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:242:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:225:242:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:242:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:242:call_expression:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:242:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:242:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:203:243:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:242:variable_declarator:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:203:243:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:242:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:198:349:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:203:243:lexical_declaration:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:198:349:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:203:243:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:251:255:unary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:252:255:identifier:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:251:255:unary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:252:255:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:250:256:parenthesized_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:251:255:unary_expression:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:250:256:parenthesized_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:251:255:unary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:247:331:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:250:256:parenthesized_expression:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:247:331:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:250:256:parenthesized_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:263:330:new_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:267:272:identifier:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:263:330:new_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:267:272:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:273:329:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:274:328:string_fragment:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:273:329:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:274:328:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:272:330:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:273:329:string:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:272:330:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:273:329:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:263:330:new_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:272:330:arguments:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:263:330:new_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:272:330:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:257:331:throw_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:263:330:new_expression:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:257:331:throw_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:263:330:new_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:247:331:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:257:331:throw_statement:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:247:331:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:257:331:throw_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:198:349:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:247:331:if_statement:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:198:349:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:247:331:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:335:346:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:342:345:identifier:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:335:346:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:342:345:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:198:349:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:335:346:return_statement:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:198:349:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:335:346:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:198:349:statement_block:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:198:349:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:137:349:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:137:349:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:351:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:137:349:export_statement:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:351:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:137:349:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:9:19:identifier",
+      "kind": "identifier",
+      "label": "useContext",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 1
+        },
+        "end_byte": 19,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:9:19:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:9:19:import_specifier",
+      "kind": "import_specifier",
+      "label": "useContext",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 1
+        },
+        "end_byte": 19,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:9:19:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:named_imports",
+      "kind": "named_imports",
+      "label": "{ useContext }",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:import_clause",
+      "kind": "import_clause",
+      "label": "{ useContext }",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:28:33:string_fragment",
+      "kind": "string_fragment",
+      "label": "react",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 1
+        },
+        "end_byte": 33,
+        "start": {
+          "column": 28,
+          "line": 1
+        },
+        "start_byte": 28
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:28:33:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:27:34:string",
+      "kind": "string",
+      "label": "\"react\"",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 27,
+          "line": 1
+        },
+        "start_byte": 27
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:7:21:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:27:34:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:35:import_statement",
+      "kind": "import_statement",
+      "label": "import { useContext } from \"react\";",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 1
+        },
+        "end_byte": 35,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:46:61:identifier",
+      "kind": "identifier",
+      "label": "NotificationCtx",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 2
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 9,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:46:61:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:46:61:import_specifier",
+      "kind": "import_specifier",
+      "label": "NotificationCtx",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 2
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 9,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:68:92:identifier",
+      "kind": "identifier",
+      "label": "NotificationContextValue",
+      "span": {
+        "end": {
+          "column": 55,
+          "line": 2
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 31,
+          "line": 2
+        },
+        "start_byte": 68
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:68:92:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:63:92:import_specifier",
+      "kind": "import_specifier",
+      "label": "type NotificationContextValue",
+      "span": {
+        "end": {
+          "column": 55,
+          "line": 2
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 26,
+          "line": 2
+        },
+        "start_byte": 63
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:46:61:import_specifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:63:92:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:named_imports",
+      "kind": "named_imports",
+      "label": "{ NotificationCtx, type NotificationContextValue }",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 2
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 7,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:import_clause",
+      "kind": "import_clause",
+      "label": "{ NotificationCtx, type NotificationContextValue }",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 2
+        },
+        "end_byte": 94,
+        "start": {
+          "column": 7,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:101:131:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/contexts/notificationContext",
+      "span": {
+        "end": {
+          "column": 94,
+          "line": 2
+        },
+        "end_byte": 131,
+        "start": {
+          "column": 64,
+          "line": 2
+        },
+        "start_byte": 101
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:101:131:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:100:132:string",
+      "kind": "string",
+      "label": "\"@/contexts/notificationContext\"",
+      "span": {
+        "end": {
+          "column": 95,
+          "line": 2
+        },
+        "end_byte": 132,
+        "start": {
+          "column": 63,
+          "line": 2
+        },
+        "start_byte": 100
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:44:94:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:100:132:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:37:133:import_statement",
+      "kind": "import_statement",
+      "label": "import { NotificationCtx, type NotificationContextValue } from \"@/contexts/notificationContext\";",
+      "span": {
+        "end": {
+          "column": 96,
+          "line": 2
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:153:169:identifier",
+      "kind": "identifier",
+      "label": "useNotifications",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 4
+        },
+        "end_byte": 169,
+        "start": {
+          "column": 16,
+          "line": 4
+        },
+        "start_byte": 153
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:169:171:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 4
+        },
+        "end_byte": 171,
+        "start": {
+          "column": 32,
+          "line": 4
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:173:197:type_identifier",
+      "kind": "type_identifier",
+      "label": "NotificationContextValue",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 4
+        },
+        "end_byte": 197,
+        "start": {
+          "column": 36,
+          "line": 4
+        },
+        "start_byte": 173
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:173:197:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:171:197:type_annotation",
+      "kind": "type_annotation",
+      "label": ": NotificationContextValue",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 4
+        },
+        "end_byte": 197,
+        "start": {
+          "column": 34,
+          "line": 4
+        },
+        "start_byte": 171
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:212:identifier",
+      "kind": "identifier",
+      "label": "ctx",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 5
+        },
+        "end_byte": 212,
+        "start": {
+          "column": 8,
+          "line": 5
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:225:identifier",
+      "kind": "identifier",
+      "label": "useContext",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 225,
+        "start": {
+          "column": 14,
+          "line": 5
+        },
+        "start_byte": 215
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:226:241:identifier",
+      "kind": "identifier",
+      "label": "NotificationCtx",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 5
+        },
+        "end_byte": 241,
+        "start": {
+          "column": 25,
+          "line": 5
+        },
+        "start_byte": 226
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:226:241:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:225:242:arguments",
+      "kind": "arguments",
+      "label": "(NotificationCtx)",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 5
+        },
+        "end_byte": 242,
+        "start": {
+          "column": 24,
+          "line": 5
+        },
+        "start_byte": 225
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:225:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:225:242:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:242:call_expression",
+      "kind": "call_expression",
+      "label": "useContext(NotificationCtx)",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 5
+        },
+        "end_byte": 242,
+        "start": {
+          "column": 14,
+          "line": 5
+        },
+        "start_byte": 215
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:212:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:215:242:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:242:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "ctx = useContext(NotificationCtx)",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 5
+        },
+        "end_byte": 242,
+        "start": {
+          "column": 8,
+          "line": 5
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:209:242:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:203:243:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const ctx = useContext(NotificationCtx);",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 5
+        },
+        "end_byte": 243,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 203
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:252:255:identifier",
+      "kind": "identifier",
+      "label": "ctx",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 6
+        },
+        "end_byte": 255,
+        "start": {
+          "column": 7,
+          "line": 6
+        },
+        "start_byte": 252
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:252:255:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:251:255:unary_expression",
+      "kind": "unary_expression",
+      "label": "!ctx",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 6
+        },
+        "end_byte": 255,
+        "start": {
+          "column": 6,
+          "line": 6
+        },
+        "start_byte": 251
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:251:255:unary_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:250:256:parenthesized_expression",
+      "kind": "parenthesized_expression",
+      "label": "(!ctx)",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 6
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 5,
+          "line": 6
+        },
+        "start_byte": 250
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:267:272:identifier",
+      "kind": "identifier",
+      "label": "Error",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 6
+        },
+        "end_byte": 272,
+        "start": {
+          "column": 22,
+          "line": 6
+        },
+        "start_byte": 267
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:274:328:string_fragment",
+      "kind": "string_fragment",
+      "label": "useNotifications must be inside <NotificationProvider>",
+      "span": {
+        "end": {
+          "column": 83,
+          "line": 6
+        },
+        "end_byte": 328,
+        "start": {
+          "column": 29,
+          "line": 6
+        },
+        "start_byte": 274
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:274:328:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:273:329:string",
+      "kind": "string",
+      "label": "\"useNotifications must be inside <NotificationProvider>\"",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 6
+        },
+        "end_byte": 329,
+        "start": {
+          "column": 28,
+          "line": 6
+        },
+        "start_byte": 273
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:273:329:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:272:330:arguments",
+      "kind": "arguments",
+      "label": "(\"useNotifications must be inside <NotificationProvider>\")",
+      "span": {
+        "end": {
+          "column": 85,
+          "line": 6
+        },
+        "end_byte": 330,
+        "start": {
+          "column": 27,
+          "line": 6
+        },
+        "start_byte": 272
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:267:272:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:272:330:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:263:330:new_expression",
+      "kind": "new_expression",
+      "label": "new Error(\"useNotifications must be inside <NotificationProvider>\")",
+      "span": {
+        "end": {
+          "column": 85,
+          "line": 6
+        },
+        "end_byte": 330,
+        "start": {
+          "column": 18,
+          "line": 6
+        },
+        "start_byte": 263
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:263:330:new_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:257:331:throw_statement",
+      "kind": "throw_statement",
+      "label": "throw new Error(\"useNotifications must be inside <NotificationProvider>\");",
+      "span": {
+        "end": {
+          "column": 86,
+          "line": 6
+        },
+        "end_byte": 331,
+        "start": {
+          "column": 12,
+          "line": 6
+        },
+        "start_byte": 257
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:250:256:parenthesized_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:257:331:throw_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:247:331:if_statement",
+      "kind": "if_statement",
+      "label": "if (!ctx) throw new Error(\"useNotifications must be inside <NotificationProvider>\");",
+      "span": {
+        "end": {
+          "column": 86,
+          "line": 6
+        },
+        "end_byte": 331,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 247
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:342:345:identifier",
+      "kind": "identifier",
+      "label": "ctx",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 7
+        },
+        "end_byte": 345,
+        "start": {
+          "column": 9,
+          "line": 7
+        },
+        "start_byte": 342
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:342:345:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:335:346:return_statement",
+      "kind": "return_statement",
+      "label": "return ctx;",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 7
+        },
+        "end_byte": 346,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 335
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:203:243:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:247:331:if_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:335:346:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:198:349:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const ctx = useContext(NotificationCtx);\r\n  if (!ctx) throw new Error(\"useNotifications must be inside <NotificationProvider>\");\r\n  return ctx;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 8
+        },
+        "end_byte": 349,
+        "start": {
+          "column": 61,
+          "line": 4
+        },
+        "start_byte": 198
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:153:169:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:169:171:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:171:197:type_annotation",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:198:349:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration",
+      "kind": "function_declaration",
+      "label": "function useNotifications(): NotificationContextValue {\r\n  const ctx = useContext(NotificationCtx);\r\n  if (!ctx) throw new Error(\"useNotifications must be inside <NotificationProvider>\");\r\n  return ct",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 8
+        },
+        "end_byte": 349,
+        "start": {
+          "column": 7,
+          "line": 4
+        },
+        "start_byte": 144
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:144:349:function_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:137:349:export_statement",
+      "kind": "export_statement",
+      "label": "export function useNotifications(): NotificationContextValue {\r\n  const ctx = useContext(NotificationCtx);\r\n  if (!ctx) throw new Error(\"useNotifications must be inside <NotificationProvider>\");\r\n  re",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 8
+        },
+        "end_byte": 349,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 137
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:35:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:37:133:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:137:349:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useNotifications.ts:0:351:program",
+      "kind": "program",
+      "label": "import { useContext } from \"react\";\r\nimport { NotificationCtx, type NotificationContextValue } from \"@/contexts/notificationContext\";\r\n\r\nexport function useNotifications(): NotificationContextValue {\r",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 9
+        },
+        "end_byte": 351,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/hooks/useNotifications.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

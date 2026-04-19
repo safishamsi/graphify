@@ -1,0 +1,2936 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:00+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:7:13:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:7:13:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:7:13:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:7:13:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:30:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:7:13:import_clause:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:30:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:7:13:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:19:29:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:20:28:string_fragment:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:19:29:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:20:28:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:30:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:19:29:string:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:30:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:19:29:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:30:import_statement:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:30:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:46:61:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:46:61:identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:46:61:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:46:61:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:46:61:import_specifier:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:46:61:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:named_imports:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:32:89:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:import_clause:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:32:89:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:69:88:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:70:87:string_fragment:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:69:88:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:70:87:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:32:89:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:69:88:string:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:32:89:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:69:88:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:32:89:import_statement:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:32:89:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:100:348:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:110:132:type_identifier:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:100:348:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:110:132:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:158:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:150:property_identifier:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:158:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:150:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:150:158:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:152:158:predefined_type:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:150:158:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:152:158:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:158:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:150:158:type_annotation:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:158:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:150:158:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:158:property_signature:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:158:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:202:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:187:property_identifier:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:202:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:187:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:202:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:195:predefined_type:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:202:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:195:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:198:202:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:198:202:null:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:198:202:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:198:202:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:202:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:198:202:literal_type:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:202:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:198:202:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:187:202:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:202:union_type:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:187:202:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:202:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:202:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:187:202:type_annotation:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:202:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:187:202:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:202:property_signature:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:202:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:245:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:237:property_identifier:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:245:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:237:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:237:245:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:239:245:predefined_type:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:237:245:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:239:245:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:245:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:237:245:type_annotation:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:245:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:237:245:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:245:property_signature:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:245:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:292:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:268:property_identifier:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:292:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:268:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:292:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:276:type_identifier:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:292:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:276:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:276:292:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:277:283:predefined_type:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:276:292:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:277:283:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:276:292:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:285:291:predefined_type:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:276:292:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:285:291:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:292:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:276:292:type_arguments:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:292:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:276:292:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:268:292:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:292:generic_type:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:268:292:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:292:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:292:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:268:292:type_annotation:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:292:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:268:292:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:292:property_signature:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:292:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:344:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:320:property_identifier:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:344:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:320:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:344:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:328:type_identifier:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:344:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:328:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:328:344:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:329:335:predefined_type:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:328:344:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:329:335:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:328:344:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:337:343:predefined_type:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:328:344:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:337:343:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:344:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:328:344:type_arguments:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:344:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:328:344:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:320:344:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:344:generic_type:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:320:344:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:344:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:344:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:320:344:type_annotation:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:344:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:320:344:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:344:property_signature:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:344:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:100:348:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:100:348:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:93:348:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:100:348:interface_declaration:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:93:348:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:100:348:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:93:348:export_statement:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:93:348:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:374:393:identifier:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:374:393:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:393:395:formal_parameters:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:393:395:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:428:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:404:type_identifier:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:428:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:404:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:404:428:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:405:427:type_identifier:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:404:428:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:405:427:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:428:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:404:428:type_arguments:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:428:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:404:428:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:395:428:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:428:generic_type:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:395:428:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:428:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:395:428:type_annotation:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:395:428:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:448:object_pattern->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:442:446:shorthand_property_identifier_pattern:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:448:object_pattern",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:442:446:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:512:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:448:object_pattern:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:512:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:448:object_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:467:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:463:identifier:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:467:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:463:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:467:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:464:467:property_identifier:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:467:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:464:467:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:467:await_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:467:member_expression:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:467:await_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:467:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:512:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:467:await_expression:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:512:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:467:await_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:467:491:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:468:490:type_identifier:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:467:491:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:468:490:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:512:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:467:491:type_arguments:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:512:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:467:491:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:492:511:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:493:510:string_fragment:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:492:511:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:493:510:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:491:512:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:492:511:string:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:491:512:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:492:511:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:512:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:491:512:arguments:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:512:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:491:512:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:512:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:512:call_expression:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:512:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:512:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:434:513:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:512:variable_declarator:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:434:513:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:512:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:429:532:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:434:513:lexical_declaration:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:429:532:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:434:513:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:517:529:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:524:528:identifier:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:517:529:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:524:528:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:429:532:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:517:529:return_statement:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:429:532:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:517:529:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:429:532:statement_block:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:429:532:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:352:532:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:352:532:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:352:532:export_statement:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:352:532:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:558:579:identifier:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:558:579:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:605:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:597:identifier:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:605:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:597:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:597:605:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:599:605:predefined_type:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:597:605:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:599:605:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:605:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:597:605:type_annotation:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:605:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:597:605:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:579:609:formal_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:605:required_parameter:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:579:609:formal_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:605:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:579:609:formal_parameters:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:579:609:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:635:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:618:type_identifier:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:635:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:618:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:618:635:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:619:634:type_identifier:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:618:635:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:619:634:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:635:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:618:635:type_arguments:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:635:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:618:635:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:609:635:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:635:generic_type:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:609:635:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:635:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:609:635:type_annotation:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:609:635:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:655:object_pattern->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:649:653:shorthand_property_identifier_pattern:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:655:object_pattern",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:649:653:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:723:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:655:object_pattern:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:723:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:655:object_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:674:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:670:identifier:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:674:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:670:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:674:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:671:674:property_identifier:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:674:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:671:674:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:674:await_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:674:member_expression:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:674:await_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:674:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:723:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:674:await_expression:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:723:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:674:await_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:674:691:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:675:690:type_identifier:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:674:691:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:675:690:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:723:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:674:691:type_arguments:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:723:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:674:691:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:692:722:template_string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:693:705:string_fragment:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:692:722:template_string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:693:705:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:705:721:template_substitution->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:707:720:identifier:93",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:705:721:template_substitution",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:707:720:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:692:722:template_string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:705:721:template_substitution:94",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:692:722:template_string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:705:721:template_substitution",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:691:723:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:692:722:template_string:95",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:691:723:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:692:722:template_string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:723:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:691:723:arguments:96",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:723:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:691:723:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:723:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:723:call_expression:97",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:723:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:723:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:641:724:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:723:variable_declarator:98",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:641:724:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:723:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:636:743:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:641:724:lexical_declaration:99",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:636:743:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:641:724:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:728:740:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:735:739:identifier:100",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:728:740:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:735:739:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:636:743:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:728:740:return_statement:101",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:636:743:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:728:740:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:636:743:statement_block:102",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:636:743:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:536:743:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration:103",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:536:743:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:536:743:export_statement:104",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:536:743:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:7:13:identifier",
+      "kind": "identifier",
+      "label": "client",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 1
+        },
+        "end_byte": 13,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:7:13:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:7:13:import_clause",
+      "kind": "import_clause",
+      "label": "client",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 1
+        },
+        "end_byte": 13,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:20:28:string_fragment",
+      "kind": "string_fragment",
+      "label": "./client",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 1
+        },
+        "end_byte": 28,
+        "start": {
+          "column": 20,
+          "line": 1
+        },
+        "start_byte": 20
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:20:28:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:19:29:string",
+      "kind": "string",
+      "label": "\"./client\"",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 19,
+          "line": 1
+        },
+        "start_byte": 19
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:7:13:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:19:29:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:30:import_statement",
+      "kind": "import_statement",
+      "label": "import client from \"./client\";",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 1
+        },
+        "end_byte": 30,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:46:61:identifier",
+      "kind": "identifier",
+      "label": "HeuristicResult",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 2
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 14,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:46:61:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:46:61:import_specifier",
+      "kind": "import_specifier",
+      "label": "HeuristicResult",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 2
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 14,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:46:61:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:named_imports",
+      "kind": "named_imports",
+      "label": "{ HeuristicResult }",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 2
+        },
+        "end_byte": 63,
+        "start": {
+          "column": 12,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:import_clause",
+      "kind": "import_clause",
+      "label": "{ HeuristicResult }",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 2
+        },
+        "end_byte": 63,
+        "start": {
+          "column": 12,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:70:87:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/types/heuristic",
+      "span": {
+        "end": {
+          "column": 55,
+          "line": 2
+        },
+        "end_byte": 87,
+        "start": {
+          "column": 38,
+          "line": 2
+        },
+        "start_byte": 70
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:70:87:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:69:88:string",
+      "kind": "string",
+      "label": "\"@/types/heuristic\"",
+      "span": {
+        "end": {
+          "column": 56,
+          "line": 2
+        },
+        "end_byte": 88,
+        "start": {
+          "column": 37,
+          "line": 2
+        },
+        "start_byte": 69
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:44:63:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:69:88:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:32:89:import_statement",
+      "kind": "import_statement",
+      "label": "import type { HeuristicResult } from \"@/types/heuristic\";",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 2
+        },
+        "end_byte": 89,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 32
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:110:132:type_identifier",
+      "kind": "type_identifier",
+      "label": "HeuristicStatsResponse",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 4
+        },
+        "end_byte": 132,
+        "start": {
+          "column": 17,
+          "line": 4
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:150:property_identifier",
+      "kind": "property_identifier",
+      "label": "total_scored",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 5
+        },
+        "end_byte": 150,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 138
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:152:158:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 5
+        },
+        "end_byte": 158,
+        "start": {
+          "column": 16,
+          "line": 5
+        },
+        "start_byte": 152
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:152:158:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:150:158:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 5
+        },
+        "end_byte": 158,
+        "start": {
+          "column": 14,
+          "line": 5
+        },
+        "start_byte": 150
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:150:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:150:158:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:158:property_signature",
+      "kind": "property_signature",
+      "label": "total_scored: number",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 5
+        },
+        "end_byte": 158,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 138
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:187:property_identifier",
+      "kind": "property_identifier",
+      "label": "most_common_top_typology",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 6
+        },
+        "end_byte": 187,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 163
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:195:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 6
+        },
+        "end_byte": 195,
+        "start": {
+          "column": 28,
+          "line": 6
+        },
+        "start_byte": 189
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:198:202:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 6
+        },
+        "end_byte": 202,
+        "start": {
+          "column": 37,
+          "line": 6
+        },
+        "start_byte": 198
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:198:202:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:198:202:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 6
+        },
+        "end_byte": 202,
+        "start": {
+          "column": 37,
+          "line": 6
+        },
+        "start_byte": 198
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:195:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:198:202:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:202:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 6
+        },
+        "end_byte": 202,
+        "start": {
+          "column": 28,
+          "line": 6
+        },
+        "start_byte": 189
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:189:202:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:187:202:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 6
+        },
+        "end_byte": 202,
+        "start": {
+          "column": 26,
+          "line": 6
+        },
+        "start_byte": 187
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:187:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:187:202:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:202:property_signature",
+      "kind": "property_signature",
+      "label": "most_common_top_typology: string | null",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 6
+        },
+        "end_byte": 202,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 163
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:237:property_identifier",
+      "kind": "property_identifier",
+      "label": "most_common_top_typology_count",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 7
+        },
+        "end_byte": 237,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 207
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:239:245:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 7
+        },
+        "end_byte": 245,
+        "start": {
+          "column": 34,
+          "line": 7
+        },
+        "start_byte": 239
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:239:245:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:237:245:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 7
+        },
+        "end_byte": 245,
+        "start": {
+          "column": 32,
+          "line": 7
+        },
+        "start_byte": 237
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:237:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:237:245:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:245:property_signature",
+      "kind": "property_signature",
+      "label": "most_common_top_typology_count: number",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 7
+        },
+        "end_byte": 245,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 207
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:268:property_identifier",
+      "kind": "property_identifier",
+      "label": "typology_frequency",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 268,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 250
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:276:type_identifier",
+      "kind": "type_identifier",
+      "label": "Record",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 8
+        },
+        "end_byte": 276,
+        "start": {
+          "column": 22,
+          "line": 8
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:277:283:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 8
+        },
+        "end_byte": 283,
+        "start": {
+          "column": 29,
+          "line": 8
+        },
+        "start_byte": 277
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:285:291:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 8
+        },
+        "end_byte": 291,
+        "start": {
+          "column": 37,
+          "line": 8
+        },
+        "start_byte": 285
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:277:283:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:285:291:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:276:292:type_arguments",
+      "kind": "type_arguments",
+      "label": "<string, number>",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 8
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 28,
+          "line": 8
+        },
+        "start_byte": 276
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:276:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:276:292:type_arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:292:generic_type",
+      "kind": "generic_type",
+      "label": "Record<string, number>",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 8
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 22,
+          "line": 8
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:270:292:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:268:292:type_annotation",
+      "kind": "type_annotation",
+      "label": ": Record<string, number>",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 8
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 20,
+          "line": 8
+        },
+        "start_byte": 268
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:268:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:268:292:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:292:property_signature",
+      "kind": "property_signature",
+      "label": "typology_frequency: Record<string, number>",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 8
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 250
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:320:property_identifier",
+      "kind": "property_identifier",
+      "label": "triggered_ids_frequency",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 9
+        },
+        "end_byte": 320,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 297
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:328:type_identifier",
+      "kind": "type_identifier",
+      "label": "Record",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 9
+        },
+        "end_byte": 328,
+        "start": {
+          "column": 27,
+          "line": 9
+        },
+        "start_byte": 322
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:329:335:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 9
+        },
+        "end_byte": 335,
+        "start": {
+          "column": 34,
+          "line": 9
+        },
+        "start_byte": 329
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:337:343:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 9
+        },
+        "end_byte": 343,
+        "start": {
+          "column": 42,
+          "line": 9
+        },
+        "start_byte": 337
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:329:335:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:337:343:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:328:344:type_arguments",
+      "kind": "type_arguments",
+      "label": "<string, number>",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 9
+        },
+        "end_byte": 344,
+        "start": {
+          "column": 33,
+          "line": 9
+        },
+        "start_byte": 328
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:328:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:328:344:type_arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:344:generic_type",
+      "kind": "generic_type",
+      "label": "Record<string, number>",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 9
+        },
+        "end_byte": 344,
+        "start": {
+          "column": 27,
+          "line": 9
+        },
+        "start_byte": 322
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:322:344:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:320:344:type_annotation",
+      "kind": "type_annotation",
+      "label": ": Record<string, number>",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 9
+        },
+        "end_byte": 344,
+        "start": {
+          "column": 25,
+          "line": 9
+        },
+        "start_byte": 320
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:320:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:320:344:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:344:property_signature",
+      "kind": "property_signature",
+      "label": "triggered_ids_frequency: Record<string, number>",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 9
+        },
+        "end_byte": 344,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 297
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:138:158:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:163:202:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:207:245:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:250:292:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:297:344:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  total_scored: number;\r\n  most_common_top_typology: string | null;\r\n  most_common_top_typology_count: number;\r\n  typology_frequency: Record<string, number>;\r\n  triggered_ids_frequency: Record<stri",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 10
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 40,
+          "line": 4
+        },
+        "start_byte": 133
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:110:132:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:133:348:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:100:348:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface HeuristicStatsResponse {\r\n  total_scored: number;\r\n  most_common_top_typology: string | null;\r\n  most_common_top_typology_count: number;\r\n  typology_frequency: Record<string, number>;\r\n  tri",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 10
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 7,
+          "line": 4
+        },
+        "start_byte": 100
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:100:348:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:93:348:export_statement",
+      "kind": "export_statement",
+      "label": "export interface HeuristicStatsResponse {\r\n  total_scored: number;\r\n  most_common_top_typology: string | null;\r\n  most_common_top_typology_count: number;\r\n  typology_frequency: Record<string, number>;",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 10
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 93
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:374:393:identifier",
+      "kind": "identifier",
+      "label": "fetchHeuristicStats",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 12
+        },
+        "end_byte": 393,
+        "start": {
+          "column": 22,
+          "line": 12
+        },
+        "start_byte": 374
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:393:395:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 12
+        },
+        "end_byte": 395,
+        "start": {
+          "column": 41,
+          "line": 12
+        },
+        "start_byte": 393
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:404:type_identifier",
+      "kind": "type_identifier",
+      "label": "Promise",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 12
+        },
+        "end_byte": 404,
+        "start": {
+          "column": 45,
+          "line": 12
+        },
+        "start_byte": 397
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:405:427:type_identifier",
+      "kind": "type_identifier",
+      "label": "HeuristicStatsResponse",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 12
+        },
+        "end_byte": 427,
+        "start": {
+          "column": 53,
+          "line": 12
+        },
+        "start_byte": 405
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:405:427:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:404:428:type_arguments",
+      "kind": "type_arguments",
+      "label": "<HeuristicStatsResponse>",
+      "span": {
+        "end": {
+          "column": 76,
+          "line": 12
+        },
+        "end_byte": 428,
+        "start": {
+          "column": 52,
+          "line": 12
+        },
+        "start_byte": 404
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:404:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:404:428:type_arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:428:generic_type",
+      "kind": "generic_type",
+      "label": "Promise<HeuristicStatsResponse>",
+      "span": {
+        "end": {
+          "column": 76,
+          "line": 12
+        },
+        "end_byte": 428,
+        "start": {
+          "column": 45,
+          "line": 12
+        },
+        "start_byte": 397
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:397:428:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:395:428:type_annotation",
+      "kind": "type_annotation",
+      "label": ": Promise<HeuristicStatsResponse>",
+      "span": {
+        "end": {
+          "column": 76,
+          "line": 12
+        },
+        "end_byte": 428,
+        "start": {
+          "column": 43,
+          "line": 12
+        },
+        "start_byte": 395
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:442:446:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 13
+        },
+        "end_byte": 446,
+        "start": {
+          "column": 10,
+          "line": 13
+        },
+        "start_byte": 442
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:442:446:shorthand_property_identifier_pattern"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:448:object_pattern",
+      "kind": "object_pattern",
+      "label": "{ data }",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 13
+        },
+        "end_byte": 448,
+        "start": {
+          "column": 8,
+          "line": 13
+        },
+        "start_byte": 440
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:463:identifier",
+      "kind": "identifier",
+      "label": "client",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 463,
+        "start": {
+          "column": 25,
+          "line": 13
+        },
+        "start_byte": 457
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:464:467:property_identifier",
+      "kind": "property_identifier",
+      "label": "get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 13
+        },
+        "end_byte": 467,
+        "start": {
+          "column": 32,
+          "line": 13
+        },
+        "start_byte": 464
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:463:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:464:467:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:467:member_expression",
+      "kind": "member_expression",
+      "label": "client.get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 13
+        },
+        "end_byte": 467,
+        "start": {
+          "column": 25,
+          "line": 13
+        },
+        "start_byte": 457
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:457:467:member_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:467:await_expression",
+      "kind": "await_expression",
+      "label": "await client.get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 13
+        },
+        "end_byte": 467,
+        "start": {
+          "column": 19,
+          "line": 13
+        },
+        "start_byte": 451
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:468:490:type_identifier",
+      "kind": "type_identifier",
+      "label": "HeuristicStatsResponse",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 13
+        },
+        "end_byte": 490,
+        "start": {
+          "column": 36,
+          "line": 13
+        },
+        "start_byte": 468
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:468:490:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:467:491:type_arguments",
+      "kind": "type_arguments",
+      "label": "<HeuristicStatsResponse>",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 13
+        },
+        "end_byte": 491,
+        "start": {
+          "column": 35,
+          "line": 13
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:493:510:string_fragment",
+      "kind": "string_fragment",
+      "label": "/heuristics/stats",
+      "span": {
+        "end": {
+          "column": 78,
+          "line": 13
+        },
+        "end_byte": 510,
+        "start": {
+          "column": 61,
+          "line": 13
+        },
+        "start_byte": 493
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:493:510:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:492:511:string",
+      "kind": "string",
+      "label": "\"/heuristics/stats\"",
+      "span": {
+        "end": {
+          "column": 79,
+          "line": 13
+        },
+        "end_byte": 511,
+        "start": {
+          "column": 60,
+          "line": 13
+        },
+        "start_byte": 492
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:492:511:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:491:512:arguments",
+      "kind": "arguments",
+      "label": "(\"/heuristics/stats\")",
+      "span": {
+        "end": {
+          "column": 80,
+          "line": 13
+        },
+        "end_byte": 512,
+        "start": {
+          "column": 59,
+          "line": 13
+        },
+        "start_byte": 491
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:467:await_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:467:491:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:491:512:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:512:call_expression",
+      "kind": "call_expression",
+      "label": "await client.get<HeuristicStatsResponse>(\"/heuristics/stats\")",
+      "span": {
+        "end": {
+          "column": 80,
+          "line": 13
+        },
+        "end_byte": 512,
+        "start": {
+          "column": 19,
+          "line": 13
+        },
+        "start_byte": 451
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:448:object_pattern",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:451:512:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:512:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "{ data } = await client.get<HeuristicStatsResponse>(\"/heuristics/stats\")",
+      "span": {
+        "end": {
+          "column": 80,
+          "line": 13
+        },
+        "end_byte": 512,
+        "start": {
+          "column": 8,
+          "line": 13
+        },
+        "start_byte": 440
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:440:512:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:434:513:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const { data } = await client.get<HeuristicStatsResponse>(\"/heuristics/stats\");",
+      "span": {
+        "end": {
+          "column": 81,
+          "line": 13
+        },
+        "end_byte": 513,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 434
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:524:528:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 14
+        },
+        "end_byte": 528,
+        "start": {
+          "column": 9,
+          "line": 14
+        },
+        "start_byte": 524
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:524:528:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:517:529:return_statement",
+      "kind": "return_statement",
+      "label": "return data;",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 14
+        },
+        "end_byte": 529,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 517
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:434:513:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:517:529:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:429:532:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const { data } = await client.get<HeuristicStatsResponse>(\"/heuristics/stats\");\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 15
+        },
+        "end_byte": 532,
+        "start": {
+          "column": 77,
+          "line": 12
+        },
+        "start_byte": 429
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:374:393:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:393:395:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:395:428:type_annotation",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:429:532:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration",
+      "kind": "function_declaration",
+      "label": "async function fetchHeuristicStats(): Promise<HeuristicStatsResponse> {\r\n  const { data } = await client.get<HeuristicStatsResponse>(\"/heuristics/stats\");\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 15
+        },
+        "end_byte": 532,
+        "start": {
+          "column": 7,
+          "line": 12
+        },
+        "start_byte": 359
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:359:532:function_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:352:532:export_statement",
+      "kind": "export_statement",
+      "label": "export async function fetchHeuristicStats(): Promise<HeuristicStatsResponse> {\r\n  const { data } = await client.get<HeuristicStatsResponse>(\"/heuristics/stats\");\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 15
+        },
+        "end_byte": 532,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 352
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:558:579:identifier",
+      "kind": "identifier",
+      "label": "fetchHeuristicResults",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 17
+        },
+        "end_byte": 579,
+        "start": {
+          "column": 22,
+          "line": 17
+        },
+        "start_byte": 558
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:597:identifier",
+      "kind": "identifier",
+      "label": "transactionId",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 18
+        },
+        "end_byte": 597,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 584
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:599:605:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 18
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 17,
+          "line": 18
+        },
+        "start_byte": 599
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:599:605:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:597:605:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 18
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 15,
+          "line": 18
+        },
+        "start_byte": 597
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:597:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:597:605:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:605:required_parameter",
+      "kind": "required_parameter",
+      "label": "transactionId: string",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 18
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 584
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:584:605:required_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:579:609:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(\r\n  transactionId: string,\r\n)",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 19
+        },
+        "end_byte": 609,
+        "start": {
+          "column": 43,
+          "line": 17
+        },
+        "start_byte": 579
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:618:type_identifier",
+      "kind": "type_identifier",
+      "label": "Promise",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 19
+        },
+        "end_byte": 618,
+        "start": {
+          "column": 3,
+          "line": 19
+        },
+        "start_byte": 611
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:619:634:type_identifier",
+      "kind": "type_identifier",
+      "label": "HeuristicResult",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 19
+        },
+        "end_byte": 634,
+        "start": {
+          "column": 11,
+          "line": 19
+        },
+        "start_byte": 619
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:619:634:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:618:635:type_arguments",
+      "kind": "type_arguments",
+      "label": "<HeuristicResult>",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 19
+        },
+        "end_byte": 635,
+        "start": {
+          "column": 10,
+          "line": 19
+        },
+        "start_byte": 618
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:618:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:618:635:type_arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:635:generic_type",
+      "kind": "generic_type",
+      "label": "Promise<HeuristicResult>",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 19
+        },
+        "end_byte": 635,
+        "start": {
+          "column": 3,
+          "line": 19
+        },
+        "start_byte": 611
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:611:635:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:609:635:type_annotation",
+      "kind": "type_annotation",
+      "label": ": Promise<HeuristicResult>",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 19
+        },
+        "end_byte": 635,
+        "start": {
+          "column": 1,
+          "line": 19
+        },
+        "start_byte": 609
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:649:653:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 20
+        },
+        "end_byte": 653,
+        "start": {
+          "column": 10,
+          "line": 20
+        },
+        "start_byte": 649
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:649:653:shorthand_property_identifier_pattern"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:655:object_pattern",
+      "kind": "object_pattern",
+      "label": "{ data }",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 20
+        },
+        "end_byte": 655,
+        "start": {
+          "column": 8,
+          "line": 20
+        },
+        "start_byte": 647
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:670:identifier",
+      "kind": "identifier",
+      "label": "client",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 20
+        },
+        "end_byte": 670,
+        "start": {
+          "column": 25,
+          "line": 20
+        },
+        "start_byte": 664
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:671:674:property_identifier",
+      "kind": "property_identifier",
+      "label": "get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 20
+        },
+        "end_byte": 674,
+        "start": {
+          "column": 32,
+          "line": 20
+        },
+        "start_byte": 671
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:670:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:671:674:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:674:member_expression",
+      "kind": "member_expression",
+      "label": "client.get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 20
+        },
+        "end_byte": 674,
+        "start": {
+          "column": 25,
+          "line": 20
+        },
+        "start_byte": 664
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:664:674:member_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:674:await_expression",
+      "kind": "await_expression",
+      "label": "await client.get",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 20
+        },
+        "end_byte": 674,
+        "start": {
+          "column": 19,
+          "line": 20
+        },
+        "start_byte": 658
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:675:690:type_identifier",
+      "kind": "type_identifier",
+      "label": "HeuristicResult",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 20
+        },
+        "end_byte": 690,
+        "start": {
+          "column": 36,
+          "line": 20
+        },
+        "start_byte": 675
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:675:690:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:674:691:type_arguments",
+      "kind": "type_arguments",
+      "label": "<HeuristicResult>",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 20
+        },
+        "end_byte": 691,
+        "start": {
+          "column": 35,
+          "line": 20
+        },
+        "start_byte": 674
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:693:705:string_fragment",
+      "kind": "string_fragment",
+      "label": "/heuristics/",
+      "span": {
+        "end": {
+          "column": 66,
+          "line": 20
+        },
+        "end_byte": 705,
+        "start": {
+          "column": 54,
+          "line": 20
+        },
+        "start_byte": 693
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:707:720:identifier",
+      "kind": "identifier",
+      "label": "transactionId",
+      "span": {
+        "end": {
+          "column": 81,
+          "line": 20
+        },
+        "end_byte": 720,
+        "start": {
+          "column": 68,
+          "line": 20
+        },
+        "start_byte": 707
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:707:720:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:705:721:template_substitution",
+      "kind": "template_substitution",
+      "label": "${transactionId}",
+      "span": {
+        "end": {
+          "column": 82,
+          "line": 20
+        },
+        "end_byte": 721,
+        "start": {
+          "column": 66,
+          "line": 20
+        },
+        "start_byte": 705
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:693:705:string_fragment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:705:721:template_substitution"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:692:722:template_string",
+      "kind": "template_string",
+      "label": "`/heuristics/${transactionId}`",
+      "span": {
+        "end": {
+          "column": 83,
+          "line": 20
+        },
+        "end_byte": 722,
+        "start": {
+          "column": 53,
+          "line": 20
+        },
+        "start_byte": 692
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:692:722:template_string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:691:723:arguments",
+      "kind": "arguments",
+      "label": "(`/heuristics/${transactionId}`)",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 20
+        },
+        "end_byte": 723,
+        "start": {
+          "column": 52,
+          "line": 20
+        },
+        "start_byte": 691
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:674:await_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:674:691:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:691:723:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:723:call_expression",
+      "kind": "call_expression",
+      "label": "await client.get<HeuristicResult>(`/heuristics/${transactionId}`)",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 20
+        },
+        "end_byte": 723,
+        "start": {
+          "column": 19,
+          "line": 20
+        },
+        "start_byte": 658
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:655:object_pattern",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:658:723:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:723:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "{ data } = await client.get<HeuristicResult>(`/heuristics/${transactionId}`)",
+      "span": {
+        "end": {
+          "column": 84,
+          "line": 20
+        },
+        "end_byte": 723,
+        "start": {
+          "column": 8,
+          "line": 20
+        },
+        "start_byte": 647
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:647:723:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:641:724:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const { data } = await client.get<HeuristicResult>(`/heuristics/${transactionId}`);",
+      "span": {
+        "end": {
+          "column": 85,
+          "line": 20
+        },
+        "end_byte": 724,
+        "start": {
+          "column": 2,
+          "line": 20
+        },
+        "start_byte": 641
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:735:739:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 21
+        },
+        "end_byte": 739,
+        "start": {
+          "column": 9,
+          "line": 21
+        },
+        "start_byte": 735
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:735:739:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:728:740:return_statement",
+      "kind": "return_statement",
+      "label": "return data;",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 21
+        },
+        "end_byte": 740,
+        "start": {
+          "column": 2,
+          "line": 21
+        },
+        "start_byte": 728
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:641:724:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:728:740:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:636:743:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const { data } = await client.get<HeuristicResult>(`/heuristics/${transactionId}`);\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 22
+        },
+        "end_byte": 743,
+        "start": {
+          "column": 28,
+          "line": 19
+        },
+        "start_byte": 636
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:558:579:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:579:609:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:609:635:type_annotation",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:636:743:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration",
+      "kind": "function_declaration",
+      "label": "async function fetchHeuristicResults(\r\n  transactionId: string,\r\n): Promise<HeuristicResult> {\r\n  const { data } = await client.get<HeuristicResult>(`/heuristics/${transactionId}`);\r\n  return data;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 22
+        },
+        "end_byte": 743,
+        "start": {
+          "column": 7,
+          "line": 17
+        },
+        "start_byte": 543
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:543:743:function_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:536:743:export_statement",
+      "kind": "export_statement",
+      "label": "export async function fetchHeuristicResults(\r\n  transactionId: string,\r\n): Promise<HeuristicResult> {\r\n  const { data } = await client.get<HeuristicResult>(`/heuristics/${transactionId}`);\r\n  return d",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 22
+        },
+        "end_byte": 743,
+        "start": {
+          "column": 0,
+          "line": 17
+        },
+        "start_byte": 536
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:30:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:32:89:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:93:348:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:352:532:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:536:743:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/heuristics.ts:0:745:program",
+      "kind": "program",
+      "label": "import client from \"./client\";\r\nimport type { HeuristicResult } from \"@/types/heuristic\";\r\n\r\nexport interface HeuristicStatsResponse {\r\n  total_scored: number;\r\n  most_common_top_typology: string | nu",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 23
+        },
+        "end_byte": 745,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/api/heuristics.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

@@ -1,0 +1,1447 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:14+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:7:112:type_alias_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:12:29:type_identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:7:112:type_alias_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:12:29:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:38:41:string_fragment:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:38:41:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:string:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:42:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:literal_type:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:42:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:61:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:42:union_type:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:61:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:42:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:49:60:string_fragment:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:49:60:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:string:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:61:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:literal_type:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:61:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:79:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:61:union_type:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:79:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:61:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:68:78:string_fragment:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:68:78:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:string:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:79:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:literal_type:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:79:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:93:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:79:union_type:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:93:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:79:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:86:92:string_fragment:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:86:92:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:string:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:93:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:literal_type:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:93:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:111:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:93:union_type:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:111:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:93:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:100:110:string_fragment:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:100:110:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:string:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:111:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:literal_type:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:111:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:7:112:type_alias_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:111:union_type:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:7:112:type_alias_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:111:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:112:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:7:112:type_alias_declaration:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:112:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:7:112:type_alias_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:292:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:112:export_statement:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:292:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:112:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:123:290:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:133:144:type_identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:123:290:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:133:144:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:166:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:158:property_identifier:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:166:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:158:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:158:166:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:160:166:predefined_type:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:158:166:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:160:166:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:166:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:158:166:type_annotation:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:166:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:158:166:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:166:property_signature:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:166:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:185:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:177:property_identifier:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:185:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:177:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:177:185:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:179:185:predefined_type:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:177:185:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:179:185:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:185:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:177:185:type_annotation:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:185:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:177:185:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:185:property_signature:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:185:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:211:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:203:property_identifier:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:211:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:203:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:203:211:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:205:211:predefined_type:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:203:211:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:205:211:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:211:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:203:211:type_annotation:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:211:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:203:211:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:211:property_signature:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:211:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:232:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:224:property_identifier:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:232:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:224:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:224:232:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:226:232:predefined_type:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:224:232:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:226:232:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:232:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:224:232:type_annotation:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:232:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:224:232:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:232:property_signature:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:232:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:267:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:248:property_identifier:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:267:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:248:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:248:267:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:250:267:type_identifier:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:248:267:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:250:267:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:267:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:248:267:type_annotation:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:267:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:248:267:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:267:property_signature:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:267:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:286:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:278:property_identifier:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:286:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:278:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:278:286:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:280:286:predefined_type:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:278:286:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:280:286:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:286:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:278:286:type_annotation:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:286:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:278:286:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:286:property_signature:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:286:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:123:290:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:123:290:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:116:290:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:123:290:interface_declaration:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:116:290:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:123:290:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:292:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:116:290:export_statement:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:292:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:116:290:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:12:29:type_identifier",
+      "kind": "type_identifier",
+      "label": "EnvironmentFilter",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 12,
+          "line": 1
+        },
+        "start_byte": 12
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:38:41:string_fragment",
+      "kind": "string_fragment",
+      "label": "all",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 2
+        },
+        "end_byte": 41,
+        "start": {
+          "column": 5,
+          "line": 2
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:38:41:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:string",
+      "kind": "string",
+      "label": "\"all\"",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 2
+        },
+        "end_byte": 42,
+        "start": {
+          "column": 4,
+          "line": 2
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:literal_type",
+      "kind": "literal_type",
+      "label": "\"all\"",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 2
+        },
+        "end_byte": 42,
+        "start": {
+          "column": 4,
+          "line": 2
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:37:42:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:42:union_type",
+      "kind": "union_type",
+      "label": "| \"all\"",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 2
+        },
+        "end_byte": 42,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 35
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:49:60:string_fragment",
+      "kind": "string_fragment",
+      "label": "traditional",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 60,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 49
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:49:60:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:string",
+      "kind": "string",
+      "label": "\"traditional\"",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 3
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 4,
+          "line": 3
+        },
+        "start_byte": 48
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:literal_type",
+      "kind": "literal_type",
+      "label": "\"traditional\"",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 3
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 4,
+          "line": 3
+        },
+        "start_byte": 48
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:42:union_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:48:61:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:61:union_type",
+      "kind": "union_type",
+      "label": "| \"all\"\r\n  | \"traditional\"",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 3
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 35
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:68:78:string_fragment",
+      "kind": "string_fragment",
+      "label": "blockchain",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 4
+        },
+        "end_byte": 78,
+        "start": {
+          "column": 5,
+          "line": 4
+        },
+        "start_byte": 68
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:68:78:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:string",
+      "kind": "string",
+      "label": "\"blockchain\"",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 4
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 4,
+          "line": 4
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:literal_type",
+      "kind": "literal_type",
+      "label": "\"blockchain\"",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 4
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 4,
+          "line": 4
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:61:union_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:67:79:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:79:union_type",
+      "kind": "union_type",
+      "label": "| \"all\"\r\n  | \"traditional\"\r\n  | \"blockchain\"",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 4
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 35
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:86:92:string_fragment",
+      "kind": "string_fragment",
+      "label": "hybrid",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 5
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 5,
+          "line": 5
+        },
+        "start_byte": 86
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:86:92:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:string",
+      "kind": "string",
+      "label": "\"hybrid\"",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 93,
+        "start": {
+          "column": 4,
+          "line": 5
+        },
+        "start_byte": 85
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:literal_type",
+      "kind": "literal_type",
+      "label": "\"hybrid\"",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 93,
+        "start": {
+          "column": 4,
+          "line": 5
+        },
+        "start_byte": 85
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:79:union_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:85:93:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:93:union_type",
+      "kind": "union_type",
+      "label": "| \"all\"\r\n  | \"traditional\"\r\n  | \"blockchain\"\r\n  | \"hybrid\"",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 5
+        },
+        "end_byte": 93,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 35
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:100:110:string_fragment",
+      "kind": "string_fragment",
+      "label": "ai_enabled",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 6
+        },
+        "end_byte": 110,
+        "start": {
+          "column": 5,
+          "line": 6
+        },
+        "start_byte": 100
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:100:110:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:string",
+      "kind": "string",
+      "label": "\"ai_enabled\"",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 6
+        },
+        "end_byte": 111,
+        "start": {
+          "column": 4,
+          "line": 6
+        },
+        "start_byte": 99
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:literal_type",
+      "kind": "literal_type",
+      "label": "\"ai_enabled\"",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 6
+        },
+        "end_byte": 111,
+        "start": {
+          "column": 4,
+          "line": 6
+        },
+        "start_byte": 99
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:93:union_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:99:111:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:111:union_type",
+      "kind": "union_type",
+      "label": "| \"all\"\r\n  | \"traditional\"\r\n  | \"blockchain\"\r\n  | \"hybrid\"\r\n  | \"ai_enabled\"",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 6
+        },
+        "end_byte": 111,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 35
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:12:29:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:35:111:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:7:112:type_alias_declaration",
+      "kind": "type_alias_declaration",
+      "label": "type EnvironmentFilter =\r\n  | \"all\"\r\n  | \"traditional\"\r\n  | \"blockchain\"\r\n  | \"hybrid\"\r\n  | \"ai_enabled\";",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 6
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:7:112:type_alias_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:112:export_statement",
+      "kind": "export_statement",
+      "label": "export type EnvironmentFilter =\r\n  | \"all\"\r\n  | \"traditional\"\r\n  | \"blockchain\"\r\n  | \"hybrid\"\r\n  | \"ai_enabled\";",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 6
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:133:144:type_identifier",
+      "kind": "type_identifier",
+      "label": "FilterState",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 8
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 17,
+          "line": 8
+        },
+        "start_byte": 133
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:158:property_identifier",
+      "kind": "property_identifier",
+      "label": "dateFrom",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 9
+        },
+        "end_byte": 158,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 150
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:160:166:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 9
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 12,
+          "line": 9
+        },
+        "start_byte": 160
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:160:166:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:158:166:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 9
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 10,
+          "line": 9
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:158:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:158:166:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:166:property_signature",
+      "kind": "property_signature",
+      "label": "dateFrom: string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 9
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 150
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:177:property_identifier",
+      "kind": "property_identifier",
+      "label": "dateTo",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 10
+        },
+        "end_byte": 177,
+        "start": {
+          "column": 2,
+          "line": 10
+        },
+        "start_byte": 171
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:179:185:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 10
+        },
+        "end_byte": 185,
+        "start": {
+          "column": 10,
+          "line": 10
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:179:185:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:177:185:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 10
+        },
+        "end_byte": 185,
+        "start": {
+          "column": 8,
+          "line": 10
+        },
+        "start_byte": 177
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:177:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:177:185:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:185:property_signature",
+      "kind": "property_signature",
+      "label": "dateTo: string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 10
+        },
+        "end_byte": 185,
+        "start": {
+          "column": 2,
+          "line": 10
+        },
+        "start_byte": 171
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:203:property_identifier",
+      "kind": "property_identifier",
+      "label": "riskThreshold",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 11
+        },
+        "end_byte": 203,
+        "start": {
+          "column": 2,
+          "line": 11
+        },
+        "start_byte": 190
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:205:211:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 11
+        },
+        "end_byte": 211,
+        "start": {
+          "column": 17,
+          "line": 11
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:205:211:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:203:211:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 11
+        },
+        "end_byte": 211,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 203
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:203:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:203:211:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:211:property_signature",
+      "kind": "property_signature",
+      "label": "riskThreshold: number",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 11
+        },
+        "end_byte": 211,
+        "start": {
+          "column": 2,
+          "line": 11
+        },
+        "start_byte": 190
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:224:property_identifier",
+      "kind": "property_identifier",
+      "label": "typology",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 12
+        },
+        "end_byte": 224,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 216
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:226:232:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 12
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 12,
+          "line": 12
+        },
+        "start_byte": 226
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:226:232:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:224:232:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 12
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 10,
+          "line": 12
+        },
+        "start_byte": 224
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:224:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:224:232:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:232:property_signature",
+      "kind": "property_signature",
+      "label": "typology: string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 12
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 216
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:248:property_identifier",
+      "kind": "property_identifier",
+      "label": "environment",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 13
+        },
+        "end_byte": 248,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 237
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:250:267:type_identifier",
+      "kind": "type_identifier",
+      "label": "EnvironmentFilter",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 15,
+          "line": 13
+        },
+        "start_byte": 250
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:250:267:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:248:267:type_annotation",
+      "kind": "type_annotation",
+      "label": ": EnvironmentFilter",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 13,
+          "line": 13
+        },
+        "start_byte": 248
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:248:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:248:267:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:267:property_signature",
+      "kind": "property_signature",
+      "label": "environment: EnvironmentFilter",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 237
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:278:property_identifier",
+      "kind": "property_identifier",
+      "label": "search",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 14
+        },
+        "end_byte": 278,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 272
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:280:286:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 14
+        },
+        "end_byte": 286,
+        "start": {
+          "column": 10,
+          "line": 14
+        },
+        "start_byte": 280
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:280:286:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:278:286:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 14
+        },
+        "end_byte": 286,
+        "start": {
+          "column": 8,
+          "line": 14
+        },
+        "start_byte": 278
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:278:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:278:286:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:286:property_signature",
+      "kind": "property_signature",
+      "label": "search: string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 14
+        },
+        "end_byte": 286,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 272
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:150:166:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:171:185:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:190:211:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:216:232:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:237:267:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:272:286:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  dateFrom: string;\r\n  dateTo: string;\r\n  riskThreshold: number;\r\n  typology: string;\r\n  environment: EnvironmentFilter;\r\n  search: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 15
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 29,
+          "line": 8
+        },
+        "start_byte": 145
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:133:144:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:145:290:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:123:290:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface FilterState {\r\n  dateFrom: string;\r\n  dateTo: string;\r\n  riskThreshold: number;\r\n  typology: string;\r\n  environment: EnvironmentFilter;\r\n  search: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 15
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 7,
+          "line": 8
+        },
+        "start_byte": 123
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:123:290:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:116:290:export_statement",
+      "kind": "export_statement",
+      "label": "export interface FilterState {\r\n  dateFrom: string;\r\n  dateTo: string;\r\n  riskThreshold: number;\r\n  typology: string;\r\n  environment: EnvironmentFilter;\r\n  search: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 15
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 0,
+          "line": 8
+        },
+        "start_byte": 116
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:112:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:116:290:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/filters.ts:0:292:program",
+      "kind": "program",
+      "label": "export type EnvironmentFilter =\r\n  | \"all\"\r\n  | \"traditional\"\r\n  | \"blockchain\"\r\n  | \"hybrid\"\r\n  | \"ai_enabled\";\r\n\r\nexport interface FilterState {\r\n  dateFrom: string;\r\n  dateTo: string;\r\n  riskThresh",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 16
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/types/filters.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

@@ -1,0 +1,2362 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:43+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:59:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:59:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:3:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:59:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:3:56:string_content:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:59:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:3:56:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:59:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:56:59:string_end:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:59:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:56:59:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:59:string:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:59:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:71:identifier:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:71:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:72:80:identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:72:80:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:81:84:identifier:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:81:84:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:85:95:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:85:95:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:110:122:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:110:122:identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:110:122:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:110:122:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:110:122:dotted_name:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:110:122:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:129:144:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:129:144:identifier:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:129:144:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:129:144:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:129:144:dotted_name:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:129:144:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:151:170:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:151:170:identifier:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:151:170:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:151:170:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:151:170:dotted_name:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:151:170:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:177:202:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:177:202:identifier:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:177:202:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:177:202:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:177:202:dotted_name:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:177:202:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:209:232:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:209:232:identifier:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:209:232:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:209:232:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:209:232:dotted_name:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:209:232:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:239:266:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:239:266:identifier:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:239:266:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:239:266:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:239:266:dotted_name:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:239:266:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:280:identifier:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:280:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:281:289:identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:281:289:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:290:293:identifier:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:290:293:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:294:305:identifier:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:294:305:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:272:326:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:272:326:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:313:326:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:313:326:identifier:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:313:326:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:313:326:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:272:326:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:313:326:dotted_name:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:272:326:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:313:326:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:272:326:import_from_statement:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:272:326:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:336:identifier:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:336:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:337:345:identifier:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:337:345:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:346:349:identifier:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:346:349:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:350:359:identifier:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:350:359:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:328:385:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:328:385:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:367:385:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:367:385:identifier:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:367:385:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:367:385:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:328:385:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:367:385:dotted_name:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:328:385:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:367:385:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:328:385:import_from_statement:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:328:385:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:395:identifier:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:395:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:396:404:identifier:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:396:404:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:405:408:identifier:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:405:408:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:409:422:identifier:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:409:422:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:387:445:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:387:445:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:430:445:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:430:445:identifier:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:430:445:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:430:445:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:387:445:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:430:445:dotted_name:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:387:445:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:430:445:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:387:445:import_from_statement:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:387:445:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:711:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:456:identifier:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:711:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:456:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:480:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:467:string_start:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:480:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:467:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:480:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:467:479:string_content:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:480:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:467:479:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:480:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:479:480:string_end:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:480:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:479:480:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:480:string:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:480:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:504:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:488:string_start:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:504:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:488:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:504:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:488:503:string_content:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:504:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:488:503:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:504:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:503:504:string_end:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:504:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:503:504:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:504:string:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:504:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:532:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:512:string_start:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:532:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:512:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:532:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:512:531:string_content:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:532:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:512:531:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:532:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:531:532:string_end:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:532:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:531:532:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:532:string:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:532:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:566:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:540:string_start:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:566:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:540:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:566:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:540:565:string_content:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:566:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:540:565:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:566:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:565:566:string_end:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:566:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:565:566:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:566:string:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:566:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:598:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:574:string_start:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:598:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:574:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:598:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:574:597:string_content:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:598:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:574:597:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:598:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:597:598:string_end:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:598:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:597:598:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:598:string:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:598:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:634:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:606:string_start:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:634:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:606:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:634:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:606:633:string_content:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:634:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:606:633:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:634:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:633:634:string_end:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:634:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:633:634:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:634:string:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:634:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:656:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:642:string_start:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:656:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:642:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:656:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:642:655:string_content:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:656:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:642:655:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:656:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:655:656:string_end:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:656:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:655:656:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:656:string:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:656:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:683:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:664:string_start:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:683:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:664:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:683:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:664:682:string_content:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:683:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:664:682:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:683:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:682:683:string_end:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:683:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:682:683:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:683:string:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:683:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:707:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:691:string_start:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:707:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:691:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:707:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:691:706:string_content:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:707:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:691:706:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:707:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:706:707:string_end:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:707:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:706:707:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:707:string:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:707:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:711:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:711:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:711:assignment:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:711:assignment",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 1
+        },
+        "end_byte": 3,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:3:56:string_content",
+      "kind": "string_content",
+      "label": "SAR (Suspicious Activity Report) generation services.",
+      "span": {
+        "end": {
+          "column": 56,
+          "line": 1
+        },
+        "end_byte": 56,
+        "start": {
+          "column": 3,
+          "line": 1
+        },
+        "start_byte": 3
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:56:59:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 1
+        },
+        "end_byte": 59,
+        "start": {
+          "column": 56,
+          "line": 1
+        },
+        "start_byte": 56
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:3:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:3:56:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:56:59:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:59:string",
+      "kind": "string",
+      "label": "\"\"\"SAR (Suspicious Activity Report) generation services.\"\"\"",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 1
+        },
+        "end_byte": 59,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:71:identifier",
+      "kind": "identifier",
+      "label": "app",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 3
+        },
+        "end_byte": 71,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 68
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:72:80:identifier",
+      "kind": "identifier",
+      "label": "services",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 3
+        },
+        "end_byte": 80,
+        "start": {
+          "column": 9,
+          "line": 3
+        },
+        "start_byte": 72
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:81:84:identifier",
+      "kind": "identifier",
+      "label": "sar",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 3
+        },
+        "end_byte": 84,
+        "start": {
+          "column": 18,
+          "line": 3
+        },
+        "start_byte": 81
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:85:95:identifier",
+      "kind": "identifier",
+      "label": "validation",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 3
+        },
+        "end_byte": 95,
+        "start": {
+          "column": 22,
+          "line": 3
+        },
+        "start_byte": 85
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:71:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:72:80:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:81:84:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:85:95:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name",
+      "kind": "dotted_name",
+      "label": "app.services.sar.validation",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 3
+        },
+        "end_byte": 95,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 68
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:110:122:identifier",
+      "kind": "identifier",
+      "label": "validate_tin",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 4
+        },
+        "end_byte": 122,
+        "start": {
+          "column": 4,
+          "line": 4
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:110:122:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:110:122:dotted_name",
+      "kind": "dotted_name",
+      "label": "validate_tin",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 4
+        },
+        "end_byte": 122,
+        "start": {
+          "column": 4,
+          "line": 4
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:129:144:identifier",
+      "kind": "identifier",
+      "label": "validate_amount",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 5
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 4,
+          "line": 5
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:129:144:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:129:144:dotted_name",
+      "kind": "dotted_name",
+      "label": "validate_amount",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 5
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 4,
+          "line": 5
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:151:170:identifier",
+      "kind": "identifier",
+      "label": "validate_date_range",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 170,
+        "start": {
+          "column": 4,
+          "line": 6
+        },
+        "start_byte": 151
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:151:170:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:151:170:dotted_name",
+      "kind": "dotted_name",
+      "label": "validate_date_range",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 6
+        },
+        "end_byte": 170,
+        "start": {
+          "column": 4,
+          "line": 6
+        },
+        "start_byte": 151
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:177:202:identifier",
+      "kind": "identifier",
+      "label": "validate_narrative_length",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 7
+        },
+        "end_byte": 202,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 177
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:177:202:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:177:202:dotted_name",
+      "kind": "dotted_name",
+      "label": "validate_narrative_length",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 7
+        },
+        "end_byte": 202,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 177
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:209:232:identifier",
+      "kind": "identifier",
+      "label": "validate_activity_types",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 8
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:209:232:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:209:232:dotted_name",
+      "kind": "dotted_name",
+      "label": "validate_activity_types",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 8
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:239:266:identifier",
+      "kind": "identifier",
+      "label": "validate_sar_layout_payload",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 9
+        },
+        "end_byte": 266,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 239
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:239:266:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:239:266:dotted_name",
+      "kind": "dotted_name",
+      "label": "validate_sar_layout_payload",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 9
+        },
+        "end_byte": 266,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 239
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:68:95:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:110:122:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:129:144:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:151:170:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:177:202:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:209:232:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:239:266:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from app.services.sar.validation import (\r\n    validate_tin,\r\n    validate_amount,\r\n    validate_date_range,\r\n    validate_narrative_length,\r\n    validate_activity_types,\r\n    validate_sar_layout_payl",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 10
+        },
+        "end_byte": 270,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 63
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:280:identifier",
+      "kind": "identifier",
+      "label": "app",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 11
+        },
+        "end_byte": 280,
+        "start": {
+          "column": 5,
+          "line": 11
+        },
+        "start_byte": 277
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:281:289:identifier",
+      "kind": "identifier",
+      "label": "services",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 11
+        },
+        "end_byte": 289,
+        "start": {
+          "column": 9,
+          "line": 11
+        },
+        "start_byte": 281
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:290:293:identifier",
+      "kind": "identifier",
+      "label": "sar",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 11
+        },
+        "end_byte": 293,
+        "start": {
+          "column": 18,
+          "line": 11
+        },
+        "start_byte": 290
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:294:305:identifier",
+      "kind": "identifier",
+      "label": "data_mapper",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 305,
+        "start": {
+          "column": 22,
+          "line": 11
+        },
+        "start_byte": 294
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:280:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:281:289:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:290:293:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:294:305:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name",
+      "kind": "dotted_name",
+      "label": "app.services.sar.data_mapper",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 305,
+        "start": {
+          "column": 5,
+          "line": 11
+        },
+        "start_byte": 277
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:313:326:identifier",
+      "kind": "identifier",
+      "label": "SARDataMapper",
+      "span": {
+        "end": {
+          "column": 54,
+          "line": 11
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 41,
+          "line": 11
+        },
+        "start_byte": 313
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:313:326:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:313:326:dotted_name",
+      "kind": "dotted_name",
+      "label": "SARDataMapper",
+      "span": {
+        "end": {
+          "column": 54,
+          "line": 11
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 41,
+          "line": 11
+        },
+        "start_byte": 313
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:277:305:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:313:326:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:272:326:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from app.services.sar.data_mapper import SARDataMapper",
+      "span": {
+        "end": {
+          "column": 54,
+          "line": 11
+        },
+        "end_byte": 326,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 272
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:336:identifier",
+      "kind": "identifier",
+      "label": "app",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 12
+        },
+        "end_byte": 336,
+        "start": {
+          "column": 5,
+          "line": 12
+        },
+        "start_byte": 333
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:337:345:identifier",
+      "kind": "identifier",
+      "label": "services",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 12
+        },
+        "end_byte": 345,
+        "start": {
+          "column": 9,
+          "line": 12
+        },
+        "start_byte": 337
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:346:349:identifier",
+      "kind": "identifier",
+      "label": "sar",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 12
+        },
+        "end_byte": 349,
+        "start": {
+          "column": 18,
+          "line": 12
+        },
+        "start_byte": 346
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:350:359:identifier",
+      "kind": "identifier",
+      "label": "formatter",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 12
+        },
+        "end_byte": 359,
+        "start": {
+          "column": 22,
+          "line": 12
+        },
+        "start_byte": 350
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:336:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:337:345:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:346:349:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:350:359:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name",
+      "kind": "dotted_name",
+      "label": "app.services.sar.formatter",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 12
+        },
+        "end_byte": 359,
+        "start": {
+          "column": 5,
+          "line": 12
+        },
+        "start_byte": 333
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:367:385:identifier",
+      "kind": "identifier",
+      "label": "SARReportFormatter",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 12
+        },
+        "end_byte": 385,
+        "start": {
+          "column": 39,
+          "line": 12
+        },
+        "start_byte": 367
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:367:385:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:367:385:dotted_name",
+      "kind": "dotted_name",
+      "label": "SARReportFormatter",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 12
+        },
+        "end_byte": 385,
+        "start": {
+          "column": 39,
+          "line": 12
+        },
+        "start_byte": 367
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:333:359:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:367:385:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:328:385:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from app.services.sar.formatter import SARReportFormatter",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 12
+        },
+        "end_byte": 385,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 328
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:395:identifier",
+      "kind": "identifier",
+      "label": "app",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 13
+        },
+        "end_byte": 395,
+        "start": {
+          "column": 5,
+          "line": 13
+        },
+        "start_byte": 392
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:396:404:identifier",
+      "kind": "identifier",
+      "label": "services",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 13
+        },
+        "end_byte": 404,
+        "start": {
+          "column": 9,
+          "line": 13
+        },
+        "start_byte": 396
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:405:408:identifier",
+      "kind": "identifier",
+      "label": "sar",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 13
+        },
+        "end_byte": 408,
+        "start": {
+          "column": 18,
+          "line": 13
+        },
+        "start_byte": 405
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:409:422:identifier",
+      "kind": "identifier",
+      "label": "pdf_generator",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 13
+        },
+        "end_byte": 422,
+        "start": {
+          "column": 22,
+          "line": 13
+        },
+        "start_byte": 409
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:395:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:396:404:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:405:408:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:409:422:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name",
+      "kind": "dotted_name",
+      "label": "app.services.sar.pdf_generator",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 13
+        },
+        "end_byte": 422,
+        "start": {
+          "column": 5,
+          "line": 13
+        },
+        "start_byte": 392
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:430:445:identifier",
+      "kind": "identifier",
+      "label": "SARPDFGenerator",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 13
+        },
+        "end_byte": 445,
+        "start": {
+          "column": 43,
+          "line": 13
+        },
+        "start_byte": 430
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:430:445:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:430:445:dotted_name",
+      "kind": "dotted_name",
+      "label": "SARPDFGenerator",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 13
+        },
+        "end_byte": 445,
+        "start": {
+          "column": 43,
+          "line": 13
+        },
+        "start_byte": 430
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:392:422:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:430:445:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:387:445:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from app.services.sar.pdf_generator import SARPDFGenerator",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 13
+        },
+        "end_byte": 445,
+        "start": {
+          "column": 0,
+          "line": 13
+        },
+        "start_byte": 387
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:456:identifier",
+      "kind": "identifier",
+      "label": "__all__",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 15
+        },
+        "end_byte": 456,
+        "start": {
+          "column": 0,
+          "line": 15
+        },
+        "start_byte": 449
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:467:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 16
+        },
+        "end_byte": 467,
+        "start": {
+          "column": 4,
+          "line": 16
+        },
+        "start_byte": 466
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:467:479:string_content",
+      "kind": "string_content",
+      "label": "validate_tin",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 16
+        },
+        "end_byte": 479,
+        "start": {
+          "column": 5,
+          "line": 16
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:479:480:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 16
+        },
+        "end_byte": 480,
+        "start": {
+          "column": 17,
+          "line": 16
+        },
+        "start_byte": 479
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:467:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:467:479:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:479:480:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:480:string",
+      "kind": "string",
+      "label": "\"validate_tin\"",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 16
+        },
+        "end_byte": 480,
+        "start": {
+          "column": 4,
+          "line": 16
+        },
+        "start_byte": 466
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:488:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 17
+        },
+        "end_byte": 488,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 487
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:488:503:string_content",
+      "kind": "string_content",
+      "label": "validate_amount",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 17
+        },
+        "end_byte": 503,
+        "start": {
+          "column": 5,
+          "line": 17
+        },
+        "start_byte": 488
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:503:504:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 17
+        },
+        "end_byte": 504,
+        "start": {
+          "column": 20,
+          "line": 17
+        },
+        "start_byte": 503
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:488:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:488:503:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:503:504:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:504:string",
+      "kind": "string",
+      "label": "\"validate_amount\"",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 17
+        },
+        "end_byte": 504,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 487
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:512:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 18
+        },
+        "end_byte": 512,
+        "start": {
+          "column": 4,
+          "line": 18
+        },
+        "start_byte": 511
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:512:531:string_content",
+      "kind": "string_content",
+      "label": "validate_date_range",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 18
+        },
+        "end_byte": 531,
+        "start": {
+          "column": 5,
+          "line": 18
+        },
+        "start_byte": 512
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:531:532:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 18
+        },
+        "end_byte": 532,
+        "start": {
+          "column": 24,
+          "line": 18
+        },
+        "start_byte": 531
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:512:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:512:531:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:531:532:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:532:string",
+      "kind": "string",
+      "label": "\"validate_date_range\"",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 18
+        },
+        "end_byte": 532,
+        "start": {
+          "column": 4,
+          "line": 18
+        },
+        "start_byte": 511
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:540:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 19
+        },
+        "end_byte": 540,
+        "start": {
+          "column": 4,
+          "line": 19
+        },
+        "start_byte": 539
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:540:565:string_content",
+      "kind": "string_content",
+      "label": "validate_narrative_length",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 19
+        },
+        "end_byte": 565,
+        "start": {
+          "column": 5,
+          "line": 19
+        },
+        "start_byte": 540
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:565:566:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 19
+        },
+        "end_byte": 566,
+        "start": {
+          "column": 30,
+          "line": 19
+        },
+        "start_byte": 565
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:540:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:540:565:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:565:566:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:566:string",
+      "kind": "string",
+      "label": "\"validate_narrative_length\"",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 19
+        },
+        "end_byte": 566,
+        "start": {
+          "column": 4,
+          "line": 19
+        },
+        "start_byte": 539
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:574:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 20
+        },
+        "end_byte": 574,
+        "start": {
+          "column": 4,
+          "line": 20
+        },
+        "start_byte": 573
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:574:597:string_content",
+      "kind": "string_content",
+      "label": "validate_activity_types",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 20
+        },
+        "end_byte": 597,
+        "start": {
+          "column": 5,
+          "line": 20
+        },
+        "start_byte": 574
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:597:598:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 20
+        },
+        "end_byte": 598,
+        "start": {
+          "column": 28,
+          "line": 20
+        },
+        "start_byte": 597
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:574:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:574:597:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:597:598:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:598:string",
+      "kind": "string",
+      "label": "\"validate_activity_types\"",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 20
+        },
+        "end_byte": 598,
+        "start": {
+          "column": 4,
+          "line": 20
+        },
+        "start_byte": 573
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:606:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 21
+        },
+        "end_byte": 606,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 605
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:606:633:string_content",
+      "kind": "string_content",
+      "label": "validate_sar_layout_payload",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 21
+        },
+        "end_byte": 633,
+        "start": {
+          "column": 5,
+          "line": 21
+        },
+        "start_byte": 606
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:633:634:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 21
+        },
+        "end_byte": 634,
+        "start": {
+          "column": 32,
+          "line": 21
+        },
+        "start_byte": 633
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:606:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:606:633:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:633:634:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:634:string",
+      "kind": "string",
+      "label": "\"validate_sar_layout_payload\"",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 21
+        },
+        "end_byte": 634,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 605
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:642:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 22
+        },
+        "end_byte": 642,
+        "start": {
+          "column": 4,
+          "line": 22
+        },
+        "start_byte": 641
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:642:655:string_content",
+      "kind": "string_content",
+      "label": "SARDataMapper",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 22
+        },
+        "end_byte": 655,
+        "start": {
+          "column": 5,
+          "line": 22
+        },
+        "start_byte": 642
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:655:656:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 22
+        },
+        "end_byte": 656,
+        "start": {
+          "column": 18,
+          "line": 22
+        },
+        "start_byte": 655
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:642:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:642:655:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:655:656:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:656:string",
+      "kind": "string",
+      "label": "\"SARDataMapper\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 22
+        },
+        "end_byte": 656,
+        "start": {
+          "column": 4,
+          "line": 22
+        },
+        "start_byte": 641
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:664:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 23
+        },
+        "end_byte": 664,
+        "start": {
+          "column": 4,
+          "line": 23
+        },
+        "start_byte": 663
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:664:682:string_content",
+      "kind": "string_content",
+      "label": "SARReportFormatter",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 23
+        },
+        "end_byte": 682,
+        "start": {
+          "column": 5,
+          "line": 23
+        },
+        "start_byte": 664
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:682:683:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 23
+        },
+        "end_byte": 683,
+        "start": {
+          "column": 23,
+          "line": 23
+        },
+        "start_byte": 682
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:664:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:664:682:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:682:683:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:683:string",
+      "kind": "string",
+      "label": "\"SARReportFormatter\"",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 23
+        },
+        "end_byte": 683,
+        "start": {
+          "column": 4,
+          "line": 23
+        },
+        "start_byte": 663
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:691:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 24
+        },
+        "end_byte": 691,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 690
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:691:706:string_content",
+      "kind": "string_content",
+      "label": "SARPDFGenerator",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 24
+        },
+        "end_byte": 706,
+        "start": {
+          "column": 5,
+          "line": 24
+        },
+        "start_byte": 691
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:706:707:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 24
+        },
+        "end_byte": 707,
+        "start": {
+          "column": 20,
+          "line": 24
+        },
+        "start_byte": 706
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:691:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:691:706:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:706:707:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:707:string",
+      "kind": "string",
+      "label": "\"SARPDFGenerator\"",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 24
+        },
+        "end_byte": 707,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 690
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:466:480:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:487:504:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:511:532:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:539:566:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:573:598:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:605:634:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:641:656:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:663:683:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:690:707:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list",
+      "kind": "list",
+      "label": "[\r\n    \"validate_tin\",\r\n    \"validate_amount\",\r\n    \"validate_date_range\",\r\n    \"validate_narrative_length\",\r\n    \"validate_activity_types\",\r\n    \"validate_sar_layout_payload\",\r\n    \"SARDataMapper\",\r\n",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 25
+        },
+        "end_byte": 711,
+        "start": {
+          "column": 10,
+          "line": 15
+        },
+        "start_byte": 459
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:456:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:459:711:list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:711:assignment",
+      "kind": "assignment",
+      "label": "__all__ = [\r\n    \"validate_tin\",\r\n    \"validate_amount\",\r\n    \"validate_date_range\",\r\n    \"validate_narrative_length\",\r\n    \"validate_activity_types\",\r\n    \"validate_sar_layout_payload\",\r\n    \"SARData",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 25
+        },
+        "end_byte": 711,
+        "start": {
+          "column": 0,
+          "line": 15
+        },
+        "start_byte": 449
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:59:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:63:270:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:272:326:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:328:385:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:387:445:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:449:711:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/services/sar/__init__.py:0:713:module",
+      "kind": "module",
+      "label": "\"\"\"SAR (Suspicious Activity Report) generation services.\"\"\"\r\n\r\nfrom app.services.sar.validation import (\r\n    validate_tin,\r\n    validate_amount,\r\n    validate_date_range,\r\n    validate_narrative_leng",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 26
+        },
+        "end_byte": 713,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/app/services/sar/__init__.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

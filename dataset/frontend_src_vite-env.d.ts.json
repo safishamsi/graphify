@@ -1,0 +1,397 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:18+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:0:123:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:0:37:comment:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:0:123:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:0:37:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:56:63:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:57:62:string_fragment:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:56:63:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:57:62:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:49:121:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:56:63:string:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:49:121:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:56:63:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:90:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:82:identifier:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:90:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:82:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:82:90:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:84:90:predefined_type:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:82:90:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:84:90:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:90:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:82:90:type_annotation:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:90:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:82:90:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:69:91:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:90:variable_declarator:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:69:91:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:90:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:64:121:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:69:91:lexical_declaration:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:64:121:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:69:91:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:95:118:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:110:117:identifier:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:95:118:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:110:117:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:64:121:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:95:118:export_statement:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:64:121:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:95:118:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:49:121:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:64:121:statement_block:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:49:121:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:64:121:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:41:121:ambient_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:49:121:module:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:41:121:ambient_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:49:121:module",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:0:123:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:41:121:ambient_declaration:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:0:123:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:41:121:ambient_declaration",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:0:37:comment",
+      "kind": "comment",
+      "label": "/// <reference types=\"vite/client\" />",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 1
+        },
+        "end_byte": 37,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:57:62:string_fragment",
+      "kind": "string_fragment",
+      "label": "*.css",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 3
+        },
+        "end_byte": 62,
+        "start": {
+          "column": 16,
+          "line": 3
+        },
+        "start_byte": 57
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:57:62:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:56:63:string",
+      "kind": "string",
+      "label": "\"*.css\"",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 3
+        },
+        "end_byte": 63,
+        "start": {
+          "column": 15,
+          "line": 3
+        },
+        "start_byte": 56
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:82:identifier",
+      "kind": "identifier",
+      "label": "content",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 4
+        },
+        "end_byte": 82,
+        "start": {
+          "column": 8,
+          "line": 4
+        },
+        "start_byte": 75
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:84:90:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 4
+        },
+        "end_byte": 90,
+        "start": {
+          "column": 17,
+          "line": 4
+        },
+        "start_byte": 84
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:84:90:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:82:90:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 4
+        },
+        "end_byte": 90,
+        "start": {
+          "column": 15,
+          "line": 4
+        },
+        "start_byte": 82
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:82:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:82:90:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:90:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "content: string",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 4
+        },
+        "end_byte": 90,
+        "start": {
+          "column": 8,
+          "line": 4
+        },
+        "start_byte": 75
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:75:90:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:69:91:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const content: string;",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 4
+        },
+        "end_byte": 91,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 69
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:110:117:identifier",
+      "kind": "identifier",
+      "label": "content",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 117,
+        "start": {
+          "column": 17,
+          "line": 5
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:110:117:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:95:118:export_statement",
+      "kind": "export_statement",
+      "label": "export default content;",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 5
+        },
+        "end_byte": 118,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 95
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:69:91:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:95:118:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:64:121:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const content: string;\r\n  export default content;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 6
+        },
+        "end_byte": 121,
+        "start": {
+          "column": 23,
+          "line": 3
+        },
+        "start_byte": 64
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:56:63:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:64:121:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:49:121:module",
+      "kind": "module",
+      "label": "module \"*.css\" {\r\n  const content: string;\r\n  export default content;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 6
+        },
+        "end_byte": 121,
+        "start": {
+          "column": 8,
+          "line": 3
+        },
+        "start_byte": 49
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:49:121:module"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:41:121:ambient_declaration",
+      "kind": "ambient_declaration",
+      "label": "declare module \"*.css\" {\r\n  const content: string;\r\n  export default content;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 6
+        },
+        "end_byte": 121,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 41
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:0:37:comment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:41:121:ambient_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/vite-env.d.ts:0:123:program",
+      "kind": "program",
+      "label": "/// <reference types=\"vite/client\" />\r\n\r\ndeclare module \"*.css\" {\r\n  const content: string;\r\n  export default content;\r\n}\r\n",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 7
+        },
+        "end_byte": 123,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/vite-env.d.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

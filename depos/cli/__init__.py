@@ -72,6 +72,29 @@ def _build_parser() -> argparse.ArgumentParser:
     bundle_pipeline.add_argument("--cache-dir")
     bundle_pipeline.add_argument("--device")
     bundle_pipeline.add_argument("--local-files-only", action="store_true")
+    bundle_pipeline.add_argument(
+        "--source-root",
+        action="append",
+        default=[],
+        help="Additional directory to search for source files when reading snippets. May be passed multiple times.",
+    )
+    bundle_pipeline.add_argument(
+        "--path-alias",
+        action="append",
+        default=[],
+        help="Rewrite source-file paths before reading. Format: --path-alias from=to (e.g., src/=apps/api/src/).",
+    )
+    bundle_pipeline.add_argument(
+        "--min-evidence",
+        choices=["full", "embedded", "label_only"],
+        default=None,
+        help="Skip bundles whose dominant snippet quality falls below this threshold.",
+    )
+    bundle_pipeline.add_argument(
+        "--strict",
+        action="store_true",
+        help="Exit non-zero when reasoner_run_health is degraded/failed or when path resolution is poor.",
+    )
 
     normalize_dataset = a_sub.add_parser("normalize-dataset", help="Normalize raw dataset AST JSON into a richer node-link graph.")
     normalize_dataset.add_argument("--dataset-dir", required=True)
@@ -92,6 +115,29 @@ def _build_parser() -> argparse.ArgumentParser:
     dataset_pipeline.add_argument("--cache-dir")
     dataset_pipeline.add_argument("--device")
     dataset_pipeline.add_argument("--local-files-only", action="store_true")
+    dataset_pipeline.add_argument(
+        "--source-root",
+        action="append",
+        default=[],
+        help="Additional directory to search for source files referenced by AST nodes. May be passed multiple times.",
+    )
+    dataset_pipeline.add_argument(
+        "--path-alias",
+        action="append",
+        default=[],
+        help="Rewrite source-file paths before reading. Format: --path-alias from=to (e.g., src/=apps/api/src/).",
+    )
+    dataset_pipeline.add_argument(
+        "--min-evidence",
+        choices=["full", "embedded", "label_only"],
+        default=None,
+        help="Skip bundles whose dominant snippet quality falls below this threshold.",
+    )
+    dataset_pipeline.add_argument(
+        "--strict",
+        action="store_true",
+        help="Exit non-zero when reasoner_run_health is degraded/failed or when path resolution is poor.",
+    )
 
     coverage = a_sub.add_parser("coverage", help="Print StitcherCoverageReport only.")
     coverage.add_argument("--path")
@@ -103,6 +149,15 @@ def _build_parser() -> argparse.ArgumentParser:
     explain_cmd = d_sub.add_parser("explain", help="Explain one detector.")
     explain_cmd.add_argument("name")
     explain_cmd.add_argument("--json", action="store_true")
+
+    replay_cmd = d_sub.add_parser(
+        "replay",
+        help="Re-issue queued reasoner attempts from a prior run without re-running upstream stages.",
+    )
+    replay_cmd.add_argument("--run-id", required=True)
+    replay_cmd.add_argument("--mode", choices=["A", "B", "C"], default=None)
+    replay_cmd.add_argument("--max", type=int, default=None)
+    replay_cmd.add_argument("--provider", default=None)
 
     return p
 
@@ -157,6 +212,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             from depos.cli.analyze import run_detectors_explain
 
             return run_detectors_explain(args)
+        if args.detectors_command == "replay":
+            from depos.cli.analyze import run_detectors_replay
+
+            return run_detectors_replay(args)
         parser.error(f"unknown detectors subcommand: {args.detectors_command}")
         return 2
     parser.error(f"unknown command: {args.command}")

@@ -1,0 +1,3091 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:25+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:33:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:33:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:3:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:33:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:3:30:string_content:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:33:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:3:30:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:33:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:30:33:string_end:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:33:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:30:33:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:33:string:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:33:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:40:47:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:40:47:identifier:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:40:47:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:40:47:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:35:79:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:40:47:dotted_name:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:35:79:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:40:47:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:55:64:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:55:64:identifier:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:55:64:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:55:64:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:35:79:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:55:64:dotted_name:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:35:79:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:55:64:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:66:79:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:66:79:identifier:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:66:79:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:66:79:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:35:79:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:66:79:dotted_name:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:35:79:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:66:79:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:35:79:import_from_statement:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:35:79:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:89:identifier:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:89:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:90:92:identifier:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:90:92:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:93:103:identifier:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:93:103:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:104:112:identifier:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:104:112:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:81:140:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:81:140:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:120:140:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:120:140:identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:120:140:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:120:140:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:81:140:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:120:140:dotted_name:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:81:140:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:120:140:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:81:140:import_from_statement:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:81:140:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:179:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:150:identifier:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:179:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:150:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:179:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:151:163:identifier:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:179:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:151:163:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:179:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:164:179:identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:179:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:164:179:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:142:228:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:179:dotted_name:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:142:228:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:179:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:187:207:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:187:207:identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:187:207:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:187:207:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:142:228:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:187:207:dotted_name:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:142:228:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:187:207:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:209:228:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:209:228:identifier:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:209:228:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:209:228:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:142:228:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:209:228:dotted_name:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:142:228:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:209:228:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:142:228:import_from_statement:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:142:228:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:252:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:238:identifier:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:252:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:238:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:252:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:250:identifier:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:252:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:250:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:252:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:250:252:argument_list:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:252:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:250:252:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:252:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:252:call:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:252:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:252:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:252:assignment:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:252:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:269:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:265:identifier:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:269:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:265:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:269:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:266:269:identifier:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:269:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:266:269:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:282:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:269:attribute:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:282:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:269:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:281:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:271:string_start:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:281:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:271:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:281:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:271:280:string_content:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:281:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:271:280:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:281:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:280:281:string_end:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:281:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:280:281:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:269:282:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:281:string:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:269:282:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:281:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:282:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:269:282:argument_list:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:282:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:269:282:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:282:decorator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:282:call:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:282:decorator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:282:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:350:decorated_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:282:decorator:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:350:decorated_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:282:decorator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:284:350:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:294:312:identifier:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:284:350:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:294:312:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:284:350:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:312:314:parameters:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:284:350:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:312:314:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:350:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:348:identifier:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:350:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:348:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:350:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:348:350:argument_list:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:350:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:348:350:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:350:call:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:350:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:return_statement:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:284:350:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:block:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:284:350:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:350:decorated_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:284:350:function_definition:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:350:decorated_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:284:350:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:350:decorated_definition:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:350:decorated_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:367:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:363:identifier:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:367:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:363:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:367:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:364:367:identifier:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:367:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:364:367:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:377:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:367:attribute:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:377:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:367:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:376:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:369:string_start:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:376:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:369:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:376:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:369:375:string_content:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:376:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:369:375:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:376:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:375:376:string_end:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:376:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:375:376:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:367:377:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:376:string:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:367:377:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:376:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:377:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:367:377:argument_list:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:377:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:367:377:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:377:decorator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:377:call:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:377:decorator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:377:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:441:decorated_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:377:decorator:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:441:decorated_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:377:decorator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:379:441:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:389:404:identifier:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:379:441:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:389:404:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:379:441:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:404:406:parameters:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:379:441:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:404:406:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:441:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:439:identifier:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:441:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:439:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:441:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:439:441:argument_list:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:441:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:439:441:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:441:call:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:441:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:return_statement:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:379:441:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:block:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:379:441:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:441:decorated_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:379:441:function_definition:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:441:decorated_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:379:441:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:441:decorated_definition:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:441:decorated_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:458:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:454:identifier:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:458:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:454:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:458:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:455:458:identifier:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:458:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:455:458:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:479:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:458:attribute:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:479:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:458:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:478:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:460:string_start:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:478:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:460:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:478:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:460:477:string_content:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:478:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:460:477:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:478:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:477:478:string_end:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:478:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:477:478:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:458:479:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:478:string:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:458:479:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:478:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:479:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:458:479:argument_list:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:479:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:458:479:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:479:decorator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:479:call:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:479:decorator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:479:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:699:decorated_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:479:decorator:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:699:decorated_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:479:decorator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:481:699:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:491:508:identifier:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:481:699:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:491:508:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:528:typed_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:523:identifier:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:528:typed_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:523:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:525:528:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:525:528:identifier:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:525:528:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:525:528:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:528:typed_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:525:528:type:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:528:typed_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:525:528:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:508:529:parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:528:typed_parameter:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:508:529:parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:528:typed_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:481:699:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:508:529:parameters:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:481:699:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:508:529:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:581:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:542:identifier:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:581:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:542:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:581:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:565:identifier:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:581:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:565:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:565:581:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:566:580:identifier:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:565:581:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:566:580:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:581:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:565:581:argument_list:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:581:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:565:581:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:581:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:581:call:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:581:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:581:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:699:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:581:assignment:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:699:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:581:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:590:600:not_operator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:594:600:identifier:93",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:590:600:not_operator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:594:600:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:587:680:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:590:600:not_operator:94",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:587:680:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:590:600:not_operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:680:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:630:identifier:95",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:680:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:630:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:630:680:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:631:634:integer:96",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:630:680:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:631:634:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:679:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:637:string_start:97",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:679:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:637:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:679:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:637:678:string_content:98",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:679:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:637:678:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:679:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:678:679:string_end:99",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:679:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:678:679:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:630:680:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:679:string:100",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:630:680:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:679:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:680:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:630:680:argument_list:101",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:680:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:630:680:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:raise_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:680:call:102",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:raise_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:680:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:raise_statement:103",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:raise_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:587:680:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:block:104",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:587:680:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:699:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:587:680:if_statement:105",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:699:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:587:680:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:686:699:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:693:699:identifier:106",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:686:699:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:693:699:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:699:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:686:699:return_statement:107",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:699:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:686:699:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:481:699:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:699:block:108",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:481:699:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:699:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:699:decorated_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:481:699:function_definition:109",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:699:decorated_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:481:699:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:699:decorated_definition:110",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:699:decorated_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 1
+        },
+        "end_byte": 3,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:3:30:string_content",
+      "kind": "string_content",
+      "label": "Heuristic engine endpoints.",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 1
+        },
+        "end_byte": 30,
+        "start": {
+          "column": 3,
+          "line": 1
+        },
+        "start_byte": 3
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:30:33:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 1
+        },
+        "end_byte": 33,
+        "start": {
+          "column": 30,
+          "line": 1
+        },
+        "start_byte": 30
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:3:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:3:30:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:30:33:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:33:string",
+      "kind": "string",
+      "label": "\"\"\"Heuristic engine endpoints.\"\"\"",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 1
+        },
+        "end_byte": 33,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:40:47:identifier",
+      "kind": "identifier",
+      "label": "fastapi",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 47,
+        "start": {
+          "column": 5,
+          "line": 2
+        },
+        "start_byte": 40
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:40:47:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:40:47:dotted_name",
+      "kind": "dotted_name",
+      "label": "fastapi",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 47,
+        "start": {
+          "column": 5,
+          "line": 2
+        },
+        "start_byte": 40
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:55:64:identifier",
+      "kind": "identifier",
+      "label": "APIRouter",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 2
+        },
+        "end_byte": 64,
+        "start": {
+          "column": 20,
+          "line": 2
+        },
+        "start_byte": 55
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:55:64:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:55:64:dotted_name",
+      "kind": "dotted_name",
+      "label": "APIRouter",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 2
+        },
+        "end_byte": 64,
+        "start": {
+          "column": 20,
+          "line": 2
+        },
+        "start_byte": 55
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:66:79:identifier",
+      "kind": "identifier",
+      "label": "HTTPException",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 2
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 31,
+          "line": 2
+        },
+        "start_byte": 66
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:66:79:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:66:79:dotted_name",
+      "kind": "dotted_name",
+      "label": "HTTPException",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 2
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 31,
+          "line": 2
+        },
+        "start_byte": 66
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:40:47:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:55:64:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:66:79:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:35:79:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from fastapi import APIRouter, HTTPException",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 2
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 35
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:89:identifier",
+      "kind": "identifier",
+      "label": "app",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 3
+        },
+        "end_byte": 89,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 86
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:90:92:identifier",
+      "kind": "identifier",
+      "label": "ml",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 3
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 9,
+          "line": 3
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:93:103:identifier",
+      "kind": "identifier",
+      "label": "heuristics",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 3
+        },
+        "end_byte": 103,
+        "start": {
+          "column": 12,
+          "line": 3
+        },
+        "start_byte": 93
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:104:112:identifier",
+      "kind": "identifier",
+      "label": "registry",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 3
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 23,
+          "line": 3
+        },
+        "start_byte": 104
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:89:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:90:92:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:93:103:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:104:112:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name",
+      "kind": "dotted_name",
+      "label": "app.ml.heuristics.registry",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 3
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 86
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:120:140:identifier",
+      "kind": "identifier",
+      "label": "get_registry_entries",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 3
+        },
+        "end_byte": 140,
+        "start": {
+          "column": 39,
+          "line": 3
+        },
+        "start_byte": 120
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:120:140:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:120:140:dotted_name",
+      "kind": "dotted_name",
+      "label": "get_registry_entries",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 3
+        },
+        "end_byte": 140,
+        "start": {
+          "column": 39,
+          "line": 3
+        },
+        "start_byte": 120
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:86:112:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:120:140:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:81:140:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from app.ml.heuristics.registry import get_registry_entries",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 3
+        },
+        "end_byte": 140,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 81
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:150:identifier",
+      "kind": "identifier",
+      "label": "app",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 4
+        },
+        "end_byte": 150,
+        "start": {
+          "column": 5,
+          "line": 4
+        },
+        "start_byte": 147
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:151:163:identifier",
+      "kind": "identifier",
+      "label": "repositories",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 4
+        },
+        "end_byte": 163,
+        "start": {
+          "column": 9,
+          "line": 4
+        },
+        "start_byte": 151
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:164:179:identifier",
+      "kind": "identifier",
+      "label": "heuristics_repo",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 4
+        },
+        "end_byte": 179,
+        "start": {
+          "column": 22,
+          "line": 4
+        },
+        "start_byte": 164
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:150:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:151:163:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:164:179:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:179:dotted_name",
+      "kind": "dotted_name",
+      "label": "app.repositories.heuristics_repo",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 4
+        },
+        "end_byte": 179,
+        "start": {
+          "column": 5,
+          "line": 4
+        },
+        "start_byte": 147
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:187:207:identifier",
+      "kind": "identifier",
+      "label": "get_heuristic_result",
+      "span": {
+        "end": {
+          "column": 65,
+          "line": 4
+        },
+        "end_byte": 207,
+        "start": {
+          "column": 45,
+          "line": 4
+        },
+        "start_byte": 187
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:187:207:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:187:207:dotted_name",
+      "kind": "dotted_name",
+      "label": "get_heuristic_result",
+      "span": {
+        "end": {
+          "column": 65,
+          "line": 4
+        },
+        "end_byte": 207,
+        "start": {
+          "column": 45,
+          "line": 4
+        },
+        "start_byte": 187
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:209:228:identifier",
+      "kind": "identifier",
+      "label": "get_heuristic_stats",
+      "span": {
+        "end": {
+          "column": 86,
+          "line": 4
+        },
+        "end_byte": 228,
+        "start": {
+          "column": 67,
+          "line": 4
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:209:228:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:209:228:dotted_name",
+      "kind": "dotted_name",
+      "label": "get_heuristic_stats",
+      "span": {
+        "end": {
+          "column": 86,
+          "line": 4
+        },
+        "end_byte": 228,
+        "start": {
+          "column": 67,
+          "line": 4
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:147:179:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:187:207:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:209:228:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:142:228:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from app.repositories.heuristics_repo import get_heuristic_result, get_heuristic_stats",
+      "span": {
+        "end": {
+          "column": 86,
+          "line": 4
+        },
+        "end_byte": 228,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:238:identifier",
+      "kind": "identifier",
+      "label": "router",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 6
+        },
+        "end_byte": 238,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 232
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:250:identifier",
+      "kind": "identifier",
+      "label": "APIRouter",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 6
+        },
+        "end_byte": 250,
+        "start": {
+          "column": 9,
+          "line": 6
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:250:252:argument_list",
+      "kind": "argument_list",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 6
+        },
+        "end_byte": 252,
+        "start": {
+          "column": 18,
+          "line": 6
+        },
+        "start_byte": 250
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:250:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:250:252:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:252:call",
+      "kind": "call",
+      "label": "APIRouter()",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 6
+        },
+        "end_byte": 252,
+        "start": {
+          "column": 9,
+          "line": 6
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:238:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:241:252:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:252:assignment",
+      "kind": "assignment",
+      "label": "router = APIRouter()",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 6
+        },
+        "end_byte": 252,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 232
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:265:identifier",
+      "kind": "identifier",
+      "label": "router",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 9
+        },
+        "end_byte": 265,
+        "start": {
+          "column": 1,
+          "line": 9
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:266:269:identifier",
+      "kind": "identifier",
+      "label": "get",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 9
+        },
+        "end_byte": 269,
+        "start": {
+          "column": 8,
+          "line": 9
+        },
+        "start_byte": 266
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:265:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:266:269:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:269:attribute",
+      "kind": "attribute",
+      "label": "router.get",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 9
+        },
+        "end_byte": 269,
+        "start": {
+          "column": 1,
+          "line": 9
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:271:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 9
+        },
+        "end_byte": 271,
+        "start": {
+          "column": 12,
+          "line": 9
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:271:280:string_content",
+      "kind": "string_content",
+      "label": "/registry",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 9
+        },
+        "end_byte": 280,
+        "start": {
+          "column": 13,
+          "line": 9
+        },
+        "start_byte": 271
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:280:281:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 9
+        },
+        "end_byte": 281,
+        "start": {
+          "column": 22,
+          "line": 9
+        },
+        "start_byte": 280
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:271:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:271:280:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:280:281:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:281:string",
+      "kind": "string",
+      "label": "\"/registry\"",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 9
+        },
+        "end_byte": 281,
+        "start": {
+          "column": 12,
+          "line": 9
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:270:281:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:269:282:argument_list",
+      "kind": "argument_list",
+      "label": "(\"/registry\")",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 9
+        },
+        "end_byte": 282,
+        "start": {
+          "column": 11,
+          "line": 9
+        },
+        "start_byte": 269
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:269:attribute",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:269:282:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:282:call",
+      "kind": "call",
+      "label": "router.get(\"/registry\")",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 9
+        },
+        "end_byte": 282,
+        "start": {
+          "column": 1,
+          "line": 9
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:259:282:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:282:decorator",
+      "kind": "decorator",
+      "label": "@router.get(\"/registry\")",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 9
+        },
+        "end_byte": 282,
+        "start": {
+          "column": 0,
+          "line": 9
+        },
+        "start_byte": 258
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:294:312:identifier",
+      "kind": "identifier",
+      "label": "heuristic_registry",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 10
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 10,
+          "line": 10
+        },
+        "start_byte": 294
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:312:314:parameters",
+      "kind": "parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 10
+        },
+        "end_byte": 314,
+        "start": {
+          "column": 28,
+          "line": 10
+        },
+        "start_byte": 312
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:348:identifier",
+      "kind": "identifier",
+      "label": "get_registry_entries",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 11
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 11,
+          "line": 11
+        },
+        "start_byte": 328
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:348:350:argument_list",
+      "kind": "argument_list",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 350,
+        "start": {
+          "column": 31,
+          "line": 11
+        },
+        "start_byte": 348
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:348:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:348:350:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:350:call",
+      "kind": "call",
+      "label": "get_registry_entries()",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 350,
+        "start": {
+          "column": 11,
+          "line": 11
+        },
+        "start_byte": 328
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:328:350:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:return_statement",
+      "kind": "return_statement",
+      "label": "return get_registry_entries()",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 350,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 321
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:block",
+      "kind": "block",
+      "label": "return get_registry_entries()",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 350,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 321
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:294:312:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:312:314:parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:321:350:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:284:350:function_definition",
+      "kind": "function_definition",
+      "label": "async def heuristic_registry():\r\n    return get_registry_entries()",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 350,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:282:decorator",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:284:350:function_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:350:decorated_definition",
+      "kind": "decorated_definition",
+      "label": "@router.get(\"/registry\")\r\nasync def heuristic_registry():\r\n    return get_registry_entries()",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 350,
+        "start": {
+          "column": 0,
+          "line": 9
+        },
+        "start_byte": 258
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:363:identifier",
+      "kind": "identifier",
+      "label": "router",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 14
+        },
+        "end_byte": 363,
+        "start": {
+          "column": 1,
+          "line": 14
+        },
+        "start_byte": 357
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:364:367:identifier",
+      "kind": "identifier",
+      "label": "get",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 14
+        },
+        "end_byte": 367,
+        "start": {
+          "column": 8,
+          "line": 14
+        },
+        "start_byte": 364
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:363:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:364:367:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:367:attribute",
+      "kind": "attribute",
+      "label": "router.get",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 14
+        },
+        "end_byte": 367,
+        "start": {
+          "column": 1,
+          "line": 14
+        },
+        "start_byte": 357
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:369:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 14
+        },
+        "end_byte": 369,
+        "start": {
+          "column": 12,
+          "line": 14
+        },
+        "start_byte": 368
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:369:375:string_content",
+      "kind": "string_content",
+      "label": "/stats",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 14
+        },
+        "end_byte": 375,
+        "start": {
+          "column": 13,
+          "line": 14
+        },
+        "start_byte": 369
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:375:376:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 14
+        },
+        "end_byte": 376,
+        "start": {
+          "column": 19,
+          "line": 14
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:369:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:369:375:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:375:376:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:376:string",
+      "kind": "string",
+      "label": "\"/stats\"",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 14
+        },
+        "end_byte": 376,
+        "start": {
+          "column": 12,
+          "line": 14
+        },
+        "start_byte": 368
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:368:376:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:367:377:argument_list",
+      "kind": "argument_list",
+      "label": "(\"/stats\")",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 14
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 11,
+          "line": 14
+        },
+        "start_byte": 367
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:367:attribute",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:367:377:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:377:call",
+      "kind": "call",
+      "label": "router.get(\"/stats\")",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 14
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 1,
+          "line": 14
+        },
+        "start_byte": 357
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:357:377:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:377:decorator",
+      "kind": "decorator",
+      "label": "@router.get(\"/stats\")",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 14
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 0,
+          "line": 14
+        },
+        "start_byte": 356
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:389:404:identifier",
+      "kind": "identifier",
+      "label": "heuristic_stats",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 15
+        },
+        "end_byte": 404,
+        "start": {
+          "column": 10,
+          "line": 15
+        },
+        "start_byte": 389
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:404:406:parameters",
+      "kind": "parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 15
+        },
+        "end_byte": 406,
+        "start": {
+          "column": 25,
+          "line": 15
+        },
+        "start_byte": 404
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:439:identifier",
+      "kind": "identifier",
+      "label": "get_heuristic_stats",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 16
+        },
+        "end_byte": 439,
+        "start": {
+          "column": 11,
+          "line": 16
+        },
+        "start_byte": 420
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:439:441:argument_list",
+      "kind": "argument_list",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 16
+        },
+        "end_byte": 441,
+        "start": {
+          "column": 30,
+          "line": 16
+        },
+        "start_byte": 439
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:439:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:439:441:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:441:call",
+      "kind": "call",
+      "label": "get_heuristic_stats()",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 16
+        },
+        "end_byte": 441,
+        "start": {
+          "column": 11,
+          "line": 16
+        },
+        "start_byte": 420
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:420:441:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:return_statement",
+      "kind": "return_statement",
+      "label": "return get_heuristic_stats()",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 16
+        },
+        "end_byte": 441,
+        "start": {
+          "column": 4,
+          "line": 16
+        },
+        "start_byte": 413
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:block",
+      "kind": "block",
+      "label": "return get_heuristic_stats()",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 16
+        },
+        "end_byte": 441,
+        "start": {
+          "column": 4,
+          "line": 16
+        },
+        "start_byte": 413
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:389:404:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:404:406:parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:413:441:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:379:441:function_definition",
+      "kind": "function_definition",
+      "label": "async def heuristic_stats():\r\n    return get_heuristic_stats()",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 16
+        },
+        "end_byte": 441,
+        "start": {
+          "column": 0,
+          "line": 15
+        },
+        "start_byte": 379
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:377:decorator",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:379:441:function_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:441:decorated_definition",
+      "kind": "decorated_definition",
+      "label": "@router.get(\"/stats\")\r\nasync def heuristic_stats():\r\n    return get_heuristic_stats()",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 16
+        },
+        "end_byte": 441,
+        "start": {
+          "column": 0,
+          "line": 14
+        },
+        "start_byte": 356
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:454:identifier",
+      "kind": "identifier",
+      "label": "router",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 19
+        },
+        "end_byte": 454,
+        "start": {
+          "column": 1,
+          "line": 19
+        },
+        "start_byte": 448
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:455:458:identifier",
+      "kind": "identifier",
+      "label": "get",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 19
+        },
+        "end_byte": 458,
+        "start": {
+          "column": 8,
+          "line": 19
+        },
+        "start_byte": 455
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:454:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:455:458:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:458:attribute",
+      "kind": "attribute",
+      "label": "router.get",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 19
+        },
+        "end_byte": 458,
+        "start": {
+          "column": 1,
+          "line": 19
+        },
+        "start_byte": 448
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:460:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 19
+        },
+        "end_byte": 460,
+        "start": {
+          "column": 12,
+          "line": 19
+        },
+        "start_byte": 459
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:460:477:string_content",
+      "kind": "string_content",
+      "label": "/{transaction_id}",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 19
+        },
+        "end_byte": 477,
+        "start": {
+          "column": 13,
+          "line": 19
+        },
+        "start_byte": 460
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:477:478:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 19
+        },
+        "end_byte": 478,
+        "start": {
+          "column": 30,
+          "line": 19
+        },
+        "start_byte": 477
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:460:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:460:477:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:477:478:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:478:string",
+      "kind": "string",
+      "label": "\"/{transaction_id}\"",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 19
+        },
+        "end_byte": 478,
+        "start": {
+          "column": 12,
+          "line": 19
+        },
+        "start_byte": 459
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:459:478:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:458:479:argument_list",
+      "kind": "argument_list",
+      "label": "(\"/{transaction_id}\")",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 19
+        },
+        "end_byte": 479,
+        "start": {
+          "column": 11,
+          "line": 19
+        },
+        "start_byte": 458
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:458:attribute",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:458:479:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:479:call",
+      "kind": "call",
+      "label": "router.get(\"/{transaction_id}\")",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 19
+        },
+        "end_byte": 479,
+        "start": {
+          "column": 1,
+          "line": 19
+        },
+        "start_byte": 448
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:448:479:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:479:decorator",
+      "kind": "decorator",
+      "label": "@router.get(\"/{transaction_id}\")",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 19
+        },
+        "end_byte": 479,
+        "start": {
+          "column": 0,
+          "line": 19
+        },
+        "start_byte": 447
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:491:508:identifier",
+      "kind": "identifier",
+      "label": "heuristic_results",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 20
+        },
+        "end_byte": 508,
+        "start": {
+          "column": 10,
+          "line": 20
+        },
+        "start_byte": 491
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:523:identifier",
+      "kind": "identifier",
+      "label": "transaction_id",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 20
+        },
+        "end_byte": 523,
+        "start": {
+          "column": 28,
+          "line": 20
+        },
+        "start_byte": 509
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:525:528:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 20
+        },
+        "end_byte": 528,
+        "start": {
+          "column": 44,
+          "line": 20
+        },
+        "start_byte": 525
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:525:528:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:525:528:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 20
+        },
+        "end_byte": 528,
+        "start": {
+          "column": 44,
+          "line": 20
+        },
+        "start_byte": 525
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:523:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:525:528:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:528:typed_parameter",
+      "kind": "typed_parameter",
+      "label": "transaction_id: str",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 20
+        },
+        "end_byte": 528,
+        "start": {
+          "column": 28,
+          "line": 20
+        },
+        "start_byte": 509
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:509:528:typed_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:508:529:parameters",
+      "kind": "parameters",
+      "label": "(transaction_id: str)",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 20
+        },
+        "end_byte": 529,
+        "start": {
+          "column": 27,
+          "line": 20
+        },
+        "start_byte": 508
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:542:identifier",
+      "kind": "identifier",
+      "label": "result",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 21
+        },
+        "end_byte": 542,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 536
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:565:identifier",
+      "kind": "identifier",
+      "label": "get_heuristic_result",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 21
+        },
+        "end_byte": 565,
+        "start": {
+          "column": 13,
+          "line": 21
+        },
+        "start_byte": 545
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:566:580:identifier",
+      "kind": "identifier",
+      "label": "transaction_id",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 21
+        },
+        "end_byte": 580,
+        "start": {
+          "column": 34,
+          "line": 21
+        },
+        "start_byte": 566
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:566:580:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:565:581:argument_list",
+      "kind": "argument_list",
+      "label": "(transaction_id)",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 21
+        },
+        "end_byte": 581,
+        "start": {
+          "column": 33,
+          "line": 21
+        },
+        "start_byte": 565
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:565:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:565:581:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:581:call",
+      "kind": "call",
+      "label": "get_heuristic_result(transaction_id)",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 21
+        },
+        "end_byte": 581,
+        "start": {
+          "column": 13,
+          "line": 21
+        },
+        "start_byte": 545
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:542:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:545:581:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:581:assignment",
+      "kind": "assignment",
+      "label": "result = get_heuristic_result(transaction_id)",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 21
+        },
+        "end_byte": 581,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 536
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:594:600:identifier",
+      "kind": "identifier",
+      "label": "result",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 22
+        },
+        "end_byte": 600,
+        "start": {
+          "column": 11,
+          "line": 22
+        },
+        "start_byte": 594
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:594:600:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:590:600:not_operator",
+      "kind": "not_operator",
+      "label": "not result",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 22
+        },
+        "end_byte": 600,
+        "start": {
+          "column": 7,
+          "line": 22
+        },
+        "start_byte": 590
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:630:identifier",
+      "kind": "identifier",
+      "label": "HTTPException",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 23
+        },
+        "end_byte": 630,
+        "start": {
+          "column": 14,
+          "line": 23
+        },
+        "start_byte": 617
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:631:634:integer",
+      "kind": "integer",
+      "label": "404",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 23
+        },
+        "end_byte": 634,
+        "start": {
+          "column": 28,
+          "line": 23
+        },
+        "start_byte": 631
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:637:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 23
+        },
+        "end_byte": 637,
+        "start": {
+          "column": 33,
+          "line": 23
+        },
+        "start_byte": 636
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:637:678:string_content",
+      "kind": "string_content",
+      "label": "No heuristic results for this transaction",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 23
+        },
+        "end_byte": 678,
+        "start": {
+          "column": 34,
+          "line": 23
+        },
+        "start_byte": 637
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:678:679:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 76,
+          "line": 23
+        },
+        "end_byte": 679,
+        "start": {
+          "column": 75,
+          "line": 23
+        },
+        "start_byte": 678
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:637:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:637:678:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:678:679:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:679:string",
+      "kind": "string",
+      "label": "\"No heuristic results for this transaction\"",
+      "span": {
+        "end": {
+          "column": 76,
+          "line": 23
+        },
+        "end_byte": 679,
+        "start": {
+          "column": 33,
+          "line": 23
+        },
+        "start_byte": 636
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:631:634:integer",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:636:679:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:630:680:argument_list",
+      "kind": "argument_list",
+      "label": "(404, \"No heuristic results for this transaction\")",
+      "span": {
+        "end": {
+          "column": 77,
+          "line": 23
+        },
+        "end_byte": 680,
+        "start": {
+          "column": 27,
+          "line": 23
+        },
+        "start_byte": 630
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:630:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:630:680:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:680:call",
+      "kind": "call",
+      "label": "HTTPException(404, \"No heuristic results for this transaction\")",
+      "span": {
+        "end": {
+          "column": 77,
+          "line": 23
+        },
+        "end_byte": 680,
+        "start": {
+          "column": 14,
+          "line": 23
+        },
+        "start_byte": 617
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:617:680:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:raise_statement",
+      "kind": "raise_statement",
+      "label": "raise HTTPException(404, \"No heuristic results for this transaction\")",
+      "span": {
+        "end": {
+          "column": 77,
+          "line": 23
+        },
+        "end_byte": 680,
+        "start": {
+          "column": 8,
+          "line": 23
+        },
+        "start_byte": 611
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:raise_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:block",
+      "kind": "block",
+      "label": "raise HTTPException(404, \"No heuristic results for this transaction\")",
+      "span": {
+        "end": {
+          "column": 77,
+          "line": 23
+        },
+        "end_byte": 680,
+        "start": {
+          "column": 8,
+          "line": 23
+        },
+        "start_byte": 611
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:590:600:not_operator",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:611:680:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:587:680:if_statement",
+      "kind": "if_statement",
+      "label": "if not result:\r\n        raise HTTPException(404, \"No heuristic results for this transaction\")",
+      "span": {
+        "end": {
+          "column": 77,
+          "line": 23
+        },
+        "end_byte": 680,
+        "start": {
+          "column": 4,
+          "line": 22
+        },
+        "start_byte": 587
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:693:699:identifier",
+      "kind": "identifier",
+      "label": "result",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 24
+        },
+        "end_byte": 699,
+        "start": {
+          "column": 11,
+          "line": 24
+        },
+        "start_byte": 693
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:693:699:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:686:699:return_statement",
+      "kind": "return_statement",
+      "label": "return result",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 24
+        },
+        "end_byte": 699,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 686
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:581:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:587:680:if_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:686:699:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:699:block",
+      "kind": "block",
+      "label": "result = get_heuristic_result(transaction_id)\r\n    if not result:\r\n        raise HTTPException(404, \"No heuristic results for this transaction\")\r\n    return result",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 24
+        },
+        "end_byte": 699,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 536
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:491:508:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:508:529:parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:536:699:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:481:699:function_definition",
+      "kind": "function_definition",
+      "label": "async def heuristic_results(transaction_id: str):\r\n    result = get_heuristic_result(transaction_id)\r\n    if not result:\r\n        raise HTTPException(404, \"No heuristic results for this transaction\")\r",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 24
+        },
+        "end_byte": 699,
+        "start": {
+          "column": 0,
+          "line": 20
+        },
+        "start_byte": 481
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:479:decorator",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:481:699:function_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:699:decorated_definition",
+      "kind": "decorated_definition",
+      "label": "@router.get(\"/{transaction_id}\")\r\nasync def heuristic_results(transaction_id: str):\r\n    result = get_heuristic_result(transaction_id)\r\n    if not result:\r\n        raise HTTPException(404, \"No heurist",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 24
+        },
+        "end_byte": 699,
+        "start": {
+          "column": 0,
+          "line": 19
+        },
+        "start_byte": 447
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:33:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:35:79:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:81:140:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:142:228:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:232:252:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:258:350:decorated_definition",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:356:441:decorated_definition",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:447:699:decorated_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/api/routes_heuristics.py:0:701:module",
+      "kind": "module",
+      "label": "\"\"\"Heuristic engine endpoints.\"\"\"\r\nfrom fastapi import APIRouter, HTTPException\r\nfrom app.ml.heuristics.registry import get_registry_entries\r\nfrom app.repositories.heuristics_repo import get_heuristic",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 25
+        },
+        "end_byte": 701,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/app/api/routes_heuristics.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

@@ -1,0 +1,147 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:48+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:57:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:57:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:3:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:57:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:3:54:string_content:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:57:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:3:54:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:57:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:54:57:string_end:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:57:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:54:57:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:59:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:57:string:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:59:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:57:string",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 1
+        },
+        "end_byte": 3,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:3:54:string_content",
+      "kind": "string_content",
+      "label": "CLI scripts for data preparation and offline tasks.",
+      "span": {
+        "end": {
+          "column": 54,
+          "line": 1
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 3,
+          "line": 1
+        },
+        "start_byte": 3
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:54:57:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 1
+        },
+        "end_byte": 57,
+        "start": {
+          "column": 54,
+          "line": 1
+        },
+        "start_byte": 54
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:3:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:3:54:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:54:57:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:57:string",
+      "kind": "string",
+      "label": "\"\"\"CLI scripts for data preparation and offline tasks.\"\"\"",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 1
+        },
+        "end_byte": 57,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:57:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/scripts/__init__.py:0:59:module",
+      "kind": "module",
+      "label": "\"\"\"CLI scripts for data preparation and offline tasks.\"\"\"\r\n",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 2
+        },
+        "end_byte": 59,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/scripts/__init__.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

@@ -1,0 +1,3147 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:05+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:66:comment:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:66:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:84:97:identifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:84:97:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:128:object_pattern->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:103:109:shorthand_property_identifier_pattern:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:128:object_pattern",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:103:109:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:128:object_pattern->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:114:124:shorthand_property_identifier_pattern:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:128:object_pattern",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:114:124:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:247:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:128:object_pattern:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:247:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:128:object_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:130:247:object_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:135:199:comment:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:130:247:object_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:135:199:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:220:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:209:property_identifier:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:220:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:209:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:212:220:array_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:212:218:predefined_type:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:212:220:array_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:212:218:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:210:220:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:212:220:array_type:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:210:220:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:212:220:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:220:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:210:220:type_annotation:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:220:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:210:220:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:130:247:object_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:220:property_signature:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:130:247:object_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:220:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:243:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:235:property_identifier:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:243:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:235:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:235:243:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:237:243:predefined_type:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:235:243:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:237:243:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:243:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:235:243:type_annotation:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:243:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:235:243:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:130:247:object_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:243:property_signature:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:130:247:object_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:243:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:128:247:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:130:247:object_type:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:128:247:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:130:247:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:247:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:128:247:type_annotation:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:247:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:128:247:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:97:248:formal_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:247:required_parameter:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:97:248:formal_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:247:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:97:248:formal_parameters:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:97:248:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:273:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:265:identifier:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:273:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:265:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:273:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:265:267:optional_chain:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:273:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:265:267:optional_chain",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:273:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:267:273:property_identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:273:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:267:273:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:258:273:unary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:273:member_expression:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:258:273:unary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:273:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:257:274:parenthesized_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:258:273:unary_expression:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:257:274:parenthesized_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:258:273:unary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:254:299:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:257:274:parenthesized_expression:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:254:299:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:257:274:parenthesized_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:282:294:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:289:293:null:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:282:294:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:289:293:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:275:299:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:282:294:return_statement:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:275:299:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:282:294:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:254:299:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:275:299:statement_block:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:254:299:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:275:299:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:254:299:if_statement:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:254:299:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:340:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:312:identifier:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:340:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:312:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:323:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:319:identifier:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:323:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:319:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:323:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:320:323:property_identifier:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:323:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:320:323:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:340:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:323:member_expression:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:340:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:323:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:324:333:spread_element->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:327:333:identifier:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:324:333:spread_element",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:327:333:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:323:340:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:324:333:spread_element:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:323:340:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:324:333:spread_element",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:323:340:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:335:339:number:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:323:340:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:335:339:number",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:340:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:323:340:arguments:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:340:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:323:340:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:340:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:340:call_expression:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:340:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:340:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:303:341:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:340:variable_declarator:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:303:341:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:340:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:303:341:lexical_declaration:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:303:341:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:400:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:355:identifier:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:400:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:355:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:368:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:364:identifier:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:368:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:364:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:368:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:365:368:property_identifier:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:368:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:365:368:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:400:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:368:member_expression:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:400:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:368:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:370:371:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:370:371:identifier:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:370:371:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:370:371:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:372:formal_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:370:371:required_parameter:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:372:formal_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:370:371:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:399:arrow_function->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:372:formal_parameters:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:399:arrow_function",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:372:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:384:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:380:identifier:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:384:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:380:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:384:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:381:384:property_identifier:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:384:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:381:384:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:399:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:384:member_expression:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:399:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:384:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:384:399:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:385:389:number:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:384:399:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:385:389:number",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:398:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:392:identifier:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:398:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:392:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:398:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:395:398:identifier:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:398:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:395:398:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:384:399:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:398:binary_expression:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:384:399:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:398:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:399:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:384:399:arguments:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:399:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:384:399:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:399:arrow_function->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:399:call_expression:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:399:arrow_function",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:399:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:368:400:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:399:arrow_function:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:368:400:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:399:arrow_function",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:400:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:368:400:arguments:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:400:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:368:400:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:400:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:400:call_expression:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:400:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:400:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:345:401:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:400:variable_declarator:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:345:401:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:400:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:345:401:lexical_declaration:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:345:401:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:435:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:415:identifier:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:435:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:415:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:426:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:422:identifier:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:426:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:422:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:426:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:423:426:property_identifier:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:426:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:423:426:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:435:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:426:member_expression:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:435:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:426:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:427:434:spread_element->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:430:434:identifier:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:427:434:spread_element",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:430:434:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:426:435:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:427:434:spread_element:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:426:435:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:427:434:spread_element",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:435:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:426:435:arguments:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:435:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:426:435:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:435:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:435:call_expression:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:435:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:435:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:405:436:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:435:variable_declarator:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:405:436:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:435:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:405:436:lexical_declaration:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:405:436:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:454:458:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:455:458:type_identifier:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:454:458:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:455:458:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:454:458:type_arguments:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:454:458:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:459:468:identifier:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:459:468:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:469:501:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:470:500:string_fragment:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:469:501:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:470:500:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:469:501:string:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:469:501:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:515:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:511:515:shorthand_property_identifier:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:515:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:511:515:shorthand_property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:519:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:515:object:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:519:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:515:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:519:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:516:519:property_identifier:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:519:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:516:519:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:519:member_expression:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:519:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:521:522:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:521:522:identifier:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:521:522:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:521:522:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:520:526:formal_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:521:522:required_parameter:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:520:526:formal_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:521:522:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:524:525:required_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:524:525:identifier:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:524:525:required_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:524:525:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:520:526:formal_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:524:525:required_parameter:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:520:526:formal_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:524:525:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:520:526:formal_parameters:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:520:526:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:542:545:identifier:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:542:545:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:557:560:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:557:560:identifier:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:557:560:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:557:560:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:557:560:ERROR:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:557:560:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:562:563:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:562:563:property_identifier:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:562:563:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:562:563:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:564:object_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:562:563:property_signature:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:564:object_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:562:563:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:564:object_type:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:564:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:576:585:identifier:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:576:585:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:587:630:template_literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:588:605:string_fragment:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:587:630:template_literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:588:605:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:605:618:template_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:607:617:type_identifier:93",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:605:618:template_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:607:617:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:587:630:template_literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:605:618:template_type:94",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:587:630:template_literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:605:618:template_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:587:630:template_literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:618:629:string_fragment:95",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:587:630:template_literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:618:629:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:587:630:template_literal_type:96",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:587:630:template_literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:643:648:type_identifier:97",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:643:648:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR:98",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:652:658:property_identifier:99",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:652:658:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:672:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:665:identifier:100",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:672:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:665:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:672:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:668:672:identifier:101",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:672:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:668:672:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:679:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:672:binary_expression:102",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:679:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:672:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:679:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:672:673:ERROR:103",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:679:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:672:673:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:679:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:676:679:number:104",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:679:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:676:679:number",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:679:binary_expression:105",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:679:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:679:680:ERROR:106",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:679:680:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:681:708:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:696:698:regex_pattern:107",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:681:708:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:696:698:regex_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:681:708:ERROR:108",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:681:708:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:714:720:type_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:715:716:ERROR:109",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:714:720:type_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:715:716:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:716:719:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:716:719:type_identifier:110",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:716:719:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:716:719:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:714:720:type_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:716:719:type_parameter:111",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:714:720:type_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:716:719:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:714:720:type_parameters:112",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:714:720:type_parameters",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:66:comment",
+      "kind": "comment",
+      "label": "/** Mini bar chart from recent run metrics (no synthetic seed). */",
+      "span": {
+        "end": {
+          "column": 66,
+          "line": 1
+        },
+        "end_byte": 66,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:84:97:identifier",
+      "kind": "identifier",
+      "label": "SparklineBars",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 2
+        },
+        "end_byte": 97,
+        "start": {
+          "column": 16,
+          "line": 2
+        },
+        "start_byte": 84
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:103:109:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "values",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 3
+        },
+        "end_byte": 109,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 103
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:114:124:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "colorClass",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 4
+        },
+        "end_byte": 124,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 114
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:103:109:shorthand_property_identifier_pattern",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:114:124:shorthand_property_identifier_pattern"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:128:object_pattern",
+      "kind": "object_pattern",
+      "label": "{\r\n  values,\r\n  colorClass,\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 5
+        },
+        "end_byte": 128,
+        "start": {
+          "column": 30,
+          "line": 2
+        },
+        "start_byte": 98
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:135:199:comment",
+      "kind": "comment",
+      "label": "/** Length typically ≤ 12; heights normalized to max value. */",
+      "span": {
+        "end": {
+          "column": 66,
+          "line": 6
+        },
+        "end_byte": 199,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 135
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:209:property_identifier",
+      "kind": "property_identifier",
+      "label": "values",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 7
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 203
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:212:218:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 7
+        },
+        "end_byte": 218,
+        "start": {
+          "column": 11,
+          "line": 7
+        },
+        "start_byte": 212
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:212:218:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:212:220:array_type",
+      "kind": "array_type",
+      "label": "number[]",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 7
+        },
+        "end_byte": 220,
+        "start": {
+          "column": 11,
+          "line": 7
+        },
+        "start_byte": 212
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:212:220:array_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:210:220:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number[]",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 7
+        },
+        "end_byte": 220,
+        "start": {
+          "column": 9,
+          "line": 7
+        },
+        "start_byte": 210
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:209:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:210:220:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:220:property_signature",
+      "kind": "property_signature",
+      "label": "values?: number[]",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 7
+        },
+        "end_byte": 220,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 203
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:235:property_identifier",
+      "kind": "property_identifier",
+      "label": "colorClass",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 8
+        },
+        "end_byte": 235,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 225
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:237:243:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 243,
+        "start": {
+          "column": 14,
+          "line": 8
+        },
+        "start_byte": 237
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:237:243:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:235:243:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 243,
+        "start": {
+          "column": 12,
+          "line": 8
+        },
+        "start_byte": 235
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:235:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:235:243:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:243:property_signature",
+      "kind": "property_signature",
+      "label": "colorClass: string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 243,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 225
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:135:199:comment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:203:220:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:225:243:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:130:247:object_type",
+      "kind": "object_type",
+      "label": "{\r\n  /** Length typically ≤ 12; heights normalized to max value. */\r\n  values?: number[];\r\n  colorClass: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 247,
+        "start": {
+          "column": 3,
+          "line": 5
+        },
+        "start_byte": 130
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:130:247:object_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:128:247:type_annotation",
+      "kind": "type_annotation",
+      "label": ": {\r\n  /** Length typically ≤ 12; heights normalized to max value. */\r\n  values?: number[];\r\n  colorClass: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 247,
+        "start": {
+          "column": 1,
+          "line": 5
+        },
+        "start_byte": 128
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:128:object_pattern",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:128:247:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:247:required_parameter",
+      "kind": "required_parameter",
+      "label": "{\r\n  values,\r\n  colorClass,\r\n}: {\r\n  /** Length typically ≤ 12; heights normalized to max value. */\r\n  values?: number[];\r\n  colorClass: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 247,
+        "start": {
+          "column": 30,
+          "line": 2
+        },
+        "start_byte": 98
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:98:247:required_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:97:248:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "({\r\n  values,\r\n  colorClass,\r\n}: {\r\n  /** Length typically ≤ 12; heights normalized to max value. */\r\n  values?: number[];\r\n  colorClass: string;\r\n})",
+      "span": {
+        "end": {
+          "column": 2,
+          "line": 9
+        },
+        "end_byte": 248,
+        "start": {
+          "column": 29,
+          "line": 2
+        },
+        "start_byte": 97
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:265:identifier",
+      "kind": "identifier",
+      "label": "values",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 10
+        },
+        "end_byte": 265,
+        "start": {
+          "column": 7,
+          "line": 10
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:265:267:optional_chain",
+      "kind": "optional_chain",
+      "label": "?.",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 10
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 13,
+          "line": 10
+        },
+        "start_byte": 265
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:267:273:property_identifier",
+      "kind": "property_identifier",
+      "label": "length",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 10
+        },
+        "end_byte": 273,
+        "start": {
+          "column": 15,
+          "line": 10
+        },
+        "start_byte": 267
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:265:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:265:267:optional_chain",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:267:273:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:273:member_expression",
+      "kind": "member_expression",
+      "label": "values?.length",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 10
+        },
+        "end_byte": 273,
+        "start": {
+          "column": 7,
+          "line": 10
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:259:273:member_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:258:273:unary_expression",
+      "kind": "unary_expression",
+      "label": "!values?.length",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 10
+        },
+        "end_byte": 273,
+        "start": {
+          "column": 6,
+          "line": 10
+        },
+        "start_byte": 258
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:258:273:unary_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:257:274:parenthesized_expression",
+      "kind": "parenthesized_expression",
+      "label": "(!values?.length)",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 10
+        },
+        "end_byte": 274,
+        "start": {
+          "column": 5,
+          "line": 10
+        },
+        "start_byte": 257
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:289:293:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 11
+        },
+        "end_byte": 293,
+        "start": {
+          "column": 11,
+          "line": 11
+        },
+        "start_byte": 289
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:289:293:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:282:294:return_statement",
+      "kind": "return_statement",
+      "label": "return null;",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 11
+        },
+        "end_byte": 294,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 282
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:282:294:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:275:299:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n    return null;\r\n  }",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 12
+        },
+        "end_byte": 299,
+        "start": {
+          "column": 23,
+          "line": 10
+        },
+        "start_byte": 275
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:257:274:parenthesized_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:275:299:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:254:299:if_statement",
+      "kind": "if_statement",
+      "label": "if (!values?.length) {\r\n    return null;\r\n  }",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 12
+        },
+        "end_byte": 299,
+        "start": {
+          "column": 2,
+          "line": 10
+        },
+        "start_byte": 254
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:312:identifier",
+      "kind": "identifier",
+      "label": "max",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 13
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 8,
+          "line": 13
+        },
+        "start_byte": 309
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:319:identifier",
+      "kind": "identifier",
+      "label": "Math",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 13
+        },
+        "end_byte": 319,
+        "start": {
+          "column": 14,
+          "line": 13
+        },
+        "start_byte": 315
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:320:323:property_identifier",
+      "kind": "property_identifier",
+      "label": "max",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 13
+        },
+        "end_byte": 323,
+        "start": {
+          "column": 19,
+          "line": 13
+        },
+        "start_byte": 320
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:319:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:320:323:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:323:member_expression",
+      "kind": "member_expression",
+      "label": "Math.max",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 13
+        },
+        "end_byte": 323,
+        "start": {
+          "column": 14,
+          "line": 13
+        },
+        "start_byte": 315
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:327:333:identifier",
+      "kind": "identifier",
+      "label": "values",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 333,
+        "start": {
+          "column": 26,
+          "line": 13
+        },
+        "start_byte": 327
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:327:333:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:324:333:spread_element",
+      "kind": "spread_element",
+      "label": "...values",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 333,
+        "start": {
+          "column": 23,
+          "line": 13
+        },
+        "start_byte": 324
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:335:339:number",
+      "kind": "number",
+      "label": "1e-9",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 13
+        },
+        "end_byte": 339,
+        "start": {
+          "column": 34,
+          "line": 13
+        },
+        "start_byte": 335
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:324:333:spread_element",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:335:339:number"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:323:340:arguments",
+      "kind": "arguments",
+      "label": "(...values, 1e-9)",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 13
+        },
+        "end_byte": 340,
+        "start": {
+          "column": 22,
+          "line": 13
+        },
+        "start_byte": 323
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:323:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:323:340:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:340:call_expression",
+      "kind": "call_expression",
+      "label": "Math.max(...values, 1e-9)",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 13
+        },
+        "end_byte": 340,
+        "start": {
+          "column": 14,
+          "line": 13
+        },
+        "start_byte": 315
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:312:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:315:340:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:340:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "max = Math.max(...values, 1e-9)",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 13
+        },
+        "end_byte": 340,
+        "start": {
+          "column": 8,
+          "line": 13
+        },
+        "start_byte": 309
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:309:340:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:303:341:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const max = Math.max(...values, 1e-9);",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 13
+        },
+        "end_byte": 341,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 303
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:355:identifier",
+      "kind": "identifier",
+      "label": "bars",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 14
+        },
+        "end_byte": 355,
+        "start": {
+          "column": 8,
+          "line": 14
+        },
+        "start_byte": 351
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:364:identifier",
+      "kind": "identifier",
+      "label": "values",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 14
+        },
+        "end_byte": 364,
+        "start": {
+          "column": 15,
+          "line": 14
+        },
+        "start_byte": 358
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:365:368:property_identifier",
+      "kind": "property_identifier",
+      "label": "map",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 368,
+        "start": {
+          "column": 22,
+          "line": 14
+        },
+        "start_byte": 365
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:364:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:365:368:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:368:member_expression",
+      "kind": "member_expression",
+      "label": "values.map",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 368,
+        "start": {
+          "column": 15,
+          "line": 14
+        },
+        "start_byte": 358
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:370:371:identifier",
+      "kind": "identifier",
+      "label": "v",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 14
+        },
+        "end_byte": 371,
+        "start": {
+          "column": 27,
+          "line": 14
+        },
+        "start_byte": 370
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:370:371:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:370:371:required_parameter",
+      "kind": "required_parameter",
+      "label": "v",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 14
+        },
+        "end_byte": 371,
+        "start": {
+          "column": 27,
+          "line": 14
+        },
+        "start_byte": 370
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:370:371:required_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:372:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(v)",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 14
+        },
+        "end_byte": 372,
+        "start": {
+          "column": 26,
+          "line": 14
+        },
+        "start_byte": 369
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:380:identifier",
+      "kind": "identifier",
+      "label": "Math",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 14
+        },
+        "end_byte": 380,
+        "start": {
+          "column": 33,
+          "line": 14
+        },
+        "start_byte": 376
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:381:384:property_identifier",
+      "kind": "property_identifier",
+      "label": "max",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 384,
+        "start": {
+          "column": 38,
+          "line": 14
+        },
+        "start_byte": 381
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:380:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:381:384:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:384:member_expression",
+      "kind": "member_expression",
+      "label": "Math.max",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 14
+        },
+        "end_byte": 384,
+        "start": {
+          "column": 33,
+          "line": 14
+        },
+        "start_byte": 376
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:385:389:number",
+      "kind": "number",
+      "label": "0.12",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 14
+        },
+        "end_byte": 389,
+        "start": {
+          "column": 42,
+          "line": 14
+        },
+        "start_byte": 385
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:392:identifier",
+      "kind": "identifier",
+      "label": "v",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 14
+        },
+        "end_byte": 392,
+        "start": {
+          "column": 48,
+          "line": 14
+        },
+        "start_byte": 391
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:395:398:identifier",
+      "kind": "identifier",
+      "label": "max",
+      "span": {
+        "end": {
+          "column": 55,
+          "line": 14
+        },
+        "end_byte": 398,
+        "start": {
+          "column": 52,
+          "line": 14
+        },
+        "start_byte": 395
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:392:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:395:398:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:398:binary_expression",
+      "kind": "binary_expression",
+      "label": "v / max",
+      "span": {
+        "end": {
+          "column": 55,
+          "line": 14
+        },
+        "end_byte": 398,
+        "start": {
+          "column": 48,
+          "line": 14
+        },
+        "start_byte": 391
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:385:389:number",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:391:398:binary_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:384:399:arguments",
+      "kind": "arguments",
+      "label": "(0.12, v / max)",
+      "span": {
+        "end": {
+          "column": 56,
+          "line": 14
+        },
+        "end_byte": 399,
+        "start": {
+          "column": 41,
+          "line": 14
+        },
+        "start_byte": 384
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:384:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:384:399:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:399:call_expression",
+      "kind": "call_expression",
+      "label": "Math.max(0.12, v / max)",
+      "span": {
+        "end": {
+          "column": 56,
+          "line": 14
+        },
+        "end_byte": 399,
+        "start": {
+          "column": 33,
+          "line": 14
+        },
+        "start_byte": 376
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:372:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:376:399:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:399:arrow_function",
+      "kind": "arrow_function",
+      "label": "(v) => Math.max(0.12, v / max)",
+      "span": {
+        "end": {
+          "column": 56,
+          "line": 14
+        },
+        "end_byte": 399,
+        "start": {
+          "column": 26,
+          "line": 14
+        },
+        "start_byte": 369
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:369:399:arrow_function"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:368:400:arguments",
+      "kind": "arguments",
+      "label": "((v) => Math.max(0.12, v / max))",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 14
+        },
+        "end_byte": 400,
+        "start": {
+          "column": 25,
+          "line": 14
+        },
+        "start_byte": 368
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:368:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:368:400:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:400:call_expression",
+      "kind": "call_expression",
+      "label": "values.map((v) => Math.max(0.12, v / max))",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 14
+        },
+        "end_byte": 400,
+        "start": {
+          "column": 15,
+          "line": 14
+        },
+        "start_byte": 358
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:355:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:358:400:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:400:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "bars = values.map((v) => Math.max(0.12, v / max))",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 14
+        },
+        "end_byte": 400,
+        "start": {
+          "column": 8,
+          "line": 14
+        },
+        "start_byte": 351
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:351:400:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:345:401:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const bars = values.map((v) => Math.max(0.12, v / max));",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 14
+        },
+        "end_byte": 401,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 345
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:415:identifier",
+      "kind": "identifier",
+      "label": "hMax",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 15
+        },
+        "end_byte": 415,
+        "start": {
+          "column": 8,
+          "line": 15
+        },
+        "start_byte": 411
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:422:identifier",
+      "kind": "identifier",
+      "label": "Math",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 15
+        },
+        "end_byte": 422,
+        "start": {
+          "column": 15,
+          "line": 15
+        },
+        "start_byte": 418
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:423:426:property_identifier",
+      "kind": "property_identifier",
+      "label": "max",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 15
+        },
+        "end_byte": 426,
+        "start": {
+          "column": 20,
+          "line": 15
+        },
+        "start_byte": 423
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:422:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:423:426:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:426:member_expression",
+      "kind": "member_expression",
+      "label": "Math.max",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 15
+        },
+        "end_byte": 426,
+        "start": {
+          "column": 15,
+          "line": 15
+        },
+        "start_byte": 418
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:430:434:identifier",
+      "kind": "identifier",
+      "label": "bars",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 15
+        },
+        "end_byte": 434,
+        "start": {
+          "column": 27,
+          "line": 15
+        },
+        "start_byte": 430
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:430:434:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:427:434:spread_element",
+      "kind": "spread_element",
+      "label": "...bars",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 15
+        },
+        "end_byte": 434,
+        "start": {
+          "column": 24,
+          "line": 15
+        },
+        "start_byte": 427
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:427:434:spread_element"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:426:435:arguments",
+      "kind": "arguments",
+      "label": "(...bars)",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 15
+        },
+        "end_byte": 435,
+        "start": {
+          "column": 23,
+          "line": 15
+        },
+        "start_byte": 426
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:426:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:426:435:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:435:call_expression",
+      "kind": "call_expression",
+      "label": "Math.max(...bars)",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 15
+        },
+        "end_byte": 435,
+        "start": {
+          "column": 15,
+          "line": 15
+        },
+        "start_byte": 418
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:415:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:418:435:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:435:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "hMax = Math.max(...bars)",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 15
+        },
+        "end_byte": 435,
+        "start": {
+          "column": 8,
+          "line": 15
+        },
+        "start_byte": 411
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:411:435:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:405:436:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const hMax = Math.max(...bars);",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 15
+        },
+        "end_byte": 436,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 405
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:455:458:type_identifier",
+      "kind": "type_identifier",
+      "label": "div",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 17
+        },
+        "end_byte": 458,
+        "start": {
+          "column": 5,
+          "line": 17
+        },
+        "start_byte": 455
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:455:458:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:454:458:type_arguments",
+      "kind": "type_arguments",
+      "label": "<div",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 17
+        },
+        "end_byte": 458,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 454
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:459:468:identifier",
+      "kind": "identifier",
+      "label": "className",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 17
+        },
+        "end_byte": 468,
+        "start": {
+          "column": 9,
+          "line": 17
+        },
+        "start_byte": 459
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:470:500:string_fragment",
+      "kind": "string_fragment",
+      "label": "mt-3 flex h-8 items-end gap-px",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 17
+        },
+        "end_byte": 500,
+        "start": {
+          "column": 20,
+          "line": 17
+        },
+        "start_byte": 470
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:470:500:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:469:501:string",
+      "kind": "string",
+      "label": "\"mt-3 flex h-8 items-end gap-px\"",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 17
+        },
+        "end_byte": 501,
+        "start": {
+          "column": 19,
+          "line": 17
+        },
+        "start_byte": 469
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:511:515:shorthand_property_identifier",
+      "kind": "shorthand_property_identifier",
+      "label": "bars",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 18
+        },
+        "end_byte": 515,
+        "start": {
+          "column": 7,
+          "line": 18
+        },
+        "start_byte": 511
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:511:515:shorthand_property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:515:object",
+      "kind": "object",
+      "label": "{bars",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 18
+        },
+        "end_byte": 515,
+        "start": {
+          "column": 6,
+          "line": 18
+        },
+        "start_byte": 510
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:516:519:property_identifier",
+      "kind": "property_identifier",
+      "label": "map",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 18
+        },
+        "end_byte": 519,
+        "start": {
+          "column": 12,
+          "line": 18
+        },
+        "start_byte": 516
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:515:object",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:516:519:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:519:member_expression",
+      "kind": "member_expression",
+      "label": "{bars.map",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 18
+        },
+        "end_byte": 519,
+        "start": {
+          "column": 6,
+          "line": 18
+        },
+        "start_byte": 510
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:521:522:identifier",
+      "kind": "identifier",
+      "label": "h",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 18
+        },
+        "end_byte": 522,
+        "start": {
+          "column": 17,
+          "line": 18
+        },
+        "start_byte": 521
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:521:522:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:521:522:required_parameter",
+      "kind": "required_parameter",
+      "label": "h",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 18
+        },
+        "end_byte": 522,
+        "start": {
+          "column": 17,
+          "line": 18
+        },
+        "start_byte": 521
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:524:525:identifier",
+      "kind": "identifier",
+      "label": "i",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 18
+        },
+        "end_byte": 525,
+        "start": {
+          "column": 20,
+          "line": 18
+        },
+        "start_byte": 524
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:524:525:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:524:525:required_parameter",
+      "kind": "required_parameter",
+      "label": "i",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 18
+        },
+        "end_byte": 525,
+        "start": {
+          "column": 20,
+          "line": 18
+        },
+        "start_byte": 524
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:521:522:required_parameter",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:524:525:required_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:520:526:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(h, i)",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 18
+        },
+        "end_byte": 526,
+        "start": {
+          "column": 16,
+          "line": 18
+        },
+        "start_byte": 520
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:542:545:identifier",
+      "kind": "identifier",
+      "label": "div",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 19
+        },
+        "end_byte": 545,
+        "start": {
+          "column": 9,
+          "line": 19
+        },
+        "start_byte": 542
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:557:560:identifier",
+      "kind": "identifier",
+      "label": "key",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 20
+        },
+        "end_byte": 560,
+        "start": {
+          "column": 10,
+          "line": 20
+        },
+        "start_byte": 557
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:557:560:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:557:560:ERROR",
+      "kind": "ERROR",
+      "label": "key",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 20
+        },
+        "end_byte": 560,
+        "start": {
+          "column": 10,
+          "line": 20
+        },
+        "start_byte": 557
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:562:563:property_identifier",
+      "kind": "property_identifier",
+      "label": "i",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 20
+        },
+        "end_byte": 563,
+        "start": {
+          "column": 15,
+          "line": 20
+        },
+        "start_byte": 562
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:562:563:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:562:563:property_signature",
+      "kind": "property_signature",
+      "label": "i",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 20
+        },
+        "end_byte": 563,
+        "start": {
+          "column": 15,
+          "line": 20
+        },
+        "start_byte": 562
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:562:563:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:564:object_type",
+      "kind": "object_type",
+      "label": "{i}",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 20
+        },
+        "end_byte": 564,
+        "start": {
+          "column": 14,
+          "line": 20
+        },
+        "start_byte": 561
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:576:585:identifier",
+      "kind": "identifier",
+      "label": "className",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 21
+        },
+        "end_byte": 585,
+        "start": {
+          "column": 10,
+          "line": 21
+        },
+        "start_byte": 576
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:588:605:string_fragment",
+      "kind": "string_fragment",
+      "label": "w-1.5 rounded-sm ",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 21
+        },
+        "end_byte": 605,
+        "start": {
+          "column": 22,
+          "line": 21
+        },
+        "start_byte": 588
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:607:617:type_identifier",
+      "kind": "type_identifier",
+      "label": "colorClass",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 21
+        },
+        "end_byte": 617,
+        "start": {
+          "column": 41,
+          "line": 21
+        },
+        "start_byte": 607
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:607:617:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:605:618:template_type",
+      "kind": "template_type",
+      "label": "${colorClass}",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 21
+        },
+        "end_byte": 618,
+        "start": {
+          "column": 39,
+          "line": 21
+        },
+        "start_byte": 605
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:618:629:string_fragment",
+      "kind": "string_fragment",
+      "label": " opacity-90",
+      "span": {
+        "end": {
+          "column": 63,
+          "line": 21
+        },
+        "end_byte": 629,
+        "start": {
+          "column": 52,
+          "line": 21
+        },
+        "start_byte": 618
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:588:605:string_fragment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:605:618:template_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:618:629:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:587:630:template_literal_type",
+      "kind": "template_literal_type",
+      "label": "`w-1.5 rounded-sm ${colorClass} opacity-90`",
+      "span": {
+        "end": {
+          "column": 64,
+          "line": 21
+        },
+        "end_byte": 630,
+        "start": {
+          "column": 21,
+          "line": 21
+        },
+        "start_byte": 587
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:643:648:type_identifier",
+      "kind": "type_identifier",
+      "label": "style",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 22
+        },
+        "end_byte": 648,
+        "start": {
+          "column": 10,
+          "line": 22
+        },
+        "start_byte": 643
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:564:object_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:576:585:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:587:630:template_literal_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:643:648:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR",
+      "kind": "ERROR",
+      "label": "{i}\r\n          className={`w-1.5 rounded-sm ${colorClass} opacity-90`}\r\n          style={",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 22
+        },
+        "end_byte": 650,
+        "start": {
+          "column": 14,
+          "line": 20
+        },
+        "start_byte": 561
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:652:658:property_identifier",
+      "kind": "property_identifier",
+      "label": "height",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 22
+        },
+        "end_byte": 658,
+        "start": {
+          "column": 19,
+          "line": 22
+        },
+        "start_byte": 652
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:665:identifier",
+      "kind": "identifier",
+      "label": "h",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 22
+        },
+        "end_byte": 665,
+        "start": {
+          "column": 31,
+          "line": 22
+        },
+        "start_byte": 664
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:668:672:identifier",
+      "kind": "identifier",
+      "label": "hMax",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 22
+        },
+        "end_byte": 672,
+        "start": {
+          "column": 35,
+          "line": 22
+        },
+        "start_byte": 668
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:665:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:668:672:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:672:binary_expression",
+      "kind": "binary_expression",
+      "label": "h / hMax",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 22
+        },
+        "end_byte": 672,
+        "start": {
+          "column": 31,
+          "line": 22
+        },
+        "start_byte": 664
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:672:673:ERROR",
+      "kind": "ERROR",
+      "label": ")",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 22
+        },
+        "end_byte": 673,
+        "start": {
+          "column": 39,
+          "line": 22
+        },
+        "start_byte": 672
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:676:679:number",
+      "kind": "number",
+      "label": "100",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 22
+        },
+        "end_byte": 679,
+        "start": {
+          "column": 43,
+          "line": 22
+        },
+        "start_byte": 676
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:672:binary_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:672:673:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:676:679:number"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:679:binary_expression",
+      "kind": "binary_expression",
+      "label": "h / hMax) * 100",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 22
+        },
+        "end_byte": 679,
+        "start": {
+          "column": 31,
+          "line": 22
+        },
+        "start_byte": 664
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:679:680:ERROR",
+      "kind": "ERROR",
+      "label": "}",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 22
+        },
+        "end_byte": 680,
+        "start": {
+          "column": 46,
+          "line": 22
+        },
+        "start_byte": 679
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:696:698:regex_pattern",
+      "kind": "regex_pattern",
+      "label": ">\r",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 23
+        },
+        "end_byte": 698,
+        "start": {
+          "column": 9,
+          "line": 23
+        },
+        "start_byte": 696
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:696:698:regex_pattern"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:681:708:ERROR",
+      "kind": "ERROR",
+      "label": "` }}\r\n        />\r\n      ))}",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 24
+        },
+        "end_byte": 708,
+        "start": {
+          "column": 48,
+          "line": 22
+        },
+        "start_byte": 681
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:715:716:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 25
+        },
+        "end_byte": 716,
+        "start": {
+          "column": 5,
+          "line": 25
+        },
+        "start_byte": 715
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:716:719:type_identifier",
+      "kind": "type_identifier",
+      "label": "div",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 25
+        },
+        "end_byte": 719,
+        "start": {
+          "column": 6,
+          "line": 25
+        },
+        "start_byte": 716
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:716:719:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:716:719:type_parameter",
+      "kind": "type_parameter",
+      "label": "div",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 25
+        },
+        "end_byte": 719,
+        "start": {
+          "column": 6,
+          "line": 25
+        },
+        "start_byte": 716
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:715:716:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:716:719:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:714:720:type_parameters",
+      "kind": "type_parameters",
+      "label": "</div>",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 25
+        },
+        "end_byte": 720,
+        "start": {
+          "column": 4,
+          "line": 25
+        },
+        "start_byte": 714
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:66:comment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:84:97:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:97:248:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:254:299:if_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:303:341:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:345:401:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:405:436:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:454:458:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:459:468:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:469:501:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:510:519:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:520:526:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:542:545:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:557:560:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:561:650:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:652:658:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:664:679:binary_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:679:680:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:681:708:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:714:720:type_parameters"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/components/SparklineBars.tsx:0:731:ERROR",
+      "kind": "ERROR",
+      "label": "/** Mini bar chart from recent run metrics (no synthetic seed). */\r\nexport function SparklineBars({\r\n  values,\r\n  colorClass,\r\n}: {\r\n  /** Length typically ≤ 12; heights normalized to max value. */\r\n ",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 28
+        },
+        "end_byte": 731,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/components/SparklineBars.tsx",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

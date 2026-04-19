@@ -1,0 +1,2299 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:14+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:7:178:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:17:28:type_identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:7:178:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:17:28:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:44:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:36:property_identifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:44:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:36:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:36:44:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:38:44:predefined_type:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:36:44:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:38:44:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:44:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:36:44:type_annotation:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:44:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:36:44:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:44:property_signature:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:44:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:65:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:57:property_identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:65:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:57:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:57:65:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:59:65:predefined_type:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:57:65:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:59:65:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:65:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:57:65:type_annotation:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:65:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:57:65:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:65:property_signature:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:65:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:88:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:80:property_identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:88:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:80:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:80:88:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:82:88:predefined_type:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:80:88:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:82:88:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:88:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:80:88:type_annotation:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:88:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:80:88:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:88:property_signature:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:88:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:110:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:102:property_identifier:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:110:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:102:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:102:110:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:104:110:predefined_type:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:102:110:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:104:110:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:110:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:102:110:type_annotation:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:110:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:102:110:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:110:property_signature:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:110:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:128:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:120:property_identifier:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:128:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:120:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:120:128:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:122:128:predefined_type:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:120:128:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:122:128:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:128:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:120:128:type_annotation:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:128:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:120:128:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:128:property_signature:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:128:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:151:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:143:property_identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:151:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:143:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:143:151:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:145:151:predefined_type:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:143:151:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:145:151:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:151:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:143:151:type_annotation:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:151:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:143:151:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:151:property_signature:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:151:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:174:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:166:property_identifier:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:174:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:166:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:166:174:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:168:174:predefined_type:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:166:174:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:168:174:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:174:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:166:174:type_annotation:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:174:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:166:174:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:174:property_signature:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:174:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:7:178:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:7:178:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:178:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:7:178:interface_declaration:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:178:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:7:178:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:485:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:178:export_statement:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:485:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:178:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:189:340:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:199:213:type_identifier:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:189:340:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:199:213:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:237:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:228:property_identifier:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:237:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:228:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:228:237:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:230:237:predefined_type:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:228:237:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:230:237:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:237:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:228:237:type_annotation:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:237:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:228:237:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:237:property_signature:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:237:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:263:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:254:property_identifier:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:263:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:254:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:254:263:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:256:263:predefined_type:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:254:263:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:256:263:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:263:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:254:263:type_annotation:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:263:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:254:263:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:263:property_signature:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:263:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:289:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:280:property_identifier:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:289:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:280:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:280:289:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:282:289:predefined_type:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:280:289:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:282:289:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:289:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:280:289:type_annotation:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:289:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:280:289:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:289:property_signature:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:289:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:312:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:303:property_identifier:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:312:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:303:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:303:312:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:305:312:predefined_type:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:303:312:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:305:312:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:312:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:303:312:type_annotation:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:312:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:303:312:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:312:property_signature:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:312:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:336:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:327:property_identifier:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:336:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:327:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:327:336:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:329:336:predefined_type:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:327:336:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:329:336:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:336:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:327:336:type_annotation:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:336:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:327:336:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:336:property_signature:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:336:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:189:340:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:189:340:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:182:340:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:189:340:interface_declaration:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:182:340:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:189:340:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:485:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:182:340:export_statement:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:485:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:182:340:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:351:403:type_alias_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:356:371:type_identifier:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:351:403:type_alias_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:356:371:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:375:382:string_fragment:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:375:382:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:string:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:393:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:literal_type:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:393:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:387:392:string_fragment:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:387:392:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:string:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:393:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:literal_type:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:393:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:402:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:393:union_type:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:402:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:393:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:397:401:string_fragment:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:397:401:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:string:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:402:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:literal_type:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:402:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:351:403:type_alias_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:402:union_type:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:351:403:type_alias_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:402:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:344:403:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:351:403:type_alias_declaration:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:344:403:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:351:403:type_alias_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:485:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:344:403:export_statement:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:485:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:344:403:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:414:483:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:424:435:type_identifier:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:414:483:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:424:435:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:462:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:445:property_identifier:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:462:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:445:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:445:462:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:447:462:type_identifier:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:445:462:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:447:462:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:462:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:445:462:type_annotation:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:462:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:445:462:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:436:483:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:462:property_signature:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:436:483:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:462:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:479:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:471:property_identifier:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:479:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:471:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:471:479:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:473:479:predefined_type:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:471:479:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:473:479:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:479:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:471:479:type_annotation:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:479:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:471:479:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:436:483:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:479:property_signature:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:436:483:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:479:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:414:483:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:436:483:interface_body:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:414:483:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:436:483:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:407:483:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:414:483:interface_declaration:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:407:483:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:414:483:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:485:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:407:483:export_statement:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:485:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:407:483:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:17:28:type_identifier",
+      "kind": "type_identifier",
+      "label": "UserProfile",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 1
+        },
+        "end_byte": 28,
+        "start": {
+          "column": 17,
+          "line": 1
+        },
+        "start_byte": 17
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:36:property_identifier",
+      "kind": "property_identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 4,
+          "line": 2
+        },
+        "end_byte": 36,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 34
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:38:44:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 6,
+          "line": 2
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:38:44:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:36:44:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 4,
+          "line": 2
+        },
+        "start_byte": 36
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:36:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:36:44:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:44:property_signature",
+      "kind": "property_signature",
+      "label": "id: string",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 34
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:57:property_identifier",
+      "kind": "property_identifier",
+      "label": "username",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 3
+        },
+        "end_byte": 57,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 49
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:59:65:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 3
+        },
+        "end_byte": 65,
+        "start": {
+          "column": 12,
+          "line": 3
+        },
+        "start_byte": 59
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:59:65:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:57:65:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 3
+        },
+        "end_byte": 65,
+        "start": {
+          "column": 10,
+          "line": 3
+        },
+        "start_byte": 57
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:57:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:57:65:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:65:property_signature",
+      "kind": "property_signature",
+      "label": "username: string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 3
+        },
+        "end_byte": 65,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 49
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:80:property_identifier",
+      "kind": "property_identifier",
+      "label": "first_name",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 4
+        },
+        "end_byte": 80,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 70
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:82:88:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 4
+        },
+        "end_byte": 88,
+        "start": {
+          "column": 14,
+          "line": 4
+        },
+        "start_byte": 82
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:82:88:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:80:88:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 4
+        },
+        "end_byte": 88,
+        "start": {
+          "column": 12,
+          "line": 4
+        },
+        "start_byte": 80
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:80:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:80:88:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:88:property_signature",
+      "kind": "property_signature",
+      "label": "first_name: string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 4
+        },
+        "end_byte": 88,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 70
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:102:property_identifier",
+      "kind": "property_identifier",
+      "label": "last_name",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 5
+        },
+        "end_byte": 102,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 93
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:104:110:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 5
+        },
+        "end_byte": 110,
+        "start": {
+          "column": 13,
+          "line": 5
+        },
+        "start_byte": 104
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:104:110:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:102:110:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 5
+        },
+        "end_byte": 110,
+        "start": {
+          "column": 11,
+          "line": 5
+        },
+        "start_byte": 102
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:102:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:102:110:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:110:property_signature",
+      "kind": "property_signature",
+      "label": "last_name: string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 5
+        },
+        "end_byte": 110,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 93
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:120:property_identifier",
+      "kind": "property_identifier",
+      "label": "email",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 6
+        },
+        "end_byte": 120,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 115
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:122:128:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 6
+        },
+        "end_byte": 128,
+        "start": {
+          "column": 9,
+          "line": 6
+        },
+        "start_byte": 122
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:122:128:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:120:128:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 6
+        },
+        "end_byte": 128,
+        "start": {
+          "column": 7,
+          "line": 6
+        },
+        "start_byte": 120
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:120:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:120:128:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:128:property_signature",
+      "kind": "property_signature",
+      "label": "email: string",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 6
+        },
+        "end_byte": 128,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 115
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:143:property_identifier",
+      "kind": "property_identifier",
+      "label": "created_at",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 7
+        },
+        "end_byte": 143,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 133
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:145:151:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 7
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 14,
+          "line": 7
+        },
+        "start_byte": 145
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:145:151:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:143:151:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 7
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 143
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:143:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:143:151:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:151:property_signature",
+      "kind": "property_signature",
+      "label": "created_at: string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 7
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 133
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:166:property_identifier",
+      "kind": "property_identifier",
+      "label": "updated_at",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 8
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 156
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:168:174:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 14,
+          "line": 8
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:168:174:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:166:174:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 12,
+          "line": 8
+        },
+        "start_byte": 166
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:166:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:166:174:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:174:property_signature",
+      "kind": "property_signature",
+      "label": "updated_at: string",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 156
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:34:44:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:49:65:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:70:88:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:93:110:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:115:128:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:133:151:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:156:174:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  id: string;\r\n  username: string;\r\n  first_name: string;\r\n  last_name: string;\r\n  email: string;\r\n  created_at: string;\r\n  updated_at: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 178,
+        "start": {
+          "column": 29,
+          "line": 1
+        },
+        "start_byte": 29
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:17:28:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:29:178:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:7:178:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface UserProfile {\r\n  id: string;\r\n  username: string;\r\n  first_name: string;\r\n  last_name: string;\r\n  email: string;\r\n  created_at: string;\r\n  updated_at: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 178,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:7:178:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:178:export_statement",
+      "kind": "export_statement",
+      "label": "export interface UserProfile {\r\n  id: string;\r\n  username: string;\r\n  first_name: string;\r\n  last_name: string;\r\n  email: string;\r\n  created_at: string;\r\n  updated_at: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 9
+        },
+        "end_byte": 178,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:199:213:type_identifier",
+      "kind": "type_identifier",
+      "label": "PasswordChecks",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 11
+        },
+        "end_byte": 213,
+        "start": {
+          "column": 17,
+          "line": 11
+        },
+        "start_byte": 199
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:228:property_identifier",
+      "kind": "property_identifier",
+      "label": "minLength",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 12
+        },
+        "end_byte": 228,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 219
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:230:237:predefined_type",
+      "kind": "predefined_type",
+      "label": "boolean",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 237,
+        "start": {
+          "column": 13,
+          "line": 12
+        },
+        "start_byte": 230
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:230:237:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:228:237:type_annotation",
+      "kind": "type_annotation",
+      "label": ": boolean",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 237,
+        "start": {
+          "column": 11,
+          "line": 12
+        },
+        "start_byte": 228
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:228:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:228:237:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:237:property_signature",
+      "kind": "property_signature",
+      "label": "minLength: boolean",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 237,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 219
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:254:property_identifier",
+      "kind": "property_identifier",
+      "label": "hasUppercase",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 13
+        },
+        "end_byte": 254,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:256:263:predefined_type",
+      "kind": "predefined_type",
+      "label": "boolean",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 13
+        },
+        "end_byte": 263,
+        "start": {
+          "column": 16,
+          "line": 13
+        },
+        "start_byte": 256
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:256:263:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:254:263:type_annotation",
+      "kind": "type_annotation",
+      "label": ": boolean",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 13
+        },
+        "end_byte": 263,
+        "start": {
+          "column": 14,
+          "line": 13
+        },
+        "start_byte": 254
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:254:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:254:263:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:263:property_signature",
+      "kind": "property_signature",
+      "label": "hasUppercase: boolean",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 13
+        },
+        "end_byte": 263,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:280:property_identifier",
+      "kind": "property_identifier",
+      "label": "hasLowercase",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 14
+        },
+        "end_byte": 280,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 268
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:282:289:predefined_type",
+      "kind": "predefined_type",
+      "label": "boolean",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 14
+        },
+        "end_byte": 289,
+        "start": {
+          "column": 16,
+          "line": 14
+        },
+        "start_byte": 282
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:282:289:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:280:289:type_annotation",
+      "kind": "type_annotation",
+      "label": ": boolean",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 14
+        },
+        "end_byte": 289,
+        "start": {
+          "column": 14,
+          "line": 14
+        },
+        "start_byte": 280
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:280:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:280:289:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:289:property_signature",
+      "kind": "property_signature",
+      "label": "hasLowercase: boolean",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 14
+        },
+        "end_byte": 289,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 268
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:303:property_identifier",
+      "kind": "property_identifier",
+      "label": "hasNumber",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 15
+        },
+        "end_byte": 303,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 294
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:305:312:predefined_type",
+      "kind": "predefined_type",
+      "label": "boolean",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 15
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 13,
+          "line": 15
+        },
+        "start_byte": 305
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:305:312:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:303:312:type_annotation",
+      "kind": "type_annotation",
+      "label": ": boolean",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 15
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 11,
+          "line": 15
+        },
+        "start_byte": 303
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:303:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:303:312:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:312:property_signature",
+      "kind": "property_signature",
+      "label": "hasNumber: boolean",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 15
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 294
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:327:property_identifier",
+      "kind": "property_identifier",
+      "label": "hasSpecial",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 16
+        },
+        "end_byte": 327,
+        "start": {
+          "column": 2,
+          "line": 16
+        },
+        "start_byte": 317
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:329:336:predefined_type",
+      "kind": "predefined_type",
+      "label": "boolean",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 16
+        },
+        "end_byte": 336,
+        "start": {
+          "column": 14,
+          "line": 16
+        },
+        "start_byte": 329
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:329:336:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:327:336:type_annotation",
+      "kind": "type_annotation",
+      "label": ": boolean",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 16
+        },
+        "end_byte": 336,
+        "start": {
+          "column": 12,
+          "line": 16
+        },
+        "start_byte": 327
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:327:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:327:336:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:336:property_signature",
+      "kind": "property_signature",
+      "label": "hasSpecial: boolean",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 16
+        },
+        "end_byte": 336,
+        "start": {
+          "column": 2,
+          "line": 16
+        },
+        "start_byte": 317
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:219:237:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:242:263:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:268:289:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:294:312:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:317:336:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  minLength: boolean;\r\n  hasUppercase: boolean;\r\n  hasLowercase: boolean;\r\n  hasNumber: boolean;\r\n  hasSpecial: boolean;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 17
+        },
+        "end_byte": 340,
+        "start": {
+          "column": 32,
+          "line": 11
+        },
+        "start_byte": 214
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:199:213:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:214:340:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:189:340:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface PasswordChecks {\r\n  minLength: boolean;\r\n  hasUppercase: boolean;\r\n  hasLowercase: boolean;\r\n  hasNumber: boolean;\r\n  hasSpecial: boolean;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 17
+        },
+        "end_byte": 340,
+        "start": {
+          "column": 7,
+          "line": 11
+        },
+        "start_byte": 189
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:189:340:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:182:340:export_statement",
+      "kind": "export_statement",
+      "label": "export interface PasswordChecks {\r\n  minLength: boolean;\r\n  hasUppercase: boolean;\r\n  hasLowercase: boolean;\r\n  hasNumber: boolean;\r\n  hasSpecial: boolean;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 17
+        },
+        "end_byte": 340,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 182
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:356:371:type_identifier",
+      "kind": "type_identifier",
+      "label": "AuthMessageTone",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 19
+        },
+        "end_byte": 371,
+        "start": {
+          "column": 12,
+          "line": 19
+        },
+        "start_byte": 356
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:375:382:string_fragment",
+      "kind": "string_fragment",
+      "label": "success",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 19
+        },
+        "end_byte": 382,
+        "start": {
+          "column": 31,
+          "line": 19
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:375:382:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:string",
+      "kind": "string",
+      "label": "\"success\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 19
+        },
+        "end_byte": 383,
+        "start": {
+          "column": 30,
+          "line": 19
+        },
+        "start_byte": 374
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:literal_type",
+      "kind": "literal_type",
+      "label": "\"success\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 19
+        },
+        "end_byte": 383,
+        "start": {
+          "column": 30,
+          "line": 19
+        },
+        "start_byte": 374
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:387:392:string_fragment",
+      "kind": "string_fragment",
+      "label": "error",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 19
+        },
+        "end_byte": 392,
+        "start": {
+          "column": 43,
+          "line": 19
+        },
+        "start_byte": 387
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:387:392:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:string",
+      "kind": "string",
+      "label": "\"error\"",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 19
+        },
+        "end_byte": 393,
+        "start": {
+          "column": 42,
+          "line": 19
+        },
+        "start_byte": 386
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:literal_type",
+      "kind": "literal_type",
+      "label": "\"error\"",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 19
+        },
+        "end_byte": 393,
+        "start": {
+          "column": 42,
+          "line": 19
+        },
+        "start_byte": 386
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:383:literal_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:386:393:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:393:union_type",
+      "kind": "union_type",
+      "label": "\"success\" | \"error\"",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 19
+        },
+        "end_byte": 393,
+        "start": {
+          "column": 30,
+          "line": 19
+        },
+        "start_byte": 374
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:397:401:string_fragment",
+      "kind": "string_fragment",
+      "label": "info",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 19
+        },
+        "end_byte": 401,
+        "start": {
+          "column": 53,
+          "line": 19
+        },
+        "start_byte": 397
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:397:401:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:string",
+      "kind": "string",
+      "label": "\"info\"",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 19
+        },
+        "end_byte": 402,
+        "start": {
+          "column": 52,
+          "line": 19
+        },
+        "start_byte": 396
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:literal_type",
+      "kind": "literal_type",
+      "label": "\"info\"",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 19
+        },
+        "end_byte": 402,
+        "start": {
+          "column": 52,
+          "line": 19
+        },
+        "start_byte": 396
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:393:union_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:396:402:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:402:union_type",
+      "kind": "union_type",
+      "label": "\"success\" | \"error\" | \"info\"",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 19
+        },
+        "end_byte": 402,
+        "start": {
+          "column": 30,
+          "line": 19
+        },
+        "start_byte": 374
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:356:371:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:374:402:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:351:403:type_alias_declaration",
+      "kind": "type_alias_declaration",
+      "label": "type AuthMessageTone = \"success\" | \"error\" | \"info\";",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 19
+        },
+        "end_byte": 403,
+        "start": {
+          "column": 7,
+          "line": 19
+        },
+        "start_byte": 351
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:351:403:type_alias_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:344:403:export_statement",
+      "kind": "export_statement",
+      "label": "export type AuthMessageTone = \"success\" | \"error\" | \"info\";",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 19
+        },
+        "end_byte": 403,
+        "start": {
+          "column": 0,
+          "line": 19
+        },
+        "start_byte": 344
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:424:435:type_identifier",
+      "kind": "type_identifier",
+      "label": "AuthMessage",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 21
+        },
+        "end_byte": 435,
+        "start": {
+          "column": 17,
+          "line": 21
+        },
+        "start_byte": 424
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:445:property_identifier",
+      "kind": "property_identifier",
+      "label": "tone",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 22
+        },
+        "end_byte": 445,
+        "start": {
+          "column": 2,
+          "line": 22
+        },
+        "start_byte": 441
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:447:462:type_identifier",
+      "kind": "type_identifier",
+      "label": "AuthMessageTone",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 22
+        },
+        "end_byte": 462,
+        "start": {
+          "column": 8,
+          "line": 22
+        },
+        "start_byte": 447
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:447:462:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:445:462:type_annotation",
+      "kind": "type_annotation",
+      "label": ": AuthMessageTone",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 22
+        },
+        "end_byte": 462,
+        "start": {
+          "column": 6,
+          "line": 22
+        },
+        "start_byte": 445
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:445:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:445:462:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:462:property_signature",
+      "kind": "property_signature",
+      "label": "tone: AuthMessageTone",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 22
+        },
+        "end_byte": 462,
+        "start": {
+          "column": 2,
+          "line": 22
+        },
+        "start_byte": 441
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:471:property_identifier",
+      "kind": "property_identifier",
+      "label": "text",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 23
+        },
+        "end_byte": 471,
+        "start": {
+          "column": 2,
+          "line": 23
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:473:479:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 23
+        },
+        "end_byte": 479,
+        "start": {
+          "column": 8,
+          "line": 23
+        },
+        "start_byte": 473
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:473:479:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:471:479:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 23
+        },
+        "end_byte": 479,
+        "start": {
+          "column": 6,
+          "line": 23
+        },
+        "start_byte": 471
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:471:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:471:479:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:479:property_signature",
+      "kind": "property_signature",
+      "label": "text: string",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 23
+        },
+        "end_byte": 479,
+        "start": {
+          "column": 2,
+          "line": 23
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:441:462:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:467:479:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:436:483:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  tone: AuthMessageTone;\r\n  text: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 24
+        },
+        "end_byte": 483,
+        "start": {
+          "column": 29,
+          "line": 21
+        },
+        "start_byte": 436
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:424:435:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:436:483:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:414:483:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface AuthMessage {\r\n  tone: AuthMessageTone;\r\n  text: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 24
+        },
+        "end_byte": 483,
+        "start": {
+          "column": 7,
+          "line": 21
+        },
+        "start_byte": 414
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:414:483:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:407:483:export_statement",
+      "kind": "export_statement",
+      "label": "export interface AuthMessage {\r\n  tone: AuthMessageTone;\r\n  text: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 24
+        },
+        "end_byte": 483,
+        "start": {
+          "column": 0,
+          "line": 21
+        },
+        "start_byte": 407
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:178:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:182:340:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:344:403:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:407:483:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/auth.ts:0:485:program",
+      "kind": "program",
+      "label": "export interface UserProfile {\r\n  id: string;\r\n  username: string;\r\n  first_name: string;\r\n  last_name: string;\r\n  email: string;\r\n  created_at: string;\r\n  updated_at: string;\r\n}\r\n\r\nexport interface P",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 25
+        },
+        "end_byte": 485,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/types/auth.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

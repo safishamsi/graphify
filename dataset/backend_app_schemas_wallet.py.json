@@ -1,0 +1,2323 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:39+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:5:13:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:5:13:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:5:13:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:5:13:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:29:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:5:13:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:29:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:5:13:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:21:29:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:21:29:identifier:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:21:29:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:21:29:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:29:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:21:29:dotted_name:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:29:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:21:29:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:29:import_from_statement:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:29:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:36:42:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:36:42:identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:36:42:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:36:42:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:31:58:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:36:42:dotted_name:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:31:58:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:36:42:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:50:58:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:50:58:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:50:58:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:50:58:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:31:58:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:50:58:dotted_name:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:31:58:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:50:58:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:31:58:import_from_statement:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:31:58:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:67:75:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:67:75:identifier:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:67:75:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:67:75:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:62:92:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:67:75:dotted_name:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:62:92:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:67:75:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:83:92:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:83:92:identifier:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:83:92:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:83:92:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:62:92:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:83:92:dotted_name:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:62:92:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:83:92:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:62:92:import_from_statement:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:62:92:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:98:325:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:104:116:identifier:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:98:325:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:104:116:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:116:127:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:117:126:identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:116:127:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:117:126:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:98:325:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:116:127:argument_list:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:98:325:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:116:127:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:153:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:148:identifier:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:153:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:148:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:150:153:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:150:153:identifier:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:150:153:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:150:153:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:153:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:150:153:type:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:153:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:150:153:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:153:assignment:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:153:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:189:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:167:identifier:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:189:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:167:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:177:identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:177:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:178:181:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:178:181:identifier:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:178:181:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:178:181:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:177:182:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:178:181:type:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:177:182:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:178:181:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:177:182:type_parameter:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:177:182:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:generic_type:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:189:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:type:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:189:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:189:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:185:189:none:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:189:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:185:189:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:189:assignment:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:189:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:232:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:205:identifier:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:232:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:205:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:215:identifier:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:215:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:216:224:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:216:224:identifier:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:216:224:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:216:224:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:215:225:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:216:224:type:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:215:225:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:216:224:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:215:225:type_parameter:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:215:225:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:generic_type:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:232:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:type:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:232:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:232:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:228:232:none:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:232:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:228:232:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:232:assignment:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:232:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:274:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:247:identifier:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:274:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:247:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:257:identifier:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:257:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:258:266:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:258:266:identifier:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:258:266:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:258:266:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:257:267:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:258:266:type:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:257:267:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:258:266:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:257:267:type_parameter:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:257:267:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:generic_type:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:274:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:type:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:274:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:274:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:270:274:none:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:274:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:270:274:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:274:assignment:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:274:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:299:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:288:identifier:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:299:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:288:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:290:295:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:290:295:identifier:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:290:295:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:290:295:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:299:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:290:295:type:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:299:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:290:295:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:299:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:298:299:integer:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:299:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:298:299:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:299:assignment:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:299:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:325:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:314:identifier:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:325:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:314:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:316:321:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:316:321:identifier:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:316:321:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:316:321:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:325:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:316:321:type:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:325:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:316:321:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:325:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:324:325:integer:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:325:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:324:325:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:325:assignment:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:325:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:98:325:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:98:325:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:98:325:class_definition:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:98:325:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:331:453:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:337:351:identifier:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:331:453:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:337:351:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:351:365:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:352:364:identifier:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:351:365:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:352:364:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:331:453:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:351:365:argument_list:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:331:453:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:351:365:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:379:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:374:identifier:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:379:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:374:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:376:379:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:376:379:identifier:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:376:379:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:376:379:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:379:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:376:379:type:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:379:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:376:379:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:453:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:379:assignment:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:453:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:379:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:405:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:395:identifier:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:405:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:395:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:397:405:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:397:405:identifier:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:397:405:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:397:405:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:405:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:397:405:type:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:405:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:397:405:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:453:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:405:assignment:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:453:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:405:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:453:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:425:identifier:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:453:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:425:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:446:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:430:string_start:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:446:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:430:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:446:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:430:445:string_content:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:446:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:430:445:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:446:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:445:446:string_end:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:446:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:445:446:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:452:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:446:string:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:452:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:446:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:452:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:448:452:true:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:452:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:448:452:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:428:453:dictionary->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:452:pair:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:428:453:dictionary",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:452:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:453:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:428:453:dictionary:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:453:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:428:453:dictionary",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:453:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:453:assignment:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:453:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:453:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:331:453:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:453:block:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:331:453:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:453:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:331:453:class_definition:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:331:453:class_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:5:13:identifier",
+      "kind": "identifier",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 1
+        },
+        "end_byte": 13,
+        "start": {
+          "column": 5,
+          "line": 1
+        },
+        "start_byte": 5
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:5:13:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:5:13:dotted_name",
+      "kind": "dotted_name",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 1
+        },
+        "end_byte": 13,
+        "start": {
+          "column": 5,
+          "line": 1
+        },
+        "start_byte": 5
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:21:29:identifier",
+      "kind": "identifier",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 21,
+          "line": 1
+        },
+        "start_byte": 21
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:21:29:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:21:29:dotted_name",
+      "kind": "dotted_name",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 21,
+          "line": 1
+        },
+        "start_byte": 21
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:5:13:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:21:29:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:29:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from datetime import datetime",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:36:42:identifier",
+      "kind": "identifier",
+      "label": "typing",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 2
+        },
+        "end_byte": 42,
+        "start": {
+          "column": 5,
+          "line": 2
+        },
+        "start_byte": 36
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:36:42:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:36:42:dotted_name",
+      "kind": "dotted_name",
+      "label": "typing",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 2
+        },
+        "end_byte": 42,
+        "start": {
+          "column": 5,
+          "line": 2
+        },
+        "start_byte": 36
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:50:58:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 2
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 19,
+          "line": 2
+        },
+        "start_byte": 50
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:50:58:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:50:58:dotted_name",
+      "kind": "dotted_name",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 2
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 19,
+          "line": 2
+        },
+        "start_byte": 50
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:36:42:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:50:58:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:31:58:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from typing import Optional",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 2
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 31
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:67:75:identifier",
+      "kind": "identifier",
+      "label": "pydantic",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 4
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 5,
+          "line": 4
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:67:75:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:67:75:dotted_name",
+      "kind": "dotted_name",
+      "label": "pydantic",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 4
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 5,
+          "line": 4
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:83:92:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 4
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 21,
+          "line": 4
+        },
+        "start_byte": 83
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:83:92:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:83:92:dotted_name",
+      "kind": "dotted_name",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 4
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 21,
+          "line": 4
+        },
+        "start_byte": 83
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:67:75:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:83:92:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:62:92:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from pydantic import BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 4
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:104:116:identifier",
+      "kind": "identifier",
+      "label": "WalletCreate",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 7
+        },
+        "end_byte": 116,
+        "start": {
+          "column": 6,
+          "line": 7
+        },
+        "start_byte": 104
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:117:126:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 7
+        },
+        "end_byte": 126,
+        "start": {
+          "column": 19,
+          "line": 7
+        },
+        "start_byte": 117
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:117:126:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:116:127:argument_list",
+      "kind": "argument_list",
+      "label": "(BaseModel)",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 7
+        },
+        "end_byte": 127,
+        "start": {
+          "column": 18,
+          "line": 7
+        },
+        "start_byte": 116
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:148:identifier",
+      "kind": "identifier",
+      "label": "wallet_address",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 8
+        },
+        "end_byte": 148,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 134
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:150:153:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 8
+        },
+        "end_byte": 153,
+        "start": {
+          "column": 20,
+          "line": 8
+        },
+        "start_byte": 150
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:150:153:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:150:153:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 8
+        },
+        "end_byte": 153,
+        "start": {
+          "column": 20,
+          "line": 8
+        },
+        "start_byte": 150
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:148:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:150:153:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:153:assignment",
+      "kind": "assignment",
+      "label": "wallet_address: str",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 8
+        },
+        "end_byte": 153,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 134
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:167:identifier",
+      "kind": "identifier",
+      "label": "chain_id",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 9
+        },
+        "end_byte": 167,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 159
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:177:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 9
+        },
+        "end_byte": 177,
+        "start": {
+          "column": 14,
+          "line": 9
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:178:181:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 9
+        },
+        "end_byte": 181,
+        "start": {
+          "column": 23,
+          "line": 9
+        },
+        "start_byte": 178
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:178:181:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:178:181:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 9
+        },
+        "end_byte": 181,
+        "start": {
+          "column": 23,
+          "line": 9
+        },
+        "start_byte": 178
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:178:181:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:177:182:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str]",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 9
+        },
+        "end_byte": 182,
+        "start": {
+          "column": 22,
+          "line": 9
+        },
+        "start_byte": 177
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:177:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:177:182:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:generic_type",
+      "kind": "generic_type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 9
+        },
+        "end_byte": 182,
+        "start": {
+          "column": 14,
+          "line": 9
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:type",
+      "kind": "type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 9
+        },
+        "end_byte": 182,
+        "start": {
+          "column": 14,
+          "line": 9
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:185:189:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 9
+        },
+        "end_byte": 189,
+        "start": {
+          "column": 30,
+          "line": 9
+        },
+        "start_byte": 185
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:167:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:169:182:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:185:189:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:189:assignment",
+      "kind": "assignment",
+      "label": "chain_id: Optional[str] = None",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 9
+        },
+        "end_byte": 189,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 159
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:205:identifier",
+      "kind": "identifier",
+      "label": "first_seen",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 10
+        },
+        "end_byte": 205,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 195
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:215:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 10
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 16,
+          "line": 10
+        },
+        "start_byte": 207
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:216:224:identifier",
+      "kind": "identifier",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 10
+        },
+        "end_byte": 224,
+        "start": {
+          "column": 25,
+          "line": 10
+        },
+        "start_byte": 216
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:216:224:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:216:224:type",
+      "kind": "type",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 10
+        },
+        "end_byte": 224,
+        "start": {
+          "column": 25,
+          "line": 10
+        },
+        "start_byte": 216
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:216:224:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:215:225:type_parameter",
+      "kind": "type_parameter",
+      "label": "[datetime]",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 10
+        },
+        "end_byte": 225,
+        "start": {
+          "column": 24,
+          "line": 10
+        },
+        "start_byte": 215
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:215:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:215:225:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:generic_type",
+      "kind": "generic_type",
+      "label": "Optional[datetime]",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 10
+        },
+        "end_byte": 225,
+        "start": {
+          "column": 16,
+          "line": 10
+        },
+        "start_byte": 207
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:type",
+      "kind": "type",
+      "label": "Optional[datetime]",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 10
+        },
+        "end_byte": 225,
+        "start": {
+          "column": 16,
+          "line": 10
+        },
+        "start_byte": 207
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:228:232:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 10
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 37,
+          "line": 10
+        },
+        "start_byte": 228
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:205:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:207:225:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:228:232:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:232:assignment",
+      "kind": "assignment",
+      "label": "first_seen: Optional[datetime] = None",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 10
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 195
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:247:identifier",
+      "kind": "identifier",
+      "label": "last_seen",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 11
+        },
+        "end_byte": 247,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 238
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:257:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 11
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 249
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:258:266:identifier",
+      "kind": "identifier",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 11
+        },
+        "end_byte": 266,
+        "start": {
+          "column": 24,
+          "line": 11
+        },
+        "start_byte": 258
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:258:266:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:258:266:type",
+      "kind": "type",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 11
+        },
+        "end_byte": 266,
+        "start": {
+          "column": 24,
+          "line": 11
+        },
+        "start_byte": 258
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:258:266:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:257:267:type_parameter",
+      "kind": "type_parameter",
+      "label": "[datetime]",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 23,
+          "line": 11
+        },
+        "start_byte": 257
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:257:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:257:267:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:generic_type",
+      "kind": "generic_type",
+      "label": "Optional[datetime]",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 249
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:type",
+      "kind": "type",
+      "label": "Optional[datetime]",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 11
+        },
+        "end_byte": 267,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 249
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:270:274:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 11
+        },
+        "end_byte": 274,
+        "start": {
+          "column": 36,
+          "line": 11
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:247:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:249:267:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:270:274:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:274:assignment",
+      "kind": "assignment",
+      "label": "last_seen: Optional[datetime] = None",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 11
+        },
+        "end_byte": 274,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 238
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:288:identifier",
+      "kind": "identifier",
+      "label": "total_in",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 12
+        },
+        "end_byte": 288,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 280
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:290:295:identifier",
+      "kind": "identifier",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 12
+        },
+        "end_byte": 295,
+        "start": {
+          "column": 14,
+          "line": 12
+        },
+        "start_byte": 290
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:290:295:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:290:295:type",
+      "kind": "type",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 12
+        },
+        "end_byte": 295,
+        "start": {
+          "column": 14,
+          "line": 12
+        },
+        "start_byte": 290
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:298:299:integer",
+      "kind": "integer",
+      "label": "0",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 12
+        },
+        "end_byte": 299,
+        "start": {
+          "column": 22,
+          "line": 12
+        },
+        "start_byte": 298
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:288:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:290:295:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:298:299:integer"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:299:assignment",
+      "kind": "assignment",
+      "label": "total_in: float = 0",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 12
+        },
+        "end_byte": 299,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 280
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:314:identifier",
+      "kind": "identifier",
+      "label": "total_out",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 13
+        },
+        "end_byte": 314,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 305
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:316:321:identifier",
+      "kind": "identifier",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 13
+        },
+        "end_byte": 321,
+        "start": {
+          "column": 15,
+          "line": 13
+        },
+        "start_byte": 316
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:316:321:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:316:321:type",
+      "kind": "type",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 13
+        },
+        "end_byte": 321,
+        "start": {
+          "column": 15,
+          "line": 13
+        },
+        "start_byte": 316
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:324:325:integer",
+      "kind": "integer",
+      "label": "0",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 13
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 23,
+          "line": 13
+        },
+        "start_byte": 324
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:314:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:316:321:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:324:325:integer"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:325:assignment",
+      "kind": "assignment",
+      "label": "total_out: float = 0",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 13
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 305
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:153:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:159:189:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:195:232:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:238:274:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:280:299:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:305:325:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block",
+      "kind": "block",
+      "label": "wallet_address: str\r\n    chain_id: Optional[str] = None\r\n    first_seen: Optional[datetime] = None\r\n    last_seen: Optional[datetime] = None\r\n    total_in: float = 0\r\n    total_out: float = 0",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 13
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 134
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:104:116:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:116:127:argument_list",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:134:325:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:98:325:class_definition",
+      "kind": "class_definition",
+      "label": "class WalletCreate(BaseModel):\r\n    wallet_address: str\r\n    chain_id: Optional[str] = None\r\n    first_seen: Optional[datetime] = None\r\n    last_seen: Optional[datetime] = None\r\n    total_in: float = ",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 13
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 98
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:337:351:identifier",
+      "kind": "identifier",
+      "label": "WalletResponse",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 16
+        },
+        "end_byte": 351,
+        "start": {
+          "column": 6,
+          "line": 16
+        },
+        "start_byte": 337
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:352:364:identifier",
+      "kind": "identifier",
+      "label": "WalletCreate",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 16
+        },
+        "end_byte": 364,
+        "start": {
+          "column": 21,
+          "line": 16
+        },
+        "start_byte": 352
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:352:364:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:351:365:argument_list",
+      "kind": "argument_list",
+      "label": "(WalletCreate)",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 16
+        },
+        "end_byte": 365,
+        "start": {
+          "column": 20,
+          "line": 16
+        },
+        "start_byte": 351
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:374:identifier",
+      "kind": "identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 17
+        },
+        "end_byte": 374,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 372
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:376:379:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 17
+        },
+        "end_byte": 379,
+        "start": {
+          "column": 8,
+          "line": 17
+        },
+        "start_byte": 376
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:376:379:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:376:379:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 17
+        },
+        "end_byte": 379,
+        "start": {
+          "column": 8,
+          "line": 17
+        },
+        "start_byte": 376
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:374:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:376:379:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:379:assignment",
+      "kind": "assignment",
+      "label": "id: str",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 17
+        },
+        "end_byte": 379,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 372
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:395:identifier",
+      "kind": "identifier",
+      "label": "created_at",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 18
+        },
+        "end_byte": 395,
+        "start": {
+          "column": 4,
+          "line": 18
+        },
+        "start_byte": 385
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:397:405:identifier",
+      "kind": "identifier",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 18
+        },
+        "end_byte": 405,
+        "start": {
+          "column": 16,
+          "line": 18
+        },
+        "start_byte": 397
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:397:405:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:397:405:type",
+      "kind": "type",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 18
+        },
+        "end_byte": 405,
+        "start": {
+          "column": 16,
+          "line": 18
+        },
+        "start_byte": 397
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:395:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:397:405:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:405:assignment",
+      "kind": "assignment",
+      "label": "created_at: datetime",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 18
+        },
+        "end_byte": 405,
+        "start": {
+          "column": 4,
+          "line": 18
+        },
+        "start_byte": 385
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:425:identifier",
+      "kind": "identifier",
+      "label": "model_config",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 20
+        },
+        "end_byte": 425,
+        "start": {
+          "column": 4,
+          "line": 20
+        },
+        "start_byte": 413
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:430:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 20
+        },
+        "end_byte": 430,
+        "start": {
+          "column": 20,
+          "line": 20
+        },
+        "start_byte": 429
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:430:445:string_content",
+      "kind": "string_content",
+      "label": "from_attributes",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 20
+        },
+        "end_byte": 445,
+        "start": {
+          "column": 21,
+          "line": 20
+        },
+        "start_byte": 430
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:445:446:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 20
+        },
+        "end_byte": 446,
+        "start": {
+          "column": 36,
+          "line": 20
+        },
+        "start_byte": 445
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:430:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:430:445:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:445:446:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:446:string",
+      "kind": "string",
+      "label": "\"from_attributes\"",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 20
+        },
+        "end_byte": 446,
+        "start": {
+          "column": 20,
+          "line": 20
+        },
+        "start_byte": 429
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:448:452:true",
+      "kind": "true",
+      "label": "True",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 20
+        },
+        "end_byte": 452,
+        "start": {
+          "column": 39,
+          "line": 20
+        },
+        "start_byte": 448
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:446:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:448:452:true"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:452:pair",
+      "kind": "pair",
+      "label": "\"from_attributes\": True",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 20
+        },
+        "end_byte": 452,
+        "start": {
+          "column": 20,
+          "line": 20
+        },
+        "start_byte": 429
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:429:452:pair"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:428:453:dictionary",
+      "kind": "dictionary",
+      "label": "{\"from_attributes\": True}",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 20
+        },
+        "end_byte": 453,
+        "start": {
+          "column": 19,
+          "line": 20
+        },
+        "start_byte": 428
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:425:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:428:453:dictionary"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:453:assignment",
+      "kind": "assignment",
+      "label": "model_config = {\"from_attributes\": True}",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 20
+        },
+        "end_byte": 453,
+        "start": {
+          "column": 4,
+          "line": 20
+        },
+        "start_byte": 413
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:379:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:385:405:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:413:453:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:453:block",
+      "kind": "block",
+      "label": "id: str\r\n    created_at: datetime\r\n\r\n    model_config = {\"from_attributes\": True}",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 20
+        },
+        "end_byte": 453,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 372
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:337:351:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:351:365:argument_list",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:372:453:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:331:453:class_definition",
+      "kind": "class_definition",
+      "label": "class WalletResponse(WalletCreate):\r\n    id: str\r\n    created_at: datetime\r\n\r\n    model_config = {\"from_attributes\": True}",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 20
+        },
+        "end_byte": 453,
+        "start": {
+          "column": 0,
+          "line": 16
+        },
+        "start_byte": 331
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:29:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:31:58:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:62:92:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:98:325:class_definition",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:331:453:class_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/wallet.py:0:455:module",
+      "kind": "module",
+      "label": "from datetime import datetime\r\nfrom typing import Optional\r\n\r\nfrom pydantic import BaseModel\r\n\r\n\r\nclass WalletCreate(BaseModel):\r\n    wallet_address: str\r\n    chain_id: Optional[str] = None\r\n    first",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 21
+        },
+        "end_byte": 455,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/app/schemas/wallet.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

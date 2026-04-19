@@ -1,0 +1,2689 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:09+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:9:19:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:9:19:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:9:19:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:9:19:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:9:19:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:9:19:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:named_imports:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:35:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:import_clause:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:35:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:27:34:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:28:33:string_fragment:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:27:34:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:28:33:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:35:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:27:34:string:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:35:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:27:34:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:35:import_statement:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:35:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:46:56:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:46:56:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:46:56:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:46:56:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:46:56:import_specifier:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:46:56:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:named_imports:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:37:83:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:import_clause:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:37:83:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:64:82:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:65:81:string_fragment:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:64:82:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:65:81:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:37:83:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:64:82:string:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:37:83:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:64:82:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:37:83:import_statement:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:37:83:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:94:107:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:94:107:identifier:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:94:107:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:94:107:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:94:107:import_specifier:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:94:107:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:named_imports:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:85:134:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:import_clause:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:85:134:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:115:133:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:116:132:string_fragment:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:115:133:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:116:132:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:85:134:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:115:133:string:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:85:134:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:115:133:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:85:134:import_statement:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:85:134:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:143:146:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:143:146:identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:143:146:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:143:146:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:136:160:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:143:146:import_clause:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:136:160:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:143:146:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:152:159:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:153:158:string_fragment:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:152:159:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:153:158:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:136:160:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:152:159:string:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:136:160:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:152:159:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:136:160:import_statement:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:136:160:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:171:183:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:171:183:identifier:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:171:183:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:171:183:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:171:183:import_specifier:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:171:183:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:named_imports:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:162:216:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:import_clause:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:162:216:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:191:215:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:192:214:string_fragment:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:191:215:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:192:214:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:162:216:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:191:215:string:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:162:216:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:191:215:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:162:216:import_statement:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:162:216:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:227:240:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:227:240:identifier:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:227:240:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:227:240:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:227:240:import_specifier:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:227:240:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:named_imports:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:218:275:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:import_clause:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:218:275:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:248:274:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:249:273:string_fragment:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:248:274:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:249:273:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:218:275:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:248:274:string:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:218:275:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:248:274:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:218:275:import_statement:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:218:275:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:286:306:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:286:306:identifier:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:286:306:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:286:306:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:286:306:import_specifier:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:286:306:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:named_imports:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:277:348:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:import_clause:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:277:348:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:314:347:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:315:346:string_fragment:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:314:347:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:315:346:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:277:348:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:314:347:string:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:277:348:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:314:347:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:277:348:import_statement:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:277:348:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:357:370:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:358:369:string_fragment:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:357:370:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:358:369:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:350:371:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:357:370:string:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:350:371:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:357:370:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:350:371:import_statement:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:350:371:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:419:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:385:identifier:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:419:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:385:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:409:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:394:identifier:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:409:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:394:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:409:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:395:409:property_identifier:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:409:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:395:409:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:417:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:409:member_expression:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:417:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:409:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:410:416:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:411:415:string_fragment:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:410:416:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:411:415:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:409:417:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:410:416:string:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:409:417:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:410:416:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:417:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:409:417:arguments:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:417:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:409:417:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:418:non_null_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:417:call_expression:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:418:non_null_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:417:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:385:419:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:418:non_null_expression:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:385:419:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:418:non_null_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:419:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:385:419:arguments:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:419:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:385:419:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:426:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:419:call_expression:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:426:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:419:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:426:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:420:426:property_identifier:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:426:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:420:426:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:693:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:426:member_expression:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:693:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:426:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:443:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:432:442:type_identifier:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:443:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:432:442:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:443:type_arguments:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:443:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:449:463:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:450:462:type_identifier:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:449:463:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:450:462:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:449:463:type_arguments:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:449:463:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:471:493:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:472:492:type_identifier:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:471:493:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:472:492:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:471:493:type_arguments:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:471:493:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:503:518:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:504:517:type_identifier:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:503:518:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:504:517:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:503:518:type_arguments:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:503:518:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:530:545:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:531:544:type_identifier:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:530:545:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:531:544:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:530:545:type_arguments:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:530:545:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:559:566:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:560:563:type_identifier:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:559:566:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:560:563:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:559:566:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:564:565:ERROR:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:559:566:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:564:565:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:559:566:type_arguments:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:559:566:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:578:594:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:579:580:ERROR:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:578:594:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:579:580:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:578:594:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:580:593:type_identifier:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:578:594:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:580:593:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:578:594:type_arguments:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:578:594:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:604:620:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:605:606:ERROR:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:604:620:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:605:606:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:604:620:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:606:619:type_identifier:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:604:620:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:606:619:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:604:620:type_arguments:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:604:620:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:628:651:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:629:630:ERROR:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:628:651:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:629:630:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:628:651:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:630:650:type_identifier:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:628:651:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:630:650:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:628:651:type_arguments:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:628:651:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:657:672:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:658:659:ERROR:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:657:672:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:658:659:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:657:672:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:659:671:type_identifier:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:657:672:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:659:671:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:657:672:type_arguments:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:657:672:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:676:689:type_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:677:678:ERROR:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:676:689:type_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:677:678:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:678:688:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:678:688:type_identifier:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:678:688:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:678:688:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:676:689:type_parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:678:688:type_parameter:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:676:689:type_parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:678:688:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:676:689:type_parameters:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:676:689:type_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:426:693:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:426:693:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:693:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:426:693:arguments:93",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:693:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:426:693:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:694:expression_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:693:call_expression:94",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:694:expression_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:693:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:694:expression_statement:95",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:694:expression_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:9:19:identifier",
+      "kind": "identifier",
+      "label": "StrictMode",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 1
+        },
+        "end_byte": 19,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:9:19:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:9:19:import_specifier",
+      "kind": "import_specifier",
+      "label": "StrictMode",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 1
+        },
+        "end_byte": 19,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:9:19:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:named_imports",
+      "kind": "named_imports",
+      "label": "{ StrictMode }",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:import_clause",
+      "kind": "import_clause",
+      "label": "{ StrictMode }",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:28:33:string_fragment",
+      "kind": "string_fragment",
+      "label": "react",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 1
+        },
+        "end_byte": 33,
+        "start": {
+          "column": 28,
+          "line": 1
+        },
+        "start_byte": 28
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:28:33:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:27:34:string",
+      "kind": "string",
+      "label": "\"react\"",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 27,
+          "line": 1
+        },
+        "start_byte": 27
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:7:21:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:27:34:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:35:import_statement",
+      "kind": "import_statement",
+      "label": "import { StrictMode } from \"react\";",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 1
+        },
+        "end_byte": 35,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:46:56:identifier",
+      "kind": "identifier",
+      "label": "createRoot",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 2
+        },
+        "end_byte": 56,
+        "start": {
+          "column": 9,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:46:56:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:46:56:import_specifier",
+      "kind": "import_specifier",
+      "label": "createRoot",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 2
+        },
+        "end_byte": 56,
+        "start": {
+          "column": 9,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:46:56:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:named_imports",
+      "kind": "named_imports",
+      "label": "{ createRoot }",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 2
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 7,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:import_clause",
+      "kind": "import_clause",
+      "label": "{ createRoot }",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 2
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 7,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:65:81:string_fragment",
+      "kind": "string_fragment",
+      "label": "react-dom/client",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 2
+        },
+        "end_byte": 81,
+        "start": {
+          "column": 28,
+          "line": 2
+        },
+        "start_byte": 65
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:65:81:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:64:82:string",
+      "kind": "string",
+      "label": "\"react-dom/client\"",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 2
+        },
+        "end_byte": 82,
+        "start": {
+          "column": 27,
+          "line": 2
+        },
+        "start_byte": 64
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:44:58:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:64:82:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:37:83:import_statement",
+      "kind": "import_statement",
+      "label": "import { createRoot } from \"react-dom/client\";",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 2
+        },
+        "end_byte": 83,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:94:107:identifier",
+      "kind": "identifier",
+      "label": "BrowserRouter",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 3
+        },
+        "end_byte": 107,
+        "start": {
+          "column": 9,
+          "line": 3
+        },
+        "start_byte": 94
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:94:107:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:94:107:import_specifier",
+      "kind": "import_specifier",
+      "label": "BrowserRouter",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 3
+        },
+        "end_byte": 107,
+        "start": {
+          "column": 9,
+          "line": 3
+        },
+        "start_byte": 94
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:94:107:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:named_imports",
+      "kind": "named_imports",
+      "label": "{ BrowserRouter }",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 3
+        },
+        "end_byte": 109,
+        "start": {
+          "column": 7,
+          "line": 3
+        },
+        "start_byte": 92
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:import_clause",
+      "kind": "import_clause",
+      "label": "{ BrowserRouter }",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 3
+        },
+        "end_byte": 109,
+        "start": {
+          "column": 7,
+          "line": 3
+        },
+        "start_byte": 92
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:116:132:string_fragment",
+      "kind": "string_fragment",
+      "label": "react-router-dom",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 3
+        },
+        "end_byte": 132,
+        "start": {
+          "column": 31,
+          "line": 3
+        },
+        "start_byte": 116
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:116:132:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:115:133:string",
+      "kind": "string",
+      "label": "\"react-router-dom\"",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 3
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 30,
+          "line": 3
+        },
+        "start_byte": 115
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:92:109:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:115:133:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:85:134:import_statement",
+      "kind": "import_statement",
+      "label": "import { BrowserRouter } from \"react-router-dom\";",
+      "span": {
+        "end": {
+          "column": 49,
+          "line": 3
+        },
+        "end_byte": 134,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 85
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:143:146:identifier",
+      "kind": "identifier",
+      "label": "App",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 4
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 7,
+          "line": 4
+        },
+        "start_byte": 143
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:143:146:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:143:146:import_clause",
+      "kind": "import_clause",
+      "label": "App",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 4
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 7,
+          "line": 4
+        },
+        "start_byte": 143
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:153:158:string_fragment",
+      "kind": "string_fragment",
+      "label": "./App",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 4
+        },
+        "end_byte": 158,
+        "start": {
+          "column": 17,
+          "line": 4
+        },
+        "start_byte": 153
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:153:158:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:152:159:string",
+      "kind": "string",
+      "label": "\"./App\"",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 4
+        },
+        "end_byte": 159,
+        "start": {
+          "column": 16,
+          "line": 4
+        },
+        "start_byte": 152
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:143:146:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:152:159:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:136:160:import_statement",
+      "kind": "import_statement",
+      "label": "import App from \"./App\";",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 4
+        },
+        "end_byte": 160,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 136
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:171:183:identifier",
+      "kind": "identifier",
+      "label": "AuthProvider",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 5
+        },
+        "end_byte": 183,
+        "start": {
+          "column": 9,
+          "line": 5
+        },
+        "start_byte": 171
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:171:183:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:171:183:import_specifier",
+      "kind": "import_specifier",
+      "label": "AuthProvider",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 5
+        },
+        "end_byte": 183,
+        "start": {
+          "column": 9,
+          "line": 5
+        },
+        "start_byte": 171
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:171:183:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:named_imports",
+      "kind": "named_imports",
+      "label": "{ AuthProvider }",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 5
+        },
+        "end_byte": 185,
+        "start": {
+          "column": 7,
+          "line": 5
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:import_clause",
+      "kind": "import_clause",
+      "label": "{ AuthProvider }",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 5
+        },
+        "end_byte": 185,
+        "start": {
+          "column": 7,
+          "line": 5
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:192:214:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/contexts/AuthContext",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 5
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 30,
+          "line": 5
+        },
+        "start_byte": 192
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:192:214:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:191:215:string",
+      "kind": "string",
+      "label": "\"@/contexts/AuthContext\"",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 5
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 29,
+          "line": 5
+        },
+        "start_byte": 191
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:169:185:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:191:215:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:162:216:import_statement",
+      "kind": "import_statement",
+      "label": "import { AuthProvider } from \"@/contexts/AuthContext\";",
+      "span": {
+        "end": {
+          "column": 54,
+          "line": 5
+        },
+        "end_byte": 216,
+        "start": {
+          "column": 0,
+          "line": 5
+        },
+        "start_byte": 162
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:227:240:identifier",
+      "kind": "identifier",
+      "label": "ToastProvider",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 240,
+        "start": {
+          "column": 9,
+          "line": 6
+        },
+        "start_byte": 227
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:227:240:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:227:240:import_specifier",
+      "kind": "import_specifier",
+      "label": "ToastProvider",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 240,
+        "start": {
+          "column": 9,
+          "line": 6
+        },
+        "start_byte": 227
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:227:240:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:named_imports",
+      "kind": "named_imports",
+      "label": "{ ToastProvider }",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 6
+        },
+        "end_byte": 242,
+        "start": {
+          "column": 7,
+          "line": 6
+        },
+        "start_byte": 225
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:import_clause",
+      "kind": "import_clause",
+      "label": "{ ToastProvider }",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 6
+        },
+        "end_byte": 242,
+        "start": {
+          "column": 7,
+          "line": 6
+        },
+        "start_byte": 225
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:249:273:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/contexts/ToastProvider",
+      "span": {
+        "end": {
+          "column": 55,
+          "line": 6
+        },
+        "end_byte": 273,
+        "start": {
+          "column": 31,
+          "line": 6
+        },
+        "start_byte": 249
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:249:273:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:248:274:string",
+      "kind": "string",
+      "label": "\"@/contexts/ToastProvider\"",
+      "span": {
+        "end": {
+          "column": 56,
+          "line": 6
+        },
+        "end_byte": 274,
+        "start": {
+          "column": 30,
+          "line": 6
+        },
+        "start_byte": 248
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:225:242:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:248:274:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:218:275:import_statement",
+      "kind": "import_statement",
+      "label": "import { ToastProvider } from \"@/contexts/ToastProvider\";",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 6
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 218
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:286:306:identifier",
+      "kind": "identifier",
+      "label": "NotificationProvider",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 7
+        },
+        "end_byte": 306,
+        "start": {
+          "column": 9,
+          "line": 7
+        },
+        "start_byte": 286
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:286:306:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:286:306:import_specifier",
+      "kind": "import_specifier",
+      "label": "NotificationProvider",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 7
+        },
+        "end_byte": 306,
+        "start": {
+          "column": 9,
+          "line": 7
+        },
+        "start_byte": 286
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:286:306:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:named_imports",
+      "kind": "named_imports",
+      "label": "{ NotificationProvider }",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 7
+        },
+        "end_byte": 308,
+        "start": {
+          "column": 7,
+          "line": 7
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:import_clause",
+      "kind": "import_clause",
+      "label": "{ NotificationProvider }",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 7
+        },
+        "end_byte": 308,
+        "start": {
+          "column": 7,
+          "line": 7
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:315:346:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/contexts/NotificationProvider",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 7
+        },
+        "end_byte": 346,
+        "start": {
+          "column": 38,
+          "line": 7
+        },
+        "start_byte": 315
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:315:346:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:314:347:string",
+      "kind": "string",
+      "label": "\"@/contexts/NotificationProvider\"",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 7
+        },
+        "end_byte": 347,
+        "start": {
+          "column": 37,
+          "line": 7
+        },
+        "start_byte": 314
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:284:308:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:314:347:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:277:348:import_statement",
+      "kind": "import_statement",
+      "label": "import { NotificationProvider } from \"@/contexts/NotificationProvider\";",
+      "span": {
+        "end": {
+          "column": 71,
+          "line": 7
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 277
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:358:369:string_fragment",
+      "kind": "string_fragment",
+      "label": "./index.css",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 8
+        },
+        "end_byte": 369,
+        "start": {
+          "column": 8,
+          "line": 8
+        },
+        "start_byte": 358
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:358:369:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:357:370:string",
+      "kind": "string",
+      "label": "\"./index.css\"",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 370,
+        "start": {
+          "column": 7,
+          "line": 8
+        },
+        "start_byte": 357
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:357:370:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:350:371:import_statement",
+      "kind": "import_statement",
+      "label": "import \"./index.css\";",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 8
+        },
+        "end_byte": 371,
+        "start": {
+          "column": 0,
+          "line": 8
+        },
+        "start_byte": 350
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:385:identifier",
+      "kind": "identifier",
+      "label": "createRoot",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 10
+        },
+        "end_byte": 385,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:394:identifier",
+      "kind": "identifier",
+      "label": "document",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 10
+        },
+        "end_byte": 394,
+        "start": {
+          "column": 11,
+          "line": 10
+        },
+        "start_byte": 386
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:395:409:property_identifier",
+      "kind": "property_identifier",
+      "label": "getElementById",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 10
+        },
+        "end_byte": 409,
+        "start": {
+          "column": 20,
+          "line": 10
+        },
+        "start_byte": 395
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:394:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:395:409:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:409:member_expression",
+      "kind": "member_expression",
+      "label": "document.getElementById",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 10
+        },
+        "end_byte": 409,
+        "start": {
+          "column": 11,
+          "line": 10
+        },
+        "start_byte": 386
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:411:415:string_fragment",
+      "kind": "string_fragment",
+      "label": "root",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 415,
+        "start": {
+          "column": 36,
+          "line": 10
+        },
+        "start_byte": 411
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:411:415:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:410:416:string",
+      "kind": "string",
+      "label": "\"root\"",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 10
+        },
+        "end_byte": 416,
+        "start": {
+          "column": 35,
+          "line": 10
+        },
+        "start_byte": 410
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:410:416:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:409:417:arguments",
+      "kind": "arguments",
+      "label": "(\"root\")",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 10
+        },
+        "end_byte": 417,
+        "start": {
+          "column": 34,
+          "line": 10
+        },
+        "start_byte": 409
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:409:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:409:417:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:417:call_expression",
+      "kind": "call_expression",
+      "label": "document.getElementById(\"root\")",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 10
+        },
+        "end_byte": 417,
+        "start": {
+          "column": 11,
+          "line": 10
+        },
+        "start_byte": 386
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:417:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:418:non_null_expression",
+      "kind": "non_null_expression",
+      "label": "document.getElementById(\"root\")!",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 10
+        },
+        "end_byte": 418,
+        "start": {
+          "column": 11,
+          "line": 10
+        },
+        "start_byte": 386
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:386:418:non_null_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:385:419:arguments",
+      "kind": "arguments",
+      "label": "(document.getElementById(\"root\")!)",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 10
+        },
+        "end_byte": 419,
+        "start": {
+          "column": 10,
+          "line": 10
+        },
+        "start_byte": 385
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:385:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:385:419:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:419:call_expression",
+      "kind": "call_expression",
+      "label": "createRoot(document.getElementById(\"root\")!)",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 10
+        },
+        "end_byte": 419,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:420:426:property_identifier",
+      "kind": "property_identifier",
+      "label": "render",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 10
+        },
+        "end_byte": 426,
+        "start": {
+          "column": 45,
+          "line": 10
+        },
+        "start_byte": 420
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:419:call_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:420:426:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:426:member_expression",
+      "kind": "member_expression",
+      "label": "createRoot(document.getElementById(\"root\")!).render",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 10
+        },
+        "end_byte": 426,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:432:442:type_identifier",
+      "kind": "type_identifier",
+      "label": "StrictMode",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 11
+        },
+        "end_byte": 442,
+        "start": {
+          "column": 3,
+          "line": 11
+        },
+        "start_byte": 432
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:432:442:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:443:type_arguments",
+      "kind": "type_arguments",
+      "label": "<StrictMode>",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 11
+        },
+        "end_byte": 443,
+        "start": {
+          "column": 2,
+          "line": 11
+        },
+        "start_byte": 431
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:450:462:type_identifier",
+      "kind": "type_identifier",
+      "label": "AuthProvider",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 12
+        },
+        "end_byte": 462,
+        "start": {
+          "column": 5,
+          "line": 12
+        },
+        "start_byte": 450
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:450:462:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:449:463:type_arguments",
+      "kind": "type_arguments",
+      "label": "<AuthProvider>",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 12
+        },
+        "end_byte": 463,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 449
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:472:492:type_identifier",
+      "kind": "type_identifier",
+      "label": "NotificationProvider",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 13
+        },
+        "end_byte": 492,
+        "start": {
+          "column": 7,
+          "line": 13
+        },
+        "start_byte": 472
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:472:492:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:471:493:type_arguments",
+      "kind": "type_arguments",
+      "label": "<NotificationProvider>",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 13
+        },
+        "end_byte": 493,
+        "start": {
+          "column": 6,
+          "line": 13
+        },
+        "start_byte": 471
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:504:517:type_identifier",
+      "kind": "type_identifier",
+      "label": "ToastProvider",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 14
+        },
+        "end_byte": 517,
+        "start": {
+          "column": 9,
+          "line": 14
+        },
+        "start_byte": 504
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:504:517:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:503:518:type_arguments",
+      "kind": "type_arguments",
+      "label": "<ToastProvider>",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 14
+        },
+        "end_byte": 518,
+        "start": {
+          "column": 8,
+          "line": 14
+        },
+        "start_byte": 503
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:531:544:type_identifier",
+      "kind": "type_identifier",
+      "label": "BrowserRouter",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 15
+        },
+        "end_byte": 544,
+        "start": {
+          "column": 11,
+          "line": 15
+        },
+        "start_byte": 531
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:531:544:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:530:545:type_arguments",
+      "kind": "type_arguments",
+      "label": "<BrowserRouter>",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 15
+        },
+        "end_byte": 545,
+        "start": {
+          "column": 10,
+          "line": 15
+        },
+        "start_byte": 530
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:560:563:type_identifier",
+      "kind": "type_identifier",
+      "label": "App",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 16
+        },
+        "end_byte": 563,
+        "start": {
+          "column": 13,
+          "line": 16
+        },
+        "start_byte": 560
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:564:565:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 16
+        },
+        "end_byte": 565,
+        "start": {
+          "column": 17,
+          "line": 16
+        },
+        "start_byte": 564
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:560:563:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:564:565:ERROR"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:559:566:type_arguments",
+      "kind": "type_arguments",
+      "label": "<App />",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 16
+        },
+        "end_byte": 566,
+        "start": {
+          "column": 12,
+          "line": 16
+        },
+        "start_byte": 559
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:579:580:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 17
+        },
+        "end_byte": 580,
+        "start": {
+          "column": 11,
+          "line": 17
+        },
+        "start_byte": 579
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:580:593:type_identifier",
+      "kind": "type_identifier",
+      "label": "BrowserRouter",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 17
+        },
+        "end_byte": 593,
+        "start": {
+          "column": 12,
+          "line": 17
+        },
+        "start_byte": 580
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:579:580:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:580:593:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:578:594:type_arguments",
+      "kind": "type_arguments",
+      "label": "</BrowserRouter>",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 17
+        },
+        "end_byte": 594,
+        "start": {
+          "column": 10,
+          "line": 17
+        },
+        "start_byte": 578
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:605:606:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 18
+        },
+        "end_byte": 606,
+        "start": {
+          "column": 9,
+          "line": 18
+        },
+        "start_byte": 605
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:606:619:type_identifier",
+      "kind": "type_identifier",
+      "label": "ToastProvider",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 18
+        },
+        "end_byte": 619,
+        "start": {
+          "column": 10,
+          "line": 18
+        },
+        "start_byte": 606
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:605:606:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:606:619:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:604:620:type_arguments",
+      "kind": "type_arguments",
+      "label": "</ToastProvider>",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 18
+        },
+        "end_byte": 620,
+        "start": {
+          "column": 8,
+          "line": 18
+        },
+        "start_byte": 604
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:629:630:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 19
+        },
+        "end_byte": 630,
+        "start": {
+          "column": 7,
+          "line": 19
+        },
+        "start_byte": 629
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:630:650:type_identifier",
+      "kind": "type_identifier",
+      "label": "NotificationProvider",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 19
+        },
+        "end_byte": 650,
+        "start": {
+          "column": 8,
+          "line": 19
+        },
+        "start_byte": 630
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:629:630:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:630:650:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:628:651:type_arguments",
+      "kind": "type_arguments",
+      "label": "</NotificationProvider>",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 19
+        },
+        "end_byte": 651,
+        "start": {
+          "column": 6,
+          "line": 19
+        },
+        "start_byte": 628
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:658:659:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 20
+        },
+        "end_byte": 659,
+        "start": {
+          "column": 5,
+          "line": 20
+        },
+        "start_byte": 658
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:659:671:type_identifier",
+      "kind": "type_identifier",
+      "label": "AuthProvider",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 20
+        },
+        "end_byte": 671,
+        "start": {
+          "column": 6,
+          "line": 20
+        },
+        "start_byte": 659
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:658:659:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:659:671:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:657:672:type_arguments",
+      "kind": "type_arguments",
+      "label": "</AuthProvider>",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 20
+        },
+        "end_byte": 672,
+        "start": {
+          "column": 4,
+          "line": 20
+        },
+        "start_byte": 657
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:677:678:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "end": {
+          "column": 4,
+          "line": 21
+        },
+        "end_byte": 678,
+        "start": {
+          "column": 3,
+          "line": 21
+        },
+        "start_byte": 677
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:678:688:type_identifier",
+      "kind": "type_identifier",
+      "label": "StrictMode",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 21
+        },
+        "end_byte": 688,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 678
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:678:688:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:678:688:type_parameter",
+      "kind": "type_parameter",
+      "label": "StrictMode",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 21
+        },
+        "end_byte": 688,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 678
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:677:678:ERROR",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:678:688:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:676:689:type_parameters",
+      "kind": "type_parameters",
+      "label": "</StrictMode>",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 21
+        },
+        "end_byte": 689,
+        "start": {
+          "column": 2,
+          "line": 21
+        },
+        "start_byte": 676
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:443:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:449:463:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:471:493:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:503:518:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:530:545:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:559:566:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:578:594:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:604:620:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:628:651:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:657:672:type_arguments",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:676:689:type_parameters"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR",
+      "kind": "ERROR",
+      "label": "<StrictMode>\r\n    <AuthProvider>\r\n      <NotificationProvider>\r\n        <ToastProvider>\r\n          <BrowserRouter>\r\n            <App />\r\n          </BrowserRouter>\r\n        </ToastProvider>\r\n      </N",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 21
+        },
+        "end_byte": 689,
+        "start": {
+          "column": 2,
+          "line": 11
+        },
+        "start_byte": 431
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:431:689:ERROR"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:426:693:arguments",
+      "kind": "arguments",
+      "label": "(\r\n  <StrictMode>\r\n    <AuthProvider>\r\n      <NotificationProvider>\r\n        <ToastProvider>\r\n          <BrowserRouter>\r\n            <App />\r\n          </BrowserRouter>\r\n        </ToastProvider>\r\n    ",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 22
+        },
+        "end_byte": 693,
+        "start": {
+          "column": 51,
+          "line": 10
+        },
+        "start_byte": 426
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:426:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:426:693:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:693:call_expression",
+      "kind": "call_expression",
+      "label": "createRoot(document.getElementById(\"root\")!).render(\r\n  <StrictMode>\r\n    <AuthProvider>\r\n      <NotificationProvider>\r\n        <ToastProvider>\r\n          <BrowserRouter>\r\n            <App />\r\n       ",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 22
+        },
+        "end_byte": 693,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:693:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:694:expression_statement",
+      "kind": "expression_statement",
+      "label": "createRoot(document.getElementById(\"root\")!).render(\r\n  <StrictMode>\r\n    <AuthProvider>\r\n      <NotificationProvider>\r\n        <ToastProvider>\r\n          <BrowserRouter>\r\n            <App />\r\n       ",
+      "span": {
+        "end": {
+          "column": 2,
+          "line": 22
+        },
+        "end_byte": 694,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:35:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:37:83:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:85:134:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:136:160:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:162:216:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:218:275:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:277:348:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:350:371:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:375:694:expression_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/main.tsx:0:696:program",
+      "kind": "program",
+      "label": "import { StrictMode } from \"react\";\r\nimport { createRoot } from \"react-dom/client\";\r\nimport { BrowserRouter } from \"react-router-dom\";\r\nimport App from \"./App\";\r\nimport { AuthProvider } from \"@/contex",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 23
+        },
+        "end_byte": 696,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/main.tsx",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

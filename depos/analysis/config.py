@@ -34,16 +34,30 @@ class BundleBudget(BaseModel):
     token_budget_default: int = 8000
     token_estimator: str = "chars4"  # pinned default; tiktoken if installed & enabled
     allow_tiktoken: bool = True
+    extra_source_roots: list[str] = Field(default_factory=list)
+    path_aliases: dict[str, str] = Field(default_factory=dict)
+    min_snippet_chars: int = 80
+    min_evidence_quality_for_reasoner: str = "embedded"  # full | embedded | label_only
+    min_evidence_score_for_reasoner: float = 0.25
 
 
 class ReasonerProviderConfig(BaseModel):
-    provider: str = "gemma"  # gemma | openai | ollama
+    provider: str = "gemma"  # gemma | openai | ollama | stub
     max_retries: int = 2
     gemma_api_url: Optional[str] = None
     gemma_model: str = "gemma-4"
     openai_api_key: Optional[str] = None
+    openai_model: str = "gpt-4o-mini"
     ollama_host: Optional[str] = None
+    ollama_model: str = "gemma:2b"
     default_max_tokens: int = 1000
+    # JSON path expressions used to extract the model's text reply from the
+    # provider response. Override per-deployment (e.g. Vertex AI Gemma vs
+    # an Ollama-style server). The Gemma provider tries the configured path
+    # first, then falls back through a known list of common shapes.
+    gemma_response_path: str = "response"
+    openai_response_path: str = "choices[0].message.content"
+    ollama_response_path: str = "response"
 
 
 class GrayZoneConfig(BaseModel):
@@ -123,15 +137,54 @@ def load_config_from_env() -> IntelligenceConfig:
     cfg = IntelligenceConfig()
     cfg.reasoner.provider = os.environ.get("DEPOS_INTEL_PROVIDER", cfg.reasoner.provider)
     cfg.reasoner.openai_api_key = os.environ.get("OPENAI_API_KEY", cfg.reasoner.openai_api_key)
+    cfg.reasoner.openai_model = os.environ.get("OPENAI_MODEL", cfg.reasoner.openai_model)
     cfg.reasoner.gemma_api_url = os.environ.get("GEMMA_API_URL", cfg.reasoner.gemma_api_url)
     cfg.reasoner.gemma_model = os.environ.get("GEMMA_MODEL", cfg.reasoner.gemma_model)
+    cfg.reasoner.gemma_response_path = os.environ.get(
+        "GEMMA_RESPONSE_PATH", cfg.reasoner.gemma_response_path
+    )
+    cfg.reasoner.openai_response_path = os.environ.get(
+        "OPENAI_RESPONSE_PATH", cfg.reasoner.openai_response_path
+    )
+    cfg.reasoner.ollama_response_path = os.environ.get(
+        "OLLAMA_RESPONSE_PATH", cfg.reasoner.ollama_response_path
+    )
     cfg.reasoner.ollama_host = os.environ.get("OLLAMA_HOST", cfg.reasoner.ollama_host)
+    cfg.reasoner.ollama_model = os.environ.get("OLLAMA_MODEL", cfg.reasoner.ollama_model)
     cfg.ranker.use_graphcodebert = os.environ.get("DEPOS_INTEL_USE_GRAPHCODEBERT", "").strip().lower() in {"1", "true", "yes", "on"}
     cfg.ranker.graphcodebert_cache_dir = os.environ.get("DEPOS_INTEL_GRAPHCODEBERT_CACHE", cfg.ranker.graphcodebert_cache_dir)
     cfg.ranker.graphcodebert_device = os.environ.get("DEPOS_INTEL_GRAPHCODEBERT_DEVICE", cfg.ranker.graphcodebert_device)
     cfg.ranker.graphcodebert_local_files_only = os.environ.get("DEPOS_INTEL_GRAPHCODEBERT_LOCAL_ONLY", "").strip().lower() in {"1", "true", "yes", "on"}
     try:
         cfg.bundles.token_budget_default = int(os.environ.get("DEPOS_INTEL_TOKEN_BUDGET", cfg.bundles.token_budget_default))
+    except ValueError:
+        pass
+
+    extra_roots = os.environ.get("DEPOS_INTEL_EXTRA_SOURCE_ROOTS")
+    if extra_roots:
+        cfg.bundles.extra_source_roots = [
+            part for part in extra_roots.split(os.pathsep) if part.strip()
+        ]
+    aliases_json = os.environ.get("DEPOS_INTEL_PATH_ALIASES_JSON")
+    if aliases_json:
+        try:
+            import json as _json
+
+            parsed = _json.loads(aliases_json)
+            if isinstance(parsed, dict):
+                cfg.bundles.path_aliases = {str(k): str(v) for k, v in parsed.items()}
+        except ValueError:
+            pass
+    min_evidence = os.environ.get("DEPOS_INTEL_MIN_EVIDENCE")
+    if min_evidence in {"full", "embedded", "label_only"}:
+        cfg.bundles.min_evidence_quality_for_reasoner = min_evidence
+    try:
+        cfg.bundles.min_evidence_score_for_reasoner = float(
+            os.environ.get(
+                "DEPOS_INTEL_MIN_EVIDENCE_SCORE",
+                cfg.bundles.min_evidence_score_for_reasoner,
+            )
+        )
     except ValueError:
         pass
     return cfg

@@ -1,0 +1,57 @@
+{
+  "commit_sha": "abc123",
+  "nodes": [
+    {
+      "id": "ast:abc123:backend/app/auth.py:0:64:module",
+      "kind": "module",
+      "label": "module",
+      "span": {"start": {"line": 1}, "end": {"line": 4}}
+    },
+    {
+      "id": "ast:abc123:backend/app/auth.py:0:64:function_definition",
+      "kind": "function_definition",
+      "label": "def verify_token(token):\n    return True",
+      "span": {"start": {"line": 1}, "end": {"line": 2}}
+    },
+    {
+      "id": "ast:abc123:backend/app/auth.py:4:16:identifier",
+      "kind": "identifier",
+      "label": "verify_token",
+      "span": {"start": {"line": 1}, "end": {"line": 1}}
+    },
+    {
+      "id": "ast:abc123:backend/app/auth.py:32:64:function_definition",
+      "kind": "function_definition",
+      "label": "def issue_session(user_id):\n    return user_id",
+      "span": {"start": {"line": 3}, "end": {"line": 4}}
+    },
+    {
+      "id": "ast:abc123:backend/app/auth.py:36:48:identifier",
+      "kind": "identifier",
+      "label": "issue_session",
+      "span": {"start": {"line": 3}, "end": {"line": 3}}
+    }
+  ],
+  "edges": [
+    {
+      "source_id": "ast:abc123:backend/app/auth.py:0:64:module",
+      "target_id": "ast:abc123:backend/app/auth.py:0:64:function_definition",
+      "type": "child"
+    },
+    {
+      "source_id": "ast:abc123:backend/app/auth.py:0:64:function_definition",
+      "target_id": "ast:abc123:backend/app/auth.py:4:16:identifier",
+      "type": "child"
+    },
+    {
+      "source_id": "ast:abc123:backend/app/auth.py:0:64:module",
+      "target_id": "ast:abc123:backend/app/auth.py:32:64:function_definition",
+      "type": "child"
+    },
+    {
+      "source_id": "ast:abc123:backend/app/auth.py:32:64:function_definition",
+      "target_id": "ast:abc123:backend/app/auth.py:36:48:identifier",
+      "type": "child"
+    }
+  ]
+}

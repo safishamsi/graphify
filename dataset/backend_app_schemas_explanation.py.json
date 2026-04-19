@@ -1,0 +1,2271 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:39+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:5:11:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:5:11:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:5:11:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:5:11:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:27:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:5:11:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:27:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:5:11:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:19:27:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:19:27:identifier:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:19:27:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:19:27:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:27:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:19:27:dotted_name:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:27:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:19:27:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:408:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:27:import_from_statement:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:408:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:27:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:36:44:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:36:44:identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:36:44:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:36:44:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:31:61:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:36:44:dotted_name:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:31:61:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:36:44:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:52:61:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:52:61:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:52:61:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:52:61:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:31:61:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:52:61:dotted_name:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:31:61:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:52:61:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:408:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:31:61:import_from_statement:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:408:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:31:61:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:67:406:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:73:92:identifier:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:67:406:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:73:92:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:92:103:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:93:102:identifier:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:92:103:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:93:102:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:67:406:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:92:103:argument_list:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:67:406:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:92:103:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:146:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:124:identifier:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:146:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:124:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:134:identifier:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:134:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:135:138:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:135:138:identifier:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:135:138:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:135:138:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:134:139:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:135:138:type:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:134:139:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:135:138:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:134:139:type_parameter:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:134:139:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:generic_type:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:146:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:type:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:146:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:146:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:142:146:none:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:146:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:142:146:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:146:assignment:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:146:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:181:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:159:identifier:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:181:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:159:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:169:identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:169:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:170:173:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:170:173:identifier:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:170:173:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:170:173:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:169:174:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:170:173:type:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:169:174:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:170:173:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:169:174:type_parameter:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:169:174:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:generic_type:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:181:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:type:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:181:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:181:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:177:181:none:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:181:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:177:181:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:181:assignment:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:181:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:215:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:203:identifier:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:215:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:203:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:209:identifier:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:209:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:210:214:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:210:214:identifier:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:210:214:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:210:214:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:209:215:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:210:214:type:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:209:215:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:210:214:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:209:215:type_parameter:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:209:215:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:generic_type:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:215:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:type:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:215:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:215:assignment:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:215:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:257:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:239:identifier:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:257:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:239:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:245:identifier:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:245:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:246:249:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:246:249:identifier:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:246:249:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:246:249:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:245:257:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:246:249:type:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:245:257:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:246:249:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:251:256:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:251:256:identifier:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:251:256:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:251:256:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:245:257:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:251:256:type:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:245:257:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:251:256:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:245:257:type_parameter:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:245:257:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:generic_type:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:257:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:type:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:257:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:257:assignment:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:257:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:297:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:275:identifier:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:297:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:275:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:285:identifier:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:285:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:286:289:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:286:289:identifier:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:286:289:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:286:289:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:285:290:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:286:289:type:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:285:290:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:286:289:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:285:290:type_parameter:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:285:290:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:generic_type:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:297:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:type:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:297:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:297:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:293:297:none:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:297:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:293:297:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:297:assignment:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:297:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:341:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:319:identifier:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:341:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:319:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:329:identifier:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:329:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:330:333:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:330:333:identifier:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:330:333:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:330:333:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:329:334:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:330:333:type:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:329:334:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:330:333:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:329:334:type_parameter:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:329:334:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:generic_type:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:341:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:type:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:341:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:341:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:337:341:none:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:341:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:337:341:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:341:assignment:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:341:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:359:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:354:identifier:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:359:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:354:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:356:359:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:356:359:identifier:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:356:359:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:356:359:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:359:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:356:359:type:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:359:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:356:359:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:359:assignment:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:359:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:382:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:375:identifier:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:382:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:375:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:377:382:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:377:382:identifier:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:377:382:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:377:382:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:382:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:377:382:type:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:382:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:377:382:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:382:assignment:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:382:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:406:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:401:identifier:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:406:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:401:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:403:406:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:403:406:identifier:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:403:406:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:403:406:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:406:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:403:406:type:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:406:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:403:406:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:406:assignment:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:406:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:67:406:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:67:406:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:408:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:67:406:class_definition:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:408:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:67:406:class_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:5:11:identifier",
+      "kind": "identifier",
+      "label": "typing",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 1
+        },
+        "end_byte": 11,
+        "start": {
+          "column": 5,
+          "line": 1
+        },
+        "start_byte": 5
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:5:11:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:5:11:dotted_name",
+      "kind": "dotted_name",
+      "label": "typing",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 1
+        },
+        "end_byte": 11,
+        "start": {
+          "column": 5,
+          "line": 1
+        },
+        "start_byte": 5
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:19:27:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 1
+        },
+        "end_byte": 27,
+        "start": {
+          "column": 19,
+          "line": 1
+        },
+        "start_byte": 19
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:19:27:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:19:27:dotted_name",
+      "kind": "dotted_name",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 1
+        },
+        "end_byte": 27,
+        "start": {
+          "column": 19,
+          "line": 1
+        },
+        "start_byte": 19
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:5:11:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:19:27:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:27:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from typing import Optional",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 1
+        },
+        "end_byte": 27,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:36:44:identifier",
+      "kind": "identifier",
+      "label": "pydantic",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 3
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 36
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:36:44:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:36:44:dotted_name",
+      "kind": "dotted_name",
+      "label": "pydantic",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 3
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 36
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:52:61:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 3
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 21,
+          "line": 3
+        },
+        "start_byte": 52
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:52:61:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:52:61:dotted_name",
+      "kind": "dotted_name",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 3
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 21,
+          "line": 3
+        },
+        "start_byte": 52
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:36:44:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:52:61:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:31:61:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from pydantic import BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 3
+        },
+        "end_byte": 61,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 31
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:73:92:identifier",
+      "kind": "identifier",
+      "label": "ExplanationResponse",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 6
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 6,
+          "line": 6
+        },
+        "start_byte": 73
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:93:102:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 6
+        },
+        "end_byte": 102,
+        "start": {
+          "column": 26,
+          "line": 6
+        },
+        "start_byte": 93
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:93:102:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:92:103:argument_list",
+      "kind": "argument_list",
+      "label": "(BaseModel)",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 6
+        },
+        "end_byte": 103,
+        "start": {
+          "column": 25,
+          "line": 6
+        },
+        "start_byte": 92
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:124:identifier",
+      "kind": "identifier",
+      "label": "transaction_id",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 7
+        },
+        "end_byte": 124,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:134:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 7
+        },
+        "end_byte": 134,
+        "start": {
+          "column": 20,
+          "line": 7
+        },
+        "start_byte": 126
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:135:138:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 7
+        },
+        "end_byte": 138,
+        "start": {
+          "column": 29,
+          "line": 7
+        },
+        "start_byte": 135
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:135:138:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:135:138:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 7
+        },
+        "end_byte": 138,
+        "start": {
+          "column": 29,
+          "line": 7
+        },
+        "start_byte": 135
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:135:138:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:134:139:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str]",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 7
+        },
+        "end_byte": 139,
+        "start": {
+          "column": 28,
+          "line": 7
+        },
+        "start_byte": 134
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:134:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:134:139:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:generic_type",
+      "kind": "generic_type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 7
+        },
+        "end_byte": 139,
+        "start": {
+          "column": 20,
+          "line": 7
+        },
+        "start_byte": 126
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:type",
+      "kind": "type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 7
+        },
+        "end_byte": 139,
+        "start": {
+          "column": 20,
+          "line": 7
+        },
+        "start_byte": 126
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:142:146:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 7
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 36,
+          "line": 7
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:124:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:126:139:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:142:146:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:146:assignment",
+      "kind": "assignment",
+      "label": "transaction_id: Optional[str] = None",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 7
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:159:identifier",
+      "kind": "identifier",
+      "label": "case_id",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 8
+        },
+        "end_byte": 159,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 152
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:169:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 8
+        },
+        "end_byte": 169,
+        "start": {
+          "column": 13,
+          "line": 8
+        },
+        "start_byte": 161
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:170:173:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 8
+        },
+        "end_byte": 173,
+        "start": {
+          "column": 22,
+          "line": 8
+        },
+        "start_byte": 170
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:170:173:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:170:173:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 8
+        },
+        "end_byte": 173,
+        "start": {
+          "column": 22,
+          "line": 8
+        },
+        "start_byte": 170
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:170:173:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:169:174:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str]",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 8
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 21,
+          "line": 8
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:169:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:169:174:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:generic_type",
+      "kind": "generic_type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 8
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 13,
+          "line": 8
+        },
+        "start_byte": 161
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:type",
+      "kind": "type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 8
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 13,
+          "line": 8
+        },
+        "start_byte": 161
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:177:181:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 8
+        },
+        "end_byte": 181,
+        "start": {
+          "column": 29,
+          "line": 8
+        },
+        "start_byte": 177
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:159:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:161:174:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:177:181:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:181:assignment",
+      "kind": "assignment",
+      "label": "case_id: Optional[str] = None",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 8
+        },
+        "end_byte": 181,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 152
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:203:identifier",
+      "kind": "identifier",
+      "label": "heuristics_fired",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 9
+        },
+        "end_byte": 203,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 187
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:209:identifier",
+      "kind": "identifier",
+      "label": "list",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 9
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 22,
+          "line": 9
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:210:214:identifier",
+      "kind": "identifier",
+      "label": "dict",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 9
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 27,
+          "line": 9
+        },
+        "start_byte": 210
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:210:214:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:210:214:type",
+      "kind": "type",
+      "label": "dict",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 9
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 27,
+          "line": 9
+        },
+        "start_byte": 210
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:210:214:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:209:215:type_parameter",
+      "kind": "type_parameter",
+      "label": "[dict]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 9
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 26,
+          "line": 9
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:209:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:209:215:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:generic_type",
+      "kind": "generic_type",
+      "label": "list[dict]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 9
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 22,
+          "line": 9
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:type",
+      "kind": "type",
+      "label": "list[dict]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 9
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 22,
+          "line": 9
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:203:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:205:215:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:215:assignment",
+      "kind": "assignment",
+      "label": "heuristics_fired: list[dict]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 9
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 187
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:239:identifier",
+      "kind": "identifier",
+      "label": "lens_contributions",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 10
+        },
+        "end_byte": 239,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 221
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:245:identifier",
+      "kind": "identifier",
+      "label": "dict",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 10
+        },
+        "end_byte": 245,
+        "start": {
+          "column": 24,
+          "line": 10
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:246:249:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 10
+        },
+        "end_byte": 249,
+        "start": {
+          "column": 29,
+          "line": 10
+        },
+        "start_byte": 246
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:246:249:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:246:249:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 10
+        },
+        "end_byte": 249,
+        "start": {
+          "column": 29,
+          "line": 10
+        },
+        "start_byte": 246
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:251:256:identifier",
+      "kind": "identifier",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 10
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 34,
+          "line": 10
+        },
+        "start_byte": 251
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:251:256:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:251:256:type",
+      "kind": "type",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 10
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 34,
+          "line": 10
+        },
+        "start_byte": 251
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:246:249:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:251:256:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:245:257:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str, float]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 28,
+          "line": 10
+        },
+        "start_byte": 245
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:245:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:245:257:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:generic_type",
+      "kind": "generic_type",
+      "label": "dict[str, float]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 24,
+          "line": 10
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:type",
+      "kind": "type",
+      "label": "dict[str, float]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 24,
+          "line": 10
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:239:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:241:257:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:257:assignment",
+      "kind": "assignment",
+      "label": "lens_contributions: dict[str, float]",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 10
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 221
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:275:identifier",
+      "kind": "identifier",
+      "label": "pattern_type",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 11
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 263
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:285:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 11
+        },
+        "end_byte": 285,
+        "start": {
+          "column": 18,
+          "line": 11
+        },
+        "start_byte": 277
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:286:289:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 11
+        },
+        "end_byte": 289,
+        "start": {
+          "column": 27,
+          "line": 11
+        },
+        "start_byte": 286
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:286:289:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:286:289:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 11
+        },
+        "end_byte": 289,
+        "start": {
+          "column": 27,
+          "line": 11
+        },
+        "start_byte": 286
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:286:289:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:285:290:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str]",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 11
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 26,
+          "line": 11
+        },
+        "start_byte": 285
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:285:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:285:290:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:generic_type",
+      "kind": "generic_type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 11
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 18,
+          "line": 11
+        },
+        "start_byte": 277
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:type",
+      "kind": "type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 11
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 18,
+          "line": 11
+        },
+        "start_byte": 277
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:293:297:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 11
+        },
+        "end_byte": 297,
+        "start": {
+          "column": 34,
+          "line": 11
+        },
+        "start_byte": 293
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:275:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:277:290:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:293:297:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:297:assignment",
+      "kind": "assignment",
+      "label": "pattern_type: Optional[str] = None",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 11
+        },
+        "end_byte": 297,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 263
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:319:identifier",
+      "kind": "identifier",
+      "label": "laundering_stage",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 319,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 303
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:329:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 12
+        },
+        "end_byte": 329,
+        "start": {
+          "column": 22,
+          "line": 12
+        },
+        "start_byte": 321
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:330:333:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 12
+        },
+        "end_byte": 333,
+        "start": {
+          "column": 31,
+          "line": 12
+        },
+        "start_byte": 330
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:330:333:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:330:333:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 12
+        },
+        "end_byte": 333,
+        "start": {
+          "column": 31,
+          "line": 12
+        },
+        "start_byte": 330
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:330:333:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:329:334:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str]",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 12
+        },
+        "end_byte": 334,
+        "start": {
+          "column": 30,
+          "line": 12
+        },
+        "start_byte": 329
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:329:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:329:334:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:generic_type",
+      "kind": "generic_type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 12
+        },
+        "end_byte": 334,
+        "start": {
+          "column": 22,
+          "line": 12
+        },
+        "start_byte": 321
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:type",
+      "kind": "type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 12
+        },
+        "end_byte": 334,
+        "start": {
+          "column": 22,
+          "line": 12
+        },
+        "start_byte": 321
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:337:341:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 12
+        },
+        "end_byte": 341,
+        "start": {
+          "column": 38,
+          "line": 12
+        },
+        "start_byte": 337
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:319:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:321:334:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:337:341:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:341:assignment",
+      "kind": "assignment",
+      "label": "laundering_stage: Optional[str] = None",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 12
+        },
+        "end_byte": 341,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 303
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:354:identifier",
+      "kind": "identifier",
+      "label": "summary",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 13
+        },
+        "end_byte": 354,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 347
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:356:359:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 13
+        },
+        "end_byte": 359,
+        "start": {
+          "column": 13,
+          "line": 13
+        },
+        "start_byte": 356
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:356:359:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:356:359:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 13
+        },
+        "end_byte": 359,
+        "start": {
+          "column": 13,
+          "line": 13
+        },
+        "start_byte": 356
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:354:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:356:359:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:359:assignment",
+      "kind": "assignment",
+      "label": "summary: str",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 13
+        },
+        "end_byte": 359,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 347
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:375:identifier",
+      "kind": "identifier",
+      "label": "confidence",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 14
+        },
+        "end_byte": 375,
+        "start": {
+          "column": 4,
+          "line": 14
+        },
+        "start_byte": 365
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:377:382:identifier",
+      "kind": "identifier",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 14
+        },
+        "end_byte": 382,
+        "start": {
+          "column": 16,
+          "line": 14
+        },
+        "start_byte": 377
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:377:382:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:377:382:type",
+      "kind": "type",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 14
+        },
+        "end_byte": 382,
+        "start": {
+          "column": 16,
+          "line": 14
+        },
+        "start_byte": 377
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:375:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:377:382:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:382:assignment",
+      "kind": "assignment",
+      "label": "confidence: float",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 14
+        },
+        "end_byte": 382,
+        "start": {
+          "column": 4,
+          "line": 14
+        },
+        "start_byte": 365
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:401:identifier",
+      "kind": "identifier",
+      "label": "coverage_tier",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 15
+        },
+        "end_byte": 401,
+        "start": {
+          "column": 4,
+          "line": 15
+        },
+        "start_byte": 388
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:403:406:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 15
+        },
+        "end_byte": 406,
+        "start": {
+          "column": 19,
+          "line": 15
+        },
+        "start_byte": 403
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:403:406:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:403:406:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 15
+        },
+        "end_byte": 406,
+        "start": {
+          "column": 19,
+          "line": 15
+        },
+        "start_byte": 403
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:401:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:403:406:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:406:assignment",
+      "kind": "assignment",
+      "label": "coverage_tier: str",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 15
+        },
+        "end_byte": 406,
+        "start": {
+          "column": 4,
+          "line": 15
+        },
+        "start_byte": 388
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:146:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:152:181:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:187:215:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:221:257:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:263:297:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:303:341:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:347:359:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:365:382:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:388:406:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block",
+      "kind": "block",
+      "label": "transaction_id: Optional[str] = None\r\n    case_id: Optional[str] = None\r\n    heuristics_fired: list[dict]\r\n    lens_contributions: dict[str, float]\r\n    pattern_type: Optional[str] = None\r\n    launder",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 15
+        },
+        "end_byte": 406,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 110
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:73:92:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:92:103:argument_list",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:110:406:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:67:406:class_definition",
+      "kind": "class_definition",
+      "label": "class ExplanationResponse(BaseModel):\r\n    transaction_id: Optional[str] = None\r\n    case_id: Optional[str] = None\r\n    heuristics_fired: list[dict]\r\n    lens_contributions: dict[str, float]\r\n    patt",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 15
+        },
+        "end_byte": 406,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:27:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:31:61:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:67:406:class_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/explanation.py:0:408:module",
+      "kind": "module",
+      "label": "from typing import Optional\r\n\r\nfrom pydantic import BaseModel\r\n\r\n\r\nclass ExplanationResponse(BaseModel):\r\n    transaction_id: Optional[str] = None\r\n    case_id: Optional[str] = None\r\n    heuristics_fi",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 16
+        },
+        "end_byte": 408,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/app/schemas/explanation.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

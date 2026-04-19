@@ -7,6 +7,7 @@ lazy imports.
 """
 from __future__ import annotations
 
+import argparse
 import json
 import sys
 from io import StringIO
@@ -15,6 +16,8 @@ from pathlib import Path
 import pytest
 
 from depos.cli import main
+from depos.analysis.config import IntelligenceConfig
+from depos.analysis.schemas import RunMetadata, RunResult
 
 
 def _run_cli(argv, capsys) -> tuple[int, str]:
@@ -79,3 +82,80 @@ def test_cli_detectors_explain_outputs_spec(capsys) -> None:
     assert rc == 0
     payload = json.loads(out)
     assert payload["name"] == "env-var-referenced-but-undefined"
+
+
+def test_run_repo_honors_provider_override(monkeypatch, tmp_path: Path, capsys) -> None:
+    from depos.cli import analyze as analyze_cli
+
+    cfg = IntelligenceConfig(data_dir=tmp_path)
+    cfg.reasoner.provider = "gemma"
+
+    class DummySource:
+        def get_source_metadata(self) -> dict[str, str]:
+            return {"repo_path": str(tmp_path)}
+
+    seen: dict[str, str] = {}
+
+    def fake_run_pipeline(source, config, run_meta, **kwargs):
+        seen["provider"] = config.reasoner.provider
+        return RunResult(findings=[], detector_stats=[], ingest_reports=[], run_metadata=run_meta)
+
+    monkeypatch.setattr(analyze_cli, "load_config_from_env", lambda: cfg)
+    monkeypatch.setattr(analyze_cli, "_build_graph_source", lambda args: DummySource())
+    monkeypatch.setattr(analyze_cli, "_run_pipeline", fake_run_pipeline)
+
+    args = argparse.Namespace(
+        path=str(tmp_path),
+        output=None,
+        mode="A,B,C",
+        provider="stub",
+        export_training=False,
+        max_seeds=None,
+        detectors=[],
+        no_reasoner=False,
+        print_detector_stats=False,
+    )
+
+    rc = analyze_cli.run_repo(args)
+    assert rc == 0
+    assert seen["provider"] == "stub"
+
+
+def test_run_repo_emits_progress_to_stderr(monkeypatch, tmp_path: Path, capsys) -> None:
+    from depos.cli import analyze as analyze_cli
+
+    cfg = IntelligenceConfig(data_dir=tmp_path)
+
+    class DummySource:
+        def get_source_metadata(self) -> dict[str, str]:
+            return {"repo_path": str(tmp_path)}
+
+    def fake_run_pipeline(source, config, run_meta, **kwargs):
+        progress = kwargs.get("progress")
+        if progress is not None:
+            progress("Module 2: detectors emitted 0 candidates.")
+        return RunResult(findings=[], detector_stats=[], ingest_reports=[], run_metadata=run_meta)
+
+    monkeypatch.setattr(analyze_cli, "load_config_from_env", lambda: cfg)
+    monkeypatch.setattr(analyze_cli, "_build_graph_source", lambda args: DummySource())
+    monkeypatch.setattr(analyze_cli, "_run_pipeline", fake_run_pipeline)
+
+    args = argparse.Namespace(
+        path=str(tmp_path),
+        output=None,
+        mode="A,B,C",
+        provider=None,
+        export_training=False,
+        max_seeds=None,
+        detectors=[],
+        no_reasoner=False,
+        print_detector_stats=False,
+    )
+
+    rc = analyze_cli.run_repo(args)
+    captured = capsys.readouterr()
+    assert rc == 0
+    assert "[depos-intel]" in captured.err
+    assert "Module 2: detectors emitted 0 candidates." in captured.err
+    payload = json.loads(captured.out)
+    assert payload["findings"] == 0

@@ -1,0 +1,646 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:00+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:29:export_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:16:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:29:export_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:16:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:29:export_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:20:29:identifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:29:export_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:20:29:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:7:31:export_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:29:export_specifier:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:7:31:export_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:29:export_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:48:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:7:31:export_clause:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:48:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:7:31:export_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:37:47:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:38:46:string_fragment:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:37:47:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:38:46:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:48:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:37:47:string:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:48:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:37:47:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:48:export_statement:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:48:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:64:80:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:65:79:string_fragment:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:64:80:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:65:79:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:50:81:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:64:80:string:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:50:81:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:64:80:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:50:81:export_statement:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:50:81:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:97:108:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:98:107:string_fragment:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:97:108:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:98:107:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:83:109:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:97:108:string:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:83:109:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:97:108:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:83:109:export_statement:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:83:109:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:125:137:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:126:136:string_fragment:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:125:137:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:126:136:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:111:138:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:125:137:string:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:111:138:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:125:137:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:111:138:export_statement:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:111:138:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:154:165:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:155:164:string_fragment:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:154:165:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:155:164:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:140:166:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:154:165:string:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:140:166:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:154:165:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:140:166:export_statement:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:140:166:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:182:196:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:183:195:string_fragment:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:182:196:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:183:195:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:168:197:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:182:196:string:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:168:197:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:182:196:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:168:197:export_statement:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:168:197:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:16:identifier",
+      "kind": "identifier",
+      "label": "default",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 1
+        },
+        "end_byte": 16,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:20:29:identifier",
+      "kind": "identifier",
+      "label": "apiClient",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 20,
+          "line": 1
+        },
+        "start_byte": 20
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:16:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:20:29:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:29:export_specifier",
+      "kind": "export_specifier",
+      "label": "default as apiClient",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:9:29:export_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:7:31:export_clause",
+      "kind": "export_clause",
+      "label": "{ default as apiClient }",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 1
+        },
+        "end_byte": 31,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:38:46:string_fragment",
+      "kind": "string_fragment",
+      "label": "./client",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 1
+        },
+        "end_byte": 46,
+        "start": {
+          "column": 38,
+          "line": 1
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:38:46:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:37:47:string",
+      "kind": "string",
+      "label": "\"./client\"",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 1
+        },
+        "end_byte": 47,
+        "start": {
+          "column": 37,
+          "line": 1
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:7:31:export_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:37:47:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:48:export_statement",
+      "kind": "export_statement",
+      "label": "export { default as apiClient } from \"./client\";",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 1
+        },
+        "end_byte": 48,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:65:79:string_fragment",
+      "kind": "string_fragment",
+      "label": "./transactions",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 2
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 15,
+          "line": 2
+        },
+        "start_byte": 65
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:65:79:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:64:80:string",
+      "kind": "string",
+      "label": "\"./transactions\"",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 2
+        },
+        "end_byte": 80,
+        "start": {
+          "column": 14,
+          "line": 2
+        },
+        "start_byte": 64
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:64:80:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:50:81:export_statement",
+      "kind": "export_statement",
+      "label": "export * from \"./transactions\";",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 2
+        },
+        "end_byte": 81,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 50
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:98:107:string_fragment",
+      "kind": "string_fragment",
+      "label": "./wallets",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 3
+        },
+        "end_byte": 107,
+        "start": {
+          "column": 15,
+          "line": 3
+        },
+        "start_byte": 98
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:98:107:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:97:108:string",
+      "kind": "string",
+      "label": "\"./wallets\"",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 3
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 14,
+          "line": 3
+        },
+        "start_byte": 97
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:97:108:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:83:109:export_statement",
+      "kind": "export_statement",
+      "label": "export * from \"./wallets\";",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 3
+        },
+        "end_byte": 109,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 83
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:126:136:string_fragment",
+      "kind": "string_fragment",
+      "label": "./networks",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 4
+        },
+        "end_byte": 136,
+        "start": {
+          "column": 15,
+          "line": 4
+        },
+        "start_byte": 126
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:126:136:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:125:137:string",
+      "kind": "string",
+      "label": "\"./networks\"",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 4
+        },
+        "end_byte": 137,
+        "start": {
+          "column": 14,
+          "line": 4
+        },
+        "start_byte": 125
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:125:137:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:111:138:export_statement",
+      "kind": "export_statement",
+      "label": "export * from \"./networks\";",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 4
+        },
+        "end_byte": 138,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 111
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:155:164:string_fragment",
+      "kind": "string_fragment",
+      "label": "./reports",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 164,
+        "start": {
+          "column": 15,
+          "line": 5
+        },
+        "start_byte": 155
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:155:164:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:154:165:string",
+      "kind": "string",
+      "label": "\"./reports\"",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 5
+        },
+        "end_byte": 165,
+        "start": {
+          "column": 14,
+          "line": 5
+        },
+        "start_byte": 154
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:154:165:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:140:166:export_statement",
+      "kind": "export_statement",
+      "label": "export * from \"./reports\";",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 5
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 0,
+          "line": 5
+        },
+        "start_byte": 140
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:183:195:string_fragment",
+      "kind": "string_fragment",
+      "label": "./heuristics",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 6
+        },
+        "end_byte": 195,
+        "start": {
+          "column": 15,
+          "line": 6
+        },
+        "start_byte": 183
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:183:195:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:182:196:string",
+      "kind": "string",
+      "label": "\"./heuristics\"",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 6
+        },
+        "end_byte": 196,
+        "start": {
+          "column": 14,
+          "line": 6
+        },
+        "start_byte": 182
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:182:196:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:168:197:export_statement",
+      "kind": "export_statement",
+      "label": "export * from \"./heuristics\";",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 6
+        },
+        "end_byte": 197,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:48:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:50:81:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:83:109:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:111:138:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:140:166:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:168:197:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/index.ts:0:199:program",
+      "kind": "program",
+      "label": "export { default as apiClient } from \"./client\";\r\nexport * from \"./transactions\";\r\nexport * from \"./wallets\";\r\nexport * from \"./networks\";\r\nexport * from \"./reports\";\r\nexport * from \"./heuristics\";\r\n",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 7
+        },
+        "end_byte": 199,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/api/index.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

@@ -302,28 +302,71 @@ def _edge_key(source: str, target: str, relation: str) -> str:
     return f"{source}|{target}|{relation}"
 
 
-def _read_source_text(repo_root: Optional[Path], source_file: str) -> str:
-    if repo_root is None:
-        return ""
-    path = repo_root / source_file
-    try:
-        return path.read_text(encoding="utf-8", errors="replace")
-    except OSError:
-        return ""
+def _apply_path_aliases(rel_path: str, aliases: dict[str, str]) -> list[str]:
+    out = [rel_path]
+    for src, dst in aliases.items():
+        if src and rel_path.startswith(src):
+            out.append(dst + rel_path[len(src) :])
+    return out
+
+
+def _read_source_text(
+    source_roots: list[Path],
+    source_file: str,
+    *,
+    path_aliases: Optional[dict[str, str]] = None,
+) -> tuple[str, Optional[str]]:
+    """Try every (root, alias) pair. Returns ``(text, resolved_via)``.
+
+    ``resolved_via`` is ``"<root>::<rel_path>"`` for the matching pair,
+    or ``None`` when nothing resolved.
+    """
+    aliases = path_aliases or {}
+    for root in source_roots:
+        for candidate in _apply_path_aliases(source_file, aliases):
+            path = root / candidate
+            try:
+                return path.read_text(encoding="utf-8", errors="replace"), f"{root}::{candidate}"
+            except OSError:
+                continue
+    return "", None
 
 
 def normalize_raw_ast_files(
     files: list[RawAstFile],
     *,
     repo_root: Optional[Path] = None,
+    source_roots: Optional[list[Path]] = None,
+    path_aliases: Optional[dict[str, str]] = None,
+    resolution_report: Optional[dict[str, Any]] = None,
 ) -> dict[str, Any]:
-    repo_root = repo_root.resolve() if repo_root is not None else None
+    roots: list[Path] = []
+    seen_roots: set[Path] = set()
+
+    def _add_root(p: Optional[Path]) -> None:
+        if p is None:
+            return
+        try:
+            resolved = p.resolve()
+        except OSError:
+            resolved = p
+        if resolved in seen_roots:
+            return
+        seen_roots.add(resolved)
+        roots.append(p)
+
+    _add_root(repo_root)
+    for raw in source_roots or []:
+        _add_root(raw)
+
+    aliases = path_aliases or {}
     known_files = {Path(f.source_file).as_posix() for f in files}
     extraction_nodes: list[dict[str, Any]] = []
     extraction_edges: list[dict[str, Any]] = []
     added_nodes: set[str] = set()
     added_edges: set[str] = set()
     entities_by_file: dict[str, list[EntityNode]] = defaultdict(list)
+    file_resolution: dict[str, Optional[str]] = {}
 
     def add_node(payload: dict[str, Any]) -> None:
         node_id = str(payload["id"])
@@ -356,8 +399,9 @@ def normalize_raw_ast_files(
                 child_map[source_id].append(target_id)
                 parent_map[target_id].append(source_id)
 
-        source_text = _read_source_text(repo_root, raw.source_file)
+        source_text, resolved_via = _read_source_text(roots, raw.source_file, path_aliases=aliases)
         source_cache[raw.source_file] = source_text
+        file_resolution[raw.source_file] = resolved_via
         max_line = max((_span_end_line(node) for node in raw.nodes), default=1)
         file_entity_id = f"entity:file:{raw.source_file}"
         file_entity_ids[raw.source_file] = file_entity_id
@@ -374,6 +418,7 @@ def normalize_raw_ast_files(
                 "entity_kind": "file",
                 "kind": "file",
                 "embedded_text": _source_excerpt(source_text, 1, max_line),
+                "source_resolved_via": resolved_via,
             }
         )
 
@@ -427,6 +472,7 @@ def normalize_raw_ast_files(
                         "ast_kind": kind,
                         "ast_node_id": raw_id,
                         "embedded_text": entity.embedded_text,
+                        "source_resolved_via": file_resolution.get(raw.source_file),
                     }
                 )
                 add_edge(
@@ -577,6 +623,23 @@ def normalize_raw_ast_files(
                 }
             )
 
+    if resolution_report is not None:
+        resolved = {fn: via for fn, via in file_resolution.items() if via}
+        unresolved = sorted(fn for fn, via in file_resolution.items() if not via)
+        total = len(file_resolution)
+        resolution_report.update(
+            {
+                "total_dataset_files": total,
+                "resolved": len(resolved),
+                "unresolved": len(unresolved),
+                "resolution_ratio": (len(resolved) / total) if total else 1.0,
+                "resolved_via": resolved,
+                "unresolved_files": unresolved,
+                "source_roots_tried": [str(r) for r in roots],
+                "path_aliases": dict(aliases),
+            }
+        )
+
     return {
         "nodes": extraction_nodes,
         "edges": extraction_edges,
@@ -590,6 +653,9 @@ def normalize_dataset_dir(
     dataset_dir: Path,
     *,
     repo_root: Optional[Path] = None,
+    source_roots: Optional[list[Path]] = None,
+    path_aliases: Optional[dict[str, str]] = None,
+    resolution_report: Optional[dict[str, Any]] = None,
 ) -> dict[str, Any]:
     paths = sorted(dataset_dir.glob("*.json"))
     referenced_parts: set[str] = set()
@@ -604,7 +670,13 @@ def normalize_dataset_dir(
     raw_files = [_load_raw_ast_file(path) for path in filtered_paths]
     if not raw_files:
         raise ValueError(f"No AST JSON files found under {dataset_dir}")
-    return normalize_raw_ast_files(raw_files, repo_root=repo_root)
+    return normalize_raw_ast_files(
+        raw_files,
+        repo_root=repo_root,
+        source_roots=source_roots,
+        path_aliases=path_aliases,
+        resolution_report=resolution_report,
+    )
 
 
 __all__ = ["normalize_dataset_dir", "normalize_raw_ast_files"]

@@ -1,0 +1,2435 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:14+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:7:112:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:17:50:type_identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:7:112:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:17:50:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:66:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:58:property_identifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:66:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:58:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:58:66:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:60:66:predefined_type:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:58:66:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:60:66:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:66:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:58:66:type_annotation:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:66:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:58:66:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:51:112:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:66:property_signature:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:51:112:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:66:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:85:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:76:property_identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:85:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:76:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:77:85:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:79:85:predefined_type:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:77:85:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:79:85:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:85:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:77:85:type_annotation:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:85:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:77:85:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:51:112:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:85:property_signature:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:51:112:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:85:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:108:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:100:property_identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:108:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:100:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:100:108:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:102:108:predefined_type:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:100:108:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:102:108:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:108:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:100:108:type_annotation:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:108:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:100:108:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:51:112:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:108:property_signature:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:51:112:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:108:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:7:112:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:51:112:interface_body:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:7:112:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:51:112:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:112:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:7:112:interface_declaration:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:112:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:7:112:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:112:export_statement:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:112:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:123:256:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:133:150:type_identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:123:256:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:133:150:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:174:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:166:property_identifier:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:174:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:166:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:166:174:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:168:174:predefined_type:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:166:174:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:168:174:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:174:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:166:174:type_annotation:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:174:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:166:174:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:174:property_signature:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:174:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:192:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:184:property_identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:192:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:184:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:184:192:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:186:192:predefined_type:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:184:192:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:186:192:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:192:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:184:192:type_annotation:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:192:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:184:192:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:192:property_signature:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:192:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:211:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:203:property_identifier:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:211:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:203:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:203:211:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:205:211:predefined_type:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:203:211:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:205:211:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:211:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:203:211:type_annotation:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:211:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:203:211:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:211:property_signature:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:211:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:232:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:224:property_identifier:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:232:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:224:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:224:232:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:226:232:predefined_type:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:224:232:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:226:232:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:232:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:224:232:type_annotation:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:232:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:224:232:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:232:property_signature:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:232:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:252:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:244:property_identifier:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:252:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:244:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:244:252:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:246:252:predefined_type:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:244:252:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:246:252:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:252:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:244:252:type_annotation:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:252:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:244:252:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:252:property_signature:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:252:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:123:256:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:123:256:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:116:256:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:123:256:interface_declaration:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:116:256:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:123:256:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:116:256:export_statement:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:116:256:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:260:325:comment:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:260:325:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:334:407:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:344:367:type_identifier:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:334:407:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:344:367:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:385:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:377:property_identifier:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:385:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:377:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:377:385:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:379:385:predefined_type:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:377:385:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:379:385:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:385:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:377:385:type_annotation:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:385:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:377:385:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:368:407:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:385:property_signature:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:368:407:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:385:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:403:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:395:property_identifier:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:403:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:395:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:395:403:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:397:403:predefined_type:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:395:403:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:397:403:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:403:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:395:403:type_annotation:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:403:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:395:403:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:368:407:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:403:property_signature:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:368:407:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:403:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:334:407:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:368:407:interface_body:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:334:407:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:368:407:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:327:407:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:334:407:interface_declaration:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:327:407:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:334:407:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:327:407:export_statement:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:327:407:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:418:708:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:428:445:type_identifier:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:418:708:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:428:445:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:467:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:458:property_identifier:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:467:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:458:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:459:467:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:461:467:predefined_type:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:459:467:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:461:467:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:467:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:459:467:type_annotation:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:467:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:459:467:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:467:property_signature:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:467:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:520:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:482:property_identifier:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:520:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:482:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:485:520:array_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:485:518:type_identifier:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:485:520:array_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:485:518:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:483:520:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:485:520:array_type:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:483:520:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:485:520:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:520:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:483:520:type_annotation:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:520:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:483:520:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:520:property_signature:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:520:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:560:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:531:property_identifier:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:560:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:531:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:560:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:541:type_identifier:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:560:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:541:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:541:560:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:542:559:type_identifier:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:541:560:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:542:559:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:560:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:541:560:type_arguments:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:560:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:541:560:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:532:560:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:560:generic_type:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:532:560:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:560:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:560:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:532:560:type_annotation:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:560:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:532:560:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:560:property_signature:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:560:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:565:614:comment:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:565:614:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:650:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:622:property_identifier:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:650:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:622:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:625:650:array_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:625:648:type_identifier:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:625:650:array_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:625:648:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:623:650:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:625:650:array_type:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:623:650:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:625:650:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:650:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:623:650:type_annotation:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:650:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:623:650:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:650:property_signature:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:650:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:675:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:666:property_identifier:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:675:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:666:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:667:675:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:669:675:predefined_type:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:667:675:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:669:675:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:675:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:667:675:type_annotation:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:675:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:667:675:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:675:property_signature:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:675:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:704:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:695:property_identifier:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:704:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:695:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:696:704:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:698:704:predefined_type:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:696:704:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:698:704:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:704:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:696:704:type_annotation:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:704:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:696:704:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:704:property_signature:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:704:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:418:708:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:418:708:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:411:708:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:418:708:interface_declaration:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:411:708:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:418:708:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:411:708:export_statement:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:411:708:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:17:50:type_identifier",
+      "kind": "type_identifier",
+      "label": "TriggeredHeuristicExplanationItem",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 1
+        },
+        "end_byte": 50,
+        "start": {
+          "column": 17,
+          "line": 1
+        },
+        "start_byte": 17
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:58:property_identifier",
+      "kind": "property_identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 4,
+          "line": 2
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 56
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:60:66:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 66,
+        "start": {
+          "column": 6,
+          "line": 2
+        },
+        "start_byte": 60
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:60:66:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:58:66:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 66,
+        "start": {
+          "column": 4,
+          "line": 2
+        },
+        "start_byte": 58
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:58:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:58:66:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:66:property_signature",
+      "kind": "property_signature",
+      "label": "id: number",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 66,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 56
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:76:property_identifier",
+      "kind": "property_identifier",
+      "label": "label",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 3
+        },
+        "end_byte": 76,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 71
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:79:85:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 85,
+        "start": {
+          "column": 10,
+          "line": 3
+        },
+        "start_byte": 79
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:79:85:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:77:85:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 85,
+        "start": {
+          "column": 8,
+          "line": 3
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:76:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:77:85:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:85:property_signature",
+      "kind": "property_signature",
+      "label": "label?: string",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 3
+        },
+        "end_byte": 85,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 71
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:100:property_identifier",
+      "kind": "property_identifier",
+      "label": "confidence",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 4
+        },
+        "end_byte": 100,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:102:108:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 4
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 14,
+          "line": 4
+        },
+        "start_byte": 102
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:102:108:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:100:108:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 4
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 12,
+          "line": 4
+        },
+        "start_byte": 100
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:100:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:100:108:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:108:property_signature",
+      "kind": "property_signature",
+      "label": "confidence: number",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 4
+        },
+        "end_byte": 108,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:56:66:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:71:85:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:90:108:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:51:112:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  id: number;\r\n  label?: string;\r\n  confidence: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 5
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 51,
+          "line": 1
+        },
+        "start_byte": 51
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:17:50:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:51:112:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:7:112:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface TriggeredHeuristicExplanationItem {\r\n  id: number;\r\n  label?: string;\r\n  confidence: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 5
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:7:112:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:112:export_statement",
+      "kind": "export_statement",
+      "label": "export interface TriggeredHeuristicExplanationItem {\r\n  id: number;\r\n  label?: string;\r\n  confidence: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 5
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:133:150:type_identifier",
+      "kind": "type_identifier",
+      "label": "LensContributions",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 7
+        },
+        "end_byte": 150,
+        "start": {
+          "column": 17,
+          "line": 7
+        },
+        "start_byte": 133
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:166:property_identifier",
+      "kind": "property_identifier",
+      "label": "behavioral",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 8
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 156
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:168:174:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 14,
+          "line": 8
+        },
+        "start_byte": 168
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:168:174:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:166:174:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 12,
+          "line": 8
+        },
+        "start_byte": 166
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:166:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:166:174:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:174:property_signature",
+      "kind": "property_signature",
+      "label": "behavioral: number",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 8
+        },
+        "end_byte": 174,
+        "start": {
+          "column": 2,
+          "line": 8
+        },
+        "start_byte": 156
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:184:property_identifier",
+      "kind": "property_identifier",
+      "label": "graph",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 9
+        },
+        "end_byte": 184,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:186:192:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 9
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 9,
+          "line": 9
+        },
+        "start_byte": 186
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:186:192:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:184:192:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 9
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 7,
+          "line": 9
+        },
+        "start_byte": 184
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:184:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:184:192:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:192:property_signature",
+      "kind": "property_signature",
+      "label": "graph: number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 9
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 2,
+          "line": 9
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:203:property_identifier",
+      "kind": "property_identifier",
+      "label": "entity",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 10
+        },
+        "end_byte": 203,
+        "start": {
+          "column": 2,
+          "line": 10
+        },
+        "start_byte": 197
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:205:211:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 10
+        },
+        "end_byte": 211,
+        "start": {
+          "column": 10,
+          "line": 10
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:205:211:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:203:211:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 10
+        },
+        "end_byte": 211,
+        "start": {
+          "column": 8,
+          "line": 10
+        },
+        "start_byte": 203
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:203:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:203:211:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:211:property_signature",
+      "kind": "property_signature",
+      "label": "entity: number",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 10
+        },
+        "end_byte": 211,
+        "start": {
+          "column": 2,
+          "line": 10
+        },
+        "start_byte": 197
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:224:property_identifier",
+      "kind": "property_identifier",
+      "label": "temporal",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 11
+        },
+        "end_byte": 224,
+        "start": {
+          "column": 2,
+          "line": 11
+        },
+        "start_byte": 216
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:226:232:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 11
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 12,
+          "line": 11
+        },
+        "start_byte": 226
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:226:232:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:224:232:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 11
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 10,
+          "line": 11
+        },
+        "start_byte": 224
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:224:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:224:232:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:232:property_signature",
+      "kind": "property_signature",
+      "label": "temporal: number",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 11
+        },
+        "end_byte": 232,
+        "start": {
+          "column": 2,
+          "line": 11
+        },
+        "start_byte": 216
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:244:property_identifier",
+      "kind": "property_identifier",
+      "label": "offramp",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 12
+        },
+        "end_byte": 244,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 237
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:246:252:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 12
+        },
+        "end_byte": 252,
+        "start": {
+          "column": 11,
+          "line": 12
+        },
+        "start_byte": 246
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:246:252:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:244:252:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 12
+        },
+        "end_byte": 252,
+        "start": {
+          "column": 9,
+          "line": 12
+        },
+        "start_byte": 244
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:244:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:244:252:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:252:property_signature",
+      "kind": "property_signature",
+      "label": "offramp: number",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 12
+        },
+        "end_byte": 252,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 237
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:156:174:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:179:192:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:197:211:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:216:232:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:237:252:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  behavioral: number;\r\n  graph: number;\r\n  entity: number;\r\n  temporal: number;\r\n  offramp: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 13
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 35,
+          "line": 7
+        },
+        "start_byte": 151
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:133:150:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:151:256:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:123:256:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface LensContributions {\r\n  behavioral: number;\r\n  graph: number;\r\n  entity: number;\r\n  temporal: number;\r\n  offramp: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 13
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 7,
+          "line": 7
+        },
+        "start_byte": 123
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:123:256:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:116:256:export_statement",
+      "kind": "export_statement",
+      "label": "export interface LensContributions {\r\n  behavioral: number;\r\n  graph: number;\r\n  entity: number;\r\n  temporal: number;\r\n  offramp: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 13
+        },
+        "end_byte": 256,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 116
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:260:325:comment",
+      "kind": "comment",
+      "label": "/** Optional SHAP-style feature contributions for UI breakdown */",
+      "span": {
+        "end": {
+          "column": 65,
+          "line": 15
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 0,
+          "line": 15
+        },
+        "start_byte": 260
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:344:367:type_identifier",
+      "kind": "type_identifier",
+      "label": "ShapFeatureContribution",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 16
+        },
+        "end_byte": 367,
+        "start": {
+          "column": 17,
+          "line": 16
+        },
+        "start_byte": 344
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:377:property_identifier",
+      "kind": "property_identifier",
+      "label": "name",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 17
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 2,
+          "line": 17
+        },
+        "start_byte": 373
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:379:385:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 17
+        },
+        "end_byte": 385,
+        "start": {
+          "column": 8,
+          "line": 17
+        },
+        "start_byte": 379
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:379:385:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:377:385:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 17
+        },
+        "end_byte": 385,
+        "start": {
+          "column": 6,
+          "line": 17
+        },
+        "start_byte": 377
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:377:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:377:385:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:385:property_signature",
+      "kind": "property_signature",
+      "label": "name: string",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 17
+        },
+        "end_byte": 385,
+        "start": {
+          "column": 2,
+          "line": 17
+        },
+        "start_byte": 373
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:395:property_identifier",
+      "kind": "property_identifier",
+      "label": "value",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 18
+        },
+        "end_byte": 395,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 390
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:397:403:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 18
+        },
+        "end_byte": 403,
+        "start": {
+          "column": 9,
+          "line": 18
+        },
+        "start_byte": 397
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:397:403:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:395:403:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 18
+        },
+        "end_byte": 403,
+        "start": {
+          "column": 7,
+          "line": 18
+        },
+        "start_byte": 395
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:395:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:395:403:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:403:property_signature",
+      "kind": "property_signature",
+      "label": "value: number",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 18
+        },
+        "end_byte": 403,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 390
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:373:385:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:390:403:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:368:407:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  name: string;\r\n  value: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 19
+        },
+        "end_byte": 407,
+        "start": {
+          "column": 41,
+          "line": 16
+        },
+        "start_byte": 368
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:344:367:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:368:407:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:334:407:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface ShapFeatureContribution {\r\n  name: string;\r\n  value: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 19
+        },
+        "end_byte": 407,
+        "start": {
+          "column": 7,
+          "line": 16
+        },
+        "start_byte": 334
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:334:407:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:327:407:export_statement",
+      "kind": "export_statement",
+      "label": "export interface ShapFeatureContribution {\r\n  name: string;\r\n  value: number;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 19
+        },
+        "end_byte": 407,
+        "start": {
+          "column": 0,
+          "line": 16
+        },
+        "start_byte": 327
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:428:445:type_identifier",
+      "kind": "type_identifier",
+      "label": "ExplanationDetail",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 21
+        },
+        "end_byte": 445,
+        "start": {
+          "column": 17,
+          "line": 21
+        },
+        "start_byte": 428
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:458:property_identifier",
+      "kind": "property_identifier",
+      "label": "summary",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 22
+        },
+        "end_byte": 458,
+        "start": {
+          "column": 2,
+          "line": 22
+        },
+        "start_byte": 451
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:461:467:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 22
+        },
+        "end_byte": 467,
+        "start": {
+          "column": 12,
+          "line": 22
+        },
+        "start_byte": 461
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:461:467:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:459:467:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 22
+        },
+        "end_byte": 467,
+        "start": {
+          "column": 10,
+          "line": 22
+        },
+        "start_byte": 459
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:458:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:459:467:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:467:property_signature",
+      "kind": "property_signature",
+      "label": "summary?: string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 22
+        },
+        "end_byte": 467,
+        "start": {
+          "column": 2,
+          "line": 22
+        },
+        "start_byte": 451
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:482:property_identifier",
+      "kind": "property_identifier",
+      "label": "heuristics",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 23
+        },
+        "end_byte": 482,
+        "start": {
+          "column": 2,
+          "line": 23
+        },
+        "start_byte": 472
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:485:518:type_identifier",
+      "kind": "type_identifier",
+      "label": "TriggeredHeuristicExplanationItem",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 23
+        },
+        "end_byte": 518,
+        "start": {
+          "column": 15,
+          "line": 23
+        },
+        "start_byte": 485
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:485:518:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:485:520:array_type",
+      "kind": "array_type",
+      "label": "TriggeredHeuristicExplanationItem[]",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 23
+        },
+        "end_byte": 520,
+        "start": {
+          "column": 15,
+          "line": 23
+        },
+        "start_byte": 485
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:485:520:array_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:483:520:type_annotation",
+      "kind": "type_annotation",
+      "label": ": TriggeredHeuristicExplanationItem[]",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 23
+        },
+        "end_byte": 520,
+        "start": {
+          "column": 13,
+          "line": 23
+        },
+        "start_byte": 483
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:482:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:483:520:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:520:property_signature",
+      "kind": "property_signature",
+      "label": "heuristics?: TriggeredHeuristicExplanationItem[]",
+      "span": {
+        "end": {
+          "column": 50,
+          "line": 23
+        },
+        "end_byte": 520,
+        "start": {
+          "column": 2,
+          "line": 23
+        },
+        "start_byte": 472
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:531:property_identifier",
+      "kind": "property_identifier",
+      "label": "lenses",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 24
+        },
+        "end_byte": 531,
+        "start": {
+          "column": 2,
+          "line": 24
+        },
+        "start_byte": 525
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:541:type_identifier",
+      "kind": "type_identifier",
+      "label": "Partial",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 24
+        },
+        "end_byte": 541,
+        "start": {
+          "column": 11,
+          "line": 24
+        },
+        "start_byte": 534
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:542:559:type_identifier",
+      "kind": "type_identifier",
+      "label": "LensContributions",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 24
+        },
+        "end_byte": 559,
+        "start": {
+          "column": 19,
+          "line": 24
+        },
+        "start_byte": 542
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:542:559:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:541:560:type_arguments",
+      "kind": "type_arguments",
+      "label": "<LensContributions>",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 24
+        },
+        "end_byte": 560,
+        "start": {
+          "column": 18,
+          "line": 24
+        },
+        "start_byte": 541
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:541:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:541:560:type_arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:560:generic_type",
+      "kind": "generic_type",
+      "label": "Partial<LensContributions>",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 24
+        },
+        "end_byte": 560,
+        "start": {
+          "column": 11,
+          "line": 24
+        },
+        "start_byte": 534
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:534:560:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:532:560:type_annotation",
+      "kind": "type_annotation",
+      "label": ": Partial<LensContributions>",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 24
+        },
+        "end_byte": 560,
+        "start": {
+          "column": 9,
+          "line": 24
+        },
+        "start_byte": 532
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:531:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:532:560:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:560:property_signature",
+      "kind": "property_signature",
+      "label": "lenses?: Partial<LensContributions>",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 24
+        },
+        "end_byte": 560,
+        "start": {
+          "column": 2,
+          "line": 24
+        },
+        "start_byte": 525
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:565:614:comment",
+      "kind": "comment",
+      "label": "/** Global feature attributions when available */",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 25
+        },
+        "end_byte": 614,
+        "start": {
+          "column": 2,
+          "line": 25
+        },
+        "start_byte": 565
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:622:property_identifier",
+      "kind": "property_identifier",
+      "label": "shap",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 26
+        },
+        "end_byte": 622,
+        "start": {
+          "column": 2,
+          "line": 26
+        },
+        "start_byte": 618
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:625:648:type_identifier",
+      "kind": "type_identifier",
+      "label": "ShapFeatureContribution",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 26
+        },
+        "end_byte": 648,
+        "start": {
+          "column": 9,
+          "line": 26
+        },
+        "start_byte": 625
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:625:648:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:625:650:array_type",
+      "kind": "array_type",
+      "label": "ShapFeatureContribution[]",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 26
+        },
+        "end_byte": 650,
+        "start": {
+          "column": 9,
+          "line": 26
+        },
+        "start_byte": 625
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:625:650:array_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:623:650:type_annotation",
+      "kind": "type_annotation",
+      "label": ": ShapFeatureContribution[]",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 26
+        },
+        "end_byte": 650,
+        "start": {
+          "column": 7,
+          "line": 26
+        },
+        "start_byte": 623
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:622:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:623:650:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:650:property_signature",
+      "kind": "property_signature",
+      "label": "shap?: ShapFeatureContribution[]",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 26
+        },
+        "end_byte": 650,
+        "start": {
+          "column": 2,
+          "line": 26
+        },
+        "start_byte": 618
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:666:property_identifier",
+      "kind": "property_identifier",
+      "label": "patternType",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 27
+        },
+        "end_byte": 666,
+        "start": {
+          "column": 2,
+          "line": 27
+        },
+        "start_byte": 655
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:669:675:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 27
+        },
+        "end_byte": 675,
+        "start": {
+          "column": 16,
+          "line": 27
+        },
+        "start_byte": 669
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:669:675:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:667:675:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 27
+        },
+        "end_byte": 675,
+        "start": {
+          "column": 14,
+          "line": 27
+        },
+        "start_byte": 667
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:666:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:667:675:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:675:property_signature",
+      "kind": "property_signature",
+      "label": "patternType?: string",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 27
+        },
+        "end_byte": 675,
+        "start": {
+          "column": 2,
+          "line": 27
+        },
+        "start_byte": 655
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:695:property_identifier",
+      "kind": "property_identifier",
+      "label": "launderingStage",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 28
+        },
+        "end_byte": 695,
+        "start": {
+          "column": 2,
+          "line": 28
+        },
+        "start_byte": 680
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:698:704:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 28
+        },
+        "end_byte": 704,
+        "start": {
+          "column": 20,
+          "line": 28
+        },
+        "start_byte": 698
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:698:704:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:696:704:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 28
+        },
+        "end_byte": 704,
+        "start": {
+          "column": 18,
+          "line": 28
+        },
+        "start_byte": 696
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:695:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:696:704:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:704:property_signature",
+      "kind": "property_signature",
+      "label": "launderingStage?: string",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 28
+        },
+        "end_byte": 704,
+        "start": {
+          "column": 2,
+          "line": 28
+        },
+        "start_byte": 680
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:451:467:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:472:520:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:525:560:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:565:614:comment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:618:650:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:655:675:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:680:704:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  summary?: string;\r\n  heuristics?: TriggeredHeuristicExplanationItem[];\r\n  lenses?: Partial<LensContributions>;\r\n  /** Global feature attributions when available */\r\n  shap?: ShapFeatureContributi",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 29
+        },
+        "end_byte": 708,
+        "start": {
+          "column": 35,
+          "line": 21
+        },
+        "start_byte": 446
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:428:445:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:446:708:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:418:708:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface ExplanationDetail {\r\n  summary?: string;\r\n  heuristics?: TriggeredHeuristicExplanationItem[];\r\n  lenses?: Partial<LensContributions>;\r\n  /** Global feature attributions when available */\r\n  ",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 29
+        },
+        "end_byte": 708,
+        "start": {
+          "column": 7,
+          "line": 21
+        },
+        "start_byte": 418
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:418:708:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:411:708:export_statement",
+      "kind": "export_statement",
+      "label": "export interface ExplanationDetail {\r\n  summary?: string;\r\n  heuristics?: TriggeredHeuristicExplanationItem[];\r\n  lenses?: Partial<LensContributions>;\r\n  /** Global feature attributions when available",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 29
+        },
+        "end_byte": 708,
+        "start": {
+          "column": 0,
+          "line": 21
+        },
+        "start_byte": 411
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:112:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:116:256:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:260:325:comment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:327:407:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:411:708:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/explanation.ts:0:710:program",
+      "kind": "program",
+      "label": "export interface TriggeredHeuristicExplanationItem {\r\n  id: number;\r\n  label?: string;\r\n  confidence: number;\r\n}\r\n\r\nexport interface LensContributions {\r\n  behavioral: number;\r\n  graph: number;\r\n  ent",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 30
+        },
+        "end_byte": 710,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/types/explanation.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

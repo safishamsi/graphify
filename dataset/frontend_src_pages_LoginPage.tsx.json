@@ -1,0 +1,231 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:11+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:7:15:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:7:15:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:7:15:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:7:15:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:40:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:7:15:import_clause:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:40:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:7:15:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:21:39:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:22:38:string_fragment:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:21:39:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:22:38:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:40:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:21:39:string:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:40:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:21:39:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:72:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:40:import_statement:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:72:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:40:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:44:68:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:59:67:identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:44:68:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:59:67:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:72:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:44:68:export_statement:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:72:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:44:68:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:7:15:identifier",
+      "kind": "identifier",
+      "label": "AuthPage",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 1
+        },
+        "end_byte": 15,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:7:15:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:7:15:import_clause",
+      "kind": "import_clause",
+      "label": "AuthPage",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 1
+        },
+        "end_byte": 15,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:22:38:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/pages/AuthPage",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 1
+        },
+        "end_byte": 38,
+        "start": {
+          "column": 22,
+          "line": 1
+        },
+        "start_byte": 22
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:22:38:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:21:39:string",
+      "kind": "string",
+      "label": "'@/pages/AuthPage'",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 1
+        },
+        "end_byte": 39,
+        "start": {
+          "column": 21,
+          "line": 1
+        },
+        "start_byte": 21
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:7:15:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:21:39:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:40:import_statement",
+      "kind": "import_statement",
+      "label": "import AuthPage from '@/pages/AuthPage';",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 1
+        },
+        "end_byte": 40,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:59:67:identifier",
+      "kind": "identifier",
+      "label": "AuthPage",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 3
+        },
+        "end_byte": 67,
+        "start": {
+          "column": 15,
+          "line": 3
+        },
+        "start_byte": 59
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:59:67:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:44:68:export_statement",
+      "kind": "export_statement",
+      "label": "export default AuthPage;",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 3
+        },
+        "end_byte": 68,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:40:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:44:68:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/pages/LoginPage.tsx:0:72:program",
+      "kind": "program",
+      "label": "import AuthPage from '@/pages/AuthPage';\r\n\r\nexport default AuthPage;\r\n\r\n",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 5
+        },
+        "end_byte": 72,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/pages/LoginPage.tsx",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

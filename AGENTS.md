@@ -12,4 +12,8 @@ If you use the local graphify CLI, run `graphify update .` to refresh AST-only g
 
 ### Documentation
 
-Prefer [`docs/architecture.md`](docs/architecture.md), [`docs/product.md`](docs/product.md), and [`docs/detector-platform.md`](docs/detector-platform.md) for depOS direction. For **current teammate status** (web, Supabase auth, landing, open pipeline work), see [`docs/handoffs/2026-04-19-web-auth-landing-supabase.md`](docs/handoffs/2026-04-19-web-auth-landing-supabase.md). For the detector rollout specifically, see [`docs/handoffs/2026-04-19-detector-platform.md`](docs/handoffs/2026-04-19-detector-platform.md).
+Prefer [`docs/architecture.md`](docs/architecture.md), [`docs/product.md`](docs/product.md), and [`docs/detector-platform.md`](docs/detector-platform.md) for depOS direction. For **current teammate status** (web, Supabase auth, landing, open pipeline work), see [`docs/handoffs/2026-04-19-web-auth-landing-supabase.md`](docs/handoffs/2026-04-19-web-auth-landing-supabase.md). For the detector rollout specifically, see [`docs/handoffs/2026-04-19-detector-platform.md`](docs/handoffs/2026-04-19-detector-platform.md). For the reasoner-failure-visibility / evidence-gating work, see [`docs/handoffs/2026-04-20-reasoner-failure-visibility.md`](docs/handoffs/2026-04-20-reasoner-failure-visibility.md).
+
+### Runbooks
+
+- [`docs/runbooks/reasoner-zero-findings.md`](docs/runbooks/reasoner-zero-findings.md) — diagnose a "0 findings" dataset / bundle pipeline run. Maps `failure_reason` values from `gemma4-run/run_summary.json` to concrete fixes and documents the `--strict` exit-code table.

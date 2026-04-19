@@ -1,0 +1,2261 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:39+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:5:9:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:5:9:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:5:9:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:5:9:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:21:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:5:9:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:21:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:5:9:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:17:21:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:17:21:identifier:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:17:21:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:17:21:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:21:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:17:21:dotted_name:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:21:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:17:21:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:21:import_from_statement:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:21:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:30:38:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:30:38:identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:30:38:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:30:38:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:25:55:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:30:38:dotted_name:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:25:55:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:30:38:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:46:55:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:46:55:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:46:55:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:46:55:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:25:55:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:46:55:dotted_name:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:25:55:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:46:55:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:25:55:import_from_statement:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:25:55:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:61:154:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:67:79:identifier:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:61:154:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:67:79:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:79:90:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:80:83:identifier:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:79:90:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:80:83:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:79:90:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:85:89:identifier:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:79:90:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:85:89:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:61:154:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:79:90:argument_list:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:61:154:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:79:90:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:112:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:102:identifier:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:112:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:102:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:112:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:106:string_start:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:112:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:106:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:112:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:106:111:string_content:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:112:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:106:111:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:112:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:111:112:string_end:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:112:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:111:112:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:112:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:112:string:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:112:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:112:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:154:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:112:assignment:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:154:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:112:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:133:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:123:identifier:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:133:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:123:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:133:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:127:string_start:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:133:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:127:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:133:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:127:132:string_content:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:133:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:127:132:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:133:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:132:133:string_end:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:133:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:132:133:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:133:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:133:string:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:133:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:133:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:154:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:133:assignment:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:154:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:133:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:154:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:144:identifier:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:154:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:144:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:154:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:148:string_start:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:154:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:148:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:154:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:148:153:string_content:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:154:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:148:153:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:154:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:153:154:string_end:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:154:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:153:154:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:154:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:154:string:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:154:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:154:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:154:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:154:assignment:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:154:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:154:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:61:154:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:154:block:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:61:154:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:154:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:61:154:class_definition:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:61:154:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:160:325:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:166:187:identifier:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:160:325:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:166:187:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:187:198:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:188:197:identifier:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:187:198:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:188:197:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:160:325:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:187:198:argument_list:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:160:325:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:187:198:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:235:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:221:identifier:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:235:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:221:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:223:227:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:223:227:identifier:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:223:227:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:223:227:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:235:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:223:227:type:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:235:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:223:227:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:235:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:230:235:false:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:235:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:230:235:false",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:325:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:235:assignment:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:325:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:235:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:271:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:257:identifier:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:271:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:257:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:259:263:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:259:263:identifier:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:259:263:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:259:263:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:271:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:259:263:type:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:271:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:259:263:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:271:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:266:271:false:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:271:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:266:271:false",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:325:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:271:assignment:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:325:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:271:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:325:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:290:identifier:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:325:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:290:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:292:304:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:292:304:identifier:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:292:304:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:292:304:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:325:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:292:304:type:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:325:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:292:304:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:325:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:319:identifier:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:325:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:319:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:325:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:320:325:identifier:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:325:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:320:325:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:325:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:325:attribute:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:325:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:325:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:325:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:325:assignment:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:325:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:325:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:160:325:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:325:block:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:160:325:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:325:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:160:325:class_definition:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:160:325:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:331:502:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:337:357:identifier:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:331:502:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:337:357:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:357:368:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:358:367:identifier:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:357:368:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:358:367:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:331:502:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:357:368:argument_list:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:331:502:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:357:368:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:397:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:386:identifier:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:397:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:386:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:388:391:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:388:391:identifier:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:388:391:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:388:391:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:397:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:388:391:type:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:397:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:388:391:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:397:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:394:397:integer:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:397:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:394:397:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:397:assignment:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:397:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:422:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:413:identifier:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:422:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:413:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:415:418:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:415:418:identifier:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:415:418:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:415:418:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:422:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:415:418:type:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:422:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:415:418:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:422:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:421:422:integer:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:422:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:421:422:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:422:assignment:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:422:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:462:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:453:identifier:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:462:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:453:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:455:458:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:455:458:identifier:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:455:458:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:455:458:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:462:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:455:458:type:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:462:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:455:458:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:462:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:461:462:integer:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:462:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:461:462:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:462:assignment:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:462:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:502:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:493:identifier:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:502:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:493:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:495:498:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:495:498:identifier:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:495:498:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:495:498:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:502:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:495:498:type:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:502:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:495:498:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:502:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:501:502:integer:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:502:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:501:502:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:502:assignment:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:502:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:331:502:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:331:502:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:331:502:class_definition:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:331:502:class_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:5:9:identifier",
+      "kind": "identifier",
+      "label": "enum",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 1
+        },
+        "end_byte": 9,
+        "start": {
+          "column": 5,
+          "line": 1
+        },
+        "start_byte": 5
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:5:9:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:5:9:dotted_name",
+      "kind": "dotted_name",
+      "label": "enum",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 1
+        },
+        "end_byte": 9,
+        "start": {
+          "column": 5,
+          "line": 1
+        },
+        "start_byte": 5
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:17:21:identifier",
+      "kind": "identifier",
+      "label": "Enum",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 17,
+          "line": 1
+        },
+        "start_byte": 17
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:17:21:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:17:21:dotted_name",
+      "kind": "dotted_name",
+      "label": "Enum",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 17,
+          "line": 1
+        },
+        "start_byte": 17
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:5:9:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:17:21:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:21:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from enum import Enum",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:30:38:identifier",
+      "kind": "identifier",
+      "label": "pydantic",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 3
+        },
+        "end_byte": 38,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 30
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:30:38:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:30:38:dotted_name",
+      "kind": "dotted_name",
+      "label": "pydantic",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 3
+        },
+        "end_byte": 38,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 30
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:46:55:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 3
+        },
+        "end_byte": 55,
+        "start": {
+          "column": 21,
+          "line": 3
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:46:55:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:46:55:dotted_name",
+      "kind": "dotted_name",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 3
+        },
+        "end_byte": 55,
+        "start": {
+          "column": 21,
+          "line": 3
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:30:38:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:46:55:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:25:55:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from pydantic import BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 3
+        },
+        "end_byte": 55,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 25
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:67:79:identifier",
+      "kind": "identifier",
+      "label": "CoverageTier",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 6
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 6,
+          "line": 6
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:80:83:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 6
+        },
+        "end_byte": 83,
+        "start": {
+          "column": 19,
+          "line": 6
+        },
+        "start_byte": 80
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:85:89:identifier",
+      "kind": "identifier",
+      "label": "Enum",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 6
+        },
+        "end_byte": 89,
+        "start": {
+          "column": 24,
+          "line": 6
+        },
+        "start_byte": 85
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:80:83:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:85:89:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:79:90:argument_list",
+      "kind": "argument_list",
+      "label": "(str, Enum)",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 6
+        },
+        "end_byte": 90,
+        "start": {
+          "column": 18,
+          "line": 6
+        },
+        "start_byte": 79
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:102:identifier",
+      "kind": "identifier",
+      "label": "TIER0",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 7
+        },
+        "end_byte": 102,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 97
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:106:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 7
+        },
+        "end_byte": 106,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 105
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:106:111:string_content",
+      "kind": "string_content",
+      "label": "tier0",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 7
+        },
+        "end_byte": 111,
+        "start": {
+          "column": 13,
+          "line": 7
+        },
+        "start_byte": 106
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:111:112:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 7
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 18,
+          "line": 7
+        },
+        "start_byte": 111
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:106:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:106:111:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:111:112:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:112:string",
+      "kind": "string",
+      "label": "\"tier0\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 7
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 12,
+          "line": 7
+        },
+        "start_byte": 105
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:102:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:105:112:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:112:assignment",
+      "kind": "assignment",
+      "label": "TIER0 = \"tier0\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 7
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 97
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:123:identifier",
+      "kind": "identifier",
+      "label": "TIER1",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 8
+        },
+        "end_byte": 123,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 118
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:127:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 8
+        },
+        "end_byte": 127,
+        "start": {
+          "column": 12,
+          "line": 8
+        },
+        "start_byte": 126
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:127:132:string_content",
+      "kind": "string_content",
+      "label": "tier1",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 8
+        },
+        "end_byte": 132,
+        "start": {
+          "column": 13,
+          "line": 8
+        },
+        "start_byte": 127
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:132:133:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 8
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 18,
+          "line": 8
+        },
+        "start_byte": 132
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:127:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:127:132:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:132:133:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:133:string",
+      "kind": "string",
+      "label": "\"tier1\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 8
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 12,
+          "line": 8
+        },
+        "start_byte": 126
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:123:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:126:133:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:133:assignment",
+      "kind": "assignment",
+      "label": "TIER1 = \"tier1\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 8
+        },
+        "end_byte": 133,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 118
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:144:identifier",
+      "kind": "identifier",
+      "label": "TIER2",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 9
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 139
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:148:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 9
+        },
+        "end_byte": 148,
+        "start": {
+          "column": 12,
+          "line": 9
+        },
+        "start_byte": 147
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:148:153:string_content",
+      "kind": "string_content",
+      "label": "tier2",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 9
+        },
+        "end_byte": 153,
+        "start": {
+          "column": 13,
+          "line": 9
+        },
+        "start_byte": 148
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:153:154:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 154,
+        "start": {
+          "column": 18,
+          "line": 9
+        },
+        "start_byte": 153
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:148:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:148:153:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:153:154:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:154:string",
+      "kind": "string",
+      "label": "\"tier2\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 154,
+        "start": {
+          "column": 12,
+          "line": 9
+        },
+        "start_byte": 147
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:144:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:147:154:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:154:assignment",
+      "kind": "assignment",
+      "label": "TIER2 = \"tier2\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 154,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 139
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:112:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:118:133:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:139:154:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:154:block",
+      "kind": "block",
+      "label": "TIER0 = \"tier0\"\r\n    TIER1 = \"tier1\"\r\n    TIER2 = \"tier2\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 154,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 97
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:67:79:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:79:90:argument_list",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:97:154:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:61:154:class_definition",
+      "kind": "class_definition",
+      "label": "class CoverageTier(str, Enum):\r\n    TIER0 = \"tier0\"\r\n    TIER1 = \"tier1\"\r\n    TIER2 = \"tier2\"",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 9
+        },
+        "end_byte": 154,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 61
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:166:187:identifier",
+      "kind": "identifier",
+      "label": "DataAvailabilityFlags",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 12
+        },
+        "end_byte": 187,
+        "start": {
+          "column": 6,
+          "line": 12
+        },
+        "start_byte": 166
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:188:197:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 12
+        },
+        "end_byte": 197,
+        "start": {
+          "column": 28,
+          "line": 12
+        },
+        "start_byte": 188
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:188:197:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:187:198:argument_list",
+      "kind": "argument_list",
+      "label": "(BaseModel)",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 12
+        },
+        "end_byte": 198,
+        "start": {
+          "column": 27,
+          "line": 12
+        },
+        "start_byte": 187
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:221:identifier",
+      "kind": "identifier",
+      "label": "has_entity_intel",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 13
+        },
+        "end_byte": 221,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:223:227:identifier",
+      "kind": "identifier",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 13
+        },
+        "end_byte": 227,
+        "start": {
+          "column": 22,
+          "line": 13
+        },
+        "start_byte": 223
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:223:227:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:223:227:type",
+      "kind": "type",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 13
+        },
+        "end_byte": 227,
+        "start": {
+          "column": 22,
+          "line": 13
+        },
+        "start_byte": 223
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:230:235:false",
+      "kind": "false",
+      "label": "False",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 13
+        },
+        "end_byte": 235,
+        "start": {
+          "column": 29,
+          "line": 13
+        },
+        "start_byte": 230
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:221:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:223:227:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:230:235:false"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:235:assignment",
+      "kind": "assignment",
+      "label": "has_entity_intel: bool = False",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 13
+        },
+        "end_byte": 235,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:257:identifier",
+      "kind": "identifier",
+      "label": "has_address_tags",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 14
+        },
+        "end_byte": 257,
+        "start": {
+          "column": 4,
+          "line": 14
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:259:263:identifier",
+      "kind": "identifier",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 14
+        },
+        "end_byte": 263,
+        "start": {
+          "column": 22,
+          "line": 14
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:259:263:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:259:263:type",
+      "kind": "type",
+      "label": "bool",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 14
+        },
+        "end_byte": 263,
+        "start": {
+          "column": 22,
+          "line": 14
+        },
+        "start_byte": 259
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:266:271:false",
+      "kind": "false",
+      "label": "False",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 14
+        },
+        "end_byte": 271,
+        "start": {
+          "column": 29,
+          "line": 14
+        },
+        "start_byte": 266
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:257:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:259:263:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:266:271:false"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:271:assignment",
+      "kind": "assignment",
+      "label": "has_address_tags: bool = False",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 14
+        },
+        "end_byte": 271,
+        "start": {
+          "column": 4,
+          "line": 14
+        },
+        "start_byte": 241
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:290:identifier",
+      "kind": "identifier",
+      "label": "coverage_tier",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 15
+        },
+        "end_byte": 290,
+        "start": {
+          "column": 4,
+          "line": 15
+        },
+        "start_byte": 277
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:292:304:identifier",
+      "kind": "identifier",
+      "label": "CoverageTier",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 15
+        },
+        "end_byte": 304,
+        "start": {
+          "column": 19,
+          "line": 15
+        },
+        "start_byte": 292
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:292:304:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:292:304:type",
+      "kind": "type",
+      "label": "CoverageTier",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 15
+        },
+        "end_byte": 304,
+        "start": {
+          "column": 19,
+          "line": 15
+        },
+        "start_byte": 292
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:319:identifier",
+      "kind": "identifier",
+      "label": "CoverageTier",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 15
+        },
+        "end_byte": 319,
+        "start": {
+          "column": 34,
+          "line": 15
+        },
+        "start_byte": 307
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:320:325:identifier",
+      "kind": "identifier",
+      "label": "TIER0",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 15
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 47,
+          "line": 15
+        },
+        "start_byte": 320
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:319:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:320:325:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:325:attribute",
+      "kind": "attribute",
+      "label": "CoverageTier.TIER0",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 15
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 34,
+          "line": 15
+        },
+        "start_byte": 307
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:290:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:292:304:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:307:325:attribute"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:325:assignment",
+      "kind": "assignment",
+      "label": "coverage_tier: CoverageTier = CoverageTier.TIER0",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 15
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 4,
+          "line": 15
+        },
+        "start_byte": 277
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:235:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:241:271:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:277:325:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:325:block",
+      "kind": "block",
+      "label": "has_entity_intel: bool = False\r\n    has_address_tags: bool = False\r\n    coverage_tier: CoverageTier = CoverageTier.TIER0",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 15
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:166:187:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:187:198:argument_list",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:205:325:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:160:325:class_definition",
+      "kind": "class_definition",
+      "label": "class DataAvailabilityFlags(BaseModel):\r\n    has_entity_intel: bool = False\r\n    has_address_tags: bool = False\r\n    coverage_tier: CoverageTier = CoverageTier.TIER0",
+      "span": {
+        "end": {
+          "column": 52,
+          "line": 15
+        },
+        "end_byte": 325,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 160
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:337:357:identifier",
+      "kind": "identifier",
+      "label": "ApplicabilitySummary",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 18
+        },
+        "end_byte": 357,
+        "start": {
+          "column": 6,
+          "line": 18
+        },
+        "start_byte": 337
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:358:367:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 18
+        },
+        "end_byte": 367,
+        "start": {
+          "column": 27,
+          "line": 18
+        },
+        "start_byte": 358
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:358:367:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:357:368:argument_list",
+      "kind": "argument_list",
+      "label": "(BaseModel)",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 18
+        },
+        "end_byte": 368,
+        "start": {
+          "column": 26,
+          "line": 18
+        },
+        "start_byte": 357
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:386:identifier",
+      "kind": "identifier",
+      "label": "total_rules",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 19
+        },
+        "end_byte": 386,
+        "start": {
+          "column": 4,
+          "line": 19
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:388:391:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 19
+        },
+        "end_byte": 391,
+        "start": {
+          "column": 17,
+          "line": 19
+        },
+        "start_byte": 388
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:388:391:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:388:391:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 19
+        },
+        "end_byte": 391,
+        "start": {
+          "column": 17,
+          "line": 19
+        },
+        "start_byte": 388
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:394:397:integer",
+      "kind": "integer",
+      "label": "185",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 19
+        },
+        "end_byte": 397,
+        "start": {
+          "column": 23,
+          "line": 19
+        },
+        "start_byte": 394
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:386:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:388:391:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:394:397:integer"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:397:assignment",
+      "kind": "assignment",
+      "label": "total_rules: int = 185",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 19
+        },
+        "end_byte": 397,
+        "start": {
+          "column": 4,
+          "line": 19
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:413:identifier",
+      "kind": "identifier",
+      "label": "applicable",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 20
+        },
+        "end_byte": 413,
+        "start": {
+          "column": 4,
+          "line": 20
+        },
+        "start_byte": 403
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:415:418:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 20
+        },
+        "end_byte": 418,
+        "start": {
+          "column": 16,
+          "line": 20
+        },
+        "start_byte": 415
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:415:418:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:415:418:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 20
+        },
+        "end_byte": 418,
+        "start": {
+          "column": 16,
+          "line": 20
+        },
+        "start_byte": 415
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:421:422:integer",
+      "kind": "integer",
+      "label": "0",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 20
+        },
+        "end_byte": 422,
+        "start": {
+          "column": 22,
+          "line": 20
+        },
+        "start_byte": 421
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:413:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:415:418:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:421:422:integer"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:422:assignment",
+      "kind": "assignment",
+      "label": "applicable: int = 0",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 20
+        },
+        "end_byte": 422,
+        "start": {
+          "column": 4,
+          "line": 20
+        },
+        "start_byte": 403
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:453:identifier",
+      "kind": "identifier",
+      "label": "inapplicable_missing_data",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 21
+        },
+        "end_byte": 453,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 428
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:455:458:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 21
+        },
+        "end_byte": 458,
+        "start": {
+          "column": 31,
+          "line": 21
+        },
+        "start_byte": 455
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:455:458:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:455:458:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 21
+        },
+        "end_byte": 458,
+        "start": {
+          "column": 31,
+          "line": 21
+        },
+        "start_byte": 455
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:461:462:integer",
+      "kind": "integer",
+      "label": "0",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 21
+        },
+        "end_byte": 462,
+        "start": {
+          "column": 37,
+          "line": 21
+        },
+        "start_byte": 461
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:453:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:455:458:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:461:462:integer"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:462:assignment",
+      "kind": "assignment",
+      "label": "inapplicable_missing_data: int = 0",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 21
+        },
+        "end_byte": 462,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 428
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:493:identifier",
+      "kind": "identifier",
+      "label": "inapplicable_out_of_scope",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 22
+        },
+        "end_byte": 493,
+        "start": {
+          "column": 4,
+          "line": 22
+        },
+        "start_byte": 468
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:495:498:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 22
+        },
+        "end_byte": 498,
+        "start": {
+          "column": 31,
+          "line": 22
+        },
+        "start_byte": 495
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:495:498:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:495:498:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 22
+        },
+        "end_byte": 498,
+        "start": {
+          "column": 31,
+          "line": 22
+        },
+        "start_byte": 495
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:501:502:integer",
+      "kind": "integer",
+      "label": "0",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 22
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 37,
+          "line": 22
+        },
+        "start_byte": 501
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:493:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:495:498:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:501:502:integer"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:502:assignment",
+      "kind": "assignment",
+      "label": "inapplicable_out_of_scope: int = 0",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 22
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 4,
+          "line": 22
+        },
+        "start_byte": 468
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:397:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:403:422:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:428:462:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:468:502:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block",
+      "kind": "block",
+      "label": "total_rules: int = 185\r\n    applicable: int = 0\r\n    inapplicable_missing_data: int = 0\r\n    inapplicable_out_of_scope: int = 0",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 22
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 4,
+          "line": 19
+        },
+        "start_byte": 375
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:337:357:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:357:368:argument_list",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:375:502:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:331:502:class_definition",
+      "kind": "class_definition",
+      "label": "class ApplicabilitySummary(BaseModel):\r\n    total_rules: int = 185\r\n    applicable: int = 0\r\n    inapplicable_missing_data: int = 0\r\n    inapplicable_out_of_scope: int = 0",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 22
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 0,
+          "line": 18
+        },
+        "start_byte": 331
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:21:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:25:55:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:61:154:class_definition",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:160:325:class_definition",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:331:502:class_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/data_contract.py:0:504:module",
+      "kind": "module",
+      "label": "from enum import Enum\r\n\r\nfrom pydantic import BaseModel\r\n\r\n\r\nclass CoverageTier(str, Enum):\r\n    TIER0 = \"tier0\"\r\n    TIER1 = \"tier1\"\r\n    TIER2 = \"tier2\"\r\n\r\n\r\nclass DataAvailabilityFlags(BaseModel):\r",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 23
+        },
+        "end_byte": 504,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/app/schemas/data_contract.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

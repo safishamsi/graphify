@@ -1,0 +1,4396 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:39+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:5:13:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:5:13:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:5:13:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:5:13:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:29:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:5:13:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:29:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:5:13:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:21:29:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:21:29:identifier:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:21:29:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:21:29:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:29:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:21:29:dotted_name:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:29:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:21:29:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:29:import_from_statement:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:29:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:36:42:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:36:42:identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:36:42:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:36:42:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:31:58:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:36:42:dotted_name:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:31:58:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:36:42:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:50:58:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:50:58:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:50:58:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:50:58:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:31:58:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:50:58:dotted_name:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:31:58:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:50:58:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:31:58:import_from_statement:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:31:58:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:67:75:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:67:75:identifier:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:67:75:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:67:75:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:62:92:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:67:75:dotted_name:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:62:92:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:67:75:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:83:92:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:83:92:identifier:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:83:92:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:83:92:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:62:92:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:83:92:dotted_name:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:62:92:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:83:92:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:62:92:import_from_statement:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:62:92:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:98:270:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:104:126:identifier:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:98:270:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:104:126:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:126:137:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:127:136:identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:126:137:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:127:136:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:98:270:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:126:137:argument_list:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:98:270:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:126:137:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:151:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:146:identifier:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:151:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:146:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:148:151:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:148:151:identifier:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:148:151:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:148:151:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:151:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:148:151:type:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:151:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:148:151:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:151:assignment:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:151:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:166:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:161:identifier:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:166:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:161:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:163:166:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:163:166:identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:163:166:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:163:166:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:166:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:163:166:type:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:166:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:163:166:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:166:assignment:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:166:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:188:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:183:identifier:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:188:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:183:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:185:188:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:185:188:identifier:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:185:188:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:185:188:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:188:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:185:188:type:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:188:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:185:188:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:188:assignment:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:188:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:214:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:203:identifier:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:214:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:203:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:209:identifier:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:209:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:210:213:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:210:213:identifier:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:210:213:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:210:213:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:209:214:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:210:213:type:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:209:214:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:210:213:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:209:214:type_parameter:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:209:214:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:generic_type:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:214:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:type:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:214:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:214:assignment:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:214:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:236:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:231:identifier:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:236:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:231:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:233:236:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:233:236:identifier:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:233:236:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:233:236:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:236:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:233:236:type:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:236:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:233:236:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:236:assignment:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:236:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:270:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:259:identifier:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:270:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:259:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:265:identifier:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:265:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:266:269:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:266:269:identifier:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:266:269:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:266:269:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:265:270:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:266:269:type:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:265:270:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:266:269:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:265:270:type_parameter:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:265:270:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:generic_type:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:270:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:type:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:270:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:270:assignment:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:270:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:98:270:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:98:270:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:98:270:class_definition:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:98:270:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:276:613:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:282:305:identifier:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:276:613:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:282:305:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:305:316:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:306:315:identifier:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:305:316:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:306:315:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:276:613:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:305:316:argument_list:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:276:613:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:305:316:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:342:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:337:identifier:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:342:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:337:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:339:342:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:339:342:identifier:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:339:342:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:339:342:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:342:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:339:342:type:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:342:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:339:342:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:342:assignment:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:342:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:377:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:364:identifier:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:377:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:364:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:370:identifier:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:370:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:371:376:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:371:376:identifier:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:371:376:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:371:376:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:370:377:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:371:376:type:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:370:377:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:371:376:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:370:377:type_parameter:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:370:377:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:generic_type:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:377:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:type:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:377:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:377:assignment:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:377:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:414:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:403:identifier:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:414:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:403:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:409:identifier:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:409:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:410:413:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:410:413:identifier:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:410:413:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:410:413:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:409:414:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:410:413:type:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:409:414:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:410:413:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:409:414:type_parameter:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:409:414:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:generic_type:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:414:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:type:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:414:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:414:assignment:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:414:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:444:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:433:identifier:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:444:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:433:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:439:identifier:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:439:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:440:443:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:440:443:identifier:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:440:443:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:440:443:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:439:444:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:440:443:type:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:439:444:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:440:443:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:439:444:type_parameter:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:439:444:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:generic_type:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:444:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:type:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:444:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:444:assignment:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:444:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:470:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:465:identifier:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:470:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:465:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:467:470:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:467:470:identifier:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:467:470:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:467:470:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:470:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:467:470:type:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:470:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:467:470:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:470:assignment:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:470:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:510:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:488:identifier:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:510:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:488:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:498:identifier:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:498:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:499:502:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:499:502:identifier:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:499:502:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:499:502:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:498:503:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:499:502:type:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:498:503:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:499:502:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:498:503:type_parameter:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:498:503:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:generic_type:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:510:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:type:93",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:510:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:510:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:506:510:none:94",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:510:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:506:510:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:510:assignment:95",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:510:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:554:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:530:identifier:96",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:554:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:530:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:540:identifier:97",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:540:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:541:546:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:541:546:identifier:98",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:541:546:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:541:546:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:540:547:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:541:546:type:99",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:540:547:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:541:546:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:540:547:type_parameter:100",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:540:547:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:generic_type:101",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:554:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:type:102",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:554:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:554:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:550:554:none:103",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:554:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:550:554:none",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:554:assignment:104",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:554:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:588:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:572:identifier:105",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:588:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:572:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:578:identifier:106",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:578:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:579:582:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:579:582:identifier:107",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:579:582:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:579:582:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:578:588:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:579:582:type:108",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:578:588:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:579:582:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:584:587:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:584:587:identifier:109",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:584:587:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:584:587:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:578:588:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:584:587:type:110",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:578:588:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:584:587:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:578:588:type_parameter:111",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:578:588:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:generic_type:112",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:588:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:type:113",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:588:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:588:assignment:114",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:588:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:613:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:603:identifier:115",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:613:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:603:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:605:613:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:605:613:identifier:116",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:605:613:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:605:613:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:613:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:605:613:type:117",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:613:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:605:613:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:613:assignment:118",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:613:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:276:613:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block:119",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:276:613:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:276:613:class_definition:120",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:276:613:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:619:799:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:625:647:identifier:121",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:619:799:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:625:647:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:647:658:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:648:657:identifier:122",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:647:658:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:648:657:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:619:799:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:647:658:argument_list:123",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:619:799:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:647:658:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:691:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:679:identifier:124",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:691:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:679:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:685:identifier:125",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:685:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:686:690:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:686:690:identifier:126",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:686:690:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:686:690:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:685:691:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:686:690:type:127",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:685:691:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:686:690:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:685:691:type_parameter:128",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:685:691:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:generic_type:129",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:691:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:type:130",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:691:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:691:assignment:131",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:691:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:737:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:721:identifier:132",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:737:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:721:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:727:identifier:133",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:727:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:728:731:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:728:731:identifier:134",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:728:731:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:728:731:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:727:737:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:728:731:type:135",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:727:737:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:728:731:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:733:736:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:733:736:identifier:136",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:733:736:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:733:736:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:727:737:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:733:736:type:137",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:727:737:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:733:736:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:727:737:type_parameter:138",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:727:737:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:generic_type:139",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:737:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:type:140",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:737:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:737:assignment:141",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:737:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:776:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:760:identifier:142",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:776:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:760:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:766:identifier:143",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:766:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:767:770:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:767:770:identifier:144",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:767:770:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:767:770:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:766:776:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:767:770:type:145",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:766:776:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:767:770:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:772:775:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:772:775:identifier:146",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:772:775:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:772:775:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:766:776:type_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:772:775:type:147",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:766:776:type_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:772:775:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:766:776:type_parameter:148",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:766:776:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:generic_type:149",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:776:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:type:150",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:776:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:776:assignment:151",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:776:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:799:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:794:identifier:152",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:799:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:794:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:796:799:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:796:799:identifier:153",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:796:799:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:796:799:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:799:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:796:799:type:154",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:799:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:796:799:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:799:assignment:155",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:799:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:619:799:class_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block:156",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:619:799:class_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:619:799:class_definition:157",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:619:799:class_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:5:13:identifier",
+      "kind": "identifier",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 1
+        },
+        "end_byte": 13,
+        "start": {
+          "column": 5,
+          "line": 1
+        },
+        "start_byte": 5
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:5:13:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:5:13:dotted_name",
+      "kind": "dotted_name",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 1
+        },
+        "end_byte": 13,
+        "start": {
+          "column": 5,
+          "line": 1
+        },
+        "start_byte": 5
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:21:29:identifier",
+      "kind": "identifier",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 21,
+          "line": 1
+        },
+        "start_byte": 21
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:21:29:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:21:29:dotted_name",
+      "kind": "dotted_name",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 21,
+          "line": 1
+        },
+        "start_byte": 21
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:5:13:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:21:29:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:29:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from datetime import datetime",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 1
+        },
+        "end_byte": 29,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:36:42:identifier",
+      "kind": "identifier",
+      "label": "typing",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 2
+        },
+        "end_byte": 42,
+        "start": {
+          "column": 5,
+          "line": 2
+        },
+        "start_byte": 36
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:36:42:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:36:42:dotted_name",
+      "kind": "dotted_name",
+      "label": "typing",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 2
+        },
+        "end_byte": 42,
+        "start": {
+          "column": 5,
+          "line": 2
+        },
+        "start_byte": 36
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:50:58:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 2
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 19,
+          "line": 2
+        },
+        "start_byte": 50
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:50:58:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:50:58:dotted_name",
+      "kind": "dotted_name",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 2
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 19,
+          "line": 2
+        },
+        "start_byte": 50
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:36:42:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:50:58:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:31:58:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from typing import Optional",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 2
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 31
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:67:75:identifier",
+      "kind": "identifier",
+      "label": "pydantic",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 4
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 5,
+          "line": 4
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:67:75:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:67:75:dotted_name",
+      "kind": "dotted_name",
+      "label": "pydantic",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 4
+        },
+        "end_byte": 75,
+        "start": {
+          "column": 5,
+          "line": 4
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:83:92:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 4
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 21,
+          "line": 4
+        },
+        "start_byte": 83
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:83:92:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:83:92:dotted_name",
+      "kind": "dotted_name",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 4
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 21,
+          "line": 4
+        },
+        "start_byte": 83
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:67:75:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:83:92:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:62:92:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from pydantic import BaseModel",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 4
+        },
+        "end_byte": 92,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:104:126:identifier",
+      "kind": "identifier",
+      "label": "HeuristicRegistryEntry",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 7
+        },
+        "end_byte": 126,
+        "start": {
+          "column": 6,
+          "line": 7
+        },
+        "start_byte": 104
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:127:136:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 7
+        },
+        "end_byte": 136,
+        "start": {
+          "column": 29,
+          "line": 7
+        },
+        "start_byte": 127
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:127:136:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:126:137:argument_list",
+      "kind": "argument_list",
+      "label": "(BaseModel)",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 7
+        },
+        "end_byte": 137,
+        "start": {
+          "column": 28,
+          "line": 7
+        },
+        "start_byte": 126
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:146:identifier",
+      "kind": "identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 8
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 144
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:148:151:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 8
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 8,
+          "line": 8
+        },
+        "start_byte": 148
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:148:151:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:148:151:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 8
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 8,
+          "line": 8
+        },
+        "start_byte": 148
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:146:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:148:151:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:151:assignment",
+      "kind": "assignment",
+      "label": "id: int",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 8
+        },
+        "end_byte": 151,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 144
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:161:identifier",
+      "kind": "identifier",
+      "label": "name",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 9
+        },
+        "end_byte": 161,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 157
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:163:166:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 9
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 10,
+          "line": 9
+        },
+        "start_byte": 163
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:163:166:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:163:166:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 9
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 10,
+          "line": 9
+        },
+        "start_byte": 163
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:161:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:163:166:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:166:assignment",
+      "kind": "assignment",
+      "label": "name: str",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 9
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 157
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:183:identifier",
+      "kind": "identifier",
+      "label": "environment",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 10
+        },
+        "end_byte": 183,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 172
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:185:188:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 10
+        },
+        "end_byte": 188,
+        "start": {
+          "column": 17,
+          "line": 10
+        },
+        "start_byte": 185
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:185:188:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:185:188:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 10
+        },
+        "end_byte": 188,
+        "start": {
+          "column": 17,
+          "line": 10
+        },
+        "start_byte": 185
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:183:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:185:188:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:188:assignment",
+      "kind": "assignment",
+      "label": "environment: str",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 10
+        },
+        "end_byte": 188,
+        "start": {
+          "column": 4,
+          "line": 10
+        },
+        "start_byte": 172
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:203:identifier",
+      "kind": "identifier",
+      "label": "lens_tags",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 11
+        },
+        "end_byte": 203,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 194
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:209:identifier",
+      "kind": "identifier",
+      "label": "list",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 11
+        },
+        "end_byte": 209,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:210:213:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 11
+        },
+        "end_byte": 213,
+        "start": {
+          "column": 20,
+          "line": 11
+        },
+        "start_byte": 210
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:210:213:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:210:213:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 11
+        },
+        "end_byte": 213,
+        "start": {
+          "column": 20,
+          "line": 11
+        },
+        "start_byte": 210
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:210:213:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:209:214:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str]",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 11
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 19,
+          "line": 11
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:209:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:209:214:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:generic_type",
+      "kind": "generic_type",
+      "label": "list[str]",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 11
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:type",
+      "kind": "type",
+      "label": "list[str]",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 11
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 15,
+          "line": 11
+        },
+        "start_byte": 205
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:203:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:205:214:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:214:assignment",
+      "kind": "assignment",
+      "label": "lens_tags: list[str]",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 11
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 4,
+          "line": 11
+        },
+        "start_byte": 194
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:231:identifier",
+      "kind": "identifier",
+      "label": "description",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 12
+        },
+        "end_byte": 231,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 220
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:233:236:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 236,
+        "start": {
+          "column": 17,
+          "line": 12
+        },
+        "start_byte": 233
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:233:236:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:233:236:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 236,
+        "start": {
+          "column": 17,
+          "line": 12
+        },
+        "start_byte": 233
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:231:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:233:236:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:236:assignment",
+      "kind": "assignment",
+      "label": "description: str",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 236,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 220
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:259:identifier",
+      "kind": "identifier",
+      "label": "data_requirements",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 13
+        },
+        "end_byte": 259,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:265:identifier",
+      "kind": "identifier",
+      "label": "list",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 13
+        },
+        "end_byte": 265,
+        "start": {
+          "column": 23,
+          "line": 13
+        },
+        "start_byte": 261
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:266:269:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 269,
+        "start": {
+          "column": 28,
+          "line": 13
+        },
+        "start_byte": 266
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:266:269:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:266:269:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 13
+        },
+        "end_byte": 269,
+        "start": {
+          "column": 28,
+          "line": 13
+        },
+        "start_byte": 266
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:266:269:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:265:270:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 270,
+        "start": {
+          "column": 27,
+          "line": 13
+        },
+        "start_byte": 265
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:265:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:265:270:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:generic_type",
+      "kind": "generic_type",
+      "label": "list[str]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 270,
+        "start": {
+          "column": 23,
+          "line": 13
+        },
+        "start_byte": 261
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:type",
+      "kind": "type",
+      "label": "list[str]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 270,
+        "start": {
+          "column": 23,
+          "line": 13
+        },
+        "start_byte": 261
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:259:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:261:270:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:270:assignment",
+      "kind": "assignment",
+      "label": "data_requirements: list[str]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 270,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 242
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:151:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:157:166:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:172:188:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:194:214:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:220:236:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:242:270:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block",
+      "kind": "block",
+      "label": "id: int\r\n    name: str\r\n    environment: str\r\n    lens_tags: list[str]\r\n    description: str\r\n    data_requirements: list[str]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 270,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 144
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:104:126:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:126:137:argument_list",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:144:270:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:98:270:class_definition",
+      "kind": "class_definition",
+      "label": "class HeuristicRegistryEntry(BaseModel):\r\n    id: int\r\n    name: str\r\n    environment: str\r\n    lens_tags: list[str]\r\n    description: str\r\n    data_requirements: list[str]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 270,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 98
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:282:305:identifier",
+      "kind": "identifier",
+      "label": "HeuristicResultResponse",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 305,
+        "start": {
+          "column": 6,
+          "line": 16
+        },
+        "start_byte": 282
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:306:315:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 16
+        },
+        "end_byte": 315,
+        "start": {
+          "column": 30,
+          "line": 16
+        },
+        "start_byte": 306
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:306:315:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:305:316:argument_list",
+      "kind": "argument_list",
+      "label": "(BaseModel)",
+      "span": {
+        "end": {
+          "column": 40,
+          "line": 16
+        },
+        "end_byte": 316,
+        "start": {
+          "column": 29,
+          "line": 16
+        },
+        "start_byte": 305
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:337:identifier",
+      "kind": "identifier",
+      "label": "transaction_id",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 17
+        },
+        "end_byte": 337,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 323
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:339:342:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 17
+        },
+        "end_byte": 342,
+        "start": {
+          "column": 20,
+          "line": 17
+        },
+        "start_byte": 339
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:339:342:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:339:342:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 17
+        },
+        "end_byte": 342,
+        "start": {
+          "column": 20,
+          "line": 17
+        },
+        "start_byte": 339
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:337:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:339:342:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:342:assignment",
+      "kind": "assignment",
+      "label": "transaction_id: str",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 17
+        },
+        "end_byte": 342,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 323
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:364:identifier",
+      "kind": "identifier",
+      "label": "heuristic_vector",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 18
+        },
+        "end_byte": 364,
+        "start": {
+          "column": 4,
+          "line": 18
+        },
+        "start_byte": 348
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:370:identifier",
+      "kind": "identifier",
+      "label": "list",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 18
+        },
+        "end_byte": 370,
+        "start": {
+          "column": 22,
+          "line": 18
+        },
+        "start_byte": 366
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:371:376:identifier",
+      "kind": "identifier",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 18
+        },
+        "end_byte": 376,
+        "start": {
+          "column": 27,
+          "line": 18
+        },
+        "start_byte": 371
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:371:376:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:371:376:type",
+      "kind": "type",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 18
+        },
+        "end_byte": 376,
+        "start": {
+          "column": 27,
+          "line": 18
+        },
+        "start_byte": 371
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:371:376:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:370:377:type_parameter",
+      "kind": "type_parameter",
+      "label": "[float]",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 18
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 26,
+          "line": 18
+        },
+        "start_byte": 370
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:370:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:370:377:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:generic_type",
+      "kind": "generic_type",
+      "label": "list[float]",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 18
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 22,
+          "line": 18
+        },
+        "start_byte": 366
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:type",
+      "kind": "type",
+      "label": "list[float]",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 18
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 22,
+          "line": 18
+        },
+        "start_byte": 366
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:364:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:366:377:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:377:assignment",
+      "kind": "assignment",
+      "label": "heuristic_vector: list[float]",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 18
+        },
+        "end_byte": 377,
+        "start": {
+          "column": 4,
+          "line": 18
+        },
+        "start_byte": 348
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:403:identifier",
+      "kind": "identifier",
+      "label": "applicability_vector",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 19
+        },
+        "end_byte": 403,
+        "start": {
+          "column": 4,
+          "line": 19
+        },
+        "start_byte": 383
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:409:identifier",
+      "kind": "identifier",
+      "label": "list",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 19
+        },
+        "end_byte": 409,
+        "start": {
+          "column": 26,
+          "line": 19
+        },
+        "start_byte": 405
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:410:413:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 19
+        },
+        "end_byte": 413,
+        "start": {
+          "column": 31,
+          "line": 19
+        },
+        "start_byte": 410
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:410:413:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:410:413:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 19
+        },
+        "end_byte": 413,
+        "start": {
+          "column": 31,
+          "line": 19
+        },
+        "start_byte": 410
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:410:413:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:409:414:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str]",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 19
+        },
+        "end_byte": 414,
+        "start": {
+          "column": 30,
+          "line": 19
+        },
+        "start_byte": 409
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:409:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:409:414:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:generic_type",
+      "kind": "generic_type",
+      "label": "list[str]",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 19
+        },
+        "end_byte": 414,
+        "start": {
+          "column": 26,
+          "line": 19
+        },
+        "start_byte": 405
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:type",
+      "kind": "type",
+      "label": "list[str]",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 19
+        },
+        "end_byte": 414,
+        "start": {
+          "column": 26,
+          "line": 19
+        },
+        "start_byte": 405
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:403:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:405:414:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:414:assignment",
+      "kind": "assignment",
+      "label": "applicability_vector: list[str]",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 19
+        },
+        "end_byte": 414,
+        "start": {
+          "column": 4,
+          "line": 19
+        },
+        "start_byte": 383
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:433:identifier",
+      "kind": "identifier",
+      "label": "triggered_ids",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 20
+        },
+        "end_byte": 433,
+        "start": {
+          "column": 4,
+          "line": 20
+        },
+        "start_byte": 420
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:439:identifier",
+      "kind": "identifier",
+      "label": "list",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 20
+        },
+        "end_byte": 439,
+        "start": {
+          "column": 19,
+          "line": 20
+        },
+        "start_byte": 435
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:440:443:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 20
+        },
+        "end_byte": 443,
+        "start": {
+          "column": 24,
+          "line": 20
+        },
+        "start_byte": 440
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:440:443:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:440:443:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 20
+        },
+        "end_byte": 443,
+        "start": {
+          "column": 24,
+          "line": 20
+        },
+        "start_byte": 440
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:440:443:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:439:444:type_parameter",
+      "kind": "type_parameter",
+      "label": "[int]",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 20
+        },
+        "end_byte": 444,
+        "start": {
+          "column": 23,
+          "line": 20
+        },
+        "start_byte": 439
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:439:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:439:444:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:generic_type",
+      "kind": "generic_type",
+      "label": "list[int]",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 20
+        },
+        "end_byte": 444,
+        "start": {
+          "column": 19,
+          "line": 20
+        },
+        "start_byte": 435
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:type",
+      "kind": "type",
+      "label": "list[int]",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 20
+        },
+        "end_byte": 444,
+        "start": {
+          "column": 19,
+          "line": 20
+        },
+        "start_byte": 435
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:433:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:435:444:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:444:assignment",
+      "kind": "assignment",
+      "label": "triggered_ids: list[int]",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 20
+        },
+        "end_byte": 444,
+        "start": {
+          "column": 4,
+          "line": 20
+        },
+        "start_byte": 420
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:465:identifier",
+      "kind": "identifier",
+      "label": "triggered_count",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 21
+        },
+        "end_byte": 465,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 450
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:467:470:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 21
+        },
+        "end_byte": 470,
+        "start": {
+          "column": 21,
+          "line": 21
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:467:470:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:467:470:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 21
+        },
+        "end_byte": 470,
+        "start": {
+          "column": 21,
+          "line": 21
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:465:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:467:470:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:470:assignment",
+      "kind": "assignment",
+      "label": "triggered_count: int",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 21
+        },
+        "end_byte": 470,
+        "start": {
+          "column": 4,
+          "line": 21
+        },
+        "start_byte": 450
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:488:identifier",
+      "kind": "identifier",
+      "label": "top_typology",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 22
+        },
+        "end_byte": 488,
+        "start": {
+          "column": 4,
+          "line": 22
+        },
+        "start_byte": 476
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:498:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 22
+        },
+        "end_byte": 498,
+        "start": {
+          "column": 18,
+          "line": 22
+        },
+        "start_byte": 490
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:499:502:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 22
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 27,
+          "line": 22
+        },
+        "start_byte": 499
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:499:502:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:499:502:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 22
+        },
+        "end_byte": 502,
+        "start": {
+          "column": 27,
+          "line": 22
+        },
+        "start_byte": 499
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:499:502:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:498:503:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str]",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 22
+        },
+        "end_byte": 503,
+        "start": {
+          "column": 26,
+          "line": 22
+        },
+        "start_byte": 498
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:498:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:498:503:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:generic_type",
+      "kind": "generic_type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 22
+        },
+        "end_byte": 503,
+        "start": {
+          "column": 18,
+          "line": 22
+        },
+        "start_byte": 490
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:type",
+      "kind": "type",
+      "label": "Optional[str]",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 22
+        },
+        "end_byte": 503,
+        "start": {
+          "column": 18,
+          "line": 22
+        },
+        "start_byte": 490
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:506:510:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 22
+        },
+        "end_byte": 510,
+        "start": {
+          "column": 34,
+          "line": 22
+        },
+        "start_byte": 506
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:488:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:490:503:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:506:510:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:510:assignment",
+      "kind": "assignment",
+      "label": "top_typology: Optional[str] = None",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 22
+        },
+        "end_byte": 510,
+        "start": {
+          "column": 4,
+          "line": 22
+        },
+        "start_byte": 476
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:530:identifier",
+      "kind": "identifier",
+      "label": "top_confidence",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 23
+        },
+        "end_byte": 530,
+        "start": {
+          "column": 4,
+          "line": 23
+        },
+        "start_byte": 516
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:540:identifier",
+      "kind": "identifier",
+      "label": "Optional",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 23
+        },
+        "end_byte": 540,
+        "start": {
+          "column": 20,
+          "line": 23
+        },
+        "start_byte": 532
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:541:546:identifier",
+      "kind": "identifier",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 23
+        },
+        "end_byte": 546,
+        "start": {
+          "column": 29,
+          "line": 23
+        },
+        "start_byte": 541
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:541:546:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:541:546:type",
+      "kind": "type",
+      "label": "float",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 23
+        },
+        "end_byte": 546,
+        "start": {
+          "column": 29,
+          "line": 23
+        },
+        "start_byte": 541
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:541:546:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:540:547:type_parameter",
+      "kind": "type_parameter",
+      "label": "[float]",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 23
+        },
+        "end_byte": 547,
+        "start": {
+          "column": 28,
+          "line": 23
+        },
+        "start_byte": 540
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:540:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:540:547:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:generic_type",
+      "kind": "generic_type",
+      "label": "Optional[float]",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 23
+        },
+        "end_byte": 547,
+        "start": {
+          "column": 20,
+          "line": 23
+        },
+        "start_byte": 532
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:type",
+      "kind": "type",
+      "label": "Optional[float]",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 23
+        },
+        "end_byte": 547,
+        "start": {
+          "column": 20,
+          "line": 23
+        },
+        "start_byte": 532
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:550:554:none",
+      "kind": "none",
+      "label": "None",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 23
+        },
+        "end_byte": 554,
+        "start": {
+          "column": 38,
+          "line": 23
+        },
+        "start_byte": 550
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:530:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:532:547:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:550:554:none"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:554:assignment",
+      "kind": "assignment",
+      "label": "top_confidence: Optional[float] = None",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 23
+        },
+        "end_byte": 554,
+        "start": {
+          "column": 4,
+          "line": 23
+        },
+        "start_byte": 516
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:572:identifier",
+      "kind": "identifier",
+      "label": "explanations",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 24
+        },
+        "end_byte": 572,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 560
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:578:identifier",
+      "kind": "identifier",
+      "label": "dict",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 24
+        },
+        "end_byte": 578,
+        "start": {
+          "column": 18,
+          "line": 24
+        },
+        "start_byte": 574
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:579:582:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 24
+        },
+        "end_byte": 582,
+        "start": {
+          "column": 23,
+          "line": 24
+        },
+        "start_byte": 579
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:579:582:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:579:582:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 24
+        },
+        "end_byte": 582,
+        "start": {
+          "column": 23,
+          "line": 24
+        },
+        "start_byte": 579
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:584:587:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 24
+        },
+        "end_byte": 587,
+        "start": {
+          "column": 28,
+          "line": 24
+        },
+        "start_byte": 584
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:584:587:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:584:587:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 24
+        },
+        "end_byte": 587,
+        "start": {
+          "column": 28,
+          "line": 24
+        },
+        "start_byte": 584
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:579:582:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:584:587:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:578:588:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str, str]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 24
+        },
+        "end_byte": 588,
+        "start": {
+          "column": 22,
+          "line": 24
+        },
+        "start_byte": 578
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:578:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:578:588:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:generic_type",
+      "kind": "generic_type",
+      "label": "dict[str, str]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 24
+        },
+        "end_byte": 588,
+        "start": {
+          "column": 18,
+          "line": 24
+        },
+        "start_byte": 574
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:type",
+      "kind": "type",
+      "label": "dict[str, str]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 24
+        },
+        "end_byte": 588,
+        "start": {
+          "column": 18,
+          "line": 24
+        },
+        "start_byte": 574
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:572:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:574:588:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:588:assignment",
+      "kind": "assignment",
+      "label": "explanations: dict[str, str]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 24
+        },
+        "end_byte": 588,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 560
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:603:identifier",
+      "kind": "identifier",
+      "label": "scored_at",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 25
+        },
+        "end_byte": 603,
+        "start": {
+          "column": 4,
+          "line": 25
+        },
+        "start_byte": 594
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:605:613:identifier",
+      "kind": "identifier",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 25
+        },
+        "end_byte": 613,
+        "start": {
+          "column": 15,
+          "line": 25
+        },
+        "start_byte": 605
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:605:613:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:605:613:type",
+      "kind": "type",
+      "label": "datetime",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 25
+        },
+        "end_byte": 613,
+        "start": {
+          "column": 15,
+          "line": 25
+        },
+        "start_byte": 605
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:603:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:605:613:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:613:assignment",
+      "kind": "assignment",
+      "label": "scored_at: datetime",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 25
+        },
+        "end_byte": 613,
+        "start": {
+          "column": 4,
+          "line": 25
+        },
+        "start_byte": 594
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:342:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:348:377:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:383:414:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:420:444:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:450:470:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:476:510:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:516:554:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:560:588:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:594:613:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block",
+      "kind": "block",
+      "label": "transaction_id: str\r\n    heuristic_vector: list[float]\r\n    applicability_vector: list[str]\r\n    triggered_ids: list[int]\r\n    triggered_count: int\r\n    top_typology: Optional[str] = None\r\n    top_con",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 25
+        },
+        "end_byte": 613,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 323
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:282:305:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:305:316:argument_list",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:323:613:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:276:613:class_definition",
+      "kind": "class_definition",
+      "label": "class HeuristicResultResponse(BaseModel):\r\n    transaction_id: str\r\n    heuristic_vector: list[float]\r\n    applicability_vector: list[str]\r\n    triggered_ids: list[int]\r\n    triggered_count: int\r\n    ",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 25
+        },
+        "end_byte": 613,
+        "start": {
+          "column": 0,
+          "line": 16
+        },
+        "start_byte": 276
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:625:647:identifier",
+      "kind": "identifier",
+      "label": "HeuristicStatsResponse",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 28
+        },
+        "end_byte": 647,
+        "start": {
+          "column": 6,
+          "line": 28
+        },
+        "start_byte": 625
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:648:657:identifier",
+      "kind": "identifier",
+      "label": "BaseModel",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 28
+        },
+        "end_byte": 657,
+        "start": {
+          "column": 29,
+          "line": 28
+        },
+        "start_byte": 648
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:648:657:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:647:658:argument_list",
+      "kind": "argument_list",
+      "label": "(BaseModel)",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 28
+        },
+        "end_byte": 658,
+        "start": {
+          "column": 28,
+          "line": 28
+        },
+        "start_byte": 647
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:679:identifier",
+      "kind": "identifier",
+      "label": "most_triggered",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 29
+        },
+        "end_byte": 679,
+        "start": {
+          "column": 4,
+          "line": 29
+        },
+        "start_byte": 665
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:685:identifier",
+      "kind": "identifier",
+      "label": "list",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 29
+        },
+        "end_byte": 685,
+        "start": {
+          "column": 20,
+          "line": 29
+        },
+        "start_byte": 681
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:686:690:identifier",
+      "kind": "identifier",
+      "label": "dict",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 29
+        },
+        "end_byte": 690,
+        "start": {
+          "column": 25,
+          "line": 29
+        },
+        "start_byte": 686
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:686:690:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:686:690:type",
+      "kind": "type",
+      "label": "dict",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 29
+        },
+        "end_byte": 690,
+        "start": {
+          "column": 25,
+          "line": 29
+        },
+        "start_byte": 686
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:686:690:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:685:691:type_parameter",
+      "kind": "type_parameter",
+      "label": "[dict]",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 29
+        },
+        "end_byte": 691,
+        "start": {
+          "column": 24,
+          "line": 29
+        },
+        "start_byte": 685
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:685:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:685:691:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:generic_type",
+      "kind": "generic_type",
+      "label": "list[dict]",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 29
+        },
+        "end_byte": 691,
+        "start": {
+          "column": 20,
+          "line": 29
+        },
+        "start_byte": 681
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:type",
+      "kind": "type",
+      "label": "list[dict]",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 29
+        },
+        "end_byte": 691,
+        "start": {
+          "column": 20,
+          "line": 29
+        },
+        "start_byte": 681
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:679:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:681:691:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:691:assignment",
+      "kind": "assignment",
+      "label": "most_triggered: list[dict]",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 29
+        },
+        "end_byte": 691,
+        "start": {
+          "column": 4,
+          "line": 29
+        },
+        "start_byte": 665
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:721:identifier",
+      "kind": "identifier",
+      "label": "environment_distribution",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 30
+        },
+        "end_byte": 721,
+        "start": {
+          "column": 4,
+          "line": 30
+        },
+        "start_byte": 697
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:727:identifier",
+      "kind": "identifier",
+      "label": "dict",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 30
+        },
+        "end_byte": 727,
+        "start": {
+          "column": 30,
+          "line": 30
+        },
+        "start_byte": 723
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:728:731:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 30
+        },
+        "end_byte": 731,
+        "start": {
+          "column": 35,
+          "line": 30
+        },
+        "start_byte": 728
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:728:731:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:728:731:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 30
+        },
+        "end_byte": 731,
+        "start": {
+          "column": 35,
+          "line": 30
+        },
+        "start_byte": 728
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:733:736:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 30
+        },
+        "end_byte": 736,
+        "start": {
+          "column": 40,
+          "line": 30
+        },
+        "start_byte": 733
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:733:736:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:733:736:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 30
+        },
+        "end_byte": 736,
+        "start": {
+          "column": 40,
+          "line": 30
+        },
+        "start_byte": 733
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:728:731:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:733:736:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:727:737:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str, int]",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 30
+        },
+        "end_byte": 737,
+        "start": {
+          "column": 34,
+          "line": 30
+        },
+        "start_byte": 727
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:727:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:727:737:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:generic_type",
+      "kind": "generic_type",
+      "label": "dict[str, int]",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 30
+        },
+        "end_byte": 737,
+        "start": {
+          "column": 30,
+          "line": 30
+        },
+        "start_byte": 723
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:type",
+      "kind": "type",
+      "label": "dict[str, int]",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 30
+        },
+        "end_byte": 737,
+        "start": {
+          "column": 30,
+          "line": 30
+        },
+        "start_byte": 723
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:721:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:723:737:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:737:assignment",
+      "kind": "assignment",
+      "label": "environment_distribution: dict[str, int]",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 30
+        },
+        "end_byte": 737,
+        "start": {
+          "column": 4,
+          "line": 30
+        },
+        "start_byte": 697
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:760:identifier",
+      "kind": "identifier",
+      "label": "lens_distribution",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 31
+        },
+        "end_byte": 760,
+        "start": {
+          "column": 4,
+          "line": 31
+        },
+        "start_byte": 743
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:766:identifier",
+      "kind": "identifier",
+      "label": "dict",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 31
+        },
+        "end_byte": 766,
+        "start": {
+          "column": 23,
+          "line": 31
+        },
+        "start_byte": 762
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:767:770:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 31
+        },
+        "end_byte": 770,
+        "start": {
+          "column": 28,
+          "line": 31
+        },
+        "start_byte": 767
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:767:770:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:767:770:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 31
+        },
+        "end_byte": 770,
+        "start": {
+          "column": 28,
+          "line": 31
+        },
+        "start_byte": 767
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:772:775:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 31
+        },
+        "end_byte": 775,
+        "start": {
+          "column": 33,
+          "line": 31
+        },
+        "start_byte": 772
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:772:775:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:772:775:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 31
+        },
+        "end_byte": 775,
+        "start": {
+          "column": 33,
+          "line": 31
+        },
+        "start_byte": 772
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:767:770:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:772:775:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:766:776:type_parameter",
+      "kind": "type_parameter",
+      "label": "[str, int]",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 31
+        },
+        "end_byte": 776,
+        "start": {
+          "column": 27,
+          "line": 31
+        },
+        "start_byte": 766
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:766:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:766:776:type_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:generic_type",
+      "kind": "generic_type",
+      "label": "dict[str, int]",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 31
+        },
+        "end_byte": 776,
+        "start": {
+          "column": 23,
+          "line": 31
+        },
+        "start_byte": 762
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:type",
+      "kind": "type",
+      "label": "dict[str, int]",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 31
+        },
+        "end_byte": 776,
+        "start": {
+          "column": 23,
+          "line": 31
+        },
+        "start_byte": 762
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:760:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:762:776:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:776:assignment",
+      "kind": "assignment",
+      "label": "lens_distribution: dict[str, int]",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 31
+        },
+        "end_byte": 776,
+        "start": {
+          "column": 4,
+          "line": 31
+        },
+        "start_byte": 743
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:794:identifier",
+      "kind": "identifier",
+      "label": "total_scored",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 32
+        },
+        "end_byte": 794,
+        "start": {
+          "column": 4,
+          "line": 32
+        },
+        "start_byte": 782
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:796:799:identifier",
+      "kind": "identifier",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 32
+        },
+        "end_byte": 799,
+        "start": {
+          "column": 18,
+          "line": 32
+        },
+        "start_byte": 796
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:796:799:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:796:799:type",
+      "kind": "type",
+      "label": "int",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 32
+        },
+        "end_byte": 799,
+        "start": {
+          "column": 18,
+          "line": 32
+        },
+        "start_byte": 796
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:794:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:796:799:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:799:assignment",
+      "kind": "assignment",
+      "label": "total_scored: int",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 32
+        },
+        "end_byte": 799,
+        "start": {
+          "column": 4,
+          "line": 32
+        },
+        "start_byte": 782
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:691:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:697:737:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:743:776:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:782:799:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block",
+      "kind": "block",
+      "label": "most_triggered: list[dict]\r\n    environment_distribution: dict[str, int]\r\n    lens_distribution: dict[str, int]\r\n    total_scored: int",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 32
+        },
+        "end_byte": 799,
+        "start": {
+          "column": 4,
+          "line": 29
+        },
+        "start_byte": 665
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:625:647:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:647:658:argument_list",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:665:799:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:619:799:class_definition",
+      "kind": "class_definition",
+      "label": "class HeuristicStatsResponse(BaseModel):\r\n    most_triggered: list[dict]\r\n    environment_distribution: dict[str, int]\r\n    lens_distribution: dict[str, int]\r\n    total_scored: int",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 32
+        },
+        "end_byte": 799,
+        "start": {
+          "column": 0,
+          "line": 28
+        },
+        "start_byte": 619
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:29:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:31:58:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:62:92:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:98:270:class_definition",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:276:613:class_definition",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:619:799:class_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/schemas/heuristic.py:0:801:module",
+      "kind": "module",
+      "label": "from datetime import datetime\r\nfrom typing import Optional\r\n\r\nfrom pydantic import BaseModel\r\n\r\n\r\nclass HeuristicRegistryEntry(BaseModel):\r\n    id: int\r\n    name: str\r\n    environment: str\r\n    lens_t",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 33
+        },
+        "end_byte": 801,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/app/schemas/heuristic.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

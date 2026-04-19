@@ -1,0 +1,1199 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:08+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:9:19:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:9:19:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:9:19:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:9:19:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:9:19:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:9:19:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:named_imports:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:35:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:import_clause:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:35:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:27:34:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:28:33:string_fragment:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:27:34:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:28:33:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:35:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:27:34:string:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:35:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:27:34:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:293:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:35:import_statement:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:293:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:35:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:46:54:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:46:54:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:46:54:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:46:54:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:46:54:import_specifier:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:46:54:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:56:78:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:61:78:identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:56:78:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:61:78:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:56:78:import_specifier:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:56:78:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:named_imports:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:37:112:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:import_clause:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:37:112:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:86:111:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:87:110:string_fragment:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:86:111:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:87:110:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:37:112:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:86:111:string:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:37:112:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:86:111:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:293:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:37:112:import_statement:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:293:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:37:112:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:132:140:identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:132:140:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:140:142:formal_parameters:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:140:142:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:142:161:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:144:161:type_identifier:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:142:161:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:144:161:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:142:161:type_annotation:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:142:161:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:199:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:176:identifier:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:199:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:176:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:199:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:189:identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:199:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:189:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:189:199:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:190:198:identifier:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:189:199:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:190:198:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:199:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:189:199:arguments:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:199:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:189:199:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:199:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:199:call_expression:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:199:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:199:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:167:200:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:199:variable_declarator:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:167:200:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:199:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:162:291:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:167:200:lexical_declaration:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:162:291:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:167:200:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:208:212:unary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:209:212:identifier:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:208:212:unary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:209:212:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:207:213:parenthesized_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:208:212:unary_expression:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:207:213:parenthesized_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:208:212:unary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:204:273:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:207:213:parenthesized_expression:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:204:273:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:207:213:parenthesized_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:220:272:new_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:224:229:identifier:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:220:272:new_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:224:229:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:230:271:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:231:270:string_fragment:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:230:271:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:231:270:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:229:272:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:230:271:string:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:229:272:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:230:271:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:220:272:new_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:229:272:arguments:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:220:272:new_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:229:272:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:214:273:throw_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:220:272:new_expression:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:214:273:throw_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:220:272:new_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:204:273:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:214:273:throw_statement:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:204:273:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:214:273:throw_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:162:291:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:204:273:if_statement:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:162:291:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:204:273:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:277:288:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:284:287:identifier:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:277:288:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:284:287:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:162:291:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:277:288:return_statement:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:162:291:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:277:288:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:162:291:statement_block:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:162:291:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:116:291:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:116:291:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:293:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:116:291:export_statement:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:293:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:116:291:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:9:19:identifier",
+      "kind": "identifier",
+      "label": "useContext",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 1
+        },
+        "end_byte": 19,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:9:19:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:9:19:import_specifier",
+      "kind": "import_specifier",
+      "label": "useContext",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 1
+        },
+        "end_byte": 19,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:9:19:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:named_imports",
+      "kind": "named_imports",
+      "label": "{ useContext }",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:import_clause",
+      "kind": "import_clause",
+      "label": "{ useContext }",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:28:33:string_fragment",
+      "kind": "string_fragment",
+      "label": "react",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 1
+        },
+        "end_byte": 33,
+        "start": {
+          "column": 28,
+          "line": 1
+        },
+        "start_byte": 28
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:28:33:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:27:34:string",
+      "kind": "string",
+      "label": "\"react\"",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 1
+        },
+        "end_byte": 34,
+        "start": {
+          "column": 27,
+          "line": 1
+        },
+        "start_byte": 27
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:7:21:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:27:34:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:35:import_statement",
+      "kind": "import_statement",
+      "label": "import { useContext } from \"react\";",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 1
+        },
+        "end_byte": 35,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:46:54:identifier",
+      "kind": "identifier",
+      "label": "ToastCtx",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 2
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 9,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:46:54:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:46:54:import_specifier",
+      "kind": "import_specifier",
+      "label": "ToastCtx",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 2
+        },
+        "end_byte": 54,
+        "start": {
+          "column": 9,
+          "line": 2
+        },
+        "start_byte": 46
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:61:78:identifier",
+      "kind": "identifier",
+      "label": "ToastContextValue",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 2
+        },
+        "end_byte": 78,
+        "start": {
+          "column": 24,
+          "line": 2
+        },
+        "start_byte": 61
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:61:78:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:56:78:import_specifier",
+      "kind": "import_specifier",
+      "label": "type ToastContextValue",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 2
+        },
+        "end_byte": 78,
+        "start": {
+          "column": 19,
+          "line": 2
+        },
+        "start_byte": 56
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:46:54:import_specifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:56:78:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:named_imports",
+      "kind": "named_imports",
+      "label": "{ ToastCtx, type ToastContextValue }",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 2
+        },
+        "end_byte": 80,
+        "start": {
+          "column": 7,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:import_clause",
+      "kind": "import_clause",
+      "label": "{ ToastCtx, type ToastContextValue }",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 2
+        },
+        "end_byte": 80,
+        "start": {
+          "column": 7,
+          "line": 2
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:87:110:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/contexts/toastContext",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 2
+        },
+        "end_byte": 110,
+        "start": {
+          "column": 50,
+          "line": 2
+        },
+        "start_byte": 87
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:87:110:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:86:111:string",
+      "kind": "string",
+      "label": "\"@/contexts/toastContext\"",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 2
+        },
+        "end_byte": 111,
+        "start": {
+          "column": 49,
+          "line": 2
+        },
+        "start_byte": 86
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:44:80:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:86:111:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:37:112:import_statement",
+      "kind": "import_statement",
+      "label": "import { ToastCtx, type ToastContextValue } from \"@/contexts/toastContext\";",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 2
+        },
+        "end_byte": 112,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 37
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:132:140:identifier",
+      "kind": "identifier",
+      "label": "useToast",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 4
+        },
+        "end_byte": 140,
+        "start": {
+          "column": 16,
+          "line": 4
+        },
+        "start_byte": 132
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:140:142:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 4
+        },
+        "end_byte": 142,
+        "start": {
+          "column": 24,
+          "line": 4
+        },
+        "start_byte": 140
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:144:161:type_identifier",
+      "kind": "type_identifier",
+      "label": "ToastContextValue",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 4
+        },
+        "end_byte": 161,
+        "start": {
+          "column": 28,
+          "line": 4
+        },
+        "start_byte": 144
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:144:161:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:142:161:type_annotation",
+      "kind": "type_annotation",
+      "label": ": ToastContextValue",
+      "span": {
+        "end": {
+          "column": 45,
+          "line": 4
+        },
+        "end_byte": 161,
+        "start": {
+          "column": 26,
+          "line": 4
+        },
+        "start_byte": 142
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:176:identifier",
+      "kind": "identifier",
+      "label": "ctx",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 5
+        },
+        "end_byte": 176,
+        "start": {
+          "column": 8,
+          "line": 5
+        },
+        "start_byte": 173
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:189:identifier",
+      "kind": "identifier",
+      "label": "useContext",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 5
+        },
+        "end_byte": 189,
+        "start": {
+          "column": 14,
+          "line": 5
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:190:198:identifier",
+      "kind": "identifier",
+      "label": "ToastCtx",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 5
+        },
+        "end_byte": 198,
+        "start": {
+          "column": 25,
+          "line": 5
+        },
+        "start_byte": 190
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:190:198:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:189:199:arguments",
+      "kind": "arguments",
+      "label": "(ToastCtx)",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 5
+        },
+        "end_byte": 199,
+        "start": {
+          "column": 24,
+          "line": 5
+        },
+        "start_byte": 189
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:189:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:189:199:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:199:call_expression",
+      "kind": "call_expression",
+      "label": "useContext(ToastCtx)",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 5
+        },
+        "end_byte": 199,
+        "start": {
+          "column": 14,
+          "line": 5
+        },
+        "start_byte": 179
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:176:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:179:199:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:199:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "ctx = useContext(ToastCtx)",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 5
+        },
+        "end_byte": 199,
+        "start": {
+          "column": 8,
+          "line": 5
+        },
+        "start_byte": 173
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:173:199:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:167:200:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const ctx = useContext(ToastCtx);",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 5
+        },
+        "end_byte": 200,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 167
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:209:212:identifier",
+      "kind": "identifier",
+      "label": "ctx",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 6
+        },
+        "end_byte": 212,
+        "start": {
+          "column": 7,
+          "line": 6
+        },
+        "start_byte": 209
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:209:212:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:208:212:unary_expression",
+      "kind": "unary_expression",
+      "label": "!ctx",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 6
+        },
+        "end_byte": 212,
+        "start": {
+          "column": 6,
+          "line": 6
+        },
+        "start_byte": 208
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:208:212:unary_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:207:213:parenthesized_expression",
+      "kind": "parenthesized_expression",
+      "label": "(!ctx)",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 6
+        },
+        "end_byte": 213,
+        "start": {
+          "column": 5,
+          "line": 6
+        },
+        "start_byte": 207
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:224:229:identifier",
+      "kind": "identifier",
+      "label": "Error",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 6
+        },
+        "end_byte": 229,
+        "start": {
+          "column": 22,
+          "line": 6
+        },
+        "start_byte": 224
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:231:270:string_fragment",
+      "kind": "string_fragment",
+      "label": "useToast must be inside <ToastProvider>",
+      "span": {
+        "end": {
+          "column": 68,
+          "line": 6
+        },
+        "end_byte": 270,
+        "start": {
+          "column": 29,
+          "line": 6
+        },
+        "start_byte": 231
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:231:270:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:230:271:string",
+      "kind": "string",
+      "label": "\"useToast must be inside <ToastProvider>\"",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 6
+        },
+        "end_byte": 271,
+        "start": {
+          "column": 28,
+          "line": 6
+        },
+        "start_byte": 230
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:230:271:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:229:272:arguments",
+      "kind": "arguments",
+      "label": "(\"useToast must be inside <ToastProvider>\")",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 6
+        },
+        "end_byte": 272,
+        "start": {
+          "column": 27,
+          "line": 6
+        },
+        "start_byte": 229
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:224:229:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:229:272:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:220:272:new_expression",
+      "kind": "new_expression",
+      "label": "new Error(\"useToast must be inside <ToastProvider>\")",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 6
+        },
+        "end_byte": 272,
+        "start": {
+          "column": 18,
+          "line": 6
+        },
+        "start_byte": 220
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:220:272:new_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:214:273:throw_statement",
+      "kind": "throw_statement",
+      "label": "throw new Error(\"useToast must be inside <ToastProvider>\");",
+      "span": {
+        "end": {
+          "column": 71,
+          "line": 6
+        },
+        "end_byte": 273,
+        "start": {
+          "column": 12,
+          "line": 6
+        },
+        "start_byte": 214
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:207:213:parenthesized_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:214:273:throw_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:204:273:if_statement",
+      "kind": "if_statement",
+      "label": "if (!ctx) throw new Error(\"useToast must be inside <ToastProvider>\");",
+      "span": {
+        "end": {
+          "column": 71,
+          "line": 6
+        },
+        "end_byte": 273,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 204
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:284:287:identifier",
+      "kind": "identifier",
+      "label": "ctx",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 7
+        },
+        "end_byte": 287,
+        "start": {
+          "column": 9,
+          "line": 7
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:284:287:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:277:288:return_statement",
+      "kind": "return_statement",
+      "label": "return ctx;",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 7
+        },
+        "end_byte": 288,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 277
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:167:200:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:204:273:if_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:277:288:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:162:291:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const ctx = useContext(ToastCtx);\r\n  if (!ctx) throw new Error(\"useToast must be inside <ToastProvider>\");\r\n  return ctx;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 8
+        },
+        "end_byte": 291,
+        "start": {
+          "column": 46,
+          "line": 4
+        },
+        "start_byte": 162
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:132:140:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:140:142:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:142:161:type_annotation",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:162:291:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration",
+      "kind": "function_declaration",
+      "label": "function useToast(): ToastContextValue {\r\n  const ctx = useContext(ToastCtx);\r\n  if (!ctx) throw new Error(\"useToast must be inside <ToastProvider>\");\r\n  return ctx;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 8
+        },
+        "end_byte": 291,
+        "start": {
+          "column": 7,
+          "line": 4
+        },
+        "start_byte": 123
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:123:291:function_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:116:291:export_statement",
+      "kind": "export_statement",
+      "label": "export function useToast(): ToastContextValue {\r\n  const ctx = useContext(ToastCtx);\r\n  if (!ctx) throw new Error(\"useToast must be inside <ToastProvider>\");\r\n  return ctx;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 8
+        },
+        "end_byte": 291,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 116
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:35:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:37:112:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:116:291:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/hooks/useToast.ts:0:293:program",
+      "kind": "program",
+      "label": "import { useContext } from \"react\";\r\nimport { ToastCtx, type ToastContextValue } from \"@/contexts/toastContext\";\r\n\r\nexport function useToast(): ToastContextValue {\r\n  const ctx = useContext(ToastCtx);",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 9
+        },
+        "end_byte": 293,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/hooks/useToast.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

@@ -1,0 +1,479 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:14+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:7:93:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:17:33:type_identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:7:93:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:17:33:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:68:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:43:property_identifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:68:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:43:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:68:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:51:type_identifier:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:68:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:51:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:51:68:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:52:58:predefined_type:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:51:68:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:52:58:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:51:68:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:60:67:predefined_type:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:51:68:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:60:67:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:68:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:51:68:type_arguments:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:68:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:51:68:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:43:68:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:68:generic_type:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:43:68:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:68:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:68:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:43:68:type_annotation:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:68:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:43:68:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:34:93:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:68:property_signature:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:34:93:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:68:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:89:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:80:property_identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:89:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:80:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:81:89:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:83:89:predefined_type:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:81:89:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:83:89:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:89:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:81:89:type_annotation:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:89:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:81:89:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:34:93:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:89:property_signature:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:34:93:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:89:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:7:93:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:34:93:interface_body:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:7:93:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:34:93:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:0:93:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:7:93:interface_declaration:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:0:93:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:7:93:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:0:95:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:0:93:export_statement:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:0:95:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:0:93:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:17:33:type_identifier",
+      "kind": "type_identifier",
+      "label": "CytoscapeElement",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 1
+        },
+        "end_byte": 33,
+        "start": {
+          "column": 17,
+          "line": 1
+        },
+        "start_byte": 17
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:43:property_identifier",
+      "kind": "property_identifier",
+      "label": "data",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 2
+        },
+        "end_byte": 43,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 39
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:51:type_identifier",
+      "kind": "type_identifier",
+      "label": "Record",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 2
+        },
+        "end_byte": 51,
+        "start": {
+          "column": 8,
+          "line": 2
+        },
+        "start_byte": 45
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:52:58:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 2
+        },
+        "end_byte": 58,
+        "start": {
+          "column": 15,
+          "line": 2
+        },
+        "start_byte": 52
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:60:67:predefined_type",
+      "kind": "predefined_type",
+      "label": "unknown",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 2
+        },
+        "end_byte": 67,
+        "start": {
+          "column": 23,
+          "line": 2
+        },
+        "start_byte": 60
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:52:58:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:60:67:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:51:68:type_arguments",
+      "kind": "type_arguments",
+      "label": "<string, unknown>",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 2
+        },
+        "end_byte": 68,
+        "start": {
+          "column": 14,
+          "line": 2
+        },
+        "start_byte": 51
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:51:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:51:68:type_arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:68:generic_type",
+      "kind": "generic_type",
+      "label": "Record<string, unknown>",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 2
+        },
+        "end_byte": 68,
+        "start": {
+          "column": 8,
+          "line": 2
+        },
+        "start_byte": 45
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:45:68:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:43:68:type_annotation",
+      "kind": "type_annotation",
+      "label": ": Record<string, unknown>",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 2
+        },
+        "end_byte": 68,
+        "start": {
+          "column": 6,
+          "line": 2
+        },
+        "start_byte": 43
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:43:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:43:68:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:68:property_signature",
+      "kind": "property_signature",
+      "label": "data: Record<string, unknown>",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 2
+        },
+        "end_byte": 68,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 39
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:80:property_identifier",
+      "kind": "property_identifier",
+      "label": "classes",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 3
+        },
+        "end_byte": 80,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 73
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:83:89:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 3
+        },
+        "end_byte": 89,
+        "start": {
+          "column": 12,
+          "line": 3
+        },
+        "start_byte": 83
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:83:89:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:81:89:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 3
+        },
+        "end_byte": 89,
+        "start": {
+          "column": 10,
+          "line": 3
+        },
+        "start_byte": 81
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:80:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:81:89:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:89:property_signature",
+      "kind": "property_signature",
+      "label": "classes?: string",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 3
+        },
+        "end_byte": 89,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 73
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:39:68:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:73:89:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:34:93:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  data: Record<string, unknown>;\r\n  classes?: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 4
+        },
+        "end_byte": 93,
+        "start": {
+          "column": 34,
+          "line": 1
+        },
+        "start_byte": 34
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:17:33:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:34:93:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:7:93:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface CytoscapeElement {\r\n  data: Record<string, unknown>;\r\n  classes?: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 4
+        },
+        "end_byte": 93,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:7:93:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:0:93:export_statement",
+      "kind": "export_statement",
+      "label": "export interface CytoscapeElement {\r\n  data: Record<string, unknown>;\r\n  classes?: string;\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 4
+        },
+        "end_byte": 93,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:0:93:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/graph.ts:0:95:program",
+      "kind": "program",
+      "label": "export interface CytoscapeElement {\r\n  data: Record<string, unknown>;\r\n  classes?: string;\r\n}\r\n",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 5
+        },
+        "end_byte": 95,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/types/graph.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

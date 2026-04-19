@@ -1,0 +1,1798 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:47+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:7:14:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:7:14:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:7:14:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:7:14:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:14:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:7:14:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:14:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:7:14:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:440:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:14:import_statement:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:440:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:14:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:23:26:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:23:26:identifier:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:23:26:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:23:26:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:16:26:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:23:26:dotted_name:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:16:26:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:23:26:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:440:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:16:26:import_statement:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:440:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:16:26:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:49:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:41:identifier:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:49:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:41:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:49:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:44:49:false:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:49:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:44:49:false",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:440:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:49:assignment:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:440:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:49:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:59:69:identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:59:69:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:79:typed_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:74:identifier:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:79:typed_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:74:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:76:79:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:76:79:identifier:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:76:79:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:76:79:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:79:typed_parameter->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:76:79:type:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:79:typed_parameter",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:76:79:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:69:80:parameters->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:79:typed_parameter:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:69:80:parameters",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:79:typed_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:69:80:parameters:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:69:80:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:91:identifier:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:91:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:92:98:identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:92:98:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:attribute:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:type:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:123:global_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:112:123:identifier:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:123:global_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:112:123:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:438:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:123:global_statement:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:438:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:123:global_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:132:147:not_operator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:136:147:identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:132:147:not_operator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:136:147:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:129:402:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:132:147:not_operator:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:129:402:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:132:147:not_operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:177:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:165:identifier:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:177:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:165:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:177:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:166:177:identifier:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:177:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:166:177:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:374:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:177:attribute:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:374:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:177:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:210:keyword_argument->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:197:identifier:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:210:keyword_argument",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:197:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:210:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:205:identifier:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:210:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:205:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:210:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:206:210:identifier:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:210:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:206:210:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:210:keyword_argument->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:210:attribute:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:210:keyword_argument",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:210:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:210:keyword_argument:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:210:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:288:keyword_argument->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:231:identifier:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:288:keyword_argument",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:231:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:288:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:233:string_start:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:288:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:233:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:288:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:233:287:string_content:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:288:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:233:287:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:288:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:287:288:string_end:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:288:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:287:288:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:288:keyword_argument->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:288:string:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:288:keyword_argument",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:288:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:288:keyword_argument:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:288:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:330:keyword_argument->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:310:identifier:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:330:keyword_argument",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:310:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:330:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:312:string_start:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:330:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:312:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:330:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:312:329:string_content:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:330:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:312:329:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:330:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:329:330:string_end:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:330:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:329:330:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:330:keyword_argument->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:330:string:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:330:keyword_argument",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:330:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:330:keyword_argument:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:330:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:362:keyword_argument->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:351:identifier:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:362:keyword_argument",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:351:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:362:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:355:identifier:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:362:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:355:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:362:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:356:362:identifier:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:362:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:356:362:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:362:keyword_argument->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:362:attribute:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:362:keyword_argument",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:362:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:362:keyword_argument:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:362:keyword_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:374:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:374:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:402:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:374:call:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:402:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:374:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:402:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:395:identifier:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:402:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:395:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:402:assignment->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:398:402:true:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:402:assignment",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:398:402:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:402:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:402:assignment:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:402:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:402:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:129:402:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:402:block:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:129:402:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:402:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:438:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:129:402:if_statement:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:438:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:129:402:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:432:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:422:identifier:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:432:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:422:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:432:attribute->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:423:432:identifier:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:432:attribute",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:423:432:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:438:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:432:attribute:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:438:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:432:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:432:438:argument_list->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:433:437:identifier:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:432:438:argument_list",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:433:437:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:438:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:432:438:argument_list:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:438:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:432:438:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:408:438:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:438:call:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:408:438:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:438:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:438:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:408:438:return_statement:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:438:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:408:438:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:438:block:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:438:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:440:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:440:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:7:14:identifier",
+      "kind": "identifier",
+      "label": "logging",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 1
+        },
+        "end_byte": 14,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:7:14:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:7:14:dotted_name",
+      "kind": "dotted_name",
+      "label": "logging",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 1
+        },
+        "end_byte": 14,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:7:14:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:14:import_statement",
+      "kind": "import_statement",
+      "label": "import logging",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 1
+        },
+        "end_byte": 14,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:23:26:identifier",
+      "kind": "identifier",
+      "label": "sys",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 2
+        },
+        "end_byte": 26,
+        "start": {
+          "column": 7,
+          "line": 2
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:23:26:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:23:26:dotted_name",
+      "kind": "dotted_name",
+      "label": "sys",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 2
+        },
+        "end_byte": 26,
+        "start": {
+          "column": 7,
+          "line": 2
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:23:26:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:16:26:import_statement",
+      "kind": "import_statement",
+      "label": "import sys",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 2
+        },
+        "end_byte": 26,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 16
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:41:identifier",
+      "kind": "identifier",
+      "label": "_configured",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 4
+        },
+        "end_byte": 41,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 30
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:44:49:false",
+      "kind": "false",
+      "label": "False",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 4
+        },
+        "end_byte": 49,
+        "start": {
+          "column": 14,
+          "line": 4
+        },
+        "start_byte": 44
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:41:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:44:49:false"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:49:assignment",
+      "kind": "assignment",
+      "label": "_configured = False",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 4
+        },
+        "end_byte": 49,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 30
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:59:69:identifier",
+      "kind": "identifier",
+      "label": "get_logger",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 7
+        },
+        "end_byte": 69,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 59
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:74:identifier",
+      "kind": "identifier",
+      "label": "name",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 7
+        },
+        "end_byte": 74,
+        "start": {
+          "column": 15,
+          "line": 7
+        },
+        "start_byte": 70
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:76:79:identifier",
+      "kind": "identifier",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 7
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 21,
+          "line": 7
+        },
+        "start_byte": 76
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:76:79:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:76:79:type",
+      "kind": "type",
+      "label": "str",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 7
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 21,
+          "line": 7
+        },
+        "start_byte": 76
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:74:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:76:79:type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:79:typed_parameter",
+      "kind": "typed_parameter",
+      "label": "name: str",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 7
+        },
+        "end_byte": 79,
+        "start": {
+          "column": 15,
+          "line": 7
+        },
+        "start_byte": 70
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:70:79:typed_parameter"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:69:80:parameters",
+      "kind": "parameters",
+      "label": "(name: str)",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 7
+        },
+        "end_byte": 80,
+        "start": {
+          "column": 14,
+          "line": 7
+        },
+        "start_byte": 69
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:91:identifier",
+      "kind": "identifier",
+      "label": "logging",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 7
+        },
+        "end_byte": 91,
+        "start": {
+          "column": 29,
+          "line": 7
+        },
+        "start_byte": 84
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:92:98:identifier",
+      "kind": "identifier",
+      "label": "Logger",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 7
+        },
+        "end_byte": 98,
+        "start": {
+          "column": 37,
+          "line": 7
+        },
+        "start_byte": 92
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:91:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:92:98:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:attribute",
+      "kind": "attribute",
+      "label": "logging.Logger",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 7
+        },
+        "end_byte": 98,
+        "start": {
+          "column": 29,
+          "line": 7
+        },
+        "start_byte": 84
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:attribute"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:type",
+      "kind": "type",
+      "label": "logging.Logger",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 7
+        },
+        "end_byte": 98,
+        "start": {
+          "column": 29,
+          "line": 7
+        },
+        "start_byte": 84
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:112:123:identifier",
+      "kind": "identifier",
+      "label": "_configured",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 8
+        },
+        "end_byte": 123,
+        "start": {
+          "column": 11,
+          "line": 8
+        },
+        "start_byte": 112
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:112:123:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:123:global_statement",
+      "kind": "global_statement",
+      "label": "global _configured",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 8
+        },
+        "end_byte": 123,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 105
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:136:147:identifier",
+      "kind": "identifier",
+      "label": "_configured",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 9
+        },
+        "end_byte": 147,
+        "start": {
+          "column": 11,
+          "line": 9
+        },
+        "start_byte": 136
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:136:147:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:132:147:not_operator",
+      "kind": "not_operator",
+      "label": "not _configured",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 9
+        },
+        "end_byte": 147,
+        "start": {
+          "column": 7,
+          "line": 9
+        },
+        "start_byte": 132
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:165:identifier",
+      "kind": "identifier",
+      "label": "logging",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 10
+        },
+        "end_byte": 165,
+        "start": {
+          "column": 8,
+          "line": 10
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:166:177:identifier",
+      "kind": "identifier",
+      "label": "basicConfig",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 10
+        },
+        "end_byte": 177,
+        "start": {
+          "column": 16,
+          "line": 10
+        },
+        "start_byte": 166
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:165:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:166:177:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:177:attribute",
+      "kind": "attribute",
+      "label": "logging.basicConfig",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 10
+        },
+        "end_byte": 177,
+        "start": {
+          "column": 8,
+          "line": 10
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:197:identifier",
+      "kind": "identifier",
+      "label": "level",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 11
+        },
+        "end_byte": 197,
+        "start": {
+          "column": 12,
+          "line": 11
+        },
+        "start_byte": 192
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:205:identifier",
+      "kind": "identifier",
+      "label": "logging",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 11
+        },
+        "end_byte": 205,
+        "start": {
+          "column": 18,
+          "line": 11
+        },
+        "start_byte": 198
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:206:210:identifier",
+      "kind": "identifier",
+      "label": "INFO",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 11
+        },
+        "end_byte": 210,
+        "start": {
+          "column": 26,
+          "line": 11
+        },
+        "start_byte": 206
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:205:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:206:210:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:210:attribute",
+      "kind": "attribute",
+      "label": "logging.INFO",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 11
+        },
+        "end_byte": 210,
+        "start": {
+          "column": 18,
+          "line": 11
+        },
+        "start_byte": 198
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:197:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:198:210:attribute"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:210:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "level=logging.INFO",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 11
+        },
+        "end_byte": 210,
+        "start": {
+          "column": 12,
+          "line": 11
+        },
+        "start_byte": 192
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:231:identifier",
+      "kind": "identifier",
+      "label": "format",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 12
+        },
+        "end_byte": 231,
+        "start": {
+          "column": 12,
+          "line": 12
+        },
+        "start_byte": 225
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:233:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 233,
+        "start": {
+          "column": 19,
+          "line": 12
+        },
+        "start_byte": 232
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:233:287:string_content",
+      "kind": "string_content",
+      "label": "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 12
+        },
+        "end_byte": 287,
+        "start": {
+          "column": 20,
+          "line": 12
+        },
+        "start_byte": 233
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:287:288:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 12
+        },
+        "end_byte": 288,
+        "start": {
+          "column": 74,
+          "line": 12
+        },
+        "start_byte": 287
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:233:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:233:287:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:287:288:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:288:string",
+      "kind": "string",
+      "label": "\"%(asctime)s | %(levelname)-8s | %(name)s | %(message)s\"",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 12
+        },
+        "end_byte": 288,
+        "start": {
+          "column": 19,
+          "line": 12
+        },
+        "start_byte": 232
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:231:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:232:288:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:288:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "format=\"%(asctime)s | %(levelname)-8s | %(name)s | %(message)s\"",
+      "span": {
+        "end": {
+          "column": 75,
+          "line": 12
+        },
+        "end_byte": 288,
+        "start": {
+          "column": 12,
+          "line": 12
+        },
+        "start_byte": 225
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:310:identifier",
+      "kind": "identifier",
+      "label": "datefmt",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 13
+        },
+        "end_byte": 310,
+        "start": {
+          "column": 12,
+          "line": 13
+        },
+        "start_byte": 303
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:312:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 13
+        },
+        "end_byte": 312,
+        "start": {
+          "column": 20,
+          "line": 13
+        },
+        "start_byte": 311
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:312:329:string_content",
+      "kind": "string_content",
+      "label": "%Y-%m-%d %H:%M:%S",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 13
+        },
+        "end_byte": 329,
+        "start": {
+          "column": 21,
+          "line": 13
+        },
+        "start_byte": 312
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:329:330:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 13
+        },
+        "end_byte": 330,
+        "start": {
+          "column": 38,
+          "line": 13
+        },
+        "start_byte": 329
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:312:string_start",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:312:329:string_content",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:329:330:string_end"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:330:string",
+      "kind": "string",
+      "label": "\"%Y-%m-%d %H:%M:%S\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 13
+        },
+        "end_byte": 330,
+        "start": {
+          "column": 20,
+          "line": 13
+        },
+        "start_byte": 311
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:310:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:311:330:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:330:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "datefmt=\"%Y-%m-%d %H:%M:%S\"",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 13
+        },
+        "end_byte": 330,
+        "start": {
+          "column": 12,
+          "line": 13
+        },
+        "start_byte": 303
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:351:identifier",
+      "kind": "identifier",
+      "label": "stream",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 14
+        },
+        "end_byte": 351,
+        "start": {
+          "column": 12,
+          "line": 14
+        },
+        "start_byte": 345
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:355:identifier",
+      "kind": "identifier",
+      "label": "sys",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 14
+        },
+        "end_byte": 355,
+        "start": {
+          "column": 19,
+          "line": 14
+        },
+        "start_byte": 352
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:356:362:identifier",
+      "kind": "identifier",
+      "label": "stdout",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 14
+        },
+        "end_byte": 362,
+        "start": {
+          "column": 23,
+          "line": 14
+        },
+        "start_byte": 356
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:355:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:356:362:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:362:attribute",
+      "kind": "attribute",
+      "label": "sys.stdout",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 14
+        },
+        "end_byte": 362,
+        "start": {
+          "column": 19,
+          "line": 14
+        },
+        "start_byte": 352
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:351:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:352:362:attribute"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:362:keyword_argument",
+      "kind": "keyword_argument",
+      "label": "stream=sys.stdout",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 14
+        },
+        "end_byte": 362,
+        "start": {
+          "column": 12,
+          "line": 14
+        },
+        "start_byte": 345
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:192:210:keyword_argument",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:225:288:keyword_argument",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:303:330:keyword_argument",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:345:362:keyword_argument"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list",
+      "kind": "argument_list",
+      "label": "(\r\n            level=logging.INFO,\r\n            format=\"%(asctime)s | %(levelname)-8s | %(name)s | %(message)s\",\r\n            datefmt=\"%Y-%m-%d %H:%M:%S\",\r\n            stream=sys.stdout,\r\n        )",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 15
+        },
+        "end_byte": 374,
+        "start": {
+          "column": 27,
+          "line": 10
+        },
+        "start_byte": 177
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:177:attribute",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:177:374:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:374:call",
+      "kind": "call",
+      "label": "logging.basicConfig(\r\n            level=logging.INFO,\r\n            format=\"%(asctime)s | %(levelname)-8s | %(name)s | %(message)s\",\r\n            datefmt=\"%Y-%m-%d %H:%M:%S\",\r\n            stream=sys.st",
+      "span": {
+        "end": {
+          "column": 9,
+          "line": 15
+        },
+        "end_byte": 374,
+        "start": {
+          "column": 8,
+          "line": 10
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:395:identifier",
+      "kind": "identifier",
+      "label": "_configured",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 16
+        },
+        "end_byte": 395,
+        "start": {
+          "column": 8,
+          "line": 16
+        },
+        "start_byte": 384
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:398:402:true",
+      "kind": "true",
+      "label": "True",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 16
+        },
+        "end_byte": 402,
+        "start": {
+          "column": 22,
+          "line": 16
+        },
+        "start_byte": 398
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:395:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:398:402:true"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:402:assignment",
+      "kind": "assignment",
+      "label": "_configured = True",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 16
+        },
+        "end_byte": 402,
+        "start": {
+          "column": 8,
+          "line": 16
+        },
+        "start_byte": 384
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:374:call",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:384:402:assignment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:402:block",
+      "kind": "block",
+      "label": "logging.basicConfig(\r\n            level=logging.INFO,\r\n            format=\"%(asctime)s | %(levelname)-8s | %(name)s | %(message)s\",\r\n            datefmt=\"%Y-%m-%d %H:%M:%S\",\r\n            stream=sys.st",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 16
+        },
+        "end_byte": 402,
+        "start": {
+          "column": 8,
+          "line": 10
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:132:147:not_operator",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:158:402:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:129:402:if_statement",
+      "kind": "if_statement",
+      "label": "if not _configured:\r\n        logging.basicConfig(\r\n            level=logging.INFO,\r\n            format=\"%(asctime)s | %(levelname)-8s | %(name)s | %(message)s\",\r\n            datefmt=\"%Y-%m-%d %H:%M:%S",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 16
+        },
+        "end_byte": 402,
+        "start": {
+          "column": 4,
+          "line": 9
+        },
+        "start_byte": 129
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:422:identifier",
+      "kind": "identifier",
+      "label": "logging",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 17
+        },
+        "end_byte": 422,
+        "start": {
+          "column": 11,
+          "line": 17
+        },
+        "start_byte": 415
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:423:432:identifier",
+      "kind": "identifier",
+      "label": "getLogger",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 17
+        },
+        "end_byte": 432,
+        "start": {
+          "column": 19,
+          "line": 17
+        },
+        "start_byte": 423
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:422:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:423:432:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:432:attribute",
+      "kind": "attribute",
+      "label": "logging.getLogger",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 17
+        },
+        "end_byte": 432,
+        "start": {
+          "column": 11,
+          "line": 17
+        },
+        "start_byte": 415
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:433:437:identifier",
+      "kind": "identifier",
+      "label": "name",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 17
+        },
+        "end_byte": 437,
+        "start": {
+          "column": 29,
+          "line": 17
+        },
+        "start_byte": 433
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:433:437:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:432:438:argument_list",
+      "kind": "argument_list",
+      "label": "(name)",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 17
+        },
+        "end_byte": 438,
+        "start": {
+          "column": 28,
+          "line": 17
+        },
+        "start_byte": 432
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:432:attribute",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:432:438:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:438:call",
+      "kind": "call",
+      "label": "logging.getLogger(name)",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 17
+        },
+        "end_byte": 438,
+        "start": {
+          "column": 11,
+          "line": 17
+        },
+        "start_byte": 415
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:415:438:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:408:438:return_statement",
+      "kind": "return_statement",
+      "label": "return logging.getLogger(name)",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 17
+        },
+        "end_byte": 438,
+        "start": {
+          "column": 4,
+          "line": 17
+        },
+        "start_byte": 408
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:123:global_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:129:402:if_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:408:438:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:438:block",
+      "kind": "block",
+      "label": "global _configured\r\n    if not _configured:\r\n        logging.basicConfig(\r\n            level=logging.INFO,\r\n            format=\"%(asctime)s | %(levelname)-8s | %(name)s | %(message)s\",\r\n            da",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 17
+        },
+        "end_byte": 438,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 105
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:59:69:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:69:80:parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:84:98:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:105:438:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition",
+      "kind": "function_definition",
+      "label": "def get_logger(name: str) -> logging.Logger:\r\n    global _configured\r\n    if not _configured:\r\n        logging.basicConfig(\r\n            level=logging.INFO,\r\n            format=\"%(asctime)s | %(leveln",
+      "span": {
+        "end": {
+          "column": 34,
+          "line": 17
+        },
+        "end_byte": 438,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 55
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:14:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:16:26:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:30:49:assignment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:55:438:function_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/utils/logger.py:0:440:module",
+      "kind": "module",
+      "label": "import logging\r\nimport sys\r\n\r\n_configured = False\r\n\r\n\r\ndef get_logger(name: str) -> logging.Logger:\r\n    global _configured\r\n    if not _configured:\r\n        logging.basicConfig(\r\n            level=lo",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 18
+        },
+        "end_byte": 440,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/app/utils/logger.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

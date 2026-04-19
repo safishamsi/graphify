@@ -207,6 +207,8 @@ class CodeSnippet(BaseModel):
     start_line: int = 0
     end_line: int = 0
     text: str = ""
+    evidence_quality: Literal["full", "embedded", "label_only", "missing"] = "full"
+    resolved_via: Optional[str] = None
 
 
 class SeamEdge(BaseModel):
@@ -224,6 +226,28 @@ class PackManifest(BaseModel):
     truncated: list[str] = Field(default_factory=list)
     dropped: list[str] = Field(default_factory=list)
     truncation_order_applied: list[str] = Field(default_factory=list)
+
+
+class BundleEvidence(BaseModel):
+    """Per-bundle evidence-quality summary used to gate the reasoner.
+
+    ``evidence_score`` is a deterministic 0..1 number computed in
+    :func:`depos.analysis.context_bundle._compute_evidence` so the same bundle
+    always scores the same way across runs.
+    """
+
+    snippet_count: int = 0
+    snippets_full: int = 0
+    snippets_embedded: int = 0
+    snippets_label_only: int = 0
+    snippets_missing: int = 0
+    has_seams: bool = False
+    has_data_reads: bool = False
+    has_data_writes: bool = False
+    has_rls_coverage: bool = False
+    has_migration_state: bool = False
+    evidence_score: float = 0.0
+    missing_pieces: list[str] = Field(default_factory=list)
 
 
 class ContextBundle(BaseModel):
@@ -244,6 +268,7 @@ class ContextBundle(BaseModel):
     pack_manifest: PackManifest
     token_budget: int = 0
     truncation_events: list[str] = Field(default_factory=list)
+    evidence: BundleEvidence = Field(default_factory=BundleEvidence)
 
 
 # ---------------------------------------------------------------------------
@@ -466,6 +491,17 @@ class ReasonerExample(BaseModel):
     head_ref: str = ""
 
 
+ReasonerFailureReason = Literal[
+    "transport",
+    "empty_response",
+    "not_json",
+    "json_but_invalid_schema",
+    "empty_findings",
+    "low_evidence",
+    "other",
+]
+
+
 class ReasonerQueueRow(BaseModel):
     bundle_id: str
     candidate_id: str
@@ -476,6 +512,64 @@ class ReasonerQueueRow(BaseModel):
     graphcodebert_pattern: str = ""
     ranking_phase: int = 0
     queued_at: datetime
+    failure_reason: ReasonerFailureReason = "other"
+    http_status: Optional[int] = None
+    attempt_count: int = 0
+    validation_errors: list[dict[str, Any]] = Field(default_factory=list)
+    raw_response_excerpt: str = ""
+    provider_name: str = ""
+    model: str = ""
+    request_payload_sha256: str = ""
+    prompt_token_estimate: int = 0
+    response_path_used: Optional[str] = None
+    extra: dict[str, Any] = Field(default_factory=dict)
+
+
+class ReasonerCallStats(BaseModel):
+    """Aggregate counters that explain ``reasoner_run_health``.
+
+    ``by_reason`` keys come from :data:`ReasonerFailureReason`.
+    ``by_mode`` is shaped as ``{mode: {"successes": N, "failures": M}}``.
+    """
+
+    attempts: int = 0
+    successes: int = 0
+    failures: int = 0
+    by_reason: dict[str, int] = Field(default_factory=dict)
+    by_mode: dict[str, dict[str, int]] = Field(default_factory=dict)
+
+    def record_success(self, mode: str) -> None:
+        self.attempts += 1
+        self.successes += 1
+        bucket = self.by_mode.setdefault(mode, {"successes": 0, "failures": 0})
+        bucket["successes"] += 1
+
+    def record_failure(self, mode: str, reason: str) -> None:
+        self.attempts += 1
+        self.failures += 1
+        self.by_reason[reason] = self.by_reason.get(reason, 0) + 1
+        bucket = self.by_mode.setdefault(mode, {"successes": 0, "failures": 0})
+        bucket["failures"] += 1
+
+    def merge(self, other: "ReasonerCallStats") -> None:
+        self.attempts += other.attempts
+        self.successes += other.successes
+        self.failures += other.failures
+        for reason, count in other.by_reason.items():
+            self.by_reason[reason] = self.by_reason.get(reason, 0) + count
+        for mode, bucket in other.by_mode.items():
+            target = self.by_mode.setdefault(mode, {"successes": 0, "failures": 0})
+            target["successes"] += bucket.get("successes", 0)
+            target["failures"] += bucket.get("failures", 0)
+
+    def health(self) -> Literal["ok", "degraded", "failed"]:
+        if self.attempts == 0:
+            return "ok"
+        if self.successes == 0:
+            return "failed"
+        if self.successes / self.attempts < 0.5:
+            return "degraded"
+        return "ok"
 
 
 class IngestReport(BaseModel):
@@ -516,6 +610,14 @@ class RunMetadata(BaseModel):
     ingest_errors: list[dict[str, Any]] = Field(default_factory=list)
     stitcher_coverage: StitcherCoverageReport = Field(default_factory=StitcherCoverageReport)
     graph_source_metadata: dict[str, Any] = Field(default_factory=dict)
+    reasoner_call_stats: ReasonerCallStats = Field(default_factory=ReasonerCallStats)
+    reasoner_run_health: Literal["ok", "degraded", "failed"] = "ok"
+    reasoner_health_reason: str = ""
+    bundles_built: int = 0
+    bundles_sent_to_reasoner: int = 0
+    bundles_skipped_low_evidence: int = 0
+    evidence_summary: dict[str, Any] = Field(default_factory=dict)
+    dataset_path_resolution: dict[str, Any] = Field(default_factory=dict)
 
 
 class RunResult(BaseModel):
@@ -523,3 +625,5 @@ class RunResult(BaseModel):
     detector_stats: list[DetectorRunStats] = Field(default_factory=list)
     ingest_reports: list[IngestReport] = Field(default_factory=list)
     run_metadata: RunMetadata
+    reasoner_call_stats: ReasonerCallStats = Field(default_factory=ReasonerCallStats)
+    evidence_summary: dict[str, Any] = Field(default_factory=dict)

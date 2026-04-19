@@ -1,0 +1,2605 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:14+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:7:228:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:17:39:type_identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:7:228:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:17:39:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:55:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:47:property_identifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:55:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:47:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:47:55:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:49:55:predefined_type:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:47:55:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:49:55:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:55:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:47:55:type_annotation:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:55:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:47:55:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:55:property_signature:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:55:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:72:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:64:property_identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:72:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:64:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:64:72:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:66:72:predefined_type:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:64:72:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:66:72:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:72:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:64:72:type_annotation:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:72:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:64:72:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:72:property_signature:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:72:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:144:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:88:property_identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:144:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:88:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:91:102:string_fragment:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:91:102:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:string:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:118:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:literal_type:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:118:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:107:117:string_fragment:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:107:117:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:string:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:118:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:literal_type:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:118:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:129:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:118:union_type:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:129:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:118:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:122:128:string_fragment:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:122:128:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:string:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:129:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:literal_type:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:129:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:144:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:129:union_type:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:144:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:129:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:133:143:string_fragment:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:133:143:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:string:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:144:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:literal_type:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:144:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:88:144:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:144:union_type:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:88:144:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:144:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:144:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:88:144:type_annotation:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:144:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:88:144:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:144:property_signature:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:144:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:168:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:158:property_identifier:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:168:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:158:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:160:168:array_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:160:166:predefined_type:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:160:168:array_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:160:166:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:158:168:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:160:168:array_type:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:158:168:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:160:168:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:168:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:158:168:type_annotation:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:168:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:158:168:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:168:property_signature:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:168:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:192:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:184:property_identifier:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:192:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:184:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:184:192:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:186:192:predefined_type:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:184:192:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:186:192:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:192:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:184:192:type_annotation:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:192:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:184:192:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:192:property_signature:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:192:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:224:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:214:property_identifier:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:224:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:214:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:216:224:array_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:216:222:predefined_type:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:216:224:array_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:216:222:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:214:224:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:216:224:array_type:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:214:224:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:216:224:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:224:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:214:224:type_annotation:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:224:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:214:224:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:224:property_signature:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:224:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:7:228:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:7:228:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:228:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:7:228:interface_declaration:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:228:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:7:228:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:527:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:228:export_statement:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:527:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:228:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:239:525:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:249:264:type_identifier:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:239:525:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:249:264:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:292:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:284:property_identifier:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:292:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:284:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:284:292:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:286:292:predefined_type:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:284:292:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:286:292:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:292:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:284:292:type_annotation:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:292:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:284:292:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:292:property_signature:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:292:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:323:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:313:property_identifier:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:323:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:313:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:315:323:array_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:315:321:predefined_type:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:315:323:array_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:315:321:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:313:323:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:315:323:array_type:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:313:323:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:315:323:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:323:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:313:323:type_annotation:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:323:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:313:323:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:323:property_signature:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:323:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:358:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:348:property_identifier:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:358:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:348:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:350:358:array_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:350:356:predefined_type:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:350:358:array_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:350:356:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:348:358:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:350:358:array_type:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:348:358:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:350:358:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:358:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:348:358:type_annotation:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:358:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:348:358:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:358:property_signature:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:358:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:386:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:376:property_identifier:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:386:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:376:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:378:386:array_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:378:384:predefined_type:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:378:386:array_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:378:384:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:376:386:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:378:386:array_type:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:376:386:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:378:386:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:386:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:376:386:type_annotation:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:386:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:376:386:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:386:property_signature:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:386:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:414:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:406:property_identifier:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:414:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:406:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:406:414:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:408:414:predefined_type:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:406:414:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:408:414:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:414:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:406:414:type_annotation:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:414:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:406:414:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:414:property_signature:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:414:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:446:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:431:property_identifier:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:446:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:431:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:446:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:439:predefined_type:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:446:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:439:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:442:446:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:442:446:null:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:442:446:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:442:446:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:446:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:442:446:literal_type:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:446:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:442:446:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:431:446:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:446:union_type:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:431:446:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:446:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:446:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:431:446:type_annotation:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:446:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:431:446:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:446:property_signature:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:446:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:480:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:465:property_identifier:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:480:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:465:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:480:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:473:predefined_type:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:480:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:473:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:476:480:literal_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:476:480:null:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:476:480:literal_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:476:480:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:480:union_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:476:480:literal_type:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:480:union_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:476:480:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:465:480:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:480:union_type:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:465:480:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:480:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:480:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:465:480:type_annotation:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:480:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:465:480:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:480:property_signature:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:480:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:521:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:497:property_identifier:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:521:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:497:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:521:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:505:type_identifier:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:521:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:505:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:505:521:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:506:512:predefined_type:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:505:521:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:506:512:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:505:521:type_arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:514:520:predefined_type:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:505:521:type_arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:514:520:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:521:generic_type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:505:521:type_arguments:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:521:generic_type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:505:521:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:497:521:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:521:generic_type:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:497:521:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:521:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:521:property_signature->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:497:521:type_annotation:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:521:property_signature",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:497:521:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:521:property_signature:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:521:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:239:525:interface_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:239:525:interface_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:232:525:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:239:525:interface_declaration:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:232:525:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:239:525:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:527:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:232:525:export_statement:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:527:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:232:525:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:17:39:type_identifier",
+      "kind": "type_identifier",
+      "label": "HeuristicRegistryEntry",
+      "span": {
+        "end": {
+          "column": 39,
+          "line": 1
+        },
+        "end_byte": 39,
+        "start": {
+          "column": 17,
+          "line": 1
+        },
+        "start_byte": 17
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:47:property_identifier",
+      "kind": "property_identifier",
+      "label": "id",
+      "span": {
+        "end": {
+          "column": 4,
+          "line": 2
+        },
+        "end_byte": 47,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 45
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:49:55:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 55,
+        "start": {
+          "column": 6,
+          "line": 2
+        },
+        "start_byte": 49
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:49:55:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:47:55:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 55,
+        "start": {
+          "column": 4,
+          "line": 2
+        },
+        "start_byte": 47
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:47:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:47:55:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:55:property_signature",
+      "kind": "property_signature",
+      "label": "id: number",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 2
+        },
+        "end_byte": 55,
+        "start": {
+          "column": 2,
+          "line": 2
+        },
+        "start_byte": 45
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:64:property_identifier",
+      "kind": "property_identifier",
+      "label": "name",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 3
+        },
+        "end_byte": 64,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 60
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:66:72:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 3
+        },
+        "end_byte": 72,
+        "start": {
+          "column": 8,
+          "line": 3
+        },
+        "start_byte": 66
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:66:72:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:64:72:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 3
+        },
+        "end_byte": 72,
+        "start": {
+          "column": 6,
+          "line": 3
+        },
+        "start_byte": 64
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:64:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:64:72:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:72:property_signature",
+      "kind": "property_signature",
+      "label": "name: string",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 3
+        },
+        "end_byte": 72,
+        "start": {
+          "column": 2,
+          "line": 3
+        },
+        "start_byte": 60
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:88:property_identifier",
+      "kind": "property_identifier",
+      "label": "environment",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 4
+        },
+        "end_byte": 88,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:91:102:string_fragment",
+      "kind": "string_fragment",
+      "label": "traditional",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 4
+        },
+        "end_byte": 102,
+        "start": {
+          "column": 16,
+          "line": 4
+        },
+        "start_byte": 91
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:91:102:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:string",
+      "kind": "string",
+      "label": "\"traditional\"",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 4
+        },
+        "end_byte": 103,
+        "start": {
+          "column": 15,
+          "line": 4
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:literal_type",
+      "kind": "literal_type",
+      "label": "\"traditional\"",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 4
+        },
+        "end_byte": 103,
+        "start": {
+          "column": 15,
+          "line": 4
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:107:117:string_fragment",
+      "kind": "string_fragment",
+      "label": "blockchain",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 4
+        },
+        "end_byte": 117,
+        "start": {
+          "column": 32,
+          "line": 4
+        },
+        "start_byte": 107
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:107:117:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:string",
+      "kind": "string",
+      "label": "\"blockchain\"",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 4
+        },
+        "end_byte": 118,
+        "start": {
+          "column": 31,
+          "line": 4
+        },
+        "start_byte": 106
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:literal_type",
+      "kind": "literal_type",
+      "label": "\"blockchain\"",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 4
+        },
+        "end_byte": 118,
+        "start": {
+          "column": 31,
+          "line": 4
+        },
+        "start_byte": 106
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:103:literal_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:106:118:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:118:union_type",
+      "kind": "union_type",
+      "label": "\"traditional\" | \"blockchain\"",
+      "span": {
+        "end": {
+          "column": 43,
+          "line": 4
+        },
+        "end_byte": 118,
+        "start": {
+          "column": 15,
+          "line": 4
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:122:128:string_fragment",
+      "kind": "string_fragment",
+      "label": "hybrid",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 4
+        },
+        "end_byte": 128,
+        "start": {
+          "column": 47,
+          "line": 4
+        },
+        "start_byte": 122
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:122:128:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:string",
+      "kind": "string",
+      "label": "\"hybrid\"",
+      "span": {
+        "end": {
+          "column": 54,
+          "line": 4
+        },
+        "end_byte": 129,
+        "start": {
+          "column": 46,
+          "line": 4
+        },
+        "start_byte": 121
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:literal_type",
+      "kind": "literal_type",
+      "label": "\"hybrid\"",
+      "span": {
+        "end": {
+          "column": 54,
+          "line": 4
+        },
+        "end_byte": 129,
+        "start": {
+          "column": 46,
+          "line": 4
+        },
+        "start_byte": 121
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:118:union_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:121:129:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:129:union_type",
+      "kind": "union_type",
+      "label": "\"traditional\" | \"blockchain\" | \"hybrid\"",
+      "span": {
+        "end": {
+          "column": 54,
+          "line": 4
+        },
+        "end_byte": 129,
+        "start": {
+          "column": 15,
+          "line": 4
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:133:143:string_fragment",
+      "kind": "string_fragment",
+      "label": "ai_enabled",
+      "span": {
+        "end": {
+          "column": 68,
+          "line": 4
+        },
+        "end_byte": 143,
+        "start": {
+          "column": 58,
+          "line": 4
+        },
+        "start_byte": 133
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:133:143:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:string",
+      "kind": "string",
+      "label": "\"ai_enabled\"",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 4
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 57,
+          "line": 4
+        },
+        "start_byte": 132
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:literal_type",
+      "kind": "literal_type",
+      "label": "\"ai_enabled\"",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 4
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 57,
+          "line": 4
+        },
+        "start_byte": 132
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:129:union_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:132:144:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:144:union_type",
+      "kind": "union_type",
+      "label": "\"traditional\" | \"blockchain\" | \"hybrid\" | \"ai_enabled\"",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 4
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 15,
+          "line": 4
+        },
+        "start_byte": 90
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:90:144:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:88:144:type_annotation",
+      "kind": "type_annotation",
+      "label": ": \"traditional\" | \"blockchain\" | \"hybrid\" | \"ai_enabled\"",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 4
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 13,
+          "line": 4
+        },
+        "start_byte": 88
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:88:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:88:144:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:144:property_signature",
+      "kind": "property_signature",
+      "label": "environment: \"traditional\" | \"blockchain\" | \"hybrid\" | \"ai_enabled\"",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 4
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 2,
+          "line": 4
+        },
+        "start_byte": 77
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:158:property_identifier",
+      "kind": "property_identifier",
+      "label": "lens_tags",
+      "span": {
+        "end": {
+          "column": 11,
+          "line": 5
+        },
+        "end_byte": 158,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 149
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:160:166:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 5
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 13,
+          "line": 5
+        },
+        "start_byte": 160
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:160:166:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:160:168:array_type",
+      "kind": "array_type",
+      "label": "string[]",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 5
+        },
+        "end_byte": 168,
+        "start": {
+          "column": 13,
+          "line": 5
+        },
+        "start_byte": 160
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:160:168:array_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:158:168:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string[]",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 5
+        },
+        "end_byte": 168,
+        "start": {
+          "column": 11,
+          "line": 5
+        },
+        "start_byte": 158
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:158:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:158:168:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:168:property_signature",
+      "kind": "property_signature",
+      "label": "lens_tags: string[]",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 5
+        },
+        "end_byte": 168,
+        "start": {
+          "column": 2,
+          "line": 5
+        },
+        "start_byte": 149
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:184:property_identifier",
+      "kind": "property_identifier",
+      "label": "description",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 6
+        },
+        "end_byte": 184,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 173
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:186:192:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 6
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 15,
+          "line": 6
+        },
+        "start_byte": 186
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:186:192:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:184:192:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 6
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 13,
+          "line": 6
+        },
+        "start_byte": 184
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:184:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:184:192:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:192:property_signature",
+      "kind": "property_signature",
+      "label": "description: string",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 6
+        },
+        "end_byte": 192,
+        "start": {
+          "column": 2,
+          "line": 6
+        },
+        "start_byte": 173
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:214:property_identifier",
+      "kind": "property_identifier",
+      "label": "data_requirements",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 7
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 197
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:216:222:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 7
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 21,
+          "line": 7
+        },
+        "start_byte": 216
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:216:222:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:216:224:array_type",
+      "kind": "array_type",
+      "label": "string[]",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 7
+        },
+        "end_byte": 224,
+        "start": {
+          "column": 21,
+          "line": 7
+        },
+        "start_byte": 216
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:216:224:array_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:214:224:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string[]",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 7
+        },
+        "end_byte": 224,
+        "start": {
+          "column": 19,
+          "line": 7
+        },
+        "start_byte": 214
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:214:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:214:224:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:224:property_signature",
+      "kind": "property_signature",
+      "label": "data_requirements: string[]",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 7
+        },
+        "end_byte": 224,
+        "start": {
+          "column": 2,
+          "line": 7
+        },
+        "start_byte": 197
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:45:55:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:60:72:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:77:144:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:149:168:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:173:192:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:197:224:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  id: number;\r\n  name: string;\r\n  environment: \"traditional\" | \"blockchain\" | \"hybrid\" | \"ai_enabled\";\r\n  lens_tags: string[];\r\n  description: string;\r\n  data_requirements: string[];\r\n}",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 8
+        },
+        "end_byte": 228,
+        "start": {
+          "column": 40,
+          "line": 1
+        },
+        "start_byte": 40
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:17:39:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:40:228:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:7:228:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface HeuristicRegistryEntry {\r\n  id: number;\r\n  name: string;\r\n  environment: \"traditional\" | \"blockchain\" | \"hybrid\" | \"ai_enabled\";\r\n  lens_tags: string[];\r\n  description: string;\r\n  data_requi",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 8
+        },
+        "end_byte": 228,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:7:228:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:228:export_statement",
+      "kind": "export_statement",
+      "label": "export interface HeuristicRegistryEntry {\r\n  id: number;\r\n  name: string;\r\n  environment: \"traditional\" | \"blockchain\" | \"hybrid\" | \"ai_enabled\";\r\n  lens_tags: string[];\r\n  description: string;\r\n  dat",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 8
+        },
+        "end_byte": 228,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:249:264:type_identifier",
+      "kind": "type_identifier",
+      "label": "HeuristicResult",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 10
+        },
+        "end_byte": 264,
+        "start": {
+          "column": 17,
+          "line": 10
+        },
+        "start_byte": 249
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:284:property_identifier",
+      "kind": "property_identifier",
+      "label": "transaction_id",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 11
+        },
+        "end_byte": 284,
+        "start": {
+          "column": 2,
+          "line": 11
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:286:292:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 11
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 18,
+          "line": 11
+        },
+        "start_byte": 286
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:286:292:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:284:292:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 11
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 16,
+          "line": 11
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:284:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:284:292:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:292:property_signature",
+      "kind": "property_signature",
+      "label": "transaction_id: string",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 11
+        },
+        "end_byte": 292,
+        "start": {
+          "column": 2,
+          "line": 11
+        },
+        "start_byte": 270
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:313:property_identifier",
+      "kind": "property_identifier",
+      "label": "heuristic_vector",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 12
+        },
+        "end_byte": 313,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 297
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:315:321:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 12
+        },
+        "end_byte": 321,
+        "start": {
+          "column": 20,
+          "line": 12
+        },
+        "start_byte": 315
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:315:321:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:315:323:array_type",
+      "kind": "array_type",
+      "label": "number[]",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 12
+        },
+        "end_byte": 323,
+        "start": {
+          "column": 20,
+          "line": 12
+        },
+        "start_byte": 315
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:315:323:array_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:313:323:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number[]",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 12
+        },
+        "end_byte": 323,
+        "start": {
+          "column": 18,
+          "line": 12
+        },
+        "start_byte": 313
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:313:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:313:323:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:323:property_signature",
+      "kind": "property_signature",
+      "label": "heuristic_vector: number[]",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 12
+        },
+        "end_byte": 323,
+        "start": {
+          "column": 2,
+          "line": 12
+        },
+        "start_byte": 297
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:348:property_identifier",
+      "kind": "property_identifier",
+      "label": "applicability_vector",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 13
+        },
+        "end_byte": 348,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 328
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:350:356:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 13
+        },
+        "end_byte": 356,
+        "start": {
+          "column": 24,
+          "line": 13
+        },
+        "start_byte": 350
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:350:356:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:350:358:array_type",
+      "kind": "array_type",
+      "label": "string[]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 358,
+        "start": {
+          "column": 24,
+          "line": 13
+        },
+        "start_byte": 350
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:350:358:array_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:348:358:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string[]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 358,
+        "start": {
+          "column": 22,
+          "line": 13
+        },
+        "start_byte": 348
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:348:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:348:358:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:358:property_signature",
+      "kind": "property_signature",
+      "label": "applicability_vector: string[]",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 13
+        },
+        "end_byte": 358,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 328
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:376:property_identifier",
+      "kind": "property_identifier",
+      "label": "triggered_ids",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 14
+        },
+        "end_byte": 376,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 363
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:378:384:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 14
+        },
+        "end_byte": 384,
+        "start": {
+          "column": 17,
+          "line": 14
+        },
+        "start_byte": 378
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:378:384:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:378:386:array_type",
+      "kind": "array_type",
+      "label": "number[]",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 386,
+        "start": {
+          "column": 17,
+          "line": 14
+        },
+        "start_byte": 378
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:378:386:array_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:376:386:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number[]",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 386,
+        "start": {
+          "column": 15,
+          "line": 14
+        },
+        "start_byte": 376
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:376:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:376:386:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:386:property_signature",
+      "kind": "property_signature",
+      "label": "triggered_ids: number[]",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 14
+        },
+        "end_byte": 386,
+        "start": {
+          "column": 2,
+          "line": 14
+        },
+        "start_byte": 363
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:406:property_identifier",
+      "kind": "property_identifier",
+      "label": "triggered_count",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 15
+        },
+        "end_byte": 406,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 391
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:408:414:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 15
+        },
+        "end_byte": 414,
+        "start": {
+          "column": 19,
+          "line": 15
+        },
+        "start_byte": 408
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:408:414:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:406:414:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 15
+        },
+        "end_byte": 414,
+        "start": {
+          "column": 17,
+          "line": 15
+        },
+        "start_byte": 406
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:406:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:406:414:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:414:property_signature",
+      "kind": "property_signature",
+      "label": "triggered_count: number",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 15
+        },
+        "end_byte": 414,
+        "start": {
+          "column": 2,
+          "line": 15
+        },
+        "start_byte": 391
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:431:property_identifier",
+      "kind": "property_identifier",
+      "label": "top_typology",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 16
+        },
+        "end_byte": 431,
+        "start": {
+          "column": 2,
+          "line": 16
+        },
+        "start_byte": 419
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:439:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 16
+        },
+        "end_byte": 439,
+        "start": {
+          "column": 16,
+          "line": 16
+        },
+        "start_byte": 433
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:442:446:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 446,
+        "start": {
+          "column": 25,
+          "line": 16
+        },
+        "start_byte": 442
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:442:446:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:442:446:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 446,
+        "start": {
+          "column": 25,
+          "line": 16
+        },
+        "start_byte": 442
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:439:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:442:446:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:446:union_type",
+      "kind": "union_type",
+      "label": "string | null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 446,
+        "start": {
+          "column": 16,
+          "line": 16
+        },
+        "start_byte": 433
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:433:446:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:431:446:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 446,
+        "start": {
+          "column": 14,
+          "line": 16
+        },
+        "start_byte": 431
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:431:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:431:446:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:446:property_signature",
+      "kind": "property_signature",
+      "label": "top_typology: string | null",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 16
+        },
+        "end_byte": 446,
+        "start": {
+          "column": 2,
+          "line": 16
+        },
+        "start_byte": 419
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:465:property_identifier",
+      "kind": "property_identifier",
+      "label": "top_confidence",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 17
+        },
+        "end_byte": 465,
+        "start": {
+          "column": 2,
+          "line": 17
+        },
+        "start_byte": 451
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:473:predefined_type",
+      "kind": "predefined_type",
+      "label": "number",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 17
+        },
+        "end_byte": 473,
+        "start": {
+          "column": 18,
+          "line": 17
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:476:480:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 17
+        },
+        "end_byte": 480,
+        "start": {
+          "column": 27,
+          "line": 17
+        },
+        "start_byte": 476
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:476:480:null"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:476:480:literal_type",
+      "kind": "literal_type",
+      "label": "null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 17
+        },
+        "end_byte": 480,
+        "start": {
+          "column": 27,
+          "line": 17
+        },
+        "start_byte": 476
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:473:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:476:480:literal_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:480:union_type",
+      "kind": "union_type",
+      "label": "number | null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 17
+        },
+        "end_byte": 480,
+        "start": {
+          "column": 18,
+          "line": 17
+        },
+        "start_byte": 467
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:467:480:union_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:465:480:type_annotation",
+      "kind": "type_annotation",
+      "label": ": number | null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 17
+        },
+        "end_byte": 480,
+        "start": {
+          "column": 16,
+          "line": 17
+        },
+        "start_byte": 465
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:465:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:465:480:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:480:property_signature",
+      "kind": "property_signature",
+      "label": "top_confidence: number | null",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 17
+        },
+        "end_byte": 480,
+        "start": {
+          "column": 2,
+          "line": 17
+        },
+        "start_byte": 451
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:497:property_identifier",
+      "kind": "property_identifier",
+      "label": "explanations",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 18
+        },
+        "end_byte": 497,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 485
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:505:type_identifier",
+      "kind": "type_identifier",
+      "label": "Record",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 18
+        },
+        "end_byte": 505,
+        "start": {
+          "column": 16,
+          "line": 18
+        },
+        "start_byte": 499
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:506:512:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 29,
+          "line": 18
+        },
+        "end_byte": 512,
+        "start": {
+          "column": 23,
+          "line": 18
+        },
+        "start_byte": 506
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:514:520:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 18
+        },
+        "end_byte": 520,
+        "start": {
+          "column": 31,
+          "line": 18
+        },
+        "start_byte": 514
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:506:512:predefined_type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:514:520:predefined_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:505:521:type_arguments",
+      "kind": "type_arguments",
+      "label": "<string, string>",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 18
+        },
+        "end_byte": 521,
+        "start": {
+          "column": 22,
+          "line": 18
+        },
+        "start_byte": 505
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:505:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:505:521:type_arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:521:generic_type",
+      "kind": "generic_type",
+      "label": "Record<string, string>",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 18
+        },
+        "end_byte": 521,
+        "start": {
+          "column": 16,
+          "line": 18
+        },
+        "start_byte": 499
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:499:521:generic_type"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:497:521:type_annotation",
+      "kind": "type_annotation",
+      "label": ": Record<string, string>",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 18
+        },
+        "end_byte": 521,
+        "start": {
+          "column": 14,
+          "line": 18
+        },
+        "start_byte": 497
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:497:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:497:521:type_annotation"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:521:property_signature",
+      "kind": "property_signature",
+      "label": "explanations: Record<string, string>",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 18
+        },
+        "end_byte": 521,
+        "start": {
+          "column": 2,
+          "line": 18
+        },
+        "start_byte": 485
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:270:292:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:297:323:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:328:358:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:363:386:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:391:414:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:419:446:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:451:480:property_signature",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:485:521:property_signature"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n  transaction_id: string;\r\n  heuristic_vector: number[];\r\n  applicability_vector: string[];\r\n  triggered_ids: number[];\r\n  triggered_count: number;\r\n  top_typology: string | null;\r\n  top_confidence",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 19
+        },
+        "end_byte": 525,
+        "start": {
+          "column": 33,
+          "line": 10
+        },
+        "start_byte": 265
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:249:264:type_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:265:525:interface_body"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:239:525:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface HeuristicResult {\r\n  transaction_id: string;\r\n  heuristic_vector: number[];\r\n  applicability_vector: string[];\r\n  triggered_ids: number[];\r\n  triggered_count: number;\r\n  top_typology: string",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 19
+        },
+        "end_byte": 525,
+        "start": {
+          "column": 7,
+          "line": 10
+        },
+        "start_byte": 239
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:239:525:interface_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:232:525:export_statement",
+      "kind": "export_statement",
+      "label": "export interface HeuristicResult {\r\n  transaction_id: string;\r\n  heuristic_vector: number[];\r\n  applicability_vector: string[];\r\n  triggered_ids: number[];\r\n  triggered_count: number;\r\n  top_typology:",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 19
+        },
+        "end_byte": 525,
+        "start": {
+          "column": 0,
+          "line": 10
+        },
+        "start_byte": 232
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:228:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:232:525:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/types/heuristic.ts:0:527:program",
+      "kind": "program",
+      "label": "export interface HeuristicRegistryEntry {\r\n  id: number;\r\n  name: string;\r\n  environment: \"traditional\" | \"blockchain\" | \"hybrid\" | \"ai_enabled\";\r\n  lens_tags: string[];\r\n  description: string;\r\n  dat",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 20
+        },
+        "end_byte": 527,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/types/heuristic.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}

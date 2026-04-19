@@ -1,0 +1,1277 @@
+{
+  "analysis_timestamp": "2026-04-17T22:39:26+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:5:14:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:5:14:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:5:14:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:5:14:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:31:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:5:14:dotted_name:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:31:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:5:14:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:22:31:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:22:31:identifier:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:22:31:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:22:31:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:31:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:22:31:dotted_name:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:31:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:22:31:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:31:import_from_statement:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:31:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:38:46:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:38:46:identifier:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:38:46:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:38:46:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:33:60:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:38:46:dotted_name:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:33:60:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:38:46:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:54:60:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:54:60:identifier:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:54:60:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:54:60:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:33:60:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:54:60:dotted_name:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:33:60:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:54:60:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:33:60:import_from_statement:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:33:60:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:86:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:70:identifier:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:86:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:70:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:86:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:71:86:identifier:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:86:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:71:86:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:62:106:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:86:dotted_name:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:62:106:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:86:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:94:106:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:94:106:identifier:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:94:106:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:94:106:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:62:106:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:94:106:dotted_name:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:62:106:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:94:106:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:62:106:import_from_statement:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:62:106:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:123:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:116:identifier:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:123:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:116:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:123:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:117:123:identifier:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:123:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:117:123:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:108:149:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:123:dotted_name:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:108:149:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:123:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:131:139:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:131:139:identifier:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:131:139:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:131:139:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:108:149:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:131:139:dotted_name:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:108:149:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:131:139:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:141:149:dotted_name->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:141:149:identifier:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:141:149:dotted_name",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:141:149:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:108:149:import_from_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:141:149:dotted_name:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:108:149:import_from_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:141:149:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:108:149:import_from_statement:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:108:149:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:159:165:identifier:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:159:165:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:165:167:parameters:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:165:167:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:171:177:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:171:177:identifier:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:171:177:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:171:177:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:171:177:type:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:171:177:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:205:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:203:identifier:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:205:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:203:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:205:call->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:203:205:argument_list:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:205:call",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:203:205:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:205:call:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:205:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:return_statement:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:block:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:221:decorator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:212:221:identifier:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:221:decorator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:212:221:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:275:decorated_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:221:decorator:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:275:decorated_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:221:decorator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:227:239:identifier:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:227:239:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:239:241:parameters:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:239:241:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:245:253:type->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:245:253:identifier:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:245:253:type",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:245:253:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:245:253:type:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:245:253:type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:267:275:identifier:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:267:275:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:return_statement:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:block:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:275:decorated_definition->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:275:decorated_definition",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:275:decorated_definition:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:275:decorated_definition",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:5:14:identifier",
+      "kind": "identifier",
+      "label": "functools",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 1
+        },
+        "end_byte": 14,
+        "start": {
+          "column": 5,
+          "line": 1
+        },
+        "start_byte": 5
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:5:14:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:5:14:dotted_name",
+      "kind": "dotted_name",
+      "label": "functools",
+      "span": {
+        "end": {
+          "column": 14,
+          "line": 1
+        },
+        "end_byte": 14,
+        "start": {
+          "column": 5,
+          "line": 1
+        },
+        "start_byte": 5
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:22:31:identifier",
+      "kind": "identifier",
+      "label": "lru_cache",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 1
+        },
+        "end_byte": 31,
+        "start": {
+          "column": 22,
+          "line": 1
+        },
+        "start_byte": 22
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:22:31:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:22:31:dotted_name",
+      "kind": "dotted_name",
+      "label": "lru_cache",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 1
+        },
+        "end_byte": 31,
+        "start": {
+          "column": 22,
+          "line": 1
+        },
+        "start_byte": 22
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:5:14:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:22:31:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:31:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from functools import lru_cache",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 1
+        },
+        "end_byte": 31,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:38:46:identifier",
+      "kind": "identifier",
+      "label": "supabase",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 2
+        },
+        "end_byte": 46,
+        "start": {
+          "column": 5,
+          "line": 2
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:38:46:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:38:46:dotted_name",
+      "kind": "dotted_name",
+      "label": "supabase",
+      "span": {
+        "end": {
+          "column": 13,
+          "line": 2
+        },
+        "end_byte": 46,
+        "start": {
+          "column": 5,
+          "line": 2
+        },
+        "start_byte": 38
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:54:60:identifier",
+      "kind": "identifier",
+      "label": "Client",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 2
+        },
+        "end_byte": 60,
+        "start": {
+          "column": 21,
+          "line": 2
+        },
+        "start_byte": 54
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:54:60:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:54:60:dotted_name",
+      "kind": "dotted_name",
+      "label": "Client",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 2
+        },
+        "end_byte": 60,
+        "start": {
+          "column": 21,
+          "line": 2
+        },
+        "start_byte": 54
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:38:46:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:54:60:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:33:60:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from supabase import Client",
+      "span": {
+        "end": {
+          "column": 27,
+          "line": 2
+        },
+        "end_byte": 60,
+        "start": {
+          "column": 0,
+          "line": 2
+        },
+        "start_byte": 33
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:70:identifier",
+      "kind": "identifier",
+      "label": "app",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 3
+        },
+        "end_byte": 70,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:71:86:identifier",
+      "kind": "identifier",
+      "label": "supabase_client",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 3
+        },
+        "end_byte": 86,
+        "start": {
+          "column": 9,
+          "line": 3
+        },
+        "start_byte": 71
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:70:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:71:86:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:86:dotted_name",
+      "kind": "dotted_name",
+      "label": "app.supabase_client",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 3
+        },
+        "end_byte": 86,
+        "start": {
+          "column": 5,
+          "line": 3
+        },
+        "start_byte": 67
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:94:106:identifier",
+      "kind": "identifier",
+      "label": "get_supabase",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 3
+        },
+        "end_byte": 106,
+        "start": {
+          "column": 32,
+          "line": 3
+        },
+        "start_byte": 94
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:94:106:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:94:106:dotted_name",
+      "kind": "dotted_name",
+      "label": "get_supabase",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 3
+        },
+        "end_byte": 106,
+        "start": {
+          "column": 32,
+          "line": 3
+        },
+        "start_byte": 94
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:67:86:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:94:106:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:62:106:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from app.supabase_client import get_supabase",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 3
+        },
+        "end_byte": 106,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 62
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:116:identifier",
+      "kind": "identifier",
+      "label": "app",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 4
+        },
+        "end_byte": 116,
+        "start": {
+          "column": 5,
+          "line": 4
+        },
+        "start_byte": 113
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:117:123:identifier",
+      "kind": "identifier",
+      "label": "config",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 4
+        },
+        "end_byte": 123,
+        "start": {
+          "column": 9,
+          "line": 4
+        },
+        "start_byte": 117
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:116:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:117:123:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:123:dotted_name",
+      "kind": "dotted_name",
+      "label": "app.config",
+      "span": {
+        "end": {
+          "column": 15,
+          "line": 4
+        },
+        "end_byte": 123,
+        "start": {
+          "column": 5,
+          "line": 4
+        },
+        "start_byte": 113
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:131:139:identifier",
+      "kind": "identifier",
+      "label": "Settings",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 4
+        },
+        "end_byte": 139,
+        "start": {
+          "column": 23,
+          "line": 4
+        },
+        "start_byte": 131
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:131:139:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:131:139:dotted_name",
+      "kind": "dotted_name",
+      "label": "Settings",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 4
+        },
+        "end_byte": 139,
+        "start": {
+          "column": 23,
+          "line": 4
+        },
+        "start_byte": 131
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:141:149:identifier",
+      "kind": "identifier",
+      "label": "settings",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 4
+        },
+        "end_byte": 149,
+        "start": {
+          "column": 33,
+          "line": 4
+        },
+        "start_byte": 141
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:141:149:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:141:149:dotted_name",
+      "kind": "dotted_name",
+      "label": "settings",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 4
+        },
+        "end_byte": 149,
+        "start": {
+          "column": 33,
+          "line": 4
+        },
+        "start_byte": 141
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:113:123:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:131:139:dotted_name",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:141:149:dotted_name"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:108:149:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from app.config import Settings, settings",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 4
+        },
+        "end_byte": 149,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 108
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:159:165:identifier",
+      "kind": "identifier",
+      "label": "get_db",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 7
+        },
+        "end_byte": 165,
+        "start": {
+          "column": 4,
+          "line": 7
+        },
+        "start_byte": 159
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:165:167:parameters",
+      "kind": "parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 12,
+          "line": 7
+        },
+        "end_byte": 167,
+        "start": {
+          "column": 10,
+          "line": 7
+        },
+        "start_byte": 165
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:171:177:identifier",
+      "kind": "identifier",
+      "label": "Client",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 7
+        },
+        "end_byte": 177,
+        "start": {
+          "column": 16,
+          "line": 7
+        },
+        "start_byte": 171
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:171:177:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:171:177:type",
+      "kind": "type",
+      "label": "Client",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 7
+        },
+        "end_byte": 177,
+        "start": {
+          "column": 16,
+          "line": 7
+        },
+        "start_byte": 171
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:203:identifier",
+      "kind": "identifier",
+      "label": "get_supabase",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 8
+        },
+        "end_byte": 203,
+        "start": {
+          "column": 11,
+          "line": 8
+        },
+        "start_byte": 191
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:203:205:argument_list",
+      "kind": "argument_list",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 8
+        },
+        "end_byte": 205,
+        "start": {
+          "column": 23,
+          "line": 8
+        },
+        "start_byte": 203
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:203:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:203:205:argument_list"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:205:call",
+      "kind": "call",
+      "label": "get_supabase()",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 8
+        },
+        "end_byte": 205,
+        "start": {
+          "column": 11,
+          "line": 8
+        },
+        "start_byte": 191
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:191:205:call"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:return_statement",
+      "kind": "return_statement",
+      "label": "return get_supabase()",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 8
+        },
+        "end_byte": 205,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 184
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:block",
+      "kind": "block",
+      "label": "return get_supabase()",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 8
+        },
+        "end_byte": 205,
+        "start": {
+          "column": 4,
+          "line": 8
+        },
+        "start_byte": 184
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:159:165:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:165:167:parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:171:177:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:184:205:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition",
+      "kind": "function_definition",
+      "label": "def get_db() -> Client:\r\n    return get_supabase()",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 8
+        },
+        "end_byte": 205,
+        "start": {
+          "column": 0,
+          "line": 7
+        },
+        "start_byte": 155
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:212:221:identifier",
+      "kind": "identifier",
+      "label": "lru_cache",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 11
+        },
+        "end_byte": 221,
+        "start": {
+          "column": 1,
+          "line": 11
+        },
+        "start_byte": 212
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:212:221:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:221:decorator",
+      "kind": "decorator",
+      "label": "@lru_cache",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 11
+        },
+        "end_byte": 221,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 211
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:227:239:identifier",
+      "kind": "identifier",
+      "label": "get_settings",
+      "span": {
+        "end": {
+          "column": 16,
+          "line": 12
+        },
+        "end_byte": 239,
+        "start": {
+          "column": 4,
+          "line": 12
+        },
+        "start_byte": 227
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:239:241:parameters",
+      "kind": "parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 18,
+          "line": 12
+        },
+        "end_byte": 241,
+        "start": {
+          "column": 16,
+          "line": 12
+        },
+        "start_byte": 239
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:245:253:identifier",
+      "kind": "identifier",
+      "label": "Settings",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 12
+        },
+        "end_byte": 253,
+        "start": {
+          "column": 22,
+          "line": 12
+        },
+        "start_byte": 245
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:245:253:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:245:253:type",
+      "kind": "type",
+      "label": "Settings",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 12
+        },
+        "end_byte": 253,
+        "start": {
+          "column": 22,
+          "line": 12
+        },
+        "start_byte": 245
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:267:275:identifier",
+      "kind": "identifier",
+      "label": "settings",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 13
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 11,
+          "line": 13
+        },
+        "start_byte": 267
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:267:275:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:return_statement",
+      "kind": "return_statement",
+      "label": "return settings",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 13
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 260
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:block",
+      "kind": "block",
+      "label": "return settings",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 13
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 4,
+          "line": 13
+        },
+        "start_byte": 260
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:227:239:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:239:241:parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:245:253:type",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:260:275:block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition",
+      "kind": "function_definition",
+      "label": "def get_settings() -> Settings:\r\n    return settings",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 13
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 223
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:221:decorator",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:223:275:function_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:275:decorated_definition",
+      "kind": "decorated_definition",
+      "label": "@lru_cache\r\ndef get_settings() -> Settings:\r\n    return settings",
+      "span": {
+        "end": {
+          "column": 19,
+          "line": 13
+        },
+        "end_byte": 275,
+        "start": {
+          "column": 0,
+          "line": 11
+        },
+        "start_byte": 211
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:31:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:33:60:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:62:106:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:108:149:import_from_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:155:205:function_definition",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:211:275:decorated_definition"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:backend/app/dependencies.py:0:277:module",
+      "kind": "module",
+      "label": "from functools import lru_cache\r\nfrom supabase import Client\r\nfrom app.supabase_client import get_supabase\r\nfrom app.config import Settings, settings\r\n\r\n\r\ndef get_db() -> Client:\r\n    return get_supab",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 14
+        },
+        "end_byte": 277,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:python",
+  "relative_path": "backend/app/dependencies.py",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "python",
+  "warnings": []
+}

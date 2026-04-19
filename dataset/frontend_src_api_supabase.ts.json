@@ -1,0 +1,2903 @@
+{
+  "analysis_timestamp": "2026-04-17T22:40:00+00:00",
+  "branch": "main",
+  "commit_sha": "5ad818789483d573d65008302d60e6e0b4cacf5b",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:9:21:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:9:21:identifier:0",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:9:21:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:9:21:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:9:21:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:9:21:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:23:42:import_specifier->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:28:42:identifier:2",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:23:42:import_specifier",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:28:42:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:named_imports->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:23:42:import_specifier:3",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:named_imports",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:23:42:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:import_clause->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:named_imports:4",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:import_clause",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:74:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:import_clause:5",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:74:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:50:73:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:51:72:string_fragment:6",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:50:73:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:51:72:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:74:import_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:50:73:string:7",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:74:import_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:50:73:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:74:import_statement:8",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:74:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:146:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:95:identifier:9",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:146:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:95:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:114:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:110:meta_property:10",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:114:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:110:meta_property",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:114:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:111:114:property_identifier:11",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:114:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:111:114:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:132:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:114:member_expression:12",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:132:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:114:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:132:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:115:132:property_identifier:13",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:132:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:115:132:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:138:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:132:member_expression:14",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:138:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:132:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:138:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:136:138:string:15",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:138:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:136:138:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:139:parenthesized_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:138:binary_expression:16",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:139:parenthesized_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:138:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:144:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:139:parenthesized_expression:17",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:144:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:139:parenthesized_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:144:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:140:144:property_identifier:18",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:144:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:140:144:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:146:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:144:member_expression:19",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:146:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:144:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:146:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:144:146:arguments:20",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:146:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:144:146:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:146:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:146:call_expression:21",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:146:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:146:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:78:147:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:146:variable_declarator:22",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:78:147:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:146:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:78:147:lexical_declaration:23",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:78:147:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:222:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:166:identifier:24",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:222:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:166:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:185:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:181:meta_property:25",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:185:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:181:meta_property",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:185:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:182:185:property_identifier:26",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:185:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:182:185:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:208:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:185:member_expression:27",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:208:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:185:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:208:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:186:208:property_identifier:28",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:208:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:186:208:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:214:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:208:member_expression:29",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:214:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:208:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:214:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:212:214:string:30",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:214:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:212:214:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:215:parenthesized_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:214:binary_expression:31",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:215:parenthesized_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:214:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:220:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:215:parenthesized_expression:32",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:220:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:215:parenthesized_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:220:member_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:216:220:property_identifier:33",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:220:member_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:216:220:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:222:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:220:member_expression:34",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:222:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:220:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:222:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:220:222:arguments:35",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:222:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:220:222:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:222:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:222:call_expression:36",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:222:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:222:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:149:223:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:222:variable_declarator:37",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:149:223:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:222:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:149:223:lexical_declaration:38",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:149:223:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:296:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:258:identifier:39",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:296:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:258:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:296:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:268:identifier:40",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:296:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:268:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:295:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:280:identifier:41",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:295:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:280:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:295:binary_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:284:295:identifier:42",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:295:binary_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:284:295:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:268:296:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:295:binary_expression:43",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:268:296:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:295:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:296:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:268:296:arguments:44",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:296:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:268:296:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:296:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:296:call_expression:45",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:296:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:296:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:234:297:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:296:variable_declarator:46",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:234:297:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:296:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:227:297:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:234:297:lexical_declaration:47",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:227:297:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:234:297:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:227:297:export_statement:48",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:227:297:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:301:481:comment:49",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:301:481:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:492:503:identifier:50",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:492:503:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:503:505:formal_parameters:51",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:503:505:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:505:521:type_annotation->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:507:521:type_identifier:52",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:505:521:type_annotation",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:507:521:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:505:521:type_annotation:53",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:505:521:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:530:550:parenthesized_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:531:549:identifier:54",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:530:550:parenthesized_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:531:549:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:527:743:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:530:550:parenthesized_expression:55",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:527:743:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:530:550:parenthesized_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:737:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:577:identifier:56",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:737:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:577:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:577:737:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:578:589:identifier:57",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:577:737:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:578:589:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:577:737:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:591:602:identifier:58",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:577:737:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:591:602:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:728:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:617:property_identifier:59",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:728:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:617:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:650:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:644:property_identifier:60",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:650:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:644:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:650:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:646:650:true:61",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:650:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:646:650:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:619:728:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:650:pair:62",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:619:728:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:650:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:683:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:677:property_identifier:63",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:683:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:677:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:683:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:679:683:true:64",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:683:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:679:683:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:619:728:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:683:pair:65",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:619:728:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:683:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:718:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:712:property_identifier:66",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:718:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:712:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:718:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:714:718:true:67",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:718:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:714:718:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:619:728:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:718:pair:68",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:619:728:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:718:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:728:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:619:728:object:69",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:728:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:619:728:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:604:736:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:728:pair:70",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:604:736:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:728:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:577:737:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:604:736:object:71",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:577:737:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:604:736:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:737:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:577:737:arguments:72",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:737:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:577:737:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:558:738:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:737:call_expression:73",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:558:738:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:737:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:551:743:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:558:738:return_statement:74",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:551:743:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:558:738:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:527:743:if_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:551:743:statement_block:75",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:527:743:if_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:551:743:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:522:881:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:527:743:if_statement:76",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:522:881:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:527:743:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:877:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:768:identifier:77",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:877:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:768:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:769:794:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:770:793:string_fragment:78",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:769:794:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:770:793:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:768:877:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:769:794:string:79",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:768:877:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:769:794:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:796:805:string->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:797:804:string_fragment:80",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:796:805:string",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:797:804:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:768:877:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:796:805:string:81",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:768:877:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:796:805:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:870:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:818:property_identifier:82",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:870:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:818:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:843:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:836:property_identifier:83",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:843:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:836:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:843:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:838:843:false:84",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:843:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:838:843:false",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:820:870:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:843:pair:85",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:820:870:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:843:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:868:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:861:property_identifier:86",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:868:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:861:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:868:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:863:868:false:87",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:868:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:863:868:false",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:820:870:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:868:pair:88",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:820:870:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:868:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:870:pair->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:820:870:object:89",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:870:pair",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:820:870:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:807:876:object->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:870:pair:90",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:807:876:object",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:870:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:768:877:arguments->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:807:876:object:91",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:768:877:arguments",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:807:876:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:877:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:768:877:arguments:92",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:877:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:768:877:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:749:878:return_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:877:call_expression:93",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:749:878:return_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:877:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:522:881:statement_block->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:749:878:return_statement:94",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:522:881:statement_block",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:749:878:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:522:881:statement_block:95",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:522:881:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration:96",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:922:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:906:identifier:97",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:922:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:906:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:922:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:920:identifier:98",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:922:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:920:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:922:call_expression->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:920:922:arguments:99",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:922:call_expression",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:920:922:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:922:variable_declarator->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:922:call_expression:100",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:922:variable_declarator",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:922:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:892:923:lexical_declaration->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:922:variable_declarator:101",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:892:923:lexical_declaration",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:922:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:885:923:export_statement->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:892:923:lexical_declaration:102",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:885:923:export_statement",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:892:923:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:edge:ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program->ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:885:923:export_statement:103",
+      "role": "child",
+      "source_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program",
+      "target_id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:885:923:export_statement",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "0.1.0",
+  "nodes": [
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:9:21:identifier",
+      "kind": "identifier",
+      "label": "createClient",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:9:21:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:9:21:import_specifier",
+      "kind": "import_specifier",
+      "label": "createClient",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 1
+        },
+        "end_byte": 21,
+        "start": {
+          "column": 9,
+          "line": 1
+        },
+        "start_byte": 9
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:28:42:identifier",
+      "kind": "identifier",
+      "label": "SupabaseClient",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 1
+        },
+        "end_byte": 42,
+        "start": {
+          "column": 28,
+          "line": 1
+        },
+        "start_byte": 28
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:28:42:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:23:42:import_specifier",
+      "kind": "import_specifier",
+      "label": "type SupabaseClient",
+      "span": {
+        "end": {
+          "column": 42,
+          "line": 1
+        },
+        "end_byte": 42,
+        "start": {
+          "column": 23,
+          "line": 1
+        },
+        "start_byte": 23
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:9:21:import_specifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:23:42:import_specifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:named_imports",
+      "kind": "named_imports",
+      "label": "{ createClient, type SupabaseClient }",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 1
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:named_imports"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:import_clause",
+      "kind": "import_clause",
+      "label": "{ createClient, type SupabaseClient }",
+      "span": {
+        "end": {
+          "column": 44,
+          "line": 1
+        },
+        "end_byte": 44,
+        "start": {
+          "column": 7,
+          "line": 1
+        },
+        "start_byte": 7
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:51:72:string_fragment",
+      "kind": "string_fragment",
+      "label": "@supabase/supabase-js",
+      "span": {
+        "end": {
+          "column": 72,
+          "line": 1
+        },
+        "end_byte": 72,
+        "start": {
+          "column": 51,
+          "line": 1
+        },
+        "start_byte": 51
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:51:72:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:50:73:string",
+      "kind": "string",
+      "label": "\"@supabase/supabase-js\"",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 1
+        },
+        "end_byte": 73,
+        "start": {
+          "column": 50,
+          "line": 1
+        },
+        "start_byte": 50
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:7:44:import_clause",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:50:73:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:74:import_statement",
+      "kind": "import_statement",
+      "label": "import { createClient, type SupabaseClient } from \"@supabase/supabase-js\";",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 1
+        },
+        "end_byte": 74,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:95:identifier",
+      "kind": "identifier",
+      "label": "supabaseUrl",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 3
+        },
+        "end_byte": 95,
+        "start": {
+          "column": 6,
+          "line": 3
+        },
+        "start_byte": 84
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:110:meta_property",
+      "kind": "meta_property",
+      "label": "import.meta",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 3
+        },
+        "end_byte": 110,
+        "start": {
+          "column": 21,
+          "line": 3
+        },
+        "start_byte": 99
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:111:114:property_identifier",
+      "kind": "property_identifier",
+      "label": "env",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 3
+        },
+        "end_byte": 114,
+        "start": {
+          "column": 33,
+          "line": 3
+        },
+        "start_byte": 111
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:110:meta_property",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:111:114:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:114:member_expression",
+      "kind": "member_expression",
+      "label": "import.meta.env",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 3
+        },
+        "end_byte": 114,
+        "start": {
+          "column": 21,
+          "line": 3
+        },
+        "start_byte": 99
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:115:132:property_identifier",
+      "kind": "property_identifier",
+      "label": "VITE_SUPABASE_URL",
+      "span": {
+        "end": {
+          "column": 54,
+          "line": 3
+        },
+        "end_byte": 132,
+        "start": {
+          "column": 37,
+          "line": 3
+        },
+        "start_byte": 115
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:114:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:115:132:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:132:member_expression",
+      "kind": "member_expression",
+      "label": "import.meta.env.VITE_SUPABASE_URL",
+      "span": {
+        "end": {
+          "column": 54,
+          "line": 3
+        },
+        "end_byte": 132,
+        "start": {
+          "column": 21,
+          "line": 3
+        },
+        "start_byte": 99
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:136:138:string",
+      "kind": "string",
+      "label": "\"\"",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 3
+        },
+        "end_byte": 138,
+        "start": {
+          "column": 58,
+          "line": 3
+        },
+        "start_byte": 136
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:132:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:136:138:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:138:binary_expression",
+      "kind": "binary_expression",
+      "label": "import.meta.env.VITE_SUPABASE_URL ?? \"\"",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 3
+        },
+        "end_byte": 138,
+        "start": {
+          "column": 21,
+          "line": 3
+        },
+        "start_byte": 99
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:99:138:binary_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:139:parenthesized_expression",
+      "kind": "parenthesized_expression",
+      "label": "(import.meta.env.VITE_SUPABASE_URL ?? \"\")",
+      "span": {
+        "end": {
+          "column": 61,
+          "line": 3
+        },
+        "end_byte": 139,
+        "start": {
+          "column": 20,
+          "line": 3
+        },
+        "start_byte": 98
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:140:144:property_identifier",
+      "kind": "property_identifier",
+      "label": "trim",
+      "span": {
+        "end": {
+          "column": 66,
+          "line": 3
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 62,
+          "line": 3
+        },
+        "start_byte": 140
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:139:parenthesized_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:140:144:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:144:member_expression",
+      "kind": "member_expression",
+      "label": "(import.meta.env.VITE_SUPABASE_URL ?? \"\").trim",
+      "span": {
+        "end": {
+          "column": 66,
+          "line": 3
+        },
+        "end_byte": 144,
+        "start": {
+          "column": 20,
+          "line": 3
+        },
+        "start_byte": 98
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:144:146:arguments",
+      "kind": "arguments",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 68,
+          "line": 3
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 66,
+          "line": 3
+        },
+        "start_byte": 144
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:144:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:144:146:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:146:call_expression",
+      "kind": "call_expression",
+      "label": "(import.meta.env.VITE_SUPABASE_URL ?? \"\").trim()",
+      "span": {
+        "end": {
+          "column": 68,
+          "line": 3
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 20,
+          "line": 3
+        },
+        "start_byte": 98
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:95:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:98:146:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:146:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "supabaseUrl = (import.meta.env.VITE_SUPABASE_URL ?? \"\").trim()",
+      "span": {
+        "end": {
+          "column": 68,
+          "line": 3
+        },
+        "end_byte": 146,
+        "start": {
+          "column": 6,
+          "line": 3
+        },
+        "start_byte": 84
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:84:146:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:78:147:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const supabaseUrl = (import.meta.env.VITE_SUPABASE_URL ?? \"\").trim();",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 3
+        },
+        "end_byte": 147,
+        "start": {
+          "column": 0,
+          "line": 3
+        },
+        "start_byte": 78
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:166:identifier",
+      "kind": "identifier",
+      "label": "supabaseKey",
+      "span": {
+        "end": {
+          "column": 17,
+          "line": 4
+        },
+        "end_byte": 166,
+        "start": {
+          "column": 6,
+          "line": 4
+        },
+        "start_byte": 155
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:181:meta_property",
+      "kind": "meta_property",
+      "label": "import.meta",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 4
+        },
+        "end_byte": 181,
+        "start": {
+          "column": 21,
+          "line": 4
+        },
+        "start_byte": 170
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:182:185:property_identifier",
+      "kind": "property_identifier",
+      "label": "env",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 4
+        },
+        "end_byte": 185,
+        "start": {
+          "column": 33,
+          "line": 4
+        },
+        "start_byte": 182
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:181:meta_property",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:182:185:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:185:member_expression",
+      "kind": "member_expression",
+      "label": "import.meta.env",
+      "span": {
+        "end": {
+          "column": 36,
+          "line": 4
+        },
+        "end_byte": 185,
+        "start": {
+          "column": 21,
+          "line": 4
+        },
+        "start_byte": 170
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:186:208:property_identifier",
+      "kind": "property_identifier",
+      "label": "VITE_SUPABASE_ANON_KEY",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 4
+        },
+        "end_byte": 208,
+        "start": {
+          "column": 37,
+          "line": 4
+        },
+        "start_byte": 186
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:185:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:186:208:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:208:member_expression",
+      "kind": "member_expression",
+      "label": "import.meta.env.VITE_SUPABASE_ANON_KEY",
+      "span": {
+        "end": {
+          "column": 59,
+          "line": 4
+        },
+        "end_byte": 208,
+        "start": {
+          "column": 21,
+          "line": 4
+        },
+        "start_byte": 170
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:212:214:string",
+      "kind": "string",
+      "label": "\"\"",
+      "span": {
+        "end": {
+          "column": 65,
+          "line": 4
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 63,
+          "line": 4
+        },
+        "start_byte": 212
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:208:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:212:214:string"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:214:binary_expression",
+      "kind": "binary_expression",
+      "label": "import.meta.env.VITE_SUPABASE_ANON_KEY ?? \"\"",
+      "span": {
+        "end": {
+          "column": 65,
+          "line": 4
+        },
+        "end_byte": 214,
+        "start": {
+          "column": 21,
+          "line": 4
+        },
+        "start_byte": 170
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:170:214:binary_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:215:parenthesized_expression",
+      "kind": "parenthesized_expression",
+      "label": "(import.meta.env.VITE_SUPABASE_ANON_KEY ?? \"\")",
+      "span": {
+        "end": {
+          "column": 66,
+          "line": 4
+        },
+        "end_byte": 215,
+        "start": {
+          "column": 20,
+          "line": 4
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:216:220:property_identifier",
+      "kind": "property_identifier",
+      "label": "trim",
+      "span": {
+        "end": {
+          "column": 71,
+          "line": 4
+        },
+        "end_byte": 220,
+        "start": {
+          "column": 67,
+          "line": 4
+        },
+        "start_byte": 216
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:215:parenthesized_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:216:220:property_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:220:member_expression",
+      "kind": "member_expression",
+      "label": "(import.meta.env.VITE_SUPABASE_ANON_KEY ?? \"\").trim",
+      "span": {
+        "end": {
+          "column": 71,
+          "line": 4
+        },
+        "end_byte": 220,
+        "start": {
+          "column": 20,
+          "line": 4
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:220:222:arguments",
+      "kind": "arguments",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 4
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 71,
+          "line": 4
+        },
+        "start_byte": 220
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:220:member_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:220:222:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:222:call_expression",
+      "kind": "call_expression",
+      "label": "(import.meta.env.VITE_SUPABASE_ANON_KEY ?? \"\").trim()",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 4
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 20,
+          "line": 4
+        },
+        "start_byte": 169
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:166:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:169:222:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:222:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "supabaseKey = (import.meta.env.VITE_SUPABASE_ANON_KEY ?? \"\").trim()",
+      "span": {
+        "end": {
+          "column": 73,
+          "line": 4
+        },
+        "end_byte": 222,
+        "start": {
+          "column": 6,
+          "line": 4
+        },
+        "start_byte": 155
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:155:222:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:149:223:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const supabaseKey = (import.meta.env.VITE_SUPABASE_ANON_KEY ?? \"\").trim();",
+      "span": {
+        "end": {
+          "column": 74,
+          "line": 4
+        },
+        "end_byte": 223,
+        "start": {
+          "column": 0,
+          "line": 4
+        },
+        "start_byte": 149
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:258:identifier",
+      "kind": "identifier",
+      "label": "supabaseConfigured",
+      "span": {
+        "end": {
+          "column": 31,
+          "line": 6
+        },
+        "end_byte": 258,
+        "start": {
+          "column": 13,
+          "line": 6
+        },
+        "start_byte": 240
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:268:identifier",
+      "kind": "identifier",
+      "label": "Boolean",
+      "span": {
+        "end": {
+          "column": 41,
+          "line": 6
+        },
+        "end_byte": 268,
+        "start": {
+          "column": 34,
+          "line": 6
+        },
+        "start_byte": 261
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:280:identifier",
+      "kind": "identifier",
+      "label": "supabaseUrl",
+      "span": {
+        "end": {
+          "column": 53,
+          "line": 6
+        },
+        "end_byte": 280,
+        "start": {
+          "column": 42,
+          "line": 6
+        },
+        "start_byte": 269
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:284:295:identifier",
+      "kind": "identifier",
+      "label": "supabaseKey",
+      "span": {
+        "end": {
+          "column": 68,
+          "line": 6
+        },
+        "end_byte": 295,
+        "start": {
+          "column": 57,
+          "line": 6
+        },
+        "start_byte": 284
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:280:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:284:295:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:295:binary_expression",
+      "kind": "binary_expression",
+      "label": "supabaseUrl && supabaseKey",
+      "span": {
+        "end": {
+          "column": 68,
+          "line": 6
+        },
+        "end_byte": 295,
+        "start": {
+          "column": 42,
+          "line": 6
+        },
+        "start_byte": 269
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:269:295:binary_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:268:296:arguments",
+      "kind": "arguments",
+      "label": "(supabaseUrl && supabaseKey)",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 6
+        },
+        "end_byte": 296,
+        "start": {
+          "column": 41,
+          "line": 6
+        },
+        "start_byte": 268
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:268:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:268:296:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:296:call_expression",
+      "kind": "call_expression",
+      "label": "Boolean(supabaseUrl && supabaseKey)",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 6
+        },
+        "end_byte": 296,
+        "start": {
+          "column": 34,
+          "line": 6
+        },
+        "start_byte": 261
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:258:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:261:296:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:296:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "supabaseConfigured = Boolean(supabaseUrl && supabaseKey)",
+      "span": {
+        "end": {
+          "column": 69,
+          "line": 6
+        },
+        "end_byte": 296,
+        "start": {
+          "column": 13,
+          "line": 6
+        },
+        "start_byte": 240
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:240:296:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:234:297:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const supabaseConfigured = Boolean(supabaseUrl && supabaseKey);",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 6
+        },
+        "end_byte": 297,
+        "start": {
+          "column": 7,
+          "line": 6
+        },
+        "start_byte": 234
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:234:297:lexical_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:227:297:export_statement",
+      "kind": "export_statement",
+      "label": "export const supabaseConfigured = Boolean(supabaseUrl && supabaseKey);",
+      "span": {
+        "end": {
+          "column": 70,
+          "line": 6
+        },
+        "end_byte": 297,
+        "start": {
+          "column": 0,
+          "line": 6
+        },
+        "start_byte": 227
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:301:481:comment",
+      "kind": "comment",
+      "label": "/**\r\n * Real credentials come from `.env` (VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY).\r\n * When unset, auth and DB calls are inert until configured (see `supabaseConfigured`).\r\n */",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 11
+        },
+        "end_byte": 481,
+        "start": {
+          "column": 0,
+          "line": 8
+        },
+        "start_byte": 301
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:492:503:identifier",
+      "kind": "identifier",
+      "label": "buildClient",
+      "span": {
+        "end": {
+          "column": 20,
+          "line": 12
+        },
+        "end_byte": 503,
+        "start": {
+          "column": 9,
+          "line": 12
+        },
+        "start_byte": 492
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:503:505:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 12
+        },
+        "end_byte": 505,
+        "start": {
+          "column": 20,
+          "line": 12
+        },
+        "start_byte": 503
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:507:521:type_identifier",
+      "kind": "type_identifier",
+      "label": "SupabaseClient",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 12
+        },
+        "end_byte": 521,
+        "start": {
+          "column": 24,
+          "line": 12
+        },
+        "start_byte": 507
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:507:521:type_identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:505:521:type_annotation",
+      "kind": "type_annotation",
+      "label": ": SupabaseClient",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 12
+        },
+        "end_byte": 521,
+        "start": {
+          "column": 22,
+          "line": 12
+        },
+        "start_byte": 505
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:531:549:identifier",
+      "kind": "identifier",
+      "label": "supabaseConfigured",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 13
+        },
+        "end_byte": 549,
+        "start": {
+          "column": 6,
+          "line": 13
+        },
+        "start_byte": 531
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:531:549:identifier"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:530:550:parenthesized_expression",
+      "kind": "parenthesized_expression",
+      "label": "(supabaseConfigured)",
+      "span": {
+        "end": {
+          "column": 25,
+          "line": 13
+        },
+        "end_byte": 550,
+        "start": {
+          "column": 5,
+          "line": 13
+        },
+        "start_byte": 530
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:577:identifier",
+      "kind": "identifier",
+      "label": "createClient",
+      "span": {
+        "end": {
+          "column": 23,
+          "line": 14
+        },
+        "end_byte": 577,
+        "start": {
+          "column": 11,
+          "line": 14
+        },
+        "start_byte": 565
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:578:589:identifier",
+      "kind": "identifier",
+      "label": "supabaseUrl",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 14
+        },
+        "end_byte": 589,
+        "start": {
+          "column": 24,
+          "line": 14
+        },
+        "start_byte": 578
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:591:602:identifier",
+      "kind": "identifier",
+      "label": "supabaseKey",
+      "span": {
+        "end": {
+          "column": 48,
+          "line": 14
+        },
+        "end_byte": 602,
+        "start": {
+          "column": 37,
+          "line": 14
+        },
+        "start_byte": 591
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:617:property_identifier",
+      "kind": "property_identifier",
+      "label": "auth",
+      "span": {
+        "end": {
+          "column": 10,
+          "line": 15
+        },
+        "end_byte": 617,
+        "start": {
+          "column": 6,
+          "line": 15
+        },
+        "start_byte": 613
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:644:property_identifier",
+      "kind": "property_identifier",
+      "label": "persistSession",
+      "span": {
+        "end": {
+          "column": 22,
+          "line": 16
+        },
+        "end_byte": 644,
+        "start": {
+          "column": 8,
+          "line": 16
+        },
+        "start_byte": 630
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:646:650:true",
+      "kind": "true",
+      "label": "true",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 16
+        },
+        "end_byte": 650,
+        "start": {
+          "column": 24,
+          "line": 16
+        },
+        "start_byte": 646
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:644:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:646:650:true"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:650:pair",
+      "kind": "pair",
+      "label": "persistSession: true",
+      "span": {
+        "end": {
+          "column": 28,
+          "line": 16
+        },
+        "end_byte": 650,
+        "start": {
+          "column": 8,
+          "line": 16
+        },
+        "start_byte": 630
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:677:property_identifier",
+      "kind": "property_identifier",
+      "label": "autoRefreshToken",
+      "span": {
+        "end": {
+          "column": 24,
+          "line": 17
+        },
+        "end_byte": 677,
+        "start": {
+          "column": 8,
+          "line": 17
+        },
+        "start_byte": 661
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:679:683:true",
+      "kind": "true",
+      "label": "true",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 17
+        },
+        "end_byte": 683,
+        "start": {
+          "column": 26,
+          "line": 17
+        },
+        "start_byte": 679
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:677:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:679:683:true"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:683:pair",
+      "kind": "pair",
+      "label": "autoRefreshToken: true",
+      "span": {
+        "end": {
+          "column": 30,
+          "line": 17
+        },
+        "end_byte": 683,
+        "start": {
+          "column": 8,
+          "line": 17
+        },
+        "start_byte": 661
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:712:property_identifier",
+      "kind": "property_identifier",
+      "label": "detectSessionInUrl",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 18
+        },
+        "end_byte": 712,
+        "start": {
+          "column": 8,
+          "line": 18
+        },
+        "start_byte": 694
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:714:718:true",
+      "kind": "true",
+      "label": "true",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 18
+        },
+        "end_byte": 718,
+        "start": {
+          "column": 28,
+          "line": 18
+        },
+        "start_byte": 714
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:712:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:714:718:true"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:718:pair",
+      "kind": "pair",
+      "label": "detectSessionInUrl: true",
+      "span": {
+        "end": {
+          "column": 32,
+          "line": 18
+        },
+        "end_byte": 718,
+        "start": {
+          "column": 8,
+          "line": 18
+        },
+        "start_byte": 694
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:630:650:pair",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:661:683:pair",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:694:718:pair"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:619:728:object",
+      "kind": "object",
+      "label": "{\r\n        persistSession: true,\r\n        autoRefreshToken: true,\r\n        detectSessionInUrl: true,\r\n      }",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 19
+        },
+        "end_byte": 728,
+        "start": {
+          "column": 12,
+          "line": 15
+        },
+        "start_byte": 619
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:617:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:619:728:object"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:728:pair",
+      "kind": "pair",
+      "label": "auth: {\r\n        persistSession: true,\r\n        autoRefreshToken: true,\r\n        detectSessionInUrl: true,\r\n      }",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 19
+        },
+        "end_byte": 728,
+        "start": {
+          "column": 6,
+          "line": 15
+        },
+        "start_byte": 613
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:613:728:pair"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:604:736:object",
+      "kind": "object",
+      "label": "{\r\n      auth: {\r\n        persistSession: true,\r\n        autoRefreshToken: true,\r\n        detectSessionInUrl: true,\r\n      },\r\n    }",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 20
+        },
+        "end_byte": 736,
+        "start": {
+          "column": 50,
+          "line": 14
+        },
+        "start_byte": 604
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:578:589:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:591:602:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:604:736:object"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:577:737:arguments",
+      "kind": "arguments",
+      "label": "(supabaseUrl, supabaseKey, {\r\n      auth: {\r\n        persistSession: true,\r\n        autoRefreshToken: true,\r\n        detectSessionInUrl: true,\r\n      },\r\n    })",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 20
+        },
+        "end_byte": 737,
+        "start": {
+          "column": 23,
+          "line": 14
+        },
+        "start_byte": 577
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:577:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:577:737:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:737:call_expression",
+      "kind": "call_expression",
+      "label": "createClient(supabaseUrl, supabaseKey, {\r\n      auth: {\r\n        persistSession: true,\r\n        autoRefreshToken: true,\r\n        detectSessionInUrl: true,\r\n      },\r\n    })",
+      "span": {
+        "end": {
+          "column": 6,
+          "line": 20
+        },
+        "end_byte": 737,
+        "start": {
+          "column": 11,
+          "line": 14
+        },
+        "start_byte": 565
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:565:737:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:558:738:return_statement",
+      "kind": "return_statement",
+      "label": "return createClient(supabaseUrl, supabaseKey, {\r\n      auth: {\r\n        persistSession: true,\r\n        autoRefreshToken: true,\r\n        detectSessionInUrl: true,\r\n      },\r\n    });",
+      "span": {
+        "end": {
+          "column": 7,
+          "line": 20
+        },
+        "end_byte": 738,
+        "start": {
+          "column": 4,
+          "line": 14
+        },
+        "start_byte": 558
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:558:738:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:551:743:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n    return createClient(supabaseUrl, supabaseKey, {\r\n      auth: {\r\n        persistSession: true,\r\n        autoRefreshToken: true,\r\n        detectSessionInUrl: true,\r\n      },\r\n    });\r\n  }",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "end_byte": 743,
+        "start": {
+          "column": 26,
+          "line": 13
+        },
+        "start_byte": 551
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:530:550:parenthesized_expression",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:551:743:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:527:743:if_statement",
+      "kind": "if_statement",
+      "label": "if (supabaseConfigured) {\r\n    return createClient(supabaseUrl, supabaseKey, {\r\n      auth: {\r\n        persistSession: true,\r\n        autoRefreshToken: true,\r\n        detectSessionInUrl: true,\r\n      ",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 21
+        },
+        "end_byte": 743,
+        "start": {
+          "column": 2,
+          "line": 13
+        },
+        "start_byte": 527
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:768:identifier",
+      "kind": "identifier",
+      "label": "createClient",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 23
+        },
+        "end_byte": 768,
+        "start": {
+          "column": 9,
+          "line": 23
+        },
+        "start_byte": 756
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:770:793:string_fragment",
+      "kind": "string_fragment",
+      "label": "https://invalid.invalid",
+      "span": {
+        "end": {
+          "column": 46,
+          "line": 23
+        },
+        "end_byte": 793,
+        "start": {
+          "column": 23,
+          "line": 23
+        },
+        "start_byte": 770
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:770:793:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:769:794:string",
+      "kind": "string",
+      "label": "\"https://invalid.invalid\"",
+      "span": {
+        "end": {
+          "column": 47,
+          "line": 23
+        },
+        "end_byte": 794,
+        "start": {
+          "column": 22,
+          "line": 23
+        },
+        "start_byte": 769
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:797:804:string_fragment",
+      "kind": "string_fragment",
+      "label": "invalid",
+      "span": {
+        "end": {
+          "column": 57,
+          "line": 23
+        },
+        "end_byte": 804,
+        "start": {
+          "column": 50,
+          "line": 23
+        },
+        "start_byte": 797
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:797:804:string_fragment"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:796:805:string",
+      "kind": "string",
+      "label": "\"invalid\"",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 23
+        },
+        "end_byte": 805,
+        "start": {
+          "column": 49,
+          "line": 23
+        },
+        "start_byte": 796
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:818:property_identifier",
+      "kind": "property_identifier",
+      "label": "auth",
+      "span": {
+        "end": {
+          "column": 8,
+          "line": 24
+        },
+        "end_byte": 818,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 814
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:836:property_identifier",
+      "kind": "property_identifier",
+      "label": "persistSession",
+      "span": {
+        "end": {
+          "column": 26,
+          "line": 24
+        },
+        "end_byte": 836,
+        "start": {
+          "column": 12,
+          "line": 24
+        },
+        "start_byte": 822
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:838:843:false",
+      "kind": "false",
+      "label": "false",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 24
+        },
+        "end_byte": 843,
+        "start": {
+          "column": 28,
+          "line": 24
+        },
+        "start_byte": 838
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:836:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:838:843:false"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:843:pair",
+      "kind": "pair",
+      "label": "persistSession: false",
+      "span": {
+        "end": {
+          "column": 33,
+          "line": 24
+        },
+        "end_byte": 843,
+        "start": {
+          "column": 12,
+          "line": 24
+        },
+        "start_byte": 822
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:861:property_identifier",
+      "kind": "property_identifier",
+      "label": "autoRefreshToken",
+      "span": {
+        "end": {
+          "column": 51,
+          "line": 24
+        },
+        "end_byte": 861,
+        "start": {
+          "column": 35,
+          "line": 24
+        },
+        "start_byte": 845
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:863:868:false",
+      "kind": "false",
+      "label": "false",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 24
+        },
+        "end_byte": 868,
+        "start": {
+          "column": 53,
+          "line": 24
+        },
+        "start_byte": 863
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:861:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:863:868:false"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:868:pair",
+      "kind": "pair",
+      "label": "autoRefreshToken: false",
+      "span": {
+        "end": {
+          "column": 58,
+          "line": 24
+        },
+        "end_byte": 868,
+        "start": {
+          "column": 35,
+          "line": 24
+        },
+        "start_byte": 845
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:822:843:pair",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:845:868:pair"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:820:870:object",
+      "kind": "object",
+      "label": "{ persistSession: false, autoRefreshToken: false }",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 24
+        },
+        "end_byte": 870,
+        "start": {
+          "column": 10,
+          "line": 24
+        },
+        "start_byte": 820
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:818:property_identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:820:870:object"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:870:pair",
+      "kind": "pair",
+      "label": "auth: { persistSession: false, autoRefreshToken: false }",
+      "span": {
+        "end": {
+          "column": 60,
+          "line": 24
+        },
+        "end_byte": 870,
+        "start": {
+          "column": 4,
+          "line": 24
+        },
+        "start_byte": 814
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:814:870:pair"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:807:876:object",
+      "kind": "object",
+      "label": "{\r\n    auth: { persistSession: false, autoRefreshToken: false },\r\n  }",
+      "span": {
+        "end": {
+          "column": 3,
+          "line": 25
+        },
+        "end_byte": 876,
+        "start": {
+          "column": 60,
+          "line": 23
+        },
+        "start_byte": 807
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:769:794:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:796:805:string",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:807:876:object"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:768:877:arguments",
+      "kind": "arguments",
+      "label": "(\"https://invalid.invalid\", \"invalid\", {\r\n    auth: { persistSession: false, autoRefreshToken: false },\r\n  })",
+      "span": {
+        "end": {
+          "column": 4,
+          "line": 25
+        },
+        "end_byte": 877,
+        "start": {
+          "column": 21,
+          "line": 23
+        },
+        "start_byte": 768
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:768:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:768:877:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:877:call_expression",
+      "kind": "call_expression",
+      "label": "createClient(\"https://invalid.invalid\", \"invalid\", {\r\n    auth: { persistSession: false, autoRefreshToken: false },\r\n  })",
+      "span": {
+        "end": {
+          "column": 4,
+          "line": 25
+        },
+        "end_byte": 877,
+        "start": {
+          "column": 9,
+          "line": 23
+        },
+        "start_byte": 756
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:756:877:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:749:878:return_statement",
+      "kind": "return_statement",
+      "label": "return createClient(\"https://invalid.invalid\", \"invalid\", {\r\n    auth: { persistSession: false, autoRefreshToken: false },\r\n  });",
+      "span": {
+        "end": {
+          "column": 5,
+          "line": 25
+        },
+        "end_byte": 878,
+        "start": {
+          "column": 2,
+          "line": 23
+        },
+        "start_byte": 749
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:527:743:if_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:749:878:return_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:522:881:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  if (supabaseConfigured) {\r\n    return createClient(supabaseUrl, supabaseKey, {\r\n      auth: {\r\n        persistSession: true,\r\n        autoRefreshToken: true,\r\n        detectSessionInUrl: true,\r\n ",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 26
+        },
+        "end_byte": 881,
+        "start": {
+          "column": 39,
+          "line": 12
+        },
+        "start_byte": 522
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:492:503:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:503:505:formal_parameters",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:505:521:type_annotation",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:522:881:statement_block"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration",
+      "kind": "function_declaration",
+      "label": "function buildClient(): SupabaseClient {\r\n  if (supabaseConfigured) {\r\n    return createClient(supabaseUrl, supabaseKey, {\r\n      auth: {\r\n        persistSession: true,\r\n        autoRefreshToken: true",
+      "span": {
+        "end": {
+          "column": 1,
+          "line": 26
+        },
+        "end_byte": 881,
+        "start": {
+          "column": 0,
+          "line": 12
+        },
+        "start_byte": 483
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:906:identifier",
+      "kind": "identifier",
+      "label": "supabase",
+      "span": {
+        "end": {
+          "column": 21,
+          "line": 28
+        },
+        "end_byte": 906,
+        "start": {
+          "column": 13,
+          "line": 28
+        },
+        "start_byte": 898
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:920:identifier",
+      "kind": "identifier",
+      "label": "buildClient",
+      "span": {
+        "end": {
+          "column": 35,
+          "line": 28
+        },
+        "end_byte": 920,
+        "start": {
+          "column": 24,
+          "line": 28
+        },
+        "start_byte": 909
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:920:922:arguments",
+      "kind": "arguments",
+      "label": "()",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 28
+        },
+        "end_byte": 922,
+        "start": {
+          "column": 35,
+          "line": 28
+        },
+        "start_byte": 920
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:920:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:920:922:arguments"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:922:call_expression",
+      "kind": "call_expression",
+      "label": "buildClient()",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 28
+        },
+        "end_byte": 922,
+        "start": {
+          "column": 24,
+          "line": 28
+        },
+        "start_byte": 909
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:906:identifier",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:909:922:call_expression"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:922:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "supabase = buildClient()",
+      "span": {
+        "end": {
+          "column": 37,
+          "line": 28
+        },
+        "end_byte": 922,
+        "start": {
+          "column": 13,
+          "line": 28
+        },
+        "start_byte": 898
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:898:922:variable_declarator"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:892:923:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const supabase = buildClient();",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 28
+        },
+        "end_byte": 923,
+        "start": {
+          "column": 7,
+          "line": 28
+        },
+        "start_byte": 892
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:892:923:lexical_declaration"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:885:923:export_statement",
+      "kind": "export_statement",
+      "label": "export const supabase = buildClient();",
+      "span": {
+        "end": {
+          "column": 38,
+          "line": 28
+        },
+        "end_byte": 923,
+        "start": {
+          "column": 0,
+          "line": 28
+        },
+        "start_byte": 885
+      },
+      "text_digest": null
+    },
+    {
+      "children_ids": [
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:74:import_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:78:147:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:149:223:lexical_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:227:297:export_statement",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:301:481:comment",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:483:881:function_declaration",
+        "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:885:923:export_statement"
+      ],
+      "id": "ast:5ad818789483d573d65008302d60e6e0b4cacf5b:frontend/src/api/supabase.ts:0:925:program",
+      "kind": "program",
+      "label": "import { createClient, type SupabaseClient } from \"@supabase/supabase-js\";\r\n\r\nconst supabaseUrl = (import.meta.env.VITE_SUPABASE_URL ?? \"\").trim();\r\nconst supabaseKey = (import.meta.env.VITE_SUPABASE_",
+      "span": {
+        "end": {
+          "column": 0,
+          "line": 29
+        },
+        "end_byte": 925,
+        "start": {
+          "column": 0,
+          "line": 1
+        },
+        "start_byte": 0
+      },
+      "text_digest": null
+    }
+  ],
+  "parser_id": "tree-sitter-language-pack:typescript",
+  "relative_path": "frontend/src/api/supabase.ts",
+  "repository_name": "Cicada-AML",
+  "repository_url": "https://github.com/aroudrasthakur/Cicada-AML",
+  "source_language": "typescript",
+  "warnings": []
+}
