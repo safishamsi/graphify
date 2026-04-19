@@ -7,6 +7,8 @@ import shutil
 import sys
 from pathlib import Path
 
+from graphify.nx_compat import node_link_graph_compat
+
 try:
     from importlib.metadata import version as _pkg_version
     __version__ = _pkg_version("graphifyy")
@@ -1115,10 +1117,7 @@ def main() -> None:
             import json as _json
             import networkx as _nx
             _raw = _json.loads(gp.read_text(encoding="utf-8"))
-            try:
-                G = json_graph.node_link_graph(_raw, link="links")
-            except TypeError:
-                G = json_graph.node_link_graph(_raw)
+            G = node_link_graph_compat(_raw, edges="links")
         except Exception as exc:
             print(f"error: could not load graph: {exc}", file=sys.stderr)
             sys.exit(1)
@@ -1168,10 +1167,7 @@ def main() -> None:
             print(f"error: graph file not found: {gp}", file=sys.stderr)
             sys.exit(1)
         _raw = json.loads(gp.read_text(encoding="utf-8"))
-        try:
-            G = json_graph.node_link_graph(_raw, link="links")
-        except TypeError:
-            G = json_graph.node_link_graph(_raw)
+        G = node_link_graph_compat(_raw, edges="links")
         src_scored = _score_nodes(G, [t.lower() for t in source_label.split()])
         tgt_scored = _score_nodes(G, [t.lower() for t in target_label.split()])
         if not src_scored:
@@ -1216,10 +1212,7 @@ def main() -> None:
             print(f"error: graph file not found: {gp}", file=sys.stderr)
             sys.exit(1)
         _raw = json.loads(gp.read_text(encoding="utf-8"))
-        try:
-            G = json_graph.node_link_graph(_raw, link="links")
-        except TypeError:
-            G = json_graph.node_link_graph(_raw)
+        G = node_link_graph_compat(_raw, edges="links")
         matches = _find_node(G, label)
         if not matches:
             print(f"No node matching '{label}' found.")

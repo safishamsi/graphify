@@ -7,9 +7,9 @@ import re
 from collections import Counter
 from pathlib import Path
 import networkx as nx
-from networkx.readwrite import json_graph
 from graphify.security import sanitize_label
 from graphify.analyze import _node_community_map
+from graphify.nx_compat import node_link_data_compat
 
 def _strip_diacritics(text: str) -> str:
     import unicodedata
@@ -281,14 +281,14 @@ def attach_hyperedges(G: nx.Graph, hyperedges: list) -> None:
 
 def to_json(G: nx.Graph, communities: dict[int, list[str]], output_path: str) -> None:
     node_community = _node_community_map(communities)
-    try:
-        data = json_graph.node_link_data(G, link="links")
-    except TypeError:
-        data = json_graph.node_link_data(G)
+    data = node_link_data_compat(G, edges="links")
+    links = list(data.get("links") or data.get("edges") or [])
+    data["links"] = links
+    data.pop("edges", None)
     for node in data["nodes"]:
         node["community"] = node_community.get(node["id"])
         node["norm_label"] = _strip_diacritics(node.get("label", "")).lower()
-    for link in data["links"]:
+    for link in links:
         if "confidence_score" not in link:
             conf = link.get("confidence", "EXTRACTED")
             link["confidence_score"] = _CONFIDENCE_SCORE_DEFAULTS.get(conf, 1.0)

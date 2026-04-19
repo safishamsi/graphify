@@ -6,13 +6,13 @@ pre-enrichment graph should copy it before calling :func:`enrich_graph`.
 """
 from __future__ import annotations
 
-import uuid
 from pathlib import Path
-from typing import Optional
+from typing import Any, Callable, Optional
 
 import networkx as nx
 
 from depos.analysis.config import IntelligenceConfig
+from depos.analysis.schemas import IngestReport
 from depos.analysis.schemas import (
     ContractKind,
     RLSCoverage,
@@ -37,11 +37,39 @@ PRODUCES_PAYLOAD = "PRODUCES_PAYLOAD"
 CONSUMES_PAYLOAD = "CONSUMES_PAYLOAD"
 SCHEMA_DEFINED_BY_MIGRATION = "SCHEMA_DEFINED_BY_MIGRATION"
 MIGRATION_PRECEDES = "MIGRATION_PRECEDES"
+DECLARES_DEP = "DECLARES_DEP"
+RESOLVES_TO = "RESOLVES_TO"
+PEER_OF = "PEER_OF"
+IMPORTS_PACKAGE = "IMPORTS_PACKAGE"
+READS_ENV_VAR = "READS_ENV_VAR"
+WRITES_ENV_VAR = "WRITES_ENV_VAR"
+DEFINED_BY_CONFIG = "DEFINED_BY_CONFIG"
+RENDERED_BY_PROMPT = "RENDERED_BY_PROMPT"
+PROMPT_DECLARES_VAR = "PROMPT_DECLARES_VAR"
+PROMPT_USES_VAR = "PROMPT_USES_VAR"
+IMPLEMENTS_OPENAPI_OP = "IMPLEMENTS_OPENAPI_OP"
+CONSUMES_OPENAPI_OP = "CONSUMES_OPENAPI_OP"
+SCHEMA_OF = "SCHEMA_OF"
+NEXT_ROUTE_GUARDED_BY_MIDDLEWARE = "NEXT_ROUTE_GUARDED_BY_MIDDLEWARE"
+NEXT_ROUTE_USES_LAYOUT = "NEXT_ROUTE_USES_LAYOUT"
+WORKFLOW_USES_SECRET = "WORKFLOW_USES_SECRET"
+SERVICE_DEPENDS_ON = "SERVICE_DEPENDS_ON"
+STAGE_COPIES_PATH = "STAGE_COPIES_PATH"
 
 
 def _edge_key(metadata: SemanticEdgeMetadata) -> str:
     """Stable edge key suffix so the same edge is not double-emitted."""
     return f"{metadata.contract_kind}:{metadata.api_method or ''}:{metadata.route_pattern or metadata.table_name or metadata.task_name or ''}"
+
+
+def _safe_run(name: str, fn: Callable[[], Any], errors_out: list[dict[str, Any]]) -> Any:
+    try:
+        return fn()
+    except ImportError as exc:
+        errors_out.append({"probe": name, "kind": "import_error", "message": str(exc)})
+    except Exception as exc:  # noqa: BLE001 - defensive by design
+        errors_out.append({"probe": name, "kind": "probe_error", "message": str(exc)})
+    return None
 
 
 def emit_http_calls_route(graph: nx.DiGraph) -> int:
@@ -179,57 +207,108 @@ def enrich_graph(
     does not prevent the others from running.
     """
     graph.graph["migration_glob"] = config.migration_glob
+    errors: list[dict[str, Any]] = []
+    ingest_reports: list[IngestReport] = []
+
+    # Layer 0 - ingest extra universes before stitching them into code nodes.
+    if repo_root is not None:
+        result = _safe_run(
+            "ingest_all",
+            lambda: __import__("depos.ingest", fromlist=["ingest_all"]).ingest_all(  # noqa: WPS421
+                graph,
+                repo_root=repo_root,
+                config=config,
+            ),
+            errors,
+        )
+        if isinstance(result, list):
+            ingest_reports = result
+            for report in ingest_reports:
+                if hasattr(report, "errors"):
+                    errors.extend(list(report.errors))
 
     # 1. HTTP probes (annotate nodes)
-    try:
-        annotate_fastapi_routes(graph, repo_root=repo_root)
-    except Exception:  # noqa: BLE001 - defensive by design
-        pass
-    try:
-        annotate_ts_http_calls(graph, repo_root=repo_root)
-    except Exception:  # noqa: BLE001
-        pass
+    _safe_run("annotate_fastapi_routes", lambda: annotate_fastapi_routes(graph, repo_root=repo_root), errors)
+    _safe_run("annotate_ts_http_calls", lambda: annotate_ts_http_calls(graph, repo_root=repo_root), errors)
 
-    # 2. HTTP_CALLS_ROUTE emission
-    try:
-        emit_http_calls_route(graph)
-    except Exception:  # noqa: BLE001
-        pass
+    # 2. Existing code-centric stitchers
+    _safe_run("emit_http_calls_route", lambda: emit_http_calls_route(graph), errors)
+    _safe_run(
+        "emit_rls_edges",
+        lambda: __import__("depos.enrichment.rls_resolver", fromlist=["emit_rls_edges"]).emit_rls_edges(  # noqa: WPS421
+            graph,
+            repo_root=repo_root,
+        ),
+        errors,
+    )
+    _safe_run(
+        "emit_migration_edges",
+        lambda: __import__("depos.enrichment.migrations", fromlist=["emit_migration_edges"]).emit_migration_edges(  # noqa: WPS421
+            graph,
+            config=config,
+            repo_root=repo_root,
+        ),
+        errors,
+    )
+    _safe_run(
+        "emit_celery_payload_edges",
+        lambda: __import__("depos.enrichment.celery_payload", fromlist=["emit_celery_payload_edges"]).emit_celery_payload_edges(  # noqa: WPS421
+            graph,
+            repo_root=repo_root,
+        ),
+        errors,
+    )
 
-    # 3. RLS resolver + migration sequencer + Celery payload matcher
-    # are imported lazily so PR 2 ships without requiring them to exist.
-    try:
-        from depos.enrichment.rls_resolver import emit_rls_edges
-
-        emit_rls_edges(graph, repo_root=repo_root)
-    except ImportError:
-        pass
-    except Exception:  # noqa: BLE001
-        pass
-
-    try:
-        from depos.enrichment.migrations import emit_migration_edges
-
-        emit_migration_edges(graph, config=config, repo_root=repo_root)
-    except ImportError:
-        pass
-    except Exception:  # noqa: BLE001
-        pass
-
-    try:
-        from depos.enrichment.celery_payload import emit_celery_payload_edges
-
-        emit_celery_payload_edges(graph, repo_root=repo_root)
-    except ImportError:
-        pass
-    except Exception:  # noqa: BLE001
-        pass
+    # 3. Cross-universe resolvers
+    _safe_run(
+        "emit_dependency_edges",
+        lambda: __import__("depos.enrichment.deps_resolver", fromlist=["emit_dependency_edges"]).emit_dependency_edges(  # noqa: WPS421
+            graph,
+            repo_root=repo_root,
+        ),
+        errors,
+    )
+    _safe_run(
+        "emit_env_edges",
+        lambda: __import__("depos.enrichment.env_resolver", fromlist=["emit_env_edges"]).emit_env_edges(  # noqa: WPS421
+            graph,
+            repo_root=repo_root,
+        ),
+        errors,
+    )
+    _safe_run(
+        "emit_prompt_edges",
+        lambda: __import__("depos.enrichment.prompt_resolver", fromlist=["emit_prompt_edges"]).emit_prompt_edges(  # noqa: WPS421
+            graph,
+            repo_root=repo_root,
+        ),
+        errors,
+    )
+    _safe_run(
+        "emit_openapi_edges",
+        lambda: __import__("depos.enrichment.openapi_resolver", fromlist=["emit_openapi_edges"]).emit_openapi_edges(  # noqa: WPS421
+            graph,
+            repo_root=repo_root,
+        ),
+        errors,
+    )
+    _safe_run(
+        "emit_nextjs_edges",
+        lambda: __import__("depos.enrichment.nextjs_resolver", fromlist=["emit_nextjs_edges"]).emit_nextjs_edges(  # noqa: WPS421
+            graph,
+            repo_root=repo_root,
+        ),
+        errors,
+    )
 
     coverage = compute_coverage(graph, config=config, repo_root=repo_root)
+    coverage.errors.extend(errors)
     # Expose run-level metadata so downstream modules / CLI can read flags.
     graph.graph.setdefault("run_metadata", {})
     graph.graph["run_metadata"]["low_stitcher_coverage"] = coverage.low_coverage
     graph.graph["run_metadata"]["coverage"] = coverage.model_dump(mode="json")
+    graph.graph["run_metadata"]["ingest_reports"] = [report.model_dump(mode="json") for report in ingest_reports]
+    graph.graph["run_metadata"]["ingest_errors"] = list(errors)
     return graph, coverage
 
 
@@ -248,4 +327,22 @@ __all__ = [
     "CONSUMES_PAYLOAD",
     "SCHEMA_DEFINED_BY_MIGRATION",
     "MIGRATION_PRECEDES",
+    "DECLARES_DEP",
+    "RESOLVES_TO",
+    "PEER_OF",
+    "IMPORTS_PACKAGE",
+    "READS_ENV_VAR",
+    "WRITES_ENV_VAR",
+    "DEFINED_BY_CONFIG",
+    "RENDERED_BY_PROMPT",
+    "PROMPT_DECLARES_VAR",
+    "PROMPT_USES_VAR",
+    "IMPLEMENTS_OPENAPI_OP",
+    "CONSUMES_OPENAPI_OP",
+    "SCHEMA_OF",
+    "NEXT_ROUTE_GUARDED_BY_MIDDLEWARE",
+    "NEXT_ROUTE_USES_LAYOUT",
+    "WORKFLOW_USES_SECRET",
+    "SERVICE_DEPENDS_ON",
+    "STAGE_COPIES_PATH",
 ]

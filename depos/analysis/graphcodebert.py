@@ -15,8 +15,6 @@ import json
 from pathlib import Path
 from typing import Any, Iterable
 
-import torch
-
 
 _PATTERN_LIBRARY: list[dict[str, str]] = [
     {
@@ -105,7 +103,9 @@ def _bundle_text(bundle: dict[str, Any]) -> str:
     return "\n\n".join(part for part in parts if part.strip())
 
 
-def _mean_pool(last_hidden_state: torch.Tensor, attention_mask: torch.Tensor) -> torch.Tensor:
+def _mean_pool(last_hidden_state: Any, attention_mask: Any) -> Any:
+    import torch
+
     mask = attention_mask.unsqueeze(-1).expand(last_hidden_state.size()).float()
     masked = last_hidden_state * mask
     denom = mask.sum(dim=1).clamp(min=1e-9)
@@ -124,10 +124,27 @@ class GraphCodeBERTScorer:
         self.model_name = model_name
         self.cache_dir = cache_dir
         self.local_files_only = local_files_only
-        self.device = device or ("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = device or self._default_device()
         self._tokenizer = None
         self._model = None
         self._pattern_rows: list[dict[str, Any]] | None = None
+
+    def _torch(self):
+        try:
+            import torch
+        except ImportError as exc:  # pragma: no cover - runtime env
+            raise RuntimeError(
+                "GraphCodeBERT scoring requires torch/transformers. "
+                'Install with: pip install -e ".[intelligence]"'
+            ) from exc
+        return torch
+
+    def _default_device(self) -> str:
+        try:
+            torch = self._torch()
+            return "cuda" if torch.cuda.is_available() else "cpu"
+        except RuntimeError:
+            return "cpu"
 
     def _load(self) -> None:
         if self._tokenizer is not None and self._model is not None:
@@ -153,6 +170,7 @@ class GraphCodeBERTScorer:
         self._model.eval()
 
     def _embed(self, texts: list[str]) -> torch.Tensor:
+        torch = self._torch()
         self._load()
         assert self._tokenizer is not None
         assert self._model is not None
@@ -170,6 +188,7 @@ class GraphCodeBERTScorer:
             return torch.nn.functional.normalize(pooled, p=2, dim=1).cpu()
 
     def _pattern_matrix(self) -> tuple[list[dict[str, str]], torch.Tensor]:
+        torch = self._torch()
         if self._pattern_rows is not None:
             labels = [{"label": row["label"], "text": row["text"]} for row in self._pattern_rows]
             matrix = torch.tensor([row["embedding"] for row in self._pattern_rows], dtype=torch.float32)
@@ -183,6 +202,7 @@ class GraphCodeBERTScorer:
         return labels, embeddings
 
     def score_bundle(self, bundle: dict[str, Any]) -> dict[str, Any]:
+        torch = self._torch()
         labels, pattern_matrix = self._pattern_matrix()
         bundle_text = _bundle_text(bundle)
         bundle_embedding = self._embed([bundle_text])[0]

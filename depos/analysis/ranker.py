@@ -37,7 +37,8 @@ def _score(features: RankerDiffFeatures, weights: dict[str, float]) -> tuple[flo
     components["changed_node_density"] = min(features.changed_nodes_on_path / 20.0, 1.0)
     components["unresolved_symbol_count"] = min(features.unresolved_symbols / 10.0, 1.0)
     components["removed_entity_references"] = min(features.removed_entities_referenced / 5.0, 1.0)
-    components["missing_guard_signals"] = 0.0  # Module 6 sets this retroactively.
+    components["missing_guard_signals"] = min(features.missing_guard_signals / 3.0, 1.0)
+    components["graphcodebert_score"] = max(0.0, min(features.graphcodebert_score, 1.0))
 
     score = sum(weights.get(k, 0.0) * v for k, v in components.items())
     return score, components

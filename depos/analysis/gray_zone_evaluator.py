@@ -45,6 +45,10 @@ def _pass_count(audit: VerifierAuditEntry) -> int:
     return sum(1 for c in audit.checks_run if c.result == "pass")
 
 
+def _fail_count(audit: VerifierAuditEntry) -> int:
+    return sum(1 for c in audit.checks_run if c.result == "fail")
+
+
 def _all_inferred_edges(audit: VerifierAuditEntry) -> bool:
     for check in audit.checks_run:
         if check.name == "edge_confidence_floor" and "all_inferred=true" in check.detail:
@@ -193,6 +197,12 @@ def _heuristic_panel_vote(
     if role == "B":
         if facts["all_inferred"] or finding.rls_verdict == RLSCoverage.context_mismatch:
             return GrayZoneVote.no_bug, 0.74, "counterfactual_explanation_prefers_missing_context_over_bug", questions, answers
+        if (
+            audit.verifier_outcome == VerifierOutcome.unconfirmed
+            and _fail_count(audit) == 0
+            and facts["reachable_sequence"]
+        ):
+            return GrayZoneVote.uncertain, 0.54, "verifier_only_had_unavailable_checks_despite_a_reachable_sequence", questions, answers
         if audit.verifier_outcome == VerifierOutcome.unconfirmed:
             return GrayZoneVote.no_bug, 0.68, "verifier_did_not_establish_structural_support", questions, answers
         return GrayZoneVote.uncertain, 0.5, "no_strong_rebuttal_found", questions, answers

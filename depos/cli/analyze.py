@@ -19,11 +19,13 @@ from pathlib import Path
 from typing import Any
 
 from depos.analysis.config import IntelligenceConfig, load_config_from_env
+from depos.analysis.detectors import get_detector, list_detectors, load_builtin
 from depos.analysis.schemas import (
     AnalysisMode,
     Candidate,
     ContextBundle,
     Finding,
+    RunResult,
     SeedType,
     RunMetadata,
     StitcherCoverageReport,
@@ -112,15 +114,41 @@ def _new_run_metadata(
 
 def _write_violations(
     out_dir: Path,
-    findings: list[Finding],
-    run_meta: RunMetadata,
+    result: RunResult | list[Finding],
+    run_meta: RunMetadata | None = None,
 ) -> None:
+    if isinstance(result, list):
+        assert run_meta is not None
+        result = RunResult(findings=result, detector_stats=[], ingest_reports=[], run_metadata=run_meta)
     payload: dict[str, Any] = {
-        "run_id": run_meta.run_id,
-        "run_metadata": run_meta.model_dump(mode="json"),
-        "findings": [f.model_dump(mode="json") for f in findings],
+        "run_id": result.run_metadata.run_id,
+        "run_metadata": result.run_metadata.model_dump(mode="json"),
+        "ingest_reports": [report.model_dump(mode="json") for report in result.ingest_reports],
+        "detector_stats": [stat.model_dump(mode="json") for stat in result.detector_stats],
+        "findings": [f.model_dump(mode="json") for f in result.findings],
     }
     (out_dir / "violations.json").write_text(json.dumps(payload, indent=2, default=str), encoding="utf-8")
+
+
+def _detector_policy_from_args(args) -> dict[str, Any]:
+    load_builtin()
+    policy: dict[str, Any] = {"enabled": [], "disabled": [], "severity_overrides": {}}
+    for raw in getattr(args, "detectors", []) or []:
+        if not raw or "=" not in raw:
+            continue
+        kind, value = raw.split("=", 1)
+        names = [item.strip() for item in value.split(",") if item.strip()]
+        if kind == "include":
+            policy["enabled"].extend(names)
+        elif kind == "exclude":
+            policy["disabled"].extend(names)
+    if getattr(args, "no_reasoner", False):
+        policy["disabled"].extend(spec.name for spec in list_detectors() if spec.requires_reasoner)
+    policy["enabled"] = sorted(set(policy["enabled"]))
+    policy["disabled"] = sorted(set(policy["disabled"]))
+    if not policy["enabled"] and not policy["disabled"] and not policy["severity_overrides"]:
+        return {}
+    return policy
 
 
 def _attach_run_caveats(findings: list[Finding], run_meta: RunMetadata) -> None:
@@ -144,10 +172,13 @@ def run_repo(args) -> int:
     run_meta = _new_run_metadata(config, source, mode=AnalysisMode.full_repo_scan)
     out_dir = _run_output_dir(config, run_meta.run_id)
 
-    findings: list[Finding] = _run_pipeline(source, config, run_meta)
-    _attach_run_caveats(findings, run_meta)
-    _write_violations(out_dir, findings, run_meta)
-    print(json.dumps({"run_id": run_meta.run_id, "output_dir": str(out_dir), "findings": len(findings)}, indent=2))
+    result = _run_pipeline(source, config, run_meta, detector_policy=_detector_policy_from_args(args))
+    _attach_run_caveats(result.findings, run_meta)
+    _write_violations(out_dir, result)
+    payload: dict[str, Any] = {"run_id": run_meta.run_id, "output_dir": str(out_dir), "findings": len(result.findings)}
+    if getattr(args, "print_detector_stats", False):
+        payload["detector_stats"] = [row.model_dump(mode="json") for row in result.detector_stats]
+    print(json.dumps(payload, indent=2))
     return 0
 
 
@@ -161,10 +192,13 @@ def run_diff(args) -> int:
     if diff_path:
         run_meta.head_ref = Path(diff_path).stem
 
-    findings = _run_pipeline(source, config, run_meta, diff_path=diff_path)
-    _attach_run_caveats(findings, run_meta)
-    _write_violations(out_dir, findings, run_meta)
-    print(json.dumps({"run_id": run_meta.run_id, "output_dir": str(out_dir), "findings": len(findings)}, indent=2))
+    result = _run_pipeline(source, config, run_meta, diff_path=diff_path, detector_policy=_detector_policy_from_args(args))
+    _attach_run_caveats(result.findings, run_meta)
+    _write_violations(out_dir, result)
+    payload: dict[str, Any] = {"run_id": run_meta.run_id, "output_dir": str(out_dir), "findings": len(result.findings)}
+    if getattr(args, "print_detector_stats", False):
+        payload["detector_stats"] = [row.model_dump(mode="json") for row in result.detector_stats]
+    print(json.dumps(payload, indent=2))
     return 0
 
 
@@ -607,7 +641,8 @@ def _run_pipeline(
     run_meta: RunMetadata,
     *,
     diff_path: str | None = None,
-) -> list[Finding]:
+    detector_policy: dict[str, Any] | None = None,
+) -> RunResult:
     graph = source.get_graph()
 
     try:
@@ -626,7 +661,7 @@ def _run_pipeline(
     try:
         from depos.analysis.pipeline import run_modules_2_through_7  # type: ignore
     except ImportError:
-        return []
+        return RunResult(findings=[], detector_stats=[], ingest_reports=[], run_metadata=run_meta)
 
     return run_modules_2_through_7(
         graph,
@@ -634,4 +669,42 @@ def _run_pipeline(
         run_meta=run_meta,
         diff_path=diff_path,
         repo_root=repo_root,
+        detector_policy=detector_policy,
     )
+
+
+def run_detectors_list(args) -> int:
+    load_builtin()
+    rows = [
+        {
+            "name": spec.name,
+            "version": spec.version,
+            "universe": spec.universe.value,
+            "requires_reasoner": spec.requires_reasoner,
+            "severity_default": spec.severity_default,
+        }
+        for spec in sorted(list_detectors(), key=lambda row: row.name)
+    ]
+    if getattr(args, "json", False):
+        print(json.dumps({"detectors": rows}, indent=2))
+        return 0
+    for row in rows:
+        print(
+            f"{row['name']}  v{row['version']}  "
+            f"{row['universe']}  "
+            f"reasoner={str(row['requires_reasoner']).lower()}  "
+            f"severity={row['severity_default']}"
+        )
+    return 0
+
+
+def run_detectors_explain(args) -> int:
+    load_builtin()
+    spec = get_detector(args.name)
+    payload = spec.model_dump(mode="json")
+    payload["example_witness"] = spec.tree[0].then.witness_template if spec.tree else []
+    if getattr(args, "json", False):
+        print(json.dumps(payload, indent=2))
+        return 0
+    print(json.dumps(payload, indent=2))
+    return 0

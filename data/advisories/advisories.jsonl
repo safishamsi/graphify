@@ -1,0 +1,2 @@
+{"id":"GHSA-demo-0001","ecosystem":"npm","name":"left-pad","affected_versions":["1.0.0","1.0.1"]}
+{"id":"GHSA-demo-0002","ecosystem":"pip","name":"requests","affected_versions":["2.31.0"]}

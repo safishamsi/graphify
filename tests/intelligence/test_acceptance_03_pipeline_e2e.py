@@ -63,14 +63,15 @@ def test_pipeline_end_to_end_runs(tmp_path, monkeypatch, load_fixture_graph):
         stitcher_coverage=coverage,
         low_stitcher_coverage=coverage.low_coverage,
     )
-    findings = run_modules_2_through_7(
+    result = run_modules_2_through_7(
         enriched,
         config=config,
         run_meta=run_meta,
         repo_root=repo_root,
     )
 
-    assert isinstance(findings, list)
+    assert isinstance(result.findings, list)
+    assert result.run_metadata.pipeline_version == "2.0.0"
 
     # Artifacts we expect (ranker jsonl always emits; gray-zone emits empty).
     run_dir = config.data_dir / config.run_output_subdir / run_meta.run_id

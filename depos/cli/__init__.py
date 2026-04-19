@@ -21,6 +21,9 @@ def _build_parser() -> argparse.ArgumentParser:
     analyze = sub.add_parser("analyze", help="Run or inspect intelligence analyses.")
     a_sub = analyze.add_subparsers(dest="analyze_command", required=True)
 
+    detectors = sub.add_parser("detectors", help="Inspect the detector registry.")
+    d_sub = detectors.add_subparsers(dest="detectors_command", required=True)
+
     repo = a_sub.add_parser("repo", help="Full-repo scan (no diff required).")
     repo.add_argument("--path", required=True)
     repo.add_argument("--output")
@@ -28,6 +31,9 @@ def _build_parser() -> argparse.ArgumentParser:
     repo.add_argument("--provider", default=None)
     repo.add_argument("--export-training", action="store_true")
     repo.add_argument("--max-seeds", type=int, default=None)
+    repo.add_argument("--detectors", action="append", default=[])
+    repo.add_argument("--no-reasoner", action="store_true")
+    repo.add_argument("--print-detector-stats", action="store_true")
 
     diff = a_sub.add_parser("diff", help="Diff-aware scan using a change manifest.")
     diff.add_argument("--cpg-path")
@@ -37,6 +43,9 @@ def _build_parser() -> argparse.ArgumentParser:
     diff.add_argument("--mode", default="A,B,C")
     diff.add_argument("--provider", default=None)
     diff.add_argument("--export-training", action="store_true")
+    diff.add_argument("--detectors", action="append", default=[])
+    diff.add_argument("--no-reasoner", action="store_true")
+    diff.add_argument("--print-detector-stats", action="store_true")
 
     replay = a_sub.add_parser("replay", help="Replay a reasoner queue.")
     replay.add_argument("--queue", required=True)
@@ -88,6 +97,13 @@ def _build_parser() -> argparse.ArgumentParser:
     coverage.add_argument("--path")
     coverage.add_argument("--graph-json")
 
+    list_cmd = d_sub.add_parser("list", help="List built-in detectors.")
+    list_cmd.add_argument("--json", action="store_true")
+
+    explain_cmd = d_sub.add_parser("explain", help="Explain one detector.")
+    explain_cmd.add_argument("name")
+    explain_cmd.add_argument("--json", action="store_true")
+
     return p
 
 
@@ -95,45 +111,55 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     parser = _build_parser()
     args = parser.parse_args(argv)
 
-    if args.command != "analyze":
-        parser.error(f"unknown command: {args.command}")
-        return 2
-
     # Lazy imports so a bare ``depos-intel --help`` works without the
     # [depos] / [supabase] extras installed.
-    if args.analyze_command == "coverage":
-        from depos.cli.analyze import run_coverage
+    if args.command == "analyze":
+        if args.analyze_command == "coverage":
+            from depos.cli.analyze import run_coverage
 
-        return run_coverage(args)
-    if args.analyze_command == "repo":
-        from depos.cli.analyze import run_repo
+            return run_coverage(args)
+        if args.analyze_command == "repo":
+            from depos.cli.analyze import run_repo
 
-        return run_repo(args)
-    if args.analyze_command == "diff":
-        from depos.cli.analyze import run_diff
+            return run_repo(args)
+        if args.analyze_command == "diff":
+            from depos.cli.analyze import run_diff
 
-        return run_diff(args)
-    if args.analyze_command == "replay":
-        from depos.cli.analyze import run_replay
+            return run_diff(args)
+        if args.analyze_command == "replay":
+            from depos.cli.analyze import run_replay
 
-        return run_replay(args)
-    if args.analyze_command == "score-bundles":
-        from depos.cli.analyze import run_score_bundles
+            return run_replay(args)
+        if args.analyze_command == "score-bundles":
+            from depos.cli.analyze import run_score_bundles
 
-        return run_score_bundles(args)
-    if args.analyze_command == "bundle-pipeline":
-        from depos.cli.analyze import run_bundle_pipeline
+            return run_score_bundles(args)
+        if args.analyze_command == "bundle-pipeline":
+            from depos.cli.analyze import run_bundle_pipeline
 
-        return run_bundle_pipeline(args)
-    if args.analyze_command == "normalize-dataset":
-        from depos.cli.analyze import run_normalize_dataset
+            return run_bundle_pipeline(args)
+        if args.analyze_command == "normalize-dataset":
+            from depos.cli.analyze import run_normalize_dataset
 
-        return run_normalize_dataset(args)
-    if args.analyze_command == "dataset-pipeline":
-        from depos.cli.analyze import run_dataset_pipeline
+            return run_normalize_dataset(args)
+        if args.analyze_command == "dataset-pipeline":
+            from depos.cli.analyze import run_dataset_pipeline
 
-        return run_dataset_pipeline(args)
-    parser.error(f"unknown analyze subcommand: {args.analyze_command}")
+            return run_dataset_pipeline(args)
+        parser.error(f"unknown analyze subcommand: {args.analyze_command}")
+        return 2
+    if args.command == "detectors":
+        if args.detectors_command == "list":
+            from depos.cli.analyze import run_detectors_list
+
+            return run_detectors_list(args)
+        if args.detectors_command == "explain":
+            from depos.cli.analyze import run_detectors_explain
+
+            return run_detectors_explain(args)
+        parser.error(f"unknown detectors subcommand: {args.detectors_command}")
+        return 2
+    parser.error(f"unknown command: {args.command}")
     return 2
 
 

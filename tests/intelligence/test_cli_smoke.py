@@ -63,3 +63,19 @@ def test_cli_dataset_pipeline_help_exits_zero(capsys) -> None:
     with pytest.raises(SystemExit) as exc:
         main(["analyze", "dataset-pipeline", "--help"])
     assert exc.value.code == 0
+
+
+def test_cli_detectors_list_outputs_registry(capsys) -> None:
+    rc, out = _run_cli(["detectors", "list", "--json"], capsys)
+    assert rc == 0
+    payload = json.loads(out)
+    names = {row["name"] for row in payload["detectors"]}
+    assert "dep-version-mismatch-across-workspaces" in names
+    assert "env-var-referenced-but-undefined" in names
+
+
+def test_cli_detectors_explain_outputs_spec(capsys) -> None:
+    rc, out = _run_cli(["detectors", "explain", "env-var-referenced-but-undefined", "--json"], capsys)
+    assert rc == 0
+    payload = json.loads(out)
+    assert payload["name"] == "env-var-referenced-but-undefined"

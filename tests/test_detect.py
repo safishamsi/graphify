@@ -1,7 +1,17 @@
 from pathlib import Path
+import pytest
 from graphify.detect import classify_file, count_words, detect, FileType, _looks_like_paper, _is_ignored, _load_graphifyignore
 
 FIXTURES = Path(__file__).parent / "fixtures"
+
+
+def _symlink_or_skip(link: Path, target: Path) -> None:
+    try:
+        link.symlink_to(target, target_is_directory=target.is_dir())
+    except OSError as exc:
+        if getattr(exc, "winerror", None) == 1314:
+            pytest.skip("Symlink creation is not permitted in this Windows environment.")
+        raise
 
 def test_classify_python():
     assert classify_file(Path("foo.py")) == FileType.CODE
@@ -118,7 +128,7 @@ def test_detect_follows_symlinked_directory(tmp_path):
     real_dir = tmp_path / "real_lib"
     real_dir.mkdir()
     (real_dir / "util.py").write_text("x = 1")
-    (tmp_path / "linked_lib").symlink_to(real_dir)
+    _symlink_or_skip(tmp_path / "linked_lib", real_dir)
 
     result_no = detect(tmp_path, follow_symlinks=False)
     result_yes = detect(tmp_path, follow_symlinks=True)
@@ -130,7 +140,7 @@ def test_detect_follows_symlinked_directory(tmp_path):
 
 def test_detect_follows_symlinked_file(tmp_path):
     (tmp_path / "real.py").write_text("x = 1")
-    (tmp_path / "link.py").symlink_to(tmp_path / "real.py")
+    _symlink_or_skip(tmp_path / "link.py", tmp_path / "real.py")
 
     result = detect(tmp_path, follow_symlinks=True)
     code = result["files"]["code"]
@@ -195,7 +205,7 @@ def test_detect_handles_circular_symlinks(tmp_path):
     sub = tmp_path / "a"
     sub.mkdir()
     (sub / "main.py").write_text("x = 1")
-    (sub / "loop").symlink_to(tmp_path)
+    _symlink_or_skip(sub / "loop", tmp_path)
 
     result = detect(tmp_path, follow_symlinks=True)
     assert any("main.py" in f for f in result["files"]["code"])

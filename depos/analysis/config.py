@@ -56,6 +56,11 @@ class GrayZoneConfig(BaseModel):
 
 class RankerConfig(BaseModel):
     ranking_phase_override: Optional[int] = None  # force a phase for tests
+    use_graphcodebert: bool = False
+    graphcodebert_model_name: str = "microsoft/graphcodebert-base"
+    graphcodebert_cache_dir: str | None = None
+    graphcodebert_device: str | None = None
+    graphcodebert_local_files_only: bool = False
     phase_0_weights: dict[str, float] = Field(
         default_factory=lambda: {
             "cross_language_seam_count": 0.3,
@@ -63,6 +68,7 @@ class RankerConfig(BaseModel):
             "unresolved_symbol_count": 0.2,
             "removed_entity_references": 0.15,
             "missing_guard_signals": 0.1,
+            "graphcodebert_score": 0.05,
         }
     )
 
@@ -80,6 +86,21 @@ class IntelligenceConfig(BaseModel):
 
     # Replay
     replay_stale_threshold_days: int = 7
+
+    prompt_globs: list[str] = Field(
+        default_factory=lambda: [
+            "**/prompts/**/*.{md,toml,json,prompt}",
+            "**/.cursor/rules/*.md",
+            "**/agents/**/*.{md,toml}",
+        ]
+    )
+    openapi_globs: list[str] = Field(
+        default_factory=lambda: [
+            "**/openapi.yaml",
+            "**/openapi.yml",
+            "**/openapi.json",
+        ]
+    )
 
     # Module 2 optional expansion: lexical/heuristic AI-style seeds until a
     # real embedding model is wired in.
@@ -105,6 +126,10 @@ def load_config_from_env() -> IntelligenceConfig:
     cfg.reasoner.gemma_api_url = os.environ.get("GEMMA_API_URL", cfg.reasoner.gemma_api_url)
     cfg.reasoner.gemma_model = os.environ.get("GEMMA_MODEL", cfg.reasoner.gemma_model)
     cfg.reasoner.ollama_host = os.environ.get("OLLAMA_HOST", cfg.reasoner.ollama_host)
+    cfg.ranker.use_graphcodebert = os.environ.get("DEPOS_INTEL_USE_GRAPHCODEBERT", "").strip().lower() in {"1", "true", "yes", "on"}
+    cfg.ranker.graphcodebert_cache_dir = os.environ.get("DEPOS_INTEL_GRAPHCODEBERT_CACHE", cfg.ranker.graphcodebert_cache_dir)
+    cfg.ranker.graphcodebert_device = os.environ.get("DEPOS_INTEL_GRAPHCODEBERT_DEVICE", cfg.ranker.graphcodebert_device)
+    cfg.ranker.graphcodebert_local_files_only = os.environ.get("DEPOS_INTEL_GRAPHCODEBERT_LOCAL_ONLY", "").strip().lower() in {"1", "true", "yes", "on"}
     try:
         cfg.bundles.token_budget_default = int(os.environ.get("DEPOS_INTEL_TOKEN_BUDGET", cfg.bundles.token_budget_default))
     except ValueError:

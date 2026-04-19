@@ -49,6 +49,7 @@ class Organization(Base):
     id: Mapped[uuid.UUID] = _uuid_column(primary_key=True, default=uuid.uuid4)
     slug: Mapped[str] = mapped_column(String(256), unique=True, index=True, nullable=False)
     name: Mapped[str] = mapped_column(String(512), default="", nullable=False)
+    detector_policy: Mapped[dict] = mapped_column(JSONB, default=dict, nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
 
 
@@ -154,6 +155,10 @@ class IntelligenceRun(Base):
     ranking_phase: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
     status: Mapped[str] = mapped_column(String(32), default="running", nullable=False)
     pack_manifest_id: Mapped[str | None] = mapped_column(String(128), nullable=True)
+    pipeline_version: Mapped[str] = mapped_column(String(64), default="0", nullable=False)
+    ingest_errors: Mapped[list] = mapped_column(JSONB, default=list, nullable=False)
+    universes_present: Mapped[list] = mapped_column(JSONB, default=list, nullable=False)
+    enabled_detectors: Mapped[list] = mapped_column(JSONB, default=list, nullable=False)
     started_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
     finished_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
 
@@ -164,7 +169,7 @@ class IntelligenceFinding(Base):
     id: Mapped[uuid.UUID] = _uuid_column(primary_key=True, default=uuid.uuid4)
     run_id: Mapped[uuid.UUID] = _uuid_column(ForeignKey("intelligence_runs.id", ondelete="CASCADE"), index=True)
     trust_level: Mapped[str] = mapped_column(String(32), nullable=False)
-    mode: Mapped[str] = mapped_column(String(4), nullable=False)
+    mode: Mapped[str | None] = mapped_column(String(4), nullable=True)
     bug_type: Mapped[str] = mapped_column(String(128), default="", nullable=False)
     description: Mapped[str] = mapped_column(Text, default="", nullable=False)
     affected_components: Mapped[list] = mapped_column(JSONB, default=list, nullable=False)
@@ -179,7 +184,24 @@ class IntelligenceFinding(Base):
     rls_verdict: Mapped[str | None] = mapped_column(String(64), nullable=True)
     migration_state_facts: Mapped[dict] = mapped_column(JSONB, default=dict, nullable=False)
     caveats: Mapped[dict] = mapped_column(JSONB, default=dict, nullable=False)
+    detector_name: Mapped[str] = mapped_column(String(128), default="legacy", nullable=False)
+    detector_version: Mapped[str] = mapped_column(String(64), default="0", nullable=False)
+    pipeline_version: Mapped[str] = mapped_column(String(64), default="0", nullable=False)
+    severity: Mapped[str] = mapped_column(String(16), default="medium", nullable=False)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow, nullable=False)
+
+
+class IntelligenceDetectorStat(Base):
+    __tablename__ = "intelligence_detector_stats"
+
+    run_id: Mapped[uuid.UUID] = _uuid_column(ForeignKey("intelligence_runs.id", ondelete="CASCADE"), primary_key=True)
+    detector_name: Mapped[str] = mapped_column(String(128), primary_key=True)
+    detector_version: Mapped[str] = mapped_column(String(64), nullable=False)
+    candidates_emitted: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    verified_confirmed: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    verified_invalid: Mapped[int] = mapped_column(Integer, default=0, nullable=False)
+    mean_latency_ms: Mapped[float] = mapped_column(Float, default=0.0, nullable=False)
+    errors: Mapped[list] = mapped_column(JSONB, default=list, nullable=False)
 
 
 _engine = None

@@ -7,7 +7,7 @@ from __future__ import annotations
 
 from datetime import datetime
 from enum import Enum
-from typing import Any, Optional
+from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -74,12 +74,39 @@ class StitcherCoverageReport(BaseModel):
     unlinked_routes: list[str] = Field(default_factory=list)
     coverage_ratio: float = 0.0
     low_coverage: bool = False
+    errors: list[dict[str, Any]] = Field(default_factory=list)
 
     total_celery_tasks: int = 0
     matched_producer_consumer_pairs: int = 0
 
     rls_nodes_found: int = 0
     migration_files_found: int = 0
+
+
+class NodeKind(str, Enum):
+    package_manifest = "package_manifest"
+    package_dep = "package_dep"
+    lockfile_resolution = "lockfile_resolution"
+    env_var = "env_var"
+    config_key = "config_key"
+    prompt_template = "prompt_template"
+    openapi_operation = "openapi_operation"
+    openapi_schema = "openapi_schema"
+    next_route = "next_route"
+    next_middleware = "next_middleware"
+    infra_workflow = "infra_workflow"
+    infra_service = "infra_service"
+    dockerfile_stage = "dockerfile_stage"
+
+
+class Universe(str, Enum):
+    code = "code"
+    deps = "deps"
+    env = "env"
+    prompt = "prompt"
+    schema = "schema"
+    nextjs = "nextjs"
+    infra = "infra"
 
 
 # ---------------------------------------------------------------------------
@@ -112,6 +139,41 @@ class ChangeManifest(BaseModel):
     resolved_via: str = "git"  # "cpg_diff" | "git" | "manual"
 
 
+class DetectorAction(BaseModel):
+    emit: Literal["candidate", "skip", "stop"]
+    seed_type: SeedType = SeedType.graph_anomaly
+    extra: dict[str, Any] = Field(default_factory=dict)
+    priority_score: float = 0.6
+    witness_template: list[str] = Field(default_factory=list)
+
+
+class DetectorRule(BaseModel):
+    if_: str
+    then: DetectorAction
+    description: str = ""
+
+
+class Detector(BaseModel):
+    name: str
+    version: str
+    universe: Universe
+    applies_when: str
+    tree: list[DetectorRule] = Field(default_factory=list)
+    verifier_checks: list[str] = Field(default_factory=list)
+    requires_reasoner: bool = False
+    severity_default: Literal["info", "low", "medium", "high", "critical"] = "medium"
+    enabled_by_default: bool = True
+    scope: Literal["graph", "per_node", "per_edge"] = "per_node"
+
+
+class DetectorCandidateExtra(BaseModel):
+    detector_name: str
+    detector_version: str
+    pipeline_version: str
+    severity: Literal["info", "low", "medium", "high", "critical"] = "medium"
+    oracle_hints: dict[str, Any] = Field(default_factory=dict)
+
+
 class Candidate(BaseModel):
     candidate_id: str
     scope_id: str
@@ -122,6 +184,17 @@ class Candidate(BaseModel):
     diff_anchors: list[NodeId] = Field(default_factory=list)
     analysis_mode: AnalysisMode = AnalysisMode.diff_aware
     extra: dict[str, Any] = Field(default_factory=dict)
+
+
+class DetectorRunStats(BaseModel):
+    run_id: str
+    detector_name: str
+    detector_version: str
+    candidates_emitted: int = 0
+    verified_confirmed: int = 0
+    verified_invalid: int = 0
+    mean_latency_ms: float = 0.0
+    errors: list[dict[str, Any]] = Field(default_factory=list)
 
 
 # ---------------------------------------------------------------------------
@@ -236,6 +309,8 @@ class RankerDiffFeatures(BaseModel):
     removed_entities_referenced: int = 0
     cross_lang_seams_on_path: int = 0
     unresolved_symbols: int = 0
+    missing_guard_signals: int = 0
+    graphcodebert_score: float = 0.0
 
 
 class RankerInput(BaseModel):
@@ -268,7 +343,7 @@ class VerifierOutcome(str, Enum):
 
 class VerifierCheckResult(BaseModel):
     name: str
-    result: str  # "pass" | "fail" | "unavailable" | "rls_covered" | "rls_partial" | "insufficient_static_evidence" | "invalid"
+    result: str  # "pass" | "fail" | "unavailable" | "rls_covered" | "rls_partial" | "insufficient_static_evidence" | "invalid" | "skip" | "outcome_n_a"
     detail: str = ""
 
 
@@ -278,7 +353,7 @@ class VerifierAuditEntry(BaseModel):
     checks_run: list[VerifierCheckResult] = Field(default_factory=list)
     inferred_edge_confidence_floor_applied: bool = False
     pack_manifest_id: str = ""
-    reasoner_mode: ReasonerMode
+    reasoner_mode: Optional[ReasonerMode] = None
     surfaced: bool = False
 
 
@@ -332,7 +407,7 @@ class GrayZoneAuditRow(BaseModel):
 class Finding(BaseModel):
     finding_id: str
     trust_level: VerifierOutcome
-    mode: ReasonerMode
+    mode: Optional[ReasonerMode] = None
     verifier_outcome: VerifierOutcome
     bug_type: str = ""
     description: str = ""
@@ -347,6 +422,10 @@ class Finding(BaseModel):
     rls_verdict: Optional[RLSCoverage] = None
     migration_state_facts: dict[str, str] = Field(default_factory=dict)
     pack_manifest_id: str = ""
+    detector_name: str = "legacy"
+    detector_version: str = "0"
+    pipeline_version: str = "0"
+    severity: Literal["info", "low", "medium", "high", "critical"] = "medium"
 
     partially_confirmed_caveat: Optional[str] = None
     evaluator_surfaced_caveat: Optional[str] = None
@@ -399,6 +478,21 @@ class ReasonerQueueRow(BaseModel):
     queued_at: datetime
 
 
+class IngestReport(BaseModel):
+    module: str
+    nodes_added: int = 0
+    edges_added: int = 0
+    files_seen: int = 0
+    errors: list[dict[str, Any]] = Field(default_factory=list)
+
+
+class OracleResult(BaseModel):
+    found: bool = False
+    conclusion: Literal["pass", "fail", "insufficient_evidence"] = "insufficient_evidence"
+    detail: str = ""
+    source: str = ""
+
+
 # ---------------------------------------------------------------------------
 # Run metadata
 # ---------------------------------------------------------------------------
@@ -414,5 +508,18 @@ class RunMetadata(BaseModel):
     ranking_phase: int = 0
     low_stitcher_coverage: bool = False
     partial_reasoning: bool = False
+    pipeline_version: str = "1"
+    detector_versions: dict[str, str] = Field(default_factory=dict)
+    enabled_detectors: list[str] = Field(default_factory=list)
+    disabled_detectors: list[str] = Field(default_factory=list)
+    universes_present: list[Universe] = Field(default_factory=list)
+    ingest_errors: list[dict[str, Any]] = Field(default_factory=list)
     stitcher_coverage: StitcherCoverageReport = Field(default_factory=StitcherCoverageReport)
     graph_source_metadata: dict[str, Any] = Field(default_factory=dict)
+
+
+class RunResult(BaseModel):
+    findings: list[Finding] = Field(default_factory=list)
+    detector_stats: list[DetectorRunStats] = Field(default_factory=list)
+    ingest_reports: list[IngestReport] = Field(default_factory=list)
+    run_metadata: RunMetadata

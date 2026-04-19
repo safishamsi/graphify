@@ -19,7 +19,7 @@ def persist_intelligence_run(
 ) -> "IntelligenceRun":
     """Insert one :class:`~depos.db.IntelligenceRun` and nested findings from a
     Pydantic-like ``body`` (same fields as ``IntelligenceRunCreate``)."""
-    from depos.db import IntelligenceFinding, IntelligenceRun
+    from depos.db import IntelligenceDetectorStat, IntelligenceFinding, IntelligenceRun
 
     run = IntelligenceRun(
         org_id=org_id,
@@ -33,6 +33,10 @@ def persist_intelligence_run(
         ranking_phase=body.ranking_phase,
         status=body.status,
         pack_manifest_id=body.pack_manifest_id,
+        pipeline_version=getattr(body, "pipeline_version", "0"),
+        ingest_errors=list(getattr(body, "ingest_errors", [])),
+        universes_present=list(getattr(body, "universes_present", [])),
+        enabled_detectors=list(getattr(body, "enabled_detectors", [])),
         finished_at=datetime.now(timezone.utc) if body.status != "running" else None,
     )
     session.add(run)
@@ -57,6 +61,23 @@ def persist_intelligence_run(
                 rls_verdict=f.rls_verdict,
                 migration_state_facts=dict(f.migration_state_facts),
                 caveats=dict(f.caveats),
+                detector_name=getattr(f, "detector_name", "legacy"),
+                detector_version=getattr(f, "detector_version", "0"),
+                pipeline_version=getattr(f, "pipeline_version", getattr(body, "pipeline_version", "0")),
+                severity=getattr(f, "severity", "medium"),
+            )
+        )
+    for stat in getattr(body, "detector_stats", []):
+        session.add(
+            IntelligenceDetectorStat(
+                run_id=run.id,
+                detector_name=stat.detector_name,
+                detector_version=stat.detector_version,
+                candidates_emitted=stat.candidates_emitted,
+                verified_confirmed=stat.verified_confirmed,
+                verified_invalid=stat.verified_invalid,
+                mean_latency_ms=stat.mean_latency_ms,
+                errors=list(stat.errors),
             )
         )
     return run

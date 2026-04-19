@@ -142,8 +142,15 @@ def _find_enqueue_sites(
                 i += 1
             call_args = text[start : i - 1]
             kw_names = [km.group("kw") for km in _KW_RE.finditer(call_args)]
-            # Any file-level node works as the "caller" anchor.
+            # Prefer a different anchor in the same file so producer and
+            # consumer edges do not collapse onto the same DiGraph self-loop.
             caller_id = nid
+            for cand_id, cand_attrs in graph.nodes(data=True):
+                if cand_id == tasks[name].node_id:
+                    continue
+                if cand_attrs.get("source_file") == sf:
+                    caller_id = cand_id
+                    break
             sites.append((caller_id, name, kw_names))
     return sites
 

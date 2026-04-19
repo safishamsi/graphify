@@ -1,7 +1,17 @@
 from pathlib import Path
+import pytest
 from graphify.extract import extract_python, extract, collect_files, _make_id
 
 FIXTURES = Path(__file__).parent / "fixtures"
+
+
+def _symlink_or_skip(link: Path, target: Path) -> None:
+    try:
+        link.symlink_to(target, target_is_directory=target.is_dir())
+    except OSError as exc:
+        if getattr(exc, "winerror", None) == 1314:
+            pytest.skip("Symlink creation is not permitted in this Windows environment.")
+        raise
 
 
 def test_make_id_strips_dots_and_underscores():
@@ -77,7 +87,7 @@ def test_collect_files_follows_symlinked_directory(tmp_path):
     real_dir = tmp_path / "real_src"
     real_dir.mkdir()
     (real_dir / "lib.py").write_text("x = 1")
-    (tmp_path / "linked_src").symlink_to(real_dir)
+    _symlink_or_skip(tmp_path / "linked_src", real_dir)
 
     files_no = collect_files(tmp_path, follow_symlinks=False)
     files_yes = collect_files(tmp_path, follow_symlinks=True)
@@ -90,7 +100,7 @@ def test_collect_files_handles_circular_symlinks(tmp_path):
     sub = tmp_path / "pkg"
     sub.mkdir()
     (sub / "mod.py").write_text("x = 1")
-    (sub / "cycle").symlink_to(tmp_path)
+    _symlink_or_skip(sub / "cycle", tmp_path)
 
     files = collect_files(tmp_path, follow_symlinks=True)
     assert any(f.name == "mod.py" for f in files)

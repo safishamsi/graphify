@@ -573,16 +573,9 @@ def identify_candidates(
         manual_manifest=manual_manifest,
         repo_root=repo_root,
     )
+    from depos.analysis.detectors import run_all
 
-    pool: list[Candidate] = []
-    pool.extend(_diff_anchor_candidates(graph, manifest, mode))
-    pool.extend(_interface_surface_candidates(graph, mode))
-    pool.extend(_graph_anomaly_candidates(graph, mode))
-    pool.extend(_ai_driven_candidates(graph, config, mode))
-    pool = _dedup(pool)
-
-    budget = config.candidates.max_seeds
-    prioritized = _prioritize(pool, budget)
+    prioritized, _stats = run_all(graph, manifest, mode, config)
 
     # Track dropped-from-budget nodes back into the manifest (if diff mode).
     picked_anchors = {a for c in prioritized for a in c.diff_anchors}

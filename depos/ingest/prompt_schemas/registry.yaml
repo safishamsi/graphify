@@ -1,0 +1,15 @@
+schemas:
+  default:
+    file: default.schema.json
+    providers:
+      - generic
+  email:
+    file: default.schema.json
+    providers:
+      - openai
+      - anthropic
+  auth_email:
+    file: default.schema.json
+    providers:
+      - openai
+      - gemma

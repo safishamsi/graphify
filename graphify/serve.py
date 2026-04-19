@@ -4,7 +4,7 @@ import json
 import sys
 from pathlib import Path
 import networkx as nx
-from networkx.readwrite import json_graph
+from graphify.nx_compat import node_link_graph_compat
 from graphify.security import sanitize_label
 
 
@@ -17,10 +17,7 @@ def _load_graph(graph_path: str) -> nx.Graph:
             raise FileNotFoundError(f"Graph file not found: {resolved}")
         safe = resolved
         data = json.loads(safe.read_text(encoding="utf-8"))
-        try:
-            return json_graph.node_link_graph(data, link="links")
-        except TypeError:
-            return json_graph.node_link_graph(data)
+        return node_link_graph_compat(data, edges="links")
     except (ValueError, FileNotFoundError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         sys.exit(1)

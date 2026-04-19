@@ -1,5 +1,9 @@
 """graphify - extract · build · cluster · analyze · report."""
 
+from graphify.nx_compat import patch_json_graph_compat
+
+patch_json_graph_compat()
+
 
 def __getattr__(name):
     # Lazy imports so `graphify install` works before heavy deps are in place.

@@ -12,4 +12,4 @@ If you use the local graphify CLI, run `graphify update .` to refresh AST-only g
 
 ### Documentation
 
-Prefer [`docs/architecture.md`](docs/architecture.md) and [`docs/product.md`](docs/product.md) for depOS direction. For **current teammate status** (web, Supabase auth, landing, open pipeline work), see [`docs/handoffs/2026-04-19-web-auth-landing-supabase.md`](docs/handoffs/2026-04-19-web-auth-landing-supabase.md).
+Prefer [`docs/architecture.md`](docs/architecture.md), [`docs/product.md`](docs/product.md), and [`docs/detector-platform.md`](docs/detector-platform.md) for depOS direction. For **current teammate status** (web, Supabase auth, landing, open pipeline work), see [`docs/handoffs/2026-04-19-web-auth-landing-supabase.md`](docs/handoffs/2026-04-19-web-auth-landing-supabase.md). For the detector rollout specifically, see [`docs/handoffs/2026-04-19-detector-platform.md`](docs/handoffs/2026-04-19-detector-platform.md).

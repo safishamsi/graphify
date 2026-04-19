@@ -4,6 +4,8 @@ This guide explains how to run the depOS intelligence pipeline starting from the
 
 It is intended for contributors working with the current sample dataset format in this repo.
 
+> Operational note: the detector-platform rollout wires GraphCodeBERT into the main pipeline only as an opt-in pre-ranker behind `config.ranker.use_graphcodebert`, and leaves it off by default. The dataset pipeline in this document still uses GraphCodeBERT directly as a first-class ranking stage.
+
 > **Team note (Apr 2026):** The **GraphCodeBERT** and **Gemma 4** stages still need a **focused backend review** (model versions, prompts, artifact contracts, reproducibility). See the current handoff: [`handoffs/2026-04-19-web-auth-landing-supabase.md`](handoffs/2026-04-19-web-auth-landing-supabase.md) — *Still to do*.
 
 ## What this pipeline does

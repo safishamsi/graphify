@@ -26,6 +26,7 @@ from depos.db import (
     AuditLog,
     CISignal,
     GraphSnapshot,
+    IntelligenceDetectorStat,
     IntelligenceFinding,
     IntelligenceRun,
     Organization,
@@ -187,7 +188,7 @@ class DriftSnapshotsBody(BaseModel):
 
 class IntelligenceFindingIn(BaseModel):
     trust_level: Literal["confirmed", "partially_confirmed", "evaluator_surfaced"]
-    mode: Literal["A", "B", "C"]
+    mode: Literal["A", "B", "C"] | None = None
     bug_type: str = ""
     description: str = ""
     affected_components: list[Any] = Field(default_factory=list)
@@ -202,6 +203,20 @@ class IntelligenceFindingIn(BaseModel):
     rls_verdict: str | None = None
     migration_state_facts: dict[str, Any] = Field(default_factory=dict)
     caveats: dict[str, Any] = Field(default_factory=dict)
+    detector_name: str = "legacy"
+    detector_version: str = "0"
+    pipeline_version: str = "0"
+    severity: Literal["info", "low", "medium", "high", "critical"] = "medium"
+
+
+class IntelligenceDetectorStatIn(BaseModel):
+    detector_name: str
+    detector_version: str
+    candidates_emitted: int = 0
+    verified_confirmed: int = 0
+    verified_invalid: int = 0
+    mean_latency_ms: float = 0.0
+    errors: list[Any] = Field(default_factory=list)
 
 
 class IntelligenceRunCreate(BaseModel):
@@ -215,7 +230,19 @@ class IntelligenceRunCreate(BaseModel):
     ranking_phase: int = 0
     status: Literal["running", "succeeded", "partial_reasoning", "failed"] = "succeeded"
     pack_manifest_id: str | None = None
+    pipeline_version: str = "0"
+    ingest_errors: list[Any] = Field(default_factory=list)
+    universes_present: list[Any] = Field(default_factory=list)
+    enabled_detectors: list[str] = Field(default_factory=list)
+    detector_policy: dict[str, Any] | None = None
+    detector_stats: list[IntelligenceDetectorStatIn] = Field(default_factory=list)
     findings: list[IntelligenceFindingIn] = Field(default_factory=list)
+
+
+class DetectorPolicyBody(BaseModel):
+    enabled: list[str] = Field(default_factory=list)
+    disabled: list[str] = Field(default_factory=list)
+    severity_overrides: dict[str, str] = Field(default_factory=dict)
 
 
 # ---------------------------------------------------------------------------
@@ -712,6 +739,8 @@ def create_intelligence_run(slug: str, body: IntelligenceRunCreate, user: Any = 
     try:
         org = _org_by_slug(session, slug)
         _assert_member(session, org.id, user.user_id, admin_only=True)
+        if body.detector_policy is not None:
+            org.detector_policy = dict(body.detector_policy)
         run = persist_intelligence_run(session, org_id=org.id, body=body)
         session.commit()
         return {"run_id": str(run.id), "findings": len(body.findings)}
@@ -738,6 +767,7 @@ def list_intelligence_runs(slug: str, user: Any = _auth_dep()) -> dict[str, Any]
                     "repo_slug": r.repo_slug,
                     "status": r.status,
                     "analysis_mode": r.analysis_mode,
+                    "pipeline_version": r.pipeline_version,
                     "started_at": r.started_at.isoformat() if r.started_at else None,
                     "finished_at": r.finished_at.isoformat() if r.finished_at else None,
                 }
@@ -760,6 +790,7 @@ def get_intelligence_run(slug: str, run_id: UUID, user: Any = _auth_dep()) -> di
         if not run:
             raise HTTPException(404, "run not found")
         findings = session.scalars(select(IntelligenceFinding).where(IntelligenceFinding.run_id == run.id)).all()
+        stats = session.scalars(select(IntelligenceDetectorStat).where(IntelligenceDetectorStat.run_id == run.id)).all()
         return {
             "run": {
                 "id": str(run.id),
@@ -769,9 +800,25 @@ def get_intelligence_run(slug: str, run_id: UUID, user: Any = _auth_dep()) -> di
                 "analysis_mode": run.analysis_mode,
                 "provider": run.provider,
                 "status": run.status,
+                "pipeline_version": run.pipeline_version,
+                "enabled_detectors": run.enabled_detectors,
+                "universes_present": run.universes_present,
+                "ingest_errors": run.ingest_errors,
                 "started_at": run.started_at.isoformat() if run.started_at else None,
                 "finished_at": run.finished_at.isoformat() if run.finished_at else None,
             },
+            "detector_stats": [
+                {
+                    "detector_name": row.detector_name,
+                    "detector_version": row.detector_version,
+                    "candidates_emitted": row.candidates_emitted,
+                    "verified_confirmed": row.verified_confirmed,
+                    "verified_invalid": row.verified_invalid,
+                    "mean_latency_ms": row.mean_latency_ms,
+                    "errors": row.errors,
+                }
+                for row in stats
+            ],
             "findings": [
                 {
                     "id": str(f.id),
@@ -781,12 +828,54 @@ def get_intelligence_run(slug: str, run_id: UUID, user: Any = _auth_dep()) -> di
                     "description": f.description,
                     "affected_components": f.affected_components,
                     "witness_path": f.witness_path,
+                    "detector_name": f.detector_name,
+                    "detector_version": f.detector_version,
+                    "pipeline_version": f.pipeline_version,
+                    "severity": f.severity,
                     "verifier_outcome": f.verifier_outcome,
                     "reasoner_confidence": f.reasoner_confidence,
                 }
                 for f in findings
             ],
         }
+    finally:
+        session.close()
+
+
+@app.get("/v1/orgs/{slug}/intelligence/detectors")
+def list_detector_registry(slug: str, user: Any = _auth_dep()) -> dict[str, Any]:
+    from depos.analysis.detectors import list_detectors, load_builtin
+
+    load_builtin()
+    session = get_session()
+    try:
+        org = _org_by_slug(session, slug)
+        _assert_member(session, org.id, user.user_id)
+        return {
+            "policy": org.detector_policy,
+            "detectors": [spec.model_dump(mode="json") for spec in sorted(list_detectors(), key=lambda row: row.name)],
+        }
+    finally:
+        session.close()
+
+
+@app.put("/v1/orgs/{slug}/intelligence/detectors/policy")
+def update_detector_policy(slug: str, body: DetectorPolicyBody, user: Any = _auth_dep()) -> dict[str, Any]:
+    session = get_session()
+    try:
+        org = _org_by_slug(session, slug)
+        _assert_member(session, org.id, user.user_id, admin_only=True)
+        org.detector_policy = body.model_dump(mode="json")
+        session.add(
+            AuditLog(
+                org_id=org.id,
+                actor_user_id=user.user_id,
+                action="detector_policy_update",
+                detail=body.model_dump(mode="json"),
+            )
+        )
+        session.commit()
+        return {"ok": True, "policy": org.detector_policy}
     finally:
         session.close()
 
