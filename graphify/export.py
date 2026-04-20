@@ -4,6 +4,7 @@ import html as _html
 import json
 import math
 import re
+import sys
 from collections import Counter
 from pathlib import Path
 import networkx as nx
@@ -344,17 +345,27 @@ def to_html(
     communities: dict[int, list[str]],
     output_path: str,
     community_labels: dict[int, str] | None = None,
+    max_nodes: int | None = None,
 ) -> None:
     """Generate an interactive vis.js HTML visualization of the graph.
 
     Features: node size by degree, click-to-inspect panel, search box,
     community filter, physics clustering by community, confidence-styled edges.
-    Raises ValueError if graph exceeds MAX_NODES_FOR_VIZ.
+    Raises ValueError if graph exceeds max_nodes (default MAX_NODES_FOR_VIZ).
+    Emits a performance warning to stderr when max_nodes exceeds the default.
     """
-    if G.number_of_nodes() > MAX_NODES_FOR_VIZ:
+    limit = max_nodes if max_nodes is not None else MAX_NODES_FOR_VIZ
+    if limit > MAX_NODES_FOR_VIZ:
+        print(
+            f"warning: max_nodes={limit} exceeds the recommended limit of "
+            f"{MAX_NODES_FOR_VIZ}. Performance may degrade significantly in the "
+            f"browser with large graphs.",
+            file=sys.stderr,
+        )
+    if G.number_of_nodes() > limit:
         raise ValueError(
-            f"Graph has {G.number_of_nodes()} nodes - too large for HTML viz. "
-            f"Use --no-viz or reduce input size."
+            f"Graph has {G.number_of_nodes()} nodes - too large for HTML viz "
+            f"(limit: {limit}). Use --no-viz or reduce input size."
         )
 
     node_community = _node_community_map(communities)
