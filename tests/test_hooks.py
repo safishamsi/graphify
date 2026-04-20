@@ -1,6 +1,7 @@
 """Tests for hooks.py - git hook install/uninstall."""
 import os
 import subprocess
+import sys
 from pathlib import Path
 import pytest
 from graphify.hooks import install, uninstall, status, _HOOK_MARKER, _CHECKOUT_MARKER
@@ -117,3 +118,30 @@ def test_status_shows_both_hooks(tmp_path):
     assert "post-commit" in result
     assert "post-checkout" in result
     assert result.count("installed") >= 2
+
+
+def test_post_commit_marks_needs_update_for_doc_only_change(tmp_path):
+    repo = _make_git_repo(tmp_path)
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "test@example.com"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Test User"], check=True)
+
+    (repo / "a.py").write_text("def f():\n    return 1\n", encoding="utf-8")
+    (repo / "notes.md").write_text("# Notes\nold\n", encoding="utf-8")
+
+    install(repo)
+
+    env = os.environ.copy()
+    venv_bin = Path(sys.executable).resolve().parent
+    env["PATH"] = str(venv_bin) + os.pathsep + env["PATH"]
+
+    subprocess.run([sys.executable, "-m", "graphify", "update", str(repo)], check=True, capture_output=True, text=True, env=env)
+    subprocess.run(["git", "-C", str(repo), "add", "."], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-m", "init"], check=True, capture_output=True, text=True, env=env)
+
+    (repo / "notes.md").write_text("# Notes\nnew\n", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repo), "add", "notes.md"], check=True)
+    result = subprocess.run(["git", "-C", str(repo), "commit", "-m", "doc change"], capture_output=True, text=True, env=env)
+
+    assert result.returncode == 0, result.stderr
+    assert (repo / "graphify-out" / "needs_update").exists()
+    assert "marking graph stale" in result.stderr

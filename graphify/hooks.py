@@ -57,15 +57,23 @@ from pathlib import Path
 
 changed_raw = os.environ.get('GRAPHIFY_CHANGED', '')
 changed = [Path(f.strip()) for f in changed_raw.strip().splitlines() if f.strip()]
+code_exts = {
+    '.py', '.ts', '.js', '.go', '.rs', '.java', '.cpp', '.c', '.rb', '.swift',
+    '.kt', '.cs', '.scala', '.php', '.cc', '.cxx', '.hpp', '.h', '.kts',
+}
+code_changed = [f for f in changed if f.suffix.lower() in code_exts]
 
 if not changed:
     sys.exit(0)
 
-print(f'[graphify hook] {len(changed)} file(s) changed - rebuilding graph...')
-
 try:
-    from graphify.watch import _rebuild_code
-    _rebuild_code(Path('.'))
+    from graphify.watch import _notify_only, _rebuild_code
+    if code_changed:
+        print(f'[graphify hook] {len(code_changed)} code file(s) changed - rebuilding graph...')
+        _rebuild_code(Path('.'))
+    else:
+        print(f'[graphify hook] {len(changed)} non-code file(s) changed - marking graph stale...')
+        _notify_only(Path('.'))
 except Exception as exc:
     print(f'[graphify hook] Rebuild failed: {exc}')
     sys.exit(1)
