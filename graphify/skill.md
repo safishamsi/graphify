@@ -14,6 +14,7 @@ Turn any folder of files into a navigable knowledge graph with community detecti
 /graphify                                             # full pipeline on current directory → Obsidian vault
 /graphify <path>                                      # full pipeline on specific path
 /graphify <path> --mode deep                          # thorough extraction, richer INFERRED edges
+/graphify <path> --extract-model sonnet|opus|auto     # opt-in: pin Step 3B subagent model (auto = corpus-shape heuristic). Omit to inherit parent model (default, unchanged).
 /graphify <path> --update                             # incremental - re-extract only new/changed files
 /graphify <path> --directed                            # build directed graph (preserves edge direction: source→target)
 /graphify <path> --whisper-model medium                # use a larger Whisper model for better transcription accuracy
@@ -162,6 +163,28 @@ After transcription:
 
 **Before starting:** note whether `--mode deep` was given. You must pass `DEEP_MODE=true` to every subagent in Step B2 if it was. Track this from the original invocation - do not lose it.
 
+**Also resolve the extraction model** for Step B2 subagents — this is **opt-in only**. The task splits into cheap pattern-matching (EXTRACTED edges, schema compliance) and reasoning-heavy judgment (INFERRED edges, `semantically_similar_to`, hyperedges, confidence calibration). Users who want to trim cost can opt in with `--extract-model`.
+
+Resolution:
+
+```
+--extract-model not given        → EXTRACT_MODEL = unset; omit `model=` on Agent calls; subagents inherit the parent (current default; no behavior change)
+--extract-model sonnet           → EXTRACT_MODEL = sonnet
+--extract-model opus             → EXTRACT_MODEL = opus
+--extract-model auto             → apply heuristic below, then use its result
+```
+
+Heuristic (only when `--extract-model auto` is explicitly set; first match wins):
+
+```
+1. --mode deep?                     → opus   (aggressive INFERRED; reasoning pays off)
+2. code_files / total_files > 0.8?  → sonnet (AST carries the corpus; semantic layer is thin)
+3. (docs + papers) / total > 0.3?   → opus   (cross-document semantic edges are the payoff)
+4. otherwise                        → sonnet (cheap + adequate)
+```
+
+Compute from `graphify-out/.graphify_detect.json` (use `total_files` and `len(files[category])`). When `EXTRACT_MODEL` is set, print one line: `Extract model: <model> (reason: <manual|auto-deep|auto-code-heavy|auto-doc-heavy|auto-default>)`. When unset, print nothing about model — behavior is unchanged from pre-flag graphify.
+
 This step has two parts: **structural extraction** (deterministic, free) and **semantic extraction** (Claude, costs tokens).
 
 **Run Part A (AST) and Part B (semantic) in parallel. Dispatch all semantic subagents AND start AST extraction in the same message. Both can run simultaneously since they operate on different file types. Merge results in Part C as before.**
@@ -240,13 +263,22 @@ Call the Agent tool multiple times IN THE SAME RESPONSE - one call per chunk. Th
 
 **IMPORTANT - subagent type:** Always use `subagent_type="general-purpose"`. Do NOT use `Explore` - it is read-only and cannot write chunk files to disk, which silently drops extraction results. General-purpose has Write and Bash access which the subagent needs.
 
-Concrete example for 3 chunks:
+**model parameter (opt-in):** If `EXTRACT_MODEL` was resolved in the "Before starting" note (user passed `--extract-model`), pass `model=EXTRACT_MODEL` on every Agent tool call and keep all chunks on the same model — do not mix. If `EXTRACT_MODEL` is unset, omit the `model=` parameter entirely; subagents inherit the parent model as before.
+
+Concrete example for 3 chunks without `--extract-model` (default — unchanged behavior):
 ```
 [Agent tool call 1: files 1-15, subagent_type="general-purpose"]
 [Agent tool call 2: files 16-30, subagent_type="general-purpose"]
 [Agent tool call 3: files 31-45, subagent_type="general-purpose"]
 ```
-All three in one message. Not three separate messages.
+
+With `--extract-model sonnet` (or `auto` that resolved to sonnet):
+```
+[Agent tool call 1: files 1-15, subagent_type="general-purpose", model="sonnet"]
+[Agent tool call 2: files 16-30, subagent_type="general-purpose", model="sonnet"]
+[Agent tool call 3: files 31-45, subagent_type="general-purpose", model="sonnet"]
+```
+All calls in one message either way. Not three separate messages.
 
 Each subagent receives this exact prompt (substitute FILE_LIST, CHUNK_NUM, TOTAL_CHUNKS, and DEEP_MODE):
 
