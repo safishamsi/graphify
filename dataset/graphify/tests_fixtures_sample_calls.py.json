@@ -1,0 +1,2408 @@
+{
+  "analysis_timestamp": "2026-04-20T22:21:00+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:294:541:class_definition:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:294:541:class_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:294:541:class_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:541:block:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:294:541:class_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:541:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:541:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:448:541:function_definition:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:541:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:448:541:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:448:541:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:541:block:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:448:541:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:541:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:541:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:520:541:return_statement:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:541:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:520:541:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:520:541:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:541:call:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:520:541:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:541:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:541:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:536:541:argument_list:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:541:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:536:541:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:536:541:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:537:540:identifier:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:536:541:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:537:540:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:541:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:536:identifier:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:541:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:536:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:541:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:expression_statement:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:541:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:assignment:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:510:call:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:510:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:510:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:504:510:argument_list:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:510:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:504:510:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:504:510:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:505:509:identifier:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:504:510:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:505:509:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:510:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:504:attribute:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:510:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:504:attribute",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:504:attribute->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:499:504:identifier:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:504:attribute",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:499:504:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:504:attribute->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:498:identifier:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:504:attribute",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:498:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:491:identifier:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:491:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:448:541:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:465:477:parameters:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:448:541:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:465:477:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:465:477:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:472:476:identifier:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:465:477:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:472:476:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:465:477:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:466:470:identifier:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:465:477:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:466:470:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:448:541:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:452:465:identifier:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:448:541:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:452:465:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:541:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:382:440:function_definition:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:541:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:382:440:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:382:440:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:block:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:382:440:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:return_statement:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:440:call:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:440:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:440:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:434:440:argument_list:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:440:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:434:440:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:434:440:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:435:439:identifier:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:434:440:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:435:439:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:440:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:434:identifier:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:440:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:434:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:382:440:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:391:403:parameters:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:382:440:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:391:403:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:391:403:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:398:402:identifier:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:391:403:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:398:402:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:391:403:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:392:396:identifier:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:391:403:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:392:396:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:382:440:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:386:391:identifier:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:382:440:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:386:391:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:541:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:374:function_definition:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:541:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:374:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:374:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:block:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:374:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:return_statement:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:374:call:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:374:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:374:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:368:374:argument_list:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:374:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:368:374:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:368:374:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:369:373:identifier:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:368:374:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:369:373:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:374:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:368:identifier:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:374:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:368:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:374:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:326:338:parameters:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:374:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:326:338:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:326:338:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:333:337:identifier:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:326:338:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:333:337:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:326:338:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:327:331:identifier:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:326:338:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:327:331:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:374:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:319:326:identifier:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:374:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:319:326:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:294:541:class_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:300:308:identifier:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:294:541:class_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:300:308:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:203:288:function_definition:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:203:288:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:203:288:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:288:block:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:203:288:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:288:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:288:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:265:288:return_statement:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:288:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:265:288:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:265:288:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:288:call:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:265:288:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:288:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:288:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:281:288:argument_list:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:288:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:281:288:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:281:288:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:282:287:identifier:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:281:288:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:282:287:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:288:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:281:identifier:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:288:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:281:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:288:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:expression_statement:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:288:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:assignment:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:259:call:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:259:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:259:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:253:259:argument_list:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:259:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:253:259:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:253:259:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:254:258:identifier:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:253:259:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:254:258:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:259:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:253:identifier:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:259:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:253:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:237:identifier:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:237:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:203:288:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:219:225:parameters:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:203:288:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:219:225:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:219:225:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:220:224:identifier:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:219:225:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:220:224:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:203:288:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:207:219:identifier:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:203:288:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:207:219:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:150:197:function_definition:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:150:197:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:150:197:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:block:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:150:197:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:return_statement:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:197:binary_operator:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:197:binary_operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:197:binary_operator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:192:197:float:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:197:binary_operator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:192:197:float",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:197:binary_operator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:189:identifier:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:197:binary_operator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:189:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:150:197:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:163:170:parameters:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:150:197:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:163:170:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:163:170:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:164:169:identifier:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:163:170:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:164:169:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:150:197:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:154:163:identifier:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:150:197:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:154:163:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:98:144:function_definition:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:98:144:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:98:144:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:block:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:98:144:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:return_statement:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:144:call:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:144:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:144:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:138:144:argument_list:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:144:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:138:144:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:138:144:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:139:143:identifier:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:138:144:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:139:143:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:144:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:138:identifier:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:144:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:138:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:98:144:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:115:121:parameters:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:98:144:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:115:121:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:115:121:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:116:120:identifier:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:115:121:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:116:120:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:98:144:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:102:115:identifier:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:98:144:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:102:115:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:expression_statement:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:string:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:89:92:string_end:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:89:92:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:3:89:string_content:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:3:89:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:3:string_start",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:543:module",
+      "kind": "module",
+      "label": "\"\"\"Fixture: functions and methods that call each other - for call-graph extraction tests.\"\"\"\r\n\r\n\r\ndef compute_score(data):\r\n    return sum(data)\r\n\r\n\r\ndef normalize(value):\r\n    return value / 100.0\r\n\r\n\r\ndef run_analysis(data):\r\n    score = compute_score(data)\r\n    return normalize(score)\r\n\r\n\r\nclass Analyzer:\r\n    def process(self, data):\r\n        return run_analysis(data)\r\n\r\n    def score(self, data):\r\n        return compute_score(data)\r\n\r\n    def full_pipeline(self, data):\r\n        raw = self.score(data)\r\n        return normalize(raw)\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 27,
+          "column": 0,
+          "byte": 543
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:expression_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:98:144:function_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:150:197:function_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:203:288:function_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:294:541:class_definition"
+      ],
+      "text_digest": "f82fbc1666eeb29eaa7d314b1dcd22329b1a83337f05aa1ffa43584ff1ec6ace"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:294:541:class_definition",
+      "kind": "class_definition",
+      "label": "class Analyzer:\r\n    def process(self, data):\r\n        return run_analysis(data)\r\n\r\n    def score(self, data):\r\n        return compute_score(data)\r\n\r\n    def full_pipeline(self, data):\r\n        raw = self.score(data)\r\n        return normalize(raw)",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 0,
+          "byte": 294
+        },
+        "end": {
+          "line": 26,
+          "column": 29,
+          "byte": 541
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:300:308:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:541:block"
+      ],
+      "text_digest": "6b375da275dcd3854dca62a1244b5a3675aee02e07370734bb0c9543d9691ecb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:541:block",
+      "kind": "block",
+      "label": "def process(self, data):\r\n        return run_analysis(data)\r\n\r\n    def score(self, data):\r\n        return compute_score(data)\r\n\r\n    def full_pipeline(self, data):\r\n        raw = self.score(data)\r\n        return normalize(raw)",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 4,
+          "byte": 315
+        },
+        "end": {
+          "line": 26,
+          "column": 29,
+          "byte": 541
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:374:function_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:382:440:function_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:448:541:function_definition"
+      ],
+      "text_digest": "4f9e4b0f7edc1ff6d5a5153df47d137de28f33060f048122a2ee92390717fb0b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:448:541:function_definition",
+      "kind": "function_definition",
+      "label": "def full_pipeline(self, data):\r\n        raw = self.score(data)\r\n        return normalize(raw)",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 4,
+          "byte": 448
+        },
+        "end": {
+          "line": 26,
+          "column": 29,
+          "byte": 541
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:452:465:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:465:477:parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:541:block"
+      ],
+      "text_digest": "b7456dd44f16b7e15d45f6f360565492d34e8af2542575fa51bd37f7a71fbf64"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:541:block",
+      "kind": "block",
+      "label": "raw = self.score(data)\r\n        return normalize(raw)",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 8,
+          "byte": 488
+        },
+        "end": {
+          "line": 26,
+          "column": 29,
+          "byte": 541
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:expression_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:520:541:return_statement"
+      ],
+      "text_digest": "d6b4ac717de20fd85852566032959883e5139c6acf56ecdd1eced783dd97835f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:520:541:return_statement",
+      "kind": "return_statement",
+      "label": "return normalize(raw)",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 8,
+          "byte": 520
+        },
+        "end": {
+          "line": 26,
+          "column": 29,
+          "byte": 541
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:541:call"
+      ],
+      "text_digest": "5fd5af1bf5b78722bddca6893e490292231315b0536ecc935eb6f8f70b665f43"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:541:call",
+      "kind": "call",
+      "label": "normalize(raw)",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 15,
+          "byte": 527
+        },
+        "end": {
+          "line": 26,
+          "column": 29,
+          "byte": 541
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:536:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:536:541:argument_list"
+      ],
+      "text_digest": "3515d2bacd0e00d83e065c8ec471c11db7b80955cca4830e2a14fa4d73b321ae"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:536:541:argument_list",
+      "kind": "argument_list",
+      "label": "(raw)",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 24,
+          "byte": 536
+        },
+        "end": {
+          "line": 26,
+          "column": 29,
+          "byte": 541
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:537:540:identifier"
+      ],
+      "text_digest": "a349139c691251d63e499d3283531368b19bdc35347afe182589a9ef70e83fe5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:537:540:identifier",
+      "kind": "identifier",
+      "label": "raw",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 25,
+          "byte": 537
+        },
+        "end": {
+          "line": 26,
+          "column": 28,
+          "byte": 540
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d7439bee24773bcbfa2d0a97947ee36227b10d1022b1a55847e928965bb6bfde"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:527:536:identifier",
+      "kind": "identifier",
+      "label": "normalize",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 15,
+          "byte": 527
+        },
+        "end": {
+          "line": 26,
+          "column": 24,
+          "byte": 536
+        }
+      },
+      "children_ids": [],
+      "text_digest": "768207cf3cf6d5aa36cd8942d06c7cf72a078060d1fede08ee9dc07bbae1d380"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:expression_statement",
+      "kind": "expression_statement",
+      "label": "raw = self.score(data)",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 8,
+          "byte": 488
+        },
+        "end": {
+          "line": 25,
+          "column": 30,
+          "byte": 510
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:assignment"
+      ],
+      "text_digest": "8f94666e93328e11d24c8e380df9ff76989ff18ac7bc731b088c5cc59dcc8b72"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:510:assignment",
+      "kind": "assignment",
+      "label": "raw = self.score(data)",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 8,
+          "byte": 488
+        },
+        "end": {
+          "line": 25,
+          "column": 30,
+          "byte": 510
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:491:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:510:call"
+      ],
+      "text_digest": "8f94666e93328e11d24c8e380df9ff76989ff18ac7bc731b088c5cc59dcc8b72"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:510:call",
+      "kind": "call",
+      "label": "self.score(data)",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 14,
+          "byte": 494
+        },
+        "end": {
+          "line": 25,
+          "column": 30,
+          "byte": 510
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:504:attribute",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:504:510:argument_list"
+      ],
+      "text_digest": "17b5ea8603ab5a7e3768aca30e5e6572487dc2f895c34405a57194573710091b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:504:510:argument_list",
+      "kind": "argument_list",
+      "label": "(data)",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 24,
+          "byte": 504
+        },
+        "end": {
+          "line": 25,
+          "column": 30,
+          "byte": 510
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:505:509:identifier"
+      ],
+      "text_digest": "40a3729663f7ff7a954822e16d80aa9e86250dca1da5c2653a23950c42b9b2f7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:505:509:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 25,
+          "byte": 505
+        },
+        "end": {
+          "line": 25,
+          "column": 29,
+          "byte": 509
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:504:attribute",
+      "kind": "attribute",
+      "label": "self.score",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 14,
+          "byte": 494
+        },
+        "end": {
+          "line": 25,
+          "column": 24,
+          "byte": 504
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:498:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:499:504:identifier"
+      ],
+      "text_digest": "0a48313490cbe02cc48a08a445151f2479e637afde2b428f508fb8a39c36bb43"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:499:504:identifier",
+      "kind": "identifier",
+      "label": "score",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 19,
+          "byte": 499
+        },
+        "end": {
+          "line": 25,
+          "column": 24,
+          "byte": 504
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a575b79868a2336db378ac89cb6c7d93272b4bb8e74d1096e8630765cf480ef5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:494:498:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 14,
+          "byte": 494
+        },
+        "end": {
+          "line": 25,
+          "column": 18,
+          "byte": 498
+        }
+      },
+      "children_ids": [],
+      "text_digest": "06c604b332b386b6cce8355ccf27fffd3a98b7a7a5b9b3a550c039c6ebae38e4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:488:491:identifier",
+      "kind": "identifier",
+      "label": "raw",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 8,
+          "byte": 488
+        },
+        "end": {
+          "line": 25,
+          "column": 11,
+          "byte": 491
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d7439bee24773bcbfa2d0a97947ee36227b10d1022b1a55847e928965bb6bfde"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:465:477:parameters",
+      "kind": "parameters",
+      "label": "(self, data)",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 21,
+          "byte": 465
+        },
+        "end": {
+          "line": 24,
+          "column": 33,
+          "byte": 477
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:466:470:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:472:476:identifier"
+      ],
+      "text_digest": "a75934e4f82fc4f1d5c43754158115641345e504a2e744f2336f6b810b93ee4b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:472:476:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 28,
+          "byte": 472
+        },
+        "end": {
+          "line": 24,
+          "column": 32,
+          "byte": 476
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:466:470:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 22,
+          "byte": 466
+        },
+        "end": {
+          "line": 24,
+          "column": 26,
+          "byte": 470
+        }
+      },
+      "children_ids": [],
+      "text_digest": "06c604b332b386b6cce8355ccf27fffd3a98b7a7a5b9b3a550c039c6ebae38e4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:452:465:identifier",
+      "kind": "identifier",
+      "label": "full_pipeline",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 8,
+          "byte": 452
+        },
+        "end": {
+          "line": 24,
+          "column": 21,
+          "byte": 465
+        }
+      },
+      "children_ids": [],
+      "text_digest": "faadd14da127585ac0a4ed44d4a25334eaeb602ba0eddcba930316a513491eec"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:382:440:function_definition",
+      "kind": "function_definition",
+      "label": "def score(self, data):\r\n        return compute_score(data)",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 4,
+          "byte": 382
+        },
+        "end": {
+          "line": 22,
+          "column": 34,
+          "byte": 440
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:386:391:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:391:403:parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:block"
+      ],
+      "text_digest": "28b95c4215d259b980d60657c7e4b42b6c8b2211c88d383de4cbc852ed077965"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:block",
+      "kind": "block",
+      "label": "return compute_score(data)",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 8,
+          "byte": 414
+        },
+        "end": {
+          "line": 22,
+          "column": 34,
+          "byte": 440
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:return_statement"
+      ],
+      "text_digest": "7e3283b29ae019b101a1c5e1edcf04d8f12bf239bdd49d64643527c180e640c0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:414:440:return_statement",
+      "kind": "return_statement",
+      "label": "return compute_score(data)",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 8,
+          "byte": 414
+        },
+        "end": {
+          "line": 22,
+          "column": 34,
+          "byte": 440
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:440:call"
+      ],
+      "text_digest": "7e3283b29ae019b101a1c5e1edcf04d8f12bf239bdd49d64643527c180e640c0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:440:call",
+      "kind": "call",
+      "label": "compute_score(data)",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 15,
+          "byte": 421
+        },
+        "end": {
+          "line": 22,
+          "column": 34,
+          "byte": 440
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:434:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:434:440:argument_list"
+      ],
+      "text_digest": "4e835375b28a7716a1eef4c8e5c5f0a99d0aebcbbf74b2d7aae6cc032e24f37f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:434:440:argument_list",
+      "kind": "argument_list",
+      "label": "(data)",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 28,
+          "byte": 434
+        },
+        "end": {
+          "line": 22,
+          "column": 34,
+          "byte": 440
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:435:439:identifier"
+      ],
+      "text_digest": "40a3729663f7ff7a954822e16d80aa9e86250dca1da5c2653a23950c42b9b2f7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:435:439:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 29,
+          "byte": 435
+        },
+        "end": {
+          "line": 22,
+          "column": 33,
+          "byte": 439
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:421:434:identifier",
+      "kind": "identifier",
+      "label": "compute_score",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 15,
+          "byte": 421
+        },
+        "end": {
+          "line": 22,
+          "column": 28,
+          "byte": 434
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0a3da7e0b65e87c64b0d04bc330a5ce6e9a5024c0778a5bba265297226605f93"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:391:403:parameters",
+      "kind": "parameters",
+      "label": "(self, data)",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 13,
+          "byte": 391
+        },
+        "end": {
+          "line": 21,
+          "column": 25,
+          "byte": 403
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:392:396:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:398:402:identifier"
+      ],
+      "text_digest": "a75934e4f82fc4f1d5c43754158115641345e504a2e744f2336f6b810b93ee4b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:398:402:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 20,
+          "byte": 398
+        },
+        "end": {
+          "line": 21,
+          "column": 24,
+          "byte": 402
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:392:396:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 14,
+          "byte": 392
+        },
+        "end": {
+          "line": 21,
+          "column": 18,
+          "byte": 396
+        }
+      },
+      "children_ids": [],
+      "text_digest": "06c604b332b386b6cce8355ccf27fffd3a98b7a7a5b9b3a550c039c6ebae38e4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:386:391:identifier",
+      "kind": "identifier",
+      "label": "score",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 8,
+          "byte": 386
+        },
+        "end": {
+          "line": 21,
+          "column": 13,
+          "byte": 391
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a575b79868a2336db378ac89cb6c7d93272b4bb8e74d1096e8630765cf480ef5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:315:374:function_definition",
+      "kind": "function_definition",
+      "label": "def process(self, data):\r\n        return run_analysis(data)",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 4,
+          "byte": 315
+        },
+        "end": {
+          "line": 19,
+          "column": 33,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:319:326:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:326:338:parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:block"
+      ],
+      "text_digest": "bf58cf5367efbf762a9109caedaf303b6f0ff28102eae94e9d283b6ff644e0e2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:block",
+      "kind": "block",
+      "label": "return run_analysis(data)",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 8,
+          "byte": 349
+        },
+        "end": {
+          "line": 19,
+          "column": 33,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:return_statement"
+      ],
+      "text_digest": "26ba3bccec40c985727fe3537ad0e02d0b389629897ebe6b48f6734d46130f5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:349:374:return_statement",
+      "kind": "return_statement",
+      "label": "return run_analysis(data)",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 8,
+          "byte": 349
+        },
+        "end": {
+          "line": 19,
+          "column": 33,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:374:call"
+      ],
+      "text_digest": "26ba3bccec40c985727fe3537ad0e02d0b389629897ebe6b48f6734d46130f5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:374:call",
+      "kind": "call",
+      "label": "run_analysis(data)",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 15,
+          "byte": 356
+        },
+        "end": {
+          "line": 19,
+          "column": 33,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:368:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:368:374:argument_list"
+      ],
+      "text_digest": "518a7aa34f8f024e72835064673eff98d1bd6e8fe55a7b437de51596394ef543"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:368:374:argument_list",
+      "kind": "argument_list",
+      "label": "(data)",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 27,
+          "byte": 368
+        },
+        "end": {
+          "line": 19,
+          "column": 33,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:369:373:identifier"
+      ],
+      "text_digest": "40a3729663f7ff7a954822e16d80aa9e86250dca1da5c2653a23950c42b9b2f7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:369:373:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 28,
+          "byte": 369
+        },
+        "end": {
+          "line": 19,
+          "column": 32,
+          "byte": 373
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:356:368:identifier",
+      "kind": "identifier",
+      "label": "run_analysis",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 15,
+          "byte": 356
+        },
+        "end": {
+          "line": 19,
+          "column": 27,
+          "byte": 368
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3eaf1653cd376422e238a017d1b27f47ed4c07b33e821ec17f185bbb967c4490"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:326:338:parameters",
+      "kind": "parameters",
+      "label": "(self, data)",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 15,
+          "byte": 326
+        },
+        "end": {
+          "line": 18,
+          "column": 27,
+          "byte": 338
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:327:331:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:333:337:identifier"
+      ],
+      "text_digest": "a75934e4f82fc4f1d5c43754158115641345e504a2e744f2336f6b810b93ee4b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:333:337:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 22,
+          "byte": 333
+        },
+        "end": {
+          "line": 18,
+          "column": 26,
+          "byte": 337
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:327:331:identifier",
+      "kind": "identifier",
+      "label": "self",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 16,
+          "byte": 327
+        },
+        "end": {
+          "line": 18,
+          "column": 20,
+          "byte": 331
+        }
+      },
+      "children_ids": [],
+      "text_digest": "06c604b332b386b6cce8355ccf27fffd3a98b7a7a5b9b3a550c039c6ebae38e4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:319:326:identifier",
+      "kind": "identifier",
+      "label": "process",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 8,
+          "byte": 319
+        },
+        "end": {
+          "line": 18,
+          "column": 15,
+          "byte": 326
+        }
+      },
+      "children_ids": [],
+      "text_digest": "19ed40bf62c399b8492efda5b9a9184b68cf4d9d4a165b38557b9d14201d0c03"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:300:308:identifier",
+      "kind": "identifier",
+      "label": "Analyzer",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 6,
+          "byte": 300
+        },
+        "end": {
+          "line": 17,
+          "column": 14,
+          "byte": 308
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b55bb5be209282235fbb84a9ee0014dc22ff3d102bd87ff8d6fb7e62924774e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:203:288:function_definition",
+      "kind": "function_definition",
+      "label": "def run_analysis(data):\r\n    score = compute_score(data)\r\n    return normalize(score)",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 0,
+          "byte": 203
+        },
+        "end": {
+          "line": 14,
+          "column": 27,
+          "byte": 288
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:207:219:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:219:225:parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:288:block"
+      ],
+      "text_digest": "b781605124ead4cba6c729b77e9a492529a1c016d779069f35303091612bbdbe"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:288:block",
+      "kind": "block",
+      "label": "score = compute_score(data)\r\n    return normalize(score)",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 232
+        },
+        "end": {
+          "line": 14,
+          "column": 27,
+          "byte": 288
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:expression_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:265:288:return_statement"
+      ],
+      "text_digest": "4fc8b8a2038e95bc46d60f1104817c8533884535a340b62fa676669b870163df"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:265:288:return_statement",
+      "kind": "return_statement",
+      "label": "return normalize(score)",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 265
+        },
+        "end": {
+          "line": 14,
+          "column": 27,
+          "byte": 288
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:288:call"
+      ],
+      "text_digest": "d447d06759445e56400baf0fee318c00bc33918157d69f38c1ed789ca9248d41"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:288:call",
+      "kind": "call",
+      "label": "normalize(score)",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 11,
+          "byte": 272
+        },
+        "end": {
+          "line": 14,
+          "column": 27,
+          "byte": 288
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:281:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:281:288:argument_list"
+      ],
+      "text_digest": "7be5c126ba2fdc4c6610577563db154ad96c8887d9480d59f16aba9e25b1c7b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:281:288:argument_list",
+      "kind": "argument_list",
+      "label": "(score)",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 20,
+          "byte": 281
+        },
+        "end": {
+          "line": 14,
+          "column": 27,
+          "byte": 288
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:282:287:identifier"
+      ],
+      "text_digest": "5aba16af0d4c486c820d4a527b53099bd9ace1ffbbcb8c06aea7f54f4e09a1ef"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:282:287:identifier",
+      "kind": "identifier",
+      "label": "score",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 21,
+          "byte": 282
+        },
+        "end": {
+          "line": 14,
+          "column": 26,
+          "byte": 287
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a575b79868a2336db378ac89cb6c7d93272b4bb8e74d1096e8630765cf480ef5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:272:281:identifier",
+      "kind": "identifier",
+      "label": "normalize",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 11,
+          "byte": 272
+        },
+        "end": {
+          "line": 14,
+          "column": 20,
+          "byte": 281
+        }
+      },
+      "children_ids": [],
+      "text_digest": "768207cf3cf6d5aa36cd8942d06c7cf72a078060d1fede08ee9dc07bbae1d380"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:expression_statement",
+      "kind": "expression_statement",
+      "label": "score = compute_score(data)",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 232
+        },
+        "end": {
+          "line": 13,
+          "column": 31,
+          "byte": 259
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:assignment"
+      ],
+      "text_digest": "d832954a50f40cc3a3c65a474ec81d15d670b5db5da7255c61d0d6d927ec26fb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:259:assignment",
+      "kind": "assignment",
+      "label": "score = compute_score(data)",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 232
+        },
+        "end": {
+          "line": 13,
+          "column": 31,
+          "byte": 259
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:237:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:259:call"
+      ],
+      "text_digest": "d832954a50f40cc3a3c65a474ec81d15d670b5db5da7255c61d0d6d927ec26fb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:259:call",
+      "kind": "call",
+      "label": "compute_score(data)",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 12,
+          "byte": 240
+        },
+        "end": {
+          "line": 13,
+          "column": 31,
+          "byte": 259
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:253:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:253:259:argument_list"
+      ],
+      "text_digest": "4e835375b28a7716a1eef4c8e5c5f0a99d0aebcbbf74b2d7aae6cc032e24f37f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:253:259:argument_list",
+      "kind": "argument_list",
+      "label": "(data)",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 25,
+          "byte": 253
+        },
+        "end": {
+          "line": 13,
+          "column": 31,
+          "byte": 259
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:254:258:identifier"
+      ],
+      "text_digest": "40a3729663f7ff7a954822e16d80aa9e86250dca1da5c2653a23950c42b9b2f7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:254:258:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 26,
+          "byte": 254
+        },
+        "end": {
+          "line": 13,
+          "column": 30,
+          "byte": 258
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:240:253:identifier",
+      "kind": "identifier",
+      "label": "compute_score",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 12,
+          "byte": 240
+        },
+        "end": {
+          "line": 13,
+          "column": 25,
+          "byte": 253
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0a3da7e0b65e87c64b0d04bc330a5ce6e9a5024c0778a5bba265297226605f93"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:232:237:identifier",
+      "kind": "identifier",
+      "label": "score",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 232
+        },
+        "end": {
+          "line": 13,
+          "column": 9,
+          "byte": 237
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a575b79868a2336db378ac89cb6c7d93272b4bb8e74d1096e8630765cf480ef5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:219:225:parameters",
+      "kind": "parameters",
+      "label": "(data)",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 16,
+          "byte": 219
+        },
+        "end": {
+          "line": 12,
+          "column": 22,
+          "byte": 225
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:220:224:identifier"
+      ],
+      "text_digest": "40a3729663f7ff7a954822e16d80aa9e86250dca1da5c2653a23950c42b9b2f7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:220:224:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 17,
+          "byte": 220
+        },
+        "end": {
+          "line": 12,
+          "column": 21,
+          "byte": 224
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:207:219:identifier",
+      "kind": "identifier",
+      "label": "run_analysis",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 4,
+          "byte": 207
+        },
+        "end": {
+          "line": 12,
+          "column": 16,
+          "byte": 219
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3eaf1653cd376422e238a017d1b27f47ed4c07b33e821ec17f185bbb967c4490"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:150:197:function_definition",
+      "kind": "function_definition",
+      "label": "def normalize(value):\r\n    return value / 100.0",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 0,
+          "byte": 150
+        },
+        "end": {
+          "line": 9,
+          "column": 24,
+          "byte": 197
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:154:163:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:163:170:parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:block"
+      ],
+      "text_digest": "3dcc9a26ffdd92cdd5546524c5e6384af75d8b6f7dd7aba9024f8d8b3e8defa5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:block",
+      "kind": "block",
+      "label": "return value / 100.0",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 4,
+          "byte": 177
+        },
+        "end": {
+          "line": 9,
+          "column": 24,
+          "byte": 197
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:return_statement"
+      ],
+      "text_digest": "62b69f147e6094e864401e2caf73879fcb82fb04552ff1f38bf111d148efb106"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:177:197:return_statement",
+      "kind": "return_statement",
+      "label": "return value / 100.0",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 4,
+          "byte": 177
+        },
+        "end": {
+          "line": 9,
+          "column": 24,
+          "byte": 197
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:197:binary_operator"
+      ],
+      "text_digest": "62b69f147e6094e864401e2caf73879fcb82fb04552ff1f38bf111d148efb106"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:197:binary_operator",
+      "kind": "binary_operator",
+      "label": "value / 100.0",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 11,
+          "byte": 184
+        },
+        "end": {
+          "line": 9,
+          "column": 24,
+          "byte": 197
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:189:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:192:197:float"
+      ],
+      "text_digest": "6a0c5cdecc9b3a6a352cb1657744192e83b82132b7bce32798d0d4d73bf275c7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:192:197:float",
+      "kind": "float",
+      "label": "100.0",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 19,
+          "byte": 192
+        },
+        "end": {
+          "line": 9,
+          "column": 24,
+          "byte": 197
+        }
+      },
+      "children_ids": [],
+      "text_digest": "43b87f618caab482ebe4976c92bcd6ad308b48055f1c27b4c574f3e31d7683e0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:184:189:identifier",
+      "kind": "identifier",
+      "label": "value",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 11,
+          "byte": 184
+        },
+        "end": {
+          "line": 9,
+          "column": 16,
+          "byte": 189
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cd42404d52ad55ccfa9aca4adc828aa5800ad9d385a0671fbcbf724118320619"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:163:170:parameters",
+      "kind": "parameters",
+      "label": "(value)",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 13,
+          "byte": 163
+        },
+        "end": {
+          "line": 8,
+          "column": 20,
+          "byte": 170
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:164:169:identifier"
+      ],
+      "text_digest": "4e7babbb8a3055bfa8875663de68cb69be00bbac73922f92a6739fd0a56e38e0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:164:169:identifier",
+      "kind": "identifier",
+      "label": "value",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 14,
+          "byte": 164
+        },
+        "end": {
+          "line": 8,
+          "column": 19,
+          "byte": 169
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cd42404d52ad55ccfa9aca4adc828aa5800ad9d385a0671fbcbf724118320619"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:154:163:identifier",
+      "kind": "identifier",
+      "label": "normalize",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 4,
+          "byte": 154
+        },
+        "end": {
+          "line": 8,
+          "column": 13,
+          "byte": 163
+        }
+      },
+      "children_ids": [],
+      "text_digest": "768207cf3cf6d5aa36cd8942d06c7cf72a078060d1fede08ee9dc07bbae1d380"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:98:144:function_definition",
+      "kind": "function_definition",
+      "label": "def compute_score(data):\r\n    return sum(data)",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 98
+        },
+        "end": {
+          "line": 5,
+          "column": 20,
+          "byte": 144
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:102:115:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:115:121:parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:block"
+      ],
+      "text_digest": "d2dd3e8a46427d45b93dceab4e7cd10626412c38701d507be31fe9130c4fe9d3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:block",
+      "kind": "block",
+      "label": "return sum(data)",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 4,
+          "byte": 128
+        },
+        "end": {
+          "line": 5,
+          "column": 20,
+          "byte": 144
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:return_statement"
+      ],
+      "text_digest": "162dab349e501ba2b0553393fd5cff816cc85abadfa7f70ce36c75f452619f3a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:128:144:return_statement",
+      "kind": "return_statement",
+      "label": "return sum(data)",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 4,
+          "byte": 128
+        },
+        "end": {
+          "line": 5,
+          "column": 20,
+          "byte": 144
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:144:call"
+      ],
+      "text_digest": "162dab349e501ba2b0553393fd5cff816cc85abadfa7f70ce36c75f452619f3a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:144:call",
+      "kind": "call",
+      "label": "sum(data)",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 11,
+          "byte": 135
+        },
+        "end": {
+          "line": 5,
+          "column": 20,
+          "byte": 144
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:138:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:138:144:argument_list"
+      ],
+      "text_digest": "fd9cd6ec6e6d4437e85ddce028a4577564c9bfb7642598082dce92f38b2090e2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:138:144:argument_list",
+      "kind": "argument_list",
+      "label": "(data)",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 14,
+          "byte": 138
+        },
+        "end": {
+          "line": 5,
+          "column": 20,
+          "byte": 144
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:139:143:identifier"
+      ],
+      "text_digest": "40a3729663f7ff7a954822e16d80aa9e86250dca1da5c2653a23950c42b9b2f7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:139:143:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 15,
+          "byte": 139
+        },
+        "end": {
+          "line": 5,
+          "column": 19,
+          "byte": 143
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:135:138:identifier",
+      "kind": "identifier",
+      "label": "sum",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 11,
+          "byte": 135
+        },
+        "end": {
+          "line": 5,
+          "column": 14,
+          "byte": 138
+        }
+      },
+      "children_ids": [],
+      "text_digest": "09f5ffef28309853265c4a98d0e56e1be522b6b402d8193594fd05103064fc6a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:115:121:parameters",
+      "kind": "parameters",
+      "label": "(data)",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 17,
+          "byte": 115
+        },
+        "end": {
+          "line": 4,
+          "column": 23,
+          "byte": 121
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:116:120:identifier"
+      ],
+      "text_digest": "40a3729663f7ff7a954822e16d80aa9e86250dca1da5c2653a23950c42b9b2f7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:116:120:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 18,
+          "byte": 116
+        },
+        "end": {
+          "line": 4,
+          "column": 22,
+          "byte": 120
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:102:115:identifier",
+      "kind": "identifier",
+      "label": "compute_score",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 4,
+          "byte": 102
+        },
+        "end": {
+          "line": 4,
+          "column": 17,
+          "byte": 115
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0a3da7e0b65e87c64b0d04bc330a5ce6e9a5024c0778a5bba265297226605f93"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:expression_statement",
+      "kind": "expression_statement",
+      "label": "\"\"\"Fixture: functions and methods that call each other - for call-graph extraction tests.\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 92,
+          "byte": 92
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:string"
+      ],
+      "text_digest": "a0c163319d15adc598439ddad1b29dfcd7904690a56cd8224826302639146207"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:92:string",
+      "kind": "string",
+      "label": "\"\"\"Fixture: functions and methods that call each other - for call-graph extraction tests.\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 92,
+          "byte": 92
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:3:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:3:89:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:89:92:string_end"
+      ],
+      "text_digest": "a0c163319d15adc598439ddad1b29dfcd7904690a56cd8224826302639146207"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:89:92:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 89,
+          "byte": 89
+        },
+        "end": {
+          "line": 1,
+          "column": 92,
+          "byte": 92
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6d267efe80a3dbcf2f2d67e21d8c15783a2f031427f827d43b6222fe9c4bf02"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:3:89:string_content",
+      "kind": "string_content",
+      "label": "Fixture: functions and methods that call each other - for call-graph extraction tests.",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 3,
+          "byte": 3
+        },
+        "end": {
+          "line": 1,
+          "column": 89,
+          "byte": 89
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c10a3219fd950a6d4abe280e5cd36ab77c92a08a7179fde2655621967bf15ce5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_calls.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 3,
+          "byte": 3
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6d267efe80a3dbcf2f2d67e21d8c15783a2f031427f827d43b6222fe9c4bf02"
+    }
+  ],
+  "parser_id": "tree_sitter_python",
+  "relative_path": "tests/fixtures/sample_calls.py",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "python",
+  "warnings": []
+}

@@ -1,0 +1,1550 @@
+{
+  "analysis_timestamp": "2026-04-20T22:21:00+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:113:344:class_declaration:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:113:344:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:113:344:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:139:344:declaration_list:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:113:344:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:139:344:declaration_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:139:344:declaration_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:139:344:declaration_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:184:341:compound_statement:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:184:341:compound_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:184:341:compound_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:334:expression_statement:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:184:341:compound_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:334:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:334:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:333:member_call_expression:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:334:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:333:member_call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:333:member_call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:288:333:arguments:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:333:member_call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:288:333:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:288:333:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:argument:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:288:333:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:class_constant_access_expression:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:class_constant_access_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:class_constant_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:327:332:name:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:class_constant_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:327:332:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:class_constant_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:325:name:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:class_constant_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:325:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:288:333:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:argument:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:288:333:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:class_constant_access_expression:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:class_constant_access_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:class_constant_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:305:310:name:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:class_constant_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:305:310:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:class_constant_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:303:name:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:class_constant_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:303:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:333:member_call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:279:288:name:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:333:member_call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:279:288:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:333:member_call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:277:member_access_expression:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:333:member_call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:277:member_access_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:277:member_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:274:277:name:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:277:member_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:274:277:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:277:member_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:272:variable_name:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:277:member_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:272:variable_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:272:variable_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:268:272:name:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:272:variable_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:268:272:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:184:341:compound_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:257:expression_statement:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:184:341:compound_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:257:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:257:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:256:member_call_expression:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:257:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:256:member_call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:256:member_call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:211:256:arguments:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:256:member_call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:211:256:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:211:256:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:argument:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:211:256:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:class_constant_access_expression:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:class_constant_access_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:class_constant_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:250:255:name:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:class_constant_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:250:255:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:class_constant_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:248:name:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:class_constant_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:248:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:211:256:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:argument:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:211:256:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:class_constant_access_expression:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:class_constant_access_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:class_constant_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:228:233:name:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:class_constant_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:228:233:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:class_constant_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:226:name:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:class_constant_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:226:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:256:member_call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:207:211:name:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:256:member_call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:207:211:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:256:member_call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:205:member_access_expression:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:256:member_call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:205:member_access_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:205:member_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:202:205:name:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:205:member_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:202:205:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:205:member_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:200:variable_name:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:205:member_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:200:variable_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:200:variable_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:196:200:name:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:200:variable_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:196:200:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:174:178:primitive_type:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:174:178:primitive_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:170:172:formal_parameters:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:170:172:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:162:170:name:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:162:170:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:152:visibility_modifier:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:152:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:113:344:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:119:137:name:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:113:344:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:119:137:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:86:109:class_declaration:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:86:109:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:86:109:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:107:109:declaration_list:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:86:109:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:107:109:declaration_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:86:109:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:92:106:name:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:86:109:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:92:106:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:62:84:class_declaration:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:62:84:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:62:84:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:82:84:declaration_list:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:62:84:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:82:84:declaration_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:62:84:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:68:81:name:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:62:84:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:68:81:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:37:60:class_declaration:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:37:60:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:37:60:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:58:60:declaration_list:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:37:60:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:58:60:declaration_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:37:60:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:43:57:name:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:37:60:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:43:57:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:9:33:namespace_definition:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:9:33:namespace_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:9:33:namespace_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:32:namespace_name:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:9:33:namespace_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:32:namespace_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:32:namespace_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:23:32:name:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:32:namespace_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:23:32:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:32:namespace_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:22:name:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:32:namespace_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:22:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:5:php_tag:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:5:php_tag",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:346:program",
+      "kind": "program",
+      "label": "<?php\r\n\r\nnamespace App\\Providers;\r\n\r\nclass PaymentGateway {}\r\nclass StripeGateway {}\r\nclass CashierGateway {}\r\n\r\nclass AppServiceProvider\r\n{\r\n    public function register(): void\r\n    {\r\n        $this->app->bind(PaymentGateway::class, StripeGateway::class);\r\n        $this->app->singleton(CashierGateway::class, StripeGateway::class);\r\n    }\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 17,
+          "column": 0,
+          "byte": 346
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:5:php_tag",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:9:33:namespace_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:37:60:class_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:62:84:class_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:86:109:class_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:113:344:class_declaration"
+      ],
+      "text_digest": "75c8b3795dcbd53ef79a6d1c626c2a8c55d38df35286500ed70a727178f06325"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:113:344:class_declaration",
+      "kind": "class_declaration",
+      "label": "class AppServiceProvider\r\n{\r\n    public function register(): void\r\n    {\r\n        $this->app->bind(PaymentGateway::class, StripeGateway::class);\r\n        $this->app->singleton(CashierGateway::class, StripeGateway::class);\r\n    }\r\n}",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 0,
+          "byte": 113
+        },
+        "end": {
+          "line": 16,
+          "column": 1,
+          "byte": 344
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:119:137:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:139:344:declaration_list"
+      ],
+      "text_digest": "57f7a30d230251ae55fe9fad48a15a056d6d23f04b8d4d82b8a04aed4c75c61a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:139:344:declaration_list",
+      "kind": "declaration_list",
+      "label": "{\r\n    public function register(): void\r\n    {\r\n        $this->app->bind(PaymentGateway::class, StripeGateway::class);\r\n        $this->app->singleton(CashierGateway::class, StripeGateway::class);\r\n    }\r\n}",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 0,
+          "byte": 139
+        },
+        "end": {
+          "line": 16,
+          "column": 1,
+          "byte": 344
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration"
+      ],
+      "text_digest": "910d8f980b5e4427133a2098ce3f046d3bf08dd3bf2a68815d027b8dde6f3d0f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:341:method_declaration",
+      "kind": "method_declaration",
+      "label": "public function register(): void\r\n    {\r\n        $this->app->bind(PaymentGateway::class, StripeGateway::class);\r\n        $this->app->singleton(CashierGateway::class, StripeGateway::class);\r\n    }",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 4,
+          "byte": 146
+        },
+        "end": {
+          "line": 15,
+          "column": 5,
+          "byte": 341
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:152:visibility_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:162:170:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:170:172:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:174:178:primitive_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:184:341:compound_statement"
+      ],
+      "text_digest": "69adf5b7cc46fa8e7d37b34c2b73ce4b068ba8731573ffec52d873adf2d595a0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:184:341:compound_statement",
+      "kind": "compound_statement",
+      "label": "{\r\n        $this->app->bind(PaymentGateway::class, StripeGateway::class);\r\n        $this->app->singleton(CashierGateway::class, StripeGateway::class);\r\n    }",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 4,
+          "byte": 184
+        },
+        "end": {
+          "line": 15,
+          "column": 5,
+          "byte": 341
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:257:expression_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:334:expression_statement"
+      ],
+      "text_digest": "276f61b6f1533cdc42b4e90613b16299bb012e1dd63df3185d42ccb6fd98a6bd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:334:expression_statement",
+      "kind": "expression_statement",
+      "label": "$this->app->singleton(CashierGateway::class, StripeGateway::class);",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 8,
+          "byte": 267
+        },
+        "end": {
+          "line": 14,
+          "column": 75,
+          "byte": 334
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:333:member_call_expression"
+      ],
+      "text_digest": "fe4cdd6783d1560b51184e4cef0e65621b282ee61fb93f77c83a99ee3fae3d69"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:333:member_call_expression",
+      "kind": "member_call_expression",
+      "label": "$this->app->singleton(CashierGateway::class, StripeGateway::class)",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 8,
+          "byte": 267
+        },
+        "end": {
+          "line": 14,
+          "column": 74,
+          "byte": 333
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:277:member_access_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:279:288:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:288:333:arguments"
+      ],
+      "text_digest": "8027e57909520280fd470384858246e80c27a8d02a9804e92e49487d028b2e4b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:288:333:arguments",
+      "kind": "arguments",
+      "label": "(CashierGateway::class, StripeGateway::class)",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 29,
+          "byte": 288
+        },
+        "end": {
+          "line": 14,
+          "column": 74,
+          "byte": 333
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:argument",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:argument"
+      ],
+      "text_digest": "c583541709cd1f3525f35e2d224b4bc9e2d61648eb8caf98e194ee6c0e3f1d62"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:argument",
+      "kind": "argument",
+      "label": "StripeGateway::class",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 53,
+          "byte": 312
+        },
+        "end": {
+          "line": 14,
+          "column": 73,
+          "byte": 332
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:class_constant_access_expression"
+      ],
+      "text_digest": "dec47c2dbe6ffad454a5f74383c04c34d44a31e48921dab0d1e376934aad930a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:332:class_constant_access_expression",
+      "kind": "class_constant_access_expression",
+      "label": "StripeGateway::class",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 53,
+          "byte": 312
+        },
+        "end": {
+          "line": 14,
+          "column": 73,
+          "byte": 332
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:325:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:327:332:name"
+      ],
+      "text_digest": "dec47c2dbe6ffad454a5f74383c04c34d44a31e48921dab0d1e376934aad930a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:327:332:name",
+      "kind": "name",
+      "label": "class",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 68,
+          "byte": 327
+        },
+        "end": {
+          "line": 14,
+          "column": 73,
+          "byte": 332
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0889113e04d3203f0c401c17c0fd8b352b740dc607433779d3edcaa13320b001"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:312:325:name",
+      "kind": "name",
+      "label": "StripeGateway",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 53,
+          "byte": 312
+        },
+        "end": {
+          "line": 14,
+          "column": 66,
+          "byte": 325
+        }
+      },
+      "children_ids": [],
+      "text_digest": "733ecd11ebc44f2e12d8296dfce897f4b93f37eb6e8826cb9babda5379a5f2f2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:argument",
+      "kind": "argument",
+      "label": "CashierGateway::class",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 30,
+          "byte": 289
+        },
+        "end": {
+          "line": 14,
+          "column": 51,
+          "byte": 310
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:class_constant_access_expression"
+      ],
+      "text_digest": "0ac2e7d1e9f49b9271673448d089dae4db79f4241a0a1ba63355d842d0e53fa5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:310:class_constant_access_expression",
+      "kind": "class_constant_access_expression",
+      "label": "CashierGateway::class",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 30,
+          "byte": 289
+        },
+        "end": {
+          "line": 14,
+          "column": 51,
+          "byte": 310
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:303:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:305:310:name"
+      ],
+      "text_digest": "0ac2e7d1e9f49b9271673448d089dae4db79f4241a0a1ba63355d842d0e53fa5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:305:310:name",
+      "kind": "name",
+      "label": "class",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 46,
+          "byte": 305
+        },
+        "end": {
+          "line": 14,
+          "column": 51,
+          "byte": 310
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0889113e04d3203f0c401c17c0fd8b352b740dc607433779d3edcaa13320b001"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:289:303:name",
+      "kind": "name",
+      "label": "CashierGateway",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 30,
+          "byte": 289
+        },
+        "end": {
+          "line": 14,
+          "column": 44,
+          "byte": 303
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b5440db482e71dd2ef502703afb00eacd7314d726210b8d9773e27e9f421dcec"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:279:288:name",
+      "kind": "name",
+      "label": "singleton",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 20,
+          "byte": 279
+        },
+        "end": {
+          "line": 14,
+          "column": 29,
+          "byte": 288
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e234ee35f82c5dd3f2f20ef0835225e326805e56b5fe83ee5e56c0f899f4901d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:277:member_access_expression",
+      "kind": "member_access_expression",
+      "label": "$this->app",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 8,
+          "byte": 267
+        },
+        "end": {
+          "line": 14,
+          "column": 18,
+          "byte": 277
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:272:variable_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:274:277:name"
+      ],
+      "text_digest": "3b9e29f3a8b906c1cc554314460b61e3b386f0420ef0d8adc203641debf96e80"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:274:277:name",
+      "kind": "name",
+      "label": "app",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 15,
+          "byte": 274
+        },
+        "end": {
+          "line": 14,
+          "column": 18,
+          "byte": 277
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:267:272:variable_name",
+      "kind": "variable_name",
+      "label": "$this",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 8,
+          "byte": 267
+        },
+        "end": {
+          "line": 14,
+          "column": 13,
+          "byte": 272
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:268:272:name"
+      ],
+      "text_digest": "f22df77bad4e9baf115dcbe512e4686c1b207790a4e407f39b2e4f980e37abe9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:268:272:name",
+      "kind": "name",
+      "label": "this",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 9,
+          "byte": 268
+        },
+        "end": {
+          "line": 14,
+          "column": 13,
+          "byte": 272
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1eb79602411ef02cf6fe117897015fff89f80face4eccd50425c45149b148408"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:257:expression_statement",
+      "kind": "expression_statement",
+      "label": "$this->app->bind(PaymentGateway::class, StripeGateway::class);",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 8,
+          "byte": 195
+        },
+        "end": {
+          "line": 13,
+          "column": 70,
+          "byte": 257
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:256:member_call_expression"
+      ],
+      "text_digest": "1ebeb4a959ebffeaa97853703a60082860a84891c5677d7691582ae1df5cb459"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:256:member_call_expression",
+      "kind": "member_call_expression",
+      "label": "$this->app->bind(PaymentGateway::class, StripeGateway::class)",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 8,
+          "byte": 195
+        },
+        "end": {
+          "line": 13,
+          "column": 69,
+          "byte": 256
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:205:member_access_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:207:211:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:211:256:arguments"
+      ],
+      "text_digest": "97eb1baae2c91074f60a878a01f3a9190f20ee80ffb6a073b1ff9195a9af9791"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:211:256:arguments",
+      "kind": "arguments",
+      "label": "(PaymentGateway::class, StripeGateway::class)",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 24,
+          "byte": 211
+        },
+        "end": {
+          "line": 13,
+          "column": 69,
+          "byte": 256
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:argument",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:argument"
+      ],
+      "text_digest": "01eef33faddad36ae47be0de019e77e2f439f0e8e47ce9c9ca6aca48c088a91f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:argument",
+      "kind": "argument",
+      "label": "StripeGateway::class",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 48,
+          "byte": 235
+        },
+        "end": {
+          "line": 13,
+          "column": 68,
+          "byte": 255
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:class_constant_access_expression"
+      ],
+      "text_digest": "dec47c2dbe6ffad454a5f74383c04c34d44a31e48921dab0d1e376934aad930a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:255:class_constant_access_expression",
+      "kind": "class_constant_access_expression",
+      "label": "StripeGateway::class",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 48,
+          "byte": 235
+        },
+        "end": {
+          "line": 13,
+          "column": 68,
+          "byte": 255
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:248:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:250:255:name"
+      ],
+      "text_digest": "dec47c2dbe6ffad454a5f74383c04c34d44a31e48921dab0d1e376934aad930a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:250:255:name",
+      "kind": "name",
+      "label": "class",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 63,
+          "byte": 250
+        },
+        "end": {
+          "line": 13,
+          "column": 68,
+          "byte": 255
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0889113e04d3203f0c401c17c0fd8b352b740dc607433779d3edcaa13320b001"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:235:248:name",
+      "kind": "name",
+      "label": "StripeGateway",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 48,
+          "byte": 235
+        },
+        "end": {
+          "line": 13,
+          "column": 61,
+          "byte": 248
+        }
+      },
+      "children_ids": [],
+      "text_digest": "733ecd11ebc44f2e12d8296dfce897f4b93f37eb6e8826cb9babda5379a5f2f2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:argument",
+      "kind": "argument",
+      "label": "PaymentGateway::class",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 25,
+          "byte": 212
+        },
+        "end": {
+          "line": 13,
+          "column": 46,
+          "byte": 233
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:class_constant_access_expression"
+      ],
+      "text_digest": "8a85ff0bc8a9e16c2ba62b6fa277741824f3c74da54d503f8c83636ebca4a42d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:233:class_constant_access_expression",
+      "kind": "class_constant_access_expression",
+      "label": "PaymentGateway::class",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 25,
+          "byte": 212
+        },
+        "end": {
+          "line": 13,
+          "column": 46,
+          "byte": 233
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:226:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:228:233:name"
+      ],
+      "text_digest": "8a85ff0bc8a9e16c2ba62b6fa277741824f3c74da54d503f8c83636ebca4a42d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:228:233:name",
+      "kind": "name",
+      "label": "class",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 41,
+          "byte": 228
+        },
+        "end": {
+          "line": 13,
+          "column": 46,
+          "byte": 233
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0889113e04d3203f0c401c17c0fd8b352b740dc607433779d3edcaa13320b001"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:212:226:name",
+      "kind": "name",
+      "label": "PaymentGateway",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 25,
+          "byte": 212
+        },
+        "end": {
+          "line": 13,
+          "column": 39,
+          "byte": 226
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6af7820e0e2abdd15e0e44fe60ed6f5c3d2f4b19c1c59534e68e5101c7eaa925"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:207:211:name",
+      "kind": "name",
+      "label": "bind",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 20,
+          "byte": 207
+        },
+        "end": {
+          "line": 13,
+          "column": 24,
+          "byte": 211
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f08dd851c430f52f3fbe9692678a2e2c3cf9009035a13a5cf080ce9ed2125ce9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:205:member_access_expression",
+      "kind": "member_access_expression",
+      "label": "$this->app",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 8,
+          "byte": 195
+        },
+        "end": {
+          "line": 13,
+          "column": 18,
+          "byte": 205
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:200:variable_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:202:205:name"
+      ],
+      "text_digest": "3b9e29f3a8b906c1cc554314460b61e3b386f0420ef0d8adc203641debf96e80"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:202:205:name",
+      "kind": "name",
+      "label": "app",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 15,
+          "byte": 202
+        },
+        "end": {
+          "line": 13,
+          "column": 18,
+          "byte": 205
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a172cedcae47474b615c54d510a5d84a8dea3032e958587430b413538be3f333"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:195:200:variable_name",
+      "kind": "variable_name",
+      "label": "$this",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 8,
+          "byte": 195
+        },
+        "end": {
+          "line": 13,
+          "column": 13,
+          "byte": 200
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:196:200:name"
+      ],
+      "text_digest": "f22df77bad4e9baf115dcbe512e4686c1b207790a4e407f39b2e4f980e37abe9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:196:200:name",
+      "kind": "name",
+      "label": "this",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 9,
+          "byte": 196
+        },
+        "end": {
+          "line": 13,
+          "column": 13,
+          "byte": 200
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1eb79602411ef02cf6fe117897015fff89f80face4eccd50425c45149b148408"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:174:178:primitive_type",
+      "kind": "primitive_type",
+      "label": "void",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 32,
+          "byte": 174
+        },
+        "end": {
+          "line": 11,
+          "column": 36,
+          "byte": 178
+        }
+      },
+      "children_ids": [],
+      "text_digest": "445be54d48a2e6294369c84c61cd0929209d4e1084536159bdf7002bddfe094b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:170:172:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 28,
+          "byte": 170
+        },
+        "end": {
+          "line": 11,
+          "column": 30,
+          "byte": 172
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:162:170:name",
+      "kind": "name",
+      "label": "register",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 20,
+          "byte": 162
+        },
+        "end": {
+          "line": 11,
+          "column": 28,
+          "byte": 170
+        }
+      },
+      "children_ids": [],
+      "text_digest": "87780fa5de684e87cb92b279f0bc07b14f572851e73b8943a097c1770a5f38e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:146:152:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 4,
+          "byte": 146
+        },
+        "end": {
+          "line": 11,
+          "column": 10,
+          "byte": 152
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:119:137:name",
+      "kind": "name",
+      "label": "AppServiceProvider",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 6,
+          "byte": 119
+        },
+        "end": {
+          "line": 9,
+          "column": 24,
+          "byte": 137
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7191ee305a4750459b5ef9b3bed3ae62c90da679770e569647186373f1ffa1dc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:86:109:class_declaration",
+      "kind": "class_declaration",
+      "label": "class CashierGateway {}",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 0,
+          "byte": 86
+        },
+        "end": {
+          "line": 7,
+          "column": 23,
+          "byte": 109
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:92:106:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:107:109:declaration_list"
+      ],
+      "text_digest": "5567da35b9f4344ce2e52865229e8959297b49202e9321a860c82b5051546d72"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:107:109:declaration_list",
+      "kind": "declaration_list",
+      "label": "{}",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 21,
+          "byte": 107
+        },
+        "end": {
+          "line": 7,
+          "column": 23,
+          "byte": 109
+        }
+      },
+      "children_ids": [],
+      "text_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:92:106:name",
+      "kind": "name",
+      "label": "CashierGateway",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 6,
+          "byte": 92
+        },
+        "end": {
+          "line": 7,
+          "column": 20,
+          "byte": 106
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b5440db482e71dd2ef502703afb00eacd7314d726210b8d9773e27e9f421dcec"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:62:84:class_declaration",
+      "kind": "class_declaration",
+      "label": "class StripeGateway {}",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 0,
+          "byte": 62
+        },
+        "end": {
+          "line": 6,
+          "column": 22,
+          "byte": 84
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:68:81:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:82:84:declaration_list"
+      ],
+      "text_digest": "2586330ec9bde96554b6fdd53d3f8af35fdab428e282b04f34c37eeb7cb008d1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:82:84:declaration_list",
+      "kind": "declaration_list",
+      "label": "{}",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 20,
+          "byte": 82
+        },
+        "end": {
+          "line": 6,
+          "column": 22,
+          "byte": 84
+        }
+      },
+      "children_ids": [],
+      "text_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:68:81:name",
+      "kind": "name",
+      "label": "StripeGateway",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 6,
+          "byte": 68
+        },
+        "end": {
+          "line": 6,
+          "column": 19,
+          "byte": 81
+        }
+      },
+      "children_ids": [],
+      "text_digest": "733ecd11ebc44f2e12d8296dfce897f4b93f37eb6e8826cb9babda5379a5f2f2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:37:60:class_declaration",
+      "kind": "class_declaration",
+      "label": "class PaymentGateway {}",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 37
+        },
+        "end": {
+          "line": 5,
+          "column": 23,
+          "byte": 60
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:43:57:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:58:60:declaration_list"
+      ],
+      "text_digest": "0c122d493f6d35ce0157d3da2e330ad4d16e7fc8c02837df7772b30f9df0e096"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:58:60:declaration_list",
+      "kind": "declaration_list",
+      "label": "{}",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 21,
+          "byte": 58
+        },
+        "end": {
+          "line": 5,
+          "column": 23,
+          "byte": 60
+        }
+      },
+      "children_ids": [],
+      "text_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:43:57:name",
+      "kind": "name",
+      "label": "PaymentGateway",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 6,
+          "byte": 43
+        },
+        "end": {
+          "line": 5,
+          "column": 20,
+          "byte": 57
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6af7820e0e2abdd15e0e44fe60ed6f5c3d2f4b19c1c59534e68e5101c7eaa925"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:9:33:namespace_definition",
+      "kind": "namespace_definition",
+      "label": "namespace App\\Providers;",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 0,
+          "byte": 9
+        },
+        "end": {
+          "line": 3,
+          "column": 24,
+          "byte": 33
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:32:namespace_name"
+      ],
+      "text_digest": "7b58e28832abe0643b4f4e50976568529cdfc19a7e6eaaad6abcf4b6bdb9327b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:32:namespace_name",
+      "kind": "namespace_name",
+      "label": "App\\Providers",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 10,
+          "byte": 19
+        },
+        "end": {
+          "line": 3,
+          "column": 23,
+          "byte": 32
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:22:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:23:32:name"
+      ],
+      "text_digest": "985249cec09cb6f83c19856a300553ddcbe15034459ebe47d5336cfe8771e605"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:23:32:name",
+      "kind": "name",
+      "label": "Providers",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 14,
+          "byte": 23
+        },
+        "end": {
+          "line": 3,
+          "column": 23,
+          "byte": 32
+        }
+      },
+      "children_ids": [],
+      "text_digest": "996c32b35f2182a9c83815395113f92344269ebb4ab3525017c4cafaa3d1a8fd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:19:22:name",
+      "kind": "name",
+      "label": "App",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 10,
+          "byte": 19
+        },
+        "end": {
+          "line": 3,
+          "column": 13,
+          "byte": 22
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0d04bfeb7d64b71c74fc925cca93d683154e8cc7e6e5838faced498e34c9984d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_container.php:0:5:php_tag",
+      "kind": "php_tag",
+      "label": "<?php",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 5,
+          "byte": 5
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fe5bcb54c56e0b9f456a060364dd28b2248f3a0e21c168d4ce9d009b73e83e3c"
+    }
+  ],
+  "parser_id": "tree_sitter_php",
+  "relative_path": "tests/fixtures/sample_php_container.php",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "php",
+  "warnings": []
+}

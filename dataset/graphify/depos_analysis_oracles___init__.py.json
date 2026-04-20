@@ -1,0 +1,3134 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:50+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:expression_statement:112",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:assignment:111",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:722:733:list:110",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:722:733:list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:722:733:list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:732:string:109",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:722:733:list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:732:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:732:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:731:732:string_end:108",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:732:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:731:732:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:732:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:724:731:string_content:107",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:732:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:724:731:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:732:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:724:string_start:106",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:732:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:724:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:719:identifier:105",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:719:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:expression_statement:104",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:assignment:103",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary:102",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:707:pair:101",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:707:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:707:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:694:707:identifier:100",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:707:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:694:707:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:707:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:692:string:99",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:707:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:692:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:692:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:691:692:string_end:98",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:692:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:691:692:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:692:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:685:691:string_content:97",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:692:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:685:691:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:692:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:685:string_start:96",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:692:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:685:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:678:pair:95",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:678:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:678:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:665:678:identifier:94",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:678:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:665:678:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:678:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:663:string:93",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:678:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:663:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:663:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:662:663:string_end:92",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:663:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:662:663:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:663:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:656:662:string_content:91",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:663:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:656:662:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:663:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:656:string_start:90",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:663:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:656:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:649:pair:89",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:649:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:649:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:635:649:identifier:88",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:649:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:635:649:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:649:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:633:string:87",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:649:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:633:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:633:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:632:633:string_end:86",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:633:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:632:633:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:633:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:618:632:string_content:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:633:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:618:632:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:633:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:618:string_start:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:633:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:618:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:611:pair:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:611:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:611:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:596:611:identifier:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:611:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:596:611:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:611:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:594:string:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:611:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:594:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:594:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:593:594:string_end:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:594:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:593:594:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:594:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:576:593:string_content:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:594:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:576:593:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:594:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:576:string_start:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:594:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:576:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:569:pair:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:569:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:569:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:551:569:identifier:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:569:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:551:569:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:569:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:549:string:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:569:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:549:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:549:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:548:549:string_end:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:549:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:548:549:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:549:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:537:548:string_content:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:549:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:537:548:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:549:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:537:string_start:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:549:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:537:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:530:pair:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:530:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:530:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:515:530:identifier:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:530:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:515:530:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:530:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:513:string:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:530:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:513:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:513:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:512:513:string_end:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:513:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:512:513:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:513:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:501:512:string_content:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:513:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:501:512:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:513:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:501:string_start:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:513:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:501:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:491:identifier:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:491:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:417:482:import_from_statement:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:417:482:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:417:482:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:482:aliased_import:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:417:482:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:482:aliased_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:482:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:469:482:identifier:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:482:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:469:482:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:482:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:465:dotted_name:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:482:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:465:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:465:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:465:identifier:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:465:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:465:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:417:482:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:417:482:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:445:451:identifier:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:445:451:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:437:444:identifier:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:437:444:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:428:436:identifier:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:428:436:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:427:identifier:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:427:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:351:416:import_from_statement:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:351:416:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:351:416:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:416:aliased_import:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:351:416:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:416:aliased_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:416:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:403:416:identifier:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:416:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:403:416:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:416:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:399:dotted_name:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:416:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:399:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:399:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:399:identifier:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:399:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:399:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:351:416:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:351:416:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:379:385:identifier:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:379:385:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:371:378:identifier:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:371:378:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:362:370:identifier:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:362:370:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:361:identifier:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:361:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:276:350:import_from_statement:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:276:350:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:276:350:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:350:aliased_import:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:276:350:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:350:aliased_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:350:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:336:350:identifier:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:350:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:336:350:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:350:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:332:dotted_name:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:350:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:332:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:332:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:332:identifier:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:332:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:332:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:276:350:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:276:350:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:304:318:identifier:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:304:318:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:296:303:identifier:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:296:303:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:287:295:identifier:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:287:295:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:286:identifier:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:286:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:197:275:import_from_statement:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:197:275:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:197:275:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:275:aliased_import:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:197:275:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:275:aliased_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:275:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:260:275:identifier:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:275:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:260:275:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:275:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:256:dotted_name:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:275:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:256:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:256:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:256:identifier:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:256:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:256:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:197:275:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:197:275:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:225:242:identifier:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:225:242:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:217:224:identifier:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:217:224:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:208:216:identifier:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:208:216:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:207:identifier:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:207:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:121:196:import_from_statement:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:121:196:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:121:196:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:196:aliased_import:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:121:196:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:196:aliased_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:196:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:178:196:identifier:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:196:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:178:196:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:196:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:174:dotted_name:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:196:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:174:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:174:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:174:identifier:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:174:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:174:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:121:196:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:121:196:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:149:160:identifier:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:149:160:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:141:148:identifier:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:141:148:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:132:140:identifier:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:132:140:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:131:identifier:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:131:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:48:120:import_from_statement:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:48:120:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:48:120:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:120:aliased_import:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:48:120:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:120:aliased_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:120:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:105:120:identifier:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:120:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:105:120:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:120:aliased_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:101:dotted_name:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:120:aliased_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:101:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:101:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:101:identifier:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:101:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:101:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:48:120:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:48:120:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:76:87:identifier:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:76:87:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:68:75:identifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:68:75:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:59:67:identifier:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:59:67:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:58:identifier:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:58:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:expression_statement:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:string:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:43:46:string_end:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:43:46:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:3:43:string_content:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:3:43:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:3:string_start",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:734:module",
+      "kind": "module",
+      "label": "\"\"\"Pure local oracles used by the verifier.\"\"\"\n\nfrom depos.analysis.oracles.advisory_db import lookup as advisory_lookup\nfrom depos.analysis.oracles.json_schema import lookup as json_schema_lookup\nfrom depos.analysis.oracles.lockfile_resolver import lookup as lockfile_lookup\nfrom depos.analysis.oracles.openapi_lookup import lookup as openapi_lookup\nfrom depos.analysis.oracles.pep440 import lookup as pep440_lookup\nfrom depos.analysis.oracles.semver import lookup as semver_lookup\n\nORACLES = {\n    \"advisory_db\": advisory_lookup,\n    \"json_schema\": json_schema_lookup,\n    \"lockfile_resolver\": lockfile_lookup,\n    \"openapi_lookup\": openapi_lookup,\n    \"pep440\": pep440_lookup,\n    \"semver\": semver_lookup,\n}\n\n__all__ = [\"ORACLES\"]\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 20,
+          "column": 0,
+          "byte": 734
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:expression_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:48:120:import_from_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:121:196:import_from_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:197:275:import_from_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:276:350:import_from_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:351:416:import_from_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:417:482:import_from_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:expression_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:expression_statement"
+      ],
+      "text_digest": "3168618c2cb888bcaa317415d889ed706f795d70a5d10f88f77167d6ad24d78e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:expression_statement",
+      "kind": "expression_statement",
+      "label": "__all__ = [\"ORACLES\"]",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 0,
+          "byte": 712
+        },
+        "end": {
+          "line": 19,
+          "column": 21,
+          "byte": 733
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:assignment"
+      ],
+      "text_digest": "055a2132047001d7fba9ab6e9654f4ad2ff3e1596c0a4a6489bd0168d8a0fd98"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:733:assignment",
+      "kind": "assignment",
+      "label": "__all__ = [\"ORACLES\"]",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 0,
+          "byte": 712
+        },
+        "end": {
+          "line": 19,
+          "column": 21,
+          "byte": 733
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:719:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:722:733:list"
+      ],
+      "text_digest": "055a2132047001d7fba9ab6e9654f4ad2ff3e1596c0a4a6489bd0168d8a0fd98"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:722:733:list",
+      "kind": "list",
+      "label": "[\"ORACLES\"]",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 10,
+          "byte": 722
+        },
+        "end": {
+          "line": 19,
+          "column": 21,
+          "byte": 733
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:732:string"
+      ],
+      "text_digest": "1acbe3986dcc7c0283a3cea11861a6fad8a96333789e59f877b2f71021c2ccbc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:732:string",
+      "kind": "string",
+      "label": "\"ORACLES\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 11,
+          "byte": 723
+        },
+        "end": {
+          "line": 19,
+          "column": 20,
+          "byte": 732
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:724:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:724:731:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:731:732:string_end"
+      ],
+      "text_digest": "b8e754f8ef735d3f331385b7052b6fb805510bac6f35a558f775abcbf0558cec"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:731:732:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 19,
+          "byte": 731
+        },
+        "end": {
+          "line": 19,
+          "column": 20,
+          "byte": 732
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:724:731:string_content",
+      "kind": "string_content",
+      "label": "ORACLES",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 12,
+          "byte": 724
+        },
+        "end": {
+          "line": 19,
+          "column": 19,
+          "byte": 731
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fc58328925c15e5c3f5f863bde476bcb580883f05009bb02e3000accc090dae7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:723:724:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 11,
+          "byte": 723
+        },
+        "end": {
+          "line": 19,
+          "column": 12,
+          "byte": 724
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:712:719:identifier",
+      "kind": "identifier",
+      "label": "__all__",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 0,
+          "byte": 712
+        },
+        "end": {
+          "line": 19,
+          "column": 7,
+          "byte": 719
+        }
+      },
+      "children_ids": [],
+      "text_digest": "051af376199dec216b4807623fae755a2c013911d8219aa607787b17e3ed9cd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:expression_statement",
+      "kind": "expression_statement",
+      "label": "ORACLES = {\n    \"advisory_db\": advisory_lookup,\n    \"json_schema\": json_schema_lookup,\n    \"lockfile_resolver\": lockfile_lookup,\n    \"openapi_lookup\": openapi_lookup,\n    \"pep440\": pep440_lookup,\n    \"semver\": semver_lookup,\n}",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 0,
+          "byte": 484
+        },
+        "end": {
+          "line": 17,
+          "column": 1,
+          "byte": 710
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:assignment"
+      ],
+      "text_digest": "0e015a68fd204b8e3d373578de2c446e016f470bb30400e862f89f87fc153607"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:710:assignment",
+      "kind": "assignment",
+      "label": "ORACLES = {\n    \"advisory_db\": advisory_lookup,\n    \"json_schema\": json_schema_lookup,\n    \"lockfile_resolver\": lockfile_lookup,\n    \"openapi_lookup\": openapi_lookup,\n    \"pep440\": pep440_lookup,\n    \"semver\": semver_lookup,\n}",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 0,
+          "byte": 484
+        },
+        "end": {
+          "line": 17,
+          "column": 1,
+          "byte": 710
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:491:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary"
+      ],
+      "text_digest": "0e015a68fd204b8e3d373578de2c446e016f470bb30400e862f89f87fc153607"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:494:710:dictionary",
+      "kind": "dictionary",
+      "label": "{\n    \"advisory_db\": advisory_lookup,\n    \"json_schema\": json_schema_lookup,\n    \"lockfile_resolver\": lockfile_lookup,\n    \"openapi_lookup\": openapi_lookup,\n    \"pep440\": pep440_lookup,\n    \"semver\": semver_lookup,\n}",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 10,
+          "byte": 494
+        },
+        "end": {
+          "line": 17,
+          "column": 1,
+          "byte": 710
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:530:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:569:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:611:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:649:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:678:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:707:pair"
+      ],
+      "text_digest": "ac9040f44b9b3db4c766c27f6971a5abcd30b7c4c2a081a1ab9439328a824a9d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:707:pair",
+      "kind": "pair",
+      "label": "\"semver\": semver_lookup",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 4,
+          "byte": 684
+        },
+        "end": {
+          "line": 16,
+          "column": 27,
+          "byte": 707
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:692:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:694:707:identifier"
+      ],
+      "text_digest": "edd990cff77d954dd87f0498343a1233dbe48ad5e5f20fedf185daae90a730cb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:694:707:identifier",
+      "kind": "identifier",
+      "label": "semver_lookup",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 14,
+          "byte": 694
+        },
+        "end": {
+          "line": 16,
+          "column": 27,
+          "byte": 707
+        }
+      },
+      "children_ids": [],
+      "text_digest": "30f1cb68745b994513bf89078b782be1e07e9c20acbef6907c5f14f2af432633"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:692:string",
+      "kind": "string",
+      "label": "\"semver\"",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 4,
+          "byte": 684
+        },
+        "end": {
+          "line": 16,
+          "column": 12,
+          "byte": 692
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:685:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:685:691:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:691:692:string_end"
+      ],
+      "text_digest": "818b9bf42026cda1fe6947ee9a628c83c3ff40bec669059d9ccdfc7fa18a4a3b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:691:692:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 11,
+          "byte": 691
+        },
+        "end": {
+          "line": 16,
+          "column": 12,
+          "byte": 692
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:685:691:string_content",
+      "kind": "string_content",
+      "label": "semver",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 5,
+          "byte": 685
+        },
+        "end": {
+          "line": 16,
+          "column": 11,
+          "byte": 691
+        }
+      },
+      "children_ids": [],
+      "text_digest": "50449d83eadc612bb8ac573a2d0a1a5b734a136fd327f0c220501a8d0cd1e51f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:684:685:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 4,
+          "byte": 684
+        },
+        "end": {
+          "line": 16,
+          "column": 5,
+          "byte": 685
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:678:pair",
+      "kind": "pair",
+      "label": "\"pep440\": pep440_lookup",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 4,
+          "byte": 655
+        },
+        "end": {
+          "line": 15,
+          "column": 27,
+          "byte": 678
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:663:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:665:678:identifier"
+      ],
+      "text_digest": "56789391e8d6421e54cf13c222c5e2af8af4974a4914bceefe46fb7578a2ba95"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:665:678:identifier",
+      "kind": "identifier",
+      "label": "pep440_lookup",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 14,
+          "byte": 665
+        },
+        "end": {
+          "line": 15,
+          "column": 27,
+          "byte": 678
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7a5dc194c055b5624b178e005e821744863023237e4bf9a56fc9bb2daf82c475"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:663:string",
+      "kind": "string",
+      "label": "\"pep440\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 4,
+          "byte": 655
+        },
+        "end": {
+          "line": 15,
+          "column": 12,
+          "byte": 663
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:656:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:656:662:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:662:663:string_end"
+      ],
+      "text_digest": "1158f50060cd111b39217e156391b4fc15bf4494a93b65e23d5289f349bd3f80"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:662:663:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 11,
+          "byte": 662
+        },
+        "end": {
+          "line": 15,
+          "column": 12,
+          "byte": 663
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:656:662:string_content",
+      "kind": "string_content",
+      "label": "pep440",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 5,
+          "byte": 656
+        },
+        "end": {
+          "line": 15,
+          "column": 11,
+          "byte": 662
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6bd55aeef1f87c53b1b79febe6fb406e25ab034b047857a43560e55f8a870d9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:655:656:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 4,
+          "byte": 655
+        },
+        "end": {
+          "line": 15,
+          "column": 5,
+          "byte": 656
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:649:pair",
+      "kind": "pair",
+      "label": "\"openapi_lookup\": openapi_lookup",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 617
+        },
+        "end": {
+          "line": 14,
+          "column": 36,
+          "byte": 649
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:633:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:635:649:identifier"
+      ],
+      "text_digest": "e19dcd593fb9ad51ee1a29f1a392c506386e6e05f87c9e0866648f7bbd8c729c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:635:649:identifier",
+      "kind": "identifier",
+      "label": "openapi_lookup",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 22,
+          "byte": 635
+        },
+        "end": {
+          "line": 14,
+          "column": 36,
+          "byte": 649
+        }
+      },
+      "children_ids": [],
+      "text_digest": "38080552e4115bb6de05f76ee22f22b886daf718e9a6534db8001d40dc584957"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:633:string",
+      "kind": "string",
+      "label": "\"openapi_lookup\"",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 617
+        },
+        "end": {
+          "line": 14,
+          "column": 20,
+          "byte": 633
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:618:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:618:632:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:632:633:string_end"
+      ],
+      "text_digest": "9f759e3aee46c663b4abc22fc067e0b482f024d470d35003f51994568bb7bb8c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:632:633:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 19,
+          "byte": 632
+        },
+        "end": {
+          "line": 14,
+          "column": 20,
+          "byte": 633
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:618:632:string_content",
+      "kind": "string_content",
+      "label": "openapi_lookup",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 5,
+          "byte": 618
+        },
+        "end": {
+          "line": 14,
+          "column": 19,
+          "byte": 632
+        }
+      },
+      "children_ids": [],
+      "text_digest": "38080552e4115bb6de05f76ee22f22b886daf718e9a6534db8001d40dc584957"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:617:618:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 617
+        },
+        "end": {
+          "line": 14,
+          "column": 5,
+          "byte": 618
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:611:pair",
+      "kind": "pair",
+      "label": "\"lockfile_resolver\": lockfile_lookup",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 575
+        },
+        "end": {
+          "line": 13,
+          "column": 40,
+          "byte": 611
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:594:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:596:611:identifier"
+      ],
+      "text_digest": "6c619732e7f310ddc1945e155ef95f2cb973d3fbcb3d5fb7dcfc0746d0be2038"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:596:611:identifier",
+      "kind": "identifier",
+      "label": "lockfile_lookup",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 25,
+          "byte": 596
+        },
+        "end": {
+          "line": 13,
+          "column": 40,
+          "byte": 611
+        }
+      },
+      "children_ids": [],
+      "text_digest": "484cbe27e2f3208be14de9fde3da3a77f64a6ce3fbbb4e7ab327204af86b72a4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:594:string",
+      "kind": "string",
+      "label": "\"lockfile_resolver\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 575
+        },
+        "end": {
+          "line": 13,
+          "column": 23,
+          "byte": 594
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:576:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:576:593:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:593:594:string_end"
+      ],
+      "text_digest": "dc9e1463f7152ed5051746d0702d2a22f01e7572ccb78b9d1f4ac058e78e3762"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:593:594:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 22,
+          "byte": 593
+        },
+        "end": {
+          "line": 13,
+          "column": 23,
+          "byte": 594
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:576:593:string_content",
+      "kind": "string_content",
+      "label": "lockfile_resolver",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5,
+          "byte": 576
+        },
+        "end": {
+          "line": 13,
+          "column": 22,
+          "byte": 593
+        }
+      },
+      "children_ids": [],
+      "text_digest": "08b361b89b6b72e7b77ec173853bd5d2a54a901a536108d18fd848f30860b75a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:575:576:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 575
+        },
+        "end": {
+          "line": 13,
+          "column": 5,
+          "byte": 576
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:569:pair",
+      "kind": "pair",
+      "label": "\"json_schema\": json_schema_lookup",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 4,
+          "byte": 536
+        },
+        "end": {
+          "line": 12,
+          "column": 37,
+          "byte": 569
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:549:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:551:569:identifier"
+      ],
+      "text_digest": "2f9c8337f80345921a395f42442306393a614eb277f96855a9cf9138e3c99f99"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:551:569:identifier",
+      "kind": "identifier",
+      "label": "json_schema_lookup",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 19,
+          "byte": 551
+        },
+        "end": {
+          "line": 12,
+          "column": 37,
+          "byte": 569
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a5bc869382c224a1aa61250cc5ab129d4f54c08749b3b8cc652702b76703ccbc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:549:string",
+      "kind": "string",
+      "label": "\"json_schema\"",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 4,
+          "byte": 536
+        },
+        "end": {
+          "line": 12,
+          "column": 17,
+          "byte": 549
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:537:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:537:548:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:548:549:string_end"
+      ],
+      "text_digest": "259b789992ad8d761ba73a71a0e2a90c2992ce5266c6ef9d15a169c7f87902f8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:548:549:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 16,
+          "byte": 548
+        },
+        "end": {
+          "line": 12,
+          "column": 17,
+          "byte": 549
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:537:548:string_content",
+      "kind": "string_content",
+      "label": "json_schema",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 5,
+          "byte": 537
+        },
+        "end": {
+          "line": 12,
+          "column": 16,
+          "byte": 548
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1605dd5aea920e357ac34184f37b859fcf1faac6578fbeab151b75d4e7955695"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:536:537:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 4,
+          "byte": 536
+        },
+        "end": {
+          "line": 12,
+          "column": 5,
+          "byte": 537
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:530:pair",
+      "kind": "pair",
+      "label": "\"advisory_db\": advisory_lookup",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 4,
+          "byte": 500
+        },
+        "end": {
+          "line": 11,
+          "column": 34,
+          "byte": 530
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:513:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:515:530:identifier"
+      ],
+      "text_digest": "77e4556dcc1b2a5a1b0213e2dc630ebfd0f6969e05480fc768cc7b03f507ef3b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:515:530:identifier",
+      "kind": "identifier",
+      "label": "advisory_lookup",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 19,
+          "byte": 515
+        },
+        "end": {
+          "line": 11,
+          "column": 34,
+          "byte": 530
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e846b071099b82ad65483ea2581cfb94f5f4dfe40e90588a75163121b38a0142"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:513:string",
+      "kind": "string",
+      "label": "\"advisory_db\"",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 4,
+          "byte": 500
+        },
+        "end": {
+          "line": 11,
+          "column": 17,
+          "byte": 513
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:501:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:501:512:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:512:513:string_end"
+      ],
+      "text_digest": "6e382d9df39a15fc3afe4396b50b9d07817e1cf69972be55a8be93ea5f8706d7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:512:513:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 16,
+          "byte": 512
+        },
+        "end": {
+          "line": 11,
+          "column": 17,
+          "byte": 513
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:501:512:string_content",
+      "kind": "string_content",
+      "label": "advisory_db",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 5,
+          "byte": 501
+        },
+        "end": {
+          "line": 11,
+          "column": 16,
+          "byte": 512
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d77b6dc9c396b17f77ccf29926b97a754647aa9ac57da0990de80dcaeb235f26"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:500:501:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 4,
+          "byte": 500
+        },
+        "end": {
+          "line": 11,
+          "column": 5,
+          "byte": 501
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:484:491:identifier",
+      "kind": "identifier",
+      "label": "ORACLES",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 0,
+          "byte": 484
+        },
+        "end": {
+          "line": 10,
+          "column": 7,
+          "byte": 491
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fc58328925c15e5c3f5f863bde476bcb580883f05009bb02e3000accc090dae7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:417:482:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from depos.analysis.oracles.semver import lookup as semver_lookup",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 0,
+          "byte": 417
+        },
+        "end": {
+          "line": 8,
+          "column": 65,
+          "byte": 482
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:482:aliased_import"
+      ],
+      "text_digest": "1e3da1717de0be2a235ede677d52f9c05485dfb1ee49732b62ea499a604ea524"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:482:aliased_import",
+      "kind": "aliased_import",
+      "label": "lookup as semver_lookup",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 42,
+          "byte": 459
+        },
+        "end": {
+          "line": 8,
+          "column": 65,
+          "byte": 482
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:465:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:469:482:identifier"
+      ],
+      "text_digest": "e1f69d6762871547e5065c5cb3c6374e300e17fe9293adb9a2bef0eb47e2b04b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:469:482:identifier",
+      "kind": "identifier",
+      "label": "semver_lookup",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 52,
+          "byte": 469
+        },
+        "end": {
+          "line": 8,
+          "column": 65,
+          "byte": 482
+        }
+      },
+      "children_ids": [],
+      "text_digest": "30f1cb68745b994513bf89078b782be1e07e9c20acbef6907c5f14f2af432633"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:465:dotted_name",
+      "kind": "dotted_name",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 42,
+          "byte": 459
+        },
+        "end": {
+          "line": 8,
+          "column": 48,
+          "byte": 465
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:465:identifier"
+      ],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:459:465:identifier",
+      "kind": "identifier",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 42,
+          "byte": 459
+        },
+        "end": {
+          "line": 8,
+          "column": 48,
+          "byte": 465
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:451:dotted_name",
+      "kind": "dotted_name",
+      "label": "depos.analysis.oracles.semver",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 5,
+          "byte": 422
+        },
+        "end": {
+          "line": 8,
+          "column": 34,
+          "byte": 451
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:427:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:428:436:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:437:444:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:445:451:identifier"
+      ],
+      "text_digest": "b28b295e70163e3d6a6d5bd403d33f8aa251130d60f0a3b8c5045e82bdb82673"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:445:451:identifier",
+      "kind": "identifier",
+      "label": "semver",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 28,
+          "byte": 445
+        },
+        "end": {
+          "line": 8,
+          "column": 34,
+          "byte": 451
+        }
+      },
+      "children_ids": [],
+      "text_digest": "50449d83eadc612bb8ac573a2d0a1a5b734a136fd327f0c220501a8d0cd1e51f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:437:444:identifier",
+      "kind": "identifier",
+      "label": "oracles",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 20,
+          "byte": 437
+        },
+        "end": {
+          "line": 8,
+          "column": 27,
+          "byte": 444
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9cac8d9560dd33cf8903e164ea76b21ba865736e29258a4e1e9d1686429797c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:428:436:identifier",
+      "kind": "identifier",
+      "label": "analysis",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 11,
+          "byte": 428
+        },
+        "end": {
+          "line": 8,
+          "column": 19,
+          "byte": 436
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f44e85c4b8ea2addc796f8beab6600e801d767ccd26c800dce6d88fdaa5eb4e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:422:427:identifier",
+      "kind": "identifier",
+      "label": "depos",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 5,
+          "byte": 422
+        },
+        "end": {
+          "line": 8,
+          "column": 10,
+          "byte": 427
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29c2f0af0bc85e38cf5fc770cfb9cbd5a0846d30d38e321eb6135bebc5985da6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:351:416:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from depos.analysis.oracles.pep440 import lookup as pep440_lookup",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 0,
+          "byte": 351
+        },
+        "end": {
+          "line": 7,
+          "column": 65,
+          "byte": 416
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:416:aliased_import"
+      ],
+      "text_digest": "2d3b351ec1f26ca24c79bc4118fd5ebbec630a9974ddfd9591f692eec6035522"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:416:aliased_import",
+      "kind": "aliased_import",
+      "label": "lookup as pep440_lookup",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 42,
+          "byte": 393
+        },
+        "end": {
+          "line": 7,
+          "column": 65,
+          "byte": 416
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:399:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:403:416:identifier"
+      ],
+      "text_digest": "b05c3a7206a7b311b8525e63ef4c0bac5fe21da2eed033f74923304b510686ba"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:403:416:identifier",
+      "kind": "identifier",
+      "label": "pep440_lookup",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 52,
+          "byte": 403
+        },
+        "end": {
+          "line": 7,
+          "column": 65,
+          "byte": 416
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7a5dc194c055b5624b178e005e821744863023237e4bf9a56fc9bb2daf82c475"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:399:dotted_name",
+      "kind": "dotted_name",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 42,
+          "byte": 393
+        },
+        "end": {
+          "line": 7,
+          "column": 48,
+          "byte": 399
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:399:identifier"
+      ],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:393:399:identifier",
+      "kind": "identifier",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 42,
+          "byte": 393
+        },
+        "end": {
+          "line": 7,
+          "column": 48,
+          "byte": 399
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:385:dotted_name",
+      "kind": "dotted_name",
+      "label": "depos.analysis.oracles.pep440",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 5,
+          "byte": 356
+        },
+        "end": {
+          "line": 7,
+          "column": 34,
+          "byte": 385
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:361:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:362:370:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:371:378:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:379:385:identifier"
+      ],
+      "text_digest": "ec0455ea1a33fb24c7de5c8dfd4a5b0ddee9c809883d6510d8268032337750f9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:379:385:identifier",
+      "kind": "identifier",
+      "label": "pep440",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 28,
+          "byte": 379
+        },
+        "end": {
+          "line": 7,
+          "column": 34,
+          "byte": 385
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6bd55aeef1f87c53b1b79febe6fb406e25ab034b047857a43560e55f8a870d9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:371:378:identifier",
+      "kind": "identifier",
+      "label": "oracles",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 20,
+          "byte": 371
+        },
+        "end": {
+          "line": 7,
+          "column": 27,
+          "byte": 378
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9cac8d9560dd33cf8903e164ea76b21ba865736e29258a4e1e9d1686429797c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:362:370:identifier",
+      "kind": "identifier",
+      "label": "analysis",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 11,
+          "byte": 362
+        },
+        "end": {
+          "line": 7,
+          "column": 19,
+          "byte": 370
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f44e85c4b8ea2addc796f8beab6600e801d767ccd26c800dce6d88fdaa5eb4e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:356:361:identifier",
+      "kind": "identifier",
+      "label": "depos",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 5,
+          "byte": 356
+        },
+        "end": {
+          "line": 7,
+          "column": 10,
+          "byte": 361
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29c2f0af0bc85e38cf5fc770cfb9cbd5a0846d30d38e321eb6135bebc5985da6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:276:350:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from depos.analysis.oracles.openapi_lookup import lookup as openapi_lookup",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 0,
+          "byte": 276
+        },
+        "end": {
+          "line": 6,
+          "column": 74,
+          "byte": 350
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:350:aliased_import"
+      ],
+      "text_digest": "87154fdbd7b126be3f0273ab89302ffbc1336e506f942d52001236b3b6efa786"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:350:aliased_import",
+      "kind": "aliased_import",
+      "label": "lookup as openapi_lookup",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 50,
+          "byte": 326
+        },
+        "end": {
+          "line": 6,
+          "column": 74,
+          "byte": 350
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:332:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:336:350:identifier"
+      ],
+      "text_digest": "560c73387156b983dfded5ab78910b37536752e4ac57003bc7576174e2cdee60"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:336:350:identifier",
+      "kind": "identifier",
+      "label": "openapi_lookup",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 60,
+          "byte": 336
+        },
+        "end": {
+          "line": 6,
+          "column": 74,
+          "byte": 350
+        }
+      },
+      "children_ids": [],
+      "text_digest": "38080552e4115bb6de05f76ee22f22b886daf718e9a6534db8001d40dc584957"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:332:dotted_name",
+      "kind": "dotted_name",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 50,
+          "byte": 326
+        },
+        "end": {
+          "line": 6,
+          "column": 56,
+          "byte": 332
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:332:identifier"
+      ],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:326:332:identifier",
+      "kind": "identifier",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 50,
+          "byte": 326
+        },
+        "end": {
+          "line": 6,
+          "column": 56,
+          "byte": 332
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:318:dotted_name",
+      "kind": "dotted_name",
+      "label": "depos.analysis.oracles.openapi_lookup",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 5,
+          "byte": 281
+        },
+        "end": {
+          "line": 6,
+          "column": 42,
+          "byte": 318
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:286:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:287:295:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:296:303:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:304:318:identifier"
+      ],
+      "text_digest": "e237ed42bfe94a3ec19f3db29a27b4175515bd7877297ce729b9ce64bd2a3ca7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:304:318:identifier",
+      "kind": "identifier",
+      "label": "openapi_lookup",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 28,
+          "byte": 304
+        },
+        "end": {
+          "line": 6,
+          "column": 42,
+          "byte": 318
+        }
+      },
+      "children_ids": [],
+      "text_digest": "38080552e4115bb6de05f76ee22f22b886daf718e9a6534db8001d40dc584957"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:296:303:identifier",
+      "kind": "identifier",
+      "label": "oracles",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 20,
+          "byte": 296
+        },
+        "end": {
+          "line": 6,
+          "column": 27,
+          "byte": 303
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9cac8d9560dd33cf8903e164ea76b21ba865736e29258a4e1e9d1686429797c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:287:295:identifier",
+      "kind": "identifier",
+      "label": "analysis",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 11,
+          "byte": 287
+        },
+        "end": {
+          "line": 6,
+          "column": 19,
+          "byte": 295
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f44e85c4b8ea2addc796f8beab6600e801d767ccd26c800dce6d88fdaa5eb4e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:281:286:identifier",
+      "kind": "identifier",
+      "label": "depos",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 5,
+          "byte": 281
+        },
+        "end": {
+          "line": 6,
+          "column": 10,
+          "byte": 286
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29c2f0af0bc85e38cf5fc770cfb9cbd5a0846d30d38e321eb6135bebc5985da6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:197:275:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from depos.analysis.oracles.lockfile_resolver import lookup as lockfile_lookup",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 197
+        },
+        "end": {
+          "line": 5,
+          "column": 78,
+          "byte": 275
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:275:aliased_import"
+      ],
+      "text_digest": "49afa45a0126c6a668a6dfd15fcd8343d34f93c905999f14450e5239a3fb9584"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:275:aliased_import",
+      "kind": "aliased_import",
+      "label": "lookup as lockfile_lookup",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 53,
+          "byte": 250
+        },
+        "end": {
+          "line": 5,
+          "column": 78,
+          "byte": 275
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:256:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:260:275:identifier"
+      ],
+      "text_digest": "ad2887f5130182b07d20fa4544efe668caa92f21912641a59dfc8539244127d9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:260:275:identifier",
+      "kind": "identifier",
+      "label": "lockfile_lookup",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 63,
+          "byte": 260
+        },
+        "end": {
+          "line": 5,
+          "column": 78,
+          "byte": 275
+        }
+      },
+      "children_ids": [],
+      "text_digest": "484cbe27e2f3208be14de9fde3da3a77f64a6ce3fbbb4e7ab327204af86b72a4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:256:dotted_name",
+      "kind": "dotted_name",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 53,
+          "byte": 250
+        },
+        "end": {
+          "line": 5,
+          "column": 59,
+          "byte": 256
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:256:identifier"
+      ],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:250:256:identifier",
+      "kind": "identifier",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 53,
+          "byte": 250
+        },
+        "end": {
+          "line": 5,
+          "column": 59,
+          "byte": 256
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:242:dotted_name",
+      "kind": "dotted_name",
+      "label": "depos.analysis.oracles.lockfile_resolver",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 5,
+          "byte": 202
+        },
+        "end": {
+          "line": 5,
+          "column": 45,
+          "byte": 242
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:207:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:208:216:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:217:224:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:225:242:identifier"
+      ],
+      "text_digest": "c0c50ca1b32c7b6d068b8aa8f5a04acb82bf40f21ccc546bf0237371678f56ce"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:225:242:identifier",
+      "kind": "identifier",
+      "label": "lockfile_resolver",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 28,
+          "byte": 225
+        },
+        "end": {
+          "line": 5,
+          "column": 45,
+          "byte": 242
+        }
+      },
+      "children_ids": [],
+      "text_digest": "08b361b89b6b72e7b77ec173853bd5d2a54a901a536108d18fd848f30860b75a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:217:224:identifier",
+      "kind": "identifier",
+      "label": "oracles",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 20,
+          "byte": 217
+        },
+        "end": {
+          "line": 5,
+          "column": 27,
+          "byte": 224
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9cac8d9560dd33cf8903e164ea76b21ba865736e29258a4e1e9d1686429797c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:208:216:identifier",
+      "kind": "identifier",
+      "label": "analysis",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 11,
+          "byte": 208
+        },
+        "end": {
+          "line": 5,
+          "column": 19,
+          "byte": 216
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f44e85c4b8ea2addc796f8beab6600e801d767ccd26c800dce6d88fdaa5eb4e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:202:207:identifier",
+      "kind": "identifier",
+      "label": "depos",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 5,
+          "byte": 202
+        },
+        "end": {
+          "line": 5,
+          "column": 10,
+          "byte": 207
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29c2f0af0bc85e38cf5fc770cfb9cbd5a0846d30d38e321eb6135bebc5985da6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:121:196:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from depos.analysis.oracles.json_schema import lookup as json_schema_lookup",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 121
+        },
+        "end": {
+          "line": 4,
+          "column": 75,
+          "byte": 196
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:196:aliased_import"
+      ],
+      "text_digest": "81b0550e88fb62fc0aedb2d292386aadd2ade8e7348a2fc4491f6eb0ffbe840e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:196:aliased_import",
+      "kind": "aliased_import",
+      "label": "lookup as json_schema_lookup",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 47,
+          "byte": 168
+        },
+        "end": {
+          "line": 4,
+          "column": 75,
+          "byte": 196
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:174:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:178:196:identifier"
+      ],
+      "text_digest": "02a6da3153fb13d8799bf2544931f039b610f844a0cd1914f269bac784717601"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:178:196:identifier",
+      "kind": "identifier",
+      "label": "json_schema_lookup",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 57,
+          "byte": 178
+        },
+        "end": {
+          "line": 4,
+          "column": 75,
+          "byte": 196
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a5bc869382c224a1aa61250cc5ab129d4f54c08749b3b8cc652702b76703ccbc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:174:dotted_name",
+      "kind": "dotted_name",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 47,
+          "byte": 168
+        },
+        "end": {
+          "line": 4,
+          "column": 53,
+          "byte": 174
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:174:identifier"
+      ],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:168:174:identifier",
+      "kind": "identifier",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 47,
+          "byte": 168
+        },
+        "end": {
+          "line": 4,
+          "column": 53,
+          "byte": 174
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:160:dotted_name",
+      "kind": "dotted_name",
+      "label": "depos.analysis.oracles.json_schema",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 5,
+          "byte": 126
+        },
+        "end": {
+          "line": 4,
+          "column": 39,
+          "byte": 160
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:131:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:132:140:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:141:148:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:149:160:identifier"
+      ],
+      "text_digest": "38e0d894717dc25a6dd8c649d3e2f6c0b2471494c342307f42f064a5c52ca8a3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:149:160:identifier",
+      "kind": "identifier",
+      "label": "json_schema",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 28,
+          "byte": 149
+        },
+        "end": {
+          "line": 4,
+          "column": 39,
+          "byte": 160
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1605dd5aea920e357ac34184f37b859fcf1faac6578fbeab151b75d4e7955695"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:141:148:identifier",
+      "kind": "identifier",
+      "label": "oracles",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 20,
+          "byte": 141
+        },
+        "end": {
+          "line": 4,
+          "column": 27,
+          "byte": 148
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9cac8d9560dd33cf8903e164ea76b21ba865736e29258a4e1e9d1686429797c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:132:140:identifier",
+      "kind": "identifier",
+      "label": "analysis",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 11,
+          "byte": 132
+        },
+        "end": {
+          "line": 4,
+          "column": 19,
+          "byte": 140
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f44e85c4b8ea2addc796f8beab6600e801d767ccd26c800dce6d88fdaa5eb4e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:126:131:identifier",
+      "kind": "identifier",
+      "label": "depos",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 5,
+          "byte": 126
+        },
+        "end": {
+          "line": 4,
+          "column": 10,
+          "byte": 131
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29c2f0af0bc85e38cf5fc770cfb9cbd5a0846d30d38e321eb6135bebc5985da6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:48:120:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from depos.analysis.oracles.advisory_db import lookup as advisory_lookup",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 0,
+          "byte": 48
+        },
+        "end": {
+          "line": 3,
+          "column": 72,
+          "byte": 120
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:120:aliased_import"
+      ],
+      "text_digest": "fae28fdd6a230311f541494246d36991b777ebdbe373d651e8f52fb03b08eea3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:120:aliased_import",
+      "kind": "aliased_import",
+      "label": "lookup as advisory_lookup",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 47,
+          "byte": 95
+        },
+        "end": {
+          "line": 3,
+          "column": 72,
+          "byte": 120
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:101:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:105:120:identifier"
+      ],
+      "text_digest": "827890028b7885806d92a010f178dd325f10f950949aa216758f25f230f81041"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:105:120:identifier",
+      "kind": "identifier",
+      "label": "advisory_lookup",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 57,
+          "byte": 105
+        },
+        "end": {
+          "line": 3,
+          "column": 72,
+          "byte": 120
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e846b071099b82ad65483ea2581cfb94f5f4dfe40e90588a75163121b38a0142"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:101:dotted_name",
+      "kind": "dotted_name",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 47,
+          "byte": 95
+        },
+        "end": {
+          "line": 3,
+          "column": 53,
+          "byte": 101
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:101:identifier"
+      ],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:95:101:identifier",
+      "kind": "identifier",
+      "label": "lookup",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 47,
+          "byte": 95
+        },
+        "end": {
+          "line": 3,
+          "column": 53,
+          "byte": 101
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29a1af58c138274076260b2d9c83b8378cc951a68d9b4de13794b853d695e431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:87:dotted_name",
+      "kind": "dotted_name",
+      "label": "depos.analysis.oracles.advisory_db",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 5,
+          "byte": 53
+        },
+        "end": {
+          "line": 3,
+          "column": 39,
+          "byte": 87
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:58:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:59:67:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:68:75:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:76:87:identifier"
+      ],
+      "text_digest": "e7328759b606e910c05d566152d67155eb166a5d6833369ec3df725aa60e3f60"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:76:87:identifier",
+      "kind": "identifier",
+      "label": "advisory_db",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 28,
+          "byte": 76
+        },
+        "end": {
+          "line": 3,
+          "column": 39,
+          "byte": 87
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d77b6dc9c396b17f77ccf29926b97a754647aa9ac57da0990de80dcaeb235f26"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:68:75:identifier",
+      "kind": "identifier",
+      "label": "oracles",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 20,
+          "byte": 68
+        },
+        "end": {
+          "line": 3,
+          "column": 27,
+          "byte": 75
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9cac8d9560dd33cf8903e164ea76b21ba865736e29258a4e1e9d1686429797c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:59:67:identifier",
+      "kind": "identifier",
+      "label": "analysis",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 11,
+          "byte": 59
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 67
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f44e85c4b8ea2addc796f8beab6600e801d767ccd26c800dce6d88fdaa5eb4e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:53:58:identifier",
+      "kind": "identifier",
+      "label": "depos",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 5,
+          "byte": 53
+        },
+        "end": {
+          "line": 3,
+          "column": 10,
+          "byte": 58
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29c2f0af0bc85e38cf5fc770cfb9cbd5a0846d30d38e321eb6135bebc5985da6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:expression_statement",
+      "kind": "expression_statement",
+      "label": "\"\"\"Pure local oracles used by the verifier.\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 46,
+          "byte": 46
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:string"
+      ],
+      "text_digest": "301e073eaa1cc58660fd335722e17370d5248becd752f2f0288daf1044ca0bc1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:46:string",
+      "kind": "string",
+      "label": "\"\"\"Pure local oracles used by the verifier.\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 46,
+          "byte": 46
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:3:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:3:43:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:43:46:string_end"
+      ],
+      "text_digest": "301e073eaa1cc58660fd335722e17370d5248becd752f2f0288daf1044ca0bc1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:43:46:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 43,
+          "byte": 43
+        },
+        "end": {
+          "line": 1,
+          "column": 46,
+          "byte": 46
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6d267efe80a3dbcf2f2d67e21d8c15783a2f031427f827d43b6222fe9c4bf02"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:3:43:string_content",
+      "kind": "string_content",
+      "label": "Pure local oracles used by the verifier.",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 3,
+          "byte": 3
+        },
+        "end": {
+          "line": 1,
+          "column": 43,
+          "byte": 43
+        }
+      },
+      "children_ids": [],
+      "text_digest": "99b37d23c3995c8c0def822585b5fa476b500a2328814f0a006b10792705995a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/oracles/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 3,
+          "byte": 3
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6d267efe80a3dbcf2f2d67e21d8c15783a2f031427f827d43b6222fe9c4bf02"
+    }
+  ],
+  "parser_id": "tree_sitter_python",
+  "relative_path": "depos/analysis/oracles/__init__.py",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "python",
+  "warnings": []
+}

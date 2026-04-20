@@ -1,0 +1,3707 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:59+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration:132",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:function_body:131",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:function_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:function_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:block:130",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:function_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:581:606:return_expression:129",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:581:606:return_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:581:606:return_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:606:call_expression:128",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:581:606:return_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:606:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:606:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:598:606:value_arguments:127",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:606:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:598:606:value_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:598:606:value_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:599:605:value_argument:126",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:598:606:value_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:599:605:value_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:599:605:value_argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:599:605:identifier:125",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:599:605:value_argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:599:605:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:606:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:598:identifier:124",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:606:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:598:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:543:575:property_declaration:123",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:543:575:property_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:543:575:property_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:575:call_expression:122",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:543:575:property_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:575:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:575:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:562:575:value_arguments:121",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:575:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:562:575:value_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:562:575:value_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:572:574:value_argument:120",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:562:575:value_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:572:574:value_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:572:574:value_argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:572:574:number_literal:119",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:572:574:value_argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:572:574:number_literal",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:562:575:value_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:563:570:value_argument:118",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:562:575:value_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:563:570:value_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:563:570:value_argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:563:570:identifier:117",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:563:570:value_argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:563:570:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:575:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:562:identifier:116",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:575:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:562:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:543:575:property_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:547:553:variable_declaration:115",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:543:575:property_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:547:553:variable_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:547:553:variable_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:547:553:identifier:114",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:547:553:variable_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:547:553:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:525:535:user_type:113",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:525:535:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:525:535:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:525:535:identifier:112",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:525:535:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:525:535:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:506:523:function_value_parameters:111",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:506:523:function_value_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:506:523:function_value_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:522:parameter:110",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:506:523:function_value_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:522:parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:522:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:516:522:user_type:109",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:522:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:516:522:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:516:522:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:516:522:identifier:108",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:516:522:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:516:522:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:522:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:514:identifier:107",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:522:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:514:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:494:506:identifier:106",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:494:506:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:119:486:class_declaration:105",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:119:486:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:119:486:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:164:486:class_body:104",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:119:486:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:164:486:class_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:164:486:class_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration:103",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:164:486:class_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:function_body:102",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:function_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:function_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:block:101",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:function_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:437:476:return_expression:100",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:437:476:return_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:437:476:return_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal:99",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:437:476:return_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:471:475:string_content:98",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:471:475:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:470:471:string_content:97",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:470:471:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:453:470:interpolation:96",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:453:470:interpolation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:453:470:interpolation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:469:navigation_expression:95",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:453:470:interpolation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:469:navigation_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:469:navigation_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:462:469:identifier:94",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:469:navigation_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:462:469:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:469:navigation_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:461:identifier:93",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:469:navigation_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:461:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:446:453:string_content:92",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:446:453:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:445:446:string_content:91",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:445:446:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:419:425:user_type:90",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:419:425:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:419:425:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:419:425:identifier:89",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:419:425:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:419:425:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:387:417:function_value_parameters:88",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:387:417:function_value_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:387:417:function_value_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:416:parameter:87",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:387:417:function_value_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:416:parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:416:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:410:416:user_type:86",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:416:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:410:416:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:410:416:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:410:416:identifier:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:410:416:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:410:416:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:416:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:408:identifier:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:416:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:408:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:387:417:function_value_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:402:parameter:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:387:417:function_value_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:402:parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:402:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:396:402:user_type:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:402:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:396:402:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:396:402:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:396:402:identifier:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:396:402:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:396:402:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:402:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:394:identifier:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:402:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:394:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:375:387:identifier:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:375:387:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:370:modifiers:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:370:modifiers",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:370:modifiers->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:370:visibility_modifier:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:370:modifiers",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:370:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:164:486:class_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:164:486:class_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:function_body:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:function_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:function_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:block:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:function_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:315:348:return_expression:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:315:348:return_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:315:348:return_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:348:call_expression:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:315:348:return_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:348:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:348:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:334:348:value_arguments:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:348:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:334:348:value_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:334:348:value_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:343:347:value_argument:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:334:348:value_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:343:347:value_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:343:347:value_argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:343:347:identifier:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:343:347:value_argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:343:347:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:334:348:value_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:value_argument:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:334:348:value_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:value_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:value_argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:string_literal:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:value_argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:string_literal",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:string_literal->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:336:340:string_content:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:string_literal",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:336:340:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:348:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:334:identifier:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:348:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:334:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:297:303:user_type:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:297:303:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:297:303:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:297:303:identifier:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:297:303:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:297:303:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:267:295:function_value_parameters:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:267:295:function_value_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:267:295:function_value_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:294:parameter:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:267:295:function_value_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:294:parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:294:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:288:294:user_type:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:294:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:288:294:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:288:294:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:288:294:identifier:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:288:294:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:288:294:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:294:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:286:identifier:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:294:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:286:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:267:295:function_value_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:280:parameter:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:267:295:function_value_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:280:parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:280:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:274:280:user_type:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:280:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:274:280:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:274:280:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:274:280:identifier:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:274:280:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:274:280:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:280:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:272:identifier:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:280:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:272:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:263:267:identifier:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:263:267:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:164:486:class_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:164:486:class_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:function_body:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:function_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:function_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:block:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:function_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:212:244:return_expression:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:212:244:return_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:212:244:return_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:244:call_expression:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:212:244:return_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:244:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:244:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:231:244:value_arguments:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:244:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:231:244:value_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:231:244:value_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:239:243:value_argument:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:231:244:value_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:239:243:value_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:239:243:value_argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:239:243:identifier:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:239:243:value_argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:239:243:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:231:244:value_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:value_argument:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:231:244:value_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:value_argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:value_argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:string_literal:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:value_argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:string_literal",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:string_literal->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:233:236:string_content:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:string_literal",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:233:236:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:244:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:231:identifier:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:244:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:231:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:194:200:user_type:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:194:200:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:194:200:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:194:200:identifier:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:194:200:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:194:200:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:178:192:function_value_parameters:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:178:192:function_value_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:178:192:function_value_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:191:parameter:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:178:192:function_value_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:191:parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:191:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:185:191:user_type:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:191:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:185:191:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:185:191:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:185:191:identifier:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:185:191:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:185:191:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:191:parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:183:identifier:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:191:parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:183:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:175:178:identifier:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:175:178:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:119:486:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:primary_constructor:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:119:486:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:primary_constructor",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:primary_constructor->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:class_parameters:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:primary_constructor",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:class_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:class_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:162:class_parameter:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:class_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:162:class_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:162:class_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:156:162:user_type:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:162:class_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:156:162:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:156:162:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:156:162:identifier:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:156:162:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:156:162:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:162:class_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:148:154:identifier:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:162:class_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:148:154:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:162:class_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:143:modifiers:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:162:class_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:143:modifiers",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:143:modifiers->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:143:visibility_modifier:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:143:modifiers",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:143:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:119:486:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:125:135:identifier:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:119:486:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:125:135:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:115:class_declaration:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:115:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:115:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:primary_constructor:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:115:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:primary_constructor",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:primary_constructor->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:class_parameters:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:primary_constructor",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:class_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:class_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:98:114:class_parameter:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:class_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:98:114:class_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:98:114:class_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:111:114:user_type:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:98:114:class_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:111:114:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:111:114:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:111:114:identifier:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:111:114:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:111:114:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:98:114:class_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:102:109:identifier:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:98:114:class_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:102:109:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:class_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:77:96:class_parameter:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:class_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:77:96:class_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:77:96:class_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:90:96:user_type:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:77:96:class_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:90:96:user_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:90:96:user_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:90:96:identifier:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:90:96:user_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:90:96:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:77:96:class_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:81:88:identifier:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:77:96:class_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:81:88:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:115:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:70:76:identifier:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:115:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:70:76:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:115:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:63:modifiers:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:115:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:63:modifiers",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:63:modifiers->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:63:class_modifier:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:63:modifiers",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:63:class_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:33:55:import:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:33:55:import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:33:55:import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:55:qualified_identifier:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:33:55:import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:55:qualified_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:55:qualified_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:52:55:identifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:55:qualified_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:52:55:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:55:qualified_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:47:51:identifier:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:55:qualified_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:47:51:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:55:qualified_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:46:identifier:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:55:qualified_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:46:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:31:import:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:31:import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:31:import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:31:qualified_identifier:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:31:import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:31:qualified_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:31:qualified_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:26:31:identifier:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:31:qualified_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:26:31:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:31:qualified_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:15:25:identifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:31:qualified_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:15:25:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:31:qualified_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:14:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:31:qualified_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:14:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:611:source_file",
+      "kind": "source_file",
+      "label": "import kotlinx.coroutines.delay\r\nimport kotlin.math.max\r\n\r\ndata class Config(val baseUrl: String, val timeout: Int)\r\n\r\nclass HttpClient(private val config: Config) {\r\n    fun get(path: String): String {\r\n        return buildRequest(\"GET\", path)\r\n    }\r\n\r\n    fun post(path: String, body: String): String {\r\n        return buildRequest(\"POST\", path)\r\n    }\r\n\r\n    private fun buildRequest(method: String, path: String): String {\r\n        return \"$method ${config.baseUrl}$path\"\r\n    }\r\n}\r\n\r\nfun createClient(baseUrl: String): HttpClient {\r\n    val config = Config(baseUrl, 30)\r\n    return HttpClient(config)\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 24,
+          "column": 0,
+          "byte": 611
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:31:import",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:33:55:import",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:115:class_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:119:486:class_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration"
+      ],
+      "text_digest": "6d2ff4687ffc3ac4acc0ce3b537db59be520b4a8ca8bf4483865f5dd909db94e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:490:609:function_declaration",
+      "kind": "function_declaration",
+      "label": "fun createClient(baseUrl: String): HttpClient {\r\n    val config = Config(baseUrl, 30)\r\n    return HttpClient(config)\r\n}",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 0,
+          "byte": 490
+        },
+        "end": {
+          "line": 23,
+          "column": 1,
+          "byte": 609
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:494:506:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:506:523:function_value_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:525:535:user_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:function_body"
+      ],
+      "text_digest": "7b6786cf47c6f6ae197804602cd42f4dcfbb1347b200b371f0d95b89d213090c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:function_body",
+      "kind": "function_body",
+      "label": "{\r\n    val config = Config(baseUrl, 30)\r\n    return HttpClient(config)\r\n}",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 46,
+          "byte": 536
+        },
+        "end": {
+          "line": 23,
+          "column": 1,
+          "byte": 609
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:block"
+      ],
+      "text_digest": "814f4414c34dbd52364cd18825a04a05a9ff48aba57adbceedd276b0958c1606"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:536:609:block",
+      "kind": "block",
+      "label": "{\r\n    val config = Config(baseUrl, 30)\r\n    return HttpClient(config)\r\n}",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 46,
+          "byte": 536
+        },
+        "end": {
+          "line": 23,
+          "column": 1,
+          "byte": 609
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:543:575:property_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:581:606:return_expression"
+      ],
+      "text_digest": "814f4414c34dbd52364cd18825a04a05a9ff48aba57adbceedd276b0958c1606"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:581:606:return_expression",
+      "kind": "return_expression",
+      "label": "return HttpClient(config)",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 4,
+          "byte": 581
+        },
+        "end": {
+          "line": 22,
+          "column": 29,
+          "byte": 606
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:606:call_expression"
+      ],
+      "text_digest": "b0e2c37eb8d614f89d7f4a34ddd70c44c1e704154264c972a050322e706316fa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:606:call_expression",
+      "kind": "call_expression",
+      "label": "HttpClient(config)",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 11,
+          "byte": 588
+        },
+        "end": {
+          "line": 22,
+          "column": 29,
+          "byte": 606
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:598:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:598:606:value_arguments"
+      ],
+      "text_digest": "d514219bf22ab3c711d6651fea5bb0e564d5db91d6f0583b464bab050438e2e4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:598:606:value_arguments",
+      "kind": "value_arguments",
+      "label": "(config)",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 21,
+          "byte": 598
+        },
+        "end": {
+          "line": 22,
+          "column": 29,
+          "byte": 606
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:599:605:value_argument"
+      ],
+      "text_digest": "a99b19c6d53afda1fbf41bd073297a9fef8f720c2d178c110c42b61bcc75170d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:599:605:value_argument",
+      "kind": "value_argument",
+      "label": "config",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 22,
+          "byte": 599
+        },
+        "end": {
+          "line": 22,
+          "column": 28,
+          "byte": 605
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:599:605:identifier"
+      ],
+      "text_digest": "b79606fb3afea5bd1609ed40b622142f1c98125abcfe89a76a661b0e8e343910"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:599:605:identifier",
+      "kind": "identifier",
+      "label": "config",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 22,
+          "byte": 599
+        },
+        "end": {
+          "line": 22,
+          "column": 28,
+          "byte": 605
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b79606fb3afea5bd1609ed40b622142f1c98125abcfe89a76a661b0e8e343910"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:588:598:identifier",
+      "kind": "identifier",
+      "label": "HttpClient",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 11,
+          "byte": 588
+        },
+        "end": {
+          "line": 22,
+          "column": 21,
+          "byte": 598
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6700c760a283935f7c3850419cdbcc3ffb5423c8361ee69f6d25ef5cdeba8226"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:543:575:property_declaration",
+      "kind": "property_declaration",
+      "label": "val config = Config(baseUrl, 30)",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 4,
+          "byte": 543
+        },
+        "end": {
+          "line": 21,
+          "column": 36,
+          "byte": 575
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:547:553:variable_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:575:call_expression"
+      ],
+      "text_digest": "ffc30d535ce459a117598b95ae5d5a1e80f9fa98c38a79d27474289040cdb9c9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:575:call_expression",
+      "kind": "call_expression",
+      "label": "Config(baseUrl, 30)",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 17,
+          "byte": 556
+        },
+        "end": {
+          "line": 21,
+          "column": 36,
+          "byte": 575
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:562:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:562:575:value_arguments"
+      ],
+      "text_digest": "a6d5bc865a18789cb9291496cd1e5b249cd0202ece1afed56ddc81a375746535"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:562:575:value_arguments",
+      "kind": "value_arguments",
+      "label": "(baseUrl, 30)",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 23,
+          "byte": 562
+        },
+        "end": {
+          "line": 21,
+          "column": 36,
+          "byte": 575
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:563:570:value_argument",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:572:574:value_argument"
+      ],
+      "text_digest": "740dabf1890eefac943e61bbdf7937801f6471236ee7958aa9a76116cd600c2e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:572:574:value_argument",
+      "kind": "value_argument",
+      "label": "30",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 33,
+          "byte": 572
+        },
+        "end": {
+          "line": 21,
+          "column": 35,
+          "byte": 574
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:572:574:number_literal"
+      ],
+      "text_digest": "624b60c58c9d8bfb6ff1886c2fd605d2adeb6ea4da576068201b6c6958ce93f4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:572:574:number_literal",
+      "kind": "number_literal",
+      "label": "30",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 33,
+          "byte": 572
+        },
+        "end": {
+          "line": 21,
+          "column": 35,
+          "byte": 574
+        }
+      },
+      "children_ids": [],
+      "text_digest": "624b60c58c9d8bfb6ff1886c2fd605d2adeb6ea4da576068201b6c6958ce93f4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:563:570:value_argument",
+      "kind": "value_argument",
+      "label": "baseUrl",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 24,
+          "byte": 563
+        },
+        "end": {
+          "line": 21,
+          "column": 31,
+          "byte": 570
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:563:570:identifier"
+      ],
+      "text_digest": "08892cb7cf4b6dd685798f2070f4209ff48cf2c6937f5eca6720f910bcbfca21"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:563:570:identifier",
+      "kind": "identifier",
+      "label": "baseUrl",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 24,
+          "byte": 563
+        },
+        "end": {
+          "line": 21,
+          "column": 31,
+          "byte": 570
+        }
+      },
+      "children_ids": [],
+      "text_digest": "08892cb7cf4b6dd685798f2070f4209ff48cf2c6937f5eca6720f910bcbfca21"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:556:562:identifier",
+      "kind": "identifier",
+      "label": "Config",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 17,
+          "byte": 556
+        },
+        "end": {
+          "line": 21,
+          "column": 23,
+          "byte": 562
+        }
+      },
+      "children_ids": [],
+      "text_digest": "87e89abb4c1c551fe08d355d097f18b8de78edca5f556997085681662fce8eed"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:547:553:variable_declaration",
+      "kind": "variable_declaration",
+      "label": "config",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 8,
+          "byte": 547
+        },
+        "end": {
+          "line": 21,
+          "column": 14,
+          "byte": 553
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:547:553:identifier"
+      ],
+      "text_digest": "b79606fb3afea5bd1609ed40b622142f1c98125abcfe89a76a661b0e8e343910"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:547:553:identifier",
+      "kind": "identifier",
+      "label": "config",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 8,
+          "byte": 547
+        },
+        "end": {
+          "line": 21,
+          "column": 14,
+          "byte": 553
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b79606fb3afea5bd1609ed40b622142f1c98125abcfe89a76a661b0e8e343910"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:525:535:user_type",
+      "kind": "user_type",
+      "label": "HttpClient",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 35,
+          "byte": 525
+        },
+        "end": {
+          "line": 20,
+          "column": 45,
+          "byte": 535
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:525:535:identifier"
+      ],
+      "text_digest": "6700c760a283935f7c3850419cdbcc3ffb5423c8361ee69f6d25ef5cdeba8226"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:525:535:identifier",
+      "kind": "identifier",
+      "label": "HttpClient",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 35,
+          "byte": 525
+        },
+        "end": {
+          "line": 20,
+          "column": 45,
+          "byte": 535
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6700c760a283935f7c3850419cdbcc3ffb5423c8361ee69f6d25ef5cdeba8226"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:506:523:function_value_parameters",
+      "kind": "function_value_parameters",
+      "label": "(baseUrl: String)",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 16,
+          "byte": 506
+        },
+        "end": {
+          "line": 20,
+          "column": 33,
+          "byte": 523
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:522:parameter"
+      ],
+      "text_digest": "3f6734a1c9db52972e19b2571c5a9c35044a8bbd796a9421cf56eeb13aea8a2a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:522:parameter",
+      "kind": "parameter",
+      "label": "baseUrl: String",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 17,
+          "byte": 507
+        },
+        "end": {
+          "line": 20,
+          "column": 32,
+          "byte": 522
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:514:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:516:522:user_type"
+      ],
+      "text_digest": "8715067c8f5c17a1b31232c66b7b51ee10fe9a3fda8edddeddbc4c8ce750e5dc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:516:522:user_type",
+      "kind": "user_type",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 26,
+          "byte": 516
+        },
+        "end": {
+          "line": 20,
+          "column": 32,
+          "byte": 522
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:516:522:identifier"
+      ],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:516:522:identifier",
+      "kind": "identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 26,
+          "byte": 516
+        },
+        "end": {
+          "line": 20,
+          "column": 32,
+          "byte": 522
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:507:514:identifier",
+      "kind": "identifier",
+      "label": "baseUrl",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 17,
+          "byte": 507
+        },
+        "end": {
+          "line": 20,
+          "column": 24,
+          "byte": 514
+        }
+      },
+      "children_ids": [],
+      "text_digest": "08892cb7cf4b6dd685798f2070f4209ff48cf2c6937f5eca6720f910bcbfca21"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:494:506:identifier",
+      "kind": "identifier",
+      "label": "createClient",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 4,
+          "byte": 494
+        },
+        "end": {
+          "line": 20,
+          "column": 16,
+          "byte": 506
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e5499f20703129809a0ea009235a9975666a5c50910295782001020991e66155"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:119:486:class_declaration",
+      "kind": "class_declaration",
+      "label": "class HttpClient(private val config: Config) {\r\n    fun get(path: String): String {\r\n        return buildRequest(\"GET\", path)\r\n    }\r\n\r\n    fun post(path: String, body: String): String {\r\n        return buildRequest(\"POST\", path)\r\n    }\r\n\r\n    private fun buildRequest(method: String, path: String): String {\r\n        return \"$method ${config.baseUrl}$path\"\r\n    }\r\n}",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 0,
+          "byte": 119
+        },
+        "end": {
+          "line": 18,
+          "column": 1,
+          "byte": 486
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:125:135:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:primary_constructor",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:164:486:class_body"
+      ],
+      "text_digest": "d3ca12c86166fb48491b029f52d18ec145d666621c3a78f2a249fe76fff5925a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:164:486:class_body",
+      "kind": "class_body",
+      "label": "{\r\n    fun get(path: String): String {\r\n        return buildRequest(\"GET\", path)\r\n    }\r\n\r\n    fun post(path: String, body: String): String {\r\n        return buildRequest(\"POST\", path)\r\n    }\r\n\r\n    private fun buildRequest(method: String, path: String): String {\r\n        return \"$method ${config.baseUrl}$path\"\r\n    }\r\n}",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 45,
+          "byte": 164
+        },
+        "end": {
+          "line": 18,
+          "column": 1,
+          "byte": 486
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration"
+      ],
+      "text_digest": "92661d6bc925f80189b7342ce4de99f9093b95679a580e964c2a418efd3ac66a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:483:function_declaration",
+      "kind": "function_declaration",
+      "label": "private fun buildRequest(method: String, path: String): String {\r\n        return \"$method ${config.baseUrl}$path\"\r\n    }",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 4,
+          "byte": 363
+        },
+        "end": {
+          "line": 17,
+          "column": 5,
+          "byte": 483
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:370:modifiers",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:375:387:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:387:417:function_value_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:419:425:user_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:function_body"
+      ],
+      "text_digest": "858dffc81132f22e5c0a76da36d7214c84ce73c5ef6cfb7549955d45d1a0ffde"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:function_body",
+      "kind": "function_body",
+      "label": "{\r\n        return \"$method ${config.baseUrl}$path\"\r\n    }",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 67,
+          "byte": 426
+        },
+        "end": {
+          "line": 17,
+          "column": 5,
+          "byte": 483
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:block"
+      ],
+      "text_digest": "4984c30e264bb20af30dda664c04eab5ad69d6cb3a3a56a19f6285f42773d871"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:426:483:block",
+      "kind": "block",
+      "label": "{\r\n        return \"$method ${config.baseUrl}$path\"\r\n    }",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 67,
+          "byte": 426
+        },
+        "end": {
+          "line": 17,
+          "column": 5,
+          "byte": 483
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:437:476:return_expression"
+      ],
+      "text_digest": "4984c30e264bb20af30dda664c04eab5ad69d6cb3a3a56a19f6285f42773d871"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:437:476:return_expression",
+      "kind": "return_expression",
+      "label": "return \"$method ${config.baseUrl}$path\"",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 8,
+          "byte": 437
+        },
+        "end": {
+          "line": 16,
+          "column": 47,
+          "byte": 476
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal"
+      ],
+      "text_digest": "1a3e199329d50e7305d0422e4521b04731342f6614d37bc793316681ed9c8115"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:444:476:string_literal",
+      "kind": "string_literal",
+      "label": "\"$method ${config.baseUrl}$path\"",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 15,
+          "byte": 444
+        },
+        "end": {
+          "line": 16,
+          "column": 47,
+          "byte": 476
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:445:446:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:446:453:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:453:470:interpolation",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:470:471:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:471:475:string_content"
+      ],
+      "text_digest": "4f6a833d55153321a4de2b18591f07484edc121b0e7e07be785f77737540e9f3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:471:475:string_content",
+      "kind": "string_content",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 42,
+          "byte": 471
+        },
+        "end": {
+          "line": 16,
+          "column": 46,
+          "byte": 475
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:470:471:string_content",
+      "kind": "string_content",
+      "label": "$",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 41,
+          "byte": 470
+        },
+        "end": {
+          "line": 16,
+          "column": 42,
+          "byte": 471
+        }
+      },
+      "children_ids": [],
+      "text_digest": "09fc96082d34c2dfc1295d92073b5ea1dc8ef8da95f14dfded011ffb96d3e54b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:453:470:interpolation",
+      "kind": "interpolation",
+      "label": "${config.baseUrl}",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 24,
+          "byte": 453
+        },
+        "end": {
+          "line": 16,
+          "column": 41,
+          "byte": 470
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:469:navigation_expression"
+      ],
+      "text_digest": "4be47c458c69e6915ad281a1a65c42f8b2b5ec8aed1ca968bb6ccc418bbe45f0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:469:navigation_expression",
+      "kind": "navigation_expression",
+      "label": "config.baseUrl",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 26,
+          "byte": 455
+        },
+        "end": {
+          "line": 16,
+          "column": 40,
+          "byte": 469
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:461:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:462:469:identifier"
+      ],
+      "text_digest": "ccae09817223842e7032f69130942dc420515e7cf94b61dc8ffcc7f71b3428b2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:462:469:identifier",
+      "kind": "identifier",
+      "label": "baseUrl",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 33,
+          "byte": 462
+        },
+        "end": {
+          "line": 16,
+          "column": 40,
+          "byte": 469
+        }
+      },
+      "children_ids": [],
+      "text_digest": "08892cb7cf4b6dd685798f2070f4209ff48cf2c6937f5eca6720f910bcbfca21"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:455:461:identifier",
+      "kind": "identifier",
+      "label": "config",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 26,
+          "byte": 455
+        },
+        "end": {
+          "line": 16,
+          "column": 32,
+          "byte": 461
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b79606fb3afea5bd1609ed40b622142f1c98125abcfe89a76a661b0e8e343910"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:446:453:string_content",
+      "kind": "string_content",
+      "label": "method ",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 17,
+          "byte": 446
+        },
+        "end": {
+          "line": 16,
+          "column": 24,
+          "byte": 453
+        }
+      },
+      "children_ids": [],
+      "text_digest": "eae8c32f538ed0b01ca595e1475961574c12fc49a0d0f5f76be46f2c732b73b9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:445:446:string_content",
+      "kind": "string_content",
+      "label": "$",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 16,
+          "byte": 445
+        },
+        "end": {
+          "line": 16,
+          "column": 17,
+          "byte": 446
+        }
+      },
+      "children_ids": [],
+      "text_digest": "09fc96082d34c2dfc1295d92073b5ea1dc8ef8da95f14dfded011ffb96d3e54b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:419:425:user_type",
+      "kind": "user_type",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 60,
+          "byte": 419
+        },
+        "end": {
+          "line": 15,
+          "column": 66,
+          "byte": 425
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:419:425:identifier"
+      ],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:419:425:identifier",
+      "kind": "identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 60,
+          "byte": 419
+        },
+        "end": {
+          "line": 15,
+          "column": 66,
+          "byte": 425
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:387:417:function_value_parameters",
+      "kind": "function_value_parameters",
+      "label": "(method: String, path: String)",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 28,
+          "byte": 387
+        },
+        "end": {
+          "line": 15,
+          "column": 58,
+          "byte": 417
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:402:parameter",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:416:parameter"
+      ],
+      "text_digest": "f13dd1c30b6cc87cb1c952b21b2b4019bbcb7870b3e54b957d17ba755383e02f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:416:parameter",
+      "kind": "parameter",
+      "label": "path: String",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 45,
+          "byte": 404
+        },
+        "end": {
+          "line": 15,
+          "column": 57,
+          "byte": 416
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:408:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:410:416:user_type"
+      ],
+      "text_digest": "e83992dbb6b1accb51f976c0d2368b51756997216601b550f689c02cc83b25aa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:410:416:user_type",
+      "kind": "user_type",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 51,
+          "byte": 410
+        },
+        "end": {
+          "line": 15,
+          "column": 57,
+          "byte": 416
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:410:416:identifier"
+      ],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:410:416:identifier",
+      "kind": "identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 51,
+          "byte": 410
+        },
+        "end": {
+          "line": 15,
+          "column": 57,
+          "byte": 416
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:404:408:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 45,
+          "byte": 404
+        },
+        "end": {
+          "line": 15,
+          "column": 49,
+          "byte": 408
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:402:parameter",
+      "kind": "parameter",
+      "label": "method: String",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 29,
+          "byte": 388
+        },
+        "end": {
+          "line": 15,
+          "column": 43,
+          "byte": 402
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:394:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:396:402:user_type"
+      ],
+      "text_digest": "59406cbbf4734bf9794d4d6d6e591acb10f5e830b3ab2403f6c09838a1070579"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:396:402:user_type",
+      "kind": "user_type",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 37,
+          "byte": 396
+        },
+        "end": {
+          "line": 15,
+          "column": 43,
+          "byte": 402
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:396:402:identifier"
+      ],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:396:402:identifier",
+      "kind": "identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 37,
+          "byte": 396
+        },
+        "end": {
+          "line": 15,
+          "column": 43,
+          "byte": 402
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:388:394:identifier",
+      "kind": "identifier",
+      "label": "method",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 29,
+          "byte": 388
+        },
+        "end": {
+          "line": 15,
+          "column": 35,
+          "byte": 394
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5b7e6bf2dc4a32a6aa4770cd5639c2c7af890fc86c273b5c8567fe5382086bf3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:375:387:identifier",
+      "kind": "identifier",
+      "label": "buildRequest",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 16,
+          "byte": 375
+        },
+        "end": {
+          "line": 15,
+          "column": 28,
+          "byte": 387
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7033880e0e72b7bd6816ca744ee4e223d6cdf8569862861badedce6e9112a456"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:370:modifiers",
+      "kind": "modifiers",
+      "label": "private",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 4,
+          "byte": 363
+        },
+        "end": {
+          "line": 15,
+          "column": 11,
+          "byte": 370
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:370:visibility_modifier"
+      ],
+      "text_digest": "715dc8493c36579a5b116995100f635e3572fdf8703e708ef1a08d943b36774e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:363:370:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "private",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 4,
+          "byte": 363
+        },
+        "end": {
+          "line": 15,
+          "column": 11,
+          "byte": 370
+        }
+      },
+      "children_ids": [],
+      "text_digest": "715dc8493c36579a5b116995100f635e3572fdf8703e708ef1a08d943b36774e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:259:355:function_declaration",
+      "kind": "function_declaration",
+      "label": "fun post(path: String, body: String): String {\r\n        return buildRequest(\"POST\", path)\r\n    }",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 4,
+          "byte": 259
+        },
+        "end": {
+          "line": 13,
+          "column": 5,
+          "byte": 355
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:263:267:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:267:295:function_value_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:297:303:user_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:function_body"
+      ],
+      "text_digest": "4b341758dd788883af7ae0ee2b60dc65fda90a3e90918a3e4d02d9e75b355f1c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:function_body",
+      "kind": "function_body",
+      "label": "{\r\n        return buildRequest(\"POST\", path)\r\n    }",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 49,
+          "byte": 304
+        },
+        "end": {
+          "line": 13,
+          "column": 5,
+          "byte": 355
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:block"
+      ],
+      "text_digest": "de1bcaa1a60f375ee89ba0d2b6d68a62a0ad55968c098bafc11a06494a19d149"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:304:355:block",
+      "kind": "block",
+      "label": "{\r\n        return buildRequest(\"POST\", path)\r\n    }",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 49,
+          "byte": 304
+        },
+        "end": {
+          "line": 13,
+          "column": 5,
+          "byte": 355
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:315:348:return_expression"
+      ],
+      "text_digest": "de1bcaa1a60f375ee89ba0d2b6d68a62a0ad55968c098bafc11a06494a19d149"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:315:348:return_expression",
+      "kind": "return_expression",
+      "label": "return buildRequest(\"POST\", path)",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 8,
+          "byte": 315
+        },
+        "end": {
+          "line": 12,
+          "column": 41,
+          "byte": 348
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:348:call_expression"
+      ],
+      "text_digest": "7044c627ce74925d7344fe8181228cffc9063147d757140894ecde63bd890688"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:348:call_expression",
+      "kind": "call_expression",
+      "label": "buildRequest(\"POST\", path)",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 15,
+          "byte": 322
+        },
+        "end": {
+          "line": 12,
+          "column": 41,
+          "byte": 348
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:334:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:334:348:value_arguments"
+      ],
+      "text_digest": "f0af661b47b256e4ae1a1836f7225b9d4eec1825e589aedc538a3e8686fe13a6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:334:348:value_arguments",
+      "kind": "value_arguments",
+      "label": "(\"POST\", path)",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 27,
+          "byte": 334
+        },
+        "end": {
+          "line": 12,
+          "column": 41,
+          "byte": 348
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:value_argument",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:343:347:value_argument"
+      ],
+      "text_digest": "1e9260a3db36f6ce95f60d5ac3d55a5ab19cec847214139cc37d0714cdfc1e7b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:343:347:value_argument",
+      "kind": "value_argument",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 36,
+          "byte": 343
+        },
+        "end": {
+          "line": 12,
+          "column": 40,
+          "byte": 347
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:343:347:identifier"
+      ],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:343:347:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 36,
+          "byte": 343
+        },
+        "end": {
+          "line": 12,
+          "column": 40,
+          "byte": 347
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:value_argument",
+      "kind": "value_argument",
+      "label": "\"POST\"",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 28,
+          "byte": 335
+        },
+        "end": {
+          "line": 12,
+          "column": 34,
+          "byte": 341
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:string_literal"
+      ],
+      "text_digest": "e46d3ae943664116b752137af856edb5f377c6d8012a39e3ef7f39f80a802cac"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:335:341:string_literal",
+      "kind": "string_literal",
+      "label": "\"POST\"",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 28,
+          "byte": 335
+        },
+        "end": {
+          "line": 12,
+          "column": 34,
+          "byte": 341
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:336:340:string_content"
+      ],
+      "text_digest": "e46d3ae943664116b752137af856edb5f377c6d8012a39e3ef7f39f80a802cac"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:336:340:string_content",
+      "kind": "string_content",
+      "label": "POST",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 29,
+          "byte": 336
+        },
+        "end": {
+          "line": 12,
+          "column": 33,
+          "byte": 340
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9aee6b1bcdf617d8e39bb1f2b624c68ea33deb9d48e0364aeaded836d3d00293"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:322:334:identifier",
+      "kind": "identifier",
+      "label": "buildRequest",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 15,
+          "byte": 322
+        },
+        "end": {
+          "line": 12,
+          "column": 27,
+          "byte": 334
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7033880e0e72b7bd6816ca744ee4e223d6cdf8569862861badedce6e9112a456"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:297:303:user_type",
+      "kind": "user_type",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 42,
+          "byte": 297
+        },
+        "end": {
+          "line": 11,
+          "column": 48,
+          "byte": 303
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:297:303:identifier"
+      ],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:297:303:identifier",
+      "kind": "identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 42,
+          "byte": 297
+        },
+        "end": {
+          "line": 11,
+          "column": 48,
+          "byte": 303
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:267:295:function_value_parameters",
+      "kind": "function_value_parameters",
+      "label": "(path: String, body: String)",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 12,
+          "byte": 267
+        },
+        "end": {
+          "line": 11,
+          "column": 40,
+          "byte": 295
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:280:parameter",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:294:parameter"
+      ],
+      "text_digest": "259f1fb3f5e87cb23df764800aef8a54b1bea04fe3797614224ef6188463a3cc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:294:parameter",
+      "kind": "parameter",
+      "label": "body: String",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 27,
+          "byte": 282
+        },
+        "end": {
+          "line": 11,
+          "column": 39,
+          "byte": 294
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:286:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:288:294:user_type"
+      ],
+      "text_digest": "88132ad238cefba506399fc8dc2bb1df17067fc47b087c91aef8e0942b1b66e0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:288:294:user_type",
+      "kind": "user_type",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 33,
+          "byte": 288
+        },
+        "end": {
+          "line": 11,
+          "column": 39,
+          "byte": 294
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:288:294:identifier"
+      ],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:288:294:identifier",
+      "kind": "identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 33,
+          "byte": 288
+        },
+        "end": {
+          "line": 11,
+          "column": 39,
+          "byte": 294
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:282:286:identifier",
+      "kind": "identifier",
+      "label": "body",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 27,
+          "byte": 282
+        },
+        "end": {
+          "line": 11,
+          "column": 31,
+          "byte": 286
+        }
+      },
+      "children_ids": [],
+      "text_digest": "230d8358dc8e8890b4c58deeb62912ee2f20357ae92a5cc861b98e68fe31acb5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:280:parameter",
+      "kind": "parameter",
+      "label": "path: String",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 13,
+          "byte": 268
+        },
+        "end": {
+          "line": 11,
+          "column": 25,
+          "byte": 280
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:272:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:274:280:user_type"
+      ],
+      "text_digest": "e83992dbb6b1accb51f976c0d2368b51756997216601b550f689c02cc83b25aa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:274:280:user_type",
+      "kind": "user_type",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 19,
+          "byte": 274
+        },
+        "end": {
+          "line": 11,
+          "column": 25,
+          "byte": 280
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:274:280:identifier"
+      ],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:274:280:identifier",
+      "kind": "identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 19,
+          "byte": 274
+        },
+        "end": {
+          "line": 11,
+          "column": 25,
+          "byte": 280
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:268:272:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 13,
+          "byte": 268
+        },
+        "end": {
+          "line": 11,
+          "column": 17,
+          "byte": 272
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:263:267:identifier",
+      "kind": "identifier",
+      "label": "post",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 8,
+          "byte": 263
+        },
+        "end": {
+          "line": 11,
+          "column": 12,
+          "byte": 267
+        }
+      },
+      "children_ids": [],
+      "text_digest": "72231043bc1807e6f740b235eb7511ecb33255a6a375435631196de8a9750d4b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:171:251:function_declaration",
+      "kind": "function_declaration",
+      "label": "fun get(path: String): String {\r\n        return buildRequest(\"GET\", path)\r\n    }",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 4,
+          "byte": 171
+        },
+        "end": {
+          "line": 9,
+          "column": 5,
+          "byte": 251
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:175:178:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:178:192:function_value_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:194:200:user_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:function_body"
+      ],
+      "text_digest": "21cf495fac44bf75e5fc57c5bbaef7a5e84a579d87dead6a3831b4239cf0dd37"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:function_body",
+      "kind": "function_body",
+      "label": "{\r\n        return buildRequest(\"GET\", path)\r\n    }",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 34,
+          "byte": 201
+        },
+        "end": {
+          "line": 9,
+          "column": 5,
+          "byte": 251
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:block"
+      ],
+      "text_digest": "c4e10ebdab20a4b052fabdcdea623787d990acc908e9acf14caf60fa9a3de4ed"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:201:251:block",
+      "kind": "block",
+      "label": "{\r\n        return buildRequest(\"GET\", path)\r\n    }",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 34,
+          "byte": 201
+        },
+        "end": {
+          "line": 9,
+          "column": 5,
+          "byte": 251
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:212:244:return_expression"
+      ],
+      "text_digest": "c4e10ebdab20a4b052fabdcdea623787d990acc908e9acf14caf60fa9a3de4ed"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:212:244:return_expression",
+      "kind": "return_expression",
+      "label": "return buildRequest(\"GET\", path)",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 8,
+          "byte": 212
+        },
+        "end": {
+          "line": 8,
+          "column": 40,
+          "byte": 244
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:244:call_expression"
+      ],
+      "text_digest": "5f6b8a630eb7871bb8a7e6c53aa34765029513305ca1e38a5e1bc8c6fa2415a4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:244:call_expression",
+      "kind": "call_expression",
+      "label": "buildRequest(\"GET\", path)",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 15,
+          "byte": 219
+        },
+        "end": {
+          "line": 8,
+          "column": 40,
+          "byte": 244
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:231:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:231:244:value_arguments"
+      ],
+      "text_digest": "1cc9e877410a0394e296aea79c4f7f3adfe5a78856175dcc35a3a0f92e98a767"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:231:244:value_arguments",
+      "kind": "value_arguments",
+      "label": "(\"GET\", path)",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 27,
+          "byte": 231
+        },
+        "end": {
+          "line": 8,
+          "column": 40,
+          "byte": 244
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:value_argument",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:239:243:value_argument"
+      ],
+      "text_digest": "e69bf597aafe5574e82198b87275fa6b2d285c37b8add03655fa3831a190a176"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:239:243:value_argument",
+      "kind": "value_argument",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 35,
+          "byte": 239
+        },
+        "end": {
+          "line": 8,
+          "column": 39,
+          "byte": 243
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:239:243:identifier"
+      ],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:239:243:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 35,
+          "byte": 239
+        },
+        "end": {
+          "line": 8,
+          "column": 39,
+          "byte": 243
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:value_argument",
+      "kind": "value_argument",
+      "label": "\"GET\"",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 28,
+          "byte": 232
+        },
+        "end": {
+          "line": 8,
+          "column": 33,
+          "byte": 237
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:string_literal"
+      ],
+      "text_digest": "04f32a7e5ddf67e84607f422420197492e7642de7f13d4ce9589c1b0a4683c3a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:232:237:string_literal",
+      "kind": "string_literal",
+      "label": "\"GET\"",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 28,
+          "byte": 232
+        },
+        "end": {
+          "line": 8,
+          "column": 33,
+          "byte": 237
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:233:236:string_content"
+      ],
+      "text_digest": "04f32a7e5ddf67e84607f422420197492e7642de7f13d4ce9589c1b0a4683c3a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:233:236:string_content",
+      "kind": "string_content",
+      "label": "GET",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 29,
+          "byte": 233
+        },
+        "end": {
+          "line": 8,
+          "column": 32,
+          "byte": 236
+        }
+      },
+      "children_ids": [],
+      "text_digest": "14e30cd163c732912e048c4c837e15c4e90c062ebb795ab947d57706e2d10dd8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:219:231:identifier",
+      "kind": "identifier",
+      "label": "buildRequest",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 15,
+          "byte": 219
+        },
+        "end": {
+          "line": 8,
+          "column": 27,
+          "byte": 231
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7033880e0e72b7bd6816ca744ee4e223d6cdf8569862861badedce6e9112a456"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:194:200:user_type",
+      "kind": "user_type",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 27,
+          "byte": 194
+        },
+        "end": {
+          "line": 7,
+          "column": 33,
+          "byte": 200
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:194:200:identifier"
+      ],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:194:200:identifier",
+      "kind": "identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 27,
+          "byte": 194
+        },
+        "end": {
+          "line": 7,
+          "column": 33,
+          "byte": 200
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:178:192:function_value_parameters",
+      "kind": "function_value_parameters",
+      "label": "(path: String)",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 11,
+          "byte": 178
+        },
+        "end": {
+          "line": 7,
+          "column": 25,
+          "byte": 192
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:191:parameter"
+      ],
+      "text_digest": "4d68854a0672a55404902560b88b6df9bf03148acb48087a9402dab159d5c32d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:191:parameter",
+      "kind": "parameter",
+      "label": "path: String",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 12,
+          "byte": 179
+        },
+        "end": {
+          "line": 7,
+          "column": 24,
+          "byte": 191
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:183:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:185:191:user_type"
+      ],
+      "text_digest": "e83992dbb6b1accb51f976c0d2368b51756997216601b550f689c02cc83b25aa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:185:191:user_type",
+      "kind": "user_type",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 18,
+          "byte": 185
+        },
+        "end": {
+          "line": 7,
+          "column": 24,
+          "byte": 191
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:185:191:identifier"
+      ],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:185:191:identifier",
+      "kind": "identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 18,
+          "byte": 185
+        },
+        "end": {
+          "line": 7,
+          "column": 24,
+          "byte": 191
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:179:183:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 12,
+          "byte": 179
+        },
+        "end": {
+          "line": 7,
+          "column": 16,
+          "byte": 183
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:175:178:identifier",
+      "kind": "identifier",
+      "label": "get",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 8,
+          "byte": 175
+        },
+        "end": {
+          "line": 7,
+          "column": 11,
+          "byte": 178
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2998b3232d29e8dc5a78d97a32ce83f556f3ed31b057077503df05641dd79158"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:primary_constructor",
+      "kind": "primary_constructor",
+      "label": "(private val config: Config)",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 16,
+          "byte": 135
+        },
+        "end": {
+          "line": 6,
+          "column": 44,
+          "byte": 163
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:class_parameters"
+      ],
+      "text_digest": "79add8315d6be6aa1adba1cbcf7343b757969d9eb6d2d436319ff1b118374fd2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:135:163:class_parameters",
+      "kind": "class_parameters",
+      "label": "(private val config: Config)",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 16,
+          "byte": 135
+        },
+        "end": {
+          "line": 6,
+          "column": 44,
+          "byte": 163
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:162:class_parameter"
+      ],
+      "text_digest": "79add8315d6be6aa1adba1cbcf7343b757969d9eb6d2d436319ff1b118374fd2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:162:class_parameter",
+      "kind": "class_parameter",
+      "label": "private val config: Config",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 17,
+          "byte": 136
+        },
+        "end": {
+          "line": 6,
+          "column": 43,
+          "byte": 162
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:143:modifiers",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:148:154:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:156:162:user_type"
+      ],
+      "text_digest": "095eb97ebc727e6554c4a366f12bc05a58178a63069940d72557a2b833fc6a0e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:156:162:user_type",
+      "kind": "user_type",
+      "label": "Config",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 37,
+          "byte": 156
+        },
+        "end": {
+          "line": 6,
+          "column": 43,
+          "byte": 162
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:156:162:identifier"
+      ],
+      "text_digest": "87e89abb4c1c551fe08d355d097f18b8de78edca5f556997085681662fce8eed"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:156:162:identifier",
+      "kind": "identifier",
+      "label": "Config",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 37,
+          "byte": 156
+        },
+        "end": {
+          "line": 6,
+          "column": 43,
+          "byte": 162
+        }
+      },
+      "children_ids": [],
+      "text_digest": "87e89abb4c1c551fe08d355d097f18b8de78edca5f556997085681662fce8eed"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:148:154:identifier",
+      "kind": "identifier",
+      "label": "config",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 29,
+          "byte": 148
+        },
+        "end": {
+          "line": 6,
+          "column": 35,
+          "byte": 154
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b79606fb3afea5bd1609ed40b622142f1c98125abcfe89a76a661b0e8e343910"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:143:modifiers",
+      "kind": "modifiers",
+      "label": "private",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 17,
+          "byte": 136
+        },
+        "end": {
+          "line": 6,
+          "column": 24,
+          "byte": 143
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:143:visibility_modifier"
+      ],
+      "text_digest": "715dc8493c36579a5b116995100f635e3572fdf8703e708ef1a08d943b36774e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:136:143:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "private",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 17,
+          "byte": 136
+        },
+        "end": {
+          "line": 6,
+          "column": 24,
+          "byte": 143
+        }
+      },
+      "children_ids": [],
+      "text_digest": "715dc8493c36579a5b116995100f635e3572fdf8703e708ef1a08d943b36774e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:125:135:identifier",
+      "kind": "identifier",
+      "label": "HttpClient",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 6,
+          "byte": 125
+        },
+        "end": {
+          "line": 6,
+          "column": 16,
+          "byte": 135
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6700c760a283935f7c3850419cdbcc3ffb5423c8361ee69f6d25ef5cdeba8226"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:115:class_declaration",
+      "kind": "class_declaration",
+      "label": "data class Config(val baseUrl: String, val timeout: Int)",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 59
+        },
+        "end": {
+          "line": 4,
+          "column": 56,
+          "byte": 115
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:63:modifiers",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:70:76:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:primary_constructor"
+      ],
+      "text_digest": "192cda56035871d3e0a7b28747f18ac2a1453ca994563a21fa77393fc8c833a7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:primary_constructor",
+      "kind": "primary_constructor",
+      "label": "(val baseUrl: String, val timeout: Int)",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 17,
+          "byte": 76
+        },
+        "end": {
+          "line": 4,
+          "column": 56,
+          "byte": 115
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:class_parameters"
+      ],
+      "text_digest": "5840ae0da9fcca3edac92ab2962fa9d7aa53b8b96c7b4aad75b9d35b7f30592f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:76:115:class_parameters",
+      "kind": "class_parameters",
+      "label": "(val baseUrl: String, val timeout: Int)",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 17,
+          "byte": 76
+        },
+        "end": {
+          "line": 4,
+          "column": 56,
+          "byte": 115
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:77:96:class_parameter",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:98:114:class_parameter"
+      ],
+      "text_digest": "5840ae0da9fcca3edac92ab2962fa9d7aa53b8b96c7b4aad75b9d35b7f30592f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:98:114:class_parameter",
+      "kind": "class_parameter",
+      "label": "val timeout: Int",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 39,
+          "byte": 98
+        },
+        "end": {
+          "line": 4,
+          "column": 55,
+          "byte": 114
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:102:109:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:111:114:user_type"
+      ],
+      "text_digest": "7a3e3afb1d654a89965d91bab45a046417377872fc6d3b65ee2a034637807b4d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:111:114:user_type",
+      "kind": "user_type",
+      "label": "Int",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 52,
+          "byte": 111
+        },
+        "end": {
+          "line": 4,
+          "column": 55,
+          "byte": 114
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:111:114:identifier"
+      ],
+      "text_digest": "0b5f608070c6ce3bc711621b8371e71901bdf196dbdf04807b513f75346b7018"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:111:114:identifier",
+      "kind": "identifier",
+      "label": "Int",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 52,
+          "byte": 111
+        },
+        "end": {
+          "line": 4,
+          "column": 55,
+          "byte": 114
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0b5f608070c6ce3bc711621b8371e71901bdf196dbdf04807b513f75346b7018"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:102:109:identifier",
+      "kind": "identifier",
+      "label": "timeout",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 43,
+          "byte": 102
+        },
+        "end": {
+          "line": 4,
+          "column": 50,
+          "byte": 109
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f77d1bb58da886e3cbeebbf35a0b3d217b003506792268052c6a730fbc5ec9bc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:77:96:class_parameter",
+      "kind": "class_parameter",
+      "label": "val baseUrl: String",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 18,
+          "byte": 77
+        },
+        "end": {
+          "line": 4,
+          "column": 37,
+          "byte": 96
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:81:88:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:90:96:user_type"
+      ],
+      "text_digest": "165f8d535bb0080dd8be2861276c0be0d1d0f6f9f125c77af7048d51ccc6bbb0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:90:96:user_type",
+      "kind": "user_type",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 31,
+          "byte": 90
+        },
+        "end": {
+          "line": 4,
+          "column": 37,
+          "byte": 96
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:90:96:identifier"
+      ],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:90:96:identifier",
+      "kind": "identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 31,
+          "byte": 90
+        },
+        "end": {
+          "line": 4,
+          "column": 37,
+          "byte": 96
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:81:88:identifier",
+      "kind": "identifier",
+      "label": "baseUrl",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 22,
+          "byte": 81
+        },
+        "end": {
+          "line": 4,
+          "column": 29,
+          "byte": 88
+        }
+      },
+      "children_ids": [],
+      "text_digest": "08892cb7cf4b6dd685798f2070f4209ff48cf2c6937f5eca6720f910bcbfca21"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:70:76:identifier",
+      "kind": "identifier",
+      "label": "Config",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 11,
+          "byte": 70
+        },
+        "end": {
+          "line": 4,
+          "column": 17,
+          "byte": 76
+        }
+      },
+      "children_ids": [],
+      "text_digest": "87e89abb4c1c551fe08d355d097f18b8de78edca5f556997085681662fce8eed"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:63:modifiers",
+      "kind": "modifiers",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 59
+        },
+        "end": {
+          "line": 4,
+          "column": 4,
+          "byte": 63
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:63:class_modifier"
+      ],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:59:63:class_modifier",
+      "kind": "class_modifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 59
+        },
+        "end": {
+          "line": 4,
+          "column": 4,
+          "byte": 63
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:33:55:import",
+      "kind": "import",
+      "label": "import kotlin.math.max",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 33
+        },
+        "end": {
+          "line": 2,
+          "column": 22,
+          "byte": 55
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:55:qualified_identifier"
+      ],
+      "text_digest": "a5f747d193651ccd58734ed25bbc1787c980d3fe04c3a622fbbc022464de810d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:55:qualified_identifier",
+      "kind": "qualified_identifier",
+      "label": "kotlin.math.max",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 40
+        },
+        "end": {
+          "line": 2,
+          "column": 22,
+          "byte": 55
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:46:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:47:51:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:52:55:identifier"
+      ],
+      "text_digest": "3245dc8dbcbe75c662f1213374123b11e5468471406896161047236b8f6b648b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:52:55:identifier",
+      "kind": "identifier",
+      "label": "max",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 19,
+          "byte": 52
+        },
+        "end": {
+          "line": 2,
+          "column": 22,
+          "byte": 55
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9baf3a40312f39849f46dad1040f2f039f1cffa1238c41e9db675315cfad39b6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:47:51:identifier",
+      "kind": "identifier",
+      "label": "math",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 14,
+          "byte": 47
+        },
+        "end": {
+          "line": 2,
+          "column": 18,
+          "byte": 51
+        }
+      },
+      "children_ids": [],
+      "text_digest": "58a6d6801ae771e632351013ffe8e53628287bf5310e469c8c48573669011ef0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:40:46:identifier",
+      "kind": "identifier",
+      "label": "kotlin",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 40
+        },
+        "end": {
+          "line": 2,
+          "column": 13,
+          "byte": 46
+        }
+      },
+      "children_ids": [],
+      "text_digest": "19a67c2a53695668e4916e9e64cf0613352ec614fd682a8bf8bf98a471db5e8d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:0:31:import",
+      "kind": "import",
+      "label": "import kotlinx.coroutines.delay",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 31,
+          "byte": 31
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:31:qualified_identifier"
+      ],
+      "text_digest": "f7f0e38ff1a935f0f9fac4ba26df6b8161befaed593286300e731fef056a38dd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:31:qualified_identifier",
+      "kind": "qualified_identifier",
+      "label": "kotlinx.coroutines.delay",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 31,
+          "byte": 31
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:14:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:15:25:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:26:31:identifier"
+      ],
+      "text_digest": "00ac5464c20f0e0bcbd76ce73fb40800f99664f2c80bb7f2c7531383f3057905"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:26:31:identifier",
+      "kind": "identifier",
+      "label": "delay",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 26,
+          "byte": 26
+        },
+        "end": {
+          "line": 1,
+          "column": 31,
+          "byte": 31
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6e16db102267e6e7de7f08f9c28836861561b6ac5a9aec0d26e263c37267f54e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:15:25:identifier",
+      "kind": "identifier",
+      "label": "coroutines",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 15,
+          "byte": 15
+        },
+        "end": {
+          "line": 1,
+          "column": 25,
+          "byte": 25
+        }
+      },
+      "children_ids": [],
+      "text_digest": "278a30e4cae59cd3019e6c8c56842e46e69f0a1fa439f8d94645a205db4d5311"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.kt:7:14:identifier",
+      "kind": "identifier",
+      "label": "kotlinx",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 14,
+          "byte": 14
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a5000269a4c70fcef1bdf6113e139226357661789cea4e949eecc0f60ac9071e"
+    }
+  ],
+  "parser_id": "tree_sitter_kotlin",
+  "relative_path": "tests/fixtures/sample.kt",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "kotlin",
+  "warnings": []
+}

@@ -1,0 +1,3653 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:42+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:761:type_parameter:130",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:761:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:761:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:751:761:default_type:129",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:761:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:751:761:default_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:751:761:default_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:literal_type:128",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:751:761:default_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:string:127",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:754:760:string_fragment:126",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:754:760:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:761:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:750:type_identifier:125",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:761:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:750:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:728:739:ERROR:124",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:728:739:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:728:739:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:732:738:identifier:123",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:728:739:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:732:738:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:701:725:ERROR:122",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:701:725:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:696:701:type_parameter:121",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:696:701:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:696:701:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:696:701:type_identifier:120",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:696:701:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:696:701:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:680:696:ERROR:119",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:680:696:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:660:669:type_parameter:118",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:660:669:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:660:669:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:660:669:type_identifier:117",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:660:669:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:660:669:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:647:type_parameter:116",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:647:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:647:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:621:647:default_type:115",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:647:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:621:647:default_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:621:647:default_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:647:intersection_type:114",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:621:647:default_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:647:intersection_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:647:intersection_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:634:647:intersection_type:113",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:647:intersection_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:634:647:intersection_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:634:647:intersection_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:literal_type:112",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:634:647:intersection_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:string:111",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:637:646:string_fragment:110",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:637:646:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:647:intersection_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:literal_type:109",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:647:intersection_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:string:108",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:626:631:string_fragment:107",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:626:631:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:621:647:default_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:622:624:ERROR:106",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:621:647:default_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:622:624:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:647:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:620:type_identifier:105",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:647:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:620:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:600:type_parameter:104",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:600:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:600:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:570:600:default_type:103",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:600:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:570:600:default_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:570:600:default_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:600:intersection_type:102",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:570:600:default_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:600:intersection_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:600:intersection_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:585:600:intersection_type:101",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:600:intersection_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:585:600:intersection_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:585:600:intersection_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:literal_type:100",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:585:600:intersection_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:string:99",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:588:599:string_fragment:98",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:588:599:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:600:intersection_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:literal_type:97",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:600:intersection_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:string:96",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:575:582:string_fragment:95",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:575:582:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:570:600:default_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:571:573:ERROR:94",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:570:600:default_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:571:573:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:600:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:569:type_identifier:93",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:600:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:569:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:549:type_parameter:92",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:549:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:549:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:491:549:default_type:91",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:549:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:491:549:default_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:491:549:default_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:literal_type:90",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:491:549:default_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:string:89",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:545:548:string_fragment:88",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:545:548:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:491:549:default_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:532:ERROR:87",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:491:549:default_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:532:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:532:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:527:531:identifier:86",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:532:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:527:531:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:532:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:516:525:identifier:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:532:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:516:525:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:532:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:506:object_type:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:532:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:506:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:506:object_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:497:505:ERROR:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:506:object_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:497:505:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:497:505:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:497:499:identifier:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:497:505:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:497:499:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:506:object_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:493:496:property_signature:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:506:object_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:493:496:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:493:496:property_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:493:496:property_identifier:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:493:496:property_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:493:496:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:549:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:488:491:ERROR:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:549:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:488:491:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:488:491:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:488:491:identifier:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:488:491:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:488:491:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:549:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:478:type_identifier:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:549:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:478:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:412:451:lexical_declaration:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:412:451:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:412:451:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:450:variable_declarator:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:412:451:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:450:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:450:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:450:ternary_expression:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:450:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:450:ternary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:450:ternary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:442:450:string:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:450:ternary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:442:450:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:442:450:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:443:449:string_fragment:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:442:450:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:443:449:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:450:ternary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:435:439:identifier:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:450:ternary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:435:439:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:450:ternary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:432:identifier:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:450:ternary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:432:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:450:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:422:identifier:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:450:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:422:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:339:401:formal_parameters:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:339:401:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:339:401:formal_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:397:400:required_parameter:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:339:401:formal_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:397:400:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:397:400:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:397:400:identifier:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:397:400:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:397:400:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:339:401:formal_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:required_parameter:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:339:401:formal_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:385:393:rest_pattern:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:385:393:rest_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:385:393:rest_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:388:393:identifier:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:385:393:rest_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:388:393:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:376:383:shorthand_property_identifier_pattern:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:376:383:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:374:object_assignment_pattern:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:374:object_assignment_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:374:object_assignment_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:363:374:string:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:374:object_assignment_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:363:374:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:363:374:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:364:373:string_fragment:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:363:374:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:364:373:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:374:object_assignment_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:360:shorthand_property_identifier_pattern:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:374:object_assignment_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:360:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:342:351:shorthand_property_identifier_pattern:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:342:351:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:302:334:type_arguments:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:302:334:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:302:334:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:322:333:type_identifier:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:302:334:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:322:333:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:302:334:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:303:320:type_identifier:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:302:334:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:303:320:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:302:member_expression:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:302:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:302:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:292:302:property_identifier:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:302:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:292:302:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:302:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:291:identifier:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:302:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:291:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:277:283:identifier:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:277:283:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:111:260:export_statement:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:111:260:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:111:260:export_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:118:260:type_alias_declaration:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:111:260:export_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:118:260:type_alias_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:118:260:type_alias_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:259:intersection_type:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:118:260:type_alias_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:259:intersection_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:259:intersection_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:185:259:object_type:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:259:intersection_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:185:259:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:185:259:object_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:255:property_signature:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:185:259:object_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:255:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:255:property_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:220:255:type_annotation:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:255:property_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:220:255:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:220:255:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:255:union_type:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:220:255:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:255:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:255:union_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:literal_type:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:255:union_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:string:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:249:254:string_fragment:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:249:254:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:255:union_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:245:union_type:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:255:union_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:245:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:245:union_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:literal_type:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:245:union_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:string:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:235:244:string_fragment:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:235:244:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:245:union_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:literal_type:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:245:union_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:string:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:223:230:string_fragment:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:223:230:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:255:property_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:219:property_identifier:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:255:property_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:219:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:185:259:object_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:207:property_signature:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:185:259:object_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:207:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:207:property_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:198:207:type_annotation:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:207:property_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:198:207:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:198:207:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:200:207:predefined_type:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:198:207:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:200:207:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:207:property_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:197:property_identifier:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:207:property_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:197:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:259:intersection_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:182:generic_type:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:259:intersection_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:182:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:182:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:163:182:type_arguments:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:182:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:163:182:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:163:182:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:164:181:type_identifier:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:163:182:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:164:181:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:182:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:163:nested_type_identifier:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:182:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:163:nested_type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:163:nested_type_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:143:163:type_identifier:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:163:nested_type_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:143:163:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:163:nested_type_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:142:identifier:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:163:nested_type_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:142:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:118:260:type_alias_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:123:134:type_identifier:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:118:260:type_alias_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:123:134:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:79:107:import_statement:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:79:107:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:79:107:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:100:106:string:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:79:107:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:100:106:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:100:106:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:101:105:string_fragment:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:100:106:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:101:105:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:79:107:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:import_clause:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:79:107:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:named_imports:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:88:92:import_specifier:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:88:92:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:88:92:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:88:92:identifier:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:88:92:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:88:92:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:33:77:import_statement:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:33:77:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:33:77:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:54:76:string:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:33:77:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:54:76:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:54:76:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:55:75:string_fragment:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:54:76:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:55:75:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:33:77:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:import_clause:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:33:77:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:named_imports:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:42:46:import_specifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:42:46:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:42:46:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:42:46:identifier:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:42:46:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:42:46:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:31:import_statement:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:31:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:31:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:23:30:string:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:31:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:23:30:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:23:30:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:24:29:string_fragment:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:23:30:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:24:29:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:31:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:import_clause:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:31:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:namespace_import:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:namespace_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:namespace_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:12:17:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:namespace_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:12:17:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:764:ERROR",
+      "kind": "ERROR",
+      "label": "import * as React from \"react\";\r\nimport { Slot } from \"@radix-ui/react-slot\";\r\nimport { clsx } from \"clsx\";\r\n\r\nexport type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {\r\n  asChild?: boolean;\r\n  variant?: \"primary\" | \"secondary\" | \"ghost\";\r\n};\r\n\r\nexport const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(\r\n  ({ className, variant = \"secondary\", asChild, ...props }, ref) => {\r\n    const Comp = asChild ? Slot : \"button\";\r\n    return (\r\n      <Comp\r\n        ref={ref as never}\r\n        className={clsx(\r\n          \"btn\",\r\n          variant === \"primary\" && \"btn-primary\",\r\n          variant === \"ghost\" && \"btn-ghost\",\r\n          className,\r\n        )}\r\n        {...props}\r\n      />\r\n    );\r\n  },\r\n);\r\nButton.displayName = \"Button\";\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 28,
+          "column": 0,
+          "byte": 764
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:31:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:33:77:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:79:107:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:111:260:export_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:277:283:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:302:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:302:334:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:339:401:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:412:451:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:549:type_parameter",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:600:type_parameter",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:647:type_parameter",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:660:669:type_parameter",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:680:696:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:696:701:type_parameter",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:701:725:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:728:739:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:761:type_parameter"
+      ],
+      "text_digest": "a96baca6a78bbc8a7f89c9b4ae700e51811ca227afffe9183e86a7ea565414f9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:761:type_parameter",
+      "kind": "type_parameter",
+      "label": "displayName = \"Button\"",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 7,
+          "byte": 739
+        },
+        "end": {
+          "line": 27,
+          "column": 29,
+          "byte": 761
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:750:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:751:761:default_type"
+      ],
+      "text_digest": "d56197a1dbbcd3f12469bc8dcf91f5b0781c92118ed6ab353558a23b4c0f7c17"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:751:761:default_type",
+      "kind": "default_type",
+      "label": "= \"Button\"",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 19,
+          "byte": 751
+        },
+        "end": {
+          "line": 27,
+          "column": 29,
+          "byte": 761
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:literal_type"
+      ],
+      "text_digest": "aee7679d0d4b7517450826dfbd14a940b36cc38e176bbd7a2a8119ade4f589a7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:literal_type",
+      "kind": "literal_type",
+      "label": "\"Button\"",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 21,
+          "byte": 753
+        },
+        "end": {
+          "line": 27,
+          "column": 29,
+          "byte": 761
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:string"
+      ],
+      "text_digest": "eab1ed60c3803aa54a9a6a6e84ecf421a8e32bdc0aab579893869dbfb0a6b8a8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:753:761:string",
+      "kind": "string",
+      "label": "\"Button\"",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 21,
+          "byte": 753
+        },
+        "end": {
+          "line": 27,
+          "column": 29,
+          "byte": 761
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:754:760:string_fragment"
+      ],
+      "text_digest": "eab1ed60c3803aa54a9a6a6e84ecf421a8e32bdc0aab579893869dbfb0a6b8a8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:754:760:string_fragment",
+      "kind": "string_fragment",
+      "label": "Button",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 22,
+          "byte": 754
+        },
+        "end": {
+          "line": 27,
+          "column": 28,
+          "byte": 760
+        }
+      },
+      "children_ids": [],
+      "text_digest": "707eab0c23ecbf6e5382ba61a346bc76aefee81303280fc0e08e59df18afbf8a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:739:750:type_identifier",
+      "kind": "type_identifier",
+      "label": "displayName",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 7,
+          "byte": 739
+        },
+        "end": {
+          "line": 27,
+          "column": 18,
+          "byte": 750
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e10039a5fdef3ca419f92d4b52b0a01d4084cb598917f588c8175eb46d5c8b13"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:728:739:ERROR",
+      "kind": "ERROR",
+      "label": ");\r\nButton.",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 0,
+          "byte": 728
+        },
+        "end": {
+          "line": 27,
+          "column": 7,
+          "byte": 739
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:732:738:identifier"
+      ],
+      "text_digest": "17b9f45a92772e152efa668f038713269db691283786d4a688a8c222858f46f2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:732:738:identifier",
+      "kind": "identifier",
+      "label": "Button",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 0,
+          "byte": 732
+        },
+        "end": {
+          "line": 27,
+          "column": 6,
+          "byte": 738
+        }
+      },
+      "children_ids": [],
+      "text_digest": "707eab0c23ecbf6e5382ba61a346bc76aefee81303280fc0e08e59df18afbf8a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:701:725:ERROR",
+      "kind": "ERROR",
+      "label": "}\r\n      />\r\n    );\r\n  }",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 17,
+          "byte": 701
+        },
+        "end": {
+          "line": 25,
+          "column": 3,
+          "byte": 725
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4fdd5256e9b8383eed0c4f9f97b5ac691e7a1dac94381342634452f1b2dcfa3e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:696:701:type_parameter",
+      "kind": "type_parameter",
+      "label": "props",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 12,
+          "byte": 696
+        },
+        "end": {
+          "line": 22,
+          "column": 17,
+          "byte": 701
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:696:701:type_identifier"
+      ],
+      "text_digest": "b264807709578e5c5fee1de72a80ab0dab5692bfcee892db3a58e0e9b0d63c72"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:696:701:type_identifier",
+      "kind": "type_identifier",
+      "label": "props",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 12,
+          "byte": 696
+        },
+        "end": {
+          "line": 22,
+          "column": 17,
+          "byte": 701
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b264807709578e5c5fee1de72a80ab0dab5692bfcee892db3a58e0e9b0d63c72"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:680:696:ERROR",
+      "kind": "ERROR",
+      "label": ")}\r\n        {...",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 8,
+          "byte": 680
+        },
+        "end": {
+          "line": 22,
+          "column": 12,
+          "byte": 696
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2d1628e49fad5dcbcf1a8f498749ca33891bf41d691f427068ed303274e4ef32"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:660:669:type_parameter",
+      "kind": "type_parameter",
+      "label": "className",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 10,
+          "byte": 660
+        },
+        "end": {
+          "line": 20,
+          "column": 19,
+          "byte": 669
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:660:669:type_identifier"
+      ],
+      "text_digest": "42d5bd1ac1ca8a2050bc1c27dfb8e01a5c54de453b85410227aa04be47c27af4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:660:669:type_identifier",
+      "kind": "type_identifier",
+      "label": "className",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 10,
+          "byte": 660
+        },
+        "end": {
+          "line": 20,
+          "column": 19,
+          "byte": 669
+        }
+      },
+      "children_ids": [],
+      "text_digest": "42d5bd1ac1ca8a2050bc1c27dfb8e01a5c54de453b85410227aa04be47c27af4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:647:type_parameter",
+      "kind": "type_parameter",
+      "label": "variant === \"ghost\" && \"btn-ghost\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 10,
+          "byte": 613
+        },
+        "end": {
+          "line": 19,
+          "column": 44,
+          "byte": 647
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:620:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:621:647:default_type"
+      ],
+      "text_digest": "8738a18bba902a273867e181e8f5d9513f84caec9c4fbb21c6042f908141e28b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:621:647:default_type",
+      "kind": "default_type",
+      "label": "=== \"ghost\" && \"btn-ghost\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 18,
+          "byte": 621
+        },
+        "end": {
+          "line": 19,
+          "column": 44,
+          "byte": 647
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:622:624:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:647:intersection_type"
+      ],
+      "text_digest": "a01677b9d33b339556bb0c7167176cd6d5cc115b22afb7a70f5193575dec77b9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:647:intersection_type",
+      "kind": "intersection_type",
+      "label": "\"ghost\" && \"btn-ghost\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 22,
+          "byte": 625
+        },
+        "end": {
+          "line": 19,
+          "column": 44,
+          "byte": 647
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:literal_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:634:647:intersection_type"
+      ],
+      "text_digest": "432ab68cb16ba9a645e59fd8a9037f51e53daeed8b3e02da40d4cae9495aa702"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:634:647:intersection_type",
+      "kind": "intersection_type",
+      "label": "& \"btn-ghost\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 31,
+          "byte": 634
+        },
+        "end": {
+          "line": 19,
+          "column": 44,
+          "byte": 647
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:literal_type"
+      ],
+      "text_digest": "c5e9125be91f5ea8f59e053bdb8abc194bd46b65f1dbb0df791adaffb6504b91"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:literal_type",
+      "kind": "literal_type",
+      "label": "\"btn-ghost\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 33,
+          "byte": 636
+        },
+        "end": {
+          "line": 19,
+          "column": 44,
+          "byte": 647
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:string"
+      ],
+      "text_digest": "0d71d525e05468050a8771645fdc89c1acca247126ffd0c45ecd97dc017ac383"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:636:647:string",
+      "kind": "string",
+      "label": "\"btn-ghost\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 33,
+          "byte": 636
+        },
+        "end": {
+          "line": 19,
+          "column": 44,
+          "byte": 647
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:637:646:string_fragment"
+      ],
+      "text_digest": "0d71d525e05468050a8771645fdc89c1acca247126ffd0c45ecd97dc017ac383"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:637:646:string_fragment",
+      "kind": "string_fragment",
+      "label": "btn-ghost",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 34,
+          "byte": 637
+        },
+        "end": {
+          "line": 19,
+          "column": 43,
+          "byte": 646
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4462662ca04b7bfc17106ecf95e86e032be245195ecc19a37ffba9635d423b61"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:literal_type",
+      "kind": "literal_type",
+      "label": "\"ghost\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 22,
+          "byte": 625
+        },
+        "end": {
+          "line": 19,
+          "column": 29,
+          "byte": 632
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:string"
+      ],
+      "text_digest": "ea67482d0c7febc852e082c5f60ee92ba45606e024e25a152b37814cf0f18438"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:625:632:string",
+      "kind": "string",
+      "label": "\"ghost\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 22,
+          "byte": 625
+        },
+        "end": {
+          "line": 19,
+          "column": 29,
+          "byte": 632
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:626:631:string_fragment"
+      ],
+      "text_digest": "ea67482d0c7febc852e082c5f60ee92ba45606e024e25a152b37814cf0f18438"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:626:631:string_fragment",
+      "kind": "string_fragment",
+      "label": "ghost",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 23,
+          "byte": 626
+        },
+        "end": {
+          "line": 19,
+          "column": 28,
+          "byte": 631
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ead6ef03d61ee60c533d6d450c50a1e559a8a37f6b796a4094cd0dac6b744428"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:622:624:ERROR",
+      "kind": "ERROR",
+      "label": "==",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 19,
+          "byte": 622
+        },
+        "end": {
+          "line": 19,
+          "column": 21,
+          "byte": 624
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f16474a9900a44186e87098f5fcb153a1fab2e401e1a6db587168b204761b276"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:613:620:type_identifier",
+      "kind": "type_identifier",
+      "label": "variant",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 10,
+          "byte": 613
+        },
+        "end": {
+          "line": 19,
+          "column": 17,
+          "byte": 620
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cb7bf562420b82e97ee182f019c22e010e50b29334c036a8c23b8d7e617ed23c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:600:type_parameter",
+      "kind": "type_parameter",
+      "label": "variant === \"primary\" && \"btn-primary\"",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 10,
+          "byte": 562
+        },
+        "end": {
+          "line": 18,
+          "column": 48,
+          "byte": 600
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:569:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:570:600:default_type"
+      ],
+      "text_digest": "e6437de1dcaa03ee6676a740718f9586a219aa097cc68ece7e4ce454e4b1ce23"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:570:600:default_type",
+      "kind": "default_type",
+      "label": "=== \"primary\" && \"btn-primary\"",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 18,
+          "byte": 570
+        },
+        "end": {
+          "line": 18,
+          "column": 48,
+          "byte": 600
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:571:573:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:600:intersection_type"
+      ],
+      "text_digest": "b38bec2bf2070897459058adb4ee86b65d5876b5cd0806bd1d4862ff7ae8ef68"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:600:intersection_type",
+      "kind": "intersection_type",
+      "label": "\"primary\" && \"btn-primary\"",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 22,
+          "byte": 574
+        },
+        "end": {
+          "line": 18,
+          "column": 48,
+          "byte": 600
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:literal_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:585:600:intersection_type"
+      ],
+      "text_digest": "57631738a4890b1e146bd315342f956e48814387267ba29a060f59a18b04616e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:585:600:intersection_type",
+      "kind": "intersection_type",
+      "label": "& \"btn-primary\"",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 33,
+          "byte": 585
+        },
+        "end": {
+          "line": 18,
+          "column": 48,
+          "byte": 600
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:literal_type"
+      ],
+      "text_digest": "0a947c20ef873e5cbb77e5a4eb4efb367d907d42200107f94b6ef3cbac838a7f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:literal_type",
+      "kind": "literal_type",
+      "label": "\"btn-primary\"",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 35,
+          "byte": 587
+        },
+        "end": {
+          "line": 18,
+          "column": 48,
+          "byte": 600
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:string"
+      ],
+      "text_digest": "41e5084d369d6ba72ea876029ada22236c5010023817d8176491820da1ce0c35"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:587:600:string",
+      "kind": "string",
+      "label": "\"btn-primary\"",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 35,
+          "byte": 587
+        },
+        "end": {
+          "line": 18,
+          "column": 48,
+          "byte": 600
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:588:599:string_fragment"
+      ],
+      "text_digest": "41e5084d369d6ba72ea876029ada22236c5010023817d8176491820da1ce0c35"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:588:599:string_fragment",
+      "kind": "string_fragment",
+      "label": "btn-primary",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 36,
+          "byte": 588
+        },
+        "end": {
+          "line": 18,
+          "column": 47,
+          "byte": 599
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d98d4c4364dd7dae177cc30dca9737409fa1e8caadd8216fddf807e8dcb8c27b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:literal_type",
+      "kind": "literal_type",
+      "label": "\"primary\"",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 22,
+          "byte": 574
+        },
+        "end": {
+          "line": 18,
+          "column": 31,
+          "byte": 583
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:string"
+      ],
+      "text_digest": "b93122022a0dba21936317283287ed6c3dd0b363aad3eb6928401a4ff638886c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:574:583:string",
+      "kind": "string",
+      "label": "\"primary\"",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 22,
+          "byte": 574
+        },
+        "end": {
+          "line": 18,
+          "column": 31,
+          "byte": 583
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:575:582:string_fragment"
+      ],
+      "text_digest": "b93122022a0dba21936317283287ed6c3dd0b363aad3eb6928401a4ff638886c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:575:582:string_fragment",
+      "kind": "string_fragment",
+      "label": "primary",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 23,
+          "byte": 575
+        },
+        "end": {
+          "line": 18,
+          "column": 30,
+          "byte": 582
+        }
+      },
+      "children_ids": [],
+      "text_digest": "986a1b7135f4986150aa5fa0028feeaa66cdaf3ed6a00a355dd86e042f7fb494"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:571:573:ERROR",
+      "kind": "ERROR",
+      "label": "==",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 19,
+          "byte": 571
+        },
+        "end": {
+          "line": 18,
+          "column": 21,
+          "byte": 573
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f16474a9900a44186e87098f5fcb153a1fab2e401e1a6db587168b204761b276"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:562:569:type_identifier",
+      "kind": "type_identifier",
+      "label": "variant",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 10,
+          "byte": 562
+        },
+        "end": {
+          "line": 18,
+          "column": 17,
+          "byte": 569
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cb7bf562420b82e97ee182f019c22e010e50b29334c036a8c23b8d7e617ed23c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:549:type_parameter",
+      "kind": "type_parameter",
+      "label": "Comp\r\n        ref={ref as never}\r\n        className={clsx(\r\n          \"btn\"",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 7,
+          "byte": 474
+        },
+        "end": {
+          "line": 17,
+          "column": 15,
+          "byte": 549
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:478:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:488:491:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:491:549:default_type"
+      ],
+      "text_digest": "a0768d881ed893c2936e3dbd261ce6f2cce8b86850f733ff1804e4552722699d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:491:549:default_type",
+      "kind": "default_type",
+      "label": "={ref as never}\r\n        className={clsx(\r\n          \"btn\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 11,
+          "byte": 491
+        },
+        "end": {
+          "line": 17,
+          "column": 15,
+          "byte": 549
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:532:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:literal_type"
+      ],
+      "text_digest": "05efb566f84a9e7528bebda684e4718873152fae6ea406a55d2f57019262a3e9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:literal_type",
+      "kind": "literal_type",
+      "label": "\"btn\"",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 10,
+          "byte": 544
+        },
+        "end": {
+          "line": 17,
+          "column": 15,
+          "byte": 549
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:string"
+      ],
+      "text_digest": "18184ca78090be252deba90d98105d802a39cac586a325d76413ada18544e6f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:544:549:string",
+      "kind": "string",
+      "label": "\"btn\"",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 10,
+          "byte": 544
+        },
+        "end": {
+          "line": 17,
+          "column": 15,
+          "byte": 549
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:545:548:string_fragment"
+      ],
+      "text_digest": "18184ca78090be252deba90d98105d802a39cac586a325d76413ada18544e6f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:545:548:string_fragment",
+      "kind": "string_fragment",
+      "label": "btn",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 11,
+          "byte": 545
+        },
+        "end": {
+          "line": 17,
+          "column": 14,
+          "byte": 548
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2dbdc96b9117837a4826ec26eea5db7c01cca81700b801bec2de1a98d41d6fee"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:532:ERROR",
+      "kind": "ERROR",
+      "label": "{ref as never}\r\n        className={clsx(",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 12,
+          "byte": 492
+        },
+        "end": {
+          "line": 16,
+          "column": 24,
+          "byte": 532
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:506:object_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:516:525:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:527:531:identifier"
+      ],
+      "text_digest": "fed262f9162123fb6cd2e0b756405573f12e9e52099b2f0ab6b808cdd4ea6ddd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:527:531:identifier",
+      "kind": "identifier",
+      "label": "clsx",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 19,
+          "byte": 527
+        },
+        "end": {
+          "line": 16,
+          "column": 23,
+          "byte": 531
+        }
+      },
+      "children_ids": [],
+      "text_digest": "80d4351d813b4e5d91a7140f25a25cb286837f2fa19c3199c1865b72561bb579"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:516:525:identifier",
+      "kind": "identifier",
+      "label": "className",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 8,
+          "byte": 516
+        },
+        "end": {
+          "line": 16,
+          "column": 17,
+          "byte": 525
+        }
+      },
+      "children_ids": [],
+      "text_digest": "42d5bd1ac1ca8a2050bc1c27dfb8e01a5c54de453b85410227aa04be47c27af4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:492:506:object_type",
+      "kind": "object_type",
+      "label": "{ref as never}",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 12,
+          "byte": 492
+        },
+        "end": {
+          "line": 15,
+          "column": 26,
+          "byte": 506
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:493:496:property_signature",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:497:505:ERROR"
+      ],
+      "text_digest": "f9bf1713411477372752e6de622ef3a60fcc6c49d8a946fa48eabf45feac9f60"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:497:505:ERROR",
+      "kind": "ERROR",
+      "label": "as never",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 17,
+          "byte": 497
+        },
+        "end": {
+          "line": 15,
+          "column": 25,
+          "byte": 505
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:497:499:identifier"
+      ],
+      "text_digest": "9bf5cbd289b01d9563119a9a09f87568194194493f95a1b7b0a8603f8725ca39"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:497:499:identifier",
+      "kind": "identifier",
+      "label": "as",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 17,
+          "byte": 497
+        },
+        "end": {
+          "line": 15,
+          "column": 19,
+          "byte": 499
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f4bf9f7fcbedaba0392f108c59d8f4a38b3838efb64877380171b54475c2ade8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:493:496:property_signature",
+      "kind": "property_signature",
+      "label": "ref",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 13,
+          "byte": 493
+        },
+        "end": {
+          "line": 15,
+          "column": 16,
+          "byte": 496
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:493:496:property_identifier"
+      ],
+      "text_digest": "3ff6c05723bb069d19953340320fa9512f0be584742703e60226ded28bb43861"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:493:496:property_identifier",
+      "kind": "property_identifier",
+      "label": "ref",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 13,
+          "byte": 493
+        },
+        "end": {
+          "line": 15,
+          "column": 16,
+          "byte": 496
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3ff6c05723bb069d19953340320fa9512f0be584742703e60226ded28bb43861"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:488:491:ERROR",
+      "kind": "ERROR",
+      "label": "ref",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 8,
+          "byte": 488
+        },
+        "end": {
+          "line": 15,
+          "column": 11,
+          "byte": 491
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:488:491:identifier"
+      ],
+      "text_digest": "3ff6c05723bb069d19953340320fa9512f0be584742703e60226ded28bb43861"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:488:491:identifier",
+      "kind": "identifier",
+      "label": "ref",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 8,
+          "byte": 488
+        },
+        "end": {
+          "line": 15,
+          "column": 11,
+          "byte": 491
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3ff6c05723bb069d19953340320fa9512f0be584742703e60226ded28bb43861"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:474:478:type_identifier",
+      "kind": "type_identifier",
+      "label": "Comp",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 7,
+          "byte": 474
+        },
+        "end": {
+          "line": 14,
+          "column": 11,
+          "byte": 478
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d783f4984878185c071feed9e81c2a4438eb052be5c1da4b6633c40850f71d63"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:412:451:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const Comp = asChild ? Slot : \"button\";",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 4,
+          "byte": 412
+        },
+        "end": {
+          "line": 12,
+          "column": 43,
+          "byte": 451
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:450:variable_declarator"
+      ],
+      "text_digest": "6852fd7628914c0bdaefa08ed34da07f7f455050ec17c0b1749ed8c2bebb2d3d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:450:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "Comp = asChild ? Slot : \"button\"",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 10,
+          "byte": 418
+        },
+        "end": {
+          "line": 12,
+          "column": 42,
+          "byte": 450
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:422:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:450:ternary_expression"
+      ],
+      "text_digest": "aae85bace023dbfddd93080449e3a58c7a69f522fd7a29edc2d458e2bedf1ca9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:450:ternary_expression",
+      "kind": "ternary_expression",
+      "label": "asChild ? Slot : \"button\"",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 17,
+          "byte": 425
+        },
+        "end": {
+          "line": 12,
+          "column": 42,
+          "byte": 450
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:432:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:435:439:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:442:450:string"
+      ],
+      "text_digest": "9ecd51b7b1add9ab7ef23e46cd39ce97f6599ea5a9be724f97a24ab3711f1d3a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:442:450:string",
+      "kind": "string",
+      "label": "\"button\"",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 34,
+          "byte": 442
+        },
+        "end": {
+          "line": 12,
+          "column": 42,
+          "byte": 450
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:443:449:string_fragment"
+      ],
+      "text_digest": "a7b7924d4eee5c9f3142a5dfe41a0d842c388bd1168967fdb19228eb0b43fe78"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:443:449:string_fragment",
+      "kind": "string_fragment",
+      "label": "button",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 35,
+          "byte": 443
+        },
+        "end": {
+          "line": 12,
+          "column": 41,
+          "byte": 449
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c3e2d78f3ff335724b4029f06505b511e4f8f01e258828de29849b36b40b55d0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:435:439:identifier",
+      "kind": "identifier",
+      "label": "Slot",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 27,
+          "byte": 435
+        },
+        "end": {
+          "line": 12,
+          "column": 31,
+          "byte": 439
+        }
+      },
+      "children_ids": [],
+      "text_digest": "79689782061dec13dc61a80c224f96c6443d61cdd6e50f7c8cace113ba74f761"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:425:432:identifier",
+      "kind": "identifier",
+      "label": "asChild",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 17,
+          "byte": 425
+        },
+        "end": {
+          "line": 12,
+          "column": 24,
+          "byte": 432
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a80103a7e9f245b80f458bba4c9c6e1e95785457a96ad1933978c69d11e78621"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:418:422:identifier",
+      "kind": "identifier",
+      "label": "Comp",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 10,
+          "byte": 418
+        },
+        "end": {
+          "line": 12,
+          "column": 14,
+          "byte": 422
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d783f4984878185c071feed9e81c2a4438eb052be5c1da4b6633c40850f71d63"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:339:401:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "({ className, variant = \"secondary\", asChild, ...props }, ref)",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 2,
+          "byte": 339
+        },
+        "end": {
+          "line": 11,
+          "column": 64,
+          "byte": 401
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:required_parameter",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:397:400:required_parameter"
+      ],
+      "text_digest": "ad9ef7533b577719e6f8c869ae9e0af3dac32b1e09503bef73255d40bd9fdc36"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:397:400:required_parameter",
+      "kind": "required_parameter",
+      "label": "ref",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 60,
+          "byte": 397
+        },
+        "end": {
+          "line": 11,
+          "column": 63,
+          "byte": 400
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:397:400:identifier"
+      ],
+      "text_digest": "3ff6c05723bb069d19953340320fa9512f0be584742703e60226ded28bb43861"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:397:400:identifier",
+      "kind": "identifier",
+      "label": "ref",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 60,
+          "byte": 397
+        },
+        "end": {
+          "line": 11,
+          "column": 63,
+          "byte": 400
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3ff6c05723bb069d19953340320fa9512f0be584742703e60226ded28bb43861"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:required_parameter",
+      "kind": "required_parameter",
+      "label": "{ className, variant = \"secondary\", asChild, ...props }",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 3,
+          "byte": 340
+        },
+        "end": {
+          "line": 11,
+          "column": 58,
+          "byte": 395
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern"
+      ],
+      "text_digest": "85ac0d378620970813179a380729ba0101478d6268de0fafbdf55da84d086f1d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:340:395:object_pattern",
+      "kind": "object_pattern",
+      "label": "{ className, variant = \"secondary\", asChild, ...props }",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 3,
+          "byte": 340
+        },
+        "end": {
+          "line": 11,
+          "column": 58,
+          "byte": 395
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:342:351:shorthand_property_identifier_pattern",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:374:object_assignment_pattern",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:376:383:shorthand_property_identifier_pattern",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:385:393:rest_pattern"
+      ],
+      "text_digest": "85ac0d378620970813179a380729ba0101478d6268de0fafbdf55da84d086f1d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:385:393:rest_pattern",
+      "kind": "rest_pattern",
+      "label": "...props",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 48,
+          "byte": 385
+        },
+        "end": {
+          "line": 11,
+          "column": 56,
+          "byte": 393
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:388:393:identifier"
+      ],
+      "text_digest": "e9f062260f23d5f19566f63b880b6fcad63a4f111c11b2596b7dba51918d6252"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:388:393:identifier",
+      "kind": "identifier",
+      "label": "props",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 51,
+          "byte": 388
+        },
+        "end": {
+          "line": 11,
+          "column": 56,
+          "byte": 393
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b264807709578e5c5fee1de72a80ab0dab5692bfcee892db3a58e0e9b0d63c72"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:376:383:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "asChild",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 39,
+          "byte": 376
+        },
+        "end": {
+          "line": 11,
+          "column": 46,
+          "byte": 383
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a80103a7e9f245b80f458bba4c9c6e1e95785457a96ad1933978c69d11e78621"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:374:object_assignment_pattern",
+      "kind": "object_assignment_pattern",
+      "label": "variant = \"secondary\"",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 16,
+          "byte": 353
+        },
+        "end": {
+          "line": 11,
+          "column": 37,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:360:shorthand_property_identifier_pattern",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:363:374:string"
+      ],
+      "text_digest": "1cb1df48a732c8a68e9f8387e7c5586712943973926c82758d6c4e2dbfbe25c2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:363:374:string",
+      "kind": "string",
+      "label": "\"secondary\"",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 26,
+          "byte": 363
+        },
+        "end": {
+          "line": 11,
+          "column": 37,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:364:373:string_fragment"
+      ],
+      "text_digest": "8cbf3693fdc1edde130540d6ffe08e48139bd87f0bb6c995fcbf58bc7972b9bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:364:373:string_fragment",
+      "kind": "string_fragment",
+      "label": "secondary",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 27,
+          "byte": 364
+        },
+        "end": {
+          "line": 11,
+          "column": 36,
+          "byte": 373
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c0f69e19ba252767f183158737ab1bc44f42380d2473ece23a4f276ae7c80dff"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:353:360:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "variant",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 16,
+          "byte": 353
+        },
+        "end": {
+          "line": 11,
+          "column": 23,
+          "byte": 360
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cb7bf562420b82e97ee182f019c22e010e50b29334c036a8c23b8d7e617ed23c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:342:351:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "className",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 5,
+          "byte": 342
+        },
+        "end": {
+          "line": 11,
+          "column": 14,
+          "byte": 351
+        }
+      },
+      "children_ids": [],
+      "text_digest": "42d5bd1ac1ca8a2050bc1c27dfb8e01a5c54de453b85410227aa04be47c27af4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:302:334:type_arguments",
+      "kind": "type_arguments",
+      "label": "<HTMLButtonElement, ButtonProps>",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 38,
+          "byte": 302
+        },
+        "end": {
+          "line": 10,
+          "column": 70,
+          "byte": 334
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:303:320:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:322:333:type_identifier"
+      ],
+      "text_digest": "4390199826056595286b2320aba36e2d2861c71ba7666cb8818812b866c5c9c4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:322:333:type_identifier",
+      "kind": "type_identifier",
+      "label": "ButtonProps",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 58,
+          "byte": 322
+        },
+        "end": {
+          "line": 10,
+          "column": 69,
+          "byte": 333
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e2faa2f7c4720b6922d26e8202e828481088e4b66364b5fed3337059ae20e4ff"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:303:320:type_identifier",
+      "kind": "type_identifier",
+      "label": "HTMLButtonElement",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 39,
+          "byte": 303
+        },
+        "end": {
+          "line": 10,
+          "column": 56,
+          "byte": 320
+        }
+      },
+      "children_ids": [],
+      "text_digest": "578c215c413066c8961747984c8e18cd9e4544acbb2afefb8abc58261dbfa320"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:302:member_expression",
+      "kind": "member_expression",
+      "label": "React.forwardRef",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 22,
+          "byte": 286
+        },
+        "end": {
+          "line": 10,
+          "column": 38,
+          "byte": 302
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:291:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:292:302:property_identifier"
+      ],
+      "text_digest": "55b32c98176db78f5312e629818f56bd85cac21d7cd31413913d681893182bc6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:292:302:property_identifier",
+      "kind": "property_identifier",
+      "label": "forwardRef",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 28,
+          "byte": 292
+        },
+        "end": {
+          "line": 10,
+          "column": 38,
+          "byte": 302
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f4c1b0acffc992cf3bdd6e1c2bbad8f90172a8b4d554e4696b51d50d9129b468"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:286:291:identifier",
+      "kind": "identifier",
+      "label": "React",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 22,
+          "byte": 286
+        },
+        "end": {
+          "line": 10,
+          "column": 27,
+          "byte": 291
+        }
+      },
+      "children_ids": [],
+      "text_digest": "01fad993ff61aca9a1f2f07100c95eb1559d8b6440a00cb974a92810a6b5a2dc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:277:283:identifier",
+      "kind": "identifier",
+      "label": "Button",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 13,
+          "byte": 277
+        },
+        "end": {
+          "line": 10,
+          "column": 19,
+          "byte": 283
+        }
+      },
+      "children_ids": [],
+      "text_digest": "707eab0c23ecbf6e5382ba61a346bc76aefee81303280fc0e08e59df18afbf8a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:111:260:export_statement",
+      "kind": "export_statement",
+      "label": "export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {\r\n  asChild?: boolean;\r\n  variant?: \"primary\" | \"secondary\" | \"ghost\";\r\n};",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 111
+        },
+        "end": {
+          "line": 8,
+          "column": 2,
+          "byte": 260
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:118:260:type_alias_declaration"
+      ],
+      "text_digest": "98986505f328bb0ae13e4709f9344bc615e1f0067c8ec68c5f8c101164dc8dbe"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:118:260:type_alias_declaration",
+      "kind": "type_alias_declaration",
+      "label": "type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {\r\n  asChild?: boolean;\r\n  variant?: \"primary\" | \"secondary\" | \"ghost\";\r\n};",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 7,
+          "byte": 118
+        },
+        "end": {
+          "line": 8,
+          "column": 2,
+          "byte": 260
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:123:134:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:259:intersection_type"
+      ],
+      "text_digest": "8b3cfb684a0abcdad3676fbf1ee368e92958417dcb7e4671af2f88bcd7c063b6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:259:intersection_type",
+      "kind": "intersection_type",
+      "label": "React.ButtonHTMLAttributes<HTMLButtonElement> & {\r\n  asChild?: boolean;\r\n  variant?: \"primary\" | \"secondary\" | \"ghost\";\r\n}",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 26,
+          "byte": 137
+        },
+        "end": {
+          "line": 8,
+          "column": 1,
+          "byte": 259
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:182:generic_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:185:259:object_type"
+      ],
+      "text_digest": "e9d2924c37affe3d338e4899107ced9db7b0ee640f921f1d4d129aaafc2b6ce5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:185:259:object_type",
+      "kind": "object_type",
+      "label": "{\r\n  asChild?: boolean;\r\n  variant?: \"primary\" | \"secondary\" | \"ghost\";\r\n}",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 74,
+          "byte": 185
+        },
+        "end": {
+          "line": 8,
+          "column": 1,
+          "byte": 259
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:207:property_signature",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:255:property_signature"
+      ],
+      "text_digest": "a7f34188a92afe46f835ee1e1fb49bfd39d9ef01df7d2e38d36ad5c94ac8f98e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:255:property_signature",
+      "kind": "property_signature",
+      "label": "variant?: \"primary\" | \"secondary\" | \"ghost\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 2,
+          "byte": 212
+        },
+        "end": {
+          "line": 7,
+          "column": 45,
+          "byte": 255
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:219:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:220:255:type_annotation"
+      ],
+      "text_digest": "bce6784e6dc77389fa9daf92dad7bcd9260eb78d09226fc64c75dc2dffb5b3c9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:220:255:type_annotation",
+      "kind": "type_annotation",
+      "label": ": \"primary\" | \"secondary\" | \"ghost\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 10,
+          "byte": 220
+        },
+        "end": {
+          "line": 7,
+          "column": 45,
+          "byte": 255
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:255:union_type"
+      ],
+      "text_digest": "f52ce471ed55ae0be7e9120e7786ceffab80e1b992c6e79096733eb6f560ba18"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:255:union_type",
+      "kind": "union_type",
+      "label": "\"primary\" | \"secondary\" | \"ghost\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 12,
+          "byte": 222
+        },
+        "end": {
+          "line": 7,
+          "column": 45,
+          "byte": 255
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:245:union_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:literal_type"
+      ],
+      "text_digest": "8a93b0eee755ab77de517310f57167f58cc1ffc5ff086427e40c49432c751ff1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:literal_type",
+      "kind": "literal_type",
+      "label": "\"ghost\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 38,
+          "byte": 248
+        },
+        "end": {
+          "line": 7,
+          "column": 45,
+          "byte": 255
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:string"
+      ],
+      "text_digest": "ea67482d0c7febc852e082c5f60ee92ba45606e024e25a152b37814cf0f18438"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:248:255:string",
+      "kind": "string",
+      "label": "\"ghost\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 38,
+          "byte": 248
+        },
+        "end": {
+          "line": 7,
+          "column": 45,
+          "byte": 255
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:249:254:string_fragment"
+      ],
+      "text_digest": "ea67482d0c7febc852e082c5f60ee92ba45606e024e25a152b37814cf0f18438"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:249:254:string_fragment",
+      "kind": "string_fragment",
+      "label": "ghost",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 39,
+          "byte": 249
+        },
+        "end": {
+          "line": 7,
+          "column": 44,
+          "byte": 254
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ead6ef03d61ee60c533d6d450c50a1e559a8a37f6b796a4094cd0dac6b744428"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:245:union_type",
+      "kind": "union_type",
+      "label": "\"primary\" | \"secondary\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 12,
+          "byte": 222
+        },
+        "end": {
+          "line": 7,
+          "column": 35,
+          "byte": 245
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:literal_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:literal_type"
+      ],
+      "text_digest": "f1b7e40ea49d04775bef4c5a922af2f7871f4e377961c39d745b8095e53a8cf5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:literal_type",
+      "kind": "literal_type",
+      "label": "\"secondary\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 24,
+          "byte": 234
+        },
+        "end": {
+          "line": 7,
+          "column": 35,
+          "byte": 245
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:string"
+      ],
+      "text_digest": "8cbf3693fdc1edde130540d6ffe08e48139bd87f0bb6c995fcbf58bc7972b9bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:234:245:string",
+      "kind": "string",
+      "label": "\"secondary\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 24,
+          "byte": 234
+        },
+        "end": {
+          "line": 7,
+          "column": 35,
+          "byte": 245
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:235:244:string_fragment"
+      ],
+      "text_digest": "8cbf3693fdc1edde130540d6ffe08e48139bd87f0bb6c995fcbf58bc7972b9bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:235:244:string_fragment",
+      "kind": "string_fragment",
+      "label": "secondary",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 25,
+          "byte": 235
+        },
+        "end": {
+          "line": 7,
+          "column": 34,
+          "byte": 244
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c0f69e19ba252767f183158737ab1bc44f42380d2473ece23a4f276ae7c80dff"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:literal_type",
+      "kind": "literal_type",
+      "label": "\"primary\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 12,
+          "byte": 222
+        },
+        "end": {
+          "line": 7,
+          "column": 21,
+          "byte": 231
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:string"
+      ],
+      "text_digest": "b93122022a0dba21936317283287ed6c3dd0b363aad3eb6928401a4ff638886c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:222:231:string",
+      "kind": "string",
+      "label": "\"primary\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 12,
+          "byte": 222
+        },
+        "end": {
+          "line": 7,
+          "column": 21,
+          "byte": 231
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:223:230:string_fragment"
+      ],
+      "text_digest": "b93122022a0dba21936317283287ed6c3dd0b363aad3eb6928401a4ff638886c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:223:230:string_fragment",
+      "kind": "string_fragment",
+      "label": "primary",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 13,
+          "byte": 223
+        },
+        "end": {
+          "line": 7,
+          "column": 20,
+          "byte": 230
+        }
+      },
+      "children_ids": [],
+      "text_digest": "986a1b7135f4986150aa5fa0028feeaa66cdaf3ed6a00a355dd86e042f7fb494"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:212:219:property_identifier",
+      "kind": "property_identifier",
+      "label": "variant",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 2,
+          "byte": 212
+        },
+        "end": {
+          "line": 7,
+          "column": 9,
+          "byte": 219
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cb7bf562420b82e97ee182f019c22e010e50b29334c036a8c23b8d7e617ed23c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:207:property_signature",
+      "kind": "property_signature",
+      "label": "asChild?: boolean",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 2,
+          "byte": 190
+        },
+        "end": {
+          "line": 6,
+          "column": 19,
+          "byte": 207
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:197:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:198:207:type_annotation"
+      ],
+      "text_digest": "32f414ff41edd7c93991f15bb918811e8f94c8d74c8451f42236440d79bc7162"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:198:207:type_annotation",
+      "kind": "type_annotation",
+      "label": ": boolean",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 10,
+          "byte": 198
+        },
+        "end": {
+          "line": 6,
+          "column": 19,
+          "byte": 207
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:200:207:predefined_type"
+      ],
+      "text_digest": "b9f836880e7702c2a7a61528eb7727e9035a7ee84832c11fc21150086a7d9447"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:200:207:predefined_type",
+      "kind": "predefined_type",
+      "label": "boolean",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 12,
+          "byte": 200
+        },
+        "end": {
+          "line": 6,
+          "column": 19,
+          "byte": 207
+        }
+      },
+      "children_ids": [],
+      "text_digest": "bf84d3d60e93cc959793d5c9d8308fbcf868f673cb032f461c9676f0480cc29e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:190:197:property_identifier",
+      "kind": "property_identifier",
+      "label": "asChild",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 2,
+          "byte": 190
+        },
+        "end": {
+          "line": 6,
+          "column": 9,
+          "byte": 197
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a80103a7e9f245b80f458bba4c9c6e1e95785457a96ad1933978c69d11e78621"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:182:generic_type",
+      "kind": "generic_type",
+      "label": "React.ButtonHTMLAttributes<HTMLButtonElement>",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 26,
+          "byte": 137
+        },
+        "end": {
+          "line": 5,
+          "column": 71,
+          "byte": 182
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:163:nested_type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:163:182:type_arguments"
+      ],
+      "text_digest": "6597ce4939db455dc11225d23302bb742e057b4fac85afbd1c4adf4395acd927"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:163:182:type_arguments",
+      "kind": "type_arguments",
+      "label": "<HTMLButtonElement>",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 52,
+          "byte": 163
+        },
+        "end": {
+          "line": 5,
+          "column": 71,
+          "byte": 182
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:164:181:type_identifier"
+      ],
+      "text_digest": "c50b3ea52781c36c8d3a74e2d1f3b7362a651db7d89a7e607fe9968918ca5812"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:164:181:type_identifier",
+      "kind": "type_identifier",
+      "label": "HTMLButtonElement",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 53,
+          "byte": 164
+        },
+        "end": {
+          "line": 5,
+          "column": 70,
+          "byte": 181
+        }
+      },
+      "children_ids": [],
+      "text_digest": "578c215c413066c8961747984c8e18cd9e4544acbb2afefb8abc58261dbfa320"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:163:nested_type_identifier",
+      "kind": "nested_type_identifier",
+      "label": "React.ButtonHTMLAttributes",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 26,
+          "byte": 137
+        },
+        "end": {
+          "line": 5,
+          "column": 52,
+          "byte": 163
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:142:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:143:163:type_identifier"
+      ],
+      "text_digest": "92147d3a7371557a35bdc7c3d8aa3b2b5b7032e41270e3da473f092fa84d4336"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:143:163:type_identifier",
+      "kind": "type_identifier",
+      "label": "ButtonHTMLAttributes",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 32,
+          "byte": 143
+        },
+        "end": {
+          "line": 5,
+          "column": 52,
+          "byte": 163
+        }
+      },
+      "children_ids": [],
+      "text_digest": "490f238e053f36ad33c15dede747be023c7b5a8c9e0d230aeab7f12b5dace663"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:137:142:identifier",
+      "kind": "identifier",
+      "label": "React",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 26,
+          "byte": 137
+        },
+        "end": {
+          "line": 5,
+          "column": 31,
+          "byte": 142
+        }
+      },
+      "children_ids": [],
+      "text_digest": "01fad993ff61aca9a1f2f07100c95eb1559d8b6440a00cb974a92810a6b5a2dc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:123:134:type_identifier",
+      "kind": "type_identifier",
+      "label": "ButtonProps",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 12,
+          "byte": 123
+        },
+        "end": {
+          "line": 5,
+          "column": 23,
+          "byte": 134
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e2faa2f7c4720b6922d26e8202e828481088e4b66364b5fed3337059ae20e4ff"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:79:107:import_statement",
+      "kind": "import_statement",
+      "label": "import { clsx } from \"clsx\";",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 0,
+          "byte": 79
+        },
+        "end": {
+          "line": 3,
+          "column": 28,
+          "byte": 107
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:100:106:string"
+      ],
+      "text_digest": "2a1ec282615f1918d7bb6a67e85a46bea4e316152b090ae80a44f22e14937670"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:100:106:string",
+      "kind": "string",
+      "label": "\"clsx\"",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 21,
+          "byte": 100
+        },
+        "end": {
+          "line": 3,
+          "column": 27,
+          "byte": 106
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:101:105:string_fragment"
+      ],
+      "text_digest": "2320a9a64c53b0141dd10d3237c4ceb74040acedd6e63236ffeda7c325e4a5f7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:101:105:string_fragment",
+      "kind": "string_fragment",
+      "label": "clsx",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 22,
+          "byte": 101
+        },
+        "end": {
+          "line": 3,
+          "column": 26,
+          "byte": 105
+        }
+      },
+      "children_ids": [],
+      "text_digest": "80d4351d813b4e5d91a7140f25a25cb286837f2fa19c3199c1865b72561bb579"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:import_clause",
+      "kind": "import_clause",
+      "label": "{ clsx }",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 7,
+          "byte": 86
+        },
+        "end": {
+          "line": 3,
+          "column": 15,
+          "byte": 94
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:named_imports"
+      ],
+      "text_digest": "1a5756f019f952f4cd6cd08159eb107266b841b00265b5dd64d5b0976e91354d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:86:94:named_imports",
+      "kind": "named_imports",
+      "label": "{ clsx }",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 7,
+          "byte": 86
+        },
+        "end": {
+          "line": 3,
+          "column": 15,
+          "byte": 94
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:88:92:import_specifier"
+      ],
+      "text_digest": "1a5756f019f952f4cd6cd08159eb107266b841b00265b5dd64d5b0976e91354d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:88:92:import_specifier",
+      "kind": "import_specifier",
+      "label": "clsx",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 9,
+          "byte": 88
+        },
+        "end": {
+          "line": 3,
+          "column": 13,
+          "byte": 92
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:88:92:identifier"
+      ],
+      "text_digest": "80d4351d813b4e5d91a7140f25a25cb286837f2fa19c3199c1865b72561bb579"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:88:92:identifier",
+      "kind": "identifier",
+      "label": "clsx",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 9,
+          "byte": 88
+        },
+        "end": {
+          "line": 3,
+          "column": 13,
+          "byte": 92
+        }
+      },
+      "children_ids": [],
+      "text_digest": "80d4351d813b4e5d91a7140f25a25cb286837f2fa19c3199c1865b72561bb579"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:33:77:import_statement",
+      "kind": "import_statement",
+      "label": "import { Slot } from \"@radix-ui/react-slot\";",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 33
+        },
+        "end": {
+          "line": 2,
+          "column": 44,
+          "byte": 77
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:54:76:string"
+      ],
+      "text_digest": "15d7e50dad832ba09c8925939cf5f7972a0730ed23cd9fee5afa6605682b374c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:54:76:string",
+      "kind": "string",
+      "label": "\"@radix-ui/react-slot\"",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 21,
+          "byte": 54
+        },
+        "end": {
+          "line": 2,
+          "column": 43,
+          "byte": 76
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:55:75:string_fragment"
+      ],
+      "text_digest": "a9a38cc379a3e6ae851d74be5276e43343f5f7f8d705d529fc867a1b90e25d15"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:55:75:string_fragment",
+      "kind": "string_fragment",
+      "label": "@radix-ui/react-slot",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 22,
+          "byte": 55
+        },
+        "end": {
+          "line": 2,
+          "column": 42,
+          "byte": 75
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b0d4ee3a0758616f0417b77619c1772d1ce4819b6a9a76ccdea9075d2817bf80"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:import_clause",
+      "kind": "import_clause",
+      "label": "{ Slot }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 40
+        },
+        "end": {
+          "line": 2,
+          "column": 15,
+          "byte": 48
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:named_imports"
+      ],
+      "text_digest": "5a82752bad14672251b093599426323aaf289e45eb1934a6a6ffa1db23d4b683"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:40:48:named_imports",
+      "kind": "named_imports",
+      "label": "{ Slot }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 40
+        },
+        "end": {
+          "line": 2,
+          "column": 15,
+          "byte": 48
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:42:46:import_specifier"
+      ],
+      "text_digest": "5a82752bad14672251b093599426323aaf289e45eb1934a6a6ffa1db23d4b683"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:42:46:import_specifier",
+      "kind": "import_specifier",
+      "label": "Slot",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 42
+        },
+        "end": {
+          "line": 2,
+          "column": 13,
+          "byte": 46
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:42:46:identifier"
+      ],
+      "text_digest": "79689782061dec13dc61a80c224f96c6443d61cdd6e50f7c8cace113ba74f761"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:42:46:identifier",
+      "kind": "identifier",
+      "label": "Slot",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 42
+        },
+        "end": {
+          "line": 2,
+          "column": 13,
+          "byte": 46
+        }
+      },
+      "children_ids": [],
+      "text_digest": "79689782061dec13dc61a80c224f96c6443d61cdd6e50f7c8cace113ba74f761"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:0:31:import_statement",
+      "kind": "import_statement",
+      "label": "import * as React from \"react\";",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 31,
+          "byte": 31
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:23:30:string"
+      ],
+      "text_digest": "dab1872173eb598c48a1fcee6a54efeba83d471d7fb63848e659d68aace3628c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:23:30:string",
+      "kind": "string",
+      "label": "\"react\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 23,
+          "byte": 23
+        },
+        "end": {
+          "line": 1,
+          "column": 30,
+          "byte": 30
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:24:29:string_fragment"
+      ],
+      "text_digest": "b59db18d2bc55505974de931dd02eee0ba1b6a618eb5b06b2933ebae99228597"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:24:29:string_fragment",
+      "kind": "string_fragment",
+      "label": "react",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 24,
+          "byte": 24
+        },
+        "end": {
+          "line": 1,
+          "column": 29,
+          "byte": 29
+        }
+      },
+      "children_ids": [],
+      "text_digest": "275976081ce1abf67779eb3c388b5e14531082e52137502e264776e1a6a11595"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:import_clause",
+      "kind": "import_clause",
+      "label": "* as React",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 17,
+          "byte": 17
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:namespace_import"
+      ],
+      "text_digest": "aa80d9a3aeefa3dfedab5866ad9476abb84d6159b53e29fa2cc0855a9385e850"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:7:17:namespace_import",
+      "kind": "namespace_import",
+      "label": "* as React",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 17,
+          "byte": 17
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:12:17:identifier"
+      ],
+      "text_digest": "aa80d9a3aeefa3dfedab5866ad9476abb84d6159b53e29fa2cc0855a9385e850"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/components/ui/button.tsx:12:17:identifier",
+      "kind": "identifier",
+      "label": "React",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 12,
+          "byte": 12
+        },
+        "end": {
+          "line": 1,
+          "column": 17,
+          "byte": 17
+        }
+      },
+      "children_ids": [],
+      "text_digest": "01fad993ff61aca9a1f2f07100c95eb1559d8b6440a00cb974a92810a6b5a2dc"
+    }
+  ],
+  "parser_id": "tree_sitter_typescript",
+  "relative_path": "apps/web/components/ui/button.tsx",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "typescript",
+  "warnings": []
+}

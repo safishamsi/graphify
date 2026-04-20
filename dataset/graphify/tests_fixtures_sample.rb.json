@@ -1,0 +1,2129 @@
+{
+  "analysis_timestamp": "2026-04-20T22:21:00+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:386:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:337:384:method:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:386:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:337:384:method",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:337:384:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:380:body_statement:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:337:384:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:380:body_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:380:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:379:call:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:380:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:379:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:379:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:374:379:argument_list:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:379:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:374:379:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:374:379:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:375:378:identifier:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:374:379:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:375:378:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:379:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:369:374:identifier:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:379:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:369:374:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:379:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:368:constant:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:379:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:368:constant",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:337:384:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:355:360:method_parameters:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:337:384:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:355:360:method_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:355:360:method_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:356:359:identifier:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:355:360:method_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:356:359:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:337:384:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:341:355:identifier:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:337:384:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:341:355:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:386:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:38:333:class:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:386:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:38:333:class",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:38:333:class->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:38:333:class",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:241:328:method:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:241:328:method",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:241:328:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:322:body_statement:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:241:328:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:322:body_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:322:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:321:call:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:322:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:321:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:321:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:316:321:argument_list:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:321:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:316:321:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:316:321:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:317:320:identifier:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:316:321:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:317:320:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:321:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:313:316:identifier:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:321:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:313:316:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:321:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:312:scope_resolution:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:321:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:312:scope_resolution",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:312:scope_resolution->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:308:312:constant:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:312:scope_resolution",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:308:312:constant",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:312:scope_resolution->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:306:constant:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:312:scope_resolution",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:306:constant",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:322:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:297:assignment:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:322:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:297:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:297:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:297:call:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:297:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:297:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:297:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:279:297:argument_list:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:297:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:279:297:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:279:297:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:296:binary:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:279:297:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:296:binary",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:296:binary->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:292:296:identifier:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:296:binary",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:292:296:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:296:binary->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:289:instance_variable:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:296:binary",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:289:instance_variable",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:297:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:279:constant:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:297:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:279:constant",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:297:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:273:identifier:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:297:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:273:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:241:328:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:250:264:method_parameters:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:241:328:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:250:264:method_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:250:264:method_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:257:263:identifier:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:250:264:method_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:257:263:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:250:264:method_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:251:255:identifier:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:250:264:method_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:251:255:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:241:328:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:245:250:identifier:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:241:328:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:245:250:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:228:235:identifier:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:228:235:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:170:222:method:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:170:222:method",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:170:222:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:216:body_statement:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:170:222:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:216:body_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:216:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:215:call:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:216:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:215:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:215:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:201:215:argument_list:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:215:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:201:215:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:201:215:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:208:214:string:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:201:215:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:208:214:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:208:214:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:209:213:string_content:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:208:214:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:209:213:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:201:215:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:202:206:identifier:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:201:215:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:202:206:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:215:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:201:identifier:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:215:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:201:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:170:222:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:178:190:method_parameters:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:170:222:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:178:190:method_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:178:190:method_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:185:189:identifier:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:178:190:method_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:185:189:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:178:190:method_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:179:183:identifier:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:178:190:method_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:179:183:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:170:222:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:174:178:identifier:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:170:222:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:174:178:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:120:164:method:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:120:164:method",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:120:164:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:158:body_statement:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:120:164:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:158:body_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:158:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:157:call:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:158:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:157:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:157:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:144:157:argument_list:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:157:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:144:157:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:144:157:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:151:156:string:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:144:157:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:151:156:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:151:156:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:152:155:string_content:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:151:156:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:152:155:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:144:157:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:145:149:identifier:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:144:157:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:145:149:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:157:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:144:identifier:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:157:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:144:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:120:164:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:127:133:method_parameters:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:120:164:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:127:133:method_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:127:133:method_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:128:132:identifier:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:127:133:method_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:128:132:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:120:164:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:124:127:identifier:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:120:164:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:124:127:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:114:method:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:114:method",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:114:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:108:body_statement:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:114:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:108:body_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:108:body_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:107:assignment:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:108:body_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:107:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:107:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:99:107:identifier:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:107:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:99:107:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:107:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:96:instance_variable:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:107:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:96:instance_variable",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:114:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:71:81:method_parameters:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:114:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:71:81:method_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:71:81:method_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:72:80:identifier:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:71:81:method_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:72:80:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:114:method->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:61:71:identifier:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:114:method",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:61:71:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:38:333:class->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:44:53:constant:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:38:333:class",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:44:53:constant",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:386:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:34:call:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:386:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:34:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:34:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:argument_list:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:34:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:string:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:25:33:string_content:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:25:33:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:34:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:23:identifier:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:34:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:23:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:386:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:14:call:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:386:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:14:call",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:14:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:argument_list:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:14:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:string:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:9:13:string_content:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:9:13:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:14:call->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:7:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:14:call",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:7:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:386:program",
+      "kind": "program",
+      "label": "require 'json'\r\nrequire 'net/http'\r\n\r\nclass ApiClient\r\n  def initialize(base_url)\r\n    @base_url = base_url\r\n  end\r\n\r\n  def get(path)\r\n    fetch(path, 'GET')\r\n  end\r\n\r\n  def post(path, body)\r\n    fetch(path, 'POST')\r\n  end\r\n\r\n  private\r\n\r\n  def fetch(path, method)\r\n    uri = URI(@base_url + path)\r\n    Net::HTTP.get(uri)\r\n  end\r\nend\r\n\r\ndef parse_response(raw)\r\n  JSON.parse(raw)\r\nend\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 28,
+          "column": 0,
+          "byte": 386
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:14:call",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:34:call",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:38:333:class",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:337:384:method"
+      ],
+      "text_digest": "f3c2c42520bedf17a0ed947e48c90cfaa819a7812e9300f8b5616ec254b97101"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:337:384:method",
+      "kind": "method",
+      "label": "def parse_response(raw)\r\n  JSON.parse(raw)\r\nend",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 0,
+          "byte": 337
+        },
+        "end": {
+          "line": 27,
+          "column": 3,
+          "byte": 384
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:341:355:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:355:360:method_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:380:body_statement"
+      ],
+      "text_digest": "594b18d89f7928b267257253430dcd8be614a188d06261bb60bf6c5a5a332c65"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:380:body_statement",
+      "kind": "body_statement",
+      "label": "JSON.parse(raw)\r",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 2,
+          "byte": 364
+        },
+        "end": {
+          "line": 26,
+          "column": 18,
+          "byte": 380
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:379:call"
+      ],
+      "text_digest": "b7dc7abb6eaf5883c863e779d0ffab42a90b526d6a6fab3b18c8ed0344e1db24"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:379:call",
+      "kind": "call",
+      "label": "JSON.parse(raw)",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 2,
+          "byte": 364
+        },
+        "end": {
+          "line": 26,
+          "column": 17,
+          "byte": 379
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:368:constant",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:369:374:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:374:379:argument_list"
+      ],
+      "text_digest": "12ce4510008aff221546e322bee0660863c58db5388583aeb0cdf9921945127a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:374:379:argument_list",
+      "kind": "argument_list",
+      "label": "(raw)",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 12,
+          "byte": 374
+        },
+        "end": {
+          "line": 26,
+          "column": 17,
+          "byte": 379
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:375:378:identifier"
+      ],
+      "text_digest": "a349139c691251d63e499d3283531368b19bdc35347afe182589a9ef70e83fe5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:375:378:identifier",
+      "kind": "identifier",
+      "label": "raw",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 13,
+          "byte": 375
+        },
+        "end": {
+          "line": 26,
+          "column": 16,
+          "byte": 378
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d7439bee24773bcbfa2d0a97947ee36227b10d1022b1a55847e928965bb6bfde"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:369:374:identifier",
+      "kind": "identifier",
+      "label": "parse",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 7,
+          "byte": 369
+        },
+        "end": {
+          "line": 26,
+          "column": 12,
+          "byte": 374
+        }
+      },
+      "children_ids": [],
+      "text_digest": "30c471f6aafbca7085640653eeef555e85eb0df1602c98a662814c27767d1188"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:364:368:constant",
+      "kind": "constant",
+      "label": "JSON",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 2,
+          "byte": 364
+        },
+        "end": {
+          "line": 26,
+          "column": 6,
+          "byte": 368
+        }
+      },
+      "children_ids": [],
+      "text_digest": "db1a21a0bc2ef8fbe13ac4cf044e8c9116d29137d5ed8b916ab63dcb2d4290df"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:355:360:method_parameters",
+      "kind": "method_parameters",
+      "label": "(raw)",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 18,
+          "byte": 355
+        },
+        "end": {
+          "line": 25,
+          "column": 23,
+          "byte": 360
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:356:359:identifier"
+      ],
+      "text_digest": "a349139c691251d63e499d3283531368b19bdc35347afe182589a9ef70e83fe5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:356:359:identifier",
+      "kind": "identifier",
+      "label": "raw",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 19,
+          "byte": 356
+        },
+        "end": {
+          "line": 25,
+          "column": 22,
+          "byte": 359
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d7439bee24773bcbfa2d0a97947ee36227b10d1022b1a55847e928965bb6bfde"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:341:355:identifier",
+      "kind": "identifier",
+      "label": "parse_response",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 4,
+          "byte": 341
+        },
+        "end": {
+          "line": 25,
+          "column": 18,
+          "byte": 355
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d9f20e0ffd857db583661659ce9e842a64da198ee5c6af2ca27096039110cc72"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:38:333:class",
+      "kind": "class",
+      "label": "class ApiClient\r\n  def initialize(base_url)\r\n    @base_url = base_url\r\n  end\r\n\r\n  def get(path)\r\n    fetch(path, 'GET')\r\n  end\r\n\r\n  def post(path, body)\r\n    fetch(path, 'POST')\r\n  end\r\n\r\n  private\r\n\r\n  def fetch(path, method)\r\n    uri = URI(@base_url + path)\r\n    Net::HTTP.get(uri)\r\n  end\r\nend",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 38
+        },
+        "end": {
+          "line": 23,
+          "column": 3,
+          "byte": 333
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:44:53:constant",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement"
+      ],
+      "text_digest": "4a0415c788352d46910efca9bea4ce4dc5967dff522e1eec7e4c3c98135d9735"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:329:body_statement",
+      "kind": "body_statement",
+      "label": "def initialize(base_url)\r\n    @base_url = base_url\r\n  end\r\n\r\n  def get(path)\r\n    fetch(path, 'GET')\r\n  end\r\n\r\n  def post(path, body)\r\n    fetch(path, 'POST')\r\n  end\r\n\r\n  private\r\n\r\n  def fetch(path, method)\r\n    uri = URI(@base_url + path)\r\n    Net::HTTP.get(uri)\r\n  end\r",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 2,
+          "byte": 57
+        },
+        "end": {
+          "line": 22,
+          "column": 6,
+          "byte": 329
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:114:method",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:120:164:method",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:170:222:method",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:228:235:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:241:328:method"
+      ],
+      "text_digest": "08df6c5e18f563589e253003d5c5d60e42363ed224e74fd6c7fc29938517fb7a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:241:328:method",
+      "kind": "method",
+      "label": "def fetch(path, method)\r\n    uri = URI(@base_url + path)\r\n    Net::HTTP.get(uri)\r\n  end",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 2,
+          "byte": 241
+        },
+        "end": {
+          "line": 22,
+          "column": 5,
+          "byte": 328
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:245:250:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:250:264:method_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:322:body_statement"
+      ],
+      "text_digest": "5726df178f0e18dda995c0376e82819e8b15d582d38f9a169ce9ede75a091946"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:322:body_statement",
+      "kind": "body_statement",
+      "label": "uri = URI(@base_url + path)\r\n    Net::HTTP.get(uri)\r",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 4,
+          "byte": 270
+        },
+        "end": {
+          "line": 21,
+          "column": 23,
+          "byte": 322
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:297:assignment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:321:call"
+      ],
+      "text_digest": "65ecba66ce4d617ec6d290e39bde7630cbd0b072b4824fe4c7393cd216d7828b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:321:call",
+      "kind": "call",
+      "label": "Net::HTTP.get(uri)",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 4,
+          "byte": 303
+        },
+        "end": {
+          "line": 21,
+          "column": 22,
+          "byte": 321
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:312:scope_resolution",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:313:316:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:316:321:argument_list"
+      ],
+      "text_digest": "5239d34c1b731c113c0590bfff963d22c55f56794690eb0c4b0d511a99c9b481"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:316:321:argument_list",
+      "kind": "argument_list",
+      "label": "(uri)",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 17,
+          "byte": 316
+        },
+        "end": {
+          "line": 21,
+          "column": 22,
+          "byte": 321
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:317:320:identifier"
+      ],
+      "text_digest": "8c2406da3e65c181aa92deff8035c759def934ec9c9e306784a40066de965084"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:317:320:identifier",
+      "kind": "identifier",
+      "label": "uri",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 18,
+          "byte": 317
+        },
+        "end": {
+          "line": 21,
+          "column": 21,
+          "byte": 320
+        }
+      },
+      "children_ids": [],
+      "text_digest": "70e5d7b6a29b392f85076fe15ca2f2053c56c2338728c4e33c9e8ddb1ee827cc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:313:316:identifier",
+      "kind": "identifier",
+      "label": "get",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 14,
+          "byte": 313
+        },
+        "end": {
+          "line": 21,
+          "column": 17,
+          "byte": 316
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2998b3232d29e8dc5a78d97a32ce83f556f3ed31b057077503df05641dd79158"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:312:scope_resolution",
+      "kind": "scope_resolution",
+      "label": "Net::HTTP",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 4,
+          "byte": 303
+        },
+        "end": {
+          "line": 21,
+          "column": 13,
+          "byte": 312
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:306:constant",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:308:312:constant"
+      ],
+      "text_digest": "73d82325b27efb9d4f589ec82ac9c4fd416411e6a508330b1f7f7e12e40230bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:308:312:constant",
+      "kind": "constant",
+      "label": "HTTP",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 9,
+          "byte": 308
+        },
+        "end": {
+          "line": 21,
+          "column": 13,
+          "byte": 312
+        }
+      },
+      "children_ids": [],
+      "text_digest": "56d6f32151ad8474f40d7b939c2161ee2bbf10023f4af1dbb3e13260ebdc6342"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:303:306:constant",
+      "kind": "constant",
+      "label": "Net",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 4,
+          "byte": 303
+        },
+        "end": {
+          "line": 21,
+          "column": 7,
+          "byte": 306
+        }
+      },
+      "children_ids": [],
+      "text_digest": "660fb2c41d028988b2093656a80d3ae99bc67cd0d5acca5c6063793819b15881"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:297:assignment",
+      "kind": "assignment",
+      "label": "uri = URI(@base_url + path)",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 4,
+          "byte": 270
+        },
+        "end": {
+          "line": 20,
+          "column": 31,
+          "byte": 297
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:273:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:297:call"
+      ],
+      "text_digest": "2ee56617fd41db6874472b970add2eddd5fca782ef8e9ffb4341d6b6585272e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:297:call",
+      "kind": "call",
+      "label": "URI(@base_url + path)",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 10,
+          "byte": 276
+        },
+        "end": {
+          "line": 20,
+          "column": 31,
+          "byte": 297
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:279:constant",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:279:297:argument_list"
+      ],
+      "text_digest": "06f2ab5f0ab66dd55cb9ba4fe6e9be09901dbf77262c6433021de4305911e043"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:279:297:argument_list",
+      "kind": "argument_list",
+      "label": "(@base_url + path)",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 13,
+          "byte": 279
+        },
+        "end": {
+          "line": 20,
+          "column": 31,
+          "byte": 297
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:296:binary"
+      ],
+      "text_digest": "bacbd6058e2b10757cd1bdf627b040e1c8ae1cd809bcf9b86578da0920451c21"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:296:binary",
+      "kind": "binary",
+      "label": "@base_url + path",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 14,
+          "byte": 280
+        },
+        "end": {
+          "line": 20,
+          "column": 30,
+          "byte": 296
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:289:instance_variable",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:292:296:identifier"
+      ],
+      "text_digest": "2bc1e837a12d3cf57e88bab1e1c87a1063aaa05af3578252142d1f4070fb413d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:292:296:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 26,
+          "byte": 292
+        },
+        "end": {
+          "line": 20,
+          "column": 30,
+          "byte": 296
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:280:289:instance_variable",
+      "kind": "instance_variable",
+      "label": "@base_url",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 14,
+          "byte": 280
+        },
+        "end": {
+          "line": 20,
+          "column": 23,
+          "byte": 289
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8b4bcc4c48626a996bc7234fcf91bf8e4cf33c5063bc201768c8599d696149ff"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:276:279:constant",
+      "kind": "constant",
+      "label": "URI",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 10,
+          "byte": 276
+        },
+        "end": {
+          "line": 20,
+          "column": 13,
+          "byte": 279
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d70fbad88d0f9eaf2c818d5a20f24c06dcb4a4ef8a2a03f9059683cd625d1551"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:270:273:identifier",
+      "kind": "identifier",
+      "label": "uri",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 4,
+          "byte": 270
+        },
+        "end": {
+          "line": 20,
+          "column": 7,
+          "byte": 273
+        }
+      },
+      "children_ids": [],
+      "text_digest": "70e5d7b6a29b392f85076fe15ca2f2053c56c2338728c4e33c9e8ddb1ee827cc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:250:264:method_parameters",
+      "kind": "method_parameters",
+      "label": "(path, method)",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 11,
+          "byte": 250
+        },
+        "end": {
+          "line": 19,
+          "column": 25,
+          "byte": 264
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:251:255:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:257:263:identifier"
+      ],
+      "text_digest": "b356523f03dec8fa8fbaefc4bfae63111996af3d4855075f1f067197a405e39b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:257:263:identifier",
+      "kind": "identifier",
+      "label": "method",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 18,
+          "byte": 257
+        },
+        "end": {
+          "line": 19,
+          "column": 24,
+          "byte": 263
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5b7e6bf2dc4a32a6aa4770cd5639c2c7af890fc86c273b5c8567fe5382086bf3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:251:255:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 12,
+          "byte": 251
+        },
+        "end": {
+          "line": 19,
+          "column": 16,
+          "byte": 255
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:245:250:identifier",
+      "kind": "identifier",
+      "label": "fetch",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 6,
+          "byte": 245
+        },
+        "end": {
+          "line": 19,
+          "column": 11,
+          "byte": 250
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e7d3799ecc09f5cbc446aa0a79bb1fb9d0126395fa19a5903b7425f42e5e92e7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:228:235:identifier",
+      "kind": "identifier",
+      "label": "private",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 2,
+          "byte": 228
+        },
+        "end": {
+          "line": 17,
+          "column": 9,
+          "byte": 235
+        }
+      },
+      "children_ids": [],
+      "text_digest": "715dc8493c36579a5b116995100f635e3572fdf8703e708ef1a08d943b36774e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:170:222:method",
+      "kind": "method",
+      "label": "def post(path, body)\r\n    fetch(path, 'POST')\r\n  end",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 2,
+          "byte": 170
+        },
+        "end": {
+          "line": 15,
+          "column": 5,
+          "byte": 222
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:174:178:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:178:190:method_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:216:body_statement"
+      ],
+      "text_digest": "32c1ec3f2056fb656471af3d8a227148c8ce827bf0f74d8ae0f7c3cc33072e44"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:216:body_statement",
+      "kind": "body_statement",
+      "label": "fetch(path, 'POST')\r",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 196
+        },
+        "end": {
+          "line": 14,
+          "column": 24,
+          "byte": 216
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:215:call"
+      ],
+      "text_digest": "a7ce560c74ded2ca82a3651d505bebc5ff92811669ebb29d8360e0c9b43bcd40"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:215:call",
+      "kind": "call",
+      "label": "fetch(path, 'POST')",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 196
+        },
+        "end": {
+          "line": 14,
+          "column": 23,
+          "byte": 215
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:201:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:201:215:argument_list"
+      ],
+      "text_digest": "9a7f188cfc7c57bd622cc56cb2a73d663d1140336b1da2e30cb03d0d7d62e853"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:201:215:argument_list",
+      "kind": "argument_list",
+      "label": "(path, 'POST')",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 9,
+          "byte": 201
+        },
+        "end": {
+          "line": 14,
+          "column": 23,
+          "byte": 215
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:202:206:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:208:214:string"
+      ],
+      "text_digest": "aa5c6217c18976877625ffccc7d44e5e28e40b5d42eda61f6721ab16314f2678"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:208:214:string",
+      "kind": "string",
+      "label": "'POST'",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 16,
+          "byte": 208
+        },
+        "end": {
+          "line": 14,
+          "column": 22,
+          "byte": 214
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:209:213:string_content"
+      ],
+      "text_digest": "a5458eeebf5d272b42e0a915d73b454ee6a134c6da816e589a9b4a8fcb844485"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:209:213:string_content",
+      "kind": "string_content",
+      "label": "POST",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 17,
+          "byte": 209
+        },
+        "end": {
+          "line": 14,
+          "column": 21,
+          "byte": 213
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9aee6b1bcdf617d8e39bb1f2b624c68ea33deb9d48e0364aeaded836d3d00293"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:202:206:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 10,
+          "byte": 202
+        },
+        "end": {
+          "line": 14,
+          "column": 14,
+          "byte": 206
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:196:201:identifier",
+      "kind": "identifier",
+      "label": "fetch",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 196
+        },
+        "end": {
+          "line": 14,
+          "column": 9,
+          "byte": 201
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e7d3799ecc09f5cbc446aa0a79bb1fb9d0126395fa19a5903b7425f42e5e92e7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:178:190:method_parameters",
+      "kind": "method_parameters",
+      "label": "(path, body)",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 10,
+          "byte": 178
+        },
+        "end": {
+          "line": 13,
+          "column": 22,
+          "byte": 190
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:179:183:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:185:189:identifier"
+      ],
+      "text_digest": "224b8bed0362469c387602d0163aee4c38c9c0b7d3901bc0f884bbc004242a65"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:185:189:identifier",
+      "kind": "identifier",
+      "label": "body",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 17,
+          "byte": 185
+        },
+        "end": {
+          "line": 13,
+          "column": 21,
+          "byte": 189
+        }
+      },
+      "children_ids": [],
+      "text_digest": "230d8358dc8e8890b4c58deeb62912ee2f20357ae92a5cc861b98e68fe31acb5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:179:183:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 11,
+          "byte": 179
+        },
+        "end": {
+          "line": 13,
+          "column": 15,
+          "byte": 183
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:174:178:identifier",
+      "kind": "identifier",
+      "label": "post",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 6,
+          "byte": 174
+        },
+        "end": {
+          "line": 13,
+          "column": 10,
+          "byte": 178
+        }
+      },
+      "children_ids": [],
+      "text_digest": "72231043bc1807e6f740b235eb7511ecb33255a6a375435631196de8a9750d4b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:120:164:method",
+      "kind": "method",
+      "label": "def get(path)\r\n    fetch(path, 'GET')\r\n  end",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 2,
+          "byte": 120
+        },
+        "end": {
+          "line": 11,
+          "column": 5,
+          "byte": 164
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:124:127:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:127:133:method_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:158:body_statement"
+      ],
+      "text_digest": "680fc7cfddfa50c1b88a1b16bc42720812fd28ec9867c15c201c09cad342bf2a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:158:body_statement",
+      "kind": "body_statement",
+      "label": "fetch(path, 'GET')\r",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 4,
+          "byte": 139
+        },
+        "end": {
+          "line": 10,
+          "column": 23,
+          "byte": 158
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:157:call"
+      ],
+      "text_digest": "c463bd825c4dbf2dd31cd8051e3f280f7a944be666c2e1b066522651a3aadc00"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:157:call",
+      "kind": "call",
+      "label": "fetch(path, 'GET')",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 4,
+          "byte": 139
+        },
+        "end": {
+          "line": 10,
+          "column": 22,
+          "byte": 157
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:144:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:144:157:argument_list"
+      ],
+      "text_digest": "cd0b0c37c4dcdaab88bf860288586488fa982c164fa444818b77cae74544c8e7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:144:157:argument_list",
+      "kind": "argument_list",
+      "label": "(path, 'GET')",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 9,
+          "byte": 144
+        },
+        "end": {
+          "line": 10,
+          "column": 22,
+          "byte": 157
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:145:149:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:151:156:string"
+      ],
+      "text_digest": "97d71c9349e56ee5aa70b2d16e732ab9a521ec1bcb8035dce285bae2cdb321d5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:151:156:string",
+      "kind": "string",
+      "label": "'GET'",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 16,
+          "byte": 151
+        },
+        "end": {
+          "line": 10,
+          "column": 21,
+          "byte": 156
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:152:155:string_content"
+      ],
+      "text_digest": "cb9f0497f7deb2efdeaacf17a5c385444885262b49c62c47afaee6a43d16b66e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:152:155:string_content",
+      "kind": "string_content",
+      "label": "GET",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 17,
+          "byte": 152
+        },
+        "end": {
+          "line": 10,
+          "column": 20,
+          "byte": 155
+        }
+      },
+      "children_ids": [],
+      "text_digest": "14e30cd163c732912e048c4c837e15c4e90c062ebb795ab947d57706e2d10dd8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:145:149:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 10,
+          "byte": 145
+        },
+        "end": {
+          "line": 10,
+          "column": 14,
+          "byte": 149
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:139:144:identifier",
+      "kind": "identifier",
+      "label": "fetch",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 4,
+          "byte": 139
+        },
+        "end": {
+          "line": 10,
+          "column": 9,
+          "byte": 144
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e7d3799ecc09f5cbc446aa0a79bb1fb9d0126395fa19a5903b7425f42e5e92e7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:127:133:method_parameters",
+      "kind": "method_parameters",
+      "label": "(path)",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 9,
+          "byte": 127
+        },
+        "end": {
+          "line": 9,
+          "column": 15,
+          "byte": 133
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:128:132:identifier"
+      ],
+      "text_digest": "44981f198c517cc33b0061a0027345a03ff87773e98a339ba4af8f0711f129ce"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:128:132:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 10,
+          "byte": 128
+        },
+        "end": {
+          "line": 9,
+          "column": 14,
+          "byte": 132
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:124:127:identifier",
+      "kind": "identifier",
+      "label": "get",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 6,
+          "byte": 124
+        },
+        "end": {
+          "line": 9,
+          "column": 9,
+          "byte": 127
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2998b3232d29e8dc5a78d97a32ce83f556f3ed31b057077503df05641dd79158"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:57:114:method",
+      "kind": "method",
+      "label": "def initialize(base_url)\r\n    @base_url = base_url\r\n  end",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 2,
+          "byte": 57
+        },
+        "end": {
+          "line": 7,
+          "column": 5,
+          "byte": 114
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:61:71:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:71:81:method_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:108:body_statement"
+      ],
+      "text_digest": "ff8a5faffa3a16f459bdd8f7687db3fcdc5a8ce3561eceec41fb6e39e506424c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:108:body_statement",
+      "kind": "body_statement",
+      "label": "@base_url = base_url\r",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 4,
+          "byte": 87
+        },
+        "end": {
+          "line": 6,
+          "column": 25,
+          "byte": 108
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:107:assignment"
+      ],
+      "text_digest": "7830695cefbc9ba12b75350bd76b24e8ebff8f7f138b19096bb0b56f8620e5d7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:107:assignment",
+      "kind": "assignment",
+      "label": "@base_url = base_url",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 4,
+          "byte": 87
+        },
+        "end": {
+          "line": 6,
+          "column": 24,
+          "byte": 107
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:96:instance_variable",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:99:107:identifier"
+      ],
+      "text_digest": "808d67aa054f5b2981e74127155c71e12d543ccc6ebed19c772f52165f8e23a7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:99:107:identifier",
+      "kind": "identifier",
+      "label": "base_url",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 16,
+          "byte": 99
+        },
+        "end": {
+          "line": 6,
+          "column": 24,
+          "byte": 107
+        }
+      },
+      "children_ids": [],
+      "text_digest": "60cea8592118aca5baf48283ee7c53f1112189735e7c209c3fa43b77c597159f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:87:96:instance_variable",
+      "kind": "instance_variable",
+      "label": "@base_url",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 4,
+          "byte": 87
+        },
+        "end": {
+          "line": 6,
+          "column": 13,
+          "byte": 96
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8b4bcc4c48626a996bc7234fcf91bf8e4cf33c5063bc201768c8599d696149ff"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:71:81:method_parameters",
+      "kind": "method_parameters",
+      "label": "(base_url)",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 16,
+          "byte": 71
+        },
+        "end": {
+          "line": 5,
+          "column": 26,
+          "byte": 81
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:72:80:identifier"
+      ],
+      "text_digest": "961cdf2fd62f49442207980aa372a3526e83153307dae366dcbb8b71d833a5ab"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:72:80:identifier",
+      "kind": "identifier",
+      "label": "base_url",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 17,
+          "byte": 72
+        },
+        "end": {
+          "line": 5,
+          "column": 25,
+          "byte": 80
+        }
+      },
+      "children_ids": [],
+      "text_digest": "60cea8592118aca5baf48283ee7c53f1112189735e7c209c3fa43b77c597159f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:61:71:identifier",
+      "kind": "identifier",
+      "label": "initialize",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 6,
+          "byte": 61
+        },
+        "end": {
+          "line": 5,
+          "column": 16,
+          "byte": 71
+        }
+      },
+      "children_ids": [],
+      "text_digest": "470ebe82f755275238654540d4cde778a359dc1731952f57a1d59eef58862676"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:44:53:constant",
+      "kind": "constant",
+      "label": "ApiClient",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 6,
+          "byte": 44
+        },
+        "end": {
+          "line": 4,
+          "column": 15,
+          "byte": 53
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b08f821c395d4fbeeffe8c5f16dfaecf943e3dbf3f8ef1069a031502273da8db"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:34:call",
+      "kind": "call",
+      "label": "require 'net/http'",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 16
+        },
+        "end": {
+          "line": 2,
+          "column": 18,
+          "byte": 34
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:23:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:argument_list"
+      ],
+      "text_digest": "5b66eebfb844427c0a510329d0f9e66646541ca5f7f927694980ba76ecf3f7e4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:argument_list",
+      "kind": "argument_list",
+      "label": "'net/http'",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 8,
+          "byte": 24
+        },
+        "end": {
+          "line": 2,
+          "column": 18,
+          "byte": 34
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:string"
+      ],
+      "text_digest": "8e7d148f8ae5faf69b8775b7634dca6f08b86c8dd8a87b1a0ef453c00da6cc8d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:24:34:string",
+      "kind": "string",
+      "label": "'net/http'",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 8,
+          "byte": 24
+        },
+        "end": {
+          "line": 2,
+          "column": 18,
+          "byte": 34
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:25:33:string_content"
+      ],
+      "text_digest": "8e7d148f8ae5faf69b8775b7634dca6f08b86c8dd8a87b1a0ef453c00da6cc8d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:25:33:string_content",
+      "kind": "string_content",
+      "label": "net/http",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 25
+        },
+        "end": {
+          "line": 2,
+          "column": 17,
+          "byte": 33
+        }
+      },
+      "children_ids": [],
+      "text_digest": "df3a1fadd43a37f6aca05cb940d582de557d048c3f22bbd1a385c920b2853c1d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:16:23:identifier",
+      "kind": "identifier",
+      "label": "require",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 16
+        },
+        "end": {
+          "line": 2,
+          "column": 7,
+          "byte": 23
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c4d0cf241a1bfa1c8bf4cf24e8f89d2ab786a284a39adb2fc8df7ea14e73c154"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:14:call",
+      "kind": "call",
+      "label": "require 'json'",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 14,
+          "byte": 14
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:7:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:argument_list"
+      ],
+      "text_digest": "f7ea40dc7db93256b2df211305f3709ce0a3c7c2ba184da6022279edde20e989"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:argument_list",
+      "kind": "argument_list",
+      "label": "'json'",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 8,
+          "byte": 8
+        },
+        "end": {
+          "line": 1,
+          "column": 14,
+          "byte": 14
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:string"
+      ],
+      "text_digest": "fb97b451af8304805c66b24f082d2abf4b747a1e84b163bbc91033c85e251eb6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:8:14:string",
+      "kind": "string",
+      "label": "'json'",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 8,
+          "byte": 8
+        },
+        "end": {
+          "line": 1,
+          "column": 14,
+          "byte": 14
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:9:13:string_content"
+      ],
+      "text_digest": "fb97b451af8304805c66b24f082d2abf4b747a1e84b163bbc91033c85e251eb6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:9:13:string_content",
+      "kind": "string_content",
+      "label": "json",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 13,
+          "byte": 13
+        }
+      },
+      "children_ids": [],
+      "text_digest": "02bd175f329720378ce83dd56a1b6b1f5291a60182d6c54b5e0d1e8d248a267a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.rb:0:7:identifier",
+      "kind": "identifier",
+      "label": "require",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c4d0cf241a1bfa1c8bf4cf24e8f89d2ab786a284a39adb2fc8df7ea14e73c154"
+    }
+  ],
+  "parser_id": "tree_sitter_ruby",
+  "relative_path": "tests/fixtures/sample.rb",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "ruby",
+  "warnings": []
+}

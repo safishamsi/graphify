@@ -14,7 +14,7 @@ import subprocess
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Callable
 
 from graphify.detect import detect
 
@@ -67,6 +67,22 @@ class DatasetExportResult:
     skipped_files: list[dict[str, str]]
 
 
+ProgressReporter = Callable[[str], None]
+
+
+def _emit_progress(progress: ProgressReporter | None, message: str) -> None:
+    if progress is not None:
+        progress(message)
+
+
+def _export_progress_interval(total: int) -> int:
+    if total <= 25:
+        return 1
+    if total <= 250:
+        return 25
+    return 100
+
+
 def _sanitize_repo_name(raw: str) -> str:
     cleaned = re.sub(r"[^A-Za-z0-9._-]+", "_", raw).strip("._-")
     return cleaned or "repo"
@@ -107,14 +123,21 @@ def resolve_repo_metadata(repo_root: Path, repo_url: str | None = None) -> tuple
     return commit_sha, discovered
 
 
-def clone_public_repo(repo_url: str, *, checkout_root: Path) -> Path:
+def clone_public_repo(
+    repo_url: str,
+    *,
+    checkout_root: Path,
+    progress: ProgressReporter | None = None,
+) -> Path:
     repo_name = repo_name_from_url(repo_url)
     target = checkout_root / repo_name
     if target.exists():
         if not (target / ".git").exists():
             raise ValueError(f"checkout target exists but is not a git repo: {target}")
+        _emit_progress(progress, f"Prepare-dataset: reusing existing checkout at {target}.")
         return target
     checkout_root.mkdir(parents=True, exist_ok=True)
+    _emit_progress(progress, f"Prepare-dataset: cloning {repo_url} into {target}.")
     result = subprocess.run(
         ["git", "clone", "--depth", "1", repo_url, str(target)],
         capture_output=True,
@@ -125,6 +148,7 @@ def clone_public_repo(repo_url: str, *, checkout_root: Path) -> Path:
     if result.returncode != 0:
         detail = (result.stderr or result.stdout or "").strip()
         raise RuntimeError(f"git clone failed for {repo_url}: {detail}")
+    _emit_progress(progress, f"Prepare-dataset: clone complete at {target}.")
     return target
 
 
@@ -263,18 +287,33 @@ def export_dataset_from_repo(
     dataset_root: Path,
     repo_name: str | None = None,
     repo_url: str | None = None,
+    progress: ProgressReporter | None = None,
 ) -> DatasetExportResult:
     repo_root = repo_root.resolve()
     resolved_repo_name = _sanitize_repo_name(repo_name or repo_root.name)
     dataset_dir = (dataset_root / resolved_repo_name).resolve()
+    _emit_progress(progress, f"Prepare-dataset: exporting from repo root {repo_root}.")
+    _emit_progress(progress, f"Prepare-dataset: dataset output directory is {dataset_dir}.")
     dataset_dir.mkdir(parents=True, exist_ok=True)
+    _emit_progress(progress, "Prepare-dataset: resolving repository metadata.")
     commit_sha, resolved_repo_url = resolve_repo_metadata(repo_root, repo_url)
+    _emit_progress(
+        progress,
+        "Prepare-dataset: repository metadata resolved "
+        f"(commit={commit_sha}, repo_url={resolved_repo_url or 'unknown'}).",
+    )
 
+    _emit_progress(progress, "Prepare-dataset: running graphify detect to collect code files.")
     detected = detect(repo_root)
     code_paths = [Path(raw) for raw in detected.get("files", {}).get("code", [])]
+    _emit_progress(progress, f"Prepare-dataset: detect found {len(code_paths)} code file(s) to export.")
+    if not code_paths:
+        _emit_progress(progress, "Prepare-dataset: no code files detected; proceeding to stale-file cleanup only.")
     files_written = 0
     skipped: list[dict[str, str]] = []
     written_names: set[str] = set()
+    progress_interval = _export_progress_interval(len(code_paths))
+    processed = 0
 
     for path in code_paths:
         try:
@@ -287,15 +326,39 @@ def export_dataset_from_repo(
             )
         except Exception as exc:  # noqa: BLE001
             skipped.append({"path": str(path), "reason": str(exc)})
+            processed += 1
+            rel_path = path.relative_to(repo_root).as_posix()
+            _emit_progress(progress, f"Prepare-dataset: skipped {rel_path} ({exc}).")
+            if processed % progress_interval == 0 or processed == len(code_paths):
+                _emit_progress(
+                    progress,
+                    "Prepare-dataset: export progress "
+                    f"{processed}/{len(code_paths)} processed "
+                    f"({files_written} written, {len(skipped)} skipped).",
+                )
             continue
         target = dataset_dir / _dataset_filename(payload["relative_path"])
         target.write_text(json.dumps(payload, indent=2), encoding="utf-8")
         written_names.add(target.name)
         files_written += 1
+        processed += 1
+        if processed % progress_interval == 0 or processed == len(code_paths):
+            _emit_progress(
+                progress,
+                "Prepare-dataset: export progress "
+                f"{processed}/{len(code_paths)} processed "
+                f"({files_written} written, {len(skipped)} skipped).",
+            )
 
-    for stale in dataset_dir.glob("*.json"):
+    stale_files = [path for path in dataset_dir.glob("*.json") if path.name not in written_names]
+    _emit_progress(progress, f"Prepare-dataset: cleaning stale dataset files ({len(stale_files)} found).")
+    for stale in stale_files:
         if stale.name not in written_names:
             stale.unlink()
+    _emit_progress(
+        progress,
+        f"Prepare-dataset: export complete ({files_written} written, {len(skipped)} skipped).",
+    )
 
     return DatasetExportResult(
         repo_name=resolved_repo_name,
@@ -315,23 +378,28 @@ def prepare_dataset_from_source(
     dataset_root: Path = Path("dataset"),
     checkout_root: Path = Path("worked") / "repos",
     repo_name: str | None = None,
+    progress: ProgressReporter | None = None,
 ) -> DatasetExportResult:
     if bool(repo_root) == bool(repo_url):
         raise ValueError("pass exactly one of repo_root or repo_url")
     if repo_url:
-        resolved_repo_root = clone_public_repo(repo_url, checkout_root=checkout_root)
+        _emit_progress(progress, f"Prepare-dataset: source repository URL is {repo_url}.")
+        resolved_repo_root = clone_public_repo(repo_url, checkout_root=checkout_root, progress=progress)
         resolved_repo_name = repo_name or repo_name_from_url(repo_url)
         return export_dataset_from_repo(
             resolved_repo_root,
             dataset_root=dataset_root,
             repo_name=resolved_repo_name,
             repo_url=repo_url,
+            progress=progress,
         )
     assert repo_root is not None
+    _emit_progress(progress, f"Prepare-dataset: source repository root is {repo_root}.")
     return export_dataset_from_repo(
         repo_root,
         dataset_root=dataset_root,
         repo_name=repo_name,
+        progress=progress,
     )
 
 

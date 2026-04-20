@@ -1,0 +1,3018 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:40+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:243:644:export_statement:107",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:243:644:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:243:644:export_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:258:644:function_declaration:106",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:243:644:export_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:258:644:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:258:644:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block:105",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:258:644:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:641:expression_statement:104",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:641:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:641:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:640:call_expression:103",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:641:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:640:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:640:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:602:640:arguments:102",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:640:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:602:640:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:602:640:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:603:639:template_string:101",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:602:640:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:603:639:template_string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:603:639:template_string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:617:638:template_substitution:100",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:603:639:template_string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:617:638:template_substitution",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:617:638:template_substitution->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:637:ternary_expression:99",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:617:638:template_substitution",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:637:ternary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:637:ternary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:635:637:string:98",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:637:ternary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:635:637:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:637:ternary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:624:632:template_string:97",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:637:ternary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:624:632:template_string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:624:632:template_string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:626:631:template_substitution:96",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:624:632:template_string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:626:631:template_substitution",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:626:631:template_substitution->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:628:630:identifier:95",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:626:631:template_substitution",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:628:630:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:624:632:template_string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:625:626:string_fragment:94",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:624:632:template_string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:625:626:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:637:ternary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:621:identifier:93",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:637:ternary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:621:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:603:639:template_string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:604:617:string_fragment:92",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:603:639:template_string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:604:617:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:640:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:602:identifier:91",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:640:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:602:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:561:590:lexical_declaration:90",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:561:590:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:561:590:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:589:variable_declarator:89",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:561:590:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:589:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:589:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:589:call_expression:88",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:589:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:589:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:589:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:587:589:arguments:87",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:589:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:587:589:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:589:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:587:member_expression:86",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:589:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:587:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:587:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:579:587:property_identifier:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:587:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:579:587:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:587:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:578:identifier:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:587:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:578:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:589:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:569:identifier:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:589:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:569:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:510:557:if_statement:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:510:557:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:510:557:if_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:557:expression_statement:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:510:557:if_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:557:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:557:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:556:call_expression:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:557:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:556:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:556:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:542:556:arguments:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:556:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:542:556:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:542:556:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:551:555:identifier:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:542:556:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:551:555:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:542:556:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:543:549:string:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:542:556:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:543:549:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:543:549:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:544:548:string_fragment:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:543:549:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:544:548:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:556:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:542:member_expression:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:556:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:542:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:542:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:539:542:property_identifier:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:542:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:539:542:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:542:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:538:identifier:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:542:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:538:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:510:557:if_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:513:531:parenthesized_expression:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:510:557:if_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:513:531:parenthesized_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:513:531:parenthesized_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:530:binary_expression:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:513:531:parenthesized_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:530:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:530:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:523:530:string:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:530:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:523:530:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:523:530:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:524:529:string_fragment:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:523:530:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:524:529:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:530:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:518:identifier:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:530:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:518:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:475:506:lexical_declaration:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:475:506:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:475:506:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:505:variable_declarator:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:475:506:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:505:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:505:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:505:call_expression:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:505:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:505:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:505:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:496:505:arguments:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:505:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:496:505:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:496:505:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:497:504:identifier:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:496:505:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:497:504:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:505:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:496:identifier:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:505:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:496:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:505:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:485:identifier:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:505:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:485:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:390:471:lexical_declaration:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:390:471:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:390:471:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:470:variable_declarator:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:390:471:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:470:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:470:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:470:ternary_expression:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:470:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:470:ternary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:470:ternary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:466:470:null:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:470:ternary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:466:470:null",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:470:ternary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:463:member_expression:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:470:ternary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:463:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:463:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:459:463:property_identifier:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:463:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:459:463:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:463:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:458:identifier:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:463:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:458:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:470:ternary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:443:binary_expression:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:470:ternary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:443:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:443:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:435:443:string:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:443:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:435:443:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:435:443:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:436:442:string_fragment:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:435:443:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:436:442:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:443:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:430:unary_expression:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:443:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:430:unary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:430:unary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:430:member_expression:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:430:unary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:430:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:430:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:426:430:property_identifier:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:430:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:426:430:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:430:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:425:identifier:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:430:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:425:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:470:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:403:identifier:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:470:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:403:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:349:386:lexical_declaration:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:349:386:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:349:386:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:385:variable_declarator:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:349:386:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:385:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:385:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:364:385:new_expression:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:385:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:364:385:new_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:364:385:new_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:383:385:arguments:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:364:385:new_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:383:385:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:364:385:new_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:368:383:identifier:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:364:385:new_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:368:383:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:385:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:361:identifier:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:385:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:361:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:258:644:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:283:343:formal_parameters:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:258:644:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:283:343:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:283:343:formal_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:342:required_parameter:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:283:343:formal_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:342:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:342:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:305:342:type_annotation:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:342:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:305:342:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:305:342:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:307:342:object_type:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:305:342:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:307:342:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:307:342:object_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:338:property_signature:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:307:342:object_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:338:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:338:property_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:324:338:type_annotation:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:338:property_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:324:338:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:324:338:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:326:338:type_identifier:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:324:338:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:326:338:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:338:property_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:324:property_identifier:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:338:property_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:324:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:342:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:305:object_pattern:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:342:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:305:object_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:305:object_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:289:301:shorthand_property_identifier_pattern:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:305:object_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:289:301:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:258:644:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:267:283:identifier:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:258:644:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:267:283:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:170:241:comment:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:170:241:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:97:166:type_alias_declaration:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:97:166:type_alias_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:97:166:type_alias_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:117:165:object_type:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:97:166:type_alias_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:117:165:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:117:165:object_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:119:163:index_signature:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:117:165:object_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:119:163:index_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:119:163:index_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:132:163:type_annotation:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:119:163:index_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:132:163:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:132:163:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:163:union_type:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:132:163:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:163:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:163:union_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:154:163:literal_type:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:163:union_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:154:163:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:154:163:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:154:163:undefined:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:154:163:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:154:163:undefined",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:163:union_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:151:union_type:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:163:union_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:151:union_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:151:union_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:143:151:array_type:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:151:union_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:143:151:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:143:151:array_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:143:149:predefined_type:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:143:151:array_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:143:149:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:151:union_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:140:predefined_type:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:151:union_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:140:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:119:163:index_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:125:131:predefined_type:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:119:163:index_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:125:131:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:119:163:index_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:120:123:identifier:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:119:163:index_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:120:123:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:97:166:type_alias_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:102:114:type_identifier:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:97:166:type_alias_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:102:114:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:45:93:import_statement:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:45:93:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:45:93:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:70:92:string:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:45:93:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:70:92:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:70:92:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:71:91:string_fragment:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:70:92:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:71:91:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:45:93:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:import_clause:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:45:93:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:named_imports:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:54:62:import_specifier:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:54:62:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:54:62:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:54:62:identifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:54:62:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:54:62:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:43:import_statement:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:43:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:43:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:25:42:string:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:43:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:25:42:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:25:42:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:26:41:string_fragment:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:25:42:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:26:41:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:43:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:import_clause:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:43:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:named_imports:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:9:17:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:9:17:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:9:17:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:9:17:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:9:17:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:9:17:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:646:program",
+      "kind": "program",
+      "label": "import { redirect } from \"next/navigation\";\r\nimport { safeNext } from \"@/lib/auth/redirects\";\r\n\r\ntype SearchParams = { [key: string]: string | string[] | undefined };\r\n\r\n/** Legacy /signup route \u2014 redirect to the new /auth/sign-up path. */\r\nexport default function LegacySignupPage({\r\n  searchParams,\r\n}: {\r\n  searchParams: SearchParams;\r\n}) {\r\n  const params = new URLSearchParams();\r\n  const rawNext = typeof searchParams.next === \"string\" ? searchParams.next : null;\r\n  const next = safeNext(rawNext);\r\n  if (next !== \"/orgs\") params.set(\"next\", next);\r\n  const qs = params.toString();\r\n  redirect(`/auth/sign-up${qs ? `?${qs}` : \"\"}`);\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 19,
+          "column": 0,
+          "byte": 646
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:43:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:45:93:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:97:166:type_alias_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:170:241:comment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:243:644:export_statement"
+      ],
+      "text_digest": "48b5cbe452979f80ad70a26c1e2cb01b505a32dbbff4e698ff3afba959a54d70"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:243:644:export_statement",
+      "kind": "export_statement",
+      "label": "export default function LegacySignupPage({\r\n  searchParams,\r\n}: {\r\n  searchParams: SearchParams;\r\n}) {\r\n  const params = new URLSearchParams();\r\n  const rawNext = typeof searchParams.next === \"string\" ? searchParams.next : null;\r\n  const next = safeNext(rawNext);\r\n  if (next !== \"/orgs\") params.set(\"next\", next);\r\n  const qs = params.toString();\r\n  redirect(`/auth/sign-up${qs ? `?${qs}` : \"\"}`);\r\n}",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 0,
+          "byte": 243
+        },
+        "end": {
+          "line": 18,
+          "column": 1,
+          "byte": 644
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:258:644:function_declaration"
+      ],
+      "text_digest": "d811523c15aed574b7c3de2073131ff2e90c6fa6e242f0070a59bc98c3b42f1c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:258:644:function_declaration",
+      "kind": "function_declaration",
+      "label": "function LegacySignupPage({\r\n  searchParams,\r\n}: {\r\n  searchParams: SearchParams;\r\n}) {\r\n  const params = new URLSearchParams();\r\n  const rawNext = typeof searchParams.next === \"string\" ? searchParams.next : null;\r\n  const next = safeNext(rawNext);\r\n  if (next !== \"/orgs\") params.set(\"next\", next);\r\n  const qs = params.toString();\r\n  redirect(`/auth/sign-up${qs ? `?${qs}` : \"\"}`);\r\n}",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 15,
+          "byte": 258
+        },
+        "end": {
+          "line": 18,
+          "column": 1,
+          "byte": 644
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:267:283:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:283:343:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block"
+      ],
+      "text_digest": "d6a7a16d0ca351b94ef3aa08f44920264340e19e8857927d6a0af2695c165697"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:344:644:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const params = new URLSearchParams();\r\n  const rawNext = typeof searchParams.next === \"string\" ? searchParams.next : null;\r\n  const next = safeNext(rawNext);\r\n  if (next !== \"/orgs\") params.set(\"next\", next);\r\n  const qs = params.toString();\r\n  redirect(`/auth/sign-up${qs ? `?${qs}` : \"\"}`);\r\n}",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 3,
+          "byte": 344
+        },
+        "end": {
+          "line": 18,
+          "column": 1,
+          "byte": 644
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:349:386:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:390:471:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:475:506:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:510:557:if_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:561:590:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:641:expression_statement"
+      ],
+      "text_digest": "3391d97322024827c1738fcb6be156f04c3edcdc45e9deb99fba140832347d06"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:641:expression_statement",
+      "kind": "expression_statement",
+      "label": "redirect(`/auth/sign-up${qs ? `?${qs}` : \"\"}`);",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 2,
+          "byte": 594
+        },
+        "end": {
+          "line": 17,
+          "column": 49,
+          "byte": 641
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:640:call_expression"
+      ],
+      "text_digest": "49b8732711ff25682c46f4569d91a81cddb691d30900ed7d4c86d6534e6abcb0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:640:call_expression",
+      "kind": "call_expression",
+      "label": "redirect(`/auth/sign-up${qs ? `?${qs}` : \"\"}`)",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 2,
+          "byte": 594
+        },
+        "end": {
+          "line": 17,
+          "column": 48,
+          "byte": 640
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:602:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:602:640:arguments"
+      ],
+      "text_digest": "6209e6d3d4ce5a175246c6428b8f66522689c27e9072cec367f1d9c8b28a5742"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:602:640:arguments",
+      "kind": "arguments",
+      "label": "(`/auth/sign-up${qs ? `?${qs}` : \"\"}`)",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 10,
+          "byte": 602
+        },
+        "end": {
+          "line": 17,
+          "column": 48,
+          "byte": 640
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:603:639:template_string"
+      ],
+      "text_digest": "5da77bd49fa2ce18d1b625d7e1a9cdf9fefb06b8197e8f4b741262d588f7739b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:603:639:template_string",
+      "kind": "template_string",
+      "label": "`/auth/sign-up${qs ? `?${qs}` : \"\"}`",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 11,
+          "byte": 603
+        },
+        "end": {
+          "line": 17,
+          "column": 47,
+          "byte": 639
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:604:617:string_fragment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:617:638:template_substitution"
+      ],
+      "text_digest": "1b7e70e811d6b554e20f577a8f5dbb90777f3b1c81df13f13eb50a8856b068d8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:617:638:template_substitution",
+      "kind": "template_substitution",
+      "label": "${qs ? `?${qs}` : \"\"}",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 25,
+          "byte": 617
+        },
+        "end": {
+          "line": 17,
+          "column": 46,
+          "byte": 638
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:637:ternary_expression"
+      ],
+      "text_digest": "4d0398b47329c260392d97e17f2b8bb65976df5510013a1cb2b6644bc5dcad1f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:637:ternary_expression",
+      "kind": "ternary_expression",
+      "label": "qs ? `?${qs}` : \"\"",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 27,
+          "byte": 619
+        },
+        "end": {
+          "line": 17,
+          "column": 45,
+          "byte": 637
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:621:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:624:632:template_string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:635:637:string"
+      ],
+      "text_digest": "cac476ffddf14bbea1109fc512b6432790747d10d42eeb01511756af07f31aff"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:635:637:string",
+      "kind": "string",
+      "label": "\"\"",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 43,
+          "byte": 635
+        },
+        "end": {
+          "line": 17,
+          "column": 45,
+          "byte": 637
+        }
+      },
+      "children_ids": [],
+      "text_digest": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:624:632:template_string",
+      "kind": "template_string",
+      "label": "`?${qs}`",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 32,
+          "byte": 624
+        },
+        "end": {
+          "line": 17,
+          "column": 40,
+          "byte": 632
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:625:626:string_fragment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:626:631:template_substitution"
+      ],
+      "text_digest": "ffa0666c62535491d8efb89a7bc38d5bd2de559d2f24a074b1b857a913224d89"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:626:631:template_substitution",
+      "kind": "template_substitution",
+      "label": "${qs}",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 34,
+          "byte": 626
+        },
+        "end": {
+          "line": 17,
+          "column": 39,
+          "byte": 631
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:628:630:identifier"
+      ],
+      "text_digest": "e394383a8e99795a3058a87855e9cc7902f49fd0855cc2a86e67a319989960a2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:628:630:identifier",
+      "kind": "identifier",
+      "label": "qs",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 36,
+          "byte": 628
+        },
+        "end": {
+          "line": 17,
+          "column": 38,
+          "byte": 630
+        }
+      },
+      "children_ids": [],
+      "text_digest": "351573d8d5d08010146c74bbec7ad56d9b6aea43eca703848e0a56045f27ee93"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:625:626:string_fragment",
+      "kind": "string_fragment",
+      "label": "?",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 33,
+          "byte": 625
+        },
+        "end": {
+          "line": 17,
+          "column": 34,
+          "byte": 626
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a8de823d5ed3e12746a62ef169bcf372be0ca44f0a1236abc35df05d96928e1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:619:621:identifier",
+      "kind": "identifier",
+      "label": "qs",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 27,
+          "byte": 619
+        },
+        "end": {
+          "line": 17,
+          "column": 29,
+          "byte": 621
+        }
+      },
+      "children_ids": [],
+      "text_digest": "351573d8d5d08010146c74bbec7ad56d9b6aea43eca703848e0a56045f27ee93"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:604:617:string_fragment",
+      "kind": "string_fragment",
+      "label": "/auth/sign-up",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 12,
+          "byte": 604
+        },
+        "end": {
+          "line": 17,
+          "column": 25,
+          "byte": 617
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8d6d8f0845ebe3df9658e941e3722e1aecc05158e08075bcc7745f3999dd0d16"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:594:602:identifier",
+      "kind": "identifier",
+      "label": "redirect",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 2,
+          "byte": 594
+        },
+        "end": {
+          "line": 17,
+          "column": 10,
+          "byte": 602
+        }
+      },
+      "children_ids": [],
+      "text_digest": "093452239d0e2e43b06b9d5cd8ac735c26449e340e001f87904765bb30e2293e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:561:590:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const qs = params.toString();",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 2,
+          "byte": 561
+        },
+        "end": {
+          "line": 16,
+          "column": 31,
+          "byte": 590
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:589:variable_declarator"
+      ],
+      "text_digest": "c42ce4aace7d3acba2a34ec7545a201d894cb73bba7ff8f009a3c435dc00dfef"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:589:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "qs = params.toString()",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 8,
+          "byte": 567
+        },
+        "end": {
+          "line": 16,
+          "column": 30,
+          "byte": 589
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:569:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:589:call_expression"
+      ],
+      "text_digest": "7ac4fcc600a007884efff4737cb957a3110bb91256aa1d1c1bd0c1c59c3d480d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:589:call_expression",
+      "kind": "call_expression",
+      "label": "params.toString()",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 13,
+          "byte": 572
+        },
+        "end": {
+          "line": 16,
+          "column": 30,
+          "byte": 589
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:587:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:587:589:arguments"
+      ],
+      "text_digest": "2fc4880ec8540d06a0ea1b4f5e3a2ffe8159ec35b85e6253fcf105b20b15a972"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:587:589:arguments",
+      "kind": "arguments",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 28,
+          "byte": 587
+        },
+        "end": {
+          "line": 16,
+          "column": 30,
+          "byte": 589
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:587:member_expression",
+      "kind": "member_expression",
+      "label": "params.toString",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 13,
+          "byte": 572
+        },
+        "end": {
+          "line": 16,
+          "column": 28,
+          "byte": 587
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:578:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:579:587:property_identifier"
+      ],
+      "text_digest": "44825c9f1bd0ae38dc203f905eabe4c6dd37de76a1af561a53307538bf5328b4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:579:587:property_identifier",
+      "kind": "property_identifier",
+      "label": "toString",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 20,
+          "byte": 579
+        },
+        "end": {
+          "line": 16,
+          "column": 28,
+          "byte": 587
+        }
+      },
+      "children_ids": [],
+      "text_digest": "bbb522f7e532f10d2d79413a98bdec613444b049a3c98639fb17831d712a2ca2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:572:578:identifier",
+      "kind": "identifier",
+      "label": "params",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 13,
+          "byte": 572
+        },
+        "end": {
+          "line": 16,
+          "column": 19,
+          "byte": 578
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a20b52fae57cc7a99c9651f1b573950fd211823e3ace3bb9c273c06430f24cd3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:567:569:identifier",
+      "kind": "identifier",
+      "label": "qs",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 8,
+          "byte": 567
+        },
+        "end": {
+          "line": 16,
+          "column": 10,
+          "byte": 569
+        }
+      },
+      "children_ids": [],
+      "text_digest": "351573d8d5d08010146c74bbec7ad56d9b6aea43eca703848e0a56045f27ee93"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:510:557:if_statement",
+      "kind": "if_statement",
+      "label": "if (next !== \"/orgs\") params.set(\"next\", next);",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 2,
+          "byte": 510
+        },
+        "end": {
+          "line": 15,
+          "column": 49,
+          "byte": 557
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:513:531:parenthesized_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:557:expression_statement"
+      ],
+      "text_digest": "b48ba0d405bc241d0498606d0305376fef05354dec9928d2537ccf9304dfaa65"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:557:expression_statement",
+      "kind": "expression_statement",
+      "label": "params.set(\"next\", next);",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 24,
+          "byte": 532
+        },
+        "end": {
+          "line": 15,
+          "column": 49,
+          "byte": 557
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:556:call_expression"
+      ],
+      "text_digest": "ca1241df92958e4eba682858355791215328b0021f488bf74a5fff29661cb686"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:556:call_expression",
+      "kind": "call_expression",
+      "label": "params.set(\"next\", next)",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 24,
+          "byte": 532
+        },
+        "end": {
+          "line": 15,
+          "column": 48,
+          "byte": 556
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:542:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:542:556:arguments"
+      ],
+      "text_digest": "36630b96d347d1f2eeb30ac61ee64091cc4bf4b548e0096f252da0595686e2f9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:542:556:arguments",
+      "kind": "arguments",
+      "label": "(\"next\", next)",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 34,
+          "byte": 542
+        },
+        "end": {
+          "line": 15,
+          "column": 48,
+          "byte": 556
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:543:549:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:551:555:identifier"
+      ],
+      "text_digest": "bad584313f009e047f1590a64811a89fd3dac96f423eb3962c8d30f46227a7b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:551:555:identifier",
+      "kind": "identifier",
+      "label": "next",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 43,
+          "byte": 551
+        },
+        "end": {
+          "line": 15,
+          "column": 47,
+          "byte": 555
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6c1c9a9c8543f1e4cd980064cf1625eeb61a90703b2464fff039f21682508b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:543:549:string",
+      "kind": "string",
+      "label": "\"next\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 35,
+          "byte": 543
+        },
+        "end": {
+          "line": 15,
+          "column": 41,
+          "byte": 549
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:544:548:string_fragment"
+      ],
+      "text_digest": "ca1733b5cdea2efcd28cb357b253498f97440592edd06d89895c4abcb5cfaae5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:544:548:string_fragment",
+      "kind": "string_fragment",
+      "label": "next",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 36,
+          "byte": 544
+        },
+        "end": {
+          "line": 15,
+          "column": 40,
+          "byte": 548
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6c1c9a9c8543f1e4cd980064cf1625eeb61a90703b2464fff039f21682508b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:542:member_expression",
+      "kind": "member_expression",
+      "label": "params.set",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 24,
+          "byte": 532
+        },
+        "end": {
+          "line": 15,
+          "column": 34,
+          "byte": 542
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:538:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:539:542:property_identifier"
+      ],
+      "text_digest": "ad07523863f961f574f7015c2ebdd7c41bd560c8038a0d648eab5717479e08d6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:539:542:property_identifier",
+      "kind": "property_identifier",
+      "label": "set",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 31,
+          "byte": 539
+        },
+        "end": {
+          "line": 15,
+          "column": 34,
+          "byte": 542
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6ee0eb490ff832101cf82a3d387c35f29e4230be786978f7acf9e811febf6723"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:532:538:identifier",
+      "kind": "identifier",
+      "label": "params",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 24,
+          "byte": 532
+        },
+        "end": {
+          "line": 15,
+          "column": 30,
+          "byte": 538
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a20b52fae57cc7a99c9651f1b573950fd211823e3ace3bb9c273c06430f24cd3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:513:531:parenthesized_expression",
+      "kind": "parenthesized_expression",
+      "label": "(next !== \"/orgs\")",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 5,
+          "byte": 513
+        },
+        "end": {
+          "line": 15,
+          "column": 23,
+          "byte": 531
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:530:binary_expression"
+      ],
+      "text_digest": "88bb9bf6f161f6918df555db7427e80d41820ac113d3d3d46e98c0238c68e95f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:530:binary_expression",
+      "kind": "binary_expression",
+      "label": "next !== \"/orgs\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 6,
+          "byte": 514
+        },
+        "end": {
+          "line": 15,
+          "column": 22,
+          "byte": 530
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:518:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:523:530:string"
+      ],
+      "text_digest": "6e89f9e48679f4fe1b48b076d19b4d1623f3236ff49dea55a349197573a29ea7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:523:530:string",
+      "kind": "string",
+      "label": "\"/orgs\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 15,
+          "byte": 523
+        },
+        "end": {
+          "line": 15,
+          "column": 22,
+          "byte": 530
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:524:529:string_fragment"
+      ],
+      "text_digest": "0267133721a630f94cf61b299b1758e62f70ce84b10ad45cd99bf954f310261c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:524:529:string_fragment",
+      "kind": "string_fragment",
+      "label": "/orgs",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 16,
+          "byte": 524
+        },
+        "end": {
+          "line": 15,
+          "column": 21,
+          "byte": 529
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c43ec1ba5a9369be043d4ff1d0b6c7e892049cd4b2424dda241412044fda1795"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:514:518:identifier",
+      "kind": "identifier",
+      "label": "next",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 6,
+          "byte": 514
+        },
+        "end": {
+          "line": 15,
+          "column": 10,
+          "byte": 518
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6c1c9a9c8543f1e4cd980064cf1625eeb61a90703b2464fff039f21682508b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:475:506:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const next = safeNext(rawNext);",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 2,
+          "byte": 475
+        },
+        "end": {
+          "line": 14,
+          "column": 33,
+          "byte": 506
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:505:variable_declarator"
+      ],
+      "text_digest": "2eccace6f7ecc9cbf007fc986db1b13fb7076cb2b664900dfd509d2e4b3440c8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:505:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "next = safeNext(rawNext)",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 8,
+          "byte": 481
+        },
+        "end": {
+          "line": 14,
+          "column": 32,
+          "byte": 505
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:485:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:505:call_expression"
+      ],
+      "text_digest": "537f40a0c8cd0d561984e2f0ce451a7f577a2f6a590afec154e3f5fe26e9c41f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:505:call_expression",
+      "kind": "call_expression",
+      "label": "safeNext(rawNext)",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 15,
+          "byte": 488
+        },
+        "end": {
+          "line": 14,
+          "column": 32,
+          "byte": 505
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:496:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:496:505:arguments"
+      ],
+      "text_digest": "a38e0a18f0698d49f745d3dd04d8415f3469e761c06257db8dc22b077925fab8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:496:505:arguments",
+      "kind": "arguments",
+      "label": "(rawNext)",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 23,
+          "byte": 496
+        },
+        "end": {
+          "line": 14,
+          "column": 32,
+          "byte": 505
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:497:504:identifier"
+      ],
+      "text_digest": "871e6827e20bc739fc68c159a21ea2d8883e1b5082d1603bfccd874e23f6c64b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:497:504:identifier",
+      "kind": "identifier",
+      "label": "rawNext",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 24,
+          "byte": 497
+        },
+        "end": {
+          "line": 14,
+          "column": 31,
+          "byte": 504
+        }
+      },
+      "children_ids": [],
+      "text_digest": "de8aa23c4e825b96473a87e9b85696279c79a0f6dffbefccf48f2f3e992dec3f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:488:496:identifier",
+      "kind": "identifier",
+      "label": "safeNext",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 15,
+          "byte": 488
+        },
+        "end": {
+          "line": 14,
+          "column": 23,
+          "byte": 496
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e48287dedb4b593c3ad1154a94057d84b60cad027086b1fdc15f4aaa9aa75c4f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:481:485:identifier",
+      "kind": "identifier",
+      "label": "next",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 8,
+          "byte": 481
+        },
+        "end": {
+          "line": 14,
+          "column": 12,
+          "byte": 485
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6c1c9a9c8543f1e4cd980064cf1625eeb61a90703b2464fff039f21682508b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:390:471:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const rawNext = typeof searchParams.next === \"string\" ? searchParams.next : null;",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 2,
+          "byte": 390
+        },
+        "end": {
+          "line": 13,
+          "column": 83,
+          "byte": 471
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:470:variable_declarator"
+      ],
+      "text_digest": "a939c547c431cbc94ae3190e02cbb8289eeb1e3b4bcc93dadc8b84499c05bac9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:470:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "rawNext = typeof searchParams.next === \"string\" ? searchParams.next : null",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 8,
+          "byte": 396
+        },
+        "end": {
+          "line": 13,
+          "column": 82,
+          "byte": 470
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:403:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:470:ternary_expression"
+      ],
+      "text_digest": "7232455f06791704d34f2854cbbbd1aff5645673261a0ff8192d16fa26bd2dde"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:470:ternary_expression",
+      "kind": "ternary_expression",
+      "label": "typeof searchParams.next === \"string\" ? searchParams.next : null",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 18,
+          "byte": 406
+        },
+        "end": {
+          "line": 13,
+          "column": 82,
+          "byte": 470
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:443:binary_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:463:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:466:470:null"
+      ],
+      "text_digest": "0bed8321c73f78c4788e0785b07c97117fe29bc8c448907f6cc5d8e1b5efbb09"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:466:470:null",
+      "kind": "null",
+      "label": "null",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 78,
+          "byte": 466
+        },
+        "end": {
+          "line": 13,
+          "column": 82,
+          "byte": 470
+        }
+      },
+      "children_ids": [],
+      "text_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:463:member_expression",
+      "kind": "member_expression",
+      "label": "searchParams.next",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 58,
+          "byte": 446
+        },
+        "end": {
+          "line": 13,
+          "column": 75,
+          "byte": 463
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:458:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:459:463:property_identifier"
+      ],
+      "text_digest": "16648f25f54a59348607c4cd6fa4a3b44ef8dae1fcc2b4ee6b1fecba4c2bbada"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:459:463:property_identifier",
+      "kind": "property_identifier",
+      "label": "next",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 71,
+          "byte": 459
+        },
+        "end": {
+          "line": 13,
+          "column": 75,
+          "byte": 463
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6c1c9a9c8543f1e4cd980064cf1625eeb61a90703b2464fff039f21682508b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:446:458:identifier",
+      "kind": "identifier",
+      "label": "searchParams",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 58,
+          "byte": 446
+        },
+        "end": {
+          "line": 13,
+          "column": 70,
+          "byte": 458
+        }
+      },
+      "children_ids": [],
+      "text_digest": "858c64b53a3957e50f29676531169ba4166c548e0ddcd444b0bef7af4feeb69c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:443:binary_expression",
+      "kind": "binary_expression",
+      "label": "typeof searchParams.next === \"string\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 18,
+          "byte": 406
+        },
+        "end": {
+          "line": 13,
+          "column": 55,
+          "byte": 443
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:430:unary_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:435:443:string"
+      ],
+      "text_digest": "371c7e428a6b3ba649daee32970701ce330e157e28faecfae32b423cbce4b8d3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:435:443:string",
+      "kind": "string",
+      "label": "\"string\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 47,
+          "byte": 435
+        },
+        "end": {
+          "line": 13,
+          "column": 55,
+          "byte": 443
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:436:442:string_fragment"
+      ],
+      "text_digest": "e9e5c1c9e4f6277339d1bcde0733a59bd42f8731f449da6dc13010a916930d48"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:436:442:string_fragment",
+      "kind": "string_fragment",
+      "label": "string",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 48,
+          "byte": 436
+        },
+        "end": {
+          "line": 13,
+          "column": 54,
+          "byte": 442
+        }
+      },
+      "children_ids": [],
+      "text_digest": "473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:406:430:unary_expression",
+      "kind": "unary_expression",
+      "label": "typeof searchParams.next",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 18,
+          "byte": 406
+        },
+        "end": {
+          "line": 13,
+          "column": 42,
+          "byte": 430
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:430:member_expression"
+      ],
+      "text_digest": "d18f2d3da5ce30eb258930c01d9089af8fa6a118ecae8ba1f2be496bfc03c574"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:430:member_expression",
+      "kind": "member_expression",
+      "label": "searchParams.next",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 25,
+          "byte": 413
+        },
+        "end": {
+          "line": 13,
+          "column": 42,
+          "byte": 430
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:425:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:426:430:property_identifier"
+      ],
+      "text_digest": "16648f25f54a59348607c4cd6fa4a3b44ef8dae1fcc2b4ee6b1fecba4c2bbada"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:426:430:property_identifier",
+      "kind": "property_identifier",
+      "label": "next",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 38,
+          "byte": 426
+        },
+        "end": {
+          "line": 13,
+          "column": 42,
+          "byte": 430
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6c1c9a9c8543f1e4cd980064cf1625eeb61a90703b2464fff039f21682508b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:413:425:identifier",
+      "kind": "identifier",
+      "label": "searchParams",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 25,
+          "byte": 413
+        },
+        "end": {
+          "line": 13,
+          "column": 37,
+          "byte": 425
+        }
+      },
+      "children_ids": [],
+      "text_digest": "858c64b53a3957e50f29676531169ba4166c548e0ddcd444b0bef7af4feeb69c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:396:403:identifier",
+      "kind": "identifier",
+      "label": "rawNext",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 8,
+          "byte": 396
+        },
+        "end": {
+          "line": 13,
+          "column": 15,
+          "byte": 403
+        }
+      },
+      "children_ids": [],
+      "text_digest": "de8aa23c4e825b96473a87e9b85696279c79a0f6dffbefccf48f2f3e992dec3f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:349:386:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const params = new URLSearchParams();",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 2,
+          "byte": 349
+        },
+        "end": {
+          "line": 12,
+          "column": 39,
+          "byte": 386
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:385:variable_declarator"
+      ],
+      "text_digest": "36302fe92220e07a4bc1ed4823690264f81278a7d3dc2b3d464242faffa93edd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:385:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "params = new URLSearchParams()",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 8,
+          "byte": 355
+        },
+        "end": {
+          "line": 12,
+          "column": 38,
+          "byte": 385
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:361:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:364:385:new_expression"
+      ],
+      "text_digest": "693778df73998f328a49147496535141ceeaceab5e3eef6b57fd68caf06ffad6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:364:385:new_expression",
+      "kind": "new_expression",
+      "label": "new URLSearchParams()",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 17,
+          "byte": 364
+        },
+        "end": {
+          "line": 12,
+          "column": 38,
+          "byte": 385
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:368:383:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:383:385:arguments"
+      ],
+      "text_digest": "d57f77f3582bec947a63fd8eeab67d419173f801ab890c6a6814d7b9bb246cfa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:383:385:arguments",
+      "kind": "arguments",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 36,
+          "byte": 383
+        },
+        "end": {
+          "line": 12,
+          "column": 38,
+          "byte": 385
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:368:383:identifier",
+      "kind": "identifier",
+      "label": "URLSearchParams",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 21,
+          "byte": 368
+        },
+        "end": {
+          "line": 12,
+          "column": 36,
+          "byte": 383
+        }
+      },
+      "children_ids": [],
+      "text_digest": "85c6cac623ea5e381dc34b8b0be265d53fe4e77795b08297e198f73e1b47882f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:355:361:identifier",
+      "kind": "identifier",
+      "label": "params",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 8,
+          "byte": 355
+        },
+        "end": {
+          "line": 12,
+          "column": 14,
+          "byte": 361
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a20b52fae57cc7a99c9651f1b573950fd211823e3ace3bb9c273c06430f24cd3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:283:343:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "({\r\n  searchParams,\r\n}: {\r\n  searchParams: SearchParams;\r\n})",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 40,
+          "byte": 283
+        },
+        "end": {
+          "line": 11,
+          "column": 2,
+          "byte": 343
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:342:required_parameter"
+      ],
+      "text_digest": "6be544dc79e16c4f44b15940ab21276bd00d03ce8e64aa0c4aa5ff500494577b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:342:required_parameter",
+      "kind": "required_parameter",
+      "label": "{\r\n  searchParams,\r\n}: {\r\n  searchParams: SearchParams;\r\n}",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 41,
+          "byte": 284
+        },
+        "end": {
+          "line": 11,
+          "column": 1,
+          "byte": 342
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:305:object_pattern",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:305:342:type_annotation"
+      ],
+      "text_digest": "9643cf6170d7473976f6f8ed66208864e12fc07773ef5c15a7d88a5837cfc7f2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:305:342:type_annotation",
+      "kind": "type_annotation",
+      "label": ": {\r\n  searchParams: SearchParams;\r\n}",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 1,
+          "byte": 305
+        },
+        "end": {
+          "line": 11,
+          "column": 1,
+          "byte": 342
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:307:342:object_type"
+      ],
+      "text_digest": "af2a98cd5af954a405fae163a7ad97ca4c971a803ee3740a278a17427907460d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:307:342:object_type",
+      "kind": "object_type",
+      "label": "{\r\n  searchParams: SearchParams;\r\n}",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 3,
+          "byte": 307
+        },
+        "end": {
+          "line": 11,
+          "column": 1,
+          "byte": 342
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:338:property_signature"
+      ],
+      "text_digest": "0c7c56610e9684ff0007694c4562fd64a88aa720fdbe49b925dbba8738bcbb6b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:338:property_signature",
+      "kind": "property_signature",
+      "label": "searchParams: SearchParams",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 2,
+          "byte": 312
+        },
+        "end": {
+          "line": 10,
+          "column": 28,
+          "byte": 338
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:324:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:324:338:type_annotation"
+      ],
+      "text_digest": "30af65f611d07818bd6b7c8adcd3d3822e96aae835a8e3836ce0db8e5b9c59bb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:324:338:type_annotation",
+      "kind": "type_annotation",
+      "label": ": SearchParams",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 14,
+          "byte": 324
+        },
+        "end": {
+          "line": 10,
+          "column": 28,
+          "byte": 338
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:326:338:type_identifier"
+      ],
+      "text_digest": "c4059caf49d20a45706b3e7d4212c4af2f4b4a0ee6c3a9b98eec9d18ba1e5c18"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:326:338:type_identifier",
+      "kind": "type_identifier",
+      "label": "SearchParams",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 16,
+          "byte": 326
+        },
+        "end": {
+          "line": 10,
+          "column": 28,
+          "byte": 338
+        }
+      },
+      "children_ids": [],
+      "text_digest": "447e4905f0811146f9b7496200ffd078d243cf938abb9fc721dd9703b67ccd46"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:312:324:property_identifier",
+      "kind": "property_identifier",
+      "label": "searchParams",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 2,
+          "byte": 312
+        },
+        "end": {
+          "line": 10,
+          "column": 14,
+          "byte": 324
+        }
+      },
+      "children_ids": [],
+      "text_digest": "858c64b53a3957e50f29676531169ba4166c548e0ddcd444b0bef7af4feeb69c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:284:305:object_pattern",
+      "kind": "object_pattern",
+      "label": "{\r\n  searchParams,\r\n}",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 41,
+          "byte": 284
+        },
+        "end": {
+          "line": 9,
+          "column": 1,
+          "byte": 305
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:289:301:shorthand_property_identifier_pattern"
+      ],
+      "text_digest": "505a62f843fe3003e7b682ebd87f92e88efecdd31173d9c4b91eb235e6367d68"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:289:301:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "searchParams",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 2,
+          "byte": 289
+        },
+        "end": {
+          "line": 8,
+          "column": 14,
+          "byte": 301
+        }
+      },
+      "children_ids": [],
+      "text_digest": "858c64b53a3957e50f29676531169ba4166c548e0ddcd444b0bef7af4feeb69c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:267:283:identifier",
+      "kind": "identifier",
+      "label": "LegacySignupPage",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 24,
+          "byte": 267
+        },
+        "end": {
+          "line": 7,
+          "column": 40,
+          "byte": 283
+        }
+      },
+      "children_ids": [],
+      "text_digest": "82efb299240ec0aa6a73e5c8ca880f0bf7c1af080db1a727915943a01dafbe53"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:170:241:comment",
+      "kind": "comment",
+      "label": "/** Legacy /signup route \u2014 redirect to the new /auth/sign-up path. */",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 0,
+          "byte": 170
+        },
+        "end": {
+          "line": 6,
+          "column": 71,
+          "byte": 241
+        }
+      },
+      "children_ids": [],
+      "text_digest": "49b5c56aee6fc247b232b605c05151ee87a9a484f2e529132e05cc4e9200a76a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:97:166:type_alias_declaration",
+      "kind": "type_alias_declaration",
+      "label": "type SearchParams = { [key: string]: string | string[] | undefined };",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 97
+        },
+        "end": {
+          "line": 4,
+          "column": 69,
+          "byte": 166
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:102:114:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:117:165:object_type"
+      ],
+      "text_digest": "e6e7e021193a92f489430d77ab68b1716d1203aca53bb08edc3c085186b4c606"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:117:165:object_type",
+      "kind": "object_type",
+      "label": "{ [key: string]: string | string[] | undefined }",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 20,
+          "byte": 117
+        },
+        "end": {
+          "line": 4,
+          "column": 68,
+          "byte": 165
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:119:163:index_signature"
+      ],
+      "text_digest": "8074ea44d3e12c46fe071d2cb56f77ded9dd5b9db8a8d0b237b389e821ec08e8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:119:163:index_signature",
+      "kind": "index_signature",
+      "label": "[key: string]: string | string[] | undefined",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 22,
+          "byte": 119
+        },
+        "end": {
+          "line": 4,
+          "column": 66,
+          "byte": 163
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:120:123:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:125:131:predefined_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:132:163:type_annotation"
+      ],
+      "text_digest": "d01bb115502ad3627d0b82122d2ec03541202aa120bb9f36495962f2f9aafd45"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:132:163:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string | string[] | undefined",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 35,
+          "byte": 132
+        },
+        "end": {
+          "line": 4,
+          "column": 66,
+          "byte": 163
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:163:union_type"
+      ],
+      "text_digest": "ac47d9aee2bae30369728c392de372245b607ade777d6cb862952d1b6df786ac"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:163:union_type",
+      "kind": "union_type",
+      "label": "string | string[] | undefined",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 37,
+          "byte": 134
+        },
+        "end": {
+          "line": 4,
+          "column": 66,
+          "byte": 163
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:151:union_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:154:163:literal_type"
+      ],
+      "text_digest": "a1388c5e1b26969e3faaab29a1ea8adfd2ac700af7d8c44dca2b70d52b8cce6a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:154:163:literal_type",
+      "kind": "literal_type",
+      "label": "undefined",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 57,
+          "byte": 154
+        },
+        "end": {
+          "line": 4,
+          "column": 66,
+          "byte": 163
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:154:163:undefined"
+      ],
+      "text_digest": "eb045d78d273107348b0300c01d29b7552d622abbc6faf81b3ec55359aa9950c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:154:163:undefined",
+      "kind": "undefined",
+      "label": "undefined",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 57,
+          "byte": 154
+        },
+        "end": {
+          "line": 4,
+          "column": 66,
+          "byte": 163
+        }
+      },
+      "children_ids": [],
+      "text_digest": "eb045d78d273107348b0300c01d29b7552d622abbc6faf81b3ec55359aa9950c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:151:union_type",
+      "kind": "union_type",
+      "label": "string | string[]",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 37,
+          "byte": 134
+        },
+        "end": {
+          "line": 4,
+          "column": 54,
+          "byte": 151
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:140:predefined_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:143:151:array_type"
+      ],
+      "text_digest": "bdc2a8e51e41d989e2decacca60597153f602c1105964b2d20b7075693c4e7a8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:143:151:array_type",
+      "kind": "array_type",
+      "label": "string[]",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 46,
+          "byte": 143
+        },
+        "end": {
+          "line": 4,
+          "column": 54,
+          "byte": 151
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:143:149:predefined_type"
+      ],
+      "text_digest": "5444db16183998581fdae2fe8d9468bfb80c4220466e9739c1cb194b0901138f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:143:149:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 46,
+          "byte": 143
+        },
+        "end": {
+          "line": 4,
+          "column": 52,
+          "byte": 149
+        }
+      },
+      "children_ids": [],
+      "text_digest": "473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:134:140:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 37,
+          "byte": 134
+        },
+        "end": {
+          "line": 4,
+          "column": 43,
+          "byte": 140
+        }
+      },
+      "children_ids": [],
+      "text_digest": "473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:125:131:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 28,
+          "byte": 125
+        },
+        "end": {
+          "line": 4,
+          "column": 34,
+          "byte": 131
+        }
+      },
+      "children_ids": [],
+      "text_digest": "473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:120:123:identifier",
+      "kind": "identifier",
+      "label": "key",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 23,
+          "byte": 120
+        },
+        "end": {
+          "line": 4,
+          "column": 26,
+          "byte": 123
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2c70e12b7a0646f92279f427c7b38e7334d8e5389cff167a1dc30e73f826b683"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:102:114:type_identifier",
+      "kind": "type_identifier",
+      "label": "SearchParams",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 5,
+          "byte": 102
+        },
+        "end": {
+          "line": 4,
+          "column": 17,
+          "byte": 114
+        }
+      },
+      "children_ids": [],
+      "text_digest": "447e4905f0811146f9b7496200ffd078d243cf938abb9fc721dd9703b67ccd46"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:45:93:import_statement",
+      "kind": "import_statement",
+      "label": "import { safeNext } from \"@/lib/auth/redirects\";",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 45
+        },
+        "end": {
+          "line": 2,
+          "column": 48,
+          "byte": 93
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:70:92:string"
+      ],
+      "text_digest": "58cd4f66fdc33910ddd0074d82b58bce004c9d712cd9a40e59ef621034b11a69"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:70:92:string",
+      "kind": "string",
+      "label": "\"@/lib/auth/redirects\"",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 25,
+          "byte": 70
+        },
+        "end": {
+          "line": 2,
+          "column": 47,
+          "byte": 92
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:71:91:string_fragment"
+      ],
+      "text_digest": "744d08f82cdbb68f23702b3cea7a16b0dfca23f81539186affb175e535788f0b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:71:91:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/lib/auth/redirects",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 26,
+          "byte": 71
+        },
+        "end": {
+          "line": 2,
+          "column": 46,
+          "byte": 91
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a137f57b797bca27d911bebd0bf3890868442198d33a8123ebb82592eba0692a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:import_clause",
+      "kind": "import_clause",
+      "label": "{ safeNext }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 52
+        },
+        "end": {
+          "line": 2,
+          "column": 19,
+          "byte": 64
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:named_imports"
+      ],
+      "text_digest": "2ec02f9f1105178c94b0a1b5730707cf1f09b0a90b284809620078991538e9bd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:52:64:named_imports",
+      "kind": "named_imports",
+      "label": "{ safeNext }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 52
+        },
+        "end": {
+          "line": 2,
+          "column": 19,
+          "byte": 64
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:54:62:import_specifier"
+      ],
+      "text_digest": "2ec02f9f1105178c94b0a1b5730707cf1f09b0a90b284809620078991538e9bd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:54:62:import_specifier",
+      "kind": "import_specifier",
+      "label": "safeNext",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 54
+        },
+        "end": {
+          "line": 2,
+          "column": 17,
+          "byte": 62
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:54:62:identifier"
+      ],
+      "text_digest": "e48287dedb4b593c3ad1154a94057d84b60cad027086b1fdc15f4aaa9aa75c4f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:54:62:identifier",
+      "kind": "identifier",
+      "label": "safeNext",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 54
+        },
+        "end": {
+          "line": 2,
+          "column": 17,
+          "byte": 62
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e48287dedb4b593c3ad1154a94057d84b60cad027086b1fdc15f4aaa9aa75c4f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:0:43:import_statement",
+      "kind": "import_statement",
+      "label": "import { redirect } from \"next/navigation\";",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 43,
+          "byte": 43
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:25:42:string"
+      ],
+      "text_digest": "4fd7e512694b474768285218377581aa978279671f81dd64b7290f45b3a98183"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:25:42:string",
+      "kind": "string",
+      "label": "\"next/navigation\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 25,
+          "byte": 25
+        },
+        "end": {
+          "line": 1,
+          "column": 42,
+          "byte": 42
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:26:41:string_fragment"
+      ],
+      "text_digest": "5b240a0701314007f9cc8e8ebeabf422803572e65ee72f5ba00c85902dbb3422"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:26:41:string_fragment",
+      "kind": "string_fragment",
+      "label": "next/navigation",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 26,
+          "byte": 26
+        },
+        "end": {
+          "line": 1,
+          "column": 41,
+          "byte": 41
+        }
+      },
+      "children_ids": [],
+      "text_digest": "91eb7a21457528d3bde574a009a9afff7a552afe9252a00ed536109a91f52831"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:import_clause",
+      "kind": "import_clause",
+      "label": "{ redirect }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 19,
+          "byte": 19
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:named_imports"
+      ],
+      "text_digest": "0e1afd41ec693d590fbc1d9e23ee39d5b5dc0e778a1e1c30d8d13ef2b4609c26"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:7:19:named_imports",
+      "kind": "named_imports",
+      "label": "{ redirect }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 19,
+          "byte": 19
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:9:17:import_specifier"
+      ],
+      "text_digest": "0e1afd41ec693d590fbc1d9e23ee39d5b5dc0e778a1e1c30d8d13ef2b4609c26"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:9:17:import_specifier",
+      "kind": "import_specifier",
+      "label": "redirect",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 17,
+          "byte": 17
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:9:17:identifier"
+      ],
+      "text_digest": "093452239d0e2e43b06b9d5cd8ac735c26449e340e001f87904765bb30e2293e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/signup/page.tsx:9:17:identifier",
+      "kind": "identifier",
+      "label": "redirect",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 17,
+          "byte": 17
+        }
+      },
+      "children_ids": [],
+      "text_digest": "093452239d0e2e43b06b9d5cd8ac735c26449e340e001f87904765bb30e2293e"
+    }
+  ],
+  "parser_id": "tree_sitter_typescript",
+  "relative_path": "apps/web/app/signup/page.tsx",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "typescript",
+  "warnings": []
+}

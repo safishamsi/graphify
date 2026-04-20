@@ -53,6 +53,26 @@ def test_export_dataset_from_repo_emits_pipeline_compatible_ast(tmp_path: Path) 
     assert any("app.services.auth" in attrs.get("label", "") for attrs in import_nodes.values())
 
 
+def test_export_dataset_from_repo_reports_progress_steps(tmp_path: Path) -> None:
+    repo_root = tmp_path / "repo"
+    dataset_root = tmp_path / "dataset"
+    source_path = repo_root / "backend" / "app" / "main.py"
+    source_path.parent.mkdir(parents=True, exist_ok=True)
+    source_path.write_text("def handle_request():\n    return True\n", encoding="utf-8")
+
+    messages: list[str] = []
+    result = export_dataset_from_repo(repo_root, dataset_root=dataset_root, progress=messages.append)
+
+    assert result.files_written == 1
+    assert any("source repository root is" in message or "exporting from repo root" in message for message in messages)
+    assert any("resolving repository metadata" in message.lower() for message in messages)
+    assert any("running graphify detect" in message.lower() for message in messages)
+    assert any("detect found 1 code file" in message.lower() for message in messages)
+    assert any("export progress 1/1 processed" in message.lower() for message in messages)
+    assert any("cleaning stale dataset files" in message.lower() for message in messages)
+    assert any("export complete (1 written, 0 skipped)" in message.lower() for message in messages)
+
+
 def test_prepare_dataset_cli_exports_into_repo_named_subdir(tmp_path: Path, capsys) -> None:
     repo_root = tmp_path / "sample-repo"
     dataset_root = tmp_path / "dataset"
@@ -78,6 +98,9 @@ def test_prepare_dataset_cli_exports_into_repo_named_subdir(tmp_path: Path, caps
 
     assert rc == 0
     assert "[depos-intel]" in captured.err
+    assert "running graphify detect" in captured.err.lower()
+    assert "export progress 1/1 processed" in captured.err.lower()
+    assert "cleaning stale dataset files" in captured.err.lower()
     payload = json.loads(captured.out)
     assert payload["repo_name"] == "sample-repo"
     assert Path(payload["dataset_dir"]) == (dataset_root / "sample-repo").resolve()

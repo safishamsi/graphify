@@ -1,0 +1,1439 @@
+{
+  "analysis_timestamp": "2026-04-20T22:21:00+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:375:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:158:373:class_declaration:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:375:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:158:373:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:158:373:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:179:373:declaration_list:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:158:373:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:179:373:declaration_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:179:373:declaration_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:179:373:declaration_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:321:370:compound_statement:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:321:370:compound_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:321:370:compound_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:332:363:return_statement:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:321:370:compound_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:332:363:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:332:363:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:362:scoped_property_access_expression:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:332:363:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:362:scoped_property_access_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:362:scoped_property_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:355:362:variable_name:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:362:scoped_property_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:355:362:variable_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:355:362:variable_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:356:362:name:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:355:362:variable_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:356:362:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:362:scoped_property_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:353:name:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:362:scoped_property_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:353:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:309:315:primitive_type:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:309:315:primitive_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:305:307:formal_parameters:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:305:307:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:299:305:name:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:299:305:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:289:visibility_modifier:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:289:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:179:373:declaration_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:179:373:declaration_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:225:275:compound_statement:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:225:275:compound_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:225:275:compound_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:236:268:return_statement:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:225:275:compound_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:236:268:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:236:268:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:267:scoped_property_access_expression:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:236:268:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:267:scoped_property_access_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:267:scoped_property_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:259:267:variable_name:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:267:scoped_property_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:259:267:variable_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:259:267:variable_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:260:267:name:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:259:267:variable_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:260:267:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:267:scoped_property_access_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:257:name:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:267:scoped_property_access_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:257:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:213:219:primitive_type:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:213:219:primitive_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:209:211:formal_parameters:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:209:211:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:202:209:name:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:202:209:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:192:visibility_modifier:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:192:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:158:373:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:164:177:name:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:158:373:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:164:177:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:375:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:33:154:class_declaration:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:375:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:33:154:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:33:154:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:55:154:declaration_list:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:33:154:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:55:154:declaration_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:55:154:declaration_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:55:154:declaration_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:150:property_element:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:150:property_element",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:150:property_element->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:141:150:string:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:150:property_element",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:141:150:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:141:150:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:142:149:string_content:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:141:150:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:142:149:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:150:property_element->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:138:variable_name:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:150:property_element",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:138:variable_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:138:variable_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:132:138:name:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:138:variable_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:132:138:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:124:130:primitive_type:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:124:130:primitive_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:117:123:static_modifier:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:117:123:static_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:116:visibility_modifier:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:116:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:55:154:declaration_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:55:154:declaration_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:103:property_element:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:103:property_element",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:103:property_element->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:94:103:string:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:103:property_element",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:94:103:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:94:103:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:95:102:string_content:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:94:103:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:95:102:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:103:property_element->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:91:variable_name:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:103:property_element",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:91:variable_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:91:variable_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:84:91:name:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:91:variable_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:84:91:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:76:82:primitive_type:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:76:82:primitive_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:69:75:static_modifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:69:75:static_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:68:visibility_modifier:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:68:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:33:154:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:39:53:name:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:33:154:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:39:53:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:375:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:9:29:namespace_definition:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:375:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:9:29:namespace_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:9:29:namespace_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:28:namespace_name:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:9:29:namespace_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:28:namespace_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:28:namespace_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:23:28:name:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:28:namespace_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:23:28:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:28:namespace_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:22:name:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:28:namespace_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:22:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:375:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:5:php_tag:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:375:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:5:php_tag",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:375:program",
+      "kind": "program",
+      "label": "<?php\r\n\r\nnamespace App\\Theme;\r\n\r\nclass DefaultPalette\r\n{\r\n    public static string $primary = '#3366ff';\r\n    public static string $accent = '#ff6633';\r\n}\r\n\r\nclass ColorResolver\r\n{\r\n    public function primary(): string\r\n    {\r\n        return DefaultPalette::$primary;\r\n    }\r\n\r\n    public function accent(): string\r\n    {\r\n        return DefaultPalette::$accent;\r\n    }\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 23,
+          "column": 0,
+          "byte": 375
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:5:php_tag",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:9:29:namespace_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:33:154:class_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:158:373:class_declaration"
+      ],
+      "text_digest": "e35115c09e90f854b1ef843b8011ad2b03baaeb97d89fedf76b1bfd8ed506b41"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:158:373:class_declaration",
+      "kind": "class_declaration",
+      "label": "class ColorResolver\r\n{\r\n    public function primary(): string\r\n    {\r\n        return DefaultPalette::$primary;\r\n    }\r\n\r\n    public function accent(): string\r\n    {\r\n        return DefaultPalette::$accent;\r\n    }\r\n}",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 0,
+          "byte": 158
+        },
+        "end": {
+          "line": 22,
+          "column": 1,
+          "byte": 373
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:164:177:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:179:373:declaration_list"
+      ],
+      "text_digest": "16c4080b8cc3beded245aef07c8dfd8a419660ca31c9f072deb9f8cf107c5cb4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:179:373:declaration_list",
+      "kind": "declaration_list",
+      "label": "{\r\n    public function primary(): string\r\n    {\r\n        return DefaultPalette::$primary;\r\n    }\r\n\r\n    public function accent(): string\r\n    {\r\n        return DefaultPalette::$accent;\r\n    }\r\n}",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 0,
+          "byte": 179
+        },
+        "end": {
+          "line": 22,
+          "column": 1,
+          "byte": 373
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration"
+      ],
+      "text_digest": "ec0615a8508efccfbfeb08bfb9e7b87d7bfc49b7cf25c1b9a6b91c73eca43311"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:370:method_declaration",
+      "kind": "method_declaration",
+      "label": "public function accent(): string\r\n    {\r\n        return DefaultPalette::$accent;\r\n    }",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 4,
+          "byte": 283
+        },
+        "end": {
+          "line": 21,
+          "column": 5,
+          "byte": 370
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:289:visibility_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:299:305:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:305:307:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:309:315:primitive_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:321:370:compound_statement"
+      ],
+      "text_digest": "ba1c1eeb4c34b1ef45d7c7b2f167d99d7177ed7ec6b5ccd20000bd0094018b24"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:321:370:compound_statement",
+      "kind": "compound_statement",
+      "label": "{\r\n        return DefaultPalette::$accent;\r\n    }",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 4,
+          "byte": 321
+        },
+        "end": {
+          "line": 21,
+          "column": 5,
+          "byte": 370
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:332:363:return_statement"
+      ],
+      "text_digest": "d2fb9c1d7ae6fb45ba9d0fa55e77a41982a34434d4f6734a8eb519e6dd3f72a6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:332:363:return_statement",
+      "kind": "return_statement",
+      "label": "return DefaultPalette::$accent;",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 8,
+          "byte": 332
+        },
+        "end": {
+          "line": 20,
+          "column": 39,
+          "byte": 363
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:362:scoped_property_access_expression"
+      ],
+      "text_digest": "2f0783fc0aca9cb9b06f7d077e2592515412c6839fb3dfa0a4c9f6e005f31796"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:362:scoped_property_access_expression",
+      "kind": "scoped_property_access_expression",
+      "label": "DefaultPalette::$accent",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 15,
+          "byte": 339
+        },
+        "end": {
+          "line": 20,
+          "column": 38,
+          "byte": 362
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:353:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:355:362:variable_name"
+      ],
+      "text_digest": "a3108826899f95308bc941d585c2886162fd1e9db738de88e18496bea3978e6f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:355:362:variable_name",
+      "kind": "variable_name",
+      "label": "$accent",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 31,
+          "byte": 355
+        },
+        "end": {
+          "line": 20,
+          "column": 38,
+          "byte": 362
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:356:362:name"
+      ],
+      "text_digest": "cdc1a724368fa676983b8026800805103d2ea07aad15df57053c524c033a5bbf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:356:362:name",
+      "kind": "name",
+      "label": "accent",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 32,
+          "byte": 356
+        },
+        "end": {
+          "line": 20,
+          "column": 38,
+          "byte": 362
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a3a7f053ae2eadb1fb93bcbd4a39b00985b64ede4f337d64025982f9efb97f54"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:339:353:name",
+      "kind": "name",
+      "label": "DefaultPalette",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 15,
+          "byte": 339
+        },
+        "end": {
+          "line": 20,
+          "column": 29,
+          "byte": 353
+        }
+      },
+      "children_ids": [],
+      "text_digest": "258b69119faa632ad87b875c3c16b42a20268f047b24bffd1d384072a7bd6c01"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:309:315:primitive_type",
+      "kind": "primitive_type",
+      "label": "string",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 30,
+          "byte": 309
+        },
+        "end": {
+          "line": 18,
+          "column": 36,
+          "byte": 315
+        }
+      },
+      "children_ids": [],
+      "text_digest": "473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:305:307:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 26,
+          "byte": 305
+        },
+        "end": {
+          "line": 18,
+          "column": 28,
+          "byte": 307
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:299:305:name",
+      "kind": "name",
+      "label": "accent",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 20,
+          "byte": 299
+        },
+        "end": {
+          "line": 18,
+          "column": 26,
+          "byte": 305
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a3a7f053ae2eadb1fb93bcbd4a39b00985b64ede4f337d64025982f9efb97f54"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:283:289:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 4,
+          "byte": 283
+        },
+        "end": {
+          "line": 18,
+          "column": 10,
+          "byte": 289
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:275:method_declaration",
+      "kind": "method_declaration",
+      "label": "public function primary(): string\r\n    {\r\n        return DefaultPalette::$primary;\r\n    }",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 186
+        },
+        "end": {
+          "line": 16,
+          "column": 5,
+          "byte": 275
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:192:visibility_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:202:209:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:209:211:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:213:219:primitive_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:225:275:compound_statement"
+      ],
+      "text_digest": "8215889df799ba62791558008f29efcbc0d52ba285771b8b4fabdbe0a29f6716"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:225:275:compound_statement",
+      "kind": "compound_statement",
+      "label": "{\r\n        return DefaultPalette::$primary;\r\n    }",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 225
+        },
+        "end": {
+          "line": 16,
+          "column": 5,
+          "byte": 275
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:236:268:return_statement"
+      ],
+      "text_digest": "82249b198aeb2abc6aca7a96b3c4aca09470c0fc93dd6735a0d47d439cc63949"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:236:268:return_statement",
+      "kind": "return_statement",
+      "label": "return DefaultPalette::$primary;",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 8,
+          "byte": 236
+        },
+        "end": {
+          "line": 15,
+          "column": 40,
+          "byte": 268
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:267:scoped_property_access_expression"
+      ],
+      "text_digest": "9e0b78565747908f9ede781e8289bfb5ce54632c94713349696f80d67c621831"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:267:scoped_property_access_expression",
+      "kind": "scoped_property_access_expression",
+      "label": "DefaultPalette::$primary",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 15,
+          "byte": 243
+        },
+        "end": {
+          "line": 15,
+          "column": 39,
+          "byte": 267
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:257:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:259:267:variable_name"
+      ],
+      "text_digest": "e55b854d355743c87acb82563c1826c5af5c543701dca425be2225c22a055bfb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:259:267:variable_name",
+      "kind": "variable_name",
+      "label": "$primary",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 31,
+          "byte": 259
+        },
+        "end": {
+          "line": 15,
+          "column": 39,
+          "byte": 267
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:260:267:name"
+      ],
+      "text_digest": "f5cbb8ec1c3db56a63c25237cc724756ad6d6a4c69ba278c35492a2e670baf13"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:260:267:name",
+      "kind": "name",
+      "label": "primary",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 32,
+          "byte": 260
+        },
+        "end": {
+          "line": 15,
+          "column": 39,
+          "byte": 267
+        }
+      },
+      "children_ids": [],
+      "text_digest": "986a1b7135f4986150aa5fa0028feeaa66cdaf3ed6a00a355dd86e042f7fb494"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:243:257:name",
+      "kind": "name",
+      "label": "DefaultPalette",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 15,
+          "byte": 243
+        },
+        "end": {
+          "line": 15,
+          "column": 29,
+          "byte": 257
+        }
+      },
+      "children_ids": [],
+      "text_digest": "258b69119faa632ad87b875c3c16b42a20268f047b24bffd1d384072a7bd6c01"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:213:219:primitive_type",
+      "kind": "primitive_type",
+      "label": "string",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 31,
+          "byte": 213
+        },
+        "end": {
+          "line": 13,
+          "column": 37,
+          "byte": 219
+        }
+      },
+      "children_ids": [],
+      "text_digest": "473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:209:211:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 27,
+          "byte": 209
+        },
+        "end": {
+          "line": 13,
+          "column": 29,
+          "byte": 211
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:202:209:name",
+      "kind": "name",
+      "label": "primary",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 20,
+          "byte": 202
+        },
+        "end": {
+          "line": 13,
+          "column": 27,
+          "byte": 209
+        }
+      },
+      "children_ids": [],
+      "text_digest": "986a1b7135f4986150aa5fa0028feeaa66cdaf3ed6a00a355dd86e042f7fb494"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:186:192:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 186
+        },
+        "end": {
+          "line": 13,
+          "column": 10,
+          "byte": 192
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:164:177:name",
+      "kind": "name",
+      "label": "ColorResolver",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 6,
+          "byte": 164
+        },
+        "end": {
+          "line": 11,
+          "column": 19,
+          "byte": 177
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c21ec106d405a5c4e857327fac1ddaefd73b7c3c59cb61eda25a1e283dc8c250"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:33:154:class_declaration",
+      "kind": "class_declaration",
+      "label": "class DefaultPalette\r\n{\r\n    public static string $primary = '#3366ff';\r\n    public static string $accent = '#ff6633';\r\n}",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 33
+        },
+        "end": {
+          "line": 9,
+          "column": 1,
+          "byte": 154
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:39:53:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:55:154:declaration_list"
+      ],
+      "text_digest": "1784cd25d0b97ffc88a38320f8445edc8182fbc940a09a9ca970c77ee49ce9d6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:55:154:declaration_list",
+      "kind": "declaration_list",
+      "label": "{\r\n    public static string $primary = '#3366ff';\r\n    public static string $accent = '#ff6633';\r\n}",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 0,
+          "byte": 55
+        },
+        "end": {
+          "line": 9,
+          "column": 1,
+          "byte": 154
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration"
+      ],
+      "text_digest": "966ad35f35bcd3f5a57897fd3a1f9c17df39e75b984f11605e3cc7814a77eeaa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:151:property_declaration",
+      "kind": "property_declaration",
+      "label": "public static string $accent = '#ff6633';",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 4,
+          "byte": 110
+        },
+        "end": {
+          "line": 8,
+          "column": 45,
+          "byte": 151
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:116:visibility_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:117:123:static_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:124:130:primitive_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:150:property_element"
+      ],
+      "text_digest": "29ec08b69eccf4b2c25feca9fa6deb9eef9800d5bf4249d2bf5b3ecb03bed8c4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:150:property_element",
+      "kind": "property_element",
+      "label": "$accent = '#ff6633'",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 25,
+          "byte": 131
+        },
+        "end": {
+          "line": 8,
+          "column": 44,
+          "byte": 150
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:138:variable_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:141:150:string"
+      ],
+      "text_digest": "da277f0cfda2bfaf2eac85859fe68cca1e9c4dc5f075fc3c6a02095c2dc7f373"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:141:150:string",
+      "kind": "string",
+      "label": "'#ff6633'",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 35,
+          "byte": 141
+        },
+        "end": {
+          "line": 8,
+          "column": 44,
+          "byte": 150
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:142:149:string_content"
+      ],
+      "text_digest": "314b4cf94139492cf9e1a46c15327e3f186e4108b4ddc6c7c294ba0d257126f4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:142:149:string_content",
+      "kind": "string_content",
+      "label": "#ff6633",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 36,
+          "byte": 142
+        },
+        "end": {
+          "line": 8,
+          "column": 43,
+          "byte": 149
+        }
+      },
+      "children_ids": [],
+      "text_digest": "213a0c99a6d373c08bce017a2cc8c268999654c1c0476bfc640e9ce411eda4a7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:131:138:variable_name",
+      "kind": "variable_name",
+      "label": "$accent",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 25,
+          "byte": 131
+        },
+        "end": {
+          "line": 8,
+          "column": 32,
+          "byte": 138
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:132:138:name"
+      ],
+      "text_digest": "cdc1a724368fa676983b8026800805103d2ea07aad15df57053c524c033a5bbf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:132:138:name",
+      "kind": "name",
+      "label": "accent",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 26,
+          "byte": 132
+        },
+        "end": {
+          "line": 8,
+          "column": 32,
+          "byte": 138
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a3a7f053ae2eadb1fb93bcbd4a39b00985b64ede4f337d64025982f9efb97f54"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:124:130:primitive_type",
+      "kind": "primitive_type",
+      "label": "string",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 18,
+          "byte": 124
+        },
+        "end": {
+          "line": 8,
+          "column": 24,
+          "byte": 130
+        }
+      },
+      "children_ids": [],
+      "text_digest": "473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:117:123:static_modifier",
+      "kind": "static_modifier",
+      "label": "static",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 11,
+          "byte": 117
+        },
+        "end": {
+          "line": 8,
+          "column": 17,
+          "byte": 123
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2053dbbf6ec7135c4e994d3464c478db6f48d3ca21052c8f44915edc96e02c39"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:110:116:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 4,
+          "byte": 110
+        },
+        "end": {
+          "line": 8,
+          "column": 10,
+          "byte": 116
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:104:property_declaration",
+      "kind": "property_declaration",
+      "label": "public static string $primary = '#3366ff';",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 4,
+          "byte": 62
+        },
+        "end": {
+          "line": 7,
+          "column": 46,
+          "byte": 104
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:68:visibility_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:69:75:static_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:76:82:primitive_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:103:property_element"
+      ],
+      "text_digest": "243db780942b5a2e6f3c329e7e8b426515390dffaba7c409762e3035fc7cee98"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:103:property_element",
+      "kind": "property_element",
+      "label": "$primary = '#3366ff'",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 25,
+          "byte": 83
+        },
+        "end": {
+          "line": 7,
+          "column": 45,
+          "byte": 103
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:91:variable_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:94:103:string"
+      ],
+      "text_digest": "b4818eba40db80d625a158be8623407037866c3449b6d80d43b5d9a552f05a47"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:94:103:string",
+      "kind": "string",
+      "label": "'#3366ff'",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 36,
+          "byte": 94
+        },
+        "end": {
+          "line": 7,
+          "column": 45,
+          "byte": 103
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:95:102:string_content"
+      ],
+      "text_digest": "eadaa8d9bd20c3ad24b440c1088ab03418b3c48dfb3b4e8afe82ed454a02777d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:95:102:string_content",
+      "kind": "string_content",
+      "label": "#3366ff",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 37,
+          "byte": 95
+        },
+        "end": {
+          "line": 7,
+          "column": 44,
+          "byte": 102
+        }
+      },
+      "children_ids": [],
+      "text_digest": "055522f02a314b1815f5de7b7d1ec019bd2eddb68e33b26191a19c74e1f1c204"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:83:91:variable_name",
+      "kind": "variable_name",
+      "label": "$primary",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 25,
+          "byte": 83
+        },
+        "end": {
+          "line": 7,
+          "column": 33,
+          "byte": 91
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:84:91:name"
+      ],
+      "text_digest": "f5cbb8ec1c3db56a63c25237cc724756ad6d6a4c69ba278c35492a2e670baf13"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:84:91:name",
+      "kind": "name",
+      "label": "primary",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 26,
+          "byte": 84
+        },
+        "end": {
+          "line": 7,
+          "column": 33,
+          "byte": 91
+        }
+      },
+      "children_ids": [],
+      "text_digest": "986a1b7135f4986150aa5fa0028feeaa66cdaf3ed6a00a355dd86e042f7fb494"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:76:82:primitive_type",
+      "kind": "primitive_type",
+      "label": "string",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 18,
+          "byte": 76
+        },
+        "end": {
+          "line": 7,
+          "column": 24,
+          "byte": 82
+        }
+      },
+      "children_ids": [],
+      "text_digest": "473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:69:75:static_modifier",
+      "kind": "static_modifier",
+      "label": "static",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 11,
+          "byte": 69
+        },
+        "end": {
+          "line": 7,
+          "column": 17,
+          "byte": 75
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2053dbbf6ec7135c4e994d3464c478db6f48d3ca21052c8f44915edc96e02c39"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:62:68:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 4,
+          "byte": 62
+        },
+        "end": {
+          "line": 7,
+          "column": 10,
+          "byte": 68
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:39:53:name",
+      "kind": "name",
+      "label": "DefaultPalette",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 6,
+          "byte": 39
+        },
+        "end": {
+          "line": 5,
+          "column": 20,
+          "byte": 53
+        }
+      },
+      "children_ids": [],
+      "text_digest": "258b69119faa632ad87b875c3c16b42a20268f047b24bffd1d384072a7bd6c01"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:9:29:namespace_definition",
+      "kind": "namespace_definition",
+      "label": "namespace App\\Theme;",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 0,
+          "byte": 9
+        },
+        "end": {
+          "line": 3,
+          "column": 20,
+          "byte": 29
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:28:namespace_name"
+      ],
+      "text_digest": "984245d366d885824a30149e475455d0f704ea12da442952702220ee6801056b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:28:namespace_name",
+      "kind": "namespace_name",
+      "label": "App\\Theme",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 10,
+          "byte": 19
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 28
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:22:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:23:28:name"
+      ],
+      "text_digest": "914ab3deee6067bdd90b3ed70fe024f803bdb544cb250e4cd60e0ba09d533227"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:23:28:name",
+      "kind": "name",
+      "label": "Theme",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 14,
+          "byte": 23
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 28
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efb52e7172b77731d996ff4f51cd7b3dcfd55fc6f07392994619418d58d170dd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:19:22:name",
+      "kind": "name",
+      "label": "App",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 10,
+          "byte": 19
+        },
+        "end": {
+          "line": 3,
+          "column": 13,
+          "byte": 22
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0d04bfeb7d64b71c74fc925cca93d683154e8cc7e6e5838faced498e34c9984d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_static_prop.php:0:5:php_tag",
+      "kind": "php_tag",
+      "label": "<?php",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 5,
+          "byte": 5
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fe5bcb54c56e0b9f456a060364dd28b2248f3a0e21c168d4ce9d009b73e83e3c"
+    }
+  ],
+  "parser_id": "tree_sitter_php",
+  "relative_path": "tests/fixtures/sample_php_static_prop.php",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "php",
+  "warnings": []
+}

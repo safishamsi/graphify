@@ -1,0 +1,175 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:49+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:40:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:expression_statement:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:40:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:string:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:36:39:string_end:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:36:39:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:3:36:string_content:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:3:36:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:3:string_start",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:40:module",
+      "kind": "module",
+      "label": "\"\"\"Builtin detector implementations.\"\"\"\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 0,
+          "byte": 40
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:expression_statement"
+      ],
+      "text_digest": "f420605d15640b9476809a4c77c457c8255ac032a3192d07a20d8afd8d1319cc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:expression_statement",
+      "kind": "expression_statement",
+      "label": "\"\"\"Builtin detector implementations.\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 39,
+          "byte": 39
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:string"
+      ],
+      "text_digest": "7df20d2032b70b3db4a0e88fdc0e976c544abac6c474ad91595ddbb5c0338b4d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:39:string",
+      "kind": "string",
+      "label": "\"\"\"Builtin detector implementations.\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 39,
+          "byte": 39
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:3:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:3:36:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:36:39:string_end"
+      ],
+      "text_digest": "7df20d2032b70b3db4a0e88fdc0e976c544abac6c474ad91595ddbb5c0338b4d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:36:39:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 36,
+          "byte": 36
+        },
+        "end": {
+          "line": 1,
+          "column": 39,
+          "byte": 39
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6d267efe80a3dbcf2f2d67e21d8c15783a2f031427f827d43b6222fe9c4bf02"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:3:36:string_content",
+      "kind": "string_content",
+      "label": "Builtin detector implementations.",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 3,
+          "byte": 3
+        },
+        "end": {
+          "line": 1,
+          "column": 36,
+          "byte": 36
+        }
+      },
+      "children_ids": [],
+      "text_digest": "bac14020332c796b17ce43d7aa18165656f0099eb8c0b07ae01abe36600f765e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/detectors/builtin/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 3,
+          "byte": 3
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6d267efe80a3dbcf2f2d67e21d8c15783a2f031427f827d43b6222fe9c4bf02"
+    }
+  ],
+  "parser_id": "tree_sitter_python",
+  "relative_path": "depos/analysis/detectors/builtin/__init__.py",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "python",
+  "warnings": []
+}

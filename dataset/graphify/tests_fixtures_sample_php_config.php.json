@@ -1,0 +1,1605 @@
+{
+  "analysis_timestamp": "2026-04-20T22:21:00+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:403:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:153:401:class_declaration:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:403:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:153:401:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:153:401:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:172:401:declaration_list:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:153:401:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:172:401:declaration_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:172:401:declaration_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:172:401:declaration_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:329:398:compound_statement:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:329:398:compound_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:329:398:compound_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:340:391:return_statement:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:329:398:compound_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:340:391:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:340:391:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:347:390:cast_expression:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:340:391:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:347:390:cast_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:347:390:cast_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:390:function_call_expression:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:347:390:cast_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:390:function_call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:390:function_call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:359:390:arguments:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:390:function_call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:359:390:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:359:390:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:384:389:argument:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:359:390:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:384:389:argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:384:389:argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:384:389:integer:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:384:389:argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:384:389:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:359:390:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:argument:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:359:390:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:string:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:361:381:string_content:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:361:381:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:390:function_call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:359:name:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:390:function_call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:359:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:347:390:cast_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:348:351:cast_type:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:347:390:cast_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:348:351:cast_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:320:323:primitive_type:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:320:323:primitive_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:316:318:formal_parameters:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:316:318:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:310:316:name:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:310:316:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:300:visibility_modifier:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:300:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:172:401:declaration_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:172:401:declaration_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:217:286:compound_statement:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:217:286:compound_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:217:286:compound_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:228:279:return_statement:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:217:286:compound_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:228:279:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:228:279:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:235:278:cast_expression:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:228:279:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:235:278:cast_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:235:278:cast_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:278:function_call_expression:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:235:278:cast_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:278:function_call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:278:function_call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:247:278:arguments:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:278:function_call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:247:278:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:247:278:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:275:277:argument:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:247:278:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:275:277:argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:275:277:argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:275:277:integer:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:275:277:argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:275:277:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:247:278:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:argument:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:247:278:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:argument",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:argument->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:string:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:argument",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:249:272:string_content:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:249:272:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:278:function_call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:247:name:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:278:function_call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:247:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:235:278:cast_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:236:239:cast_type:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:235:278:cast_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:236:239:cast_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:208:211:primitive_type:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:208:211:primitive_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:204:206:formal_parameters:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:204:206:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:195:204:name:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:195:204:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:185:visibility_modifier:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:185:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:153:401:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:159:170:name:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:153:401:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:159:170:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:403:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:35:149:class_declaration:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:403:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:35:149:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:35:149:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:51:149:declaration_list:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:35:149:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:51:149:declaration_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:51:149:declaration_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:146:const_declaration:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:51:149:declaration_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:146:const_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:146:const_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:145:const_element:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:146:const_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:145:const_element",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:145:const_element->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:140:145:integer:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:145:const_element",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:140:145:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:145:const_element->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:137:name:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:145:const_element",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:137:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:146:const_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:118:121:primitive_type:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:146:const_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:118:121:primitive_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:146:const_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:111:visibility_modifier:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:146:const_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:111:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:51:149:declaration_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:99:const_declaration:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:51:149:declaration_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:99:const_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:99:const_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:98:const_element:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:99:const_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:98:const_element",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:98:const_element->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:96:98:integer:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:98:const_element",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:96:98:integer",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:98:const_element->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:93:name:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:98:const_element",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:93:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:99:const_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:71:74:primitive_type:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:99:const_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:71:74:primitive_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:99:const_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:64:visibility_modifier:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:99:const_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:64:visibility_modifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:35:149:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:41:49:name:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:35:149:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:41:49:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:403:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:9:31:namespace_definition:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:403:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:9:31:namespace_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:9:31:namespace_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:30:namespace_name:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:9:31:namespace_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:30:namespace_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:30:namespace_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:23:30:name:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:30:namespace_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:23:30:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:30:namespace_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:22:name:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:30:namespace_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:22:name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:403:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:5:php_tag:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:403:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:5:php_tag",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:403:program",
+      "kind": "program",
+      "label": "<?php\r\n\r\nnamespace App\\Support;\r\n\r\nclass Throttle\r\n{\r\n    public const int DEFAULT_PER_SECOND = 60;\r\n    public const int DEFAULT_PER_DAY = 10000;\r\n}\r\n\r\nclass RateLimiter\r\n{\r\n    public function perSecond(): int\r\n    {\r\n        return (int) config('throttle.api.per_second', 60);\r\n    }\r\n\r\n    public function perDay(): int\r\n    {\r\n        return (int) config('throttle.api.per_day', 10000);\r\n    }\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 23,
+          "column": 0,
+          "byte": 403
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:5:php_tag",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:9:31:namespace_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:35:149:class_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:153:401:class_declaration"
+      ],
+      "text_digest": "a873ef00cd477624d88ef5786244a74bbaa6f34d6c076ba016d8dba033de0104"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:153:401:class_declaration",
+      "kind": "class_declaration",
+      "label": "class RateLimiter\r\n{\r\n    public function perSecond(): int\r\n    {\r\n        return (int) config('throttle.api.per_second', 60);\r\n    }\r\n\r\n    public function perDay(): int\r\n    {\r\n        return (int) config('throttle.api.per_day', 10000);\r\n    }\r\n}",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 0,
+          "byte": 153
+        },
+        "end": {
+          "line": 22,
+          "column": 1,
+          "byte": 401
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:159:170:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:172:401:declaration_list"
+      ],
+      "text_digest": "d6fefbe18498bfaab84afd90465298af06ba895697cafd46f159411efca10a36"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:172:401:declaration_list",
+      "kind": "declaration_list",
+      "label": "{\r\n    public function perSecond(): int\r\n    {\r\n        return (int) config('throttle.api.per_second', 60);\r\n    }\r\n\r\n    public function perDay(): int\r\n    {\r\n        return (int) config('throttle.api.per_day', 10000);\r\n    }\r\n}",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 0,
+          "byte": 172
+        },
+        "end": {
+          "line": 22,
+          "column": 1,
+          "byte": 401
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration"
+      ],
+      "text_digest": "7e8dc56b4734486e2480802d34d67ad2792028485f9ff97fad0014170b801bed"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:398:method_declaration",
+      "kind": "method_declaration",
+      "label": "public function perDay(): int\r\n    {\r\n        return (int) config('throttle.api.per_day', 10000);\r\n    }",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 4,
+          "byte": 294
+        },
+        "end": {
+          "line": 21,
+          "column": 5,
+          "byte": 398
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:300:visibility_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:310:316:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:316:318:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:320:323:primitive_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:329:398:compound_statement"
+      ],
+      "text_digest": "bf3572f05d43c584a08b69909c7aef372de5fc7dc0e98620caaac9282dd440ce"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:329:398:compound_statement",
+      "kind": "compound_statement",
+      "label": "{\r\n        return (int) config('throttle.api.per_day', 10000);\r\n    }",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 4,
+          "byte": 329
+        },
+        "end": {
+          "line": 21,
+          "column": 5,
+          "byte": 398
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:340:391:return_statement"
+      ],
+      "text_digest": "1a8c9ac0a090e3787b6e16839feb1530416fe41c0b488dab700f47cfee9af58d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:340:391:return_statement",
+      "kind": "return_statement",
+      "label": "return (int) config('throttle.api.per_day', 10000);",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 8,
+          "byte": 340
+        },
+        "end": {
+          "line": 20,
+          "column": 59,
+          "byte": 391
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:347:390:cast_expression"
+      ],
+      "text_digest": "95a718a58953408f698cdd9762ccdd050c226643eb159db7284a602662894674"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:347:390:cast_expression",
+      "kind": "cast_expression",
+      "label": "(int) config('throttle.api.per_day', 10000)",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 15,
+          "byte": 347
+        },
+        "end": {
+          "line": 20,
+          "column": 58,
+          "byte": 390
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:348:351:cast_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:390:function_call_expression"
+      ],
+      "text_digest": "07f9c8ce1950926ba5b29f458a360203de245b4e4aa5fa543b582ede5084d7ab"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:390:function_call_expression",
+      "kind": "function_call_expression",
+      "label": "config('throttle.api.per_day', 10000)",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 21,
+          "byte": 353
+        },
+        "end": {
+          "line": 20,
+          "column": 58,
+          "byte": 390
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:359:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:359:390:arguments"
+      ],
+      "text_digest": "f8ab15c73c92235400207922e1d06546286ac77e28930be05aefc7a36e4e128c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:359:390:arguments",
+      "kind": "arguments",
+      "label": "('throttle.api.per_day', 10000)",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 27,
+          "byte": 359
+        },
+        "end": {
+          "line": 20,
+          "column": 58,
+          "byte": 390
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:argument",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:384:389:argument"
+      ],
+      "text_digest": "4bda71fb1e1a959b44d94c25023ac32b1125e9d07cd4bbccd664a16805d3756c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:384:389:argument",
+      "kind": "argument",
+      "label": "10000",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 52,
+          "byte": 384
+        },
+        "end": {
+          "line": 20,
+          "column": 57,
+          "byte": 389
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:384:389:integer"
+      ],
+      "text_digest": "39e5b4830d4d9c14db7368a95b65d5463ea3d09520373723430c03a5a453b5df"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:384:389:integer",
+      "kind": "integer",
+      "label": "10000",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 52,
+          "byte": 384
+        },
+        "end": {
+          "line": 20,
+          "column": 57,
+          "byte": 389
+        }
+      },
+      "children_ids": [],
+      "text_digest": "39e5b4830d4d9c14db7368a95b65d5463ea3d09520373723430c03a5a453b5df"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:argument",
+      "kind": "argument",
+      "label": "'throttle.api.per_day'",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 28,
+          "byte": 360
+        },
+        "end": {
+          "line": 20,
+          "column": 50,
+          "byte": 382
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:string"
+      ],
+      "text_digest": "1fa9076f17c767e637aee7e4b66ca88736a2342ebe6eb833f788b56a0446679f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:360:382:string",
+      "kind": "string",
+      "label": "'throttle.api.per_day'",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 28,
+          "byte": 360
+        },
+        "end": {
+          "line": 20,
+          "column": 50,
+          "byte": 382
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:361:381:string_content"
+      ],
+      "text_digest": "1fa9076f17c767e637aee7e4b66ca88736a2342ebe6eb833f788b56a0446679f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:361:381:string_content",
+      "kind": "string_content",
+      "label": "throttle.api.per_day",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 29,
+          "byte": 361
+        },
+        "end": {
+          "line": 20,
+          "column": 49,
+          "byte": 381
+        }
+      },
+      "children_ids": [],
+      "text_digest": "728382b3e8a9374f45e39c2b8f5e3277e388c5e412704911dbd34b59f98454e1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:353:359:name",
+      "kind": "name",
+      "label": "config",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 21,
+          "byte": 353
+        },
+        "end": {
+          "line": 20,
+          "column": 27,
+          "byte": 359
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b79606fb3afea5bd1609ed40b622142f1c98125abcfe89a76a661b0e8e343910"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:348:351:cast_type",
+      "kind": "cast_type",
+      "label": "int",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 16,
+          "byte": 348
+        },
+        "end": {
+          "line": 20,
+          "column": 19,
+          "byte": 351
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6da88c34ba124c41f977db66a4fc5c1a951708d285c81bb0d47c3206f4c27ca8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:320:323:primitive_type",
+      "kind": "primitive_type",
+      "label": "int",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 30,
+          "byte": 320
+        },
+        "end": {
+          "line": 18,
+          "column": 33,
+          "byte": 323
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6da88c34ba124c41f977db66a4fc5c1a951708d285c81bb0d47c3206f4c27ca8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:316:318:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 26,
+          "byte": 316
+        },
+        "end": {
+          "line": 18,
+          "column": 28,
+          "byte": 318
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:310:316:name",
+      "kind": "name",
+      "label": "perDay",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 20,
+          "byte": 310
+        },
+        "end": {
+          "line": 18,
+          "column": 26,
+          "byte": 316
+        }
+      },
+      "children_ids": [],
+      "text_digest": "129dd3503c2c1f54d2089e03e05f91a82e4d0c6787516bb4c6cd94a07e134073"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:294:300:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 4,
+          "byte": 294
+        },
+        "end": {
+          "line": 18,
+          "column": 10,
+          "byte": 300
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:286:method_declaration",
+      "kind": "method_declaration",
+      "label": "public function perSecond(): int\r\n    {\r\n        return (int) config('throttle.api.per_second', 60);\r\n    }",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 179
+        },
+        "end": {
+          "line": 16,
+          "column": 5,
+          "byte": 286
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:185:visibility_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:195:204:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:204:206:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:208:211:primitive_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:217:286:compound_statement"
+      ],
+      "text_digest": "773737b86ca3c47171a1d622aa9d61d42e290bab93f3498ee5aa949b89d0797a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:217:286:compound_statement",
+      "kind": "compound_statement",
+      "label": "{\r\n        return (int) config('throttle.api.per_second', 60);\r\n    }",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 217
+        },
+        "end": {
+          "line": 16,
+          "column": 5,
+          "byte": 286
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:228:279:return_statement"
+      ],
+      "text_digest": "6fbfbe2917b055c911c7118200bf03e413ff3c54716014050cdbaf5f55896064"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:228:279:return_statement",
+      "kind": "return_statement",
+      "label": "return (int) config('throttle.api.per_second', 60);",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 8,
+          "byte": 228
+        },
+        "end": {
+          "line": 15,
+          "column": 59,
+          "byte": 279
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:235:278:cast_expression"
+      ],
+      "text_digest": "a136b2d0825357484bcd6eecc927fdb956188ae57d5e0460db26cf7a12842b72"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:235:278:cast_expression",
+      "kind": "cast_expression",
+      "label": "(int) config('throttle.api.per_second', 60)",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 15,
+          "byte": 235
+        },
+        "end": {
+          "line": 15,
+          "column": 58,
+          "byte": 278
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:236:239:cast_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:278:function_call_expression"
+      ],
+      "text_digest": "f13de95f011e620f50a7adc2577162c4fc8b9db429bc17991c7e71e63751e604"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:278:function_call_expression",
+      "kind": "function_call_expression",
+      "label": "config('throttle.api.per_second', 60)",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 21,
+          "byte": 241
+        },
+        "end": {
+          "line": 15,
+          "column": 58,
+          "byte": 278
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:247:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:247:278:arguments"
+      ],
+      "text_digest": "2db6119203b78c3e7846b320245a8cccd8000b84cdd0f3d7f2dff24e03c855e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:247:278:arguments",
+      "kind": "arguments",
+      "label": "('throttle.api.per_second', 60)",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 27,
+          "byte": 247
+        },
+        "end": {
+          "line": 15,
+          "column": 58,
+          "byte": 278
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:argument",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:275:277:argument"
+      ],
+      "text_digest": "389ccd81fb3242751645d742cef1185f148bc46905ba0f320ad328bbbd2974bb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:275:277:argument",
+      "kind": "argument",
+      "label": "60",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 55,
+          "byte": 275
+        },
+        "end": {
+          "line": 15,
+          "column": 57,
+          "byte": 277
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:275:277:integer"
+      ],
+      "text_digest": "39fa9ec190eee7b6f4dff1100d6343e10918d044c75eac8f9e9a2596173f80c9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:275:277:integer",
+      "kind": "integer",
+      "label": "60",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 55,
+          "byte": 275
+        },
+        "end": {
+          "line": 15,
+          "column": 57,
+          "byte": 277
+        }
+      },
+      "children_ids": [],
+      "text_digest": "39fa9ec190eee7b6f4dff1100d6343e10918d044c75eac8f9e9a2596173f80c9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:argument",
+      "kind": "argument",
+      "label": "'throttle.api.per_second'",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 28,
+          "byte": 248
+        },
+        "end": {
+          "line": 15,
+          "column": 53,
+          "byte": 273
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:string"
+      ],
+      "text_digest": "b3f58ee4d7aa798da9fe0e0119d27219a7591ea2856d36d4cbabd9136e7c0523"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:248:273:string",
+      "kind": "string",
+      "label": "'throttle.api.per_second'",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 28,
+          "byte": 248
+        },
+        "end": {
+          "line": 15,
+          "column": 53,
+          "byte": 273
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:249:272:string_content"
+      ],
+      "text_digest": "b3f58ee4d7aa798da9fe0e0119d27219a7591ea2856d36d4cbabd9136e7c0523"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:249:272:string_content",
+      "kind": "string_content",
+      "label": "throttle.api.per_second",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 29,
+          "byte": 249
+        },
+        "end": {
+          "line": 15,
+          "column": 52,
+          "byte": 272
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3e5f21203da7bdc6bccbb1590a69a95eae3a94cdf30531f5c4cdef75ece9b447"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:241:247:name",
+      "kind": "name",
+      "label": "config",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 21,
+          "byte": 241
+        },
+        "end": {
+          "line": 15,
+          "column": 27,
+          "byte": 247
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b79606fb3afea5bd1609ed40b622142f1c98125abcfe89a76a661b0e8e343910"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:236:239:cast_type",
+      "kind": "cast_type",
+      "label": "int",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 16,
+          "byte": 236
+        },
+        "end": {
+          "line": 15,
+          "column": 19,
+          "byte": 239
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6da88c34ba124c41f977db66a4fc5c1a951708d285c81bb0d47c3206f4c27ca8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:208:211:primitive_type",
+      "kind": "primitive_type",
+      "label": "int",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 33,
+          "byte": 208
+        },
+        "end": {
+          "line": 13,
+          "column": 36,
+          "byte": 211
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6da88c34ba124c41f977db66a4fc5c1a951708d285c81bb0d47c3206f4c27ca8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:204:206:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 29,
+          "byte": 204
+        },
+        "end": {
+          "line": 13,
+          "column": 31,
+          "byte": 206
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:195:204:name",
+      "kind": "name",
+      "label": "perSecond",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 20,
+          "byte": 195
+        },
+        "end": {
+          "line": 13,
+          "column": 29,
+          "byte": 204
+        }
+      },
+      "children_ids": [],
+      "text_digest": "854a374df0645d853d3c75037a3027118f0ba4c07d4e89b8f77fe1a4b7093e81"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:179:185:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 179
+        },
+        "end": {
+          "line": 13,
+          "column": 10,
+          "byte": 185
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:159:170:name",
+      "kind": "name",
+      "label": "RateLimiter",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 6,
+          "byte": 159
+        },
+        "end": {
+          "line": 11,
+          "column": 17,
+          "byte": 170
+        }
+      },
+      "children_ids": [],
+      "text_digest": "74d5ea338c5025a01843a05da8ac3da76601ddaed4c45b0506c122338931172d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:35:149:class_declaration",
+      "kind": "class_declaration",
+      "label": "class Throttle\r\n{\r\n    public const int DEFAULT_PER_SECOND = 60;\r\n    public const int DEFAULT_PER_DAY = 10000;\r\n}",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 35
+        },
+        "end": {
+          "line": 9,
+          "column": 1,
+          "byte": 149
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:41:49:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:51:149:declaration_list"
+      ],
+      "text_digest": "c6cd70bdd5a86ce92c56df32da5625ad04a08c10af25afd4babbd9e09780b779"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:51:149:declaration_list",
+      "kind": "declaration_list",
+      "label": "{\r\n    public const int DEFAULT_PER_SECOND = 60;\r\n    public const int DEFAULT_PER_DAY = 10000;\r\n}",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 0,
+          "byte": 51
+        },
+        "end": {
+          "line": 9,
+          "column": 1,
+          "byte": 149
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:99:const_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:146:const_declaration"
+      ],
+      "text_digest": "99bf56c11ea60fe11cd92e674a78b667873f8d801f01583bb1f410dec08e46ba"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:146:const_declaration",
+      "kind": "const_declaration",
+      "label": "public const int DEFAULT_PER_DAY = 10000;",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 4,
+          "byte": 105
+        },
+        "end": {
+          "line": 8,
+          "column": 45,
+          "byte": 146
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:111:visibility_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:118:121:primitive_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:145:const_element"
+      ],
+      "text_digest": "7c61293fbc67b1bfe152b4ec18080ad0654b64523d973818b91ff84950748fb5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:145:const_element",
+      "kind": "const_element",
+      "label": "DEFAULT_PER_DAY = 10000",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 21,
+          "byte": 122
+        },
+        "end": {
+          "line": 8,
+          "column": 44,
+          "byte": 145
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:137:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:140:145:integer"
+      ],
+      "text_digest": "0a26acc9e3b325c5b6dc70fd357702da2eb3600b2f9c1563d2287768c10080bd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:140:145:integer",
+      "kind": "integer",
+      "label": "10000",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 39,
+          "byte": 140
+        },
+        "end": {
+          "line": 8,
+          "column": 44,
+          "byte": 145
+        }
+      },
+      "children_ids": [],
+      "text_digest": "39e5b4830d4d9c14db7368a95b65d5463ea3d09520373723430c03a5a453b5df"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:122:137:name",
+      "kind": "name",
+      "label": "DEFAULT_PER_DAY",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 21,
+          "byte": 122
+        },
+        "end": {
+          "line": 8,
+          "column": 36,
+          "byte": 137
+        }
+      },
+      "children_ids": [],
+      "text_digest": "973bc891c4c937265b3c1a2a4ccfd7737d3d366637597155f12cb64b8e590eae"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:118:121:primitive_type",
+      "kind": "primitive_type",
+      "label": "int",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 17,
+          "byte": 118
+        },
+        "end": {
+          "line": 8,
+          "column": 20,
+          "byte": 121
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6da88c34ba124c41f977db66a4fc5c1a951708d285c81bb0d47c3206f4c27ca8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:105:111:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 4,
+          "byte": 105
+        },
+        "end": {
+          "line": 8,
+          "column": 10,
+          "byte": 111
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:99:const_declaration",
+      "kind": "const_declaration",
+      "label": "public const int DEFAULT_PER_SECOND = 60;",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 4,
+          "byte": 58
+        },
+        "end": {
+          "line": 7,
+          "column": 45,
+          "byte": 99
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:64:visibility_modifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:71:74:primitive_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:98:const_element"
+      ],
+      "text_digest": "67ed61851c5393cd26888871c9bd9e0e64b21f1fc85c2310a2176a3fb547fd66"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:98:const_element",
+      "kind": "const_element",
+      "label": "DEFAULT_PER_SECOND = 60",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 21,
+          "byte": 75
+        },
+        "end": {
+          "line": 7,
+          "column": 44,
+          "byte": 98
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:93:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:96:98:integer"
+      ],
+      "text_digest": "e4a8031e02eda7403fff67f6de20c86ed9e7da6f520f36d32231fa555719ee4c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:96:98:integer",
+      "kind": "integer",
+      "label": "60",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 42,
+          "byte": 96
+        },
+        "end": {
+          "line": 7,
+          "column": 44,
+          "byte": 98
+        }
+      },
+      "children_ids": [],
+      "text_digest": "39fa9ec190eee7b6f4dff1100d6343e10918d044c75eac8f9e9a2596173f80c9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:75:93:name",
+      "kind": "name",
+      "label": "DEFAULT_PER_SECOND",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 21,
+          "byte": 75
+        },
+        "end": {
+          "line": 7,
+          "column": 39,
+          "byte": 93
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0b8c84f8a188d2dc6011bec72d27845b8b90dd4d70eb109be69665a411b9d8d2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:71:74:primitive_type",
+      "kind": "primitive_type",
+      "label": "int",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 17,
+          "byte": 71
+        },
+        "end": {
+          "line": 7,
+          "column": 20,
+          "byte": 74
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6da88c34ba124c41f977db66a4fc5c1a951708d285c81bb0d47c3206f4c27ca8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:58:64:visibility_modifier",
+      "kind": "visibility_modifier",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 4,
+          "byte": 58
+        },
+        "end": {
+          "line": 7,
+          "column": 10,
+          "byte": 64
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:41:49:name",
+      "kind": "name",
+      "label": "Throttle",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 6,
+          "byte": 41
+        },
+        "end": {
+          "line": 5,
+          "column": 14,
+          "byte": 49
+        }
+      },
+      "children_ids": [],
+      "text_digest": "289e3f2205c8a1429466c0f5ee6eab0bde95ab013205fb0fb3395b8350a42324"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:9:31:namespace_definition",
+      "kind": "namespace_definition",
+      "label": "namespace App\\Support;",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 0,
+          "byte": 9
+        },
+        "end": {
+          "line": 3,
+          "column": 22,
+          "byte": 31
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:30:namespace_name"
+      ],
+      "text_digest": "4e8c97b364e06687f879725a26698e53125235de634de2772581ffd526b9deb0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:30:namespace_name",
+      "kind": "namespace_name",
+      "label": "App\\Support",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 10,
+          "byte": 19
+        },
+        "end": {
+          "line": 3,
+          "column": 21,
+          "byte": 30
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:22:name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:23:30:name"
+      ],
+      "text_digest": "12f9eeb640db1e7e98908dcacd6d87946d792ab1a7ff33c890dd12b21094b0c9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:23:30:name",
+      "kind": "name",
+      "label": "Support",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 14,
+          "byte": 23
+        },
+        "end": {
+          "line": 3,
+          "column": 21,
+          "byte": 30
+        }
+      },
+      "children_ids": [],
+      "text_digest": "be91940b79f469101df9a50544b6873aa5509a12f1f93f1cb5e3be3990d344b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:19:22:name",
+      "kind": "name",
+      "label": "App",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 10,
+          "byte": 19
+        },
+        "end": {
+          "line": 3,
+          "column": 13,
+          "byte": 22
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0d04bfeb7d64b71c74fc925cca93d683154e8cc7e6e5838faced498e34c9984d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample_php_config.php:0:5:php_tag",
+      "kind": "php_tag",
+      "label": "<?php",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 5,
+          "byte": 5
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fe5bcb54c56e0b9f456a060364dd28b2248f3a0e21c168d4ce9d009b73e83e3c"
+    }
+  ],
+  "parser_id": "tree_sitter_php",
+  "relative_path": "tests/fixtures/sample_php_config.php",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "php",
+  "warnings": []
+}

@@ -1,0 +1,3184 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:38+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:593:955:export_statement:113",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:593:955:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:593:955:export_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:608:955:function_declaration:112",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:593:955:export_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:608:955:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:608:955:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:624:955:statement_block:111",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:608:955:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:624:955:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:624:955:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:629:952:return_statement:110",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:624:955:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:629:952:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:629:952:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:636:951:parenthesized_expression:109",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:629:952:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:636:951:parenthesized_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:636:951:parenthesized_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR:108",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:636:951:parenthesized_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:940:946:type_parameters:107",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:940:946:type_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:940:946:type_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:942:945:type_parameter:106",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:940:946:type_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:942:945:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:942:945:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:942:945:type_identifier:105",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:942:945:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:942:945:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:940:946:type_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:941:942:ERROR:104",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:940:946:type_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:941:942:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:915:934:type_arguments:103",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:915:934:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:915:934:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:932:933:ERROR:102",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:915:934:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:932:933:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:915:934:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:916:931:type_identifier:101",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:915:934:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:916:931:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:900:907:type_arguments:100",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:900:907:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:900:907:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:902:906:type_identifier:99",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:900:907:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:902:906:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:900:907:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:901:902:ERROR:98",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:900:907:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:901:902:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:880:892:type_arguments:97",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:880:892:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:880:892:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:890:891:ERROR:96",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:880:892:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:890:891:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:880:892:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:881:889:type_identifier:95",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:880:892:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:881:889:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:856:870:type_arguments:94",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:856:870:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:856:870:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:868:869:ERROR:93",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:856:870:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:868:869:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:856:870:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:857:867:type_identifier:92",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:856:870:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:857:867:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:831:846:type_arguments:91",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:831:846:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:831:846:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:844:845:ERROR:90",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:831:846:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:844:845:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:831:846:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:832:843:type_identifier:89",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:831:846:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:832:843:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:805:821:type_arguments:88",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:805:821:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:805:821:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:819:820:ERROR:87",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:805:821:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:819:820:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:805:821:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:806:818:type_identifier:86",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:805:821:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:806:818:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:780:795:type_arguments:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:780:795:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:780:795:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:793:794:ERROR:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:780:795:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:793:794:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:780:795:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:781:792:type_identifier:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:780:795:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:781:792:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:756:770:type_arguments:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:756:770:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:756:770:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:768:769:ERROR:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:756:770:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:768:769:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:756:770:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:757:767:type_identifier:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:756:770:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:757:767:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:738:746:type_arguments:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:738:746:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:738:746:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:744:745:ERROR:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:738:746:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:744:745:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:738:746:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:739:743:type_identifier:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:738:746:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:739:743:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:722:728:type_arguments:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:722:728:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:722:728:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:723:727:type_identifier:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:722:728:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:723:727:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:698:714:type_arguments:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:698:714:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:698:714:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:712:713:ERROR:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:698:714:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:712:713:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:698:714:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:699:711:type_identifier:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:698:714:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:699:711:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:636:951:parenthesized_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:689:type_assertion:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:636:951:parenthesized_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:689:type_assertion",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:689:type_assertion->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:689:assignment_expression:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:689:type_assertion",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:689:assignment_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:689:assignment_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:658:689:string:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:689:assignment_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:658:689:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:658:689:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:659:688:string_fragment:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:658:689:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:659:688:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:689:assignment_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:657:identifier:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:689:assignment_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:657:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:689:type_assertion->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:647:type_arguments:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:689:type_assertion",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:647:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:647:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:644:647:type_identifier:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:647:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:644:647:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:608:955:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:621:623:formal_parameters:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:608:955:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:621:623:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:608:955:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:617:621:identifier:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:608:955:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:617:621:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:516:589:import_statement:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:516:589:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:516:589:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:548:588:string:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:516:589:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:548:588:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:548:588:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:549:587:string_fragment:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:548:588:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:549:587:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:516:589:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:import_clause:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:516:589:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:named_imports:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:525:540:import_specifier:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:525:540:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:525:540:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:525:540:identifier:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:525:540:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:525:540:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:455:514:import_statement:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:455:514:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:455:514:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:480:513:string:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:455:514:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:480:513:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:480:513:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:481:512:string_fragment:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:480:513:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:481:512:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:455:514:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:import_clause:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:455:514:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:named_imports:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:464:472:import_specifier:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:464:472:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:464:472:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:464:472:identifier:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:464:472:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:464:472:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:390:453:import_statement:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:390:453:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:390:453:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:417:452:string:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:390:453:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:417:452:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:417:452:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:418:451:string_fragment:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:417:452:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:418:451:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:390:453:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:import_clause:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:390:453:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:named_imports:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:399:409:import_specifier:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:399:409:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:399:409:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:399:409:identifier:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:399:409:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:399:409:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:323:388:import_statement:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:323:388:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:323:388:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:351:387:string:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:323:388:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:351:387:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:351:387:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:352:386:string_fragment:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:351:387:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:352:386:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:323:388:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:import_clause:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:323:388:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:named_imports:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:332:343:import_specifier:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:332:343:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:332:343:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:332:343:identifier:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:332:343:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:332:343:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:254:321:import_statement:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:254:321:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:254:321:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:283:320:string:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:254:321:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:283:320:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:283:320:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:284:319:string_fragment:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:283:320:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:284:319:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:254:321:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:import_clause:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:254:321:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:named_imports:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:263:275:import_specifier:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:263:275:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:263:275:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:263:275:identifier:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:263:275:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:263:275:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:187:252:import_statement:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:187:252:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:187:252:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:215:251:string:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:187:252:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:215:251:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:215:251:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:216:250:string_fragment:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:215:251:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:216:250:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:187:252:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:import_clause:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:187:252:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:named_imports:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:196:207:import_specifier:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:196:207:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:196:207:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:196:207:identifier:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:196:207:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:196:207:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:122:185:import_statement:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:122:185:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:122:185:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:149:184:string:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:122:185:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:149:184:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:149:184:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:150:183:string_fragment:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:149:184:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:150:183:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:122:185:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:import_clause:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:122:185:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:named_imports:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:131:141:import_specifier:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:131:141:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:131:141:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:131:141:identifier:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:131:141:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:131:141:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:69:120:import_statement:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:69:120:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:69:120:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:90:119:string:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:69:120:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:90:119:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:90:119:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:91:118:string_fragment:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:90:119:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:91:118:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:69:120:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:import_clause:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:69:120:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:named_imports:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:78:82:import_specifier:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:78:82:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:78:82:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:78:82:identifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:78:82:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:78:82:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:67:import_statement:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:67:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:67:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:29:66:string:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:67:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:29:66:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:29:66:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:30:65:string_fragment:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:29:66:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:30:65:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:67:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:import_clause:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:67:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:named_imports:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:9:21:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:9:21:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:9:21:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:9:21:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:9:21:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:9:21:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:957:program",
+      "kind": "program",
+      "label": "import { MarketingNav } from \"@/components/marketing/MarketingNav\";\r\nimport { Hero } from \"@/components/marketing/Hero\";\r\nimport { TrustStrip } from \"@/components/marketing/TrustStrip\";\r\nimport { FeatureGrid } from \"@/components/marketing/FeatureGrid\";\r\nimport { PipelineFlow } from \"@/components/marketing/PipelineFlow\";\r\nimport { ConsoleMock } from \"@/components/marketing/ConsoleMock\";\r\nimport { BlastStory } from \"@/components/marketing/BlastStory\";\r\nimport { FinalCTA } from \"@/components/marketing/FinalCTA\";\r\nimport { MarketingFooter } from \"@/components/marketing/MarketingFooter\";\r\n\r\nexport default function Home() {\r\n  return (\r\n    <div className=\"marketing-surface antialiased\">\r\n      <MarketingNav />\r\n      <main>\r\n        <Hero />\r\n        <TrustStrip />\r\n        <FeatureGrid />\r\n        <PipelineFlow />\r\n        <ConsoleMock />\r\n        <BlastStory />\r\n        <FinalCTA />\r\n      </main>\r\n      <MarketingFooter />\r\n    </div>\r\n  );\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 28,
+          "column": 0,
+          "byte": 957
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:67:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:69:120:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:122:185:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:187:252:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:254:321:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:323:388:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:390:453:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:455:514:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:516:589:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:593:955:export_statement"
+      ],
+      "text_digest": "c83f071493b25563a4e2a43c5cd91520e2cd39826c38f68f98bbd6eff2ad35cb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:593:955:export_statement",
+      "kind": "export_statement",
+      "label": "export default function Home() {\r\n  return (\r\n    <div className=\"marketing-surface antialiased\">\r\n      <MarketingNav />\r\n      <main>\r\n        <Hero />\r\n        <TrustStrip />\r\n        <FeatureGrid />\r\n        <PipelineFlow />\r\n        <ConsoleMock />\r\n        <BlastStory />\r\n        <FinalCTA />\r\n      </main>\r\n      <MarketingFooter />\r\n    </div>\r\n  );\r\n}",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 0,
+          "byte": 593
+        },
+        "end": {
+          "line": 27,
+          "column": 1,
+          "byte": 955
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:608:955:function_declaration"
+      ],
+      "text_digest": "fff2cd19a746060a64642fb0f4495181f52df3ecf7edc87d1ac7c4ad728bc5a3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:608:955:function_declaration",
+      "kind": "function_declaration",
+      "label": "function Home() {\r\n  return (\r\n    <div className=\"marketing-surface antialiased\">\r\n      <MarketingNav />\r\n      <main>\r\n        <Hero />\r\n        <TrustStrip />\r\n        <FeatureGrid />\r\n        <PipelineFlow />\r\n        <ConsoleMock />\r\n        <BlastStory />\r\n        <FinalCTA />\r\n      </main>\r\n      <MarketingFooter />\r\n    </div>\r\n  );\r\n}",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 15,
+          "byte": 608
+        },
+        "end": {
+          "line": 27,
+          "column": 1,
+          "byte": 955
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:617:621:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:621:623:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:624:955:statement_block"
+      ],
+      "text_digest": "cc1431e12cb8bea94525557b0aa87cdce2caa3d86f6eaa92d603719a9d58dd44"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:624:955:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  return (\r\n    <div className=\"marketing-surface antialiased\">\r\n      <MarketingNav />\r\n      <main>\r\n        <Hero />\r\n        <TrustStrip />\r\n        <FeatureGrid />\r\n        <PipelineFlow />\r\n        <ConsoleMock />\r\n        <BlastStory />\r\n        <FinalCTA />\r\n      </main>\r\n      <MarketingFooter />\r\n    </div>\r\n  );\r\n}",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 31,
+          "byte": 624
+        },
+        "end": {
+          "line": 27,
+          "column": 1,
+          "byte": 955
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:629:952:return_statement"
+      ],
+      "text_digest": "1220cbbf5379f1fad87a393dec1732a116172e5227334161211aa26511b1da9a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:629:952:return_statement",
+      "kind": "return_statement",
+      "label": "return (\r\n    <div className=\"marketing-surface antialiased\">\r\n      <MarketingNav />\r\n      <main>\r\n        <Hero />\r\n        <TrustStrip />\r\n        <FeatureGrid />\r\n        <PipelineFlow />\r\n        <ConsoleMock />\r\n        <BlastStory />\r\n        <FinalCTA />\r\n      </main>\r\n      <MarketingFooter />\r\n    </div>\r\n  );",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 2,
+          "byte": 629
+        },
+        "end": {
+          "line": 26,
+          "column": 4,
+          "byte": 952
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:636:951:parenthesized_expression"
+      ],
+      "text_digest": "b07bdf411423115329bb109482cdbc74de3e9acedeac9d73f83821e22e212a19"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:636:951:parenthesized_expression",
+      "kind": "parenthesized_expression",
+      "label": "(\r\n    <div className=\"marketing-surface antialiased\">\r\n      <MarketingNav />\r\n      <main>\r\n        <Hero />\r\n        <TrustStrip />\r\n        <FeatureGrid />\r\n        <PipelineFlow />\r\n        <ConsoleMock />\r\n        <BlastStory />\r\n        <FinalCTA />\r\n      </main>\r\n      <MarketingFooter />\r\n    </div>\r\n  )",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 9,
+          "byte": 636
+        },
+        "end": {
+          "line": 26,
+          "column": 3,
+          "byte": 951
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:689:type_assertion",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR"
+      ],
+      "text_digest": "94426ad000540c2f62661490ff177fcba0063989971457433da45d8a2ebf9f5b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:689:946:ERROR",
+      "kind": "ERROR",
+      "label": ">\r\n      <MarketingNav />\r\n      <main>\r\n        <Hero />\r\n        <TrustStrip />\r\n        <FeatureGrid />\r\n        <PipelineFlow />\r\n        <ConsoleMock />\r\n        <BlastStory />\r\n        <FinalCTA />\r\n      </main>\r\n      <MarketingFooter />\r\n    </div>",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 50,
+          "byte": 689
+        },
+        "end": {
+          "line": 25,
+          "column": 10,
+          "byte": 946
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:698:714:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:722:728:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:738:746:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:756:770:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:780:795:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:805:821:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:831:846:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:856:870:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:880:892:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:900:907:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:915:934:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:940:946:type_parameters"
+      ],
+      "text_digest": "b8f1bf99f5675bbe641f82e2874bb068fc1f8f46a7f913ef5f4b3bd053200ab4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:940:946:type_parameters",
+      "kind": "type_parameters",
+      "label": "</div>",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 4,
+          "byte": 940
+        },
+        "end": {
+          "line": 25,
+          "column": 10,
+          "byte": 946
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:941:942:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:942:945:type_parameter"
+      ],
+      "text_digest": "aac32651b10f567c461b9b4f255d6fb1fa6859b5368d8bd9a51af920ab21cf23"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:942:945:type_parameter",
+      "kind": "type_parameter",
+      "label": "div",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 6,
+          "byte": 942
+        },
+        "end": {
+          "line": 25,
+          "column": 9,
+          "byte": 945
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:942:945:type_identifier"
+      ],
+      "text_digest": "cd35a2426062b7d58fd4a63f813cc506ef87e449087d28d256b8c393f20fa364"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:942:945:type_identifier",
+      "kind": "type_identifier",
+      "label": "div",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 6,
+          "byte": 942
+        },
+        "end": {
+          "line": 25,
+          "column": 9,
+          "byte": 945
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cd35a2426062b7d58fd4a63f813cc506ef87e449087d28d256b8c393f20fa364"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:941:942:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 5,
+          "byte": 941
+        },
+        "end": {
+          "line": 25,
+          "column": 6,
+          "byte": 942
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:915:934:type_arguments",
+      "kind": "type_arguments",
+      "label": "<MarketingFooter />",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 6,
+          "byte": 915
+        },
+        "end": {
+          "line": 24,
+          "column": 25,
+          "byte": 934
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:916:931:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:932:933:ERROR"
+      ],
+      "text_digest": "f8bcde1ac540502a6f6f516ef9fc7c6a2d6f21bbed266be3dcb838a06fc556f7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:932:933:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 23,
+          "byte": 932
+        },
+        "end": {
+          "line": 24,
+          "column": 24,
+          "byte": 933
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:916:931:type_identifier",
+      "kind": "type_identifier",
+      "label": "MarketingFooter",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 7,
+          "byte": 916
+        },
+        "end": {
+          "line": 24,
+          "column": 22,
+          "byte": 931
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ff7cb636c90ed0b92dd5972fef761235e6c98be2518c6a8ffaf8cd16a266c748"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:900:907:type_arguments",
+      "kind": "type_arguments",
+      "label": "</main>",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 6,
+          "byte": 900
+        },
+        "end": {
+          "line": 23,
+          "column": 13,
+          "byte": 907
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:901:902:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:902:906:type_identifier"
+      ],
+      "text_digest": "da04a1e4530179761033d54eee0112385566d41ed496c0bc3dc93b3ff1ff2c79"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:902:906:type_identifier",
+      "kind": "type_identifier",
+      "label": "main",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 8,
+          "byte": 902
+        },
+        "end": {
+          "line": 23,
+          "column": 12,
+          "byte": 906
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0d6e4079e36703ebd37c00722f5891d28b0e2811dc114b129215123adcce3605"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:901:902:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 7,
+          "byte": 901
+        },
+        "end": {
+          "line": 23,
+          "column": 8,
+          "byte": 902
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:880:892:type_arguments",
+      "kind": "type_arguments",
+      "label": "<FinalCTA />",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 8,
+          "byte": 880
+        },
+        "end": {
+          "line": 22,
+          "column": 20,
+          "byte": 892
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:881:889:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:890:891:ERROR"
+      ],
+      "text_digest": "ad3a9a232c4bbbcd38bebb68f22a9d12cdf9b47f65fb7d639a16551f009b97a5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:890:891:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 18,
+          "byte": 890
+        },
+        "end": {
+          "line": 22,
+          "column": 19,
+          "byte": 891
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:881:889:type_identifier",
+      "kind": "type_identifier",
+      "label": "FinalCTA",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 9,
+          "byte": 881
+        },
+        "end": {
+          "line": 22,
+          "column": 17,
+          "byte": 889
+        }
+      },
+      "children_ids": [],
+      "text_digest": "36e2f03f2694104f0ce046bf5f2047efd008636c2ee7870c8b159e7625aef827"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:856:870:type_arguments",
+      "kind": "type_arguments",
+      "label": "<BlastStory />",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 8,
+          "byte": 856
+        },
+        "end": {
+          "line": 21,
+          "column": 22,
+          "byte": 870
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:857:867:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:868:869:ERROR"
+      ],
+      "text_digest": "5cd08998490da7dc04495290abec5ade59db6fa77f8b35bd0d6ad18b9d0631ae"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:868:869:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 20,
+          "byte": 868
+        },
+        "end": {
+          "line": 21,
+          "column": 21,
+          "byte": 869
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:857:867:type_identifier",
+      "kind": "type_identifier",
+      "label": "BlastStory",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 9,
+          "byte": 857
+        },
+        "end": {
+          "line": 21,
+          "column": 19,
+          "byte": 867
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b5edfaf6af21c30a952d0c1db9b5a2e4ae7a2c1df5c4fba8916307e5ad07d9eb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:831:846:type_arguments",
+      "kind": "type_arguments",
+      "label": "<ConsoleMock />",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 8,
+          "byte": 831
+        },
+        "end": {
+          "line": 20,
+          "column": 23,
+          "byte": 846
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:832:843:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:844:845:ERROR"
+      ],
+      "text_digest": "80e7786b94bc2ad521dc9b0c1b40ee62d7e55bac3ada16bc35ce43146a1f7702"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:844:845:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 21,
+          "byte": 844
+        },
+        "end": {
+          "line": 20,
+          "column": 22,
+          "byte": 845
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:832:843:type_identifier",
+      "kind": "type_identifier",
+      "label": "ConsoleMock",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 9,
+          "byte": 832
+        },
+        "end": {
+          "line": 20,
+          "column": 20,
+          "byte": 843
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cfb27885ec74df05c401ec9fb79b013fac76df93ad38abedc34648f95ec3456d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:805:821:type_arguments",
+      "kind": "type_arguments",
+      "label": "<PipelineFlow />",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 8,
+          "byte": 805
+        },
+        "end": {
+          "line": 19,
+          "column": 24,
+          "byte": 821
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:806:818:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:819:820:ERROR"
+      ],
+      "text_digest": "83e88c1c126b836d7499cb4c055b829061481d562b72cb55705ebc3bd5d16048"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:819:820:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 22,
+          "byte": 819
+        },
+        "end": {
+          "line": 19,
+          "column": 23,
+          "byte": 820
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:806:818:type_identifier",
+      "kind": "type_identifier",
+      "label": "PipelineFlow",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 9,
+          "byte": 806
+        },
+        "end": {
+          "line": 19,
+          "column": 21,
+          "byte": 818
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2b4fcaf91f1b4b256f48ce934a32f66eb08f52a8e28acc8ec12dc23b3db1a112"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:780:795:type_arguments",
+      "kind": "type_arguments",
+      "label": "<FeatureGrid />",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 8,
+          "byte": 780
+        },
+        "end": {
+          "line": 18,
+          "column": 23,
+          "byte": 795
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:781:792:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:793:794:ERROR"
+      ],
+      "text_digest": "ff9643aabd7d3900a586d7cd5110700bdfe3d56dbd9453e3ff872028ea1893c8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:793:794:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 21,
+          "byte": 793
+        },
+        "end": {
+          "line": 18,
+          "column": 22,
+          "byte": 794
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:781:792:type_identifier",
+      "kind": "type_identifier",
+      "label": "FeatureGrid",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 9,
+          "byte": 781
+        },
+        "end": {
+          "line": 18,
+          "column": 20,
+          "byte": 792
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3149d9c5e7947855b1a16d367caaede03cd846753fb28f771d1b1b02b3c2f208"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:756:770:type_arguments",
+      "kind": "type_arguments",
+      "label": "<TrustStrip />",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 8,
+          "byte": 756
+        },
+        "end": {
+          "line": 17,
+          "column": 22,
+          "byte": 770
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:757:767:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:768:769:ERROR"
+      ],
+      "text_digest": "0053e068a1e04e543ff3c78167e34629906e83ddd0b62e402f5306cec08419dd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:768:769:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 20,
+          "byte": 768
+        },
+        "end": {
+          "line": 17,
+          "column": 21,
+          "byte": 769
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:757:767:type_identifier",
+      "kind": "type_identifier",
+      "label": "TrustStrip",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 9,
+          "byte": 757
+        },
+        "end": {
+          "line": 17,
+          "column": 19,
+          "byte": 767
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1cc2833c8f5d332a75c7e2e39727ee79754ddcc017b5f76b82c241d14eb9b4b9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:738:746:type_arguments",
+      "kind": "type_arguments",
+      "label": "<Hero />",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 8,
+          "byte": 738
+        },
+        "end": {
+          "line": 16,
+          "column": 16,
+          "byte": 746
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:739:743:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:744:745:ERROR"
+      ],
+      "text_digest": "1eab17062247bdd8d329a424711a52a17711121649c3dda2b509a0b59a635805"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:744:745:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 14,
+          "byte": 744
+        },
+        "end": {
+          "line": 16,
+          "column": 15,
+          "byte": 745
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:739:743:type_identifier",
+      "kind": "type_identifier",
+      "label": "Hero",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 9,
+          "byte": 739
+        },
+        "end": {
+          "line": 16,
+          "column": 13,
+          "byte": 743
+        }
+      },
+      "children_ids": [],
+      "text_digest": "72a9345fb29494a4e9667d7bd68f37e8fe1df384270553f17b4c4a06b1f2b5e0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:722:728:type_arguments",
+      "kind": "type_arguments",
+      "label": "<main>",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 6,
+          "byte": 722
+        },
+        "end": {
+          "line": 15,
+          "column": 12,
+          "byte": 728
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:723:727:type_identifier"
+      ],
+      "text_digest": "7f5307317b3f315cb4181e6837810394d52c46ca09425180abbbdcbcaacfc85f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:723:727:type_identifier",
+      "kind": "type_identifier",
+      "label": "main",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 7,
+          "byte": 723
+        },
+        "end": {
+          "line": 15,
+          "column": 11,
+          "byte": 727
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0d6e4079e36703ebd37c00722f5891d28b0e2811dc114b129215123adcce3605"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:698:714:type_arguments",
+      "kind": "type_arguments",
+      "label": "<MarketingNav />",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 6,
+          "byte": 698
+        },
+        "end": {
+          "line": 14,
+          "column": 22,
+          "byte": 714
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:699:711:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:712:713:ERROR"
+      ],
+      "text_digest": "02bb199ebc2ad034c2d72fe6190d6781849f5ac0dced96b83f749ffb19ac971e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:712:713:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 20,
+          "byte": 712
+        },
+        "end": {
+          "line": 14,
+          "column": 21,
+          "byte": 713
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:699:711:type_identifier",
+      "kind": "type_identifier",
+      "label": "MarketingNav",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 7,
+          "byte": 699
+        },
+        "end": {
+          "line": 14,
+          "column": 19,
+          "byte": 711
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cb47837b944a95fbcf90427f029d06cece9413dfb14521d074a3c6003c3c4425"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:689:type_assertion",
+      "kind": "type_assertion",
+      "label": "<div className=\"marketing-surface antialiased\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 643
+        },
+        "end": {
+          "line": 13,
+          "column": 50,
+          "byte": 689
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:647:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:689:assignment_expression"
+      ],
+      "text_digest": "5328907ae20d70cc4c4855fea04553336197feaabe3ef51e14c49943480eab75"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:689:assignment_expression",
+      "kind": "assignment_expression",
+      "label": "className=\"marketing-surface antialiased\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 9,
+          "byte": 648
+        },
+        "end": {
+          "line": 13,
+          "column": 50,
+          "byte": 689
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:657:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:658:689:string"
+      ],
+      "text_digest": "65045dfb572db38a2c95410c24737d020ef40dc0c759968174af7a599e278741"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:658:689:string",
+      "kind": "string",
+      "label": "\"marketing-surface antialiased\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 19,
+          "byte": 658
+        },
+        "end": {
+          "line": 13,
+          "column": 50,
+          "byte": 689
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:659:688:string_fragment"
+      ],
+      "text_digest": "e14760205f9bfa284aabefc415bbe1bdb59495dd41c91211e0631bc82b205aa8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:659:688:string_fragment",
+      "kind": "string_fragment",
+      "label": "marketing-surface antialiased",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 20,
+          "byte": 659
+        },
+        "end": {
+          "line": 13,
+          "column": 49,
+          "byte": 688
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9361ae5a669e0ee31e4f31f9562834c47c83c09bed4eb2245f0cfd287315ca05"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:648:657:identifier",
+      "kind": "identifier",
+      "label": "className",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 9,
+          "byte": 648
+        },
+        "end": {
+          "line": 13,
+          "column": 18,
+          "byte": 657
+        }
+      },
+      "children_ids": [],
+      "text_digest": "42d5bd1ac1ca8a2050bc1c27dfb8e01a5c54de453b85410227aa04be47c27af4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:643:647:type_arguments",
+      "kind": "type_arguments",
+      "label": "<div",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 4,
+          "byte": 643
+        },
+        "end": {
+          "line": 13,
+          "column": 8,
+          "byte": 647
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:644:647:type_identifier"
+      ],
+      "text_digest": "d70b8e28e0ce87164f95f8144e86fc9f3bb2ceb1b8c8f765683ab95f70ffd867"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:644:647:type_identifier",
+      "kind": "type_identifier",
+      "label": "div",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 5,
+          "byte": 644
+        },
+        "end": {
+          "line": 13,
+          "column": 8,
+          "byte": 647
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cd35a2426062b7d58fd4a63f813cc506ef87e449087d28d256b8c393f20fa364"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:621:623:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 28,
+          "byte": 621
+        },
+        "end": {
+          "line": 11,
+          "column": 30,
+          "byte": 623
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:617:621:identifier",
+      "kind": "identifier",
+      "label": "Home",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 24,
+          "byte": 617
+        },
+        "end": {
+          "line": 11,
+          "column": 28,
+          "byte": 621
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a78695388b38b5cceefaf6796b0137877514593543b91af2752d5a17e3d736c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:516:589:import_statement",
+      "kind": "import_statement",
+      "label": "import { MarketingFooter } from \"@/components/marketing/MarketingFooter\";",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 0,
+          "byte": 516
+        },
+        "end": {
+          "line": 9,
+          "column": 73,
+          "byte": 589
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:548:588:string"
+      ],
+      "text_digest": "01b837d8147ff755bebacc3ec063e35542e19197295ccb9268ef1338871aaa14"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:548:588:string",
+      "kind": "string",
+      "label": "\"@/components/marketing/MarketingFooter\"",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 32,
+          "byte": 548
+        },
+        "end": {
+          "line": 9,
+          "column": 72,
+          "byte": 588
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:549:587:string_fragment"
+      ],
+      "text_digest": "f4073356d45333eb963f7037051d450bd890d5e7e068c79c5a58ec53be0e91cd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:549:587:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/components/marketing/MarketingFooter",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 33,
+          "byte": 549
+        },
+        "end": {
+          "line": 9,
+          "column": 71,
+          "byte": 587
+        }
+      },
+      "children_ids": [],
+      "text_digest": "64e59b7fa04d009b8c1c83d46950c5afccf87cc0033de20fe31e7af8421730bc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:import_clause",
+      "kind": "import_clause",
+      "label": "{ MarketingFooter }",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 7,
+          "byte": 523
+        },
+        "end": {
+          "line": 9,
+          "column": 26,
+          "byte": 542
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:named_imports"
+      ],
+      "text_digest": "38b31798f7b792775d3f39044cf30996c30c714cc76a4f930f0014dbcfb4bf6d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:523:542:named_imports",
+      "kind": "named_imports",
+      "label": "{ MarketingFooter }",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 7,
+          "byte": 523
+        },
+        "end": {
+          "line": 9,
+          "column": 26,
+          "byte": 542
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:525:540:import_specifier"
+      ],
+      "text_digest": "38b31798f7b792775d3f39044cf30996c30c714cc76a4f930f0014dbcfb4bf6d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:525:540:import_specifier",
+      "kind": "import_specifier",
+      "label": "MarketingFooter",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 9,
+          "byte": 525
+        },
+        "end": {
+          "line": 9,
+          "column": 24,
+          "byte": 540
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:525:540:identifier"
+      ],
+      "text_digest": "ff7cb636c90ed0b92dd5972fef761235e6c98be2518c6a8ffaf8cd16a266c748"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:525:540:identifier",
+      "kind": "identifier",
+      "label": "MarketingFooter",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 9,
+          "byte": 525
+        },
+        "end": {
+          "line": 9,
+          "column": 24,
+          "byte": 540
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ff7cb636c90ed0b92dd5972fef761235e6c98be2518c6a8ffaf8cd16a266c748"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:455:514:import_statement",
+      "kind": "import_statement",
+      "label": "import { FinalCTA } from \"@/components/marketing/FinalCTA\";",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 0,
+          "byte": 455
+        },
+        "end": {
+          "line": 8,
+          "column": 59,
+          "byte": 514
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:480:513:string"
+      ],
+      "text_digest": "c02e99666d79d4c6eeda07107ecddce5ef7ed48d907040bbdc2c258976e290f8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:480:513:string",
+      "kind": "string",
+      "label": "\"@/components/marketing/FinalCTA\"",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 25,
+          "byte": 480
+        },
+        "end": {
+          "line": 8,
+          "column": 58,
+          "byte": 513
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:481:512:string_fragment"
+      ],
+      "text_digest": "f3ff01793376b14bf1187a8531963b380d8744faaaa4f9ab3784e7960d65c11d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:481:512:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/components/marketing/FinalCTA",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 26,
+          "byte": 481
+        },
+        "end": {
+          "line": 8,
+          "column": 57,
+          "byte": 512
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e4ece502479d017730992a6d01263cb625aef30f4bbca43def18176f681b1570"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:import_clause",
+      "kind": "import_clause",
+      "label": "{ FinalCTA }",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 7,
+          "byte": 462
+        },
+        "end": {
+          "line": 8,
+          "column": 19,
+          "byte": 474
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:named_imports"
+      ],
+      "text_digest": "260856e12d1520739fd91e1bf1180133f326ec0ea26b044899c90b4e48f574fb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:462:474:named_imports",
+      "kind": "named_imports",
+      "label": "{ FinalCTA }",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 7,
+          "byte": 462
+        },
+        "end": {
+          "line": 8,
+          "column": 19,
+          "byte": 474
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:464:472:import_specifier"
+      ],
+      "text_digest": "260856e12d1520739fd91e1bf1180133f326ec0ea26b044899c90b4e48f574fb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:464:472:import_specifier",
+      "kind": "import_specifier",
+      "label": "FinalCTA",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 9,
+          "byte": 464
+        },
+        "end": {
+          "line": 8,
+          "column": 17,
+          "byte": 472
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:464:472:identifier"
+      ],
+      "text_digest": "36e2f03f2694104f0ce046bf5f2047efd008636c2ee7870c8b159e7625aef827"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:464:472:identifier",
+      "kind": "identifier",
+      "label": "FinalCTA",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 9,
+          "byte": 464
+        },
+        "end": {
+          "line": 8,
+          "column": 17,
+          "byte": 472
+        }
+      },
+      "children_ids": [],
+      "text_digest": "36e2f03f2694104f0ce046bf5f2047efd008636c2ee7870c8b159e7625aef827"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:390:453:import_statement",
+      "kind": "import_statement",
+      "label": "import { BlastStory } from \"@/components/marketing/BlastStory\";",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 0,
+          "byte": 390
+        },
+        "end": {
+          "line": 7,
+          "column": 63,
+          "byte": 453
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:417:452:string"
+      ],
+      "text_digest": "99258464cf2dc613d37836ac32b5b1684562cfec0e5c3d209d8ace58d09e8602"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:417:452:string",
+      "kind": "string",
+      "label": "\"@/components/marketing/BlastStory\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 27,
+          "byte": 417
+        },
+        "end": {
+          "line": 7,
+          "column": 62,
+          "byte": 452
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:418:451:string_fragment"
+      ],
+      "text_digest": "f655daef2cf94cd34d3efe6e31d89b968de67eef56d923982b6af06f202fe221"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:418:451:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/components/marketing/BlastStory",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 28,
+          "byte": 418
+        },
+        "end": {
+          "line": 7,
+          "column": 61,
+          "byte": 451
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ccd1f37a81537122f85dc70765cdcac16a74e04f774a686886d46a11fbc4bc6a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:import_clause",
+      "kind": "import_clause",
+      "label": "{ BlastStory }",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 7,
+          "byte": 397
+        },
+        "end": {
+          "line": 7,
+          "column": 21,
+          "byte": 411
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:named_imports"
+      ],
+      "text_digest": "93dc92cbeb3340d3e78c0ec6662519f6426a1dde1e467362a08f33fccb10efec"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:397:411:named_imports",
+      "kind": "named_imports",
+      "label": "{ BlastStory }",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 7,
+          "byte": 397
+        },
+        "end": {
+          "line": 7,
+          "column": 21,
+          "byte": 411
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:399:409:import_specifier"
+      ],
+      "text_digest": "93dc92cbeb3340d3e78c0ec6662519f6426a1dde1e467362a08f33fccb10efec"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:399:409:import_specifier",
+      "kind": "import_specifier",
+      "label": "BlastStory",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 9,
+          "byte": 399
+        },
+        "end": {
+          "line": 7,
+          "column": 19,
+          "byte": 409
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:399:409:identifier"
+      ],
+      "text_digest": "b5edfaf6af21c30a952d0c1db9b5a2e4ae7a2c1df5c4fba8916307e5ad07d9eb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:399:409:identifier",
+      "kind": "identifier",
+      "label": "BlastStory",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 9,
+          "byte": 399
+        },
+        "end": {
+          "line": 7,
+          "column": 19,
+          "byte": 409
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b5edfaf6af21c30a952d0c1db9b5a2e4ae7a2c1df5c4fba8916307e5ad07d9eb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:323:388:import_statement",
+      "kind": "import_statement",
+      "label": "import { ConsoleMock } from \"@/components/marketing/ConsoleMock\";",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 0,
+          "byte": 323
+        },
+        "end": {
+          "line": 6,
+          "column": 65,
+          "byte": 388
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:351:387:string"
+      ],
+      "text_digest": "da798d7c9e057a01196c98c2bff7ba4dce048ad3dc77147033e4106de2740794"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:351:387:string",
+      "kind": "string",
+      "label": "\"@/components/marketing/ConsoleMock\"",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 28,
+          "byte": 351
+        },
+        "end": {
+          "line": 6,
+          "column": 64,
+          "byte": 387
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:352:386:string_fragment"
+      ],
+      "text_digest": "ad91128e7844e345f2fbf811e56d278a206463e95e06205668931167c82a0851"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:352:386:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/components/marketing/ConsoleMock",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 29,
+          "byte": 352
+        },
+        "end": {
+          "line": 6,
+          "column": 63,
+          "byte": 386
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f3079d04d43c95bd5d1daad6a584b27da0c29115f1df35f52794ac1dddde7aae"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:import_clause",
+      "kind": "import_clause",
+      "label": "{ ConsoleMock }",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 7,
+          "byte": 330
+        },
+        "end": {
+          "line": 6,
+          "column": 22,
+          "byte": 345
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:named_imports"
+      ],
+      "text_digest": "d0c3bf775b10c1bdd8a77923f2bd663e493765a271de4be9bcb565e9c2b5239d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:330:345:named_imports",
+      "kind": "named_imports",
+      "label": "{ ConsoleMock }",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 7,
+          "byte": 330
+        },
+        "end": {
+          "line": 6,
+          "column": 22,
+          "byte": 345
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:332:343:import_specifier"
+      ],
+      "text_digest": "d0c3bf775b10c1bdd8a77923f2bd663e493765a271de4be9bcb565e9c2b5239d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:332:343:import_specifier",
+      "kind": "import_specifier",
+      "label": "ConsoleMock",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 9,
+          "byte": 332
+        },
+        "end": {
+          "line": 6,
+          "column": 20,
+          "byte": 343
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:332:343:identifier"
+      ],
+      "text_digest": "cfb27885ec74df05c401ec9fb79b013fac76df93ad38abedc34648f95ec3456d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:332:343:identifier",
+      "kind": "identifier",
+      "label": "ConsoleMock",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 9,
+          "byte": 332
+        },
+        "end": {
+          "line": 6,
+          "column": 20,
+          "byte": 343
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cfb27885ec74df05c401ec9fb79b013fac76df93ad38abedc34648f95ec3456d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:254:321:import_statement",
+      "kind": "import_statement",
+      "label": "import { PipelineFlow } from \"@/components/marketing/PipelineFlow\";",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 254
+        },
+        "end": {
+          "line": 5,
+          "column": 67,
+          "byte": 321
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:283:320:string"
+      ],
+      "text_digest": "e4fff9cf13d485eaadbf1da610a318e4a9628cc3dd8fa394e4fe7feaef9c603b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:283:320:string",
+      "kind": "string",
+      "label": "\"@/components/marketing/PipelineFlow\"",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 29,
+          "byte": 283
+        },
+        "end": {
+          "line": 5,
+          "column": 66,
+          "byte": 320
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:284:319:string_fragment"
+      ],
+      "text_digest": "caa09d51cf00cc736b4ab90d10cb1c5e85e25217837c98477e42e94d227900cc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:284:319:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/components/marketing/PipelineFlow",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 30,
+          "byte": 284
+        },
+        "end": {
+          "line": 5,
+          "column": 65,
+          "byte": 319
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c143ca75ca13104442857dc4b7fa9dd5fee182be03cd48c230fa009de8e64d76"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:import_clause",
+      "kind": "import_clause",
+      "label": "{ PipelineFlow }",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 7,
+          "byte": 261
+        },
+        "end": {
+          "line": 5,
+          "column": 23,
+          "byte": 277
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:named_imports"
+      ],
+      "text_digest": "1c9059e54c7181dddbb8e2ba5ce1503012f67e2aa03a903398ffe7db8492a78d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:261:277:named_imports",
+      "kind": "named_imports",
+      "label": "{ PipelineFlow }",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 7,
+          "byte": 261
+        },
+        "end": {
+          "line": 5,
+          "column": 23,
+          "byte": 277
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:263:275:import_specifier"
+      ],
+      "text_digest": "1c9059e54c7181dddbb8e2ba5ce1503012f67e2aa03a903398ffe7db8492a78d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:263:275:import_specifier",
+      "kind": "import_specifier",
+      "label": "PipelineFlow",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 9,
+          "byte": 263
+        },
+        "end": {
+          "line": 5,
+          "column": 21,
+          "byte": 275
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:263:275:identifier"
+      ],
+      "text_digest": "2b4fcaf91f1b4b256f48ce934a32f66eb08f52a8e28acc8ec12dc23b3db1a112"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:263:275:identifier",
+      "kind": "identifier",
+      "label": "PipelineFlow",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 9,
+          "byte": 263
+        },
+        "end": {
+          "line": 5,
+          "column": 21,
+          "byte": 275
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2b4fcaf91f1b4b256f48ce934a32f66eb08f52a8e28acc8ec12dc23b3db1a112"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:187:252:import_statement",
+      "kind": "import_statement",
+      "label": "import { FeatureGrid } from \"@/components/marketing/FeatureGrid\";",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 187
+        },
+        "end": {
+          "line": 4,
+          "column": 65,
+          "byte": 252
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:215:251:string"
+      ],
+      "text_digest": "25e3c8eb10aee0920dd50cdeffaa6b35f9e0942fe4ebd0e39e814dfa90d8f590"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:215:251:string",
+      "kind": "string",
+      "label": "\"@/components/marketing/FeatureGrid\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 28,
+          "byte": 215
+        },
+        "end": {
+          "line": 4,
+          "column": 64,
+          "byte": 251
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:216:250:string_fragment"
+      ],
+      "text_digest": "730f12cb4844ec0f7c0e6b411bf95666029a1ddcfe1a6db2cb9a2507f70eb4b1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:216:250:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/components/marketing/FeatureGrid",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 29,
+          "byte": 216
+        },
+        "end": {
+          "line": 4,
+          "column": 63,
+          "byte": 250
+        }
+      },
+      "children_ids": [],
+      "text_digest": "583a32a94b0dcae19f1cbc33037ec5cf4987d3bbf228616b165ff1a0c27d0a38"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:import_clause",
+      "kind": "import_clause",
+      "label": "{ FeatureGrid }",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 7,
+          "byte": 194
+        },
+        "end": {
+          "line": 4,
+          "column": 22,
+          "byte": 209
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:named_imports"
+      ],
+      "text_digest": "871023ea784ada097e07ec1aa444bc042aa58970a4d451dd386967564cab09cd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:194:209:named_imports",
+      "kind": "named_imports",
+      "label": "{ FeatureGrid }",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 7,
+          "byte": 194
+        },
+        "end": {
+          "line": 4,
+          "column": 22,
+          "byte": 209
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:196:207:import_specifier"
+      ],
+      "text_digest": "871023ea784ada097e07ec1aa444bc042aa58970a4d451dd386967564cab09cd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:196:207:import_specifier",
+      "kind": "import_specifier",
+      "label": "FeatureGrid",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 9,
+          "byte": 196
+        },
+        "end": {
+          "line": 4,
+          "column": 20,
+          "byte": 207
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:196:207:identifier"
+      ],
+      "text_digest": "3149d9c5e7947855b1a16d367caaede03cd846753fb28f771d1b1b02b3c2f208"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:196:207:identifier",
+      "kind": "identifier",
+      "label": "FeatureGrid",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 9,
+          "byte": 196
+        },
+        "end": {
+          "line": 4,
+          "column": 20,
+          "byte": 207
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3149d9c5e7947855b1a16d367caaede03cd846753fb28f771d1b1b02b3c2f208"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:122:185:import_statement",
+      "kind": "import_statement",
+      "label": "import { TrustStrip } from \"@/components/marketing/TrustStrip\";",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 0,
+          "byte": 122
+        },
+        "end": {
+          "line": 3,
+          "column": 63,
+          "byte": 185
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:149:184:string"
+      ],
+      "text_digest": "20b401c4caa27ec69ac5103c03e0657aab58c3f144c93d226e62944f51bd93e0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:149:184:string",
+      "kind": "string",
+      "label": "\"@/components/marketing/TrustStrip\"",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 27,
+          "byte": 149
+        },
+        "end": {
+          "line": 3,
+          "column": 62,
+          "byte": 184
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:150:183:string_fragment"
+      ],
+      "text_digest": "d4ff1153311d34f4f3915976205ada7c0123ad7821d55da1c0ccc628330cfce9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:150:183:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/components/marketing/TrustStrip",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 28,
+          "byte": 150
+        },
+        "end": {
+          "line": 3,
+          "column": 61,
+          "byte": 183
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ad1d48677dc21cbc0ac17e8cdf5d6b96b54b41affe642b6ddc40770ca0097af7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:import_clause",
+      "kind": "import_clause",
+      "label": "{ TrustStrip }",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 7,
+          "byte": 129
+        },
+        "end": {
+          "line": 3,
+          "column": 21,
+          "byte": 143
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:named_imports"
+      ],
+      "text_digest": "8aac0ae4895a37d66e0ca8a55b9651817b9c3b632a5845bda1cc15645a562698"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:129:143:named_imports",
+      "kind": "named_imports",
+      "label": "{ TrustStrip }",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 7,
+          "byte": 129
+        },
+        "end": {
+          "line": 3,
+          "column": 21,
+          "byte": 143
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:131:141:import_specifier"
+      ],
+      "text_digest": "8aac0ae4895a37d66e0ca8a55b9651817b9c3b632a5845bda1cc15645a562698"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:131:141:import_specifier",
+      "kind": "import_specifier",
+      "label": "TrustStrip",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 9,
+          "byte": 131
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 141
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:131:141:identifier"
+      ],
+      "text_digest": "1cc2833c8f5d332a75c7e2e39727ee79754ddcc017b5f76b82c241d14eb9b4b9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:131:141:identifier",
+      "kind": "identifier",
+      "label": "TrustStrip",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 9,
+          "byte": 131
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 141
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1cc2833c8f5d332a75c7e2e39727ee79754ddcc017b5f76b82c241d14eb9b4b9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:69:120:import_statement",
+      "kind": "import_statement",
+      "label": "import { Hero } from \"@/components/marketing/Hero\";",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 69
+        },
+        "end": {
+          "line": 2,
+          "column": 51,
+          "byte": 120
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:90:119:string"
+      ],
+      "text_digest": "e86a74d38e3c0b98178f243860cb381fbc3e3dd807a0f6050ec38965a7507324"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:90:119:string",
+      "kind": "string",
+      "label": "\"@/components/marketing/Hero\"",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 21,
+          "byte": 90
+        },
+        "end": {
+          "line": 2,
+          "column": 50,
+          "byte": 119
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:91:118:string_fragment"
+      ],
+      "text_digest": "ef4a304f11883d00a55b616af6d8beaba59dedcd75c52841ba7ffd8567551f46"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:91:118:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/components/marketing/Hero",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 22,
+          "byte": 91
+        },
+        "end": {
+          "line": 2,
+          "column": 49,
+          "byte": 118
+        }
+      },
+      "children_ids": [],
+      "text_digest": "454ff1e72886415b019f740c5c6313ce78fdc3ce64790c49fde28ae39af29ec8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:import_clause",
+      "kind": "import_clause",
+      "label": "{ Hero }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 76
+        },
+        "end": {
+          "line": 2,
+          "column": 15,
+          "byte": 84
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:named_imports"
+      ],
+      "text_digest": "8ed484ee8fb0b055b7d66bf9b38ff2e90ab263cbaeccbd9a1f6292c3f15995fc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:76:84:named_imports",
+      "kind": "named_imports",
+      "label": "{ Hero }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 76
+        },
+        "end": {
+          "line": 2,
+          "column": 15,
+          "byte": 84
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:78:82:import_specifier"
+      ],
+      "text_digest": "8ed484ee8fb0b055b7d66bf9b38ff2e90ab263cbaeccbd9a1f6292c3f15995fc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:78:82:import_specifier",
+      "kind": "import_specifier",
+      "label": "Hero",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 78
+        },
+        "end": {
+          "line": 2,
+          "column": 13,
+          "byte": 82
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:78:82:identifier"
+      ],
+      "text_digest": "72a9345fb29494a4e9667d7bd68f37e8fe1df384270553f17b4c4a06b1f2b5e0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:78:82:identifier",
+      "kind": "identifier",
+      "label": "Hero",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 78
+        },
+        "end": {
+          "line": 2,
+          "column": 13,
+          "byte": 82
+        }
+      },
+      "children_ids": [],
+      "text_digest": "72a9345fb29494a4e9667d7bd68f37e8fe1df384270553f17b4c4a06b1f2b5e0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:0:67:import_statement",
+      "kind": "import_statement",
+      "label": "import { MarketingNav } from \"@/components/marketing/MarketingNav\";",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 67,
+          "byte": 67
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:29:66:string"
+      ],
+      "text_digest": "50195e89adfdbb72c88cf2be71d6721a159a1c8cfa214eb089ff4b9070890ae6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:29:66:string",
+      "kind": "string",
+      "label": "\"@/components/marketing/MarketingNav\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 29,
+          "byte": 29
+        },
+        "end": {
+          "line": 1,
+          "column": 66,
+          "byte": 66
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:30:65:string_fragment"
+      ],
+      "text_digest": "c1bc5618013cd41eff5c06580ab7d57e432b4c735f88440f350a46c2b1580391"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:30:65:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/components/marketing/MarketingNav",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 30,
+          "byte": 30
+        },
+        "end": {
+          "line": 1,
+          "column": 65,
+          "byte": 65
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7b884078f1544371394fc5fe234ddb343bf07a2452d1685d733d050c59278906"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:import_clause",
+      "kind": "import_clause",
+      "label": "{ MarketingNav }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 23,
+          "byte": 23
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:named_imports"
+      ],
+      "text_digest": "7ae6a2b41bd5990df687099ec8b5795a669f7ccdc35cd079b3d2bfe1c253fd19"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:7:23:named_imports",
+      "kind": "named_imports",
+      "label": "{ MarketingNav }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 23,
+          "byte": 23
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:9:21:import_specifier"
+      ],
+      "text_digest": "7ae6a2b41bd5990df687099ec8b5795a669f7ccdc35cd079b3d2bfe1c253fd19"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:9:21:import_specifier",
+      "kind": "import_specifier",
+      "label": "MarketingNav",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 21,
+          "byte": 21
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:9:21:identifier"
+      ],
+      "text_digest": "cb47837b944a95fbcf90427f029d06cece9413dfb14521d074a3c6003c3c4425"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/page.tsx:9:21:identifier",
+      "kind": "identifier",
+      "label": "MarketingNav",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 21,
+          "byte": 21
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cb47837b944a95fbcf90427f029d06cece9413dfb14521d074a3c6003c3c4425"
+    }
+  ],
+  "parser_id": "tree_sitter_typescript",
+  "relative_path": "apps/web/app/page.tsx",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "typescript",
+  "warnings": []
+}

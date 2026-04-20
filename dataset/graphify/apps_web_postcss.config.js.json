@@ -1,0 +1,451 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:38+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:89:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:87:expression_statement:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:89:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:87:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:87:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:86:assignment_expression:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:87:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:86:assignment_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:86:assignment_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:17:86:object:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:86:assignment_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:17:86:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:17:86:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:82:pair:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:17:86:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:82:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:82:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:31:82:object:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:82:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:31:82:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:31:82:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:76:pair:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:31:82:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:76:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:76:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:74:76:object:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:76:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:74:76:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:76:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:72:property_identifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:76:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:72:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:31:82:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:53:pair:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:31:82:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:53:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:53:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:51:53:object:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:53:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:51:53:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:53:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:49:property_identifier:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:53:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:49:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:82:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:29:property_identifier:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:82:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:29:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:86:assignment_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:14:member_expression:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:86:assignment_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:14:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:14:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:7:14:property_identifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:14:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:7:14:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:14:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:6:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:14:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:6:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:89:program",
+      "kind": "program",
+      "label": "module.exports = {\r\n  plugins: {\r\n    tailwindcss: {},\r\n    autoprefixer: {},\r\n  },\r\n};\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 0,
+          "byte": 89
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:87:expression_statement"
+      ],
+      "text_digest": "b78f5d0a0a449ecf58b6b6252e26cd2216c7aa41235e2d6d01a26b9a065cd439"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:87:expression_statement",
+      "kind": "expression_statement",
+      "label": "module.exports = {\r\n  plugins: {\r\n    tailwindcss: {},\r\n    autoprefixer: {},\r\n  },\r\n};",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 6,
+          "column": 2,
+          "byte": 87
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:86:assignment_expression"
+      ],
+      "text_digest": "d53cc7a39618f570f19c5f055340a4c99bcd53d9eb733cee876eefc47f399105"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:86:assignment_expression",
+      "kind": "assignment_expression",
+      "label": "module.exports = {\r\n  plugins: {\r\n    tailwindcss: {},\r\n    autoprefixer: {},\r\n  },\r\n}",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 6,
+          "column": 1,
+          "byte": 86
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:14:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:17:86:object"
+      ],
+      "text_digest": "af4d69ff2ab11374cef9e036bb382ef509577b4cda8594959416ea7e3ea6f130"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:17:86:object",
+      "kind": "object",
+      "label": "{\r\n  plugins: {\r\n    tailwindcss: {},\r\n    autoprefixer: {},\r\n  },\r\n}",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 17,
+          "byte": 17
+        },
+        "end": {
+          "line": 6,
+          "column": 1,
+          "byte": 86
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:82:pair"
+      ],
+      "text_digest": "dbe4727191ed04a7ac461c77155c74edf5446d4fc5fe0e62cee7b68a4e3a81b9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:82:pair",
+      "kind": "pair",
+      "label": "plugins: {\r\n    tailwindcss: {},\r\n    autoprefixer: {},\r\n  }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 2,
+          "byte": 22
+        },
+        "end": {
+          "line": 5,
+          "column": 3,
+          "byte": 82
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:29:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:31:82:object"
+      ],
+      "text_digest": "c3a6736db217d2f6a62988ff4a218053a352489450f96409f270dc123c9b62ba"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:31:82:object",
+      "kind": "object",
+      "label": "{\r\n    tailwindcss: {},\r\n    autoprefixer: {},\r\n  }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 11,
+          "byte": 31
+        },
+        "end": {
+          "line": 5,
+          "column": 3,
+          "byte": 82
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:53:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:76:pair"
+      ],
+      "text_digest": "cb15e9d85a4546529dddf062b1269a08bc976f09549d6e1fd589a7041e0b47a4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:76:pair",
+      "kind": "pair",
+      "label": "autoprefixer: {}",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 4,
+          "byte": 60
+        },
+        "end": {
+          "line": 4,
+          "column": 20,
+          "byte": 76
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:72:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:74:76:object"
+      ],
+      "text_digest": "97aa70efabc09ab39e50333c91a88af42a64945cb0360d2b26d5aa6741ef3e32"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:74:76:object",
+      "kind": "object",
+      "label": "{}",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 18,
+          "byte": 74
+        },
+        "end": {
+          "line": 4,
+          "column": 20,
+          "byte": 76
+        }
+      },
+      "children_ids": [],
+      "text_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:60:72:property_identifier",
+      "kind": "property_identifier",
+      "label": "autoprefixer",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 4,
+          "byte": 60
+        },
+        "end": {
+          "line": 4,
+          "column": 16,
+          "byte": 72
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8c07ba908c53a8b90ce9fc791788531c6a58123ff40eb356844c778e7291dd1c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:53:pair",
+      "kind": "pair",
+      "label": "tailwindcss: {}",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 4,
+          "byte": 38
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 53
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:49:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:51:53:object"
+      ],
+      "text_digest": "91784c89408d560b4a82636b9d10dff5e7587e371951a8e466af6b21bc2ceb9f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:51:53:object",
+      "kind": "object",
+      "label": "{}",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 17,
+          "byte": 51
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 53
+        }
+      },
+      "children_ids": [],
+      "text_digest": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:38:49:property_identifier",
+      "kind": "property_identifier",
+      "label": "tailwindcss",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 4,
+          "byte": 38
+        },
+        "end": {
+          "line": 3,
+          "column": 15,
+          "byte": 49
+        }
+      },
+      "children_ids": [],
+      "text_digest": "bb8e94b352aa28a80bcc994ebf539fc6bec515abb53ba73a275e846bcb029d52"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:22:29:property_identifier",
+      "kind": "property_identifier",
+      "label": "plugins",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 2,
+          "byte": 22
+        },
+        "end": {
+          "line": 2,
+          "column": 9,
+          "byte": 29
+        }
+      },
+      "children_ids": [],
+      "text_digest": "92cd10e6b8b068a931196d1d73a032543d5ca1a5bf445e27a1af74258254517c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:14:member_expression",
+      "kind": "member_expression",
+      "label": "module.exports",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 14,
+          "byte": 14
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:6:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:7:14:property_identifier"
+      ],
+      "text_digest": "45eaa67d1c6433d8450e5d77ebd184aec631d8b96a00daf07d5ffb70c69b2f0d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:7:14:property_identifier",
+      "kind": "property_identifier",
+      "label": "exports",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 14,
+          "byte": 14
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4b4e49dd2de5eae9881688638d7453803ea88b3721146b8f97a5508b5b5c6aa5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/postcss.config.js:0:6:identifier",
+      "kind": "identifier",
+      "label": "module",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 6,
+          "byte": 6
+        }
+      },
+      "children_ids": [],
+      "text_digest": "120970d812836f19888625587a4606a5ad23cef31c8684e601771552548fc6b9"
+    }
+  ],
+  "parser_id": "tree_sitter_javascript",
+  "relative_path": "apps/web/postcss.config.js",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "javascript",
+  "warnings": []
+}

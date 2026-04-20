@@ -1,0 +1,778 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:54+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:218:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:expression_statement:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:218:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:assignment:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:160:216:list:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:160:216:list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:160:216:list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:215:string:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:160:216:list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:215:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:215:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:214:215:string_end:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:215:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:214:215:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:215:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:196:214:string_content:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:215:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:196:214:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:215:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:196:string_start:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:215:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:196:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:160:216:list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:193:string:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:160:216:list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:193:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:193:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:192:193:string_end:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:193:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:192:193:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:193:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:179:192:string_content:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:193:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:179:192:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:193:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:179:string_start:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:193:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:179:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:160:216:list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:176:string:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:160:216:list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:176:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:176:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:175:176:string_end:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:176:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:175:176:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:176:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:162:175:string_content:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:176:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:162:175:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:176:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:162:string_start:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:176:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:162:string_start",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:157:identifier:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:157:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:218:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:218:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:128:146:dotted_name:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:128:146:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:128:146:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:128:146:identifier:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:128:146:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:128:146:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:113:126:dotted_name:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:113:126:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:113:126:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:113:126:identifier:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:113:126:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:113:126:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:98:111:dotted_name:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:98:111:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:98:111:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:98:111:identifier:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:98:111:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:98:111:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:90:dotted_name:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:90:dotted_name",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:90:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:84:90:identifier:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:90:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:84:90:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:90:dotted_name->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:83:identifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:90:dotted_name",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:83:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:218:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:69:comment:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:218:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:69:comment",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:218:module",
+      "kind": "module",
+      "label": "# re-export manifest helpers from detect for backwards compatibility\r\nfrom graphify.detect import save_manifest, load_manifest, detect_incremental\r\n\r\n__all__ = [\"save_manifest\", \"load_manifest\", \"detect_incremental\"]\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 5,
+          "column": 0,
+          "byte": 218
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:69:comment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:expression_statement"
+      ],
+      "text_digest": "2a27689446b82dceffde913cb746c41ccfac6b8fba707cea2137d0501d86671d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:expression_statement",
+      "kind": "expression_statement",
+      "label": "__all__ = [\"save_manifest\", \"load_manifest\", \"detect_incremental\"]",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 150
+        },
+        "end": {
+          "line": 4,
+          "column": 66,
+          "byte": 216
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:assignment"
+      ],
+      "text_digest": "24c442d6bc0437d0cd2f14de6f44b837aead1b48c0ca8e438a10d7bf659e516a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:216:assignment",
+      "kind": "assignment",
+      "label": "__all__ = [\"save_manifest\", \"load_manifest\", \"detect_incremental\"]",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 150
+        },
+        "end": {
+          "line": 4,
+          "column": 66,
+          "byte": 216
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:157:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:160:216:list"
+      ],
+      "text_digest": "24c442d6bc0437d0cd2f14de6f44b837aead1b48c0ca8e438a10d7bf659e516a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:160:216:list",
+      "kind": "list",
+      "label": "[\"save_manifest\", \"load_manifest\", \"detect_incremental\"]",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 10,
+          "byte": 160
+        },
+        "end": {
+          "line": 4,
+          "column": 66,
+          "byte": 216
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:176:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:193:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:215:string"
+      ],
+      "text_digest": "9b464e8253ebb5b1182a5e040c803566e56801205be37093c989f54b7d999423"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:215:string",
+      "kind": "string",
+      "label": "\"detect_incremental\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 45,
+          "byte": 195
+        },
+        "end": {
+          "line": 4,
+          "column": 65,
+          "byte": 215
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:196:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:196:214:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:214:215:string_end"
+      ],
+      "text_digest": "913114445bc0390bd157b833241833c66c0c29f16f77e12ef9c7246d3ec513a9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:214:215:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 64,
+          "byte": 214
+        },
+        "end": {
+          "line": 4,
+          "column": 65,
+          "byte": 215
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:196:214:string_content",
+      "kind": "string_content",
+      "label": "detect_incremental",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 46,
+          "byte": 196
+        },
+        "end": {
+          "line": 4,
+          "column": 64,
+          "byte": 214
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7cd837e67bb0d8f67eef681dd7095ae4ddf5a899e7b18769aac2099c19b5f11e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:195:196:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 45,
+          "byte": 195
+        },
+        "end": {
+          "line": 4,
+          "column": 46,
+          "byte": 196
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:193:string",
+      "kind": "string",
+      "label": "\"load_manifest\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 28,
+          "byte": 178
+        },
+        "end": {
+          "line": 4,
+          "column": 43,
+          "byte": 193
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:179:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:179:192:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:192:193:string_end"
+      ],
+      "text_digest": "40464e7a9ceed54a583adc0fad4caa9c8a0c5f6c6c33faf7c97373566950af70"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:192:193:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 42,
+          "byte": 192
+        },
+        "end": {
+          "line": 4,
+          "column": 43,
+          "byte": 193
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:179:192:string_content",
+      "kind": "string_content",
+      "label": "load_manifest",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 29,
+          "byte": 179
+        },
+        "end": {
+          "line": 4,
+          "column": 42,
+          "byte": 192
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b96af3fe4a6b611a7bd0142fa7d185ffbb0f92103d72b37c5d56b2b46c8e562a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:178:179:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 28,
+          "byte": 178
+        },
+        "end": {
+          "line": 4,
+          "column": 29,
+          "byte": 179
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:176:string",
+      "kind": "string",
+      "label": "\"save_manifest\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 11,
+          "byte": 161
+        },
+        "end": {
+          "line": 4,
+          "column": 26,
+          "byte": 176
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:162:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:162:175:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:175:176:string_end"
+      ],
+      "text_digest": "d388da1717d86a61d9b2820ac73f9fe5748ccf3bf5c4750348f5363525ddf3f2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:175:176:string_end",
+      "kind": "string_end",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 25,
+          "byte": 175
+        },
+        "end": {
+          "line": 4,
+          "column": 26,
+          "byte": 176
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:162:175:string_content",
+      "kind": "string_content",
+      "label": "save_manifest",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 12,
+          "byte": 162
+        },
+        "end": {
+          "line": 4,
+          "column": 25,
+          "byte": 175
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3e45c35038368cd71000c495906e1d618236339442477f0fd3da39fd26b0d4a0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:161:162:string_start",
+      "kind": "string_start",
+      "label": "\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 11,
+          "byte": 161
+        },
+        "end": {
+          "line": 4,
+          "column": 12,
+          "byte": 162
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a331fdde7032f33a71e1b2e257d80166e348e00fcb17914f48bdb57a1c63007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:150:157:identifier",
+      "kind": "identifier",
+      "label": "__all__",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 150
+        },
+        "end": {
+          "line": 4,
+          "column": 7,
+          "byte": 157
+        }
+      },
+      "children_ids": [],
+      "text_digest": "051af376199dec216b4807623fae755a2c013911d8219aa607787b17e3ed9cd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:70:146:import_from_statement",
+      "kind": "import_from_statement",
+      "label": "from graphify.detect import save_manifest, load_manifest, detect_incremental",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 70
+        },
+        "end": {
+          "line": 2,
+          "column": 76,
+          "byte": 146
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:90:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:98:111:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:113:126:dotted_name",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:128:146:dotted_name"
+      ],
+      "text_digest": "4a2ffba830d31aefce9a71165e5a8ede6471c50f669ef66bd29b7981a07e600e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:128:146:dotted_name",
+      "kind": "dotted_name",
+      "label": "detect_incremental",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 58,
+          "byte": 128
+        },
+        "end": {
+          "line": 2,
+          "column": 76,
+          "byte": 146
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:128:146:identifier"
+      ],
+      "text_digest": "7cd837e67bb0d8f67eef681dd7095ae4ddf5a899e7b18769aac2099c19b5f11e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:128:146:identifier",
+      "kind": "identifier",
+      "label": "detect_incremental",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 58,
+          "byte": 128
+        },
+        "end": {
+          "line": 2,
+          "column": 76,
+          "byte": 146
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7cd837e67bb0d8f67eef681dd7095ae4ddf5a899e7b18769aac2099c19b5f11e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:113:126:dotted_name",
+      "kind": "dotted_name",
+      "label": "load_manifest",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 43,
+          "byte": 113
+        },
+        "end": {
+          "line": 2,
+          "column": 56,
+          "byte": 126
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:113:126:identifier"
+      ],
+      "text_digest": "b96af3fe4a6b611a7bd0142fa7d185ffbb0f92103d72b37c5d56b2b46c8e562a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:113:126:identifier",
+      "kind": "identifier",
+      "label": "load_manifest",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 43,
+          "byte": 113
+        },
+        "end": {
+          "line": 2,
+          "column": 56,
+          "byte": 126
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b96af3fe4a6b611a7bd0142fa7d185ffbb0f92103d72b37c5d56b2b46c8e562a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:98:111:dotted_name",
+      "kind": "dotted_name",
+      "label": "save_manifest",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 28,
+          "byte": 98
+        },
+        "end": {
+          "line": 2,
+          "column": 41,
+          "byte": 111
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:98:111:identifier"
+      ],
+      "text_digest": "3e45c35038368cd71000c495906e1d618236339442477f0fd3da39fd26b0d4a0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:98:111:identifier",
+      "kind": "identifier",
+      "label": "save_manifest",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 28,
+          "byte": 98
+        },
+        "end": {
+          "line": 2,
+          "column": 41,
+          "byte": 111
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3e45c35038368cd71000c495906e1d618236339442477f0fd3da39fd26b0d4a0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:90:dotted_name",
+      "kind": "dotted_name",
+      "label": "graphify.detect",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 5,
+          "byte": 75
+        },
+        "end": {
+          "line": 2,
+          "column": 20,
+          "byte": 90
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:83:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:84:90:identifier"
+      ],
+      "text_digest": "21c2999f2cc2aae8f7a83b543b3a8c3dc10799cb62c8c5def146a02fc3202cea"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:84:90:identifier",
+      "kind": "identifier",
+      "label": "detect",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 14,
+          "byte": 84
+        },
+        "end": {
+          "line": 2,
+          "column": 20,
+          "byte": 90
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cfacfd3ec33b9608b59a343d05da204c18abf0eebac9aee076fe9d97a3acee87"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:75:83:identifier",
+      "kind": "identifier",
+      "label": "graphify",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 5,
+          "byte": 75
+        },
+        "end": {
+          "line": 2,
+          "column": 13,
+          "byte": 83
+        }
+      },
+      "children_ids": [],
+      "text_digest": "aaef3928cdb8052e107b1f5fb01b60a1e9461a72fbd484f0df71b8553196d0e9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:graphify/manifest.py:0:69:comment",
+      "kind": "comment",
+      "label": "# re-export manifest helpers from detect for backwards compatibility\r",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 69,
+          "byte": 69
+        }
+      },
+      "children_ids": [],
+      "text_digest": "bd8f6ea88fa882d42c62a0985fab923a434df4af249e1ba22f003ba734739f11"
+    }
+  ],
+  "parser_id": "tree_sitter_python",
+  "relative_path": "graphify/manifest.py",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "python",
+  "warnings": []
+}

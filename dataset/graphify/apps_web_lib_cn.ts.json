@@ -1,0 +1,1062 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:42+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:183:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:92:181:export_statement:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:183:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:92:181:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:92:181:export_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:92:181:export_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:144:181:statement_block:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:144:181:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:144:181:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:149:178:return_statement:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:144:181:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:149:178:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:149:178:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:177:call_expression:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:149:178:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:177:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:177:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:163:177:arguments:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:177:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:163:177:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:163:177:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:176:call_expression:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:163:177:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:176:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:176:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:168:176:arguments:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:176:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:168:176:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:168:176:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:169:175:identifier:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:168:176:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:169:175:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:176:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:168:identifier:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:176:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:168:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:177:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:163:identifier:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:177:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:163:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:135:143:type_annotation:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:135:143:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:135:143:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:137:143:predefined_type:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:135:143:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:137:143:predefined_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:110:135:formal_parameters:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:110:135:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:110:135:formal_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:134:required_parameter:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:110:135:formal_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:134:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:134:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:120:134:type_annotation:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:134:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:120:134:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:120:134:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:122:134:array_type:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:120:134:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:122:134:array_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:122:134:array_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:122:132:type_identifier:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:122:134:array_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:122:132:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:134:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:120:rest_pattern:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:134:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:120:rest_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:120:rest_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:114:120:identifier:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:120:rest_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:114:120:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:108:110:identifier:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:108:110:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:183:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:47:88:import_statement:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:183:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:47:88:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:47:88:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:71:87:string:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:47:88:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:71:87:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:71:87:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:72:86:string_fragment:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:71:87:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:72:86:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:47:88:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:import_clause:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:47:88:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:named_imports:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:56:63:import_specifier:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:56:63:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:56:63:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:56:63:identifier:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:56:63:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:56:63:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:183:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:45:import_statement:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:183:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:45:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:45:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:38:44:string:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:45:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:38:44:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:38:44:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:39:43:string_fragment:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:38:44:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:39:43:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:45:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:import_clause:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:45:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:named_imports:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:15:30:import_specifier:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:15:30:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:15:30:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:20:30:identifier:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:15:30:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:20:30:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:9:13:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:9:13:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:9:13:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:9:13:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:9:13:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:9:13:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:183:program",
+      "kind": "program",
+      "label": "import { clsx, type ClassValue } from \"clsx\";\r\nimport { twMerge } from \"tailwind-merge\";\r\n\r\nexport function cn(...inputs: ClassValue[]): string {\r\n  return twMerge(clsx(inputs));\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 0,
+          "byte": 183
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:45:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:47:88:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:92:181:export_statement"
+      ],
+      "text_digest": "c2aa0cde88a8b5b5db7718003da1a345bdcce5f31085800b66ff0dddedfb0254"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:92:181:export_statement",
+      "kind": "export_statement",
+      "label": "export function cn(...inputs: ClassValue[]): string {\r\n  return twMerge(clsx(inputs));\r\n}",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 92
+        },
+        "end": {
+          "line": 6,
+          "column": 1,
+          "byte": 181
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration"
+      ],
+      "text_digest": "7441fff503bb710369bb7e1ce1dd2105120e61621ff661da0c921188c231067d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:99:181:function_declaration",
+      "kind": "function_declaration",
+      "label": "function cn(...inputs: ClassValue[]): string {\r\n  return twMerge(clsx(inputs));\r\n}",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 7,
+          "byte": 99
+        },
+        "end": {
+          "line": 6,
+          "column": 1,
+          "byte": 181
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:108:110:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:110:135:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:135:143:type_annotation",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:144:181:statement_block"
+      ],
+      "text_digest": "b8d7f3370da3483c432eea600014a56e710c3c8797e9a945f2b24ffb4fea7705"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:144:181:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  return twMerge(clsx(inputs));\r\n}",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 52,
+          "byte": 144
+        },
+        "end": {
+          "line": 6,
+          "column": 1,
+          "byte": 181
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:149:178:return_statement"
+      ],
+      "text_digest": "4a404a23699ef65a03a6b18e5d5e9233e414e8c7a4ac58021bf1efd37e90ea5f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:149:178:return_statement",
+      "kind": "return_statement",
+      "label": "return twMerge(clsx(inputs));",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 2,
+          "byte": 149
+        },
+        "end": {
+          "line": 5,
+          "column": 31,
+          "byte": 178
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:177:call_expression"
+      ],
+      "text_digest": "530bc4fdbb54a5d6531aba5a7c00d127209ad4b5b6afe4cb50ebb1325c83a305"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:177:call_expression",
+      "kind": "call_expression",
+      "label": "twMerge(clsx(inputs))",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 9,
+          "byte": 156
+        },
+        "end": {
+          "line": 5,
+          "column": 30,
+          "byte": 177
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:163:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:163:177:arguments"
+      ],
+      "text_digest": "1e67109bf4f5348c42a7461258a937508c11bedf76023a01cbc5c3bfbda985f4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:163:177:arguments",
+      "kind": "arguments",
+      "label": "(clsx(inputs))",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 16,
+          "byte": 163
+        },
+        "end": {
+          "line": 5,
+          "column": 30,
+          "byte": 177
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:176:call_expression"
+      ],
+      "text_digest": "c76682ea13dcf1e524f21b27f3842bf3c42b64de6959f9c8305d804667c4f86a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:176:call_expression",
+      "kind": "call_expression",
+      "label": "clsx(inputs)",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 17,
+          "byte": 164
+        },
+        "end": {
+          "line": 5,
+          "column": 29,
+          "byte": 176
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:168:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:168:176:arguments"
+      ],
+      "text_digest": "1a0b127d823c98b61f5488393e153b5ca79ffb80db5415604e91436fe2333033"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:168:176:arguments",
+      "kind": "arguments",
+      "label": "(inputs)",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 21,
+          "byte": 168
+        },
+        "end": {
+          "line": 5,
+          "column": 29,
+          "byte": 176
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:169:175:identifier"
+      ],
+      "text_digest": "d42065c969555380350e83e1b31742e194a4ae501dc215834beaef9821df9604"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:169:175:identifier",
+      "kind": "identifier",
+      "label": "inputs",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 22,
+          "byte": 169
+        },
+        "end": {
+          "line": 5,
+          "column": 28,
+          "byte": 175
+        }
+      },
+      "children_ids": [],
+      "text_digest": "32381523e63197c929b67f793a8098bed0ae3a6fa902634fdbcc6fa4567f3346"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:164:168:identifier",
+      "kind": "identifier",
+      "label": "clsx",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 17,
+          "byte": 164
+        },
+        "end": {
+          "line": 5,
+          "column": 21,
+          "byte": 168
+        }
+      },
+      "children_ids": [],
+      "text_digest": "80d4351d813b4e5d91a7140f25a25cb286837f2fa19c3199c1865b72561bb579"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:156:163:identifier",
+      "kind": "identifier",
+      "label": "twMerge",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 9,
+          "byte": 156
+        },
+        "end": {
+          "line": 5,
+          "column": 16,
+          "byte": 163
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2300a80e9d9e7e4aaeaddafec38b88b419aa378fbff13acbb508507c26eb1bcb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:135:143:type_annotation",
+      "kind": "type_annotation",
+      "label": ": string",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 43,
+          "byte": 135
+        },
+        "end": {
+          "line": 4,
+          "column": 51,
+          "byte": 143
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:137:143:predefined_type"
+      ],
+      "text_digest": "119ef915c501d6b12fca567351887d77d657779ecf4b5b30506f6a9632a3e502"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:137:143:predefined_type",
+      "kind": "predefined_type",
+      "label": "string",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 45,
+          "byte": 137
+        },
+        "end": {
+          "line": 4,
+          "column": 51,
+          "byte": 143
+        }
+      },
+      "children_ids": [],
+      "text_digest": "473287f8298dba7163a897908958f7c0eae733e25d2e027992ea2edc9bed2fa8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:110:135:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(...inputs: ClassValue[])",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 18,
+          "byte": 110
+        },
+        "end": {
+          "line": 4,
+          "column": 43,
+          "byte": 135
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:134:required_parameter"
+      ],
+      "text_digest": "d1d420bf648e5530918c29d9cc9eb1c5ee4b8c7824aebcfba738334e462d2ac5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:134:required_parameter",
+      "kind": "required_parameter",
+      "label": "...inputs: ClassValue[]",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 19,
+          "byte": 111
+        },
+        "end": {
+          "line": 4,
+          "column": 42,
+          "byte": 134
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:120:rest_pattern",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:120:134:type_annotation"
+      ],
+      "text_digest": "8eea39742480db6cd60e361688ad96478ce2aff3e7ea64fddd65bd62c8ae7045"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:120:134:type_annotation",
+      "kind": "type_annotation",
+      "label": ": ClassValue[]",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 28,
+          "byte": 120
+        },
+        "end": {
+          "line": 4,
+          "column": 42,
+          "byte": 134
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:122:134:array_type"
+      ],
+      "text_digest": "689b52f6fa31f6c14b90e6a9d484f0aa07897994214ac6767175a27760e4abb9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:122:134:array_type",
+      "kind": "array_type",
+      "label": "ClassValue[]",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 30,
+          "byte": 122
+        },
+        "end": {
+          "line": 4,
+          "column": 42,
+          "byte": 134
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:122:132:type_identifier"
+      ],
+      "text_digest": "812600152821575c75005b8854f4003542b0f1b60a97c2d596e7088c12f23ce3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:122:132:type_identifier",
+      "kind": "type_identifier",
+      "label": "ClassValue",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 30,
+          "byte": 122
+        },
+        "end": {
+          "line": 4,
+          "column": 40,
+          "byte": 132
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f22fd06297a176aeaa3412886d03d6d9635448a85f6eca14ad1959d44666c44f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:111:120:rest_pattern",
+      "kind": "rest_pattern",
+      "label": "...inputs",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 19,
+          "byte": 111
+        },
+        "end": {
+          "line": 4,
+          "column": 28,
+          "byte": 120
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:114:120:identifier"
+      ],
+      "text_digest": "55175841b2b47c6555e3afb8e7cfef2f6c58be110c22b635d99fc207aa2ace1a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:114:120:identifier",
+      "kind": "identifier",
+      "label": "inputs",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 22,
+          "byte": 114
+        },
+        "end": {
+          "line": 4,
+          "column": 28,
+          "byte": 120
+        }
+      },
+      "children_ids": [],
+      "text_digest": "32381523e63197c929b67f793a8098bed0ae3a6fa902634fdbcc6fa4567f3346"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:108:110:identifier",
+      "kind": "identifier",
+      "label": "cn",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 16,
+          "byte": 108
+        },
+        "end": {
+          "line": 4,
+          "column": 18,
+          "byte": 110
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ff2082aa78aea80a27cb4fb91f0350153702c16dce790a77f0bb0bfbf6899977"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:47:88:import_statement",
+      "kind": "import_statement",
+      "label": "import { twMerge } from \"tailwind-merge\";",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 47
+        },
+        "end": {
+          "line": 2,
+          "column": 41,
+          "byte": 88
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:71:87:string"
+      ],
+      "text_digest": "26779ba8cfff67d86d1250638e03780b5f8c49d363839121e8d4ee40846ac358"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:71:87:string",
+      "kind": "string",
+      "label": "\"tailwind-merge\"",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 24,
+          "byte": 71
+        },
+        "end": {
+          "line": 2,
+          "column": 40,
+          "byte": 87
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:72:86:string_fragment"
+      ],
+      "text_digest": "530d1d247fc7db5b237d990971ce0d12fdf4b8d1ce8978a713e883417424172e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:72:86:string_fragment",
+      "kind": "string_fragment",
+      "label": "tailwind-merge",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 25,
+          "byte": 72
+        },
+        "end": {
+          "line": 2,
+          "column": 39,
+          "byte": 86
+        }
+      },
+      "children_ids": [],
+      "text_digest": "170c47be2c1df87bd16ec2e9af9a3405076d53da3a4c84965193b905d2b6f42f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:import_clause",
+      "kind": "import_clause",
+      "label": "{ twMerge }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 54
+        },
+        "end": {
+          "line": 2,
+          "column": 18,
+          "byte": 65
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:named_imports"
+      ],
+      "text_digest": "df6a38be5628545b1dc2ef44dd0d8e7cd40981bff796983e869ad23c8ebce50b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:54:65:named_imports",
+      "kind": "named_imports",
+      "label": "{ twMerge }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 54
+        },
+        "end": {
+          "line": 2,
+          "column": 18,
+          "byte": 65
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:56:63:import_specifier"
+      ],
+      "text_digest": "df6a38be5628545b1dc2ef44dd0d8e7cd40981bff796983e869ad23c8ebce50b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:56:63:import_specifier",
+      "kind": "import_specifier",
+      "label": "twMerge",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 56
+        },
+        "end": {
+          "line": 2,
+          "column": 16,
+          "byte": 63
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:56:63:identifier"
+      ],
+      "text_digest": "2300a80e9d9e7e4aaeaddafec38b88b419aa378fbff13acbb508507c26eb1bcb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:56:63:identifier",
+      "kind": "identifier",
+      "label": "twMerge",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 56
+        },
+        "end": {
+          "line": 2,
+          "column": 16,
+          "byte": 63
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2300a80e9d9e7e4aaeaddafec38b88b419aa378fbff13acbb508507c26eb1bcb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:0:45:import_statement",
+      "kind": "import_statement",
+      "label": "import { clsx, type ClassValue } from \"clsx\";",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 45,
+          "byte": 45
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:38:44:string"
+      ],
+      "text_digest": "ab23b4435b2d7b8b8958a65915d41608193ebb44220508fc08228890bd531743"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:38:44:string",
+      "kind": "string",
+      "label": "\"clsx\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 38,
+          "byte": 38
+        },
+        "end": {
+          "line": 1,
+          "column": 44,
+          "byte": 44
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:39:43:string_fragment"
+      ],
+      "text_digest": "2320a9a64c53b0141dd10d3237c4ceb74040acedd6e63236ffeda7c325e4a5f7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:39:43:string_fragment",
+      "kind": "string_fragment",
+      "label": "clsx",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 39,
+          "byte": 39
+        },
+        "end": {
+          "line": 1,
+          "column": 43,
+          "byte": 43
+        }
+      },
+      "children_ids": [],
+      "text_digest": "80d4351d813b4e5d91a7140f25a25cb286837f2fa19c3199c1865b72561bb579"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:import_clause",
+      "kind": "import_clause",
+      "label": "{ clsx, type ClassValue }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 32,
+          "byte": 32
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:named_imports"
+      ],
+      "text_digest": "dfc2316b09aaeba1df99ee203948fb3411940b28a0e7abb25c6aca8b84dc4aa1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:7:32:named_imports",
+      "kind": "named_imports",
+      "label": "{ clsx, type ClassValue }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 32,
+          "byte": 32
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:9:13:import_specifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:15:30:import_specifier"
+      ],
+      "text_digest": "dfc2316b09aaeba1df99ee203948fb3411940b28a0e7abb25c6aca8b84dc4aa1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:15:30:import_specifier",
+      "kind": "import_specifier",
+      "label": "type ClassValue",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 15,
+          "byte": 15
+        },
+        "end": {
+          "line": 1,
+          "column": 30,
+          "byte": 30
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:20:30:identifier"
+      ],
+      "text_digest": "1efab678c22aeb7acdef62b51835c31b8bb38d9aa8ee92b6640cab1e7e33cacd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:20:30:identifier",
+      "kind": "identifier",
+      "label": "ClassValue",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 20,
+          "byte": 20
+        },
+        "end": {
+          "line": 1,
+          "column": 30,
+          "byte": 30
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f22fd06297a176aeaa3412886d03d6d9635448a85f6eca14ad1959d44666c44f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:9:13:import_specifier",
+      "kind": "import_specifier",
+      "label": "clsx",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 13,
+          "byte": 13
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:9:13:identifier"
+      ],
+      "text_digest": "80d4351d813b4e5d91a7140f25a25cb286837f2fa19c3199c1865b72561bb579"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/lib/cn.ts:9:13:identifier",
+      "kind": "identifier",
+      "label": "clsx",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 13,
+          "byte": 13
+        }
+      },
+      "children_ids": [],
+      "text_digest": "80d4351d813b4e5d91a7140f25a25cb286837f2fa19c3199c1865b72561bb579"
+    }
+  ],
+  "parser_id": "tree_sitter_typescript",
+  "relative_path": "apps/web/lib/cn.ts",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "typescript",
+  "warnings": []
+}

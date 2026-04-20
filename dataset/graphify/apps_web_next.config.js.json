@@ -1,0 +1,4195 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:38+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:948:expression_statement:150",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:948:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:948:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:947:assignment_expression:149",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:948:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:947:assignment_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:947:assignment_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:937:947:identifier:148",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:947:assignment_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:937:947:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:947:assignment_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:934:member_expression:147",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:947:assignment_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:934:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:934:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:927:934:property_identifier:146",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:934:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:927:934:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:934:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:926:identifier:145",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:934:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:926:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:159:916:lexical_declaration:144",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:159:916:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:159:916:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:915:variable_declarator:143",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:159:916:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:915:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:915:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:178:915:object:142",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:915:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:178:915:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:178:915:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:584:911:method_definition:141",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:178:915:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:584:911:method_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:584:911:method_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:602:911:statement_block:140",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:584:911:method_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:602:911:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:602:911:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:608:906:return_statement:139",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:602:911:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:608:906:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:608:906:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array:138",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:608:906:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:833:897:object:137",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:833:897:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:833:897:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:895:pair:136",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:833:897:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:895:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:895:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:890:895:false:135",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:895:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:890:895:false",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:895:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:888:property_identifier:134",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:895:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:888:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:833:897:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:877:pair:133",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:833:897:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:877:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:877:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:870:877:string:132",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:877:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:870:877:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:870:877:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:871:876:string_fragment:131",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:870:877:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:871:876:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:877:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:868:property_identifier:130",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:877:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:868:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:833:897:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:855:pair:129",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:833:897:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:855:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:855:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:843:855:string:128",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:855:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:843:855:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:843:855:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:844:854:string_fragment:127",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:843:855:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:844:854:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:855:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:841:property_identifier:126",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:855:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:841:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:767:824:object:125",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:767:824:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:767:824:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:822:pair:124",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:767:824:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:822:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:822:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:817:822:false:123",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:822:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:817:822:false",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:822:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:815:property_identifier:122",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:822:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:815:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:767:824:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:804:pair:121",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:767:824:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:804:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:804:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:797:804:string:120",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:804:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:797:804:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:797:804:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:798:803:string_fragment:119",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:797:804:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:798:803:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:804:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:795:property_identifier:118",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:804:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:795:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:767:824:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:782:pair:117",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:767:824:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:782:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:782:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:777:782:string:116",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:782:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:777:782:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:777:782:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:778:781:string_fragment:115",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:777:782:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:778:781:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:782:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:775:property_identifier:114",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:782:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:775:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:691:758:object:113",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:691:758:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:691:758:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:756:pair:112",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:691:758:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:756:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:756:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:751:756:false:111",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:756:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:751:756:false",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:756:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:749:property_identifier:110",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:756:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:749:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:691:758:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:738:pair:109",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:691:758:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:738:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:738:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:731:738:string:108",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:738:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:731:738:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:731:738:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:732:737:string_fragment:107",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:731:738:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:732:737:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:738:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:729:property_identifier:106",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:738:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:729:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:691:758:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:716:pair:105",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:691:758:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:716:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:716:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:701:716:string:104",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:716:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:701:716:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:701:716:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:702:715:string_fragment:103",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:701:716:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:702:715:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:716:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:699:property_identifier:102",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:716:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:699:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:623:683:object:101",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:623:683:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:623:683:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:681:pair:100",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:623:683:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:681:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:681:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:676:681:false:99",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:681:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:676:681:false",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:681:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:674:property_identifier:98",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:681:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:674:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:623:683:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:663:pair:97",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:623:683:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:663:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:663:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:656:663:string:96",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:663:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:656:663:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:656:663:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:657:662:string_fragment:95",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:656:663:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:657:662:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:663:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:654:property_identifier:94",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:663:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:654:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:623:683:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:641:pair:93",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:623:683:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:641:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:641:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:633:641:string:92",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:641:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:633:641:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:633:641:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:634:640:string_fragment:91",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:633:641:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:634:640:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:641:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:631:property_identifier:90",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:641:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:631:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:584:911:method_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:599:601:formal_parameters:89",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:584:911:method_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:599:601:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:584:911:method_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:590:599:property_identifier:88",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:584:911:method_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:590:599:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:178:915:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:580:pair:87",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:178:915:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:580:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:580:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:212:580:object:86",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:580:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:212:580:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:212:580:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:575:pair:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:212:580:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:575:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:575:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:575:binary_expression:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:575:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:575:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:575:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:552:575:string:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:575:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:552:575:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:552:575:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:553:574:string_fragment:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:552:575:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:553:574:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:575:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:548:binary_expression:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:575:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:548:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:548:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:548:member_expression:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:548:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:548:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:548:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:535:548:property_identifier:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:548:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:535:548:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:548:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:534:member_expression:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:548:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:534:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:534:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:531:534:property_identifier:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:534:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:531:534:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:534:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:530:identifier:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:534:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:530:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:548:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:519:member_expression:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:548:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:519:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:519:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:494:519:property_identifier:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:519:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:494:519:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:519:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:493:member_expression:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:519:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:493:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:493:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:490:493:property_identifier:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:493:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:490:493:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:493:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:489:identifier:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:493:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:489:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:575:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:474:property_identifier:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:575:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:474:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:212:580:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:443:pair:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:212:580:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:443:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:443:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:443:binary_expression:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:443:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:443:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:443:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:441:443:string:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:443:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:441:443:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:443:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:437:binary_expression:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:443:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:437:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:437:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:437:member_expression:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:437:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:437:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:437:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:420:437:property_identifier:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:437:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:420:437:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:437:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:419:member_expression:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:437:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:419:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:419:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:416:419:property_identifier:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:419:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:416:419:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:419:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:415:identifier:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:419:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:415:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:437:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:404:member_expression:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:437:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:404:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:404:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:375:404:property_identifier:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:404:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:375:404:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:404:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:374:member_expression:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:404:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:374:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:374:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:371:374:property_identifier:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:374:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:371:374:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:374:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:370:identifier:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:374:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:370:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:443:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:355:property_identifier:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:443:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:355:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:212:580:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:320:pair:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:212:580:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:320:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:320:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:320:binary_expression:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:320:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:320:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:320:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:318:320:string:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:320:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:318:320:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:320:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:314:binary_expression:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:320:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:314:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:314:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:314:member_expression:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:314:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:314:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:314:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:302:314:property_identifier:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:314:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:302:314:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:314:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:301:member_expression:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:314:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:301:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:301:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:298:301:property_identifier:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:301:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:298:301:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:301:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:297:identifier:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:301:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:297:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:314:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:286:member_expression:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:314:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:286:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:286:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:262:286:property_identifier:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:286:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:262:286:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:286:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:261:member_expression:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:286:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:261:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:261:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:258:261:property_identifier:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:261:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:258:261:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:261:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:257:identifier:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:261:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:257:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:320:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:242:property_identifier:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:320:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:242:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:580:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:210:property_identifier:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:580:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:210:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:178:915:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:203:pair:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:178:915:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:203:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:203:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:199:203:true:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:203:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:199:203:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:203:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:197:property_identifier:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:203:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:197:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:915:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:175:identifier:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:915:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:175:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:157:expression_statement:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:157:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:157:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:156:call_expression:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:157:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:156:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:156:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:146:156:arguments:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:156:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:146:156:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:146:156:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:147:155:identifier:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:146:156:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:147:155:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:156:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:146:identifier:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:156:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:146:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:79:132:lexical_declaration:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:79:132:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:79:132:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:131:variable_declarator:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:79:132:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:131:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:131:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:131:call_expression:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:131:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:131:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:131:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:108:131:arguments:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:131:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:108:131:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:108:131:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:126:130:string:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:108:131:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:126:130:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:126:130:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:127:129:string_fragment:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:126:130:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:127:129:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:108:131:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:120:124:string:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:108:131:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:120:124:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:120:124:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:121:123:string_fragment:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:120:124:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:121:123:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:108:131:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:109:118:identifier:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:108:131:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:109:118:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:131:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:108:member_expression:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:131:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:108:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:108:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:101:108:property_identifier:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:108:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:101:108:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:108:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:100:identifier:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:108:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:100:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:131:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:93:identifier:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:131:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:93:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:30:77:lexical_declaration:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:30:77:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:30:77:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:76:variable_declarator:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:30:77:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:76:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:76:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:76:call_expression:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:76:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:76:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:76:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:63:76:arguments:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:76:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:63:76:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:63:76:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:64:75:string:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:63:76:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:64:75:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:64:75:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:65:74:string_fragment:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:64:75:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:65:74:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:76:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:63:identifier:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:76:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:63:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:76:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:53:object_pattern:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:76:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:53:object_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:53:object_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:38:51:shorthand_property_identifier_pattern:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:53:object_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:38:51:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:29:lexical_declaration:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:29:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:29:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:28:variable_declarator:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:29:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:28:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:28:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:28:call_expression:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:28:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:28:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:28:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:20:28:arguments:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:28:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:20:28:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:20:28:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:21:27:string:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:20:28:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:21:27:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:21:27:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:22:26:string_fragment:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:21:27:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:22:26:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:28:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:20:identifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:28:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:20:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:28:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:10:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:28:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:10:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:950:program",
+      "kind": "program",
+      "label": "const path = require(\"path\");\nconst { loadEnvConfig } = require(\"@next/env\");\n\nconst repoRoot = path.resolve(__dirname, \"..\", \"..\");\nloadEnvConfig(repoRoot);\n\nconst nextConfig = {\n  reactStrictMode: true,\n  env: {\n    NEXT_PUBLIC_SUPABASE_URL:\n      process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || \"\",\n    NEXT_PUBLIC_SUPABASE_ANON_KEY:\n      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || \"\",\n    NEXT_PUBLIC_DEPOS_API_URL:\n      process.env.NEXT_PUBLIC_DEPOS_API_URL || process.env.DEPOS_API_URL || \"http://127.0.0.1:8080\",\n  },\n  async redirects() {\n    return [\n      { source: \"/repos\", destination: \"/orgs\", permanent: false },\n      { source: \"/repos/:path*\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci/:path*\", destination: \"/orgs\", permanent: false },\r\n    ];\r\n  },\r\n};\r\n\r\nmodule.exports = nextConfig;\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 28,
+          "column": 0,
+          "byte": 950
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:29:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:30:77:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:79:132:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:157:expression_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:159:916:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:948:expression_statement"
+      ],
+      "text_digest": "6c24a2c9191c2f63807bebaf288ddb7a528ee642f6d7bacf29d23730161b3679"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:948:expression_statement",
+      "kind": "expression_statement",
+      "label": "module.exports = nextConfig;",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 0,
+          "byte": 920
+        },
+        "end": {
+          "line": 27,
+          "column": 28,
+          "byte": 948
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:947:assignment_expression"
+      ],
+      "text_digest": "2b597ff8d81572e8cfd4060d2aa64e09ea38f0d62d0fca6fba46d1465e6f42ce"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:947:assignment_expression",
+      "kind": "assignment_expression",
+      "label": "module.exports = nextConfig",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 0,
+          "byte": 920
+        },
+        "end": {
+          "line": 27,
+          "column": 27,
+          "byte": 947
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:934:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:937:947:identifier"
+      ],
+      "text_digest": "a04202d53f6c0549fef1f3fb0763d345c5a5bb7d74a60db3aeebd0373895c978"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:937:947:identifier",
+      "kind": "identifier",
+      "label": "nextConfig",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 17,
+          "byte": 937
+        },
+        "end": {
+          "line": 27,
+          "column": 27,
+          "byte": 947
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a21b7ca006a0b214c3ef9f0c1a5f778ddd8b7cb4c8de9c500d4406990ba7f948"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:934:member_expression",
+      "kind": "member_expression",
+      "label": "module.exports",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 0,
+          "byte": 920
+        },
+        "end": {
+          "line": 27,
+          "column": 14,
+          "byte": 934
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:926:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:927:934:property_identifier"
+      ],
+      "text_digest": "45eaa67d1c6433d8450e5d77ebd184aec631d8b96a00daf07d5ffb70c69b2f0d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:927:934:property_identifier",
+      "kind": "property_identifier",
+      "label": "exports",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 7,
+          "byte": 927
+        },
+        "end": {
+          "line": 27,
+          "column": 14,
+          "byte": 934
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4b4e49dd2de5eae9881688638d7453803ea88b3721146b8f97a5508b5b5c6aa5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:920:926:identifier",
+      "kind": "identifier",
+      "label": "module",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 0,
+          "byte": 920
+        },
+        "end": {
+          "line": 27,
+          "column": 6,
+          "byte": 926
+        }
+      },
+      "children_ids": [],
+      "text_digest": "120970d812836f19888625587a4606a5ad23cef31c8684e601771552548fc6b9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:159:916:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const nextConfig = {\n  reactStrictMode: true,\n  env: {\n    NEXT_PUBLIC_SUPABASE_URL:\n      process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || \"\",\n    NEXT_PUBLIC_SUPABASE_ANON_KEY:\n      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || \"\",\n    NEXT_PUBLIC_DEPOS_API_URL:\n      process.env.NEXT_PUBLIC_DEPOS_API_URL || process.env.DEPOS_API_URL || \"http://127.0.0.1:8080\",\n  },\n  async redirects() {\n    return [\n      { source: \"/repos\", destination: \"/orgs\", permanent: false },\n      { source: \"/repos/:path*\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci/:path*\", destination: \"/orgs\", permanent: false },\r\n    ];\r\n  },\r\n};",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 0,
+          "byte": 159
+        },
+        "end": {
+          "line": 25,
+          "column": 2,
+          "byte": 916
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:915:variable_declarator"
+      ],
+      "text_digest": "27e1ec13902ef7cc33a1f85b75dda8ce4aac725ca7f1fc8c92481289707e2ebd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:915:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "nextConfig = {\n  reactStrictMode: true,\n  env: {\n    NEXT_PUBLIC_SUPABASE_URL:\n      process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || \"\",\n    NEXT_PUBLIC_SUPABASE_ANON_KEY:\n      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || \"\",\n    NEXT_PUBLIC_DEPOS_API_URL:\n      process.env.NEXT_PUBLIC_DEPOS_API_URL || process.env.DEPOS_API_URL || \"http://127.0.0.1:8080\",\n  },\n  async redirects() {\n    return [\n      { source: \"/repos\", destination: \"/orgs\", permanent: false },\n      { source: \"/repos/:path*\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci/:path*\", destination: \"/orgs\", permanent: false },\r\n    ];\r\n  },\r\n}",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 6,
+          "byte": 165
+        },
+        "end": {
+          "line": 25,
+          "column": 1,
+          "byte": 915
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:175:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:178:915:object"
+      ],
+      "text_digest": "581c33c4dedbb134cd4d448dd683f1a6343b81eb78df8cf2032e0b4c69c5e2f5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:178:915:object",
+      "kind": "object",
+      "label": "{\n  reactStrictMode: true,\n  env: {\n    NEXT_PUBLIC_SUPABASE_URL:\n      process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || \"\",\n    NEXT_PUBLIC_SUPABASE_ANON_KEY:\n      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || \"\",\n    NEXT_PUBLIC_DEPOS_API_URL:\n      process.env.NEXT_PUBLIC_DEPOS_API_URL || process.env.DEPOS_API_URL || \"http://127.0.0.1:8080\",\n  },\n  async redirects() {\n    return [\n      { source: \"/repos\", destination: \"/orgs\", permanent: false },\n      { source: \"/repos/:path*\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci/:path*\", destination: \"/orgs\", permanent: false },\r\n    ];\r\n  },\r\n}",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 19,
+          "byte": 178
+        },
+        "end": {
+          "line": 25,
+          "column": 1,
+          "byte": 915
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:203:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:580:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:584:911:method_definition"
+      ],
+      "text_digest": "1cf024625aac75d61a5f175d9b876dfdfccd50ea902c6124ed0d929594584772"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:584:911:method_definition",
+      "kind": "method_definition",
+      "label": "async redirects() {\n    return [\n      { source: \"/repos\", destination: \"/orgs\", permanent: false },\n      { source: \"/repos/:path*\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci/:path*\", destination: \"/orgs\", permanent: false },\r\n    ];\r\n  }",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 2,
+          "byte": 584
+        },
+        "end": {
+          "line": 24,
+          "column": 3,
+          "byte": 911
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:590:599:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:599:601:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:602:911:statement_block"
+      ],
+      "text_digest": "07e4011f30cdefd2611b489cec19e3ef3e2fe48894bab4873293aa4ae303ba52"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:602:911:statement_block",
+      "kind": "statement_block",
+      "label": "{\n    return [\n      { source: \"/repos\", destination: \"/orgs\", permanent: false },\n      { source: \"/repos/:path*\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci/:path*\", destination: \"/orgs\", permanent: false },\r\n    ];\r\n  }",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 20,
+          "byte": 602
+        },
+        "end": {
+          "line": 24,
+          "column": 3,
+          "byte": 911
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:608:906:return_statement"
+      ],
+      "text_digest": "97b507b49570f63c0811636f8d480230f6cd7b49edcaf9bf5707214949761b4b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:608:906:return_statement",
+      "kind": "return_statement",
+      "label": "return [\n      { source: \"/repos\", destination: \"/orgs\", permanent: false },\n      { source: \"/repos/:path*\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci/:path*\", destination: \"/orgs\", permanent: false },\r\n    ];",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 4,
+          "byte": 608
+        },
+        "end": {
+          "line": 23,
+          "column": 6,
+          "byte": 906
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array"
+      ],
+      "text_digest": "2900b9b8ca29d19874badba15094165307852d9f5c958c167e28f7f7c52c95c6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:615:905:array",
+      "kind": "array",
+      "label": "[\n      { source: \"/repos\", destination: \"/orgs\", permanent: false },\n      { source: \"/repos/:path*\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci\", destination: \"/orgs\", permanent: false },\r\n      { source: \"/ci/:path*\", destination: \"/orgs\", permanent: false },\r\n    ]",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 11,
+          "byte": 615
+        },
+        "end": {
+          "line": 23,
+          "column": 5,
+          "byte": 905
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:623:683:object",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:691:758:object",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:767:824:object",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:833:897:object"
+      ],
+      "text_digest": "9b426e514ac8207c869eb5073b064494b6222457385435f49be833092e2e9912"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:833:897:object",
+      "kind": "object",
+      "label": "{ source: \"/ci/:path*\", destination: \"/orgs\", permanent: false }",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 6,
+          "byte": 833
+        },
+        "end": {
+          "line": 22,
+          "column": 70,
+          "byte": 897
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:855:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:877:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:895:pair"
+      ],
+      "text_digest": "6c27301f7d745da10a4a92c6392fe00ee0429bded9819faefd4679c3d3be7d92"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:895:pair",
+      "kind": "pair",
+      "label": "permanent: false",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 52,
+          "byte": 879
+        },
+        "end": {
+          "line": 22,
+          "column": 68,
+          "byte": 895
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:888:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:890:895:false"
+      ],
+      "text_digest": "7176013d33a19ee2b5707339e161ca08c5654a3aef9327d714e6fc354b02ef6c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:890:895:false",
+      "kind": "false",
+      "label": "false",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 63,
+          "byte": 890
+        },
+        "end": {
+          "line": 22,
+          "column": 68,
+          "byte": 895
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:879:888:property_identifier",
+      "kind": "property_identifier",
+      "label": "permanent",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 52,
+          "byte": 879
+        },
+        "end": {
+          "line": 22,
+          "column": 61,
+          "byte": 888
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0dd1b6d5c52eec73e28b235214478c1da599a278f8d7a3216b3ce36db39f29d4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:877:pair",
+      "kind": "pair",
+      "label": "destination: \"/orgs\"",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 30,
+          "byte": 857
+        },
+        "end": {
+          "line": 22,
+          "column": 50,
+          "byte": 877
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:868:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:870:877:string"
+      ],
+      "text_digest": "a9f1bbfe7498f34af8b0ade3df972a503d30c5b1fb633b20273472bc552d10eb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:870:877:string",
+      "kind": "string",
+      "label": "\"/orgs\"",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 43,
+          "byte": 870
+        },
+        "end": {
+          "line": 22,
+          "column": 50,
+          "byte": 877
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:871:876:string_fragment"
+      ],
+      "text_digest": "0267133721a630f94cf61b299b1758e62f70ce84b10ad45cd99bf954f310261c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:871:876:string_fragment",
+      "kind": "string_fragment",
+      "label": "/orgs",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 44,
+          "byte": 871
+        },
+        "end": {
+          "line": 22,
+          "column": 49,
+          "byte": 876
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c43ec1ba5a9369be043d4ff1d0b6c7e892049cd4b2424dda241412044fda1795"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:857:868:property_identifier",
+      "kind": "property_identifier",
+      "label": "destination",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 30,
+          "byte": 857
+        },
+        "end": {
+          "line": 22,
+          "column": 41,
+          "byte": 868
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b5c755aaab1038b3d5627bbde7f47ca80c5f5c0481c6d33f04139d07aa1530e7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:855:pair",
+      "kind": "pair",
+      "label": "source: \"/ci/:path*\"",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 8,
+          "byte": 835
+        },
+        "end": {
+          "line": 22,
+          "column": 28,
+          "byte": 855
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:841:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:843:855:string"
+      ],
+      "text_digest": "a0607639452ea164f811744ce8061e97f2ad8c6311b64e30d8dbcd3f05a2c8d4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:843:855:string",
+      "kind": "string",
+      "label": "\"/ci/:path*\"",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 16,
+          "byte": 843
+        },
+        "end": {
+          "line": 22,
+          "column": 28,
+          "byte": 855
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:844:854:string_fragment"
+      ],
+      "text_digest": "9b914ce3bfd1f7b90f989a60395a5a1857cd47b73574e163d844e79cac291558"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:844:854:string_fragment",
+      "kind": "string_fragment",
+      "label": "/ci/:path*",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 17,
+          "byte": 844
+        },
+        "end": {
+          "line": 22,
+          "column": 27,
+          "byte": 854
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f1150a3862ba1392124f8dfa5ebd92e5acca83f36a6c9d539be0029307e6b899"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:835:841:property_identifier",
+      "kind": "property_identifier",
+      "label": "source",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 8,
+          "byte": 835
+        },
+        "end": {
+          "line": 22,
+          "column": 14,
+          "byte": 841
+        }
+      },
+      "children_ids": [],
+      "text_digest": "41cf6794ba4200b839c53531555f0f3998df4cbb01a4d5cb0b94e3ca5e23947d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:767:824:object",
+      "kind": "object",
+      "label": "{ source: \"/ci\", destination: \"/orgs\", permanent: false }",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 6,
+          "byte": 767
+        },
+        "end": {
+          "line": 21,
+          "column": 63,
+          "byte": 824
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:782:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:804:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:822:pair"
+      ],
+      "text_digest": "2c4f6346660db1a4a593ad4fb4e0d0dec46336792a831eb9de3ed945231cd5a3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:822:pair",
+      "kind": "pair",
+      "label": "permanent: false",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 45,
+          "byte": 806
+        },
+        "end": {
+          "line": 21,
+          "column": 61,
+          "byte": 822
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:815:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:817:822:false"
+      ],
+      "text_digest": "7176013d33a19ee2b5707339e161ca08c5654a3aef9327d714e6fc354b02ef6c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:817:822:false",
+      "kind": "false",
+      "label": "false",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 56,
+          "byte": 817
+        },
+        "end": {
+          "line": 21,
+          "column": 61,
+          "byte": 822
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:806:815:property_identifier",
+      "kind": "property_identifier",
+      "label": "permanent",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 45,
+          "byte": 806
+        },
+        "end": {
+          "line": 21,
+          "column": 54,
+          "byte": 815
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0dd1b6d5c52eec73e28b235214478c1da599a278f8d7a3216b3ce36db39f29d4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:804:pair",
+      "kind": "pair",
+      "label": "destination: \"/orgs\"",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 23,
+          "byte": 784
+        },
+        "end": {
+          "line": 21,
+          "column": 43,
+          "byte": 804
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:795:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:797:804:string"
+      ],
+      "text_digest": "a9f1bbfe7498f34af8b0ade3df972a503d30c5b1fb633b20273472bc552d10eb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:797:804:string",
+      "kind": "string",
+      "label": "\"/orgs\"",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 36,
+          "byte": 797
+        },
+        "end": {
+          "line": 21,
+          "column": 43,
+          "byte": 804
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:798:803:string_fragment"
+      ],
+      "text_digest": "0267133721a630f94cf61b299b1758e62f70ce84b10ad45cd99bf954f310261c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:798:803:string_fragment",
+      "kind": "string_fragment",
+      "label": "/orgs",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 37,
+          "byte": 798
+        },
+        "end": {
+          "line": 21,
+          "column": 42,
+          "byte": 803
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c43ec1ba5a9369be043d4ff1d0b6c7e892049cd4b2424dda241412044fda1795"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:784:795:property_identifier",
+      "kind": "property_identifier",
+      "label": "destination",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 23,
+          "byte": 784
+        },
+        "end": {
+          "line": 21,
+          "column": 34,
+          "byte": 795
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b5c755aaab1038b3d5627bbde7f47ca80c5f5c0481c6d33f04139d07aa1530e7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:782:pair",
+      "kind": "pair",
+      "label": "source: \"/ci\"",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 8,
+          "byte": 769
+        },
+        "end": {
+          "line": 21,
+          "column": 21,
+          "byte": 782
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:775:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:777:782:string"
+      ],
+      "text_digest": "363243efb94c7137e9bd0422106528ed4ffdbe3cd2d07e35cddf7e17c50f6fdf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:777:782:string",
+      "kind": "string",
+      "label": "\"/ci\"",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 16,
+          "byte": 777
+        },
+        "end": {
+          "line": 21,
+          "column": 21,
+          "byte": 782
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:778:781:string_fragment"
+      ],
+      "text_digest": "1cb4977220c1b09f02df84401eb5a64f3eda6e2e5dac08d8ea883c2bdfe0e7eb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:778:781:string_fragment",
+      "kind": "string_fragment",
+      "label": "/ci",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 17,
+          "byte": 778
+        },
+        "end": {
+          "line": 21,
+          "column": 20,
+          "byte": 781
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e1a658f2ba5aa05efb24ea7f7c326042b2454429de3b2549440aa5ac24040fef"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:769:775:property_identifier",
+      "kind": "property_identifier",
+      "label": "source",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 8,
+          "byte": 769
+        },
+        "end": {
+          "line": 21,
+          "column": 14,
+          "byte": 775
+        }
+      },
+      "children_ids": [],
+      "text_digest": "41cf6794ba4200b839c53531555f0f3998df4cbb01a4d5cb0b94e3ca5e23947d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:691:758:object",
+      "kind": "object",
+      "label": "{ source: \"/repos/:path*\", destination: \"/orgs\", permanent: false }",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 6,
+          "byte": 691
+        },
+        "end": {
+          "line": 20,
+          "column": 73,
+          "byte": 758
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:716:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:738:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:756:pair"
+      ],
+      "text_digest": "3a259e2a73d8ccfbc2d602d92bb1fe7f6e1fd7a7b15cd38254eba18ec9c837e9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:756:pair",
+      "kind": "pair",
+      "label": "permanent: false",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 55,
+          "byte": 740
+        },
+        "end": {
+          "line": 20,
+          "column": 71,
+          "byte": 756
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:749:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:751:756:false"
+      ],
+      "text_digest": "7176013d33a19ee2b5707339e161ca08c5654a3aef9327d714e6fc354b02ef6c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:751:756:false",
+      "kind": "false",
+      "label": "false",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 66,
+          "byte": 751
+        },
+        "end": {
+          "line": 20,
+          "column": 71,
+          "byte": 756
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:740:749:property_identifier",
+      "kind": "property_identifier",
+      "label": "permanent",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 55,
+          "byte": 740
+        },
+        "end": {
+          "line": 20,
+          "column": 64,
+          "byte": 749
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0dd1b6d5c52eec73e28b235214478c1da599a278f8d7a3216b3ce36db39f29d4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:738:pair",
+      "kind": "pair",
+      "label": "destination: \"/orgs\"",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 33,
+          "byte": 718
+        },
+        "end": {
+          "line": 20,
+          "column": 53,
+          "byte": 738
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:729:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:731:738:string"
+      ],
+      "text_digest": "a9f1bbfe7498f34af8b0ade3df972a503d30c5b1fb633b20273472bc552d10eb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:731:738:string",
+      "kind": "string",
+      "label": "\"/orgs\"",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 46,
+          "byte": 731
+        },
+        "end": {
+          "line": 20,
+          "column": 53,
+          "byte": 738
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:732:737:string_fragment"
+      ],
+      "text_digest": "0267133721a630f94cf61b299b1758e62f70ce84b10ad45cd99bf954f310261c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:732:737:string_fragment",
+      "kind": "string_fragment",
+      "label": "/orgs",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 47,
+          "byte": 732
+        },
+        "end": {
+          "line": 20,
+          "column": 52,
+          "byte": 737
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c43ec1ba5a9369be043d4ff1d0b6c7e892049cd4b2424dda241412044fda1795"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:718:729:property_identifier",
+      "kind": "property_identifier",
+      "label": "destination",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 33,
+          "byte": 718
+        },
+        "end": {
+          "line": 20,
+          "column": 44,
+          "byte": 729
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b5c755aaab1038b3d5627bbde7f47ca80c5f5c0481c6d33f04139d07aa1530e7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:716:pair",
+      "kind": "pair",
+      "label": "source: \"/repos/:path*\"",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 8,
+          "byte": 693
+        },
+        "end": {
+          "line": 20,
+          "column": 31,
+          "byte": 716
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:699:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:701:716:string"
+      ],
+      "text_digest": "482c6cbde295f86f3b95d9817e0b48546ae16d48d774005cf19b4ac67fb186bb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:701:716:string",
+      "kind": "string",
+      "label": "\"/repos/:path*\"",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 16,
+          "byte": 701
+        },
+        "end": {
+          "line": 20,
+          "column": 31,
+          "byte": 716
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:702:715:string_fragment"
+      ],
+      "text_digest": "cef2435a69b5cd2ee37c801926683889215960235aa797315c4993fbbc27e281"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:702:715:string_fragment",
+      "kind": "string_fragment",
+      "label": "/repos/:path*",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 17,
+          "byte": 702
+        },
+        "end": {
+          "line": 20,
+          "column": 30,
+          "byte": 715
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fbbcec9358895f6ae8868866787f86c95adfb936c0629af3e9b3763a8d44c9d6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:693:699:property_identifier",
+      "kind": "property_identifier",
+      "label": "source",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 8,
+          "byte": 693
+        },
+        "end": {
+          "line": 20,
+          "column": 14,
+          "byte": 699
+        }
+      },
+      "children_ids": [],
+      "text_digest": "41cf6794ba4200b839c53531555f0f3998df4cbb01a4d5cb0b94e3ca5e23947d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:623:683:object",
+      "kind": "object",
+      "label": "{ source: \"/repos\", destination: \"/orgs\", permanent: false }",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 6,
+          "byte": 623
+        },
+        "end": {
+          "line": 19,
+          "column": 66,
+          "byte": 683
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:641:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:663:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:681:pair"
+      ],
+      "text_digest": "054247ef001f3f2d90bf3e451af8ca10db6181cdcc1d246cbfe71c2c7e0e14b9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:681:pair",
+      "kind": "pair",
+      "label": "permanent: false",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 48,
+          "byte": 665
+        },
+        "end": {
+          "line": 19,
+          "column": 64,
+          "byte": 681
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:674:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:676:681:false"
+      ],
+      "text_digest": "7176013d33a19ee2b5707339e161ca08c5654a3aef9327d714e6fc354b02ef6c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:676:681:false",
+      "kind": "false",
+      "label": "false",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 59,
+          "byte": 676
+        },
+        "end": {
+          "line": 19,
+          "column": 64,
+          "byte": 681
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fcbcf165908dd18a9e49f7ff27810176db8e9f63b4352213741664245224f8aa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:665:674:property_identifier",
+      "kind": "property_identifier",
+      "label": "permanent",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 48,
+          "byte": 665
+        },
+        "end": {
+          "line": 19,
+          "column": 57,
+          "byte": 674
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0dd1b6d5c52eec73e28b235214478c1da599a278f8d7a3216b3ce36db39f29d4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:663:pair",
+      "kind": "pair",
+      "label": "destination: \"/orgs\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 26,
+          "byte": 643
+        },
+        "end": {
+          "line": 19,
+          "column": 46,
+          "byte": 663
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:654:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:656:663:string"
+      ],
+      "text_digest": "a9f1bbfe7498f34af8b0ade3df972a503d30c5b1fb633b20273472bc552d10eb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:656:663:string",
+      "kind": "string",
+      "label": "\"/orgs\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 39,
+          "byte": 656
+        },
+        "end": {
+          "line": 19,
+          "column": 46,
+          "byte": 663
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:657:662:string_fragment"
+      ],
+      "text_digest": "0267133721a630f94cf61b299b1758e62f70ce84b10ad45cd99bf954f310261c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:657:662:string_fragment",
+      "kind": "string_fragment",
+      "label": "/orgs",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 40,
+          "byte": 657
+        },
+        "end": {
+          "line": 19,
+          "column": 45,
+          "byte": 662
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c43ec1ba5a9369be043d4ff1d0b6c7e892049cd4b2424dda241412044fda1795"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:643:654:property_identifier",
+      "kind": "property_identifier",
+      "label": "destination",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 26,
+          "byte": 643
+        },
+        "end": {
+          "line": 19,
+          "column": 37,
+          "byte": 654
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b5c755aaab1038b3d5627bbde7f47ca80c5f5c0481c6d33f04139d07aa1530e7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:641:pair",
+      "kind": "pair",
+      "label": "source: \"/repos\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 8,
+          "byte": 625
+        },
+        "end": {
+          "line": 19,
+          "column": 24,
+          "byte": 641
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:631:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:633:641:string"
+      ],
+      "text_digest": "4f0a8db8ffef13992356448c1dee4d8a9c12308507f82c47280729e916fe7ec7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:633:641:string",
+      "kind": "string",
+      "label": "\"/repos\"",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 16,
+          "byte": 633
+        },
+        "end": {
+          "line": 19,
+          "column": 24,
+          "byte": 641
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:634:640:string_fragment"
+      ],
+      "text_digest": "2d34e9d96bcc4727f2ead3721f7dc69c226d240a27d8d4a6350c4777d7671f4e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:634:640:string_fragment",
+      "kind": "string_fragment",
+      "label": "/repos",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 17,
+          "byte": 634
+        },
+        "end": {
+          "line": 19,
+          "column": 23,
+          "byte": 640
+        }
+      },
+      "children_ids": [],
+      "text_digest": "22ebbbc55652332d2a1934394074e4ec943254c587f268004f092bcc7d06f32d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:625:631:property_identifier",
+      "kind": "property_identifier",
+      "label": "source",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 8,
+          "byte": 625
+        },
+        "end": {
+          "line": 19,
+          "column": 14,
+          "byte": 631
+        }
+      },
+      "children_ids": [],
+      "text_digest": "41cf6794ba4200b839c53531555f0f3998df4cbb01a4d5cb0b94e3ca5e23947d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:599:601:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 17,
+          "byte": 599
+        },
+        "end": {
+          "line": 17,
+          "column": 19,
+          "byte": 601
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:590:599:property_identifier",
+      "kind": "property_identifier",
+      "label": "redirects",
+      "span": {
+        "start": {
+          "line": 17,
+          "column": 8,
+          "byte": 590
+        },
+        "end": {
+          "line": 17,
+          "column": 17,
+          "byte": 599
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e0ba89fd1f803d9f6f223edd7b3e6faa1efef8721f44200a1bd5f684a08c729d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:580:pair",
+      "kind": "pair",
+      "label": "env: {\n    NEXT_PUBLIC_SUPABASE_URL:\n      process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || \"\",\n    NEXT_PUBLIC_SUPABASE_ANON_KEY:\n      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || \"\",\n    NEXT_PUBLIC_DEPOS_API_URL:\n      process.env.NEXT_PUBLIC_DEPOS_API_URL || process.env.DEPOS_API_URL || \"http://127.0.0.1:8080\",\n  }",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 2,
+          "byte": 207
+        },
+        "end": {
+          "line": 16,
+          "column": 3,
+          "byte": 580
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:210:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:212:580:object"
+      ],
+      "text_digest": "87063f3341d48cceb3ddb16e908f5be141a68ce77ecc0611893e18ea8e7143d7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:212:580:object",
+      "kind": "object",
+      "label": "{\n    NEXT_PUBLIC_SUPABASE_URL:\n      process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || \"\",\n    NEXT_PUBLIC_SUPABASE_ANON_KEY:\n      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || \"\",\n    NEXT_PUBLIC_DEPOS_API_URL:\n      process.env.NEXT_PUBLIC_DEPOS_API_URL || process.env.DEPOS_API_URL || \"http://127.0.0.1:8080\",\n  }",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 7,
+          "byte": 212
+        },
+        "end": {
+          "line": 16,
+          "column": 3,
+          "byte": 580
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:320:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:443:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:575:pair"
+      ],
+      "text_digest": "69faa891623b3b4270bfee5cdf3f4ea05fc9c8ef76c89e0799095d5ccb3ab896"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:575:pair",
+      "kind": "pair",
+      "label": "NEXT_PUBLIC_DEPOS_API_URL:\n      process.env.NEXT_PUBLIC_DEPOS_API_URL || process.env.DEPOS_API_URL || \"http://127.0.0.1:8080\"",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 449
+        },
+        "end": {
+          "line": 15,
+          "column": 99,
+          "byte": 575
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:474:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:575:binary_expression"
+      ],
+      "text_digest": "574643ad355351100b662bedca19891042fbc5e0c359897fb0098221ef196517"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:575:binary_expression",
+      "kind": "binary_expression",
+      "label": "process.env.NEXT_PUBLIC_DEPOS_API_URL || process.env.DEPOS_API_URL || \"http://127.0.0.1:8080\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 6,
+          "byte": 482
+        },
+        "end": {
+          "line": 15,
+          "column": 99,
+          "byte": 575
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:548:binary_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:552:575:string"
+      ],
+      "text_digest": "17eabae9c601a6f2856865bb08ab935c6275f5c74ebfada65614d9d46d66c0ac"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:552:575:string",
+      "kind": "string",
+      "label": "\"http://127.0.0.1:8080\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 76,
+          "byte": 552
+        },
+        "end": {
+          "line": 15,
+          "column": 99,
+          "byte": 575
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:553:574:string_fragment"
+      ],
+      "text_digest": "741bc41889eaef6eb0a07f6799842846e6f8850b834efeb39f207cdf2bf92dfe"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:553:574:string_fragment",
+      "kind": "string_fragment",
+      "label": "http://127.0.0.1:8080",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 77,
+          "byte": 553
+        },
+        "end": {
+          "line": 15,
+          "column": 98,
+          "byte": 574
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d30a576c0318716717366ab932e3d7dfbc4009a5bc10176403b60892912f070e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:548:binary_expression",
+      "kind": "binary_expression",
+      "label": "process.env.NEXT_PUBLIC_DEPOS_API_URL || process.env.DEPOS_API_URL",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 6,
+          "byte": 482
+        },
+        "end": {
+          "line": 15,
+          "column": 72,
+          "byte": 548
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:519:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:548:member_expression"
+      ],
+      "text_digest": "78a56c451b01fea8066c68adadebb46a62b78ed4593ae6525289fde932fe1439"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:548:member_expression",
+      "kind": "member_expression",
+      "label": "process.env.DEPOS_API_URL",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 47,
+          "byte": 523
+        },
+        "end": {
+          "line": 15,
+          "column": 72,
+          "byte": 548
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:534:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:535:548:property_identifier"
+      ],
+      "text_digest": "a809308d57416de9bb204c3d082e071366712a067c1865df18414fbf8165f1d4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:535:548:property_identifier",
+      "kind": "property_identifier",
+      "label": "DEPOS_API_URL",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 59,
+          "byte": 535
+        },
+        "end": {
+          "line": 15,
+          "column": 72,
+          "byte": 548
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c8c116d93159d67bc33df4ec52a2464b1bae3baf246777c9cd8e958579cc4e64"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:534:member_expression",
+      "kind": "member_expression",
+      "label": "process.env",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 47,
+          "byte": 523
+        },
+        "end": {
+          "line": 15,
+          "column": 58,
+          "byte": 534
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:530:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:531:534:property_identifier"
+      ],
+      "text_digest": "a97d7492edeb30eaf7b260e2b02ffe125474c2adcf5764051a055aeb22e51457"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:531:534:property_identifier",
+      "kind": "property_identifier",
+      "label": "env",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 55,
+          "byte": 531
+        },
+        "end": {
+          "line": 15,
+          "column": 58,
+          "byte": 534
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b77349bf1fa9b26d45d545d7d64dad96737e9cfbb3cbb5f5d10fb77b0fcc44ad"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:523:530:identifier",
+      "kind": "identifier",
+      "label": "process",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 47,
+          "byte": 523
+        },
+        "end": {
+          "line": 15,
+          "column": 54,
+          "byte": 530
+        }
+      },
+      "children_ids": [],
+      "text_digest": "19ed40bf62c399b8492efda5b9a9184b68cf4d9d4a165b38557b9d14201d0c03"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:519:member_expression",
+      "kind": "member_expression",
+      "label": "process.env.NEXT_PUBLIC_DEPOS_API_URL",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 6,
+          "byte": 482
+        },
+        "end": {
+          "line": 15,
+          "column": 43,
+          "byte": 519
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:493:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:494:519:property_identifier"
+      ],
+      "text_digest": "c0ee510bafff7b692a6e967c31f831f2b6c7262b9a8edb80702f542996d4dc83"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:494:519:property_identifier",
+      "kind": "property_identifier",
+      "label": "NEXT_PUBLIC_DEPOS_API_URL",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 18,
+          "byte": 494
+        },
+        "end": {
+          "line": 15,
+          "column": 43,
+          "byte": 519
+        }
+      },
+      "children_ids": [],
+      "text_digest": "361587497a8d644229c747fb1b6764fc73b67a791381bf73bf181ce9041f4518"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:493:member_expression",
+      "kind": "member_expression",
+      "label": "process.env",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 6,
+          "byte": 482
+        },
+        "end": {
+          "line": 15,
+          "column": 17,
+          "byte": 493
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:489:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:490:493:property_identifier"
+      ],
+      "text_digest": "a97d7492edeb30eaf7b260e2b02ffe125474c2adcf5764051a055aeb22e51457"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:490:493:property_identifier",
+      "kind": "property_identifier",
+      "label": "env",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 14,
+          "byte": 490
+        },
+        "end": {
+          "line": 15,
+          "column": 17,
+          "byte": 493
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b77349bf1fa9b26d45d545d7d64dad96737e9cfbb3cbb5f5d10fb77b0fcc44ad"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:482:489:identifier",
+      "kind": "identifier",
+      "label": "process",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 6,
+          "byte": 482
+        },
+        "end": {
+          "line": 15,
+          "column": 13,
+          "byte": 489
+        }
+      },
+      "children_ids": [],
+      "text_digest": "19ed40bf62c399b8492efda5b9a9184b68cf4d9d4a165b38557b9d14201d0c03"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:449:474:property_identifier",
+      "kind": "property_identifier",
+      "label": "NEXT_PUBLIC_DEPOS_API_URL",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 449
+        },
+        "end": {
+          "line": 14,
+          "column": 29,
+          "byte": 474
+        }
+      },
+      "children_ids": [],
+      "text_digest": "361587497a8d644229c747fb1b6764fc73b67a791381bf73bf181ce9041f4518"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:443:pair",
+      "kind": "pair",
+      "label": "NEXT_PUBLIC_SUPABASE_ANON_KEY:\n      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || \"\"",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 4,
+          "byte": 326
+        },
+        "end": {
+          "line": 13,
+          "column": 86,
+          "byte": 443
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:355:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:443:binary_expression"
+      ],
+      "text_digest": "26fd74236dec12d51e9f5a8a9737d1947e1c5d8e39c00ad9e1bef38a9998f0f6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:443:binary_expression",
+      "kind": "binary_expression",
+      "label": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY || \"\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 6,
+          "byte": 363
+        },
+        "end": {
+          "line": 13,
+          "column": 86,
+          "byte": 443
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:437:binary_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:441:443:string"
+      ],
+      "text_digest": "e8999e0b5e7c76f4c9e373a587938265b4cc81b28830d70fc6b1303e66f01640"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:441:443:string",
+      "kind": "string",
+      "label": "\"\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 84,
+          "byte": 441
+        },
+        "end": {
+          "line": 13,
+          "column": 86,
+          "byte": 443
+        }
+      },
+      "children_ids": [],
+      "text_digest": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:437:binary_expression",
+      "kind": "binary_expression",
+      "label": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 6,
+          "byte": 363
+        },
+        "end": {
+          "line": 13,
+          "column": 80,
+          "byte": 437
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:404:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:437:member_expression"
+      ],
+      "text_digest": "67539b52bd400b2445b1ae9e0a0f0198efaf2ef494ea369ca7f6bc8431b9ed84"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:437:member_expression",
+      "kind": "member_expression",
+      "label": "process.env.SUPABASE_ANON_KEY",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 51,
+          "byte": 408
+        },
+        "end": {
+          "line": 13,
+          "column": 80,
+          "byte": 437
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:419:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:420:437:property_identifier"
+      ],
+      "text_digest": "7cf9e0a67737dea48ae0d0e5b8bb730969f2c57f259b7e895abc56f05af429a9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:420:437:property_identifier",
+      "kind": "property_identifier",
+      "label": "SUPABASE_ANON_KEY",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 63,
+          "byte": 420
+        },
+        "end": {
+          "line": 13,
+          "column": 80,
+          "byte": 437
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5f4ab84084f2c6a6a1bbf9aa8aa81ece5dd6e9f0dae25344394733f5ad30a74a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:419:member_expression",
+      "kind": "member_expression",
+      "label": "process.env",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 51,
+          "byte": 408
+        },
+        "end": {
+          "line": 13,
+          "column": 62,
+          "byte": 419
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:415:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:416:419:property_identifier"
+      ],
+      "text_digest": "a97d7492edeb30eaf7b260e2b02ffe125474c2adcf5764051a055aeb22e51457"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:416:419:property_identifier",
+      "kind": "property_identifier",
+      "label": "env",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 59,
+          "byte": 416
+        },
+        "end": {
+          "line": 13,
+          "column": 62,
+          "byte": 419
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b77349bf1fa9b26d45d545d7d64dad96737e9cfbb3cbb5f5d10fb77b0fcc44ad"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:408:415:identifier",
+      "kind": "identifier",
+      "label": "process",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 51,
+          "byte": 408
+        },
+        "end": {
+          "line": 13,
+          "column": 58,
+          "byte": 415
+        }
+      },
+      "children_ids": [],
+      "text_digest": "19ed40bf62c399b8492efda5b9a9184b68cf4d9d4a165b38557b9d14201d0c03"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:404:member_expression",
+      "kind": "member_expression",
+      "label": "process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 6,
+          "byte": 363
+        },
+        "end": {
+          "line": 13,
+          "column": 47,
+          "byte": 404
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:374:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:375:404:property_identifier"
+      ],
+      "text_digest": "edff2af572a8b56a35ee7d8fe38d80965b2475df81428bc8d484be6d46875f34"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:375:404:property_identifier",
+      "kind": "property_identifier",
+      "label": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 18,
+          "byte": 375
+        },
+        "end": {
+          "line": 13,
+          "column": 47,
+          "byte": 404
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f97a233d6dc2a224699f760af6d9649a30e589584002d9e0ca3e6546b4e16da5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:374:member_expression",
+      "kind": "member_expression",
+      "label": "process.env",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 6,
+          "byte": 363
+        },
+        "end": {
+          "line": 13,
+          "column": 17,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:370:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:371:374:property_identifier"
+      ],
+      "text_digest": "a97d7492edeb30eaf7b260e2b02ffe125474c2adcf5764051a055aeb22e51457"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:371:374:property_identifier",
+      "kind": "property_identifier",
+      "label": "env",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 14,
+          "byte": 371
+        },
+        "end": {
+          "line": 13,
+          "column": 17,
+          "byte": 374
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b77349bf1fa9b26d45d545d7d64dad96737e9cfbb3cbb5f5d10fb77b0fcc44ad"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:363:370:identifier",
+      "kind": "identifier",
+      "label": "process",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 6,
+          "byte": 363
+        },
+        "end": {
+          "line": 13,
+          "column": 13,
+          "byte": 370
+        }
+      },
+      "children_ids": [],
+      "text_digest": "19ed40bf62c399b8492efda5b9a9184b68cf4d9d4a165b38557b9d14201d0c03"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:326:355:property_identifier",
+      "kind": "property_identifier",
+      "label": "NEXT_PUBLIC_SUPABASE_ANON_KEY",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 4,
+          "byte": 326
+        },
+        "end": {
+          "line": 12,
+          "column": 33,
+          "byte": 355
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f97a233d6dc2a224699f760af6d9649a30e589584002d9e0ca3e6546b4e16da5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:320:pair",
+      "kind": "pair",
+      "label": "NEXT_PUBLIC_SUPABASE_URL:\n      process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || \"\"",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 4,
+          "byte": 218
+        },
+        "end": {
+          "line": 11,
+          "column": 76,
+          "byte": 320
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:242:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:320:binary_expression"
+      ],
+      "text_digest": "4f5e40a4b91bbaa032a6d43dc97dcd8fef123eaf3a3847912edd676e3f5c8431"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:320:binary_expression",
+      "kind": "binary_expression",
+      "label": "process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL || \"\"",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 6,
+          "byte": 250
+        },
+        "end": {
+          "line": 11,
+          "column": 76,
+          "byte": 320
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:314:binary_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:318:320:string"
+      ],
+      "text_digest": "bf408ee75ed8a48a771c5c8fd253c67e07f68c6e3d73082a1dbde01e9bf099ef"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:318:320:string",
+      "kind": "string",
+      "label": "\"\"",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 74,
+          "byte": 318
+        },
+        "end": {
+          "line": 11,
+          "column": 76,
+          "byte": 320
+        }
+      },
+      "children_ids": [],
+      "text_digest": "12ae32cb1ec02d01eda3581b127c1fee3b0dc53572ed6baf239721a03d82e126"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:314:binary_expression",
+      "kind": "binary_expression",
+      "label": "process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 6,
+          "byte": 250
+        },
+        "end": {
+          "line": 11,
+          "column": 70,
+          "byte": 314
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:286:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:314:member_expression"
+      ],
+      "text_digest": "8b9ea794b85ec7c6f68b8cbb0aac845382756a8ed4c3264b41ba8cdd88a21966"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:314:member_expression",
+      "kind": "member_expression",
+      "label": "process.env.SUPABASE_URL",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 46,
+          "byte": 290
+        },
+        "end": {
+          "line": 11,
+          "column": 70,
+          "byte": 314
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:301:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:302:314:property_identifier"
+      ],
+      "text_digest": "1a990cd203819f1a849e884a61c3006b3eb2ce280c4702f3fb4a612aaede0451"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:302:314:property_identifier",
+      "kind": "property_identifier",
+      "label": "SUPABASE_URL",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 58,
+          "byte": 302
+        },
+        "end": {
+          "line": 11,
+          "column": 70,
+          "byte": 314
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f9342fd6b2269e5012fd3f21fa3c4450cdd591ec492deff57a43088968ae816c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:301:member_expression",
+      "kind": "member_expression",
+      "label": "process.env",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 46,
+          "byte": 290
+        },
+        "end": {
+          "line": 11,
+          "column": 57,
+          "byte": 301
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:297:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:298:301:property_identifier"
+      ],
+      "text_digest": "a97d7492edeb30eaf7b260e2b02ffe125474c2adcf5764051a055aeb22e51457"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:298:301:property_identifier",
+      "kind": "property_identifier",
+      "label": "env",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 54,
+          "byte": 298
+        },
+        "end": {
+          "line": 11,
+          "column": 57,
+          "byte": 301
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b77349bf1fa9b26d45d545d7d64dad96737e9cfbb3cbb5f5d10fb77b0fcc44ad"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:290:297:identifier",
+      "kind": "identifier",
+      "label": "process",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 46,
+          "byte": 290
+        },
+        "end": {
+          "line": 11,
+          "column": 53,
+          "byte": 297
+        }
+      },
+      "children_ids": [],
+      "text_digest": "19ed40bf62c399b8492efda5b9a9184b68cf4d9d4a165b38557b9d14201d0c03"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:286:member_expression",
+      "kind": "member_expression",
+      "label": "process.env.NEXT_PUBLIC_SUPABASE_URL",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 6,
+          "byte": 250
+        },
+        "end": {
+          "line": 11,
+          "column": 42,
+          "byte": 286
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:261:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:262:286:property_identifier"
+      ],
+      "text_digest": "20167180d753786297917bf91e421e2ab115e15d8ad3c9771d032cea6c170aab"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:262:286:property_identifier",
+      "kind": "property_identifier",
+      "label": "NEXT_PUBLIC_SUPABASE_URL",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 18,
+          "byte": 262
+        },
+        "end": {
+          "line": 11,
+          "column": 42,
+          "byte": 286
+        }
+      },
+      "children_ids": [],
+      "text_digest": "84d28aed79accf16c0699414e7b9a97b510064e0c299f729f914c5398b8c8a0f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:261:member_expression",
+      "kind": "member_expression",
+      "label": "process.env",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 6,
+          "byte": 250
+        },
+        "end": {
+          "line": 11,
+          "column": 17,
+          "byte": 261
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:257:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:258:261:property_identifier"
+      ],
+      "text_digest": "a97d7492edeb30eaf7b260e2b02ffe125474c2adcf5764051a055aeb22e51457"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:258:261:property_identifier",
+      "kind": "property_identifier",
+      "label": "env",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 14,
+          "byte": 258
+        },
+        "end": {
+          "line": 11,
+          "column": 17,
+          "byte": 261
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b77349bf1fa9b26d45d545d7d64dad96737e9cfbb3cbb5f5d10fb77b0fcc44ad"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:250:257:identifier",
+      "kind": "identifier",
+      "label": "process",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 6,
+          "byte": 250
+        },
+        "end": {
+          "line": 11,
+          "column": 13,
+          "byte": 257
+        }
+      },
+      "children_ids": [],
+      "text_digest": "19ed40bf62c399b8492efda5b9a9184b68cf4d9d4a165b38557b9d14201d0c03"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:218:242:property_identifier",
+      "kind": "property_identifier",
+      "label": "NEXT_PUBLIC_SUPABASE_URL",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 4,
+          "byte": 218
+        },
+        "end": {
+          "line": 10,
+          "column": 28,
+          "byte": 242
+        }
+      },
+      "children_ids": [],
+      "text_digest": "84d28aed79accf16c0699414e7b9a97b510064e0c299f729f914c5398b8c8a0f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:207:210:property_identifier",
+      "kind": "property_identifier",
+      "label": "env",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 2,
+          "byte": 207
+        },
+        "end": {
+          "line": 9,
+          "column": 5,
+          "byte": 210
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b77349bf1fa9b26d45d545d7d64dad96737e9cfbb3cbb5f5d10fb77b0fcc44ad"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:203:pair",
+      "kind": "pair",
+      "label": "reactStrictMode: true",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 2,
+          "byte": 182
+        },
+        "end": {
+          "line": 8,
+          "column": 23,
+          "byte": 203
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:197:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:199:203:true"
+      ],
+      "text_digest": "873ffac00efdb5f571afaf61dec8a5f46720f83ab6b5366f526466ceec7fec85"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:199:203:true",
+      "kind": "true",
+      "label": "true",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 19,
+          "byte": 199
+        },
+        "end": {
+          "line": 8,
+          "column": 23,
+          "byte": 203
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b5bea41b6c623f7c09f1bf24dcae58ebab3c0cdd90ad966bc43a45b44867e12b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:182:197:property_identifier",
+      "kind": "property_identifier",
+      "label": "reactStrictMode",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 2,
+          "byte": 182
+        },
+        "end": {
+          "line": 8,
+          "column": 17,
+          "byte": 197
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f65d37db78c96f7b388ce1f1c49819b507628ae73eb694a137b1345dde1dad5a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:165:175:identifier",
+      "kind": "identifier",
+      "label": "nextConfig",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 6,
+          "byte": 165
+        },
+        "end": {
+          "line": 7,
+          "column": 16,
+          "byte": 175
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a21b7ca006a0b214c3ef9f0c1a5f778ddd8b7cb4c8de9c500d4406990ba7f948"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:157:expression_statement",
+      "kind": "expression_statement",
+      "label": "loadEnvConfig(repoRoot);",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 133
+        },
+        "end": {
+          "line": 5,
+          "column": 24,
+          "byte": 157
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:156:call_expression"
+      ],
+      "text_digest": "fbdf6a3d4394f7bd159d42e91ea5270689d0a96c67d03fb9bf1083f71d840aad"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:156:call_expression",
+      "kind": "call_expression",
+      "label": "loadEnvConfig(repoRoot)",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 133
+        },
+        "end": {
+          "line": 5,
+          "column": 23,
+          "byte": 156
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:146:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:146:156:arguments"
+      ],
+      "text_digest": "99bac3dc2099941b2d65edca9a0fbde5c0856e8dfe54d623e57b0f026a804bc7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:146:156:arguments",
+      "kind": "arguments",
+      "label": "(repoRoot)",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 13,
+          "byte": 146
+        },
+        "end": {
+          "line": 5,
+          "column": 23,
+          "byte": 156
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:147:155:identifier"
+      ],
+      "text_digest": "0ac43d463e32dcfd868aa3b3bdc5fa4248e47092430237e61a0edaf460cfe75d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:147:155:identifier",
+      "kind": "identifier",
+      "label": "repoRoot",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 14,
+          "byte": 147
+        },
+        "end": {
+          "line": 5,
+          "column": 22,
+          "byte": 155
+        }
+      },
+      "children_ids": [],
+      "text_digest": "74fca7a34850d4eab167f9733bed91b9f04155b7ee0880033e2cc6487f080a51"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:133:146:identifier",
+      "kind": "identifier",
+      "label": "loadEnvConfig",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 133
+        },
+        "end": {
+          "line": 5,
+          "column": 13,
+          "byte": 146
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4161ee61e64e0ff8bbda874e58052b477d94a68f9bcf51b60b898a862a1b51b0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:79:132:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const repoRoot = path.resolve(__dirname, \"..\", \"..\");",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 79
+        },
+        "end": {
+          "line": 4,
+          "column": 53,
+          "byte": 132
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:131:variable_declarator"
+      ],
+      "text_digest": "930ec6d93e209316050a5b24132c8ddb99b301c643e06c3f71a6f7ede7099e36"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:131:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "repoRoot = path.resolve(__dirname, \"..\", \"..\")",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 6,
+          "byte": 85
+        },
+        "end": {
+          "line": 4,
+          "column": 52,
+          "byte": 131
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:93:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:131:call_expression"
+      ],
+      "text_digest": "80ac5a40db86aee4531f807b741927ff35deeb6cdf1d18d24a4f394748e01177"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:131:call_expression",
+      "kind": "call_expression",
+      "label": "path.resolve(__dirname, \"..\", \"..\")",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 17,
+          "byte": 96
+        },
+        "end": {
+          "line": 4,
+          "column": 52,
+          "byte": 131
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:108:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:108:131:arguments"
+      ],
+      "text_digest": "d75d18a80c8920c206f35b31c4c438dc3ecab8993c768bd803d33f68da16b3d8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:108:131:arguments",
+      "kind": "arguments",
+      "label": "(__dirname, \"..\", \"..\")",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 29,
+          "byte": 108
+        },
+        "end": {
+          "line": 4,
+          "column": 52,
+          "byte": 131
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:109:118:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:120:124:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:126:130:string"
+      ],
+      "text_digest": "65e149fc1fe24d5a48d295633c9f83a04f163000c926c09d9ad56bdd58f71928"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:126:130:string",
+      "kind": "string",
+      "label": "\"..\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 47,
+          "byte": 126
+        },
+        "end": {
+          "line": 4,
+          "column": 51,
+          "byte": 130
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:127:129:string_fragment"
+      ],
+      "text_digest": "a8ca4457ce32e593295ee78c16f12db8a07f04be33f25d52c8e5fe3d7b606366"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:127:129:string_fragment",
+      "kind": "string_fragment",
+      "label": "..",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 48,
+          "byte": 127
+        },
+        "end": {
+          "line": 4,
+          "column": 50,
+          "byte": 129
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5ec1f7e700f37c3d0b2981d04855fc34b94aaa15457b05ca571817442d228f81"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:120:124:string",
+      "kind": "string",
+      "label": "\"..\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 41,
+          "byte": 120
+        },
+        "end": {
+          "line": 4,
+          "column": 45,
+          "byte": 124
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:121:123:string_fragment"
+      ],
+      "text_digest": "a8ca4457ce32e593295ee78c16f12db8a07f04be33f25d52c8e5fe3d7b606366"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:121:123:string_fragment",
+      "kind": "string_fragment",
+      "label": "..",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 42,
+          "byte": 121
+        },
+        "end": {
+          "line": 4,
+          "column": 44,
+          "byte": 123
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5ec1f7e700f37c3d0b2981d04855fc34b94aaa15457b05ca571817442d228f81"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:109:118:identifier",
+      "kind": "identifier",
+      "label": "__dirname",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 30,
+          "byte": 109
+        },
+        "end": {
+          "line": 4,
+          "column": 39,
+          "byte": 118
+        }
+      },
+      "children_ids": [],
+      "text_digest": "63c1634500cc553e021ad13a8109edf8ebd8aa640f661f0f88a9ada33871bb3e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:108:member_expression",
+      "kind": "member_expression",
+      "label": "path.resolve",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 17,
+          "byte": 96
+        },
+        "end": {
+          "line": 4,
+          "column": 29,
+          "byte": 108
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:100:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:101:108:property_identifier"
+      ],
+      "text_digest": "16da03b1a6e96e3ddc3b431fa7dbdda632a5f32f7b410b54ba74ee88d78b730f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:101:108:property_identifier",
+      "kind": "property_identifier",
+      "label": "resolve",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 22,
+          "byte": 101
+        },
+        "end": {
+          "line": 4,
+          "column": 29,
+          "byte": 108
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fdf09cdfc26cccf610edccd7f9b558e1ce0a793a4ee57f8306df9058f1aa929b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:96:100:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 17,
+          "byte": 96
+        },
+        "end": {
+          "line": 4,
+          "column": 21,
+          "byte": 100
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:85:93:identifier",
+      "kind": "identifier",
+      "label": "repoRoot",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 6,
+          "byte": 85
+        },
+        "end": {
+          "line": 4,
+          "column": 14,
+          "byte": 93
+        }
+      },
+      "children_ids": [],
+      "text_digest": "74fca7a34850d4eab167f9733bed91b9f04155b7ee0880033e2cc6487f080a51"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:30:77:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const { loadEnvConfig } = require(\"@next/env\");",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 30
+        },
+        "end": {
+          "line": 2,
+          "column": 47,
+          "byte": 77
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:76:variable_declarator"
+      ],
+      "text_digest": "10dab7af626a792207bc8aa35143f4c84524b04e0509b57da8911d0e52dd6fe1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:76:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "{ loadEnvConfig } = require(\"@next/env\")",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 6,
+          "byte": 36
+        },
+        "end": {
+          "line": 2,
+          "column": 46,
+          "byte": 76
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:53:object_pattern",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:76:call_expression"
+      ],
+      "text_digest": "377e76480d98fb01966d835b35917e12a22524ba41ee7aa98563aa1051b9bb2b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:76:call_expression",
+      "kind": "call_expression",
+      "label": "require(\"@next/env\")",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 26,
+          "byte": 56
+        },
+        "end": {
+          "line": 2,
+          "column": 46,
+          "byte": 76
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:63:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:63:76:arguments"
+      ],
+      "text_digest": "349a4638aa9f67a4e619a3968cee3bb1a0ce9e4545508c70fee0fde8288ded27"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:63:76:arguments",
+      "kind": "arguments",
+      "label": "(\"@next/env\")",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 33,
+          "byte": 63
+        },
+        "end": {
+          "line": 2,
+          "column": 46,
+          "byte": 76
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:64:75:string"
+      ],
+      "text_digest": "3e4c4cfa633f1deb1ed646c2c2cdcca77ddbd34ade08ba3ecbc603f6c2030599"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:64:75:string",
+      "kind": "string",
+      "label": "\"@next/env\"",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 34,
+          "byte": 64
+        },
+        "end": {
+          "line": 2,
+          "column": 45,
+          "byte": 75
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:65:74:string_fragment"
+      ],
+      "text_digest": "bb741927f6b1b0d587d8b96e76f5849114faf6f07519ff738ee72b2c2d425dda"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:65:74:string_fragment",
+      "kind": "string_fragment",
+      "label": "@next/env",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 35,
+          "byte": 65
+        },
+        "end": {
+          "line": 2,
+          "column": 44,
+          "byte": 74
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1ca93000abc9d30ce8b4483204374d07196d67e86b9ad6d5ed3dcb7cc68376cc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:56:63:identifier",
+      "kind": "identifier",
+      "label": "require",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 26,
+          "byte": 56
+        },
+        "end": {
+          "line": 2,
+          "column": 33,
+          "byte": 63
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c4d0cf241a1bfa1c8bf4cf24e8f89d2ab786a284a39adb2fc8df7ea14e73c154"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:36:53:object_pattern",
+      "kind": "object_pattern",
+      "label": "{ loadEnvConfig }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 6,
+          "byte": 36
+        },
+        "end": {
+          "line": 2,
+          "column": 23,
+          "byte": 53
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:38:51:shorthand_property_identifier_pattern"
+      ],
+      "text_digest": "d6e3585cc3df202e34e36ee0609340989081c49c5a919d44fc05d5a0cac12ab0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:38:51:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "loadEnvConfig",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 8,
+          "byte": 38
+        },
+        "end": {
+          "line": 2,
+          "column": 21,
+          "byte": 51
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4161ee61e64e0ff8bbda874e58052b477d94a68f9bcf51b60b898a862a1b51b0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:0:29:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const path = require(\"path\");",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 29,
+          "byte": 29
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:28:variable_declarator"
+      ],
+      "text_digest": "6b7d0275f974a07f676b4794f4ae8ef733425d0b8528c541b63d70499d5ad9b6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:28:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "path = require(\"path\")",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 6,
+          "byte": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 28,
+          "byte": 28
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:10:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:28:call_expression"
+      ],
+      "text_digest": "9d6b00425cd7dab4bbb66426fa5a4933a26baf967c98703ab1436b3ff90e7d2c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:28:call_expression",
+      "kind": "call_expression",
+      "label": "require(\"path\")",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 13,
+          "byte": 13
+        },
+        "end": {
+          "line": 1,
+          "column": 28,
+          "byte": 28
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:20:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:20:28:arguments"
+      ],
+      "text_digest": "a718642e9523b87bdd2063150c120c341d2194e67710b057702deb696628ef9d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:20:28:arguments",
+      "kind": "arguments",
+      "label": "(\"path\")",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 20,
+          "byte": 20
+        },
+        "end": {
+          "line": 1,
+          "column": 28,
+          "byte": 28
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:21:27:string"
+      ],
+      "text_digest": "7e396edb8ff2851ac15dda5fa0666edbbe7603d3861aa49a06fd1f5abf7de1c1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:21:27:string",
+      "kind": "string",
+      "label": "\"path\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 21,
+          "byte": 21
+        },
+        "end": {
+          "line": 1,
+          "column": 27,
+          "byte": 27
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:22:26:string_fragment"
+      ],
+      "text_digest": "d070c7ecb482689e5aa2de207d3c81eed20a358eadbc5897d4a3418bdc1a75d0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:22:26:string_fragment",
+      "kind": "string_fragment",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 22,
+          "byte": 22
+        },
+        "end": {
+          "line": 1,
+          "column": 26,
+          "byte": 26
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:13:20:identifier",
+      "kind": "identifier",
+      "label": "require",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 13,
+          "byte": 13
+        },
+        "end": {
+          "line": 1,
+          "column": 20,
+          "byte": 20
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c4d0cf241a1bfa1c8bf4cf24e8f89d2ab786a284a39adb2fc8df7ea14e73c154"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next.config.js:6:10:identifier",
+      "kind": "identifier",
+      "label": "path",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 6,
+          "byte": 6
+        },
+        "end": {
+          "line": 1,
+          "column": 10,
+          "byte": 10
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a0af9f865bf637e6736817f4ce552e4cdf7b8c36ea75bc254c1d1f0af744b5bf"
+    }
+  ],
+  "parser_id": "tree_sitter_javascript",
+  "relative_path": "apps/web/next.config.js",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "javascript",
+  "warnings": []
+}

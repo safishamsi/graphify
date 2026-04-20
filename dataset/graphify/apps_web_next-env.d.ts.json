@@ -1,0 +1,146 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:38+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:233:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:126:231:comment:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:233:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:126:231:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:233:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:85:124:comment:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:233:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:85:124:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:233:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:32:81:comment:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:233:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:32:81:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:233:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:30:comment:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:233:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:30:comment",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:233:program",
+      "kind": "program",
+      "label": "/// <reference types=\"next\" />\r\n/// <reference types=\"next/image-types/global\" />\r\n\r\n// NOTE: This file should not be edited\r\n// see https://nextjs.org/docs/app/building-your-application/configuring/typescript for more information.\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 6,
+          "column": 0,
+          "byte": 233
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:30:comment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:32:81:comment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:85:124:comment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:126:231:comment"
+      ],
+      "text_digest": "e462a655754db9df18b4a657454a7b6a88717ffded4e89403b2b3a47c6603fc3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:126:231:comment",
+      "kind": "comment",
+      "label": "// see https://nextjs.org/docs/app/building-your-application/configuring/typescript for more information.",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 126
+        },
+        "end": {
+          "line": 5,
+          "column": 105,
+          "byte": 231
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7e3024779cc15250108eb20d09af194aa3b6f03c8978d0d20ac586a00fa6ca5e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:85:124:comment",
+      "kind": "comment",
+      "label": "// NOTE: This file should not be edited",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 85
+        },
+        "end": {
+          "line": 4,
+          "column": 39,
+          "byte": 124
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6a18c540a06cc35c7a4e9f8302ba1356879090def3302b2ec6d618ba6bfbef1a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:32:81:comment",
+      "kind": "comment",
+      "label": "/// <reference types=\"next/image-types/global\" />",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 32
+        },
+        "end": {
+          "line": 2,
+          "column": 49,
+          "byte": 81
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fecc786a32f46cbfd5a0fa0d44f64044a6eb70777613b92d0dd4830988399ce2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/next-env.d.ts:0:30:comment",
+      "kind": "comment",
+      "label": "/// <reference types=\"next\" />",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 30,
+          "byte": 30
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1fada16997afe44e60b591d45a170a29ccb8474f46774c39fe10f5981b1c0c94"
+    }
+  ],
+  "parser_id": "tree_sitter_typescript",
+  "relative_path": "apps/web/next-env.d.ts",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "typescript",
+  "warnings": []
+}

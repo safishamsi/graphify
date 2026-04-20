@@ -1,0 +1,1419 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:39+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:203:365:ERROR:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:203:365:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:203:365:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:365:type_parameter:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:203:365:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:365:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:365:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:277:365:default_type:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:365:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:277:365:default_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:277:365:default_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:278:365:object_type:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:277:365:default_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:278:365:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:278:365:object_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:278:365:object_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:347:355:identifier:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:347:355:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:339:ERROR:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:339:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:339:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:326:336:identifier:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:339:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:326:336:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:339:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:304:312:identifier:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:339:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:304:312:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:339:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:303:object_type:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:339:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:303:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:303:object_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:301:302:property_signature:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:303:object_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:301:302:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:301:302:property_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:301:302:number:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:301:302:property_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:301:302:number",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:293:299:ERROR:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:293:299:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:293:299:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:293:299:identifier:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:293:299:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:293:299:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:280:292:identifier:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:280:292:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:365:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:269:277:ERROR:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:365:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:269:277:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:269:277:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:269:277:identifier:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:269:277:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:269:277:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:365:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:268:type_identifier:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:365:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:268:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:203:365:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:237:239:formal_parameters:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:203:365:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:237:239:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:203:365:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:227:237:identifier:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:203:365:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:227:237:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:145:199:export_statement:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:145:199:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:145:199:export_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:152:199:lexical_declaration:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:145:199:export_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:152:199:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:152:199:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:198:variable_declarator:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:152:199:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:198:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:198:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:169:198:object:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:198:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:169:198:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:169:198:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:196:pair:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:169:198:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:196:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:196:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:178:196:string:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:196:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:178:196:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:178:196:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:179:195:string_fragment:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:178:196:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:179:195:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:196:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:176:property_identifier:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:196:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:176:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:198:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:166:identifier:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:198:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:166:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:79:141:import_statement:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:79:141:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:79:141:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:108:140:string:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:79:141:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:108:140:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:108:140:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:109:139:string_fragment:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:108:140:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:109:139:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:79:141:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:import_clause:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:79:141:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:named_imports:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:88:100:import_specifier:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:88:100:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:88:100:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:88:100:identifier:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:88:100:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:88:100:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:35:77:import_statement:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:35:77:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:35:77:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:62:76:string:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:35:77:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:62:76:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:62:76:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:63:75:string_fragment:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:62:76:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:63:75:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:35:77:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:import_clause:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:35:77:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:named_imports:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:44:54:import_specifier:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:44:54:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:44:54:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:44:54:identifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:44:54:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:44:54:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:33:import_statement:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:33:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:33:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:25:32:string:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:33:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:25:32:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:25:32:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:26:31:string_fragment:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:25:32:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:26:31:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:33:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:import_clause:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:33:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:named_imports:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:9:17:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:9:17:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:9:17:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:9:17:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:9:17:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:9:17:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:367:program",
+      "kind": "program",
+      "label": "import { Suspense } from \"react\";\r\nimport { SignInForm } from \"./SignInForm\";\r\nimport { AuthSkeleton } from \"@/components/auth/AuthSkeleton\";\r\n\r\nexport const metadata = { title: \"Sign in \u00b7 depOS\" };\r\n\r\nexport default function SignInPage() {\r\n  return (\r\n    <Suspense fallback={<AuthSkeleton fields={2} withTabs />}>\r\n      <SignInForm />\r\n    </Suspense>\r\n  );\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 14,
+          "column": 0,
+          "byte": 367
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:33:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:35:77:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:79:141:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:145:199:export_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:203:365:ERROR"
+      ],
+      "text_digest": "e5367ef7b044d6f10a9220ef07b61bfca101c18ad1399572f2ea639121b5e901"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:203:365:ERROR",
+      "kind": "ERROR",
+      "label": "export default function SignInPage() {\r\n  return (\r\n    <Suspense fallback={<AuthSkeleton fields={2} withTabs />}>\r\n      <SignInForm />\r\n    </Suspense>\r\n  );\r\n}",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 0,
+          "byte": 203
+        },
+        "end": {
+          "line": 13,
+          "column": 1,
+          "byte": 365
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:227:237:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:237:239:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:365:type_parameter"
+      ],
+      "text_digest": "2d2137087c72c119d6a74b782594755d2d335bb89f9e59a575644a61059dd3ad"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:365:type_parameter",
+      "kind": "type_parameter",
+      "label": "Suspense fallback={<AuthSkeleton fields={2} withTabs />}>\r\n      <SignInForm />\r\n    </Suspense>\r\n  );\r\n}",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 5,
+          "byte": 260
+        },
+        "end": {
+          "line": 13,
+          "column": 1,
+          "byte": 365
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:268:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:269:277:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:277:365:default_type"
+      ],
+      "text_digest": "ca99b4654fe97a7c840b769c4e86e2f90b163c0469926f93e832e89521b7c1b4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:277:365:default_type",
+      "kind": "default_type",
+      "label": "={<AuthSkeleton fields={2} withTabs />}>\r\n      <SignInForm />\r\n    </Suspense>\r\n  );\r\n}",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 22,
+          "byte": 277
+        },
+        "end": {
+          "line": 13,
+          "column": 1,
+          "byte": 365
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:278:365:object_type"
+      ],
+      "text_digest": "7d0bb1ea1ea8fec996110e2296eecbae2dfe0092e2fe1dbff30302ed67075c5b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:278:365:object_type",
+      "kind": "object_type",
+      "label": "{<AuthSkeleton fields={2} withTabs />}>\r\n      <SignInForm />\r\n    </Suspense>\r\n  );\r\n}",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 23,
+          "byte": 278
+        },
+        "end": {
+          "line": 13,
+          "column": 1,
+          "byte": 365
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR"
+      ],
+      "text_digest": "39c6c546be8641fc660df02e27ae218104a6c41b4d1dcadb5a03591ad0f8714a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:279:362:ERROR",
+      "kind": "ERROR",
+      "label": "<AuthSkeleton fields={2} withTabs />}>\r\n      <SignInForm />\r\n    </Suspense>\r\n  );",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 24,
+          "byte": 279
+        },
+        "end": {
+          "line": 12,
+          "column": 4,
+          "byte": 362
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:280:292:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:293:299:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:339:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:347:355:identifier"
+      ],
+      "text_digest": "ba80aee76cb8a464b9cbbe0087db1f3c2da3d5a27b345605821d345e7cde8b1f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:347:355:identifier",
+      "kind": "identifier",
+      "label": "Suspense",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 6,
+          "byte": 347
+        },
+        "end": {
+          "line": 11,
+          "column": 14,
+          "byte": 355
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f79974bd5acc9d381df06ec1aa06a21bd188e74f72462c103122f65e237e9c44"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:339:ERROR",
+      "kind": "ERROR",
+      "label": "{2} withTabs />}>\r\n      <SignInForm />",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 45,
+          "byte": 300
+        },
+        "end": {
+          "line": 10,
+          "column": 20,
+          "byte": 339
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:303:object_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:304:312:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:326:336:identifier"
+      ],
+      "text_digest": "20f291caaee359e416b0ad672f27b16ae011b5c329affcf09be50c6a96ed22b5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:326:336:identifier",
+      "kind": "identifier",
+      "label": "SignInForm",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 7,
+          "byte": 326
+        },
+        "end": {
+          "line": 10,
+          "column": 17,
+          "byte": 336
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c0efa51a7e4047765df2c4ac68556210637b0b5b6cc0d453ce14ecc9675eb859"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:304:312:identifier",
+      "kind": "identifier",
+      "label": "withTabs",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 49,
+          "byte": 304
+        },
+        "end": {
+          "line": 9,
+          "column": 57,
+          "byte": 312
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c046cd0219fc6ae2035c5c6bdea0911bec6a97cfaa35b78191fd9d35fd648877"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:300:303:object_type",
+      "kind": "object_type",
+      "label": "{2}",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 45,
+          "byte": 300
+        },
+        "end": {
+          "line": 9,
+          "column": 48,
+          "byte": 303
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:301:302:property_signature"
+      ],
+      "text_digest": "f5e1420e13fd6cca6b2b875d53d06576439e4afec75fcc4a98d7b3b69b10b17e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:301:302:property_signature",
+      "kind": "property_signature",
+      "label": "2",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 46,
+          "byte": 301
+        },
+        "end": {
+          "line": 9,
+          "column": 47,
+          "byte": 302
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:301:302:number"
+      ],
+      "text_digest": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:301:302:number",
+      "kind": "number",
+      "label": "2",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 46,
+          "byte": 301
+        },
+        "end": {
+          "line": 9,
+          "column": 47,
+          "byte": 302
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:293:299:ERROR",
+      "kind": "ERROR",
+      "label": "fields",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 38,
+          "byte": 293
+        },
+        "end": {
+          "line": 9,
+          "column": 44,
+          "byte": 299
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:293:299:identifier"
+      ],
+      "text_digest": "bfe5d697162d90298c67c1933908741be8395838aa230408e04710909c576806"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:293:299:identifier",
+      "kind": "identifier",
+      "label": "fields",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 38,
+          "byte": 293
+        },
+        "end": {
+          "line": 9,
+          "column": 44,
+          "byte": 299
+        }
+      },
+      "children_ids": [],
+      "text_digest": "bfe5d697162d90298c67c1933908741be8395838aa230408e04710909c576806"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:280:292:identifier",
+      "kind": "identifier",
+      "label": "AuthSkeleton",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 25,
+          "byte": 280
+        },
+        "end": {
+          "line": 9,
+          "column": 37,
+          "byte": 292
+        }
+      },
+      "children_ids": [],
+      "text_digest": "12051a326fb327890135cd9490d9f027c49d3f93c98aff1af4132611192f3c66"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:269:277:ERROR",
+      "kind": "ERROR",
+      "label": "fallback",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 14,
+          "byte": 269
+        },
+        "end": {
+          "line": 9,
+          "column": 22,
+          "byte": 277
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:269:277:identifier"
+      ],
+      "text_digest": "5c7ee2074b65853f71fc5a01ce194ff26deedf6daacdb715c6beefdfd3f31b35"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:269:277:identifier",
+      "kind": "identifier",
+      "label": "fallback",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 14,
+          "byte": 269
+        },
+        "end": {
+          "line": 9,
+          "column": 22,
+          "byte": 277
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5c7ee2074b65853f71fc5a01ce194ff26deedf6daacdb715c6beefdfd3f31b35"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:260:268:type_identifier",
+      "kind": "type_identifier",
+      "label": "Suspense",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 5,
+          "byte": 260
+        },
+        "end": {
+          "line": 9,
+          "column": 13,
+          "byte": 268
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f79974bd5acc9d381df06ec1aa06a21bd188e74f72462c103122f65e237e9c44"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:237:239:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 34,
+          "byte": 237
+        },
+        "end": {
+          "line": 7,
+          "column": 36,
+          "byte": 239
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:227:237:identifier",
+      "kind": "identifier",
+      "label": "SignInPage",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 24,
+          "byte": 227
+        },
+        "end": {
+          "line": 7,
+          "column": 34,
+          "byte": 237
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f0522a657f466435cb6203b6929b961ab6a5b7c3a537962e82be18566e553061"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:145:199:export_statement",
+      "kind": "export_statement",
+      "label": "export const metadata = { title: \"Sign in \u00b7 depOS\" };",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 145
+        },
+        "end": {
+          "line": 5,
+          "column": 54,
+          "byte": 199
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:152:199:lexical_declaration"
+      ],
+      "text_digest": "cde68ea308666779bbf209147041c43ce69b55d46c2e4c01e2bd2a18c5479593"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:152:199:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const metadata = { title: \"Sign in \u00b7 depOS\" };",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 7,
+          "byte": 152
+        },
+        "end": {
+          "line": 5,
+          "column": 54,
+          "byte": 199
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:198:variable_declarator"
+      ],
+      "text_digest": "50394a2cf5a408d591417e8f6de30a64d50ae4f9d13a4b856c12780a04be3297"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:198:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "metadata = { title: \"Sign in \u00b7 depOS\" }",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 13,
+          "byte": 158
+        },
+        "end": {
+          "line": 5,
+          "column": 53,
+          "byte": 198
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:166:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:169:198:object"
+      ],
+      "text_digest": "8b050bdbf1a72cea9a5f3e3bfdd559645df495a3ef28c316976ce9738ddeb2c0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:169:198:object",
+      "kind": "object",
+      "label": "{ title: \"Sign in \u00b7 depOS\" }",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 24,
+          "byte": 169
+        },
+        "end": {
+          "line": 5,
+          "column": 53,
+          "byte": 198
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:196:pair"
+      ],
+      "text_digest": "2ca69e7e1ea0576f3b5cece1d13963e8c256cda58baa7a491ad8d1243f3e4b34"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:196:pair",
+      "kind": "pair",
+      "label": "title: \"Sign in \u00b7 depOS\"",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 26,
+          "byte": 171
+        },
+        "end": {
+          "line": 5,
+          "column": 51,
+          "byte": 196
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:176:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:178:196:string"
+      ],
+      "text_digest": "b7f8819dd7a2d4ee6dfb6a707932243c036217ee5aeb29fd51cfd28099cd6199"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:178:196:string",
+      "kind": "string",
+      "label": "\"Sign in \u00b7 depOS\"",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 33,
+          "byte": 178
+        },
+        "end": {
+          "line": 5,
+          "column": 51,
+          "byte": 196
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:179:195:string_fragment"
+      ],
+      "text_digest": "7749248f5db5919f8b2496b70cb246b5ca9b0e09b61c5a35460f8a40779992fd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:179:195:string_fragment",
+      "kind": "string_fragment",
+      "label": "Sign in \u00b7 depOS",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 34,
+          "byte": 179
+        },
+        "end": {
+          "line": 5,
+          "column": 50,
+          "byte": 195
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ec34d897a6292c84fe0fa7d93e5cce771d47c68815f8299e8d96d31be5d0b7b8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:171:176:property_identifier",
+      "kind": "property_identifier",
+      "label": "title",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 26,
+          "byte": 171
+        },
+        "end": {
+          "line": 5,
+          "column": 31,
+          "byte": 176
+        }
+      },
+      "children_ids": [],
+      "text_digest": "aaf2320646108059a87ab5017a86aee454f5378ed95003dbb2e12f4ca5266e0e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:158:166:identifier",
+      "kind": "identifier",
+      "label": "metadata",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 13,
+          "byte": 158
+        },
+        "end": {
+          "line": 5,
+          "column": 21,
+          "byte": 166
+        }
+      },
+      "children_ids": [],
+      "text_digest": "45447b7afbd5e544f7d0f1df0fccd26014d9850130abd3f020b89ff96b82079f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:79:141:import_statement",
+      "kind": "import_statement",
+      "label": "import { AuthSkeleton } from \"@/components/auth/AuthSkeleton\";",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 0,
+          "byte": 79
+        },
+        "end": {
+          "line": 3,
+          "column": 62,
+          "byte": 141
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:108:140:string"
+      ],
+      "text_digest": "4cb887c2b91cb60d69277c62a98be592b5c834ae60c36bfe2b22a6a7bfc17288"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:108:140:string",
+      "kind": "string",
+      "label": "\"@/components/auth/AuthSkeleton\"",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 29,
+          "byte": 108
+        },
+        "end": {
+          "line": 3,
+          "column": 61,
+          "byte": 140
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:109:139:string_fragment"
+      ],
+      "text_digest": "34456591ce94aff4cd9550496d704f6021c6da4397464dcdf1450e294edfc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:109:139:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/components/auth/AuthSkeleton",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 30,
+          "byte": 109
+        },
+        "end": {
+          "line": 3,
+          "column": 60,
+          "byte": 139
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2a682a46b4f425a39021bdb7e5f6ffeb401f8e75dc1a49a1eedfc16f0a3b7b4e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:import_clause",
+      "kind": "import_clause",
+      "label": "{ AuthSkeleton }",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 7,
+          "byte": 86
+        },
+        "end": {
+          "line": 3,
+          "column": 23,
+          "byte": 102
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:named_imports"
+      ],
+      "text_digest": "ed4afc1dd4d78a183131db9da7357378fb2a2072dc88c4af5f261ef2bd873b93"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:86:102:named_imports",
+      "kind": "named_imports",
+      "label": "{ AuthSkeleton }",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 7,
+          "byte": 86
+        },
+        "end": {
+          "line": 3,
+          "column": 23,
+          "byte": 102
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:88:100:import_specifier"
+      ],
+      "text_digest": "ed4afc1dd4d78a183131db9da7357378fb2a2072dc88c4af5f261ef2bd873b93"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:88:100:import_specifier",
+      "kind": "import_specifier",
+      "label": "AuthSkeleton",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 9,
+          "byte": 88
+        },
+        "end": {
+          "line": 3,
+          "column": 21,
+          "byte": 100
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:88:100:identifier"
+      ],
+      "text_digest": "12051a326fb327890135cd9490d9f027c49d3f93c98aff1af4132611192f3c66"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:88:100:identifier",
+      "kind": "identifier",
+      "label": "AuthSkeleton",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 9,
+          "byte": 88
+        },
+        "end": {
+          "line": 3,
+          "column": 21,
+          "byte": 100
+        }
+      },
+      "children_ids": [],
+      "text_digest": "12051a326fb327890135cd9490d9f027c49d3f93c98aff1af4132611192f3c66"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:35:77:import_statement",
+      "kind": "import_statement",
+      "label": "import { SignInForm } from \"./SignInForm\";",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 35
+        },
+        "end": {
+          "line": 2,
+          "column": 42,
+          "byte": 77
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:62:76:string"
+      ],
+      "text_digest": "ff2a345998cecac422a8a34576be1337a3e0bd2a742d4e6e18adefe7291631e2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:62:76:string",
+      "kind": "string",
+      "label": "\"./SignInForm\"",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 27,
+          "byte": 62
+        },
+        "end": {
+          "line": 2,
+          "column": 41,
+          "byte": 76
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:63:75:string_fragment"
+      ],
+      "text_digest": "2e960b47e5451ce20b66b8dd948b01031e00575c781638aec4d4c25ec08b381d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:63:75:string_fragment",
+      "kind": "string_fragment",
+      "label": "./SignInForm",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 28,
+          "byte": 63
+        },
+        "end": {
+          "line": 2,
+          "column": 40,
+          "byte": 75
+        }
+      },
+      "children_ids": [],
+      "text_digest": "aa8c85c086e6270cbb448d87d229212c8f95eb3c765f42389a6301d0fb416b75"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:import_clause",
+      "kind": "import_clause",
+      "label": "{ SignInForm }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 42
+        },
+        "end": {
+          "line": 2,
+          "column": 21,
+          "byte": 56
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:named_imports"
+      ],
+      "text_digest": "7ee953879f466537af723552f0867fd11b9aeee0eff2f8b6eb8fdacc30502b96"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:42:56:named_imports",
+      "kind": "named_imports",
+      "label": "{ SignInForm }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 42
+        },
+        "end": {
+          "line": 2,
+          "column": 21,
+          "byte": 56
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:44:54:import_specifier"
+      ],
+      "text_digest": "7ee953879f466537af723552f0867fd11b9aeee0eff2f8b6eb8fdacc30502b96"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:44:54:import_specifier",
+      "kind": "import_specifier",
+      "label": "SignInForm",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 44
+        },
+        "end": {
+          "line": 2,
+          "column": 19,
+          "byte": 54
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:44:54:identifier"
+      ],
+      "text_digest": "c0efa51a7e4047765df2c4ac68556210637b0b5b6cc0d453ce14ecc9675eb859"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:44:54:identifier",
+      "kind": "identifier",
+      "label": "SignInForm",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 44
+        },
+        "end": {
+          "line": 2,
+          "column": 19,
+          "byte": 54
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c0efa51a7e4047765df2c4ac68556210637b0b5b6cc0d453ce14ecc9675eb859"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:0:33:import_statement",
+      "kind": "import_statement",
+      "label": "import { Suspense } from \"react\";",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 33,
+          "byte": 33
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:25:32:string"
+      ],
+      "text_digest": "255828a2a6548283b886878318d4f1982dfe78e32bc197df331094e612be8e43"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:25:32:string",
+      "kind": "string",
+      "label": "\"react\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 25,
+          "byte": 25
+        },
+        "end": {
+          "line": 1,
+          "column": 32,
+          "byte": 32
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:26:31:string_fragment"
+      ],
+      "text_digest": "b59db18d2bc55505974de931dd02eee0ba1b6a618eb5b06b2933ebae99228597"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:26:31:string_fragment",
+      "kind": "string_fragment",
+      "label": "react",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 26,
+          "byte": 26
+        },
+        "end": {
+          "line": 1,
+          "column": 31,
+          "byte": 31
+        }
+      },
+      "children_ids": [],
+      "text_digest": "275976081ce1abf67779eb3c388b5e14531082e52137502e264776e1a6a11595"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:import_clause",
+      "kind": "import_clause",
+      "label": "{ Suspense }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 19,
+          "byte": 19
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:named_imports"
+      ],
+      "text_digest": "96d891daacb789ec2c5451a4d2b977df25ed09c8f1be5c466da00eff3c8700b5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:7:19:named_imports",
+      "kind": "named_imports",
+      "label": "{ Suspense }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 19,
+          "byte": 19
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:9:17:import_specifier"
+      ],
+      "text_digest": "96d891daacb789ec2c5451a4d2b977df25ed09c8f1be5c466da00eff3c8700b5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:9:17:import_specifier",
+      "kind": "import_specifier",
+      "label": "Suspense",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 17,
+          "byte": 17
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:9:17:identifier"
+      ],
+      "text_digest": "f79974bd5acc9d381df06ec1aa06a21bd188e74f72462c103122f65e237e9c44"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-in/page.tsx:9:17:identifier",
+      "kind": "identifier",
+      "label": "Suspense",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 17,
+          "byte": 17
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f79974bd5acc9d381df06ec1aa06a21bd188e74f72462c103122f65e237e9c44"
+    }
+  ],
+  "parser_id": "tree_sitter_typescript",
+  "relative_path": "apps/web/app/auth/sign-in/page.tsx",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "typescript",
+  "warnings": []
+}

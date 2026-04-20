@@ -1,0 +1,203 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:51+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:595:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:expression_statement:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:595:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:string:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:590:593:string_end:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:590:593:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:3:590:string_content:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:3:590:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:3:590:string_content->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:12:18:escape_sequence:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:3:590:string_content",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:12:18:escape_sequence",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:3:string_start",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:595:module",
+      "kind": "module",
+      "label": "\"\"\"Module 1 \\u2014 semantic edge enrichment.\r\n\r\nSubmodules:\r\n    url_normalize      Pure-function URL + route normalizer and matcher.\r\n    http_probes        Local AST passes that lift route decorators and\r\n                        fetch URL literals onto graph nodes.\r\n    rls_resolver       Supabase / RLS pattern matching.\r\n    migrations         Migration sequencer (timestamp-ordered).\r\n    celery_payload     Producer / consumer payload matcher.\r\n    semantic_edges     Orchestrator that runs all probes and emits the\r\n                        semantic edges + StitcherCoverageReport.\r\n\"\"\"\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 13,
+          "column": 0,
+          "byte": 595
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:expression_statement"
+      ],
+      "text_digest": "25bad647e58ea30170a8b55daa49dea55c1d74a6f5c09e1aa8859b4c8789c682"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:expression_statement",
+      "kind": "expression_statement",
+      "label": "\"\"\"Module 1 \\u2014 semantic edge enrichment.\r\n\r\nSubmodules:\r\n    url_normalize      Pure-function URL + route normalizer and matcher.\r\n    http_probes        Local AST passes that lift route decorators and\r\n                        fetch URL literals onto graph nodes.\r\n    rls_resolver       Supabase / RLS pattern matching.\r\n    migrations         Migration sequencer (timestamp-ordered).\r\n    celery_payload     Producer / consumer payload matcher.\r\n    semantic_edges     Orchestrator that runs all probes and emits the\r\n                        semantic edges + StitcherCoverageReport.\r\n\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 12,
+          "column": 3,
+          "byte": 593
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:string"
+      ],
+      "text_digest": "b942456ff768357d4320d8ed27e123feae44ebfefd5a1a58903ffad1a7e4a30f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:593:string",
+      "kind": "string",
+      "label": "\"\"\"Module 1 \\u2014 semantic edge enrichment.\r\n\r\nSubmodules:\r\n    url_normalize      Pure-function URL + route normalizer and matcher.\r\n    http_probes        Local AST passes that lift route decorators and\r\n                        fetch URL literals onto graph nodes.\r\n    rls_resolver       Supabase / RLS pattern matching.\r\n    migrations         Migration sequencer (timestamp-ordered).\r\n    celery_payload     Producer / consumer payload matcher.\r\n    semantic_edges     Orchestrator that runs all probes and emits the\r\n                        semantic edges + StitcherCoverageReport.\r\n\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 12,
+          "column": 3,
+          "byte": 593
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:3:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:3:590:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:590:593:string_end"
+      ],
+      "text_digest": "b942456ff768357d4320d8ed27e123feae44ebfefd5a1a58903ffad1a7e4a30f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:590:593:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 0,
+          "byte": 590
+        },
+        "end": {
+          "line": 12,
+          "column": 3,
+          "byte": 593
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6d267efe80a3dbcf2f2d67e21d8c15783a2f031427f827d43b6222fe9c4bf02"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:3:590:string_content",
+      "kind": "string_content",
+      "label": "Module 1 \\u2014 semantic edge enrichment.\r\n\r\nSubmodules:\r\n    url_normalize      Pure-function URL + route normalizer and matcher.\r\n    http_probes        Local AST passes that lift route decorators and\r\n                        fetch URL literals onto graph nodes.\r\n    rls_resolver       Supabase / RLS pattern matching.\r\n    migrations         Migration sequencer (timestamp-ordered).\r\n    celery_payload     Producer / consumer payload matcher.\r\n    semantic_edges     Orchestrator that runs all probes and emits the\r\n                        semantic edges + StitcherCoverageReport.\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 3,
+          "byte": 3
+        },
+        "end": {
+          "line": 12,
+          "column": 0,
+          "byte": 590
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:12:18:escape_sequence"
+      ],
+      "text_digest": "6eccad53977f24377ab79a771bee1f98d508e505e6adb2ac674a9ff5d733a7a3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:12:18:escape_sequence",
+      "kind": "escape_sequence",
+      "label": "\\u2014",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 12,
+          "byte": 12
+        },
+        "end": {
+          "line": 1,
+          "column": 18,
+          "byte": 18
+        }
+      },
+      "children_ids": [],
+      "text_digest": "814e0c87efb5b7cc7637e272544747859799c886c2b954142441d09617920c68"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/enrichment/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 3,
+          "byte": 3
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6d267efe80a3dbcf2f2d67e21d8c15783a2f031427f827d43b6222fe9c4bf02"
+    }
+  ],
+  "parser_id": "tree_sitter_python",
+  "relative_path": "depos/enrichment/__init__.py",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "python",
+  "warnings": []
+}

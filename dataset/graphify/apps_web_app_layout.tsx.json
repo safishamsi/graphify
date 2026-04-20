@@ -1,0 +1,4096 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:38+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR:146",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:865:872:type_parameters:145",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:865:872:type_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:865:872:type_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:867:871:type_parameter:144",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:865:872:type_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:867:871:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:867:871:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:867:871:type_identifier:143",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:867:871:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:867:871:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:865:872:type_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:866:867:ERROR:142",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:865:872:type_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:866:867:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:858:binary_expression:141",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:858:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:858:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:858:type_assertion:140",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:858:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:858:type_assertion",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:858:type_assertion->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:858:binary_expression:139",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:858:type_assertion",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:858:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:858:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:830:858:regex:138",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:858:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:830:858:regex",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:830:858:regex->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:854:858:regex_flags:137",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:830:858:regex",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:854:858:regex_flags",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:830:858:regex->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:852:853:ERROR:136",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:830:858:regex",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:852:853:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:830:858:regex->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:831:845:regex_pattern:135",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:830:858:regex",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:831:845:regex_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:858:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:829:object:134",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:858:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:829:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:829:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:820:828:shorthand_property_identifier:133",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:829:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:820:828:shorthand_property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:858:type_assertion->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:819:type_arguments:132",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:858:type_assertion",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:819:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:819:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:806:818:type_identifier:131",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:819:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:806:818:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:858:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:794:string:130",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:858:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:794:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:794:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:789:793:string_fragment:129",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:794:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:789:793:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:778:787:identifier:128",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:778:787:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:772:777:type_arguments:127",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:772:777:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:772:777:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:773:777:type_identifier:126",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:772:777:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:773:777:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:615:763:function_expression:125",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:615:763:function_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:615:763:function_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:680:763:statement_block:124",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:615:763:function_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:680:763:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:680:763:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:685:762:ERROR:123",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:680:763:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:685:762:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:685:762:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:762:type_parameter:122",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:685:762:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:762:type_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:762:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:709:762:default_type:121",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:762:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:709:762:default_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:709:762:default_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:726:762:template_literal_type:120",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:709:762:default_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:726:762:template_literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:726:762:template_literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:747:761:template_type:119",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:726:762:template_literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:747:761:template_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:747:761:template_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:760:nested_type_identifier:118",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:747:761:template_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:760:nested_type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:760:nested_type_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:752:760:type_identifier:117",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:760:nested_type_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:752:760:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:760:nested_type_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:751:identifier:116",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:760:nested_type_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:751:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:726:762:template_literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:746:747:string_fragment:115",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:726:762:template_literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:746:747:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:726:762:template_literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:727:746:template_type:114",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:726:762:template_literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:727:746:template_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:727:746:template_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:745:nested_type_identifier:113",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:727:746:template_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:745:nested_type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:745:nested_type_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:737:745:type_identifier:112",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:745:nested_type_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:737:745:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:745:nested_type_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:736:identifier:111",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:745:nested_type_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:736:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:709:762:default_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:726:ERROR:110",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:709:762:default_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:726:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:726:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:715:724:identifier:109",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:726:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:715:724:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:726:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:literal_type:108",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:726:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:literal_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:literal_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:string:107",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:literal_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:711:713:string_fragment:106",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:711:713:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:762:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:705:709:ERROR:105",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:762:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:705:709:ERROR",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:705:709:ERROR->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:705:709:identifier:104",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:705:709:ERROR",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:705:709:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:762:type_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:704:type_identifier:103",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:762:type_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:704:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:615:763:function_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:634:679:formal_parameters:102",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:615:763:function_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:634:679:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:634:679:formal_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:678:required_parameter:101",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:634:679:formal_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:678:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:678:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:647:678:type_annotation:100",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:678:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:647:678:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:647:678:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:649:678:object_type:99",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:647:678:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:649:678:object_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:649:678:object_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:676:property_signature:98",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:649:678:object_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:676:property_signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:676:property_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:659:676:type_annotation:97",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:676:property_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:659:676:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:659:676:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:676:nested_type_identifier:96",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:659:676:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:676:nested_type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:676:nested_type_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:667:676:type_identifier:95",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:676:nested_type_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:667:676:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:676:nested_type_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:666:identifier:94",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:676:nested_type_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:666:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:676:property_signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:659:property_identifier:93",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:676:property_signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:659:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:678:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:647:object_pattern:92",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:678:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:647:object_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:647:object_pattern->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:637:645:shorthand_property_identifier_pattern:91",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:647:object_pattern",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:637:645:shorthand_property_identifier_pattern",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:615:763:function_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:624:634:identifier:90",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:615:763:function_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:624:634:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:431:596:export_statement:89",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:431:596:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:431:596:export_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:438:596:lexical_declaration:88",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:431:596:export_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:438:596:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:438:596:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:595:variable_declarator:87",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:438:596:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:595:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:595:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:465:595:object:86",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:595:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:465:595:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:465:595:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:591:pair:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:465:595:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:591:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:591:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:524:591:string:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:591:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:524:591:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:524:591:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:525:590:string_fragment:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:524:591:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:525:590:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:591:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:522:property_identifier:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:591:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:522:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:465:595:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:506:pair:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:465:595:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:506:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:506:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:477:506:string:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:506:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:477:506:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:477:506:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:478:505:string_fragment:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:477:506:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:478:505:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:506:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:475:property_identifier:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:506:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:475:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:595:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:452:462:type_annotation:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:595:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:452:462:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:452:462:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:454:462:type_identifier:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:452:462:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:454:462:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:595:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:452:identifier:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:595:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:452:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:293:427:lexical_declaration:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:293:427:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:293:427:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:426:variable_declarator:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:293:427:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:426:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:426:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:426:call_expression:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:426:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:426:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:426:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:317:426:arguments:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:426:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:317:426:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:317:426:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:317:426:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:421:pair:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:421:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:421:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:415:421:string:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:421:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:415:421:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:415:421:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:416:420:string_fragment:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:415:421:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:416:420:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:421:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:413:property_identifier:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:421:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:413:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:401:pair:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:401:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:401:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:390:401:string:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:401:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:390:401:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:390:401:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:391:400:string_fragment:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:390:401:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:391:400:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:401:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:388:property_identifier:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:401:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:388:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:375:pair:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:375:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:375:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:354:375:array:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:375:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:354:375:array",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:354:375:array->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:369:374:string:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:354:375:array",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:369:374:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:369:374:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:370:373:string_fragment:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:369:374:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:370:373:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:354:375:array->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:362:367:string:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:354:375:array",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:362:367:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:362:367:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:363:366:string_fragment:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:362:367:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:363:366:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:354:375:array->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:355:360:string:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:354:375:array",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:355:360:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:355:360:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:356:359:string_fragment:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:355:360:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:356:359:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:375:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:352:property_identifier:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:375:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:352:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:341:pair:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:341:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:341:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:332:341:array:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:341:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:332:341:array",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:332:341:array->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:333:340:string:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:332:341:array",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:333:340:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:333:340:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:334:339:string_fragment:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:333:340:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:334:339:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:341:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:330:property_identifier:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:341:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:330:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:426:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:317:identifier:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:426:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:317:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:426:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:301:identifier:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:426:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:301:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:184:289:lexical_declaration:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:184:289:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:184:289:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:288:variable_declarator:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:184:289:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:288:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:288:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:288:call_expression:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:288:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:288:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:288:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:208:288:arguments:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:288:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:208:288:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:208:288:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:209:287:object:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:208:288:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:209:287:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:209:287:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:283:pair:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:209:287:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:283:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:283:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:277:283:string:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:283:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:277:283:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:277:283:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:278:282:string_fragment:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:277:283:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:278:282:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:283:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:275:property_identifier:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:283:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:275:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:209:287:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:263:pair:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:209:287:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:263:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:263:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:247:263:string:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:263:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:247:263:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:247:263:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:248:262:string_fragment:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:247:263:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:248:262:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:263:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:245:property_identifier:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:263:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:245:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:209:287:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:232:pair:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:209:287:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:232:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:232:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:223:232:array:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:232:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:223:232:array",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:223:232:array->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:224:231:string:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:223:232:array",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:224:231:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:224:231:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:225:230:string_fragment:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:224:231:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:225:230:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:232:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:221:property_identifier:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:232:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:221:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:288:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:208:identifier:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:288:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:208:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:288:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:197:identifier:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:288:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:197:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:125:180:import_statement:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:125:180:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:125:180:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:154:179:string:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:125:180:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:154:179:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:154:179:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:155:178:string_fragment:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:154:179:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:155:178:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:125:180:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:import_clause:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:125:180:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:named_imports:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:134:146:import_specifier:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:134:146:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:134:146:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:134:146:identifier:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:134:146:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:134:146:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:100:123:import_statement:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:100:123:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:100:123:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:107:122:string:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:100:123:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:107:122:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:107:122:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:108:121:string_fragment:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:107:122:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:108:121:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:39:98:import_statement:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:39:98:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:39:98:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:79:97:string:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:39:98:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:79:97:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:79:97:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:80:96:string_fragment:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:79:97:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:80:96:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:39:98:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:import_clause:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:39:98:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:named_imports:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:58:71:import_specifier:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:58:71:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:58:71:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:58:71:identifier:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:58:71:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:58:71:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:48:56:import_specifier:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:48:56:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:48:56:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:48:56:identifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:48:56:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:48:56:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:37:import_statement:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:37:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:37:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:30:36:string:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:37:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:30:36:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:30:36:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:31:35:string_fragment:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:30:36:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:31:35:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:37:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:import_clause:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:37:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:named_imports:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:14:22:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:14:22:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:14:22:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:14:22:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:14:22:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:14:22:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:883:program",
+      "kind": "program",
+      "label": "import type { Metadata } from \"next\";\r\nimport { Fraunces, IBM_Plex_Sans } from \"next/font/google\";\r\nimport \"./globals.css\";\r\nimport { AuthProvider } from \"@/lib/auth/AuthProvider\";\r\n\r\nconst display = Fraunces({\r\n  subsets: [\"latin\"],\r\n  variable: \"--font-display\",\r\n  display: \"swap\",\r\n});\r\n\r\nconst ui = IBM_Plex_Sans({\r\n  subsets: [\"latin\"],\r\n  weight: [\"400\", \"500\", \"600\"],\r\n  variable: \"--font-ui\",\r\n  display: \"swap\",\r\n});\r\n\r\nexport const metadata: Metadata = {\r\n  title: \"depOS \u2014 Dependency Map OS\",\r\n  description: \"Architecture intelligence, blast radius, diagnostics-aware graphs\",\r\n};\r\n\r\nexport default function RootLayout({ children }: { children: React.ReactNode }) {\r\n  return (\r\n    <html lang=\"en\" className={`${display.variable} ${ui.variable}`}>\r\n      <body className=\"root\">\r\n        <AuthProvider>{children}</AuthProvider>\r\n      </body>\r\n    </html>\r\n  );\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 33,
+          "column": 0,
+          "byte": 883
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:37:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:39:98:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:100:123:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:125:180:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:184:289:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:293:427:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:431:596:export_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR"
+      ],
+      "text_digest": "0dc13813112d881a305872b67c1d4f3138a7f6e5082a0420885844fc403afe46"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:600:881:ERROR",
+      "kind": "ERROR",
+      "label": "export default function RootLayout({ children }: { children: React.ReactNode }) {\r\n  return (\r\n    <html lang=\"en\" className={`${display.variable} ${ui.variable}`}>\r\n      <body className=\"root\">\r\n        <AuthProvider>{children}</AuthProvider>\r\n      </body>\r\n    </html>\r\n  );\r\n}",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 0,
+          "byte": 600
+        },
+        "end": {
+          "line": 32,
+          "column": 1,
+          "byte": 881
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:615:763:function_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:772:777:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:778:787:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:858:binary_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:865:872:type_parameters"
+      ],
+      "text_digest": "918d8a66dafdfc7a81097e13f1c3748810d6074fab4886ee61aa39f47092d203"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:865:872:type_parameters",
+      "kind": "type_parameters",
+      "label": "</html>",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 4,
+          "byte": 865
+        },
+        "end": {
+          "line": 30,
+          "column": 11,
+          "byte": 872
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:866:867:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:867:871:type_parameter"
+      ],
+      "text_digest": "fdfe0993e6e9e9917554bb95b1137af5870146fd38da5f13bea1b530ac05b296"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:867:871:type_parameter",
+      "kind": "type_parameter",
+      "label": "html",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 6,
+          "byte": 867
+        },
+        "end": {
+          "line": 30,
+          "column": 10,
+          "byte": 871
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:867:871:type_identifier"
+      ],
+      "text_digest": "e5e239560bc125a20ff2ac1fea50915bc198dd4f5b5256ec447a8a71e00132b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:867:871:type_identifier",
+      "kind": "type_identifier",
+      "label": "html",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 6,
+          "byte": 867
+        },
+        "end": {
+          "line": 30,
+          "column": 10,
+          "byte": 871
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e5e239560bc125a20ff2ac1fea50915bc198dd4f5b5256ec447a8a71e00132b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:866:867:ERROR",
+      "kind": "ERROR",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 5,
+          "byte": 866
+        },
+        "end": {
+          "line": 30,
+          "column": 6,
+          "byte": 867
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:858:binary_expression",
+      "kind": "binary_expression",
+      "label": "\"root\">\r\n        <AuthProvider>{children}</AuthProvider>\r\n      </body",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 22,
+          "byte": 788
+        },
+        "end": {
+          "line": 29,
+          "column": 12,
+          "byte": 858
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:794:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:858:type_assertion"
+      ],
+      "text_digest": "d7103f57c9cd8959862c7ad3dda6ef7f95df26def623e4ffde31f051d16b5449"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:858:type_assertion",
+      "kind": "type_assertion",
+      "label": "<AuthProvider>{children}</AuthProvider>\r\n      </body",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 8,
+          "byte": 805
+        },
+        "end": {
+          "line": 29,
+          "column": 12,
+          "byte": 858
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:819:type_arguments",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:858:binary_expression"
+      ],
+      "text_digest": "fd5ea3a20e7d92a1222f5da938420a892552344b632bac5932ae0a76dfa05aed"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:858:binary_expression",
+      "kind": "binary_expression",
+      "label": "{children}</AuthProvider>\r\n      </body",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 22,
+          "byte": 819
+        },
+        "end": {
+          "line": 29,
+          "column": 12,
+          "byte": 858
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:829:object",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:830:858:regex"
+      ],
+      "text_digest": "7c4b6560fe368eed117100179677c8e71cf21385142039d5aa7b3f5c820977d9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:830:858:regex",
+      "kind": "regex",
+      "label": "/AuthProvider>\r\n      </body",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 33,
+          "byte": 830
+        },
+        "end": {
+          "line": 29,
+          "column": 12,
+          "byte": 858
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:831:845:regex_pattern",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:852:853:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:854:858:regex_flags"
+      ],
+      "text_digest": "9cca3b73888af4ce2ff04431c7d8e7b7ac6e5a0fb1315aa15265a46ff9eb6d42"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:854:858:regex_flags",
+      "kind": "regex_flags",
+      "label": "body",
+      "span": {
+        "start": {
+          "line": 29,
+          "column": 8,
+          "byte": 854
+        },
+        "end": {
+          "line": 29,
+          "column": 12,
+          "byte": 858
+        }
+      },
+      "children_ids": [],
+      "text_digest": "230d8358dc8e8890b4c58deeb62912ee2f20357ae92a5cc861b98e68fe31acb5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:852:853:ERROR",
+      "kind": "ERROR",
+      "label": "<",
+      "span": {
+        "start": {
+          "line": 29,
+          "column": 6,
+          "byte": 852
+        },
+        "end": {
+          "line": 29,
+          "column": 7,
+          "byte": 853
+        }
+      },
+      "children_ids": [],
+      "text_digest": "dabd3aff769f07eb2965401eb029974ebba3407afd02b26ddb564ea5f8efae72"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:831:845:regex_pattern",
+      "kind": "regex_pattern",
+      "label": "AuthProvider>\r",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 34,
+          "byte": 831
+        },
+        "end": {
+          "line": 28,
+          "column": 48,
+          "byte": 845
+        }
+      },
+      "children_ids": [],
+      "text_digest": "29c4403ff0681208e38a2af2bba5314cdd3c6a785b5d796269861ff2190ef615"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:819:829:object",
+      "kind": "object",
+      "label": "{children}",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 22,
+          "byte": 819
+        },
+        "end": {
+          "line": 28,
+          "column": 32,
+          "byte": 829
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:820:828:shorthand_property_identifier"
+      ],
+      "text_digest": "e784e520cd054b72e37ac1cf5d5cd6ee90d259ae6452a58467f247fac8a29628"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:820:828:shorthand_property_identifier",
+      "kind": "shorthand_property_identifier",
+      "label": "children",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 23,
+          "byte": 820
+        },
+        "end": {
+          "line": 28,
+          "column": 31,
+          "byte": 828
+        }
+      },
+      "children_ids": [],
+      "text_digest": "10910087de24bfcabe854fda62b5023a61fe531705043b9979fdf00f12c4c0ec"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:805:819:type_arguments",
+      "kind": "type_arguments",
+      "label": "<AuthProvider>",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 8,
+          "byte": 805
+        },
+        "end": {
+          "line": 28,
+          "column": 22,
+          "byte": 819
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:806:818:type_identifier"
+      ],
+      "text_digest": "d466df98f77745cdcb9d73d8a458cb1f59f87aae67cc18157247e4619588ca0b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:806:818:type_identifier",
+      "kind": "type_identifier",
+      "label": "AuthProvider",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 9,
+          "byte": 806
+        },
+        "end": {
+          "line": 28,
+          "column": 21,
+          "byte": 818
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f3ca6b333fa38f75a52bef88be60c300735c0f4d1e164ab64b0b90b1b1e08934"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:788:794:string",
+      "kind": "string",
+      "label": "\"root\"",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 22,
+          "byte": 788
+        },
+        "end": {
+          "line": 27,
+          "column": 28,
+          "byte": 794
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:789:793:string_fragment"
+      ],
+      "text_digest": "956e6e33fe8b21fbf3e7e43d41c304862c78627deb92e26a72fd2b3b57bc60f2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:789:793:string_fragment",
+      "kind": "string_fragment",
+      "label": "root",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 23,
+          "byte": 789
+        },
+        "end": {
+          "line": 27,
+          "column": 27,
+          "byte": 793
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4813494d137e1631bba301d5acab6e7bb7aa74ce1185d456565ef51d737677b2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:778:787:identifier",
+      "kind": "identifier",
+      "label": "className",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 12,
+          "byte": 778
+        },
+        "end": {
+          "line": 27,
+          "column": 21,
+          "byte": 787
+        }
+      },
+      "children_ids": [],
+      "text_digest": "42d5bd1ac1ca8a2050bc1c27dfb8e01a5c54de453b85410227aa04be47c27af4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:772:777:type_arguments",
+      "kind": "type_arguments",
+      "label": "<body",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 6,
+          "byte": 772
+        },
+        "end": {
+          "line": 27,
+          "column": 11,
+          "byte": 777
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:773:777:type_identifier"
+      ],
+      "text_digest": "47c75691a451a48212389a3607d9783d6a02f337a381423b6708c3dd4438496a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:773:777:type_identifier",
+      "kind": "type_identifier",
+      "label": "body",
+      "span": {
+        "start": {
+          "line": 27,
+          "column": 7,
+          "byte": 773
+        },
+        "end": {
+          "line": 27,
+          "column": 11,
+          "byte": 777
+        }
+      },
+      "children_ids": [],
+      "text_digest": "230d8358dc8e8890b4c58deeb62912ee2f20357ae92a5cc861b98e68fe31acb5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:615:763:function_expression",
+      "kind": "function_expression",
+      "label": "function RootLayout({ children }: { children: React.ReactNode }) {\r\n  return (\r\n    <html lang=\"en\" className={`${display.variable} ${ui.variable}`}",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 15,
+          "byte": 615
+        },
+        "end": {
+          "line": 26,
+          "column": 68,
+          "byte": 763
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:624:634:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:634:679:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:680:763:statement_block"
+      ],
+      "text_digest": "11ab23d9feabde88cd08ab421542e5ffcf15edce146feb20936c809db13fd033"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:680:763:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  return (\r\n    <html lang=\"en\" className={`${display.variable} ${ui.variable}`}",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 80,
+          "byte": 680
+        },
+        "end": {
+          "line": 26,
+          "column": 68,
+          "byte": 763
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:685:762:ERROR"
+      ],
+      "text_digest": "9917f430c2397bda34b385676607c5fe700d7a688a8867def3acfd928bbd19bf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:685:762:ERROR",
+      "kind": "ERROR",
+      "label": "return (\r\n    <html lang=\"en\" className={`${display.variable} ${ui.variable}`",
+      "span": {
+        "start": {
+          "line": 25,
+          "column": 2,
+          "byte": 685
+        },
+        "end": {
+          "line": 26,
+          "column": 67,
+          "byte": 762
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:762:type_parameter"
+      ],
+      "text_digest": "5843bf3318cee5fc7b31346324c8e096f8668bec921d70879b616c1229fb209a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:762:type_parameter",
+      "kind": "type_parameter",
+      "label": "html lang=\"en\" className={`${display.variable} ${ui.variable}`",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 5,
+          "byte": 700
+        },
+        "end": {
+          "line": 26,
+          "column": 67,
+          "byte": 762
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:704:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:705:709:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:709:762:default_type"
+      ],
+      "text_digest": "832525d66012738e4812a69fb08a652f923a18b1ffc2464a548148277bc7a6ff"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:709:762:default_type",
+      "kind": "default_type",
+      "label": "=\"en\" className={`${display.variable} ${ui.variable}`",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 14,
+          "byte": 709
+        },
+        "end": {
+          "line": 26,
+          "column": 67,
+          "byte": 762
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:726:ERROR",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:726:762:template_literal_type"
+      ],
+      "text_digest": "99fb352588dd4853bf45571c8e9cda38c53bf887234364c943c927806860d499"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:726:762:template_literal_type",
+      "kind": "template_literal_type",
+      "label": "`${display.variable} ${ui.variable}`",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 31,
+          "byte": 726
+        },
+        "end": {
+          "line": 26,
+          "column": 67,
+          "byte": 762
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:727:746:template_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:746:747:string_fragment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:747:761:template_type"
+      ],
+      "text_digest": "d675c8d8d22168e63ad8207ed51074252454785e0a993392917ca702f36bd601"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:747:761:template_type",
+      "kind": "template_type",
+      "label": "${ui.variable}",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 52,
+          "byte": 747
+        },
+        "end": {
+          "line": 26,
+          "column": 66,
+          "byte": 761
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:760:nested_type_identifier"
+      ],
+      "text_digest": "4826fd213de4623d3d2566c5303a50db56da018a80c4d9834274045d0975ea75"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:760:nested_type_identifier",
+      "kind": "nested_type_identifier",
+      "label": "ui.variable",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 54,
+          "byte": 749
+        },
+        "end": {
+          "line": 26,
+          "column": 65,
+          "byte": 760
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:751:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:752:760:type_identifier"
+      ],
+      "text_digest": "7ed7e4484a2c5672f698ecd2236974c93f512f2b4d5f9f6db4df7c5207cb67d1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:752:760:type_identifier",
+      "kind": "type_identifier",
+      "label": "variable",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 57,
+          "byte": 752
+        },
+        "end": {
+          "line": 26,
+          "column": 65,
+          "byte": 760
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3b325109deb02ebf8150c4cc76e908d55f977082fe74bfd455e298770351b77d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:749:751:identifier",
+      "kind": "identifier",
+      "label": "ui",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 54,
+          "byte": 749
+        },
+        "end": {
+          "line": 26,
+          "column": 56,
+          "byte": 751
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d3ef7de562f9a4a34a9a0b05a112955fdecdd0102c3faae5eeb03a195091a5e4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:746:747:string_fragment",
+      "kind": "string_fragment",
+      "label": " ",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 51,
+          "byte": 746
+        },
+        "end": {
+          "line": 26,
+          "column": 52,
+          "byte": 747
+        }
+      },
+      "children_ids": [],
+      "text_digest": "36a9e7f1c95b82ffb99743e0c5c4ce95d83c9a430aac59f84ef3cbfab6145068"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:727:746:template_type",
+      "kind": "template_type",
+      "label": "${display.variable}",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 32,
+          "byte": 727
+        },
+        "end": {
+          "line": 26,
+          "column": 51,
+          "byte": 746
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:745:nested_type_identifier"
+      ],
+      "text_digest": "607f70c56c271f7d16c7489de04adbd75565adc687d10ba58cce28ca85a6df08"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:745:nested_type_identifier",
+      "kind": "nested_type_identifier",
+      "label": "display.variable",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 34,
+          "byte": 729
+        },
+        "end": {
+          "line": 26,
+          "column": 50,
+          "byte": 745
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:736:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:737:745:type_identifier"
+      ],
+      "text_digest": "5070335d882f8020929a592e6dacac99f20c9bec43753e2df912a131e42e4ec6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:737:745:type_identifier",
+      "kind": "type_identifier",
+      "label": "variable",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 42,
+          "byte": 737
+        },
+        "end": {
+          "line": 26,
+          "column": 50,
+          "byte": 745
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3b325109deb02ebf8150c4cc76e908d55f977082fe74bfd455e298770351b77d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:729:736:identifier",
+      "kind": "identifier",
+      "label": "display",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 34,
+          "byte": 729
+        },
+        "end": {
+          "line": 26,
+          "column": 41,
+          "byte": 736
+        }
+      },
+      "children_ids": [],
+      "text_digest": "dfbb889cf19bda82ed8deadf82de232979aa4ecc83238625c6453dc4c597b43a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:726:ERROR",
+      "kind": "ERROR",
+      "label": "\"en\" className={",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 15,
+          "byte": 710
+        },
+        "end": {
+          "line": 26,
+          "column": 31,
+          "byte": 726
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:literal_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:715:724:identifier"
+      ],
+      "text_digest": "3667a683ed7713be34e90ac0608ac6aefbef2a9979f51b0142df7d109dd85f1c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:715:724:identifier",
+      "kind": "identifier",
+      "label": "className",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 20,
+          "byte": 715
+        },
+        "end": {
+          "line": 26,
+          "column": 29,
+          "byte": 724
+        }
+      },
+      "children_ids": [],
+      "text_digest": "42d5bd1ac1ca8a2050bc1c27dfb8e01a5c54de453b85410227aa04be47c27af4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:literal_type",
+      "kind": "literal_type",
+      "label": "\"en\"",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 15,
+          "byte": 710
+        },
+        "end": {
+          "line": 26,
+          "column": 19,
+          "byte": 714
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:string"
+      ],
+      "text_digest": "50eac10e7966a04e139902940a2a8e129a4597574c709cb8d01939ace56ff9c3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:710:714:string",
+      "kind": "string",
+      "label": "\"en\"",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 15,
+          "byte": 710
+        },
+        "end": {
+          "line": 26,
+          "column": 19,
+          "byte": 714
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:711:713:string_fragment"
+      ],
+      "text_digest": "50eac10e7966a04e139902940a2a8e129a4597574c709cb8d01939ace56ff9c3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:711:713:string_fragment",
+      "kind": "string_fragment",
+      "label": "en",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 16,
+          "byte": 711
+        },
+        "end": {
+          "line": 26,
+          "column": 18,
+          "byte": 713
+        }
+      },
+      "children_ids": [],
+      "text_digest": "dbd3a49d0d906b4ed9216b73330d2fb080ef2f758c12f3885068222e5e17151c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:705:709:ERROR",
+      "kind": "ERROR",
+      "label": "lang",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 10,
+          "byte": 705
+        },
+        "end": {
+          "line": 26,
+          "column": 14,
+          "byte": 709
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:705:709:identifier"
+      ],
+      "text_digest": "5cf7d7ec1cb5c221981f277051f7f82a82e155b53c76ab9b6f75fde9641f6fa0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:705:709:identifier",
+      "kind": "identifier",
+      "label": "lang",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 10,
+          "byte": 705
+        },
+        "end": {
+          "line": 26,
+          "column": 14,
+          "byte": 709
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5cf7d7ec1cb5c221981f277051f7f82a82e155b53c76ab9b6f75fde9641f6fa0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:700:704:type_identifier",
+      "kind": "type_identifier",
+      "label": "html",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 5,
+          "byte": 700
+        },
+        "end": {
+          "line": 26,
+          "column": 9,
+          "byte": 704
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e5e239560bc125a20ff2ac1fea50915bc198dd4f5b5256ec447a8a71e00132b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:634:679:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "({ children }: { children: React.ReactNode })",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 34,
+          "byte": 634
+        },
+        "end": {
+          "line": 24,
+          "column": 79,
+          "byte": 679
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:678:required_parameter"
+      ],
+      "text_digest": "daf8d695142b467b020c0790da7ed31cb0bb269b391277c89b956f900aeddafb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:678:required_parameter",
+      "kind": "required_parameter",
+      "label": "{ children }: { children: React.ReactNode }",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 35,
+          "byte": 635
+        },
+        "end": {
+          "line": 24,
+          "column": 78,
+          "byte": 678
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:647:object_pattern",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:647:678:type_annotation"
+      ],
+      "text_digest": "8e5ebb5b1f9ae2703f4422e3b837a7dabc1cce2eb3663c2daa7dc264474a1829"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:647:678:type_annotation",
+      "kind": "type_annotation",
+      "label": ": { children: React.ReactNode }",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 47,
+          "byte": 647
+        },
+        "end": {
+          "line": 24,
+          "column": 78,
+          "byte": 678
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:649:678:object_type"
+      ],
+      "text_digest": "17cae74bbfd806cd0aacb6a100cfd4edf2af607ca19f95f3607b400110682171"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:649:678:object_type",
+      "kind": "object_type",
+      "label": "{ children: React.ReactNode }",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 49,
+          "byte": 649
+        },
+        "end": {
+          "line": 24,
+          "column": 78,
+          "byte": 678
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:676:property_signature"
+      ],
+      "text_digest": "965fae99706a7b97e60d9ba5c009c719c6f6ed0e8739f25e9527a88e80daec04"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:676:property_signature",
+      "kind": "property_signature",
+      "label": "children: React.ReactNode",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 51,
+          "byte": 651
+        },
+        "end": {
+          "line": 24,
+          "column": 76,
+          "byte": 676
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:659:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:659:676:type_annotation"
+      ],
+      "text_digest": "3e7761b02691847da6651dbba685d9890a506e064c947263a12e900cef8cce74"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:659:676:type_annotation",
+      "kind": "type_annotation",
+      "label": ": React.ReactNode",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 59,
+          "byte": 659
+        },
+        "end": {
+          "line": 24,
+          "column": 76,
+          "byte": 676
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:676:nested_type_identifier"
+      ],
+      "text_digest": "4bb58cb24156b96f393660f02239941b25ff1c4054d11976cfd6a9d49f8b2b3e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:676:nested_type_identifier",
+      "kind": "nested_type_identifier",
+      "label": "React.ReactNode",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 61,
+          "byte": 661
+        },
+        "end": {
+          "line": 24,
+          "column": 76,
+          "byte": 676
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:666:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:667:676:type_identifier"
+      ],
+      "text_digest": "b9acb4a0e9c2808233ccad58b7c13123031c68e1c0e755bc0a46742ed20a7033"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:667:676:type_identifier",
+      "kind": "type_identifier",
+      "label": "ReactNode",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 67,
+          "byte": 667
+        },
+        "end": {
+          "line": 24,
+          "column": 76,
+          "byte": 676
+        }
+      },
+      "children_ids": [],
+      "text_digest": "25348bf5d0a1f30a14abd0e6b1d388c1a90281a3fb09c3a0a186388b836b7b3f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:661:666:identifier",
+      "kind": "identifier",
+      "label": "React",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 61,
+          "byte": 661
+        },
+        "end": {
+          "line": 24,
+          "column": 66,
+          "byte": 666
+        }
+      },
+      "children_ids": [],
+      "text_digest": "01fad993ff61aca9a1f2f07100c95eb1559d8b6440a00cb974a92810a6b5a2dc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:651:659:property_identifier",
+      "kind": "property_identifier",
+      "label": "children",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 51,
+          "byte": 651
+        },
+        "end": {
+          "line": 24,
+          "column": 59,
+          "byte": 659
+        }
+      },
+      "children_ids": [],
+      "text_digest": "10910087de24bfcabe854fda62b5023a61fe531705043b9979fdf00f12c4c0ec"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:635:647:object_pattern",
+      "kind": "object_pattern",
+      "label": "{ children }",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 35,
+          "byte": 635
+        },
+        "end": {
+          "line": 24,
+          "column": 47,
+          "byte": 647
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:637:645:shorthand_property_identifier_pattern"
+      ],
+      "text_digest": "a42978b09c8df641c75c3f58d60d1d594ccbca10457942ed4149af2c86cf0fc5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:637:645:shorthand_property_identifier_pattern",
+      "kind": "shorthand_property_identifier_pattern",
+      "label": "children",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 37,
+          "byte": 637
+        },
+        "end": {
+          "line": 24,
+          "column": 45,
+          "byte": 645
+        }
+      },
+      "children_ids": [],
+      "text_digest": "10910087de24bfcabe854fda62b5023a61fe531705043b9979fdf00f12c4c0ec"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:624:634:identifier",
+      "kind": "identifier",
+      "label": "RootLayout",
+      "span": {
+        "start": {
+          "line": 24,
+          "column": 24,
+          "byte": 624
+        },
+        "end": {
+          "line": 24,
+          "column": 34,
+          "byte": 634
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0617b8efca76d893ac05dbba3c446bedcefea582bd95e0932074db95161c8b76"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:431:596:export_statement",
+      "kind": "export_statement",
+      "label": "export const metadata: Metadata = {\r\n  title: \"depOS \u2014 Dependency Map OS\",\r\n  description: \"Architecture intelligence, blast radius, diagnostics-aware graphs\",\r\n};",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 0,
+          "byte": 431
+        },
+        "end": {
+          "line": 22,
+          "column": 2,
+          "byte": 596
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:438:596:lexical_declaration"
+      ],
+      "text_digest": "398ec9f9757d1b7ac86d71d652bd9fb7c4e591b8df0f03bc8d6593c47dc3e439"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:438:596:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const metadata: Metadata = {\r\n  title: \"depOS \u2014 Dependency Map OS\",\r\n  description: \"Architecture intelligence, blast radius, diagnostics-aware graphs\",\r\n};",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 7,
+          "byte": 438
+        },
+        "end": {
+          "line": 22,
+          "column": 2,
+          "byte": 596
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:595:variable_declarator"
+      ],
+      "text_digest": "90baa16e703dfc09334035d8784a022f2ba3e2cfba3d0dc556b0a5174117119b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:595:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "metadata: Metadata = {\r\n  title: \"depOS \u2014 Dependency Map OS\",\r\n  description: \"Architecture intelligence, blast radius, diagnostics-aware graphs\",\r\n}",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 13,
+          "byte": 444
+        },
+        "end": {
+          "line": 22,
+          "column": 1,
+          "byte": 595
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:452:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:452:462:type_annotation",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:465:595:object"
+      ],
+      "text_digest": "4ff52a434267289baccfb7cf8506f70b1cc9cf476d8dfc7a806cd13e37b9b9fb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:465:595:object",
+      "kind": "object",
+      "label": "{\r\n  title: \"depOS \u2014 Dependency Map OS\",\r\n  description: \"Architecture intelligence, blast radius, diagnostics-aware graphs\",\r\n}",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 34,
+          "byte": 465
+        },
+        "end": {
+          "line": 22,
+          "column": 1,
+          "byte": 595
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:506:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:591:pair"
+      ],
+      "text_digest": "fb51dd8828ecbf37b5829395f3c916b22ec2df2da0029fe97d6516dd246fc88c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:591:pair",
+      "kind": "pair",
+      "label": "description: \"Architecture intelligence, blast radius, diagnostics-aware graphs\"",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 2,
+          "byte": 511
+        },
+        "end": {
+          "line": 21,
+          "column": 82,
+          "byte": 591
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:522:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:524:591:string"
+      ],
+      "text_digest": "4640405ce0c124f682f14a568b5114777921f90989f271c1934ce7a4f3409b20"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:524:591:string",
+      "kind": "string",
+      "label": "\"Architecture intelligence, blast radius, diagnostics-aware graphs\"",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 15,
+          "byte": 524
+        },
+        "end": {
+          "line": 21,
+          "column": 82,
+          "byte": 591
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:525:590:string_fragment"
+      ],
+      "text_digest": "72bb9e0c6bccd1e23d1bdebe086938f8b46378a287791350c38ead1db1b4fc74"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:525:590:string_fragment",
+      "kind": "string_fragment",
+      "label": "Architecture intelligence, blast radius, diagnostics-aware graphs",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 16,
+          "byte": 525
+        },
+        "end": {
+          "line": 21,
+          "column": 81,
+          "byte": 590
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6f64f6a735d652298bd6eb03db41c132f0fa13bf34e93e622bf03ca1fcef289"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:511:522:property_identifier",
+      "kind": "property_identifier",
+      "label": "description",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 2,
+          "byte": 511
+        },
+        "end": {
+          "line": 21,
+          "column": 13,
+          "byte": 522
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c9046f7a37ad0ea7cee73355984fa5428982f8b37c8f7bcec91f7ac71a7cd104"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:506:pair",
+      "kind": "pair",
+      "label": "title: \"depOS \u2014 Dependency Map OS\"",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 2,
+          "byte": 470
+        },
+        "end": {
+          "line": 20,
+          "column": 38,
+          "byte": 506
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:475:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:477:506:string"
+      ],
+      "text_digest": "06a3b966476ca2db8b7e765fc2f060c3e28ad684e93e5ff50f146d339d7ab156"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:477:506:string",
+      "kind": "string",
+      "label": "\"depOS \u2014 Dependency Map OS\"",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 9,
+          "byte": 477
+        },
+        "end": {
+          "line": 20,
+          "column": 38,
+          "byte": 506
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:478:505:string_fragment"
+      ],
+      "text_digest": "c0bc79ff50f5dc221a8ff2042ef0390902899685afbbc75c42c7537fb6bb70f9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:478:505:string_fragment",
+      "kind": "string_fragment",
+      "label": "depOS \u2014 Dependency Map OS",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 10,
+          "byte": 478
+        },
+        "end": {
+          "line": 20,
+          "column": 37,
+          "byte": 505
+        }
+      },
+      "children_ids": [],
+      "text_digest": "660e43c94e371f882b3e6c5eeb5e029797aadf82c470b3af6ec1a3df1717a371"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:470:475:property_identifier",
+      "kind": "property_identifier",
+      "label": "title",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 2,
+          "byte": 470
+        },
+        "end": {
+          "line": 20,
+          "column": 7,
+          "byte": 475
+        }
+      },
+      "children_ids": [],
+      "text_digest": "aaf2320646108059a87ab5017a86aee454f5378ed95003dbb2e12f4ca5266e0e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:452:462:type_annotation",
+      "kind": "type_annotation",
+      "label": ": Metadata",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 21,
+          "byte": 452
+        },
+        "end": {
+          "line": 19,
+          "column": 31,
+          "byte": 462
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:454:462:type_identifier"
+      ],
+      "text_digest": "cfe310ae1c1d00da7670b07438148a76200ce2b7e59d2b7a8b2c6650a402f6d6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:454:462:type_identifier",
+      "kind": "type_identifier",
+      "label": "Metadata",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 23,
+          "byte": 454
+        },
+        "end": {
+          "line": 19,
+          "column": 31,
+          "byte": 462
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9eddf573cb509f1f62df633e25c052ac1b2a0ff9241e70223c77c73e834c0045"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:444:452:identifier",
+      "kind": "identifier",
+      "label": "metadata",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 13,
+          "byte": 444
+        },
+        "end": {
+          "line": 19,
+          "column": 21,
+          "byte": 452
+        }
+      },
+      "children_ids": [],
+      "text_digest": "45447b7afbd5e544f7d0f1df0fccd26014d9850130abd3f020b89ff96b82079f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:293:427:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const ui = IBM_Plex_Sans({\r\n  subsets: [\"latin\"],\r\n  weight: [\"400\", \"500\", \"600\"],\r\n  variable: \"--font-ui\",\r\n  display: \"swap\",\r\n});",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 0,
+          "byte": 293
+        },
+        "end": {
+          "line": 17,
+          "column": 3,
+          "byte": 427
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:426:variable_declarator"
+      ],
+      "text_digest": "6312823ee9a17b104e349ba630acfc45cf3b9432ea34512c3b944ab94309af8a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:426:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "ui = IBM_Plex_Sans({\r\n  subsets: [\"latin\"],\r\n  weight: [\"400\", \"500\", \"600\"],\r\n  variable: \"--font-ui\",\r\n  display: \"swap\",\r\n})",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 6,
+          "byte": 299
+        },
+        "end": {
+          "line": 17,
+          "column": 2,
+          "byte": 426
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:301:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:426:call_expression"
+      ],
+      "text_digest": "a5c4c04eb2ad5d792ba7aeaa586ed157ddf4f120e0c842885fa08e851c3a8a56"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:426:call_expression",
+      "kind": "call_expression",
+      "label": "IBM_Plex_Sans({\r\n  subsets: [\"latin\"],\r\n  weight: [\"400\", \"500\", \"600\"],\r\n  variable: \"--font-ui\",\r\n  display: \"swap\",\r\n})",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 11,
+          "byte": 304
+        },
+        "end": {
+          "line": 17,
+          "column": 2,
+          "byte": 426
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:317:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:317:426:arguments"
+      ],
+      "text_digest": "f0722de4a2d3a424f97f137ab3a78bb31ad129f2fc9f1c8e53d077b59be23cb9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:317:426:arguments",
+      "kind": "arguments",
+      "label": "({\r\n  subsets: [\"latin\"],\r\n  weight: [\"400\", \"500\", \"600\"],\r\n  variable: \"--font-ui\",\r\n  display: \"swap\",\r\n})",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 24,
+          "byte": 317
+        },
+        "end": {
+          "line": 17,
+          "column": 2,
+          "byte": 426
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object"
+      ],
+      "text_digest": "b1123bdc655158a73d5aac5dcf8f02e2fa13001b7bf321194b35e0fc6523a04e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:318:425:object",
+      "kind": "object",
+      "label": "{\r\n  subsets: [\"latin\"],\r\n  weight: [\"400\", \"500\", \"600\"],\r\n  variable: \"--font-ui\",\r\n  display: \"swap\",\r\n}",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 25,
+          "byte": 318
+        },
+        "end": {
+          "line": 17,
+          "column": 1,
+          "byte": 425
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:341:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:375:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:401:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:421:pair"
+      ],
+      "text_digest": "1fc7af614eded1c101096339529199525298a4e527f60f3aa4a84b854ce69090"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:421:pair",
+      "kind": "pair",
+      "label": "display: \"swap\"",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 2,
+          "byte": 406
+        },
+        "end": {
+          "line": 16,
+          "column": 17,
+          "byte": 421
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:413:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:415:421:string"
+      ],
+      "text_digest": "a44000cad130b19e6d74195efe7b19e9c19271658a686f954fc0d5ae42d98017"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:415:421:string",
+      "kind": "string",
+      "label": "\"swap\"",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 11,
+          "byte": 415
+        },
+        "end": {
+          "line": 16,
+          "column": 17,
+          "byte": 421
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:416:420:string_fragment"
+      ],
+      "text_digest": "4a495f47bf0e87e4016496efc18a7b417333f8ed0f1aedce6120fb03fbf995a1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:416:420:string_fragment",
+      "kind": "string_fragment",
+      "label": "swap",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 12,
+          "byte": 416
+        },
+        "end": {
+          "line": 16,
+          "column": 16,
+          "byte": 420
+        }
+      },
+      "children_ids": [],
+      "text_digest": "da47c2f450a4f9d538d86d600d55149afd39d6672fdd1f30c68ad5be21cadad8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:406:413:property_identifier",
+      "kind": "property_identifier",
+      "label": "display",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 2,
+          "byte": 406
+        },
+        "end": {
+          "line": 16,
+          "column": 9,
+          "byte": 413
+        }
+      },
+      "children_ids": [],
+      "text_digest": "dfbb889cf19bda82ed8deadf82de232979aa4ecc83238625c6453dc4c597b43a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:401:pair",
+      "kind": "pair",
+      "label": "variable: \"--font-ui\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 2,
+          "byte": 380
+        },
+        "end": {
+          "line": 15,
+          "column": 23,
+          "byte": 401
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:388:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:390:401:string"
+      ],
+      "text_digest": "fd5f121bbfb8fc1fd33aac4b1ffa35a8674ce5466cfad88ae762edff0e326591"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:390:401:string",
+      "kind": "string",
+      "label": "\"--font-ui\"",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 12,
+          "byte": 390
+        },
+        "end": {
+          "line": 15,
+          "column": 23,
+          "byte": 401
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:391:400:string_fragment"
+      ],
+      "text_digest": "44698f7f95fd1f8469d16c60d3874c21027814e46ef1e7ff7001b389943eb9ff"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:391:400:string_fragment",
+      "kind": "string_fragment",
+      "label": "--font-ui",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 13,
+          "byte": 391
+        },
+        "end": {
+          "line": 15,
+          "column": 22,
+          "byte": 400
+        }
+      },
+      "children_ids": [],
+      "text_digest": "26967dd3f991af09e45998460fdd3d88bfa2ef0f7851d502c9755e87dcc1ccdd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:380:388:property_identifier",
+      "kind": "property_identifier",
+      "label": "variable",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 2,
+          "byte": 380
+        },
+        "end": {
+          "line": 15,
+          "column": 10,
+          "byte": 388
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3b325109deb02ebf8150c4cc76e908d55f977082fe74bfd455e298770351b77d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:375:pair",
+      "kind": "pair",
+      "label": "weight: [\"400\", \"500\", \"600\"]",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 2,
+          "byte": 346
+        },
+        "end": {
+          "line": 14,
+          "column": 31,
+          "byte": 375
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:352:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:354:375:array"
+      ],
+      "text_digest": "19fa654c0a0c2c05aaaf2c2c82b412f934ce344a5ef7152d3611e3b504b2d4b2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:354:375:array",
+      "kind": "array",
+      "label": "[\"400\", \"500\", \"600\"]",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 10,
+          "byte": 354
+        },
+        "end": {
+          "line": 14,
+          "column": 31,
+          "byte": 375
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:355:360:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:362:367:string",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:369:374:string"
+      ],
+      "text_digest": "f0f62a7f6db91d0f94a77e4538b0d7bcb487e73ef7041f513e7627b81990607d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:369:374:string",
+      "kind": "string",
+      "label": "\"600\"",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 25,
+          "byte": 369
+        },
+        "end": {
+          "line": 14,
+          "column": 30,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:370:373:string_fragment"
+      ],
+      "text_digest": "b08eab77f8e1fded9209737f000550f19ae422a6b83a26fdfcc517d57e4ba117"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:370:373:string_fragment",
+      "kind": "string_fragment",
+      "label": "600",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 26,
+          "byte": 370
+        },
+        "end": {
+          "line": 14,
+          "column": 29,
+          "byte": 373
+        }
+      },
+      "children_ids": [],
+      "text_digest": "284b7e6d788f363f910f7beb1910473e23ce9d6c871f1ce0f31f22a982d48ad4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:362:367:string",
+      "kind": "string",
+      "label": "\"500\"",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 18,
+          "byte": 362
+        },
+        "end": {
+          "line": 14,
+          "column": 23,
+          "byte": 367
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:363:366:string_fragment"
+      ],
+      "text_digest": "5ac95f46dcda9e6a85f4d281cd691aea7b00846d8f8612d198d396136e9c5140"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:363:366:string_fragment",
+      "kind": "string_fragment",
+      "label": "500",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 19,
+          "byte": 363
+        },
+        "end": {
+          "line": 14,
+          "column": 22,
+          "byte": 366
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0604cd3138feed202ef293e062da2f4720f77a05d25ee036a7a01c9cfcdd1f0a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:355:360:string",
+      "kind": "string",
+      "label": "\"400\"",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 11,
+          "byte": 355
+        },
+        "end": {
+          "line": 14,
+          "column": 16,
+          "byte": 360
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:356:359:string_fragment"
+      ],
+      "text_digest": "ec2e839dd4915639f27e89faafae41bb8ee7f8486ddc2a65d5ea83c11a613afe"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:356:359:string_fragment",
+      "kind": "string_fragment",
+      "label": "400",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 12,
+          "byte": 356
+        },
+        "end": {
+          "line": 14,
+          "column": 15,
+          "byte": 359
+        }
+      },
+      "children_ids": [],
+      "text_digest": "26d228663f13a88592a12d16cf9587caab0388b262d6d9f126ed62f9333aca94"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:346:352:property_identifier",
+      "kind": "property_identifier",
+      "label": "weight",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 2,
+          "byte": 346
+        },
+        "end": {
+          "line": 14,
+          "column": 8,
+          "byte": 352
+        }
+      },
+      "children_ids": [],
+      "text_digest": "0844df8fee9eeadaa344bc7e1a7ae769602eba35e773c2093c8fb9c3e5ead14e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:341:pair",
+      "kind": "pair",
+      "label": "subsets: [\"latin\"]",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 2,
+          "byte": 323
+        },
+        "end": {
+          "line": 13,
+          "column": 20,
+          "byte": 341
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:330:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:332:341:array"
+      ],
+      "text_digest": "5d2a14fd633cb2632992638e54ab9ba218b38f11462ccd04188a00d249dcef54"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:332:341:array",
+      "kind": "array",
+      "label": "[\"latin\"]",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 11,
+          "byte": 332
+        },
+        "end": {
+          "line": 13,
+          "column": 20,
+          "byte": 341
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:333:340:string"
+      ],
+      "text_digest": "18611aec4dc15dac8d070fcb74455c13df590504d5782d2bc06548bf2ec462b8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:333:340:string",
+      "kind": "string",
+      "label": "\"latin\"",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 12,
+          "byte": 333
+        },
+        "end": {
+          "line": 13,
+          "column": 19,
+          "byte": 340
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:334:339:string_fragment"
+      ],
+      "text_digest": "cd5886521478dbb7470a335f45979caa4e3db02c8343c10e2cd16cae1a4bf972"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:334:339:string_fragment",
+      "kind": "string_fragment",
+      "label": "latin",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 13,
+          "byte": 334
+        },
+        "end": {
+          "line": 13,
+          "column": 18,
+          "byte": 339
+        }
+      },
+      "children_ids": [],
+      "text_digest": "84cb65ccd3116c04d92bab796efdcda68d4ce24f9ccfdf8676f8f20e3944e509"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:323:330:property_identifier",
+      "kind": "property_identifier",
+      "label": "subsets",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 2,
+          "byte": 323
+        },
+        "end": {
+          "line": 13,
+          "column": 9,
+          "byte": 330
+        }
+      },
+      "children_ids": [],
+      "text_digest": "197d4fb16cf57d6c9ed83047401fb92724829a0c4cdc6c3fa1f6361bcb8a5249"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:304:317:identifier",
+      "kind": "identifier",
+      "label": "IBM_Plex_Sans",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 11,
+          "byte": 304
+        },
+        "end": {
+          "line": 12,
+          "column": 24,
+          "byte": 317
+        }
+      },
+      "children_ids": [],
+      "text_digest": "910a76aa5a0f39bb65caeab52a398134b5d7e43dccb615c1986c31f88c8ceda5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:299:301:identifier",
+      "kind": "identifier",
+      "label": "ui",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 6,
+          "byte": 299
+        },
+        "end": {
+          "line": 12,
+          "column": 8,
+          "byte": 301
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d3ef7de562f9a4a34a9a0b05a112955fdecdd0102c3faae5eeb03a195091a5e4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:184:289:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const display = Fraunces({\r\n  subsets: [\"latin\"],\r\n  variable: \"--font-display\",\r\n  display: \"swap\",\r\n});",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 0,
+          "byte": 184
+        },
+        "end": {
+          "line": 10,
+          "column": 3,
+          "byte": 289
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:288:variable_declarator"
+      ],
+      "text_digest": "83909776649cdf6653b1cb5bc3737fa3886e4211572ae20dfac6e13ae8d154ef"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:288:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "display = Fraunces({\r\n  subsets: [\"latin\"],\r\n  variable: \"--font-display\",\r\n  display: \"swap\",\r\n})",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 6,
+          "byte": 190
+        },
+        "end": {
+          "line": 10,
+          "column": 2,
+          "byte": 288
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:197:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:288:call_expression"
+      ],
+      "text_digest": "20e1944dca4cc919090bd1d573b88558d58c51a2fe25204fbb04625190699203"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:288:call_expression",
+      "kind": "call_expression",
+      "label": "Fraunces({\r\n  subsets: [\"latin\"],\r\n  variable: \"--font-display\",\r\n  display: \"swap\",\r\n})",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 16,
+          "byte": 200
+        },
+        "end": {
+          "line": 10,
+          "column": 2,
+          "byte": 288
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:208:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:208:288:arguments"
+      ],
+      "text_digest": "f373bf624d26f754629a4de96bbe0201868fccea06f171959e843e7d1efbf585"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:208:288:arguments",
+      "kind": "arguments",
+      "label": "({\r\n  subsets: [\"latin\"],\r\n  variable: \"--font-display\",\r\n  display: \"swap\",\r\n})",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 24,
+          "byte": 208
+        },
+        "end": {
+          "line": 10,
+          "column": 2,
+          "byte": 288
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:209:287:object"
+      ],
+      "text_digest": "a66eb6b1253f31d648fefea93a1539dcdbe2bb2059776b5f86e7e64742bcd35c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:209:287:object",
+      "kind": "object",
+      "label": "{\r\n  subsets: [\"latin\"],\r\n  variable: \"--font-display\",\r\n  display: \"swap\",\r\n}",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 25,
+          "byte": 209
+        },
+        "end": {
+          "line": 10,
+          "column": 1,
+          "byte": 287
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:232:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:263:pair",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:283:pair"
+      ],
+      "text_digest": "bd51ae0dab85f9d69a19ae7a3ece8c6e06846c1a42582402db140684d05270f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:283:pair",
+      "kind": "pair",
+      "label": "display: \"swap\"",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 2,
+          "byte": 268
+        },
+        "end": {
+          "line": 9,
+          "column": 17,
+          "byte": 283
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:275:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:277:283:string"
+      ],
+      "text_digest": "a44000cad130b19e6d74195efe7b19e9c19271658a686f954fc0d5ae42d98017"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:277:283:string",
+      "kind": "string",
+      "label": "\"swap\"",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 11,
+          "byte": 277
+        },
+        "end": {
+          "line": 9,
+          "column": 17,
+          "byte": 283
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:278:282:string_fragment"
+      ],
+      "text_digest": "4a495f47bf0e87e4016496efc18a7b417333f8ed0f1aedce6120fb03fbf995a1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:278:282:string_fragment",
+      "kind": "string_fragment",
+      "label": "swap",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 12,
+          "byte": 278
+        },
+        "end": {
+          "line": 9,
+          "column": 16,
+          "byte": 282
+        }
+      },
+      "children_ids": [],
+      "text_digest": "da47c2f450a4f9d538d86d600d55149afd39d6672fdd1f30c68ad5be21cadad8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:268:275:property_identifier",
+      "kind": "property_identifier",
+      "label": "display",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 2,
+          "byte": 268
+        },
+        "end": {
+          "line": 9,
+          "column": 9,
+          "byte": 275
+        }
+      },
+      "children_ids": [],
+      "text_digest": "dfbb889cf19bda82ed8deadf82de232979aa4ecc83238625c6453dc4c597b43a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:263:pair",
+      "kind": "pair",
+      "label": "variable: \"--font-display\"",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 2,
+          "byte": 237
+        },
+        "end": {
+          "line": 8,
+          "column": 28,
+          "byte": 263
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:245:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:247:263:string"
+      ],
+      "text_digest": "9fdec96dfe322e2b6299b72d4a9329751c4b76547fb21ea4de1922e9a7679453"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:247:263:string",
+      "kind": "string",
+      "label": "\"--font-display\"",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 12,
+          "byte": 247
+        },
+        "end": {
+          "line": 8,
+          "column": 28,
+          "byte": 263
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:248:262:string_fragment"
+      ],
+      "text_digest": "881f9a9bb62fc8351ecf839dcda278c4916c0acf2e4c5e3a7b810d1cc346d031"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:248:262:string_fragment",
+      "kind": "string_fragment",
+      "label": "--font-display",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 13,
+          "byte": 248
+        },
+        "end": {
+          "line": 8,
+          "column": 27,
+          "byte": 262
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b41323d721628f09d31394ab2ca7f14d0e32f80801249892c7aac4f4f724e9a5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:237:245:property_identifier",
+      "kind": "property_identifier",
+      "label": "variable",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 2,
+          "byte": 237
+        },
+        "end": {
+          "line": 8,
+          "column": 10,
+          "byte": 245
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3b325109deb02ebf8150c4cc76e908d55f977082fe74bfd455e298770351b77d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:232:pair",
+      "kind": "pair",
+      "label": "subsets: [\"latin\"]",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 2,
+          "byte": 214
+        },
+        "end": {
+          "line": 7,
+          "column": 20,
+          "byte": 232
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:221:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:223:232:array"
+      ],
+      "text_digest": "5d2a14fd633cb2632992638e54ab9ba218b38f11462ccd04188a00d249dcef54"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:223:232:array",
+      "kind": "array",
+      "label": "[\"latin\"]",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 11,
+          "byte": 223
+        },
+        "end": {
+          "line": 7,
+          "column": 20,
+          "byte": 232
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:224:231:string"
+      ],
+      "text_digest": "18611aec4dc15dac8d070fcb74455c13df590504d5782d2bc06548bf2ec462b8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:224:231:string",
+      "kind": "string",
+      "label": "\"latin\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 12,
+          "byte": 224
+        },
+        "end": {
+          "line": 7,
+          "column": 19,
+          "byte": 231
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:225:230:string_fragment"
+      ],
+      "text_digest": "cd5886521478dbb7470a335f45979caa4e3db02c8343c10e2cd16cae1a4bf972"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:225:230:string_fragment",
+      "kind": "string_fragment",
+      "label": "latin",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 13,
+          "byte": 225
+        },
+        "end": {
+          "line": 7,
+          "column": 18,
+          "byte": 230
+        }
+      },
+      "children_ids": [],
+      "text_digest": "84cb65ccd3116c04d92bab796efdcda68d4ce24f9ccfdf8676f8f20e3944e509"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:214:221:property_identifier",
+      "kind": "property_identifier",
+      "label": "subsets",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 2,
+          "byte": 214
+        },
+        "end": {
+          "line": 7,
+          "column": 9,
+          "byte": 221
+        }
+      },
+      "children_ids": [],
+      "text_digest": "197d4fb16cf57d6c9ed83047401fb92724829a0c4cdc6c3fa1f6361bcb8a5249"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:200:208:identifier",
+      "kind": "identifier",
+      "label": "Fraunces",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 16,
+          "byte": 200
+        },
+        "end": {
+          "line": 6,
+          "column": 24,
+          "byte": 208
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b8eeae90c94387e81d9b13ada191c92ce9295bff52c0ad20e362321b7c9bf8bc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:190:197:identifier",
+      "kind": "identifier",
+      "label": "display",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 6,
+          "byte": 190
+        },
+        "end": {
+          "line": 6,
+          "column": 13,
+          "byte": 197
+        }
+      },
+      "children_ids": [],
+      "text_digest": "dfbb889cf19bda82ed8deadf82de232979aa4ecc83238625c6453dc4c597b43a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:125:180:import_statement",
+      "kind": "import_statement",
+      "label": "import { AuthProvider } from \"@/lib/auth/AuthProvider\";",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 125
+        },
+        "end": {
+          "line": 4,
+          "column": 55,
+          "byte": 180
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:154:179:string"
+      ],
+      "text_digest": "4e3afdbdb35f9170f9645fd6850181f7eb9237e7bd3fed9c8a2fafe01810bada"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:154:179:string",
+      "kind": "string",
+      "label": "\"@/lib/auth/AuthProvider\"",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 29,
+          "byte": 154
+        },
+        "end": {
+          "line": 4,
+          "column": 54,
+          "byte": 179
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:155:178:string_fragment"
+      ],
+      "text_digest": "d32744abd5539b67a2b76eeb19b8daa22e28066ac028b029b7f9d92e5c913459"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:155:178:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/lib/auth/AuthProvider",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 30,
+          "byte": 155
+        },
+        "end": {
+          "line": 4,
+          "column": 53,
+          "byte": 178
+        }
+      },
+      "children_ids": [],
+      "text_digest": "dbeeeff6c9bb0fb5ee78d36f501419467fb409dc113907473b75b3087d6eeb36"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:import_clause",
+      "kind": "import_clause",
+      "label": "{ AuthProvider }",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 7,
+          "byte": 132
+        },
+        "end": {
+          "line": 4,
+          "column": 23,
+          "byte": 148
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:named_imports"
+      ],
+      "text_digest": "651e0ca8cd94ef2cd53638cdbc87e0bb24881b438863d8ae3dbf6061eb743700"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:132:148:named_imports",
+      "kind": "named_imports",
+      "label": "{ AuthProvider }",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 7,
+          "byte": 132
+        },
+        "end": {
+          "line": 4,
+          "column": 23,
+          "byte": 148
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:134:146:import_specifier"
+      ],
+      "text_digest": "651e0ca8cd94ef2cd53638cdbc87e0bb24881b438863d8ae3dbf6061eb743700"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:134:146:import_specifier",
+      "kind": "import_specifier",
+      "label": "AuthProvider",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 9,
+          "byte": 134
+        },
+        "end": {
+          "line": 4,
+          "column": 21,
+          "byte": 146
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:134:146:identifier"
+      ],
+      "text_digest": "f3ca6b333fa38f75a52bef88be60c300735c0f4d1e164ab64b0b90b1b1e08934"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:134:146:identifier",
+      "kind": "identifier",
+      "label": "AuthProvider",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 9,
+          "byte": 134
+        },
+        "end": {
+          "line": 4,
+          "column": 21,
+          "byte": 146
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f3ca6b333fa38f75a52bef88be60c300735c0f4d1e164ab64b0b90b1b1e08934"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:100:123:import_statement",
+      "kind": "import_statement",
+      "label": "import \"./globals.css\";",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 0,
+          "byte": 100
+        },
+        "end": {
+          "line": 3,
+          "column": 23,
+          "byte": 123
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:107:122:string"
+      ],
+      "text_digest": "62f62f3a85256307fedaa39a2159c46b16d4f296299796069850e79cb2914353"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:107:122:string",
+      "kind": "string",
+      "label": "\"./globals.css\"",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 7,
+          "byte": 107
+        },
+        "end": {
+          "line": 3,
+          "column": 22,
+          "byte": 122
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:108:121:string_fragment"
+      ],
+      "text_digest": "af508e132d8c3515620a4763f2f8246f6c42dbc5704f5ae4a4bc93af5b7dc9e9"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:108:121:string_fragment",
+      "kind": "string_fragment",
+      "label": "./globals.css",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 8,
+          "byte": 108
+        },
+        "end": {
+          "line": 3,
+          "column": 21,
+          "byte": 121
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3d0d1de810d597d473a4b8a6178672d52aab88a3b9f1162394b306761e605e5c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:39:98:import_statement",
+      "kind": "import_statement",
+      "label": "import { Fraunces, IBM_Plex_Sans } from \"next/font/google\";",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 39
+        },
+        "end": {
+          "line": 2,
+          "column": 59,
+          "byte": 98
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:79:97:string"
+      ],
+      "text_digest": "9489f0f7d8ae8b513ab4db5a13aa93031ec17985d583741fda6d1b794fc4b7e5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:79:97:string",
+      "kind": "string",
+      "label": "\"next/font/google\"",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 40,
+          "byte": 79
+        },
+        "end": {
+          "line": 2,
+          "column": 58,
+          "byte": 97
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:80:96:string_fragment"
+      ],
+      "text_digest": "395d08ef25e9ec538d7d44b22b513a4fcce2538625db3625fc27c4d231f072eb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:80:96:string_fragment",
+      "kind": "string_fragment",
+      "label": "next/font/google",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 41,
+          "byte": 80
+        },
+        "end": {
+          "line": 2,
+          "column": 57,
+          "byte": 96
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7c21ab3033a2a3c194a10466350e1f438365157dd316e2760c168d56c477fa66"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:import_clause",
+      "kind": "import_clause",
+      "label": "{ Fraunces, IBM_Plex_Sans }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 46
+        },
+        "end": {
+          "line": 2,
+          "column": 34,
+          "byte": 73
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:named_imports"
+      ],
+      "text_digest": "f51ab7feb08f9bbc246f9b09d9963229c777d5076d4a1577789a07c3f29b3c59"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:46:73:named_imports",
+      "kind": "named_imports",
+      "label": "{ Fraunces, IBM_Plex_Sans }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 46
+        },
+        "end": {
+          "line": 2,
+          "column": 34,
+          "byte": 73
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:48:56:import_specifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:58:71:import_specifier"
+      ],
+      "text_digest": "f51ab7feb08f9bbc246f9b09d9963229c777d5076d4a1577789a07c3f29b3c59"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:58:71:import_specifier",
+      "kind": "import_specifier",
+      "label": "IBM_Plex_Sans",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 19,
+          "byte": 58
+        },
+        "end": {
+          "line": 2,
+          "column": 32,
+          "byte": 71
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:58:71:identifier"
+      ],
+      "text_digest": "910a76aa5a0f39bb65caeab52a398134b5d7e43dccb615c1986c31f88c8ceda5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:58:71:identifier",
+      "kind": "identifier",
+      "label": "IBM_Plex_Sans",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 19,
+          "byte": 58
+        },
+        "end": {
+          "line": 2,
+          "column": 32,
+          "byte": 71
+        }
+      },
+      "children_ids": [],
+      "text_digest": "910a76aa5a0f39bb65caeab52a398134b5d7e43dccb615c1986c31f88c8ceda5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:48:56:import_specifier",
+      "kind": "import_specifier",
+      "label": "Fraunces",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 48
+        },
+        "end": {
+          "line": 2,
+          "column": 17,
+          "byte": 56
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:48:56:identifier"
+      ],
+      "text_digest": "b8eeae90c94387e81d9b13ada191c92ce9295bff52c0ad20e362321b7c9bf8bc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:48:56:identifier",
+      "kind": "identifier",
+      "label": "Fraunces",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 48
+        },
+        "end": {
+          "line": 2,
+          "column": 17,
+          "byte": 56
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b8eeae90c94387e81d9b13ada191c92ce9295bff52c0ad20e362321b7c9bf8bc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:0:37:import_statement",
+      "kind": "import_statement",
+      "label": "import type { Metadata } from \"next\";",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 37,
+          "byte": 37
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:30:36:string"
+      ],
+      "text_digest": "c22d147f887775dcf854856911d09fc2b853abf887b62739a5022f394e6e6875"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:30:36:string",
+      "kind": "string",
+      "label": "\"next\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 30,
+          "byte": 30
+        },
+        "end": {
+          "line": 1,
+          "column": 36,
+          "byte": 36
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:31:35:string_fragment"
+      ],
+      "text_digest": "ca1733b5cdea2efcd28cb357b253498f97440592edd06d89895c4abcb5cfaae5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:31:35:string_fragment",
+      "kind": "string_fragment",
+      "label": "next",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 31,
+          "byte": 31
+        },
+        "end": {
+          "line": 1,
+          "column": 35,
+          "byte": 35
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6c1c9a9c8543f1e4cd980064cf1625eeb61a90703b2464fff039f21682508b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:import_clause",
+      "kind": "import_clause",
+      "label": "{ Metadata }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 12,
+          "byte": 12
+        },
+        "end": {
+          "line": 1,
+          "column": 24,
+          "byte": 24
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:named_imports"
+      ],
+      "text_digest": "ed62a0ed88ed93fa1a6da3b0deba735c628d576ac1409e711e7f33346bf15344"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:12:24:named_imports",
+      "kind": "named_imports",
+      "label": "{ Metadata }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 12,
+          "byte": 12
+        },
+        "end": {
+          "line": 1,
+          "column": 24,
+          "byte": 24
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:14:22:import_specifier"
+      ],
+      "text_digest": "ed62a0ed88ed93fa1a6da3b0deba735c628d576ac1409e711e7f33346bf15344"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:14:22:import_specifier",
+      "kind": "import_specifier",
+      "label": "Metadata",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 14,
+          "byte": 14
+        },
+        "end": {
+          "line": 1,
+          "column": 22,
+          "byte": 22
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:14:22:identifier"
+      ],
+      "text_digest": "9eddf573cb509f1f62df633e25c052ac1b2a0ff9241e70223c77c73e834c0045"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/layout.tsx:14:22:identifier",
+      "kind": "identifier",
+      "label": "Metadata",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 14,
+          "byte": 14
+        },
+        "end": {
+          "line": 1,
+          "column": 22,
+          "byte": 22
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9eddf573cb509f1f62df633e25c052ac1b2a0ff9241e70223c77c73e834c0045"
+    }
+  ],
+  "parser_id": "tree_sitter_typescript",
+  "relative_path": "apps/web/app/layout.tsx",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "typescript",
+  "warnings": []
+}

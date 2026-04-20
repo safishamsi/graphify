@@ -1,0 +1,3281 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:59+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:494:source_file->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition:117",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:494:source_file",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:427:485:function_definition:116",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:427:485:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:427:485:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:480:call_expression:115",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:427:485:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:480:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:480:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:477:480:argument_list:114",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:480:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:477:480:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:477:480:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:478:479:identifier:113",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:477:480:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:478:479:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:480:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:477:identifier:112",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:480:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:477:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:427:485:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:467:call_expression:111",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:427:485:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:467:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:467:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:464:467:argument_list:110",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:467:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:464:467:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:464:467:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:465:466:identifier:109",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:464:467:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:465:466:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:467:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:464:identifier:108",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:467:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:464:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:427:485:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:signature:107",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:427:485:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:call_expression:106",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:444:454:argument_list:105",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:444:454:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:444:454:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:453:typed_expression:104",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:444:454:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:453:typed_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:453:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:448:453:identifier:103",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:453:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:448:453:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:453:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:446:identifier:102",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:453:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:446:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:444:identifier:101",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:444:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:423:assignment:100",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:423:assignment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:423:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:423:binary_expression:99",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:423:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:423:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:423:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:423:field_expression:98",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:423:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:423:field_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:423:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:417:423:identifier:97",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:423:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:417:423:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:423:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:416:identifier:96",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:423:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:416:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:423:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:413:414:operator:95",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:423:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:413:414:operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:423:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:412:binary_expression:94",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:423:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:412:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:412:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:410:412:identifier:93",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:412:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:410:412:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:412:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:408:409:operator:92",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:412:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:408:409:operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:412:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:407:integer_literal:91",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:412:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:407:integer_literal",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:423:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:404:405:operator:90",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:423:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:404:405:operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:423:assignment->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:403:call_expression:89",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:423:assignment",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:403:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:403:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:392:403:argument_list:88",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:403:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:392:403:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:392:403:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:402:typed_expression:87",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:392:403:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:402:typed_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:402:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:396:402:identifier:86",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:402:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:396:402:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:402:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:394:identifier:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:402:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:394:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:403:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:392:identifier:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:403:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:392:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:290:379:function_definition:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:290:379:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:290:379:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:335:374:return_statement:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:290:379:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:335:374:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:335:374:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:374:call_expression:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:335:374:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:374:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:374:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:346:374:argument_list:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:374:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:346:374:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:346:374:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:347:373:vector_expression:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:346:374:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:347:373:vector_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:347:373:vector_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:372:binary_expression:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:347:373:vector_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:372:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:372:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:372:field_expression:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:372:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:372:field_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:372:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:371:372:identifier:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:372:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:371:372:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:372:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:370:identifier:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:372:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:370:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:372:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:366:367:operator:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:372:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:366:367:operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:372:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:365:field_expression:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:372:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:365:field_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:365:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:364:365:identifier:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:365:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:364:365:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:365:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:363:identifier:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:365:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:363:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:347:373:vector_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:359:binary_expression:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:347:373:vector_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:359:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:359:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:359:field_expression:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:359:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:359:field_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:359:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:358:359:identifier:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:359:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:358:359:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:359:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:357:identifier:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:359:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:357:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:359:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:353:354:operator:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:359:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:353:354:operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:359:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:352:field_expression:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:359:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:352:field_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:352:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:351:352:identifier:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:352:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:351:352:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:352:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:350:identifier:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:352:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:350:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:374:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:346:identifier:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:374:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:346:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:290:379:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:signature:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:290:379:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:call_expression:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:307:329:argument_list:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:307:329:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:307:329:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:328:typed_expression:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:307:329:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:328:typed_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:328:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:323:328:identifier:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:328:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:323:328:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:328:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:321:identifier:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:328:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:321:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:307:329:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:317:typed_expression:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:307:329:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:317:typed_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:317:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:312:317:identifier:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:317:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:312:317:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:317:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:310:identifier:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:317:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:310:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:307:identifier:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:307:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:229:286:function_definition:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:229:286:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:229:286:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:259:281:return_statement:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:229:286:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:259:281:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:259:281:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:281:binary_expression:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:259:281:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:281:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:281:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:281:binary_expression:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:281:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:281:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:281:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:280:281:integer_literal:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:281:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:280:281:integer_literal",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:281:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:279:280:operator:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:281:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:279:280:operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:281:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:279:field_expression:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:281:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:279:field_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:279:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:273:279:identifier:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:279:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:273:279:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:279:field_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:272:identifier:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:279:field_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:272:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:281:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:269:270:operator:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:281:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:269:270:operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:281:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:268:identifier:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:281:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:268:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:229:286:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:signature:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:229:286:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:signature",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:signature->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:call_expression:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:signature",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:242:253:argument_list:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:242:253:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:242:253:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:252:typed_expression:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:242:253:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:252:typed_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:252:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:246:252:identifier:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:252:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:246:252:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:252:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:244:identifier:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:252:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:244:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:242:identifier:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:242:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:150:225:struct_definition:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:150:225:struct_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:150:225:struct_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:220:typed_expression:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:150:225:struct_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:220:typed_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:220:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:213:220:identifier:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:220:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:213:220:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:220:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:211:identifier:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:220:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:211:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:150:225:struct_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:199:typed_expression:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:150:225:struct_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:199:typed_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:199:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:194:199:identifier:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:199:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:194:199:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:199:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:192:identifier:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:199:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:192:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:150:225:struct_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:type_head:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:150:225:struct_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:type_head",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:type_head->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:binary_expression:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:type_head",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:175:180:identifier:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:175:180:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:172:174:operator:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:172:174:operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:171:identifier:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:171:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:88:146:struct_definition:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:88:146:struct_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:88:146:struct_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:141:typed_expression:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:88:146:struct_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:141:typed_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:141:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:134:141:identifier:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:141:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:134:141:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:141:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:132:identifier:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:141:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:132:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:88:146:struct_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:125:typed_expression:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:88:146:struct_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:125:typed_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:125:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:118:125:identifier:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:125:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:118:125:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:125:typed_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:116:identifier:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:125:typed_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:116:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:88:146:struct_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:type_head:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:88:146:struct_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:type_head",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:type_head->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:binary_expression:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:type_head",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:104:109:identifier:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:104:109:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:101:103:operator:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:101:103:operator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:100:identifier:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:100:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:61:84:abstract_definition:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:61:84:abstract_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:61:84:abstract_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:75:80:type_head:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:61:84:abstract_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:75:80:type_head",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:75:80:type_head->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:75:80:identifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:75:80:type_head",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:75:80:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:40:57:import_statement:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:40:57:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:40:57:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:57:selected_import:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:40:57:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:57:selected_import",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:57:selected_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:53:57:identifier:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:57:selected_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:53:57:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:57:selected_import->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:51:identifier:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:57:selected_import",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:51:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:19:38:using_statement:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:19:38:using_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:19:38:using_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:25:38:identifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:19:38:using_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:25:38:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:7:15:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:7:15:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:494:source_file",
+      "kind": "source_file",
+      "label": "module Geometry\r\n\r\nusing LinearAlgebra\r\nimport Base: show\r\n\r\nabstract type Shape end\r\n\r\nstruct Point <: Shape\r\n    x::Float64\r\n    y::Float64\r\nend\r\n\r\nmutable struct Circle <: Shape\r\n    center::Point\r\n    radius::Float64\r\nend\r\n\r\nfunction area(c::Circle)\r\n    return pi * c.radius^2\r\nend\r\n\r\nfunction distance(p1::Point, p2::Point)\r\n    return norm([p1.x - p2.x, p1.y - p2.y])\r\nend\r\n\r\nperimeter(c::Circle) = 2 * pi * c.radius\r\n\r\nfunction describe(s::Shape)\r\n    show(s)\r\n    area(s)\r\nend\r\n\r\nend\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 34,
+          "column": 0,
+          "byte": 494
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition"
+      ],
+      "text_digest": "baf23e320296cbc903cc289698945c4158c575cfee10f75890af116308482cf6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:0:492:module_definition",
+      "kind": "module_definition",
+      "label": "module Geometry\r\n\r\nusing LinearAlgebra\r\nimport Base: show\r\n\r\nabstract type Shape end\r\n\r\nstruct Point <: Shape\r\n    x::Float64\r\n    y::Float64\r\nend\r\n\r\nmutable struct Circle <: Shape\r\n    center::Point\r\n    radius::Float64\r\nend\r\n\r\nfunction area(c::Circle)\r\n    return pi * c.radius^2\r\nend\r\n\r\nfunction distance(p1::Point, p2::Point)\r\n    return norm([p1.x - p2.x, p1.y - p2.y])\r\nend\r\n\r\nperimeter(c::Circle) = 2 * pi * c.radius\r\n\r\nfunction describe(s::Shape)\r\n    show(s)\r\n    area(s)\r\nend\r\n\r\nend",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 33,
+          "column": 3,
+          "byte": 492
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:7:15:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:19:38:using_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:40:57:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:61:84:abstract_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:88:146:struct_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:150:225:struct_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:229:286:function_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:290:379:function_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:423:assignment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:427:485:function_definition"
+      ],
+      "text_digest": "005e43e55f7a427e360cceedbaf5c0fe673974c2fad0f5c33c386df5747e8465"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:427:485:function_definition",
+      "kind": "function_definition",
+      "label": "function describe(s::Shape)\r\n    show(s)\r\n    area(s)\r\nend",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 0,
+          "byte": 427
+        },
+        "end": {
+          "line": 31,
+          "column": 3,
+          "byte": 485
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:signature",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:467:call_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:480:call_expression"
+      ],
+      "text_digest": "acfb762048b2a9ce93651a01a312971a00838b73cd740f32c7807ce734de4a88"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:480:call_expression",
+      "kind": "call_expression",
+      "label": "area(s)",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 4,
+          "byte": 473
+        },
+        "end": {
+          "line": 30,
+          "column": 11,
+          "byte": 480
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:477:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:477:480:argument_list"
+      ],
+      "text_digest": "55d862863d36cedafa4c666297233a671489c3b9e65550ab560910d3d5752d1a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:477:480:argument_list",
+      "kind": "argument_list",
+      "label": "(s)",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 8,
+          "byte": 477
+        },
+        "end": {
+          "line": 30,
+          "column": 11,
+          "byte": 480
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:478:479:identifier"
+      ],
+      "text_digest": "2215fccb38ad826cba67b0df8ca48c9ea9cb283825ba6140139e190f3453a152"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:478:479:identifier",
+      "kind": "identifier",
+      "label": "s",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 9,
+          "byte": 478
+        },
+        "end": {
+          "line": 30,
+          "column": 10,
+          "byte": 479
+        }
+      },
+      "children_ids": [],
+      "text_digest": "043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:473:477:identifier",
+      "kind": "identifier",
+      "label": "area",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 4,
+          "byte": 473
+        },
+        "end": {
+          "line": 30,
+          "column": 8,
+          "byte": 477
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4a91ee5f0106c2b35c11c168352f0abfbf4fc86165c62d6fb51b5232dfc692e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:467:call_expression",
+      "kind": "call_expression",
+      "label": "show(s)",
+      "span": {
+        "start": {
+          "line": 29,
+          "column": 4,
+          "byte": 460
+        },
+        "end": {
+          "line": 29,
+          "column": 11,
+          "byte": 467
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:464:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:464:467:argument_list"
+      ],
+      "text_digest": "70c8fdb3eabf4a65c66efd83cc9425b2caeb4d689ffbf4c8c30d9ec081744940"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:464:467:argument_list",
+      "kind": "argument_list",
+      "label": "(s)",
+      "span": {
+        "start": {
+          "line": 29,
+          "column": 8,
+          "byte": 464
+        },
+        "end": {
+          "line": 29,
+          "column": 11,
+          "byte": 467
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:465:466:identifier"
+      ],
+      "text_digest": "2215fccb38ad826cba67b0df8ca48c9ea9cb283825ba6140139e190f3453a152"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:465:466:identifier",
+      "kind": "identifier",
+      "label": "s",
+      "span": {
+        "start": {
+          "line": 29,
+          "column": 9,
+          "byte": 465
+        },
+        "end": {
+          "line": 29,
+          "column": 10,
+          "byte": 466
+        }
+      },
+      "children_ids": [],
+      "text_digest": "043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:460:464:identifier",
+      "kind": "identifier",
+      "label": "show",
+      "span": {
+        "start": {
+          "line": 29,
+          "column": 4,
+          "byte": 460
+        },
+        "end": {
+          "line": 29,
+          "column": 8,
+          "byte": 464
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1c6333509debf060200eb6bbe28db307508da67c0e3c58088393e4cf09de596d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:signature",
+      "kind": "signature",
+      "label": "describe(s::Shape)",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 9,
+          "byte": 436
+        },
+        "end": {
+          "line": 28,
+          "column": 27,
+          "byte": 454
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:call_expression"
+      ],
+      "text_digest": "b53bcea718ba6e771142ce202a2c3531e6b21035f8ac5c68757367bd5457ecc5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:454:call_expression",
+      "kind": "call_expression",
+      "label": "describe(s::Shape)",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 9,
+          "byte": 436
+        },
+        "end": {
+          "line": 28,
+          "column": 27,
+          "byte": 454
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:444:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:444:454:argument_list"
+      ],
+      "text_digest": "b53bcea718ba6e771142ce202a2c3531e6b21035f8ac5c68757367bd5457ecc5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:444:454:argument_list",
+      "kind": "argument_list",
+      "label": "(s::Shape)",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 17,
+          "byte": 444
+        },
+        "end": {
+          "line": 28,
+          "column": 27,
+          "byte": 454
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:453:typed_expression"
+      ],
+      "text_digest": "bc0eb83b38a01cc7bf3a1109b01da517be40c1a61c2fb84e6b11c0e95b476f78"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:453:typed_expression",
+      "kind": "typed_expression",
+      "label": "s::Shape",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 18,
+          "byte": 445
+        },
+        "end": {
+          "line": 28,
+          "column": 26,
+          "byte": 453
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:446:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:448:453:identifier"
+      ],
+      "text_digest": "7e2639ec986054be63d52f08a09eb7718482e23b278a0138786bab1050557ea4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:448:453:identifier",
+      "kind": "identifier",
+      "label": "Shape",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 21,
+          "byte": 448
+        },
+        "end": {
+          "line": 28,
+          "column": 26,
+          "byte": 453
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e0e492707f85ff1f9c23155494a54382b52bf34888091adc7a6bb338ef78f88d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:445:446:identifier",
+      "kind": "identifier",
+      "label": "s",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 18,
+          "byte": 445
+        },
+        "end": {
+          "line": 28,
+          "column": 19,
+          "byte": 446
+        }
+      },
+      "children_ids": [],
+      "text_digest": "043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:436:444:identifier",
+      "kind": "identifier",
+      "label": "describe",
+      "span": {
+        "start": {
+          "line": 28,
+          "column": 9,
+          "byte": 436
+        },
+        "end": {
+          "line": 28,
+          "column": 17,
+          "byte": 444
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c52028f34e378d1e07b4d5b8d10e4860e99cd3802218acf9391db8ea64fd2899"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:423:assignment",
+      "kind": "assignment",
+      "label": "perimeter(c::Circle) = 2 * pi * c.radius",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 0,
+          "byte": 383
+        },
+        "end": {
+          "line": 26,
+          "column": 40,
+          "byte": 423
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:403:call_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:404:405:operator",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:423:binary_expression"
+      ],
+      "text_digest": "624ffc64a37bef15fc32a3d2a8bcd8aab879945e3e8effb27d201a97e005df86"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:423:binary_expression",
+      "kind": "binary_expression",
+      "label": "2 * pi * c.radius",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 23,
+          "byte": 406
+        },
+        "end": {
+          "line": 26,
+          "column": 40,
+          "byte": 423
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:412:binary_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:413:414:operator",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:423:field_expression"
+      ],
+      "text_digest": "64432a9dcebea045754fe5c3fff5c2208ceefee5727f5bdcc63960c4c613538a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:423:field_expression",
+      "kind": "field_expression",
+      "label": "c.radius",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 32,
+          "byte": 415
+        },
+        "end": {
+          "line": 26,
+          "column": 40,
+          "byte": 423
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:416:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:417:423:identifier"
+      ],
+      "text_digest": "659106a5abcc97e0e44facb3ce2c8d1f11da9176a16e0632162626c15f733e32"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:417:423:identifier",
+      "kind": "identifier",
+      "label": "radius",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 34,
+          "byte": 417
+        },
+        "end": {
+          "line": 26,
+          "column": 40,
+          "byte": 423
+        }
+      },
+      "children_ids": [],
+      "text_digest": "981979a22bad8c7cdc4484360aceb2f6a26979bba5fb0d73a1adb67a0ea69918"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:415:416:identifier",
+      "kind": "identifier",
+      "label": "c",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 32,
+          "byte": 415
+        },
+        "end": {
+          "line": 26,
+          "column": 33,
+          "byte": 416
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:413:414:operator",
+      "kind": "operator",
+      "label": "*",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 30,
+          "byte": 413
+        },
+        "end": {
+          "line": 26,
+          "column": 31,
+          "byte": 414
+        }
+      },
+      "children_ids": [],
+      "text_digest": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:412:binary_expression",
+      "kind": "binary_expression",
+      "label": "2 * pi",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 23,
+          "byte": 406
+        },
+        "end": {
+          "line": 26,
+          "column": 29,
+          "byte": 412
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:407:integer_literal",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:408:409:operator",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:410:412:identifier"
+      ],
+      "text_digest": "2ce396eb17c27e227cca9ad25f4504bd61805856eeab94353e81dc9f7b2ef135"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:410:412:identifier",
+      "kind": "identifier",
+      "label": "pi",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 27,
+          "byte": 410
+        },
+        "end": {
+          "line": 26,
+          "column": 29,
+          "byte": 412
+        }
+      },
+      "children_ids": [],
+      "text_digest": "85b42e1702877c851eb7412fe958c8fb447c3207b4798fadab42ea8539046ce1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:408:409:operator",
+      "kind": "operator",
+      "label": "*",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 25,
+          "byte": 408
+        },
+        "end": {
+          "line": 26,
+          "column": 26,
+          "byte": 409
+        }
+      },
+      "children_ids": [],
+      "text_digest": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:406:407:integer_literal",
+      "kind": "integer_literal",
+      "label": "2",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 23,
+          "byte": 406
+        },
+        "end": {
+          "line": 26,
+          "column": 24,
+          "byte": 407
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:404:405:operator",
+      "kind": "operator",
+      "label": "=",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 21,
+          "byte": 404
+        },
+        "end": {
+          "line": 26,
+          "column": 22,
+          "byte": 405
+        }
+      },
+      "children_ids": [],
+      "text_digest": "380918b946a526640a40df5dced6516794f3d97bbd9e6bb553d037c4439f31c3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:403:call_expression",
+      "kind": "call_expression",
+      "label": "perimeter(c::Circle)",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 0,
+          "byte": 383
+        },
+        "end": {
+          "line": 26,
+          "column": 20,
+          "byte": 403
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:392:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:392:403:argument_list"
+      ],
+      "text_digest": "6eb62a5649551eec7e3a1ffada5e5f5217e45a1b87c3627186a7ea5da127be34"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:392:403:argument_list",
+      "kind": "argument_list",
+      "label": "(c::Circle)",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 9,
+          "byte": 392
+        },
+        "end": {
+          "line": 26,
+          "column": 20,
+          "byte": 403
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:402:typed_expression"
+      ],
+      "text_digest": "e4b6a8116f58526f5050dbeedce8b68b842dcdd3349a33a64c496aeb2dd9d236"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:402:typed_expression",
+      "kind": "typed_expression",
+      "label": "c::Circle",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 10,
+          "byte": 393
+        },
+        "end": {
+          "line": 26,
+          "column": 19,
+          "byte": 402
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:394:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:396:402:identifier"
+      ],
+      "text_digest": "f0f534ad8ac1c408155f42859c275fbcc62d19a6392c376cb4327956e0daad10"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:396:402:identifier",
+      "kind": "identifier",
+      "label": "Circle",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 13,
+          "byte": 396
+        },
+        "end": {
+          "line": 26,
+          "column": 19,
+          "byte": 402
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b93d3bcecff5d7493a58a41ea44f7196a46295f6512ebc06940510676a666384"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:393:394:identifier",
+      "kind": "identifier",
+      "label": "c",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 10,
+          "byte": 393
+        },
+        "end": {
+          "line": 26,
+          "column": 11,
+          "byte": 394
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:383:392:identifier",
+      "kind": "identifier",
+      "label": "perimeter",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 0,
+          "byte": 383
+        },
+        "end": {
+          "line": 26,
+          "column": 9,
+          "byte": 392
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6dc449e2bfbd53f43abfe2cb974c2595cb51b14049b2c556cd01eb4ec2b3b58b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:290:379:function_definition",
+      "kind": "function_definition",
+      "label": "function distance(p1::Point, p2::Point)\r\n    return norm([p1.x - p2.x, p1.y - p2.y])\r\nend",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 0,
+          "byte": 290
+        },
+        "end": {
+          "line": 24,
+          "column": 3,
+          "byte": 379
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:signature",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:335:374:return_statement"
+      ],
+      "text_digest": "7458a6d3e1b11df8e3bf36471bed8bf081da24c4a1bc4e00f8394b048334559c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:335:374:return_statement",
+      "kind": "return_statement",
+      "label": "return norm([p1.x - p2.x, p1.y - p2.y])",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 4,
+          "byte": 335
+        },
+        "end": {
+          "line": 23,
+          "column": 43,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:374:call_expression"
+      ],
+      "text_digest": "5b9f22e36c344fab2536991ee03a9f2f7dcc49eb0d59033986e130b2e2bb32ac"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:374:call_expression",
+      "kind": "call_expression",
+      "label": "norm([p1.x - p2.x, p1.y - p2.y])",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 11,
+          "byte": 342
+        },
+        "end": {
+          "line": 23,
+          "column": 43,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:346:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:346:374:argument_list"
+      ],
+      "text_digest": "425b135e2278e19c5756a67a02447cd927ebf8148848cee9112809b65c188fe1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:346:374:argument_list",
+      "kind": "argument_list",
+      "label": "([p1.x - p2.x, p1.y - p2.y])",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 15,
+          "byte": 346
+        },
+        "end": {
+          "line": 23,
+          "column": 43,
+          "byte": 374
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:347:373:vector_expression"
+      ],
+      "text_digest": "37a487a5bf101c607f53fa908d0b4b8475752d40936d849b5e00e922c10616a1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:347:373:vector_expression",
+      "kind": "vector_expression",
+      "label": "[p1.x - p2.x, p1.y - p2.y]",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 16,
+          "byte": 347
+        },
+        "end": {
+          "line": 23,
+          "column": 42,
+          "byte": 373
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:359:binary_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:372:binary_expression"
+      ],
+      "text_digest": "61bbf8715ba37c76ef91d658ad3a1613bbce3038a05acfa1ff06dc80ec0d4366"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:372:binary_expression",
+      "kind": "binary_expression",
+      "label": "p1.y - p2.y",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 30,
+          "byte": 361
+        },
+        "end": {
+          "line": 23,
+          "column": 41,
+          "byte": 372
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:365:field_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:366:367:operator",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:372:field_expression"
+      ],
+      "text_digest": "d88e88abf130e3edaea4f10590d5f0c4fc7ac687c315a8dde8b6dea10cf96470"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:372:field_expression",
+      "kind": "field_expression",
+      "label": "p2.y",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 37,
+          "byte": 368
+        },
+        "end": {
+          "line": 23,
+          "column": 41,
+          "byte": 372
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:370:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:371:372:identifier"
+      ],
+      "text_digest": "796a8f4cee7e30d4dd8235f2fcb9f6d3a161c69892c75bfeb59b46ed75bbd5d2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:371:372:identifier",
+      "kind": "identifier",
+      "label": "y",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 40,
+          "byte": 371
+        },
+        "end": {
+          "line": 23,
+          "column": 41,
+          "byte": 372
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:368:370:identifier",
+      "kind": "identifier",
+      "label": "p2",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 37,
+          "byte": 368
+        },
+        "end": {
+          "line": 23,
+          "column": 39,
+          "byte": 370
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3946ca64ff78d93ca61090a437cbb6b3d2ca0d488f5f9ccf3059608368b27693"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:366:367:operator",
+      "kind": "operator",
+      "label": "-",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 35,
+          "byte": 366
+        },
+        "end": {
+          "line": 23,
+          "column": 36,
+          "byte": 367
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3973e022e93220f9212c18d0d0c543ae7c309e46640da93a4a0314de999f5112"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:365:field_expression",
+      "kind": "field_expression",
+      "label": "p1.y",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 30,
+          "byte": 361
+        },
+        "end": {
+          "line": 23,
+          "column": 34,
+          "byte": 365
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:363:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:364:365:identifier"
+      ],
+      "text_digest": "d303341f50a175e83962e264a7397b6e4ee0ef72b75e3f578e1890e4eec7f6f4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:364:365:identifier",
+      "kind": "identifier",
+      "label": "y",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 33,
+          "byte": 364
+        },
+        "end": {
+          "line": 23,
+          "column": 34,
+          "byte": 365
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:361:363:identifier",
+      "kind": "identifier",
+      "label": "p1",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 30,
+          "byte": 361
+        },
+        "end": {
+          "line": 23,
+          "column": 32,
+          "byte": 363
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f64551fcd6f07823cb87971cfb91446425da18286b3ab1ef935e0cbd7a69f68a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:359:binary_expression",
+      "kind": "binary_expression",
+      "label": "p1.x - p2.x",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 17,
+          "byte": 348
+        },
+        "end": {
+          "line": 23,
+          "column": 28,
+          "byte": 359
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:352:field_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:353:354:operator",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:359:field_expression"
+      ],
+      "text_digest": "91beb5dac65ded5ea07e7cb187bbdd73d1b5e6d94b6d62654f58b498b4118295"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:359:field_expression",
+      "kind": "field_expression",
+      "label": "p2.x",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 24,
+          "byte": 355
+        },
+        "end": {
+          "line": 23,
+          "column": 28,
+          "byte": 359
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:357:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:358:359:identifier"
+      ],
+      "text_digest": "d70670edc593e3c4069d2ef05b13b7d199d6bc33ad417b4e99c7bbdff81911ab"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:358:359:identifier",
+      "kind": "identifier",
+      "label": "x",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 27,
+          "byte": 358
+        },
+        "end": {
+          "line": 23,
+          "column": 28,
+          "byte": 359
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:355:357:identifier",
+      "kind": "identifier",
+      "label": "p2",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 24,
+          "byte": 355
+        },
+        "end": {
+          "line": 23,
+          "column": 26,
+          "byte": 357
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3946ca64ff78d93ca61090a437cbb6b3d2ca0d488f5f9ccf3059608368b27693"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:353:354:operator",
+      "kind": "operator",
+      "label": "-",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 22,
+          "byte": 353
+        },
+        "end": {
+          "line": 23,
+          "column": 23,
+          "byte": 354
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3973e022e93220f9212c18d0d0c543ae7c309e46640da93a4a0314de999f5112"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:352:field_expression",
+      "kind": "field_expression",
+      "label": "p1.x",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 17,
+          "byte": 348
+        },
+        "end": {
+          "line": 23,
+          "column": 21,
+          "byte": 352
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:350:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:351:352:identifier"
+      ],
+      "text_digest": "9bac6ac732a3ac97be01332c7d565e7747cb0e7882b96ed5c6ea93fac7e246cf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:351:352:identifier",
+      "kind": "identifier",
+      "label": "x",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 20,
+          "byte": 351
+        },
+        "end": {
+          "line": 23,
+          "column": 21,
+          "byte": 352
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:348:350:identifier",
+      "kind": "identifier",
+      "label": "p1",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 17,
+          "byte": 348
+        },
+        "end": {
+          "line": 23,
+          "column": 19,
+          "byte": 350
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f64551fcd6f07823cb87971cfb91446425da18286b3ab1ef935e0cbd7a69f68a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:342:346:identifier",
+      "kind": "identifier",
+      "label": "norm",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 11,
+          "byte": 342
+        },
+        "end": {
+          "line": 23,
+          "column": 15,
+          "byte": 346
+        }
+      },
+      "children_ids": [],
+      "text_digest": "733859c1fc6b9331793b2952dde66f89cdd4d513d04d59d7b07bd3912098e79b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:signature",
+      "kind": "signature",
+      "label": "distance(p1::Point, p2::Point)",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 9,
+          "byte": 299
+        },
+        "end": {
+          "line": 22,
+          "column": 39,
+          "byte": 329
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:call_expression"
+      ],
+      "text_digest": "57c2584922fd4d510eee601bb0d9b33c0bc5fd455a09d37f5f422b42158eab4c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:329:call_expression",
+      "kind": "call_expression",
+      "label": "distance(p1::Point, p2::Point)",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 9,
+          "byte": 299
+        },
+        "end": {
+          "line": 22,
+          "column": 39,
+          "byte": 329
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:307:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:307:329:argument_list"
+      ],
+      "text_digest": "57c2584922fd4d510eee601bb0d9b33c0bc5fd455a09d37f5f422b42158eab4c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:307:329:argument_list",
+      "kind": "argument_list",
+      "label": "(p1::Point, p2::Point)",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 17,
+          "byte": 307
+        },
+        "end": {
+          "line": 22,
+          "column": 39,
+          "byte": 329
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:317:typed_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:328:typed_expression"
+      ],
+      "text_digest": "334cec413feb984fa32bcd9cc871cb650f5b385f5d00f8eb01f691bc5aedb92e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:328:typed_expression",
+      "kind": "typed_expression",
+      "label": "p2::Point",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 29,
+          "byte": 319
+        },
+        "end": {
+          "line": 22,
+          "column": 38,
+          "byte": 328
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:321:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:323:328:identifier"
+      ],
+      "text_digest": "55e6f81106e326a5162085f1e3d660eaae3df45c0cac55a547ec607f7872b064"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:323:328:identifier",
+      "kind": "identifier",
+      "label": "Point",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 33,
+          "byte": 323
+        },
+        "end": {
+          "line": 22,
+          "column": 38,
+          "byte": 328
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2fc0c524431a923617b003031d19d1e02e729210afacbe3ee02337a43422634a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:319:321:identifier",
+      "kind": "identifier",
+      "label": "p2",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 29,
+          "byte": 319
+        },
+        "end": {
+          "line": 22,
+          "column": 31,
+          "byte": 321
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3946ca64ff78d93ca61090a437cbb6b3d2ca0d488f5f9ccf3059608368b27693"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:317:typed_expression",
+      "kind": "typed_expression",
+      "label": "p1::Point",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 18,
+          "byte": 308
+        },
+        "end": {
+          "line": 22,
+          "column": 27,
+          "byte": 317
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:310:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:312:317:identifier"
+      ],
+      "text_digest": "cfaf71003c704de35c97456307df0974a752345512e526fbe8f974e388211e40"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:312:317:identifier",
+      "kind": "identifier",
+      "label": "Point",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 22,
+          "byte": 312
+        },
+        "end": {
+          "line": 22,
+          "column": 27,
+          "byte": 317
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2fc0c524431a923617b003031d19d1e02e729210afacbe3ee02337a43422634a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:308:310:identifier",
+      "kind": "identifier",
+      "label": "p1",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 18,
+          "byte": 308
+        },
+        "end": {
+          "line": 22,
+          "column": 20,
+          "byte": 310
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f64551fcd6f07823cb87971cfb91446425da18286b3ab1ef935e0cbd7a69f68a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:299:307:identifier",
+      "kind": "identifier",
+      "label": "distance",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 9,
+          "byte": 299
+        },
+        "end": {
+          "line": 22,
+          "column": 17,
+          "byte": 307
+        }
+      },
+      "children_ids": [],
+      "text_digest": "63e6ce93e1bcb5122b1419a229bb3f90726664ad1a6cc74433bb2bbf2b018135"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:229:286:function_definition",
+      "kind": "function_definition",
+      "label": "function area(c::Circle)\r\n    return pi * c.radius^2\r\nend",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 0,
+          "byte": 229
+        },
+        "end": {
+          "line": 20,
+          "column": 3,
+          "byte": 286
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:signature",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:259:281:return_statement"
+      ],
+      "text_digest": "680a3a25d5fadc023a3f136ab3edb1a0b5e88ef83b22eaf7f4c55cfa47be69d8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:259:281:return_statement",
+      "kind": "return_statement",
+      "label": "return pi * c.radius^2",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 4,
+          "byte": 259
+        },
+        "end": {
+          "line": 19,
+          "column": 26,
+          "byte": 281
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:281:binary_expression"
+      ],
+      "text_digest": "8d0cd857c26992c719521664529e2229aaf1fada999eec7c5d20a473f5b724c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:281:binary_expression",
+      "kind": "binary_expression",
+      "label": "pi * c.radius^2",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 11,
+          "byte": 266
+        },
+        "end": {
+          "line": 19,
+          "column": 26,
+          "byte": 281
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:268:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:269:270:operator",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:281:binary_expression"
+      ],
+      "text_digest": "665291d0954326844e0df1771b81ed4ece5fd6b3431e02f5c38a256705a3c12a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:281:binary_expression",
+      "kind": "binary_expression",
+      "label": "c.radius^2",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 16,
+          "byte": 271
+        },
+        "end": {
+          "line": 19,
+          "column": 26,
+          "byte": 281
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:279:field_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:279:280:operator",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:280:281:integer_literal"
+      ],
+      "text_digest": "dd4dc7713466e20fbc5180792332763fb17e5b2df7d1d1c1b09220d766f872ae"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:280:281:integer_literal",
+      "kind": "integer_literal",
+      "label": "2",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 25,
+          "byte": 280
+        },
+        "end": {
+          "line": 19,
+          "column": 26,
+          "byte": 281
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d4735e3a265e16eee03f59718b9b5d03019c07d8b6c51f90da3a666eec13ab35"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:279:280:operator",
+      "kind": "operator",
+      "label": "^",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 24,
+          "byte": 279
+        },
+        "end": {
+          "line": 19,
+          "column": 25,
+          "byte": 280
+        }
+      },
+      "children_ids": [],
+      "text_digest": "74cd9ef9c7e15f57bdad73c511462ca65cb674c46c49639c60f1b44650fa1dcb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:279:field_expression",
+      "kind": "field_expression",
+      "label": "c.radius",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 16,
+          "byte": 271
+        },
+        "end": {
+          "line": 19,
+          "column": 24,
+          "byte": 279
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:272:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:273:279:identifier"
+      ],
+      "text_digest": "659106a5abcc97e0e44facb3ce2c8d1f11da9176a16e0632162626c15f733e32"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:273:279:identifier",
+      "kind": "identifier",
+      "label": "radius",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 18,
+          "byte": 273
+        },
+        "end": {
+          "line": 19,
+          "column": 24,
+          "byte": 279
+        }
+      },
+      "children_ids": [],
+      "text_digest": "981979a22bad8c7cdc4484360aceb2f6a26979bba5fb0d73a1adb67a0ea69918"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:271:272:identifier",
+      "kind": "identifier",
+      "label": "c",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 16,
+          "byte": 271
+        },
+        "end": {
+          "line": 19,
+          "column": 17,
+          "byte": 272
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:269:270:operator",
+      "kind": "operator",
+      "label": "*",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 14,
+          "byte": 269
+        },
+        "end": {
+          "line": 19,
+          "column": 15,
+          "byte": 270
+        }
+      },
+      "children_ids": [],
+      "text_digest": "684888c0ebb17f374298b65ee2807526c066094c701bcc7ebbe1c1095f494fc1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:266:268:identifier",
+      "kind": "identifier",
+      "label": "pi",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 11,
+          "byte": 266
+        },
+        "end": {
+          "line": 19,
+          "column": 13,
+          "byte": 268
+        }
+      },
+      "children_ids": [],
+      "text_digest": "85b42e1702877c851eb7412fe958c8fb447c3207b4798fadab42ea8539046ce1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:signature",
+      "kind": "signature",
+      "label": "area(c::Circle)",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 9,
+          "byte": 238
+        },
+        "end": {
+          "line": 18,
+          "column": 24,
+          "byte": 253
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:call_expression"
+      ],
+      "text_digest": "1b01f0bc4221add98d9f07ce2dff8d78ad49e9e3744b09ace6fb14d79436ac1d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:253:call_expression",
+      "kind": "call_expression",
+      "label": "area(c::Circle)",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 9,
+          "byte": 238
+        },
+        "end": {
+          "line": 18,
+          "column": 24,
+          "byte": 253
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:242:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:242:253:argument_list"
+      ],
+      "text_digest": "1b01f0bc4221add98d9f07ce2dff8d78ad49e9e3744b09ace6fb14d79436ac1d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:242:253:argument_list",
+      "kind": "argument_list",
+      "label": "(c::Circle)",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 13,
+          "byte": 242
+        },
+        "end": {
+          "line": 18,
+          "column": 24,
+          "byte": 253
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:252:typed_expression"
+      ],
+      "text_digest": "e4b6a8116f58526f5050dbeedce8b68b842dcdd3349a33a64c496aeb2dd9d236"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:252:typed_expression",
+      "kind": "typed_expression",
+      "label": "c::Circle",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 14,
+          "byte": 243
+        },
+        "end": {
+          "line": 18,
+          "column": 23,
+          "byte": 252
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:244:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:246:252:identifier"
+      ],
+      "text_digest": "f0f534ad8ac1c408155f42859c275fbcc62d19a6392c376cb4327956e0daad10"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:246:252:identifier",
+      "kind": "identifier",
+      "label": "Circle",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 17,
+          "byte": 246
+        },
+        "end": {
+          "line": 18,
+          "column": 23,
+          "byte": 252
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b93d3bcecff5d7493a58a41ea44f7196a46295f6512ebc06940510676a666384"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:243:244:identifier",
+      "kind": "identifier",
+      "label": "c",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 14,
+          "byte": 243
+        },
+        "end": {
+          "line": 18,
+          "column": 15,
+          "byte": 244
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e7d2c03a9507ae265ecf5b5356885a53393a2029d241394997265a1a25aefc6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:238:242:identifier",
+      "kind": "identifier",
+      "label": "area",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 9,
+          "byte": 238
+        },
+        "end": {
+          "line": 18,
+          "column": 13,
+          "byte": 242
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4a91ee5f0106c2b35c11c168352f0abfbf4fc86165c62d6fb51b5232dfc692e6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:150:225:struct_definition",
+      "kind": "struct_definition",
+      "label": "mutable struct Circle <: Shape\r\n    center::Point\r\n    radius::Float64\r\nend",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 0,
+          "byte": 150
+        },
+        "end": {
+          "line": 16,
+          "column": 3,
+          "byte": 225
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:type_head",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:199:typed_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:220:typed_expression"
+      ],
+      "text_digest": "47e51c4fbbc58e6dab2ede37453b1505b6f930d2a0900c8291df47689d6ca415"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:220:typed_expression",
+      "kind": "typed_expression",
+      "label": "radius::Float64",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 4,
+          "byte": 205
+        },
+        "end": {
+          "line": 15,
+          "column": 19,
+          "byte": 220
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:211:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:213:220:identifier"
+      ],
+      "text_digest": "59f2dedcf63a5416d7f3f9e13e9447a5def924def3c5066dc0506821ac885d3c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:213:220:identifier",
+      "kind": "identifier",
+      "label": "Float64",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 12,
+          "byte": 213
+        },
+        "end": {
+          "line": 15,
+          "column": 19,
+          "byte": 220
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a2710438c7106a797c2aba7e5ca3d05e622227aee2a150ffa0f21a96d3903b92"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:205:211:identifier",
+      "kind": "identifier",
+      "label": "radius",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 4,
+          "byte": 205
+        },
+        "end": {
+          "line": 15,
+          "column": 10,
+          "byte": 211
+        }
+      },
+      "children_ids": [],
+      "text_digest": "981979a22bad8c7cdc4484360aceb2f6a26979bba5fb0d73a1adb67a0ea69918"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:199:typed_expression",
+      "kind": "typed_expression",
+      "label": "center::Point",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 186
+        },
+        "end": {
+          "line": 14,
+          "column": 17,
+          "byte": 199
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:192:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:194:199:identifier"
+      ],
+      "text_digest": "45abb3f52e2319c44085493c52a4716b9817c0579d9b01444b3f93319c4f6bfa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:194:199:identifier",
+      "kind": "identifier",
+      "label": "Point",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 12,
+          "byte": 194
+        },
+        "end": {
+          "line": 14,
+          "column": 17,
+          "byte": 199
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2fc0c524431a923617b003031d19d1e02e729210afacbe3ee02337a43422634a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:186:192:identifier",
+      "kind": "identifier",
+      "label": "center",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 4,
+          "byte": 186
+        },
+        "end": {
+          "line": 14,
+          "column": 10,
+          "byte": 192
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f179a509d32bd92c923f236324daef85551c03a761bf0188be286a585281b4ac"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:type_head",
+      "kind": "type_head",
+      "label": "Circle <: Shape",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 15,
+          "byte": 165
+        },
+        "end": {
+          "line": 13,
+          "column": 30,
+          "byte": 180
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:binary_expression"
+      ],
+      "text_digest": "a49a26cf98ca343bb54c0a1e0da3f69d1573021dd46c292f2e8e87f041f1bc3e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:180:binary_expression",
+      "kind": "binary_expression",
+      "label": "Circle <: Shape",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 15,
+          "byte": 165
+        },
+        "end": {
+          "line": 13,
+          "column": 30,
+          "byte": 180
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:171:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:172:174:operator",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:175:180:identifier"
+      ],
+      "text_digest": "a49a26cf98ca343bb54c0a1e0da3f69d1573021dd46c292f2e8e87f041f1bc3e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:175:180:identifier",
+      "kind": "identifier",
+      "label": "Shape",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 25,
+          "byte": 175
+        },
+        "end": {
+          "line": 13,
+          "column": 30,
+          "byte": 180
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e0e492707f85ff1f9c23155494a54382b52bf34888091adc7a6bb338ef78f88d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:172:174:operator",
+      "kind": "operator",
+      "label": "<:",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 22,
+          "byte": 172
+        },
+        "end": {
+          "line": 13,
+          "column": 24,
+          "byte": 174
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3b92d8b26a87a3bf16f958dd258c67a39ed6a681712515040405c96f733de80c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:165:171:identifier",
+      "kind": "identifier",
+      "label": "Circle",
+      "span": {
+        "start": {
+          "line": 13,
+          "column": 15,
+          "byte": 165
+        },
+        "end": {
+          "line": 13,
+          "column": 21,
+          "byte": 171
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b93d3bcecff5d7493a58a41ea44f7196a46295f6512ebc06940510676a666384"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:88:146:struct_definition",
+      "kind": "struct_definition",
+      "label": "struct Point <: Shape\r\n    x::Float64\r\n    y::Float64\r\nend",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 0,
+          "byte": 88
+        },
+        "end": {
+          "line": 11,
+          "column": 3,
+          "byte": 146
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:type_head",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:125:typed_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:141:typed_expression"
+      ],
+      "text_digest": "a61fa32c015d055bcac91fff9b65214742c403a05921322108f00af58839c5b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:141:typed_expression",
+      "kind": "typed_expression",
+      "label": "y::Float64",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 4,
+          "byte": 131
+        },
+        "end": {
+          "line": 10,
+          "column": 14,
+          "byte": 141
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:132:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:134:141:identifier"
+      ],
+      "text_digest": "fc1d52b189468486f1668f2b0cfd21df3067b064764ddbf8c02c944cffad4c1a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:134:141:identifier",
+      "kind": "identifier",
+      "label": "Float64",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 7,
+          "byte": 134
+        },
+        "end": {
+          "line": 10,
+          "column": 14,
+          "byte": 141
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a2710438c7106a797c2aba7e5ca3d05e622227aee2a150ffa0f21a96d3903b92"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:131:132:identifier",
+      "kind": "identifier",
+      "label": "y",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 4,
+          "byte": 131
+        },
+        "end": {
+          "line": 10,
+          "column": 5,
+          "byte": 132
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a1fce4363854ff888cff4b8e7875d600c2682390412a8cf79b37d0b11148b0fa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:125:typed_expression",
+      "kind": "typed_expression",
+      "label": "x::Float64",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 4,
+          "byte": 115
+        },
+        "end": {
+          "line": 9,
+          "column": 14,
+          "byte": 125
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:116:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:118:125:identifier"
+      ],
+      "text_digest": "96ffe5ab4e0c5d25cba1ed118f4687728cd54edb8dd890fb7d1d66481f59c5a3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:118:125:identifier",
+      "kind": "identifier",
+      "label": "Float64",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 7,
+          "byte": 118
+        },
+        "end": {
+          "line": 9,
+          "column": 14,
+          "byte": 125
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a2710438c7106a797c2aba7e5ca3d05e622227aee2a150ffa0f21a96d3903b92"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:115:116:identifier",
+      "kind": "identifier",
+      "label": "x",
+      "span": {
+        "start": {
+          "line": 9,
+          "column": 4,
+          "byte": 115
+        },
+        "end": {
+          "line": 9,
+          "column": 5,
+          "byte": 116
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2d711642b726b04401627ca9fbac32f5c8530fb1903cc4db02258717921a4881"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:type_head",
+      "kind": "type_head",
+      "label": "Point <: Shape",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 7,
+          "byte": 95
+        },
+        "end": {
+          "line": 8,
+          "column": 21,
+          "byte": 109
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:binary_expression"
+      ],
+      "text_digest": "0b63ca95a591c68edf244944eb6c7352d4b057bab6fbe9d4376ffa0fb0ae692f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:109:binary_expression",
+      "kind": "binary_expression",
+      "label": "Point <: Shape",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 7,
+          "byte": 95
+        },
+        "end": {
+          "line": 8,
+          "column": 21,
+          "byte": 109
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:100:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:101:103:operator",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:104:109:identifier"
+      ],
+      "text_digest": "0b63ca95a591c68edf244944eb6c7352d4b057bab6fbe9d4376ffa0fb0ae692f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:104:109:identifier",
+      "kind": "identifier",
+      "label": "Shape",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 16,
+          "byte": 104
+        },
+        "end": {
+          "line": 8,
+          "column": 21,
+          "byte": 109
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e0e492707f85ff1f9c23155494a54382b52bf34888091adc7a6bb338ef78f88d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:101:103:operator",
+      "kind": "operator",
+      "label": "<:",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 13,
+          "byte": 101
+        },
+        "end": {
+          "line": 8,
+          "column": 15,
+          "byte": 103
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3b92d8b26a87a3bf16f958dd258c67a39ed6a681712515040405c96f733de80c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:95:100:identifier",
+      "kind": "identifier",
+      "label": "Point",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 7,
+          "byte": 95
+        },
+        "end": {
+          "line": 8,
+          "column": 12,
+          "byte": 100
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2fc0c524431a923617b003031d19d1e02e729210afacbe3ee02337a43422634a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:61:84:abstract_definition",
+      "kind": "abstract_definition",
+      "label": "abstract type Shape end",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 0,
+          "byte": 61
+        },
+        "end": {
+          "line": 6,
+          "column": 23,
+          "byte": 84
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:75:80:type_head"
+      ],
+      "text_digest": "820ba911bdb9a54f68ae82dcb321794b7078f7b1fb34c2966b59564b103140d4"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:75:80:type_head",
+      "kind": "type_head",
+      "label": "Shape",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 14,
+          "byte": 75
+        },
+        "end": {
+          "line": 6,
+          "column": 19,
+          "byte": 80
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:75:80:identifier"
+      ],
+      "text_digest": "e0e492707f85ff1f9c23155494a54382b52bf34888091adc7a6bb338ef78f88d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:75:80:identifier",
+      "kind": "identifier",
+      "label": "Shape",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 14,
+          "byte": 75
+        },
+        "end": {
+          "line": 6,
+          "column": 19,
+          "byte": 80
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e0e492707f85ff1f9c23155494a54382b52bf34888091adc7a6bb338ef78f88d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:40:57:import_statement",
+      "kind": "import_statement",
+      "label": "import Base: show",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 40
+        },
+        "end": {
+          "line": 4,
+          "column": 17,
+          "byte": 57
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:57:selected_import"
+      ],
+      "text_digest": "5a7d09988298428c8095b037cffdfae11356b52c85b21cfb0ba3d34141effc99"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:57:selected_import",
+      "kind": "selected_import",
+      "label": "Base: show",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 7,
+          "byte": 47
+        },
+        "end": {
+          "line": 4,
+          "column": 17,
+          "byte": 57
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:51:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:53:57:identifier"
+      ],
+      "text_digest": "96f013613f4ed0e6dcd0f31956db4e6ce7588bc1c54e75fdd7cb353bdf4fd30e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:53:57:identifier",
+      "kind": "identifier",
+      "label": "show",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 13,
+          "byte": 53
+        },
+        "end": {
+          "line": 4,
+          "column": 17,
+          "byte": 57
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1c6333509debf060200eb6bbe28db307508da67c0e3c58088393e4cf09de596d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:47:51:identifier",
+      "kind": "identifier",
+      "label": "Base",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 7,
+          "byte": 47
+        },
+        "end": {
+          "line": 4,
+          "column": 11,
+          "byte": 51
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7b47361aad19bb483aeab081a7df0a55f7cb0fdb3327efe6dd016e6353a17880"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:19:38:using_statement",
+      "kind": "using_statement",
+      "label": "using LinearAlgebra",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 0,
+          "byte": 19
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 38
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:25:38:identifier"
+      ],
+      "text_digest": "210fdd3ab9f053efb925ad250d71a20fded9a92ba487a939ba27e9ad2f3e9f79"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:25:38:identifier",
+      "kind": "identifier",
+      "label": "LinearAlgebra",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 6,
+          "byte": 25
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 38
+        }
+      },
+      "children_ids": [],
+      "text_digest": "cd1cbcff0fa9a972d45b1f53c9be05629a83db53742adf4baf13045aa5efef11"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.jl:7:15:identifier",
+      "kind": "identifier",
+      "label": "Geometry",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 15,
+          "byte": 15
+        }
+      },
+      "children_ids": [],
+      "text_digest": "fa9da5754ccfd409028cef393a17acae922be11469a590d1f2b99d9f45349337"
+    }
+  ],
+  "parser_id": "tree_sitter_julia",
+  "relative_path": "tests/fixtures/sample.jl",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "julia",
+  "warnings": []
+}

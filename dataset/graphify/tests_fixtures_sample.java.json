@@ -1,0 +1,3695 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:59+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:695:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:640:693:interface_declaration:132",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:695:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:640:693:interface_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:640:693:interface_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:660:693:interface_body:131",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:640:693:interface_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:660:693:interface_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:660:693:interface_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:690:method_declaration:130",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:660:693:interface_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:690:method_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:690:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:687:689:formal_parameters:129",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:690:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:687:689:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:690:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:680:687:identifier:128",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:690:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:680:687:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:690:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:679:generic_type:127",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:690:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:679:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:679:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:671:679:type_arguments:126",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:679:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:671:679:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:671:679:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:672:678:type_identifier:125",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:671:679:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:672:678:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:679:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:671:type_identifier:124",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:679:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:671:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:640:693:interface_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:650:659:identifier:123",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:640:693:interface_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:650:659:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:695:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:636:class_declaration:122",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:695:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:636:class_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:636:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body:121",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:636:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration:120",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:407:633:block:119",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:407:633:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:407:633:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:612:626:return_statement:118",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:407:633:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:612:626:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:612:626:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:619:625:identifier:117",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:612:626:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:619:625:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:407:633:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement:116",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:407:633:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:490:602:block:115",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:490:602:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:490:602:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:505:591:if_statement:114",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:490:602:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:505:591:if_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:505:591:if_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:536:591:block:113",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:505:591:if_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:536:591:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:536:591:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:576:expression_statement:112",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:536:591:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:576:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:576:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:575:method_invocation:111",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:576:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:575:method_invocation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:575:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:565:575:argument_list:110",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:575:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:565:575:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:565:575:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:574:method_invocation:109",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:565:575:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:574:method_invocation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:574:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:572:574:argument_list:108",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:574:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:572:574:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:574:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:568:572:identifier:107",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:574:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:568:572:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:574:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:567:identifier:106",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:574:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:567:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:575:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:562:565:identifier:105",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:575:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:562:565:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:575:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:561:identifier:104",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:575:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:561:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:505:591:if_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:508:535:parenthesized_expression:103",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:505:591:if_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:508:535:parenthesized_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:508:535:parenthesized_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:534:binary_expression:102",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:508:535:parenthesized_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:534:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:534:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:522:534:unary_expression:101",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:534:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:522:534:unary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:522:534:unary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:534:method_invocation:100",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:522:534:unary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:534:method_invocation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:534:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:532:534:argument_list:99",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:534:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:532:534:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:534:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:525:532:identifier:98",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:534:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:525:532:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:534:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:524:identifier:97",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:534:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:524:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:534:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:518:binary_expression:96",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:534:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:518:binary_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:518:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:514:518:null_literal:95",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:518:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:514:518:null_literal",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:518:binary_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:510:identifier:94",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:518:binary_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:510:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:484:488:identifier:93",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:484:488:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:480:481:identifier:92",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:480:481:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:473:479:type_identifier:91",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:473:479:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:407:633:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:458:local_variable_declaration:90",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:407:633:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:458:local_variable_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:458:local_variable_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:457:variable_declarator:89",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:458:local_variable_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:457:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:457:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:440:457:object_creation_expression:88",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:457:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:440:457:object_creation_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:440:457:object_creation_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:455:457:argument_list:87",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:440:457:object_creation_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:455:457:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:440:457:object_creation_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:455:generic_type:86",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:440:457:object_creation_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:455:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:455:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:453:455:type_arguments:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:455:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:453:455:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:455:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:453:type_identifier:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:455:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:453:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:457:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:437:identifier:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:457:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:437:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:458:local_variable_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:430:generic_type:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:458:local_variable_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:430:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:430:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:422:430:type_arguments:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:430:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:422:430:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:422:430:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:423:429:type_identifier:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:422:430:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:423:429:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:430:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:422:type_identifier:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:430:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:422:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:387:406:formal_parameters:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:387:406:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:387:406:formal_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:405:formal_parameter:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:387:406:formal_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:405:formal_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:405:formal_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:401:405:identifier:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:405:formal_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:401:405:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:405:formal_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:400:generic_type:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:405:formal_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:400:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:400:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:392:400:type_arguments:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:400:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:392:400:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:392:400:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:393:399:type_identifier:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:392:400:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:393:399:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:400:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:392:type_identifier:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:400:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:392:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:379:387:identifier:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:379:387:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:378:generic_type:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:378:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:378:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:370:378:type_arguments:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:378:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:370:378:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:370:378:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:371:377:type_identifier:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:370:378:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:371:377:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:378:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:370:type_identifier:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:378:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:370:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:365:modifiers:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:365:modifiers",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:309:350:block:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:309:350:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:309:350:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:320:343:return_statement:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:309:350:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:320:343:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:320:343:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:342:method_invocation:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:320:343:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:342:method_invocation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:342:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:335:342:argument_list:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:342:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:335:342:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:335:342:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:336:341:identifier:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:335:342:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:336:341:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:342:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:335:identifier:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:342:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:335:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:306:308:formal_parameters:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:306:308:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:299:306:identifier:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:299:306:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:298:generic_type:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:298:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:298:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:290:298:type_arguments:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:298:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:290:298:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:290:298:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:291:297:type_identifier:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:290:298:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:291:297:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:298:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:290:type_identifier:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:298:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:290:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:285:modifiers:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:285:modifiers",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:237:271:block:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:237:271:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:237:271:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:264:expression_statement:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:237:271:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:264:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:264:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:263:method_invocation:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:264:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:263:method_invocation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:263:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:257:263:argument_list:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:263:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:257:263:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:257:263:argument_list->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:258:262:identifier:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:257:263:argument_list",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:258:262:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:263:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:254:257:identifier:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:263:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:254:257:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:263:method_invocation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:253:identifier:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:263:method_invocation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:253:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:223:236:formal_parameters:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:223:236:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:223:236:formal_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:235:formal_parameter:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:223:236:formal_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:235:formal_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:235:formal_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:231:235:identifier:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:235:formal_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:231:235:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:235:formal_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:230:type_identifier:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:235:formal_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:230:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:216:223:identifier:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:216:223:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:211:215:void_type:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:211:215:void_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:210:modifiers:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:210:modifiers",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:147:196:constructor_body:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:147:196:constructor_body",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:147:196:constructor_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:189:expression_statement:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:147:196:constructor_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:189:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:189:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:188:assignment_expression:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:189:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:188:assignment_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:188:assignment_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:171:188:object_creation_expression:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:188:assignment_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:171:188:object_creation_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:171:188:object_creation_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:186:188:argument_list:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:171:188:object_creation_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:186:188:argument_list",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:171:188:object_creation_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:186:generic_type:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:171:188:object_creation_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:186:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:186:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:184:186:type_arguments:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:186:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:184:186:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:186:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:184:type_identifier:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:186:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:184:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:188:assignment_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:168:field_access:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:188:assignment_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:168:field_access",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:168:field_access->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:163:168:identifier:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:168:field_access",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:163:168:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:168:field_access->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:162:this:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:168:field_access",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:162:this",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:144:146:formal_parameters:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:144:146:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:131:144:identifier:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:131:144:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:130:modifiers:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:130:modifiers",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:116:field_declaration:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:116:field_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:116:field_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:110:115:variable_declarator:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:116:field_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:110:115:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:110:115:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:110:115:identifier:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:110:115:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:110:115:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:116:field_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:109:generic_type:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:116:field_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:109:generic_type",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:109:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:101:109:type_arguments:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:109:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:101:109:type_arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:101:109:type_arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:102:108:type_identifier:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:101:109:type_arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:102:108:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:109:generic_type->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:101:type_identifier:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:109:generic_type",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:101:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:116:field_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:96:modifiers:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:116:field_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:96:modifiers",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:636:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:68:81:identifier:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:636:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:68:81:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:636:class_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:61:modifiers:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:636:class_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:61:modifiers",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:695:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:24:51:import_declaration:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:695:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:24:51:import_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:24:51:import_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:50:scoped_identifier:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:24:51:import_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:50:scoped_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:50:scoped_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:41:50:identifier:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:50:scoped_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:41:50:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:50:scoped_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:40:scoped_identifier:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:50:scoped_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:40:scoped_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:40:scoped_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:36:40:identifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:40:scoped_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:36:40:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:40:scoped_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:35:identifier:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:40:scoped_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:35:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:695:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:22:import_declaration:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:695:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:22:import_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:22:import_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:21:scoped_identifier:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:22:import_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:21:scoped_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:21:scoped_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:17:21:identifier:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:21:scoped_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:17:21:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:21:scoped_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:16:scoped_identifier:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:21:scoped_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:16:scoped_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:16:scoped_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:12:16:identifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:16:scoped_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:12:16:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:16:scoped_identifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:11:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:16:scoped_identifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:11:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:695:program",
+      "kind": "program",
+      "label": "import java.util.List;\r\nimport java.util.ArrayList;\r\n\r\npublic class DataProcessor {\r\n    private List<String> items;\r\n\r\n    public DataProcessor() {\r\n        this.items = new ArrayList<>();\r\n    }\r\n\r\n    public void addItem(String item) {\r\n        items.add(item);\r\n    }\r\n\r\n    public List<String> process() {\r\n        return validate(items);\r\n    }\r\n\r\n    private List<String> validate(List<String> data) {\r\n        List<String> result = new ArrayList<>();\r\n        for (String s : data) {\r\n            if (s != null && !s.isEmpty()) {\r\n                result.add(s.trim());\r\n            }\r\n        }\r\n        return result;\r\n    }\r\n}\r\n\r\ninterface Processor {\r\n    List<String> process();\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 33,
+          "column": 0,
+          "byte": 695
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:22:import_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:24:51:import_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:636:class_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:640:693:interface_declaration"
+      ],
+      "text_digest": "8f29a96a8360435bb2e35b04c663217863f4de64b22e142622956b1e9e1509ec"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:640:693:interface_declaration",
+      "kind": "interface_declaration",
+      "label": "interface Processor {\r\n    List<String> process();\r\n}",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 0,
+          "byte": 640
+        },
+        "end": {
+          "line": 32,
+          "column": 1,
+          "byte": 693
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:650:659:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:660:693:interface_body"
+      ],
+      "text_digest": "09861fe0fdd9c5fe66d11ecc722836b97cd0b7868c508b98f502742a98d2aaff"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:660:693:interface_body",
+      "kind": "interface_body",
+      "label": "{\r\n    List<String> process();\r\n}",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 20,
+          "byte": 660
+        },
+        "end": {
+          "line": 32,
+          "column": 1,
+          "byte": 693
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:690:method_declaration"
+      ],
+      "text_digest": "9751b98d8be78dddf7efe743af7320d58a0313e4b8fe00141b161dad6eeccc34"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:690:method_declaration",
+      "kind": "method_declaration",
+      "label": "List<String> process();",
+      "span": {
+        "start": {
+          "line": 31,
+          "column": 4,
+          "byte": 667
+        },
+        "end": {
+          "line": 31,
+          "column": 27,
+          "byte": 690
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:679:generic_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:680:687:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:687:689:formal_parameters"
+      ],
+      "text_digest": "7247ea3c8a30fefa636e31bf51f09a526a0f20766a369d01bcb8504b6e641be6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:687:689:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 31,
+          "column": 24,
+          "byte": 687
+        },
+        "end": {
+          "line": 31,
+          "column": 26,
+          "byte": 689
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:680:687:identifier",
+      "kind": "identifier",
+      "label": "process",
+      "span": {
+        "start": {
+          "line": 31,
+          "column": 17,
+          "byte": 680
+        },
+        "end": {
+          "line": 31,
+          "column": 24,
+          "byte": 687
+        }
+      },
+      "children_ids": [],
+      "text_digest": "19ed40bf62c399b8492efda5b9a9184b68cf4d9d4a165b38557b9d14201d0c03"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:679:generic_type",
+      "kind": "generic_type",
+      "label": "List<String>",
+      "span": {
+        "start": {
+          "line": 31,
+          "column": 4,
+          "byte": 667
+        },
+        "end": {
+          "line": 31,
+          "column": 16,
+          "byte": 679
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:671:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:671:679:type_arguments"
+      ],
+      "text_digest": "15430bb870e5a5c9da27fc9763809d5cd5b1235ebf1f6f5fc311454139640831"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:671:679:type_arguments",
+      "kind": "type_arguments",
+      "label": "<String>",
+      "span": {
+        "start": {
+          "line": 31,
+          "column": 8,
+          "byte": 671
+        },
+        "end": {
+          "line": 31,
+          "column": 16,
+          "byte": 679
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:672:678:type_identifier"
+      ],
+      "text_digest": "3a9aeee285d60dddd5907b2505b04b6696217abd75133becd47e7f6a71767a30"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:672:678:type_identifier",
+      "kind": "type_identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 31,
+          "column": 9,
+          "byte": 672
+        },
+        "end": {
+          "line": 31,
+          "column": 15,
+          "byte": 678
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:667:671:type_identifier",
+      "kind": "type_identifier",
+      "label": "List",
+      "span": {
+        "start": {
+          "line": 31,
+          "column": 4,
+          "byte": 667
+        },
+        "end": {
+          "line": 31,
+          "column": 8,
+          "byte": 671
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6f202f54a7b2d8fe42aa804eabe48ef900cdf73a74c570a47fd1b1a4920a051d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:650:659:identifier",
+      "kind": "identifier",
+      "label": "Processor",
+      "span": {
+        "start": {
+          "line": 30,
+          "column": 10,
+          "byte": 650
+        },
+        "end": {
+          "line": 30,
+          "column": 19,
+          "byte": 659
+        }
+      },
+      "children_ids": [],
+      "text_digest": "54aac653f06e8f298e547bfae26e1226cf14e373a6fe4ea8a041915ca132d01b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:636:class_declaration",
+      "kind": "class_declaration",
+      "label": "public class DataProcessor {\r\n    private List<String> items;\r\n\r\n    public DataProcessor() {\r\n        this.items = new ArrayList<>();\r\n    }\r\n\r\n    public void addItem(String item) {\r\n        items.add(item);\r\n    }\r\n\r\n    public List<String> process() {\r\n        return validate(items);\r\n    }\r\n\r\n    private List<String> validate(List<String> data) {\r\n        List<String> result = new ArrayList<>();\r\n        for (String s : data) {\r\n            if (s != null && !s.isEmpty()) {\r\n                result.add(s.trim());\r\n            }\r\n        }\r\n        return result;\r\n    }\r\n}",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 55
+        },
+        "end": {
+          "line": 28,
+          "column": 1,
+          "byte": 636
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:61:modifiers",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:68:81:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body"
+      ],
+      "text_digest": "0f12c708bb641843e64bc5e918ee5da37cb1c8f7ce847babc85395efe6e8c9c1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:82:636:class_body",
+      "kind": "class_body",
+      "label": "{\r\n    private List<String> items;\r\n\r\n    public DataProcessor() {\r\n        this.items = new ArrayList<>();\r\n    }\r\n\r\n    public void addItem(String item) {\r\n        items.add(item);\r\n    }\r\n\r\n    public List<String> process() {\r\n        return validate(items);\r\n    }\r\n\r\n    private List<String> validate(List<String> data) {\r\n        List<String> result = new ArrayList<>();\r\n        for (String s : data) {\r\n            if (s != null && !s.isEmpty()) {\r\n                result.add(s.trim());\r\n            }\r\n        }\r\n        return result;\r\n    }\r\n}",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 27,
+          "byte": 82
+        },
+        "end": {
+          "line": 28,
+          "column": 1,
+          "byte": 636
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:116:field_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration"
+      ],
+      "text_digest": "742d88bc6c644a553eba8ccfd5d8c14bcc6572663b6b3fa1bd5d6d123d292dda"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:633:method_declaration",
+      "kind": "method_declaration",
+      "label": "private List<String> validate(List<String> data) {\r\n        List<String> result = new ArrayList<>();\r\n        for (String s : data) {\r\n            if (s != null && !s.isEmpty()) {\r\n                result.add(s.trim());\r\n            }\r\n        }\r\n        return result;\r\n    }",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 4,
+          "byte": 358
+        },
+        "end": {
+          "line": 27,
+          "column": 5,
+          "byte": 633
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:365:modifiers",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:378:generic_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:379:387:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:387:406:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:407:633:block"
+      ],
+      "text_digest": "4e19fc30a4c6d58f9a2579c7196c2ca36350aa203b6bf8ba80c0f31656492198"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:407:633:block",
+      "kind": "block",
+      "label": "{\r\n        List<String> result = new ArrayList<>();\r\n        for (String s : data) {\r\n            if (s != null && !s.isEmpty()) {\r\n                result.add(s.trim());\r\n            }\r\n        }\r\n        return result;\r\n    }",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 53,
+          "byte": 407
+        },
+        "end": {
+          "line": 27,
+          "column": 5,
+          "byte": 633
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:458:local_variable_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:612:626:return_statement"
+      ],
+      "text_digest": "b76f371947dab6d777177d182808d3c9710fc89b726b667bcbdaf4e23f39e764"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:612:626:return_statement",
+      "kind": "return_statement",
+      "label": "return result;",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 8,
+          "byte": 612
+        },
+        "end": {
+          "line": 26,
+          "column": 22,
+          "byte": 626
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:619:625:identifier"
+      ],
+      "text_digest": "882101dd8697a52e0480af0873d4640b6bb8b487665fdc6013a1e87120badb76"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:619:625:identifier",
+      "kind": "identifier",
+      "label": "result",
+      "span": {
+        "start": {
+          "line": 26,
+          "column": 15,
+          "byte": 619
+        },
+        "end": {
+          "line": 26,
+          "column": 21,
+          "byte": 625
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f6a214f7a5fcda0c2cee9660b7fc29f5649e3c68aad48e20e950137c98913a68"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:468:602:enhanced_for_statement",
+      "kind": "enhanced_for_statement",
+      "label": "for (String s : data) {\r\n            if (s != null && !s.isEmpty()) {\r\n                result.add(s.trim());\r\n            }\r\n        }",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 8,
+          "byte": 468
+        },
+        "end": {
+          "line": 25,
+          "column": 9,
+          "byte": 602
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:473:479:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:480:481:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:484:488:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:490:602:block"
+      ],
+      "text_digest": "56f65a060c202b94ad979ca9eb9064f0902d0a708467b1693c11e34782c14257"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:490:602:block",
+      "kind": "block",
+      "label": "{\r\n            if (s != null && !s.isEmpty()) {\r\n                result.add(s.trim());\r\n            }\r\n        }",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 30,
+          "byte": 490
+        },
+        "end": {
+          "line": 25,
+          "column": 9,
+          "byte": 602
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:505:591:if_statement"
+      ],
+      "text_digest": "cbf7a860189222215375a4c362c3550b089d6004b815e9c1b38593c484eb3c3d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:505:591:if_statement",
+      "kind": "if_statement",
+      "label": "if (s != null && !s.isEmpty()) {\r\n                result.add(s.trim());\r\n            }",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 12,
+          "byte": 505
+        },
+        "end": {
+          "line": 24,
+          "column": 13,
+          "byte": 591
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:508:535:parenthesized_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:536:591:block"
+      ],
+      "text_digest": "dc5d61d57c286eed004cb59dc4da67b18b28e4d2c5b7dabd2ff29a9d39f76be0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:536:591:block",
+      "kind": "block",
+      "label": "{\r\n                result.add(s.trim());\r\n            }",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 43,
+          "byte": 536
+        },
+        "end": {
+          "line": 24,
+          "column": 13,
+          "byte": 591
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:576:expression_statement"
+      ],
+      "text_digest": "aecae4a60a7e5556ecf4277e50bee0d083f0120444311950de7f288001899fee"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:576:expression_statement",
+      "kind": "expression_statement",
+      "label": "result.add(s.trim());",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 16,
+          "byte": 555
+        },
+        "end": {
+          "line": 23,
+          "column": 37,
+          "byte": 576
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:575:method_invocation"
+      ],
+      "text_digest": "b7ab738d48dc5751cf675f8b9c4f9124ed06ccb2bd6fb057cc1bac9ed62db6da"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:575:method_invocation",
+      "kind": "method_invocation",
+      "label": "result.add(s.trim())",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 16,
+          "byte": 555
+        },
+        "end": {
+          "line": 23,
+          "column": 36,
+          "byte": 575
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:561:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:562:565:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:565:575:argument_list"
+      ],
+      "text_digest": "2336da046b808fcf7773baa23f7c52d2f150eed59d2c766deb8e9d9db5738d7c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:565:575:argument_list",
+      "kind": "argument_list",
+      "label": "(s.trim())",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 26,
+          "byte": 565
+        },
+        "end": {
+          "line": 23,
+          "column": 36,
+          "byte": 575
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:574:method_invocation"
+      ],
+      "text_digest": "14e360f696fd80f9e51d766774f24e83629087f0f6f79af3c01882d17cfba2d6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:574:method_invocation",
+      "kind": "method_invocation",
+      "label": "s.trim()",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 27,
+          "byte": 566
+        },
+        "end": {
+          "line": 23,
+          "column": 35,
+          "byte": 574
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:567:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:568:572:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:572:574:argument_list"
+      ],
+      "text_digest": "0fa5affd99d10fc2dd49ca1c917e8888ef75c9804627f7cde189051498802007"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:572:574:argument_list",
+      "kind": "argument_list",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 33,
+          "byte": 572
+        },
+        "end": {
+          "line": 23,
+          "column": 35,
+          "byte": 574
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:568:572:identifier",
+      "kind": "identifier",
+      "label": "trim",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 29,
+          "byte": 568
+        },
+        "end": {
+          "line": 23,
+          "column": 33,
+          "byte": 572
+        }
+      },
+      "children_ids": [],
+      "text_digest": "657c97bf2df3f6e236969d30e1f0b4226220bb95947aeab2eda68d438136484d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:566:567:identifier",
+      "kind": "identifier",
+      "label": "s",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 27,
+          "byte": 566
+        },
+        "end": {
+          "line": 23,
+          "column": 28,
+          "byte": 567
+        }
+      },
+      "children_ids": [],
+      "text_digest": "043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:562:565:identifier",
+      "kind": "identifier",
+      "label": "add",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 23,
+          "byte": 562
+        },
+        "end": {
+          "line": 23,
+          "column": 26,
+          "byte": 565
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7e9e5ac30f2216fd0fd6f5faed316f2d5983361a4203c3330cfa46ef65bb4767"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:555:561:identifier",
+      "kind": "identifier",
+      "label": "result",
+      "span": {
+        "start": {
+          "line": 23,
+          "column": 16,
+          "byte": 555
+        },
+        "end": {
+          "line": 23,
+          "column": 22,
+          "byte": 561
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f6a214f7a5fcda0c2cee9660b7fc29f5649e3c68aad48e20e950137c98913a68"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:508:535:parenthesized_expression",
+      "kind": "parenthesized_expression",
+      "label": "(s != null && !s.isEmpty())",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 15,
+          "byte": 508
+        },
+        "end": {
+          "line": 22,
+          "column": 42,
+          "byte": 535
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:534:binary_expression"
+      ],
+      "text_digest": "dfe72425080ec1314c866080e2786077c8cdecb8b74203b1f0e9fd73d2c0f675"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:534:binary_expression",
+      "kind": "binary_expression",
+      "label": "s != null && !s.isEmpty()",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 16,
+          "byte": 509
+        },
+        "end": {
+          "line": 22,
+          "column": 41,
+          "byte": 534
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:518:binary_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:522:534:unary_expression"
+      ],
+      "text_digest": "4499e5b35fafd377547f42164464cd2a6e6582a1a315c27ab68217e22710ea37"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:522:534:unary_expression",
+      "kind": "unary_expression",
+      "label": "!s.isEmpty()",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 29,
+          "byte": 522
+        },
+        "end": {
+          "line": 22,
+          "column": 41,
+          "byte": 534
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:534:method_invocation"
+      ],
+      "text_digest": "2a3b1a82ae0dd29230dfbd1ad9f28998ef25b431dc4610b4f521331a52161630"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:534:method_invocation",
+      "kind": "method_invocation",
+      "label": "s.isEmpty()",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 30,
+          "byte": 523
+        },
+        "end": {
+          "line": 22,
+          "column": 41,
+          "byte": 534
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:524:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:525:532:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:532:534:argument_list"
+      ],
+      "text_digest": "6acfe9f4e2679e0f6230c60b2193833eb7d72df2bae7ceb845f643e02d7b8448"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:532:534:argument_list",
+      "kind": "argument_list",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 39,
+          "byte": 532
+        },
+        "end": {
+          "line": 22,
+          "column": 41,
+          "byte": 534
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:525:532:identifier",
+      "kind": "identifier",
+      "label": "isEmpty",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 32,
+          "byte": 525
+        },
+        "end": {
+          "line": 22,
+          "column": 39,
+          "byte": 532
+        }
+      },
+      "children_ids": [],
+      "text_digest": "eacba67c557dd37a1964a55f7edb1508238edb8005d5c5e87b6fa581ae1aa5dc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:523:524:identifier",
+      "kind": "identifier",
+      "label": "s",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 30,
+          "byte": 523
+        },
+        "end": {
+          "line": 22,
+          "column": 31,
+          "byte": 524
+        }
+      },
+      "children_ids": [],
+      "text_digest": "043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:518:binary_expression",
+      "kind": "binary_expression",
+      "label": "s != null",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 16,
+          "byte": 509
+        },
+        "end": {
+          "line": 22,
+          "column": 25,
+          "byte": 518
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:510:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:514:518:null_literal"
+      ],
+      "text_digest": "30ca37a945d67ab40c04df69772b56a655027dc51a52c30a1dce68be75bc75ef"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:514:518:null_literal",
+      "kind": "null_literal",
+      "label": "null",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 21,
+          "byte": 514
+        },
+        "end": {
+          "line": 22,
+          "column": 25,
+          "byte": 518
+        }
+      },
+      "children_ids": [],
+      "text_digest": "74234e98afe7498fb5daf1f36ac2d78acc339464f950703b8c019892f982b90b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:509:510:identifier",
+      "kind": "identifier",
+      "label": "s",
+      "span": {
+        "start": {
+          "line": 22,
+          "column": 16,
+          "byte": 509
+        },
+        "end": {
+          "line": 22,
+          "column": 17,
+          "byte": 510
+        }
+      },
+      "children_ids": [],
+      "text_digest": "043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:484:488:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 24,
+          "byte": 484
+        },
+        "end": {
+          "line": 21,
+          "column": 28,
+          "byte": 488
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:480:481:identifier",
+      "kind": "identifier",
+      "label": "s",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 20,
+          "byte": 480
+        },
+        "end": {
+          "line": 21,
+          "column": 21,
+          "byte": 481
+        }
+      },
+      "children_ids": [],
+      "text_digest": "043a718774c572bd8a25adbeb1bfcd5c0256ae11cecf9f9c3f925d0e52beaf89"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:473:479:type_identifier",
+      "kind": "type_identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 21,
+          "column": 13,
+          "byte": 473
+        },
+        "end": {
+          "line": 21,
+          "column": 19,
+          "byte": 479
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:458:local_variable_declaration",
+      "kind": "local_variable_declaration",
+      "label": "List<String> result = new ArrayList<>();",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 8,
+          "byte": 418
+        },
+        "end": {
+          "line": 20,
+          "column": 48,
+          "byte": 458
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:430:generic_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:457:variable_declarator"
+      ],
+      "text_digest": "aab29642327ebe5002d0fdc3c9ec6e73f71d5237918b2fd3162c0988371057be"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:457:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "result = new ArrayList<>()",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 21,
+          "byte": 431
+        },
+        "end": {
+          "line": 20,
+          "column": 47,
+          "byte": 457
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:437:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:440:457:object_creation_expression"
+      ],
+      "text_digest": "f729992ded97d11f6ca44e970944607f6e01a24bd4a50cb46df1364b8ef7ecc1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:440:457:object_creation_expression",
+      "kind": "object_creation_expression",
+      "label": "new ArrayList<>()",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 30,
+          "byte": 440
+        },
+        "end": {
+          "line": 20,
+          "column": 47,
+          "byte": 457
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:455:generic_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:455:457:argument_list"
+      ],
+      "text_digest": "8e0b02af400c7ea92e4bfc435e5ca96ceedeb5d0da0e53beb60433f9662b5821"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:455:457:argument_list",
+      "kind": "argument_list",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 45,
+          "byte": 455
+        },
+        "end": {
+          "line": 20,
+          "column": 47,
+          "byte": 457
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:455:generic_type",
+      "kind": "generic_type",
+      "label": "ArrayList<>",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 34,
+          "byte": 444
+        },
+        "end": {
+          "line": 20,
+          "column": 45,
+          "byte": 455
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:453:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:453:455:type_arguments"
+      ],
+      "text_digest": "b5c51b03f0292f5153767d97e8deef7d0542f2b995b5c849d980280f1f246550"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:453:455:type_arguments",
+      "kind": "type_arguments",
+      "label": "<>",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 43,
+          "byte": 453
+        },
+        "end": {
+          "line": 20,
+          "column": 45,
+          "byte": 455
+        }
+      },
+      "children_ids": [],
+      "text_digest": "24295a9c545a402da4f2cc833dae7b4f3b80182f7f803516d580ca07c0642b64"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:444:453:type_identifier",
+      "kind": "type_identifier",
+      "label": "ArrayList",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 34,
+          "byte": 444
+        },
+        "end": {
+          "line": 20,
+          "column": 43,
+          "byte": 453
+        }
+      },
+      "children_ids": [],
+      "text_digest": "14b755a84c599362a345bb9438cafd600cdb9d6e64f71e48393041e9da6e763a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:431:437:identifier",
+      "kind": "identifier",
+      "label": "result",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 21,
+          "byte": 431
+        },
+        "end": {
+          "line": 20,
+          "column": 27,
+          "byte": 437
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f6a214f7a5fcda0c2cee9660b7fc29f5649e3c68aad48e20e950137c98913a68"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:430:generic_type",
+      "kind": "generic_type",
+      "label": "List<String>",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 8,
+          "byte": 418
+        },
+        "end": {
+          "line": 20,
+          "column": 20,
+          "byte": 430
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:422:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:422:430:type_arguments"
+      ],
+      "text_digest": "15430bb870e5a5c9da27fc9763809d5cd5b1235ebf1f6f5fc311454139640831"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:422:430:type_arguments",
+      "kind": "type_arguments",
+      "label": "<String>",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 12,
+          "byte": 422
+        },
+        "end": {
+          "line": 20,
+          "column": 20,
+          "byte": 430
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:423:429:type_identifier"
+      ],
+      "text_digest": "3a9aeee285d60dddd5907b2505b04b6696217abd75133becd47e7f6a71767a30"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:423:429:type_identifier",
+      "kind": "type_identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 13,
+          "byte": 423
+        },
+        "end": {
+          "line": 20,
+          "column": 19,
+          "byte": 429
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:418:422:type_identifier",
+      "kind": "type_identifier",
+      "label": "List",
+      "span": {
+        "start": {
+          "line": 20,
+          "column": 8,
+          "byte": 418
+        },
+        "end": {
+          "line": 20,
+          "column": 12,
+          "byte": 422
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6f202f54a7b2d8fe42aa804eabe48ef900cdf73a74c570a47fd1b1a4920a051d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:387:406:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(List<String> data)",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 33,
+          "byte": 387
+        },
+        "end": {
+          "line": 19,
+          "column": 52,
+          "byte": 406
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:405:formal_parameter"
+      ],
+      "text_digest": "05ac606bad4484b6a8798e8df27040e3b7b4c746090f8da1e9de4a7f4dbf544a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:405:formal_parameter",
+      "kind": "formal_parameter",
+      "label": "List<String> data",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 34,
+          "byte": 388
+        },
+        "end": {
+          "line": 19,
+          "column": 51,
+          "byte": 405
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:400:generic_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:401:405:identifier"
+      ],
+      "text_digest": "357c03156b28d0398453ca489c5d6c169e154a21a21ec0c3574180f2032eb7aa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:401:405:identifier",
+      "kind": "identifier",
+      "label": "data",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 47,
+          "byte": 401
+        },
+        "end": {
+          "line": 19,
+          "column": 51,
+          "byte": 405
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3a6eb0790f39ac87c94f3856b2dd2c5d110e6811602261a9a923d3bb23adc8b7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:400:generic_type",
+      "kind": "generic_type",
+      "label": "List<String>",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 34,
+          "byte": 388
+        },
+        "end": {
+          "line": 19,
+          "column": 46,
+          "byte": 400
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:392:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:392:400:type_arguments"
+      ],
+      "text_digest": "15430bb870e5a5c9da27fc9763809d5cd5b1235ebf1f6f5fc311454139640831"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:392:400:type_arguments",
+      "kind": "type_arguments",
+      "label": "<String>",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 38,
+          "byte": 392
+        },
+        "end": {
+          "line": 19,
+          "column": 46,
+          "byte": 400
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:393:399:type_identifier"
+      ],
+      "text_digest": "3a9aeee285d60dddd5907b2505b04b6696217abd75133becd47e7f6a71767a30"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:393:399:type_identifier",
+      "kind": "type_identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 39,
+          "byte": 393
+        },
+        "end": {
+          "line": 19,
+          "column": 45,
+          "byte": 399
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:388:392:type_identifier",
+      "kind": "type_identifier",
+      "label": "List",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 34,
+          "byte": 388
+        },
+        "end": {
+          "line": 19,
+          "column": 38,
+          "byte": 392
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6f202f54a7b2d8fe42aa804eabe48ef900cdf73a74c570a47fd1b1a4920a051d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:379:387:identifier",
+      "kind": "identifier",
+      "label": "validate",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 25,
+          "byte": 379
+        },
+        "end": {
+          "line": 19,
+          "column": 33,
+          "byte": 387
+        }
+      },
+      "children_ids": [],
+      "text_digest": "133c8eb86cf813474ade739d5d133087e2026f56aaf366284dd1a25d98d44690"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:378:generic_type",
+      "kind": "generic_type",
+      "label": "List<String>",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 12,
+          "byte": 366
+        },
+        "end": {
+          "line": 19,
+          "column": 24,
+          "byte": 378
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:370:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:370:378:type_arguments"
+      ],
+      "text_digest": "15430bb870e5a5c9da27fc9763809d5cd5b1235ebf1f6f5fc311454139640831"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:370:378:type_arguments",
+      "kind": "type_arguments",
+      "label": "<String>",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 16,
+          "byte": 370
+        },
+        "end": {
+          "line": 19,
+          "column": 24,
+          "byte": 378
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:371:377:type_identifier"
+      ],
+      "text_digest": "3a9aeee285d60dddd5907b2505b04b6696217abd75133becd47e7f6a71767a30"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:371:377:type_identifier",
+      "kind": "type_identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 17,
+          "byte": 371
+        },
+        "end": {
+          "line": 19,
+          "column": 23,
+          "byte": 377
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:366:370:type_identifier",
+      "kind": "type_identifier",
+      "label": "List",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 12,
+          "byte": 366
+        },
+        "end": {
+          "line": 19,
+          "column": 16,
+          "byte": 370
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6f202f54a7b2d8fe42aa804eabe48ef900cdf73a74c570a47fd1b1a4920a051d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:358:365:modifiers",
+      "kind": "modifiers",
+      "label": "private",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 4,
+          "byte": 358
+        },
+        "end": {
+          "line": 19,
+          "column": 11,
+          "byte": 365
+        }
+      },
+      "children_ids": [],
+      "text_digest": "715dc8493c36579a5b116995100f635e3572fdf8703e708ef1a08d943b36774e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:350:method_declaration",
+      "kind": "method_declaration",
+      "label": "public List<String> process() {\r\n        return validate(items);\r\n    }",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 4,
+          "byte": 279
+        },
+        "end": {
+          "line": 17,
+          "column": 5,
+          "byte": 350
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:285:modifiers",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:298:generic_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:299:306:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:306:308:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:309:350:block"
+      ],
+      "text_digest": "31262d84aa56ff56efc93da09b88bd1eccb8b1ea60a3896a774a2ac299824d3d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:309:350:block",
+      "kind": "block",
+      "label": "{\r\n        return validate(items);\r\n    }",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 34,
+          "byte": 309
+        },
+        "end": {
+          "line": 17,
+          "column": 5,
+          "byte": 350
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:320:343:return_statement"
+      ],
+      "text_digest": "ea9080726e295d62cd9ec08c190ea48b244c3b6c07585fcd01a0fd0b7a97b79e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:320:343:return_statement",
+      "kind": "return_statement",
+      "label": "return validate(items);",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 8,
+          "byte": 320
+        },
+        "end": {
+          "line": 16,
+          "column": 31,
+          "byte": 343
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:342:method_invocation"
+      ],
+      "text_digest": "91216d374ce713d58286ad71f4c99112bbe04e48c30551b4c07b1003c593eb88"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:342:method_invocation",
+      "kind": "method_invocation",
+      "label": "validate(items)",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 15,
+          "byte": 327
+        },
+        "end": {
+          "line": 16,
+          "column": 30,
+          "byte": 342
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:335:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:335:342:argument_list"
+      ],
+      "text_digest": "8a5a1f6a855fe13f0daa881f45eb16e6c23921d72724b61d44cb5e69a7124c54"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:335:342:argument_list",
+      "kind": "argument_list",
+      "label": "(items)",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 23,
+          "byte": 335
+        },
+        "end": {
+          "line": 16,
+          "column": 30,
+          "byte": 342
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:336:341:identifier"
+      ],
+      "text_digest": "860d0547642cadc0e3b44e20dbf178cff38eaaf9928b08a42d565f5a22de0707"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:336:341:identifier",
+      "kind": "identifier",
+      "label": "items",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 24,
+          "byte": 336
+        },
+        "end": {
+          "line": 16,
+          "column": 29,
+          "byte": 341
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5f3c4f8580d392e422e7c2f6802674ac27966c98d95c39696e4b2490168e5488"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:327:335:identifier",
+      "kind": "identifier",
+      "label": "validate",
+      "span": {
+        "start": {
+          "line": 16,
+          "column": 15,
+          "byte": 327
+        },
+        "end": {
+          "line": 16,
+          "column": 23,
+          "byte": 335
+        }
+      },
+      "children_ids": [],
+      "text_digest": "133c8eb86cf813474ade739d5d133087e2026f56aaf366284dd1a25d98d44690"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:306:308:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 31,
+          "byte": 306
+        },
+        "end": {
+          "line": 15,
+          "column": 33,
+          "byte": 308
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:299:306:identifier",
+      "kind": "identifier",
+      "label": "process",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 24,
+          "byte": 299
+        },
+        "end": {
+          "line": 15,
+          "column": 31,
+          "byte": 306
+        }
+      },
+      "children_ids": [],
+      "text_digest": "19ed40bf62c399b8492efda5b9a9184b68cf4d9d4a165b38557b9d14201d0c03"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:298:generic_type",
+      "kind": "generic_type",
+      "label": "List<String>",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 11,
+          "byte": 286
+        },
+        "end": {
+          "line": 15,
+          "column": 23,
+          "byte": 298
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:290:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:290:298:type_arguments"
+      ],
+      "text_digest": "15430bb870e5a5c9da27fc9763809d5cd5b1235ebf1f6f5fc311454139640831"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:290:298:type_arguments",
+      "kind": "type_arguments",
+      "label": "<String>",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 15,
+          "byte": 290
+        },
+        "end": {
+          "line": 15,
+          "column": 23,
+          "byte": 298
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:291:297:type_identifier"
+      ],
+      "text_digest": "3a9aeee285d60dddd5907b2505b04b6696217abd75133becd47e7f6a71767a30"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:291:297:type_identifier",
+      "kind": "type_identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 16,
+          "byte": 291
+        },
+        "end": {
+          "line": 15,
+          "column": 22,
+          "byte": 297
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:286:290:type_identifier",
+      "kind": "type_identifier",
+      "label": "List",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 11,
+          "byte": 286
+        },
+        "end": {
+          "line": 15,
+          "column": 15,
+          "byte": 290
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6f202f54a7b2d8fe42aa804eabe48ef900cdf73a74c570a47fd1b1a4920a051d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:279:285:modifiers",
+      "kind": "modifiers",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 4,
+          "byte": 279
+        },
+        "end": {
+          "line": 15,
+          "column": 10,
+          "byte": 285
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:271:method_declaration",
+      "kind": "method_declaration",
+      "label": "public void addItem(String item) {\r\n        items.add(item);\r\n    }",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 4,
+          "byte": 204
+        },
+        "end": {
+          "line": 13,
+          "column": 5,
+          "byte": 271
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:210:modifiers",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:211:215:void_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:216:223:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:223:236:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:237:271:block"
+      ],
+      "text_digest": "eed57e43c6afa2d618bb57261044c8848b6fb1b3935b939245eb15affc558bfc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:237:271:block",
+      "kind": "block",
+      "label": "{\r\n        items.add(item);\r\n    }",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 37,
+          "byte": 237
+        },
+        "end": {
+          "line": 13,
+          "column": 5,
+          "byte": 271
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:264:expression_statement"
+      ],
+      "text_digest": "6c946338a9e8f7d4124d93d8a0a878173a3350c28355541c276b678ad60102a8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:264:expression_statement",
+      "kind": "expression_statement",
+      "label": "items.add(item);",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 8,
+          "byte": 248
+        },
+        "end": {
+          "line": 12,
+          "column": 24,
+          "byte": 264
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:263:method_invocation"
+      ],
+      "text_digest": "07ad0f21b3b87ad0ef5a0212da6884b2bafee42d168358fb2fd8a01835f84d77"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:263:method_invocation",
+      "kind": "method_invocation",
+      "label": "items.add(item)",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 8,
+          "byte": 248
+        },
+        "end": {
+          "line": 12,
+          "column": 23,
+          "byte": 263
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:253:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:254:257:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:257:263:argument_list"
+      ],
+      "text_digest": "87c032a104f8e92ef8d5a9d4ad314146a9051588c54ec706fad325ec72226b09"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:257:263:argument_list",
+      "kind": "argument_list",
+      "label": "(item)",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 17,
+          "byte": 257
+        },
+        "end": {
+          "line": 12,
+          "column": 23,
+          "byte": 263
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:258:262:identifier"
+      ],
+      "text_digest": "bf3b9babebab5323f6372fe36f0ead8d7d3058c7755681cd0a8acbc98d5504d1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:258:262:identifier",
+      "kind": "identifier",
+      "label": "item",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 18,
+          "byte": 258
+        },
+        "end": {
+          "line": 12,
+          "column": 22,
+          "byte": 262
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4a33eacd5fa65f2b2e2871cd131286b53c415b131666d71173bb6e3fe59361b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:254:257:identifier",
+      "kind": "identifier",
+      "label": "add",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 14,
+          "byte": 254
+        },
+        "end": {
+          "line": 12,
+          "column": 17,
+          "byte": 257
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7e9e5ac30f2216fd0fd6f5faed316f2d5983361a4203c3330cfa46ef65bb4767"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:248:253:identifier",
+      "kind": "identifier",
+      "label": "items",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 8,
+          "byte": 248
+        },
+        "end": {
+          "line": 12,
+          "column": 13,
+          "byte": 253
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5f3c4f8580d392e422e7c2f6802674ac27966c98d95c39696e4b2490168e5488"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:223:236:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(String item)",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 23,
+          "byte": 223
+        },
+        "end": {
+          "line": 11,
+          "column": 36,
+          "byte": 236
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:235:formal_parameter"
+      ],
+      "text_digest": "bd5d089f197320dd1456749f5b07e6f84ebc9d6932801589d0fa3e37980a4143"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:235:formal_parameter",
+      "kind": "formal_parameter",
+      "label": "String item",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 24,
+          "byte": 224
+        },
+        "end": {
+          "line": 11,
+          "column": 35,
+          "byte": 235
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:230:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:231:235:identifier"
+      ],
+      "text_digest": "8b4cf9dde26667157c8c3942a37c1e7c6b7c77461b745cc5b55fb374d5db30fa"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:231:235:identifier",
+      "kind": "identifier",
+      "label": "item",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 31,
+          "byte": 231
+        },
+        "end": {
+          "line": 11,
+          "column": 35,
+          "byte": 235
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4a33eacd5fa65f2b2e2871cd131286b53c415b131666d71173bb6e3fe59361b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:224:230:type_identifier",
+      "kind": "type_identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 24,
+          "byte": 224
+        },
+        "end": {
+          "line": 11,
+          "column": 30,
+          "byte": 230
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:216:223:identifier",
+      "kind": "identifier",
+      "label": "addItem",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 16,
+          "byte": 216
+        },
+        "end": {
+          "line": 11,
+          "column": 23,
+          "byte": 223
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6549eca616b5bd831973c34549fd4103ed98402ae79622d785299363824ff870"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:211:215:void_type",
+      "kind": "void_type",
+      "label": "void",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 11,
+          "byte": 211
+        },
+        "end": {
+          "line": 11,
+          "column": 15,
+          "byte": 215
+        }
+      },
+      "children_ids": [],
+      "text_digest": "445be54d48a2e6294369c84c61cd0929209d4e1084536159bdf7002bddfe094b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:204:210:modifiers",
+      "kind": "modifiers",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 4,
+          "byte": 204
+        },
+        "end": {
+          "line": 11,
+          "column": 10,
+          "byte": 210
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:196:constructor_declaration",
+      "kind": "constructor_declaration",
+      "label": "public DataProcessor() {\r\n        this.items = new ArrayList<>();\r\n    }",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 4,
+          "byte": 124
+        },
+        "end": {
+          "line": 9,
+          "column": 5,
+          "byte": 196
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:130:modifiers",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:131:144:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:144:146:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:147:196:constructor_body"
+      ],
+      "text_digest": "ca2fcfe51b39db7b5df1ccef337521201c3147a3c7fdc32524321d4335a4dcb0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:147:196:constructor_body",
+      "kind": "constructor_body",
+      "label": "{\r\n        this.items = new ArrayList<>();\r\n    }",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 27,
+          "byte": 147
+        },
+        "end": {
+          "line": 9,
+          "column": 5,
+          "byte": 196
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:189:expression_statement"
+      ],
+      "text_digest": "0b1ae8d9221bf4a0ae63d5438f2b19f2af399b65252f7b4352f89417d95697c0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:189:expression_statement",
+      "kind": "expression_statement",
+      "label": "this.items = new ArrayList<>();",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 8,
+          "byte": 158
+        },
+        "end": {
+          "line": 8,
+          "column": 39,
+          "byte": 189
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:188:assignment_expression"
+      ],
+      "text_digest": "a6c5dc5f1e7d3c404fc35ec8b5a512a3a3677224d212e70d05bf04d25b28ac86"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:188:assignment_expression",
+      "kind": "assignment_expression",
+      "label": "this.items = new ArrayList<>()",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 8,
+          "byte": 158
+        },
+        "end": {
+          "line": 8,
+          "column": 38,
+          "byte": 188
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:168:field_access",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:171:188:object_creation_expression"
+      ],
+      "text_digest": "99695e9ab0d56a0b952718173d3cc0622becb696d1152d0b7729a95ab157ddac"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:171:188:object_creation_expression",
+      "kind": "object_creation_expression",
+      "label": "new ArrayList<>()",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 21,
+          "byte": 171
+        },
+        "end": {
+          "line": 8,
+          "column": 38,
+          "byte": 188
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:186:generic_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:186:188:argument_list"
+      ],
+      "text_digest": "8e0b02af400c7ea92e4bfc435e5ca96ceedeb5d0da0e53beb60433f9662b5821"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:186:188:argument_list",
+      "kind": "argument_list",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 36,
+          "byte": 186
+        },
+        "end": {
+          "line": 8,
+          "column": 38,
+          "byte": 188
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:186:generic_type",
+      "kind": "generic_type",
+      "label": "ArrayList<>",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 25,
+          "byte": 175
+        },
+        "end": {
+          "line": 8,
+          "column": 36,
+          "byte": 186
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:184:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:184:186:type_arguments"
+      ],
+      "text_digest": "b5c51b03f0292f5153767d97e8deef7d0542f2b995b5c849d980280f1f246550"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:184:186:type_arguments",
+      "kind": "type_arguments",
+      "label": "<>",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 34,
+          "byte": 184
+        },
+        "end": {
+          "line": 8,
+          "column": 36,
+          "byte": 186
+        }
+      },
+      "children_ids": [],
+      "text_digest": "24295a9c545a402da4f2cc833dae7b4f3b80182f7f803516d580ca07c0642b64"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:175:184:type_identifier",
+      "kind": "type_identifier",
+      "label": "ArrayList",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 25,
+          "byte": 175
+        },
+        "end": {
+          "line": 8,
+          "column": 34,
+          "byte": 184
+        }
+      },
+      "children_ids": [],
+      "text_digest": "14b755a84c599362a345bb9438cafd600cdb9d6e64f71e48393041e9da6e763a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:168:field_access",
+      "kind": "field_access",
+      "label": "this.items",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 8,
+          "byte": 158
+        },
+        "end": {
+          "line": 8,
+          "column": 18,
+          "byte": 168
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:162:this",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:163:168:identifier"
+      ],
+      "text_digest": "a49e50e8ef6c5b85433b4b5a81caa02717b6e25edcd86fa9652f84e3305d5825"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:163:168:identifier",
+      "kind": "identifier",
+      "label": "items",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 13,
+          "byte": 163
+        },
+        "end": {
+          "line": 8,
+          "column": 18,
+          "byte": 168
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5f3c4f8580d392e422e7c2f6802674ac27966c98d95c39696e4b2490168e5488"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:158:162:this",
+      "kind": "this",
+      "label": "this",
+      "span": {
+        "start": {
+          "line": 8,
+          "column": 8,
+          "byte": 158
+        },
+        "end": {
+          "line": 8,
+          "column": 12,
+          "byte": 162
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1eb79602411ef02cf6fe117897015fff89f80face4eccd50425c45149b148408"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:144:146:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 24,
+          "byte": 144
+        },
+        "end": {
+          "line": 7,
+          "column": 26,
+          "byte": 146
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:131:144:identifier",
+      "kind": "identifier",
+      "label": "DataProcessor",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 11,
+          "byte": 131
+        },
+        "end": {
+          "line": 7,
+          "column": 24,
+          "byte": 144
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4c517db895fcfdd27f26727857560f22b44832b583c683856ddf2a1b83330eeb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:124:130:modifiers",
+      "kind": "modifiers",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 4,
+          "byte": 124
+        },
+        "end": {
+          "line": 7,
+          "column": 10,
+          "byte": 130
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:116:field_declaration",
+      "kind": "field_declaration",
+      "label": "private List<String> items;",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 4,
+          "byte": 89
+        },
+        "end": {
+          "line": 5,
+          "column": 31,
+          "byte": 116
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:96:modifiers",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:109:generic_type",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:110:115:variable_declarator"
+      ],
+      "text_digest": "333190b90257e810911efb49a255c25e11715e541be054adcc978b601fef60e5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:110:115:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "items",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 25,
+          "byte": 110
+        },
+        "end": {
+          "line": 5,
+          "column": 30,
+          "byte": 115
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:110:115:identifier"
+      ],
+      "text_digest": "5f3c4f8580d392e422e7c2f6802674ac27966c98d95c39696e4b2490168e5488"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:110:115:identifier",
+      "kind": "identifier",
+      "label": "items",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 25,
+          "byte": 110
+        },
+        "end": {
+          "line": 5,
+          "column": 30,
+          "byte": 115
+        }
+      },
+      "children_ids": [],
+      "text_digest": "5f3c4f8580d392e422e7c2f6802674ac27966c98d95c39696e4b2490168e5488"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:109:generic_type",
+      "kind": "generic_type",
+      "label": "List<String>",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 12,
+          "byte": 97
+        },
+        "end": {
+          "line": 5,
+          "column": 24,
+          "byte": 109
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:101:type_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:101:109:type_arguments"
+      ],
+      "text_digest": "15430bb870e5a5c9da27fc9763809d5cd5b1235ebf1f6f5fc311454139640831"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:101:109:type_arguments",
+      "kind": "type_arguments",
+      "label": "<String>",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 16,
+          "byte": 101
+        },
+        "end": {
+          "line": 5,
+          "column": 24,
+          "byte": 109
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:102:108:type_identifier"
+      ],
+      "text_digest": "3a9aeee285d60dddd5907b2505b04b6696217abd75133becd47e7f6a71767a30"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:102:108:type_identifier",
+      "kind": "type_identifier",
+      "label": "String",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 17,
+          "byte": 102
+        },
+        "end": {
+          "line": 5,
+          "column": 23,
+          "byte": 108
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b2ef230e7f4f315a28cdcc863028da31f7110f3209feb76e76fed0f37b3d8580"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:97:101:type_identifier",
+      "kind": "type_identifier",
+      "label": "List",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 12,
+          "byte": 97
+        },
+        "end": {
+          "line": 5,
+          "column": 16,
+          "byte": 101
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6f202f54a7b2d8fe42aa804eabe48ef900cdf73a74c570a47fd1b1a4920a051d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:89:96:modifiers",
+      "kind": "modifiers",
+      "label": "private",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 4,
+          "byte": 89
+        },
+        "end": {
+          "line": 5,
+          "column": 11,
+          "byte": 96
+        }
+      },
+      "children_ids": [],
+      "text_digest": "715dc8493c36579a5b116995100f635e3572fdf8703e708ef1a08d943b36774e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:68:81:identifier",
+      "kind": "identifier",
+      "label": "DataProcessor",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 13,
+          "byte": 68
+        },
+        "end": {
+          "line": 4,
+          "column": 26,
+          "byte": 81
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4c517db895fcfdd27f26727857560f22b44832b583c683856ddf2a1b83330eeb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:55:61:modifiers",
+      "kind": "modifiers",
+      "label": "public",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 0,
+          "byte": 55
+        },
+        "end": {
+          "line": 4,
+          "column": 6,
+          "byte": 61
+        }
+      },
+      "children_ids": [],
+      "text_digest": "efa1f375d76194fa51a3556a97e641e61685f914d446979da50a551a4333ffd7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:24:51:import_declaration",
+      "kind": "import_declaration",
+      "label": "import java.util.ArrayList;",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 24
+        },
+        "end": {
+          "line": 2,
+          "column": 27,
+          "byte": 51
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:50:scoped_identifier"
+      ],
+      "text_digest": "f1ffd4ee5c3a62453b2190cdc167b73da6f6de9eb55cd7a2a1aafe454fd9b4fc"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:50:scoped_identifier",
+      "kind": "scoped_identifier",
+      "label": "java.util.ArrayList",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 31
+        },
+        "end": {
+          "line": 2,
+          "column": 26,
+          "byte": 50
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:40:scoped_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:41:50:identifier"
+      ],
+      "text_digest": "5098f415c102d794fe43801a6b1f73dda12d0ec785334ba655aff38f7d2d796d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:41:50:identifier",
+      "kind": "identifier",
+      "label": "ArrayList",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 17,
+          "byte": 41
+        },
+        "end": {
+          "line": 2,
+          "column": 26,
+          "byte": 50
+        }
+      },
+      "children_ids": [],
+      "text_digest": "14b755a84c599362a345bb9438cafd600cdb9d6e64f71e48393041e9da6e763a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:40:scoped_identifier",
+      "kind": "scoped_identifier",
+      "label": "java.util",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 31
+        },
+        "end": {
+          "line": 2,
+          "column": 16,
+          "byte": 40
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:35:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:36:40:identifier"
+      ],
+      "text_digest": "edce9cb2ad5c8a5d410a34fc78eaf7aa51bb482f0d5560bfea174b85bba3504a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:36:40:identifier",
+      "kind": "identifier",
+      "label": "util",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 12,
+          "byte": 36
+        },
+        "end": {
+          "line": 2,
+          "column": 16,
+          "byte": 40
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9342af224fa264b0e961df75246597ee455cd08afe11b0a8cea6bb74dc59bf55"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:31:35:identifier",
+      "kind": "identifier",
+      "label": "java",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 31
+        },
+        "end": {
+          "line": 2,
+          "column": 11,
+          "byte": 35
+        }
+      },
+      "children_ids": [],
+      "text_digest": "38a0963a6364b09ad867aa9a66c6d009673c21e182015461da236ec361877f77"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:0:22:import_declaration",
+      "kind": "import_declaration",
+      "label": "import java.util.List;",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 22,
+          "byte": 22
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:21:scoped_identifier"
+      ],
+      "text_digest": "c7bf8cb907acb4b0d6e6fddaf47d772c5f0336e85f853a81815767441d7dff94"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:21:scoped_identifier",
+      "kind": "scoped_identifier",
+      "label": "java.util.List",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 21,
+          "byte": 21
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:16:scoped_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:17:21:identifier"
+      ],
+      "text_digest": "a0fb13f6304249a5d3753d85ba6366fa2050325efb0b79a2ea7549843fb50391"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:17:21:identifier",
+      "kind": "identifier",
+      "label": "List",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 17,
+          "byte": 17
+        },
+        "end": {
+          "line": 1,
+          "column": 21,
+          "byte": 21
+        }
+      },
+      "children_ids": [],
+      "text_digest": "6f202f54a7b2d8fe42aa804eabe48ef900cdf73a74c570a47fd1b1a4920a051d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:16:scoped_identifier",
+      "kind": "scoped_identifier",
+      "label": "java.util",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 16,
+          "byte": 16
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:11:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:12:16:identifier"
+      ],
+      "text_digest": "edce9cb2ad5c8a5d410a34fc78eaf7aa51bb482f0d5560bfea174b85bba3504a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:12:16:identifier",
+      "kind": "identifier",
+      "label": "util",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 12,
+          "byte": 12
+        },
+        "end": {
+          "line": 1,
+          "column": 16,
+          "byte": 16
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9342af224fa264b0e961df75246597ee455cd08afe11b0a8cea6bb74dc59bf55"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/sample.java:7:11:identifier",
+      "kind": "identifier",
+      "label": "java",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 11,
+          "byte": 11
+        }
+      },
+      "children_ids": [],
+      "text_digest": "38a0963a6364b09ad867aa9a66c6d009673c21e182015461da236ec361877f77"
+    }
+  ],
+  "parser_id": "tree_sitter_java",
+  "relative_path": "tests/fixtures/sample.java",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "java",
+  "warnings": []
+}

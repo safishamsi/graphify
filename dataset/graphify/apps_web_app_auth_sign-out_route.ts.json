@@ -1,0 +1,2826 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:39+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:683:760:export_statement:100",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:683:760:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:683:760:export_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:690:760:function_declaration:99",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:683:760:export_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:690:760:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:690:760:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:731:760:statement_block:98",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:690:760:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:731:760:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:731:760:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:736:757:return_statement:97",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:731:760:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:736:757:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:736:757:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:756:call_expression:96",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:736:757:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:756:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:756:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:747:756:arguments:95",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:756:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:747:756:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:747:756:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:748:755:identifier:94",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:747:756:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:748:755:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:756:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:747:identifier:93",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:756:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:747:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:690:760:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:708:730:formal_parameters:92",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:690:760:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:708:730:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:708:730:formal_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:729:required_parameter:91",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:708:730:formal_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:729:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:729:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:716:729:type_annotation:90",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:729:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:716:729:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:716:729:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:718:729:type_identifier:89",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:716:729:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:718:729:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:729:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:716:identifier:88",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:729:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:716:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:690:760:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:705:708:identifier:87",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:690:760:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:705:708:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:398:679:export_statement:86",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:398:679:export_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:398:679:export_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:405:679:function_declaration:85",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:398:679:export_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:405:679:function_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:405:679:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block:84",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:405:679:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:602:676:return_statement:83",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:602:676:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:602:676:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:675:call_expression:82",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:602:676:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:675:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:675:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:630:675:arguments:81",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:675:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:630:675:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:630:675:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:659:674:object:80",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:630:675:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:659:674:object",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:659:674:object->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:672:pair:79",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:659:674:object",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:672:pair",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:672:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:669:672:number:78",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:672:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:669:672:number",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:672:pair->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:667:property_identifier:77",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:672:pair",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:667:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:630:675:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:631:657:new_expression:76",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:630:675:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:631:657:new_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:631:657:new_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:638:657:arguments:75",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:631:657:new_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:638:657:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:638:657:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:656:member_expression:74",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:638:657:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:656:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:656:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:653:656:property_identifier:73",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:656:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:653:656:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:656:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:652:identifier:72",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:656:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:652:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:638:657:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:639:643:identifier:71",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:638:657:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:639:643:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:631:657:new_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:635:638:identifier:70",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:631:657:new_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:635:638:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:675:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:630:member_expression:69",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:675:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:630:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:630:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:622:630:property_identifier:68",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:630:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:622:630:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:630:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:621:identifier:67",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:630:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:621:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:524:598:lexical_declaration:66",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:524:598:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:524:598:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:597:variable_declarator:65",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:524:598:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:597:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:597:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:597:call_expression:64",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:597:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:597:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:597:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:545:597:arguments:63",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:597:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:545:597:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:545:597:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:593:596:string:62",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:545:597:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:593:596:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:593:596:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:594:595:string_fragment:61",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:593:596:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:594:595:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:545:597:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:591:call_expression:60",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:545:597:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:591:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:591:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:583:591:arguments:59",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:591:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:583:591:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:583:591:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:584:590:string:58",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:583:591:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:584:590:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:584:590:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:585:589:string_fragment:57",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:584:590:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:585:589:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:591:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:583:member_expression:56",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:591:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:583:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:583:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:580:583:property_identifier:55",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:583:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:580:583:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:583:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:579:member_expression:54",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:583:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:579:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:579:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:567:579:property_identifier:53",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:579:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:567:579:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:579:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:566:new_expression:52",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:579:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:566:new_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:566:new_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:553:566:arguments:51",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:566:new_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:553:566:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:553:566:arguments->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:565:member_expression:50",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:553:566:arguments",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:565:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:565:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:562:565:property_identifier:49",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:565:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:562:565:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:565:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:561:identifier:48",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:565:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:561:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:566:new_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:550:553:identifier:47",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:566:new_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:550:553:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:597:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:545:identifier:46",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:597:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:545:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:597:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:534:identifier:45",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:597:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:534:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:518:expression_statement:44",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:518:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:518:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:517:await_expression:43",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:518:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:517:await_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:517:await_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:517:call_expression:42",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:517:await_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:517:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:517:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:515:517:arguments:41",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:517:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:515:517:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:517:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:515:member_expression:40",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:517:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:515:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:515:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:508:515:property_identifier:39",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:515:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:508:515:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:515:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:507:member_expression:38",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:515:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:507:member_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:507:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:503:507:property_identifier:37",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:507:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:503:507:property_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:507:member_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:502:identifier:36",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:507:member_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:502:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:452:484:lexical_declaration:35",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:452:484:lexical_declaration",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:452:484:lexical_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:483:variable_declarator:34",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:452:484:lexical_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:483:variable_declarator",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:483:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:483:call_expression:33",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:483:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:483:call_expression",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:483:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:481:483:arguments:32",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:483:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:481:483:arguments",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:483:call_expression->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:481:identifier:31",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:483:call_expression",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:481:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:483:variable_declarator->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:466:identifier:30",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:483:variable_declarator",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:466:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:405:679:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:424:446:formal_parameters:29",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:405:679:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:424:446:formal_parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:424:446:formal_parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:445:required_parameter:28",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:424:446:formal_parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:445:required_parameter",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:445:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:432:445:type_annotation:27",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:445:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:432:445:type_annotation",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:432:445:type_annotation->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:434:445:type_identifier:26",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:432:445:type_annotation",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:434:445:type_identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:445:required_parameter->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:432:identifier:25",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:445:required_parameter",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:432:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:405:679:function_declaration->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:420:424:identifier:24",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:405:679:function_declaration",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:420:424:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:170:396:comment:23",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:170:396:comment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:118:166:import_statement:22",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:118:166:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:118:166:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:143:165:string:21",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:118:166:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:143:165:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:143:165:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:144:164:string_fragment:20",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:143:165:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:144:164:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:118:166:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:import_clause:19",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:118:166:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:named_imports:18",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:127:135:import_specifier:17",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:127:135:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:127:135:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:127:135:identifier:16",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:127:135:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:127:135:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:63:116:import_statement:15",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:63:116:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:63:116:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:92:115:string:14",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:63:116:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:92:115:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:92:115:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:93:114:string_fragment:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:92:115:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:93:114:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:63:116:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:import_clause:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:63:116:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:named_imports:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:72:84:import_specifier:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:72:84:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:72:84:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:72:84:identifier:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:72:84:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:72:84:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:61:import_statement:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:61:import_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:61:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:47:60:string:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:61:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:47:60:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:47:60:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:48:59:string_fragment:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:47:60:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:48:59:string_fragment",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:61:import_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:import_clause:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:61:import_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:import_clause",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:import_clause->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:named_imports:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:import_clause",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:named_imports",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:23:39:import_specifier:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:23:39:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:23:39:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:28:39:identifier:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:23:39:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:28:39:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:named_imports->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:9:21:import_specifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:named_imports",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:9:21:import_specifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:9:21:import_specifier->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:9:21:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:9:21:import_specifier",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:9:21:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:762:program",
+      "kind": "program",
+      "label": "import { NextResponse, type NextRequest } from \"next/server\";\r\nimport { createClient } from \"@/lib/supabase/server\";\r\nimport { safeNext } from \"@/lib/auth/redirects\";\r\n\r\n/**\r\n * POST /auth/sign-out \u2014 clears the Supabase session cookies and redirects\r\n * back to the marketing home (or `?next=`). Use a form POST so the browser\r\n * sends cookies and the action survives JS-disabled clients.\r\n */\r\nexport async function POST(request: NextRequest) {\r\n  const supabase = createClient();\r\n  await supabase.auth.signOut();\r\n\r\n  const next = safeNext(new URL(request.url).searchParams.get(\"next\"), \"/\");\r\n  return NextResponse.redirect(new URL(next, request.url), { status: 303 });\r\n}\r\n\r\nexport async function GET(request: NextRequest) {\r\n  return POST(request);\r\n}\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 21,
+          "column": 0,
+          "byte": 762
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:61:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:63:116:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:118:166:import_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:170:396:comment",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:398:679:export_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:683:760:export_statement"
+      ],
+      "text_digest": "03d36bb6df010a0af4b4567a32e126ff015af5de3a9273cddc255dd4f73faa67"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:683:760:export_statement",
+      "kind": "export_statement",
+      "label": "export async function GET(request: NextRequest) {\r\n  return POST(request);\r\n}",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 0,
+          "byte": 683
+        },
+        "end": {
+          "line": 20,
+          "column": 1,
+          "byte": 760
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:690:760:function_declaration"
+      ],
+      "text_digest": "331ce34e59523559580684cbab3f0b76a0d183c4d970bd302701481c816568d5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:690:760:function_declaration",
+      "kind": "function_declaration",
+      "label": "async function GET(request: NextRequest) {\r\n  return POST(request);\r\n}",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 7,
+          "byte": 690
+        },
+        "end": {
+          "line": 20,
+          "column": 1,
+          "byte": 760
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:705:708:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:708:730:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:731:760:statement_block"
+      ],
+      "text_digest": "49cec2d211b52bc010052beaa8b33ade0a434ead9f237f6cae631c08efc7576a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:731:760:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  return POST(request);\r\n}",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 48,
+          "byte": 731
+        },
+        "end": {
+          "line": 20,
+          "column": 1,
+          "byte": 760
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:736:757:return_statement"
+      ],
+      "text_digest": "8c35cc6ef8c44eb6c5ecef4c125e848788bc9fb95713239955e4b30dfeae3f0b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:736:757:return_statement",
+      "kind": "return_statement",
+      "label": "return POST(request);",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 2,
+          "byte": 736
+        },
+        "end": {
+          "line": 19,
+          "column": 23,
+          "byte": 757
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:756:call_expression"
+      ],
+      "text_digest": "91295e64f5ac6f482cbe2f742ef42f919ce3695bec17419599c16b2a61326c15"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:756:call_expression",
+      "kind": "call_expression",
+      "label": "POST(request)",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 9,
+          "byte": 743
+        },
+        "end": {
+          "line": 19,
+          "column": 22,
+          "byte": 756
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:747:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:747:756:arguments"
+      ],
+      "text_digest": "c09d32466ada0b445b12d18960cd51d30b78956d928dd9dd0697e90e0e516bd8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:747:756:arguments",
+      "kind": "arguments",
+      "label": "(request)",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 13,
+          "byte": 747
+        },
+        "end": {
+          "line": 19,
+          "column": 22,
+          "byte": 756
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:748:755:identifier"
+      ],
+      "text_digest": "3203eb790c5f55157d7c04aadf45614205c8b248edf60069ffa3256f3546a722"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:748:755:identifier",
+      "kind": "identifier",
+      "label": "request",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 14,
+          "byte": 748
+        },
+        "end": {
+          "line": 19,
+          "column": 21,
+          "byte": 755
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1f58b9145b24d108d7ac38887338b3ea3229833b9c1e418250343f907bfd1047"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:743:747:identifier",
+      "kind": "identifier",
+      "label": "POST",
+      "span": {
+        "start": {
+          "line": 19,
+          "column": 9,
+          "byte": 743
+        },
+        "end": {
+          "line": 19,
+          "column": 13,
+          "byte": 747
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9aee6b1bcdf617d8e39bb1f2b624c68ea33deb9d48e0364aeaded836d3d00293"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:708:730:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(request: NextRequest)",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 25,
+          "byte": 708
+        },
+        "end": {
+          "line": 18,
+          "column": 47,
+          "byte": 730
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:729:required_parameter"
+      ],
+      "text_digest": "a8f7f72181c8dda73d7fa35f24b1cef3dbb943969593d40048852c5421da7791"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:729:required_parameter",
+      "kind": "required_parameter",
+      "label": "request: NextRequest",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 26,
+          "byte": 709
+        },
+        "end": {
+          "line": 18,
+          "column": 46,
+          "byte": 729
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:716:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:716:729:type_annotation"
+      ],
+      "text_digest": "9c1c5f1a4add9d71cf1d7d613f0d7bfa6e57b80212566a1758e68ce836e2785f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:716:729:type_annotation",
+      "kind": "type_annotation",
+      "label": ": NextRequest",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 33,
+          "byte": 716
+        },
+        "end": {
+          "line": 18,
+          "column": 46,
+          "byte": 729
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:718:729:type_identifier"
+      ],
+      "text_digest": "398a055111a97466300ab8963846e6a64d0f32a75a32065b0f813d560ec9da50"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:718:729:type_identifier",
+      "kind": "type_identifier",
+      "label": "NextRequest",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 35,
+          "byte": 718
+        },
+        "end": {
+          "line": 18,
+          "column": 46,
+          "byte": 729
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ec1dfd2bf511de5474f14910ef86906bf64778ef4efa1bef142b346b487075c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:709:716:identifier",
+      "kind": "identifier",
+      "label": "request",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 26,
+          "byte": 709
+        },
+        "end": {
+          "line": 18,
+          "column": 33,
+          "byte": 716
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1f58b9145b24d108d7ac38887338b3ea3229833b9c1e418250343f907bfd1047"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:705:708:identifier",
+      "kind": "identifier",
+      "label": "GET",
+      "span": {
+        "start": {
+          "line": 18,
+          "column": 22,
+          "byte": 705
+        },
+        "end": {
+          "line": 18,
+          "column": 25,
+          "byte": 708
+        }
+      },
+      "children_ids": [],
+      "text_digest": "14e30cd163c732912e048c4c837e15c4e90c062ebb795ab947d57706e2d10dd8"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:398:679:export_statement",
+      "kind": "export_statement",
+      "label": "export async function POST(request: NextRequest) {\r\n  const supabase = createClient();\r\n  await supabase.auth.signOut();\r\n\r\n  const next = safeNext(new URL(request.url).searchParams.get(\"next\"), \"/\");\r\n  return NextResponse.redirect(new URL(next, request.url), { status: 303 });\r\n}",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 0,
+          "byte": 398
+        },
+        "end": {
+          "line": 16,
+          "column": 1,
+          "byte": 679
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:405:679:function_declaration"
+      ],
+      "text_digest": "1d4e37b0d62dcb01a3a09b9188f0b35795ede841c9e8fcbdb8e0d281240c8b76"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:405:679:function_declaration",
+      "kind": "function_declaration",
+      "label": "async function POST(request: NextRequest) {\r\n  const supabase = createClient();\r\n  await supabase.auth.signOut();\r\n\r\n  const next = safeNext(new URL(request.url).searchParams.get(\"next\"), \"/\");\r\n  return NextResponse.redirect(new URL(next, request.url), { status: 303 });\r\n}",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 7,
+          "byte": 405
+        },
+        "end": {
+          "line": 16,
+          "column": 1,
+          "byte": 679
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:420:424:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:424:446:formal_parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block"
+      ],
+      "text_digest": "8476a1efc2b7170617ee9f6abe3abe1217a7b0cee0e5b0d1acf00750bde76055"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:447:679:statement_block",
+      "kind": "statement_block",
+      "label": "{\r\n  const supabase = createClient();\r\n  await supabase.auth.signOut();\r\n\r\n  const next = safeNext(new URL(request.url).searchParams.get(\"next\"), \"/\");\r\n  return NextResponse.redirect(new URL(next, request.url), { status: 303 });\r\n}",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 49,
+          "byte": 447
+        },
+        "end": {
+          "line": 16,
+          "column": 1,
+          "byte": 679
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:452:484:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:518:expression_statement",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:524:598:lexical_declaration",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:602:676:return_statement"
+      ],
+      "text_digest": "7beb7ff89a1eaeed9e9ac59e6dabaec19600ec955cc1a6d3e6409de446eb6572"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:602:676:return_statement",
+      "kind": "return_statement",
+      "label": "return NextResponse.redirect(new URL(next, request.url), { status: 303 });",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 2,
+          "byte": 602
+        },
+        "end": {
+          "line": 15,
+          "column": 76,
+          "byte": 676
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:675:call_expression"
+      ],
+      "text_digest": "c2a9b245049506f138310924d79438a9ad6c5ca5e677ebe4c3e94a1b7b2c9528"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:675:call_expression",
+      "kind": "call_expression",
+      "label": "NextResponse.redirect(new URL(next, request.url), { status: 303 })",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 9,
+          "byte": 609
+        },
+        "end": {
+          "line": 15,
+          "column": 75,
+          "byte": 675
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:630:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:630:675:arguments"
+      ],
+      "text_digest": "206fc75c9ceedd80ff3edc147c72c891fccbefb35674dd1cfeb4d28b0573dd7b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:630:675:arguments",
+      "kind": "arguments",
+      "label": "(new URL(next, request.url), { status: 303 })",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 30,
+          "byte": 630
+        },
+        "end": {
+          "line": 15,
+          "column": 75,
+          "byte": 675
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:631:657:new_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:659:674:object"
+      ],
+      "text_digest": "09dd0a388d35aa06987db356cdcdddd6fae78e74abb7119b813dbb7437299ef3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:659:674:object",
+      "kind": "object",
+      "label": "{ status: 303 }",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 59,
+          "byte": 659
+        },
+        "end": {
+          "line": 15,
+          "column": 74,
+          "byte": 674
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:672:pair"
+      ],
+      "text_digest": "f4471c3d6cba36a7534e962e37c6cc5f60c4dab59aaa2325ad5eac4857f01e24"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:672:pair",
+      "kind": "pair",
+      "label": "status: 303",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 61,
+          "byte": 661
+        },
+        "end": {
+          "line": 15,
+          "column": 72,
+          "byte": 672
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:667:property_identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:669:672:number"
+      ],
+      "text_digest": "f680cc4aa4b64d36e8d542f941fb7856614e77599c129f85fd3dfaf87e32a1d6"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:669:672:number",
+      "kind": "number",
+      "label": "303",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 69,
+          "byte": 669
+        },
+        "end": {
+          "line": 15,
+          "column": 72,
+          "byte": 672
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8bd9c0d453533757387ed019c45617cdc440ba680a67b1a101c85b998ef715c0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:661:667:property_identifier",
+      "kind": "property_identifier",
+      "label": "status",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 61,
+          "byte": 661
+        },
+        "end": {
+          "line": 15,
+          "column": 67,
+          "byte": 667
+        }
+      },
+      "children_ids": [],
+      "text_digest": "073c1634c496cdb649d1afe0a312bbb4b7e1741b271542e4a436c3b8824b1761"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:631:657:new_expression",
+      "kind": "new_expression",
+      "label": "new URL(next, request.url)",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 31,
+          "byte": 631
+        },
+        "end": {
+          "line": 15,
+          "column": 57,
+          "byte": 657
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:635:638:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:638:657:arguments"
+      ],
+      "text_digest": "41f732242cb84c788eebfb42040e48021c86a5010255e37e37226ea911976532"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:638:657:arguments",
+      "kind": "arguments",
+      "label": "(next, request.url)",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 38,
+          "byte": 638
+        },
+        "end": {
+          "line": 15,
+          "column": 57,
+          "byte": 657
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:639:643:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:656:member_expression"
+      ],
+      "text_digest": "285dea9a772c4afc8e61094e965a7c2c874392582825912cf266ef25a10cd37f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:656:member_expression",
+      "kind": "member_expression",
+      "label": "request.url",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 45,
+          "byte": 645
+        },
+        "end": {
+          "line": 15,
+          "column": 56,
+          "byte": 656
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:652:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:653:656:property_identifier"
+      ],
+      "text_digest": "ba54008f928c718c5531d943d346ac473c93169cb77d379453768175b8349fe5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:653:656:property_identifier",
+      "kind": "property_identifier",
+      "label": "url",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 53,
+          "byte": 653
+        },
+        "end": {
+          "line": 15,
+          "column": 56,
+          "byte": 656
+        }
+      },
+      "children_ids": [],
+      "text_digest": "28e5ebabd9d8f6e237df63da2b503785093f0229241bc7021198f63c43b93269"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:645:652:identifier",
+      "kind": "identifier",
+      "label": "request",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 45,
+          "byte": 645
+        },
+        "end": {
+          "line": 15,
+          "column": 52,
+          "byte": 652
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1f58b9145b24d108d7ac38887338b3ea3229833b9c1e418250343f907bfd1047"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:639:643:identifier",
+      "kind": "identifier",
+      "label": "next",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 39,
+          "byte": 639
+        },
+        "end": {
+          "line": 15,
+          "column": 43,
+          "byte": 643
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6c1c9a9c8543f1e4cd980064cf1625eeb61a90703b2464fff039f21682508b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:635:638:identifier",
+      "kind": "identifier",
+      "label": "URL",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 35,
+          "byte": 635
+        },
+        "end": {
+          "line": 15,
+          "column": 38,
+          "byte": 638
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e7a241debad56609ee660a5d2ef258a1aceb7357ff210ac66d7280b3add02a9a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:630:member_expression",
+      "kind": "member_expression",
+      "label": "NextResponse.redirect",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 9,
+          "byte": 609
+        },
+        "end": {
+          "line": 15,
+          "column": 30,
+          "byte": 630
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:621:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:622:630:property_identifier"
+      ],
+      "text_digest": "1148763b98ea2923eb5fd5dcd70caa187b6f8b2944539969cf83f12177ef1b99"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:622:630:property_identifier",
+      "kind": "property_identifier",
+      "label": "redirect",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 22,
+          "byte": 622
+        },
+        "end": {
+          "line": 15,
+          "column": 30,
+          "byte": 630
+        }
+      },
+      "children_ids": [],
+      "text_digest": "093452239d0e2e43b06b9d5cd8ac735c26449e340e001f87904765bb30e2293e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:609:621:identifier",
+      "kind": "identifier",
+      "label": "NextResponse",
+      "span": {
+        "start": {
+          "line": 15,
+          "column": 9,
+          "byte": 609
+        },
+        "end": {
+          "line": 15,
+          "column": 21,
+          "byte": 621
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d31847830b831199c6facd2e325875372d0204215d8ae952e636054f0fe9ee5a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:524:598:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const next = safeNext(new URL(request.url).searchParams.get(\"next\"), \"/\");",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 2,
+          "byte": 524
+        },
+        "end": {
+          "line": 14,
+          "column": 76,
+          "byte": 598
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:597:variable_declarator"
+      ],
+      "text_digest": "1c622914bbc6b94c23ceaa86a228e328d78c37bc4f2e16497ad5caf91c35c761"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:597:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "next = safeNext(new URL(request.url).searchParams.get(\"next\"), \"/\")",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 8,
+          "byte": 530
+        },
+        "end": {
+          "line": 14,
+          "column": 75,
+          "byte": 597
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:534:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:597:call_expression"
+      ],
+      "text_digest": "6947719cdd70c7dea40b5e4b5c617ad0ee7b802e906e72af2ad48eda9e0ecc0c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:597:call_expression",
+      "kind": "call_expression",
+      "label": "safeNext(new URL(request.url).searchParams.get(\"next\"), \"/\")",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 15,
+          "byte": 537
+        },
+        "end": {
+          "line": 14,
+          "column": 75,
+          "byte": 597
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:545:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:545:597:arguments"
+      ],
+      "text_digest": "1c8d91a5d6b9d8e5497bf087cd01d95e14f5896516740dc3feef05ee9ef396c7"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:545:597:arguments",
+      "kind": "arguments",
+      "label": "(new URL(request.url).searchParams.get(\"next\"), \"/\")",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 23,
+          "byte": 545
+        },
+        "end": {
+          "line": 14,
+          "column": 75,
+          "byte": 597
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:591:call_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:593:596:string"
+      ],
+      "text_digest": "1179e85a664d3b096f35f69b96f5eca081d1fcc7fca639bcb2ce833a12f2be51"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:593:596:string",
+      "kind": "string",
+      "label": "\"/\"",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 71,
+          "byte": 593
+        },
+        "end": {
+          "line": 14,
+          "column": 74,
+          "byte": 596
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:594:595:string_fragment"
+      ],
+      "text_digest": "df7e940f72aa93cbcb6d70cc35124b0767c7a0e353043c7c24b660ea9be7b952"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:594:595:string_fragment",
+      "kind": "string_fragment",
+      "label": "/",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 72,
+          "byte": 594
+        },
+        "end": {
+          "line": 14,
+          "column": 73,
+          "byte": 595
+        }
+      },
+      "children_ids": [],
+      "text_digest": "8a5edab282632443219e051e4ade2d1d5bbc671c781051bf1437897cbdfea0f1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:591:call_expression",
+      "kind": "call_expression",
+      "label": "new URL(request.url).searchParams.get(\"next\")",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 24,
+          "byte": 546
+        },
+        "end": {
+          "line": 14,
+          "column": 69,
+          "byte": 591
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:583:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:583:591:arguments"
+      ],
+      "text_digest": "f0a515f711111f35e2e364b262409d19145cb4a4ffc1dbe084bb6f8a03ec4790"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:583:591:arguments",
+      "kind": "arguments",
+      "label": "(\"next\")",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 61,
+          "byte": 583
+        },
+        "end": {
+          "line": 14,
+          "column": 69,
+          "byte": 591
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:584:590:string"
+      ],
+      "text_digest": "84caebd2ff7237f237092be692d139af818ba699011a01cebfb8bf6ef82c4623"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:584:590:string",
+      "kind": "string",
+      "label": "\"next\"",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 62,
+          "byte": 584
+        },
+        "end": {
+          "line": 14,
+          "column": 68,
+          "byte": 590
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:585:589:string_fragment"
+      ],
+      "text_digest": "ca1733b5cdea2efcd28cb357b253498f97440592edd06d89895c4abcb5cfaae5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:585:589:string_fragment",
+      "kind": "string_fragment",
+      "label": "next",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 63,
+          "byte": 585
+        },
+        "end": {
+          "line": 14,
+          "column": 67,
+          "byte": 589
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6c1c9a9c8543f1e4cd980064cf1625eeb61a90703b2464fff039f21682508b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:583:member_expression",
+      "kind": "member_expression",
+      "label": "new URL(request.url).searchParams.get",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 24,
+          "byte": 546
+        },
+        "end": {
+          "line": 14,
+          "column": 61,
+          "byte": 583
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:579:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:580:583:property_identifier"
+      ],
+      "text_digest": "afe19c8f0620ce6af2340eec0d42740f5620ff0d7e7cc20318c7ad59fb4d750c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:580:583:property_identifier",
+      "kind": "property_identifier",
+      "label": "get",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 58,
+          "byte": 580
+        },
+        "end": {
+          "line": 14,
+          "column": 61,
+          "byte": 583
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2998b3232d29e8dc5a78d97a32ce83f556f3ed31b057077503df05641dd79158"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:579:member_expression",
+      "kind": "member_expression",
+      "label": "new URL(request.url).searchParams",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 24,
+          "byte": 546
+        },
+        "end": {
+          "line": 14,
+          "column": 57,
+          "byte": 579
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:566:new_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:567:579:property_identifier"
+      ],
+      "text_digest": "dc1cdb557a872022f8f0b008e4dcf9d7dacb059c3f91c39a056a7dfc84f80e30"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:567:579:property_identifier",
+      "kind": "property_identifier",
+      "label": "searchParams",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 45,
+          "byte": 567
+        },
+        "end": {
+          "line": 14,
+          "column": 57,
+          "byte": 579
+        }
+      },
+      "children_ids": [],
+      "text_digest": "858c64b53a3957e50f29676531169ba4166c548e0ddcd444b0bef7af4feeb69c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:546:566:new_expression",
+      "kind": "new_expression",
+      "label": "new URL(request.url)",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 24,
+          "byte": 546
+        },
+        "end": {
+          "line": 14,
+          "column": 44,
+          "byte": 566
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:550:553:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:553:566:arguments"
+      ],
+      "text_digest": "11366cacee6984f1f4b4aca3c61bebea930ed07c2649cf7078bf90a323c5bda1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:553:566:arguments",
+      "kind": "arguments",
+      "label": "(request.url)",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 31,
+          "byte": 553
+        },
+        "end": {
+          "line": 14,
+          "column": 44,
+          "byte": 566
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:565:member_expression"
+      ],
+      "text_digest": "08e30ca929b8a6f3108fbb35f1d8fb03b59e22ada8bbf418eff77507da22847e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:565:member_expression",
+      "kind": "member_expression",
+      "label": "request.url",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 32,
+          "byte": 554
+        },
+        "end": {
+          "line": 14,
+          "column": 43,
+          "byte": 565
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:561:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:562:565:property_identifier"
+      ],
+      "text_digest": "ba54008f928c718c5531d943d346ac473c93169cb77d379453768175b8349fe5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:562:565:property_identifier",
+      "kind": "property_identifier",
+      "label": "url",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 40,
+          "byte": 562
+        },
+        "end": {
+          "line": 14,
+          "column": 43,
+          "byte": 565
+        }
+      },
+      "children_ids": [],
+      "text_digest": "28e5ebabd9d8f6e237df63da2b503785093f0229241bc7021198f63c43b93269"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:554:561:identifier",
+      "kind": "identifier",
+      "label": "request",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 32,
+          "byte": 554
+        },
+        "end": {
+          "line": 14,
+          "column": 39,
+          "byte": 561
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1f58b9145b24d108d7ac38887338b3ea3229833b9c1e418250343f907bfd1047"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:550:553:identifier",
+      "kind": "identifier",
+      "label": "URL",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 28,
+          "byte": 550
+        },
+        "end": {
+          "line": 14,
+          "column": 31,
+          "byte": 553
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e7a241debad56609ee660a5d2ef258a1aceb7357ff210ac66d7280b3add02a9a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:537:545:identifier",
+      "kind": "identifier",
+      "label": "safeNext",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 15,
+          "byte": 537
+        },
+        "end": {
+          "line": 14,
+          "column": 23,
+          "byte": 545
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e48287dedb4b593c3ad1154a94057d84b60cad027086b1fdc15f4aaa9aa75c4f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:530:534:identifier",
+      "kind": "identifier",
+      "label": "next",
+      "span": {
+        "start": {
+          "line": 14,
+          "column": 8,
+          "byte": 530
+        },
+        "end": {
+          "line": 14,
+          "column": 12,
+          "byte": 534
+        }
+      },
+      "children_ids": [],
+      "text_digest": "c6c1c9a9c8543f1e4cd980064cf1625eeb61a90703b2464fff039f21682508b3"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:518:expression_statement",
+      "kind": "expression_statement",
+      "label": "await supabase.auth.signOut();",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 2,
+          "byte": 488
+        },
+        "end": {
+          "line": 12,
+          "column": 32,
+          "byte": 518
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:517:await_expression"
+      ],
+      "text_digest": "afee0a03e6c5f16bfaa84dd74ef4b9602f479ba1f1a240e7bf113b3e8f39a955"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:488:517:await_expression",
+      "kind": "await_expression",
+      "label": "await supabase.auth.signOut()",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 2,
+          "byte": 488
+        },
+        "end": {
+          "line": 12,
+          "column": 31,
+          "byte": 517
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:517:call_expression"
+      ],
+      "text_digest": "3aa8e506954b6aee7ff8808c0f523ca3ca6b36bdb9f22ce68b6010f3dfcfe7af"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:517:call_expression",
+      "kind": "call_expression",
+      "label": "supabase.auth.signOut()",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 8,
+          "byte": 494
+        },
+        "end": {
+          "line": 12,
+          "column": 31,
+          "byte": 517
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:515:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:515:517:arguments"
+      ],
+      "text_digest": "94b9c93d6b7118856913c97ebfd76871d917cc9bf02006025f31be3bdd52cf4a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:515:517:arguments",
+      "kind": "arguments",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 29,
+          "byte": 515
+        },
+        "end": {
+          "line": 12,
+          "column": 31,
+          "byte": 517
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:515:member_expression",
+      "kind": "member_expression",
+      "label": "supabase.auth.signOut",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 8,
+          "byte": 494
+        },
+        "end": {
+          "line": 12,
+          "column": 29,
+          "byte": 515
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:507:member_expression",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:508:515:property_identifier"
+      ],
+      "text_digest": "5ee425e914397767555f9ae2cafeef5c1a732401eadefc1c88e119fa1b764c9c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:508:515:property_identifier",
+      "kind": "property_identifier",
+      "label": "signOut",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 22,
+          "byte": 508
+        },
+        "end": {
+          "line": 12,
+          "column": 29,
+          "byte": 515
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e221aa6ca86bf0d0fa7c12b81bed0f77ea606279035c062417637fa3a918b15b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:507:member_expression",
+      "kind": "member_expression",
+      "label": "supabase.auth",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 8,
+          "byte": 494
+        },
+        "end": {
+          "line": 12,
+          "column": 21,
+          "byte": 507
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:502:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:503:507:property_identifier"
+      ],
+      "text_digest": "8c9443f07ac43571c6ef3bbb342eb1b229c89a7f41ae17ca122913f24b697fbf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:503:507:property_identifier",
+      "kind": "property_identifier",
+      "label": "auth",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 17,
+          "byte": 503
+        },
+        "end": {
+          "line": 12,
+          "column": 21,
+          "byte": 507
+        }
+      },
+      "children_ids": [],
+      "text_digest": "bdf49c3c3882102fc017ffb661108c63a836d065888a4093994398cc55c2ea2f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:494:502:identifier",
+      "kind": "identifier",
+      "label": "supabase",
+      "span": {
+        "start": {
+          "line": 12,
+          "column": 8,
+          "byte": 494
+        },
+        "end": {
+          "line": 12,
+          "column": 16,
+          "byte": 502
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4d7594e57f7d03f35ede2d316cda4cdb7df66b28963738e836a2f16d9fc9eb4d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:452:484:lexical_declaration",
+      "kind": "lexical_declaration",
+      "label": "const supabase = createClient();",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 2,
+          "byte": 452
+        },
+        "end": {
+          "line": 11,
+          "column": 34,
+          "byte": 484
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:483:variable_declarator"
+      ],
+      "text_digest": "04268124ff09751f547648ca245ae9b0748cb197e9c0d59c9c873e403967681d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:483:variable_declarator",
+      "kind": "variable_declarator",
+      "label": "supabase = createClient()",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 8,
+          "byte": 458
+        },
+        "end": {
+          "line": 11,
+          "column": 33,
+          "byte": 483
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:466:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:483:call_expression"
+      ],
+      "text_digest": "bfdef8b7a41db3e86a269a0194c7ae921e2ab33802a5287b079a066bba8b3742"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:483:call_expression",
+      "kind": "call_expression",
+      "label": "createClient()",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 19,
+          "byte": 469
+        },
+        "end": {
+          "line": 11,
+          "column": 33,
+          "byte": 483
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:481:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:481:483:arguments"
+      ],
+      "text_digest": "6e42211046ea10bc90d763746f5e4549377f2f8bc8a5a2766f130bb93e9b41c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:481:483:arguments",
+      "kind": "arguments",
+      "label": "()",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 31,
+          "byte": 481
+        },
+        "end": {
+          "line": 11,
+          "column": 33,
+          "byte": 483
+        }
+      },
+      "children_ids": [],
+      "text_digest": "2e38e77b22c314a449e91fafed92a43826ac6aa403ae6a8acb6cf58239fbaf5d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:469:481:identifier",
+      "kind": "identifier",
+      "label": "createClient",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 19,
+          "byte": 469
+        },
+        "end": {
+          "line": 11,
+          "column": 31,
+          "byte": 481
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e5499f20703129809a0ea009235a9975666a5c50910295782001020991e66155"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:458:466:identifier",
+      "kind": "identifier",
+      "label": "supabase",
+      "span": {
+        "start": {
+          "line": 11,
+          "column": 8,
+          "byte": 458
+        },
+        "end": {
+          "line": 11,
+          "column": 16,
+          "byte": 466
+        }
+      },
+      "children_ids": [],
+      "text_digest": "4d7594e57f7d03f35ede2d316cda4cdb7df66b28963738e836a2f16d9fc9eb4d"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:424:446:formal_parameters",
+      "kind": "formal_parameters",
+      "label": "(request: NextRequest)",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 26,
+          "byte": 424
+        },
+        "end": {
+          "line": 10,
+          "column": 48,
+          "byte": 446
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:445:required_parameter"
+      ],
+      "text_digest": "a8f7f72181c8dda73d7fa35f24b1cef3dbb943969593d40048852c5421da7791"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:445:required_parameter",
+      "kind": "required_parameter",
+      "label": "request: NextRequest",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 27,
+          "byte": 425
+        },
+        "end": {
+          "line": 10,
+          "column": 47,
+          "byte": 445
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:432:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:432:445:type_annotation"
+      ],
+      "text_digest": "9c1c5f1a4add9d71cf1d7d613f0d7bfa6e57b80212566a1758e68ce836e2785f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:432:445:type_annotation",
+      "kind": "type_annotation",
+      "label": ": NextRequest",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 34,
+          "byte": 432
+        },
+        "end": {
+          "line": 10,
+          "column": 47,
+          "byte": 445
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:434:445:type_identifier"
+      ],
+      "text_digest": "398a055111a97466300ab8963846e6a64d0f32a75a32065b0f813d560ec9da50"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:434:445:type_identifier",
+      "kind": "type_identifier",
+      "label": "NextRequest",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 36,
+          "byte": 434
+        },
+        "end": {
+          "line": 10,
+          "column": 47,
+          "byte": 445
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ec1dfd2bf511de5474f14910ef86906bf64778ef4efa1bef142b346b487075c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:425:432:identifier",
+      "kind": "identifier",
+      "label": "request",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 27,
+          "byte": 425
+        },
+        "end": {
+          "line": 10,
+          "column": 34,
+          "byte": 432
+        }
+      },
+      "children_ids": [],
+      "text_digest": "1f58b9145b24d108d7ac38887338b3ea3229833b9c1e418250343f907bfd1047"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:420:424:identifier",
+      "kind": "identifier",
+      "label": "POST",
+      "span": {
+        "start": {
+          "line": 10,
+          "column": 22,
+          "byte": 420
+        },
+        "end": {
+          "line": 10,
+          "column": 26,
+          "byte": 424
+        }
+      },
+      "children_ids": [],
+      "text_digest": "9aee6b1bcdf617d8e39bb1f2b624c68ea33deb9d48e0364aeaded836d3d00293"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:170:396:comment",
+      "kind": "comment",
+      "label": "/**\r\n * POST /auth/sign-out \u2014 clears the Supabase session cookies and redirects\r\n * back to the marketing home (or `?next=`). Use a form POST so the browser\r\n * sends cookies and the action survives JS-disabled clients.\r\n */",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 170
+        },
+        "end": {
+          "line": 9,
+          "column": 3,
+          "byte": 396
+        }
+      },
+      "children_ids": [],
+      "text_digest": "02ea123e1e46bc90e34edcd5b275dd1ab4da7419f12dc6f694c309d040b1f334"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:118:166:import_statement",
+      "kind": "import_statement",
+      "label": "import { safeNext } from \"@/lib/auth/redirects\";",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 0,
+          "byte": 118
+        },
+        "end": {
+          "line": 3,
+          "column": 48,
+          "byte": 166
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:143:165:string"
+      ],
+      "text_digest": "58cd4f66fdc33910ddd0074d82b58bce004c9d712cd9a40e59ef621034b11a69"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:143:165:string",
+      "kind": "string",
+      "label": "\"@/lib/auth/redirects\"",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 25,
+          "byte": 143
+        },
+        "end": {
+          "line": 3,
+          "column": 47,
+          "byte": 165
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:144:164:string_fragment"
+      ],
+      "text_digest": "744d08f82cdbb68f23702b3cea7a16b0dfca23f81539186affb175e535788f0b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:144:164:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/lib/auth/redirects",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 26,
+          "byte": 144
+        },
+        "end": {
+          "line": 3,
+          "column": 46,
+          "byte": 164
+        }
+      },
+      "children_ids": [],
+      "text_digest": "a137f57b797bca27d911bebd0bf3890868442198d33a8123ebb82592eba0692a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:import_clause",
+      "kind": "import_clause",
+      "label": "{ safeNext }",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 7,
+          "byte": 125
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 137
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:named_imports"
+      ],
+      "text_digest": "2ec02f9f1105178c94b0a1b5730707cf1f09b0a90b284809620078991538e9bd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:125:137:named_imports",
+      "kind": "named_imports",
+      "label": "{ safeNext }",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 7,
+          "byte": 125
+        },
+        "end": {
+          "line": 3,
+          "column": 19,
+          "byte": 137
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:127:135:import_specifier"
+      ],
+      "text_digest": "2ec02f9f1105178c94b0a1b5730707cf1f09b0a90b284809620078991538e9bd"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:127:135:import_specifier",
+      "kind": "import_specifier",
+      "label": "safeNext",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 9,
+          "byte": 127
+        },
+        "end": {
+          "line": 3,
+          "column": 17,
+          "byte": 135
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:127:135:identifier"
+      ],
+      "text_digest": "e48287dedb4b593c3ad1154a94057d84b60cad027086b1fdc15f4aaa9aa75c4f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:127:135:identifier",
+      "kind": "identifier",
+      "label": "safeNext",
+      "span": {
+        "start": {
+          "line": 3,
+          "column": 9,
+          "byte": 127
+        },
+        "end": {
+          "line": 3,
+          "column": 17,
+          "byte": 135
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e48287dedb4b593c3ad1154a94057d84b60cad027086b1fdc15f4aaa9aa75c4f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:63:116:import_statement",
+      "kind": "import_statement",
+      "label": "import { createClient } from \"@/lib/supabase/server\";",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 0,
+          "byte": 63
+        },
+        "end": {
+          "line": 2,
+          "column": 53,
+          "byte": 116
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:92:115:string"
+      ],
+      "text_digest": "19902b00078a6d66b991d63c56369f0dd34c57a50b9263e09f85a9a9579fc3c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:92:115:string",
+      "kind": "string",
+      "label": "\"@/lib/supabase/server\"",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 29,
+          "byte": 92
+        },
+        "end": {
+          "line": 2,
+          "column": 52,
+          "byte": 115
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:93:114:string_fragment"
+      ],
+      "text_digest": "9c1ce18c8dd4e343141fd35771fc5643113b188cadbc3c8723b757a0f35dced1"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:93:114:string_fragment",
+      "kind": "string_fragment",
+      "label": "@/lib/supabase/server",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 30,
+          "byte": 93
+        },
+        "end": {
+          "line": 2,
+          "column": 51,
+          "byte": 114
+        }
+      },
+      "children_ids": [],
+      "text_digest": "7c479641083cb591e8f81b8630955f9301179c9e7af536c69fb6ee7201b8ecad"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:import_clause",
+      "kind": "import_clause",
+      "label": "{ createClient }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 70
+        },
+        "end": {
+          "line": 2,
+          "column": 23,
+          "byte": 86
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:named_imports"
+      ],
+      "text_digest": "0cd1d85e674b5eea87026a4f9c592a1932979285cba82d4e554b96ac8a26b082"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:70:86:named_imports",
+      "kind": "named_imports",
+      "label": "{ createClient }",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 7,
+          "byte": 70
+        },
+        "end": {
+          "line": 2,
+          "column": 23,
+          "byte": 86
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:72:84:import_specifier"
+      ],
+      "text_digest": "0cd1d85e674b5eea87026a4f9c592a1932979285cba82d4e554b96ac8a26b082"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:72:84:import_specifier",
+      "kind": "import_specifier",
+      "label": "createClient",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 72
+        },
+        "end": {
+          "line": 2,
+          "column": 21,
+          "byte": 84
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:72:84:identifier"
+      ],
+      "text_digest": "e5499f20703129809a0ea009235a9975666a5c50910295782001020991e66155"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:72:84:identifier",
+      "kind": "identifier",
+      "label": "createClient",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 9,
+          "byte": 72
+        },
+        "end": {
+          "line": 2,
+          "column": 21,
+          "byte": 84
+        }
+      },
+      "children_ids": [],
+      "text_digest": "e5499f20703129809a0ea009235a9975666a5c50910295782001020991e66155"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:0:61:import_statement",
+      "kind": "import_statement",
+      "label": "import { NextResponse, type NextRequest } from \"next/server\";",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 61,
+          "byte": 61
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:import_clause",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:47:60:string"
+      ],
+      "text_digest": "d937246d88354ed3376bc5c63ecd858d1083d0ecb4c0d85cc99ebc01af7b0186"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:47:60:string",
+      "kind": "string",
+      "label": "\"next/server\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 47,
+          "byte": 47
+        },
+        "end": {
+          "line": 1,
+          "column": 60,
+          "byte": 60
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:48:59:string_fragment"
+      ],
+      "text_digest": "5ecb52dbf43534129b5cce5f417b680de88a4f4cc2de991252da8aa744da16cf"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:48:59:string_fragment",
+      "kind": "string_fragment",
+      "label": "next/server",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 48,
+          "byte": 48
+        },
+        "end": {
+          "line": 1,
+          "column": 59,
+          "byte": 59
+        }
+      },
+      "children_ids": [],
+      "text_digest": "bc5024da6592fcb7d8717de1c52d4b4f26c45b4a0477be3c9f20e73fd6b8442b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:import_clause",
+      "kind": "import_clause",
+      "label": "{ NextResponse, type NextRequest }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 41,
+          "byte": 41
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:named_imports"
+      ],
+      "text_digest": "a42b93d3feeeebbda05fa8080a91d3ef8887a243166091aeeeff3b1c4dc4f14f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:7:41:named_imports",
+      "kind": "named_imports",
+      "label": "{ NextResponse, type NextRequest }",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 7,
+          "byte": 7
+        },
+        "end": {
+          "line": 1,
+          "column": 41,
+          "byte": 41
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:9:21:import_specifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:23:39:import_specifier"
+      ],
+      "text_digest": "a42b93d3feeeebbda05fa8080a91d3ef8887a243166091aeeeff3b1c4dc4f14f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:23:39:import_specifier",
+      "kind": "import_specifier",
+      "label": "type NextRequest",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 23,
+          "byte": 23
+        },
+        "end": {
+          "line": 1,
+          "column": 39,
+          "byte": 39
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:28:39:identifier"
+      ],
+      "text_digest": "f435f469b588a2cb25472cdd4b5e4a8b955ed7b5b79a6e2b806fc47c1ede5636"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:28:39:identifier",
+      "kind": "identifier",
+      "label": "NextRequest",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 28,
+          "byte": 28
+        },
+        "end": {
+          "line": 1,
+          "column": 39,
+          "byte": 39
+        }
+      },
+      "children_ids": [],
+      "text_digest": "ec1dfd2bf511de5474f14910ef86906bf64778ef4efa1bef142b346b487075c5"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:9:21:import_specifier",
+      "kind": "import_specifier",
+      "label": "NextResponse",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 21,
+          "byte": 21
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:9:21:identifier"
+      ],
+      "text_digest": "d31847830b831199c6facd2e325875372d0204215d8ae952e636054f0fe9ee5a"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:apps/web/app/auth/sign-out/route.ts:9:21:identifier",
+      "kind": "identifier",
+      "label": "NextResponse",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 9,
+          "byte": 9
+        },
+        "end": {
+          "line": 1,
+          "column": 21,
+          "byte": 21
+        }
+      },
+      "children_ids": [],
+      "text_digest": "d31847830b831199c6facd2e325875372d0204215d8ae952e636054f0fe9ee5a"
+    }
+  ],
+  "parser_id": "tree_sitter_typescript",
+  "relative_path": "apps/web/app/auth/sign-out/route.ts",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "typescript",
+  "warnings": []
+}

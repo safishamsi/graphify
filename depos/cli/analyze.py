@@ -502,7 +502,8 @@ def run_prepare_dataset(args) -> int:
     checkout_root = Path(args.checkout_root)
     progress(
         "Preparing raw AST dataset export from "
-        + (f"repo URL {args.repo_url}." if getattr(args, "repo_url", None) else f"local repo {args.repo_root}.")
+        + (f"repo URL {args.repo_url}" if getattr(args, "repo_url", None) else f"local repo {args.repo_root}")
+        + f" into dataset root {dataset_root}."
     )
     result = prepare_dataset_from_source(
         repo_root=Path(args.repo_root) if getattr(args, "repo_root", None) else None,
@@ -510,6 +511,7 @@ def run_prepare_dataset(args) -> int:
         dataset_root=dataset_root,
         checkout_root=checkout_root,
         repo_name=getattr(args, "repo_name", None),
+        progress=progress,
     )
     progress(
         f"Prepared dataset at {result.dataset_dir} from repo_root={result.repo_root}. "

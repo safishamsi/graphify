@@ -1,0 +1,424 @@
+{
+  "analysis_timestamp": "2026-04-20T22:21:01+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:96:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:47:94:function_definition:13",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:96:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:47:94:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:47:94:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:block:12",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:47:94:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:return_statement:11",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:87:94:identifier:10",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:87:94:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:47:94:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:64:73:parameters:9",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:47:94:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:64:73:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:64:73:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:65:72:identifier:8",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:64:73:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:65:72:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:47:94:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:51:64:identifier:7",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:47:94:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:51:64:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:96:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:41:function_definition:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:96:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:41:function_definition",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:41:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:block:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:41:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:block",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:block->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:return_statement:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:block",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:return_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:return_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:37:41:true:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:return_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:37:41:true",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:41:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:16:23:parameters:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:41:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:16:23:parameters",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:16:23:parameters->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:17:22:identifier:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:16:23:parameters",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:17:22:identifier",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:41:function_definition->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:4:16:identifier:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:41:function_definition",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:4:16:identifier",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:96:module",
+      "kind": "module",
+      "label": "def verify_token(token):\r\n    return True\r\n\r\n\r\ndef issue_session(user_id):\r\n    return user_id\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 0,
+          "byte": 96
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:41:function_definition",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:47:94:function_definition"
+      ],
+      "text_digest": "a95003291d24fb500e0036d2e9bf2c515f82f87b9d0d4436f3fac0cd972a1c5f"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:47:94:function_definition",
+      "kind": "function_definition",
+      "label": "def issue_session(user_id):\r\n    return user_id",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 0,
+          "byte": 47
+        },
+        "end": {
+          "line": 6,
+          "column": 18,
+          "byte": 94
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:51:64:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:64:73:parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:block"
+      ],
+      "text_digest": "9666aa3eb9c25a5696f14fbc9b166171ee76ac10846eb55e2c43b928a9744a85"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:block",
+      "kind": "block",
+      "label": "return user_id",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 4,
+          "byte": 80
+        },
+        "end": {
+          "line": 6,
+          "column": 18,
+          "byte": 94
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:return_statement"
+      ],
+      "text_digest": "6637e5c6b879dbcd519b8733e0afd50fabbe5466ab9c7c903e0c1aa930f9d09e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:80:94:return_statement",
+      "kind": "return_statement",
+      "label": "return user_id",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 4,
+          "byte": 80
+        },
+        "end": {
+          "line": 6,
+          "column": 18,
+          "byte": 94
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:87:94:identifier"
+      ],
+      "text_digest": "6637e5c6b879dbcd519b8733e0afd50fabbe5466ab9c7c903e0c1aa930f9d09e"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:87:94:identifier",
+      "kind": "identifier",
+      "label": "user_id",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 11,
+          "byte": 87
+        },
+        "end": {
+          "line": 6,
+          "column": 18,
+          "byte": 94
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f89d6b6960453241bc5b09b4d0d8ad86d53769e051473350c2bf94e39077967b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:64:73:parameters",
+      "kind": "parameters",
+      "label": "(user_id)",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 17,
+          "byte": 64
+        },
+        "end": {
+          "line": 5,
+          "column": 26,
+          "byte": 73
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:65:72:identifier"
+      ],
+      "text_digest": "2b96cba59d7d3756be045c41415aa2e31c0a67b4418368933cd0aadaa8201d84"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:65:72:identifier",
+      "kind": "identifier",
+      "label": "user_id",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 18,
+          "byte": 65
+        },
+        "end": {
+          "line": 5,
+          "column": 25,
+          "byte": 72
+        }
+      },
+      "children_ids": [],
+      "text_digest": "f89d6b6960453241bc5b09b4d0d8ad86d53769e051473350c2bf94e39077967b"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:51:64:identifier",
+      "kind": "identifier",
+      "label": "issue_session",
+      "span": {
+        "start": {
+          "line": 5,
+          "column": 4,
+          "byte": 51
+        },
+        "end": {
+          "line": 5,
+          "column": 17,
+          "byte": 64
+        }
+      },
+      "children_ids": [],
+      "text_digest": "63327b7b8428774cc93e3f8190130637b2cb060d5fb3c3fd345e6db5d8a1c312"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:0:41:function_definition",
+      "kind": "function_definition",
+      "label": "def verify_token(token):\r\n    return True",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 2,
+          "column": 15,
+          "byte": 41
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:4:16:identifier",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:16:23:parameters",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:block"
+      ],
+      "text_digest": "a9b88b048b16c75a693fdff36cd0d7a9e5c15e7743d1b8d43af3a13ddfcc62f2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:block",
+      "kind": "block",
+      "label": "return True",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 4,
+          "byte": 30
+        },
+        "end": {
+          "line": 2,
+          "column": 15,
+          "byte": 41
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:return_statement"
+      ],
+      "text_digest": "37992c22232b4712e447e7067cfaa1fe3ed7c98e3080608ed81f7c2b1e62992c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:30:41:return_statement",
+      "kind": "return_statement",
+      "label": "return True",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 4,
+          "byte": 30
+        },
+        "end": {
+          "line": 2,
+          "column": 15,
+          "byte": 41
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:37:41:true"
+      ],
+      "text_digest": "37992c22232b4712e447e7067cfaa1fe3ed7c98e3080608ed81f7c2b1e62992c"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:37:41:true",
+      "kind": "true",
+      "label": "True",
+      "span": {
+        "start": {
+          "line": 2,
+          "column": 11,
+          "byte": 37
+        },
+        "end": {
+          "line": 2,
+          "column": 15,
+          "byte": 41
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3cbc87c7681f34db4617feaa2c8801931bc5e42d8d0f560e756dd4cd92885f18"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:16:23:parameters",
+      "kind": "parameters",
+      "label": "(token)",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 16,
+          "byte": 16
+        },
+        "end": {
+          "line": 1,
+          "column": 23,
+          "byte": 23
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:17:22:identifier"
+      ],
+      "text_digest": "c1412d6d6d795a0e205f6a2b75929330c5359928e8d0c03d507c933720f0cbab"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:17:22:identifier",
+      "kind": "identifier",
+      "label": "token",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 17,
+          "byte": 17
+        },
+        "end": {
+          "line": 1,
+          "column": 22,
+          "byte": 22
+        }
+      },
+      "children_ids": [],
+      "text_digest": "3c469e9d6c5875d37a43f353d4f88e61fcf812c66eee3457465a40b0da4153e0"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py:4:16:identifier",
+      "kind": "identifier",
+      "label": "verify_token",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 4,
+          "byte": 4
+        },
+        "end": {
+          "line": 1,
+          "column": 16,
+          "byte": 16
+        }
+      },
+      "children_ids": [],
+      "text_digest": "20b40fbfc5668579839094dc3216f6f00ec7b5acf5c338ef9d3b1f0f957219cf"
+    }
+  ],
+  "parser_id": "tree_sitter_python",
+  "relative_path": "tests/fixtures/datasets/tiny_drift/repo_src/backend/app/auth.py",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "python",
+  "warnings": []
+}

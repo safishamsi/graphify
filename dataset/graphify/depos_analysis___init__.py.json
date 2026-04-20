@@ -1,0 +1,230 @@
+{
+  "analysis_timestamp": "2026-04-20T22:20:47+00:00",
+  "branch": "v4",
+  "commit_sha": "5977da8118b6682dd8cf567cec6cd5bb9981f808",
+  "dependency_resolution_status": "manifest_only",
+  "edges": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:371:module->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:expression_statement:6",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:371:module",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:expression_statement",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:expression_statement->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:string:5",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:expression_statement",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:string",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:366:369:string_end:4",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:366:369:string_end",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:3:366:string_content:3",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:3:366:string_content",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:3:366:string_content->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:313:319:escape_sequence:2",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:3:366:string_content",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:313:319:escape_sequence",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:3:366:string_content->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:185:191:escape_sequence:1",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:3:366:string_content",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:185:191:escape_sequence",
+      "type": "child"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:edge:ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:string->ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:3:string_start:0",
+      "role": "child",
+      "source_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:string",
+      "target_id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:3:string_start",
+      "type": "child"
+    }
+  ],
+  "errors": [],
+  "generation_version": "depos-dataset-export-0.1",
+  "nodes": [
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:371:module",
+      "kind": "module",
+      "label": "\"\"\"depOS intelligence analysis package.\r\n\r\nAll Pydantic models for JSON contracts live in :mod:`depos.analysis.schemas`.\r\nRuntime config lives in :mod:`depos.analysis.config`. Modules 2\\u20137 (candidate\r\nidentification, context bundles, reasoning, ranker, verifier, gray zone) all\r\nimport types from ``schemas`` \\u2014 there is NO ``depos/intelligence_types.py``.\r\n\"\"\"\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 8,
+          "column": 0,
+          "byte": 371
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:expression_statement"
+      ],
+      "text_digest": "c565179b38a700da3befffcf4cf1aea48ddeae0e7125c5899a58da39510cf406"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:expression_statement",
+      "kind": "expression_statement",
+      "label": "\"\"\"depOS intelligence analysis package.\r\n\r\nAll Pydantic models for JSON contracts live in :mod:`depos.analysis.schemas`.\r\nRuntime config lives in :mod:`depos.analysis.config`. Modules 2\\u20137 (candidate\r\nidentification, context bundles, reasoning, ranker, verifier, gray zone) all\r\nimport types from ``schemas`` \\u2014 there is NO ``depos/intelligence_types.py``.\r\n\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3,
+          "byte": 369
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:string"
+      ],
+      "text_digest": "440e380b18afed95786493ba094b65149302674ad890dc2ece71e7fb4fae6875"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:369:string",
+      "kind": "string",
+      "label": "\"\"\"depOS intelligence analysis package.\r\n\r\nAll Pydantic models for JSON contracts live in :mod:`depos.analysis.schemas`.\r\nRuntime config lives in :mod:`depos.analysis.config`. Modules 2\\u20137 (candidate\r\nidentification, context bundles, reasoning, ranker, verifier, gray zone) all\r\nimport types from ``schemas`` \\u2014 there is NO ``depos/intelligence_types.py``.\r\n\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 7,
+          "column": 3,
+          "byte": 369
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:3:string_start",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:3:366:string_content",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:366:369:string_end"
+      ],
+      "text_digest": "440e380b18afed95786493ba094b65149302674ad890dc2ece71e7fb4fae6875"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:366:369:string_end",
+      "kind": "string_end",
+      "label": "\"\"\"",
+      "span": {
+        "start": {
+          "line": 7,
+          "column": 0,
+          "byte": 366
+        },
+        "end": {
+          "line": 7,
+          "column": 3,
+          "byte": 369
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6d267efe80a3dbcf2f2d67e21d8c15783a2f031427f827d43b6222fe9c4bf02"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:3:366:string_content",
+      "kind": "string_content",
+      "label": "depOS intelligence analysis package.\r\n\r\nAll Pydantic models for JSON contracts live in :mod:`depos.analysis.schemas`.\r\nRuntime config lives in :mod:`depos.analysis.config`. Modules 2\\u20137 (candidate\r\nidentification, context bundles, reasoning, ranker, verifier, gray zone) all\r\nimport types from ``schemas`` \\u2014 there is NO ``depos/intelligence_types.py``.\r\n",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 3,
+          "byte": 3
+        },
+        "end": {
+          "line": 7,
+          "column": 0,
+          "byte": 366
+        }
+      },
+      "children_ids": [
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:185:191:escape_sequence",
+        "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:313:319:escape_sequence"
+      ],
+      "text_digest": "ba4a730bc973b04f179e35c984ade4fdb649d163795c14b007effaf9524749e2"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:313:319:escape_sequence",
+      "kind": "escape_sequence",
+      "label": "\\u2014",
+      "span": {
+        "start": {
+          "line": 6,
+          "column": 30,
+          "byte": 313
+        },
+        "end": {
+          "line": 6,
+          "column": 36,
+          "byte": 319
+        }
+      },
+      "children_ids": [],
+      "text_digest": "814e0c87efb5b7cc7637e272544747859799c886c2b954142441d09617920c68"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:185:191:escape_sequence",
+      "kind": "escape_sequence",
+      "label": "\\u2013",
+      "span": {
+        "start": {
+          "line": 4,
+          "column": 63,
+          "byte": 185
+        },
+        "end": {
+          "line": 4,
+          "column": 69,
+          "byte": 191
+        }
+      },
+      "children_ids": [],
+      "text_digest": "88422509072aad784bd4debb7076eb6136c45e794a83890fcc63be7fd84d20eb"
+    },
+    {
+      "id": "ast:5977da8118b6682dd8cf567cec6cd5bb9981f808:depos/analysis/__init__.py:0:3:string_start",
+      "kind": "string_start",
+      "label": "\"\"\"",
+      "span": {
+        "start": {
+          "line": 1,
+          "column": 0,
+          "byte": 0
+        },
+        "end": {
+          "line": 1,
+          "column": 3,
+          "byte": 3
+        }
+      },
+      "children_ids": [],
+      "text_digest": "b6d267efe80a3dbcf2f2d67e21d8c15783a2f031427f827d43b6222fe9c4bf02"
+    }
+  ],
+  "parser_id": "tree_sitter_python",
+  "relative_path": "depos/analysis/__init__.py",
+  "repository_name": "graphify",
+  "repository_url": "https://github.com/aroudrasthakur/graphify.git",
+  "source_language": "python",
+  "warnings": []
+}
