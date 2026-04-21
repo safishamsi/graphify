@@ -12,6 +12,34 @@ _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAG
 _CODE_EXTENSIONS = CODE_EXTENSIONS
 
 
+def _preserve_non_code_graph(existing: dict, code_files: list[Path]) -> dict:
+    """Keep prior graph entries whose source_file is outside the code corpus.
+
+    Code-only auto rebuilds should refresh code nodes from AST while preserving
+    document/paper/image/memory knowledge and any edges those sources contribute
+    into the code graph.
+    """
+    code_sources = {str(path) for path in code_files}
+    links_key = "links" if "links" in existing else "edges"
+
+    def _keep_source(source_file: str) -> bool:
+        return bool(source_file) and source_file not in code_sources
+
+    nodes = [
+        node for node in existing.get("nodes", [])
+        if _keep_source(node.get("source_file", ""))
+    ]
+    edges = [
+        edge for edge in existing.get(links_key, [])
+        if _keep_source(edge.get("source_file", ""))
+    ]
+    hyperedges = [
+        hyperedge for hyperedge in existing.get("hyperedges", [])
+        if _keep_source(hyperedge.get("source_file", ""))
+    ]
+    return {"nodes": nodes, "edges": edges, "hyperedges": hyperedges}
+
+
 def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
     """Re-run AST extraction + build + cluster + report for code files. No LLM needed.
 
@@ -36,22 +64,18 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
 
         result = extract(code_files, cache_root=watch_path)
 
-        # Preserve semantic nodes/edges from a previous full run.
-        # AST-only rebuild replaces code nodes; doc/paper/image nodes are kept.
+        # Preserve prior non-code knowledge (docs/papers/images/query memory)
+        # so code-only refreshes do not disconnect those nodes from rebuilt code.
         out = watch_path / "graphify-out"
         existing_graph = out / "graph.json"
         if existing_graph.exists():
             try:
                 existing = json.loads(existing_graph.read_text(encoding="utf-8"))
-                code_ids = {n["id"] for n in existing.get("nodes", []) if n.get("file_type") == "code"}
-                sem_nodes = [n for n in existing.get("nodes", []) if n.get("file_type") != "code"]
-                sem_edges = [e for e in existing.get("links", existing.get("edges", []))
-                             if e.get("confidence") in ("INFERRED", "AMBIGUOUS")
-                             or (e.get("source") not in code_ids and e.get("target") not in code_ids)]
+                preserved = _preserve_non_code_graph(existing, code_files)
                 result = {
-                    "nodes": result["nodes"] + sem_nodes,
-                    "edges": result["edges"] + sem_edges,
-                    "hyperedges": existing.get("hyperedges", []),
+                    "nodes": result["nodes"] + preserved["nodes"],
+                    "edges": result["edges"] + preserved["edges"],
+                    "hyperedges": preserved["hyperedges"],
                     "input_tokens": 0,
                     "output_tokens": 0,
                 }
@@ -59,8 +83,8 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
                 pass  # corrupt graph.json - proceed with AST-only
 
         detection = {
-            "files": {"code": [str(f) for f in code_files], "document": [], "paper": [], "image": []},
-            "total_files": len(code_files),
+            "files": detected.get("files", {}),
+            "total_files": detected.get("total_files", len(code_files)),
             "total_words": detected.get("total_words", 0),
         }
 

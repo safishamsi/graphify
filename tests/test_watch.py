@@ -1,9 +1,10 @@
 """Tests for watch.py - file watcher helpers (no watchdog required)."""
+import json
 import time
 from pathlib import Path
 import pytest
 
-from graphify.watch import _notify_only, _WATCHED_EXTENSIONS
+from graphify.watch import _notify_only, _rebuild_code, _WATCHED_EXTENSIONS
 
 
 # --- _notify_only ---
@@ -66,3 +67,50 @@ def test_watch_raises_without_watchdog(tmp_path, monkeypatch):
     from graphify.watch import watch
     with pytest.raises(ImportError, match="watchdog not installed"):
         watch(tmp_path)
+
+
+def test_rebuild_code_preserves_non_code_cross_edges(tmp_path):
+    code_file = tmp_path / "a.py"
+    code_file.write_text("def f():\n    return 1\n", encoding="utf-8")
+
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    (out / "graph.json").write_text(json.dumps({
+        "directed": False,
+        "multigraph": False,
+        "graph": {},
+        "nodes": [
+            {"id": "legacy_code", "label": "a.py", "file_type": "code", "source_file": str(code_file)},
+            {"id": "a_f", "label": "f()", "file_type": "code", "source_file": str(code_file)},
+            {"id": "doc1", "label": "Design Doc", "file_type": "document", "source_file": "docs/design.md"},
+        ],
+        "links": [
+            {
+                "source": "doc1",
+                "target": "a_f",
+                "relation": "references",
+                "confidence": "EXTRACTED",
+                "source_file": "docs/design.md",
+            }
+        ],
+    }), encoding="utf-8")
+
+    assert _rebuild_code(tmp_path) is True
+
+    graph = json.loads((out / "graph.json").read_text(encoding="utf-8"))
+    links = graph.get("links", graph.get("edges", []))
+    assert any(node["id"] == "doc1" for node in graph["nodes"])
+    assert any(
+        edge.get("_src") == "doc1" and edge.get("_tgt") == "a_f"
+        for edge in links
+    )
+
+
+def test_rebuild_code_report_keeps_full_detect_counts(tmp_path):
+    (tmp_path / "a.py").write_text("def f():\n    return 1\n", encoding="utf-8")
+    (tmp_path / "notes.md").write_text("# Notes\n\nConnected to the code graph.\n", encoding="utf-8")
+
+    assert _rebuild_code(tmp_path) is True
+
+    report = (tmp_path / "graphify-out" / "GRAPH_REPORT.md").read_text(encoding="utf-8")
+    assert "2 files" in report
