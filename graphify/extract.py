@@ -803,6 +803,52 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                                         seen_ids.add(base_nid)
                                 add_edge(class_nid, base_nid, "inherits", line)
 
+            # Java-specific: extends (superclass) / implements (super_interfaces) / interface-extends
+            if config.ts_module == "tree_sitter_java":
+                def _emit_java_parent(base_name: str, rel: str, at_line: int) -> None:
+                    if not base_name:
+                        return
+                    base_nid = _make_id(stem, base_name)
+                    if base_nid not in seen_ids:
+                        base_nid = _make_id(base_name)
+                        if base_nid not in seen_ids:
+                            nodes.append({
+                                "id": base_nid,
+                                "label": base_name,
+                                "file_type": "code",
+                                "source_file": "",
+                                "source_location": "",
+                            })
+                            seen_ids.add(base_nid)
+                    add_edge(class_nid, base_nid, rel, at_line)
+
+                # class X extends Y  -> superclass field on class_declaration
+                sup = node.child_by_field_name("superclass")
+                if sup is not None:
+                    for sub in sup.children:
+                        if sub.type == "type_identifier":
+                            _emit_java_parent(_read_text(sub, source), "extends", line)
+                            break  # Java has single inheritance for classes
+
+                # class X implements A, B  -> interfaces field -> super_interfaces -> type_list
+                ifs = node.child_by_field_name("interfaces")
+                if ifs is not None:
+                    for sub in ifs.children:
+                        if sub.type == "type_list":
+                            for tid in sub.children:
+                                if tid.type == "type_identifier":
+                                    _emit_java_parent(_read_text(tid, source), "implements", line)
+
+                # interface X extends A, B  -> extends_interfaces child -> type_list
+                if t == "interface_declaration":
+                    for child in node.children:
+                        if child.type == "extends_interfaces":
+                            for sub in child.children:
+                                if sub.type == "type_list":
+                                    for tid in sub.children:
+                                        if tid.type == "type_identifier":
+                                            _emit_java_parent(_read_text(tid, source), "extends", line)
+
             # Find body and recurse
             body = _find_body(node, config)
             if body:
@@ -2664,6 +2710,117 @@ def _resolve_cross_file_imports(
     return new_edges
 
 
+def _resolve_cross_file_java_imports(
+    per_file: list[dict],
+    paths: list[Path],
+) -> list[dict]:
+    """
+    Two-pass Java import resolution.
+
+    Pass 1 - build a global index {ClassName: [node_id, ...]} across all Java
+             nodes in the corpus.
+    Pass 2 - re-parse each Java file and, for every `import a.b.C;`, resolve C
+             against the index. When C resolves to one or more internal nodes,
+             emit a proper `imports` edge with a target that exists in the
+             graph. Wildcard imports (`a.b.*`) and stdlib/third-party names
+             are left unresolved and produce no edge (they'd be dropped at
+             build time anyway).
+
+    Without this pass, the per-file `_import_java` handler creates edges whose
+    target is just the class name (e.g. `list` for `java.util.List`). Those
+    targets never match any real node id (node ids use `{stem}_{class}`), so
+    every Java import edge is silently discarded in `build_from_json`. This
+    function restores them.
+    """
+    try:
+        import tree_sitter_java as tsjava
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return []
+
+    language = Language(tsjava.language())
+    parser = Parser(language)
+
+    # Pass 1: class-name index
+    name_to_ids: dict[str, list[str]] = {}
+    for file_result in per_file:
+        for node in file_result.get("nodes", []):
+            label = node.get("label", "")
+            nid = node.get("id", "")
+            src = node.get("source_file", "")
+            if not label or not nid or not src:
+                continue
+            # Skip method stubs (".foo()"), file-level nodes ("Foo.java"),
+            # and synthetic external nodes (source_file == "").
+            if label.endswith(")") or label.endswith(".java"):
+                continue
+            # Java class names start with an uppercase letter.
+            if not label[0].isalpha() or not label[0].isupper():
+                continue
+            name_to_ids.setdefault(label, []).append(nid)
+
+    # Pass 2: re-parse imports and emit resolved edges
+    new_edges: list[dict] = []
+    seen_pairs: set[tuple[str, str]] = set()
+    for path in paths:
+        stem = path.stem
+        file_nid = _make_id(stem)
+        str_path = str(path)
+        try:
+            source = path.read_bytes()
+            tree = parser.parse(source)
+        except Exception:
+            continue
+
+        def walk(n) -> None:
+            if n.type == "import_declaration":
+                # Find the final scoped_identifier / identifier under the node.
+                # `import a.b.C;`  -> last part "C"
+                # `import a.b.*;`  -> wildcard -> skip (ambiguous)
+                # `import static a.b.C.foo;` -> last part "C" (strip trailing .foo? no — take C)
+                # For simplicity: walk tokens, pick the last identifier before `*` / `;`.
+                raw_text = _read_text(n, source).strip()
+                # Normalise: drop `import`, `static`, trailing `;`
+                body = raw_text[len("import"):].strip().rstrip(";").strip()
+                if body.startswith("static "):
+                    body = body[len("static "):].strip()
+                if body.endswith(".*"):
+                    return  # wildcard import — target ambiguous
+                # For static imports like `a.b.C.foo`, take the second-to-last
+                # segment if the last segment is lowercase (method), else last.
+                parts = body.split(".")
+                if not parts:
+                    return
+                last = parts[-1]
+                # static method import: last is lower-case; the class is second to last
+                if parts[-1] and parts[-1][0].islower() and len(parts) >= 2:
+                    last = parts[-2]
+                candidates = name_to_ids.get(last, [])
+                line = n.start_point[0] + 1
+                for tgt_nid in candidates:
+                    if tgt_nid == file_nid:
+                        continue
+                    key = (file_nid, tgt_nid)
+                    if key in seen_pairs:
+                        continue
+                    seen_pairs.add(key)
+                    new_edges.append({
+                        "source": file_nid,
+                        "target": tgt_nid,
+                        "relation": "imports",
+                        "confidence": "EXTRACTED",
+                        "source_file": str_path,
+                        "source_location": f"L{line}",
+                        "weight": 1.0,
+                    })
+            for child in n.children:
+                walk(child)
+
+        walk(tree.root_node)
+
+    return new_edges
+
+
 def extract_objc(path: Path) -> dict:
     """Extract interfaces, implementations, protocols, methods, and imports from .m/.mm/.h files."""
     try:
@@ -3178,6 +3335,19 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
         except Exception as exc:
             import logging
             logging.getLogger(__name__).warning("Cross-file import resolution failed, skipping: %s", exc)
+
+    # Cross-file Java import resolution. Rewrites `_import_java`-emitted edges
+    # (whose targets were bare class names and got dropped at build time) into
+    # resolved edges pointing at real class nodes elsewhere in the corpus.
+    java_paths = [p for p in paths if p.suffix == ".java"]
+    if java_paths:
+        java_results = [r for r, p in zip(per_file, paths) if p.suffix == ".java"]
+        try:
+            java_edges = _resolve_cross_file_java_imports(java_results, java_paths)
+            all_edges.extend(java_edges)
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Java cross-file import resolution failed, skipping: %s", exc)
 
     # Cross-file call resolution for all languages
     # Each extractor saved unresolved calls in raw_calls. Now that we have all

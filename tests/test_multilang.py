@@ -149,6 +149,33 @@ def test_extract_dispatches_all_languages():
     assert any("sample.rs" in f for f in source_files)
 
 
+def test_extract_resolves_java_cross_file_imports():
+    """When `sample_inherit.java` imports a class defined in
+    `sample_imported.java`, the import edge must point at the actual class
+    node (not a dangling target that the builder drops)."""
+    files = [
+        FIXTURES / "sample_imported.java",  # defines class Animal
+        FIXTURES / "sample_inherit.java",   # imports com.example.base.Animal
+    ]
+    r = extract(files)
+    node_ids = {n["id"] for n in r["nodes"]}
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+
+    import_edges = [e for e in r["edges"] if e["relation"] == "imports"]
+    # There must be at least one `imports` edge whose target is a real node
+    # AND whose target resolves to `Animal` (the class defined in sample_imported.java).
+    resolved = [
+        e for e in import_edges
+        if e["target"] in node_ids
+        and node_by_id.get(e["target"]) == "Animal"
+        and "sample_inherit.java" in e.get("source_file", "")
+    ]
+    assert resolved, (
+        f"expected a resolved import edge pointing at Animal from sample_inherit.java; "
+        f"got {[(e['source'], e['target'], e.get('source_file','')) for e in import_edges]}"
+    )
+
+
 # ── Cache ─────────────────────────────────────────────────────────────────────
 
 def test_cache_hit_returns_same_result(tmp_path):

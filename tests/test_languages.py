@@ -56,6 +56,54 @@ def test_java_no_dangling_edges():
         assert e["source"] in node_ids
 
 
+def test_java_finds_extends():
+    r = extract_java(FIXTURES / "sample_inherit.java")
+    relations = _relations(r)
+    assert "extends" in relations, (
+        f"expected `extends` edge for `class Dog extends Animal`; got relations={relations}"
+    )
+
+    # Node exists for the extended class, even if defined outside the file.
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    extends_targets = {
+        node_by_id.get(e["target"])
+        for e in r["edges"]
+        if e["relation"] == "extends"
+    }
+    assert "Animal" in extends_targets, f"extends edge should point to Animal; got {extends_targets}"
+
+
+def test_java_finds_implements():
+    r = extract_java(FIXTURES / "sample_inherit.java")
+    relations = _relations(r)
+    assert "implements" in relations, (
+        f"expected `implements` edge for `class Dog implements Runnable, Swimmable`; got {relations}"
+    )
+
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    implements_targets = {
+        node_by_id.get(e["target"])
+        for e in r["edges"]
+        if e["relation"] == "implements"
+    }
+    assert "Runnable" in implements_targets
+    assert "Swimmable" in implements_targets
+
+
+def test_java_finds_interface_extends():
+    r = extract_java(FIXTURES / "sample_inherit.java")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    # interface LoudRunnable extends Runnable
+    extends_pairs = {
+        (node_by_id.get(e["source"]), node_by_id.get(e["target"]))
+        for e in r["edges"]
+        if e["relation"] == "extends"
+    }
+    assert ("LoudRunnable", "Runnable") in extends_pairs, (
+        f"expected interface LoudRunnable extends Runnable; got {extends_pairs}"
+    )
+
+
 # ── C ────────────────────────────────────────────────────────────────────────
 
 def test_c_no_error():
