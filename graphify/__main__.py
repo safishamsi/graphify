@@ -115,6 +115,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".kiro") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
+    "qoder": {
+        "skill_file": "skill-qoder.md",
+        "skill_dst": Path(".qoder") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
     "antigravity": {
         "skill_file": "skill.md",
         "skill_dst": Path(".agent") / "skills" / "graphify" / "SKILL.md",
@@ -134,6 +139,9 @@ def install(platform: str = "claude") -> None:
         return
     if platform == "cursor":
         _cursor_install(Path("."))
+        return
+    if platform == "qoder":
+        _qoder_install(Path("."))
         return
     if platform not in _PLATFORM_CONFIG:
         print(
@@ -434,6 +442,142 @@ Follow the graphify skill installed at ~/.agent/skills/graphify/SKILL.md to run 
 
 If no path argument is given, use `.` (current directory).
 """
+
+
+# ---------------------------------------------------------------------------
+# Qoder integration
+# ---------------------------------------------------------------------------
+
+# Rule file written to .qoder/rules/graphify.md (Always Apply type)
+_QODER_RULE_CONTENT = """\
+---
+description: graphify knowledge graph rules
+alwaysApply: true
+---
+
+This project has a graphify knowledge graph at graphify-out/.
+
+- Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
+- If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- After modifying code files in this session, run `python3 -c "from graphify.watch import _rebuild_code; from pathlib import Path; _rebuild_code(Path('.'))"` to keep the graph current
+"""
+
+_QODER_RULE_PATH = Path(".qoder") / "rules" / "graphify.md"
+
+# PreToolUse hook entry for .qoder/settings.json
+_QODER_HOOK = {
+    "matcher": "Bash",
+    "hooks": [
+        {
+            "type": "command",
+            "command": (
+                "[ -f graphify-out/graph.json ] && "
+                r"""echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
+                "|| true"
+            ),
+        }
+    ],
+}
+
+_QODER_SETTINGS_PATH = Path(".qoder") / "settings.json"
+
+
+def _install_qoder_hook(project_dir: Path) -> None:
+    """Register graphify PreToolUse hook in .qoder/settings.json."""
+    settings_path = project_dir / _QODER_SETTINGS_PATH
+    settings_path.parent.mkdir(parents=True, exist_ok=True)
+
+    if settings_path.exists():
+        try:
+            settings = json.loads(settings_path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError:
+            settings = {}
+    else:
+        settings = {}
+
+    pre_tool = settings.setdefault("hooks", {}).setdefault("PreToolUse", [])
+    if any("graphify" in str(h) for h in pre_tool):
+        print(f"  {_QODER_SETTINGS_PATH}  ->  hook already registered (no change)")
+        return
+
+    pre_tool.append(_QODER_HOOK)
+    settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
+    print(f"  {_QODER_SETTINGS_PATH}  ->  PreToolUse hook registered")
+
+
+def _uninstall_qoder_hook(project_dir: Path) -> None:
+    """Remove graphify PreToolUse hook from .qoder/settings.json."""
+    settings_path = project_dir / _QODER_SETTINGS_PATH
+    if not settings_path.exists():
+        return
+    try:
+        settings = json.loads(settings_path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return
+    pre_tool = settings.get("hooks", {}).get("PreToolUse", [])
+    filtered = [h for h in pre_tool if "graphify" not in str(h)]
+    if len(filtered) == len(pre_tool):
+        return
+    settings["hooks"]["PreToolUse"] = filtered
+    settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
+    print(f"  {_QODER_SETTINGS_PATH}  ->  PreToolUse hook removed")
+
+
+def _qoder_install(project_dir: Path) -> None:
+    """Write graphify skill, rule to .qoder/ and register PreToolUse hook."""
+    project_dir = project_dir or Path(".")
+
+    # 1. Install skill file
+    skill_src = Path(__file__).parent / "skill-qoder.md"
+    skill_dst = project_dir / _PLATFORM_CONFIG["qoder"]["skill_dst"]
+    skill_dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(skill_src, skill_dst)
+    (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
+    print(f"  {_PLATFORM_CONFIG['qoder']['skill_dst']}  ->  skill installed")
+
+    # 2. Install rule file
+    rule_file = project_dir / _QODER_RULE_PATH
+    rule_file.parent.mkdir(parents=True, exist_ok=True)
+    rule_file.write_text(_QODER_RULE_CONTENT, encoding="utf-8")
+    print(f"  {_QODER_RULE_PATH}  ->  Always Apply rule written")
+
+    # 3. Install PreToolUse hook
+    _install_qoder_hook(project_dir)
+
+    print()
+    print("Qoder will now check the knowledge graph before answering codebase")
+    print("questions and rebuild it after code changes.")
+    print()
+    print("The PreToolUse hook fires automatically in Qoder IDE and JetBrains plugin.")
+    print("For CLI, the .qoder/rules/graphify.md rule applies to every session.")
+
+
+def _qoder_uninstall(project_dir: Path) -> None:
+    """Remove graphify skill, rule and hook from .qoder/."""
+    project_dir = project_dir or Path(".")
+
+    # 1. Remove skill file
+    skill_dst = project_dir / _PLATFORM_CONFIG["qoder"]["skill_dst"]
+    if skill_dst.exists():
+        skill_dst.unlink()
+        print(f"  {_PLATFORM_CONFIG['qoder']['skill_dst']}  ->  removed")
+    else:
+        print(f"  {_PLATFORM_CONFIG['qoder']['skill_dst']}  ->  not found")
+
+    version_file = skill_dst.parent / ".graphify_version"
+    if version_file.exists():
+        version_file.unlink()
+
+    # 2. Remove rule file
+    rule_file = project_dir / _QODER_RULE_PATH
+    if rule_file.exists():
+        rule_file.unlink()
+        print(f"  {_QODER_RULE_PATH}  ->  removed")
+    else:
+        print(f"  {_QODER_RULE_PATH}  ->  not found (nothing to remove)")
+
+    # 3. Remove PreToolUse hook
+    _uninstall_qoder_hook(project_dir)
 
 
 _KIRO_STEERING = """\
@@ -970,6 +1114,8 @@ def main() -> None:
         print("  hermes uninstall        remove skill from ~/.hermes/skills/graphify/")
         print("  kiro install            write skill to .kiro/skills/graphify/ + steering file (Kiro IDE/CLI)")
         print("  kiro uninstall          remove skill + steering file")
+        print("  qoder install           write skill + rule to .qoder/ + PreToolUse hook (Qoder)")
+        print("  qoder uninstall         remove skill, rule, and hook")
         print()
         return
 
@@ -1056,6 +1202,15 @@ def main() -> None:
             _kiro_uninstall(Path("."))
         else:
             print("Usage: graphify kiro [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
+    elif cmd == "qoder":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            _qoder_install(Path("."))
+        elif subcmd == "uninstall":
+            _qoder_uninstall(Path("."))
+        else:
+            print("Usage: graphify qoder [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""

@@ -13,6 +13,7 @@ PLATFORMS = {
     "trae": (".trae/skills/graphify/SKILL.md",),
     "trae-cn": (".trae-cn/skills/graphify/SKILL.md",),
     "windows": (".claude/skills/graphify/SKILL.md",),
+    "qoder": (".qoder/skills/graphify/SKILL.md",),
 }
 
 
@@ -94,7 +95,7 @@ def test_all_skill_files_exist_in_package():
     """All installable platform skill files must be present in the installed package."""
     import graphify
     pkg = Path(graphify.__file__).parent
-    for name in ("skill.md", "skill-codex.md", "skill-opencode.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md"):
+    for name in ("skill.md", "skill-codex.md", "skill-opencode.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md", "skill-qoder.md"):
         assert (pkg / name).exists(), f"Missing: {name}"
 
 
@@ -318,3 +319,81 @@ def test_gemini_uninstall_removes_hook(tmp_path):
 def test_gemini_uninstall_noop_if_not_installed(tmp_path):
     from graphify.__main__ import gemini_uninstall
     gemini_uninstall(tmp_path)  # should not raise
+
+
+# ── Qoder ─────────────────────────────────────────────────────────────────────
+
+def test_qoder_install_writes_skill(tmp_path):
+    """qoder install copies skill file to .qoder/skills/graphify/SKILL.md."""
+    from graphify.__main__ import _qoder_install
+    _qoder_install(tmp_path)
+    skill = tmp_path / ".qoder" / "skills" / "graphify" / "SKILL.md"
+    assert skill.exists()
+    assert "/graphify" in skill.read_text()
+
+
+def test_qoder_install_writes_rule(tmp_path):
+    """qoder install writes .qoder/rules/graphify.md with alwaysApply frontmatter."""
+    from graphify.__main__ import _qoder_install
+    _qoder_install(tmp_path)
+    rule = tmp_path / ".qoder" / "rules" / "graphify.md"
+    assert rule.exists()
+    content = rule.read_text()
+    assert "alwaysApply: true" in content
+    assert "GRAPH_REPORT.md" in content
+
+
+def test_qoder_install_writes_hook(tmp_path):
+    """qoder install registers PreToolUse hook in .qoder/settings.json."""
+    import json as _json
+    from graphify.__main__ import _qoder_install
+    _qoder_install(tmp_path)
+    settings = _json.loads((tmp_path / ".qoder" / "settings.json").read_text())
+    hooks = settings["hooks"]["PreToolUse"]
+    assert any("graphify" in str(h) for h in hooks)
+
+
+def test_qoder_install_idempotent(tmp_path):
+    """Installing twice does not duplicate the hook."""
+    import json as _json
+    from graphify.__main__ import _qoder_install
+    _qoder_install(tmp_path)
+    _qoder_install(tmp_path)
+    settings = _json.loads((tmp_path / ".qoder" / "settings.json").read_text())
+    hooks = settings["hooks"]["PreToolUse"]
+    graphify_hooks = [h for h in hooks if "graphify" in str(h)]
+    assert len(graphify_hooks) == 1
+
+
+def test_qoder_install_merges_existing_settings(tmp_path):
+    """qoder install preserves existing .qoder/settings.json keys."""
+    import json as _json
+    settings_path = tmp_path / ".qoder" / "settings.json"
+    settings_path.parent.mkdir(parents=True, exist_ok=True)
+    settings_path.write_text(_json.dumps({"customKey": "value"}))
+    from graphify.__main__ import _qoder_install
+    _qoder_install(tmp_path)
+    settings = _json.loads(settings_path.read_text())
+    assert settings["customKey"] == "value"
+    assert any("graphify" in str(h) for h in settings["hooks"]["PreToolUse"])
+
+
+def test_qoder_uninstall_removes_all(tmp_path):
+    """qoder uninstall removes skill, rule, and hook."""
+    import json as _json
+    from graphify.__main__ import _qoder_install, _qoder_uninstall
+    _qoder_install(tmp_path)
+    _qoder_uninstall(tmp_path)
+    assert not (tmp_path / ".qoder" / "skills" / "graphify" / "SKILL.md").exists()
+    assert not (tmp_path / ".qoder" / "rules" / "graphify.md").exists()
+    settings_path = tmp_path / ".qoder" / "settings.json"
+    if settings_path.exists():
+        settings = _json.loads(settings_path.read_text())
+        hooks = settings.get("hooks", {}).get("PreToolUse", [])
+        assert not any("graphify" in str(h) for h in hooks)
+
+
+def test_qoder_uninstall_noop_if_not_installed(tmp_path):
+    """qoder uninstall does nothing if never installed."""
+    from graphify.__main__ import _qoder_uninstall
+    _qoder_uninstall(tmp_path)  # should not raise
