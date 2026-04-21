@@ -92,6 +92,17 @@ def test_install_creates_post_checkout_hook(tmp_path):
     assert _CHECKOUT_MARKER in hook.read_text()
 
 
+def test_install_allows_homebrew_python_paths(tmp_path):
+    repo = _make_git_repo(tmp_path)
+    install(repo)
+    expected_allowlist = '*[!a-zA-Z0-9/_.@-]*) GRAPHIFY_PYTHON="" ;;'
+    post_commit_hook = repo / ".git" / "hooks" / "post-commit"
+    post_checkout_hook = repo / ".git" / "hooks" / "post-checkout"
+
+    assert expected_allowlist in post_commit_hook.read_text()
+    assert expected_allowlist in post_checkout_hook.read_text()
+
+
 def test_install_post_checkout_is_executable(tmp_path):
     repo = _make_git_repo(tmp_path)
     install(repo)
