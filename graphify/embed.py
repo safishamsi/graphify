@@ -62,7 +62,7 @@ def embed_graph(G, cache_path: Path, threshold: float = 0.82) -> int:
                     relation="semantically_similar_to",
                     confidence="INFERRED",
                     confidence_score=round(score, 4),
-                    source="embeddings"
+                    provenance="embeddings"
                 )
                 edges_added += 1
 
