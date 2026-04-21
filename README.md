@@ -52,8 +52,12 @@ Every relationship is tagged `EXTRACTED` (found directly in source), `INFERRED` 
 
 ```bash
 pip install graphifyy && graphify install
+
 # or with pipx (keeps the CLI isolated from your project environments)
 pipx install graphifyy && graphify install
+
+# or with uvx (keeps the CLI isolated from your project environments)
+uvx --from graphifyy graphify install --platform opencode 
 ```
 
 > **Official package:** The PyPI package is named `graphifyy` (install with `pip install graphifyy`). Other packages named `graphify*` on PyPI are not affiliated with this project. The only official repository is [safishamsi/graphify](https://github.com/safishamsi/graphify). The CLI and skill command are still `graphify`.
