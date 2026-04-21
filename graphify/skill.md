@@ -542,8 +542,31 @@ G = build_from_json(extraction)
 communities = {int(k): v for k, v in analysis['communities'].items()}
 labels = {int(k): v for k, v in labels_raw.items()}
 
-if G.number_of_nodes() > 5000:
-    print(f'Graph has {G.number_of_nodes()} nodes - too large for HTML viz. Use Obsidian vault instead.')
+NODE_LIMIT = 5000
+if G.number_of_nodes() > NODE_LIMIT:
+    print(f'Graph has {G.number_of_nodes()} nodes — above {NODE_LIMIT} limit. Generating aggregated community view...')
+    import networkx as nx
+    # Build a meta-graph: one node per community, edges weighted by inter-community edge count
+    meta = nx.Graph()
+    node_to_community = {}
+    for cid, members in communities.items():
+        for nid in members:
+            node_to_community[nid] = cid
+    for cid, members in communities.items():
+        label = labels.get(cid, f'Community {cid}')
+        meta.add_node(cid, label=label, size=len(members), member_count=len(members))
+    for u, v in G.edges():
+        cu = node_to_community.get(u)
+        cv = node_to_community.get(v)
+        if cu is not None and cv is not None and cu != cv:
+            if meta.has_edge(cu, cv):
+                meta[cu][cv]['weight'] = meta[cu][cv].get('weight', 1) + 1
+            else:
+                meta.add_edge(cu, cv, weight=1)
+    meta_communities = {cid: [cid] for cid in communities}
+    to_html(meta, meta_communities, 'graphify-out/graph.html', community_labels=labels or None)
+    print(f'graph.html written (aggregated view — {meta.number_of_nodes()} community nodes, each represents a cluster of the full graph)')
+    print('Tip: run with --obsidian for full node-level navigation of large graphs.')
 else:
     to_html(G, communities, 'graphify-out/graph.html', community_labels=labels or None)
     print('graph.html written - open in any browser, no server needed')
