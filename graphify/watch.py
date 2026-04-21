@@ -58,6 +58,31 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
             except Exception:
                 pass  # corrupt graph.json - proceed with AST-only
 
+        # Inject persistent cross-file edges
+        cross_edges_path = out / "cross_edges.json"
+        if cross_edges_path.exists():
+            try:
+                cross_data = json.loads(cross_edges_path.read_text(encoding="utf-8"))
+                cross_edges = cross_data.get("edges", [])
+                merged_node_ids = {n["id"] for n in result["nodes"]}
+                existing_edge_keys = {
+                    (e.get("source"), e.get("target"), e.get("relation"))
+                    for e in result["edges"]
+                }
+                injected = 0
+                for edge in cross_edges:
+                    src, tgt = edge.get("source"), edge.get("target")
+                    rel = edge.get("relation", "")
+                    if src in merged_node_ids and tgt in merged_node_ids:
+                        if (src, tgt, rel) not in existing_edge_keys:
+                            result["edges"].append(edge)
+                            existing_edge_keys.add((src, tgt, rel))
+                            injected += 1
+                if injected:
+                    print(f"[graphify watch] Injected {injected} cross-file edge(s) from cross_edges.json")
+            except Exception:
+                pass  # malformed cross_edges.json -- skip silently
+
         detection = {
             "files": {"code": [str(f) for f in code_files], "document": [], "paper": [], "image": []},
             "total_files": len(code_files),

@@ -936,6 +936,12 @@ def main() -> None:
         print("    --type T                query type: query|path_query|explain (default: query)")
         print("    --nodes N1 N2 ...       source node labels cited in the answer")
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
+        print("  edges list              list persistent cross-file edges")
+        print("  edges add S R T         add cross-file edge (source relation target)")
+        print("    --note \"...\"            optional description")
+        print("    --score N               confidence score (default 0.9)")
+        print("  edges remove S R T      remove a cross-file edge")
+        print("  edges prune             remove edges where nodes no longer exist")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
@@ -1361,6 +1367,152 @@ def main() -> None:
                 pass
         result = run_benchmark(graph_path, corpus_words=corpus_words)
         print_benchmark(result)
+    elif cmd == "edges":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+
+        if subcmd == "list":
+            cross_path = Path("graphify-out/cross_edges.json")
+            if not cross_path.exists():
+                print("No cross_edges.json found. Use 'graphify edges add' to create one.")
+                sys.exit(0)
+            data = json.loads(cross_path.read_text(encoding="utf-8"))
+            edges = data.get("edges", [])
+            print(f"{len(edges)} cross-file edge(s):")
+            for e in edges:
+                conf = e.get("confidence_score", "?")
+                note = f" -- {e['note']}" if e.get("note") else ""
+                print(f"  {e['source']} --{e['relation']}--> {e['target']} [{conf}]{note}")
+
+        elif subcmd == "add":
+            if len(sys.argv) < 6:
+                print("Usage: graphify edges add <source> <relation> <target> [--note '...'] [--score 0.95]", file=sys.stderr)
+                sys.exit(1)
+            source_id = sys.argv[3]
+            relation = sys.argv[4]
+            target_id = sys.argv[5]
+            note = ""
+            score = 0.9
+            args = sys.argv[6:]
+            i = 0
+            while i < len(args):
+                if args[i] == "--note" and i + 1 < len(args):
+                    note = args[i + 1]; i += 2
+                elif args[i] == "--score" and i + 1 < len(args):
+                    score = float(args[i + 1]); i += 2
+                else:
+                    i += 1
+
+            # Validate nodes exist in current graph
+            graph_path = Path("graphify-out/graph.json")
+            if graph_path.exists():
+                g = json.loads(graph_path.read_text(encoding="utf-8"))
+                node_ids = {n["id"] for n in g.get("nodes", [])}
+                if source_id not in node_ids:
+                    print(f"Warning: source node '{source_id}' not found in current graph", file=sys.stderr)
+                if target_id not in node_ids:
+                    print(f"Warning: target node '{target_id}' not found in current graph", file=sys.stderr)
+
+            # Load or create cross_edges.json
+            cross_path = Path("graphify-out/cross_edges.json")
+            if cross_path.exists():
+                data = json.loads(cross_path.read_text(encoding="utf-8"))
+            else:
+                cross_path.parent.mkdir(parents=True, exist_ok=True)
+                data = {"version": 1, "description": "Persistent cross-file edges that survive AST rebuilds", "edges": []}
+
+            # Check for duplicate
+            for e in data["edges"]:
+                if e["source"] == source_id and e["target"] == target_id and e["relation"] == relation:
+                    print(f"Edge already exists: {source_id} --{relation}--> {target_id}")
+                    sys.exit(0)
+
+            from datetime import datetime, timezone
+            edge = {
+                "source": source_id,
+                "target": target_id,
+                "relation": relation,
+                "confidence": "INFERRED",
+                "confidence_score": score,
+                "source_file": "cross_edges.json",
+                "source_location": None,
+                "weight": 1.0,
+                "origin": "manual",
+                "added_at": datetime.now(timezone.utc).isoformat(),
+            }
+            if note:
+                edge["note"] = note
+
+            data["edges"].append(edge)
+            cross_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+            print(f"Added: {source_id} --{relation}--> {target_id} [{score}]")
+            print(f"Total: {len(data['edges'])} cross-file edge(s)")
+            print("Run 'graphify update .' or rebuild to apply.")
+
+        elif subcmd == "remove":
+            if len(sys.argv) < 6:
+                print("Usage: graphify edges remove <source> <relation> <target>", file=sys.stderr)
+                sys.exit(1)
+            source_id = sys.argv[3]
+            relation = sys.argv[4]
+            target_id = sys.argv[5]
+
+            cross_path = Path("graphify-out/cross_edges.json")
+            if not cross_path.exists():
+                print("No cross_edges.json found.")
+                sys.exit(0)
+
+            data = json.loads(cross_path.read_text(encoding="utf-8"))
+            before = len(data["edges"])
+            data["edges"] = [
+                e for e in data["edges"]
+                if not (e["source"] == source_id and e["target"] == target_id and e["relation"] == relation)
+            ]
+            after = len(data["edges"])
+
+            if before == after:
+                print(f"Edge not found: {source_id} --{relation}--> {target_id}")
+            else:
+                cross_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+                print(f"Removed: {source_id} --{relation}--> {target_id}")
+                print(f"Remaining: {after} cross-file edge(s)")
+
+        elif subcmd == "prune":
+            cross_path = Path("graphify-out/cross_edges.json")
+            graph_path = Path("graphify-out/graph.json")
+            if not cross_path.exists():
+                print("No cross_edges.json found.")
+                sys.exit(0)
+            if not graph_path.exists():
+                print("No graph.json found. Build the graph first.", file=sys.stderr)
+                sys.exit(1)
+
+            g = json.loads(graph_path.read_text(encoding="utf-8"))
+            node_ids = {n["id"] for n in g.get("nodes", [])}
+            data = json.loads(cross_path.read_text(encoding="utf-8"))
+
+            before = len(data["edges"])
+            data["edges"] = [
+                e for e in data["edges"]
+                if e["source"] in node_ids and e["target"] in node_ids
+            ]
+            after = len(data["edges"])
+
+            cross_path.write_text(json.dumps(data, indent=2), encoding="utf-8")
+            pruned = before - after
+            if pruned:
+                print(f"Pruned {pruned} stale edge(s) (nodes no longer in graph)")
+            print(f"Remaining: {after} cross-file edge(s)")
+
+        else:
+            print("Usage: graphify edges <list|add|remove|prune>", file=sys.stderr)
+            print("  edges list              list persistent cross-file edges", file=sys.stderr)
+            print("  edges add S R T         add cross-file edge (source relation target)", file=sys.stderr)
+            print("    --note \"...\"            optional description", file=sys.stderr)
+            print("    --score N               confidence score (default 0.9)", file=sys.stderr)
+            print("  edges remove S R T      remove a cross-file edge", file=sys.stderr)
+            print("  edges prune             remove edges where nodes no longer exist", file=sys.stderr)
+            sys.exit(1)
+
     else:
         print(f"error: unknown command '{cmd}'", file=sys.stderr)
         print("Run 'graphify --help' for usage.", file=sys.stderr)
