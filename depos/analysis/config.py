@@ -38,7 +38,7 @@ class BundleBudget(BaseModel):
     path_aliases: dict[str, str] = Field(default_factory=dict)
     min_snippet_chars: int = 80
     min_evidence_quality_for_reasoner: str = "embedded"  # full | embedded | label_only
-    min_evidence_score_for_reasoner: float = 0.25
+    min_evidence_score_for_reasoner: float = 0.00
 
 
 class ReasonerProviderConfig(BaseModel):
