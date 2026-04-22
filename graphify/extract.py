@@ -1499,6 +1499,220 @@ def extract_dart(path: Path) -> dict:
 
     return {"nodes": nodes, "edges": edges}
 
+#---------------------------------------------------------------
+"""extract_sql — SQL language extractor for graphify.
+
+Drop extract_sql() into graphify/extract.py, then:
+  1. Add ".sql": extract_sql  to _DISPATCH in extract()
+  2. Add ".sql" to CODE_EXTENSIONS in detect.py  (watch.py picks it up automatically)
+  3. Add "tree-sitter-sql" to pyproject.toml dependencies
+  4. Add fixture + tests (see tests/fixtures/ecommerce.sql and tests/test_languages.py)
+"""
+
+
+def extract_sql(path: Path) -> dict:
+    """Extract schema objects and relationships from a .sql file using tree-sitter-sql.
+
+    Nodes:
+        table   — CREATE TABLE statements
+        view    — CREATE VIEW statements
+        index   — CREATE INDEX statements
+        column  — column definitions inside a table
+
+    Edges (EXTRACTED unless noted):
+        has_column    table → column
+        references    column → foreign-key target table  (FOREIGN KEY / REFERENCES)
+        indexed_on    index → table
+        joins         view → table (FROM + JOIN clauses)  INFERRED 0.9
+        rationale_for leading -- comment → next schema object
+    """
+    try:
+        import tree_sitter_sql as tssql
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree_sitter_sql not installed"}
+
+    try:
+        SQL_LANG = Language(tssql.language())
+        parser = Parser(SQL_LANG)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+    except Exception as exc:
+        return {"nodes": [], "edges": [], "error": str(exc)}
+
+    str_path = str(path)
+    stem = path.stem
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+
+    # ── helpers ────────────────────────────────────────────────────────────────
+
+    def _text(node) -> str:
+        return node.text.decode("utf-8", errors="replace").strip()
+
+    def _loc(node) -> str:
+        return f"L{node.start_point[0] + 1}"
+
+    def _nid(kind: str, name: str) -> str:
+        from graphify.extract import _make_id  # reuse graphify's ID normaliser
+        return _make_id(stem, kind, name)
+
+    def _add_node(nid: str, label: str, loc: str) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({
+                "id": nid,
+                "label": label,
+                "file_type": "code",
+                "source_file": str_path,
+                "source_location": loc,
+                "confidence_score": 1.0,
+            })
+
+    def _add_edge(src: str, tgt: str, relation: str, loc: str,
+                  confidence: str = "EXTRACTED", score: float = 1.0) -> None:
+        edges.append({
+            "source": src,
+            "target": tgt,
+            "relation": relation,
+            "confidence": confidence,
+            "confidence_score": score,
+            "source_file": str_path,
+            "source_location": loc,
+            "weight": 1.0,
+        })
+
+    def _find_first(node, *types):
+        for child in node.children:
+            if child.type in types:
+                return child
+            found = _find_first(child, *types)
+            if found:
+                return found
+        return None
+
+    def _find_all(node, target_type: str, results=None):
+        if results is None:
+            results = []
+        for child in node.children:
+            if child.type == target_type:
+                results.append(child)
+            _find_all(child, target_type, results)
+        return results
+
+    # ── walk top-level statements ─────────────────────────────────────────────
+
+    pending_comment: str | None = None
+
+    def _flush_comment(target_id: str, loc: str) -> None:
+        nonlocal pending_comment
+        if pending_comment:
+            from graphify.extract import _make_id
+            cmt_id = _make_id(stem, "comment", pending_comment[:60])
+            _add_node(cmt_id, pending_comment[:80], loc)
+            _add_edge(cmt_id, target_id, "rationale_for", loc)
+            pending_comment = None
+
+    for stmt_wrapper in tree.root_node.children:
+
+        # Top-level -- comments
+        if stmt_wrapper.type == "comment":
+            raw = _text(stmt_wrapper).lstrip("-").lstrip("/").lstrip("*").strip()
+            if raw:
+                pending_comment = raw
+            continue
+
+        if stmt_wrapper.type != "statement":
+            pending_comment = None
+            continue
+
+        for node in stmt_wrapper.children:
+
+            # ── CREATE TABLE ─────────────────────────────────────────────────
+            if node.type == "create_table":
+                obj_ref = _find_first(node, "object_reference")
+                if not obj_ref:
+                    continue
+                table_name = _text(obj_ref)
+                table_id = _nid("table", table_name)
+                loc = _loc(node)
+
+                _add_node(table_id, table_name, loc)
+                _flush_comment(table_id, loc)
+
+                col_defs = _find_first(node, "column_definitions")
+                if col_defs:
+                    for col_def in _find_all(col_defs, "column_definition"):
+                        col_name_node = _find_first(col_def, "identifier")
+                        if not col_name_node:
+                            continue
+                        col_name = _text(col_name_node)
+                        col_id = _nid("column", f"{table_name}_{col_name}")
+                        col_loc = _loc(col_def)
+
+                        _add_node(col_id, f"{table_name}.{col_name}", col_loc)
+                        _add_edge(table_id, col_id, "has_column", col_loc)
+
+                        # FK: column REFERENCES other_table
+                        col_child_types = [c.type for c in col_def.children]
+                        if "keyword_references" in col_child_types:
+                            ref_nodes = _find_all(col_def, "object_reference")
+                            if ref_nodes:
+                                fk_name = _text(ref_nodes[-1])
+                                fk_id = _nid("table", fk_name)
+                                _add_edge(col_id, fk_id, "references", col_loc)
+
+            # ── CREATE VIEW ──────────────────────────────────────────────────
+            elif node.type == "create_view":
+                obj_ref = _find_first(node, "object_reference")
+                if not obj_ref:
+                    continue
+                view_name = _text(obj_ref)
+                view_id = _nid("view", view_name)
+                loc = _loc(node)
+
+                _add_node(view_id, view_name, loc)
+                _flush_comment(view_id, loc)
+
+                # FROM base table
+                from_clause = _find_first(node, "from")
+                if from_clause:
+                    base_rel = _find_first(from_clause, "relation")
+                    if base_rel:
+                        base_ref = _find_first(base_rel, "object_reference")
+                        if base_ref:
+                            base_name = _text(base_ref)
+                            _add_edge(view_id, _nid("table", base_name),
+                                      "joins", loc, "INFERRED", 0.9)
+
+                # JOIN clauses
+                for join in _find_all(node, "join"):
+                    rel = _find_first(join, "relation")
+                    if rel:
+                        joined_ref = _find_first(rel, "object_reference")
+                        if joined_ref:
+                            joined_name = _text(joined_ref)
+                            _add_edge(view_id, _nid("table", joined_name),
+                                      "joins", _loc(join), "INFERRED", 0.9)
+
+            # ── CREATE INDEX ─────────────────────────────────────────────────
+            elif node.type == "create_index":
+                idx_name_node = _find_first(node, "identifier")
+                tbl_ref = _find_first(node, "object_reference")
+                if not idx_name_node or not tbl_ref:
+                    continue
+                idx_name = _text(idx_name_node)
+                tbl_name = _text(tbl_ref)
+                idx_id = _nid("index", idx_name)
+                loc = _loc(node)
+
+                _add_node(idx_id, idx_name, loc)
+                _flush_comment(idx_id, loc)
+                _add_edge(idx_id, _nid("table", tbl_name), "indexed_on", loc)
+
+    return {"nodes": nodes, "edges": edges}
+
 
 def extract_verilog(path: Path) -> dict:
     """Extract modules, functions, tasks, package imports, and instantiations from .v/.sv files."""
@@ -3137,6 +3351,7 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
         ".dart": extract_dart,
         ".v": extract_verilog,
         ".sv": extract_verilog,
+        ".sql": extract_sql,
     }
 
     total = len(paths)
