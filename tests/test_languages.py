@@ -1,11 +1,11 @@
-"""Tests for language extractors: Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift, Go, Julia."""
+"""Tests for language extractors: Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift, Go, Julia, Dart."""
 from __future__ import annotations
 from pathlib import Path
 import pytest
 from graphify.extract import (
     extract_java, extract_c, extract_cpp, extract_ruby,
     extract_csharp, extract_kotlin, extract_scala, extract_php,
-    extract_swift, extract_go, extract_julia,
+    extract_swift, extract_go, extract_julia, extract_dart,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -557,6 +557,55 @@ def test_julia_finds_calls():
 
 def test_julia_no_dangling_edges():
     r = extract_julia(FIXTURES / "sample.jl")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids, f"Dangling source: {e}"
+
+
+# ── Dart ─────────────────────────────────────────────────────────────────────
+
+def test_dart_no_error():
+    r = extract_dart(FIXTURES / "sample.dart")
+    assert "error" not in r
+
+def test_dart_finds_class():
+    r = extract_dart(FIXTURES / "sample.dart")
+    assert any("DataProcessor" in l for l in _labels(r))
+
+def test_dart_finds_abstract_class():
+    r = extract_dart(FIXTURES / "sample.dart")
+    assert any("Processor" in l for l in _labels(r))
+
+def test_dart_finds_mixin():
+    r = extract_dart(FIXTURES / "sample.dart")
+    assert any("Logger" in l for l in _labels(r))
+
+def test_dart_finds_enum():
+    r = extract_dart(FIXTURES / "sample.dart")
+    assert any("Status" in l for l in _labels(r))
+
+def test_dart_finds_methods():
+    r = extract_dart(FIXTURES / "sample.dart")
+    labels = _labels(r)
+    assert any("addItem" in l for l in labels)
+    assert any("process" in l for l in labels)
+    assert any("validate" in l for l in labels)
+
+def test_dart_finds_function():
+    r = extract_dart(FIXTURES / "sample.dart")
+    assert any("createProcessor" in l for l in _labels(r))
+
+def test_dart_finds_imports():
+    r = extract_dart(FIXTURES / "sample.dart")
+    assert "imports" in _relations(r)
+
+def test_dart_finds_calls():
+    r = extract_dart(FIXTURES / "sample.dart")
+    call_edges = [e for e in r["edges"] if e["relation"] == "calls"]
+    assert len(call_edges) >= 1
+
+def test_dart_no_dangling_edges():
+    r = extract_dart(FIXTURES / "sample.dart")
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids, f"Dangling source: {e}"
