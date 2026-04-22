@@ -544,29 +544,33 @@ labels = {int(k): v for k, v in labels_raw.items()}
 
 NODE_LIMIT = 5000
 if G.number_of_nodes() > NODE_LIMIT:
-    print(f'Graph has {G.number_of_nodes()} nodes — above {NODE_LIMIT} limit. Generating aggregated community view...')
     import networkx as nx
-    # Build a meta-graph: one node per community, edges weighted by inter-community edge count
-    meta = nx.Graph()
+    from collections import Counter
+    print(f'Graph has {G.number_of_nodes()} nodes (above {NODE_LIMIT} limit). Building aggregated community view...')
     node_to_community = {}
     for cid, members in communities.items():
         for nid in members:
             node_to_community[nid] = cid
+    meta = nx.Graph()
     for cid, members in communities.items():
         label = labels.get(cid, f'Community {cid}')
-        meta.add_node(cid, label=label, size=len(members), member_count=len(members))
+        meta.add_node(str(cid), label=label)
+    edge_counts = Counter()
     for u, v in G.edges():
         cu = node_to_community.get(u)
         cv = node_to_community.get(v)
         if cu is not None and cv is not None and cu != cv:
-            if meta.has_edge(cu, cv):
-                meta[cu][cv]['weight'] = meta[cu][cv].get('weight', 1) + 1
-            else:
-                meta.add_edge(cu, cv, weight=1)
-    meta_communities = {cid: [cid] for cid in communities}
-    to_html(meta, meta_communities, 'graphify-out/graph.html', community_labels=labels or None)
-    print(f'graph.html written (aggregated view — {meta.number_of_nodes()} community nodes, each represents a cluster of the full graph)')
-    print('Tip: run with --obsidian for full node-level navigation of large graphs.')
+            edge_counts[(min(cu, cv), max(cu, cv))] += 1
+    for (cu, cv), w in edge_counts.items():
+        meta.add_edge(str(cu), str(cv), weight=w, relation=f'{w} cross-community edges', confidence='AGGREGATED')
+    if meta.number_of_nodes() <= 1:
+        print('All nodes belong to a single community — aggregated view not useful. Skipping graph.html.')
+    else:
+        meta_communities = {cid: [str(cid)] for cid in communities}
+        member_counts = {cid: len(members) for cid, members in communities.items()}
+        to_html(meta, meta_communities, 'graphify-out/graph.html', community_labels=labels or None, member_counts=member_counts)
+        print(f'graph.html written (aggregated: {meta.number_of_nodes()} community nodes, {meta.number_of_edges()} cross-community edges)')
+        print('Tip: run with --obsidian for full node-level detail.')
 else:
     to_html(G, communities, 'graphify-out/graph.html', community_labels=labels or None)
     print('graph.html written - open in any browser, no server needed')
