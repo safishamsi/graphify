@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://graphifylabs.ai"><img src="https://raw.githubusercontent.com/safishamsi/graphify/v4/docs/logo-text.svg" width="260" height="64" alt="Graphify"/></a>
+  <a href="https://graphifylabs.ai"><img src="docs/readme-banner.png" width="100%" alt="Graphify README Banner"/></a>
 </p>
 
 <p align="center">
