@@ -90,6 +90,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".openclaw") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
+    "nanobot": {
+        "skill_file": "skill-nanobot.md",
+        "skill_dst": Path(".nanobot") / "workspace" / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
     "droid": {
         "skill_file": "skill-droid.md",
         "skill_dst": Path(".factory") / "skills" / "graphify" / "SKILL.md",
@@ -1061,7 +1066,7 @@ def main() -> None:
         else:
             print("Usage: graphify kiro [install|uninstall]", file=sys.stderr)
             sys.exit(1)
-    elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
+    elif cmd in ("aider", "codex", "opencode", "claw", "nanobot", "droid", "trae", "trae-cn", "hermes"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
             _agents_install(Path("."), cmd)
