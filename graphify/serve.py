@@ -8,6 +8,32 @@ from networkx.readwrite import json_graph
 from graphify.security import sanitize_label
 
 
+def _auto_detect_layers(graph_path: str) -> str | None:
+    """Auto-detect layers.yaml if graphify-out/layers/ exists.
+
+    Returns the path to layers.yaml if found, otherwise None.
+    """
+    graph_dir = Path(graph_path).resolve().parent
+    layers_dir = graph_dir / "layers"
+    if not layers_dir.is_dir():
+        return None
+
+    candidates = [
+        graph_dir / "layers.yaml",
+        graph_dir.parent / "layers.yaml",
+    ]
+    for candidate in candidates:
+        if candidate.exists():
+            try:
+                from .layer_config import load_layers
+                load_layers(candidate)
+                return str(candidate)
+            except Exception:
+                continue
+
+    return None
+
+
 def _load_graph(graph_path: str) -> nx.Graph:
     try:
         resolved = Path(graph_path).resolve()
@@ -117,6 +143,7 @@ def _find_node(G: nx.Graph, label: str) -> list[str]:
             or term == nid.lower()]
 
 
+
 def _filter_blank_stdin() -> None:
     """Filter blank lines from stdin before MCP reads it.
 
@@ -147,8 +174,14 @@ def _filter_blank_stdin() -> None:
     sys.stdin = open(0, "r", closefd=False)
 
 
-def serve(graph_path: str = "graphify-out/graph.json") -> None:
-    """Start the MCP server. Requires pip install mcp."""
+def serve(graph_path: str = "graphify-out/graph.json", layers_config_path: str | None = None) -> None:
+    """Start the MCP server. Requires pip install mcp.
+
+    When *layers_config_path* is provided, the server operates in multi-layer
+    mode: all layer graphs are loaded and queries are routed via
+    :class:`graphify.query_router.QueryRouter`.  When *layers_config_path* is
+    ``None`` (default), single-graph mode is used — 100% backward compatible.
+    """
     try:
         from mcp.server import Server
         from mcp.server.stdio import stdio_server
@@ -158,6 +191,32 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
     G = _load_graph(graph_path)
     communities = _communities_from_graph(G)
+
+    router = None
+    if layers_config_path is None:
+        layers_config_path = _auto_detect_layers(graph_path)
+
+    if layers_config_path is not None:
+        try:
+            from .layer_config import load_layers, LayerRegistry
+            from .query_router import QueryRouter
+
+            layers = load_layers(Path(layers_config_path))
+            registry = LayerRegistry(layers)
+            layer_graphs: dict[str, nx.Graph] = {}
+            layers_dir = Path(layers_config_path).parent / "graphify-out" / "layers"
+            for layer in layers:
+                gp = layers_dir / layer.id / "graph.json"
+                if gp.exists():
+                    try:
+                        layer_graphs[layer.id] = _load_graph(str(gp))
+                    except Exception:
+                        pass
+            if layer_graphs:
+                router = QueryRouter(registry, layer_graphs)
+        except Exception as exc:
+            print(f"[graphify] Warning: multi-layer mode failed: {exc}", file=sys.stderr)
+            router = None
 
     server = Server("graphify")
 
@@ -232,6 +291,25 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                     "required": ["source", "target"],
                 },
             ),
+            types.Tool(
+                name="layer_info",
+                description="List all layers with stats (multi-layer mode only).",
+                inputSchema={"type": "object", "properties": {}},
+            ),
+            types.Tool(
+                name="drill_down",
+                description="Query a specific layer by ID (multi-layer mode only).",
+                inputSchema={
+                    "type": "object",
+                    "properties": {
+                        "layer_id": {"type": "string", "description": "Layer ID to query"},
+                        "question": {"type": "string", "description": "Search question"},
+                        "depth": {"type": "integer", "default": 3},
+                        "token_budget": {"type": "integer", "default": 2000},
+                    },
+                    "required": ["layer_id", "question"],
+                },
+            ),
         ]
 
     def _tool_query_graph(arguments: dict) -> str:
@@ -239,6 +317,12 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         mode = arguments.get("mode", "bfs")
         depth = min(int(arguments.get("depth", 3)), 6)
         budget = int(arguments.get("token_budget", 2000))
+
+        if router is not None:
+            layer_id = router.route(question)
+            _, result = router.query(layer_id, question, mode=mode, depth=depth, token_budget=budget)
+            return result
+
         terms = [t.lower() for t in question.split() if len(t) > 2]
         scored = _score_nodes(G, terms)
         start_nodes = [nid for _, nid in scored[:3]]
@@ -346,6 +430,12 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         "god_nodes": _tool_god_nodes,
         "graph_stats": _tool_graph_stats,
         "shortest_path": _tool_shortest_path,
+        "layer_info": lambda _: router.layer_info() if router else "Not in multi-layer mode.",
+        "drill_down": lambda a: router.drill_down(
+            a["layer_id"], a["question"],
+            depth=int(a.get("depth", 3)),
+            token_budget=int(a.get("token_budget", 2000)),
+        ) if router else "Not in multi-layer mode.",
     }
 
     @server.call_tool()

@@ -906,6 +906,194 @@ def claude_uninstall(project_dir: Path | None = None) -> None:
     _uninstall_claude_hook(project_dir or Path("."))
 
 
+def _handle_build_command(args: list[str]) -> None:
+    """Handle the ``graphify build`` sub-command."""
+    import argparse as _ap
+
+    p = _ap.ArgumentParser(prog="graphify build")
+    p.add_argument("--layers", type=str, default=None, help="Path to layers.yaml for layered build")
+    p.add_argument("--layer", type=str, default=None, help="Rebuild only the specified layer (requires --layers)")
+    opts = p.parse_args(args)
+
+    if opts.layers is None and opts.layer is not None:
+        print("error: --layer requires --layers", file=sys.stderr)
+        sys.exit(1)
+
+    if opts.layers is not None:
+        layers_path = Path(opts.layers)
+        if not layers_path.exists():
+            print(
+                f"error: layers config file not found: {layers_path}\n"
+                f"Create a layers.yaml file and try again.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        try:
+            from graphify.layer_pipeline import build_layers
+            build_layers(layers_path, target_layer=opts.layer)
+            print("[graphify] Layer build complete.")
+        except (ValueError, ImportError) as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            sys.exit(1)
+    else:
+        print("error: no sources specified. Use --layers <path> for layered build.", file=sys.stderr)
+        sys.exit(1)
+
+
+def _load_layer_graph(graph_path: Path):
+    import json as _json
+    from networkx.readwrite import json_graph as _jg
+    if not graph_path.exists():
+        return None
+    try:
+        raw = _json.loads(graph_path.read_text(encoding="utf-8"))
+        try:
+            return _jg.node_link_graph(raw, edges="links")
+        except TypeError:
+            return _jg.node_link_graph(raw)
+    except Exception:
+        return None
+
+
+def _handle_layer_info(args: list[str]) -> None:
+    import argparse as _ap
+    from graphify.layer_config import load_layers, LayerRegistry
+    from graphify.cluster import cluster
+
+    p = _ap.ArgumentParser(prog="graphify layer-info")
+    p.add_argument("--layers", type=str, required=True, help="Path to layers.yaml")
+    opts = p.parse_args(args)
+
+    layers_path = Path(opts.layers)
+    if not layers_path.exists():
+        print(f"error: layers config not found: {layers_path}", file=sys.stderr)
+        sys.exit(1)
+
+    layers = load_layers(layers_path)
+    registry = LayerRegistry(layers)
+    out_root = layers_path.parent / "graphify-out" / "layers"
+
+    header = f"{'ID':<8} {'Name':<20} {'Nodes':>6} {'Edges':>6} {'Comm':>5} {'Status':<12}"
+    print(header)
+    print("-" * len(header))
+
+    for layer in layers:
+        graph_path = out_root / layer.id / "graph.json"
+        G = _load_layer_graph(graph_path)
+        if G is not None:
+            try:
+                communities = cluster(G)
+                n_comm = len(communities)
+            except Exception:
+                n_comm = 0
+            print(
+                f"{layer.id:<8} {layer.name:<20} {G.number_of_nodes():>6} "
+                f"{G.number_of_edges():>6} {n_comm:>5} {'built':<12}"
+            )
+        else:
+            print(f"{layer.id:<8} {layer.name:<20} {'-':>6} {'-':>6} {'-':>5} {'not built':<12}")
+
+
+def _handle_layer_tree(args: list[str]) -> None:
+    import argparse as _ap
+    from graphify.layer_config import load_layers, LayerRegistry
+
+    p = _ap.ArgumentParser(prog="graphify layer-tree")
+    p.add_argument("--layers", type=str, required=True, help="Path to layers.yaml")
+    opts = p.parse_args(args)
+
+    layers_path = Path(opts.layers)
+    if not layers_path.exists():
+        print(f"error: layers config not found: {layers_path}", file=sys.stderr)
+        sys.exit(1)
+
+    layers = load_layers(layers_path)
+    registry = LayerRegistry(layers)
+    out_root = layers_path.parent / "graphify-out" / "layers"
+
+    def _print_tree(layer_id: str, prefix: str, is_last: bool) -> None:
+        layer = registry.get_layer_by_id(layer_id)
+        connector = "└── " if is_last else "├── "
+        graph_path = out_root / layer_id / "graph.json"
+        G = _load_layer_graph(graph_path)
+        if G is not None:
+            stats = f"({G.number_of_nodes()} nodes, {G.number_of_edges()} edges)"
+        else:
+            stats = "(not built)"
+        print(f"{prefix}{connector}{layer_id}: {layer.name} {stats}")
+
+        children = registry.get_children(layer_id)
+        child_prefix = prefix + ("    " if is_last else "│   ")
+        for idx, child in enumerate(children):
+            _print_tree(child.id, child_prefix, idx == len(children) - 1)
+
+    roots = [l for l in layers if l.parent_id is None]
+    for idx, root in enumerate(roots):
+        _print_tree(root.id, "", idx == len(roots) - 1)
+
+
+def _handle_layer_diff(args: list[str]) -> None:
+    import argparse as _ap
+    from graphify.layer_config import load_layers, LayerRegistry
+    from graphify.build import graph_diff
+
+    p = _ap.ArgumentParser(prog="graphify layer-diff")
+    p.add_argument("id1", type=str, help="First layer ID")
+    p.add_argument("id2", type=str, help="Second layer ID")
+    p.add_argument("--layers", type=str, required=True, help="Path to layers.yaml")
+    opts = p.parse_args(args)
+
+    layers_path = Path(opts.layers)
+    if not layers_path.exists():
+        print(f"error: layers config not found: {layers_path}", file=sys.stderr)
+        sys.exit(1)
+
+    layers = load_layers(layers_path)
+    registry = LayerRegistry(layers)
+    out_root = layers_path.parent / "graphify-out" / "layers"
+
+    for lid in (opts.id1, opts.id2):
+        try:
+            registry.get_layer_by_id(lid)
+        except KeyError:
+            valid = sorted(registry._by_id.keys())
+            print(f"error: layer '{lid}' not found. Valid IDs: {', '.join(valid)}", file=sys.stderr)
+            sys.exit(1)
+
+    G1 = _load_layer_graph(out_root / opts.id1 / "graph.json")
+    G2 = _load_layer_graph(out_root / opts.id2 / "graph.json")
+
+    if G1 is None:
+        print(f"error: layer '{opts.id1}' has not been built yet", file=sys.stderr)
+        sys.exit(1)
+    if G2 is None:
+        print(f"error: layer '{opts.id2}' has not been built yet", file=sys.stderr)
+        sys.exit(1)
+
+    diff = graph_diff(G1, G2)
+    print(f"Diff: {opts.id1} → {opts.id2}")
+    print(f"  Nodes only in {opts.id1}: {len(diff['nodes_only_in_a'])}")
+    print(f"  Nodes only in {opts.id2}: {len(diff['nodes_only_in_b'])}")
+    print(f"  Common nodes: {len(diff['common_nodes'])}")
+    print(f"  Edges only in {opts.id1}: {len(diff['edges_only_in_a'])}")
+    print(f"  Edges only in {opts.id2}: {len(diff['edges_only_in_b'])}")
+    print(f"  Common edges: {len(diff['common_edges'])}")
+
+    if diff["nodes_only_in_a"]:
+        labels = []
+        for nid in list(diff["nodes_only_in_a"])[:10]:
+            label = G1.nodes[nid].get("label", nid) if nid in G1 else nid
+            labels.append(label)
+        print(f"  Sample nodes in {opts.id1}: {', '.join(labels)}")
+
+    if diff["nodes_only_in_b"]:
+        labels = []
+        for nid in list(diff["nodes_only_in_b"])[:10]:
+            label = G2.nodes[nid].get("label", nid) if nid in G2 else nid
+            labels.append(label)
+        print(f"  Sample nodes in {opts.id2}: {', '.join(labels)}")
+
+
 def main() -> None:
     # Check all known skill install locations for a stale version stamp.
     # Skip during install/uninstall (hook writes trigger a fresh check anyway).
@@ -941,6 +1129,12 @@ def main() -> None:
         print("    --nodes N1 N2 ...       source node labels cited in the answer")
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
+        print("  build                   build knowledge graph from sources")
+        print("    --layers <path>         use layered build pipeline with layers.yaml config")
+        print("    --layer <id>            rebuild only the specified layer (requires --layers)")
+        print("  layer-info --layers <path>  show layer stats in table format")
+        print("  layer-tree --layers <path>  show layer hierarchy as ASCII tree")
+        print("  layer-diff <id1> <id2> --layers <path>  compare two layers")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
         print("  hook status             check if git hooks are installed")
@@ -1095,7 +1289,7 @@ def main() -> None:
             sys.exit(1)
     elif cmd == "query":
         if len(sys.argv) < 3:
-            print("Usage: graphify query \"<question>\" [--dfs] [--budget N] [--graph path]", file=sys.stderr)
+            print("Usage: graphify query \"<question>\" [--dfs] [--budget N] [--graph path] [--layers path] [--layer id] [--auto-zoom on|off]", file=sys.stderr)
             sys.exit(1)
         from graphify.serve import _score_nodes, _bfs, _dfs, _subgraph_to_text
         from graphify.security import sanitize_label
@@ -1104,6 +1298,9 @@ def main() -> None:
         use_dfs = "--dfs" in sys.argv
         budget = 2000
         graph_path = "graphify-out/graph.json"
+        layers_path = None
+        layer_id = None
+        auto_zoom = True
         args = sys.argv[3:]
         i = 0
         while i < len(args):
@@ -1123,34 +1320,82 @@ def main() -> None:
                 i += 1
             elif args[i] == "--graph" and i + 1 < len(args):
                 graph_path = args[i + 1]; i += 2
+            elif args[i] == "--layers" and i + 1 < len(args):
+                layers_path = args[i + 1]; i += 2
+            elif args[i].startswith("--layers="):
+                layers_path = args[i].split("=", 1)[1]; i += 1
+            elif args[i] == "--layer" and i + 1 < len(args):
+                layer_id = args[i + 1]; i += 2
+            elif args[i].startswith("--layer="):
+                layer_id = args[i].split("=", 1)[1]; i += 1
+            elif args[i] == "--auto-zoom" and i + 1 < len(args):
+                auto_zoom = args[i + 1].lower() != "off"; i += 2
+            elif args[i].startswith("--auto-zoom="):
+                auto_zoom = args[i].split("=", 1)[1].lower() != "off"; i += 1
             else:
                 i += 1
-        gp = Path(graph_path).resolve()
-        if not gp.exists():
-            print(f"error: graph file not found: {gp}", file=sys.stderr)
-            sys.exit(1)
-        if not gp.suffix == ".json":
-            print(f"error: graph file must be a .json file", file=sys.stderr)
-            sys.exit(1)
-        try:
-            import json as _json
-            import networkx as _nx
-            _raw = _json.loads(gp.read_text(encoding="utf-8"))
+
+        if layers_path is not None:
+            from graphify.layer_config import load_layers, LayerRegistry
+            from graphify.query_router import QueryRouter
+            lp = Path(layers_path)
+            if not lp.exists():
+                print(f"error: layers config not found: {lp}", file=sys.stderr)
+                sys.exit(1)
+            layers = load_layers(lp)
+            registry = LayerRegistry(layers)
+            layer_graphs: dict = {}
+            layers_dir = lp.parent / "graphify-out" / "layers"
+            for layer_cfg in layers:
+                gp = layers_dir / layer_cfg.id / "graph.json"
+                if gp.exists():
+                    try:
+                        import json as _json
+                        import networkx as _nx
+                        _raw = _json.loads(gp.read_text(encoding="utf-8"))
+                        try:
+                            layer_graphs[layer_cfg.id] = json_graph.node_link_graph(_raw, edges="links")
+                        except TypeError:
+                            layer_graphs[layer_cfg.id] = json_graph.node_link_graph(_raw)
+                    except Exception:
+                        pass
+            if not layer_graphs:
+                print("error: no layer graphs found. Run 'graphify build --layers' first.", file=sys.stderr)
+                sys.exit(1)
+            router = QueryRouter(registry, layer_graphs)
+            if layer_id is not None:
+                print(router.drill_down(layer_id, question, token_budget=budget))
+            else:
+                routed_id = router.route(question)
+                _, result = router.query(routed_id, question, token_budget=budget, auto_zoom=auto_zoom)
+                print(result)
+        else:
+            gp = Path(graph_path).resolve()
+            if not gp.exists():
+                print(f"error: graph file not found: {gp}", file=sys.stderr)
+                sys.exit(1)
+            if not gp.suffix == ".json":
+                print(f"error: graph file must be a .json file", file=sys.stderr)
+                sys.exit(1)
             try:
-                G = json_graph.node_link_graph(_raw, edges="links")
-            except TypeError:
-                G = json_graph.node_link_graph(_raw)
-        except Exception as exc:
-            print(f"error: could not load graph: {exc}", file=sys.stderr)
-            sys.exit(1)
-        terms = [t.lower() for t in question.split() if len(t) > 2]
-        scored = _score_nodes(G, terms)
-        if not scored:
-            print("No matching nodes found.")
-            sys.exit(0)
-        start = [nid for _, nid in scored[:5]]
-        nodes, edges = (_dfs if use_dfs else _bfs)(G, start, depth=2)
-        print(_subgraph_to_text(G, nodes, edges, token_budget=budget))
+                import json as _json
+                import networkx as _nx
+                _raw = _json.loads(gp.read_text(encoding="utf-8"))
+                try:
+                    G = json_graph.node_link_graph(_raw, edges="links")
+                except TypeError:
+                    G = json_graph.node_link_graph(_raw)
+            except Exception as exc:
+                print(f"error: could not load graph: {exc}", file=sys.stderr)
+                sys.exit(1)
+            terms = [t.lower() for t in question.split() if len(t) > 2]
+            scored = _score_nodes(G, terms)
+            if not scored:
+                print("No matching nodes found.")
+                sys.exit(0)
+            start = [nid for _, nid in scored[:5]]
+            nodes, edges = (_dfs if use_dfs else _bfs)(G, start, depth=2)
+            print(_subgraph_to_text(G, nodes, edges, token_budget=budget))
     elif cmd == "save-result":
         # graphify save-result --question Q --answer A --type T [--nodes N1 N2 ...]
         import argparse as _ap
@@ -1365,6 +1610,14 @@ def main() -> None:
                 pass
         result = run_benchmark(graph_path, corpus_words=corpus_words)
         print_benchmark(result)
+    elif cmd == "build":
+        _handle_build_command(sys.argv[2:])
+    elif cmd == "layer-info":
+        _handle_layer_info(sys.argv[2:])
+    elif cmd == "layer-tree":
+        _handle_layer_tree(sys.argv[2:])
+    elif cmd == "layer-diff":
+        _handle_layer_diff(sys.argv[2:])
     else:
         print(f"error: unknown command '{cmd}'", file=sys.stderr)
         print("Run 'graphify --help' for usage.", file=sys.stderr)

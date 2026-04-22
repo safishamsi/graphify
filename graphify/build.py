@@ -105,3 +105,65 @@ def build(extractions: list[dict], *, directed: bool = False) -> nx.Graph:
         combined["input_tokens"] += ext.get("input_tokens", 0)
         combined["output_tokens"] += ext.get("output_tokens", 0)
     return build_from_json(combined, directed=directed)
+
+
+def merge_graphs(G_base: nx.Graph, G_overlay: nx.Graph, source_layer_id: str) -> nx.Graph:
+    """Merge an overlay (summary) graph into a base graph.
+
+    Overlay node IDs are prefixed with ``summary:<source_layer_id>:`` to avoid
+    collisions.  Every overlay node also gets a ``_source_layer`` attribute for
+    provenance tracking.  All node and edge attributes from both graphs are
+    preserved.
+    """
+    prefix = f"summary:{source_layer_id}:"
+    result = G_base.__class__()
+    result.graph.update(G_base.graph)
+
+    for nid, data in G_base.nodes(data=True):
+        result.add_node(nid, **data)
+
+    id_map: dict[str, str] = {}
+    for nid, data in G_overlay.nodes(data=True):
+        prefixed = f"{prefix}{nid}"
+        id_map[nid] = prefixed
+        merged_data = dict(data)
+        merged_data["_source_layer"] = source_layer_id
+        result.add_node(prefixed, **merged_data)
+
+    for u, v, data in G_overlay.edges(data=True):
+        new_u = id_map.get(u, u)
+        new_v = id_map.get(v, v)
+        result.add_edge(new_u, new_v, **data)
+
+    for u, v, data in G_base.edges(data=True):
+        if not result.has_edge(u, v):
+            result.add_edge(u, v, **data)
+
+    return result
+
+
+def graph_diff(G_a: nx.Graph, G_b: nx.Graph) -> dict:
+    """Compare two graphs and return structural differences.
+
+    Returns a dict with keys:
+    - nodes_only_in_a: set of node IDs only in G_a
+    - nodes_only_in_b: set of node IDs only in G_b
+    - common_nodes: set of node IDs in both graphs
+    - edges_only_in_a: set of edge tuples only in G_a
+    - edges_only_in_b: set of edge tuples only in G_b
+    - common_edges: set of edge tuples in both graphs
+    """
+    nodes_a = set(G_a.nodes())
+    nodes_b = set(G_b.nodes())
+
+    edges_a = set(G_a.edges())
+    edges_b = set(G_b.edges())
+
+    return {
+        "nodes_only_in_a": nodes_a - nodes_b,
+        "nodes_only_in_b": nodes_b - nodes_a,
+        "common_nodes": nodes_a & nodes_b,
+        "edges_only_in_a": edges_a - edges_b,
+        "edges_only_in_b": edges_b - edges_a,
+        "common_edges": edges_a & edges_b,
+    }
