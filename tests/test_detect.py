@@ -1,5 +1,16 @@
+import json
 from pathlib import Path
-from graphify.detect import classify_file, count_words, detect, FileType, _looks_like_paper, _is_ignored, _load_graphifyignore
+from graphify.detect import (
+    classify_file,
+    count_words,
+    detect,
+    detect_incremental,
+    FileType,
+    _looks_like_paper,
+    _is_ignored,
+    _load_graphifyignore,
+    load_manifest,
+)
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -236,3 +247,57 @@ def test_detect_video_not_in_words(tmp_path):
     result = detect(tmp_path)
     # Only video file present — total_words should be 0
     assert result["total_words"] == 0
+
+
+def test_detect_emits_posix_paths_for_nested_files(tmp_path):
+    """detect() must return forward-slash paths regardless of OS, so that
+    manifests written on one OS can be read on another. Previously returned
+    OS-native paths, which broke cross-platform --update runs."""
+    (tmp_path / "sub").mkdir()
+    (tmp_path / "sub" / "nested.md").write_text("# Nested")
+    result = detect(tmp_path)
+    nested_paths = [f for f in result["files"]["document"] if "nested.md" in f]
+    assert nested_paths, "nested.md not found"
+    for p in nested_paths:
+        assert "\\" not in p, f"detect() returned non-POSIX path: {p!r}"
+        assert "/" in p, f"detect() returned a path with no separator: {p!r}"
+
+
+def test_load_manifest_normalizes_windows_paths(tmp_path):
+    """load_manifest() must normalize backslash keys to forward-slash so old
+    Windows-built manifests can be read on macOS/Linux without treating every
+    file as both new and deleted."""
+    mpath = tmp_path / "manifest.json"
+    mpath.write_text(json.dumps({
+        "docs\\notes.md": 1700000000.0,
+        "data\\frame.md": 1700000100.0,
+    }))
+    loaded = load_manifest(str(mpath))
+    assert loaded == {
+        "docs/notes.md": 1700000000.0,
+        "data/frame.md": 1700000100.0,
+    }
+
+
+def test_incremental_reads_windows_manifest(tmp_path, monkeypatch):
+    """Simulate the real cross-platform bug: a Windows machine saved the
+    manifest with backslash paths, now a macOS machine runs --update. The
+    run should see zero new/deleted files, not full-rebuild + full-prune.
+
+    Manifests store paths relative to the working directory, so the test
+    chdir's into tmp_path to match how users actually invoke `graphify .`.
+    """
+    (tmp_path / "docs").mkdir()
+    a = tmp_path / "docs" / "a.md"
+    a.write_text("# A")
+    monkeypatch.chdir(tmp_path)
+    manifest_path = Path("graphify-out") / "manifest.json"
+    manifest_path.parent.mkdir(parents=True, exist_ok=True)
+    # Hand-build a manifest as Windows would have written it
+    manifest_path.write_text(json.dumps({
+        "docs\\a.md": a.stat().st_mtime,
+    }))
+
+    result = detect_incremental(Path("."), manifest_path=str(manifest_path))
+    assert result["new_total"] == 0, f"unexpectedly new: {result.get('new_files')}"
+    assert result["deleted_files"] == [], f"unexpectedly deleted: {result['deleted_files']}"

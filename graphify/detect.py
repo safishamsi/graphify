@@ -397,7 +397,7 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
         if _is_ignored(p, root, ignore_patterns):
             continue
         if _is_sensitive(p):
-            skipped_sensitive.append(str(p))
+            skipped_sensitive.append(p.as_posix())
             continue
         ftype = classify_file(p)
         if ftype:
@@ -405,13 +405,13 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
             if p.suffix.lower() in OFFICE_EXTENSIONS:
                 md_path = convert_office_file(p, converted_dir)
                 if md_path:
-                    files[ftype].append(str(md_path))
+                    files[ftype].append(md_path.as_posix())
                     total_words += count_words(md_path)
                 else:
                     # Conversion failed (library not installed) - skip with note
-                    skipped_sensitive.append(str(p) + " [office conversion failed - pip install graphifyy[office]]")
+                    skipped_sensitive.append(p.as_posix() + " [office conversion failed - pip install graphifyy[office]]")
                 continue
-            files[ftype].append(str(p))
+            files[ftype].append(p.as_posix())
             if ftype != FileType.VIDEO:
                 total_words += count_words(p)
 
@@ -444,11 +444,12 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
 
 
 def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict[str, float]:
-    """Load the file modification time manifest from a previous run."""
+    """Load the manifest; normalize legacy Windows backslash keys to POSIX."""
     try:
-        return json.loads(Path(manifest_path).read_text(encoding="utf-8"))
+        raw = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
     except Exception:
         return {}
+    return {k.replace("\\", "/"): v for k, v in raw.items()}
 
 
 def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PATH) -> None:
