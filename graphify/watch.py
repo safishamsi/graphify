@@ -13,6 +13,27 @@ _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAG
 _CODE_EXTENSIONS = CODE_EXTENSIONS
 
 
+def _report_root_label(watch_path: Path) -> str:
+    if watch_path.is_absolute():
+        return watch_path.name or str(watch_path)
+    return Path.cwd().name if watch_path == Path(".") else str(watch_path)
+
+
+def _relativize_source_files(payload: dict, root: Path) -> None:
+    for bucket in ("nodes", "edges", "hyperedges"):
+        for item in payload.get(bucket, []):
+            source = item.get("source_file")
+            if not source:
+                continue
+            source_path = Path(source)
+            if not source_path.is_absolute():
+                continue
+            try:
+                item["source_file"] = str(source_path.resolve().relative_to(root))
+            except ValueError:
+                continue
+
+
 def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, obsidian: bool = False) -> bool:
     """
     Perform a purely local (non-LLM) graph rebuild for code files.
@@ -25,7 +46,9 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, obsidian: 
         follow_symlinks: Whether to follow directory symlinks.
         obsidian: If True, also exports/refreshes the local Obsidian vault notes.
     """
-    watch_path = watch_path.resolve()
+    watch_root = watch_path.resolve()
+    project_root = Path.cwd().resolve() if not watch_path.is_absolute() else watch_root
+    report_root = _report_root_label(watch_path)
     try:
         from graphify.extract import extract
         from graphify.detect import detect
@@ -82,6 +105,8 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, obsidian: 
             except Exception:
                 pass  # corrupt graph.json - proceed with AST-only
 
+        _relativize_source_files(result, project_root)
+
         detection = {
             "files": {"code": [str(f) for f in code_files], "document": [], "paper": [], "image": []},
             "total_files": len(code_files),
@@ -99,7 +124,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, obsidian: 
         out.mkdir(exist_ok=True)
 
         report = generate(G, communities, cohesion, labels, gods, surprises, detection,
-                          {"input": 0, "output": 0}, str(watch_path), suggested_questions=questions)
+                          {"input": 0, "output": 0}, report_root, suggested_questions=questions)
         (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
         to_json(G, communities, str(out / "graph.json"))
 

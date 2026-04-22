@@ -199,7 +199,7 @@ _PLATFORM_CONFIG: dict[str, dict] = {
     },
     "antigravity": {
         "skill_file": "skill.md",
-        "skill_dst": Path(".agent") / "skills" / "graphify" / "SKILL.md",
+        "skill_dst": Path(".agents") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
     "windows": {
@@ -273,6 +273,7 @@ This project has a graphify knowledge graph at graphify-out/.
 Rules:
 - Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- For cross-module "how does X relate to Y" questions, prefer `graphify query "<question>"`, `graphify path "<A>" "<B>"`, or `graphify explain "<concept>"` over grep — these traverse the graph's EXTRACTED + INFERRED edges instead of scanning files
 - After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
 """
 
@@ -288,6 +289,7 @@ This project has a graphify knowledge graph at graphify-out/.
 Rules:
 - Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- For cross-module "how does X relate to Y" questions, prefer `graphify query "<question>"`, `graphify path "<A>" "<B>"`, or `graphify explain "<concept>"` over grep — these traverse the graph's EXTRACTED + INFERRED edges instead of scanning files
 - After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
 """
 
@@ -301,6 +303,7 @@ This project has a graphify knowledge graph at graphify-out/.
 Rules:
 - Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- For cross-module "how does X relate to Y" questions, prefer `graphify query "<question>"`, `graphify path "<A>" "<B>"`, or `graphify explain "<concept>"` over grep — these traverse the graph's EXTRACTED + INFERRED edges instead of scanning files
 - After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
 """
 
@@ -491,8 +494,8 @@ def vscode_uninstall(project_dir: Path | None = None) -> None:
         print(f"  {instructions}  ->  deleted (was empty after removal)")
 
 
-_ANTIGRAVITY_RULES_PATH = Path(".agent") / "rules" / "graphify.md"
-_ANTIGRAVITY_WORKFLOW_PATH = Path(".agent") / "workflows" / "graphify.md"
+_ANTIGRAVITY_RULES_PATH = Path(".agents") / "rules" / "graphify.md"
+_ANTIGRAVITY_WORKFLOW_PATH = Path(".agents") / "workflows" / "graphify.md"
 
 _ANTIGRAVITY_RULES = """\
 ## graphify
@@ -503,6 +506,7 @@ Rules:
 - Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
 - If the graphify MCP server is active, utilize tools like `query_graph`, `get_node`, and `shortest_path` for precise architecture navigation instead of falling back to `grep`
+- If the MCP server is not active, the CLI equivalents are `graphify query "<question>"`, `graphify path "<A>" "<B>"`, and `graphify explain "<concept>"` — prefer these over grep for cross-module questions
 - After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
 """
 
@@ -512,7 +516,7 @@ _ANTIGRAVITY_WORKFLOW = """\
 **Description:** Turn any folder of files into a navigable knowledge graph
 
 ## Steps
-Follow the graphify skill installed at ~/.agent/skills/graphify/SKILL.md to run the full pipeline.
+Follow the graphify skill installed at ~/.agents/skills/graphify/SKILL.md to run the full pipeline.
 
 If no path argument is given, use `.` (current directory).
 """
@@ -582,8 +586,8 @@ def _kiro_uninstall(project_dir: Path) -> None:
 
 
 def _antigravity_install(project_dir: Path) -> None:
-    """Install graphify for Google Antigravity: skill + .agent/rules + .agent/workflows."""
-    # 1. Copy skill file to ~/.agent/skills/graphify/SKILL.md
+    """Install graphify for Google Antigravity: skill + .agents/rules + .agents/workflows."""
+    # 1. Copy skill file to ~/.agents/skills/graphify/SKILL.md
     install(platform="antigravity")
 
     # 1.5. Inject YAML frontmatter for native Antigravity tool discovery
@@ -594,7 +598,7 @@ def _antigravity_install(project_dir: Path) -> None:
             frontmatter = "---\nname: graphify-manager\ndescription: Rebuild the code graph or perform manual CLI queries when MCP server is offline.\n---\n\n"
             skill_dst.write_text(frontmatter + content, encoding="utf-8")
 
-    # 2. Write .agent/rules/graphify.md
+    # 2. Write .agents/rules/graphify.md
     rules_path = project_dir / _ANTIGRAVITY_RULES_PATH
     rules_path.parent.mkdir(parents=True, exist_ok=True)
     if rules_path.exists():
@@ -603,7 +607,7 @@ def _antigravity_install(project_dir: Path) -> None:
         rules_path.write_text(_ANTIGRAVITY_RULES, encoding="utf-8")
         print(f"graphify rule written to {rules_path.resolve()}")
 
-    # 3. Write .agent/workflows/graphify.md
+    # 3. Write .agents/workflows/graphify.md
     wf_path = project_dir / _ANTIGRAVITY_WORKFLOW_PATH
     wf_path.parent.mkdir(parents=True, exist_ok=True)
     if wf_path.exists():
@@ -1054,8 +1058,8 @@ def main() -> None:
         print("  trae uninstall         remove graphify section from AGENTS.md")
         print("  trae-cn install         write graphify section to AGENTS.md (Trae CN)")
         print("  trae-cn uninstall      remove graphify section from AGENTS.md")
-        print("  antigravity install     write .agent/rules + .agent/workflows + skill (Google Antigravity)")
-        print("  antigravity uninstall   remove .agent/rules, .agent/workflows, and skill")
+        print("  antigravity install     write .agents/rules + .agents/workflows + skill (Google Antigravity)")
+        print("  antigravity uninstall   remove .agents/rules, .agents/workflows, and skill")
         print("  hermes install          write skill to ~/.hermes/skills/graphify/ (Hermes)")
         print("  hermes uninstall        remove skill from ~/.hermes/skills/graphify/")
         print("  kiro install            write skill to .kiro/skills/graphify/ + steering file (Kiro IDE/CLI)")

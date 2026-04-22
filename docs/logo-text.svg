@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 64" role="img" aria-label="Graphify">
+  <rect width="260" height="64" rx="8" fill="#040806"/>
+  <defs>
+    <style>
+      .logo-text { font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif; font-size: 42px; font-weight: 700; letter-spacing: -1.6px; }
+    </style>
+  </defs>
+  <!-- icon mark -->
+  <circle cx="24" cy="32" r="11" fill="none" stroke="#22c55e" stroke-width="0.4" opacity="0.18"/>
+  <line x1="24" y1="32" x2="10" y2="19" stroke="#4ade80" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+  <line x1="24" y1="32" x2="39" y2="22" stroke="#4ade80" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+  <line x1="24" y1="32" x2="38" y2="44" stroke="#4ade80" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+  <line x1="24" y1="32" x2="11" y2="45" stroke="#4ade80" stroke-width="1.2" stroke-linecap="round" opacity="0.9"/>
+  <line x1="10" y1="19" x2="39" y2="22" stroke="#22c55e" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
+  <line x1="39" y1="22" x2="38" y2="44" stroke="#22c55e" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
+  <line x1="38" y1="44" x2="11" y2="45" stroke="#22c55e" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
+  <line x1="11" y1="45" x2="10" y2="19" stroke="#22c55e" stroke-width="1.1" stroke-linecap="round" opacity="0.55"/>
+  <circle cx="10" cy="19" r="2.6" fill="#040806" stroke="#22c55e" stroke-width="1.3"/>
+  <circle cx="10" cy="19" r="1.1" fill="#22c55e"/>
+  <circle cx="39" cy="22" r="2.6" fill="#040806" stroke="#22c55e" stroke-width="1.3"/>
+  <circle cx="39" cy="22" r="1.1" fill="#22c55e"/>
+  <circle cx="38" cy="44" r="2.8" fill="#040806" stroke="#f59e0b" stroke-width="1.3"/>
+  <circle cx="38" cy="44" r="1.25" fill="#f59e0b"/>
+  <circle cx="11" cy="45" r="2.6" fill="#040806" stroke="#22c55e" stroke-width="1.3"/>
+  <circle cx="11" cy="45" r="1.1" fill="#22c55e"/>
+  <circle cx="24" cy="32" r="4.4" fill="#0a1410" stroke="#4ade80" stroke-width="1.6"/>
+  <circle cx="24" cy="32" r="1.8" fill="#4ade80"/>
+  <!-- divider -->
+  <line x1="56" y1="18" x2="56" y2="46" stroke="#22c55e" stroke-width="1" opacity="0.2"/>
+  <!-- text: Graph in near-white, ify in green -->
+  <text x="68" y="47" class="logo-text" fill="#e6f5ec">Graph</text>
+  <text x="178" y="47" class="logo-text" fill="#22c55e">ify</text>
+</svg>

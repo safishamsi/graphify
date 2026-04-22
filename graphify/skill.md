@@ -62,16 +62,24 @@ Follow these steps in order. Do not skip steps.
 ### Step 1 - Ensure graphify is installed
 
 ```bash
-# Detect the correct Python interpreter (handles pipx, venv, system installs)
+# Detect the correct Python interpreter (handles uv tool, pipx, venv, system installs)
+PYTHON=""
 GRAPHIFY_BIN=$(which graphify 2>/dev/null)
-if [ -n "$GRAPHIFY_BIN" ]; then
-    PYTHON=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
-    case "$PYTHON" in
-        *[!a-zA-Z0-9/_.-]*) PYTHON="python3" ;;
-    esac
-else
-    PYTHON="python3"
+# 1. uv tool installs — most reliable on modern Mac/Linux
+if [ -z "$PYTHON" ] && command -v uv >/dev/null 2>&1; then
+    _UV_PY=$(uv tool run graphifyy python -c "import sys; print(sys.executable)" 2>/dev/null)
+    if [ -n "$_UV_PY" ]; then PYTHON="$_UV_PY"; fi
 fi
+# 2. Read shebang from graphify binary (pipx and direct pip installs)
+if [ -z "$PYTHON" ] && [ -n "$GRAPHIFY_BIN" ]; then
+    _SHEBANG=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
+    case "$_SHEBANG" in
+        *[!a-zA-Z0-9/_.-]*) ;;
+        *) "$_SHEBANG" -c "import graphify" 2>/dev/null && PYTHON="$_SHEBANG" ;;
+    esac
+fi
+# 3. Fall back to python3
+if [ -z "$PYTHON" ]; then PYTHON="python3"; fi
 "$PYTHON" -c "import graphify" 2>/dev/null || "$PYTHON" -m pip install graphifyy -q 2>/dev/null || "$PYTHON" -m pip install graphifyy -q --break-system-packages 2>&1 | tail -3
 # Write interpreter path for all subsequent steps (persists across invocations)
 mkdir -p graphify-out
@@ -738,7 +746,7 @@ cost_path.write_text(json.dumps(cost, indent=2))
 print(f'This run: {input_tok:,} input tokens, {output_tok:,} output tokens')
 print(f'All time: {cost[\"total_input_tokens\"]:,} input, {cost[\"total_output_tokens\"]:,} output ({len(cost[\"runs\"])} runs)')
 "
-rm -f graphify-out/.graphify_detect.json graphify-out/.graphify_extract.json graphify-out/.graphify_ast.json graphify-out/.graphify_semantic.json graphify-out/.graphify_analysis.json graphify-out/.graphify_labels.json
+rm -f graphify-out/.graphify_detect.json graphify-out/.graphify_extract.json graphify-out/.graphify_ast.json graphify-out/.graphify_semantic.json graphify-out/.graphify_analysis.json graphify-out/.graphify_labels.json graphify-out/.graphify_chunk_*.json
 rm -f graphify-out/.needs_update 2>/dev/null || true
 ```
 

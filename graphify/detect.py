@@ -61,8 +61,7 @@ _PAPER_SIGNAL_THRESHOLD = 3  # need at least this many signals to call it a pape
 def _is_sensitive(path: Path) -> bool:
     """Return True if this file likely contains secrets and should be skipped."""
     name = path.name
-    full = str(path)
-    return any(p.search(name) or p.search(full) for p in _SENSITIVE_PATTERNS)
+    return any(p.search(name) for p in _SENSITIVE_PATTERNS)
 
 
 def _looks_like_paper(path: Path) -> bool:

@@ -380,7 +380,7 @@ def to_html(
             "title": _html.escape(label),
             "community": cid,
             "community_name": sanitize_label((community_labels or {}).get(cid, f"Community {cid}")),
-            "source_file": sanitize_label(data.get("source_file", "")),
+            "source_file": sanitize_label(str(data.get("source_file") or "")),
             "file_type": data.get("file_type", ""),
             "degree": deg,
         })
