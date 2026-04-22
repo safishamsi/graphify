@@ -78,10 +78,23 @@ def _looks_like_paper(path: Path) -> bool:
 _ASSET_DIR_MARKERS = {".imageset", ".xcassets", ".appiconset", ".colorset", ".launchimage"}
 
 
+# Generated Dart file patterns — excluded from extraction
+_GENERATED_DART_PATTERNS = (".freezed.dart", ".g.dart", ".gr.dart", ".gen.dart", ".mocks.dart")
+
+
+def _is_generated_dart(path: Path) -> bool:
+    """Return True if this is a Dart code-gen output that should be skipped."""
+    name = path.name
+    return any(name.endswith(pat) for pat in _GENERATED_DART_PATTERNS)
+
+
 def classify_file(path: Path) -> FileType | None:
     # Compound extensions must be checked before simple suffix lookup
     if path.name.lower().endswith(".blade.php"):
         return FileType.CODE
+    # Skip generated Dart files (*.freezed.dart, *.g.dart, etc.)
+    if _is_generated_dart(path):
+        return None
     ext = path.suffix.lower()
     if ext in CODE_EXTENSIONS:
         return FileType.CODE
@@ -241,6 +254,7 @@ _SKIP_DIRS = {
     "site-packages", "lib64",
     ".pytest_cache", ".mypy_cache", ".ruff_cache",
     ".tox", ".eggs", "*.egg-info",
+    ".dart_tool",  # Dart/Flutter build cache
 }
 
 # Large generated files that are never useful to extract

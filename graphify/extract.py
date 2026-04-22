@@ -1448,56 +1448,52 @@ def extract_blade(path: Path) -> dict:
 
 
 def extract_dart(path: Path) -> dict:
-    """Extract classes, mixins, functions, imports, and calls from a .dart file using regex."""
+    """Extract Dart code structure with optional Flutter and framework layers.
+
+    Three-layer architecture:
+      1. Core Dart — classes, functions, imports, calls (always runs, see extract_dart.py)
+      2. Flutter — widgets, composition, navigation (only if package:flutter imports found)
+      3. Frameworks — Riverpod, BLoC, GoRouter, etc. (only if framework imports found)
+
+    Pure Dart server/CLI projects get full structural extraction without any
+    Flutter overhead. Flutter-specific and framework-specific analysis only
+    activates when their respective imports are detected in the file.
+    """
+    from graphify.extract_dart import extract_dart as _dart_core
+    result = _dart_core(path)
+    if "error" in result:
+        return result
+    # Flutter layer — widgets, composition, navigation (conditional on Flutter imports)
     try:
-        src = path.read_text(encoding="utf-8", errors="replace")
-    except OSError:
-        return {"error": f"cannot read {path}"}
+        from graphify.extract_flutter import analyze_flutter
+        analyze_flutter(result, path)
+    except ImportError:
+        pass
+    # Framework layer — Riverpod, BLoC, GoRouter, etc. (conditional on framework imports)
+    try:
+        from graphify.extract_dart_frameworks import detect_frameworks
+        detect_frameworks(result, path)
+    except ImportError:
+        pass
+    return result
 
-    file_nid = _make_id(str(path))
-    nodes = [{"id": file_nid, "label": path.name, "file_type": "code",
-              "source_file": str(path), "source_location": None}]
-    edges = []
-    defined: set[str] = set()
 
-    # Classes and mixins
-    for m in re.finditer(r"^\s*(?:abstract\s+)?(?:class|mixin)\s+(\w+)", src, re.MULTILINE):
-        nid = _make_id(str(path), m.group(1))
-        if nid not in defined:
-            nodes.append({"id": nid, "label": m.group(1), "file_type": "code",
-                          "source_file": str(path), "source_location": None})
-            edges.append({"source": file_nid, "target": nid, "relation": "defines",
-                          "confidence": "EXTRACTED", "confidence_score": 1.0,
-                          "source_file": str(path), "source_location": None, "weight": 1.0})
-            defined.add(nid)
+def extract_pubspec(path: Path) -> dict:
+    """Extract package dependency graph from pubspec.yaml."""
+    from graphify.extract_pubspec import extract_pubspec as _pubspec
+    return _pubspec(path)
 
-    # Top-level and member functions/methods
-    for m in re.finditer(r"^\s*(?:static\s+|async\s+)?(?:\w+\s+)+(\w+)\s*\(", src, re.MULTILINE):
-        name = m.group(1)
-        if name in {"if", "for", "while", "switch", "catch", "return"}:
-            continue
-        nid = _make_id(str(path), name)
-        if nid not in defined:
-            nodes.append({"id": nid, "label": name, "file_type": "code",
-                          "source_file": str(path), "source_location": None})
-            edges.append({"source": file_nid, "target": nid, "relation": "defines",
-                          "confidence": "EXTRACTED", "confidence_score": 1.0,
-                          "source_file": str(path), "source_location": None, "weight": 1.0})
-            defined.add(nid)
 
-    # import 'package:...' or import '...'
-    for m in re.finditer(r"""^import\s+['"]([^'"]+)['"]""", src, re.MULTILINE):
-        pkg = m.group(1)
-        tgt_nid = _make_id(pkg)
-        if tgt_nid not in defined:
-            nodes.append({"id": tgt_nid, "label": pkg, "file_type": "code",
-                          "source_file": str(path), "source_location": None})
-            defined.add(tgt_nid)
-        edges.append({"source": file_nid, "target": tgt_nid, "relation": "imports",
-                      "confidence": "EXTRACTED", "confidence_score": 1.0,
-                      "source_file": str(path), "source_location": None, "weight": 1.0})
+def extract_melos(path: Path) -> dict:
+    """Extract monorepo workspace structure from melos.yaml."""
+    from graphify.extract_melos import extract_melos as _melos
+    return _melos(path)
 
-    return {"nodes": nodes, "edges": edges}
+
+def extract_arb(path: Path) -> dict:
+    """Extract localization message keys from .arb files."""
+    from graphify.extract_arb import extract_arb as _arb
+    return _arb(path)
 
 
 def extract_verilog(path: Path) -> dict:
@@ -3148,9 +3144,15 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
     for i, path in enumerate(paths):
         if total >= _PROGRESS_INTERVAL and i % _PROGRESS_INTERVAL == 0 and i > 0:
             print(f"  AST extraction: {i}/{total} files ({i * 100 // total}%)", flush=True)
-        # .blade.php must be checked before suffix lookup since Path.suffix returns .php
+        # Filename-based dispatch (before extension-based lookup)
         if path.name.endswith(".blade.php"):
             extractor = extract_blade
+        elif path.name == "pubspec.yaml":
+            extractor = extract_pubspec
+        elif path.name == "melos.yaml":
+            extractor = extract_melos
+        elif path.suffix == ".arb":
+            extractor = extract_arb
         else:
             extractor = _DISPATCH.get(path.suffix)
         if extractor is None:
@@ -3251,7 +3253,7 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
         ".java", ".c", ".h", ".cpp", ".cc", ".cxx", ".hpp",
         ".rb", ".cs", ".kt", ".kts", ".scala", ".php", ".swift",
         ".lua", ".toc", ".zig", ".ps1",
-        ".m", ".mm",
+        ".m", ".mm", ".dart",
     }
     from graphify.detect import _load_graphifyignore, _is_ignored
     ignore_root = root if root is not None else target

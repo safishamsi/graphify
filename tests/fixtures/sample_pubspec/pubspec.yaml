@@ -1,0 +1,23 @@
+name: my_flutter_app
+description: A sample Flutter application
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^1.1.0
+  shared_models:
+    path: ../shared_models
+  riverpod: ^2.4.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.4.0
+  freezed: ^2.4.0
+
+flutter:
+  uses-material-design: true
