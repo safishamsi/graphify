@@ -12,6 +12,7 @@ PLATFORMS = {
     "droid": (".factory/skills/graphify/SKILL.md",),
     "trae": (".trae/skills/graphify/SKILL.md",),
     "trae-cn": (".trae-cn/skills/graphify/SKILL.md",),
+    "kiro": (".kiro/skills/graphify/SKILL.md",),
     "windows": (".claude/skills/graphify/SKILL.md",),
 }
 
@@ -67,6 +68,49 @@ def test_install_unknown_platform_exits(tmp_path):
         _install(tmp_path, "unknown")
 
 
+# ── Kiro CLI ──────────────────────────────────────────────────────────────────
+
+def _kiro_install_helper(project_dir):
+    from graphify.__main__ import _kiro_install
+    _kiro_install(project_dir)
+
+
+def _kiro_uninstall_helper(project_dir):
+    from graphify.__main__ import _kiro_uninstall
+    _kiro_uninstall(project_dir)
+
+
+def test_install_kiro(tmp_path):
+    _kiro_install_helper(tmp_path)
+    assert (tmp_path / ".kiro" / "skills" / "graphify" / "SKILL.md").exists()
+
+
+def test_kiro_install_writes_steering(tmp_path):
+    _kiro_install_helper(tmp_path)
+    steering = tmp_path / ".kiro" / "steering" / "graphify.md"
+    assert steering.exists()
+
+
+def test_kiro_install_idempotent(tmp_path):
+    _kiro_install_helper(tmp_path)
+    _kiro_install_helper(tmp_path)
+    assert (tmp_path / ".kiro" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".kiro" / "steering" / "graphify.md").exists()
+
+
+def test_kiro_uninstall_removes_skill_and_steering(tmp_path):
+    _kiro_install_helper(tmp_path)
+    _kiro_uninstall_helper(tmp_path)
+    assert not (tmp_path / ".kiro" / "skills" / "graphify" / "SKILL.md").exists()
+    assert not (tmp_path / ".kiro" / "steering" / "graphify.md").exists()
+
+
+def test_kiro_uninstall_noop_if_not_installed(tmp_path, capsys):
+    _kiro_uninstall_helper(tmp_path)
+    out = capsys.readouterr().out
+    assert "nothing to remove" in out
+
+
 def test_codex_skill_contains_spawn_agent():
     """Codex skill file must reference spawn_agent."""
     import graphify
@@ -94,7 +138,7 @@ def test_all_skill_files_exist_in_package():
     """All installable platform skill files must be present in the installed package."""
     import graphify
     pkg = Path(graphify.__file__).parent
-    for name in ("skill.md", "skill-codex.md", "skill-opencode.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md"):
+    for name in ("skill.md", "skill-codex.md", "skill-opencode.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md", "skill-kiro.md", "kiro-agent.json"):
         assert (pkg / name).exists(), f"Missing: {name}"
 
 
