@@ -1395,6 +1395,192 @@ def extract_scala(path: Path) -> dict:
     return _extract_generic(path, _SCALA_CONFIG)
 
 
+def extract_lean(path: Path | str) -> dict:
+    """Extract theorems, defs, structures, namespaces, and imports from a .lean file.
+
+    Uses tree-sitter-language-pack (hand-written extractor: Lean 4 wraps all
+    declarations in a generic 'declaration' node differentiated by keyword children,
+    which doesn't slot cleanly into LanguageConfig's typed-node model).
+    """
+    path = Path(path) if not isinstance(path, Path) else path
+    try:
+        from tree_sitter_language_pack import get_language
+        from tree_sitter import Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree_sitter_language_pack not installed"}
+
+    try:
+        language = get_language("lean")
+        parser = Parser(language)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = path.stem
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            entry: dict = {
+                "id": nid,
+                "label": label,
+                "file_type": "code",
+                "source_file": str_path,
+                "source_location": f"L{line}",
+            }
+            if node_type:
+                entry["node_type"] = node_type
+            nodes.append(entry)
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
+        edges.append({
+            "source": src,
+            "target": tgt,
+            "relation": relation,
+            "confidence": confidence,
+            "source_file": str_path,
+            "source_location": f"L{line}",
+            "weight": weight,
+        })
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, 1)
+
+    # Lean 4 AST structure (discovered via tree-sitter inspection):
+    #   declaration > def      > [def(kw), identifier, binders, ...]
+    #   declaration > theorem  > [theorem(kw), identifier, binders, ...]
+    #   declaration > structure > [structure(kw)|class(kw), identifier, ...]
+    #   declaration > instance > [instance(kw), ...]
+    # The direct child of 'declaration' is a sub-node whose type matches the
+    # outer keyword (def/theorem/structure/instance). The *actual* keyword token
+    # is the first token child of that sub-node. For 'class Governed', the outer
+    # sub-node type is 'structure' but its first child token is 'class'.
+
+    _FUNCTION_KEYWORDS = frozenset({"def", "theorem", "abbrev", "lemma", "noncomputable"})
+    _CLASS_KEYWORDS = frozenset({"structure", "class", "inductive", "instance"})
+    # Sub-node types that appear as direct children of 'declaration'
+    _DECL_SUB_TYPES = frozenset({"def", "theorem", "abbrev", "lemma", "structure", "instance"})
+
+    def _inner_keyword(decl_node) -> str | None:
+        """Return the actual keyword token (e.g. 'class', 'theorem') from a declaration node.
+
+        Walks: declaration > <sub-node> > first-token-child.
+        """
+        for child in decl_node.children:
+            if child.type in _DECL_SUB_TYPES:
+                # The first token child of the sub-node is the keyword
+                for sub in child.children:
+                    if sub.is_named is False:  # keyword tokens are anonymous (punctuation/keywords)
+                        return sub.type
+                    if sub.type in _FUNCTION_KEYWORDS or sub.type in _CLASS_KEYWORDS:
+                        return sub.type
+                # Fallback: treat the sub-node type itself as the keyword
+                return child.type
+        return None
+
+    def _name_of_declaration(decl_node) -> str | None:
+        """Return the identifier that names this declaration.
+
+        Walks: declaration > <sub-node> > identifier (second named child).
+        Returns None for anonymous instance declarations.
+        """
+        for child in decl_node.children:
+            if child.type in _DECL_SUB_TYPES:
+                for sub in child.children:
+                    if sub.type == "identifier":
+                        return _read_text(sub, source)
+                break
+        return None
+
+    def walk(node, parent_nid: str | None = None) -> None:
+        t = node.type
+
+        # ── import ──────────────────────────────────────────────────────────
+        if t == "import":
+            line = node.start_point[0] + 1
+            # The identifier child holds the dotted module path (e.g. Mathlib.Analysis.Basic)
+            for child in node.children:
+                if child.type == "identifier":
+                    module_name = _read_text(child, source)
+                    # Use the dotted module name as the target so the graph is
+                    # human-readable; downstream consumers can slug it if needed.
+                    add_edge(file_nid, module_name, "imports", line)
+            return
+
+        # ── namespace ────────────────────────────────────────────────────────
+        if t == "namespace":
+            line = node.start_point[0] + 1
+            ns_name: str | None = None
+            # First identifier child is the namespace name; skip the 'namespace' keyword token
+            got_keyword = False
+            for child in node.children:
+                if not got_keyword:
+                    if child.type == "namespace":  # the keyword token
+                        got_keyword = True
+                    continue
+                if child.type == "identifier":
+                    ns_name = _read_text(child, source)
+                    break
+            if ns_name:
+                ns_nid = _make_id(stem, ns_name)
+                add_node(ns_nid, ns_name, line, node_type="Module")
+                add_edge(file_nid, ns_nid, "contains", line)
+                # Recurse into the body (declaration nodes, nested namespaces)
+                # Skip: the leading 'namespace' keyword token, the name identifier,
+                # the trailing 'end' keyword, and the trailing identifier.
+                children = node.children
+                # Body starts after the first identifier (namespace name)
+                past_name = False
+                for child in children:
+                    if not past_name:
+                        if child.type == "identifier":
+                            past_name = True
+                        continue
+                    # Stop at 'end' token
+                    if child.type == "end":
+                        break
+                    walk(child, parent_nid=ns_nid)
+            return
+
+        # ── declaration (def / theorem / structure / class / instance / ...) ─
+        if t == "declaration":
+            line = node.start_point[0] + 1
+            keyword = _inner_keyword(node)
+            if keyword in _FUNCTION_KEYWORDS:
+                decl_name = _name_of_declaration(node)
+                if decl_name:
+                    fn_nid = _make_id(stem, decl_name)
+                    add_node(fn_nid, decl_name, line, node_type="Function")
+                    container = parent_nid or file_nid
+                    add_edge(container, fn_nid, "contains", line)
+            elif keyword in _CLASS_KEYWORDS:
+                if keyword == "instance":
+                    # anonymous instance — no named node
+                    pass
+                else:
+                    decl_name = _name_of_declaration(node)
+                    if decl_name:
+                        cls_nid = _make_id(stem, decl_name)
+                        add_node(cls_nid, decl_name, line, node_type="Class")
+                        container = parent_nid or file_nid
+                        add_edge(container, cls_nid, "contains", line)
+            return
+
+        # ── recurse into everything else ─────────────────────────────────────
+        for child in node.children:
+            walk(child, parent_nid=parent_nid)
+
+    walk(root)
+    return {"nodes": nodes, "edges": edges}
+
+
 def extract_php(path: Path) -> dict:
     """Extract classes, functions, methods, namespace uses, and calls from a .php file."""
     return _extract_generic(path, _PHP_CONFIG)
