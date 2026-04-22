@@ -22,6 +22,8 @@ def _rebuild_code(watch_path: Path) -> bool:
     """Re-run AST extraction + build + cluster + report for code files. No LLM needed.
 
     Returns True on success, False on error.
+    Does NOT touch the needs_update flag — that flag is owned by _notify_only() and
+    must only be cleared after a full LLM-backed semantic update completes.
     """
     try:
         from graphify.extract import collect_files, extract
@@ -69,11 +71,6 @@ def _rebuild_code(watch_path: Path) -> bool:
         (out / "GRAPH_REPORT.md").write_text(report)
         to_json(G, communities, str(out / "graph.json"))
 
-        # clear stale needs_update flag if present
-        flag = out / "needs_update"
-        if flag.exists():
-            flag.unlink()
-
         print(f"[graphify watch] Rebuilt: {G.number_of_nodes()} nodes, "
               f"{G.number_of_edges()} edges, {len(communities)} communities")
         print(f"[graphify watch] graph.json and GRAPH_REPORT.md updated in {out}")
@@ -85,15 +82,25 @@ def _rebuild_code(watch_path: Path) -> bool:
 
 
 def check_update(watch_path: Path) -> bool:
-    """Check for needs_update flag and run incremental update if present.
+    """Check for needs_update flag and notify the user if a semantic update is pending.
 
-    Returns True if update ran successfully or no update was needed, False on error.
-    Designed to be cron-safe and idempotent.
+    The needs_update flag is written exclusively by _notify_only() when non-code files
+    (docs, papers, images) change — changes that require LLM-backed semantic
+    re-extraction via `/graphify --update`. Running a code-only AST rebuild here would
+    leave the graph stale while silently destroying the only signal that an update is due.
+
+    This function is cron-safe and idempotent: it prints a notification when the flag is
+    present and returns True (non-error) in all cases so cron jobs do not alarm on it.
+    To actually process the pending update, run `/graphify --update` in Claude Code.
+
+    Returns True always.
     """
     flag = Path(watch_path) / "graphify-out" / "needs_update"
     if not flag.exists():
         return True  # nothing to do
-    return _rebuild_code(Path(watch_path))
+    print(f"[graphify check-update] Pending non-code changes detected in {watch_path}.")
+    print("[graphify check-update] Run `/graphify --update` to apply semantic re-extraction.")
+    return True
 
 
 def _notify_only(watch_path: Path) -> None:
