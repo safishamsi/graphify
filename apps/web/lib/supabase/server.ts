@@ -1,15 +1,10 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
+import { getRequiredSupabaseEnv } from "@/lib/supabase/env";
 
 export function createClient() {
   const cookieStore = cookies();
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anon) {
-    throw new Error(
-      "Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY on the server. Set them in the repo root .env, or let apps/web/next.config.js derive them from SUPABASE_URL and SUPABASE_ANON_KEY.",
-    );
-  }
+  const { url, anon } = getRequiredSupabaseEnv("server");
 
   return createServerClient(url, anon, {
     cookies: {

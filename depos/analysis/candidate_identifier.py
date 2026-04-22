@@ -32,6 +32,11 @@ from typing import Any, Iterable, Optional, Sequence
 import networkx as nx
 
 from depos.analysis.config import IntelligenceConfig
+from depos.graph_relations import CONSUMES_PAYLOAD
+from depos.graph_relations import HTTP_CALLS_ROUTE
+from depos.graph_relations import PRODUCES_PAYLOAD
+from depos.graph_relations import TASK_CONSUMES
+from depos.graph_relations import TASK_ENQUEUES
 from depos.analysis.schemas import (
     AnalysisMode,
     Candidate,
@@ -39,11 +44,6 @@ from depos.analysis.schemas import (
     ChangeManifestEntry,
     SeedType,
 )
-from depos.enrichment.semantic_edges import CONSUMES_PAYLOAD
-from depos.enrichment.semantic_edges import HTTP_CALLS_ROUTE
-from depos.enrichment.semantic_edges import PRODUCES_PAYLOAD
-from depos.enrichment.semantic_edges import TASK_CONSUMES
-from depos.enrichment.semantic_edges import TASK_ENQUEUES
 
 _QUEUE_RELATIONS = {TASK_ENQUEUES, TASK_CONSUMES, PRODUCES_PAYLOAD, CONSUMES_PAYLOAD}
 _AI_SEED_KEYWORDS = (

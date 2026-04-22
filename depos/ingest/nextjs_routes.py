@@ -7,26 +7,12 @@ from pathlib import Path
 import networkx as nx
 
 from depos.analysis.schemas import IngestReport
+from depos.ingest.common import add_edge_once, upsert_node
 
 _ROUTE_SUFFIXES = ("page.tsx", "page.ts", "page.jsx", "page.js", "route.ts", "route.tsx", "route.js", "route.jsx", "layout.tsx", "layout.ts", "layout.jsx", "layout.js", "middleware.ts", "middleware.tsx", "middleware.js", "middleware.jsx")
 _ENV_REF = re.compile(r"(?:process\.env\.|process\.env\[['\"]|os\.getenv\(['\"])([A-Z0-9_]+)")
 _METHODS = re.compile(r"\b(GET|POST|PUT|PATCH|DELETE|HEAD|OPTIONS)\b")
 _MATCHER = re.compile(r"matcher\s*:\s*(\[[^\]]+\]|['\"][^'\"]+['\"])")
-
-
-def _add_node(graph: nx.DiGraph, node_id: str, **attrs) -> bool:
-    if graph.has_node(node_id):
-        graph.nodes[node_id].update(attrs)
-        return False
-    graph.add_node(node_id, **attrs)
-    return True
-
-
-def _add_edge(graph: nx.DiGraph, source: str, target: str, **attrs) -> bool:
-    if graph.has_edge(source, target):
-        return False
-    graph.add_edge(source, target, **attrs)
-    return True
 
 
 def _route_path(rel: Path) -> str:
@@ -113,14 +99,14 @@ def ingest(graph: nx.DiGraph, *, repo_root: Path, config) -> IngestReport:
             "env_refs": env_refs,
             "matchers": _middleware_matchers(text) if kind == "next_middleware" else [],
         }
-        if _add_node(graph, node_id, **attrs):
+        if upsert_node(graph, node_id, **attrs):
             report.nodes_added += 1
         if kind == "next_middleware":
             middleware_nodes.append((node_id, _middleware_matchers(text)))
         layout_path = _nearest_layout(repo_root, rel)
         if layout_path is not None and layout_path != path:
             layout_id = _route_node_id(layout_path.relative_to(repo_root))
-            if _add_edge(graph, layout_id, node_id, relation="NEXT_ROUTE_USES_LAYOUT", source_system="nextjs", target_system="nextjs"):
+            if add_edge_once(graph, layout_id, node_id, relation="NEXT_ROUTE_USES_LAYOUT", source_system="nextjs", target_system="nextjs"):
                 report.edges_added += 1
         for env_name in env_refs:
             env_id = f"env::{env_name}@{rel.as_posix()}"
@@ -135,7 +121,7 @@ def ingest(graph: nx.DiGraph, *, repo_root: Path, config) -> IngestReport:
                     defined=False,
                 )
                 report.nodes_added += 1
-            if _add_edge(graph, node_id, env_id, relation="READS_ENV_VAR", source_system="nextjs", target_system="env"):
+            if add_edge_once(graph, node_id, env_id, relation="READS_ENV_VAR", source_system="nextjs", target_system="env"):
                 report.edges_added += 1
     for route_id, attrs in list(graph.nodes(data=True)):
         if attrs.get("node_kind") != "next_route":
@@ -143,7 +129,7 @@ def ingest(graph: nx.DiGraph, *, repo_root: Path, config) -> IngestReport:
         route_path = str(attrs.get("path") or "/")
         for middleware_id, matchers in middleware_nodes:
             if any(_matcher_applies(route_path, matcher) for matcher in matchers):
-                if _add_edge(graph, middleware_id, route_id, relation="NEXT_ROUTE_GUARDED_BY_MIDDLEWARE", source_system="nextjs", target_system="nextjs"):
+                if add_edge_once(graph, middleware_id, route_id, relation="NEXT_ROUTE_GUARDED_BY_MIDDLEWARE", source_system="nextjs", target_system="nextjs"):
                     report.edges_added += 1
     return report
 

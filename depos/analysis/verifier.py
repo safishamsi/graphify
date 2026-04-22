@@ -30,6 +30,7 @@ import networkx as nx
 
 from depos.analysis.config import IntelligenceConfig
 from depos.analysis.oracles import ORACLES
+from depos.graph_relations import ROUTE_GUARDED_BY_RLS
 from depos.analysis.schemas import (
     Candidate,
     ContextBundle,
@@ -165,7 +166,7 @@ def _check_rls_awareness(graph: nx.DiGraph, bundle: ContextBundle, candidate: Ca
     detector_name = _detector_name(candidate)
     rls_detector = "rls" in detector_name
     has_rls_edges = any(
-        data.get("relation") == "ROUTE_GUARDED_BY_RLS"
+        data.get("relation") == ROUTE_GUARDED_BY_RLS
         for _, _, data in graph.edges(data=True)
     )
     if not rls_detector and not has_rls_edges and not bundle.rls_coverage:

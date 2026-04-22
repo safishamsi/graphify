@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import type { IntelligenceAnalysisMode, IntelligenceRunStatus } from "@/lib/depos/types";
 
 export async function getOrgIdBySlug(supabase: SupabaseClient, slug: string): Promise<string | null> {
   const { data, error } = await supabase.from("organizations").select("id").eq("slug", slug).maybeSingle();
@@ -63,8 +64,8 @@ export async function listCISignals(
 export type IntelligenceRunRow = {
   id: string;
   repo_slug: string;
-  status: string;
-  analysis_mode: string;
+  status: IntelligenceRunStatus;
+  analysis_mode: IntelligenceAnalysisMode;
   started_at: string;
   finished_at: string | null;
 };

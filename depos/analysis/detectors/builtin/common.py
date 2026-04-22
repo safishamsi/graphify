@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 from collections import defaultdict
-from pathlib import Path
 from typing import Any, Iterable
 
 import networkx as nx
@@ -106,15 +105,10 @@ def package_groups(graph: nx.DiGraph) -> dict[str, list[tuple[str, dict[str, Any
     return groups
 
 
-def normalized_path(value: Any) -> str:
-    return str(Path(str(value or "")).as_posix())
-
-
 __all__ = [
     "incoming_by_relation",
     "iter_nodes_by_kind",
     "make_candidate",
-    "normalized_path",
     "outgoing_by_relation",
     "package_groups",
     "simple_spec",

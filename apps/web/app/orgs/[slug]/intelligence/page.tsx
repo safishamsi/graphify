@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
-import { deposJson } from "@/lib/depos/api";
+import { deposJson, humanizeDeposApiError } from "@/lib/depos/api";
 import { fetchMe, requireSessionAccessToken } from "@/lib/depos/server";
 import { isOrgAdmin } from "@/lib/depos/roles";
 import { getOrgIdBySlug, listIntelligenceRuns } from "@/lib/supabase/queries";
@@ -19,11 +19,12 @@ export default async function IntelligencePage({ params }: Props) {
   const runs = orgId ? await listIntelligenceRuns(supabase, orgId) : [];
 
   let repos: ReposListResponse["repos"] = [];
+  let reposError: string | null = null;
   try {
     const data = await deposJson<ReposListResponse>(`/v1/orgs/${encodeURIComponent(params.slug)}/repos`, token);
     repos = data.repos ?? [];
-  } catch {
-    repos = [];
+  } catch (e) {
+    reposError = humanizeDeposApiError(e, 400);
   }
 
   return (
@@ -31,10 +32,12 @@ export default async function IntelligencePage({ params }: Props) {
       <h1 className="font-display page-title">Intelligence</h1>
       <p className="page-desc">Runs and findings stored for your org. List reads from Postgres (RLS); detail uses the API.</p>
 
-      {admin && repos.length > 0 ? <NewRunForm orgSlug={params.slug} repos={repos} /> : null}
-      {admin && repos.length === 0 ? (
+      {reposError ? <p className="text-danger">{reposError}</p> : null}
+      {admin && !reposError && repos.length > 0 ? <NewRunForm orgSlug={params.slug} repos={repos} /> : null}
+      {admin && !reposError && repos.length === 0 ? (
         <p className="text-muted">Add a repository before creating a run (admin).</p>
       ) : null}
+      {admin && reposError ? <p className="text-muted">New runs are unavailable until repositories load.</p> : null}
       {!admin ? <p className="text-muted">New runs: owners and admins only.</p> : null}
 
       <section style={{ marginTop: "2rem" }}>

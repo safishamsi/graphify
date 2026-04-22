@@ -5,6 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { runPostciAction } from "@/app/orgs/[slug]/actions";
 import { JsonInspector } from "@/components/domain/JsonInspector";
 import { Button } from "@/components/ui/button";
+import type { CheckConclusion, PostCIResult } from "@/lib/depos/types";
 import type { GraphSnapshotRow } from "@/lib/supabase/queries";
 
 export function PostciForm({
@@ -21,9 +22,9 @@ export function PostciForm({
   const [headSha, setHeadSha] = useState("");
   const [predicted, setPredicted] = useState("");
   const [failed, setFailed] = useState("");
-  const [conclusion, setConclusion] = useState("failure");
+  const [conclusion, setConclusion] = useState<CheckConclusion>("failure");
   const [snapOpt, setSnapOpt] = useState("");
-  const [out, setOut] = useState<Record<string, unknown> | null>(null);
+  const [out, setOut] = useState<PostCIResult | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
@@ -101,7 +102,12 @@ export function PostciForm({
         </div>
         <div className="field">
           <label htmlFor="pc-conc">Check conclusion</label>
-          <select id="pc-conc" className="input" value={conclusion} onChange={(e) => setConclusion(e.target.value)}>
+          <select
+            id="pc-conc"
+            className="input"
+            value={conclusion}
+            onChange={(e) => setConclusion(e.target.value as CheckConclusion)}
+          >
             <option value="success">success</option>
             <option value="failure">failure</option>
             <option value="neutral">neutral</option>

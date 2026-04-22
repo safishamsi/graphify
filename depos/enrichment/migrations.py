@@ -24,10 +24,8 @@ import networkx as nx
 
 from depos.analysis.config import IntelligenceConfig
 from depos.analysis.schemas import ContractKind, SemanticEdgeMetadata
-from depos.enrichment.semantic_edges import (
-    MIGRATION_PRECEDES,
-    SCHEMA_DEFINED_BY_MIGRATION,
-)
+from depos.graph_relations import MIGRATION_PRECEDES
+from depos.graph_relations import SCHEMA_DEFINED_BY_MIGRATION
 
 
 _CREATE_TABLE = re.compile(

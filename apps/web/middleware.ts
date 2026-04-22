@@ -1,6 +1,7 @@
 import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 import { safeNext } from "@/lib/auth/redirects";
+import { getOptionalSupabaseEnv } from "@/lib/supabase/env";
 
 const PROTECTED_PREFIXES = ["/orgs"];
 const AUTH_PAGE_PREFIXES = [
@@ -12,9 +13,9 @@ const AUTH_PAGE_PREFIXES = [
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({ request: { headers: request.headers } });
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!url || !anon) return response;
+  const env = getOptionalSupabaseEnv();
+  if (!env) return response;
+  const { url, anon } = env;
 
   const supabase = createServerClient(url, anon, {
     cookies: {

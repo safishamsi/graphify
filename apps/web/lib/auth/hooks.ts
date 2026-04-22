@@ -2,32 +2,7 @@
 
 import { useEffect, useRef, useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import type { Session, User } from "@supabase/supabase-js";
 import { useAuth } from "./AuthProvider";
-
-/* ------------------------------------------------------------------------- *
- * Session selectors                                                         *
- * ------------------------------------------------------------------------- */
-
-/** Read the current Supabase session (or null if signed out). */
-export function useSession(): Session | null {
-  return useAuth().session;
-}
-
-/** Read the current Supabase user (or null). */
-export function useUser(): User | null {
-  return useAuth().user;
-}
-
-/** Boolean shortcut — `useAuth().status === "authenticated"`. */
-export function useIsAuthenticated(): boolean {
-  return useAuth().status === "authenticated";
-}
-
-/** True only while the initial session probe is in flight. */
-export function useIsAuthLoading(): boolean {
-  return useAuth().status === "loading";
-}
 
 /* ------------------------------------------------------------------------- *
  * Recovery-session gate                                                     *

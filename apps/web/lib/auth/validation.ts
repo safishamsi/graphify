@@ -20,13 +20,7 @@ export function validatePassword(value: string): string | null {
   return null;
 }
 
-export function validateOtp(value: string): string | null {
-  if (!value) return "Enter the 6-digit code.";
-  if (!/^\d{6}$/.test(value)) return "Code must be 6 digits.";
-  return null;
-}
-
-export type PasswordStrength = {
+type PasswordStrength = {
   /** 0..4 — used to drive segmented strength meter. */
   score: 0 | 1 | 2 | 3 | 4;
   label: "empty" | "weak" | "okay" | "good" | "strong";

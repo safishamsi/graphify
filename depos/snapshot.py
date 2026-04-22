@@ -6,11 +6,11 @@ import logging
 from pathlib import Path
 
 import networkx as nx
-from networkx.readwrite import json_graph
 
 from graphify.build import build_from_json
 from graphify.detect import detect
 from graphify.extract import extract
+from graphify.nx_compat import node_link_data_compat, node_link_graph_compat
 
 logger = logging.getLogger(__name__)
 
@@ -34,10 +34,7 @@ def build_graph_for_root(
 
 def graph_to_node_link(G: nx.Graph) -> dict:
     """Serialize graph for storage (node-link format)."""
-    try:
-        return json_graph.node_link_data(G, edges="links")
-    except TypeError:
-        return json_graph.node_link_data(G, link="links")
+    return node_link_data_compat(G, edges="links")
 
 
 def persist_graph_json(G: nx.Graph, dest: Path) -> None:
@@ -48,19 +45,9 @@ def persist_graph_json(G: nx.Graph, dest: Path) -> None:
 
 def load_graph_json(path: Path) -> nx.Graph:
     data = json.loads(path.read_text(encoding="utf-8"))
-    try:
-        return json_graph.node_link_graph(data, edges="links")
-    except TypeError:
-        if "links" in data and "edges" not in data:
-            data = {**data, "edges": data["links"]}
-        return json_graph.node_link_graph(data)
+    return node_link_graph_compat(data, edges="links")
 
 
 def load_graph_json_from_dict(data: dict) -> nx.Graph:
     """Load node-link dict into a NetworkX graph (in-memory)."""
-    try:
-        return json_graph.node_link_graph(data, edges="links")
-    except TypeError:
-        if "links" in data and "edges" not in data:
-            data = {**data, "edges": data["links"]}
-        return json_graph.node_link_graph(data)
+    return node_link_graph_compat(data, edges="links")

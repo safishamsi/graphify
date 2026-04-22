@@ -70,3 +70,18 @@ def test_ingest_all_adds_cross_universe_nodes(tmp_path: Path) -> None:
     assert {"manifests", "env_config", "prompts", "openapi", "nextjs_routes", "infra"} <= modules
     assert {"package_dep", "env_var", "prompt_template", "openapi_operation", "next_route", "dockerfile_stage"} <= node_kinds
     assert {"DECLARES_DEP", "READS_ENV_VAR", "NEXT_ROUTE_GUARDED_BY_MIDDLEWARE", "STAGE_COPIES_PATH"} <= relations
+
+
+def test_ingest_all_reports_invalid_package_lock_without_dropping_deps(tmp_path: Path) -> None:
+    _write(tmp_path / "package.json", json.dumps({"dependencies": {"react": "^18.2.0"}}, indent=2))
+    _write(tmp_path / "package-lock.json", "{not valid json")
+
+    graph = nx.DiGraph()
+    reports = ingest_all(graph, repo_root=tmp_path, config=IntelligenceConfig())
+
+    manifest_report = next(report for report in reports if report.module == "depos.ingest.manifests")
+    dep_nodes = [attrs for _, attrs in graph.nodes(data=True) if attrs.get("node_kind") == "package_dep"]
+
+    assert any(error.get("kind") == "lockfile_parse_error" for error in manifest_report.errors)
+    assert any(str(error.get("path") or "").endswith("package-lock.json") for error in manifest_report.errors)
+    assert any(node.get("package_name") == "react" for node in dep_nodes)

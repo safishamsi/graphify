@@ -4,12 +4,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { createIntelligenceRunAction } from "@/app/orgs/[slug]/actions";
 import { Button } from "@/components/ui/button";
+import type { IntelligenceAnalysisMode, IntelligenceRunCreateRequest, IntelligenceRunStatus } from "@/lib/depos/types";
 
 export function NewRunForm({ orgSlug, repos }: { orgSlug: string; repos: { slug: string }[] }) {
   const router = useRouter();
   const [repoSlug, setRepoSlug] = useState(repos[0]?.slug ?? "");
-  const [mode, setMode] = useState<"diff_aware" | "full_repo_scan">("diff_aware");
-  const [status, setStatus] = useState<"running" | "succeeded" | "partial_reasoning" | "failed">("succeeded");
+  const [mode, setMode] = useState<IntelligenceAnalysisMode>("diff_aware");
+  const [status, setStatus] = useState<IntelligenceRunStatus>("succeeded");
   const [msg, setMsg] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
@@ -20,11 +21,11 @@ export function NewRunForm({ orgSlug, repos }: { orgSlug: string; repos: { slug:
     setMsg(null);
     setBusy(true);
     try {
-      const body = {
+      const body: IntelligenceRunCreateRequest = {
         repo_slug: repoSlug,
         analysis_mode: mode,
         status,
-        findings: [] as unknown[],
+        findings: [],
       };
       const res = await createIntelligenceRunAction(orgSlug, body);
       if (!res.ok) {

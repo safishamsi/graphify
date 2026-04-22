@@ -3,13 +3,23 @@ from __future__ import annotations
 
 from typing import Any
 
+from typing_extensions import TypedDict
+
+
+class PostCIResult(TypedDict):
+    check_conclusion: str
+    overlap_score: float
+    intersecting_paths: list[str]
+    unexpected_failure: bool
+    summary: str
+
 
 def correlate_ci_failure(
     predicted_impacted_files: list[str],
     failed_paths: list[str] | None,
     *,
     check_conclusion: str,
-) -> dict[str, Any]:
+) -> PostCIResult:
     """Return overlap score and narrative."""
     failed_paths = failed_paths or []
     pred = {p.replace("\\", "/") for p in predicted_impacted_files}
@@ -28,7 +38,7 @@ def correlate_ci_failure(
     }
 
 
-def store_signal(session: Any, repo_slug: str, head_sha: str, payload: dict) -> None:
+def store_signal(session: Any, repo_slug: str, head_sha: str, payload: dict[str, Any]) -> None:
     from uuid import UUID
 
     from depos.db import CISignal

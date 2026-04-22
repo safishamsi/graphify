@@ -4,10 +4,13 @@ import { revalidatePath } from "next/cache";
 import { deposJson, humanizeDeposApiError } from "@/lib/depos/api";
 import { requireSessionAccessToken } from "@/lib/depos/server";
 import type {
+  CheckConclusion,
   DriftSnapshotsResponse,
   FederationSnapshotsResponse,
   GraphSnapshotPrepareResponse,
+  IntelligenceRunCreateRequest,
   LLMGraphExport,
+  PostCIResult,
 } from "@/lib/depos/types";
 
 export async function toggleRepoAction(
@@ -105,13 +108,13 @@ export async function runPostciAction(
     head_sha: string;
     predicted_files: string[];
     failed_paths: string[];
-    check_conclusion: string;
+    check_conclusion: CheckConclusion;
     graph_snapshot_id?: string | null;
   },
-): Promise<{ ok: true; data: Record<string, unknown> } | { ok: false; error: string }> {
+): Promise<{ ok: true; data: PostCIResult } | { ok: false; error: string }> {
   try {
     const token = await requireSessionAccessToken();
-    const data = await deposJson<Record<string, unknown>>("/v1/ci/postci", token, {
+    const data = await deposJson<PostCIResult>("/v1/ci/postci", token, {
       method: "POST",
       json: {
         org_slug: orgSlug,
@@ -171,7 +174,7 @@ export async function runDriftAction(
 
 export async function createIntelligenceRunAction(
   orgSlug: string,
-  body: Record<string, unknown>,
+  body: IntelligenceRunCreateRequest,
 ): Promise<{ ok: true; run_id: string } | { ok: false; error: string }> {
   try {
     const token = await requireSessionAccessToken();

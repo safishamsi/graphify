@@ -25,13 +25,11 @@ from typing import Iterable, Optional
 
 import networkx as nx
 
+from depos.graph_relations import CONSUMES_PAYLOAD
+from depos.graph_relations import PRODUCES_PAYLOAD
+from depos.graph_relations import TASK_CONSUMES
+from depos.graph_relations import TASK_ENQUEUES
 from depos.analysis.schemas import ContractKind, SemanticEdgeMetadata
-from depos.enrichment.semantic_edges import (
-    CONSUMES_PAYLOAD,
-    PRODUCES_PAYLOAD,
-    TASK_CONSUMES,
-    TASK_ENQUEUES,
-)
 
 
 _ENQUEUE = re.compile(

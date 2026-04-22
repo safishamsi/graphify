@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { deposJson } from "@/lib/depos/api";
+import { deposJson, humanizeDeposApiError } from "@/lib/depos/api";
 import { requireSessionAccessToken } from "@/lib/depos/server";
 import { getOrgIdBySlug, listGraphSnapshots } from "@/lib/supabase/queries";
 import type { ReposListResponse } from "@/lib/depos/types";
@@ -13,11 +13,12 @@ export default async function PostciPage({ params }: Props) {
   const orgId = await getOrgIdBySlug(supabase, params.slug);
 
   let repos: ReposListResponse["repos"] = [];
+  let reposError: string | null = null;
   try {
     const data = await deposJson<ReposListResponse>(`/v1/orgs/${encodeURIComponent(params.slug)}/repos`, token);
     repos = data.repos ?? [];
-  } catch {
-    repos = [];
+  } catch (e) {
+    reposError = humanizeDeposApiError(e, 400);
   }
 
   const snapshots = orgId ? await listGraphSnapshots(supabase, orgId) : [];
@@ -26,7 +27,10 @@ export default async function PostciPage({ params }: Props) {
     <div>
       <h1 className="font-display page-title">Post-CI</h1>
       <p className="page-desc">Correlates predicted blast files with failed paths and persists a CI signal.</p>
-      {repos.length === 0 ? (
+      {reposError ? <p className="text-danger">{reposError}</p> : null}
+      {reposError ? (
+        <p className="empty-state">Repositories could not be loaded, so Post-CI is temporarily unavailable.</p>
+      ) : repos.length === 0 ? (
         <p className="empty-state">No repositories configured.</p>
       ) : (
         <PostciForm orgSlug={params.slug} repos={repos} snapshots={snapshots} />

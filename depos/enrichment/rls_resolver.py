@@ -26,7 +26,7 @@ from depos.analysis.schemas import (
     RLSCoverage,
     SemanticEdgeMetadata,
 )
-from depos.enrichment.semantic_edges import ROUTE_GUARDED_BY_RLS
+from depos.graph_relations import ROUTE_GUARDED_BY_RLS
 
 
 # ---------------------------------------------------------------------------

@@ -8,23 +8,9 @@ from typing import Any
 import networkx as nx
 
 from depos.analysis.schemas import IngestReport
+from depos.ingest.common import add_edge_once, upsert_node
 
 _DEFAULT_GLOBS = ["**/openapi.yaml", "**/openapi.yml", "**/openapi.json"]
-
-
-def _add_node(graph: nx.DiGraph, node_id: str, **attrs) -> bool:
-    if graph.has_node(node_id):
-        graph.nodes[node_id].update(attrs)
-        return False
-    graph.add_node(node_id, **attrs)
-    return True
-
-
-def _add_edge(graph: nx.DiGraph, source: str, target: str, **attrs) -> bool:
-    if graph.has_edge(source, target):
-        return False
-    graph.add_edge(source, target, **attrs)
-    return True
 
 
 def _load_doc(path: Path) -> dict[str, Any]:
@@ -99,7 +85,7 @@ def _emit_operation(graph: nx.DiGraph, path: Path, rel: Path, method: str, route
                     enum_values.update(_schema_enums(schema))
                     response_schema_name = str(schema.get("$ref") or response_schema_name)
 
-    if _add_node(
+    if upsert_node(
         graph,
         node_id,
         node_kind="openapi_operation",
@@ -121,7 +107,7 @@ def _emit_operation(graph: nx.DiGraph, path: Path, rel: Path, method: str, route
 
 def _emit_schema(graph: nx.DiGraph, path: Path, rel: Path, name: str, payload: dict[str, Any], report: IngestReport) -> str:
     node_id = f"openapi::schema:{rel.as_posix()}::{name}"
-    if _add_node(
+    if upsert_node(
         graph,
         node_id,
         node_kind="openapi_schema",
@@ -172,7 +158,7 @@ def ingest(graph: nx.DiGraph, *, repo_root: Path, config) -> IngestReport:
                         ref = str(attrs.get(key) or "")
                         schema_name = ref.rsplit("/", 1)[-1] if ref else ""
                         schema_id = schema_ids.get(schema_name)
-                        if schema_id and _add_edge(graph, node_id, schema_id, relation="SCHEMA_OF", source_system="openapi", target_system="schema"):
+                        if schema_id and add_edge_once(graph, node_id, schema_id, relation="SCHEMA_OF", source_system="openapi", target_system="schema"):
                             report.edges_added += 1
             except Exception as exc:  # noqa: BLE001
                 report.errors.append({"path": str(path), "kind": "parse_error", "message": str(exc)})

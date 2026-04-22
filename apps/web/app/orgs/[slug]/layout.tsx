@@ -15,7 +15,7 @@ export default async function OrgSlugLayout({ children, params }: Props) {
     redirect(`/auth/sign-in?next=/orgs/${encodeURIComponent(params.slug)}`);
   }
 
-  let me;
+  let me: Awaited<ReturnType<typeof fetchMe>>;
   try {
     me = await fetchMe(session.access_token);
   } catch (e) {

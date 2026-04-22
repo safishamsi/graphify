@@ -8,24 +8,10 @@ from typing import Any
 import networkx as nx
 
 from depos.analysis.schemas import IngestReport
+from depos.ingest.common import add_edge_once, upsert_node
 
 _SECRET_REF = re.compile(r"\$\{\{\s*secrets\.([A-Z0-9_]+)\s*\}\}")
 _MATRIX_NODE = re.compile(r"node-version\s*:\s*(.+)")
-
-
-def _add_node(graph: nx.DiGraph, node_id: str, **attrs) -> bool:
-    if graph.has_node(node_id):
-        graph.nodes[node_id].update(attrs)
-        return False
-    graph.add_node(node_id, **attrs)
-    return True
-
-
-def _add_edge(graph: nx.DiGraph, source: str, target: str, **attrs) -> bool:
-    if graph.has_edge(source, target):
-        return False
-    graph.add_edge(source, target, **attrs)
-    return True
 
 
 def _yaml_like(path: Path) -> dict[str, Any]:
@@ -101,7 +87,7 @@ def _dockerfile(graph: nx.DiGraph, repo_root: Path, path: Path, report: IngestRe
         if stripped.upper().startswith("FROM "):
             stage_name = stripped.split(" AS ", 1)[-1].strip() if " AS " in stripped.upper() else f"stage{idx}"
             node_id = f"infra::docker-stage:{rel.as_posix()}::{stage_name}"
-            if _add_node(
+            if upsert_node(
                 graph,
                 node_id,
                 node_kind="dockerfile_stage",
@@ -115,7 +101,7 @@ def _dockerfile(graph: nx.DiGraph, repo_root: Path, path: Path, report: IngestRe
         elif stripped.upper().startswith("COPY "):
             source_path = stripped.split()[1] if len(stripped.split()) > 2 else ""
             copy_id = f"infra::copy:{rel.as_posix()}::{idx}"
-            if _add_node(
+            if upsert_node(
                 graph,
                 copy_id,
                 node_kind="config_key",
@@ -126,7 +112,7 @@ def _dockerfile(graph: nx.DiGraph, repo_root: Path, path: Path, report: IngestRe
             ):
                 report.nodes_added += 1
             stage_id = f"infra::docker-stage:{rel.as_posix()}::{stage_name}"
-            if _add_edge(graph, stage_id, copy_id, relation="STAGE_COPIES_PATH", source_system="infra", target_system="infra"):
+            if add_edge_once(graph, stage_id, copy_id, relation="STAGE_COPIES_PATH", source_system="infra", target_system="infra"):
                 report.edges_added += 1
 
 
@@ -143,7 +129,7 @@ def _compose(graph: nx.DiGraph, repo_root: Path, path: Path, report: IngestRepor
         if not isinstance(payload, dict):
             continue
         node_id = f"infra::service:{rel.as_posix()}::{name}"
-        if _add_node(
+        if upsert_node(
             graph,
             node_id,
             node_kind="infra_service",
@@ -161,7 +147,7 @@ def _compose(graph: nx.DiGraph, repo_root: Path, path: Path, report: IngestRepor
             continue
         for dep in attrs.get("depends_on") or []:
             target_id = f"infra::service:{rel.as_posix()}::{dep}"
-            if graph.has_node(target_id) and _add_edge(graph, source_id, target_id, relation="SERVICE_DEPENDS_ON", source_system="infra", target_system="infra"):
+            if graph.has_node(target_id) and add_edge_once(graph, source_id, target_id, relation="SERVICE_DEPENDS_ON", source_system="infra", target_system="infra"):
                 report.edges_added += 1
 
 
@@ -185,7 +171,7 @@ def _workflow(graph: nx.DiGraph, repo_root: Path, path: Path, report: IngestRepo
         if matrix_line:
             raw = matrix_line.group(1).strip()
             matrix_versions = [item.strip().strip("'\"[] ") for item in raw.split(",") if item.strip()]
-        if _add_node(
+        if upsert_node(
             graph,
             node_id,
             node_kind="infra_workflow",
@@ -200,7 +186,7 @@ def _workflow(graph: nx.DiGraph, repo_root: Path, path: Path, report: IngestRepo
             report.nodes_added += 1
         for secret in secrets:
             secret_id = f"infra::secret:{rel.as_posix()}::{secret}"
-            if _add_node(
+            if upsert_node(
                 graph,
                 secret_id,
                 node_kind="config_key",
@@ -210,7 +196,7 @@ def _workflow(graph: nx.DiGraph, repo_root: Path, path: Path, report: IngestRepo
                 key=secret,
             ):
                 report.nodes_added += 1
-            if _add_edge(graph, node_id, secret_id, relation="WORKFLOW_USES_SECRET", source_system="infra", target_system="infra"):
+            if add_edge_once(graph, node_id, secret_id, relation="WORKFLOW_USES_SECRET", source_system="infra", target_system="infra"):
                 report.edges_added += 1
 
 

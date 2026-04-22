@@ -13,7 +13,7 @@ import uuid
 from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Literal, Optional
+from typing import Any, Optional
 from uuid import UUID
 
 from fastapi import Depends, FastAPI, HTTPException, Request
@@ -21,6 +21,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field, model_validator
 from sqlalchemy import desc, select, text
 
+from depos.analysis.schemas import (
+    AnalysisMode,
+    PersistedFindingTrustLevel,
+    ReasonerMode,
+    ReasonerRunHealth,
+    RunStatus,
+    SeverityLevel,
+)
 from depos.blast import drift_edge_jaccard
 from depos.db import (
     AuditLog,
@@ -41,7 +49,7 @@ from depos.fusion import attach_diagnostics
 from depos.internal_auth import internal_credentials_match, require_internal
 from depos.intelligence_store import persist_intelligence_run
 from depos.ownership import cross_owner_warnings, parse_codeowners
-from depos.postci import correlate_ci_failure, store_signal
+from depos.postci import PostCIResult, correlate_ci_failure, store_signal
 from depos.settings import cors_allow_origins, validate_production_config
 from depos.snapshot import (
     build_graph_for_root,
@@ -187,26 +195,26 @@ class DriftSnapshotsBody(BaseModel):
 
 
 class IntelligenceFindingIn(BaseModel):
-    trust_level: Literal["confirmed", "partially_confirmed", "evaluator_surfaced"]
-    mode: Literal["A", "B", "C"] | None = None
+    trust_level: PersistedFindingTrustLevel
+    mode: ReasonerMode | None = None
     bug_type: str = ""
     description: str = ""
-    affected_components: list[Any] = Field(default_factory=list)
-    witness_path: list[Any] = Field(default_factory=list)
+    affected_components: list[str] = Field(default_factory=list)
+    witness_path: list[str] = Field(default_factory=list)
     missing_guard: str | None = None
     recommended_fix: str | None = None
     reasoner_confidence: float = 0.0
     ranking_phase: int = 0
     verifier_outcome: str = ""
-    verifier_checks_passed: list[Any] = Field(default_factory=list)
-    verifier_checks_inconclusive: list[Any] = Field(default_factory=list)
+    verifier_checks_passed: list[str] = Field(default_factory=list)
+    verifier_checks_inconclusive: list[str] = Field(default_factory=list)
     rls_verdict: str | None = None
-    migration_state_facts: dict[str, Any] = Field(default_factory=dict)
+    migration_state_facts: dict[str, str] = Field(default_factory=dict)
     caveats: dict[str, Any] = Field(default_factory=dict)
     detector_name: str = "legacy"
     detector_version: str = "0"
     pipeline_version: str = "0"
-    severity: Literal["info", "low", "medium", "high", "critical"] = "medium"
+    severity: SeverityLevel = "medium"
 
 
 class IntelligenceDetectorStatIn(BaseModel):
@@ -216,35 +224,35 @@ class IntelligenceDetectorStatIn(BaseModel):
     verified_confirmed: int = 0
     verified_invalid: int = 0
     mean_latency_ms: float = 0.0
-    errors: list[Any] = Field(default_factory=list)
+    errors: list[dict[str, Any]] = Field(default_factory=list)
 
 
 class IntelligenceRunCreate(BaseModel):
     repo_slug: str
     base_ref: str | None = None
     head_ref: str | None = None
-    analysis_mode: Literal["diff_aware", "full_repo_scan"]
+    analysis_mode: AnalysisMode
     provider: str | None = None
     low_stitcher_coverage: bool = False
     token_estimator: str = "chars4"
     ranking_phase: int = 0
-    status: Literal["running", "succeeded", "partial_reasoning", "failed"] = "succeeded"
+    status: RunStatus = "succeeded"
     pack_manifest_id: str | None = None
     pipeline_version: str = "0"
-    ingest_errors: list[Any] = Field(default_factory=list)
-    universes_present: list[Any] = Field(default_factory=list)
+    ingest_errors: list[dict[str, Any]] = Field(default_factory=list)
+    universes_present: list[str] = Field(default_factory=list)
     enabled_detectors: list[str] = Field(default_factory=list)
     detector_policy: dict[str, Any] | None = None
     detector_stats: list[IntelligenceDetectorStatIn] = Field(default_factory=list)
     findings: list[IntelligenceFindingIn] = Field(default_factory=list)
     # Reasoner health surfaced from RunMetadata. Optional so older callers
     # keep working; defaults below match a clean run.
-    reasoner_run_health: Literal["ok", "degraded", "failed"] = "ok"
+    reasoner_run_health: ReasonerRunHealth = "ok"
     reasoner_health_reason: str = ""
     reasoner_attempts: int = 0
     reasoner_successes: int = 0
     reasoner_failures: int = 0
-    reasoner_failure_breakdown: dict[str, Any] = Field(default_factory=dict)
+    reasoner_failure_breakdown: dict[str, int] = Field(default_factory=dict)
     evidence_summary: dict[str, Any] = Field(default_factory=dict)
     bundles_built: int = 0
     bundles_sent_to_reasoner: int = 0
@@ -612,7 +620,7 @@ def ci_analyze(req: CIAnalyzeRequest, request: Request, user: Any = _auth_dep())
 
 
 @app.post("/v1/ci/postci")
-def ci_postci(req: PostCIRequest, user: Any = _auth_dep()) -> dict[str, Any]:
+def ci_postci(req: PostCIRequest, user: Any = _auth_dep()) -> PostCIResult:
     payload = correlate_ci_failure(
         req.predicted_files,
         req.failed_paths,

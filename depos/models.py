@@ -29,6 +29,14 @@ class DiagnosticRef(BaseModel):
     end_line: int = 0
 
 
+class EdgeFaultRef(BaseModel):
+    source: str
+    target: str
+    fault: bool = True
+    fault_categories: list[str] = Field(default_factory=list)
+    relation: str | None = None
+
+
 class BlastRadiusResult(BaseModel):
     seed_files: list[str] = Field(default_factory=list)
     impacted_node_ids: list[str] = Field(default_factory=list)
@@ -43,7 +51,7 @@ class LLMGraphExport(BaseModel):
     """Graph + error indices for Claude Code / MCP consumers."""
 
     graph: dict[str, Any]
-    error_index: dict[str, list[dict[str, Any]]]
-    edge_fault_index: list[dict[str, Any]]
+    error_index: dict[str, list[DiagnosticRef]]
+    edge_fault_index: list[EdgeFaultRef]
     executive_summary: str = ""
     blast_radius: BlastRadiusResult | None = None

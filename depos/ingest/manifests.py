@@ -10,21 +10,7 @@ import networkx as nx
 
 from depos.analysis.oracles.lockfile_resolver import lookup as lockfile_lookup
 from depos.analysis.schemas import IngestReport
-
-
-def _add_node(graph: nx.DiGraph, node_id: str, **attrs) -> bool:
-    if graph.has_node(node_id):
-        graph.nodes[node_id].update(attrs)
-        return False
-    graph.add_node(node_id, **attrs)
-    return True
-
-
-def _add_edge(graph: nx.DiGraph, source: str, target: str, **attrs) -> bool:
-    if graph.has_edge(source, target):
-        return False
-    graph.add_edge(source, target, **attrs)
-    return True
+from depos.ingest.common import add_edge_once, upsert_node
 
 
 def _pkg_manifest_id(path: Path) -> str:
@@ -58,8 +44,10 @@ def _parse_requirements(path: Path) -> list[tuple[str, str]]:
 def _load_package_lock(path: Path) -> dict[str, str]:
     try:
         data = json.loads(path.read_text(encoding="utf-8"))
-    except Exception:
-        return {}
+    except OSError as exc:
+        raise ValueError(f"could not read {path.name}: {exc}") from exc
+    except json.JSONDecodeError as exc:
+        raise ValueError(f"could not parse {path.name}: {exc}") from exc
     packages = data.get("packages") or {}
     out: dict[str, str] = {}
     if isinstance(packages, dict):
@@ -141,7 +129,7 @@ def _emit_manifest(graph: nx.DiGraph, repo_root: Path, path: Path, report: Inges
     rel = path.relative_to(repo_root)
     manifest_id = _pkg_manifest_id(rel)
     report.files_seen += 1
-    if _add_node(
+    if upsert_node(
         graph,
         manifest_id,
         node_kind="package_manifest",
@@ -167,7 +155,16 @@ def _emit_manifest(graph: nx.DiGraph, repo_root: Path, path: Path, report: Inges
                     dep_types[name] = section.replace("Dependencies", "").replace("dependencies", "runtime") or "runtime"
             lock_path = path.with_name("package-lock.json")
             if lock_path.exists():
-                lock_resolutions = _load_package_lock(lock_path)
+                try:
+                    lock_resolutions = _load_package_lock(lock_path)
+                except ValueError as exc:
+                    report.errors.append(
+                        {
+                            "path": str(lock_path),
+                            "kind": "lockfile_parse_error",
+                            "message": str(exc),
+                        }
+                    )
         elif path.name.startswith("requirements"):
             deps = _parse_requirements(path)
         elif path.name == "pyproject.toml":
@@ -204,13 +201,13 @@ def _emit_manifest(graph: nx.DiGraph, repo_root: Path, path: Path, report: Inges
             "peer_unsatisfied": dep_types.get(name) == "peer" and bool(resolved_version and oracle.conclusion == "fail"),
             "ecosystem": graph.nodes[manifest_id].get("ecosystem"),
         }
-        if _add_node(graph, dep_id, **attrs):
+        if upsert_node(graph, dep_id, **attrs):
             report.nodes_added += 1
-        if _add_edge(graph, manifest_id, dep_id, relation="DECLARES_DEP", source_system="manifest", target_system="deps"):
+        if add_edge_once(graph, manifest_id, dep_id, relation="DECLARES_DEP", source_system="manifest", target_system="deps"):
             report.edges_added += 1
         if resolved_version:
             lock_id = _lock_resolution_id(rel, name, resolved_version)
-            if _add_node(
+            if upsert_node(
                 graph,
                 lock_id,
                 node_kind="lockfile_resolution",
@@ -222,7 +219,7 @@ def _emit_manifest(graph: nx.DiGraph, repo_root: Path, path: Path, report: Inges
                 ecosystem=graph.nodes[manifest_id].get("ecosystem"),
             ):
                 report.nodes_added += 1
-            if _add_edge(graph, dep_id, lock_id, relation="RESOLVES_TO", source_system="deps", target_system="deps"):
+            if add_edge_once(graph, dep_id, lock_id, relation="RESOLVES_TO", source_system="deps", target_system="deps"):
                 report.edges_added += 1
 
 

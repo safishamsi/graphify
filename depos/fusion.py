@@ -1,6 +1,7 @@
 """Attach diagnostics to an existing NetworkX graph (post build_from_json)."""
 from __future__ import annotations
 
+from pathlib import Path
 from typing import Any
 
 import networkx as nx
@@ -13,7 +14,7 @@ def attach_diagnostics(
     G: nx.Graph,
     sarif: dict[str, Any] | None,
     *,
-    repo_root: Any = None,
+    repo_root: Path | None = None,
     extra: list[DiagnosticRef] | None = None,
 ) -> nx.Graph:
     """Mutate G: set node attrs errors, error_count, max_severity; edge fault flags."""
@@ -42,14 +43,14 @@ def attach_diagnostics(
     return G
 
 
-def graph_error_index(G: nx.Graph) -> tuple[dict[str, list[dict]], list[dict]]:
+def graph_error_index(G: nx.Graph) -> tuple[dict[str, list[dict[str, Any]]], list[dict[str, Any]]]:
     """Build error_index and edge_fault_index for LLM export."""
-    error_index: dict[str, list[dict]] = {}
+    error_index: dict[str, list[dict[str, Any]]] = {}
     for nid, data in G.nodes(data=True):
         errs = data.get("errors")
         if errs:
             error_index[nid] = errs
-    edge_fault_index: list[dict] = []
+    edge_fault_index: list[dict[str, Any]] = []
     for u, v, data in G.edges(data=True):
         if data.get("fault"):
             edge_fault_index.append(

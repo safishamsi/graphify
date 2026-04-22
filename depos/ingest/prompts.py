@@ -9,6 +9,7 @@ from typing import Any
 import networkx as nx
 
 from depos.analysis.schemas import IngestReport
+from depos.ingest.common import upsert_node
 
 _DEFAULT_GLOBS = [
     "**/prompts/**/*.{md,toml,json,prompt}",
@@ -20,16 +21,6 @@ _DECLARED_VAR_PATTERNS = [
     re.compile(r"\$\{\s*([A-Za-z_][A-Za-z0-9_.-]*)\s*\}"),
     re.compile(r"(?<!\{)\{([A-Za-z_][A-Za-z0-9_.-]*)\}(?!\})"),
 ]
-
-
-def _add_node(graph: nx.DiGraph, node_id: str, **attrs) -> bool:
-    if graph.has_node(node_id):
-        graph.nodes[node_id].update(attrs)
-        return False
-    graph.add_node(node_id, **attrs)
-    return True
-
-
 def _load_yaml_like(path: Path) -> dict[str, Any]:
     return _load_yaml_text(path.read_text(encoding="utf-8", errors="replace"))
 
@@ -164,7 +155,7 @@ def ingest(graph: nx.DiGraph, *, repo_root: Path, config) -> IngestReport:
                 "template_family": path.parent.name,
                 "template_text": body[:8000],
             }
-            if _add_node(graph, node_id, **attrs):
+            if upsert_node(graph, node_id, **attrs):
                 report.nodes_added += 1
         except Exception as exc:  # noqa: BLE001
             report.errors.append({"path": str(path), "kind": "parse_error", "message": str(exc)})

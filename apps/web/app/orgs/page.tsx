@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { humanizeDeposApiError } from "@/lib/depos/api";
 import { createClient } from "@/lib/supabase/server";
 import { fetchMe } from "@/lib/depos/server";
+import type { MeResponse } from "@/lib/depos/types";
 import { OrgCreateForm } from "@/components/orgs/OrgCreateForm";
 
 export default async function OrgsIndexPage() {
@@ -13,11 +15,12 @@ export default async function OrgsIndexPage() {
     redirect("/auth/sign-in?next=/orgs");
   }
 
-  let me;
+  let meError: string | null = null;
+  let me: MeResponse = { user_id: "", email: null, memberships: [] };
   try {
     me = await fetchMe(session.access_token);
-  } catch {
-    me = { user_id: "", email: null, memberships: [] };
+  } catch (e) {
+    meError = humanizeDeposApiError(e, 400);
   }
 
   const orgSlugs = (me.memberships ?? [])
@@ -40,6 +43,7 @@ export default async function OrgsIndexPage() {
       {!process.env.NEXT_PUBLIC_DEPOS_API_URL && (
         <p className="text-danger">Set NEXT_PUBLIC_DEPOS_API_URL in the repo root .env to load memberships from the API.</p>
       )}
+      {meError ? <p className="text-danger">{meError}</p> : null}
 
       {orgSlugs.length > 0 && (
         <section style={{ marginBottom: "2.5rem" }}>

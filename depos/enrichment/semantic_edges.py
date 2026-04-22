@@ -12,6 +12,35 @@ from typing import Any, Callable, Optional
 import networkx as nx
 
 from depos.analysis.config import IntelligenceConfig
+from depos.graph_relations import CONSUMES_OPENAPI_OP
+from depos.graph_relations import CONSUMES_PAYLOAD
+from depos.graph_relations import DECLARES_DEP
+from depos.graph_relations import DEFINED_BY_CONFIG
+from depos.graph_relations import HTTP_CALLS_ROUTE
+from depos.graph_relations import IMPLEMENTS_OPENAPI_OP
+from depos.graph_relations import IMPORTS_PACKAGE
+from depos.graph_relations import MIGRATION_PRECEDES
+from depos.graph_relations import NEXT_ROUTE_GUARDED_BY_MIDDLEWARE
+from depos.graph_relations import NEXT_ROUTE_USES_LAYOUT
+from depos.graph_relations import PEER_OF
+from depos.graph_relations import PRODUCES_PAYLOAD
+from depos.graph_relations import PROMPT_DECLARES_VAR
+from depos.graph_relations import PROMPT_USES_VAR
+from depos.graph_relations import READS_ENV_VAR
+from depos.graph_relations import RENDERED_BY_PROMPT
+from depos.graph_relations import RESOLVES_TO
+from depos.graph_relations import ROUTE_CALLS_RPC
+from depos.graph_relations import ROUTE_GUARDED_BY_RLS
+from depos.graph_relations import ROUTE_READS_TABLE
+from depos.graph_relations import ROUTE_WRITES_TABLE
+from depos.graph_relations import SCHEMA_DEFINED_BY_MIGRATION
+from depos.graph_relations import SCHEMA_OF
+from depos.graph_relations import SERVICE_DEPENDS_ON
+from depos.graph_relations import STAGE_COPIES_PATH
+from depos.graph_relations import TASK_CONSUMES
+from depos.graph_relations import TASK_ENQUEUES
+from depos.graph_relations import WORKFLOW_USES_SECRET
+from depos.graph_relations import WRITES_ENV_VAR
 from depos.analysis.schemas import IngestReport
 from depos.analysis.schemas import (
     ContractKind,
@@ -25,36 +54,6 @@ from depos.enrichment.http_probes import (
     iter_fastapi_route_nodes,
 )
 from depos.enrichment.url_normalize import normalize_route, score_match
-
-HTTP_CALLS_ROUTE = "HTTP_CALLS_ROUTE"
-ROUTE_READS_TABLE = "ROUTE_READS_TABLE"
-ROUTE_WRITES_TABLE = "ROUTE_WRITES_TABLE"
-ROUTE_CALLS_RPC = "ROUTE_CALLS_RPC"
-ROUTE_GUARDED_BY_RLS = "ROUTE_GUARDED_BY_RLS"
-TASK_ENQUEUES = "TASK_ENQUEUES"
-TASK_CONSUMES = "TASK_CONSUMES"
-PRODUCES_PAYLOAD = "PRODUCES_PAYLOAD"
-CONSUMES_PAYLOAD = "CONSUMES_PAYLOAD"
-SCHEMA_DEFINED_BY_MIGRATION = "SCHEMA_DEFINED_BY_MIGRATION"
-MIGRATION_PRECEDES = "MIGRATION_PRECEDES"
-DECLARES_DEP = "DECLARES_DEP"
-RESOLVES_TO = "RESOLVES_TO"
-PEER_OF = "PEER_OF"
-IMPORTS_PACKAGE = "IMPORTS_PACKAGE"
-READS_ENV_VAR = "READS_ENV_VAR"
-WRITES_ENV_VAR = "WRITES_ENV_VAR"
-DEFINED_BY_CONFIG = "DEFINED_BY_CONFIG"
-RENDERED_BY_PROMPT = "RENDERED_BY_PROMPT"
-PROMPT_DECLARES_VAR = "PROMPT_DECLARES_VAR"
-PROMPT_USES_VAR = "PROMPT_USES_VAR"
-IMPLEMENTS_OPENAPI_OP = "IMPLEMENTS_OPENAPI_OP"
-CONSUMES_OPENAPI_OP = "CONSUMES_OPENAPI_OP"
-SCHEMA_OF = "SCHEMA_OF"
-NEXT_ROUTE_GUARDED_BY_MIDDLEWARE = "NEXT_ROUTE_GUARDED_BY_MIDDLEWARE"
-NEXT_ROUTE_USES_LAYOUT = "NEXT_ROUTE_USES_LAYOUT"
-WORKFLOW_USES_SECRET = "WORKFLOW_USES_SECRET"
-SERVICE_DEPENDS_ON = "SERVICE_DEPENDS_ON"
-STAGE_COPIES_PATH = "STAGE_COPIES_PATH"
 
 
 def _edge_key(metadata: SemanticEdgeMetadata) -> str:

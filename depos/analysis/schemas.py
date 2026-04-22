@@ -125,6 +125,12 @@ class AnalysisMode(str, Enum):
     full_repo_scan = "full_repo_scan"
 
 
+SeverityLevel = Literal["info", "low", "medium", "high", "critical"]
+PersistedFindingTrustLevel = Literal["confirmed", "partially_confirmed", "evaluator_surfaced"]
+RunStatus = Literal["running", "succeeded", "partial_reasoning", "failed"]
+ReasonerRunHealth = Literal["ok", "degraded", "failed"]
+
+
 class ChangeManifestEntry(BaseModel):
     path: Optional[str] = None
     node_ids: list[NodeId] = Field(default_factory=list)
@@ -161,7 +167,7 @@ class Detector(BaseModel):
     tree: list[DetectorRule] = Field(default_factory=list)
     verifier_checks: list[str] = Field(default_factory=list)
     requires_reasoner: bool = False
-    severity_default: Literal["info", "low", "medium", "high", "critical"] = "medium"
+    severity_default: SeverityLevel = "medium"
     enabled_by_default: bool = True
     scope: Literal["graph", "per_node", "per_edge"] = "per_node"
 
@@ -170,7 +176,7 @@ class DetectorCandidateExtra(BaseModel):
     detector_name: str
     detector_version: str
     pipeline_version: str
-    severity: Literal["info", "low", "medium", "high", "critical"] = "medium"
+    severity: SeverityLevel = "medium"
     oracle_hints: dict[str, Any] = Field(default_factory=dict)
 
 
@@ -450,7 +456,7 @@ class Finding(BaseModel):
     detector_name: str = "legacy"
     detector_version: str = "0"
     pipeline_version: str = "0"
-    severity: Literal["info", "low", "medium", "high", "critical"] = "medium"
+    severity: SeverityLevel = "medium"
 
     partially_confirmed_caveat: Optional[str] = None
     evaluator_surfaced_caveat: Optional[str] = None
@@ -562,7 +568,7 @@ class ReasonerCallStats(BaseModel):
             target["successes"] += bucket.get("successes", 0)
             target["failures"] += bucket.get("failures", 0)
 
-    def health(self) -> Literal["ok", "degraded", "failed"]:
+    def health(self) -> ReasonerRunHealth:
         if self.attempts == 0:
             return "ok"
         if self.successes == 0:
@@ -611,7 +617,7 @@ class RunMetadata(BaseModel):
     stitcher_coverage: StitcherCoverageReport = Field(default_factory=StitcherCoverageReport)
     graph_source_metadata: dict[str, Any] = Field(default_factory=dict)
     reasoner_call_stats: ReasonerCallStats = Field(default_factory=ReasonerCallStats)
-    reasoner_run_health: Literal["ok", "degraded", "failed"] = "ok"
+    reasoner_run_health: ReasonerRunHealth = "ok"
     reasoner_health_reason: str = ""
     bundles_built: int = 0
     bundles_sent_to_reasoner: int = 0

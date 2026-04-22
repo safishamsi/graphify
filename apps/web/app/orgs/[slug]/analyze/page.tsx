@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import { deposJson } from "@/lib/depos/api";
+import { deposJson, humanizeDeposApiError } from "@/lib/depos/api";
 import { requireSessionAccessToken } from "@/lib/depos/server";
 import { getOrgIdBySlug, listGraphSnapshots } from "@/lib/supabase/queries";
 import type { ReposListResponse } from "@/lib/depos/types";
@@ -13,11 +13,12 @@ export default async function AnalyzePage({ params }: Props) {
   const orgId = await getOrgIdBySlug(supabase, params.slug);
 
   let repos: ReposListResponse["repos"] = [];
+  let reposError: string | null = null;
   try {
     const data = await deposJson<ReposListResponse>(`/v1/orgs/${encodeURIComponent(params.slug)}/repos`, token);
     repos = data.repos ?? [];
-  } catch {
-    repos = [];
+  } catch (e) {
+    reposError = humanizeDeposApiError(e, 400);
   }
 
   const allSnaps = orgId ? await listGraphSnapshots(supabase, orgId) : [];
@@ -29,7 +30,10 @@ export default async function AnalyzePage({ params }: Props) {
       <p className="page-desc">
         Runs <code className="font-mono">POST /v1/ci/analyze</code> against a ready graph snapshot for this org.
       </p>
-      {repos.length === 0 ? (
+      {reposError ? <p className="text-danger">{reposError}</p> : null}
+      {reposError ? (
+        <p className="empty-state">Repositories could not be loaded, so Analyze is temporarily unavailable.</p>
+      ) : repos.length === 0 ? (
         <p className="empty-state">Add repositories under Repositories first.</p>
       ) : (
         <AnalyzeLabClient orgSlug={params.slug} repos={repos} readySnapshots={readySnapshots} />

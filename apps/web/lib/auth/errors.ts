@@ -31,6 +31,11 @@ export type AuthErrorInfo = {
   retryAfterSeconds?: number;
 };
 
+type AuthErrorMeta = {
+  code?: string;
+  status?: number;
+};
+
 /** Convenience builder used by tests + non-Supabase code paths. */
 export function makeAuthError(
   kind: AuthErrorKind,
@@ -68,8 +73,7 @@ export function toAuthErrorInfo(err: unknown): AuthErrorInfo {
   }
 
   if (err instanceof AuthError) {
-    const code = (err as unknown as { code?: string }).code;
-    const status = (err as unknown as { status?: number }).status;
+    const { code, status } = err as AuthErrorMeta;
     const baseMsg = err.message ?? "Authentication failed.";
 
     switch (code) {
@@ -183,7 +187,3 @@ export function toAuthErrorInfo(err: unknown): AuthErrorInfo {
   return makeAuthError("unknown", "Something went wrong. Please try again.");
 }
 
-/** Back-compat helper for call sites that only need a string. */
-export function friendlyAuthError(err: unknown): string {
-  return toAuthErrorInfo(err).message;
-}

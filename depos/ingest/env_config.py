@@ -11,21 +11,7 @@ import networkx as nx
 
 from depos.analysis.schemas import IngestReport
 from depos.env import _parse_env_line
-
-
-def _add_node(graph: nx.DiGraph, node_id: str, **attrs) -> bool:
-    if graph.has_node(node_id):
-        graph.nodes[node_id].update(attrs)
-        return False
-    graph.add_node(node_id, **attrs)
-    return True
-
-
-def _add_edge(graph: nx.DiGraph, source: str, target: str, **attrs) -> bool:
-    if graph.has_edge(source, target):
-        return False
-    graph.add_edge(source, target, **attrs)
-    return True
+from depos.ingest.common import add_edge_once, upsert_node
 
 
 def _infer_type(value: str) -> str:
@@ -60,7 +46,7 @@ def _scan_env_file(graph: nx.DiGraph, repo_root: Path, path: Path, report: Inges
         node_id = _env_node_id(name, rel)
         inferred = _infer_type(value)
         seen_types[name].add(inferred)
-        if _add_node(
+        if upsert_node(
             graph,
             node_id,
             node_kind="env_var",
@@ -74,7 +60,7 @@ def _scan_env_file(graph: nx.DiGraph, repo_root: Path, path: Path, report: Inges
         ):
             report.nodes_added += 1
         config_id = _config_node_id(name, rel)
-        if _add_node(
+        if upsert_node(
             graph,
             config_id,
             node_kind="config_key",
@@ -86,7 +72,7 @@ def _scan_env_file(graph: nx.DiGraph, repo_root: Path, path: Path, report: Inges
             origin=_origin_from_value(value),
         ):
             report.nodes_added += 1
-        if _add_edge(graph, config_id, node_id, relation="DEFINED_BY_CONFIG", source_system="config", target_system="env"):
+        if add_edge_once(graph, config_id, node_id, relation="DEFINED_BY_CONFIG", source_system="config", target_system="env"):
             report.edges_added += 1
 
 
@@ -113,7 +99,7 @@ def _scan_json_config(graph: nx.DiGraph, repo_root: Path, path: Path, report: In
         }
         if key.lower().endswith("origins") and isinstance(value, list):
             attrs["origins"] = value
-        if _add_node(graph, node_id, **attrs):
+        if upsert_node(graph, node_id, **attrs):
             report.nodes_added += 1
 
 
@@ -124,7 +110,7 @@ def _scan_js_config(graph: nx.DiGraph, repo_root: Path, path: Path, report: Inge
     env_refs = sorted(set(re.findall(r"process\.env\.([A-Z0-9_]+)", text)))
     redirects = re.findall(r"""destination:\s*["']([^"']+)["']""", text)
     node_id = _config_node_id(path.stem, rel)
-    if _add_node(
+    if upsert_node(
         graph,
         node_id,
         node_kind="config_key",
@@ -138,7 +124,7 @@ def _scan_js_config(graph: nx.DiGraph, repo_root: Path, path: Path, report: Inge
         report.nodes_added += 1
     for env_name in env_refs:
         env_id = _env_node_id(env_name, rel)
-        if _add_node(
+        if upsert_node(
             graph,
             env_id,
             node_kind="env_var",
@@ -149,7 +135,7 @@ def _scan_js_config(graph: nx.DiGraph, repo_root: Path, path: Path, report: Inge
             defined=False,
         ):
             report.nodes_added += 1
-        if _add_edge(graph, node_id, env_id, relation="READS_ENV_VAR", source_system="config", target_system="env"):
+        if add_edge_once(graph, node_id, env_id, relation="READS_ENV_VAR", source_system="config", target_system="env"):
             report.edges_added += 1
 
 
@@ -173,7 +159,7 @@ def _scan_toml(graph: nx.DiGraph, repo_root: Path, path: Path, report: IngestRep
             }
             if "origins" in key.lower() and isinstance(value, list):
                 attrs["origins"] = value
-            if _add_node(graph, node_id, **attrs):
+            if upsert_node(graph, node_id, **attrs):
                 report.nodes_added += 1
 
 
