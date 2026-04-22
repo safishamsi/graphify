@@ -124,6 +124,7 @@ def main() -> None:
         print("Commands:")
         print("  install                 copy skill to ~/.claude/skills/ and register in CLAUDE.md")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
+        print("  check-update <path>     check needs_update flag and run incremental update if set (cron-safe)")
         print("  hook install            install post-commit git hook (auto-rebuilds graph on commit)")
         print("  hook uninstall          remove post-commit git hook")
         print("  hook status             check if hook is installed")
@@ -170,6 +171,17 @@ def main() -> None:
                 pass
         result = run_benchmark(graph_path, corpus_words=corpus_words)
         print_benchmark(result)
+    elif cmd == "check-update":
+        if len(sys.argv) < 3:
+            print("Usage: graphify check-update <path>", file=sys.stderr)
+            sys.exit(1)
+        watch_path = Path(sys.argv[2]).resolve()
+        if not watch_path.exists():
+            print(f"[graphify] Error: path does not exist: {watch_path}", file=sys.stderr)
+            sys.exit(1)
+        from graphify.watch import check_update
+        ok = check_update(watch_path)
+        sys.exit(0 if ok else 1)
     else:
         print(f"error: unknown command '{cmd}'", file=sys.stderr)
         print("Run 'graphify --help' for usage.", file=sys.stderr)

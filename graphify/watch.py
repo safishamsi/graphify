@@ -84,6 +84,18 @@ def _rebuild_code(watch_path: Path) -> bool:
         return False
 
 
+def check_update(watch_path: Path) -> bool:
+    """Check for needs_update flag and run incremental update if present.
+
+    Returns True if update ran successfully or no update was needed, False on error.
+    Designed to be cron-safe and idempotent.
+    """
+    flag = Path(watch_path) / "graphify-out" / "needs_update"
+    if not flag.exists():
+        return True  # nothing to do
+    return _rebuild_code(Path(watch_path))
+
+
 def _notify_only(watch_path: Path) -> None:
     """Write a flag file and print a notification (fallback for non-code-only corpora)."""
     flag = watch_path / "graphify-out" / "needs_update"
