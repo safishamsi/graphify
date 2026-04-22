@@ -18,6 +18,66 @@ def _make_id(*parts: str) -> str:
     return cleaned.strip("_").lower()
 
 
+def _normalize_source_path(path_str: str, root: Path | None) -> str:
+    """Return a stable display path relative to root when possible.
+
+    Graphify often receives absolute file paths from callers running on a
+    project root or worktree. Absolute paths leak machine-specific prefixes
+    into file node IDs, which then surface in graph.json edge endpoints.
+    """
+    if not path_str:
+        return path_str
+    path = Path(path_str)
+    if not path.is_absolute():
+        return path.as_posix()
+    candidates: list[Path] = []
+    if root is not None:
+        candidates.append(root.resolve())
+    candidates.append(Path.cwd().resolve())
+    resolved = path.resolve()
+    for base in candidates:
+        try:
+            return resolved.relative_to(base).as_posix()
+        except ValueError:
+            continue
+    return resolved.as_posix()
+
+
+def _normalize_result_paths(result: dict, root: Path | None) -> dict:
+    """Relativize source_file fields and remap file-node IDs in-place."""
+    if root is None:
+        return result
+
+    file_id_map: dict[str, str] = {}
+    for node in result.get("nodes", []):
+        source_file = node.get("source_file", "")
+        normalized = _normalize_source_path(source_file, root)
+        if source_file:
+            node["source_file"] = normalized
+        label = node.get("label", "")
+        if source_file and label == Path(normalized).name:
+            old_id = _make_id(source_file)
+            new_id = _make_id(normalized)
+            if node.get("id") == old_id and old_id != new_id:
+                node["id"] = new_id
+                file_id_map[old_id] = new_id
+
+    for bucket in ("edges", "hyperedges", "raw_calls"):
+        for item in result.get(bucket, []):
+            source_file = item.get("source_file", "")
+            if source_file:
+                item["source_file"] = _normalize_source_path(source_file, root)
+            if bucket == "edges":
+                src = item.get("source")
+                tgt = item.get("target")
+                if src in file_id_map:
+                    item["source"] = file_id_map[src]
+                if tgt in file_id_map:
+                    item["target"] = file_id_map[tgt]
+
+    return result
+
+
 # ── LanguageConfig dataclass ─────────────────────────────────────────────────
 
 @dataclass
@@ -3092,11 +3152,12 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
         elif len(paths) == 1:
             root = paths[0].parent
         else:
-            common_len = sum(
-                1 for i in range(min(len(p.parts) for p in paths))
-                if len({p.parts[i] for p in paths}) == 1
-            )
-            root = Path(*paths[0].parts[:common_len]) if common_len else Path(".")
+            common_parts: list[str] = []
+            for parts in zip(*(p.parts for p in paths)):
+                if len(set(parts)) != 1:
+                    break
+                common_parts.append(parts[0])
+            root = Path(*common_parts) if common_parts else Path(".")
     except Exception:
         root = Path(".")
 
@@ -3153,11 +3214,14 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
             continue
         cached = load_cached(path, cache_root or root)
         if cached is not None:
-            per_file.append(cached)
+            per_file.append(_normalize_result_paths(cached, cache_root or root))
             continue
         result = extractor(path)
         if "error" not in result:
+            result = _normalize_result_paths(result, cache_root or root)
             save_cached(path, result, cache_root or root)
+        else:
+            result = _normalize_result_paths(result, cache_root or root)
         per_file.append(result)
     if total >= _PROGRESS_INTERVAL:
         print(f"  AST extraction: {total}/{total} files (100%)", flush=True)

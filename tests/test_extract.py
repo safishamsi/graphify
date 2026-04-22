@@ -1,5 +1,8 @@
+import json
 from pathlib import Path
+from graphify.build import build_from_json
 from graphify.extract import extract_python, extract, collect_files, _make_id
+from graphify.export import to_json
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -54,6 +57,47 @@ def test_extract_merges_multiple_files():
     result = extract(files)
     assert len(result["nodes"]) > 0
     assert result["input_tokens"] == 0
+
+
+def test_extract_relativizes_absolute_file_node_ids(tmp_path):
+    pkg1 = tmp_path / "pkg1"
+    pkg2 = tmp_path / "pkg2"
+    pkg1.mkdir()
+    pkg2.mkdir()
+    (pkg1 / "main.py").write_text("def alpha():\n    pass\n")
+    (pkg2 / "main.py").write_text("def beta():\n    pass\n")
+
+    result = extract([pkg1 / "main.py", pkg2 / "main.py"])
+
+    file_nodes = {
+        n["source_file"]: n["id"]
+        for n in result["nodes"]
+        if n["label"] == "main.py"
+    }
+    assert file_nodes == {
+        "pkg1/main.py": _make_id("pkg1/main.py"),
+        "pkg2/main.py": _make_id("pkg2/main.py"),
+    }
+
+
+def test_exported_graph_json_uses_relative_file_edge_endpoints(tmp_path):
+    src = tmp_path / "src"
+    src.mkdir()
+    path = src / "main.py"
+    path.write_text("def main():\n    pass\n")
+
+    result = extract([path])
+    G = build_from_json(result)
+    out = tmp_path / "graph.json"
+    to_json(G, {}, str(out))
+
+    data = json.loads(out.read_text())
+    contains = [edge for edge in data["links"] if edge["relation"] == "contains"]
+    assert contains
+    assert contains[0]["_src"] == "main_py"
+    assert contains[0]["_tgt"] == "main_main"
+    assert {contains[0]["source"], contains[0]["target"]} == {"main_py", "main_main"}
+    assert tmp_path.as_posix() not in out.read_text()
 
 
 def test_collect_files_from_dir():
