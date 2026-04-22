@@ -318,6 +318,44 @@ Works with any mix of file types:
 | Video / Audio | `.mp4 .mov .mkv .webm .avi .m4v .mp3 .wav .m4a .ogg` | Transcribed locally with faster-whisper, transcript fed into Claude extraction (requires `pip install graphifyy[video]`) |
 | YouTube / URLs | any video URL | Audio downloaded via yt-dlp, then same Whisper pipeline (requires `pip install graphifyy[video]`) |
 
+## Large repositories & Distributed architecture
+
+For giant codebases, graphify supports a **Distributed Sub-graph** architecture. Instead of one massive graph, you can partition your project into small, fast "cells" that are aggregated into a unified master vault.
+
+### 1. Zero-Token Intelligence (100% Local)
+By using `graphify update`, you can build and maintain your entire map **without spending any LLM tokens**.
+- **AST Extraction**: deterministically maps functions, classes, and calls using Tree-sitter.
+- **Auto-Naming**: communities (architectural hubs) are named using frequency-based tokenization of your code labels (e.g. "Auth Service").
+- **Iterative Traversal**: supports arbitrary nesting depth (e.g. 10,000+ line files) without recursion crashes.
+
+### 2. Distributed Workflow
+Run these commands at your repo root to manage dozens of sub-graphs automatically:
+
+```bash
+# Check architectural health and discover candidates for partitioning
+# (Sorted root-wise: shallowest folders shown first)
+graphify status .
+
+# Initialize new sub-graph partitions for folders
+graphify partition path/to/module1 path/to/module2
+
+# Surgical Sync: refreshes ONLY the sub-graphs affected by Git changes since <ref>
+# <ref> can be a commit hash, branch name, or relative ref like HEAD~5
+# Tip: add --vault to automatically aggregate into the Master Vault
+graphify update . [<ref>] [--vault]
+
+# Verify: show graph changes since a git ref across all partitions
+graphify diff [<ref>]
+
+# Master Vault: aggregate all distributed sub-graphs into one Obsidian view
+graphify vault .
+```
+
+### 3. Sub-graph setup from scratch
+1. **Initialize partitions**: `graphify update path/to/module` for each major functional block.
+2. **Standardize**: `graphify update . --all` to ensure stable, repo-relative IDs across all partitions.
+3. **Aggregate**: `graphify vault .` to create the root Obsidian index and master graph.
+
 ## Video and audio corpus
 
 Drop video or audio files into your corpus folder alongside your code and docs — graphify picks them up automatically:

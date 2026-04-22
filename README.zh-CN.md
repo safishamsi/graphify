@@ -163,10 +163,48 @@ graphify trae-cn uninstall
 
 | 类型 | 扩展名 | 提取方式 |
 |------|--------|----------|
-| 代码 | `.py .ts .js .go .rs .java .c .cpp .rb .cs .kt .scala .php` | tree-sitter AST + 调用图 + docstring / 注释中的 rationale |
-| 文档 | `.md .txt .rst` | 通过 Claude 提取概念、关系和设计动机 |
+| 代码 | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .mm .jl .vue .svelte` | tree-sitter AST + 调用图 + docstring / 注释中的 rationale |
+| 文档 | `.md .mdx .html .txt .rst` | 通过 Claude 提取概念、关系和设计动机 |
 | 论文 | `.pdf` | 引文挖掘 + 概念提取 |
 | 图片 | `.png .jpg .webp .gif` | Claude vision —— 截图、图表、任意语言都可以 |
+
+## 大型项目与分布式架构
+
+对于超大型代码库，graphify 支持 **分布式子图 (Distributed Sub-graph)** 架构。你可以将项目拆分成多个小型、快速的"单元"，然后将它们聚合到一个统一的主库中，而不是维护一个巨大的图谱。
+
+### 1. 零 Token 消耗智能 (100% 本地)
+通过使用 `graphify update`，你可以完全 **不消耗任何 LLM token** 来构建和维护你的架构图：
+- **AST 提取**: 使用 Tree-sitter 确定性地映射函数、类和调用关系。
+- **自动命名**: 社区（架构中心）会根据代码标签的词频自动命名（如 "Auth Service"）。
+- **迭代遍历**: 支持任意深度的嵌套（如 10,000+ 行的文件），不会发生递归崩溃。
+
+### 2. 分布式工作流
+在你的项目根目录运行以下命令，即可自动管理数十个子图：
+
+```bash
+# 检查架构健康状况并发现待分区候选目录
+# （按根目录排序：优先显示浅层文件夹）
+graphify status .
+
+# 为文件夹初始化新的子图分区
+graphify partition path/to/module1 path/to/module2
+
+# 外科手术式同步：仅刷新受 Git 变更影响的子图（自 <ref> 以来）
+# <ref> 可以是提交哈希、分支名或相对引用（如 HEAD~5）
+# 提示：添加 --vault 标志可自动聚合到主库中
+graphify update . [<ref>] [--vault]
+
+# 验证：跨全部分区显示自 git 引用以来的图谱变更
+graphify diff [<ref>]
+
+# 主库同步：将所有分布式子图聚合到一个统一的 Obsidian 视图中
+graphify vault .
+```
+
+### 3. 从零开始构建子图架构
+1. **初始化分区**: 对每个主要功能模块运行 `graphify update path/to/module`。
+2. **标准化**: 运行 `graphify update . --all` 以确保所有分区使用稳定的、相对于根目录的 ID。
+3. **聚合**: 运行 `graphify vault .` 创建根目录的 Obsidian 索引和主图。
 
 ## 你会得到什么
 

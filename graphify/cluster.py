@@ -3,6 +3,7 @@ from __future__ import annotations
 import contextlib
 import inspect
 import io
+import re
 import sys
 import networkx as nx
 
@@ -135,3 +136,59 @@ def cohesion_score(G: nx.Graph, community_nodes: list[str]) -> float:
 
 def score_all(G: nx.Graph, communities: dict[int, list[str]]) -> dict[int, float]:
     return {cid: cohesion_score(G, nodes) for cid, nodes in communities.items()}
+
+
+_STOP_WORDS = {"the", "and", "for", "with", "from", "this", "that", "are", "not",
+               "has", "have", "was", "get", "set", "new", "all", "can", "its"}
+
+
+def name_communities(G: nx.Graph, communities: dict[int, list[str]]) -> dict[int, str]:
+    """Assign human-readable names to communities from top node labels (no LLM needed)."""
+    from .analyze import _is_file_node, _is_concept_node, _weighted_degree
+
+    labels: dict[int, str] = {}
+    for cid, nodes in communities.items():
+        # First try to name based on real entities (functions, classes)
+        real = [n for n in nodes if not _is_file_node(G, n) and not _is_concept_node(G, n)]
+        
+        # If no entities, use file nodes themselves (common in partitioned sub-graphs)
+        source_pool = real if real else nodes
+        
+        if not source_pool:
+            labels[cid] = f"Community {cid}"
+            continue
+
+        # Sort by connectivity to find representative nodes
+        top = sorted(source_pool, key=lambda n: _weighted_degree(G, n), reverse=True)[:10]
+        
+        words: list[str] = []
+        for n in top:
+            lbl = G.nodes[n].get("label", n)
+            # Remove file extensions and common method markers
+            lbl = re.sub(r"(\.py|\.js|\.ts|\.tsx|\.cc|\.h|\.cpp|\.java|\.kt|\.go|\.rs|\.php)$", "", lbl, flags=re.I)
+            lbl = re.sub(r"[().\[\]]", "", lbl)
+            # split camelCase
+            lbl = re.sub(r"([a-z])([A-Z])", r"\1 \2", lbl)
+            # split snake_case and slashes
+            parts = lbl.replace("_", " ").replace("/", " ").replace("-", " ").split()
+            words.extend(p.lower() for p in parts if len(p) > 2)
+
+        from collections import Counter
+        counts = Counter(w for w in words if w not in _STOP_WORDS)
+        
+        # Ensure we don't pick redundant words (e.g. "Fetch Fetch")
+        top_words = []
+        for w, _ in counts.most_common(5):
+            if w.title() not in top_words:
+                top_words.append(w.title())
+            if len(top_words) >= 2:
+                break
+                
+        if top_words:
+            labels[cid] = " ".join(top_words)
+        else:
+            # Last resort: just use the label of the top node itself
+            top_label = G.nodes[top[0]].get("label", str(cid))
+            labels[cid] = re.sub(r"[()\[\]]", "", top_label).title()
+            
+    return labels

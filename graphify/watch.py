@@ -1,6 +1,7 @@
 # monitor a folder and auto-trigger --update when files change
 from __future__ import annotations
 import json
+import subprocess
 import sys
 import time
 from pathlib import Path
@@ -12,20 +13,27 @@ _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAG
 _CODE_EXTENSIONS = CODE_EXTENSIONS
 
 
-def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
-    """Re-run AST extraction + build + cluster + report for code files. No LLM needed.
-
-    Returns True on success, False on error.
+def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, obsidian: bool = False) -> bool:
+    """
+    Perform a purely local (non-LLM) graph rebuild for code files.
+    
+    Extracts AST structure, builds the NetworkX graph, performs Leiden clustering, 
+    and generates a localized report. Ensures stable IDs relative to the Git root.
+    
+    Args:
+        watch_path: Directory to process.
+        follow_symlinks: Whether to follow directory symlinks.
+        obsidian: If True, also exports/refreshes the local Obsidian vault notes.
     """
     watch_path = watch_path.resolve()
     try:
         from graphify.extract import extract
         from graphify.detect import detect
         from graphify.build import build_from_json
-        from graphify.cluster import cluster, score_all
+        from graphify.cluster import cluster, score_all, name_communities
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
         from graphify.report import generate
-        from graphify.export import to_json, to_html
+        from graphify.export import to_json, to_html, to_obsidian, to_canvas
 
         detected = detect(watch_path, follow_symlinks=follow_symlinks)
         code_files = [Path(f) for f in detected['files']['code']]
@@ -34,7 +42,23 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
             print("[graphify watch] No code files found - nothing to rebuild.")
             return False
 
-        result = extract(code_files, cache_root=watch_path)
+        # In distributed sub-graph setups, we are running extract on a sub-folder.
+        # We need the logical paths to be relative to the repository root for ID stability.
+        repo_root = watch_path
+        try:
+            # Try to find git root
+            git_root_res = subprocess.run(["git", "rev-parse", "--show-toplevel"],
+                                           capture_output=True, text=True)
+            if git_root_res.returncode == 0:
+                repo_root = Path(git_root_res.stdout.strip())
+        except Exception:
+            pass
+
+        # Ensure code_files are absolute for reliable relative_to calculation
+        abs_code_files = [(watch_path / f).resolve() for f in code_files]
+        logical_paths = [f.relative_to(repo_root) for f in abs_code_files]
+        
+        result = extract(abs_code_files, cache_root=watch_path, logical_paths=logical_paths)
 
         # Preserve semantic nodes/edges from a previous full run.
         # AST-only rebuild replaces code nodes; doc/paper/image nodes are kept.
@@ -69,7 +93,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
         cohesion = score_all(G, communities)
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)
-        labels = {cid: "Community " + str(cid) for cid in communities}
+        labels = name_communities(G, communities)
         questions = suggest_questions(G, communities, labels)
 
         out.mkdir(exist_ok=True)
@@ -78,6 +102,11 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
                           {"input": 0, "output": 0}, str(watch_path), suggested_questions=questions)
         (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
         to_json(G, communities, str(out / "graph.json"))
+
+        if obsidian:
+            vault_dir = out / "obsidian"
+            to_obsidian(G, communities, str(vault_dir), community_labels=labels, cohesion=cohesion)
+            to_canvas(G, communities, str(vault_dir / "graph.canvas"), community_labels=labels)
 
         # to_html raises ValueError for graphs > MAX_NODES_FOR_VIZ (5000).
         # Wrap so core outputs (graph.json + GRAPH_REPORT.md) always land.
@@ -102,8 +131,15 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
         print(f"[graphify watch] {products} updated in {out}")
         return True
 
+    except RecursionError:
+        print("[graphify watch] Rebuild failed: maximum recursion depth exceeded. Some files may be too complex.")
+        return False
     except Exception as exc:
+        import traceback
         print(f"[graphify watch] Rebuild failed: {exc}")
+        # Only show traceback for non-recursion errors to avoid noise
+        if not isinstance(exc, RecursionError):
+            traceback.print_exc()
         return False
 
 
