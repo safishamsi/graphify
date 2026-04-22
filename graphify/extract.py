@@ -1507,13 +1507,17 @@ def extract_lean(path: Path | str) -> dict:
         # ── import ──────────────────────────────────────────────────────────
         if t == "import":
             line = node.start_point[0] + 1
-            # The identifier child holds the dotted module path (e.g. Mathlib.Analysis.Basic)
+            # The identifier child holds the dotted module path (e.g. Mathlib.Analysis.Basic).
+            # Create a Module node for the import target (idempotent via seen_ids)
+            # and emit the edge against that node id so build_from_json retains it.
+            # Previously we targeted the raw module string, which never matched any
+            # node id in the build step and so the Lean import edges were dropped.
             for child in node.children:
                 if child.type == "identifier":
                     module_name = _read_text(child, source)
-                    # Use the dotted module name as the target so the graph is
-                    # human-readable; downstream consumers can slug it if needed.
-                    add_edge(file_nid, module_name, "imports", line)
+                    tgt_nid = _make_id(module_name)
+                    add_node(tgt_nid, module_name, line, node_type="Module")
+                    add_edge(file_nid, tgt_nid, "imports", line)
             return
 
         # ── namespace ────────────────────────────────────────────────────────
