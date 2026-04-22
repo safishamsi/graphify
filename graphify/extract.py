@@ -1424,7 +1424,7 @@ def extract_lean(path: Path | str) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int, node_type: str | None = None) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, subtype: str | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
             entry: dict = {
@@ -1436,6 +1436,8 @@ def extract_lean(path: Path | str) -> dict:
             }
             if node_type:
                 entry["node_type"] = node_type
+            if subtype:
+                entry["subtype"] = subtype
             nodes.append(entry)
 
     def add_edge(src: str, tgt: str, relation: str, line: int,
@@ -1557,7 +1559,7 @@ def extract_lean(path: Path | str) -> dict:
                 decl_name = _name_of_declaration(node)
                 if decl_name:
                     fn_nid = _make_id(stem, decl_name)
-                    add_node(fn_nid, decl_name, line, node_type="Function")
+                    add_node(fn_nid, decl_name, line, node_type="Function", subtype=keyword)
                     container = parent_nid or file_nid
                     add_edge(container, fn_nid, "contains", line)
             elif keyword in _CLASS_KEYWORDS:
@@ -1568,7 +1570,9 @@ def extract_lean(path: Path | str) -> dict:
                     decl_name = _name_of_declaration(node)
                     if decl_name:
                         cls_nid = _make_id(stem, decl_name)
-                        add_node(cls_nid, decl_name, line, node_type="Class")
+                        # Map class keywords: structure and class both become 'structure' subtype; inductive becomes 'inductive'
+                        subtype_name = "inductive" if keyword == "inductive" else "structure"
+                        add_node(cls_nid, decl_name, line, node_type="Class", subtype=subtype_name)
                         container = parent_nid or file_nid
                         add_edge(container, cls_nid, "contains", line)
             return
