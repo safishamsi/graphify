@@ -11,6 +11,21 @@ def _make_git_repo(tmp_path: Path) -> Path:
     return tmp_path
 
 
+def _make_git_worktree(tmp_path: Path) -> tuple[Path, Path]:
+    repo = _make_git_repo(tmp_path / "main")
+    subprocess.run(["git", "-C", str(repo), "config", "user.email", "graphify@example.com"], check=True)
+    subprocess.run(["git", "-C", str(repo), "config", "user.name", "Graphify"], check=True)
+
+    (repo / "tracked.txt").write_text("tracked\n", encoding="utf-8")
+    subprocess.run(["git", "-C", str(repo), "add", "tracked.txt"], check=True)
+    subprocess.run(["git", "-C", str(repo), "commit", "-m", "init"], check=True, capture_output=True)
+    subprocess.run(["git", "-C", str(repo), "branch", "feature"], check=True)
+
+    worktree = tmp_path / "feature-worktree"
+    subprocess.run(["git", "-C", str(repo), "worktree", "add", str(worktree), "feature"], check=True, capture_output=True)
+    return repo, worktree
+
+
 def test_install_creates_hook(tmp_path):
     repo = _make_git_repo(tmp_path)
     result = install(repo)
@@ -43,6 +58,7 @@ def test_install_idempotent(tmp_path):
 def test_install_appends_to_existing_hook(tmp_path):
     repo = _make_git_repo(tmp_path)
     hook = repo / ".git" / "hooks" / "post-commit"
+    hook.parent.mkdir(parents=True, exist_ok=True)
     hook.write_text("#!/bin/bash\necho existing\n")
     hook.chmod(0o755)
     install(repo)
@@ -117,3 +133,23 @@ def test_status_shows_both_hooks(tmp_path):
     assert "post-commit" in result
     assert "post-checkout" in result
     assert result.count("installed") >= 2
+
+
+def test_install_from_worktree_uses_common_hooks_dir(tmp_path):
+    repo, worktree = _make_git_worktree(tmp_path)
+    result = install(worktree)
+
+    hook = repo / ".git" / "hooks" / "post-commit"
+    assert hook.exists()
+    assert _HOOK_MARKER in hook.read_text(encoding="utf-8")
+    assert str(hook) in result
+
+
+def test_uninstall_from_worktree_removes_common_hooks(tmp_path):
+    repo, worktree = _make_git_worktree(tmp_path)
+    install(worktree)
+
+    result = uninstall(worktree)
+
+    assert not (repo / ".git" / "hooks" / "post-commit").exists()
+    assert "removed" in result.lower()
