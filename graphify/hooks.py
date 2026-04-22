@@ -79,6 +79,12 @@ _CHECKOUT_SCRIPT = """\
 # Auto-rebuilds the knowledge graph (code only) when switching branches.
 # Installed by: graphify hook install
 
+GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
+[ -d "$GIT_DIR/rebase-merge" ] && exit 0
+[ -d "$GIT_DIR/rebase-apply" ] && exit 0
+[ -f "$GIT_DIR/MERGE_HEAD" ] && exit 0
+[ -f "$GIT_DIR/CHERRY_PICK_HEAD" ] && exit 0
+
 PREV_HEAD=$1
 NEW_HEAD=$2
 BRANCH_SWITCH=$3
