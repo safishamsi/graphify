@@ -3307,6 +3307,7 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
         ".kt": extract_kotlin,
         ".kts": extract_kotlin,
         ".scala": extract_scala,
+        ".lean": extract_lean,
         ".php": extract_php,
         ".swift": extract_swift,
         ".lua": extract_lua,
