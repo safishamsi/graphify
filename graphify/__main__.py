@@ -1,6 +1,7 @@
 """graphify CLI - `graphify install` sets up the Claude Code skill."""
 from __future__ import annotations
 import json
+import os
 import platform
 import re
 import shutil
@@ -12,6 +13,87 @@ try:
     __version__ = _pkg_version("graphifyy")
 except Exception:
     __version__ = "unknown"
+
+
+def _find_sub_graphs(watch_path: Path) -> list[Path]:
+    """
+    Recursively discover all directories containing a 'graphify-out' partition.
+    
+    Crawls from the watch_path downward, skipping hidden and common build directories.
+    Essential for the distributed architecture 'update', 'diff', and 'vault' flows.
+    """
+    sub_graphs = []
+    try:
+        _SKIP = {".git", "node_modules", "venv", ".venv", "__pycache__", "build", "dist"}
+        for root, dirs, files in os.walk(watch_path):
+            dirs[:] = [d for d in dirs if d not in _SKIP and not d.startswith(".")]
+            for d in dirs:
+                if (Path(root) / d / "graphify-out").exists():
+                    sub_graphs.append(Path(root) / d)
+    except Exception:
+        pass
+    return sorted(sub_graphs)
+
+
+def _sync_vault(root_path: Path) -> None:
+    """
+    Consolidate all distributed partitions into a centralized Master Graph.
+    
+    1. Loads every local 'graph.json' partition.
+    2. Merges them into a unified root graph (ensuring ID stability).
+    3. Re-clusters the global architecture to identify cross-partition hubs.
+    4. Re-exports the unified Obsidian vault and master report.
+    """
+    sub_graphs = _find_sub_graphs(root_path)
+    if not sub_graphs:
+        return
+
+    import networkx as nx
+    from graphify.build import build_from_json
+    from graphify.cluster import cluster, score_all, name_communities
+    from graphify.export import to_json, to_html, to_obsidian, to_canvas
+
+    print(f"\nAggregating {len(sub_graphs)} partitions into master vault...")
+    G_master = nx.DiGraph()
+    
+    for sg in sub_graphs:
+        gp = sg / "graphify-out" / "graph.json"
+        if not gp.exists(): continue
+        try:
+            raw = json.loads(gp.read_text(encoding="utf-8"))
+            G_part = build_from_json(raw)
+            G_master.add_nodes_from(G_part.nodes(data=True))
+            G_master.add_edges_from(G_part.edges(data=True))
+            print(f" >> Merged {sg}")
+        except Exception as e:
+            print(f"  warning: failed to merge {sg}: {e}")
+
+    if G_master.number_of_nodes() == 0:
+        return
+
+    print(f"Master Graph: {G_master.number_of_nodes()} nodes, {G_master.number_of_edges()} edges")
+    print("Clustering master architecture...")
+    communities = cluster(G_master)
+    cohesion = score_all(G_master, communities)
+    labels = name_communities(G_master, communities)
+    
+    out = root_path / "graphify-out"
+    out.mkdir(exist_ok=True)
+    
+    vault_config = {"partitions": [str(sg.relative_to(root_path)) for sg in sub_graphs]}
+    (out / "vault_graphs.json").write_text(json.dumps(vault_config, indent=2), encoding="utf-8")
+    
+    vault_dir = out / "obsidian"
+    print(f"Exporting to {vault_dir}...")
+    to_obsidian(G_master, communities, str(vault_dir), community_labels=labels, cohesion=cohesion)
+    to_canvas(G_master, communities, str(vault_dir / "graph.canvas"), community_labels=labels)
+    
+    to_json(G_master, communities, str(out / "graph.json"))
+    try:
+        to_html(G_master, communities, str(out / "graph.html"), community_labels=labels)
+    except Exception: pass
+    
+    print(f"Vault synchronized! Open {vault_dir} in Obsidian.")
 
 
 def _check_skill_version(skill_dst: Path) -> None:
@@ -927,8 +1009,16 @@ def main() -> None:
         print("    --author \"Name\"         tag the author of the content")
         print("    --contributor \"Name\"    tag who added it to the corpus")
         print("    --dir <path>            target directory (default: ./raw)")
+        print("  diff [<ref>]            show graph changes since a git ref (default: HEAD~1)")
+        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("  status <path>           show active partitions and discover new candidates (root-wise)")
+        print("  partition <paths...>    initialize new sub-graph partitions for folders")
         print("  watch <path>            watch a folder and rebuild the graph on code changes")
-        print("  update <path>           re-extract code files and update the graph (no LLM needed)")
+        print("  update [<paths...>] [<ref>] re-extract code files and update the graph (no LLM needed)")
+        print("    --all                   force a refresh of all discovered sub-graph partitions")
+        print("    --obsidian              also export updated graph as an Obsidian vault")
+        print("    --vault                 also aggregate into Master Vault (when run at root)")
+        print("  vault <path>            aggregate distributed sub-graphs into a Master Graph and Obsidian vault")
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
@@ -974,6 +1064,14 @@ def main() -> None:
         print("  hermes uninstall        remove skill from ~/.hermes/skills/graphify/")
         print("  kiro install            write skill to .kiro/skills/graphify/ + steering file (Kiro IDE/CLI)")
         print("  kiro uninstall          remove skill + steering file")
+        print()
+        print("Distributed Workflow (Zero LLM Tokens):")
+        print("  1. graphify status .           discover candidates for partitioning")
+        print("  2. graphify partition <paths...> initialize new sub-graphs for folders")
+        print("  3. graphify update . [<ref>]   surgically sync partitions via Git")
+        print("  4. graphify diff [<ref>]       verify changes between versions")
+        print("  5. graphify vault .            aggregate everything into Obsidian")
+        print("     (Tip: use --vault with 'update' to combine steps 3 and 5)")
         print()
         return
 
@@ -1292,6 +1390,208 @@ def main() -> None:
             print(f"error: {exc}", file=sys.stderr)
             sys.exit(1)
 
+    elif cmd == "diff":
+        import subprocess as _sp
+        import copy
+        import tempfile
+        from networkx.readwrite import json_graph as _jg
+        from graphify.build import build_from_json as _bfj, build as _build
+        from graphify.analyze import graph_diff as _gdiff
+        from graphify.extract import extract as _extract
+        from graphify.detect import CODE_EXTENSIONS as _CE
+
+        ref = "HEAD~1"
+        graph_path = "graphify-out/graph.json"
+        args = sys.argv[2:]
+        i = 0
+        while i < len(args):
+            if args[i] == "--graph" and i + 1 < len(args):
+                graph_path = args[i + 1]; i += 2
+            elif not args[i].startswith("--"):
+                ref = args[i]; i += 1
+            else:
+                i += 1
+
+        # Distributed sub-graph auto-discovery (arbitrary depth)
+        watch_path = Path(".")
+        sub_graphs = []
+        try:
+            # Recursively find any directory that has its own graphify-out
+            # We skip common noise dirs for performance
+            _SKIP = {".git", "node_modules", "venv", ".venv", "__pycache__", "build", "dist"}
+            for root, dirs, files in os.walk(watch_path):
+                # Prune skip dirs in-place
+                dirs[:] = [d for d in dirs if d not in _SKIP and not d.startswith(".")]
+                for d in dirs:
+                    if (Path(root) / d / "graphify-out").exists():
+                        sub_graphs.append(Path(root) / d)
+        except Exception:
+            pass
+
+        gp = Path(graph_path).resolve()
+        
+        # If root graph doesn't exist but sub-graphs do, and no explicit --graph was passed,
+        # we perform a distributed diff.
+        if not gp.exists() and sub_graphs and graph_path == "graphify-out/graph.json":
+            print(f"No root graph found, but {len(sub_graphs)} sub-graph partitions detected.")
+            print(f"Performing distributed diff against {ref}...")
+            
+            changed_result = _sp.run(["git", "diff", "--name-only", ref], capture_output=True, text=True)
+            if changed_result.returncode != 0:
+                print(f"error: git diff failed — is this a git repo with ref '{ref}'?", file=sys.stderr)
+                sys.exit(1)
+            changed_files = [f.strip() for f in changed_result.stdout.splitlines() if f.strip()]
+            if not changed_files:
+                print(f"No files changed since {ref}.")
+                sys.exit(0)
+
+            # Map changed files to sub-graphs
+            affected = set()
+            for f in changed_files:
+                fpath = Path(f)
+                for sg in sub_graphs:
+                    try:
+                        fpath.relative_to(sg)
+                        affected.add(sg)
+                        break
+                    except ValueError:
+                        continue
+            
+            if not affected:
+                print("Changed files do not match any sub-graph partitions.")
+                sys.exit(0)
+
+            for sg in affected:
+                print(f"\nDiffing partition: {sg}")
+                # Recursively call main with refined arguments for this partition
+                # This is a bit recursive for a CLI, so let's just run the logic once for the partition
+                sg_graph_path = sg / "graphify-out" / "graph.json"
+                if not sg_graph_path.exists():
+                    print(f"  warning: no graph found in {sg}")
+                    continue
+                
+                # Logic below for a single graph, adapted for the partition
+                _raw = json.loads(sg_graph_path.read_text(encoding="utf-8"))
+                try:
+                    G_new = _jg.node_link_graph(_raw, edges="links")
+                except TypeError:
+                    G_new = _jg.node_link_graph(_raw)
+                
+                sg_changed = [f for f in changed_files if Path(f).is_relative_to(sg)]
+                supported = {f for f in sg_changed if Path(f).suffix.lower() in _CE}
+                old_extractions = []
+                for fpath in supported:
+                    old_bytes = _sp.run(["git", "show", f"{ref}:{fpath}"], capture_output=True)
+                    if old_bytes.returncode != 0: continue
+                    try:
+                        suffix = Path(fpath).suffix
+                        with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+                            tmp.write(old_bytes.stdout)
+                            tmp_path = Path(tmp.name)
+                        ext = _extract([tmp_path], logical_paths=[Path(fpath)])
+                        tmp_path.unlink(missing_ok=True)
+                        for n in ext.get("nodes", []): n["source_file"] = fpath
+                        for e in ext.get("edges", []): e["source_file"] = fpath
+                        old_extractions.append(ext)
+                    except Exception: pass
+
+                G_old = copy.deepcopy(G_new)
+                to_rm = [n for n, d in G_old.nodes(data=True) if d.get("source_file") in supported]
+                G_old.remove_nodes_from(to_rm)
+                if old_extractions:
+                    G_old_parts = _build(old_extractions)
+                    for node, data in G_old_parts.nodes(data=True): G_old.add_node(node, **data)
+                    for u, v, data in G_old_parts.edges(data=True): G_old.add_edge(u, v, **data)
+
+                diff = _gdiff(G_old, G_new)
+                print(f"  Graph diff: {diff['summary']}")
+                if diff["new_nodes"]:
+                    print(f"  New nodes ({len(diff['new_nodes'])}):")
+                    for n in diff["new_nodes"][:5]: print(f"    + {n['label']}")
+                if diff["removed_nodes"]:
+                    print(f"  Removed nodes ({len(diff['removed_nodes'])}):")
+                    for n in diff["removed_nodes"][:5]: print(f"    - {n['label']}")
+            
+            print("\nDistributed diff complete.")
+            sys.exit(0)
+
+        # Standard diff logic
+        if not gp.exists():
+            print(f"error: no graph found at {gp} — run /graphify first", file=sys.stderr)
+            sys.exit(1)
+
+        changed_result = _sp.run(["git", "diff", "--name-only", ref], capture_output=True, text=True)
+        if changed_result.returncode != 0:
+            print(f"error: git diff failed — is this a git repo with ref '{ref}'?", file=sys.stderr)
+            sys.exit(1)
+        changed_files = [f.strip() for f in changed_result.stdout.splitlines() if f.strip()]
+        if not changed_files:
+            print(f"No files changed since {ref}.")
+            sys.exit(0)
+
+        _raw = json.loads(gp.read_text(encoding="utf-8"))
+        try:
+            G_new = _jg.node_link_graph(_raw, edges="links")
+        except TypeError:
+            G_new = _jg.node_link_graph(_raw)
+
+        supported = {f for f in changed_files if Path(f).suffix.lower() in _CE}
+        old_extractions = []
+        for fpath in supported:
+            old_bytes = _sp.run(["git", "show", f"{ref}:{fpath}"], capture_output=True)
+            if old_bytes.returncode != 0:
+                continue
+            try:
+                suffix = Path(fpath).suffix
+                with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+                    tmp.write(old_bytes.stdout)
+                    tmp_path = Path(tmp.name)
+                ext = _extract([tmp_path], logical_paths=[Path(fpath)])
+                tmp_path.unlink(missing_ok=True)
+                for n in ext.get("nodes", []):
+                    n["source_file"] = fpath
+                for e in ext.get("edges", []):
+                    e["source_file"] = fpath
+                old_extractions.append(ext)
+            except Exception:
+                pass
+
+        G_old = copy.deepcopy(G_new)
+        to_rm = [n for n, d in G_old.nodes(data=True) if d.get("source_file") in supported]
+        G_old.remove_nodes_from(to_rm)
+        if old_extractions:
+            G_old_parts = _build(old_extractions)
+            for node, data in G_old_parts.nodes(data=True):
+                G_old.add_node(node, **data)
+            for u, v, data in G_old_parts.edges(data=True):
+                G_old.add_edge(u, v, **data)
+
+        diff = _gdiff(G_old, G_new)
+        print(f"Graph diff vs {ref}: {diff['summary']}")
+        print(f"Files inspected: {', '.join(supported) if supported else 'none (no code files changed)'}")
+        if diff["new_nodes"]:
+            print(f"\nNew nodes ({len(diff['new_nodes'])}):")
+            for n in diff["new_nodes"][:20]:
+                print(f"  + {n['label']}")
+            if len(diff["new_nodes"]) > 20:
+                print(f"  ... and {len(diff['new_nodes']) - 20} more")
+        if diff["removed_nodes"]:
+            print(f"\nRemoved nodes ({len(diff['removed_nodes'])}):")
+            for n in diff["removed_nodes"][:20]:
+                print(f"  - {n['label']}")
+            if len(diff["removed_nodes"]) > 20:
+                print(f"  ... and {len(diff['removed_nodes']) - 20} more")
+        if diff["new_edges"]:
+            print(f"\nNew relationships ({len(diff['new_edges'])}):")
+            for e in diff["new_edges"][:20]:
+                src = G_new.nodes.get(e["source"], {}).get("label", e["source"])
+                tgt = G_new.nodes.get(e["target"], {}).get("label", e["target"])
+                print(f"  + {src} --{e['relation']}--> {tgt}")
+        if diff["removed_edges"]:
+            print(f"\nRemoved relationships ({len(diff['removed_edges'])}):")
+            for e in diff["removed_edges"][:20]:
+                print(f"  - {e['source']} --{e['relation']}--> {e['target']}")
+
     elif cmd == "watch":
         watch_path = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".")
         if not watch_path.exists():
@@ -1314,6 +1614,7 @@ def main() -> None:
         from graphify.build import build_from_json
         from graphify.cluster import cluster, score_all
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
+        from graphify.cluster import name_communities
         from graphify.report import generate
         from graphify.export import to_json, to_html
         print("Loading existing graph...")
@@ -1325,7 +1626,7 @@ def main() -> None:
         cohesion = score_all(G, communities)
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)
-        labels = {cid: f"Community {cid}" for cid in communities}
+        labels = name_communities(G, communities)
         questions = suggest_questions(G, communities, labels)
         tokens = {"input": 0, "output": 0}
         report = generate(G, communities, cohesion, labels, gods, surprises,
@@ -1337,19 +1638,212 @@ def main() -> None:
         to_html(G, communities, str(out / "graph.html"), community_labels=labels or None)
         print(f"Done — {len(communities)} communities. GRAPH_REPORT.md, graph.json and graph.html updated.")
 
+    elif cmd == "vault":
+        root_path = Path(sys.argv[2]) if len(sys.argv) > 2 and not sys.argv[2].startswith("--") else Path(".")
+        if not _find_sub_graphs(root_path):
+            print("error: no sub-graph partitions found (missing graphify-out/ folders)", file=sys.stderr)
+            sys.exit(1)
+        _sync_vault(root_path)
+        sys.exit(0)
+
     elif cmd == "update":
-        watch_path = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".")
-        if not watch_path.exists():
-            print(f"error: path not found: {watch_path}", file=sys.stderr)
-            sys.exit(1)
-        from graphify.watch import _rebuild_code
-        print(f"Re-extracting code files in {watch_path} (no LLM needed)...")
-        ok = _rebuild_code(watch_path)
-        if ok:
-            print("Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.")
+        ref = "HEAD~1"
+        target_paths = []
+        
+        # Parse positional args: update [<paths...>] [<ref>]
+        pos_args = [a for a in sys.argv[2:] if not a.startswith("--")]
+        if pos_args:
+            # If last arg doesn't exist as a path or looks like a ref, treat it as ref
+            last = pos_args[-1]
+            if not Path(last).exists() or any(x in last for x in ("HEAD", "~", "^", "main", "master")):
+                ref = last
+                target_paths = [Path(p) for p in pos_args[:-1]]
+            else:
+                target_paths = [Path(p) for p in pos_args]
+        
+        if not target_paths:
+            target_paths = [Path(".")]
+
+        for watch_path in target_paths:
+            if not watch_path.exists():
+                print(f"error: path not found: {watch_path}", file=sys.stderr)
+                continue
+
+            force_all = "--all" in sys.argv
+            obsidian = "--obsidian" in sys.argv
+            vault_sync = "--vault" in sys.argv
+            from graphify.watch import _rebuild_code
+            import subprocess
+
+            # Distributed sub-graph auto-discovery
+            sub_graphs = _find_sub_graphs(watch_path)
+
+            if sub_graphs:
+                print(f"Detected {len(sub_graphs)} sub-graph partitions in {watch_path}.")
+                
+                # 1. Identify affected partitions via Git using the specified ref
+                try:
+                    git_res = subprocess.run(["git", "diff", "--name-only", ref],
+                                             capture_output=True, text=True, check=True)
+                    changed_files = [f.strip() for f in git_res.stdout.splitlines() if f.strip()]
+                except Exception:
+                    changed_files = []
+
+                affected = set()
+                for f in changed_files:
+                    fpath = Path(f)
+                    for sg in sub_graphs:
+                        try:
+                            # Check if changed file is inside this sub-graph partition
+                            fpath.relative_to(sg)
+                            affected.add(sg)
+                            break
+                        except ValueError: continue
+
+                # 2. Decide what to update
+                to_update = sub_graphs if force_all else list(affected)
+                
+                if not to_update and not force_all:
+                    print(f"No changes detected in Git since {ref} for {watch_path}. Refreshing all partitions for ID stability...")
+                    to_update = sub_graphs
+
+                if to_update:
+                    print(f"Updating {len(to_update)} partitions in {watch_path} (synced to {ref})...")
+                    success_count = 0
+                    for sg in to_update:
+                        print(f" >> {sg} ...")
+                        if _rebuild_code(sg, obsidian=obsidian):
+                            success_count += 1
+                    print(f"Update complete: {success_count}/{len(to_update)} partitions refreshed.")
+                    
+                    if vault_sync:
+                        _sync_vault(watch_path)
+                else:
+                    print(f"No partitions affected by changes since {ref} in {watch_path}.")
+                continue
+
+            # Standard update (fallback)
+            print(f"Re-extracting code files in {watch_path} (no LLM needed)...")
+            ok = _rebuild_code(watch_path, obsidian=obsidian)
+            if ok:
+                if vault_sync:
+                    _sync_vault(watch_path)
+                print(f"Code graph for {watch_path} updated.")
+            else:
+                print(f"Failed to update {watch_path}.", file=sys.stderr)
+
+        print("\nAll target updates complete.")
+        sys.exit(0)
+
+    elif cmd == "status":
+        root_path = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".")
+        sub_graphs = _find_sub_graphs(root_path)
+        
+        print(f"Graphify Status: {root_path.resolve()}")
+        print(f"\nActive Partitions ({len(sub_graphs)}):")
+        for sg in sub_graphs:
+            rel = sg.relative_to(root_path)
+            gp = sg / "graphify-out" / "graph.json"
+            mtime = "-"
+            if gp.exists():
+                from datetime import datetime
+                mtime = datetime.fromtimestamp(gp.stat().st_mtime).strftime('%Y-%m-%d %H:%M')
+            print(f"  - {rel or '.'} [Last Update: {mtime}]")
+
+        # Discovery logic: find folders with significant code but no graphify-out
+        print("\nCandidates for new partitions:")
+        from graphify.detect import CODE_EXTENSIONS
+        
+        # Step 1: Pre-calculate recursive code file counts for all directories
+        dir_counts: dict[Path, int] = {}
+        _SKIP = {".git", "node_modules", "venv", ".venv", "__pycache__", "build", "dist", "graphify-out"}
+        
+        for root, dirs, files in os.walk(root_path):
+            dirs[:] = [d for d in dirs if d not in _SKIP and not d.startswith(".")]
+            dp = Path(root)
+            # Count code files in THIS directory
+            local_count = sum(1 for f in files if Path(f).suffix.lower() in CODE_EXTENSIONS)
+            dir_counts[dp] = local_count
+
+        # Step 2: Accumulate counts upwards (Bottom-up)
+        # Sort by depth descending so we process leaves before parents
+        sorted_dirs = sorted(dir_counts.keys(), key=lambda p: len(p.parts), reverse=True)
+        for dp in sorted_dirs:
+            if dp == root_path: continue
+            parent = dp.parent
+            if parent in dir_counts:
+                dir_counts[parent] += dir_counts[dp]
+
+        # Step 3: Identify candidates
+        # All immediate sub-directories that aren't partitions are candidates
+        top_level_candidates = []
+        deep_candidates_count = 0
+        
+        # Immediate sub-dirs
+        try:
+            for p in root_path.iterdir():
+                if p.is_dir() and not (p / "graphify-out").exists():
+                    # Skip common build/noise dirs from candidates
+                    if p.name in _SKIP or p.name.startswith("."):
+                        continue
+                    count = dir_counts.get(p, 0)
+                    top_level_candidates.append((p.name, count))
+        except Exception:
+            pass
+
+        # Nested candidates (for the hint)
+        for dp, total_count in dir_counts.items():
+            if dp == root_path: continue
+            if (dp / "graphify-out").exists():
+                continue
+            
+            rel = dp.relative_to(root_path)
+            if len(rel.parts) > 1 and total_count > 5:
+                deep_candidates_count += 1
+        
+        if top_level_candidates:
+            for cand, count in sorted(top_level_candidates):
+                print(f"  - {cand}/ ({count} code files total)")
+            
+            if deep_candidates_count > 0:
+                print(f"\nNote: {deep_candidates_count} deeper nested directories also contain significant code.")
+                print("Hint: Partitioning top-level folders first provides the best architectural overview.")
+            
+            print("\nTo track folders: graphify partition <folder_paths...>")
         else:
-            print("Nothing to update or rebuild failed — check output above.", file=sys.stderr)
+            if deep_candidates_count > 0:
+                print(f"  No unpartitioned top-level folders, but {deep_candidates_count} nested directories could be partitioned.")
+                print("  Run 'graphify status <sub-folder>' to explore deeper candidates.")
+            else:
+                print("  none found.")
+        sys.exit(0)
+
+    elif cmd == "partition":
+        if len(sys.argv) < 3:
+            print("error: usage: graphify partition <folder_paths...>", file=sys.stderr)
             sys.exit(1)
+        
+        targets = [Path(p) for p in sys.argv[2:] if not p.startswith("--")]
+        from graphify.watch import _rebuild_code
+        
+        success_count = 0
+        for target in targets:
+            if not target.exists() or not target.is_dir():
+                print(f"error: directory not found: {target}", file=sys.stderr)
+                continue
+            
+            print(f"Initializing new partition in {target}...")
+            # Use the logical ID stability from _rebuild_code
+            if _rebuild_code(target):
+                print(f" >> Success! Partition created in {target}/graphify-out")
+                success_count += 1
+            else:
+                print(f" >> Failed to initialize {target}", file=sys.stderr)
+        
+        if success_count > 0:
+            print(f"\nDone! {success_count} partitions initialized.")
+            print("To include them in your master vault, run: graphify vault .")
+        sys.exit(0)
 
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark

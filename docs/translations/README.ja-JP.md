@@ -177,8 +177,48 @@ graphify query "..." --graph path/to/graph.json
 | コード | `.py .ts .js .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .mm` | tree-sitter による AST + コールグラフ + docstring/コメントの根拠 |
 | ドキュメント | `.md .txt .rst` | Claude による概念 + 関係性 + 設計根拠 |
 | Office | `.docx .xlsx` | Markdown に変換した後 Claude で抽出（`pip install graphifyy[office]` が必要） |
+| コード | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .mm .jl .vue .svelte` | tree-sitter AST + コールグラフ + docstring/コメント内の根拠 |
+| ドキュメント | `.md .mdx .html .txt .rst` | Claude を介した概念 + 関係性 + 設計根拠 |
 | 論文 | `.pdf` | 引用マイニング + 概念抽出 |
 | 画像 | `.png .jpg .webp .gif` | Claude Vision - スクリーンショット、図、任意の言語 |
+
+## 大規模リポジトリと分散アーキテクチャ
+
+巨大なコードベース向けに、graphify は **分散サブグラフ (Distributed Sub-graph)** アーキテクチャをサポートしています。1 つの巨大なグラフの代わりに、プロジェクトを小さく高速な「セル」に分割し、それらを統合されたマスター保管庫 (Vault) に集約できます。
+
+### 1. ゼロトークン・インテリジェンス (100% ローカル)
+`graphify update` を使用することで、**LLM トークンを一切消費せず** にマップ全体を構築および維持できます。
+- **AST 抽出**: Tree-sitter を使用して関数、クラス、呼び出し関係を決定論的にマップします。
+- **自動命名**: コミュニティ（アーキテクチャのハブ）は、コードラベルの頻度ベースのトークン化を使用して自動的に命名されます（例: "Auth Service"）。
+- **反復走査**: 再帰クラッシュなしで、任意のネスト深度（例: 10,000行以上のファイル）をサポートします。
+
+### 2. 分散ワークフロー
+リポジトリのルートで以下のコマンドを実行して、数十のサブグラフを自動的に管理します：
+
+```bash
+# アーキテクチャの健全性をチェックし、パーティション候補を発見
+# (ルート順にソート：浅いフォルダを最初に表示)
+graphify status .
+
+# フォルダの新しいサブグラフパーティションを初期化する
+graphify partition path/to/module1 path/to/module2
+
+# 外科的同期 (Surgical Sync): <ref> 以降の Git 変更の影響を受けたサブグラフのみを更新
+# <ref> にはコミットハッシュ、ブランチ名、または HEAD~5 のような相対参照を指定できます
+# ヒント: --vault を追加すると、マスター保管庫に自動的に集約されます
+graphify update . [<ref>] [--vault]
+
+# 検証: すべてのパーティションにわたって、git リファレンス以降のグラフの変更を表示します
+graphify diff [<ref>]
+
+# マスター保管庫 (Master Vault): すべての分散サブグラフを 1 つの Obsidian ビューに集約
+graphify vault .
+```
+
+### 3. ゼロからのサブグラフ設定
+1. **パーティションの初期化**: 主要な機能ブロックごとに `graphify update path/to/module` を実行します。
+2. **標準化**: `graphify update . --all` を実行して、すべてのパーティションで安定したリポジトリ相対 ID を確保します。
+3. **集約**: `graphify vault .` を実行して、ルートの Obsidian インデックスとマスターグラフを作成します。
 
 ## 得られるもの
 

@@ -36,22 +36,53 @@ def _is_file_node(G: nx.Graph, node_id: str) -> bool:
     return False
 
 
-def god_nodes(G: nx.Graph, top_n: int = 10) -> list[dict]:
-    """Return the top_n most-connected real entities - the core abstractions.
+_EDGE_WEIGHTS: dict[str, float] = {
+    "calls": 3.0,
+    "inherits": 3.0,
+    "implements": 3.0,
+    "uses": 2.0,
+    "references": 2.0,
+    "shares_data_with": 2.0,
+    "conceptually_related_to": 1.0,
+    "semantically_similar_to": 1.0,
+    "cites": 1.0,
+    "rationale_for": 1.0,
+    # Structural/noise edges — excluded from god-node scoring
+    "imports": 0.0,
+    "imports_from": 0.0,
+    "contains": 0.0,
+    "method": 0.0,
+}
 
-    File-level hub nodes are excluded: they accumulate import/contains edges
-    mechanically and don't represent meaningful architectural abstractions.
+
+def _weighted_degree(G: nx.Graph, node_id: str) -> float:
+    """Sum edge weights by relation type — structural edges (imports/contains) score 0."""
+    total = 0.0
+    for _, _, data in G.edges(node_id, data=True):
+        rel = data.get("relation", "")
+        total += _EDGE_WEIGHTS.get(rel, 1.0)
+    return total
+
+
+def god_nodes(G: nx.Graph, top_n: int = 10) -> list[dict]:
+    """Return the top_n most architecturally significant real entities.
+
+    Uses weighted degree: calls/inherits/implements score 3x, imports/contains score 0.
+    This surfaces genuine coupling rather than incidental import hubs.
     """
-    degree = dict(G.degree())
-    sorted_nodes = sorted(degree.items(), key=lambda x: x[1], reverse=True)
+    scored = [
+        (node_id, _weighted_degree(G, node_id))
+        for node_id in G.nodes()
+        if not _is_file_node(G, node_id) and not _is_concept_node(G, node_id)
+    ]
+    scored.sort(key=lambda x: x[1], reverse=True)
     result = []
-    for node_id, deg in sorted_nodes:
-        if _is_file_node(G, node_id) or _is_concept_node(G, node_id):
-            continue
+    for node_id, score in scored:
         result.append({
             "id": node_id,
             "label": G.nodes[node_id].get("label", node_id),
-            "degree": deg,
+            "degree": G.degree(node_id),
+            "weighted_degree": round(score, 1),
         })
         if len(result) >= top_n:
             break

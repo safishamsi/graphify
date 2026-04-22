@@ -214,11 +214,49 @@ graphify query "..." --graph path/to/graph.json
 
 | 유형 | 확장자 | 추출 방식 |
 |------|--------|-----------|
-| 코드 | `.py .ts .js .jsx .tsx .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .mm .jl` | tree-sitter AST + 콜 그래프 + docstring/주석 근거 |
-| 문서 | `.md .txt .rst` | Claude를 통한 개념 + 관계 + 설계 근거 |
+| 코드 | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .mm .jl .vue .svelte` | tree-sitter AST + 콜 그래프 + docstring/주석 근거 |
+| 문서 | `.md .mdx .html .txt .rst` | Claude를 통한 개념 + 관계 + 설계 근거 |
 | 오피스 | `.docx .xlsx` | 마크다운으로 변환 후 Claude를 통해 추출 (`pip install graphifyy[office]` 필요) |
 | 논문 | `.pdf` | 인용 마이닝 + 개념 추출 |
 | 이미지 | `.png .jpg .webp .gif` | Claude Vision - 스크린샷, 다이어그램, 모든 언어 |
+
+## 대규모 저장소 및 분산 아키텍처
+
+거대한 코드베이스를 위해 graphify는 **분산 서브그래프 (Distributed Sub-graph)** 아키텍처를 지원합니다. 하나의 거대한 그래프 대신 프로젝트를 작고 빠른 "셀"로 나누고 이를 통합된 마스터 보관소(Vault)로 집계할 수 있습니다.
+
+### 1. 제로 토큰 인텔리전스 (100% 로컬)
+`graphify update`를 사용하면 **LLM 토큰을 전혀 사용하지 않고** 전체 맵을 구축하고 유지할 수 있습니다.
+- **AST 추출**: Tree-sitter를 사용하여 함수, 클래스, 호출 관계를 결정론적으로 매핑합니다.
+- **자동 명명**: 커뮤니티(아키텍처 허브)는 코드 레이블의 빈도 기반 토큰화를 사용하여 자동으로 이름이 지정됩니다(예: "Auth Service").
+- **반복 순회**: 재귀 충돌 없이 임의의 중첩 깊이(예: 10,000행 이상의 파일)를 지원합니다.
+
+### 2. 분산 워크플로우
+저장소 루트에서 다음 명령을 실행하여 수십 개의 서브그래프를 자동으로 관리하세요:
+
+```bash
+# 아키텍처 상태를 점검하고 파티션 후보 발견
+# (루트별 정렬: 얕은 폴더가 먼저 표시됨)
+graphify status .
+
+# 폴더에 대한 새 서브그래프 파티션 초기화
+graphify partition path/to/module1 path/to/module2
+
+# 외과적 동기화(Surgical Sync): <ref> 이후 Git 변경 사항의 영향을 받는 서브그래프만 새로 고침
+# <ref>는 커밋 해시, 브랜치 이름 또는 HEAD~5와 같은 상대 참조일 수 있습니다
+# 팁: --vault를 추가하면 마스터 보관소로 자동 집계됩니다
+graphify update . [<ref>] [--vault]
+
+# 검증: 모든 파티션에서 git 참조 이후의 그래프 변경 사항을 표시합니다
+graphify diff [<ref>]
+
+# 마스터 보관소(Master Vault): 모든 분산 서브그래프를 하나의 Obsidian 뷰로 집계
+graphify vault .
+```
+
+### 3. 처음부터 서브그래프 설정하기
+1. **파티션 초기화**: 각 주요 기능 블록에 대해 `graphify update path/to/module` 실행.
+2. **표준화**: 모든 파티션에서 안정적인 저장소 상대 ID를 보장하기 위해 `graphify update . --all` 실행.
+3. **집계**: 루트 Obsidian 인덱스와 마스터 그래프를 생성하기 위해 `graphify vault .` 실행.
 
 ## 결과물
 
