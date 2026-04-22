@@ -1,0 +1,92 @@
+{
+  "environment": {
+    "networkx": "3.6.1",
+    "rustworkx": "0.17.1"
+  },
+  "runs": [
+    {
+      "node_count": 1000,
+      "repeats": 5,
+      "depth": 3,
+      "networkx": {
+        "build_ms": 20.399,
+        "bfs_ms": 0.008,
+        "shortest_path_ms": 0.438,
+        "stats": {
+          "nodes": 1000,
+          "edges": 1949,
+          "directed": false,
+          "isolates": 0
+        },
+        "bfs_visited": 13,
+        "shortest_path_length": 22
+      },
+      "rustworkx": {
+        "build_ms": 13.639,
+        "bfs_ms": 0.016,
+        "shortest_path_ms": 0.435,
+        "stats": {
+          "nodes": 1000,
+          "edges": 1949,
+          "directed": false,
+          "isolates": 0,
+          "metadata": {
+            "hyperedges": [],
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "source": "extraction"
+          }
+        },
+        "bfs_visited": 13,
+        "shortest_path_length": 22
+      },
+      "ratios": {
+        "build": 1.496,
+        "bfs": 0.5,
+        "shortest_path": 1.007
+      }
+    },
+    {
+      "node_count": 5000,
+      "repeats": 5,
+      "depth": 3,
+      "networkx": {
+        "build_ms": 71.991,
+        "bfs_ms": 0.007,
+        "shortest_path_ms": 0.382,
+        "stats": {
+          "nodes": 5000,
+          "edges": 9749,
+          "directed": false,
+          "isolates": 0
+        },
+        "bfs_visited": 13,
+        "shortest_path_length": 22
+      },
+      "rustworkx": {
+        "build_ms": 47.559,
+        "bfs_ms": 0.016,
+        "shortest_path_ms": 1.197,
+        "stats": {
+          "nodes": 5000,
+          "edges": 9749,
+          "directed": false,
+          "isolates": 0,
+          "metadata": {
+            "hyperedges": [],
+            "input_tokens": 0,
+            "output_tokens": 0,
+            "source": "extraction"
+          }
+        },
+        "bfs_visited": 13,
+        "shortest_path_length": 22
+      },
+      "ratios": {
+        "build": 1.514,
+        "bfs": 0.438,
+        "shortest_path": 0.319
+      }
+    }
+  ]
+}

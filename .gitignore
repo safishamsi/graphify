@@ -22,3 +22,5 @@ docs/superpowers/
 .vscode/
 openspec/
 uv.lock
+.github/copilot-*/**/*
+.github/copilot-instructions.md
