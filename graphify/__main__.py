@@ -927,6 +927,8 @@ def main() -> None:
         print("    --author \"Name\"         tag the author of the content")
         print("    --contributor \"Name\"    tag who added it to the corpus")
         print("    --dir <path>            target directory (default: ./raw)")
+        print("  diff [<ref>]            show graph changes since a git ref (default: HEAD~1)")
+        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  watch <path>            watch a folder and rebuild the graph on code changes")
         print("  update <path>           re-extract code files and update the graph (no LLM needed)")
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
@@ -1292,6 +1294,105 @@ def main() -> None:
             print(f"error: {exc}", file=sys.stderr)
             sys.exit(1)
 
+    elif cmd == "diff":
+        import subprocess as _sp
+        import copy
+        import tempfile
+        from networkx.readwrite import json_graph as _jg
+        from graphify.build import build_from_json as _bfj, build as _build
+        from graphify.analyze import graph_diff as _gdiff
+        from graphify.extract import extract_code as _ec
+        from graphify.detect import CODE_EXTENSIONS as _CE
+
+        ref = "HEAD~1"
+        graph_path = "graphify-out/graph.json"
+        args = sys.argv[2:]
+        i = 0
+        while i < len(args):
+            if args[i] == "--graph" and i + 1 < len(args):
+                graph_path = args[i + 1]; i += 2
+            elif not args[i].startswith("--"):
+                ref = args[i]; i += 1
+            else:
+                i += 1
+
+        gp = Path(graph_path).resolve()
+        if not gp.exists():
+            print(f"error: no graph found at {gp} — run /graphify first", file=sys.stderr)
+            sys.exit(1)
+
+        changed_result = _sp.run(["git", "diff", "--name-only", ref], capture_output=True, text=True)
+        if changed_result.returncode != 0:
+            print(f"error: git diff failed — is this a git repo with ref '{ref}'?", file=sys.stderr)
+            sys.exit(1)
+        changed_files = [f.strip() for f in changed_result.stdout.splitlines() if f.strip()]
+        if not changed_files:
+            print(f"No files changed since {ref}.")
+            sys.exit(0)
+
+        _raw = json.loads(gp.read_text(encoding="utf-8"))
+        try:
+            G_new = _jg.node_link_graph(_raw, edges="links")
+        except TypeError:
+            G_new = _jg.node_link_graph(_raw)
+
+        supported = {f for f in changed_files if Path(f).suffix.lower() in _CE}
+        old_extractions = []
+        for fpath in supported:
+            old_bytes = _sp.run(["git", "show", f"{ref}:{fpath}"], capture_output=True)
+            if old_bytes.returncode != 0:
+                continue
+            try:
+                suffix = Path(fpath).suffix
+                with tempfile.NamedTemporaryFile(suffix=suffix, delete=False) as tmp:
+                    tmp.write(old_bytes.stdout)
+                    tmp_path = Path(tmp.name)
+                ext = _ec(tmp_path)
+                tmp_path.unlink(missing_ok=True)
+                for n in ext.get("nodes", []):
+                    n["source_file"] = fpath
+                for e in ext.get("edges", []):
+                    e["source_file"] = fpath
+                old_extractions.append(ext)
+            except Exception:
+                pass
+
+        G_old = copy.deepcopy(G_new)
+        to_rm = [n for n, d in G_old.nodes(data=True) if d.get("source_file") in supported]
+        G_old.remove_nodes_from(to_rm)
+        if old_extractions:
+            G_old_parts = _build(old_extractions)
+            for node, data in G_old_parts.nodes(data=True):
+                G_old.add_node(node, **data)
+            for u, v, data in G_old_parts.edges(data=True):
+                G_old.add_edge(u, v, **data)
+
+        diff = _gdiff(G_old, G_new)
+        print(f"Graph diff vs {ref}: {diff['summary']}")
+        print(f"Files inspected: {', '.join(supported) if supported else 'none (no code files changed)'}")
+        if diff["new_nodes"]:
+            print(f"\nNew nodes ({len(diff['new_nodes'])}):")
+            for n in diff["new_nodes"][:20]:
+                print(f"  + {n['label']}")
+            if len(diff["new_nodes"]) > 20:
+                print(f"  ... and {len(diff['new_nodes']) - 20} more")
+        if diff["removed_nodes"]:
+            print(f"\nRemoved nodes ({len(diff['removed_nodes'])}):")
+            for n in diff["removed_nodes"][:20]:
+                print(f"  - {n['label']}")
+            if len(diff["removed_nodes"]) > 20:
+                print(f"  ... and {len(diff['removed_nodes']) - 20} more")
+        if diff["new_edges"]:
+            print(f"\nNew relationships ({len(diff['new_edges'])}):")
+            for e in diff["new_edges"][:20]:
+                src = G_new.nodes.get(e["source"], {}).get("label", e["source"])
+                tgt = G_new.nodes.get(e["target"], {}).get("label", e["target"])
+                print(f"  + {src} --{e['relation']}--> {tgt}")
+        if diff["removed_edges"]:
+            print(f"\nRemoved relationships ({len(diff['removed_edges'])}):")
+            for e in diff["removed_edges"][:20]:
+                print(f"  - {e['source']} --{e['relation']}--> {e['target']}")
+
     elif cmd == "watch":
         watch_path = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".")
         if not watch_path.exists():
@@ -1314,6 +1415,7 @@ def main() -> None:
         from graphify.build import build_from_json
         from graphify.cluster import cluster, score_all
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
+        from graphify.cluster import name_communities
         from graphify.report import generate
         from graphify.export import to_json, to_html
         print("Loading existing graph...")
@@ -1325,7 +1427,7 @@ def main() -> None:
         cohesion = score_all(G, communities)
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)
-        labels = {cid: f"Community {cid}" for cid in communities}
+        labels = name_communities(G, communities)
         questions = suggest_questions(G, communities, labels)
         tokens = {"input": 0, "output": 0}
         report = generate(G, communities, cohesion, labels, gods, surprises,

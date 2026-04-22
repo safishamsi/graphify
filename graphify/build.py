@@ -86,6 +86,37 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
     return G
 
 
+def patch_graph(
+    G: nx.Graph,
+    stale_files: set[str],
+    new_extractions: list[dict],
+    *,
+    directed: bool = False,
+) -> nx.Graph:
+    """Incrementally update G: remove nodes/edges from stale_files, merge new_extractions.
+
+    Only re-processes files that actually changed (cache miss). Unchanged files'
+    nodes/edges remain in G untouched, so the full rebuild cost is avoided.
+    """
+    if stale_files:
+        to_remove = [n for n, d in G.nodes(data=True) if d.get("source_file") in stale_files]
+        G.remove_nodes_from(to_remove)
+
+    if new_extractions:
+        G_patch = build(new_extractions, directed=directed)
+        for node, data in G_patch.nodes(data=True):
+            G.add_node(node, **data)
+        for u, v, data in G_patch.edges(data=True):
+            if u in G.nodes and v in G.nodes:
+                G.add_edge(u, v, **data)
+        existing_hyperedges = G.graph.get("hyperedges", [])
+        new_hyperedges = G_patch.graph.get("hyperedges", [])
+        if new_hyperedges:
+            G.graph["hyperedges"] = existing_hyperedges + new_hyperedges
+
+    return G
+
+
 def build(extractions: list[dict], *, directed: bool = False) -> nx.Graph:
     """Merge multiple extraction results into one graph.
 

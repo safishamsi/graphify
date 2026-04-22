@@ -3,6 +3,7 @@ from __future__ import annotations
 import contextlib
 import inspect
 import io
+import re
 import sys
 import networkx as nx
 
@@ -135,3 +136,42 @@ def cohesion_score(G: nx.Graph, community_nodes: list[str]) -> float:
 
 def score_all(G: nx.Graph, communities: dict[int, list[str]]) -> dict[int, float]:
     return {cid: cohesion_score(G, nodes) for cid, nodes in communities.items()}
+
+
+_STOP_WORDS = {"the", "and", "for", "with", "from", "this", "that", "are", "not",
+               "has", "have", "was", "get", "set", "new", "all", "can", "its"}
+
+
+def name_communities(G: nx.Graph, communities: dict[int, list[str]]) -> dict[int, str]:
+    """Assign human-readable names to communities from top node labels (no LLM needed).
+
+    Picks the top nodes by weighted degree, tokenises their labels (camelCase/snake_case),
+    and selects the 1-2 most frequent meaningful words as the community name.
+    Falls back to 'Community N' when there are no real nodes.
+    """
+    from .analyze import _is_file_node, _is_concept_node, _weighted_degree
+
+    labels: dict[int, str] = {}
+    for cid, nodes in communities.items():
+        real = [n for n in nodes if not _is_file_node(G, n) and not _is_concept_node(G, n)]
+        if not real:
+            labels[cid] = f"Community {cid}"
+            continue
+
+        top = sorted(real, key=lambda n: _weighted_degree(G, n), reverse=True)[:6]
+        words: list[str] = []
+        for n in top:
+            lbl = G.nodes[n].get("label", n)
+            lbl = re.sub(r"[().\[\]]", "", lbl)
+            # split camelCase and snake_case
+            lbl = re.sub(r"([A-Z])", r" \1", lbl)
+            words.extend(p.lower() for p in lbl.replace("_", " ").split() if len(p) > 2)
+
+        from collections import Counter
+        counts = Counter(w for w in words if w not in _STOP_WORDS)
+        top_words = [w for w, _ in counts.most_common(2)]
+        if top_words:
+            labels[cid] = " ".join(w.title() for w in top_words)
+        else:
+            labels[cid] = f"Community {cid}"
+    return labels
