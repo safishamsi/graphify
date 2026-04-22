@@ -944,6 +944,18 @@ def main() -> None:
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
         print("  hook status             check if git hooks are installed")
+        print("  lsp-import [path]       enhance graph with LSP/static analysis (v2)")
+        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("    --language <lang>       specific language(s) to process (default: auto-detect)")
+        print("                            options: auto, lua, python, cpp, javascript, typescript")
+        print("    --stats                 show detailed statistics (call type breakdown)")
+        print("    --dry-run               extract data without modifying graph")
+        print("    --list-languages        show supported language features")
+        print()
+        print("  LSP Enhancement v2 - Features:")
+        print("    lua:     metamethods, self context, require tracking, string methods")
+        print("    python:  decorators, context managers, self/cls methods, import aliases")
+        print("    cpp:     pointers (->), templates, smart pointers, STL, operators")
         print("  gemini install          write GEMINI.md section + BeforeTool hook (Gemini CLI)")
         print("  gemini uninstall        remove GEMINI.md section + BeforeTool hook")
         print("  cursor install          write .cursor/rules/graphify.mdc (Cursor)")
@@ -1349,6 +1361,69 @@ def main() -> None:
             print("Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.")
         else:
             print("Nothing to update or rebuild failed — check output above.", file=sys.stderr)
+            sys.exit(1)
+
+    elif cmd == "lsp-import":
+        from graphify.lsp_enhance_static_v2 import run_static_enhancement, LANGUAGE_FEATURES
+
+        # Parse args - handle options that come before path
+        args = sys.argv[2:]
+        import_path = Path(".")
+        graph_path = None
+        language = "auto"
+        output_path = None
+        show_stats = False
+        list_languages = False
+
+        i = 0
+        while i < len(args):
+            if args[i].startswith("-"):
+                # Option flag
+                if args[i] == "--graph" and i + 1 < len(args):
+                    graph_path = Path(args[i + 1])
+                    i += 2
+                elif args[i] == "--language" and i + 1 < len(args):
+                    language = args[i + 1]
+                    i += 2
+                elif args[i] == "--output" and i + 1 < len(args):
+                    output_path = Path(args[i + 1])
+                    i += 2
+                elif args[i] == "--stats":
+                    show_stats = True
+                    i += 1
+                elif args[i] == "--list-languages":
+                    list_languages = True
+                    i += 1
+                else:
+                    i += 1
+            else:
+                # Positional argument - path
+                import_path = Path(args[i])
+                i += 1
+
+        if list_languages:
+            print("LSP Enhancement v2 - Supported Languages:")
+            print()
+            for lang, features in sorted(LANGUAGE_FEATURES.items()):
+                print(f"  {lang.upper():8} - {', '.join(features)}")
+            print()
+            print("Usage: graphify lsp-import [path] --language <lang>")
+            sys.exit(0)
+
+        try:
+            stats = run_static_enhancement(
+                root_path=import_path,
+                graph_path=graph_path,
+                language=language,
+                output_path=output_path,
+            )
+            if show_stats:
+                print("\n=== LSP Enhancement Statistics ===")
+                for key, value in sorted(stats.items()):
+                    print(f"  {key}: {value}")
+        except FileNotFoundError as e:
+            print(f"Error: {e}", file=sys.stderr)
+            print("\nPlease run '/graphify' first to create the initial graph.", file=sys.stderr)
             sys.exit(1)
 
     elif cmd == "benchmark":
