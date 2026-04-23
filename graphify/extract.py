@@ -1583,6 +1583,12 @@ def extract_sql(path: Path) -> dict:
             "weight": 1.0,
         })
 
+    def _ensure_table(table_name: str, ref_loc: str) -> str:
+        tid = _nid("table", table_name)
+        if tid not in seen_ids:
+            _add_node(tid, table_name, ref_loc)
+        return tid
+
     def _find_first(node, *types):
         for child in node.children:
             if child.type in types:
@@ -1660,8 +1666,7 @@ def extract_sql(path: Path) -> dict:
                             ref_nodes = _find_all(col_def, "object_reference")
                             if ref_nodes:
                                 fk_name = _text(ref_nodes[-1])
-                                fk_id = _nid("table", fk_name)
-                                _add_edge(col_id, fk_id, "references", col_loc)
+                                _add_edge(col_id, _ensure_table(fk_name, col_loc), "references", col_loc)
 
             # ── CREATE VIEW ──────────────────────────────────────────────────
             elif node.type == "create_view":
@@ -1683,7 +1688,7 @@ def extract_sql(path: Path) -> dict:
                         base_ref = _find_first(base_rel, "object_reference")
                         if base_ref:
                             base_name = _text(base_ref)
-                            _add_edge(view_id, _nid("table", base_name),
+                            _add_edge(view_id, _ensure_table(base_name, loc),
                                       "joins", loc, "INFERRED", 0.9)
 
                 # JOIN clauses
@@ -1693,7 +1698,7 @@ def extract_sql(path: Path) -> dict:
                         joined_ref = _find_first(rel, "object_reference")
                         if joined_ref:
                             joined_name = _text(joined_ref)
-                            _add_edge(view_id, _nid("table", joined_name),
+                            _add_edge(view_id, _ensure_table(joined_name, _loc(join)),
                                       "joins", _loc(join), "INFERRED", 0.9)
 
             # ── CREATE INDEX ─────────────────────────────────────────────────

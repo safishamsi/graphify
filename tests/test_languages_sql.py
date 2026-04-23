@@ -217,3 +217,22 @@ CREATE INDEX idx_oi_order ON order_items(order_id);
     idx_edges = [e for e in result["edges"] if e["relation"] == "indexed_on"]
     assert len(idx_edges) == 1
     assert any("order_items" in e["target"] for e in idx_edges)
+
+def test_cross_file_fk_stub_node_created(tmp_path):
+    """FK target table defined in another file must get a stub node so the edge is not dropped."""
+    f = tmp_path / "orders.sql"
+    f.write_text("""\
+CREATE TABLE orders (
+    id SERIAL PRIMARY KEY,
+    user_id INT REFERENCES users(id)
+);
+""", encoding="utf-8")
+    result = extract_sql(f)
+    node_ids = {n["id"] for n in result["nodes"]}
+    refs = [e for e in result["edges"] if e["relation"] == "references"]
+    # The FK edge must exist
+    assert len(refs) >= 1
+    # The target node (users) must exist as a stub so build_from_json won't drop the edge
+    fk_targets = {e["target"] for e in refs}
+    assert all(t in node_ids for t in fk_targets), \
+        "FK target nodes missing — build_from_json will drop these edges"
