@@ -13,6 +13,7 @@ PLATFORMS = {
     "trae": (".trae/skills/graphify/SKILL.md",),
     "trae-cn": (".trae-cn/skills/graphify/SKILL.md",),
     "windows": (".claude/skills/graphify/SKILL.md",),
+    "qwen": (".qwen/skills/graphify/SKILL.md",),
 }
 
 
@@ -94,7 +95,7 @@ def test_all_skill_files_exist_in_package():
     """All installable platform skill files must be present in the installed package."""
     import graphify
     pkg = Path(graphify.__file__).parent
-    for name in ("skill.md", "skill-codex.md", "skill-opencode.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md"):
+    for name in ("skill.md", "skill-codex.md", "skill-opencode.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md", "skill-qwen.md"):
         assert (pkg / name).exists(), f"Missing: {name}"
 
 
@@ -318,3 +319,88 @@ def test_gemini_uninstall_removes_hook(tmp_path):
 def test_gemini_uninstall_noop_if_not_installed(tmp_path):
     from graphify.__main__ import gemini_uninstall
     gemini_uninstall(tmp_path)  # should not raise
+
+
+# ── Qwen Code CLI ─────────────────────────────────────────────────────────────
+
+def test_qwen_install_writes_skill_and_qwen_md(tmp_path):
+    """Qwen install writes skill file and QWEN.md section."""
+    from graphify.__main__ import _qwen_install
+    from unittest.mock import patch
+    
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        _qwen_install(tmp_path)
+    
+    skill = tmp_path / ".qwen" / "skills" / "graphify" / "SKILL.md"
+    assert skill.exists()
+    qwen_md = tmp_path / "QWEN.md"
+    assert qwen_md.exists()
+    content = qwen_md.read_text()
+    assert "graphify-out/GRAPH_REPORT.md" in content
+    assert "## graphify" in content
+
+
+def test_qwen_install_idempotent(tmp_path):
+    """Qwen install does not duplicate the section."""
+    from graphify.__main__ import _qwen_install
+    from unittest.mock import patch
+    
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        _qwen_install(tmp_path)
+        _qwen_install(tmp_path)
+    
+    qwen_md = tmp_path / "QWEN.md"
+    assert qwen_md.read_text().count("## graphify") == 1
+
+
+def test_qwen_install_merges_existing_qwen_md(tmp_path):
+    """Qwen install preserves existing QWEN.md content."""
+    from graphify.__main__ import _qwen_install
+    from unittest.mock import patch
+    
+    (tmp_path / "QWEN.md").write_text("# My project rules\n")
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        _qwen_install(tmp_path)
+    
+    content = (tmp_path / "QWEN.md").read_text()
+    assert "# My project rules" in content
+    assert "graphify-out/GRAPH_REPORT.md" in content
+
+
+def test_qwen_uninstall_removes_skill_and_section(tmp_path):
+    """Qwen uninstall removes skill file and QWEN.md section."""
+    from graphify.__main__ import _qwen_install, _qwen_uninstall
+    from unittest.mock import patch
+    
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        _qwen_install(tmp_path)
+        _qwen_uninstall(tmp_path)
+    
+    skill = tmp_path / ".qwen" / "skills" / "graphify" / "SKILL.md"
+    assert not skill.exists()
+    qwen_md = tmp_path / "QWEN.md"
+    # File deleted when it only contained graphify section
+    assert not qwen_md.exists()
+
+
+def test_qwen_uninstall_preserves_other_content(tmp_path):
+    """Qwen uninstall keeps pre-existing QWEN.md content."""
+    from graphify.__main__ import _qwen_install, _qwen_uninstall
+    from unittest.mock import patch
+    
+    qwen_md = tmp_path / "QWEN.md"
+    qwen_md.write_text("# Existing rules\n\nDo not break things.\n")
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        _qwen_install(tmp_path)
+        _qwen_uninstall(tmp_path)
+    
+    assert qwen_md.exists()
+    content = qwen_md.read_text()
+    assert "Do not break things." in content
+    assert "## graphify" not in content
+
+
+def test_qwen_uninstall_noop_if_not_installed(tmp_path):
+    """Qwen uninstall does nothing if never installed."""
+    from graphify.__main__ import _qwen_uninstall
+    _qwen_uninstall(tmp_path)  # should not raise

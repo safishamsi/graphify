@@ -125,6 +125,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".claude") / "skills" / "graphify" / "SKILL.md",
         "claude_md": True,
     },
+    "qwen": {
+        "skill_file": "skill-qwen.md",
+        "skill_dst": Path(".qwen") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
 }
 
 
@@ -135,9 +140,12 @@ def install(platform: str = "claude") -> None:
     if platform == "cursor":
         _cursor_install(Path("."))
         return
+    if platform == "qwen":
+        _qwen_install(Path("."))
+        return
     if platform not in _PLATFORM_CONFIG:
         print(
-            f"error: unknown platform '{platform}'. Choose from: {', '.join(_PLATFORM_CONFIG)}, gemini, cursor",
+            f"error: unknown platform '{platform}'. Choose from: {', '.join(_PLATFORM_CONFIG)}, gemini, cursor, qwen",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -615,6 +623,93 @@ def _cursor_uninstall(project_dir: Path) -> None:
     print(f"graphify Cursor rule removed from {rule_path.resolve()}")
 
 
+# ── Qwen Code CLI ─────────────────────────────────────────────────────────────
+
+_QWEN_MD_SECTION = """\
+## graphify
+
+This project has a graphify knowledge graph at graphify-out/.
+
+Rules:
+- Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
+- If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- For cross-module "how does X relate to Y" questions, prefer `graphify query "<question>"`, `graphify path "<A>" "<B"`, or `graphify explain "<concept>"` over grep — these traverse the graph's EXTRACTED + INFERRED edges instead of scanning files
+- After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
+"""
+
+_QWEN_MD_MARKER = "## graphify"
+
+
+def _qwen_install(project_dir: Path) -> None:
+    """Install graphify for Qwen Code CLI: skill file + QWEN.md section."""
+    # 1. Copy skill file to ~/.qwen/skills/graphify/SKILL.md
+    cfg = _PLATFORM_CONFIG["qwen"]
+    skill_src = Path(__file__).parent / cfg["skill_file"]
+    skill_dst = Path.home() / cfg["skill_dst"]
+    skill_dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(skill_src, skill_dst)
+    (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
+    print(f"  skill installed  ->  {skill_dst}")
+
+    # 2. Write QWEN.md section (always-on rules)
+    target = (project_dir or Path(".")) / "QWEN.md"
+    if target.exists():
+        content = target.read_text(encoding="utf-8")
+        if _QWEN_MD_MARKER in content:
+            print(f"graphify already configured in QWEN.md")
+        else:
+            target.write_text(content.rstrip() + "\n\n" + _QWEN_MD_SECTION, encoding="utf-8")
+            print(f"graphify section written to {target.resolve()}")
+    else:
+        target.write_text(_QWEN_MD_SECTION, encoding="utf-8")
+        print(f"graphify section written to {target.resolve()}")
+
+    print()
+    print("Qwen Code will now check the knowledge graph before answering")
+    print("codebase questions.")
+    print()
+    print("Open your AI coding assistant and type:")
+    print()
+    print("  /graphify .")
+    print()
+
+
+def _qwen_uninstall(project_dir: Path) -> None:
+    """Remove graphify skill file and QWEN.md section for Qwen Code CLI."""
+    # Remove skill file
+    cfg = _PLATFORM_CONFIG["qwen"]
+    skill_dst = Path.home() / cfg["skill_dst"]
+    if skill_dst.exists():
+        skill_dst.unlink()
+        print(f"  skill removed    ->  {skill_dst}")
+    version_file = skill_dst.parent / ".graphify_version"
+    if version_file.exists():
+        version_file.unlink()
+    # Remove parent dirs if empty
+    for d in (skill_dst.parent, skill_dst.parent.parent):
+        try:
+            d.rmdir()
+        except OSError:
+            break
+
+    # Remove QWEN.md section
+    target = (project_dir or Path(".")) / "QWEN.md"
+    if not target.exists():
+        print("No QWEN.md found in current directory - nothing to do")
+        return
+    content = target.read_text(encoding="utf-8")
+    if _QWEN_MD_MARKER not in content:
+        print("graphify section not found in QWEN.md - nothing to do")
+        return
+    cleaned = re.sub(r"\n*## graphify\n.*?(?=\n## |\Z)", "", content, flags=re.DOTALL).rstrip()
+    if cleaned:
+        target.write_text(cleaned + "\n", encoding="utf-8")
+        print(f"graphify section removed from {target.resolve()}")
+    else:
+        target.unlink()
+        print(f"QWEN.md was empty after removal - deleted {target.resolve()}")
+
+
 # OpenCode tool.execute.before plugin — fires before every tool call.
 # Injects a graph reminder into bash command output when graph.json exists.
 _OPENCODE_PLUGIN_JS = """\
@@ -918,7 +1013,7 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
-        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|qwen)")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
@@ -974,6 +1069,8 @@ def main() -> None:
         print("  hermes uninstall        remove skill from ~/.hermes/skills/graphify/")
         print("  kiro install            write skill to .kiro/skills/graphify/ + steering file (Kiro IDE/CLI)")
         print("  kiro uninstall          remove skill + steering file")
+        print("  qwen install            write skill to ~/.qwen/skills/ + QWEN.md section (Qwen Code)")
+        print("  qwen uninstall          remove skill + QWEN.md section")
         print()
         return
 
@@ -1020,6 +1117,15 @@ def main() -> None:
             _cursor_uninstall(Path("."))
         else:
             print("Usage: graphify cursor [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
+    elif cmd == "qwen":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            _qwen_install(Path("."))
+        elif subcmd == "uninstall":
+            _qwen_uninstall(Path("."))
+        else:
+            print("Usage: graphify qwen [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd == "vscode":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
