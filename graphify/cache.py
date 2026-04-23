@@ -28,6 +28,8 @@ def file_hash(path: Path, root: Path = Path(".")) -> str:
     so metadata-only changes (e.g. reviewed, status, tags) do not invalidate the cache.
     """
     p = Path(path)
+    if not p.is_file():
+        raise IsADirectoryError(f"file_hash requires a file, got: {p}")
     raw = p.read_bytes()
     content = _body_content(raw) if p.suffix.lower() == ".md" else raw
     h = hashlib.sha256()
@@ -73,8 +75,15 @@ def save_cached(path: Path, result: dict, root: Path = Path(".")) -> None:
 
     Stores as graphify-out/cache/{hash}.json where hash = SHA256 of current file contents.
     result should be a dict with 'nodes' and 'edges' lists.
+
+    No-ops if `path` is not a regular file. Subagent-produced semantic fragments
+    occasionally carry a directory path in `source_file`; skipping them prevents
+    IsADirectoryError from aborting the whole batch.
     """
-    h = file_hash(path, root)
+    p = Path(path)
+    if not p.is_file():
+        return
+    h = file_hash(p, root)
     entry = cache_dir(root) / f"{h}.json"
     tmp = entry.with_suffix(".tmp")
     try:
@@ -163,7 +172,7 @@ def save_semantic_cache(
         p = Path(fpath)
         if not p.is_absolute():
             p = Path(root) / p
-        if p.exists():
+        if p.is_file():
             save_cached(p, result, root)
             saved += 1
     return saved

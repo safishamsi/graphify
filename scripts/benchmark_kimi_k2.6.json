@@ -1,0 +1,87 @@
+{
+  "httpx": {
+    "model": "kimi-k2.6",
+    "chunk_size": 2,
+    "total_nodes": 71,
+    "total_edges": 57,
+    "unique_rel_types": 6,
+    "relation_types": {
+      "references": 33,
+      "semantically_similar_to": 7,
+      "conceptually_related_to": 7,
+      "rationale_for": 7,
+      "calls": 2,
+      "implements": 1
+    },
+    "input_tokens": 7243,
+    "output_tokens": 41410,
+    "cost_usd": 0.1203,
+    "elapsed_seconds": 1151.9,
+    "chunks_run": 3,
+    "chunks_failed": 0
+  },
+  "click": {
+    "model": "kimi-k2.6",
+    "chunk_size": 2,
+    "total_nodes": 62,
+    "total_edges": 48,
+    "unique_rel_types": 7,
+    "relation_types": {
+      "references": 13,
+      "calls": 11,
+      "shares_data_with": 8,
+      "conceptually_related_to": 7,
+      "rationale_for": 7,
+      "implements": 1,
+      "cites": 1
+    },
+    "input_tokens": 13776,
+    "output_tokens": 35520,
+    "cost_usd": 0.1077,
+    "elapsed_seconds": 1022.8,
+    "chunks_run": 3,
+    "chunks_failed": 0
+  },
+  "rich": {
+    "model": "kimi-k2.6",
+    "chunk_size": 2,
+    "total_nodes": 53,
+    "total_edges": 52,
+    "unique_rel_types": 6,
+    "relation_types": {
+      "implements": 18,
+      "calls": 15,
+      "conceptually_related_to": 7,
+      "references": 6,
+      "semantically_similar_to": 3,
+      "rationale_for": 3
+    },
+    "input_tokens": 12474,
+    "output_tokens": 28220,
+    "cost_usd": 0.0865,
+    "elapsed_seconds": 781.2,
+    "chunks_run": 3,
+    "chunks_failed": 0
+  },
+  "nanoGPT": {
+    "model": "kimi-k2.6",
+    "chunk_size": 2,
+    "total_nodes": 28,
+    "total_edges": 30,
+    "unique_rel_types": 6,
+    "relation_types": {
+      "references": 16,
+      "semantically_similar_to": 4,
+      "shares_data_with": 3,
+      "rationale_for": 3,
+      "calls": 2,
+      "conceptually_related_to": 2
+    },
+    "input_tokens": 4344,
+    "output_tokens": 29463,
+    "cost_usd": 0.0851,
+    "elapsed_seconds": 915.9,
+    "chunks_run": 3,
+    "chunks_failed": 0
+  }
+}

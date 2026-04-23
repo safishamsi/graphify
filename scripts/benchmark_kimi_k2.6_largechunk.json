@@ -1,0 +1,72 @@
+{
+  "chunk_4": {
+    "nanoGPT": {
+      "node_count": 27,
+      "edge_count": 31,
+      "unique_rel_types": 5,
+      "relation_types": {
+        "references": 22,
+        "conceptually_related_to": 3,
+        "semantically_similar_to": 3,
+        "calls": 1,
+        "rationale_for": 2
+      },
+      "input_tokens": 2183,
+      "output_tokens": 14699,
+      "elapsed_seconds": 418.73,
+      "cost_usd": 0.0425
+    },
+    "httpx": {
+      "node_count": 20,
+      "edge_count": 15,
+      "unique_rel_types": 4,
+      "relation_types": {
+        "calls": 7,
+        "rationale_for": 3,
+        "conceptually_related_to": 4,
+        "implements": 1
+      },
+      "input_tokens": 3208,
+      "output_tokens": 15222,
+      "elapsed_seconds": 405.59,
+      "cost_usd": 0.0445
+    }
+  },
+  "chunk_8": {
+    "nanoGPT": {
+      "node_count": 20,
+      "edge_count": 21,
+      "unique_rel_types": 6,
+      "relation_types": {
+        "rationale_for": 4,
+        "references": 8,
+        "semantically_similar_to": 4,
+        "calls": 2,
+        "shares_data_with": 1,
+        "conceptually_related_to": 2
+      },
+      "input_tokens": 3568,
+      "output_tokens": 15451,
+      "elapsed_seconds": 327.97,
+      "cost_usd": 0.0454
+    },
+    "httpx": {
+      "node_count": 52,
+      "edge_count": 35,
+      "unique_rel_types": 7,
+      "relation_types": {
+        "calls": 6,
+        "rationale_for": 8,
+        "references": 2,
+        "conceptually_related_to": 4,
+        "cites": 7,
+        "implements": 2,
+        "semantically_similar_to": 6
+      },
+      "input_tokens": 12303,
+      "output_tokens": 22718,
+      "elapsed_seconds": 593.69,
+      "cost_usd": 0.071
+    }
+  }
+}

@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "graphifyy"
-version = "0.4.23"
+version = "0.4.27"
 description = "AI coding assistant skill (Claude Code, Codex, OpenCode, Cursor, Gemini CLI, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kiro, Google Antigravity) - turn any folder of code, docs, papers, images, or videos into a queryable knowledge graph"
 readme = "README.md"
 license = { file = "LICENSE" }
 keywords = ["claude", "claude-code", "codex", "opencode", "cursor", "gemini", "aider", "kiro", "knowledge-graph", "rag", "graphrag", "obsidian", "community-detection", "tree-sitter", "leiden", "llm"]
-requires-python = ">=3.10"
+requires-python = ">=3.10,<3.14"
 dependencies = [
     "networkx",
     "tree-sitter>=0.23.0",
@@ -54,6 +54,11 @@ all = ["mcp", "neo4j", "pypdf", "html2text", "watchdog", "graspologic; python_ve
 
 [project.scripts]
 graphify = "graphify.__main__:main"
+
+[tool.uv]
+# Install via: uv tool install graphifyy
+# Run without installing: uvx graphifyy install
+package = true
 
 [tool.setuptools.packages.find]
 where = ["."]

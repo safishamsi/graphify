@@ -3102,20 +3102,24 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
     _check_tree_sitter_version()
     per_file: list[dict] = []
 
-    # Infer a common root for cache keys
+    # Infer a common root for cache keys (use first diverging segment, not sum of all matches)
     try:
         if not paths:
             root = Path(".")
         elif len(paths) == 1:
             root = paths[0].parent
         else:
-            common_len = sum(
-                1 for i in range(min(len(p.parts) for p in paths))
-                if len({p.parts[i] for p in paths}) == 1
-            )
+            min_parts = min(len(p.parts) for p in paths)
+            common_len = 0
+            for i in range(min_parts):
+                if len({p.parts[i] for p in paths}) == 1:
+                    common_len += 1
+                else:
+                    break
             root = Path(*paths[0].parts[:common_len]) if common_len else Path(".")
     except Exception:
         root = Path(".")
+    root = root.resolve()
 
     _DISPATCH: dict[str, Any] = {
         ".py": extract_python,
@@ -3184,6 +3188,27 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
     for result in per_file:
         all_nodes.extend(result.get("nodes", []))
         all_edges.extend(result.get("edges", []))
+
+    # Remap file node IDs from absolute-path-derived to project-relative so
+    # graph.json edge endpoints are stable across machines (#502)
+    id_remap: dict[str, str] = {}
+    for path in paths:
+        old_id = _make_id(str(path))
+        try:
+            new_id = _make_id(str(path.relative_to(root)))
+        except ValueError:
+            continue
+        if old_id != new_id:
+            id_remap[old_id] = new_id
+    if id_remap:
+        for n in all_nodes:
+            if n.get("id") in id_remap:
+                n["id"] = id_remap[n["id"]]
+        for e in all_edges:
+            if e.get("source") in id_remap:
+                e["source"] = id_remap[e["source"]]
+            if e.get("target") in id_remap:
+                e["target"] = id_remap[e["target"]]
 
     # Add cross-file class-level edges (Python only - uses Python parser internally)
     py_paths = [p for p in paths if p.suffix == ".py"]

@@ -12,12 +12,35 @@ _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAG
 _CODE_EXTENSIONS = CODE_EXTENSIONS
 
 
+def _report_root_label(watch_path: Path) -> str:
+    if watch_path.is_absolute():
+        return watch_path.name or str(watch_path)
+    return Path.cwd().name if watch_path == Path(".") else str(watch_path)
+
+
+def _relativize_source_files(payload: dict, root: Path) -> None:
+    for bucket in ("nodes", "edges", "hyperedges"):
+        for item in payload.get(bucket, []):
+            source = item.get("source_file")
+            if not source:
+                continue
+            source_path = Path(source)
+            if not source_path.is_absolute():
+                continue
+            try:
+                item["source_file"] = str(source_path.resolve().relative_to(root))
+            except ValueError:
+                continue
+
+
 def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
     """Re-run AST extraction + build + cluster + report for code files. No LLM needed.
 
     Returns True on success, False on error.
     """
-    watch_path = watch_path.resolve()
+    watch_root = watch_path.resolve()
+    project_root = Path.cwd().resolve() if not watch_path.is_absolute() else watch_root
+    report_root = _report_root_label(watch_path)
     try:
         from graphify.extract import extract
         from graphify.detect import detect
@@ -34,7 +57,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
             print("[graphify watch] No code files found - nothing to rebuild.")
             return False
 
-        result = extract(code_files, cache_root=watch_path)
+        result = extract(code_files, cache_root=watch_root)
 
         # Preserve semantic nodes/edges from a previous full run.
         # AST-only rebuild replaces code nodes; doc/paper/image nodes are kept.
@@ -58,6 +81,8 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
             except Exception:
                 pass  # corrupt graph.json - proceed with AST-only
 
+        _relativize_source_files(result, project_root)
+
         detection = {
             "files": {"code": [str(f) for f in code_files], "document": [], "paper": [], "image": []},
             "total_files": len(code_files),
@@ -75,7 +100,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
         out.mkdir(exist_ok=True)
 
         report = generate(G, communities, cohesion, labels, gods, surprises, detection,
-                          {"input": 0, "output": 0}, str(watch_path), suggested_questions=questions)
+                          {"input": 0, "output": 0}, report_root, suggested_questions=questions)
         (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
         to_json(G, communities, str(out / "graph.json"))
 
