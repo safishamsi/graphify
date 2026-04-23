@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import socket
 import urllib.error
 from pathlib import Path
 from unittest.mock import MagicMock, patch
@@ -56,6 +57,7 @@ def _make_mock_response(content: bytes, status: int = 200):
     mock.__exit__ = MagicMock(return_value=False)
     mock.status = status
     mock.code = status
+    mock.getheader = MagicMock(return_value=None)
     chunks = [content[i:i+65536] for i in range(0, len(content), 65536)] + [b""]
     mock.read.side_effect = chunks
     return mock
@@ -71,19 +73,17 @@ def test_safe_fetch_rejects_ftp_url():
 
 def test_safe_fetch_returns_bytes(tmp_path):
     mock_resp = _make_mock_response(b"hello world")
-    with patch("graphify.security._build_opener") as mock_opener_fn:
-        mock_opener = MagicMock()
-        mock_opener.open.return_value = mock_resp
-        mock_opener_fn.return_value = mock_opener
+    with patch("graphify.security._open_direct") as mock_open:
+        mock_conn = MagicMock()
+        mock_open.return_value = (mock_conn, mock_resp)
         result = safe_fetch("https://example.com/")
     assert result == b"hello world"
 
 def test_safe_fetch_raises_on_non_2xx():
     mock_resp = _make_mock_response(b"Not Found", status=404)
-    with patch("graphify.security._build_opener") as mock_opener_fn:
-        mock_opener = MagicMock()
-        mock_opener.open.return_value = mock_resp
-        mock_opener_fn.return_value = mock_opener
+    with patch("graphify.security._open_direct") as mock_open:
+        mock_conn = MagicMock()
+        mock_open.return_value = (mock_conn, mock_resp)
         with pytest.raises(urllib.error.HTTPError):
             safe_fetch("https://example.com/missing")
 
@@ -98,12 +98,32 @@ def test_safe_fetch_raises_on_size_exceeded():
     # Return the chunk twice so total > max_bytes=65536
     mock_resp.read.side_effect = [big_chunk, big_chunk, b""]
 
-    with patch("graphify.security._build_opener") as mock_opener_fn:
-        mock_opener = MagicMock()
-        mock_opener.open.return_value = mock_resp
-        mock_opener_fn.return_value = mock_opener
+    with patch("graphify.security._open_direct") as mock_open:
+        mock_conn = MagicMock()
+        mock_open.return_value = (mock_conn, mock_resp)
         with pytest.raises(OSError, match="size limit"):
             safe_fetch("https://example.com/huge", max_bytes=65_536)
+
+
+def test_safe_fetch_revalidates_redirect_targets():
+    redirect = _make_mock_response(b"", status=302)
+    redirect.getheader = MagicMock(return_value="http://127.0.0.1/private")
+    with patch("graphify.security._open_direct") as mock_open:
+        mock_conn = MagicMock()
+        mock_open.return_value = (mock_conn, redirect)
+        with pytest.raises(ValueError, match="Blocked private/internal IP"):
+            safe_fetch("https://example.com/start")
+
+
+def test_validate_url_rejects_private_resolution():
+    with patch("graphify.security.socket.getaddrinfo", return_value=[(None, None, None, None, ("127.0.0.1", 0))]):
+        with pytest.raises(ValueError, match="Blocked private/internal IP"):
+            validate_url("https://evil.example/")
+
+
+def test_validate_url_allows_dns_failure_to_surface_later():
+    with patch("graphify.security.socket.getaddrinfo", side_effect=socket.gaierror):
+        assert validate_url("https://example.com/") == "https://example.com/"
 
 
 # ---------------------------------------------------------------------------
@@ -113,20 +133,18 @@ def test_safe_fetch_raises_on_size_exceeded():
 def test_safe_fetch_text_decodes_utf8():
     content = "héllo wörld".encode("utf-8")
     mock_resp = _make_mock_response(content)
-    with patch("graphify.security._build_opener") as mock_opener_fn:
-        mock_opener = MagicMock()
-        mock_opener.open.return_value = mock_resp
-        mock_opener_fn.return_value = mock_opener
+    with patch("graphify.security._open_direct") as mock_open:
+        mock_conn = MagicMock()
+        mock_open.return_value = (mock_conn, mock_resp)
         result = safe_fetch_text("https://example.com/")
     assert result == "héllo wörld"
 
 def test_safe_fetch_text_replaces_bad_bytes():
     bad = b"hello \xff world"
     mock_resp = _make_mock_response(bad)
-    with patch("graphify.security._build_opener") as mock_opener_fn:
-        mock_opener = MagicMock()
-        mock_opener.open.return_value = mock_resp
-        mock_opener_fn.return_value = mock_opener
+    with patch("graphify.security._open_direct") as mock_open:
+        mock_conn = MagicMock()
+        mock_open.return_value = (mock_conn, mock_resp)
         result = safe_fetch_text("https://example.com/")
     assert "hello" in result
     assert "world" in result
