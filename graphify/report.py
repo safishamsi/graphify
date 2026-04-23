@@ -28,6 +28,16 @@ def generate(
     inf_scores = [d.get("confidence_score", 0.5) for _, _, d in inf_edges]
     inf_avg = round(sum(inf_scores) / len(inf_scores), 2) if inf_scores else None
 
+    # Communities whose members are all file-level stubs (filtered out by
+    # _is_file_node in the Communities section below) add pure noise — on
+    # mid-size codebases they accounted for 70-80% of communities and
+    # distorted the Summary count / Knowledge Gaps flags. The filter was
+    # shipped in v0.4.25 (PR #476) and regressed during the v2 report
+    # rewrite; this restores it.
+    from .analyze import _is_file_node as _ifn
+    non_empty = {cid: nodes for cid, nodes in communities.items()
+                 if any(not _ifn(G, n) for n in nodes)}
+
     lines = [
         f"# Graph Report - {root}  ({today})",
         "",
@@ -44,7 +54,7 @@ def generate(
     lines += [
         "",
         "## Summary",
-        f"- {G.number_of_nodes()} nodes · {G.number_of_edges()} edges · {len(communities)} communities detected",
+        f"- {G.number_of_nodes()} nodes · {G.number_of_edges()} edges · {len(non_empty)} communities detected",
         f"- Extraction: {ext_pct}% EXTRACTED · {inf_pct}% INFERRED · {amb_pct}% AMBIGUOUS"
         + (f" · INFERRED: {len(inf_edges)} edges (avg confidence: {inf_avg})" if inf_avg is not None else ""),
         f"- Token cost: {token_cost.get('input', 0):,} input · {token_cost.get('output', 0):,} output",
@@ -85,12 +95,15 @@ def generate(
             lines.append(f"- **{h.get('label', h.get('id', ''))}** — {node_labels} [{conf_tag}]")
 
     lines += ["", "## Communities"]
-    from .analyze import _is_file_node as _ifn
     for cid, nodes in communities.items():
         label = community_labels.get(cid, f"Community {cid}")
         score = cohesion_scores.get(cid, 0.0)
         # Filter method/function stubs from display - they're structural noise
         real_nodes = [n for n in nodes if not _ifn(G, n)]
+        # Skip clustering artifacts: all members were file-level stubs.
+        # Printing "Nodes (0):" adds noise and inflates the report.
+        if not real_nodes:
+            continue
         display = [G.nodes[n].get("label", n) for n in real_nodes[:8]]
         suffix = f" (+{len(real_nodes)-8} more)" if len(real_nodes) > 8 else ""
         lines += [
@@ -118,8 +131,15 @@ def generate(
         n for n in G.nodes()
         if G.degree(n) <= 1 and not _is_file_node(G, n) and not _is_concept_node(G, n)
     ]
+    # Knowledge Gaps should flag communities that are genuinely too small
+    # (real-node count between 1 and 2), not clustering artifacts where every
+    # member is a file-level stub.  Zero-real-node communities are already
+    # skipped in the Communities section above.
     thin_communities = {
-        cid: nodes for cid, nodes in communities.items() if len(nodes) < 3
+        cid: real_ns
+        for cid, nodes in communities.items()
+        for real_ns in [[n for n in nodes if not _ifn(G, n)]]
+        if 0 < len(real_ns) < 3
     }
     gap_count = len(isolated) + len(thin_communities)
 
