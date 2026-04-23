@@ -18,11 +18,15 @@ def _suppress_output():
     return contextlib.redirect_stdout(io.StringIO())
 
 
-def _partition(G: nx.Graph) -> dict[str, int]:
+def _partition(G: nx.Graph, *, weighted: bool = False) -> dict[str, int]:
     """Run community detection. Returns {node_id: community_id}.
 
     Tries Leiden (graspologic) first — best quality.
     Falls back to Louvain (built into networkx) if graspologic is not installed.
+
+    When weighted=True, uses the ``confidence_score`` edge attribute so that
+    EXTRACTED edges (1.0) bind communities more tightly than INFERRED (0.6-0.9)
+    or AMBIGUOUS (0.1-0.3) edges.
 
     Output from graspologic is suppressed to prevent ANSI escape codes
     from corrupting terminal scroll buffers on Windows PowerShell 5.1.
@@ -35,7 +39,15 @@ def _partition(G: nx.Graph) -> dict[str, int]:
         try:
             sys.stderr = io.StringIO()
             with _suppress_output():
-                result = leiden(G)
+                # graspologic leiden reads edge weights from the 'weight' attr
+                # by default. Copy confidence_score into 'weight' if weighted.
+                if weighted:
+                    Gw = G.copy()
+                    for u, v, d in Gw.edges(data=True):
+                        d["weight"] = float(d.get("confidence_score", 1.0) or 1.0)
+                    result = leiden(Gw)
+                else:
+                    result = leiden(G)
         finally:
             sys.stderr = old_stderr
         return result
@@ -48,7 +60,15 @@ def _partition(G: nx.Graph) -> dict[str, int]:
     kwargs: dict = {"seed": 42, "threshold": 1e-4}
     if "max_level" in inspect.signature(nx.community.louvain_communities).parameters:
         kwargs["max_level"] = 10
-    communities = nx.community.louvain_communities(G, **kwargs)
+    if weighted:
+        # Copy confidence_score into 'weight' attr for louvain
+        Gw = G.copy()
+        for u, v, d in Gw.edges(data=True):
+            d["weight"] = float(d.get("confidence_score", 1.0) or 1.0)
+        kwargs["weight"] = "weight"
+        communities = nx.community.louvain_communities(Gw, **kwargs)
+    else:
+        communities = nx.community.louvain_communities(G, **kwargs)
     return {node: cid for cid, nodes in enumerate(communities) for node in nodes}
 
 
@@ -56,12 +76,15 @@ _MAX_COMMUNITY_FRACTION = 0.25   # communities larger than 25% of graph get spli
 _MIN_SPLIT_SIZE = 10             # only split if community has at least this many nodes
 
 
-def cluster(G: nx.Graph) -> dict[int, list[str]]:
+def cluster(G: nx.Graph, *, weighted: bool = False) -> dict[int, list[str]]:
     """Run Leiden community detection. Returns {community_id: [node_ids]}.
 
     Community IDs are stable across runs: 0 = largest community after splitting.
     Oversized communities (> 25% of graph nodes, min 10) are split by running
     a second Leiden pass on the subgraph.
+
+    When weighted=True, uses confidence_score as edge weight so EXTRACTED edges
+    bind communities more tightly than INFERRED or AMBIGUOUS edges.
 
     Accepts directed or undirected graphs. DiGraphs are converted to undirected
     internally since Louvain/Leiden require undirected input.
@@ -80,7 +103,7 @@ def cluster(G: nx.Graph) -> dict[int, list[str]]:
 
     raw: dict[int, list[str]] = {}
     if connected.number_of_nodes() > 0:
-        partition = _partition(connected)
+        partition = _partition(connected, weighted=weighted)
         for node, cid in partition.items():
             raw.setdefault(cid, []).append(node)
 
@@ -95,7 +118,7 @@ def cluster(G: nx.Graph) -> dict[int, list[str]]:
     final_communities: list[list[str]] = []
     for nodes in raw.values():
         if len(nodes) > max_size:
-            final_communities.extend(_split_community(G, nodes))
+            final_communities.extend(_split_community(G, nodes, weighted=weighted))
         else:
             final_communities.append(nodes)
 
@@ -104,14 +127,14 @@ def cluster(G: nx.Graph) -> dict[int, list[str]]:
     return {i: sorted(nodes) for i, nodes in enumerate(final_communities)}
 
 
-def _split_community(G: nx.Graph, nodes: list[str]) -> list[list[str]]:
+def _split_community(G: nx.Graph, nodes: list[str], *, weighted: bool = False) -> list[list[str]]:
     """Run a second Leiden pass on a community subgraph to split it further."""
     subgraph = G.subgraph(nodes)
     if subgraph.number_of_edges() == 0:
         # No edges - split into individual nodes
         return [[n] for n in sorted(nodes)]
     try:
-        sub_partition = _partition(subgraph)
+        sub_partition = _partition(subgraph, weighted=weighted)
         sub_communities: dict[int, list[str]] = {}
         for node, cid in sub_partition.items():
             sub_communities.setdefault(cid, []).append(node)

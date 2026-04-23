@@ -75,6 +75,10 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
         if src not in node_set or tgt not in node_set:
             continue  # skip edges to external/stdlib nodes - expected, not an error
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target")}
+        # Derive traversal cost from confidence_score: high confidence = low cost.
+        # Used by weighted Dijkstra and priority-queue BFS.
+        cs = float(attrs.get("confidence_score", 1.0) or 1.0)
+        attrs["cost"] = 1.0 / max(cs, 0.01)
         # Preserve original edge direction - undirected graphs lose it otherwise,
         # causing display functions to show edges backwards.
         attrs["_src"] = src

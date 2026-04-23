@@ -920,6 +920,7 @@ def main() -> None:
         print("Commands:")
         print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro)")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
+        print("    --weighted              use Dijkstra with confidence-based edge weights")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
@@ -932,6 +933,7 @@ def main() -> None:
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
+        print("    --weighted              priority-queue BFS preferring high-confidence edges")
         print("    --budget N              cap output at N tokens (default 2000)")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  save-result             save a Q&A result to graphify-out/memory/ for graph feedback loop")
@@ -1095,13 +1097,14 @@ def main() -> None:
             sys.exit(1)
     elif cmd == "query":
         if len(sys.argv) < 3:
-            print("Usage: graphify query \"<question>\" [--dfs] [--budget N] [--graph path]", file=sys.stderr)
+            print("Usage: graphify query \"<question>\" [--dfs] [--weighted] [--budget N] [--graph path]", file=sys.stderr)
             sys.exit(1)
-        from graphify.serve import _score_nodes, _bfs, _dfs, _subgraph_to_text
+        from graphify.serve import _score_nodes, _bfs, _dfs, _weighted_bfs, _subgraph_to_text
         from graphify.security import sanitize_label
         from networkx.readwrite import json_graph
         question = sys.argv[2]
         use_dfs = "--dfs" in sys.argv
+        use_weighted = "--weighted" in sys.argv
         budget = 2000
         graph_path = "graphify-out/graph.json"
         args = sys.argv[3:]
@@ -1149,7 +1152,12 @@ def main() -> None:
             print("No matching nodes found.")
             sys.exit(0)
         start = [nid for _, nid in scored[:5]]
-        nodes, edges = (_dfs if use_dfs else _bfs)(G, start, depth=2)
+        if use_weighted:
+            nodes, edges = _weighted_bfs(G, start, depth=2)
+        elif use_dfs:
+            nodes, edges = _dfs(G, start, depth=2)
+        else:
+            nodes, edges = _bfs(G, start, depth=2)
         print(_subgraph_to_text(G, nodes, edges, token_budget=budget))
     elif cmd == "save-result":
         # graphify save-result --question Q --answer A --type T [--nodes N1 N2 ...]
@@ -1172,13 +1180,14 @@ def main() -> None:
         print(f"Saved to {out}")
     elif cmd == "path":
         if len(sys.argv) < 4:
-            print("Usage: graphify path \"<source>\" \"<target>\" [--graph path]", file=sys.stderr)
+            print("Usage: graphify path \"<source>\" \"<target>\" [--weighted] [--graph path]", file=sys.stderr)
             sys.exit(1)
-        from graphify.serve import _score_nodes
+        from graphify.serve import _score_nodes, _weighted_shortest_path
         from networkx.readwrite import json_graph
         import networkx as _nx
         source_label = sys.argv[2]
         target_label = sys.argv[3]
+        use_weighted = "--weighted" in sys.argv
         graph_path = "graphify-out/graph.json"
         args = sys.argv[4:]
         for i, a in enumerate(args):
@@ -1202,23 +1211,34 @@ def main() -> None:
             print(f"No node matching '{target_label}' found.", file=sys.stderr)
             sys.exit(1)
         src_nid, tgt_nid = src_scored[0][1], tgt_scored[0][1]
-        try:
-            path_nodes = _nx.shortest_path(G, src_nid, tgt_nid)
-        except (_nx.NetworkXNoPath, _nx.NodeNotFound):
-            print(f"No path found between '{source_label}' and '{target_label}'.")
-            sys.exit(0)
+        if use_weighted:
+            path_nodes = _weighted_shortest_path(G, src_nid, tgt_nid)
+            if path_nodes is None:
+                print(f"No path found between '{source_label}' and '{target_label}'.")
+                sys.exit(0)
+        else:
+            try:
+                path_nodes = _nx.shortest_path(G, src_nid, tgt_nid)
+            except (_nx.NetworkXNoPath, _nx.NodeNotFound):
+                print(f"No path found between '{source_label}' and '{target_label}'.")
+                sys.exit(0)
         hops = len(path_nodes) - 1
+        mode_label = "Weighted shortest path (Dijkstra)" if use_weighted else "Shortest path"
         segments = []
         for i in range(len(path_nodes) - 1):
             u, v = path_nodes[i], path_nodes[i + 1]
             edata = G.edges[u, v]
             rel = edata.get("relation", "")
             conf = edata.get("confidence", "")
-            conf_str = f" [{conf}]" if conf else ""
+            cost = edata.get("cost", 1.0)
+            conf_str = f" [{conf}"
+            if use_weighted:
+                conf_str += f" cost={cost:.2f}"
+            conf_str += "]"
             if i == 0:
                 segments.append(G.nodes[u].get("label", u))
             segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
-        print(f"Shortest path ({hops} hops):\n  " + " ".join(segments))
+        print(f"{mode_label} ({hops} hops):\n  " + " ".join(segments))
 
     elif cmd == "explain":
         if len(sys.argv) < 3:

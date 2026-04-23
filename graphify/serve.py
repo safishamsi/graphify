@@ -89,6 +89,44 @@ def _dfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], lis
     return visited, edges_seen
 
 
+def _weighted_bfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], list[tuple]]:
+    """Priority-queue BFS: explores low-cost (high-confidence) edges first.
+
+    Uses the ``cost`` attribute set by build.py (1/confidence_score).
+    Falls back to cost=1.0 for edges without the attribute.
+    """
+    import heapq
+    visited: set[str] = set()
+    edges_seen: list[tuple] = []
+    # (cumulative_cost, hop_count, node_id)
+    heap: list[tuple[float, int, str]] = [(0.0, 0, n) for n in start_nodes]
+    while heap:
+        cost, hops, node = heapq.heappop(heap)
+        if node in visited or hops > depth:
+            continue
+        visited.add(node)
+        for neighbor in G.neighbors(node):
+            if neighbor not in visited:
+                edata = G[node][neighbor]
+                if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)):
+                    edata = next(iter(edata.values()), {})
+                edge_cost = float(edata.get("cost", 1.0))
+                heapq.heappush(heap, (cost + edge_cost, hops + 1, neighbor))
+                edges_seen.append((node, neighbor))
+    return visited, edges_seen
+
+
+def _weighted_shortest_path(G: nx.Graph, src: str, tgt: str, max_hops: int = 8) -> list[str] | None:
+    """Dijkstra shortest path using the ``cost`` edge attribute."""
+    try:
+        path = nx.dijkstra_path(G, src, tgt, weight="cost")
+    except (nx.NetworkXNoPath, nx.NodeNotFound):
+        return None
+    if len(path) - 1 > max_hops:
+        return None
+    return path
+
+
 def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_budget: int = 2000) -> str:
     """Render subgraph as text, cutting at token_budget (approx 3 chars/token)."""
     char_budget = token_budget * 3
@@ -171,8 +209,8 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                     "type": "object",
                     "properties": {
                         "question": {"type": "string", "description": "Natural language question or keyword search"},
-                        "mode": {"type": "string", "enum": ["bfs", "dfs"], "default": "bfs",
-                                 "description": "bfs=broad context, dfs=trace a specific path"},
+                        "mode": {"type": "string", "enum": ["bfs", "dfs", "weighted"], "default": "bfs",
+                                 "description": "bfs=broad context, dfs=trace a specific path, weighted=priority-queue BFS preferring high-confidence edges"},
                         "depth": {"type": "integer", "default": 3, "description": "Traversal depth (1-6)"},
                         "token_budget": {"type": "integer", "default": 2000, "description": "Max output tokens"},
                     },
@@ -228,6 +266,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                         "source": {"type": "string", "description": "Source concept label or keyword"},
                         "target": {"type": "string", "description": "Target concept label or keyword"},
                         "max_hops": {"type": "integer", "default": 8, "description": "Maximum hops to consider"},
+                        "weighted": {"type": "boolean", "default": False, "description": "Use Dijkstra with confidence-based weights (high confidence = low cost)"},
                     },
                     "required": ["source", "target"],
                 },
@@ -244,7 +283,12 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         start_nodes = [nid for _, nid in scored[:3]]
         if not start_nodes:
             return "No matching nodes found."
-        nodes, edges = _dfs(G, start_nodes, depth) if mode == "dfs" else _bfs(G, start_nodes, depth)
+        if mode == "weighted":
+            nodes, edges = _weighted_bfs(G, start_nodes, depth)
+        elif mode == "dfs":
+            nodes, edges = _dfs(G, start_nodes, depth)
+        else:
+            nodes, edges = _bfs(G, start_nodes, depth)
         header = f"Traversal: {mode.upper()} depth={depth} | Start: {[G.nodes[n].get('label', n) for n in start_nodes]} | {len(nodes)} nodes found\n\n"
         return header + _subgraph_to_text(G, nodes, edges, budget)
 
@@ -319,24 +363,35 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             return f"No node matching target '{arguments['target']}' found."
         src_nid, tgt_nid = src_scored[0][1], tgt_scored[0][1]
         max_hops = int(arguments.get("max_hops", 8))
-        try:
-            path_nodes = nx.shortest_path(G, src_nid, tgt_nid)
-        except (nx.NetworkXNoPath, nx.NodeNotFound):
-            return f"No path found between '{G.nodes[src_nid].get('label', src_nid)}' and '{G.nodes[tgt_nid].get('label', tgt_nid)}'."
+        use_weighted = arguments.get("weighted", False)
+        if use_weighted:
+            path_nodes = _weighted_shortest_path(G, src_nid, tgt_nid, max_hops)
+            if path_nodes is None:
+                return f"No path found between '{G.nodes[src_nid].get('label', src_nid)}' and '{G.nodes[tgt_nid].get('label', tgt_nid)}'."
+        else:
+            try:
+                path_nodes = nx.shortest_path(G, src_nid, tgt_nid)
+            except (nx.NetworkXNoPath, nx.NodeNotFound):
+                return f"No path found between '{G.nodes[src_nid].get('label', src_nid)}' and '{G.nodes[tgt_nid].get('label', tgt_nid)}'."
+            if len(path_nodes) - 1 > max_hops:
+                return f"Path exceeds max_hops={max_hops} ({len(path_nodes) - 1} hops found)."
         hops = len(path_nodes) - 1
-        if hops > max_hops:
-            return f"Path exceeds max_hops={max_hops} ({hops} hops found)."
+        mode_label = "Weighted shortest path (Dijkstra)" if use_weighted else "Shortest path"
         segments = []
         for i in range(len(path_nodes) - 1):
             u, v = path_nodes[i], path_nodes[i + 1]
             edata = G.edges[u, v]
             rel = edata.get("relation", "")
             conf = edata.get("confidence", "")
-            conf_str = f" [{conf}]" if conf else ""
+            cost = edata.get("cost", 1.0)
+            conf_str = f" [{conf}"
+            if use_weighted:
+                conf_str += f" cost={cost:.2f}"
+            conf_str += "]"
             if i == 0:
                 segments.append(G.nodes[u].get("label", u))
             segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
-        return f"Shortest path ({hops} hops):\n  " + " ".join(segments)
+        return f"{mode_label} ({hops} hops):\n  " + " ".join(segments)
 
     _handlers = {
         "query_graph": _tool_query_graph,
