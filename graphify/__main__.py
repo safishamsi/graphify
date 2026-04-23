@@ -948,6 +948,8 @@ def main() -> None:
         print("  gemini uninstall        remove GEMINI.md section + BeforeTool hook")
         print("  cursor install          write .cursor/rules/graphify.mdc (Cursor)")
         print("  cursor uninstall        remove .cursor/rules/graphify.mdc")
+        print("  vscode install          write graphify section to .github/copilot-instructions.md (VS Code + GitHub Copilot)")
+        print("  vscode uninstall        remove graphify section from .github/copilot-instructions.md")
         print("  claude install          write graphify section to CLAUDE.md + PreToolUse hook (Claude Code)")
         print("  claude uninstall        remove graphify section from CLAUDE.md + PreToolUse hook")
         print("  codex install           write graphify section to AGENTS.md (Codex)")

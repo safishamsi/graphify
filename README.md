@@ -296,6 +296,8 @@ graphify codex install             # AGENTS.md + PreToolUse hook in .codex/hooks
 graphify opencode install          # AGENTS.md + tool.execute.before plugin (OpenCode)
 graphify cursor install            # .cursor/rules/graphify.mdc (Cursor)
 graphify cursor uninstall
+graphify vscode install            # .github/copilot-instructions.md (VS Code + GitHub Copilot)
+graphify vscode uninstall
 graphify gemini install            # GEMINI.md + BeforeTool hook (Gemini CLI)
 graphify gemini uninstall
 graphify copilot install           # skill file (GitHub Copilot CLI)
