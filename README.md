@@ -71,6 +71,11 @@ pipx install graphifyy && graphify install
 pip install graphifyy && graphify install
 ```
 
+> **macOS tip:** If you see `error: externally-managed-environment`, use [pipx](https://pipx.pypa.io/) instead:
+> ```bash
+> brew install pipx && pipx install graphifyy && graphify install
+> ```
+
 > **Official package:** The PyPI package is named `graphifyy` (install with `pip install graphifyy`). Other packages named `graphify*` on PyPI are not affiliated with this project. The only official repository is [safishamsi/graphify](https://github.com/safishamsi/graphify). The CLI and skill command are still `graphify`.
 
 > **`graphify: command not found`?** Use `uv tool install graphifyy` (recommended) or `pipx install graphifyy` — both put the CLI in a managed location that's automatically on PATH. With plain `pip`, you may need to add `~/.local/bin` (Linux) or `~/Library/Python/3.x/bin` (Mac) to your PATH, or run `python -m graphify` instead. On Windows, pip scripts land in `%APPDATA%\Python\PythonXY\Scripts`.
