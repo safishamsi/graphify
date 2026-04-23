@@ -919,6 +919,9 @@ def main() -> None:
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("  mermaid                  export graph.json to Mermaid flowchart format")
+        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("    --out <path>            output Mermaid file (default graphify-out/graph.mmd)")
         print("  add <url>               fetch a URL and save it to ./raw, then update the graph")
         print("    --author \"Name\"         tag the author of the content")
         print("    --contributor \"Name\"    tag who added it to the corpus")
@@ -1259,6 +1262,51 @@ def main() -> None:
                 print(f"  --> {G.nodes[nb].get('label', nb)} [{rel}] [{conf}]")
             if len(neighbors) > 20:
                 print(f"  ... and {len(neighbors) - 20} more")
+
+    elif cmd == "mermaid":
+        from networkx.readwrite import json_graph
+        from graphify.serve import _communities_from_graph
+        from graphify.export import to_mermaid
+        graph_path = "graphify-out/graph.json"
+        output_path = "graphify-out/graph.mmd"
+        args = sys.argv[2:]
+        i = 0
+        while i < len(args):
+            if args[i] == "--graph" and i + 1 < len(args):
+                graph_path = args[i + 1]
+                i += 2
+            elif args[i].startswith("--graph="):
+                graph_path = args[i].split("=", 1)[1]
+                i += 1
+            elif args[i] == "--out" and i + 1 < len(args):
+                output_path = args[i + 1]
+                i += 2
+            elif args[i].startswith("--out="):
+                output_path = args[i].split("=", 1)[1]
+                i += 1
+            else:
+                i += 1
+        gp = Path(graph_path).resolve()
+        if not gp.exists():
+            print(f"error: graph file not found: {gp}", file=sys.stderr)
+            sys.exit(1)
+        if gp.suffix != ".json":
+            print("error: graph file must be a .json file", file=sys.stderr)
+            sys.exit(1)
+        try:
+            _raw = json.loads(gp.read_text(encoding="utf-8"))
+            try:
+                G = json_graph.node_link_graph(_raw, edges="links")
+            except TypeError:
+                G = json_graph.node_link_graph(_raw)
+        except Exception as exc:
+            print(f"error: could not load graph: {exc}", file=sys.stderr)
+            sys.exit(1)
+        communities = _communities_from_graph(G)
+        out = Path(output_path)
+        out.parent.mkdir(parents=True, exist_ok=True)
+        to_mermaid(G, communities, str(out))
+        print(f"Mermaid graph written to {out}")
 
     elif cmd == "add":
         if len(sys.argv) < 3:
