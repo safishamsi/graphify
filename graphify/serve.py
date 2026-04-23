@@ -117,6 +117,37 @@ def _find_node(G: nx.Graph, label: str) -> list[str]:
             or term == nid.lower()]
 
 
+def _is_filename(G: nx.Graph, label: str) -> bool:
+    """Return True if label is a file node (its source_file ends with the label)."""
+    label_lower = label.lower()
+    return any(
+        (d.get("source_file") or "").lower().endswith(label_lower)
+        for _, d in G.nodes(data=True)
+        if (d.get("label") or "").lower() == label_lower
+    )
+
+
+def _symbols_in_file(G: nx.Graph, filename: str, limit: int = 8) -> str:
+    """Return a hint listing top symbols whose source_file ends with filename."""
+    fname = filename.lower()
+    hits = [
+        (d.get("label", nid), G.degree(nid))
+        for nid, d in G.nodes(data=True)
+        if (d.get("source_file") or "").lower().endswith(fname)
+        and (d.get("source_file") or "").lower() != (d.get("label") or "").lower()
+    ]
+    hits.sort(key=lambda x: -x[1])
+    seen: set[str] = set()
+    names: list[str] = []
+    for lbl, _ in hits:
+        if lbl not in seen:
+            seen.add(lbl)
+            names.append(lbl)
+        if len(names) >= limit:
+            break
+    return f" Symbols in that file: {', '.join(names)}." if names else ""
+
+
 def _filter_blank_stdin() -> None:
     """Filter blank lines from stdin before MCP reads it.
 
@@ -166,14 +197,20 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         return [
             types.Tool(
                 name="query_graph",
-                description="Search the knowledge graph using BFS or DFS. Returns relevant nodes and edges as text context.",
+                description=(
+                    "Search the knowledge graph using BFS or DFS. Use for: 'how does X work', "
+                    "'what connects A to B', 'show the auth flow'. "
+                    "Do NOT use for: exact string literals, regex patterns, or property names — "
+                    "use grep/search tools for those instead."
+                ),
                 inputSchema={
                     "type": "object",
                     "properties": {
                         "question": {"type": "string", "description": "Natural language question or keyword search"},
                         "mode": {"type": "string", "enum": ["bfs", "dfs"], "default": "bfs",
-                                 "description": "bfs=broad context, dfs=trace a specific path"},
-                        "depth": {"type": "integer", "default": 3, "description": "Traversal depth (1-6)"},
+                                 "description": "bfs=broad context (default), dfs=trace a specific path"},
+                        "depth": {"type": "integer", "default": 1,
+                                  "description": "Traversal depth (1-3). Start with 1; increase only if results are too sparse."},
                         "token_budget": {"type": "integer", "default": 2000, "description": "Max output tokens"},
                     },
                     "required": ["question"],
@@ -181,28 +218,36 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             ),
             types.Tool(
                 name="get_node",
-                description="Get full details for a specific node by label or ID.",
+                description=(
+                    "Get full details for a specific symbol (class, function, concept) by name. "
+                    "Pass a symbol name, not a filename. "
+                    "For files, use query_graph or get_neighbors instead."
+                ),
                 inputSchema={
                     "type": "object",
-                    "properties": {"label": {"type": "string", "description": "Node label or ID to look up"}},
+                    "properties": {"label": {"type": "string", "description": "Symbol name to look up (e.g. 'DigestAuth', not 'auth.py')"}},
                     "required": ["label"],
                 },
             ),
             types.Tool(
                 name="get_neighbors",
-                description="Get all direct neighbors of a node with edge details.",
+                description=(
+                    "Get all direct neighbors of a symbol with edge details. "
+                    "Pass a symbol name, not a filename. "
+                    "Use relation_filter to narrow results (e.g. 'calls', 'inherits', 'imports')."
+                ),
                 inputSchema={
                     "type": "object",
                     "properties": {
-                        "label": {"type": "string"},
-                        "relation_filter": {"type": "string", "description": "Optional: filter by relation type"},
+                        "label": {"type": "string", "description": "Symbol name (e.g. 'Client', not 'client.py')"},
+                        "relation_filter": {"type": "string", "description": "Optional: filter by relation type (e.g. 'calls', 'inherits')"},
                     },
                     "required": ["label"],
                 },
             ),
             types.Tool(
                 name="get_community",
-                description="Get all nodes in a community by community ID.",
+                description="Get all nodes in a community by community ID. Use graph_stats first to see available community IDs.",
                 inputSchema={
                     "type": "object",
                     "properties": {"community_id": {"type": "integer", "description": "Community ID (0-indexed by size)"}},
@@ -211,7 +256,11 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             ),
             types.Tool(
                 name="god_nodes",
-                description="Return the most connected nodes - the core abstractions of the knowledge graph.",
+                description=(
+                    "Return the most-connected nodes — the core abstractions everything flows through. "
+                    "Best used once at session start for orientation. "
+                    "Not useful during targeted investigations."
+                ),
                 inputSchema={"type": "object", "properties": {"top_n": {"type": "integer", "default": 10}}},
             ),
             types.Tool(
@@ -221,7 +270,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             ),
             types.Tool(
                 name="shortest_path",
-                description="Find the shortest path between two concepts in the knowledge graph.",
+                description="Find the shortest path between two concepts. Use symbol names, not filenames.",
                 inputSchema={
                     "type": "object",
                     "properties": {
@@ -249,9 +298,13 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         return header + _subgraph_to_text(G, nodes, edges, budget)
 
     def _tool_get_node(arguments: dict) -> str:
-        label = arguments["label"].lower()
+        label = arguments["label"]
+        if _is_filename(G, label):
+            hint = _symbols_in_file(G, label)
+            return f"'{label}' looks like a filename, not a symbol. Pass a class or function name instead.{hint}"
+        label_lower = label.lower()
         matches = [(nid, d) for nid, d in G.nodes(data=True)
-                   if label in (d.get("label") or "").lower() or label == nid.lower()]
+                   if label_lower in (d.get("label") or "").lower() or label_lower == nid.lower()]
         if not matches:
             return f"No node matching '{label}' found."
         nid, d = matches[0]
@@ -265,7 +318,10 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         ])
 
     def _tool_get_neighbors(arguments: dict) -> str:
-        label = arguments["label"].lower()
+        label = arguments["label"]
+        if _is_filename(G, label):
+            hint = _symbols_in_file(G, label)
+            return f"'{label}' looks like a filename, not a symbol. Pass a class or function name instead.{hint}"
         rel_filter = arguments.get("relation_filter", "").lower()
         matches = _find_node(G, label)
         if not matches:
