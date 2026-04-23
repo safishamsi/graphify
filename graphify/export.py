@@ -293,6 +293,9 @@ def to_json(G: nx.Graph, communities: dict[int, list[str]], output_path: str) ->
             conf = link.get("confidence", "EXTRACTED")
             link["confidence_score"] = _CONFIDENCE_SCORE_DEFAULTS.get(conf, 1.0)
     data["hyperedges"] = getattr(G, "graph", {}).get("hyperedges", [])
+    stats = getattr(G, "graph", {}).get("cross_file_call_stats")
+    if stats is not None:
+        data["cross_file_call_stats"] = stats
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)
 

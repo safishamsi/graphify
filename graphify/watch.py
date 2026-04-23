@@ -77,6 +77,9 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
                     "hyperedges": existing.get("hyperedges", []),
                     "input_tokens": 0,
                     "output_tokens": 0,
+                    # Preserve fresh AST-pass cross_file_call_stats; merging
+                    # with a stale semantic pass would misreport degree caps.
+                    "cross_file_call_stats": result.get("cross_file_call_stats"),
                 }
             except Exception:
                 pass  # corrupt graph.json - proceed with AST-only
