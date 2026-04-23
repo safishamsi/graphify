@@ -2832,34 +2832,51 @@ def extract_objc(path: Path) -> dict:
     # Second pass: resolve calls inside method bodies
     all_method_nids = {n["id"] for n in nodes if n["id"] != file_nid}
     seen_calls: set[tuple[str, str]] = set()
+    raw_calls: list[dict] = []
     for caller_nid, body_node in method_bodies:
         def walk_calls(n) -> None:
             if n.type == "message_expression":
-                # [receiver selector]
+                method_name: str | None = None
                 for child in n.children:
-                    if child.type in ("selector", "keyword_argument_list"):
-                        sel = []
-                        if child.type == "selector":
-                            sel.append(_read(child))
-                        else:
-                            for sub in child.children:
-                                if sub.type == "keyword_argument":
-                                    for s in sub.children:
-                                        if s.type == "selector":
-                                            sel.append(_read(s))
+                    if child.type == "selector":
+                        method_name = _read(child)
+                        break
+                    if child.type == "keyword_argument_list":
+                        sel: list[str] = []
+                        for sub in child.children:
+                            if sub.type == "keyword_argument":
+                                for s in sub.children:
+                                    if s.type == "selector":
+                                        sel.append(_read(s))
                         method_name = "".join(sel)
-                        for candidate in all_method_nids:
-                            if candidate.endswith(_make_id("", method_name).lstrip("_")):
-                                pair = (caller_nid, candidate)
-                                if pair not in seen_calls and caller_nid != candidate:
-                                    seen_calls.add(pair)
-                                    add_edge(caller_nid, candidate, "calls", body_node.start_point[0] + 1,
-                                             confidence="EXTRACTED", weight=1.0)
+                        break
+                if not method_name:
+                    idents = [c for c in n.children if c.type == "identifier"]
+                    if idents:
+                        method_name = _read(idents[-1])
+                if method_name:
+                    matched = False
+                    suffix = _make_id("", method_name).lstrip("_")
+                    for candidate in all_method_nids:
+                        if candidate.endswith(suffix):
+                            matched = True
+                            pair = (caller_nid, candidate)
+                            if pair not in seen_calls and caller_nid != candidate:
+                                seen_calls.add(pair)
+                                add_edge(caller_nid, candidate, "calls", n.start_point[0] + 1,
+                                         confidence="EXTRACTED", weight=1.0)
+                    if not matched:
+                        raw_calls.append({
+                            "caller_nid": caller_nid,
+                            "callee": method_name,
+                            "source_file": str_path,
+                            "source_location": f"L{n.start_point[0] + 1}",
+                        })
             for child in n.children:
                 walk_calls(child)
         walk_calls(body_node)
 
-    return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
+    return {"nodes": nodes, "edges": edges, "raw_calls": raw_calls, "input_tokens": 0, "output_tokens": 0}
 
 
 def extract_elixir(path: Path) -> dict:
@@ -3210,7 +3227,7 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
     global_label_to_nid: dict[str, str] = {}
     for n in all_nodes:
         raw = n.get("label", "")
-        normalised = raw.strip("()").lstrip(".")
+        normalised = raw.strip("()").lstrip(".-+")
         if normalised:
             global_label_to_nid[normalised.lower()] = n["id"]
 
