@@ -66,3 +66,14 @@ def test_answer_in_body(tmp_path):
     out = save_query_result("what is the answer?", answer, mem)
     content = out.read_text()
     assert answer in content
+
+
+def test_answer_redacts_secret_like_values(tmp_path):
+    mem = tmp_path / "memory"
+    answer = 'Use X-API-Key: sk-live-1234567890abcdef and token="abcd1234efgh5678"'
+    out = save_query_result("how do I call the API?", answer, mem)
+    content = out.read_text()
+
+    assert "sk-live-1234567890abcdef" not in content
+    assert 'token="abcd1234efgh5678"' not in content
+    assert "[REDACTED_SECRET]" in content

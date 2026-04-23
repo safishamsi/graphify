@@ -236,3 +236,13 @@ def test_detect_video_not_in_words(tmp_path):
     result = detect(tmp_path)
     # Only video file present — total_words should be 0
     assert result["total_words"] == 0
+
+
+def test_detect_skips_inline_secret_content_in_benign_filename(tmp_path):
+    settings = tmp_path / "settings.ts"
+    settings.write_text('export const OPENAI_API_KEY = "sk-test-1234567890abcdef"\n')
+
+    result = detect(tmp_path)
+
+    assert result["files"]["code"] == []
+    assert any("settings.ts" in f for f in result["skipped_sensitive"])

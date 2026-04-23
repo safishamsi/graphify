@@ -39,6 +39,24 @@ _SENSITIVE_PATTERNS = [
     re.compile(r'(aws_credentials|gcloud_credentials|service.account)', re.IGNORECASE),
 ]
 
+_INLINE_SECRET_PATTERNS = [
+    re.compile(r"sk-(live|test|proj)-[A-Za-z0-9_-]{12,}", re.IGNORECASE),
+    re.compile(r"gh[pousr]_[A-Za-z0-9]{20,}", re.IGNORECASE),
+    re.compile(r"AIza[0-9A-Za-z\-_]{20,}", re.IGNORECASE),
+    re.compile(r"xox[baprs]-[A-Za-z0-9-]{20,}", re.IGNORECASE),
+    re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
+    re.compile(
+        r"""(?ix)
+        \b(api[_-]?key|secret|token|password|passwd|bearer)\b
+        [^=\n:]{0,32}
+        (?:=|:)
+        [ \t]*["']?[A-Za-z0-9_\-./+=]{12,}["']?
+        """
+    ),
+]
+
+_INLINE_SECRET_SCAN_BYTES = 128 * 1024
+
 # Signals that a .md/.txt file is actually a converted academic paper
 _PAPER_SIGNALS = [
     re.compile(r'\barxiv\b', re.IGNORECASE),
@@ -62,6 +80,20 @@ def _is_sensitive(path: Path) -> bool:
     """Return True if this file likely contains secrets and should be skipped."""
     name = path.name
     return any(p.search(name) for p in _SENSITIVE_PATTERNS)
+
+
+def _contains_secret_content(path: Path) -> bool:
+    """Return True if file contents look like an embedded credential.
+
+    graphify is designed to feed matching files into LLM extraction. Path-based
+    filtering is not enough because secrets often live in innocuous filenames
+    such as ``settings.ts`` or generated markdown memory entries.
+    """
+    try:
+        text = path.read_text(errors="ignore")[:_INLINE_SECRET_SCAN_BYTES]
+    except Exception:
+        return False
+    return any(pattern.search(text) for pattern in _INLINE_SECRET_PATTERNS)
 
 
 def _looks_like_paper(path: Path) -> bool:
@@ -397,7 +429,7 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
                 continue
         if _is_ignored(p, root, ignore_patterns):
             continue
-        if _is_sensitive(p):
+        if _is_sensitive(p) or _contains_secret_content(p):
             skipped_sensitive.append(str(p))
             continue
         ftype = classify_file(p)

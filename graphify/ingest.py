@@ -24,6 +24,42 @@ def _safe_filename(url: str, suffix: str) -> str:
     return name + suffix
 
 
+_ANSWER_SECRET_PATTERNS = [
+    re.compile(r"sk-(live|test|proj)-[A-Za-z0-9_-]{12,}", re.IGNORECASE),
+    re.compile(r"gh[pousr]_[A-Za-z0-9]{20,}", re.IGNORECASE),
+    re.compile(r"AIza[0-9A-Za-z\-_]{20,}", re.IGNORECASE),
+    re.compile(r"xox[baprs]-[A-Za-z0-9-]{20,}", re.IGNORECASE),
+    re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----.*?-----END [A-Z ]*PRIVATE KEY-----", re.DOTALL),
+    re.compile(
+        r"""(?ix)
+        (
+            \b(?:api[_-]?key|secret|token|password|passwd|bearer)\b
+            [^=\n:]{0,32}
+            (?:=|:)
+            [ \t]*["']?
+        )
+        ([A-Za-z0-9_\-./+=]{12,})
+        (["']?)
+        """
+    ),
+]
+
+
+def _redact_answer_secrets(answer: str) -> str:
+    """Remove credential-like substrings before persisting query memory.
+
+    Query memory is re-ingested into future graph runs, so raw credentials must
+    never be written here even if an agent accidentally included them.
+    """
+    redacted = answer
+    for pattern in _ANSWER_SECRET_PATTERNS[:-1]:
+        redacted = pattern.sub("[REDACTED_SECRET]", redacted)
+
+    assignment_pattern = _ANSWER_SECRET_PATTERNS[-1]
+    redacted = assignment_pattern.sub(r"\1[REDACTED_SECRET]\3", redacted)
+    return redacted
+
+
 def _detect_url_type(url: str) -> str:
     """Classify the URL for targeted extraction."""
     lower = url.lower()
@@ -273,7 +309,7 @@ def save_query_result(
         "",
         "## Answer",
         "",
-        answer,
+        _redact_answer_secrets(answer),
     ]
     if source_nodes:
         body_lines += ["", "## Source Nodes", ""]
