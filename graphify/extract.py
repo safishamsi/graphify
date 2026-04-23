@@ -676,7 +676,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
-    stem = path.stem
+    stem = _make_id(str(path))  # ID collision fix — path.stem merges files sharing a basename (e.g. every lib.rs across Rust crates)
     str_path = str(path)
     nodes: list[dict] = []
     edges: list[dict] = []
@@ -1258,7 +1258,7 @@ def _extract_python_rationale(path: Path, result: dict) -> None:
     except Exception:
         return
 
-    stem = path.stem
+    stem = _make_id(str(path))  # ID collision fix — path.stem merges files sharing a basename (e.g. every lib.rs across Rust crates)
     str_path = str(path)
     nodes = result["nodes"]
     edges = result["edges"]
@@ -1633,7 +1633,7 @@ def extract_julia(path: Path) -> dict:
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
-    stem = path.stem
+    stem = _make_id(str(path))  # ID collision fix — path.stem merges files sharing a basename (e.g. every lib.rs across Rust crates)
     str_path = str(path)
     nodes: list[dict] = []
     edges: list[dict] = []
@@ -1845,7 +1845,7 @@ def extract_go(path: Path) -> dict:
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
-    stem = path.stem
+    stem = _make_id(str(path))  # ID collision fix — path.stem merges files sharing a basename (e.g. every lib.rs across Rust crates)
     # Use directory name as package scope so methods on the same type across
     # multiple files in a package share one canonical type node.
     pkg_scope = path.parent.name or stem
@@ -2044,7 +2044,7 @@ def extract_rust(path: Path) -> dict:
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
-    stem = path.stem
+    stem = _make_id(str(path))  # ID collision fix — path.stem merges files sharing a basename (e.g. every lib.rs across Rust crates)
     str_path = str(path)
     nodes: list[dict] = []
     edges: list[dict] = []
@@ -2221,7 +2221,7 @@ def extract_zig(path: Path) -> dict:
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
-    stem = path.stem
+    stem = _make_id(str(path))  # ID collision fix — path.stem merges files sharing a basename (e.g. every lib.rs across Rust crates)
     str_path = str(path)
     nodes: list[dict] = []
     edges: list[dict] = []
@@ -2384,7 +2384,7 @@ def extract_powershell(path: Path) -> dict:
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
-    stem = path.stem
+    stem = _make_id(str(path))  # ID collision fix — path.stem merges files sharing a basename (e.g. every lib.rs across Rust crates)
     str_path = str(path)
     nodes: list[dict] = []
     edges: list[dict] = []
@@ -2578,7 +2578,7 @@ def _resolve_cross_file_imports(
     stem_to_path: dict[str, Path] = {p.stem: p for p in paths}
 
     for file_result, path in zip(per_file, paths):
-        stem = path.stem
+        stem = _make_id(str(path))  # ID collision fix — path.stem merges files sharing a basename (e.g. every lib.rs across Rust crates)
         str_path = str(path)
 
         # Find all classes defined in this file (the importers)
@@ -2681,7 +2681,7 @@ def extract_objc(path: Path) -> dict:
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
-    stem = path.stem
+    stem = _make_id(str(path))  # ID collision fix — path.stem merges files sharing a basename (e.g. every lib.rs across Rust crates)
     str_path = str(path)
     nodes: list[dict] = []
     edges: list[dict] = []
@@ -2879,7 +2879,7 @@ def extract_elixir(path: Path) -> dict:
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
-    stem = path.stem
+    stem = _make_id(str(path))  # ID collision fix — path.stem merges files sharing a basename (e.g. every lib.rs across Rust crates)
     str_path = str(path)
     nodes: list[dict] = []
     edges: list[dict] = []
