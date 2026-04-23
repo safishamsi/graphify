@@ -11,6 +11,7 @@ from graphify.serve import (
     _dfs,
     _subgraph_to_text,
     _load_graph,
+    _ensure_noninteractive_stdio,
 )
 
 
@@ -151,3 +152,20 @@ def test_load_graph_missing_file(tmp_path):
     graphify_dir.mkdir()
     with pytest.raises(SystemExit):
         _load_graph(str(graphify_dir / "nonexistent.json"))
+
+
+class _FakeStream:
+    def __init__(self, is_tty: bool):
+        self._is_tty = is_tty
+
+    def isatty(self):
+        return self._is_tty
+
+
+def test_ensure_noninteractive_stdio_allows_pipe_like_streams():
+    _ensure_noninteractive_stdio(_FakeStream(False), _FakeStream(False))
+
+
+def test_ensure_noninteractive_stdio_rejects_interactive_tty():
+    with pytest.raises(SystemExit):
+        _ensure_noninteractive_stdio(_FakeStream(True), _FakeStream(False))
