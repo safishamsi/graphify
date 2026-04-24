@@ -19,6 +19,10 @@ graphify-out/
 .claude/
 skills/
 docs/superpowers/
+.codex/
+.codex-*
+.agents/
+codex-*.log
 .vscode/
 openspec/
 uv.lock
