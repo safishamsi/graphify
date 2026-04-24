@@ -129,6 +129,21 @@ def test_codex_agents_install_writes_agents_md(tmp_path):
     assert "GRAPH_REPORT.md" in agents_md.read_text()
 
 
+def test_codex_agents_install_writes_supported_hook_output(tmp_path):
+    """Codex rejects Claude-style additionalContext hook output."""
+    import json as _json
+
+    _agents_install(tmp_path, "codex")
+    hooks_path = tmp_path / ".codex" / "hooks.json"
+    hooks = _json.loads(hooks_path.read_text())["hooks"]["PreToolUse"]
+    hook_text = str(hooks)
+
+    assert "systemMessage" in hook_text
+    assert "additionalContext" not in hook_text
+    assert "hookSpecificOutput" not in hook_text
+    assert "permissionDecision" not in hook_text
+
+
 def test_opencode_agents_install_writes_agents_md(tmp_path):
     _agents_install(tmp_path, "opencode")
     assert (tmp_path / "AGENTS.md").exists()
