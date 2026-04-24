@@ -738,7 +738,7 @@ export const GraphifyPlugin = async ({ directory }) => {
 """
 
 _OPENCODE_PLUGIN_PATH = Path(".opencode") / "plugins" / "graphify.js"
-_OPENCODE_CONFIG_PATH = Path("opencode.json")
+_OPENCODE_CONFIG_PATH = Path(".opencode") / "opencode.json"
 
 
 def _install_opencode_plugin(project_dir: Path) -> None:
@@ -1035,6 +1035,7 @@ def main() -> None:
         print("    --type T                query type: query|path_query|explain (default: query)")
         print("    --nodes N1 N2 ...       source node labels cited in the answer")
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
+        print("  check-update <path>     check needs_update flag and notify if semantic re-extraction is pending (cron-safe)")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
@@ -1457,6 +1458,13 @@ def main() -> None:
             print("Nothing to update or rebuild failed — check output above.", file=sys.stderr)
             sys.exit(1)
 
+    elif cmd == "check-update":
+        if len(sys.argv) < 3:
+            print("Usage: graphify check-update <path>", file=sys.stderr)
+            sys.exit(1)
+        from graphify.watch import check_update
+        check_update(Path(sys.argv[2]).resolve())
+        sys.exit(0)
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
         graph_path = sys.argv[2] if len(sys.argv) > 2 else "graphify-out/graph.json"

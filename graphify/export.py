@@ -344,12 +344,16 @@ def to_html(
     communities: dict[int, list[str]],
     output_path: str,
     community_labels: dict[int, str] | None = None,
+    member_counts: dict[int, int] | None = None,
 ) -> None:
     """Generate an interactive vis.js HTML visualization of the graph.
 
     Features: node size by degree, click-to-inspect panel, search box,
     community filter, physics clustering by community, confidence-styled edges.
     Raises ValueError if graph exceeds MAX_NODES_FOR_VIZ.
+
+    If member_counts is provided (aggregated community view), node sizes are
+    based on community member counts rather than graph degree.
     """
     if G.number_of_nodes() > MAX_NODES_FOR_VIZ:
         raise ValueError(
@@ -360,6 +364,7 @@ def to_html(
     node_community = _node_community_map(communities)
     degree = dict(G.degree())
     max_deg = max(degree.values(), default=1) or 1
+    max_mc = (max(member_counts.values(), default=1) or 1) if member_counts else 1
 
     # Build nodes list for vis.js
     vis_nodes = []
@@ -368,9 +373,14 @@ def to_html(
         color = COMMUNITY_COLORS[cid % len(COMMUNITY_COLORS)]
         label = sanitize_label(data.get("label", node_id))
         deg = degree.get(node_id, 1)
-        size = 10 + 30 * (deg / max_deg)
-        # Only show label for high-degree nodes by default; others show on hover
-        font_size = 12 if deg >= max_deg * 0.15 else 0
+        if member_counts:
+            mc = member_counts.get(cid, 1)
+            size = 10 + 30 * (mc / max_mc)
+            font_size = 12
+        else:
+            size = 10 + 30 * (deg / max_deg)
+            # Only show label for high-degree nodes by default; others show on hover
+            font_size = 12 if deg >= max_deg * 0.15 else 0
         vis_nodes.append({
             "id": node_id,
             "label": label,
@@ -406,7 +416,7 @@ def to_html(
     for cid in sorted((community_labels or {}).keys()):
         color = COMMUNITY_COLORS[cid % len(COMMUNITY_COLORS)]
         lbl = _html.escape(sanitize_label((community_labels or {}).get(cid, f"Community {cid}")))
-        n = len(communities.get(cid, []))
+        n = member_counts.get(cid, len(communities.get(cid, []))) if member_counts else len(communities.get(cid, []))
         legend_data.append({"cid": cid, "color": color, "label": lbl, "count": n})
 
     # Escape </script> sequences so embedded JSON cannot break out of the script tag
@@ -831,7 +841,7 @@ def to_canvas(
             canvas_nodes.append({
                 "id": f"n_{node_id}",
                 "type": "file",
-                "file": f"graphify/obsidian/{fname}.md",
+                "file": f"{fname}.md",
                 "x": nx_x,
                 "y": nx_y,
                 "width": 180,

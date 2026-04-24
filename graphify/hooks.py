@@ -13,7 +13,10 @@ _PYTHON_DETECT = """\
 # Detect the correct Python interpreter (handles pipx, venv, system installs)
 GRAPHIFY_BIN=$(command -v graphify 2>/dev/null)
 if [ -n "$GRAPHIFY_BIN" ]; then
-    _SHEBANG=$(head -1 "$GRAPHIFY_BIN" | sed 's/^#![[:space:]]*//')
+    case "$GRAPHIFY_BIN" in
+        *.exe) _SHEBANG="" ;;
+        *)     _SHEBANG=$(head -1 "$GRAPHIFY_BIN" | sed 's/^#![[:space:]]*//') ;;
+    esac
     case "$_SHEBANG" in
         */env\\ *) GRAPHIFY_PYTHON="${_SHEBANG#*/env }" ;;
         *)         GRAPHIFY_PYTHON="$_SHEBANG" ;;

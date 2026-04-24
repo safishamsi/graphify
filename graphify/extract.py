@@ -803,6 +803,49 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                                         seen_ids.add(base_nid)
                                 add_edge(class_nid, base_nid, "inherits", line)
 
+            # Java-specific: extends (superclass) / implements (interfaces) / interface-extends
+            if config.ts_module == "tree_sitter_java":
+                def _emit_java_parent(base_name: str, rel: str, at_line: int) -> None:
+                    if not base_name:
+                        return
+                    base_nid = _make_id(stem, base_name)
+                    if base_nid not in seen_ids:
+                        base_nid = _make_id(base_name)
+                        if base_nid not in seen_ids:
+                            nodes.append({
+                                "id": base_nid,
+                                "label": base_name,
+                                "file_type": "code",
+                                "source_file": "",
+                                "source_location": "",
+                            })
+                            seen_ids.add(base_nid)
+                    add_edge(class_nid, base_nid, rel, at_line)
+
+                sup = node.child_by_field_name("superclass")
+                if sup is not None:
+                    for sub in sup.children:
+                        if sub.type == "type_identifier":
+                            _emit_java_parent(_read_text(sub, source), "extends", line)
+                            break
+
+                ifs = node.child_by_field_name("interfaces")
+                if ifs is not None:
+                    for sub in ifs.children:
+                        if sub.type == "type_list":
+                            for tid in sub.children:
+                                if tid.type == "type_identifier":
+                                    _emit_java_parent(_read_text(tid, source), "implements", line)
+
+                if t == "interface_declaration":
+                    for child in node.children:
+                        if child.type == "extends_interfaces":
+                            for sub in child.children:
+                                if sub.type == "type_list":
+                                    for tid in sub.children:
+                                        if tid.type == "type_identifier":
+                                            _emit_java_parent(_read_text(tid, source), "extends", line)
+
             # Find body and recurse
             body = _find_body(node, config)
             if body:
@@ -2664,6 +2707,91 @@ def _resolve_cross_file_imports(
     return new_edges
 
 
+def _resolve_cross_file_java_imports(
+    per_file: list[dict],
+    paths: list[Path],
+) -> list[dict]:
+    """Two-pass Java import resolution.
+
+    Pass 1: build a global index {ClassName: [node_id, ...]} across all Java nodes.
+    Pass 2: re-parse each Java file; for every `import a.b.C;`, resolve C against
+    the index. Wildcard and stdlib imports produce no edge.
+    """
+    try:
+        import tree_sitter_java as tsjava
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return []
+
+    language = Language(tsjava.language())
+    parser = Parser(language)
+
+    # Pass 1: class-name → node_id index (only internal, uppercase-starting names)
+    name_to_ids: dict[str, list[str]] = {}
+    for file_result in per_file:
+        for node in file_result.get("nodes", []):
+            label = node.get("label", "")
+            nid = node.get("id", "")
+            src = node.get("source_file", "")
+            if not label or not nid or not src:
+                continue
+            if label.endswith(")") or label.endswith(".java"):
+                continue
+            if not label[0].isalpha() or not label[0].isupper():
+                continue
+            name_to_ids.setdefault(label, []).append(nid)
+
+    # Pass 2: resolve imports to real node IDs
+    new_edges: list[dict] = []
+    seen_pairs: set[tuple[str, str]] = set()
+    for path in paths:
+        file_nid = _make_id(path.stem)
+        try:
+            source = path.read_bytes()
+            tree = parser.parse(source)
+        except Exception:
+            continue
+
+        def walk(n) -> None:
+            if n.type == "import_declaration":
+                raw = _read_text(n, source).strip()
+                body = raw[len("import"):].strip().rstrip(";").strip()
+                if body.startswith("static "):
+                    body = body[len("static "):].strip()
+                if body.endswith(".*"):
+                    return
+                parts = body.split(".")
+                if not parts:
+                    return
+                last = parts[-1]
+                if last and last[0].islower() and len(parts) >= 2:
+                    last = parts[-2]
+                at_line = n.start_point[0] + 1
+                for tgt_nid in name_to_ids.get(last, []):
+                    if tgt_nid == file_nid:
+                        continue
+                    key = (file_nid, tgt_nid)
+                    if key in seen_pairs:
+                        continue
+                    seen_pairs.add(key)
+                    new_edges.append({
+                        "source": file_nid,
+                        "target": tgt_nid,
+                        "relation": "imports",
+                        "confidence": "EXTRACTED",
+                        "confidence_score": 1.0,
+                        "source_file": str(path),
+                        "source_location": f"L{at_line}",
+                        "weight": 1.0,
+                    })
+            for child in n.children:
+                walk(child)
+
+        walk(tree.root_node)
+
+    return new_edges
+
+
 def extract_objc(path: Path) -> dict:
     """Extract interfaces, implementations, protocols, methods, and imports from .m/.mm/.h files."""
     try:
@@ -3203,6 +3331,16 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
         except Exception as exc:
             import logging
             logging.getLogger(__name__).warning("Cross-file import resolution failed, skipping: %s", exc)
+
+    # Cross-file Java import resolution
+    java_paths = [p for p in paths if p.suffix == ".java"]
+    if java_paths:
+        java_results = [r for r, p in zip(per_file, paths) if p.suffix == ".java"]
+        try:
+            all_edges.extend(_resolve_cross_file_java_imports(java_results, java_paths))
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Java cross-file import resolution failed, skipping: %s", exc)
 
     # Cross-file call resolution for all languages
     # Each extractor saved unresolved calls in raw_calls. Now that we have all

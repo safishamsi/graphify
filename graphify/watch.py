@@ -132,6 +132,21 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
         return False
 
 
+def check_update(watch_path: Path) -> bool:
+    """Check for pending semantic update flag and notify the user if set.
+
+    Cron-safe: always returns True so cron jobs do not alarm.
+    Non-code file changes (docs, papers, images) require LLM-backed
+    re-extraction via `/graphify --update` — this function only signals
+    that the update is needed.
+    """
+    flag = Path(watch_path) / "graphify-out" / "needs_update"
+    if flag.exists():
+        print(f"[graphify check-update] Pending non-code changes in {watch_path}.")
+        print("[graphify check-update] Run `/graphify --update` to apply semantic re-extraction.")
+    return True
+
+
 def _notify_only(watch_path: Path) -> None:
     """Write a flag file and print a notification (fallback for non-code-only corpora)."""
     flag = watch_path / "graphify-out" / "needs_update"

@@ -46,6 +46,12 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
     # NetworkX <= 3.1 serialised edges as "links"; remap to "edges" for compatibility.
     if "edges" not in extraction and "links" in extraction:
         extraction = dict(extraction, edges=extraction["links"])
+
+    # Canonicalize legacy node/edge schema before validation.
+    for node in extraction.get("nodes", []):
+        if isinstance(node, dict) and "source" in node and "source_file" not in node:
+            node["source_file"] = node.pop("source")
+
     errors = validate_extraction(extraction)
     # Dangling edges (stdlib/external imports) are expected - only warn about real schema errors.
     real_errors = [e for e in errors if "does not match any node id" not in e]

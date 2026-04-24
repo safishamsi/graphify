@@ -117,3 +117,9 @@ def test_status_shows_both_hooks(tmp_path):
     assert "post-commit" in result
     assert "post-checkout" in result
     assert result.count("installed") >= 2
+
+
+def test_hook_skips_head_on_exe():
+    """Hook script must skip shebang extraction for .exe binaries (Windows)."""
+    from graphify.hooks import _PYTHON_DETECT
+    assert "*.exe) _SHEBANG=" in _PYTHON_DETECT or '*.exe)' in _PYTHON_DETECT

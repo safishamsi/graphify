@@ -333,6 +333,7 @@ graphify add https://... --author "Name" --contributor "Name"
 
 # incremental update and maintenance
 graphify watch ./src                         # auto-rebuild on code changes
+graphify check-update ./src                  # check if semantic re-extraction is pending (cron-safe)
 graphify update ./src                        # re-extract code files, no LLM needed
 graphify cluster-only ./my-project           # rerun clustering on existing graph.json
 ```
@@ -341,7 +342,7 @@ Works with any mix of file types:
 
 | Type | Extensions | Extraction |
 |------|-----------|------------|
-| Code | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .mm .jl .vue .svelte` | AST via tree-sitter + call-graph (cross-file for all languages) + docstring/comment rationale |
+| Code | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .mm .jl .vue .svelte` | AST via tree-sitter + call-graph (cross-file for all languages) + Java extends/implements + docstring/comment rationale |
 | Docs | `.md .mdx .html .txt .rst` | Concepts + relationships + design rationale via Claude |
 | Office | `.docx .xlsx` | Converted to markdown then extracted via Claude (requires `pip install graphifyy[office]`) |
 | Papers | `.pdf` | Citation mining + concept extraction |

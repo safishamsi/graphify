@@ -195,9 +195,9 @@ def test_opencode_agents_install_writes_plugin(tmp_path):
 
 
 def test_opencode_agents_install_registers_plugin_in_config(tmp_path):
-    """opencode install registers the plugin in opencode.json."""
+    """opencode install registers the plugin in .opencode/opencode.json."""
     _agents_install(tmp_path, "opencode")
-    config_file = tmp_path / "opencode.json"
+    config_file = tmp_path / ".opencode" / "opencode.json"
     assert config_file.exists()
     import json as _json
     config = _json.loads(config_file.read_text())
@@ -205,9 +205,10 @@ def test_opencode_agents_install_registers_plugin_in_config(tmp_path):
 
 
 def test_opencode_agents_install_merges_existing_config(tmp_path):
-    """opencode install preserves existing opencode.json keys."""
+    """opencode install preserves existing .opencode/opencode.json keys."""
     import json as _json
-    config_file = tmp_path / "opencode.json"
+    config_file = tmp_path / ".opencode" / "opencode.json"
+    config_file.parent.mkdir(parents=True, exist_ok=True)
     config_file.write_text(_json.dumps({"model": "claude-opus-4-5", "plugin": []}))
     _agents_install(tmp_path, "opencode")
     config = _json.loads(config_file.read_text())
@@ -222,7 +223,7 @@ def test_opencode_agents_uninstall_removes_plugin(tmp_path):
     _agents_uninstall(tmp_path, platform="opencode")
     plugin = tmp_path / ".opencode" / "plugins" / "graphify.js"
     assert not plugin.exists()
-    config_file = tmp_path / "opencode.json"
+    config_file = tmp_path / ".opencode" / "opencode.json"
     if config_file.exists():
         config = _json.loads(config_file.read_text())
         assert not any("graphify.js" in p for p in config.get("plugin", []))
