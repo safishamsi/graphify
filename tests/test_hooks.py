@@ -123,3 +123,30 @@ def test_hook_skips_head_on_exe():
     """Hook script must skip shebang extraction for .exe binaries (Windows)."""
     from graphify.hooks import _PYTHON_DETECT
     assert "*.exe) _SHEBANG=" in _PYTHON_DETECT or '*.exe)' in _PYTHON_DETECT
+
+
+def test_hooks_dir_expands_tilde(tmp_path, monkeypatch):
+    """_hooks_dir must call expanduser() so ~/... paths in core.hooksPath resolve correctly."""
+    from graphify.hooks import _hooks_dir
+    import types
+
+    repo = _make_git_repo(tmp_path)
+    custom_hooks = tmp_path / "custom_hooks"
+    custom_hooks.mkdir()
+
+    # expanduser() reads $HOME, so override it to make ~/custom_hooks predictable
+    monkeypatch.setenv("HOME", str(tmp_path))
+
+    real_run = subprocess.run
+
+    def fake_run(cmd, **kwargs):
+        if isinstance(cmd, list) and "config" in cmd and "core.hooksPath" in cmd:
+            return types.SimpleNamespace(returncode=0, stdout="~/custom_hooks")
+        return real_run(cmd, **kwargs)
+
+    monkeypatch.setattr(subprocess, "run", fake_run)
+
+    resolved = _hooks_dir(repo)
+    assert resolved == custom_hooks, (
+        f"expected {custom_hooks}, got {resolved} — tilde was not expanded"
+    )

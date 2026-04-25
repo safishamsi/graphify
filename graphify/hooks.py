@@ -145,7 +145,7 @@ def _hooks_dir(root: Path) -> Path:
         if result.returncode == 0:
             custom = result.stdout.strip()
             if custom:
-                p = Path(custom)
+                p = Path(custom).expanduser()
                 if not p.is_absolute():
                     p = root / p
                 p.mkdir(parents=True, exist_ok=True)
