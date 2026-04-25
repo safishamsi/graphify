@@ -25,6 +25,24 @@ def _build_parser() -> argparse.ArgumentParser:
     detectors = sub.add_parser("detectors", help="Inspect the detector registry.")
     d_sub = detectors.add_subparsers(dest="detectors_command", required=True)
 
+    intent_ctx = sub.add_parser(
+        "intent-context",
+        help="Build intent IR from specs and docs (rules + optional OpenAI).",
+    )
+    ic_sub = intent_ctx.add_subparsers(dest="intent_command", required=True)
+    ic_build = ic_sub.add_parser(
+        "build",
+        help="Write intent_manifest.json, intent_chunks.jsonl, intent_units.json, summaries.",
+    )
+    ic_build.add_argument("--repo-root", default=".", help="Repository checkout root.")
+    ic_build.add_argument("--output-dir", required=True, help="Directory for intent artifacts.")
+    ic_build.add_argument(
+        "--intent-llm",
+        choices=("auto", "rules", "llm"),
+        default=None,
+        help="Override DEPOS_INTEL_INTENT_LLM (auto uses OPENAI_API_KEY when set).",
+    )
+
     repo = a_sub.add_parser("repo", help="Full-repo scan (no diff required).")
     repo.add_argument("--path", required=True)
     repo.add_argument("--output")
@@ -198,6 +216,10 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     # Lazy imports so a bare ``depos-intel --help`` works without the
     # [depos] / [supabase] extras installed.
+    if args.command == "intent-context":
+        from depos.cli.intent_context_cmd import run_intent_context_cli
+
+        return run_intent_context_cli(args)
     if args.command == "analyze":
         if args.analyze_command == "coverage":
             from depos.cli.analyze import run_coverage
