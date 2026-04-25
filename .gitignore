@@ -15,19 +15,3 @@ build/
 .graphify/
 graphify-out/
 .graphify_*.json
-.graphify_python
-.claude/
-skills/
-docs/superpowers/
-.codex/
-.codex-*
-.agents/
-codex-*.log
-.vscode/
-openspec/
-uv.lock
-# Local benchmark scripts — never commit
-scripts/run_k2_*.py
-scripts/llm.py
-scripts/benchmark_kimi*.json
-scripts/benchmark_kimi*.py
