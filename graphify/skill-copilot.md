@@ -823,6 +823,14 @@ if deleted:
 # Merge: new nodes/edges into existing graph
 G_existing.update(G_new)
 print(f'Merged: {G_existing.number_of_nodes()} nodes, {G_existing.number_of_edges()} edges')
+
+# Save manifest with the CURRENT full file list so the next --update
+# diffs against today's filesystem state, not the prior --update's
+# baseline. Without this, deleted files get reported as ghosts again
+# on every subsequent --update until a full rebuild runs.
+from graphify.detect import save_manifest
+save_manifest(incremental['files'])
+print('[graphify update] Manifest saved.')
 " 
 ```
 

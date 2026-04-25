@@ -931,6 +931,14 @@ merged_out = {
 }
 Path('graphify-out/.graphify_extract.json').write_text(json.dumps(merged_out))
 print(f'[graphify update] Merged extraction written ({len(merged_out[\"nodes\"])} nodes, {len(merged_out[\"edges\"])} edges)')
+
+# Save manifest with the CURRENT full file list so the next --update
+# diffs against today's filesystem state, not the prior --update's
+# baseline. Without this, deleted files get reported as ghosts again
+# on every subsequent --update until a full rebuild runs.
+from graphify.detect import save_manifest
+save_manifest(incremental['files'])
+print('[graphify update] Manifest saved.')
 " 
 ```
 
