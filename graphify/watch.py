@@ -1,12 +1,39 @@
 # monitor a folder and auto-trigger --update when files change
 from __future__ import annotations
 import json
+import os
 import sys
 import time
 from pathlib import Path
 
 
 from graphify.detect import CODE_EXTENSIONS, DOC_EXTENSIONS, PAPER_EXTENSIONS, IMAGE_EXTENSIONS
+
+
+def _viz_skip_reason(node_count: int) -> str | None:
+    """Return a reason string if the HTML viz step should be skipped, else None.
+
+    Two opt-outs, in priority order:
+
+    - ``GRAPHIFY_NO_VIZ=1`` (or any truthy value): skip unconditionally.
+      For CI runners and headless dev boxes that never open graph.html.
+    - ``GRAPHIFY_VIZ_NODE_LIMIT=N``: skip if the graph has more than N
+      nodes. Defaults are off; callers who want a soft cap can set
+      this in their env. Useful when ``to_html`` is slow on large
+      graphs and the user knows they don't need the visualization.
+    """
+    no_viz = os.environ.get("GRAPHIFY_NO_VIZ", "").strip().lower()
+    if no_viz and no_viz not in ("0", "false", "no", ""):
+        return "GRAPHIFY_NO_VIZ is set"
+    raw_limit = os.environ.get("GRAPHIFY_VIZ_NODE_LIMIT", "").strip()
+    if raw_limit:
+        try:
+            limit = int(raw_limit)
+        except ValueError:
+            return None
+        if node_count > limit:
+            return f"GRAPHIFY_VIZ_NODE_LIMIT={limit} (graph has {node_count} nodes)"
+    return None
 
 _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAGE_EXTENSIONS
 _CODE_EXTENSIONS = CODE_EXTENSIONS
@@ -106,15 +133,25 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
 
         # to_html raises ValueError for graphs > MAX_NODES_FOR_VIZ (5000).
         # Wrap so core outputs (graph.json + GRAPH_REPORT.md) always land.
+        # Two early-exit paths via env vars (see _viz_skip_reason): explicit
+        # GRAPHIFY_NO_VIZ for CI / headless use, and GRAPHIFY_VIZ_NODE_LIMIT
+        # for a soft cap that avoids the wasted to_html attempt.
         html_written = False
-        try:
-            to_html(G, communities, str(out / "graph.html"), community_labels=labels or None)
-            html_written = True
-        except ValueError as viz_err:
-            print(f"[graphify watch] Skipped graph.html: {viz_err}")
+        skip_reason = _viz_skip_reason(G.number_of_nodes())
+        if skip_reason is not None:
+            print(f"[graphify watch] Skipped graph.html: {skip_reason}")
             stale = out / "graph.html"
             if stale.exists():
                 stale.unlink()
+        else:
+            try:
+                to_html(G, communities, str(out / "graph.html"), community_labels=labels or None)
+                html_written = True
+            except ValueError as viz_err:
+                print(f"[graphify watch] Skipped graph.html: {viz_err}")
+                stale = out / "graph.html"
+                if stale.exists():
+                    stale.unlink()
 
         # clear stale needs_update flag if present
         flag = out / "needs_update"

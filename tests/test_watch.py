@@ -94,3 +94,60 @@ def test_watch_raises_without_watchdog(tmp_path, monkeypatch):
     from graphify.watch import watch
     with pytest.raises(ImportError, match="watchdog not installed"):
         watch(tmp_path)
+
+
+# --- _viz_skip_reason ---
+
+def test_viz_skip_reason_default_off(monkeypatch):
+    """No env vars set: never skip, regardless of node count."""
+    from graphify.watch import _viz_skip_reason
+    monkeypatch.delenv("GRAPHIFY_NO_VIZ", raising=False)
+    monkeypatch.delenv("GRAPHIFY_VIZ_NODE_LIMIT", raising=False)
+    assert _viz_skip_reason(10) is None
+    assert _viz_skip_reason(100_000) is None
+
+
+def test_viz_skip_reason_no_viz_truthy(monkeypatch):
+    """GRAPHIFY_NO_VIZ=1 short-circuits regardless of node count."""
+    from graphify.watch import _viz_skip_reason
+    monkeypatch.setenv("GRAPHIFY_NO_VIZ", "1")
+    monkeypatch.delenv("GRAPHIFY_VIZ_NODE_LIMIT", raising=False)
+    reason = _viz_skip_reason(10)
+    assert reason is not None and "GRAPHIFY_NO_VIZ" in reason
+
+
+def test_viz_skip_reason_no_viz_falsy(monkeypatch):
+    """GRAPHIFY_NO_VIZ=0 / false / no / empty: do not skip on this flag."""
+    from graphify.watch import _viz_skip_reason
+    monkeypatch.delenv("GRAPHIFY_VIZ_NODE_LIMIT", raising=False)
+    for value in ("0", "false", "FALSE", "no", "", "  "):
+        monkeypatch.setenv("GRAPHIFY_NO_VIZ", value)
+        assert _viz_skip_reason(10) is None, f"value {value!r} should not trigger skip"
+
+
+def test_viz_skip_reason_node_limit_exceeded(monkeypatch):
+    """GRAPHIFY_VIZ_NODE_LIMIT=5000: skip when node count exceeds limit."""
+    from graphify.watch import _viz_skip_reason
+    monkeypatch.delenv("GRAPHIFY_NO_VIZ", raising=False)
+    monkeypatch.setenv("GRAPHIFY_VIZ_NODE_LIMIT", "5000")
+    assert _viz_skip_reason(4999) is None
+    assert _viz_skip_reason(5000) is None
+    reason = _viz_skip_reason(5001)
+    assert reason is not None and "5000" in reason and "5001" in reason
+
+
+def test_viz_skip_reason_node_limit_invalid(monkeypatch):
+    """GRAPHIFY_VIZ_NODE_LIMIT=abc: silently treated as unset rather than crashing."""
+    from graphify.watch import _viz_skip_reason
+    monkeypatch.delenv("GRAPHIFY_NO_VIZ", raising=False)
+    monkeypatch.setenv("GRAPHIFY_VIZ_NODE_LIMIT", "not-a-number")
+    assert _viz_skip_reason(10) is None
+
+
+def test_viz_skip_reason_no_viz_takes_priority(monkeypatch):
+    """When both vars are set, GRAPHIFY_NO_VIZ wins."""
+    from graphify.watch import _viz_skip_reason
+    monkeypatch.setenv("GRAPHIFY_NO_VIZ", "1")
+    monkeypatch.setenv("GRAPHIFY_VIZ_NODE_LIMIT", "100")
+    reason = _viz_skip_reason(10)  # under the limit but no-viz wins
+    assert reason is not None and "GRAPHIFY_NO_VIZ" in reason
