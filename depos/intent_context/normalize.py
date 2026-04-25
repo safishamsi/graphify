@@ -10,6 +10,31 @@ from depos.intent_context.schemas import FencedBlockMeta
 FencedPolicy = Literal["strip", "annotate"]
 
 
+def strip_oft_scan_regions(text: str) -> str:
+    """Remove HTML/RST regions marked ``oft:off`` … ``oft:on`` (OpenFastTrace-compatible)."""
+    lines = text.split("\n")
+    out: list[str] = []
+    in_off = False
+    for line in lines:
+        stripped = line.strip().lower()
+        if "<!--" in line and "oft:off" in stripped:
+            in_off = True
+            continue
+        if "<!--" in line and "oft:on" in stripped:
+            in_off = False
+            continue
+        if stripped.startswith(".. oft::off") or stripped.startswith(".. oft:off"):
+            in_off = True
+            continue
+        if stripped.startswith(".. oft::on") or stripped.startswith(".. oft:on"):
+            in_off = False
+            continue
+        if in_off:
+            continue
+        out.append(line)
+    return "\n".join(out)
+
+
 @dataclass
 class NormalizedDoc:
     text: str
@@ -23,7 +48,8 @@ def read_normalized_bytes(raw: bytes) -> str:
 
 
 def normalize_markdown_text(full: str, policy: FencedPolicy) -> NormalizedDoc:
-    """Remove or annotate fenced ``` blocks; record metadata with 1-based line numbers in ``full``."""
+    """Apply OFT scan guards, then remove or annotate fenced ``` blocks."""
+    full = strip_oft_scan_regions(full)
     lines = full.split("\n")
     out: list[str] = []
     fenced: list[FencedBlockMeta] = []

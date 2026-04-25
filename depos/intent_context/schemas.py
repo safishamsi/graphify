@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from datetime import datetime, timezone
-from typing import Literal, Optional
+from typing import Any, Literal, Optional
 
 from pydantic import BaseModel, Field
 
@@ -14,7 +14,7 @@ IntentUnitKind = Literal[
     "data_model",
     "unknown",
 ]
-ExtractorName = Literal["rules_v0", "llm_v0"]
+ExtractorName = Literal["rules_v0", "llm_v0", "oft_markdown_v0"]
 PathClassification = Literal["intent", "mixed"]
 
 
@@ -34,6 +34,17 @@ class IntentUnit(BaseModel):
     evidence: list[IntentEvidence] = Field(default_factory=list)
     extractor: ExtractorName
     confidence: float = Field(ge=0.0, le=1.0, default=0.5)
+    # OpenFastTrace interoperability (populated when extractor is oft_markdown_v0)
+    oft_spec_item_id: Optional[str] = None
+    oft_artifact_type: Optional[str] = None
+    oft_item_name: Optional[str] = None
+    oft_revision: Optional[int] = None
+    oft_needs: list[str] = Field(default_factory=list)
+    oft_covers: list[str] = Field(default_factory=list)
+    oft_depends: list[str] = Field(default_factory=list)
+    oft_status: Optional[str] = None
+    oft_rationale_excerpt: Optional[str] = None
+    oft_comment_excerpt: Optional[str] = None
 
 
 class IntentChunkRecord(BaseModel):
@@ -76,6 +87,11 @@ class IntentManifest(BaseModel):
     chunks_written: int = 0
     units_rules: int = 0
     units_llm: int = 0
+    units_oft: int = 0
+    oft_artifact_type_counts: dict[str, int] = Field(default_factory=dict)
+    oft_unique_spec_ids: list[str] = Field(default_factory=list)
+    oft_revision_warnings: list[str] = Field(default_factory=list)
+    coverage_tags_found: int = 0
 
 
 class IntentFileSummary(BaseModel):
@@ -89,3 +105,34 @@ class IntentRepoSummary(BaseModel):
     summary: str
     themes: list[str] = Field(default_factory=list)
     file_relpaths: list[str] = Field(default_factory=list)
+
+
+class CoverageTagRecord(BaseModel):
+    """OFT-style coverage reference found in source (comment)."""
+
+    source_relpath: str
+    line: int
+    tag_shape: Literal["short", "long"] = "long"
+    covering_artifact: Optional[str] = None
+    covered_spec_id: str
+    raw_excerpt: str = ""
+
+
+class TraceHintNode(BaseModel):
+    id: str
+    kind: str = "spec_item"
+    source_chunk_id: Optional[str] = None
+
+
+class TraceHintEdge(BaseModel):
+    source_id: str
+    target_id: str
+    kind: Literal["covers", "depends"] = "covers"
+
+
+class IntentTraceHints(BaseModel):
+    """Lightweight graph hint for downstream Graphical Context (not full OFT aspec)."""
+
+    nodes: list[TraceHintNode] = Field(default_factory=list)
+    edges: list[TraceHintEdge] = Field(default_factory=list)
+    coverage_tags: list[dict[str, Any]] = Field(default_factory=list)

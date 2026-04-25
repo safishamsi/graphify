@@ -29,6 +29,25 @@ class IntentContextConfig(BaseModel):
         description="If set, overrides OPENAI_MODEL for intent extraction and summaries only.",
     )
     fenced_code_policy: str = "strip"  # strip | annotate
+    enable_tag_scan: bool = True
+    tag_scan_globs: list[str] = Field(
+        default_factory=lambda: [
+            "**/*.py",
+            "**/*.go",
+            "**/*.rs",
+            "**/*.java",
+            "**/*.ts",
+            "**/*.tsx",
+            "**/*.js",
+            "**/*.jsx",
+            "**/*.c",
+            "**/*.h",
+            "**/*.cpp",
+            "**/*.cs",
+            "**/*.sql",
+            "**/*.sh",
+        ],
+    )
 
 
 class VerifierPolicy(BaseModel):
@@ -229,4 +248,7 @@ def load_config_from_env() -> IntelligenceConfig:
     fenced = os.environ.get("DEPOS_INTEL_INTENT_FENCED", "").strip().lower()
     if fenced in {"strip", "annotate"}:
         cfg.intent_context.fenced_code_policy = fenced
+    cfg.intent_context.enable_tag_scan = os.environ.get(
+        "DEPOS_INTEL_INTENT_TAG_SCAN", "1"
+    ).strip().lower() not in {"0", "false", "off", "no"}
     return cfg

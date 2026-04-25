@@ -11,6 +11,7 @@ from pydantic import BaseModel, Field, ValidationError
 from depos.analysis.config import IntentContextConfig, IntelligenceConfig
 from depos.analysis.reasoning_engine import OpenAIProvider, ProviderError
 from depos.intent_context.json_util import parse_json_object
+from depos.intent_context.oft_markdown_v0 import oft_prompt_context_snippet
 from depos.intent_context.schemas import IntentChunkRecord, IntentEvidence, IntentUnit, IntentUnitKind
 
 logger = logging.getLogger(__name__)
@@ -120,8 +121,9 @@ def extract_units_llm_batched(
     for i in range(0, len(chunks), batch_size):
         batch = chunks[i : i + batch_size]
         allowed = {c.chunk_id for c in batch}
-        payload = [
-            {
+        payload = []
+        for c in batch:
+            entry: dict[str, Any] = {
                 "chunk_id": c.chunk_id,
                 "source_relpath": c.source_relpath,
                 "heading_stack": c.heading_stack,
@@ -129,8 +131,10 @@ def extract_units_llm_batched(
                 "end_line": c.end_line,
                 "text": c.text[:12000],
             }
-            for c in batch
-        ]
+            oft_ctx = oft_prompt_context_snippet(c.text)
+            if oft_ctx:
+                entry["oft_context"] = oft_ctx
+            payload.append(entry)
         prompt = (
             f"{_UNITS_PROMPT_HEAD}\n\nCHUNKS_JSON:\n{json.dumps(payload, indent=2)[: icfg.max_input_bytes_per_repo // 4]}"
         )

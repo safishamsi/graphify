@@ -12,11 +12,19 @@ from depos.intent_context.chunk import chunk_normalized_text
 from depos.intent_context.discover import discover_intent_files
 from depos.intent_context.llm_v0 import extract_units_llm_batched
 from depos.intent_context.normalize import normalize_markdown
+from depos.intent_context.oft_markdown_v0 import extract_oft_markdown_v0
 from depos.intent_context.rules_v0 import extract_rules_v0
 from depos.intent_context.schemas import IntentManifest, IntentManifestFile
 from depos.intent_context.summaries import summarize_files, summarize_repo
+from depos.intent_context.tag_scan import (
+    build_trace_hints_from_oft_units,
+    oft_inventory_from_units,
+    scan_coverage_tags,
+)
 
 logger = logging.getLogger(__name__)
+
+_OFT_ID_CAP = 500
 
 
 def _repo_sha(repo_root: Path) -> str:
@@ -81,6 +89,7 @@ def run_intent_context_build(
     all_chunks: list = []
     manifest_files: list[IntentManifestFile] = []
     units_rules: list = []
+    units_oft: list = []
     trunc: list[str] = list(disc_warnings)
 
     for df in discovered:
@@ -107,6 +116,8 @@ def run_intent_context_build(
         for ch in chunks:
             for u in extract_rules_v0(ch.text, chunk_id=ch.chunk_id, start_line=ch.start_line):
                 units_rules.append(u)
+            for u in extract_oft_markdown_v0(ch.text, chunk_id=ch.chunk_id, start_line=ch.start_line):
+                units_oft.append(u)
             all_chunks.append(ch)
 
     if len(all_chunks) > icfg.max_chunks_per_run:
@@ -114,6 +125,25 @@ def run_intent_context_build(
             f"truncated chunks from {len(all_chunks)} to {icfg.max_chunks_per_run} (max_chunks_per_run)"
         )
         all_chunks = all_chunks[: icfg.max_chunks_per_run]
+
+    coverage_records: list = []
+    if icfg.enable_tag_scan and icfg.tag_scan_globs:
+        try:
+            coverage_records = scan_coverage_tags(
+                repo_root,
+                icfg.tag_scan_globs,
+                max_bytes_per_file=icfg.max_bytes_per_file,
+            )
+        except Exception:
+            logger.exception("tag_scan")
+            trunc.append("tag_scan: unexpected error (see logs)")
+
+    oft_counts, oft_unique, oft_rev_warnings = oft_inventory_from_units(units_oft)
+    oft_unique_capped = oft_unique[:_OFT_ID_CAP]
+    if len(oft_unique) > _OFT_ID_CAP:
+        trunc.append(f"oft_unique_spec_ids truncated to {_OFT_ID_CAP} entries")
+
+    trace_hints = build_trace_hints_from_oft_units(units_oft, coverage_records)
 
     llm_on = _llm_addon_enabled(config)
     units_llm: list = []
@@ -168,6 +198,11 @@ def run_intent_context_build(
         chunks_written=len(all_chunks),
         units_rules=len(units_rules),
         units_llm=len(units_llm),
+        units_oft=len(units_oft),
+        oft_artifact_type_counts=oft_counts,
+        oft_unique_spec_ids=oft_unique_capped,
+        oft_revision_warnings=oft_rev_warnings,
+        coverage_tags_found=len(coverage_records),
     )
 
     (output_dir / "intent_manifest.json").write_text(
@@ -179,9 +214,22 @@ def run_intent_context_build(
         for ch in all_chunks:
             f.write(json.dumps(ch.model_dump(mode="json")) + "\n")
 
-    combined_units = [u.model_dump(mode="json") for u in units_rules] + [u.model_dump(mode="json") for u in units_llm]
+    combined_units = (
+        [u.model_dump(mode="json") for u in units_rules]
+        + [u.model_dump(mode="json") for u in units_oft]
+        + [u.model_dump(mode="json") for u in units_llm]
+    )
     (output_dir / "intent_units.json").write_text(
         json.dumps(combined_units, indent=2),
+        encoding="utf-8",
+    )
+
+    with (output_dir / "intent_coverage_tags.jsonl").open("w", encoding="utf-8") as f:
+        for rec in coverage_records:
+            f.write(json.dumps(rec.model_dump(mode="json")) + "\n")
+
+    (output_dir / "intent_trace_hints.json").write_text(
+        json.dumps(trace_hints.model_dump(mode="json"), indent=2),
         encoding="utf-8",
     )
 

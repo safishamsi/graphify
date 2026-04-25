@@ -43,4 +43,6 @@ def test_intent_build_rules_only(tmp_path: Path, repo: Path) -> None:
 
     units = json.loads((out / "intent_units.json").read_text(encoding="utf-8"))
     assert isinstance(units, list)
-    assert all(u.get("extractor") == "rules_v0" for u in units)
+    rules_units = [u for u in units if u.get("extractor") == "rules_v0"]
+    assert len(rules_units) >= 1
+    assert all(u.get("extractor") in ("rules_v0", "oft_markdown_v0") for u in units)
