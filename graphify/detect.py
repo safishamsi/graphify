@@ -501,7 +501,35 @@ def load_tsconfig_paths(root: Path) -> dict[str, str]:
         return {}
 
     try:
-        data = json.loads(tsconfig_path.read_text(encoding="utf-8"))
+        raw = tsconfig_path.read_text(encoding="utf-8")
+        # tsconfig.json is JSONC: strip // and /* */ comments and trailing commas
+        out: list[str] = []
+        i, n = 0, len(raw)
+        while i < n:
+            c = raw[i]
+            if c == '"':
+                j = i + 1
+                while j < n:
+                    if raw[j] == "\\" and j + 1 < n:
+                        j += 2
+                        continue
+                    if raw[j] == '"':
+                        j += 1
+                        break
+                    j += 1
+                out.append(raw[i:j])
+                i = j
+            elif c == "/" and i + 1 < n and raw[i + 1] == "/":
+                nl = raw.find("\n", i)
+                i = n if nl == -1 else nl
+            elif c == "/" and i + 1 < n and raw[i + 1] == "*":
+                end = raw.find("*/", i + 2)
+                i = n if end == -1 else end + 2
+            else:
+                out.append(c)
+                i += 1
+        stripped = re.sub(r",\s*([}\]])", r"\1", "".join(out))
+        data = json.loads(stripped)
     except Exception:
         return {}
 
