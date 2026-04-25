@@ -240,7 +240,7 @@ Process each file one at a time. For each file:
    - DEEP_MODE (if --mode deep): be aggressive with INFERRED edges
    - Semantic similarity: if two concepts solve the same problem without a structural link, add `semantically_similar_to` INFERRED edge (confidence 0.6-0.95). Non-obvious cross-file links only.
    - Hyperedges: if 3+ nodes share a concept/flow not captured by pairwise edges, add a hyperedge. Max 3 per file.
-   - confidence_score REQUIRED on every edge: EXTRACTED=1.0, INFERRED=0.6-0.9 (reason individually), AMBIGUOUS=0.1-0.3
+   - confidence_score REQUIRED on every edge: EXTRACTED=1.0; INFERRED ∈ {0.55, 0.65, 0.75, 0.85, 0.95} forced-rank (NEVER 0.5 — pick the closest discrete value or mark AMBIGUOUS); AMBIGUOUS=0.1-0.3
 3. Accumulate results across all files
 
 Schema for each file's output:

@@ -329,10 +329,16 @@ If a file has YAML frontmatter (--- ... ---), copy source_url, captured_at, auth
 
 confidence_score is REQUIRED on every edge - never omit it, never use 0.5 as a default:
 - EXTRACTED edges: confidence_score = 1.0 always
-- INFERRED edges: reason about each edge individually.
-  Direct structural evidence (shared data structure, clear dependency): 0.8-0.9.
-  Reasonable inference with some uncertainty: 0.6-0.7.
-  Weak or speculative: 0.4-0.5. Most edges should be 0.6-0.9, not 0.5.
+- INFERRED edges: pick exactly ONE value from this set — never 0.5:
+    0.95  direct structural evidence (shared data structure, named cross-file reference).
+    0.85  strong inference (clear functional alignment, no direct symbol link).
+    0.75  reasonable inference (shared problem domain + similar shape, requires interpretation).
+    0.65  weak inference (thematically related, no shape evidence).
+    0.55  speculative but plausible (surface-level co-occurrence only).
+  Models follow discrete rubrics better than continuous ranges; the bimodal
+  distribution observed in production (>50% at 0.5, >40% at 0.85+) shows the
+  range guidance is being collapsed to a binary. If no value above fits, mark
+  the edge AMBIGUOUS rather than picking 0.4 or below.
 - AMBIGUOUS edges: 0.1-0.3
 
 Node ID format: lowercase, only `[a-z0-9_]`, no dots or slashes. Format: `{stem}_{entity}` where stem is the filename without extension and entity is the symbol name, both normalized (lowercase, non-alphanumeric chars replaced with `_`). Example: `src/auth/session.py` + `ValidateToken` → `session_validatetoken`. This must match the ID the AST extractor generates so cross-references between code and semantic nodes connect correctly. CRITICAL: never append chunk numbers, sequence numbers, or any suffix to an ID (no `_c1`, `_c2`, `_chunk2`, etc.). IDs must be deterministic from the label alone — the same entity must always produce the same ID regardless of which chunk processes it.
