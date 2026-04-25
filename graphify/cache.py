@@ -7,13 +7,20 @@ import os
 from pathlib import Path
 
 
-def file_hash(path: Path) -> str:
-    """SHA256 of file contents + resolved path. Prevents cache collisions on identical content."""
+def file_hash(path: Path, extra_key: bytes = b"") -> str:
+    """SHA256 of file contents + resolved path + optional extra key.
+
+    extra_key allows callers to mix in additional context (e.g. a tsconfig
+    hash) so that cache entries are invalidated when that context changes.
+    """
     p = Path(path)
     h = hashlib.sha256()
     h.update(p.read_bytes())
     h.update(b"\x00")
     h.update(str(p.resolve()).encode())
+    if extra_key:
+        h.update(b"\x00")
+        h.update(extra_key)
     return h.hexdigest()
 
 
@@ -24,15 +31,17 @@ def cache_dir(root: Path = Path(".")) -> Path:
     return d
 
 
-def load_cached(path: Path, root: Path = Path(".")) -> dict | None:
+def load_cached(path: Path, root: Path = Path("."), extra_key: bytes = b"") -> dict | None:
     """Return cached extraction for this file if hash matches, else None.
 
-    Cache key: SHA256 of file contents.
+    Cache key: SHA256 of file contents + resolved path + extra_key.
+    extra_key should include any external context the extraction depends on
+    (e.g. a hash of the effective tsconfig.json for JS/TS files).
     Cache value: stored as graphify-out/cache/{hash}.json
     Returns None if no cache entry or file has changed.
     """
     try:
-        h = file_hash(path)
+        h = file_hash(path, extra_key)
     except OSError:
         return None
     entry = cache_dir(root) / f"{h}.json"
@@ -44,13 +53,15 @@ def load_cached(path: Path, root: Path = Path(".")) -> dict | None:
         return None
 
 
-def save_cached(path: Path, result: dict, root: Path = Path(".")) -> None:
+def save_cached(path: Path, result: dict, root: Path = Path("."), extra_key: bytes = b"") -> None:
     """Save extraction result for this file.
 
-    Stores as graphify-out/cache/{hash}.json where hash = SHA256 of current file contents.
+    Stores as graphify-out/cache/{hash}.json where hash = SHA256 of current
+    file contents + resolved path + extra_key.  extra_key must match the value
+    used in load_cached so that lookups and stores are consistent.
     result should be a dict with 'nodes' and 'edges' lists.
     """
-    h = file_hash(path)
+    h = file_hash(path, extra_key)
     entry = cache_dir(root) / f"{h}.json"
     tmp = entry.with_suffix(".tmp")
     try:

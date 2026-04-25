@@ -2650,13 +2650,24 @@ def extract(paths: list[Path]) -> dict:
         extractor = _DISPATCH.get(path.suffix)
         if extractor is None:
             continue
-        cached = load_cached(path, root)
+        # For JS/TS files, include the effective tsconfig.json content in the
+        # cache key so that alias-map changes invalidate cached import edges.
+        extra_key = b""
+        if path.suffix in (".js", ".ts", ".tsx", ".jsx"):
+            from .detect import load_tsconfig_paths
+            import hashlib as _hashlib
+            alias_map = load_tsconfig_paths(path.parent)
+            if alias_map:
+                extra_key = _hashlib.sha256(
+                    json.dumps(alias_map, sort_keys=True).encode()
+                ).digest()
+        cached = load_cached(path, root, extra_key)
         if cached is not None:
             per_file.append(cached)
             continue
         result = extractor(path)
         if "error" not in result:
-            save_cached(path, result, root)
+            save_cached(path, result, root, extra_key)
         per_file.append(result)
     if total >= _PROGRESS_INTERVAL:
         print(f"  AST extraction: {total}/{total} files (100%)", flush=True)
