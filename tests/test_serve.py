@@ -138,14 +138,11 @@ def test_subgraph_to_text_edge_included():
 # --- _load_graph ---
 
 def test_load_graph_roundtrip(tmp_path):
-    from unittest.mock import patch
     G = _make_graph()
     data = json_graph.node_link_data(G, edges="links")
     p = tmp_path / "graph.json"
     p.write_text(json.dumps(data))
-    # validate_graph_path is tested separately; here we test parse correctness
-    with patch("graphify.serve.validate_graph_path", return_value=p):
-        G2 = _load_graph(str(p))
+    G2 = _load_graph(str(p))
     assert G2.number_of_nodes() == G.number_of_nodes()
     assert G2.number_of_edges() == G.number_of_edges()
 

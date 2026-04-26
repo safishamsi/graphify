@@ -62,6 +62,16 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".config") / "opencode" / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
+    "aider": {
+        "skill_file": "skill-aider.md",
+        "skill_dst": Path(".aider") / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
+    "copilot": {
+        "skill_file": "skill-copilot.md",
+        "skill_dst": Path(".copilot") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
     "claw": {
         "skill_file": "skill-claw.md",
         "skill_dst": Path(".claw") / "skills" / "graphify" / "SKILL.md",
@@ -91,9 +101,15 @@ _PLATFORM_CONFIG: dict[str, dict] = {
 
 
 def install(platform: str = "claude") -> None:
+    if platform == "gemini":
+        gemini_install()
+        return
+    if platform == "cursor":
+        _cursor_install()
+        return
     if platform not in _PLATFORM_CONFIG:
         print(
-            f"error: unknown platform '{platform}'. Choose from: {', '.join(_PLATFORM_CONFIG)}",
+            f"error: unknown platform '{platform}'. Choose from: {', '.join(_PLATFORM_CONFIG)}, gemini, cursor",
             file=sys.stderr,
         )
         sys.exit(1)
@@ -189,7 +205,15 @@ _GEMINI_HOOK = {
 
 
 def gemini_install(project_dir: Path | None = None) -> None:
-    """Write the graphify section to GEMINI.md and install BeforeTool hook."""
+    """Copy skill file to ~/.gemini/skills/graphify/, write GEMINI.md section, and install BeforeTool hook."""
+    # Copy skill file to ~/.gemini/skills/graphify/SKILL.md
+    skill_src = Path(__file__).parent / "skill.md"
+    skill_dst = Path.home() / ".gemini" / "skills" / "graphify" / "SKILL.md"
+    skill_dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(skill_src, skill_dst)
+    (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
+    print(f"  skill installed  ->  {skill_dst}")
+
     target = (project_dir or Path(".")) / "GEMINI.md"
 
     if target.exists():
@@ -217,10 +241,8 @@ def _install_gemini_hook(project_dir: Path) -> None:
     except json.JSONDecodeError:
         settings = {}
     before_tool = settings.setdefault("hooks", {}).setdefault("BeforeTool", [])
-    if any("graphify" in str(h) for h in before_tool):
-        print("  .gemini/settings.json  ->  hook already registered (no change)")
-        return
-    before_tool.append(_GEMINI_HOOK)
+    settings["hooks"]["BeforeTool"] = [h for h in before_tool if "graphify" not in str(h)]
+    settings["hooks"]["BeforeTool"].append(_GEMINI_HOOK)
     settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
     print("  .gemini/settings.json  ->  BeforeTool hook registered")
 
@@ -243,7 +265,21 @@ def _uninstall_gemini_hook(project_dir: Path) -> None:
 
 
 def gemini_uninstall(project_dir: Path | None = None) -> None:
-    """Remove the graphify section from GEMINI.md and uninstall hook."""
+    """Remove the graphify section from GEMINI.md, uninstall hook, and remove skill file."""
+    # Remove skill file
+    skill_dst = Path.home() / ".gemini" / "skills" / "graphify" / "SKILL.md"
+    if skill_dst.exists():
+        skill_dst.unlink()
+        print(f"  skill removed    ->  {skill_dst}")
+    version_file = skill_dst.parent / ".graphify_version"
+    if version_file.exists():
+        version_file.unlink()
+    for d in (skill_dst.parent, skill_dst.parent.parent):
+        try:
+            d.rmdir()
+        except OSError:
+            break
+
     target = (project_dir or Path(".")) / "GEMINI.md"
     if not target.exists():
         print("No GEMINI.md found in current directory - nothing to do")
@@ -417,11 +453,8 @@ def _install_codex_hook(project_dir: Path) -> None:
         existing = {}
 
     pre_tool = existing.setdefault("hooks", {}).setdefault("PreToolUse", [])
-    if any("graphify" in str(h) for h in pre_tool):
-        print(f"  .codex/hooks.json  ->  hook already registered (no change)")
-        return
-
-    pre_tool.extend(_CODEX_HOOK["hooks"]["PreToolUse"])
+    existing["hooks"]["PreToolUse"] = [h for h in pre_tool if "graphify" not in str(h)]
+    existing["hooks"]["PreToolUse"].extend(_CODEX_HOOK["hooks"]["PreToolUse"])
     hooks_path.write_text(json.dumps(existing, indent=2), encoding="utf-8")
     print(f"  .codex/hooks.json  ->  PreToolUse hook registered")
 
@@ -540,12 +573,8 @@ def _install_claude_hook(project_dir: Path) -> None:
     hooks = settings.setdefault("hooks", {})
     pre_tool = hooks.setdefault("PreToolUse", [])
 
-    # Check if already installed
-    if any(h.get("matcher") == "Glob|Grep" and "graphify" in str(h) for h in pre_tool):
-        print(f"  .claude/settings.json  ->  hook already registered (no change)")
-        return
-
-    pre_tool.append(_SETTINGS_HOOK)
+    hooks["PreToolUse"] = [h for h in pre_tool if not (h.get("matcher") == "Glob|Grep" and "graphify" in str(h))]
+    hooks["PreToolUse"].append(_SETTINGS_HOOK)
     settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
     print(f"  .claude/settings.json  ->  PreToolUse hook registered")
 
@@ -608,7 +637,7 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
-        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|claw|droid|trae|trae-cn)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor)")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
         print("    --budget N              cap output at N tokens (default 2000)")
@@ -633,6 +662,10 @@ def main() -> None:
         print("  codex uninstall         remove graphify section from AGENTS.md")
         print("  opencode install        write graphify section to AGENTS.md + tool.execute.before plugin (OpenCode)")
         print("  opencode uninstall      remove graphify section from AGENTS.md + plugin")
+        print("  aider install           write graphify section to AGENTS.md (Aider)")
+        print("  aider uninstall         remove graphify section from AGENTS.md")
+        print("  copilot install         copy graphify skill to ~/.copilot/skills (GitHub Copilot CLI)")
+        print("  copilot uninstall       remove graphify skill from ~/.copilot/skills")
         print("  claw install            write graphify section to AGENTS.md (OpenClaw)")
         print("  claw uninstall          remove graphify section from AGENTS.md")
         print("  droid install           write graphify section to AGENTS.md (Factory Droid)")
@@ -688,7 +721,29 @@ def main() -> None:
         else:
             print("Usage: graphify cursor [install|uninstall]", file=sys.stderr)
             sys.exit(1)
-    elif cmd in ("codex", "opencode", "claw", "droid", "trae", "trae-cn"):
+    elif cmd == "copilot":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            install(platform="copilot")
+        elif subcmd == "uninstall":
+            skill_dst = Path.home() / _PLATFORM_CONFIG["copilot"]["skill_dst"]
+            removed = []
+            if skill_dst.exists():
+                skill_dst.unlink()
+                removed.append(f"skill removed: {skill_dst}")
+            version_file = skill_dst.parent / ".graphify_version"
+            if version_file.exists():
+                version_file.unlink()
+            for d in (skill_dst.parent, skill_dst.parent.parent, skill_dst.parent.parent.parent):
+                try:
+                    d.rmdir()
+                except OSError:
+                    break
+            print("; ".join(removed) if removed else "nothing to remove")
+        else:
+            print("Usage: graphify copilot [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
+    elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
             _agents_install(Path("."), cmd)

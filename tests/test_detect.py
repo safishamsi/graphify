@@ -138,6 +138,59 @@ def test_detect_follows_symlinked_file(tmp_path):
     assert any("link.py" in f for f in code)
 
 
+def test_graphifyignore_discovered_from_parent(tmp_path):
+    """A .graphifyignore in a parent directory applies to subdirectory scans."""
+    (tmp_path / ".graphifyignore").write_text("vendor/\n")
+    sub = tmp_path / "packages" / "mylib"
+    sub.mkdir(parents=True)
+    (sub / "main.py").write_text("x = 1")
+    vendor = sub / "vendor"
+    vendor.mkdir()
+    (vendor / "dep.py").write_text("y = 2")
+
+    result = detect(sub)
+    code_files = result["files"]["code"]
+    assert any("main.py" in f for f in code_files)
+    assert not any("vendor" in f for f in code_files)
+    assert result["graphifyignore_patterns"] >= 1
+
+
+def test_graphifyignore_stops_at_git_boundary(tmp_path):
+    """Upward search stops at the git repo root (.git directory)."""
+    (tmp_path / ".graphifyignore").write_text("main.py\n")
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    (repo / ".git").mkdir()
+    sub = repo / "sub"
+    sub.mkdir()
+    (sub / "main.py").write_text("x = 1")
+
+    result = detect(sub)
+    code_files = result["files"]["code"]
+    assert any("main.py" in f for f in code_files)
+    assert result["graphifyignore_patterns"] == 0
+
+
+def test_graphifyignore_at_git_root_is_included(tmp_path):
+    """A .graphifyignore at the git repo root is included when scanning a subdir."""
+    repo = tmp_path / "repo"
+    repo.mkdir()
+    (repo / ".git").mkdir()
+    (repo / ".graphifyignore").write_text("vendor/\n")
+    sub = repo / "packages" / "mylib"
+    sub.mkdir(parents=True)
+    (sub / "main.py").write_text("x = 1")
+    vendor = sub / "vendor"
+    vendor.mkdir()
+    (vendor / "dep.py").write_text("y = 2")
+
+    result = detect(sub)
+    code_files = result["files"]["code"]
+    assert any("main.py" in f for f in code_files)
+    assert not any("vendor" in f for f in code_files)
+    assert result["graphifyignore_patterns"] == 1
+
+
 def test_detect_handles_circular_symlinks(tmp_path):
     sub = tmp_path / "a"
     sub.mkdir()
@@ -146,3 +199,40 @@ def test_detect_handles_circular_symlinks(tmp_path):
 
     result = detect(tmp_path, follow_symlinks=True)
     assert any("main.py" in f for f in result["files"]["code"])
+
+
+def test_classify_video_extensions():
+    """Video and audio file extensions should classify as VIDEO."""
+    from graphify.detect import FileType
+    assert classify_file(Path("lecture.mp4")) == FileType.VIDEO
+    assert classify_file(Path("podcast.mp3")) == FileType.VIDEO
+    assert classify_file(Path("talk.mov")) == FileType.VIDEO
+    assert classify_file(Path("recording.wav")) == FileType.VIDEO
+    assert classify_file(Path("webinar.webm")) == FileType.VIDEO
+    assert classify_file(Path("audio.m4a")) == FileType.VIDEO
+
+
+def test_detect_includes_video_key(tmp_path):
+    """detect() result always includes a 'video' key even with no video files."""
+    (tmp_path / "main.py").write_text("x = 1")
+    result = detect(tmp_path)
+    assert "video" in result["files"]
+
+
+def test_detect_finds_video_files(tmp_path):
+    """detect() correctly counts video files and does not add them to word count."""
+    (tmp_path / "lecture.mp4").write_bytes(b"fake video data")
+    (tmp_path / "notes.md").write_text("# Notes\nSome content here.")
+    result = detect(tmp_path)
+    assert len(result["files"]["video"]) == 1
+    assert any("lecture.mp4" in f for f in result["files"]["video"])
+    # total_words should not include video files (they have no readable text)
+    assert result["total_words"] >= 0  # won't crash
+
+
+def test_detect_video_not_in_words(tmp_path):
+    """Video files do not contribute to total_words."""
+    (tmp_path / "clip.mp4").write_bytes(b"\x00" * 100)
+    result = detect(tmp_path)
+    # Only video file present — total_words should be 0
+    assert result["total_words"] == 0

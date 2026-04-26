@@ -469,6 +469,8 @@ def graph_diff(G_old: nx.Graph, G_new: nx.Graph) -> dict:
     ]
 
     def edge_key(G: nx.Graph, u: str, v: str, data: dict) -> tuple:
+        if G.is_directed():
+            return (u, v, data.get("relation", ""))
         return (min(u, v), max(u, v), data.get("relation", ""))
 
     old_edge_keys = {

@@ -207,6 +207,12 @@ def ingest(url: str, target_dir: Path, author: str | None = None, contributor: s
             print(f"Downloaded image: {out.name}")
             return out
 
+        if url_type == "youtube":
+            from graphify.transcribe import download_audio
+            out = download_audio(url, target_dir)
+            print(f"Downloaded audio: {out.name}")
+            return out
+
         if url_type == "tweet":
             content, filename = _fetch_tweet(url, author, contributor)
         elif url_type == "arxiv":

@@ -62,9 +62,14 @@ def cluster(G: nx.Graph) -> dict[int, list[str]]:
     Community IDs are stable across runs: 0 = largest community after splitting.
     Oversized communities (> 25% of graph nodes, min 10) are split by running
     a second Leiden pass on the subgraph.
+
+    Accepts directed or undirected graphs. DiGraphs are converted to undirected
+    internally since Louvain/Leiden require undirected input.
     """
     if G.number_of_nodes() == 0:
         return {}
+    if G.is_directed():
+        G = G.to_undirected()
     if G.number_of_edges() == 0:
         return {i: [n] for i, n in enumerate(sorted(G.nodes))}
 

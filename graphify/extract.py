@@ -1026,7 +1026,7 @@ def _extract_python_rationale(path: Path, result: dict) -> None:
         return None
 
     def _add_rationale(text: str, line: int, parent_nid: str) -> None:
-        label = text[:80].replace("\n", " ").strip()
+        label = text[:80].replace("\r\n", " ").replace("\r", " ").replace("\n", " ").strip()
         rid = _make_id(stem, "rationale", str(line))
         if rid not in seen_ids:
             seen_ids.add(rid)

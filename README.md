@@ -4,12 +4,12 @@
 
 [![CI](https://github.com/safishamsi/graphify/actions/workflows/ci.yml/badge.svg?branch=v3)](https://github.com/safishamsi/graphify/actions/workflows/ci.yml)
 [![PyPI](https://img.shields.io/pypi/v/graphifyy)](https://pypi.org/project/graphifyy/)
-[![Downloads](https://img.shields.io/pypi/dm/graphifyy)](https://pypi.org/project/graphifyy/)
+[![Downloads](https://static.pepy.tech/badge/graphifyy/month)](https://pepy.tech/project/graphifyy)
 [![Sponsor](https://img.shields.io/badge/sponsor-safishamsi-ea4aaa?logo=github-sponsors)](https://github.com/sponsors/safishamsi)
 
-**An AI coding assistant skill.** Type `/graphify` in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, OpenClaw, Factory Droid, or Trae - it reads your files, builds a knowledge graph, and gives you back structure you didn't know was there. Understand a codebase faster. Find the "why" behind architectural decisions.
+**An AI coding assistant skill.** Type `/graphify` in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, Aider, OpenClaw, Factory Droid, or Trae - it reads your files, builds a knowledge graph, and gives you back structure you didn't know was there. Understand a codebase faster. Find the "why" behind architectural decisions.
 
-Fully multimodal. Drop in code, PDFs, markdown, screenshots, diagrams, whiteboard photos, even images in other languages - graphify uses Claude vision to extract concepts and relationships from all of it and connects them into one graph. 20 languages supported via tree-sitter AST (Python, JS, TS, Go, Rust, Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift, Lua, Zig, PowerShell, Elixir, Objective-C, Julia).
+Fully multimodal. Drop in code, PDFs, markdown, screenshots, diagrams, whiteboard photos, images in other languages, or video and audio files - graphify extracts concepts and relationships from all of it and connects them into one graph. Videos are transcribed with Whisper using a domain-aware prompt derived from your corpus. 20 languages supported via tree-sitter AST (Python, JS, TS, Go, Rust, Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift, Lua, Zig, PowerShell, Elixir, Objective-C, Julia).
 
 > Andrej Karpathy keeps a `/raw` folder where he drops papers, tweets, screenshots, and notes. graphify is the answer to that problem - 71.5x fewer tokens per query vs reading the raw files, persistent across sessions, honest about what it found vs guessed.
 
@@ -39,7 +39,7 @@ Same syntax as `.gitignore`. Patterns match against file paths relative to the f
 
 ## How it works
 
-graphify runs in two passes. First, a deterministic AST pass extracts structure from code files (classes, functions, imports, call graphs, docstrings, rationale comments) with no LLM needed. Second, Claude subagents run in parallel over docs, papers, and images to extract concepts, relationships, and design rationale. The results are merged into a NetworkX graph, clustered with Leiden community detection, and exported as interactive HTML, queryable JSON, and a plain-language audit report.
+graphify runs in three passes. First, a deterministic AST pass extracts structure from code files (classes, functions, imports, call graphs, docstrings, rationale comments) with no LLM needed. Second, video and audio files are transcribed locally with faster-whisper using a domain-aware prompt derived from corpus god nodes — transcripts are cached so re-runs are instant. Third, Claude subagents run in parallel over docs, papers, images, and transcripts to extract concepts, relationships, and design rationale. The results are merged into a NetworkX graph, clustered with Leiden community detection, and exported as interactive HTML, queryable JSON, and a plain-language audit report.
 
 **Clustering is graph-topology-based — no embeddings.** Leiden finds communities by edge density. The semantic similarity edges that Claude extracts (`semantically_similar_to`, marked INFERRED) are already in the graph, so they influence community detection directly. The graph structure is the similarity signal — no separate embedding step or vector database needed.
 
@@ -47,7 +47,7 @@ Every relationship is tagged `EXTRACTED` (found directly in source), `INFERRED` 
 
 ## Install
 
-**Requires:** Python 3.10+ and one of: [Claude Code](https://claude.ai/code), [Codex](https://openai.com/codex), [OpenCode](https://opencode.ai), [Cursor](https://cursor.com), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [OpenClaw](https://openclaw.ai), [Factory Droid](https://factory.ai), or [Trae](https://trae.ai)
+**Requires:** Python 3.10+ and one of: [Claude Code](https://claude.ai/code), [Codex](https://openai.com/codex), [OpenCode](https://opencode.ai), [Cursor](https://cursor.com), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli), [Aider](https://aider.chat), [OpenClaw](https://openclaw.ai), [Factory Droid](https://factory.ai), or [Trae](https://trae.ai)
 
 ```bash
 pip install graphifyy && graphify install
@@ -63,6 +63,8 @@ pip install graphifyy && graphify install
 | Claude Code (Windows) | `graphify install` (auto-detected) or `graphify install --platform windows` |
 | Codex | `graphify install --platform codex` |
 | OpenCode | `graphify install --platform opencode` |
+| GitHub Copilot CLI | `graphify install --platform copilot` |
+| Aider | `graphify install --platform aider` |
 | OpenClaw | `graphify install --platform claw` |
 | Factory Droid | `graphify install --platform droid` |
 | Trae | `graphify install --platform trae` |
@@ -70,7 +72,7 @@ pip install graphifyy && graphify install
 | Gemini CLI | `graphify install --platform gemini` |
 | Cursor | `graphify cursor install` |
 
-Codex users also need `multi_agent = true` under `[features]` in `~/.codex/config.toml` for parallel extraction. Factory Droid uses the `Task` tool for parallel subagent dispatch. OpenClaw uses sequential extraction (parallel agent support is still early on that platform). Trae uses the Agent tool for parallel subagent dispatch and does **not** support PreToolUse hooks — AGENTS.md is the always-on mechanism.
+Codex users also need `multi_agent = true` under `[features]` in `~/.codex/config.toml` for parallel extraction. Factory Droid uses the `Task` tool for parallel subagent dispatch. OpenClaw and Aider use sequential extraction (parallel agent support is still early on those platforms). Trae uses the Agent tool for parallel subagent dispatch and does **not** support PreToolUse hooks — AGENTS.md is the always-on mechanism.
 
 Then open your AI coding assistant and type:
 
@@ -89,6 +91,8 @@ After building a graph, run this once in your project:
 | Claude Code | `graphify claude install` |
 | Codex | `graphify codex install` |
 | OpenCode | `graphify opencode install` |
+| GitHub Copilot CLI | `graphify copilot install` |
+| Aider | `graphify aider install` |
 | OpenClaw | `graphify claw install` |
 | Factory Droid | `graphify droid install` |
 | Trae | `graphify trae install` |
@@ -104,9 +108,11 @@ After building a graph, run this once in your project:
 
 **Cursor** writes `.cursor/rules/graphify.mdc` with `alwaysApply: true` — Cursor includes it in every conversation automatically, no hook needed.
 
-**Gemini CLI** writes a `GEMINI.md` section and installs a `BeforeTool` hook in `.gemini/settings.json` that fires before file-read tool calls — same always-on mechanism as Claude Code.
+**Gemini CLI** copies the skill to `~/.gemini/skills/graphify/SKILL.md`, writes a `GEMINI.md` section, and installs a `BeforeTool` hook in `.gemini/settings.json` that fires before file-read tool calls — same always-on mechanism as Claude Code.
 
-**OpenClaw, Factory Droid, Trae** write the same rules to `AGENTS.md` in your project root. These platforms don't support tool hooks, so AGENTS.md is the always-on mechanism.
+**Aider and OpenClaw, Factory Droid, Trae** write the same rules to `AGENTS.md` in your project root. These platforms don't support tool hooks, so AGENTS.md is the always-on mechanism.
+
+**GitHub Copilot CLI** copies the skill to `~/.copilot/skills/graphify/SKILL.md`. Run `graphify copilot install` to set it up.
 
 Uninstall with the matching uninstall command (e.g. `graphify claude uninstall`).
 
@@ -179,6 +185,7 @@ When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` 
 /graphify ./raw                    # run on a specific folder
 /graphify ./raw --mode deep        # more aggressive INFERRED edge extraction
 /graphify ./raw --update           # re-extract only changed files, merge into existing graph
+/graphify ./raw --directed          # build directed graph (preserves edge direction: source→target)
 /graphify ./raw --cluster-only     # rerun clustering on existing graph, no re-extraction
 /graphify ./raw --no-viz           # skip HTML, just produce report + JSON
 /graphify ./raw --obsidian                          # also generate Obsidian vault (opt-in)
@@ -186,6 +193,7 @@ When the user types `/graphify`, invoke the Skill tool with `skill: "graphify"` 
 
 /graphify add https://arxiv.org/abs/1706.03762        # fetch a paper, save, update graph
 /graphify add https://x.com/karpathy/status/...       # fetch a tweet
+/graphify add https://www.youtube.com/watch?v=...     # download audio, transcribe, add to graph
 /graphify add https://... --author "Name"             # tag the original author
 /graphify add https://... --contributor "Name"        # tag who added it to the corpus
 
@@ -213,6 +221,14 @@ graphify claude install            # CLAUDE.md + PreToolUse hook (Claude Code)
 graphify claude uninstall
 graphify codex install             # AGENTS.md (Codex)
 graphify opencode install          # AGENTS.md + tool.execute.before plugin (OpenCode)
+graphify cursor install            # .cursor/rules/graphify.mdc (Cursor)
+graphify cursor uninstall
+graphify gemini install            # GEMINI.md + BeforeTool hook (Gemini CLI)
+graphify gemini uninstall
+graphify copilot install           # skill file (GitHub Copilot CLI)
+graphify copilot uninstall
+graphify aider install             # AGENTS.md (Aider)
+graphify aider uninstall
 graphify claw install              # AGENTS.md (OpenClaw)
 graphify droid install             # AGENTS.md (Factory Droid)
 graphify trae install              # AGENTS.md (Trae)
@@ -236,6 +252,8 @@ Works with any mix of file types:
 | Office | `.docx .xlsx` | Converted to markdown then extracted via Claude (requires `pip install graphifyy[office]`) |
 | Papers | `.pdf` | Citation mining + concept extraction |
 | Images | `.png .jpg .webp .gif` | Claude vision - screenshots, diagrams, any language |
+| Video / Audio | `.mp4 .mov .mkv .webm .avi .m4v .mp3 .wav .m4a .ogg` | Transcribed locally with faster-whisper, transcript fed into Claude extraction (requires `pip install graphifyy[video]`) |
+| YouTube / URLs | any video URL | Audio downloaded via yt-dlp, then same Whisper pipeline (requires `pip install graphifyy[video]`) |
 
 ## What you get
 
@@ -273,7 +291,7 @@ Token reduction scales with corpus size. 6 files fits in a context window anyway
 
 ## Privacy
 
-graphify sends file contents to your AI coding assistant's underlying model API for semantic extraction of docs, papers, and images — Anthropic (Claude Code), OpenAI (Codex), or whichever provider your platform uses. Code files are processed locally via tree-sitter AST — no file contents leave your machine for code. No telemetry, usage tracking, or analytics of any kind. The only network calls are to your platform's model API during extraction, using your own API key.
+graphify sends file contents to your AI coding assistant's underlying model API for semantic extraction of docs, papers, and images — Anthropic (Claude Code), OpenAI (Codex), or whichever provider your platform uses. Code files are processed locally via tree-sitter AST — no file contents leave your machine for code. Video and audio files are transcribed locally with faster-whisper — audio never leaves your machine. No telemetry, usage tracking, or analytics of any kind. The only network calls are to your platform's model API during extraction, using your own API key.
 
 ## Tech stack
 
