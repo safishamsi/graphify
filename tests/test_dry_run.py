@@ -60,3 +60,16 @@ def test_dry_run_no_graphify_out_written(tmp_path):
     (tmp_path / "a.py").write_text("a = 1\n")
     out, _ = _run_main(["graphify", "dry-run", str(tmp_path)])
     assert "No files were written" in out
+
+
+def test_dry_run_office_no_sidecar_written(tmp_path):
+    """dry-run must not write office sidecars even when .docx/.xlsx files are present."""
+    from unittest.mock import MagicMock, patch as mpatch
+
+    # Create a fake .docx so detect sees it as an office file
+    (tmp_path / "report.docx").write_bytes(b"PK\x03\x04")  # minimal docx magic bytes
+
+    with mpatch("graphify.detect.convert_office_file") as mock_convert:
+        _run_main(["graphify", "dry-run", str(tmp_path)])
+
+    mock_convert.assert_not_called()

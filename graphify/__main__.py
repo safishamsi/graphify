@@ -797,7 +797,7 @@ def main() -> None:
             print(f"error: path not found: {root}", file=sys.stderr)
             sys.exit(1)
         from graphify.detect import detect as _detect
-        result = _detect(root)
+        result = _detect(root, write_sidecars=False)
         files = result["files"]
         total_files = result["total_files"]
         total_words = result["total_words"]
