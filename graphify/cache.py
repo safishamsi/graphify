@@ -44,17 +44,19 @@ def file_hash(path: Path, root: Path = Path(".")) -> str:
 
 
 def cache_dir(root: Path = Path(".")) -> Path:
-    """Returns graphify-out/cache/ - creates it if needed."""
-    d = Path(root).resolve() / "graphify-out" / "cache"
-    d.mkdir(parents=True, exist_ok=True)
-    return d
+    """Per-file extraction cache directory under *root* — created if missing.
+
+    Resolves to ``$GRAPHIFY_HOME/cache``. See :mod:`graphify.paths`.
+    """
+    from . import paths
+    return paths.cache_dir(root, create=True)
 
 
 def load_cached(path: Path, root: Path = Path(".")) -> dict | None:
     """Return cached extraction for this file if hash matches, else None.
 
     Cache key: SHA256 of file contents.
-    Cache value: stored as graphify-out/cache/{hash}.json
+    Cache value: stored as ``<cache_dir>/{hash}.json``.
     Returns None if no cache entry or file has changed.
     """
     try:
@@ -73,7 +75,7 @@ def load_cached(path: Path, root: Path = Path(".")) -> dict | None:
 def save_cached(path: Path, result: dict, root: Path = Path(".")) -> None:
     """Save extraction result for this file.
 
-    Stores as graphify-out/cache/{hash}.json where hash = SHA256 of current file contents.
+    Stores as ``<cache_dir>/{hash}.json`` where hash = SHA256 of current file contents.
     result should be a dict with 'nodes' and 'edges' lists.
 
     No-ops if `path` is not a regular file. Subagent-produced semantic fragments
@@ -108,7 +110,7 @@ def cached_files(root: Path = Path(".")) -> set[str]:
 
 
 def clear_cache(root: Path = Path(".")) -> None:
-    """Delete all graphify-out/cache/*.json files."""
+    """Delete all cached extraction entries."""
     d = cache_dir(root)
     for f in d.glob("*.json"):
         f.unlink()

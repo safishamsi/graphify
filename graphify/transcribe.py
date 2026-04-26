@@ -5,12 +5,13 @@ from __future__ import annotations
 import os
 from pathlib import Path
 
+from graphify import paths as _paths
+
 
 VIDEO_EXTENSIONS = {'.mp4', '.mov', '.webm', '.mkv', '.avi', '.m4v', '.mp3', '.wav', '.m4a', '.ogg'}
 URL_PREFIXES = ('http://', 'https://', 'www.')
 
 _DEFAULT_MODEL = "base"
-_TRANSCRIPTS_DIR = "graphify-out/transcripts"
 _FALLBACK_PROMPT = "Use proper punctuation and paragraph breaks."
 
 
@@ -126,7 +127,7 @@ def transcribe(
     initial_prompt: domain hint for Whisper (built from corpus god nodes).
     force: re-transcribe even if transcript already exists.
     """
-    out_dir = Path(output_dir) if output_dir else Path(_TRANSCRIPTS_DIR)
+    out_dir = Path(output_dir) if output_dir else _paths.home() / "transcripts"
     out_dir.mkdir(parents=True, exist_ok=True)
 
     if is_url(str(video_path)):

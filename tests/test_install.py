@@ -70,21 +70,21 @@ def test_install_unknown_platform_exits(tmp_path):
 def test_codex_skill_contains_spawn_agent():
     """Codex skill file must reference spawn_agent."""
     import graphify
-    skill = (Path(graphify.__file__).parent / "skill-codex.md").read_text()
+    skill = (Path(graphify.__file__).parent / "skill-codex.md").read_text(encoding="utf-8")
     assert "spawn_agent" in skill
 
 
 def test_opencode_skill_contains_mention():
     """OpenCode skill file must reference @mention."""
     import graphify
-    skill = (Path(graphify.__file__).parent / "skill-opencode.md").read_text()
+    skill = (Path(graphify.__file__).parent / "skill-opencode.md").read_text(encoding="utf-8")
     assert "@mention" in skill
 
 
 def test_claw_skill_is_sequential():
     """OpenClaw skill file must describe sequential extraction."""
     import graphify
-    skill = (Path(graphify.__file__).parent / "skill-claw.md").read_text()
+    skill = (Path(graphify.__file__).parent / "skill-claw.md").read_text(encoding="utf-8")
     assert "sequential" in skill.lower()
     assert "spawn_agent" not in skill
     assert "@mention" not in skill
@@ -238,7 +238,8 @@ def test_cursor_install_writes_rule(tmp_path):
     assert rule.exists()
     content = rule.read_text()
     assert "alwaysApply: true" in content
-    assert "graphify-out/GRAPH_REPORT.md" in content
+    from graphify import paths as _paths
+    assert f"{_paths.home_name()}/GRAPH_REPORT.md" in content
 
 
 def test_cursor_install_idempotent(tmp_path):
@@ -266,6 +267,28 @@ def test_cursor_uninstall_noop_if_not_installed(tmp_path):
     _cursor_uninstall(tmp_path)  # should not raise
 
 
+def test_install_auto_migrates_legacy_layout(tmp_path):
+    """Running an install command on a project with legacy graphify-out/
+    layout auto-renames it to the configured home dir, so the CLAUDE.md /
+    skill / hook rewrites that the install does match the on-disk dir.
+    """
+    (tmp_path / "graphify-out").mkdir()
+    (tmp_path / "graphify-out" / "graph.json").write_text("{}", encoding="utf-8")
+    from graphify.__main__ import _cursor_install
+    _cursor_install(tmp_path)
+    assert not (tmp_path / "graphify-out").exists()
+    assert (tmp_path / ".graphify" / "graph.json").is_file()
+
+
+def test_install_does_not_migrate_when_no_legacy(tmp_path):
+    """Fresh installs (no graphify-out/) leave the filesystem untouched
+    apart from what the install itself writes."""
+    from graphify.__main__ import _cursor_install
+    _cursor_install(tmp_path)
+    assert not (tmp_path / "graphify-out").exists()
+    assert not (tmp_path / ".graphify").exists()
+
+
 # ── Gemini CLI ────────────────────────────────────────────────────────────────
 
 def test_gemini_install_writes_gemini_md(tmp_path):
@@ -273,7 +296,8 @@ def test_gemini_install_writes_gemini_md(tmp_path):
     gemini_install(tmp_path)
     md = tmp_path / "GEMINI.md"
     assert md.exists()
-    assert "graphify-out/GRAPH_REPORT.md" in md.read_text()
+    from graphify import paths as _paths
+    assert f"{_paths.home_name()}/GRAPH_REPORT.md" in md.read_text()
 
 def test_gemini_install_writes_hook(tmp_path):
     import json as _json
@@ -296,7 +320,8 @@ def test_gemini_install_merges_existing_gemini_md(tmp_path):
     gemini_install(tmp_path)
     content = (tmp_path / "GEMINI.md").read_text()
     assert "# My project rules" in content
-    assert "graphify-out/GRAPH_REPORT.md" in content
+    from graphify import paths as _paths
+    assert f"{_paths.home_name()}/GRAPH_REPORT.md" in content
 
 def test_gemini_uninstall_removes_section(tmp_path):
     from graphify.__main__ import gemini_install, gemini_uninstall

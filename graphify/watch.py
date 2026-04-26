@@ -5,7 +5,7 @@ import sys
 import time
 from pathlib import Path
 
-
+from graphify import paths as _paths
 from graphify.detect import CODE_EXTENSIONS, DOC_EXTENSIONS, PAPER_EXTENSIONS, IMAGE_EXTENSIONS
 
 _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAGE_EXTENSIONS
@@ -61,7 +61,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
 
         # Preserve semantic nodes/edges from a previous full run.
         # AST-only rebuild replaces code nodes; doc/paper/image nodes are kept.
-        out = watch_path / "graphify-out"
+        out = _paths.home(watch_path)
         existing_graph = out / "graph.json"
         if existing_graph.exists():
             try:
@@ -140,7 +140,7 @@ def check_update(watch_path: Path) -> bool:
     re-extraction via `/graphify --update` — this function only signals
     that the update is needed.
     """
-    flag = Path(watch_path) / "graphify-out" / "needs_update"
+    flag = _paths.needs_update_path(Path(watch_path))
     if flag.exists():
         print(f"[graphify check-update] Pending non-code changes in {watch_path}.")
         print("[graphify check-update] Run `/graphify --update` to apply semantic re-extraction.")
@@ -149,7 +149,7 @@ def check_update(watch_path: Path) -> bool:
 
 def _notify_only(watch_path: Path) -> None:
     """Write a flag file and print a notification (fallback for non-code-only corpora)."""
-    flag = watch_path / "graphify-out" / "needs_update"
+    flag = _paths.needs_update_path(watch_path)
     flag.parent.mkdir(parents=True, exist_ok=True)
     flag.write_text("1", encoding="utf-8")
     print(f"\n[graphify watch] New or changed files detected in {watch_path}")
@@ -194,7 +194,7 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
                 return
             if any(part.startswith(".") for part in path.parts):
                 return
-            if "graphify-out" in path.parts:
+            if _paths.home_name() in path.parts:
                 return
             last_trigger = time.monotonic()
             pending = True

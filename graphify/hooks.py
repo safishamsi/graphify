@@ -98,8 +98,10 @@ if [ "$BRANCH_SWITCH" != "1" ]; then
     exit 0
 fi
 
-# Only run if graphify-out/ exists (graph has been built before)
-if [ ! -d "graphify-out" ]; then
+# Only run if the graphify home dir exists (graph has been built before).
+# Honors $GRAPHIFY_HOME if set, defaulting to .graphify.
+GRAPHIFY_HOME_DIR="${GRAPHIFY_HOME:-.graphify}"
+if [ ! -d "$GRAPHIFY_HOME_DIR" ]; then
     exit 0
 fi
 
