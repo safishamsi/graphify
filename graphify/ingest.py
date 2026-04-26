@@ -244,9 +244,9 @@ def save_query_result(
 ) -> Path:
     """Save a Q&A result as markdown so it gets extracted into the graph on next --update.
 
-    Files are stored in memory_dir (typically graphify-out/memory/) with YAML frontmatter
-    that graphify's extractor reads as node metadata. This closes the feedback loop:
-    the system grows smarter from both what you add AND what you ask.
+    Files are stored in *memory_dir* (typically ``$GRAPHIFY_HOME/memory/``) with YAML
+    frontmatter that graphify's extractor reads as node metadata. This closes the
+    feedback loop: the system grows smarter from both what you add AND what you ask.
     """
     memory_dir = Path(memory_dir)
     memory_dir.mkdir(parents=True, exist_ok=True)

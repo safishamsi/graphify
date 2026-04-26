@@ -12,6 +12,7 @@ keywords = ["claude", "claude-code", "codex", "opencode", "cursor", "gemini", "a
 requires-python = ">=3.10,<3.14"
 dependencies = [
     "networkx",
+    "pathspec>=0.12",
     "tree-sitter>=0.23.0",
     "tree-sitter-python",
     "tree-sitter-javascript",

@@ -1,11 +1,12 @@
 # file discovery, type classification, and corpus health checks
 from __future__ import annotations
-import fnmatch
 import json
 import os
 import re
 from enum import Enum
 from pathlib import Path
+
+import pathspec
 
 
 class FileType(str, Enum):
@@ -16,7 +17,8 @@ class FileType(str, Enum):
     VIDEO = "video"
 
 
-_MANIFEST_PATH = "graphify-out/manifest.json"
+from . import paths as _paths
+
 
 CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.mjs', '.ejs', '.go', '.rs', '.java', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.dart', '.v', '.sv'}
 DOC_EXTENSIONS = {'.md', '.mdx', '.txt', '.rst', '.html'}
@@ -233,105 +235,143 @@ def count_words(path: Path) -> int:
         return 0
 
 
-# Directory names to always skip - venvs, caches, build artifacts, deps
-_SKIP_DIRS = {
-    "venv", ".venv", "env", ".env",
-    "node_modules", "__pycache__", ".git",
-    "dist", "build", "target", "out",
-    "site-packages", "lib64",
-    ".pytest_cache", ".mypy_cache", ".ruff_cache",
-    ".tox", ".eggs", "*.egg-info",
-    "graphify-out",  # never treat own output as source input (#524)
-}
-
-# Large generated files that are never useful to extract
-_SKIP_FILES = {
+# Built-in noise prepended to every ignore chain. A user `!`-rule overrides
+# any of these via last-match-wins. Build-output dirs (dist/, build/, ...) are
+# intentionally NOT listed — those are project-specific and belong in .gitignore.
+_BUILTIN_NOISE_PATTERNS: tuple[str, ...] = (
+    ".*",
+    "__pycache__/",
+    "venv/", "env/",
+    "*_venv/", "*_env/",
+    "*.egg-info/",
+    "site-packages/", "lib64/",
+    "node_modules/",
+    ".graphify/",
     "package-lock.json", "yarn.lock", "pnpm-lock.yaml",
     "Cargo.lock", "poetry.lock", "Gemfile.lock",
     "composer.lock", "go.sum", "go.work.sum",
-}
+)
+_BUILTIN_NOISE_SPEC = pathspec.GitIgnoreSpec.from_lines(_BUILTIN_NOISE_PATTERNS)
 
-def _is_noise_dir(part: str) -> bool:
-    """Return True if this directory name looks like a venv, cache, or dep dir."""
-    if part in _SKIP_DIRS:
-        return True
-    # Catch *_venv, *_repo/site-packages patterns
-    if part.endswith("_venv") or part.endswith("_env"):
-        return True
-    if part.endswith(".egg-info"):
-        return True
-    return False
+# Pruning shortcut for the .gitignore-discovery walk only — descending into
+# node_modules just to look for nested ignore files would dominate detect() time.
+_DISCOVERY_SKIP_DIRS = frozenset({
+    ".git", "node_modules", ".venv", "venv", "__pycache__", ".graphify",
+})
 
 
-def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
-    """Read .graphifyignore from root **and ancestor directories**.
+AnchoredSpec = tuple[Path, "pathspec.PathSpec"]
 
-    Returns a list of (anchor_dir, pattern) pairs. Each pattern is matched
-    against paths relative to both the scan root and the anchor_dir where
-    the .graphifyignore file was found — so patterns written relative to a
-    parent directory still work when graphify is run on a subfolder.
 
-    Walks upward from *root* towards the filesystem root, stopping at a
-    ``.git`` boundary. Lines starting with # are comments; blank lines ignored.
+def _respect_gitignore() -> bool:
+    """Return True unless the user has opted out of .gitignore honoring."""
+    flag = os.environ.get("GRAPHIFY_RESPECT_GITIGNORE", "1").strip().lower()
+    return flag not in ("0", "false", "no", "off")
+
+
+def _load_ignore_file(ignore_file: Path) -> "pathspec.PathSpec | None":
+    """Compile a single ignore file into a gitwildmatch PathSpec, or None on read failure."""
+    try:
+        text = ignore_file.read_text(encoding="utf-8", errors="ignore")
+    except OSError:
+        return None
+    spec = pathspec.GitIgnoreSpec.from_lines(text.splitlines())
+    return spec if spec.patterns else None
+
+
+def _collect_ignore_files(root: Path, names: tuple[str, ...]) -> list[Path]:
+    """Every ignore file (matching any of *names*) that affects *root*, in evaluation order.
+
+    Outer-first by depth, then by *names* order within an anchor — combined with
+    last-match-wins in :func:`_is_ignored`, a later name overrides an earlier
+    co-located one. Walks up to the nearest ``.git`` so repo-level rules apply
+    on subdirectories, then walks down through *root* for nested rules.
     """
-    patterns: list[tuple[Path, str]] = []
-    current = root.resolve()
+    root = root.resolve()
+
+    chain: list[Path] = []
+    cursor = root
     while True:
-        ignore_file = current / ".graphifyignore"
-        if ignore_file.exists():
-            for line in ignore_file.read_text(encoding="utf-8", errors="ignore").splitlines():
-                line = line.strip()
-                if line and not line.startswith("#"):
-                    patterns.append((current, line))
-        # Stop climbing once we've processed the git repo root
-        if (current / ".git").exists():
+        chain.append(cursor)
+        if (cursor / ".git").exists():
             break
-        parent = current.parent
-        if parent == current:
-            break  # filesystem root
-        current = parent
-    return patterns
+        parent = cursor.parent
+        if parent == cursor:
+            break
+        cursor = parent
+    chain.reverse()
+
+    files: list[Path] = []
+    for anc in chain:
+        for name in names:
+            f = anc / name
+            if f.exists():
+                files.append(f)
+
+    if root.is_dir():
+        seen = set(files)
+        for dirpath, dirnames, filenames in os.walk(root):
+            dirnames[:] = [d for d in dirnames if d not in _DISCOVERY_SKIP_DIRS]
+            dp = Path(dirpath)
+            for name in names:
+                if name in filenames:
+                    f = dp / name
+                    if f not in seen:
+                        seen.add(f)
+                        files.append(f)
+
+    return files
 
 
-def _is_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> bool:
-    """Return True if path matches any .graphifyignore pattern."""
-    if not patterns:
-        return False
+def _load_ignore_specs(
+    root: Path, names: tuple[str, ...]
+) -> list[AnchoredSpec]:
+    """Load every ignore file matching *names* into anchored PathSpecs."""
+    specs: list[AnchoredSpec] = []
+    for ignore_file in _collect_ignore_files(root, names):
+        spec = _load_ignore_file(ignore_file)
+        if spec is not None:
+            specs.append((ignore_file.parent.resolve(), spec))
+    return specs
 
-    def _matches(rel: str, p: str) -> bool:
-        parts = rel.split("/")
-        if fnmatch.fnmatch(rel, p):
-            return True
-        if fnmatch.fnmatch(path.name, p):
-            return True
-        for i, part in enumerate(parts):
-            if fnmatch.fnmatch(part, p):
-                return True
-            if fnmatch.fnmatch("/".join(parts[:i + 1]), p):
-                return True
-        return False
 
-    for anchor, pattern in patterns:
-        p = pattern.strip("/")
-        if not p:
-            continue
-        # Try path relative to the scan root
+def _load_gitignore(root: Path) -> list[AnchoredSpec]:
+    """Every .gitignore affecting *root*, in evaluation order. Skipped if GRAPHIFY_RESPECT_GITIGNORE=0."""
+    if not _respect_gitignore():
+        return []
+    return _load_ignore_specs(root, (".gitignore",))
+
+
+def _load_graphifyignore(root: Path) -> list[AnchoredSpec]:
+    """Every .graphifyignore affecting *root*, in evaluation order. Same syntax as .gitignore."""
+    return _load_ignore_specs(root, (".graphifyignore",))
+
+
+def _is_ignored(
+    path: Path,
+    specs: list[AnchoredSpec],
+    *,
+    is_dir: bool = False,
+) -> bool:
+    """Last-match-wins across the spec chain. Pass *is_dir* True so dir-only patterns fire.
+
+    *path* must be absolute and resolved. Each spec is anchored to its source file's
+    directory; patterns outside that subtree don't apply. A re-include via ``!`` cannot
+    rescue a file from a parent dir that was already pruned — the caller enforces this
+    by not descending into ignored dirs.
+    """
+    state = False
+    for anchor, spec in specs:
         try:
-            rel = str(path.relative_to(root)).replace(os.sep, "/")
-            if _matches(rel, p):
-                return True
+            rel = path.relative_to(anchor).as_posix()
         except ValueError:
-            pass
-        # Also try relative to the anchor dir (the .graphifyignore's location),
-        # so patterns written at a parent level still fire when running on a subfolder
-        if anchor != root:
-            try:
-                rel_anchor = str(path.relative_to(anchor)).replace(os.sep, "/")
-                if _matches(rel_anchor, p):
-                    return True
-            except ValueError:
-                pass
-    return False
+            continue
+        if is_dir and not rel.endswith("/"):
+            rel = rel + "/"
+        result = spec.check_file(rel)
+        if result.include is not None:
+            state = result.include
+    return state
 
 
 def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
@@ -346,19 +386,23 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
     total_words = 0
 
     skipped_sensitive: list[str] = []
-    ignore_patterns = _load_graphifyignore(root)
+    ignore_names = (".graphifyignore",)
+    if _respect_gitignore():
+        ignore_names = (".gitignore",) + ignore_names
+    user_specs = _load_ignore_specs(root, ignore_names)
+    ignore_patterns: list[AnchoredSpec] = [(root, _BUILTIN_NOISE_SPEC), *user_specs]
 
-    # Always include graphify-out/memory/ - query results filed back into the graph
-    memory_dir = root / "graphify-out" / "memory"
-    scan_paths = [root]
+    # memory dir scans without ignore filtering — its contents are wanted
+    # even though it lives under .graphify/ which the noise spec prunes.
+    memory_dir = _paths.memory_dir(root)
+    scan_paths: list[tuple[Path, list[AnchoredSpec]]] = [(root, ignore_patterns)]
     if memory_dir.exists():
-        scan_paths.append(memory_dir)
+        scan_paths.append((memory_dir, []))
 
     seen: set[Path] = set()
     all_files: list[Path] = []
 
-    for scan_root in scan_paths:
-        in_memory_tree = memory_dir.exists() and str(scan_root).startswith(str(memory_dir))
+    for scan_root, scan_specs in scan_paths:
         for dirpath, dirnames, filenames in os.walk(scan_root, followlinks=follow_symlinks):
             dp = Path(dirpath)
             if follow_symlinks and os.path.islink(dirpath):
@@ -367,37 +411,17 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
                 if parent_real == real or parent_real.startswith(real + os.sep):
                     dirnames.clear()
                     continue
-            if not in_memory_tree:
-                # Prune noise dirs in-place so os.walk never descends into them
-                dirnames[:] = [
-                    d for d in dirnames
-                    if not d.startswith(".")
-                    and not _is_noise_dir(d)
-                    and not _is_ignored(dp / d, root, ignore_patterns)
-                ]
+            dirnames[:] = [d for d in dirnames if not _is_ignored(dp / d, scan_specs, is_dir=True)]
             for fname in filenames:
-                if fname in _SKIP_FILES:
-                    continue
                 p = dp / fname
-                if p not in seen:
-                    seen.add(p)
-                    all_files.append(p)
+                if p in seen or _is_ignored(p, scan_specs):
+                    continue
+                seen.add(p)
+                all_files.append(p)
 
-    converted_dir = root / "graphify-out" / "converted"
+    converted_dir = _paths.converted_dir(root)
 
     for p in all_files:
-        # For memory dir files, skip hidden/noise filtering
-        in_memory = memory_dir.exists() and str(p).startswith(str(memory_dir))
-        if not in_memory:
-            # Hidden files are already excluded via dir pruning above,
-            # but catch hidden files at the root level
-            if p.name.startswith("."):
-                continue
-            # Skip files inside our own converted/ dir (avoid re-processing sidecars)
-            if str(p).startswith(str(converted_dir)):
-                continue
-        if _is_ignored(p, root, ignore_patterns):
-            continue
         if _is_sensitive(p):
             skipped_sensitive.append(str(p))
             continue
@@ -441,20 +465,24 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
         "needs_graph": needs_graph,
         "warning": warning,
         "skipped_sensitive": skipped_sensitive,
-        "graphifyignore_patterns": len(ignore_patterns),
+        "graphifyignore_patterns": sum(len(spec.patterns) for _, spec in user_specs),
     }
 
 
-def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict[str, float]:
-    """Load the file modification time manifest from a previous run."""
+def load_manifest(manifest_path: str | Path | None = None) -> dict[str, float]:
+    """Load the file mtime manifest from a previous run."""
+    if manifest_path is None:
+        manifest_path = _paths.manifest_path()
     try:
         return json.loads(Path(manifest_path).read_text(encoding="utf-8"))
     except Exception:
         return {}
 
 
-def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PATH) -> None:
-    """Save current file mtimes so the next --update run can diff against them."""
+def save_manifest(files: dict[str, list[str]], manifest_path: str | Path | None = None) -> None:
+    """Save current file mtimes for the next --update diff."""
+    if manifest_path is None:
+        manifest_path = _paths.manifest_path()
     manifest: dict[str, float] = {}
     for file_list in files.values():
         for f in file_list:
@@ -466,7 +494,7 @@ def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PA
     Path(manifest_path).write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
 
-def detect_incremental(root: Path, manifest_path: str = _MANIFEST_PATH) -> dict:
+def detect_incremental(root: Path, manifest_path: str | Path | None = None) -> dict:
     """Like detect(), but returns only new or modified files since the last run.
 
     Compares current file mtimes against the stored manifest.

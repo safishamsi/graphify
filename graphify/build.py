@@ -180,16 +180,21 @@ def deduplicate_by_label(nodes: list[dict], edges: list[dict]) -> tuple[list[dic
 
 def build_merge(
     new_chunks: list[dict],
-    graph_path: str | Path = "graphify-out/graph.json",
+    graph_path: str | Path | None = None,
     prune_sources: list[str] | None = None,
     *,
     directed: bool = False,
 ) -> nx.Graph:
     """Load existing graph.json, merge new chunks into it, and save back.
 
+    *graph_path* defaults to ``$GRAPHIFY_HOME/graph.json``.
+
     Never replaces — only grows (or prunes deleted-file nodes via prune_sources).
     Safe to call repeatedly: existing nodes and edges are preserved.
     """
+    if graph_path is None:
+        from . import paths as _paths
+        graph_path = _paths.graph_path()
     from networkx.readwrite import json_graph as _jg
 
     graph_path = Path(graph_path)

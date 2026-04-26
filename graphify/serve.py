@@ -147,8 +147,14 @@ def _filter_blank_stdin() -> None:
     sys.stdin = open(0, "r", closefd=False)
 
 
-def serve(graph_path: str = "graphify-out/graph.json") -> None:
-    """Start the MCP server. Requires pip install mcp."""
+def serve(graph_path: str | Path | None = None) -> None:
+    """Start the MCP server. Requires pip install mcp.
+
+    *graph_path* defaults to ``$GRAPHIFY_HOME/graph.json``.
+    """
+    if graph_path is None:
+        from . import paths as _paths
+        graph_path = _paths.graph_path()
     try:
         from mcp.server import Server
         from mcp.server.stdio import stdio_server
@@ -369,5 +375,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
 
 if __name__ == "__main__":
-    graph_path = sys.argv[1] if len(sys.argv) > 1 else "graphify-out/graph.json"
-    serve(graph_path)
+    if len(sys.argv) > 1:
+        serve(sys.argv[1])
+    else:
+        serve()

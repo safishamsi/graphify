@@ -62,19 +62,22 @@ _SAMPLE_QUESTIONS = [
 
 
 def run_benchmark(
-    graph_path: str = "graphify-out/graph.json",
+    graph_path: str | Path | None = None,
     corpus_words: int | None = None,
     questions: list[str] | None = None,
 ) -> dict:
     """Measure token reduction: corpus tokens vs graphify query tokens.
 
     Args:
-        graph_path: path to the built graph
+        graph_path: path to the built graph; defaults to ``$GRAPHIFY_HOME/graph.json``
         corpus_words: total word count from detect() output; if None, estimated from graph
         questions: list of questions to benchmark; defaults to _SAMPLE_QUESTIONS
 
     Returns dict with: corpus_tokens, avg_query_tokens, reduction_ratio, per_question
     """
+    if graph_path is None:
+        from . import paths as _paths
+        graph_path = _paths.graph_path()
     data = json.loads(Path(graph_path).read_text(encoding="utf-8"))
     try:
         G = json_graph.node_link_graph(data, edges="links")

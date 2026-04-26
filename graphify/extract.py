@@ -3206,9 +3206,9 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
 
     Args:
         paths: files to extract from
-        cache_root: explicit root for graphify-out/cache/ (overrides the
+        cache_root: explicit root for the per-file cache (overrides the
             inferred common path prefix). Pass Path('.') when running on a
-            subdirectory so the cache stays at ./graphify-out/cache/.
+            subdirectory so the cache stays at ``./<GRAPHIFY_HOME>/cache/``.
     """
     _check_tree_sitter_version()
     per_file: list[dict] = []
@@ -3391,38 +3391,26 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
         ".lua", ".toc", ".zig", ".ps1",
         ".m", ".mm",
     }
-    from graphify.detect import _load_graphifyignore, _is_ignored
+    from graphify.detect import _BUILTIN_NOISE_SPEC, _load_graphifyignore, _is_ignored
     ignore_root = root if root is not None else target
-    patterns = _load_graphifyignore(ignore_root)
+    target_resolved = target.resolve()
+    # Prepend the built-in noise spec so node_modules / venvs / dotdirs are
+    # pruned by the same matcher as user .graphifyignore rules.
+    patterns = [(target_resolved, _BUILTIN_NOISE_SPEC), *_load_graphifyignore(ignore_root)]
 
-    def _ignored(p: Path) -> bool:
-        return bool(patterns and _is_ignored(p, ignore_root, patterns))
-
-    if not follow_symlinks:
-        results: list[Path] = []
-        for ext in sorted(_EXTENSIONS):
-            results.extend(
-                p for p in target.rglob(f"*{ext}")
-                if not any(part.startswith(".") for part in p.parts)
-                and not _ignored(p)
-            )
-        return sorted(results)
-    # Walk with symlink following + cycle detection
-    results = []
-    for dirpath, dirnames, filenames in os.walk(target, followlinks=True):
-        if os.path.islink(dirpath):
+    results: list[Path] = []
+    for dirpath, dirnames, filenames in os.walk(target, followlinks=follow_symlinks):
+        dp = Path(dirpath)
+        if follow_symlinks and os.path.islink(dirpath):
             real = os.path.realpath(dirpath)
             parent_real = os.path.realpath(os.path.dirname(dirpath))
             if parent_real == real or parent_real.startswith(real + os.sep):
                 dirnames.clear()
                 continue
-        dp = Path(dirpath)
-        if any(part.startswith(".") for part in dp.parts):
-            dirnames.clear()
-            continue
+        dirnames[:] = [d for d in dirnames if not _is_ignored(dp / d, patterns, is_dir=True)]
         for fname in filenames:
             p = dp / fname
-            if p.suffix in _EXTENSIONS and not fname.startswith(".") and not _ignored(p):
+            if p.suffix in _EXTENSIONS and not _is_ignored(p, patterns):
                 results.append(p)
     return sorted(results)
 
