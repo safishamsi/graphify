@@ -137,3 +137,50 @@ def test_community_article_truncation_notice(tmp_path):
     to_wiki(G, communities, tmp_path, community_labels={0: "Big Community"})
     article = (tmp_path / "Big_Community.md").read_text()
     assert "and 5 more nodes" in article
+
+
+def test_to_wiki_clears_stale_articles(tmp_path):
+    """Regression: previous-run articles must be removed when labels change.
+
+    Real-world impact: community labels are LLM-generated (per skill.md Step 5)
+    and non-deterministic across runs, so the same conceptual community gets a
+    different 2-5 word name each rebuild. Without cleanup, every rebuild leaves
+    the previous run's files as orphans, growing wiki/ unboundedly.
+    """
+    G = _make_graph()
+
+    # First run with one set of labels
+    to_wiki(G, COMMUNITIES, tmp_path, community_labels={0: "Old Name A", 1: "Old Name B"})
+    assert (tmp_path / "Old_Name_A.md").exists()
+    assert (tmp_path / "Old_Name_B.md").exists()
+
+    # Second run simulates LLM picking different names for the same communities
+    to_wiki(G, COMMUNITIES, tmp_path, community_labels={0: "New Name A", 1: "New Name B"})
+
+    # Old files should be gone; new files should exist
+    assert not (tmp_path / "Old_Name_A.md").exists(), "stale article from previous run not cleared"
+    assert not (tmp_path / "Old_Name_B.md").exists(), "stale article from previous run not cleared"
+    assert (tmp_path / "New_Name_A.md").exists()
+    assert (tmp_path / "New_Name_B.md").exists()
+    # index.md is always rewritten
+    assert (tmp_path / "index.md").exists()
+
+
+def test_to_wiki_preserves_non_md_files(tmp_path):
+    """Cleanup only touches top-level .md files; subdirectories and other files survive.
+
+    Some users may keep auxiliary assets (images, .json sidecars) in wiki/ —
+    cleanup must not be destructive beyond its own .md output domain.
+    """
+    G = _make_graph()
+    tmp_path.mkdir(parents=True, exist_ok=True)
+    (tmp_path / "user_image.png").write_bytes(b"\x89PNG fake")
+    (tmp_path / "user_data.json").write_text('{"key": "value"}')
+    (tmp_path / "subdir").mkdir()
+    (tmp_path / "subdir" / "nested.md").write_text("# user content")
+
+    to_wiki(G, COMMUNITIES, tmp_path, community_labels=LABELS)
+
+    assert (tmp_path / "user_image.png").exists(), "non-.md file deleted"
+    assert (tmp_path / "user_data.json").exists(), "non-.md file deleted"
+    assert (tmp_path / "subdir" / "nested.md").exists(), "subdirectory .md deleted"
