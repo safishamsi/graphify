@@ -83,6 +83,6 @@ Overall: 9.4/10 — Excellent performance across all tested dimensions.The prima
 **Semantic inference could be stronger** : A connecting edge between the Objectron Dataset samples and the Evaluator would be an insightful "surprising connection" to spot, as the repository is not so cleanly seperated for this connection to be completely missed. This might highlight challenges in building structual connections across modalities.
 
 
-**Multiple isolated/weakly rationale nodes**: A good amount of "rationale" nodes are either isolated/ weakly connected i.e `"Example Evaluation script for Objectron dataset"` and `"Class for evaluating the Objectron's model"`. These conceptual nodes could not connect them to the code they describe.
+**Multiple isolated/weakly connected rationale nodes**: A good amount of "rationale" nodes are either isolated/ weakly connected i.e `"Example Evaluation script for Objectron dataset"` and `"Class for evaluating the Objectron's model"`. These conceptual nodes could not connect them to the code they describe.
 
 ---
