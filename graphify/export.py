@@ -312,6 +312,15 @@ def to_json(G: nx.Graph, communities: dict[int, list[str]], output_path: str, *,
         if "confidence_score" not in link:
             conf = link.get("confidence", "EXTRACTED")
             link["confidence_score"] = _CONFIDENCE_SCORE_DEFAULTS.get(conf, 1.0)
+        # Restore original edge direction. Undirected NetworkX storage may
+        # canonicalize endpoint order, flipping `calls` and other directional
+        # edges in graph.json. The build path stashes the true endpoints in
+        # _src/_tgt for exactly this purpose (#563).
+        true_src = link.pop("_src", None)
+        true_tgt = link.pop("_tgt", None)
+        if true_src is not None and true_tgt is not None:
+            link["source"] = true_src
+            link["target"] = true_tgt
     data["hyperedges"] = getattr(G, "graph", {}).get("hyperedges", [])
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2)

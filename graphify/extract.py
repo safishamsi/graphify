@@ -2612,8 +2612,14 @@ def _resolve_cross_file_imports(
             stem = Path(src).stem
             label = node.get("label", "")
             nid = node.get("id", "")
-            # Only index real classes/functions (not file nodes, not method stubs)
-            if label and not label.endswith((")", ".py")) and "_" not in label[:1]:
+            # Only index real classes/functions (not file nodes, not method stubs,
+            # and not rationale nodes whose labels are free-form docstring text — #563)
+            if (
+                label
+                and not label.endswith((")", ".py"))
+                and "_" not in label[:1]
+                and node.get("file_type") != "rationale"
+            ):
                 stem_to_entities.setdefault(stem, {})[label] = nid
 
     # Pass 2: for each file, find `from .X import A, B, C` and resolve
@@ -2624,12 +2630,15 @@ def _resolve_cross_file_imports(
         stem = path.stem
         str_path = str(path)
 
-        # Find all classes defined in this file (the importers)
+        # Find all classes defined in this file (the importers).
+        # Excludes rationale nodes whose labels happen not to end in ")" or ".py"
+        # but which must never be treated as importing entities (#563).
         local_classes = [
             n["id"] for n in file_result.get("nodes", [])
             if n.get("source_file") == str_path
             and not n["label"].endswith((")", ".py"))
             and n["id"] != _make_id(stem)  # exclude file-level node
+            and n.get("file_type") != "rationale"
         ]
         if not local_classes:
             continue
@@ -3345,8 +3354,13 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
     # Cross-file call resolution for all languages
     # Each extractor saved unresolved calls in raw_calls. Now that we have all
     # nodes from all files, resolve any callee that exists in another file.
+    # Build label -> node_id index for cross-file call resolution.
+    # Skip rationale nodes (their labels are docstring text, not callable
+    # identifiers, and they were polluting matches for short names — #563).
     global_label_to_nid: dict[str, str] = {}
     for n in all_nodes:
+        if n.get("file_type") == "rationale":
+            continue
         raw = n.get("label", "")
         normalised = raw.strip("()").lstrip(".")
         if normalised:
