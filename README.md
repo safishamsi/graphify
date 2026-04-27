@@ -25,7 +25,7 @@
 
 Type `/graphify` in your AI coding assistant and it maps your entire project — code, docs, PDFs, images, videos — into a knowledge graph you can query instead of grepping through files.
 
-Works in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, Amp, OpenClaw, Factory Droid, Trae, Hermes, Kimi Code, Kiro, Pi, and Google Antigravity.
+Works in Claude Code, Codex, OpenCode, Kilo Code, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, Amp, OpenClaw, Factory Droid, Trae, Hermes, Kimi Code, Kiro, Pi, Devin CLI, and Google Antigravity.
 
 ```
 /graphify .
@@ -126,6 +126,7 @@ for example `graphify claude install --project` or `graphify codex install --pro
 | Claude Code (Windows) | `graphify install --platform windows` |
 | Codex | `graphify install --platform codex` |
 | OpenCode | `graphify install --platform opencode` |
+| Kilo Code | `graphify install --platform kilo` |
 | GitHub Copilot CLI | `graphify install --platform copilot` |
 | VS Code Copilot Chat | `graphify vscode install` |
 | Aider | `graphify install --platform aider` |
@@ -179,6 +180,7 @@ Run this once in your project after building a graph:
 | Claude Code | `graphify claude install` |
 | Codex | `graphify codex install` |
 | OpenCode | `graphify opencode install` |
+| Kilo Code | `graphify kilo install` |
 | GitHub Copilot CLI | `graphify copilot install` |
 | VS Code Copilot Chat | `graphify vscode install` |
 | Aider | `graphify aider install` |
@@ -201,6 +203,10 @@ This writes a small config file that tells your assistant to consult the knowled
 To remove graphify from all platforms at once: `graphify uninstall` (add `--purge` to also delete `graphify-out/`). Or use the per-platform command (e.g. `graphify claude uninstall`).
 
 ---
+
+**Kilo Code** installs the Graphify skill to `~/.config/kilo/skills/graphify/SKILL.md` and a native `/graphify` command to `~/.config/kilo/command/graphify.md`. `graphify kilo install` also writes `AGENTS.md` plus a native **`tool.execute.before` plugin** (`.kilo/plugins/graphify.js` + `.kilo/kilo.json` or `.kilo/kilo.jsonc` registration) so Kilo gets the same always-on graph reminder behavior through native `.kilo` config.
+
+**Cursor** writes `.cursor/rules/graphify.mdc` with `alwaysApply: true` — Cursor includes it in every conversation automatically, no hook needed.
 
 ## What's in the report
 
@@ -462,22 +468,41 @@ graphify hook install              # post-commit + post-checkout hooks
 graphify hook uninstall
 graphify hook status
 
-graphify claude install / uninstall
-graphify codex install / uninstall
-graphify opencode install / uninstall
-graphify cursor install / uninstall
-graphify gemini install / uninstall
-graphify copilot install / uninstall
-graphify aider install / uninstall
-graphify claw install / uninstall
-graphify droid install / uninstall
-graphify trae install / uninstall
-graphify trae-cn install / uninstall
-graphify hermes install / uninstall
-graphify amp install / uninstall
-graphify kiro install / uninstall
-graphify devin install / uninstall
-graphify antigravity install / uninstall
+# always-on assistant instructions - platform-specific
+graphify claude install            # CLAUDE.md + PreToolUse hook (Claude Code)
+graphify claude uninstall
+graphify codex install             # AGENTS.md + PreToolUse hook in .codex/hooks.json (Codex)
+graphify opencode install          # AGENTS.md + tool.execute.before plugin (OpenCode)
+graphify kilo install              # native Kilo skill + /graphify command + AGENTS.md + .kilo plugin
+graphify kilo uninstall
+graphify cursor install            # .cursor/rules/graphify.mdc (Cursor)
+graphify cursor uninstall
+graphify gemini install            # GEMINI.md + BeforeTool hook (Gemini CLI)
+graphify gemini uninstall
+graphify copilot install           # skill file (GitHub Copilot CLI)
+graphify copilot uninstall
+graphify aider install             # AGENTS.md (Aider)
+graphify aider uninstall
+graphify claw install              # AGENTS.md (OpenClaw)
+graphify claw uninstall
+graphify droid install             # AGENTS.md (Factory Droid)
+graphify droid uninstall
+graphify trae install              # AGENTS.md (Trae)
+graphify trae uninstall
+graphify trae-cn install           # AGENTS.md (Trae CN)
+graphify trae-cn uninstall
+graphify hermes install             # AGENTS.md + ~/.hermes/skills/ (Hermes)
+graphify hermes uninstall
+graphify amp install               # skill file (Amp)
+graphify amp uninstall
+graphify kiro install               # .kiro/skills/ + .kiro/steering/graphify.md (Kiro IDE/CLI)
+graphify kiro uninstall
+graphify pi install                # skill file (Pi coding agent)
+graphify pi uninstall
+graphify devin install             # skill file + .windsurf/rules/graphify.md (Devin CLI)
+graphify devin uninstall
+graphify antigravity install       # .agents/rules + .agents/workflows (Google Antigravity)
+graphify antigravity uninstall
 
 graphify extract ./docs                        # headless LLM extraction for CI (no IDE needed)
 graphify extract ./docs --backend gemini       # explicit backend: gemini, kimi, claude, openai, deepseek, ollama, bedrock, or claude-cli
