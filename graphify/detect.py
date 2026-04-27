@@ -18,8 +18,8 @@ class FileType(str, Enum):
 
 _MANIFEST_PATH = "graphify-out/manifest.json"
 
-CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.go', '.rs', '.java', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl'}
-DOC_EXTENSIONS = {'.md', '.txt', '.rst'}
+CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.mjs', '.ejs', '.go', '.rs', '.java', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.dart', '.v', '.sv'}
+DOC_EXTENSIONS = {'.md', '.mdx', '.txt', '.rst', '.html'}
 PAPER_EXTENSIONS = {'.pdf'}
 IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'}
 OFFICE_EXTENSIONS = {'.docx', '.xlsx'}
@@ -61,15 +61,14 @@ _PAPER_SIGNAL_THRESHOLD = 3  # need at least this many signals to call it a pape
 def _is_sensitive(path: Path) -> bool:
     """Return True if this file likely contains secrets and should be skipped."""
     name = path.name
-    full = str(path)
-    return any(p.search(name) or p.search(full) for p in _SENSITIVE_PATTERNS)
+    return any(p.search(name) for p in _SENSITIVE_PATTERNS)
 
 
 def _looks_like_paper(path: Path) -> bool:
     """Heuristic: does this text file read like an academic paper?"""
     try:
         # Only scan first 3000 chars for speed
-        text = path.read_text(errors="ignore")[:3000]
+        text = path.read_text(encoding="utf-8", errors="ignore")[:3000]
         hits = sum(1 for pattern in _PAPER_SIGNALS if pattern.search(text))
         return hits >= _PAPER_SIGNAL_THRESHOLD
     except Exception:
@@ -80,6 +79,9 @@ _ASSET_DIR_MARKERS = {".imageset", ".xcassets", ".appiconset", ".colorset", ".la
 
 
 def classify_file(path: Path) -> FileType | None:
+    # Compound extensions must be checked before simple suffix lookup
+    if path.name.lower().endswith(".blade.php"):
+        return FileType.CODE
     ext = path.suffix.lower()
     if ext in CODE_EXTENSIONS:
         return FileType.CODE
@@ -226,7 +228,7 @@ def count_words(path: Path) -> int:
             return len(docx_to_markdown(path).split())
         if ext == ".xlsx":
             return len(xlsx_to_markdown(path).split())
-        return len(path.read_text(errors="ignore").split())
+        return len(path.read_text(encoding="utf-8", errors="ignore").split())
     except Exception:
         return 0
 
@@ -239,6 +241,14 @@ _SKIP_DIRS = {
     "site-packages", "lib64",
     ".pytest_cache", ".mypy_cache", ".ruff_cache",
     ".tox", ".eggs", "*.egg-info",
+    "graphify-out",  # never treat own output as source input (#524)
+}
+
+# Large generated files that are never useful to extract
+_SKIP_FILES = {
+    "package-lock.json", "yarn.lock", "pnpm-lock.yaml",
+    "Cargo.lock", "poetry.lock", "Gemfile.lock",
+    "composer.lock", "go.sum", "go.work.sum",
 }
 
 def _is_noise_dir(part: str) -> bool:
@@ -253,28 +263,26 @@ def _is_noise_dir(part: str) -> bool:
     return False
 
 
-def _load_graphifyignore(root: Path) -> list[str]:
-    """Read .graphifyignore from root **and ancestor directories**, returning patterns.
+def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
+    """Read .graphifyignore from root **and ancestor directories**.
 
-    Walks upward from *root* towards the filesystem root, collecting patterns
-    from every ``.graphifyignore`` encountered (like ``.gitignore`` discovery).
-    The search stops at the filesystem root or at a ``.git`` directory boundary
-    so it doesn't leak outside the repository.
+    Returns a list of (anchor_dir, pattern) pairs. Each pattern is matched
+    against paths relative to both the scan root and the anchor_dir where
+    the .graphifyignore file was found — so patterns written relative to a
+    parent directory still work when graphify is run on a subfolder.
 
-    Lines starting with # are comments. Blank lines are ignored.
-    Patterns follow gitignore semantics: glob matched against the path
-    relative to root. A leading slash anchors to root. A trailing slash
-    matches directories only (we match both dir and file for simplicity).
+    Walks upward from *root* towards the filesystem root, stopping at a
+    ``.git`` boundary. Lines starting with # are comments; blank lines ignored.
     """
-    patterns: list[str] = []
+    patterns: list[tuple[Path, str]] = []
     current = root.resolve()
     while True:
         ignore_file = current / ".graphifyignore"
         if ignore_file.exists():
-            for line in ignore_file.read_text(errors="ignore").splitlines():
+            for line in ignore_file.read_text(encoding="utf-8", errors="ignore").splitlines():
                 line = line.strip()
                 if line and not line.startswith("#"):
-                    patterns.append(line)
+                    patterns.append((current, line))
         # Stop climbing once we've processed the git repo root
         if (current / ".git").exists():
             break
@@ -285,38 +293,49 @@ def _load_graphifyignore(root: Path) -> list[str]:
     return patterns
 
 
-def _is_ignored(path: Path, root: Path, patterns: list[str]) -> bool:
+def _is_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> bool:
     """Return True if path matches any .graphifyignore pattern."""
     if not patterns:
         return False
-    try:
-        rel = str(path.relative_to(root))
-    except ValueError:
-        return False
-    rel = rel.replace(os.sep, "/")
-    parts = rel.split("/")
-    for pattern in patterns:
-        # Normalize: strip leading/trailing slashes for matching purposes
-        p = pattern.strip("/")
-        if not p:
-            continue
-        # Match against full relative path
+
+    def _matches(rel: str, p: str) -> bool:
+        parts = rel.split("/")
         if fnmatch.fnmatch(rel, p):
             return True
-        # Match against filename alone
         if fnmatch.fnmatch(path.name, p):
             return True
-        # Match against any path segment or prefix
-        # e.g. "vendor" or "vendor/" should match "vendor/lib.py"
         for i, part in enumerate(parts):
             if fnmatch.fnmatch(part, p):
                 return True
             if fnmatch.fnmatch("/".join(parts[:i + 1]), p):
                 return True
+        return False
+
+    for anchor, pattern in patterns:
+        p = pattern.strip("/")
+        if not p:
+            continue
+        # Try path relative to the scan root
+        try:
+            rel = str(path.relative_to(root)).replace(os.sep, "/")
+            if _matches(rel, p):
+                return True
+        except ValueError:
+            pass
+        # Also try relative to the anchor dir (the .graphifyignore's location),
+        # so patterns written at a parent level still fire when running on a subfolder
+        if anchor != root:
+            try:
+                rel_anchor = str(path.relative_to(anchor)).replace(os.sep, "/")
+                if _matches(rel_anchor, p):
+                    return True
+            except ValueError:
+                pass
     return False
 
 
 def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
+    root = root.resolve()
     files: dict[FileType, list[str]] = {
         FileType.CODE: [],
         FileType.DOCUMENT: [],
@@ -357,6 +376,8 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
                     and not _is_ignored(dp / d, root, ignore_patterns)
                 ]
             for fname in filenames:
+                if fname in _SKIP_FILES:
+                    continue
                 p = dp / fname
                 if p not in seen:
                     seen.add(p)
@@ -427,7 +448,7 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
 def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict[str, float]:
     """Load the file modification time manifest from a previous run."""
     try:
-        return json.loads(Path(manifest_path).read_text())
+        return json.loads(Path(manifest_path).read_text(encoding="utf-8"))
     except Exception:
         return {}
 
@@ -442,7 +463,7 @@ def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PA
             except OSError:
                 pass  # file deleted between detect() and manifest write - skip it
     Path(manifest_path).parent.mkdir(parents=True, exist_ok=True)
-    Path(manifest_path).write_text(json.dumps(manifest, indent=2))
+    Path(manifest_path).write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
 
 def detect_incremental(root: Path, manifest_path: str = _MANIFEST_PATH) -> dict:

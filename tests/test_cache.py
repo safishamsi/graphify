@@ -62,8 +62,8 @@ def test_cached_files(tmp_path, cache_root):
     save_cached(f2, {"nodes": [], "edges": []}, root=cache_root)
 
     hashes = cached_files(cache_root)
-    assert file_hash(f1) in hashes
-    assert file_hash(f2) in hashes
+    assert file_hash(f1, cache_root) in hashes
+    assert file_hash(f2, cache_root) in hashes
 
 
 def test_clear_cache(tmp_file, cache_root):

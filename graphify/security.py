@@ -153,7 +153,13 @@ def validate_graph_path(path: str | Path, base: Path | None = None) -> Path:
         FileNotFoundError - resolved path does not exist
     """
     if base is None:
-        base = Path("graphify-out").resolve()
+        resolved_hint = Path(path).resolve()
+        for candidate in [resolved_hint, *resolved_hint.parents]:
+            if candidate.name == "graphify-out":
+                base = candidate
+                break
+        if base is None:
+            base = Path("graphify-out").resolve()
 
     base = base.resolve()
     if not base.exists():
@@ -185,13 +191,15 @@ _CONTROL_CHAR_RE = re.compile(r"[\x00-\x1f\x7f]")
 _MAX_LABEL_LEN = 256
 
 
-def sanitize_label(text: str) -> str:
+def sanitize_label(text: str | None) -> str:
     """Strip control characters and cap length.
 
     Safe for embedding in JSON data (inside <script> tags) and plain text.
     For direct HTML injection, wrap the result with html.escape().
     """
-    text = _CONTROL_CHAR_RE.sub("", text)
+    if text is None:
+        return ""
+    text = _CONTROL_CHAR_RE.sub("", str(text))
     if len(text) > _MAX_LABEL_LEN:
         text = text[:_MAX_LABEL_LEN]
     return text

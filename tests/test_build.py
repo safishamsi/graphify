@@ -29,6 +29,27 @@ def test_ambiguous_edge_preserved():
     data = G.edges["n_layernorm", "n_concept_attn"]
     assert data["confidence"] == "AMBIGUOUS"
 
+def test_legacy_node_source_canonicalized():
+    """Legacy 'source' key on nodes is renamed to 'source_file' before graph build."""
+    ext = {"nodes": [{"id": "n1", "label": "A", "file_type": "code", "source": "a.py"}],
+           "edges": [], "input_tokens": 0, "output_tokens": 0}
+    G = build_from_json(ext)
+    assert "source_file" in G.nodes["n1"]
+    assert G.nodes["n1"]["source_file"] == "a.py"
+    assert "source" not in G.nodes["n1"]
+
+
+def test_legacy_edge_from_to_canonicalized():
+    """Legacy 'from'/'to' keys on edges are accepted alongside 'source'/'target'."""
+    ext = {"nodes": [{"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"},
+                     {"id": "n2", "label": "B", "file_type": "code", "source_file": "b.py"}],
+           "edges": [{"from": "n1", "to": "n2", "relation": "calls",
+                      "confidence": "EXTRACTED", "source_file": "a.py", "weight": 1.0}],
+           "input_tokens": 0, "output_tokens": 0}
+    G = build_from_json(ext)
+    assert G.number_of_edges() == 1
+
+
 def test_build_merges_multiple_extractions():
     ext1 = {"nodes": [{"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"}],
             "edges": [], "input_tokens": 0, "output_tokens": 0}

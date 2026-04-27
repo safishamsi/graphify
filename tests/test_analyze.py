@@ -23,7 +23,7 @@ def test_god_nodes_returns_list():
 def test_god_nodes_sorted_by_degree():
     G = make_graph()
     result = god_nodes(G, top_n=10)
-    degrees = [r["edges"] for r in result]
+    degrees = [r["degree"] for r in result]
     assert degrees == sorted(degrees, reverse=True)
 
 
@@ -32,7 +32,7 @@ def test_god_nodes_have_required_keys():
     result = god_nodes(G, top_n=1)
     assert "id" in result[0]
     assert "label" in result[0]
-    assert "edges" in result[0]
+    assert "degree" in result[0]
 
 
 def test_surprising_connections_cross_source_multi_file():

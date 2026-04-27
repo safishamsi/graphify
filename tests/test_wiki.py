@@ -20,7 +20,7 @@ def _make_graph():
 COMMUNITIES = {0: ["n1", "n2"], 1: ["n3", "n4"]}
 LABELS = {0: "Parsing Layer", 1: "Rendering Layer"}
 COHESION = {0: 0.85, 1: 0.72}
-GOD_NODES = [{"id": "n1", "label": "parse", "edges": 2}]
+GOD_NODES = [{"id": "n1", "label": "parse", "degree": 2}]
 
 
 def test_to_wiki_writes_index(tmp_path):
@@ -105,7 +105,7 @@ def test_god_node_article_links_community(tmp_path):
 def test_to_wiki_skips_missing_god_node_ids(tmp_path):
     """God node with bad ID should not crash."""
     G = _make_graph()
-    bad_gods = [{"id": "nonexistent", "label": "ghost", "edges": 99}]
+    bad_gods = [{"id": "nonexistent", "label": "ghost", "degree": 99}]
     n = to_wiki(G, COMMUNITIES, tmp_path, community_labels=LABELS, god_nodes_data=bad_gods)
     # 2 communities + 0 god nodes (nonexistent skipped) = 2
     assert n == 2

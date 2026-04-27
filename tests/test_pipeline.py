@@ -51,7 +51,7 @@ def run_pipeline(tmp_path: Path) -> dict:
     # Step 5: analyze
     gods = god_nodes(G)
     assert len(gods) > 0
-    assert all("id" in g and "edges" in g for g in gods)
+    assert all("id" in g and "degree" in g for g in gods)
 
     surprises = surprising_connections(G, communities)
     assert isinstance(surprises, list)

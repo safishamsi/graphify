@@ -1,6 +1,7 @@
 # monitor a folder and auto-trigger --update when files change
 from __future__ import annotations
 import json
+import sys
 import time
 from pathlib import Path
 
@@ -11,11 +12,35 @@ _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAG
 _CODE_EXTENSIONS = CODE_EXTENSIONS
 
 
+def _report_root_label(watch_path: Path) -> str:
+    if watch_path.is_absolute():
+        return watch_path.name or str(watch_path)
+    return Path.cwd().name if watch_path == Path(".") else str(watch_path)
+
+
+def _relativize_source_files(payload: dict, root: Path) -> None:
+    for bucket in ("nodes", "edges", "hyperedges"):
+        for item in payload.get(bucket, []):
+            source = item.get("source_file")
+            if not source:
+                continue
+            source_path = Path(source)
+            if not source_path.is_absolute():
+                continue
+            try:
+                item["source_file"] = str(source_path.resolve().relative_to(root))
+            except ValueError:
+                continue
+
+
 def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
     """Re-run AST extraction + build + cluster + report for code files. No LLM needed.
 
     Returns True on success, False on error.
     """
+    watch_root = watch_path.resolve()
+    project_root = Path.cwd().resolve() if not watch_path.is_absolute() else watch_root
+    report_root = _report_root_label(watch_path)
     try:
         from graphify.extract import extract
         from graphify.detect import detect
@@ -23,7 +48,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
         from graphify.cluster import cluster, score_all
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
         from graphify.report import generate
-        from graphify.export import to_json
+        from graphify.export import to_json, to_html
 
         detected = detect(watch_path, follow_symlinks=follow_symlinks)
         code_files = [Path(f) for f in detected['files']['code']]
@@ -32,7 +57,31 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
             print("[graphify watch] No code files found - nothing to rebuild.")
             return False
 
-        result = extract(code_files)
+        result = extract(code_files, cache_root=watch_root)
+
+        # Preserve semantic nodes/edges from a previous full run.
+        # AST-only rebuild replaces code nodes; doc/paper/image nodes are kept.
+        out = watch_path / "graphify-out"
+        existing_graph = out / "graph.json"
+        if existing_graph.exists():
+            try:
+                existing = json.loads(existing_graph.read_text(encoding="utf-8"))
+                code_ids = {n["id"] for n in existing.get("nodes", []) if n.get("file_type") == "code"}
+                sem_nodes = [n for n in existing.get("nodes", []) if n.get("file_type") != "code"]
+                sem_edges = [e for e in existing.get("links", existing.get("edges", []))
+                             if e.get("confidence") in ("INFERRED", "AMBIGUOUS")
+                             or (e.get("source") not in code_ids and e.get("target") not in code_ids)]
+                result = {
+                    "nodes": result["nodes"] + sem_nodes,
+                    "edges": result["edges"] + sem_edges,
+                    "hyperedges": existing.get("hyperedges", []),
+                    "input_tokens": 0,
+                    "output_tokens": 0,
+                }
+            except Exception:
+                pass  # corrupt graph.json - proceed with AST-only
+
+        _relativize_source_files(result, project_root)
 
         detection = {
             "files": {"code": [str(f) for f in code_files], "document": [], "paper": [], "image": []},
@@ -48,13 +97,24 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
         labels = {cid: "Community " + str(cid) for cid in communities}
         questions = suggest_questions(G, communities, labels)
 
-        out = watch_path / "graphify-out"
         out.mkdir(exist_ok=True)
 
         report = generate(G, communities, cohesion, labels, gods, surprises, detection,
-                          {"input": 0, "output": 0}, str(watch_path), suggested_questions=questions)
-        (out / "GRAPH_REPORT.md").write_text(report)
+                          {"input": 0, "output": 0}, report_root, suggested_questions=questions)
+        (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
         to_json(G, communities, str(out / "graph.json"))
+
+        # to_html raises ValueError for graphs > MAX_NODES_FOR_VIZ (5000).
+        # Wrap so core outputs (graph.json + GRAPH_REPORT.md) always land.
+        html_written = False
+        try:
+            to_html(G, communities, str(out / "graph.html"), community_labels=labels or None)
+            html_written = True
+        except ValueError as viz_err:
+            print(f"[graphify watch] Skipped graph.html: {viz_err}")
+            stale = out / "graph.html"
+            if stale.exists():
+                stale.unlink()
 
         # clear stale needs_update flag if present
         flag = out / "needs_update"
@@ -63,7 +123,8 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
 
         print(f"[graphify watch] Rebuilt: {G.number_of_nodes()} nodes, "
               f"{G.number_of_edges()} edges, {len(communities)} communities")
-        print(f"[graphify watch] graph.json and GRAPH_REPORT.md updated in {out}")
+        products = "graph.json" + (", graph.html" if html_written else "") + " and GRAPH_REPORT.md"
+        print(f"[graphify watch] {products} updated in {out}")
         return True
 
     except Exception as exc:
@@ -71,11 +132,26 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
         return False
 
 
+def check_update(watch_path: Path) -> bool:
+    """Check for pending semantic update flag and notify the user if set.
+
+    Cron-safe: always returns True so cron jobs do not alarm.
+    Non-code file changes (docs, papers, images) require LLM-backed
+    re-extraction via `/graphify --update` — this function only signals
+    that the update is needed.
+    """
+    flag = Path(watch_path) / "graphify-out" / "needs_update"
+    if flag.exists():
+        print(f"[graphify check-update] Pending non-code changes in {watch_path}.")
+        print("[graphify check-update] Run `/graphify --update` to apply semantic re-extraction.")
+    return True
+
+
 def _notify_only(watch_path: Path) -> None:
     """Write a flag file and print a notification (fallback for non-code-only corpora)."""
     flag = watch_path / "graphify-out" / "needs_update"
     flag.parent.mkdir(parents=True, exist_ok=True)
-    flag.write_text("1")
+    flag.write_text("1", encoding="utf-8")
     print(f"\n[graphify watch] New or changed files detected in {watch_path}")
     print("[graphify watch] Non-code files changed - semantic re-extraction requires LLM.")
     print("[graphify watch] Run `/graphify --update` in Claude Code to update the graph.")
@@ -99,6 +175,7 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
     """
     try:
         from watchdog.observers import Observer
+        from watchdog.observers.polling import PollingObserver
         from watchdog.events import FileSystemEventHandler
     except ImportError as e:
         raise ImportError("watchdog not installed. Run: pip install watchdog") from e
@@ -124,7 +201,8 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
             changed.add(path)
 
     handler = Handler()
-    observer = Observer()
+    # Use polling observer on macOS — FSEvents can miss rapid saves in some editors
+    observer = PollingObserver() if sys.platform == "darwin" else Observer()
     observer.schedule(handler, str(watch_path), recursive=True)
     observer.start()
 

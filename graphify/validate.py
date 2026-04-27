@@ -36,14 +36,15 @@ def validate_extraction(data: dict) -> list[str]:
                     f"'{node['file_type']}' - must be one of {sorted(VALID_FILE_TYPES)}"
                 )
 
-    # Edges
-    if "edges" not in data:
+    # Edges - accept "links" (NetworkX <= 3.1) as fallback for "edges"
+    edge_list = data.get("edges") if "edges" in data else data.get("links")
+    if edge_list is None:
         errors.append("Missing required key 'edges'")
-    elif not isinstance(data["edges"], list):
+    elif not isinstance(edge_list, list):
         errors.append("'edges' must be a list")
     else:
         node_ids = {n["id"] for n in data.get("nodes", []) if isinstance(n, dict) and "id" in n}
-        for i, edge in enumerate(data["edges"]):
+        for i, edge in enumerate(edge_list):
             if not isinstance(edge, dict):
                 errors.append(f"Edge {i} must be an object")
                 continue

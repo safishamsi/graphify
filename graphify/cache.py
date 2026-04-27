@@ -17,25 +17,35 @@ def _body_content(content: bytes) -> bytes:
     return content
 
 
-def file_hash(path: Path) -> str:
-    """SHA256 of file contents + resolved path. Prevents cache collisions on identical content.
+def file_hash(path: Path, root: Path = Path(".")) -> str:
+    """SHA256 of file contents + path relative to root.
+
+    Using a relative path (not absolute) makes cache entries portable across
+    machines and checkout directories, so shared caches and CI work correctly.
+    Falls back to the resolved absolute path if the file is outside root.
 
     For Markdown files (.md), only the body below the YAML frontmatter is hashed,
     so metadata-only changes (e.g. reviewed, status, tags) do not invalidate the cache.
     """
     p = Path(path)
+    if not p.is_file():
+        raise IsADirectoryError(f"file_hash requires a file, got: {p}")
     raw = p.read_bytes()
     content = _body_content(raw) if p.suffix.lower() == ".md" else raw
     h = hashlib.sha256()
     h.update(content)
     h.update(b"\x00")
-    h.update(str(p.resolve()).encode())
+    try:
+        rel = p.resolve().relative_to(Path(root).resolve())
+        h.update(str(rel).encode())
+    except ValueError:
+        h.update(str(p.resolve()).encode())
     return h.hexdigest()
 
 
 def cache_dir(root: Path = Path(".")) -> Path:
     """Returns graphify-out/cache/ - creates it if needed."""
-    d = Path(root) / "graphify-out" / "cache"
+    d = Path(root).resolve() / "graphify-out" / "cache"
     d.mkdir(parents=True, exist_ok=True)
     return d
 
@@ -48,14 +58,14 @@ def load_cached(path: Path, root: Path = Path(".")) -> dict | None:
     Returns None if no cache entry or file has changed.
     """
     try:
-        h = file_hash(path)
+        h = file_hash(path, root)
     except OSError:
         return None
     entry = cache_dir(root) / f"{h}.json"
     if not entry.exists():
         return None
     try:
-        return json.loads(entry.read_text())
+        return json.loads(entry.read_text(encoding="utf-8"))
     except (json.JSONDecodeError, OSError):
         return None
 
@@ -65,13 +75,27 @@ def save_cached(path: Path, result: dict, root: Path = Path(".")) -> None:
 
     Stores as graphify-out/cache/{hash}.json where hash = SHA256 of current file contents.
     result should be a dict with 'nodes' and 'edges' lists.
+
+    No-ops if `path` is not a regular file. Subagent-produced semantic fragments
+    occasionally carry a directory path in `source_file`; skipping them prevents
+    IsADirectoryError from aborting the whole batch.
     """
-    h = file_hash(path)
+    p = Path(path)
+    if not p.is_file():
+        return
+    h = file_hash(p, root)
     entry = cache_dir(root) / f"{h}.json"
     tmp = entry.with_suffix(".tmp")
     try:
-        tmp.write_text(json.dumps(result))
-        os.replace(tmp, entry)
+        tmp.write_text(json.dumps(result), encoding="utf-8")
+        try:
+            os.replace(tmp, entry)
+        except PermissionError:
+            # Windows: os.replace can fail with WinError 5 if the target is
+            # briefly locked. Fall back to copy-then-delete.
+            import shutil
+            shutil.copy2(tmp, entry)
+            tmp.unlink(missing_ok=True)
     except Exception:
         tmp.unlink(missing_ok=True)
         raise
@@ -148,7 +172,7 @@ def save_semantic_cache(
         p = Path(fpath)
         if not p.is_absolute():
             p = Path(root) / p
-        if p.exists():
+        if p.is_file():
             save_cached(p, result, root)
             saved += 1
     return saved

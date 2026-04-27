@@ -166,7 +166,7 @@ def _make_report(G):
     communities = {0: list(G.nodes())}
     cohesion = {0: 1.0}
     labels = {0: "All"}
-    gods = [{"label": "BasicAuth", "edges": 2}]
+    gods = [{"label": "BasicAuth", "degree": 2}]
     surprises = []
     return generate(G, communities, cohesion, labels, gods, surprises, SAMPLE_DETECTION, {"input": 10, "output": 5}, ".")
 

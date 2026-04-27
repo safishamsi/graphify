@@ -234,6 +234,58 @@ def test_php_finds_imports():
     r = extract_php(FIXTURES / "sample.php")
     assert "imports" in _relations(r)
 
+def test_php_finds_static_property_access():
+    r = extract_php(FIXTURES / "sample_php_static_prop.php")
+    assert "uses_static_prop" in _relations(r)
+
+def test_php_static_prop_target_is_holding_class():
+    r = extract_php(FIXTURES / "sample_php_static_prop.php")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    uses_prop = [
+        (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
+        for e in r["edges"] if e["relation"] == "uses_static_prop"
+    ]
+    assert any("DefaultPalette" in tgt for _, tgt in uses_prop)
+
+def test_php_finds_config_helper_call():
+    r = extract_php(FIXTURES / "sample_php_config.php")
+    assert "uses_config" in _relations(r)
+
+def test_php_config_helper_target_matches_first_segment():
+    r = extract_php(FIXTURES / "sample_php_config.php")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    uses_cfg = [
+        (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
+        for e in r["edges"] if e["relation"] == "uses_config"
+    ]
+    assert any("Throttle" in tgt for _, tgt in uses_cfg)
+
+def test_php_finds_container_bind():
+    r = extract_php(FIXTURES / "sample_php_container.php")
+    assert "bound_to" in _relations(r)
+
+def test_php_container_bind_links_contract_to_implementation():
+    r = extract_php(FIXTURES / "sample_php_container.php")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    bound = [
+        (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
+        for e in r["edges"] if e["relation"] == "bound_to"
+    ]
+    assert any("PaymentGateway" in src and "StripeGateway" in tgt for src, tgt in bound)
+
+def test_php_finds_event_listeners():
+    r = extract_php(FIXTURES / "sample_php_listen.php")
+    assert "listened_by" in _relations(r)
+
+def test_php_event_listener_links_event_to_listener():
+    r = extract_php(FIXTURES / "sample_php_listen.php")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    listened = [
+        (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
+        for e in r["edges"] if e["relation"] == "listened_by"
+    ]
+    assert any("UserRegistered" in src and "SendWelcomeEmail" in tgt for src, tgt in listened)
+
 
 # ── Swift ────────────────────────────────────────────────────────────────────
 

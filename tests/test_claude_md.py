@@ -22,7 +22,7 @@ def test_install_contains_expected_rules(tmp_path):
     content = (tmp_path / "CLAUDE.md").read_text()
     assert "GRAPH_REPORT.md" in content
     assert "wiki/index.md" in content
-    assert "_rebuild_code" in content
+    assert "graphify update" in content
 
 
 def test_install_appends_to_existing_claude_md(tmp_path):

@@ -16,7 +16,7 @@ def _load_graph(graph_path: str) -> nx.Graph:
         if not resolved.exists():
             raise FileNotFoundError(f"Graph file not found: {resolved}")
         safe = resolved
-        data = json.loads(safe.read_text())
+        data = json.loads(safe.read_text(encoding="utf-8"))
         try:
             return json_graph.node_link_graph(data, edges="links")
         except TypeError:
@@ -39,12 +39,19 @@ def _communities_from_graph(G: nx.Graph) -> dict[int, list[str]]:
     return communities
 
 
+def _strip_diacritics(text: str) -> str:
+    import unicodedata
+    nfkd = unicodedata.normalize("NFKD", text)
+    return "".join(c for c in nfkd if not unicodedata.combining(c))
+
+
 def _score_nodes(G: nx.Graph, terms: list[str]) -> list[tuple[float, str]]:
     scored = []
+    norm_terms = [_strip_diacritics(t).lower() for t in terms]
     for nid, data in G.nodes(data=True):
-        label = data.get("label", "").lower()
-        source = data.get("source_file", "").lower()
-        score = sum(1 for t in terms if t in label) + sum(0.5 for t in terms if t in source)
+        norm_label = data.get("norm_label") or _strip_diacritics(data.get("label") or "").lower()
+        source = (data.get("source_file") or "").lower()
+        score = sum(1 for t in norm_terms if t in norm_label) + sum(0.5 for t in norm_terms if t in source)
         if score > 0:
             scored.append((score, nid))
     return sorted(scored, reverse=True)
@@ -92,7 +99,8 @@ def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_bu
         lines.append(line)
     for u, v in edges:
         if u in nodes and v in nodes:
-            d = G.edges[u, v]
+            raw = G[u][v]
+            d = next(iter(raw.values()), {}) if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)) else raw
             line = f"EDGE {sanitize_label(G.nodes[u].get('label', u))} --{d.get('relation', '')} [{d.get('confidence', '')}]--> {sanitize_label(G.nodes[v].get('label', v))}"
             lines.append(line)
     output = "\n".join(lines)
@@ -102,10 +110,41 @@ def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_bu
 
 
 def _find_node(G: nx.Graph, label: str) -> list[str]:
-    """Return node IDs whose label or ID matches the search term (case-insensitive)."""
-    term = label.lower()
+    """Return node IDs whose label or ID matches the search term (diacritic-insensitive)."""
+    term = _strip_diacritics(label).lower()
     return [nid for nid, d in G.nodes(data=True)
-            if term in d.get("label", "").lower() or term == nid.lower()]
+            if term in (d.get("norm_label") or _strip_diacritics(d.get("label") or "").lower())
+            or term == nid.lower()]
+
+
+def _filter_blank_stdin() -> None:
+    """Filter blank lines from stdin before MCP reads it.
+
+    Some MCP clients (Claude Desktop, etc.) send blank lines between JSON
+    messages. The MCP stdio transport tries to parse every line as a
+    JSONRPCMessage, so a bare newline triggers a Pydantic ValidationError.
+    This installs an OS-level pipe that relays stdin while dropping blanks.
+    """
+    import os
+    import threading
+
+    r_fd, w_fd = os.pipe()
+    saved_fd = os.dup(sys.stdin.fileno())
+
+    def _relay() -> None:
+        try:
+            with open(saved_fd, "rb") as src, open(w_fd, "wb") as dst:
+                for line in src:
+                    if line.strip():
+                        dst.write(line)
+                        dst.flush()
+        except Exception:
+            pass
+
+    threading.Thread(target=_relay, daemon=True).start()
+    os.dup2(r_fd, sys.stdin.fileno())
+    os.close(r_fd)
+    sys.stdin = open(0, "r", closefd=False)
 
 
 def serve(graph_path: str = "graphify-out/graph.json") -> None:
@@ -212,7 +251,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
     def _tool_get_node(arguments: dict) -> str:
         label = arguments["label"].lower()
         matches = [(nid, d) for nid, d in G.nodes(data=True)
-                   if label in d.get("label", "").lower() or label == nid.lower()]
+                   if label in (d.get("label") or "").lower() or label == nid.lower()]
         if not matches:
             return f"No node matching '{label}' found."
         nid, d = matches[0]
@@ -256,7 +295,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         from .analyze import god_nodes as _god_nodes
         nodes = _god_nodes(G, top_n=int(arguments.get("top_n", 10)))
         lines = ["God nodes (most connected):"]
-        lines += [f"  {i}. {n['label']} - {n['edges']} edges" for i, n in enumerate(nodes, 1)]
+        lines += [f"  {i}. {n['label']} - {n['degree']} edges" for i, n in enumerate(nodes, 1)]
         return "\n".join(lines)
 
     def _tool_graph_stats(_: dict) -> str:
@@ -325,6 +364,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         async with stdio_server() as streams:
             await server.run(streams[0], streams[1], server.create_initialization_options())
 
+    _filter_blank_stdin()
     asyncio.run(main())
 
 

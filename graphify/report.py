@@ -1,7 +1,15 @@
 # generate GRAPH_REPORT.md - the human-readable audit trail
 from __future__ import annotations
+import re
 from datetime import date
 import networkx as nx
+
+
+def _safe_community_name(label: str) -> str:
+    """Mirrors export.safe_name so community hub filenames and report wikilinks always agree."""
+    cleaned = re.sub(r'[\\/*?:"<>|#^[\]]', "", label.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")).strip()
+    cleaned = re.sub(r"\.(md|mdx|markdown)$", "", cleaned, flags=re.IGNORECASE)
+    return cleaned or "unnamed"
 
 
 def generate(
@@ -41,18 +49,34 @@ def generate(
             "- Verdict: corpus is large enough that graph structure adds value.",
         ]
 
+    from .analyze import _is_file_node as _ifn
+    non_empty = {cid: nodes for cid, nodes in communities.items()
+                 if any(not _ifn(G, n) for n in nodes)}
+
     lines += [
         "",
         "## Summary",
-        f"- {G.number_of_nodes()} nodes · {G.number_of_edges()} edges · {len(communities)} communities detected",
+        f"- {G.number_of_nodes()} nodes · {G.number_of_edges()} edges · {len(non_empty)} communities detected",
         f"- Extraction: {ext_pct}% EXTRACTED · {inf_pct}% INFERRED · {amb_pct}% AMBIGUOUS"
         + (f" · INFERRED: {len(inf_edges)} edges (avg confidence: {inf_avg})" if inf_avg is not None else ""),
         f"- Token cost: {token_cost.get('input', 0):,} input · {token_cost.get('output', 0):,} output",
+    ]
+
+    # Community hub navigation - links to _COMMUNITY_*.md files in the Obsidian vault.
+    # Without these, GRAPH_REPORT.md is a dead-end and the vault splits into disconnected components.
+    if non_empty:
+        lines += ["", "## Community Hubs (Navigation)"]
+        for cid in non_empty:
+            label = community_labels.get(cid, f"Community {cid}")
+            safe = _safe_community_name(label)
+            lines.append(f"- [[_COMMUNITY_{safe}|{label}]]")
+
+    lines += [
         "",
         "## God Nodes (most connected - your core abstractions)",
     ]
     for i, node in enumerate(god_node_list, 1):
-        lines.append(f"{i}. `{node['label']}` - {node['edges']} edges")
+        lines.append(f"{i}. `{node['label']}` - {node['degree']} edges")
 
     lines += ["", "## Surprising Connections (you probably didn't know these)"]
     if surprise_list:
@@ -85,12 +109,13 @@ def generate(
             lines.append(f"- **{h.get('label', h.get('id', ''))}** — {node_labels} [{conf_tag}]")
 
     lines += ["", "## Communities"]
-    from .analyze import _is_file_node as _ifn
     for cid, nodes in communities.items():
         label = community_labels.get(cid, f"Community {cid}")
         score = cohesion_scores.get(cid, 0.0)
         # Filter method/function stubs from display - they're structural noise
         real_nodes = [n for n in nodes if not _ifn(G, n)]
+        if not real_nodes:
+            continue
         display = [G.nodes[n].get("label", n) for n in real_nodes[:8]]
         suffix = f" (+{len(real_nodes)-8} more)" if len(real_nodes) > 8 else ""
         lines += [
@@ -119,7 +144,8 @@ def generate(
         if G.degree(n) <= 1 and not _is_file_node(G, n) and not _is_concept_node(G, n)
     ]
     thin_communities = {
-        cid: nodes for cid, nodes in communities.items() if len(nodes) < 3
+        cid: nodes for cid, nodes in communities.items()
+        if 0 < sum(1 for n in nodes if not _is_file_node(G, n)) < 3
     }
     gap_count = len(isolated) + len(thin_communities)
 
