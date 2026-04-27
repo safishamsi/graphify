@@ -993,6 +993,7 @@ def main() -> None:
         print("  watch <path>            watch a folder and rebuild the graph on code changes")
         print("  update <path>           re-extract code files and update the graph (no LLM needed)")
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
+        print("    --no-viz                skip graph.html generation (useful for >5000 node graphs / CI)")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
         print("    --budget N              cap output at N tokens (default 2000)")
@@ -1370,6 +1371,7 @@ def main() -> None:
 
     elif cmd == "cluster-only":
         watch_path = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".")
+        no_viz = "--no-viz" in sys.argv
         graph_json = watch_path / "graphify-out" / "graph.json"
         if not graph_json.exists():
             print(f"error: no graph found at {graph_json} — run /graphify first", file=sys.stderr)
@@ -1398,8 +1400,25 @@ def main() -> None:
         out = watch_path / "graphify-out"
         (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
         to_json(G, communities, str(out / "graph.json"))
-        to_html(G, communities, str(out / "graph.html"), community_labels=labels or None)
-        print(f"Done — {len(communities)} communities. GRAPH_REPORT.md, graph.json and graph.html updated.")
+
+        # Mirror watch.py pattern: gate to_html so core outputs (graph.json +
+        # GRAPH_REPORT.md) always land. Honor --no-viz explicitly; otherwise
+        # fall back to ValueError handling so an oversized graph doesn't crash
+        # the CLI mid-write and leave a stale graph.html on disk.
+        html_target = out / "graph.html"
+        if no_viz:
+            if html_target.exists():
+                html_target.unlink()
+            print(f"Done — {len(communities)} communities. GRAPH_REPORT.md and graph.json updated (--no-viz; graph.html removed).")
+        else:
+            try:
+                to_html(G, communities, str(html_target), community_labels=labels or None)
+                print(f"Done — {len(communities)} communities. GRAPH_REPORT.md, graph.json and graph.html updated.")
+            except ValueError as viz_err:
+                if html_target.exists():
+                    html_target.unlink()
+                print(f"Skipped graph.html: {viz_err}")
+                print(f"Done — {len(communities)} communities. GRAPH_REPORT.md and graph.json updated.")
 
     elif cmd == "update":
         watch_path = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".")
