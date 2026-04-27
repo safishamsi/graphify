@@ -3343,13 +3343,15 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
             logging.getLogger(__name__).warning("Java cross-file import resolution failed, skipping: %s", exc)
     # ── Disambiguate colliding node IDs across files ─────────────────────────
     # _make_id(stem, name) collides when two files have the same stem (e.g.
-    # Program.cs in different projects). Detect and rename with parent dir.
+    # Program.cs in different projects). Detect and rename with parent dir,
+    # using progressively more path components if the parent dir also collides.
     id_to_files: dict[str, list[dict]] = {}
     for n in all_nodes:
-        nid = n["id"]
-        id_to_files.setdefault(nid, []).append(n)
+        id_to_files.setdefault(n["id"], []).append(n)
 
-    rename_map: dict[str, str] = {}
+    # Global old→new rename map (not scoped by file) so cross-file edges
+    # and raw_calls are remapped correctly.
+    global_rename: dict[str, str] = {}
     dedup_nodes: list[dict] = []
     seen_final_ids: set[str] = set()
     for nid, node_list in id_to_files.items():
@@ -3359,13 +3361,20 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
             for n in node_list:
                 sf = n.get("source_file", "")
                 if sf:
-                    parent = Path(sf).parent.name
-                    new_id = _make_id(parent, nid)
-                    if new_id not in seen_final_ids:
-                        n["id"] = new_id
-                        rename_map[nid + "|" + sf] = new_id
-                        seen_final_ids.add(new_id)
-                        dedup_nodes.append(n)
+                    parts = Path(sf).parts
+                    new_id = None
+                    for depth in range(1, len(parts)):
+                        prefix = "_".join(parts[-(depth + 1):-1])
+                        candidate = _make_id(prefix, nid)
+                        if candidate not in seen_final_ids:
+                            new_id = candidate
+                            break
+                    if new_id is None:
+                        new_id = _make_id("_".join(parts), nid)
+                    n["id"] = new_id
+                    global_rename[nid + "|" + sf] = new_id
+                    seen_final_ids.add(new_id)
+                    dedup_nodes.append(n)
                 else:
                     if nid not in seen_final_ids:
                         seen_final_ids.add(nid)
@@ -3376,20 +3385,41 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
                     seen_final_ids.add(nid)
                     dedup_nodes.append(n)
 
-    if rename_map:
+    if global_rename:
+        # Build per-file rename lookup for source/target remapping
         file_to_renames: dict[str, dict[str, str]] = {}
-        for key, new_id in rename_map.items():
+        for key, new_id in global_rename.items():
             old_id, sf = key.rsplit("|", 1)
             file_to_renames.setdefault(sf, {})[old_id] = new_id
+        # Also build a flat old_id→new_id map per file for global edge remap
+        all_renames_by_old: dict[str, dict[str, str]] = {}
+        for key, new_id in global_rename.items():
+            old_id, sf = key.rsplit("|", 1)
+            all_renames_by_old.setdefault(old_id, {})[sf] = new_id
 
         all_nodes = dedup_nodes
         for e in all_edges:
             sf = e.get("source_file", "")
+            # Remap source: use the edge's own source_file
             renames = file_to_renames.get(sf, {})
             if e["source"] in renames:
                 e["source"] = renames[e["source"]]
-            if e["target"] in renames:
-                e["target"] = renames[e["target"]]
+            # Remap target: could be in ANY file, so check all files for this old ID
+            old_tgt = e["target"]
+            if old_tgt in all_renames_by_old:
+                candidates = all_renames_by_old[old_tgt]
+                if len(candidates) == 1:
+                    e["target"] = next(iter(candidates.values()))
+                elif sf in candidates:
+                    e["target"] = candidates[sf]
+
+        # Remap raw_calls caller_nid so cross-file resolution uses correct IDs
+        for result in per_file:
+            for rc in result.get("raw_calls", []):
+                rc_sf = rc.get("source_file", "")
+                renames = file_to_renames.get(rc_sf, {})
+                if rc["caller_nid"] in renames:
+                    rc["caller_nid"] = renames[rc["caller_nid"]]
     else:
         first_seen: set[str] = set()
         unique_nodes: list[dict] = []
