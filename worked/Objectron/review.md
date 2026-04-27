@@ -1,10 +1,10 @@
 # Objectron Code Repository Graphification Review
 
-**Corpus:** (https://github.com/google-research-datasets/Objectron) — a 3D bounding box evaluation pipeline for AR/ML object detection with TensorFlow integration, IoU computation, and metrics.
+**Corpus:** (https://github.com/google-research-datasets/Objectron) : a 3D bounding box evaluation pipeline for AR/ML object detection with TensorFlow integration, IoU computation, and metrics.
 
 **Files:** 17 files (~1M words)  
 **Graph:** 147 nodes · 193 edges · 22 communities  
-**Token cost:** 1,438,000 input · 15,000 output
+**Token cost:** 1,438,000 input · 15,000 output (using gemini-3-flash)
 
 ---
 
@@ -21,11 +21,11 @@
 
 ## What the graph got right
 
-**Hyperedge between God nodes map correctly models evaluation architecture** Grouping `Evaluator`, `AveragePrecision`, `IoU`, and `ObjectronParser` as a single conceptual unit correctly describes the pieces needed for the evaluation pipeline.
+**Hyperedge between God nodes map correctly models evaluation architecture** : Grouping `Evaluator`, `AveragePrecision`, `IoU`, and `ObjectronParser` as a single conceptual unit correctly describes the pieces needed for the evaluation pipeline.
 
-**Some insighful semantic connections** graphify inferred a semantic similarity edge from `parser.py` to the protobuf-generated `object_pb2.py`. This is a non-explicit relationship as The parser produces `Object` instances but the protobuf file is auto-generated, and a new entrant to would be able to spot this data flow connection at-a-glance.
+**Some insighful semantic connections** :  Graphify inferred a semantic similarity edge from `parser.py` to the protobuf-generated `object_pb2.py`. This is a non-explicit relationship as The parser produces `Object` instances but the protobuf file is auto-generated, and a new entrant to would be able to spot this data flow connection at-a-glance.
 
-**Identifies cross-module dependencies** Visualization code in `graphics.py` depends on `Box` geometry i.e
+**Identifies cross-module dependencies** : Visualization code in `graphics.py` depends on `Box` geometry i.e
 `draw_annotation_on_image()` receives box geometry to work.
 
 ---
@@ -79,9 +79,7 @@ Overall: 9.4/10 — Excellent performance across all tested dimensions.The prima
 
 ## Issues found
 
-**Rationale connections sometimes 
-
-
+ 
 **Semantic inference could be stronger** : A connecting edge between the Objectron Dataset samples and the Evaluator would be an insightful "surprising connection" to spot, as the repository is not so "cleanly seperated" for this connection to be completely missed. This might highlight challenges in building structual connections across modalities.
 
 
