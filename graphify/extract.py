@@ -2612,8 +2612,11 @@ def _resolve_cross_file_imports(
             stem = Path(src).stem
             label = node.get("label", "")
             nid = node.get("id", "")
-            # Only index real classes/functions (not file nodes, not method stubs,
-            # and not rationale nodes whose labels are free-form docstring text — #563)
+            # Index class-level entities only. Function/method labels end in "()"
+            # so are excluded by the `endswith(")")` filter; file nodes end in ".py";
+            # private/internal labels start with "_"; rationale nodes carry
+            # file_type=="rationale" and must never participate in cross-file
+            # import resolution (#563).
             if (
                 label
                 and not label.endswith((")", ".py"))
