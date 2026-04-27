@@ -3342,6 +3342,45 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
             import logging
             logging.getLogger(__name__).warning("Java cross-file import resolution failed, skipping: %s", exc)
 
+    # ── Cross-language node merge ─────────────────────────────────────────────
+    # C# extractors create stub nodes (empty source_file) for base types that
+    # may actually be defined in F# files (or other C# files). Merge stubs
+    # into real definitions so edges point to the canonical node.
+    #
+    # Priority: prefer nodes from definition files (Interfaces.fs, Domain.fs)
+    # over implementation files, so inherits edges point to abstract types.
+    _DEFINITION_FILES = {"interfaces", "domain", "types", "contracts", "abstractions"}
+
+    real_by_label: dict[str, str] = {}
+    for n in all_nodes:
+        sf = n.get("source_file", "")
+        if sf:
+            lbl = n["label"].strip("()").lower()
+            stem_lower = Path(sf).stem.lower()
+            existing = real_by_label.get(lbl)
+            if existing is None:
+                real_by_label[lbl] = n["id"]
+            elif stem_lower in _DEFINITION_FILES:
+                real_by_label[lbl] = n["id"]
+
+    stub_ids: set[str] = set()
+    stub_to_real: dict[str, str] = {}
+    for n in all_nodes:
+        if not n.get("source_file"):
+            lbl = n["label"].strip("()").lower()
+            real_nid = real_by_label.get(lbl)
+            if real_nid and real_nid != n["id"]:
+                stub_to_real[n["id"]] = real_nid
+                stub_ids.add(n["id"])
+
+    if stub_to_real:
+        all_nodes = [n for n in all_nodes if n["id"] not in stub_ids]
+        for e in all_edges:
+            if e["source"] in stub_to_real:
+                e["source"] = stub_to_real[e["source"]]
+            if e["target"] in stub_to_real:
+                e["target"] = stub_to_real[e["target"]]
+
     # Cross-file call resolution for all languages
     # Each extractor saved unresolved calls in raw_calls. Now that we have all
     # nodes from all files, resolve any callee that exists in another file.
