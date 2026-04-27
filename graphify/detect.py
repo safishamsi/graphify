@@ -241,6 +241,7 @@ _SKIP_DIRS = {
     "site-packages", "lib64",
     ".pytest_cache", ".mypy_cache", ".ruff_cache",
     ".tox", ".eggs", "*.egg-info",
+    "graphify-out",  # never treat own output as source input (#524)
 }
 
 # Large generated files that are never useful to extract

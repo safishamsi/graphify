@@ -125,6 +125,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".claude") / "skills" / "graphify" / "SKILL.md",
         "claude_md": True,
     },
+    "windsurf": {
+        "skill_file": "skill-windsurf.md",
+        "skill_dst": Path(".codeium") / "windsurf" / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
 }
 
 
@@ -148,7 +153,12 @@ def install(platform: str = "claude") -> None:
         print(f"error: {cfg['skill_file']} not found in package - reinstall graphify", file=sys.stderr)
         sys.exit(1)
 
-    skill_dst = Path.home() / cfg["skill_dst"]
+    import os as _os
+    if platform in ("claude", "windows") and _os.environ.get("CLAUDE_CONFIG_DIR"):
+        _claude_base = Path(_os.environ["CLAUDE_CONFIG_DIR"])
+        skill_dst = _claude_base / "skills" / "graphify" / "SKILL.md"
+    else:
+        skill_dst = Path.home() / cfg["skill_dst"]
     skill_dst.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy(skill_src, skill_dst)
     (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
@@ -615,6 +625,92 @@ def _cursor_uninstall(project_dir: Path) -> None:
     print(f"graphify Cursor rule removed from {rule_path.resolve()}")
 
 
+_WINDSURF_RULES_SECTION = """\
+
+## graphify
+
+This project has a graphify knowledge graph at graphify-out/.
+
+Rules:
+- Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
+- If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- After modifying code files in this session, run `python3 -c "from graphify.watch import _rebuild_code; from pathlib import Path; _rebuild_code(Path('.'))"` to keep the graph current
+"""
+
+_WINDSURF_RULES_MARKER = "## graphify"
+
+_WINDSURF_WORKFLOW = """\
+---
+title: graphify
+description: Turn any folder of files into a navigable knowledge graph with community detection, an honest audit trail, and three outputs: interactive HTML, GraphRAG-ready JSON, and a plain-language GRAPH_REPORT.md.
+---
+
+Run the graphify knowledge-graph pipeline.
+
+1. Read the full step-by-step instructions from `~/.codeium/windsurf/skills/graphify/SKILL.md`.
+2. Execute those instructions on the path provided by the user (default: `.`).
+3. If `~/.codeium/windsurf/skills/graphify/SKILL.md` is not found, tell the user to run `graphify install --platform windsurf` first, then retry.
+"""
+
+
+def _windsurf_install(project_dir: Path) -> None:
+    """Write .windsurf/workflows/graphify.md and append to .windsurfrules."""
+    # 1. Workflow file — registers /graphify as a Cascade slash command
+    workflow_path = project_dir / ".windsurf" / "workflows" / "graphify.md"
+    workflow_path.parent.mkdir(parents=True, exist_ok=True)
+    if workflow_path.exists():
+        print(f"  .windsurf/workflows/graphify.md  ->  already exists (no change)")
+    else:
+        workflow_path.write_text(_WINDSURF_WORKFLOW, encoding="utf-8")
+        print(f"  .windsurf/workflows/graphify.md  ->  written (/graphify slash command registered)")
+
+    # 2. Always-on rules via .windsurfrules
+    rules_path = project_dir / ".windsurfrules"
+    if rules_path.exists():
+        content = rules_path.read_text(encoding="utf-8")
+        if _WINDSURF_RULES_MARKER in content:
+            print(f"  .windsurfrules  ->  graphify section already present (no change)")
+        else:
+            rules_path.write_text(content.rstrip() + _WINDSURF_RULES_SECTION, encoding="utf-8")
+            print(f"  .windsurfrules  ->  graphify section appended")
+    else:
+        rules_path.write_text(_WINDSURF_RULES_SECTION.lstrip(), encoding="utf-8")
+        print(f"  .windsurfrules  ->  created")
+
+    print()
+    print("Windsurf (Cascade) will now expose /graphify as a slash command.")
+    print("The knowledge graph rules are active in every session via .windsurfrules.")
+    print()
+    print("Also run: graphify install --platform windsurf")
+    print("  to copy the full skill logic to ~/.codeium/windsurf/skills/graphify/SKILL.md")
+
+
+def _windsurf_uninstall(project_dir: Path) -> None:
+    """Remove .windsurf/workflows/graphify.md and graphify section from .windsurfrules."""
+    # Remove workflow file
+    workflow_path = project_dir / ".windsurf" / "workflows" / "graphify.md"
+    if workflow_path.exists():
+        workflow_path.unlink()
+        print(f"  .windsurf/workflows/graphify.md  ->  removed")
+    else:
+        print("  .windsurf/workflows/graphify.md  ->  not found (nothing to remove)")
+
+    # Remove graphify section from .windsurfrules
+    rules_path = project_dir / ".windsurfrules"
+    if not rules_path.exists():
+        return
+    content = rules_path.read_text(encoding="utf-8")
+    if _WINDSURF_RULES_MARKER not in content:
+        return
+    cleaned = re.sub(r"\n*## graphify\n.*?(?=\n## |\Z)", "", content, flags=re.DOTALL).rstrip()
+    if cleaned:
+        rules_path.write_text(cleaned + "\n", encoding="utf-8")
+        print(f"  .windsurfrules  ->  graphify section removed")
+    else:
+        rules_path.unlink()
+        print(f"  .windsurfrules  ->  was empty after removal, deleted")
+
+
 # OpenCode tool.execute.before plugin — fires before every tool call.
 # Injects a graph reminder into bash command output when graph.json exists.
 _OPENCODE_PLUGIN_JS = """\
@@ -906,6 +1002,59 @@ def claude_uninstall(project_dir: Path | None = None) -> None:
     _uninstall_claude_hook(project_dir or Path("."))
 
 
+def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None) -> Path:
+    """Clone a GitHub repo to a local cache dir and return the path.
+
+    Clones into ~/.graphify/repos/<owner>/<repo> by default so repeated
+    runs on the same URL reuse the existing clone (git pull instead of clone).
+    """
+    import subprocess as _sp
+    import re as _re
+
+    # Normalise URL — strip trailing .git if present
+    url = url.rstrip("/")
+    if not url.endswith(".git"):
+        git_url = url + ".git"
+    else:
+        git_url = url
+        url = url[:-4]
+
+    # Extract owner/repo from URL
+    m = _re.search(r"github\.com[:/]([^/]+)/([^/]+?)(?:\.git)?$", url)
+    if not m:
+        print(f"error: not a recognised GitHub URL: {url}", file=sys.stderr)
+        sys.exit(1)
+    owner, repo = m.group(1), m.group(2)
+
+    if out_dir:
+        dest = out_dir
+    else:
+        dest = Path.home() / ".graphify" / "repos" / owner / repo
+
+    if dest.exists():
+        print(f"Repo already cloned at {dest} — pulling latest...", flush=True)
+        cmd = ["git", "-C", str(dest), "pull"]
+        if branch:
+            cmd += ["origin", branch]
+        result = _sp.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"warning: git pull failed:\n{result.stderr}", file=sys.stderr)
+    else:
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        print(f"Cloning {url} → {dest} ...", flush=True)
+        cmd = ["git", "clone", "--depth", "1"]
+        if branch:
+            cmd += ["--branch", branch]
+        cmd += [git_url, str(dest)]
+        result = _sp.run(cmd, capture_output=True, text=True)
+        if result.returncode != 0:
+            print(f"error: git clone failed:\n{result.stderr}", file=sys.stderr)
+            sys.exit(1)
+
+    print(f"Ready at: {dest}", flush=True)
+    return dest
+
+
 def main() -> None:
     # Check all known skill install locations for a stale version stamp.
     # Skip during install/uninstall (hook writes trigger a fresh check anyway).
@@ -918,11 +1067,16 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
-        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|windsurf)")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("  clone <github-url>      clone a GitHub repo locally and print its path for /graphify")
+        print("  merge-graphs <g1> <g2>  merge two or more graph.json files into one cross-repo graph")
+        print("    --out <path>            output path (default: graphify-out/merged-graph.json)")
+        print("    --branch <branch>       checkout a specific branch (default: repo default)")
+        print("    --out <dir>             clone to a custom directory (default: ~/.graphify/repos/<owner>/<repo>)")
         print("  add <url>               fetch a URL and save it to ./raw, then update the graph")
         print("    --author \"Name\"         tag the author of the content")
         print("    --contributor \"Name\"    tag who added it to the corpus")
@@ -975,6 +1129,8 @@ def main() -> None:
         print("  hermes uninstall        remove skill from ~/.hermes/skills/graphify/")
         print("  kiro install            write skill to .kiro/skills/graphify/ + steering file (Kiro IDE/CLI)")
         print("  kiro uninstall          remove skill + steering file")
+        print("  windsurf install        write .windsurf/workflows/graphify.md + .windsurfrules section (Windsurf)")
+        print("  windsurf uninstall      remove workflow and .windsurfrules section")
         print()
         return
 
@@ -1061,6 +1217,15 @@ def main() -> None:
             _kiro_uninstall(Path("."))
         else:
             print("Usage: graphify kiro [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
+    elif cmd == "windsurf":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            _windsurf_install(Path("."))
+        elif subcmd == "uninstall":
+            _windsurf_uninstall(Path("."))
+        else:
+            print("Usage: graphify windsurf [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
@@ -1359,6 +1524,66 @@ def main() -> None:
         from graphify.watch import check_update
         check_update(Path(sys.argv[2]).resolve())
         sys.exit(0)
+    elif cmd == "merge-graphs":
+        # graphify merge-graphs graph1.json graph2.json ... --out merged.json
+        args = sys.argv[2:]
+        graph_paths: list[Path] = []
+        out_path = Path("graphify-out/merged-graph.json")
+        i = 0
+        while i < len(args):
+            if args[i] == "--out" and i + 1 < len(args):
+                out_path = Path(args[i + 1]); i += 2
+            else:
+                graph_paths.append(Path(args[i])); i += 1
+        if len(graph_paths) < 2:
+            print("Usage: graphify merge-graphs <graph1.json> <graph2.json> [...] [--out merged.json]", file=sys.stderr)
+            sys.exit(1)
+        import networkx as _nx
+        from networkx.readwrite import json_graph as _jg
+        graphs = []
+        for gp in graph_paths:
+            if not gp.exists():
+                print(f"error: not found: {gp}", file=sys.stderr)
+                sys.exit(1)
+            data = json.loads(gp.read_text(encoding="utf-8"))
+            try:
+                G = _jg.node_link_graph(data, edges="links")
+            except TypeError:
+                G = _jg.node_link_graph(data)
+            # Tag every node with which repo it came from
+            repo_tag = gp.parent.parent.name  # graphify-out/../ → repo dir name
+            for node in G.nodes:
+                G.nodes[node].setdefault("repo", repo_tag)
+            graphs.append(G)
+        merged = _nx.compose_all(graphs)
+        try:
+            out_data = _jg.node_link_data(merged, edges="links")
+        except TypeError:
+            out_data = _jg.node_link_data(merged)
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        out_path.write_text(json.dumps(out_data, indent=2), encoding="utf-8")
+        print(f"Merged {len(graphs)} graphs → {merged.number_of_nodes()} nodes, {merged.number_of_edges()} edges")
+        print(f"Written to: {out_path}")
+
+    elif cmd == "clone":
+        if len(sys.argv) < 3:
+            print("Usage: graphify clone <github-url> [--branch <branch>] [--out <dir>]", file=sys.stderr)
+            sys.exit(1)
+        url = sys.argv[2]
+        branch: str | None = None
+        out_dir: Path | None = None
+        args = sys.argv[3:]
+        i = 0
+        while i < len(args):
+            if args[i] == "--branch" and i + 1 < len(args):
+                branch = args[i + 1]; i += 2
+            elif args[i] == "--out" and i + 1 < len(args):
+                out_dir = Path(args[i + 1]); i += 2
+            else:
+                i += 1
+        local_path = _clone_repo(url, branch=branch, out_dir=out_dir)
+        print(local_path)
+
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
         graph_path = sys.argv[2] if len(sys.argv) > 2 else "graphify-out/graph.json"

@@ -279,7 +279,27 @@ def attach_hyperedges(G: nx.Graph, hyperedges: list) -> None:
     G.graph["hyperedges"] = existing
 
 
-def to_json(G: nx.Graph, communities: dict[int, list[str]], output_path: str) -> None:
+def to_json(G: nx.Graph, communities: dict[int, list[str]], output_path: str, *, force: bool = False) -> None:
+    # Safety check: refuse to silently shrink an existing graph (#479)
+    existing_path = Path(output_path)
+    if not force and existing_path.exists():
+        try:
+            existing_data = json.loads(existing_path.read_text(encoding="utf-8"))
+            existing_n = len(existing_data.get("nodes", []))
+            new_n = G.number_of_nodes()
+            if new_n < existing_n:
+                import sys as _sys
+                print(
+                    f"[graphify] WARNING: new graph has {new_n} nodes but existing "
+                    f"graph.json has {existing_n}. Refusing to overwrite — you may be "
+                    f"missing chunk files from a previous session. "
+                    f"Pass force=True to override.",
+                    file=_sys.stderr,
+                )
+                return
+        except Exception:
+            pass  # unreadable existing file — proceed with write
+
     node_community = _node_community_map(communities)
     try:
         data = json_graph.node_link_data(G, edges="links")
