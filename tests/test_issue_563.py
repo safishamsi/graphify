@@ -255,3 +255,72 @@ def test_src_tgt_metadata_not_leaked_into_graph_json(repro_graph):
     assert leaks == [], (
         f"_src/_tgt are internal; must not appear in graph.json. Leaks: {leaks[:3]}"
     )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Bug 2 (HTML export): graph.html arrows must respect direction too
+# ─────────────────────────────────────────────────────────────────────────────
+
+
+def _vis_edges_from_html(html: str) -> list[dict]:
+    """Extract the vis.js edges array embedded in graph.html.
+
+    `_html_script` emits `const RAW_EDGES = <json>;` — pull that JSON out
+    directly rather than parsing the surrounding script.
+    """
+    import re
+    m = re.search(r"const RAW_EDGES = (\[.*?\]);", html, re.DOTALL)
+    assert m, "could not locate RAW_EDGES in graph.html"
+    return json.loads(m.group(1))
+
+
+def test_to_html_preserves_calls_and_rationale_for_direction(tmp_path: Path):
+    """to_html must read _src/_tgt before assigning vis.js `from`/`to`,
+    otherwise undirected NetworkX storage flips arrows on render (#563)."""
+    from graphify.build import build_from_json
+    from graphify.export import to_html
+
+    _write_repro(tmp_path)
+    repro_graph = _run_graphify_update(tmp_path)
+
+    G = build_from_json(repro_graph)
+    out_html = tmp_path / "graph.html"
+    to_html(G, communities={0: list(G.nodes())}, output_path=str(out_html))
+
+    vis_edges = _vis_edges_from_html(out_html.read_text(encoding="utf-8"))
+    pairs = {(e["from"], e["to"]): e.get("label") for e in vis_edges}
+
+    # rationale_for: source must be the rationale node (file_type metadata
+    # isn't on vis_edges, so we check via the json graph's node map).
+    ftype = _file_type_map(repro_graph)
+    rats_html = [
+        (frm, to) for (frm, to), rel in pairs.items() if rel == "rationale_for"
+    ]
+    assert rats_html, "expected rationale_for edges in graph.html"
+    flipped_rats = [
+        (frm, to) for (frm, to) in rats_html if ftype.get(frm) != "rationale"
+    ]
+    assert flipped_rats == [], (
+        f"rationale_for arrows in graph.html must point rationale->parent. "
+        f"Flipped: {flipped_rats[:3]}"
+    )
+
+    # calls: pin the same caller->callee directions asserted on graph.json.
+    assert (
+        "contact_form_contact_form",
+        "jobq_sqlitequeue_check_idempotency",
+    ) in pairs, "contact_form->check_idempotency arrow missing in graph.html"
+    assert (
+        "contact_form_contact_form",
+        "jobq_sqlitequeue_enqueue",
+    ) in pairs, "contact_form->enqueue arrow missing in graph.html"
+
+    # And the inversions must not be present.
+    inversions = {
+        ("jobq_sqlitequeue_check_idempotency", "contact_form_contact_form"),
+        ("jobq_sqlitequeue_enqueue", "contact_form_contact_form"),
+    }
+    leaked = inversions & {
+        (frm, to) for (frm, to), rel in pairs.items() if rel == "calls"
+    }
+    assert not leaked, f"Inverted calls arrows in graph.html: {leaked}"

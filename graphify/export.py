@@ -424,14 +424,19 @@ def to_html(
             "degree": deg,
         })
 
-    # Build edges list
+    # Build edges list. Restore original edge direction from _src/_tgt
+    # (stashed by build.py for exactly this reason): undirected NetworkX
+    # canonicalizes endpoint order, which would otherwise flip the arrow
+    # for `calls` and `rationale_for` in the rendered graph (#563).
     vis_edges = []
     for u, v, data in G.edges(data=True):
         confidence = data.get("confidence", "EXTRACTED")
         relation = data.get("relation", "")
+        true_src = data.get("_src", u)
+        true_tgt = data.get("_tgt", v)
         vis_edges.append({
-            "from": u,
-            "to": v,
+            "from": true_src,
+            "to": true_tgt,
             "label": relation,
             "title": _html.escape(f"{relation} [{confidence}]"),
             "dashes": confidence != "EXTRACTED",
