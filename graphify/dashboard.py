@@ -295,6 +295,129 @@ def build_description_prompt(modules):
     return "\n".join(lines)
 
 
+
+
+# ── API & External Service Scanner ─────────────────────────────────────
+
+def _scan_exposed_endpoints(files):
+    """Scan Python files for exposed API endpoints (FastAPI/Flask decorators)."""
+    import re as _re
+    pattern = _re.compile(r'@(?:app|router)\.(get|post|put|delete|patch)\(["\'](.*?)["\']')
+    endpoints = []
+    for f in files:
+        try:
+            text = Path(f).read_text(errors="ignore")
+            for match in pattern.finditer(text):
+                method = match.group(1).upper()
+                route = match.group(2)
+                endpoints.append({"method": method, "route": route, "file": f})
+        except Exception:
+            continue
+    return endpoints
+
+
+def _scan_external_calls(files):
+    """Scan Python files for external HTTP calls and SDK usage."""
+    import re as _re
+    url_pattern = _re.compile(r'https?://([a-zA-Z0-9][-a-zA-Z0-9]*\.[-a-zA-Z0-9.]+)')
+    sdk_pattern = _re.compile(r'^(?:import|from)\s+(akshare|yfinance|tushare|baostock|boto3|openai|anthropic|httpx|cloudscraper|selenium|playwright|tdxpy|requests)', _re.MULTILINE)
+
+    external_urls = {}  # domain -> [files]
+    sdks = {}  # sdk_name -> [files]
+
+    skip_domains = {"localhost", "127.0.0.1", "0.0.0.0", "example.com", "graphify.net",
+                    "github.com", "cdn.jsdelivr.net", "d3js.org", "unpkg.com",
+                    "schemas.microsoft.com", "www.w3.org", "json-schema.org"}
+
+    for f in files:
+        try:
+            text = Path(f).read_text(errors="ignore")
+            fname = str(f)
+
+            # URLs
+            for match in url_pattern.finditer(text):
+                domain = match.group(1).lower()
+                if domain not in skip_domains and not domain.endswith(".local"):
+                    external_urls.setdefault(domain, set()).add(fname)
+
+            # SDKs
+            for match in sdk_pattern.finditer(text):
+                sdk = match.group(1)
+                sdks.setdefault(sdk, set()).add(fname)
+        except Exception:
+            continue
+
+    # Convert sets to sorted lists
+    return {
+        "urls": {d: sorted(fs) for d, fs in sorted(external_urls.items())},
+        "sdks": {s: sorted(fs) for s, fs in sorted(sdks.items())},
+    }
+
+
+def _render_api_section(endpoints, external):
+    """Render the API & External Services HTML sections."""
+    html_parts = []
+
+    # Exposed endpoints
+    if endpoints:
+        # Group by prefix
+        groups = {}
+        for ep in endpoints:
+            parts = ep["route"].strip("/").split("/")
+            prefix = "/".join(parts[:3]) if len(parts) >= 3 else ep["route"]
+            groups.setdefault(prefix, []).append(ep)
+
+        rows = []
+        for prefix, eps in sorted(groups.items()):
+            for ep in eps:
+                method_colors = {"GET": "#59A14F", "POST": "#4E79A7", "PUT": "#F28E2B", "DELETE": "#E15759", "PATCH": "#B07AA1"}
+                color = method_colors.get(ep["method"], "#888")
+                rows.append(
+                    f'<tr><td><span style="color:{color};font-weight:600">{ep["method"]}</span></td>'
+                    f'<td><code>{ep["route"]}</code></td>'
+                    f'<td style="color:#666">{Path(ep["file"]).name}</td></tr>'
+                )
+
+        html_parts.append(
+            f'<div class="section-title">Exposed API Endpoints ({len(endpoints)})</div>'
+            f'<div class="api-table-wrap"><table class="api-table">'
+            f'<thead><tr><th>Method</th><th>Route</th><th>File</th></tr></thead>'
+            f'<tbody>{"".join(rows)}</tbody></table></div>'
+        )
+
+    # External services
+    urls = external.get("urls", {})
+    sdks = external.get("sdks", {})
+    if urls or sdks:
+        items = []
+        for domain, files in urls.items():
+            file_list = ", ".join(Path(f).name for f in files[:3])
+            if len(files) > 3:
+                file_list += f" +{len(files)-3}"
+            items.append(
+                f'<tr><td><code>{domain}</code></td>'
+                f'<td>HTTP</td>'
+                f'<td style="color:#666">{file_list}</td></tr>'
+            )
+        for sdk, files in sdks.items():
+            file_list = ", ".join(Path(f).name for f in files[:3])
+            if len(files) > 3:
+                file_list += f" +{len(files)-3}"
+            items.append(
+                f'<tr><td><code>{sdk}</code></td>'
+                f'<td>SDK</td>'
+                f'<td style="color:#666">{file_list}</td></tr>'
+            )
+
+        html_parts.append(
+            f'<div class="section-title">External Services ({len(urls)} domains, {len(sdks)} SDKs)</div>'
+            f'<div class="api-table-wrap"><table class="api-table">'
+            f'<thead><tr><th>Service</th><th>Type</th><th>Used in</th></tr></thead>'
+            f'<tbody>{"".join(items)}</tbody></table></div>'
+        )
+
+    return "".join(html_parts)
+
 def _reading_order(modules):
     dep_graph = nx.DiGraph()
     for m in modules:
@@ -352,6 +475,12 @@ body{background:#0f0f1a;color:#e0e0e0;font-family:-apple-system,BlinkMacSystemFo
 .reading-order .reason{color:#888;font-size:12px}
 .footer{text-align:center;color:#555;font-size:12px;padding:24px 0}
 .footer a{color:#4E79A7}
+.api-table-wrap{background:#1a1a2e;border:1px solid #2a2a4e;border-radius:12px;padding:16px;margin:8px 0;overflow-x:auto}
+.api-table{width:100%;border-collapse:collapse;font-size:13px}
+.api-table th{text-align:left;color:#888;font-size:11px;text-transform:uppercase;letter-spacing:0.05em;padding:6px 12px;border-bottom:1px solid #2a2a4e}
+.api-table td{padding:5px 12px;border-bottom:1px solid #1a1a2e}
+.api-table code{font-size:12px;color:#76B7B2}
+.api-table tr:hover{background:#0f0f1a}
 </style>"""
 
 
@@ -604,7 +733,7 @@ def _dashboard_graph_script(modules, colors):
         "scripts": mermaid["script"] + "\n" + d3_script,
     }
 
-def _render_dashboard(project_name, G, modules, reading_order):
+def _render_dashboard(project_name, G, modules, reading_order, api_html=""):
     graph_parts = _dashboard_graph_script(modules, DASHBOARD_COLORS)
     total_nodes = G.number_of_nodes()
     total_edges = G.number_of_edges()
@@ -655,7 +784,7 @@ def _render_dashboard(project_name, G, modules, reading_order):
             f'<div class="section-title">Architecture Overview</div><div id="graph-container">{graph_parts["mermaid_div"]}</div><div class="section-title">Module Relationships (Interactive)</div><div id="force-graph-container"></div>'
             f'<div class="section-title">Modules</div>'
             f'<div class="module-grid">{"".join(cards)}</div>'
-            f'<div class="section-title">Recommended Reading Order</div>'
+            f'{api_html}<div class="section-title">Recommended Reading Order</div>'
             f'<div class="reading-order"><ol>{"".join(ri)}</ol></div>'
             f'<div class="footer"><a href="graph.html">Full Knowledge Graph</a> · <a href="GRAPH_REPORT.md">Graph Report</a> · Generated by <a href="https://graphify.net">Graphify</a></div>'
             f'</div>'
@@ -695,8 +824,21 @@ def generate_dashboard(graph_path, output_path="graphify-out/dashboard.html",
     if not project_name:
         project_name = Path(graph_path).resolve().parent.parent.name
 
+    # Scan for API endpoints and external services
+    all_py_files = []
+    for nid, data in G.nodes(data=True):
+        sf = data.get("source_file", "")
+        if sf and sf.endswith(".py"):
+            p = Path(graph_path).resolve().parent.parent / sf
+            if p.exists():
+                all_py_files.append(str(p))
+    all_py_files = sorted(set(all_py_files))
+    endpoints = _scan_exposed_endpoints(all_py_files)
+    external = _scan_external_calls(all_py_files)
+
     reading_order = _reading_order(modules)
-    html = _render_dashboard(project_name, G, modules, reading_order)
+    api_html = _render_api_section(endpoints, external)
+    html = _render_dashboard(project_name, G, modules, reading_order, api_html)
     Path(output_path).parent.mkdir(parents=True, exist_ok=True)
     Path(output_path).write_text(html, encoding="utf-8")
     return {"modules": modules, "macros": macros}
