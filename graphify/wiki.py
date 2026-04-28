@@ -7,7 +7,18 @@ import networkx as nx
 
 
 def _safe_filename(name: str) -> str:
-    return name.replace("/", "-").replace(" ", "_").replace(":", "-")
+    """Make a label safe for use as a filename across platforms.
+
+    Substitutes characters that Windows reserves in filenames
+    (< > : " / \\ | ? *) and strips trailing dots/spaces, also reserved.
+    Falls back to 'unnamed' for empty results and caps length at 200
+    chars to stay well under common filesystem limits.
+    """
+    import re
+    s = name.replace("/", "-").replace(" ", "_").replace(":", "-")
+    s = re.sub(r'[<>:"/\\|?*]', '_', s)
+    s = s.strip('. ')
+    return s[:200] if s else 'unnamed'
 
 
 def _cross_community_links(G: nx.Graph, nodes: list[str], own_cid: int, labels: dict[int, str]) -> list[tuple[str, int]]:
