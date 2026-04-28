@@ -1203,7 +1203,7 @@ Supported URL types (auto-detected):
 - arXiv → abstract + metadata saved as `.md`  
 - PDF → downloaded as `.pdf`
 - Images (.png/.jpg/.webp) → downloaded, vision extraction runs on next build
-- Any webpage → converted to markdown via html2text
+- Any webpage → converted to markdown via markdownify
 
 ---
 

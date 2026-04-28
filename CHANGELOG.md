@@ -1,5 +1,14 @@
 # Changelog
 
+## Unreleased
+
+### Changed
+- Replace `html2text` (GPL-3.0) with `markdownify` (MIT) for HTML→Markdown
+  conversion in URL ingestion. Aligns the `pdf`/`all` extras with the
+  project's MIT license and removes a copyleft dependency that affected
+  anyone redistributing or embedding graphify. Fallback regex-strip path
+  unchanged.
+
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
 ## 0.4.23 (2026-04-18)
