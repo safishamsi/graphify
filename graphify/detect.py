@@ -445,8 +445,22 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
     }
 
 
-def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict[str, float]:
-    """Load the file modification time manifest from a previous run."""
+def _file_hash(path: Path) -> str:
+    """md5 of file content - used to detect real changes when mtime bumps spuriously."""
+    import hashlib
+    h = hashlib.md5()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(65536), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict:
+    """Load the file manifest from a previous run.
+
+    New format: {path: {"mtime": float, "hash": str}}
+    Legacy format (mtime-only float) is auto-upgraded on next save.
+    """
     try:
         return json.loads(Path(manifest_path).read_text(encoding="utf-8"))
     except Exception:
@@ -454,12 +468,17 @@ def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict[str, float]:
 
 
 def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PATH) -> None:
-    """Save current file mtimes so the next --update run can diff against them."""
-    manifest: dict[str, float] = {}
+    """Save current file mtime + content hash so the next --update can distinguish
+    spurious mtime bumps (Obsidian plugins, git/Nextcloud sync) from real edits."""
+    manifest: dict = {}
     for file_list in files.values():
         for f in file_list:
             try:
-                manifest[f] = Path(f).stat().st_mtime
+                st = Path(f).stat()
+                manifest[f] = {
+                    "mtime": st.st_mtime,
+                    "hash": _file_hash(Path(f)),
+                }
             except OSError:
                 pass  # file deleted between detect() and manifest write - skip it
     Path(manifest_path).parent.mkdir(parents=True, exist_ok=True)
@@ -469,7 +488,11 @@ def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PA
 def detect_incremental(root: Path, manifest_path: str = _MANIFEST_PATH) -> dict:
     """Like detect(), but returns only new or modified files since the last run.
 
-    Compares current file mtimes against the stored manifest.
+    Fast path: if mtime unchanged -> unchanged (no hash computed).
+    Slow path: if mtime bumped -> hash content; only flag as new if hash differs.
+    This avoids re-extracting files that had their mtime touched by Obsidian plugins,
+    git backups, or Nextcloud sync without actual content changes.
+
     Use for --update mode: re-extract only what changed, merge into existing graph.
     """
     full = detect(root)
@@ -488,15 +511,45 @@ def detect_incremental(root: Path, manifest_path: str = _MANIFEST_PATH) -> dict:
 
     for ftype, file_list in full["files"].items():
         for f in file_list:
-            stored_mtime = manifest.get(f)
+            entry = manifest.get(f)
+            # Legacy format (float) -> treat as mtime-only, no hash available
+            if isinstance(entry, (int, float)):
+                stored_mtime = float(entry)
+                stored_hash = None
+            elif isinstance(entry, dict):
+                stored_mtime = entry.get("mtime")
+                stored_hash = entry.get("hash")
+            else:
+                stored_mtime = None
+                stored_hash = None
+
             try:
                 current_mtime = Path(f).stat().st_mtime
             except Exception:
                 current_mtime = 0
-            if stored_mtime is None or current_mtime > stored_mtime:
+
+            if stored_mtime is None:
                 new_files[ftype].append(f)
-            else:
+                continue
+
+            # Fast path: mtime unchanged -> file is unchanged
+            if current_mtime <= stored_mtime:
                 unchanged_files[ftype].append(f)
+                continue
+
+            # Slow path: mtime bumped -> verify via content hash
+            if stored_hash is None:
+                # Legacy manifest without hash - fall back to mtime-only behavior
+                new_files[ftype].append(f)
+                continue
+            try:
+                current_hash = _file_hash(Path(f))
+            except Exception:
+                current_hash = None
+            if current_hash == stored_hash:
+                unchanged_files[ftype].append(f)
+            else:
+                new_files[ftype].append(f)
 
     # Files in manifest that no longer exist - their cached nodes are now ghost nodes
     current_files = {f for flist in full["files"].values() for f in flist}
