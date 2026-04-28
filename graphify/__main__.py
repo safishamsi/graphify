@@ -117,7 +117,7 @@ _PLATFORM_CONFIG: dict[str, dict] = {
     },
     "antigravity": {
         "skill_file": "skill.md",
-        "skill_dst": Path(".agents") / "skills" / "graphify" / "SKILL.md",
+        "skill_dst": Path(".agent") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
     "windows": {
@@ -191,7 +191,6 @@ This project has a graphify knowledge graph at graphify-out/.
 Rules:
 - Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
-- For cross-module "how does X relate to Y" questions, prefer `graphify query "<question>"`, `graphify path "<A>" "<B>"`, or `graphify explain "<concept>"` over grep — these traverse the graph's EXTRACTED + INFERRED edges instead of scanning files
 - After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
 """
 
@@ -207,7 +206,6 @@ This project has a graphify knowledge graph at graphify-out/.
 Rules:
 - Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
-- For cross-module "how does X relate to Y" questions, prefer `graphify query "<question>"`, `graphify path "<A>" "<B>"`, or `graphify explain "<concept>"` over grep — these traverse the graph's EXTRACTED + INFERRED edges instead of scanning files
 - After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
 """
 
@@ -221,7 +219,6 @@ This project has a graphify knowledge graph at graphify-out/.
 Rules:
 - Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
-- For cross-module "how does X relate to Y" questions, prefer `graphify query "<question>"`, `graphify path "<A>" "<B>"`, or `graphify explain "<concept>"` over grep — these traverse the graph's EXTRACTED + INFERRED edges instead of scanning files
 - After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
 """
 
@@ -412,8 +409,8 @@ def vscode_uninstall(project_dir: Path | None = None) -> None:
         print(f"  {instructions}  ->  deleted (was empty after removal)")
 
 
-_ANTIGRAVITY_RULES_PATH = Path(".agents") / "rules" / "graphify.md"
-_ANTIGRAVITY_WORKFLOW_PATH = Path(".agents") / "workflows" / "graphify.md"
+_ANTIGRAVITY_RULES_PATH = Path(".agent") / "rules" / "graphify.md"
+_ANTIGRAVITY_WORKFLOW_PATH = Path(".agent") / "workflows" / "graphify.md"
 
 _ANTIGRAVITY_RULES = """\
 ## graphify
@@ -424,7 +421,6 @@ Rules:
 - Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
 - If the graphify MCP server is active, utilize tools like `query_graph`, `get_node`, and `shortest_path` for precise architecture navigation instead of falling back to `grep`
-- If the MCP server is not active, the CLI equivalents are `graphify query "<question>"`, `graphify path "<A>" "<B>"`, and `graphify explain "<concept>"` — prefer these over grep for cross-module questions
 - After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
 """
 
@@ -434,7 +430,7 @@ _ANTIGRAVITY_WORKFLOW = """\
 **Description:** Turn any folder of files into a navigable knowledge graph
 
 ## Steps
-Follow the graphify skill installed at ~/.agents/skills/graphify/SKILL.md to run the full pipeline.
+Follow the graphify skill installed at ~/.agent/skills/graphify/SKILL.md to run the full pipeline.
 
 If no path argument is given, use `.` (current directory).
 """
@@ -504,8 +500,8 @@ def _kiro_uninstall(project_dir: Path) -> None:
 
 
 def _antigravity_install(project_dir: Path) -> None:
-    """Install graphify for Google Antigravity: skill + .agents/rules + .agents/workflows."""
-    # 1. Copy skill file to ~/.agents/skills/graphify/SKILL.md
+    """Install graphify for Google Antigravity: skill + .agent/rules + .agent/workflows."""
+    # 1. Copy skill file to ~/.agent/skills/graphify/SKILL.md
     install(platform="antigravity")
 
     # 1.5. Inject YAML frontmatter for native Antigravity tool discovery
@@ -516,7 +512,7 @@ def _antigravity_install(project_dir: Path) -> None:
             frontmatter = "---\nname: graphify-manager\ndescription: Rebuild the code graph or perform manual CLI queries when MCP server is offline.\n---\n\n"
             skill_dst.write_text(frontmatter + content, encoding="utf-8")
 
-    # 2. Write .agents/rules/graphify.md
+    # 2. Write .agent/rules/graphify.md
     rules_path = project_dir / _ANTIGRAVITY_RULES_PATH
     rules_path.parent.mkdir(parents=True, exist_ok=True)
     if rules_path.exists():
@@ -525,7 +521,7 @@ def _antigravity_install(project_dir: Path) -> None:
         rules_path.write_text(_ANTIGRAVITY_RULES, encoding="utf-8")
         print(f"graphify rule written to {rules_path.resolve()}")
 
-    # 3. Write .agents/workflows/graphify.md
+    # 3. Write .agent/workflows/graphify.md
     wf_path = project_dir / _ANTIGRAVITY_WORKFLOW_PATH
     wf_path.parent.mkdir(parents=True, exist_ok=True)
     if wf_path.exists():
@@ -643,7 +639,7 @@ export const GraphifyPlugin = async ({ directory }) => {
 """
 
 _OPENCODE_PLUGIN_PATH = Path(".opencode") / "plugins" / "graphify.js"
-_OPENCODE_CONFIG_PATH = Path(".opencode") / "opencode.json"
+_OPENCODE_CONFIG_PATH = Path("opencode.json")
 
 
 def _install_opencode_plugin(project_dir: Path) -> None:
@@ -940,8 +936,10 @@ def main() -> None:
         print("    --type T                query type: query|path_query|explain (default: query)")
         print("    --nodes N1 N2 ...       source node labels cited in the answer")
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
-        print("  check-update <path>     check needs_update flag and notify if semantic re-extraction is pending (cron-safe)")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
+        print("  dashboard             generate human-friendly architecture dashboard")
+        print("    --graph <path>        path to graph.json (default graphify-out/graph.json)")
+        print("    --output <path>       output path (default graphify-out/dashboard.html)")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
         print("  hook status             check if git hooks are installed")
@@ -969,8 +967,8 @@ def main() -> None:
         print("  trae uninstall         remove graphify section from AGENTS.md")
         print("  trae-cn install         write graphify section to AGENTS.md (Trae CN)")
         print("  trae-cn uninstall      remove graphify section from AGENTS.md")
-        print("  antigravity install     write .agents/rules + .agents/workflows + skill (Google Antigravity)")
-        print("  antigravity uninstall   remove .agents/rules, .agents/workflows, and skill")
+        print("  antigravity install     write .agent/rules + .agent/workflows + skill (Google Antigravity)")
+        print("  antigravity uninstall   remove .agent/rules, .agent/workflows, and skill")
         print("  hermes install          write skill to ~/.hermes/skills/graphify/ (Hermes)")
         print("  hermes uninstall        remove skill from ~/.hermes/skills/graphify/")
         print("  kiro install            write skill to .kiro/skills/graphify/ + steering file (Kiro IDE/CLI)")
@@ -1352,13 +1350,6 @@ def main() -> None:
             print("Nothing to update or rebuild failed — check output above.", file=sys.stderr)
             sys.exit(1)
 
-    elif cmd == "check-update":
-        if len(sys.argv) < 3:
-            print("Usage: graphify check-update <path>", file=sys.stderr)
-            sys.exit(1)
-        from graphify.watch import check_update
-        check_update(Path(sys.argv[2]).resolve())
-        sys.exit(0)
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
         graph_path = sys.argv[2] if len(sys.argv) > 2 else "graphify-out/graph.json"
@@ -1373,6 +1364,27 @@ def main() -> None:
                 pass
         result = run_benchmark(graph_path, corpus_words=corpus_words)
         print_benchmark(result)
+    elif cmd == "dashboard":
+        graph_path = "graphify-out/graph.json"
+        output_path = "graphify-out/dashboard.html"
+        args = sys.argv[2:]
+        i = 0
+        while i < len(args):
+            if args[i] == "--graph" and i + 1 < len(args):
+                graph_path = args[i + 1]; i += 2
+            elif args[i] == "--output" and i + 1 < len(args):
+                output_path = args[i + 1]; i += 2
+            else:
+                i += 1
+        gp = Path(graph_path)
+        if not gp.exists():
+            print(f"error: graph not found at {gp} — run /graphify first", file=sys.stderr)
+            sys.exit(1)
+        from graphify.dashboard import generate_dashboard
+        result = generate_dashboard(str(gp), output_path)
+        n = len(result["modules"])
+        print(f"Dashboard: {n} modules → {output_path}")
+        print("Open in browser — no server needed.")
     else:
         print(f"error: unknown command '{cmd}'", file=sys.stderr)
         print("Run 'graphify --help' for usage.", file=sys.stderr)

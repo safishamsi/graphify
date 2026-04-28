@@ -62,24 +62,16 @@ Follow these steps in order. Do not skip steps.
 ### Step 1 - Ensure graphify is installed
 
 ```bash
-# Detect the correct Python interpreter (handles uv tool, pipx, venv, system installs)
-PYTHON=""
+# Detect the correct Python interpreter (handles pipx, venv, system installs)
 GRAPHIFY_BIN=$(which graphify 2>/dev/null)
-# 1. uv tool installs — most reliable on modern Mac/Linux
-if [ -z "$PYTHON" ] && command -v uv >/dev/null 2>&1; then
-    _UV_PY=$(uv tool run graphifyy python -c "import sys; print(sys.executable)" 2>/dev/null)
-    if [ -n "$_UV_PY" ]; then PYTHON="$_UV_PY"; fi
-fi
-# 2. Read shebang from graphify binary (pipx and direct pip installs)
-if [ -z "$PYTHON" ] && [ -n "$GRAPHIFY_BIN" ]; then
-    _SHEBANG=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
-    case "$_SHEBANG" in
-        *[!a-zA-Z0-9/_.-]*) ;;
-        *) "$_SHEBANG" -c "import graphify" 2>/dev/null && PYTHON="$_SHEBANG" ;;
+if [ -n "$GRAPHIFY_BIN" ]; then
+    PYTHON=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
+    case "$PYTHON" in
+        *[!a-zA-Z0-9/_.-]*) PYTHON="python3" ;;
     esac
+else
+    PYTHON="python3"
 fi
-# 3. Fall back to python3
-if [ -z "$PYTHON" ]; then PYTHON="python3"; fi
 "$PYTHON" -c "import graphify" 2>/dev/null || "$PYTHON" -m pip install graphifyy -q 2>/dev/null || "$PYTHON" -m pip install graphifyy -q --break-system-packages 2>&1 | tail -3
 # Write interpreter path for all subsequent steps (persists across invocations)
 mkdir -p graphify-out
@@ -550,30 +542,8 @@ G = build_from_json(extraction)
 communities = {int(k): v for k, v in analysis['communities'].items()}
 labels = {int(k): v for k, v in labels_raw.items()}
 
-NODE_LIMIT = 5000
-if G.number_of_nodes() > NODE_LIMIT:
-    from collections import Counter
-    print(f'Graph has {G.number_of_nodes()} nodes (above {NODE_LIMIT} limit). Building aggregated community view...')
-    node_to_community = {nid: cid for cid, members in communities.items() for nid in members}
-    import networkx as nx_meta
-    meta = nx_meta.Graph()
-    for cid, members in communities.items():
-        meta.add_node(str(cid), label=labels.get(cid, f'Community {cid}'))
-    edge_counts = Counter()
-    for u, v in G.edges():
-        cu, cv = node_to_community.get(u), node_to_community.get(v)
-        if cu is not None and cv is not None and cu != cv:
-            edge_counts[(min(cu, cv), max(cu, cv))] += 1
-    for (cu, cv), w in edge_counts.items():
-        meta.add_edge(str(cu), str(cv), weight=w, relation=f'{w} cross-community edges', confidence='AGGREGATED')
-    if meta.number_of_nodes() > 1:
-        meta_communities = {cid: [str(cid)] for cid in communities}
-        member_counts = {cid: len(members) for cid, members in communities.items()}
-        to_html(meta, meta_communities, 'graphify-out/graph.html', community_labels=labels or None, member_counts=member_counts)
-        print(f'graph.html written (aggregated: {meta.number_of_nodes()} community nodes, {meta.number_of_edges()} cross-community edges)')
-        print('Tip: run with --obsidian for full node-level detail.')
-    else:
-        print('Single community — aggregated view not useful. Skipping graph.html.')
+if G.number_of_nodes() > 5000:
+    print(f'Graph has {G.number_of_nodes()} nodes - too large for HTML viz. Use Obsidian vault instead.')
 else:
     to_html(G, communities, 'graphify-out/graph.html', community_labels=labels or None)
     print('graph.html written - open in any browser, no server needed')
@@ -609,6 +579,51 @@ print(f'Wiki: {n} articles written to graphify-out/wiki/')
 print('  graphify-out/wiki/index.md  ->  agent entry point')
 "
 ```
+
+
+### Step 6c - Dashboard (always generated)
+
+Generate the human-friendly architecture dashboard. This produces a single-page HTML with a simplified module graph, module cards, and recommended reading order — designed for humans, not AI.
+
+```bash
+$(cat graphify-out/.graphify_python) -c "
+from graphify.dashboard import generate_dashboard, build_description_prompt
+import json
+from pathlib import Path
+
+result = generate_dashboard('graphify-out/graph.json')
+n = len(result['modules'])
+Path('graphify-out/.dashboard_modules.json').write_text(json.dumps(result['modules'], indent=2, default=str))
+print(f'Dashboard: {n} modules (auto-named)')
+print()
+print(build_description_prompt(result['modules']))
+"
+```
+
+The command above prints a prompt. Send that prompt to the LLM (yourself) and parse the JSON response. Then also generate short module names (2-4 Chinese/English words each) for each module ID.
+
+Regenerate the dashboard with names and descriptions:
+
+```bash
+$(cat graphify-out/.graphify_python) -c "
+from graphify.dashboard import generate_dashboard
+import json
+
+names = NAMES_DICT        # {0: 'Short Name', 1: 'Short Name', ...}
+descriptions = DESC_DICT  # {0: 'One sentence description', ...}
+
+generate_dashboard(
+    'graphify-out/graph.json',
+    names=names,
+    descriptions=descriptions,
+    project_name='PROJECT_NAME',
+)
+print('Dashboard updated with names and descriptions')
+"
+```
+
+Replace `NAMES_DICT`, `DESC_DICT`, and `PROJECT_NAME` with actual values from the LLM response and the project directory name.
+
 
 ### Step 7 - Neo4j export (only if --neo4j or --neo4j-push flag)
 
@@ -768,7 +783,7 @@ cost_path.write_text(json.dumps(cost, indent=2))
 print(f'This run: {input_tok:,} input tokens, {output_tok:,} output tokens')
 print(f'All time: {cost[\"total_input_tokens\"]:,} input, {cost[\"total_output_tokens\"]:,} output ({len(cost[\"runs\"])} runs)')
 "
-rm -f graphify-out/.graphify_detect.json graphify-out/.graphify_extract.json graphify-out/.graphify_ast.json graphify-out/.graphify_semantic.json graphify-out/.graphify_analysis.json graphify-out/.graphify_labels.json graphify-out/.graphify_chunk_*.json
+rm -f graphify-out/.graphify_detect.json graphify-out/.graphify_extract.json graphify-out/.graphify_ast.json graphify-out/.graphify_semantic.json graphify-out/.graphify_analysis.json graphify-out/.graphify_labels.json
 rm -f graphify-out/.needs_update 2>/dev/null || true
 ```
 
@@ -779,6 +794,7 @@ Graph complete. Outputs in PATH_TO_DIR/graphify-out/
   graph.html            - interactive graph, open in browser
   GRAPH_REPORT.md       - audit report
   graph.json            - raw graph data
+  dashboard.html        - human-friendly architecture overview
   obsidian/             - Obsidian vault (only if --obsidian was given)
 ```
 

@@ -50,6 +50,16 @@ dist/
 
 Same syntax as `.gitignore`. You can keep a single `.graphifyignore` at your repo root — patterns work correctly even when graphify is run on a subfolder.
 
+## What's new in v0.5.0
+
+- **`graphify clone <github-url>`** — clone any public GitHub repo and run the full pipeline on it. Clones to `~/.graphify/repos/<owner>/<repo>`, reuses existing clones on repeat runs (`git pull`). Supports `--branch` and `--out`.
+- **`graphify merge-graphs`** — combine two or more `graph.json` outputs into one cross-repo graph. Each node is tagged with its source repo. Useful for mapping dependencies across multiple projects.
+- **`CLAUDE_CONFIG_DIR` support** — `graphify install` now respects the `CLAUDE_CONFIG_DIR` environment variable when installing the Claude Code skill, instead of always writing to `~/.claude`.
+- **Shrink guard** — `to_json()` refuses to overwrite `graph.json` with a smaller graph. Prevents silent data loss when `--update` is called with a partial chunk list.
+- **`build_merge()`** — new library function for safe incremental updates: loads existing graph, merges new chunks, optionally prunes deleted-file nodes, never shrinks.
+- **Duplicate node deduplication** — `deduplicate_by_label()` collapses nodes that share a normalised label (e.g. from parallel subagents generating `achille_varzi` and `achille_varzi_c4`). Chunk-suffix contamination is also blocked at the prompt level.
+- **Bug fixes** — `graphify-out/` is now excluded from source scanning so generated artifacts never trigger false incremental refresh pressure.
+
 ## How it works
 
 graphify runs in three passes. First, a deterministic AST pass extracts structure from code files (classes, functions, imports, call graphs, docstrings, rationale comments) with no LLM needed. Second, video and audio files are transcribed locally with faster-whisper using a domain-aware prompt derived from corpus god nodes — transcripts are cached so re-runs are instant. Third, Claude subagents run in parallel over docs, papers, images, and transcripts to extract concepts, relationships, and design rationale. The results are merged into a NetworkX graph, clustered with Leiden community detection, and exported as interactive HTML, queryable JSON, and a plain-language audit report.
@@ -326,6 +336,14 @@ graphify explain "SwinTransformer"           # plain-language explanation of a n
 # add content and update the graph from the terminal
 graphify add https://arxiv.org/abs/1706.03762          # fetch paper, save to ./raw, update graph
 graphify add https://... --author "Name" --contributor "Name"
+
+# clone any GitHub repo and run the full pipeline on it
+graphify clone https://github.com/karpathy/nanoGPT    # clones to ~/.graphify/repos/karpathy/nanoGPT
+graphify clone https://github.com/org/repo --branch dev --out ./my-clone
+
+# cross-repo graphs — merge two or more graph.json outputs into one
+graphify merge-graphs repo1/graphify-out/graph.json repo2/graphify-out/graph.json
+graphify merge-graphs g1.json g2.json g3.json --out cross-repo.json
 
 # incremental update and maintenance
 graphify watch ./src                         # auto-rebuild on code changes
