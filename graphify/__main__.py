@@ -814,11 +814,18 @@ def main() -> None:
             if count:
                 print(f"  {label:<16} {count:>5}")
         print(f"  {'Total':<16} {total_files:>5}  (~{total_words:,} words)")
-        if result.get("skipped_sensitive"):
-            print(f"\n  Skipped (sensitive): {len(result['skipped_sensitive'])} file(s)")
+        skipped = result.get("skipped_sensitive", [])
+        office_missing = [s for s in skipped if "office deps missing" in s]
+        sensitive = [s for s in skipped if "office deps missing" not in s]
+        if sensitive:
+            print(f"\n  Skipped (sensitive): {len(sensitive)} file(s)")
+        if office_missing:
+            print(f"\n  Skipped (office deps missing): {len(office_missing)} file(s)")
+            print("  Install office support: pip install graphify[office]")
+            print("  These files will not be extracted in a real run without the extras.")
         if result.get("warning"):
             print(f"\nwarning: {result['warning']}")
-        else:
+        elif not office_missing:
             print("\nCorpus looks healthy — no warnings.")
         print("\nNo files were written. Run without dry-run to build the graph.")
     elif cmd == "benchmark":

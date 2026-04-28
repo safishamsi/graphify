@@ -73,3 +73,18 @@ def test_dry_run_office_no_sidecar_written(tmp_path):
         _run_main(["graphify", "dry-run", str(tmp_path)])
 
     mock_convert.assert_not_called()
+
+
+def test_dry_run_office_missing_deps_warns(tmp_path):
+    """dry-run warns when office deps are missing and content would be empty in a real run."""
+    from unittest.mock import patch as mpatch
+
+    (tmp_path / "report.docx").write_bytes(b"PK\x03\x04")
+
+    # Simulate missing python-docx: docx_to_markdown returns ""
+    with mpatch("graphify.detect.docx_to_markdown", return_value=""):
+        out, code = _run_main(["graphify", "dry-run", str(tmp_path)])
+
+    assert code == 0
+    assert "office deps missing" in out.lower() or "office" in out.lower()
+    assert "pip install graphify[office]" in out
