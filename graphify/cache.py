@@ -99,10 +99,17 @@ def save_cached(path: Path, result: dict, root: Path = Path("."), kind: str = "a
     if not p.is_file():
         return
     h = file_hash(p, root)
-    entry = cache_dir(root, kind) / f"{h}.json"
-    tmp = entry.with_suffix(".tmp")
+    target_dir = cache_dir(root, kind)
+    entry = target_dir / f"{h}.json"
+    # Per-writer unique temp filename: concurrent save_cached calls for the same
+    # hash (parallel extractors, retries) used to share `entry.with_suffix(".tmp")`
+    # and trample each other; tempfile.mkstemp gives each writer its own path.
+    import tempfile
+    fd, tmp_str = tempfile.mkstemp(dir=str(target_dir), prefix=f"{h}.", suffix=".tmp")
+    tmp = Path(tmp_str)
     try:
-        tmp.write_text(json.dumps(result), encoding="utf-8")
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            f.write(json.dumps(result))
         try:
             os.replace(tmp, entry)
         except PermissionError:

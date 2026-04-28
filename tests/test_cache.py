@@ -124,3 +124,47 @@ def test_body_content_no_frontmatter():
     """_body_content returns content unchanged when no frontmatter present."""
     content = b"No frontmatter here."
     assert _body_content(content) == content
+
+
+def test_save_cached_concurrent_writers_no_collision(tmp_path):
+    """Concurrent save_cached calls for the same file/hash must not collide
+    on a shared `.tmp` filename (regression: previously they all used
+    `entry.with_suffix('.tmp')` and trampled each other).
+
+    The fix uses tempfile.mkstemp so each writer gets a unique temp path.
+    """
+    import threading
+
+    f = tmp_path / "shared.txt"
+    f.write_text("same content for all writers")
+
+    errors: list[BaseException] = []
+    barrier = threading.Barrier(8)
+
+    def writer(i: int) -> None:
+        try:
+            barrier.wait(timeout=5)
+            save_cached(f, {"nodes": [{"id": f"n{i}"}], "edges": []}, root=tmp_path)
+        except BaseException as e:
+            errors.append(e)
+
+    threads = [threading.Thread(target=writer, args=(i,)) for i in range(8)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+
+    assert errors == [], f"concurrent writers raised: {errors}"
+
+    # Final cache entry must be a complete, valid JSON document — not a partial
+    # write left behind by a colliding writer.
+    loaded = load_cached(f, root=tmp_path)
+    assert loaded is not None
+    assert "nodes" in loaded
+    assert "edges" in loaded
+    assert loaded["nodes"] and loaded["nodes"][0]["id"].startswith("n")
+
+    # No leftover .tmp files in the cache dir.
+    cdir = cache_dir(tmp_path, "ast")
+    leftover = list(cdir.glob("*.tmp"))
+    assert leftover == [], f"orphaned tmp files: {leftover}"
