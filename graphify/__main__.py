@@ -943,6 +943,13 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
         sys.exit(1)
     owner, repo = m.group(1), m.group(2)
 
+    # Reject branch names that look like CLI flags. git treats refspecs starting
+    # with `-` as options in some positions, which would let a caller smuggle
+    # arguments through this surface (e.g. `--upload-pack=evilcmd`).
+    if branch is not None and branch.startswith("-"):
+        print(f"error: refusing branch name starting with '-': {branch!r}", file=sys.stderr)
+        sys.exit(1)
+
     if out_dir:
         dest = out_dir
     else:
@@ -952,7 +959,7 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
         print(f"Repo already cloned at {dest} — pulling latest...", flush=True)
         cmd = ["git", "-C", str(dest), "pull"]
         if branch:
-            cmd += ["origin", branch]
+            cmd += ["--", "origin", branch]
         result = _sp.run(cmd, capture_output=True, text=True)
         if result.returncode != 0:
             print(f"warning: git pull failed:\n{result.stderr}", file=sys.stderr)
@@ -962,7 +969,7 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
         cmd = ["git", "clone", "--depth", "1"]
         if branch:
             cmd += ["--branch", branch]
-        cmd += [git_url, str(dest)]
+        cmd += ["--", git_url, str(dest)]
         result = _sp.run(cmd, capture_output=True, text=True)
         if result.returncode != 0:
             print(f"error: git clone failed:\n{result.stderr}", file=sys.stderr)
