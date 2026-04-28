@@ -104,6 +104,42 @@ def test_graphifyignore_missing_is_fine(tmp_path):
     assert result["graphifyignore_patterns"] == 0
 
 
+def test_graphifyinclude_allows_curated_files_inside_hidden_dirs(tmp_path):
+    """A .graphifyinclude allowlist can opt curated hidden markdown paths into detect()."""
+    (tmp_path / ".graphifyinclude").write_text(".hermes/plans/**/*.md\n")
+    plans = tmp_path / ".hermes" / "plans"
+    plans.mkdir(parents=True)
+    (plans / "knowledge-plan.md").write_text("# Knowledge Plan\nThis is the searchable plan.")
+    context = tmp_path / ".hermes" / "context"
+    context.mkdir(parents=True)
+    (context / "scratch.md").write_text("# Scratch\nThis should stay out.")
+    (tmp_path / "README.md").write_text("# Visible\nVisible docs still work.")
+
+    result = detect(tmp_path)
+    docs = result["files"]["document"]
+
+    assert any(".hermes/plans/knowledge-plan.md" in f for f in docs)
+    assert not any(".hermes/context/scratch.md" in f for f in docs)
+    assert any("README.md" in f for f in docs)
+    assert result["graphifyinclude_patterns"] == 1
+
+
+def test_graphifyinclude_does_not_override_sensitive_file_skips(tmp_path):
+    """Even allowlisted hidden paths must not index secret-looking files."""
+    (tmp_path / ".graphifyinclude").write_text(".hermes/plans/**/*.md\n")
+    plans = tmp_path / ".hermes" / "plans"
+    plans.mkdir(parents=True)
+    (plans / "api_token.md").write_text("token: should not be indexed")
+    (plans / "public-plan.md").write_text("# Public Plan\nSafe searchable material.")
+
+    result = detect(tmp_path)
+    docs = result["files"]["document"]
+
+    assert any(".hermes/plans/public-plan.md" in f for f in docs)
+    assert not any("api_token.md" in f for f in docs)
+    assert len(result["skipped_sensitive"]) == 1
+
+
 def test_graphifyignore_comments_ignored(tmp_path):
     """Comment lines in .graphifyignore are not treated as patterns."""
     (tmp_path / ".graphifyignore").write_text("# this is a comment\n\nmain.py\n")

@@ -263,13 +263,13 @@ def _is_noise_dir(part: str) -> bool:
     return False
 
 
-def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
-    """Read .graphifyignore from root **and ancestor directories**.
+def _load_pattern_file(root: Path, filename: str) -> list[tuple[Path, str]]:
+    """Read a Graphify pattern file from root **and ancestor directories**.
 
     Returns a list of (anchor_dir, pattern) pairs. Each pattern is matched
     against paths relative to both the scan root and the anchor_dir where
-    the .graphifyignore file was found — so patterns written relative to a
-    parent directory still work when graphify is run on a subfolder.
+    the pattern file was found — so patterns written relative to a parent
+    directory still work when graphify is run on a subfolder.
 
     Walks upward from *root* towards the filesystem root, stopping at a
     ``.git`` boundary. Lines starting with # are comments; blank lines ignored.
@@ -277,9 +277,9 @@ def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
     patterns: list[tuple[Path, str]] = []
     current = root.resolve()
     while True:
-        ignore_file = current / ".graphifyignore"
-        if ignore_file.exists():
-            for line in ignore_file.read_text(encoding="utf-8", errors="ignore").splitlines():
+        pattern_file = current / filename
+        if pattern_file.exists():
+            for line in pattern_file.read_text(encoding="utf-8", errors="ignore").splitlines():
                 line = line.strip()
                 if line and not line.startswith("#"):
                     patterns.append((current, line))
@@ -293,13 +293,29 @@ def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
     return patterns
 
 
-def _is_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> bool:
-    """Return True if path matches any .graphifyignore pattern."""
-    if not patterns:
-        return False
+def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
+    """Read .graphifyignore patterns from root and ancestor directories."""
+    return _load_pattern_file(root, ".graphifyignore")
 
-    def _matches(rel: str, p: str) -> bool:
-        parts = rel.split("/")
+
+def _load_graphifyinclude(root: Path) -> list[tuple[Path, str]]:
+    """Read .graphifyinclude allowlist patterns from root and ancestors.
+
+    Include patterns are intentionally narrow: they only opt matching files and
+    the directories needed to reach them into hidden-path traversal. Sensitive
+    files and hard-skipped noise directories are still excluded later.
+    """
+    return _load_pattern_file(root, ".graphifyinclude")
+
+
+def _pattern_matches(path: Path, rel: str, pattern: str) -> bool:
+    """Return True if *rel* or path.name matches a Graphify glob pattern."""
+    parts = rel.split("/")
+    candidates = [pattern]
+    if "/**/" in pattern:
+        # Treat foo/**/*.md as matching both foo/bar.md and foo/a/bar.md.
+        candidates.append(pattern.replace("/**/", "/"))
+    for p in candidates:
         if fnmatch.fnmatch(rel, p):
             return True
         if fnmatch.fnmatch(path.name, p):
@@ -309,6 +325,12 @@ def _is_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> boo
                 return True
             if fnmatch.fnmatch("/".join(parts[:i + 1]), p):
                 return True
+    return False
+
+
+def _matches_patterns(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> bool:
+    """Return True if path matches any pattern loaded for root/ancestors."""
+    if not patterns:
         return False
 
     for anchor, pattern in patterns:
@@ -318,19 +340,61 @@ def _is_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> boo
         # Try path relative to the scan root
         try:
             rel = str(path.relative_to(root)).replace(os.sep, "/")
-            if _matches(rel, p):
+            if _pattern_matches(path, rel, p):
                 return True
         except ValueError:
             pass
-        # Also try relative to the anchor dir (the .graphifyignore's location),
-        # so patterns written at a parent level still fire when running on a subfolder
+        # Also try relative to the anchor dir (the pattern file's location),
+        # so parent-level patterns still fire when running on a subfolder.
         if anchor != root:
             try:
                 rel_anchor = str(path.relative_to(anchor)).replace(os.sep, "/")
-                if _matches(rel_anchor, p):
+                if _pattern_matches(path, rel_anchor, p):
                     return True
             except ValueError:
                 pass
+    return False
+
+
+def _is_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> bool:
+    """Return True if path matches any .graphifyignore pattern."""
+    return _matches_patterns(path, root, patterns)
+
+
+def _is_included(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> bool:
+    """Return True if path matches any .graphifyinclude allowlist pattern."""
+    return _matches_patterns(path, root, patterns)
+
+
+def _could_contain_included_path(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> bool:
+    """Return True if a directory may contain files matched by .graphifyinclude."""
+    if not patterns:
+        return False
+
+    rels: list[str] = []
+    try:
+        rels.append(str(path.relative_to(root)).replace(os.sep, "/"))
+    except ValueError:
+        pass
+    for anchor, _ in patterns:
+        if anchor != root:
+            try:
+                rels.append(str(path.relative_to(anchor)).replace(os.sep, "/"))
+            except ValueError:
+                pass
+
+    for rel in rels:
+        rel = rel.strip("/")
+        if not rel:
+            return True
+        for _, pattern in patterns:
+            p = pattern.strip("/")
+            if not p:
+                continue
+            if p == rel or p.startswith(rel + "/"):
+                return True
+            if _pattern_matches(path, rel, p):
+                return True
     return False
 
 
@@ -347,6 +411,7 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
 
     skipped_sensitive: list[str] = []
     ignore_patterns = _load_graphifyignore(root)
+    include_patterns = _load_graphifyinclude(root)
 
     # Always include graphify-out/memory/ - query results filed back into the graph
     memory_dir = root / "graphify-out" / "memory"
@@ -368,11 +433,13 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
                     dirnames.clear()
                     continue
             if not in_memory_tree:
-                # Prune noise dirs in-place so os.walk never descends into them
+                # Prune noise dirs in-place so os.walk never descends into them.
+                # Hidden dirs remain skipped by default, but .graphifyinclude can
+                # opt in the exact hidden subtrees needed to reach allowlisted files.
                 dirnames[:] = [
                     d for d in dirnames
-                    if not d.startswith(".")
-                    and not _is_noise_dir(d)
+                    if not _is_noise_dir(d)
+                    and (not d.startswith(".") or _could_contain_included_path(dp / d, root, include_patterns))
                     and not _is_ignored(dp / d, root, ignore_patterns)
                 ]
             for fname in filenames:
@@ -389,9 +456,12 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
         # For memory dir files, skip hidden/noise filtering
         in_memory = memory_dir.exists() and str(p).startswith(str(memory_dir))
         if not in_memory:
-            # Hidden files are already excluded via dir pruning above,
-            # but catch hidden files at the root level
-            if p.name.startswith("."):
+            try:
+                rel_parts = p.relative_to(root).parts
+            except ValueError:
+                rel_parts = p.parts
+            # Hidden files/directories are excluded unless this exact file is allowlisted.
+            if any(part.startswith(".") for part in rel_parts) and not _is_included(p, root, include_patterns):
                 continue
             # Skip files inside our own converted/ dir (avoid re-processing sidecars)
             if str(p).startswith(str(converted_dir)):
@@ -442,6 +512,7 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
         "warning": warning,
         "skipped_sensitive": skipped_sensitive,
         "graphifyignore_patterns": len(ignore_patterns),
+        "graphifyinclude_patterns": len(include_patterns),
     }
 
 
