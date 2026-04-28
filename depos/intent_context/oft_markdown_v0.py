@@ -11,6 +11,8 @@ from depos.intent_context.schemas import IntentEvidence, IntentUnit
 _OFT_ID_BACKTICK = re.compile(
     r"`([A-Za-z][A-Za-z0-9]*)~([A-Za-z][\w.-]*(?:\.[\w.-]+)*)~(\d+)`",
 )
+# Exported for deterministic normative_surface / tier bump logic (intent IR).
+OFT_ID_BACKTICK_PATTERN = _OFT_ID_BACKTICK
 _KEY_NEEDS = re.compile(r"^\s*Needs:\s*$", re.IGNORECASE)
 _KEY_NEEDS_INLINE = re.compile(r"^\s*Needs:\s*(.+)\s*$", re.IGNORECASE)
 _KEY_COVERS = re.compile(r"^\s*Covers:\s*$", re.IGNORECASE)

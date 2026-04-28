@@ -17,6 +17,29 @@ IntentUnitKind = Literal[
 ExtractorName = Literal["rules_v0", "llm_v0", "oft_markdown_v0"]
 PathClassification = Literal["intent", "mixed"]
 
+IntentTier = Literal["P0", "P1", "P2"]
+
+TierSource = Literal[
+    "policy_glob",
+    "default",
+    "frontmatter",
+    "binding_glob",
+    "oft_markdown_pattern",
+    "merged",
+]
+
+
+class TierLineageEntry(BaseModel):
+    source: TierSource
+    tier_after: IntentTier
+
+
+class DocSignalsRecord(BaseModel):
+    git_commit_at: Optional[str] = None
+    git_commit_sha: Optional[str] = None
+    git_available: bool = False
+    degraded_warning: Optional[str] = None
+
 
 class IntentEvidence(BaseModel):
     chunk_id: str
@@ -34,6 +57,10 @@ class IntentUnit(BaseModel):
     evidence: list[IntentEvidence] = Field(default_factory=list)
     extractor: ExtractorName
     confidence: float = Field(ge=0.0, le=1.0, default=0.5)
+    effective_tier: IntentTier = "P2"
+    normative_surface: bool = False
+    tier_lineage: list[TierLineageEntry] = Field(default_factory=list)
+    effective_weight: float = Field(ge=0.0, le=1.0, default=0.0)
     # OpenFastTrace interoperability (populated when extractor is oft_markdown_v0)
     oft_spec_item_id: Optional[str] = None
     oft_artifact_type: Optional[str] = None
@@ -55,6 +82,10 @@ class IntentChunkRecord(BaseModel):
     heading_stack: list[str] = Field(default_factory=list)
     text: str
     path_classification: PathClassification = "intent"
+    effective_tier: IntentTier = "P2"
+    normative_surface: bool = False
+    tier_lineage: list[TierLineageEntry] = Field(default_factory=list)
+    effective_weight: float = Field(ge=0.0, le=1.0, default=0.0)
 
 
 class FencedBlockMeta(BaseModel):
@@ -69,15 +100,24 @@ class IntentManifestFile(BaseModel):
     byte_length: int
     path_classification: PathClassification = "intent"
     warnings: list[str] = Field(default_factory=list)
+    policy_tier: IntentTier = "P2"
+    doc_signals: DocSignalsRecord = Field(default_factory=DocSignalsRecord)
+    tier_lineage: list[TierLineageEntry] = Field(default_factory=list)
+    effective_tier: IntentTier = "P2"
+    normative_surface: bool = False
 
 
 class IntentManifest(BaseModel):
+    intent_schema_version: int = 2
     repo_sha: str = "unknown"
     built_at: str = Field(
         default_factory=lambda: datetime.now(timezone.utc).isoformat(),
     )
     files: list[IntentManifestFile] = Field(default_factory=list)
     parse_warnings: list[str] = Field(default_factory=list)
+    policy_parse_warnings: list[str] = Field(default_factory=list)
+    counts_by_tier: dict[str, int] = Field(default_factory=dict)
+    p0_paths: list[str] = Field(default_factory=list)
     llm_enabled: bool = False
     llm_model: Optional[str] = None
     llm_calls: int = 0

@@ -5,16 +5,24 @@ import json
 import logging
 import subprocess
 import sys
+from dataclasses import replace
 from pathlib import Path
 
 from depos.analysis.config import IntelligenceConfig
 from depos.intent_context.chunk import chunk_normalized_text
 from depos.intent_context.discover import discover_intent_files
+from depos.intent_context.doc_signals import git_doc_signals
+from depos.intent_context.intent_policy import load_intent_policy
 from depos.intent_context.llm_v0 import extract_units_llm_batched
 from depos.intent_context.normalize import normalize_markdown
+from depos.intent_context.normative import (
+    compute_file_tier_bundle,
+    enrich_chunk_tier_inplace,
+    enrich_units_from_chunks,
+)
 from depos.intent_context.oft_markdown_v0 import extract_oft_markdown_v0
 from depos.intent_context.rules_v0 import extract_rules_v0
-from depos.intent_context.schemas import IntentManifest, IntentManifestFile
+from depos.intent_context.schemas import DocSignalsRecord, IntentManifest, IntentManifestFile
 from depos.intent_context.summaries import summarize_files, summarize_repo
 from depos.intent_context.tag_scan import (
     build_trace_hints_from_oft_units,
@@ -25,6 +33,7 @@ from depos.intent_context.tag_scan import (
 logger = logging.getLogger(__name__)
 
 _OFT_ID_CAP = 500
+_P0_PATH_CAP = 200
 
 
 def _repo_sha(repo_root: Path) -> str:
@@ -86,6 +95,12 @@ def run_intent_context_build(
     discovered, disc_warnings = discover_intent_files(repo_root, icfg)
     fence = _fenced_policy(config)
 
+    policy, policy_warnings = load_intent_policy(repo_root)
+    policy_parse_warnings: list[str] = list(policy_warnings)
+    dtier = getattr(icfg, "default_intent_tier", None)
+    if dtier in {"P0", "P1", "P2"}:
+        policy = replace(policy, default_tier=dtier)
+
     all_chunks: list = []
     manifest_files: list[IntentManifestFile] = []
     units_rules: list = []
@@ -93,6 +108,26 @@ def run_intent_context_build(
     trunc: list[str] = list(disc_warnings)
 
     for df in discovered:
+        try:
+            raw = df.abs_path.read_text(encoding="utf-8", errors="replace")
+        except OSError as e:
+            trunc.append(f"{df.relpath}: read failed (tiers/git signals skipped): {e}")
+            continue
+
+        policy_tier, effective_tier, file_lineage, file_ns = compute_file_tier_bundle(
+            policy=policy,
+            relpath_posix=df.relpath,
+            raw_text=raw,
+        )
+        doc_sig = (
+            git_doc_signals(repo_root, df.relpath)
+            if getattr(icfg, "enable_doc_git_signals", True)
+            else DocSignalsRecord(
+                git_available=False,
+                degraded_warning="doc git signals disabled (DEPOS_INTEL_INTENT_GIT_SIGNALS)",
+            )
+        )
+
         try:
             nd = normalize_markdown(df.abs_path, fence)  # type: ignore[arg-type]
         except OSError as e:
@@ -104,6 +139,14 @@ def run_intent_context_build(
             icfg,
             df.path_classification,
         )
+        for ch in chunks:
+            enrich_chunk_tier_inplace(
+                ch,
+                file_lineage=file_lineage,
+                file_effective=effective_tier,
+                file_ns=file_ns,
+            )
+
         manifest_files.append(
             IntentManifestFile(
                 relpath=df.relpath,
@@ -111,6 +154,11 @@ def run_intent_context_build(
                 byte_length=df.byte_length,
                 path_classification=df.path_classification,  # type: ignore[arg-type]
                 warnings=list(df.warnings),
+                policy_tier=policy_tier,
+                doc_signals=doc_sig,
+                tier_lineage=file_lineage,
+                effective_tier=effective_tier,
+                normative_surface=file_ns,
             )
         )
         for ch in chunks:
@@ -181,14 +229,27 @@ def run_intent_context_build(
             logger.exception("repo summary")
             trunc.append("repo summary: unexpected error (see logs)")
 
+    chunk_by_id = {ch.chunk_id: ch for ch in all_chunks}
+    enrich_units_from_chunks(units_rules, chunk_by_id)
+    enrich_units_from_chunks(units_oft, chunk_by_id)
+    enrich_units_from_chunks(units_llm, chunk_by_id)
+
     model = None
     if llm_on:
         model = icfg.intent_openai_model or config.reasoner.openai_model
+
+    counts_by_tier: dict[str, int] = {"P0": 0, "P1": 0, "P2": 0}
+    for mf in manifest_files:
+        counts_by_tier[mf.effective_tier] = counts_by_tier.get(mf.effective_tier, 0) + 1
+    p0_paths = sorted(m.relpath for m in manifest_files if m.effective_tier == "P0")[:_P0_PATH_CAP]
 
     manifest = IntentManifest(
         repo_sha=_repo_sha(repo_root),
         files=manifest_files,
         parse_warnings=trunc,
+        policy_parse_warnings=policy_parse_warnings,
+        counts_by_tier=counts_by_tier,
+        p0_paths=p0_paths,
         llm_enabled=llm_on,
         llm_model=model,
         llm_calls=llm_calls,

@@ -48,6 +48,10 @@ class IntentContextConfig(BaseModel):
             "**/*.sh",
         ],
     )
+    #: When enabled, populate ``IntentManifestFile.doc_signals`` from ``git log -1``.
+    enable_doc_git_signals: bool = True
+    #: When set (``P0``/``P1``/``P2``), overrides YAML ``default_tier`` without editing the file.
+    default_intent_tier: Optional[str] = Field(default=None)
 
 
 class VerifierPolicy(BaseModel):
@@ -251,4 +255,10 @@ def load_config_from_env() -> IntelligenceConfig:
     cfg.intent_context.enable_tag_scan = os.environ.get(
         "DEPOS_INTEL_INTENT_TAG_SCAN", "1"
     ).strip().lower() not in {"0", "false", "off", "no"}
+    cfg.intent_context.enable_doc_git_signals = os.environ.get(
+        "DEPOS_INTEL_INTENT_GIT_SIGNALS", "1"
+    ).strip().lower() not in {"0", "false", "off", "no"}
+    git_typed = os.environ.get("DEPOS_INTEL_INTENT_DEFAULT_TIER", "").strip().upper()
+    if git_typed in {"P0", "P1", "P2"}:
+        cfg.intent_context.default_intent_tier = git_typed
     return cfg
