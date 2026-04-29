@@ -114,6 +114,57 @@ def test_graphifyignore_comments_ignored(tmp_path):
     assert any("other.py" in f for f in result["files"]["code"])
 
 
+def test_graphifyignore_inline_comments_stripped(tmp_path):
+    """Inline comments (whitespace + '#' to end of line) are stripped from
+    pattern lines, so `vendor/  # legacy code` ignores the `vendor/` directory
+    rather than treating the entire line including the comment as the pattern.
+    """
+    (tmp_path / ".graphifyignore").write_text(
+        "vendor/  # legacy code\n"
+        "*.generated.py    # auto-generated, skip\n"
+        "main.py\n"
+    )
+    (tmp_path / "vendor").mkdir()
+    (tmp_path / "vendor" / "lib.py").write_text("x = 1")
+    (tmp_path / "auto.generated.py").write_text("x = 2")
+    (tmp_path / "main.py").write_text("x = 3")
+    (tmp_path / "other.py").write_text("x = 4")
+    result = detect(tmp_path)
+    assert not any("lib.py" in f for f in result["files"]["code"]), (
+        "vendor/ should be ignored after stripping inline comment"
+    )
+    assert not any("auto.generated.py" in f for f in result["files"]["code"]), (
+        "*.generated.py should match after stripping inline comment"
+    )
+    assert not any("main.py" in f for f in result["files"]["code"])
+    assert any("other.py" in f for f in result["files"]["code"])
+
+
+def test_graphifyignore_inline_comment_requires_whitespace_before_hash(tmp_path):
+    """A '#' without preceding whitespace is part of the pattern, not a comment.
+    Standard gitignore semantics — `path#name` matches a file literally named
+    `path#name`, not a comment.
+    """
+    (tmp_path / ".graphifyignore").write_text("file#with#hash.py\n")
+    (tmp_path / "file#with#hash.py").write_text("x = 1")
+    (tmp_path / "other.py").write_text("x = 2")
+    result = detect(tmp_path)
+    assert not any("file#with#hash.py" in f for f in result["files"]["code"])
+    assert any("other.py" in f for f in result["files"]["code"])
+
+
+def test_graphifyignore_escaped_hash_is_literal(tmp_path):
+    r"""Backslash-hash (``\#``) keeps a literal '#' in the pattern even after
+    whitespace, escaping the inline-comment marker.
+    """
+    (tmp_path / ".graphifyignore").write_text("file \\# name.py\n")
+    (tmp_path / "file # name.py").write_text("x = 1")
+    (tmp_path / "other.py").write_text("x = 2")
+    result = detect(tmp_path)
+    assert not any("file # name.py" in f for f in result["files"]["code"])
+    assert any("other.py" in f for f in result["files"]["code"])
+
+
 def test_detect_follows_symlinked_directory(tmp_path):
     real_dir = tmp_path / "real_lib"
     real_dir.mkdir()

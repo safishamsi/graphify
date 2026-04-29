@@ -272,17 +272,41 @@ def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
     parent directory still work when graphify is run on a subfolder.
 
     Walks upward from *root* towards the filesystem root, stopping at a
-    ``.git`` boundary. Lines starting with # are comments; blank lines ignored.
+    ``.git`` boundary.
+
+    Comment handling (gitignore extension):
+      * Lines starting with # are full-line comments — skipped.
+      * Inline comments (whitespace + hash to end of line) are stripped
+        from each pattern. This matches user intuition for documenting
+        patterns inline, e.g. `chitta/varta/  # daily briefings`.
+      * Use ``\\#`` to keep a literal hash in a pattern (rare).
+      * Blank lines after stripping are ignored.
     """
     patterns: list[tuple[Path, str]] = []
     current = root.resolve()
     while True:
         ignore_file = current / ".graphifyignore"
         if ignore_file.exists():
-            for line in ignore_file.read_text(encoding="utf-8", errors="ignore").splitlines():
-                line = line.strip()
-                if line and not line.startswith("#"):
-                    patterns.append((current, line))
+            for raw_line in ignore_file.read_text(encoding="utf-8", errors="ignore").splitlines():
+                line = raw_line.strip()
+                if not line or line.startswith("#"):
+                    continue
+                # Strip inline comment (whitespace + '#' to end of line),
+                # preserve escaped backslash-# as literal hash in pattern.
+                pieces = []
+                i = 0
+                while i < len(line):
+                    if line[i] == "\\" and i + 1 < len(line) and line[i + 1] == "#":
+                        pieces.append("#")
+                        i += 2
+                        continue
+                    if line[i].isspace() and i + 1 < len(line) and line[i + 1] == "#":
+                        break
+                    pieces.append(line[i])
+                    i += 1
+                pattern = "".join(pieces).rstrip()
+                if pattern:
+                    patterns.append((current, pattern))
         # Stop climbing once we've processed the git repo root
         if (current / ".git").exists():
             break
