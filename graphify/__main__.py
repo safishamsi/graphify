@@ -555,7 +555,7 @@ def _antigravity_install(project_dir: Path) -> None:
     print("To enable full MCP architecture navigation, add this to ~/.gemini/antigravity/mcp_config.json:")
     print('  "graphify": {')
     print('    "command": "uv",')
-    print('    "args": ["run", "--with", "graphifyy", "--with", "mcp", "-m", "graphify.serve", "${workspace.path}/graphify-out/graph.json"]')
+    print('    "args": ["run", "--with", "graphifyy", "--with", "mcp", "-m", "graphify.serve", "${workspaceFolder}/graphify-out/graph.json"]')
     print('  }')
 
 
