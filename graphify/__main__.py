@@ -120,7 +120,7 @@ _PLATFORM_CONFIG: dict[str, dict] = {
 }
 
 
-def install(platform: str = "claude") -> None:
+def install(platform: str = "claude", show_next_steps: bool = True) -> None:
     if platform == "gemini":
         gemini_install()
         return
@@ -164,18 +164,19 @@ def install(platform: str = "claude") -> None:
     if platform == "opencode":
         _install_opencode_plugin(Path("."))
 
-    print()
-    print("Done. Open your AI coding assistant and type:")
-    print()
-    if platform == "pi":
-        print("  /skill:graphify .")
+    if show_next_steps:
         print()
-        print("For a native /graphify alias inside a project, run:")
+        print("Done. Open your AI coding assistant and type:")
         print()
-        print("  graphify pi install")
-    else:
-        print("  /graphify .")
-    print()
+        if platform == "pi":
+            print("  /skill:graphify .")
+            print()
+            print("For a native /graphify alias inside a project, run:")
+            print()
+            print("  graphify pi install")
+        else:
+            print("  /graphify .")
+        print()
 
 
 _CLAUDE_MD_SECTION = """\
@@ -935,7 +936,7 @@ def _remove_platform_skill(platform_name: str) -> list[str]:
 
 def _pi_install(project_dir: Path | None = None) -> None:
     """Install graphify for Pi: global skill + local AGENTS + /graphify prompt alias."""
-    install(platform="pi")
+    install(platform="pi", show_next_steps=False)
     _agents_install(project_dir or Path("."), "pi")
 
     prompt_path = (project_dir or Path(".")) / _PI_PROMPT_PATH

@@ -67,6 +67,16 @@ def test_install_pi(tmp_path):
     assert "graphify pi install" in content
 
 
+def test_pi_skill_uses_graphify_out_scratch_paths():
+    """Pi skill keeps interpreter and detect scratch files in graphify-out."""
+    import graphify
+    skill = (Path(graphify.__file__).parent / "skill-pi.md").read_text()
+    assert "$(cat .graphify_python)" not in skill
+    assert "> .graphify_detect.json" not in skill
+    assert "Path('.graphify_detect.json')" not in skill
+    assert "graphify-out/graphify-out" not in skill
+
+
 def test_install_windows(tmp_path):
     _install(tmp_path, "windows")
     assert (tmp_path / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
@@ -351,6 +361,17 @@ def test_pi_install_writes_prompt_alias_and_agents(tmp_path):
     assert agents_md.exists()
     assert "graphify-out/GRAPH_REPORT.md" in agents_md.read_text()
     assert skill.exists()
+
+
+def test_pi_install_does_not_print_self_referential_hint(tmp_path, capsys):
+    from graphify.__main__ import _pi_install
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        _pi_install(tmp_path)
+
+    out = capsys.readouterr().out
+    assert "For a native /graphify alias inside a project" not in out
+    assert "graphify pi install" not in out
+    assert "Use /graphify inside this project" in out
 
 
 def test_pi_uninstall_removes_prompt_alias_and_skill(tmp_path):

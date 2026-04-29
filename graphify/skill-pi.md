@@ -76,18 +76,18 @@ mkdir -p graphify-out
 
 If the import succeeds, print nothing and move straight to Step 2.
 
-**In every subsequent bash block, replace `python3` with `$(cat .graphify_python)` to use the correct interpreter.**
+**In every subsequent bash block, replace `python3` with `$(cat graphify-out/.graphify_python)` to use the correct interpreter.**
 
 ### Step 2 - Detect files
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json
 from graphify.detect import detect
 from pathlib import Path
 result = detect(Path('INPUT_PATH'))
 print(json.dumps(result))
-" > .graphify_detect.json
+" > graphify-out/.graphify_detect.json
 ```
 
 Replace INPUT_PATH with the actual path the user provided. Do NOT cat or print the JSON - read it silently and present a clean summary instead:
@@ -147,7 +147,7 @@ print(json.dumps(transcript_paths))
 
 After transcription:
 - Read the transcript paths from `graphify-out/.graphify_transcripts.json`
-- Add them to the docs list before dispatching semantic subagents in Step 3B
+- Add them to the docs list before semantic extraction in Step 3B
 - Print how many transcripts were created: `Transcribed N video file(s) -> treating as docs`
 - If transcription fails for a file, print a warning and continue with the rest
 
@@ -155,27 +155,25 @@ After transcription:
 
 ### Step 3 - Extract entities and relationships
 
-**Before starting:** note whether `--mode deep` was given. You must pass `DEEP_MODE=true` to every subagent in Step B2 if it was. Track this from the original invocation - do not lose it.
+**Before starting:** note whether `--mode deep` was given. Apply DEEP_MODE guidance during Step B2 if it was. Track this from the original invocation - do not lose it.
 
 This step has two parts: **structural extraction** (deterministic, free) and **semantic extraction** (your AI model, costs tokens).
 
-**Run Part A (AST) and Part B (semantic) in parallel. Dispatch all semantic subagents AND start AST extraction in the same message. Both can run simultaneously since they operate on different file types. Merge results in Part C as before.**
-
-Note: Parallelizing AST + semantic saves 5-15s on large corpora. AST is deterministic and fast; start it while subagents are processing docs/papers.
+**Run Part A (AST) first, then Part B (semantic) sequentially.** Pi does not have reliable multi-agent orchestration yet, so do not dispatch parallel extraction workers. Merge results in Part C as before.
 
 #### Part A - Structural extraction for code files
 
-For any code files detected, run AST extraction in parallel with Part B subagents:
+For any code files detected, run AST extraction before Part B:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.extract import collect_files, extract
 from pathlib import Path
 import json
 
 code_files = []
-detect = json.loads(Path('.graphify_detect.json').read_text())
+detect = json.loads(Path('graphify-out/.graphify_detect.json').read_text())
 for f in detect.get('files', {}).get('code', []):
     code_files.extend(collect_files(Path(f)) if Path(f).is_dir() else [Path(f)])
 
@@ -189,9 +187,9 @@ else:
 "
 ```
 
-#### Part B - Semantic extraction (parallel subagents)
+#### Part B - Semantic extraction (sequential Pi)
 
-**Fast path:** If detection found zero docs, papers, and images (code-only corpus), skip Part B entirely and go straight to Part C. AST handles code - there is nothing for semantic subagents to do.
+**Fast path:** If detection found zero docs, papers, and images (code-only corpus), skip Part B entirely and go straight to Part C. AST handles code - there is nothing for semantic extraction to do.
 
 > **Pi platform:** Multi-agent support is still early on Pi. Extraction runs sequentially — you read and extract each file yourself. This is slower than parallel platforms but fully reliable.
 
@@ -199,15 +197,15 @@ Print: `"Semantic extraction: N files (sequential — Pi)"`
 
 **Step B0 - Check extraction cache first**
 
-Before dispatching any subagents, check which files already have cached extraction results:
+Before processing files, check which files already have cached extraction results:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json
 from graphify.cache import check_semantic_cache
 from pathlib import Path
 
-detect = json.loads(Path('.graphify_detect.json').read_text())
+detect = json.loads(Path('graphify-out/.graphify_detect.json').read_text())
 all_files = [f for files in detect['files'].values() for f in files]
 
 cached_nodes, cached_edges, cached_hyperedges, uncached = check_semantic_cache(all_files)
@@ -219,7 +217,7 @@ print(f'Cache: {len(all_files)-len(uncached)} files hit, {len(uncached)} files n
 "
 ```
 
-Only dispatch subagents for files listed in `.graphify_uncached.txt`. If all files are cached, skip to Part C directly.
+Only process files listed in `.graphify_uncached.txt`. If all files are cached, skip to Part C directly.
 
 **Step B1 - Split into chunks**
 
@@ -256,7 +254,7 @@ If more than half the chunks failed, stop and tell the user.
 
 Save new results to cache:
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json
 from graphify.cache import save_semantic_cache
 from pathlib import Path
@@ -269,7 +267,7 @@ print(f'Cached {saved} files')
 
 Merge cached + new results into `.graphify_semantic.json`:
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json
 from pathlib import Path
 
@@ -302,7 +300,7 @@ Clean up temp files: `rm -f .graphify_cached.json .graphify_uncached.txt .graphi
 #### Part C - Merge AST + semantic into final extraction
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from pathlib import Path
 
@@ -337,7 +335,7 @@ print(f'Merged: {total} nodes, {edges} edges ({len(ast[\"nodes\"])} AST + {len(s
 
 ```bash
 mkdir -p graphify-out
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.build import build_from_json
 from graphify.cluster import cluster, score_all
@@ -347,7 +345,7 @@ from graphify.export import to_json
 from pathlib import Path
 
 extraction = json.loads(Path('.graphify_extract.json').read_text())
-detection  = json.loads(Path('.graphify_detect.json').read_text())
+detection  = json.loads(Path('graphify-out/.graphify_detect.json').read_text())
 
 G = build_from_json(extraction)
 communities = cluster(G)
@@ -390,7 +388,7 @@ Read `.graphify_analysis.json`. For each community key, look at its node labels 
 Then regenerate the report and save the labels for the visualizer:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.build import build_from_json
 from graphify.cluster import score_all
@@ -399,7 +397,7 @@ from graphify.report import generate
 from pathlib import Path
 
 extraction = json.loads(Path('.graphify_extract.json').read_text())
-detection  = json.loads(Path('.graphify_detect.json').read_text())
+detection  = json.loads(Path('graphify-out/.graphify_detect.json').read_text())
 analysis   = json.loads(Path('.graphify_analysis.json').read_text())
 
 G = build_from_json(extraction)
@@ -430,7 +428,7 @@ Replace INPUT_PATH with the actual path.
 If `--obsidian` was given:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.build import build_from_json
 from graphify.export import to_obsidian, to_canvas
@@ -461,7 +459,7 @@ print('  _COMMUNITY_* - overview notes with cohesion scores and dataview queries
 Generate the HTML graph (always, unless `--no-viz`):
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.build import build_from_json
 from graphify.export import to_html
@@ -488,7 +486,7 @@ else:
 **If `--neo4j`** - generate a Cypher file for manual import:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.build import build_from_json
 from graphify.export import to_cypher
@@ -503,7 +501,7 @@ print('cypher.txt written - import with: cypher-shell < graphify-out/cypher.txt'
 **If `--neo4j-push <uri>`** - push directly to a running Neo4j instance. Ask the user for credentials if not provided:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.build import build_from_json
 from graphify.cluster import cluster
@@ -525,7 +523,7 @@ Replace `NEO4J_URI`, `NEO4J_USER`, `NEO4J_PASSWORD` with actual values. Default 
 ### Step 7b - SVG export (only if --svg flag)
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.build import build_from_json
 from graphify.export import to_svg
@@ -547,7 +545,7 @@ print('graph.svg written - embeds in Obsidian, Notion, GitHub READMEs')
 ### Step 7c - GraphML export (only if --graphml flag)
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json
 from graphify.build import build_from_json
 from graphify.export import to_graphml
@@ -586,15 +584,15 @@ To configure in Claude Desktop, add to `claude_desktop_config.json`:
 
 ### Step 8 - Token reduction benchmark (only if total_words > 5000)
 
-If `total_words` from `.graphify_detect.json` is greater than 5,000, run:
+If `total_words` from `graphify-out/.graphify_detect.json` is greater than 5,000, run:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json
 from graphify.benchmark import run_benchmark, print_benchmark
 from pathlib import Path
 
-detection = json.loads(Path('.graphify_detect.json').read_text())
+detection = json.loads(Path('graphify-out/.graphify_detect.json').read_text())
 result = run_benchmark('graphify-out/graph.json', corpus_words=detection['total_words'])
 print_benchmark(result)
 "
@@ -607,14 +605,14 @@ Print the output directly in chat. If `total_words <= 5000`, skip silently - the
 ### Step 9 - Save manifest, update cost tracker, clean up, and report
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json
 from pathlib import Path
 from datetime import datetime, timezone
 from graphify.detect import save_manifest
 
 # Save manifest for --update
-detect = json.loads(Path('.graphify_detect.json').read_text())
+detect = json.loads(Path('graphify-out/.graphify_detect.json').read_text())
 save_manifest(detect['files'])
 
 # Update cumulative cost tracker
@@ -641,7 +639,7 @@ cost_path.write_text(json.dumps(cost, indent=2))
 print(f'This run: {input_tok:,} input tokens, {output_tok:,} output tokens')
 print(f'All time: {cost[\"total_input_tokens\"]:,} input, {cost[\"total_output_tokens\"]:,} output ({len(cost[\"runs\"])} runs)')
 "
-rm -f .graphify_detect.json .graphify_extract.json .graphify_ast.json .graphify_semantic.json .graphify_analysis.json .graphify_labels.json
+rm -f graphify-out/.graphify_detect.json .graphify_extract.json .graphify_ast.json .graphify_semantic.json .graphify_analysis.json .graphify_labels.json
 rm -f graphify-out/.needs_update 2>/dev/null || true
 ```
 
@@ -681,7 +679,7 @@ The graph is the map. Your job after the pipeline is to be the guide.
 Use when you've added or modified files since the last run. Only re-extracts changed files - saves tokens and time.
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.detect import detect_incremental, save_manifest
 from pathlib import Path
@@ -700,7 +698,7 @@ print(f'{new_total} new/changed file(s) to re-extract.')
 If new files exist, first check whether all changed files are code files:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json
 from pathlib import Path
 
@@ -720,7 +718,7 @@ If `code_only` is False (any changed file is a doc/paper/image): run the full St
 Then:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.build import build_from_json
 from graphify.export import to_json
@@ -747,7 +745,7 @@ Then run Steps 4–8 on the merged graph as normal.
 After Step 4, show the graph diff:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json
 from graphify.analyze import graph_diff
 from graphify.build import build_from_json
@@ -781,7 +779,7 @@ Clean up after: `rm -f .graphify_old.json`
 Skip Steps 1–3. Load the existing graph from `graphify-out/graph.json` and re-run clustering:
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.cluster import cluster, score_all
 from graphify.analyze import god_nodes, surprising_connections
@@ -834,7 +832,7 @@ Two traversal modes - choose based on the question:
 
 First check the graph exists:
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 from pathlib import Path
 if not Path('graphify-out/graph.json').exists():
     print('ERROR: No graph found. Run /graphify <path> first to build the graph.')
@@ -852,7 +850,7 @@ Load `graphify-out/graph.json`, then:
 5. If the graph lacks enough information, say so - do not hallucinate edges.
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys, json
 from networkx.readwrite import json_graph
 import networkx as nx
@@ -943,7 +941,7 @@ Replace `QUESTION` with the user's actual question, `MODE` with `bfs` or `dfs`, 
 After writing the answer, save it back into the graph so it improves future queries:
 
 ```bash
-$(cat .graphify_python) -m graphify save-result --question "QUESTION" --answer "ANSWER" --type query --nodes NODE1 NODE2
+$(cat graphify-out/.graphify_python) -m graphify save-result --question "QUESTION" --answer "ANSWER" --type query --nodes NODE1 NODE2
 ```
 
 Replace `QUESTION` with the question, `ANSWER` with your full answer text, `SOURCE_NODES` with the list of node labels you cited. This closes the feedback loop: the next `--update` will extract this Q&A as a node in the graph.
@@ -956,7 +954,7 @@ Find the shortest path between two named concepts in the graph.
 
 First check the graph exists:
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 from pathlib import Path
 if not Path('graphify-out/graph.json').exists():
     print('ERROR: No graph found. Run /graphify <path> first to build the graph.')
@@ -966,7 +964,7 @@ if not Path('graphify-out/graph.json').exists():
 If it fails, stop and tell the user to run `/graphify <path>` first.
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json, sys
 import networkx as nx
 from networkx.readwrite import json_graph
@@ -1018,7 +1016,7 @@ Replace `NODE_A` and `NODE_B` with the actual concept names from the user. Then 
 After writing the explanation, save it back:
 
 ```bash
-$(cat .graphify_python) -m graphify save-result --question "Path from NODE_A to NODE_B" --answer "ANSWER" --type path_query --nodes NODE_A NODE_B
+$(cat graphify-out/.graphify_python) -m graphify save-result --question "Path from NODE_A to NODE_B" --answer "ANSWER" --type path_query --nodes NODE_A NODE_B
 ```
 
 ---
@@ -1029,7 +1027,7 @@ Give a plain-language explanation of a single node - everything connected to it.
 
 First check the graph exists:
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 from pathlib import Path
 if not Path('graphify-out/graph.json').exists():
     print('ERROR: No graph found. Run /graphify <path> first to build the graph.')
@@ -1039,7 +1037,7 @@ if not Path('graphify-out/graph.json').exists():
 If it fails, stop and tell the user to run `/graphify <path>` first.
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import json, sys
 import networkx as nx
 from networkx.readwrite import json_graph
@@ -1084,7 +1082,7 @@ Replace `NODE_NAME` with the concept the user asked about. Then write a 3-5 sent
 After writing the explanation, save it back:
 
 ```bash
-$(cat .graphify_python) -m graphify save-result --question "Explain NODE_NAME" --answer "ANSWER" --type explain --nodes NODE_NAME
+$(cat graphify-out/.graphify_python) -m graphify save-result --question "Explain NODE_NAME" --answer "ANSWER" --type explain --nodes NODE_NAME
 ```
 
 ---
@@ -1094,7 +1092,7 @@ $(cat .graphify_python) -m graphify save-result --question "Explain NODE_NAME" -
 Fetch a URL and add it to the corpus, then update the graph.
 
 ```bash
-$(cat .graphify_python) -c "
+$(cat graphify-out/.graphify_python) -c "
 import sys
 from graphify.ingest import ingest
 from pathlib import Path
