@@ -12,7 +12,7 @@
 | 2 | pr-2 | A | ✅ Done | 2026-04-29 | 2026-04-29 | pre-plan | — | — |
 | 3 | pr-3 | A | ✅ Done | 2026-04-29 | 2026-04-29 | 09e6168 | graphify-out/benchmarks/phase-3-benchmark.json | — |
 | 4 | pr-4 | A | ✅ Done | 2026-04-29 | 2026-04-29 | 2dcc578 | graphify-out/benchmarks/phase-4-benchmark.json | — |
-| 5 | pr-5 | B | ✅ Done | 2026-04-29 | 2026-04-29 | 03216a5 | graphify-out/benchmarks/phase-5-benchmark.json | — |
+| 5 | pr-5 | B | ✅ Done | 2026-04-29 | 2026-04-29 | 440578a | graphify-out/benchmarks/phase-5-benchmark.json | — |
 | 6 | pr-6 | B | ⬜ Not started | — | — | — | — | — |
 | 7 | pr-7 | B | ⬜ Not started | — | — | — | — | — |
 | 8 | pr-8 | B | ⬜ Not started | — | — | — | — | — |
@@ -122,4 +122,4 @@ python -m graphify benchmark --seed 42 --phase N
 | pr-2 | pre-plan | Indexes — work done before formal phase tracking |
 | pr-3 | 09e6168 | `feat(phase-4-5): query planner + cache + materialized views` |
 | pr-4 | 2dcc578 | `feat(phase-6-7): bloom filter + graph sampling + embeddings + final benchmark report` |
-| pr-5 | 03216a5 | `feat(phase-8): typed code schema (17 node types, 21 edge types)` |
+| pr-5 | 440578a | `feat(phase-8): typed code schema (17 node types, 21 edge types)` |
