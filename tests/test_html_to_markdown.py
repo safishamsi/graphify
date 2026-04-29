@@ -1,11 +1,21 @@
 """Tests for graphify.ingest._html_to_markdown and HTML→markdown ingestion path."""
 from __future__ import annotations
 
+import importlib.util
 import sys
 
 import pytest
 
 from graphify.ingest import _html_to_markdown, _fetch_webpage
+
+# markdownify is an optional dependency (declared in the `pdf`/`all` extras).
+# Tests that assert markdownify-specific output are gated behind this marker so
+# the suite still runs cleanly on a base install (`pip install -e .`).
+_HAS_MARKDOWNIFY = importlib.util.find_spec("markdownify") is not None
+requires_markdownify = pytest.mark.skipif(
+    not _HAS_MARKDOWNIFY,
+    reason="markdownify not installed (optional 'pdf' extra)",
+)
 
 
 # --- Direct conversion tests ---------------------------------------------------
@@ -16,6 +26,7 @@ def test_basic_paragraph():
     assert "<p>" not in out
 
 
+@requires_markdownify
 def test_heading_atx_style():
     out = _html_to_markdown("<h1>Title</h1>", "http://example.com")
     assert "# Title" in out
@@ -23,6 +34,7 @@ def test_heading_atx_style():
     assert "===" not in out
 
 
+@requires_markdownify
 def test_links_preserved():
     html = '<p>See <a href="https://example.com/x">x</a> for more.</p>'
     out = _html_to_markdown(html, "http://example.com")
@@ -52,6 +64,7 @@ def test_script_and_style_stripped():
     assert "color:red" not in out
 
 
+@requires_markdownify
 def test_bullet_list():
     html = "<ul><li>alpha</li><li>beta</li></ul>"
     out = _html_to_markdown(html, "http://example.com")
@@ -59,6 +72,7 @@ def test_bullet_list():
     assert "- beta" in out
 
 
+@requires_markdownify
 def test_no_body_wrapping():
     long_text = "word " * 50  # ~250 chars on one line
     html = f"<p>{long_text.strip()}</p>"
@@ -105,8 +119,22 @@ def test_fallback_when_markdownify_missing(monkeypatch):
     assert "<" not in out
 
 
+def test_fallback_basic_text_extraction(monkeypatch):
+    """Fallback path must extract readable text from a realistic HTML mix
+    (heading + list + paragraph), with all tags removed. Runs unconditionally
+    so base installs (`pip install -e .`) still get end-to-end coverage of
+    the regex-strip path."""
+    monkeypatch.setitem(sys.modules, "markdownify", None)
+    html = "<h1>T</h1><ul><li>a</li><li>b</li></ul><p>p</p>"
+    out = _html_to_markdown(html, "http://example.com")
+    for token in ("T", "a", "b", "p"):
+        assert token in out, f"missing {token!r} in fallback output: {out!r}"
+    assert "<" not in out
+
+
 # --- Integration with _fetch_webpage ------------------------------------------
 
+@requires_markdownify
 def test_fetch_webpage_uses_converter(monkeypatch):
     """End-to-end smoke for the only caller of _html_to_markdown."""
     canned_html = (
