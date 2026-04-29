@@ -2,16 +2,17 @@ name: CI
 
 on:
   push:
-    branches: ["v1", "v2", "v3", "v4", "main"]
+    branches: ["v1", "v2", "v3", "v4", "v5", "main"]
   pull_request:
-    branches: ["v1", "v2", "v3", "v4", "main"]
+    branches: ["v1", "v2", "v3", "v4", "v5", "main"]
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     strategy:
+      fail-fast: false
       matrix:
-        python-version: ["3.10", "3.12"]
+        python-version: ["3.7", "3.10", "3.12", "3.14"]
 
     steps:
       - uses: actions/checkout@v4
