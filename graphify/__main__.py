@@ -1552,9 +1552,10 @@ def main() -> None:
         prev_path: str | None = None
         seed = 42
         scale: str | None = None
+        phase: int | None = None
         args = sys.argv[2:]
         if "--help" in args or "-h" in args:
-            print("Usage: graphify benchmark [--graph PATH] [--output PATH] [--seed N] [--compare PATH] [--scale huge]")
+            print("Usage: graphify benchmark [--graph PATH] [--output PATH] [--seed N] [--compare PATH] [--scale huge] [--phase N]")
             print()
             print("Options:")
             print("  --graph PATH     path to graph.json (default: graphify-out/graph.json)")
@@ -1562,6 +1563,7 @@ def main() -> None:
             print("  --seed N         random seed for reproducibility (default: 42)")
             print("  --compare PATH   previous benchmark.json to diff against, writes progressive.json")
             print("  --scale huge     include 5M-node tier (default: skips it)")
+            print("  --phase N        PR/phase number — auto-archives snapshot and compares vs previous phase")
             return
         i = 0
         while i < len(args):
@@ -1580,6 +1582,13 @@ def main() -> None:
                 prev_path = args[i + 1]; i += 2
             elif args[i] == "--scale" and i + 1 < len(args):
                 scale = args[i + 1]; i += 2
+            elif args[i] == "--phase" and i + 1 < len(args):
+                try:
+                    phase = int(args[i + 1])
+                except ValueError:
+                    print(f"error: --phase must be an integer", file=sys.stderr)
+                    sys.exit(1)
+                i += 2
             else:
                 # legacy: positional arg is graph path
                 if not args[i].startswith("--"):
@@ -1609,6 +1618,7 @@ def main() -> None:
             seed=seed,
             prev_benchmark_path=prev_path,
             scale=scale,
+            phase=phase,
         )
     else:
         print(f"error: unknown command '{cmd}'", file=sys.stderr)

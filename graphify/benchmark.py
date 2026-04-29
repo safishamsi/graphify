@@ -453,6 +453,7 @@ def run_full_benchmark(
     seed: int = 42,
     prev_benchmark_path: str | None = None,
     scale: str | None = None,
+    phase: int | None = None,
 ) -> dict:
     nodes_n = G.number_of_nodes()
     edges_n = G.number_of_edges()
@@ -467,8 +468,10 @@ def run_full_benchmark(
         scale_nodes.append(5000000)
     s_result = benchmark_scale(num_nodes_list=scale_nodes, seed=seed)
 
+    phase_label = f"{phase}-phase-title" if phase else "1-baseline"
     result = {
-        "phase": "1-baseline",
+        "phase": phase_label,
+        "phase_number": phase,
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "graph_stats": {
             "nodes": nodes_n,
@@ -487,6 +490,18 @@ def run_full_benchmark(
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(json.dumps(result, indent=2), encoding="utf-8")
     print(f"Benchmark written to {out}")
+
+    if phase is not None:
+        snap_dir = out.parent / "benchmarks"
+        snap_dir.mkdir(parents=True, exist_ok=True)
+        snap_path = snap_dir / f"phase-{phase}-benchmark.json"
+        snap_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
+        print(f"Snapshot archived to {snap_path}")
+        if prev_benchmark_path is None:
+            prev_snap = snap_dir / f"phase-{phase - 1}-benchmark.json"
+            if prev_snap.exists():
+                prev_benchmark_path = str(prev_snap)
+                print(f"Auto-compare: using previous phase snapshot {prev_snap}")
 
     if prev_benchmark_path:
         prev_path = Path(prev_benchmark_path)
