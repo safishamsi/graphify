@@ -37,6 +37,30 @@ def _refresh_all_version_stamps() -> None:
         if vf.exists():
             vf.write_text(__version__, encoding="utf-8")
 
+_GRAPH_REMINDER = "graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."
+
+
+def build_pre_tool_use_response(context: str, assistant: str) -> dict:
+    """Return the assistant-specific PreToolUse response payload."""
+    normalized = assistant.lower()
+    if normalized in {"claude", "claude-code"}:
+        return {"additionalContext": context}
+    return {"systemMessage": context}
+
+
+def _shell_echo_json(payload: dict) -> str:
+    return "echo " + json.dumps(json.dumps(payload))
+
+
+def _claude_pre_tool_use_payload(context: str = _GRAPH_REMINDER) -> dict:
+    return {
+        "hookSpecificOutput": {
+            "hookEventName": "PreToolUse",
+            **build_pre_tool_use_response(context, "claude"),
+        }
+    }
+
+
 _SETTINGS_HOOK = {
     # Claude Code v2.1.117+ removed dedicated Grep/Glob tools; searches now go through Bash.
     # We match on Bash and inspect the command string to avoid firing on every shell call.
@@ -51,7 +75,7 @@ _SETTINGS_HOOK = {
                 "case \"$CMD\" in "
                 r"*grep*|*rg\ *|*ripgrep*|*find\ *|*fd\ *|*ack\ *|*ag\ *) "
                 "  [ -f graphify-out/graph.json ] && "
-                r"""  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
+                "  " + _shell_echo_json(_claude_pre_tool_use_payload()) + " "
                 "  || true ;; "
                 "esac"
             ),
@@ -720,7 +744,7 @@ _CODEX_HOOK = {
                         "type": "command",
                         "command": (
                             "[ -f graphify-out/graph.json ] && "
-                            r"""echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
+                            + _shell_echo_json(build_pre_tool_use_response(_GRAPH_REMINDER, "codex")) + " "
                             "|| true"
                         ),
                     }

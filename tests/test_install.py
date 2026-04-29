@@ -1,4 +1,5 @@
 """Tests for graphify install --platform routing."""
+import json
 from pathlib import Path
 from unittest.mock import patch
 import pytest
@@ -127,6 +128,36 @@ def test_codex_agents_install_writes_agents_md(tmp_path):
     assert agents_md.exists()
     assert "graphify" in agents_md.read_text()
     assert "GRAPH_REPORT.md" in agents_md.read_text()
+
+
+def test_codex_pre_tool_use_uses_system_message():
+    from graphify.__main__ import build_pre_tool_use_response
+
+    payload = build_pre_tool_use_response("hello", assistant="codex")
+
+    assert payload == {"systemMessage": "hello"}
+    assert "additionalContext" not in payload
+
+
+def test_claude_pre_tool_use_uses_additional_context():
+    from graphify.__main__ import build_pre_tool_use_response
+
+    payload = build_pre_tool_use_response("hello", assistant="claude")
+
+    assert payload == {"additionalContext": "hello"}
+    assert "systemMessage" not in payload
+
+
+def test_codex_hook_does_not_emit_additional_context(tmp_path):
+    _agents_install(tmp_path, "codex")
+
+    hooks_path = tmp_path / ".codex" / "hooks.json"
+    hooks = json.loads(hooks_path.read_text())
+    command = hooks["hooks"]["PreToolUse"][0]["hooks"][0]["command"]
+
+    assert "systemMessage" in command
+    assert "additionalContext" not in command
+    assert "hookSpecificOutput" not in command
 
 
 def test_opencode_agents_install_writes_agents_md(tmp_path):
