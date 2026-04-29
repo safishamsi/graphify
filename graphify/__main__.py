@@ -48,7 +48,7 @@ _SETTINGS_HOOK = {
                 "import json,sys; d=json.load(sys.stdin); "
                 "print(d.get('tool_input',d).get('command',''))\" 2>/dev/null || true); "
                 "case \"$CMD\" in "
-                "*grep*|*rg\ *|*ripgrep*|*find\ *|*fd\ *|*ack\ *|*ag\ *) "
+                "*grep*|*rg\\ *|*ripgrep*|*find\\ *|*fd\\ *|*ack\\ *|*ag\\ *) "
                 "  [ -f graphify-out/graph.json ] && "
                 r"""  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
                 "  || true ;; "
