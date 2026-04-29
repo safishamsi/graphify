@@ -1013,6 +1013,8 @@ def main() -> None:
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
         print("  check-update <path>     check needs_update flag and notify if semantic re-extraction is pending (cron-safe)")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
+        print("  prompts <name>          print a bundled prompt template (e.g. extraction-subagent)")
+        print("  prompts list            list bundled prompt names")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
         print("  hook status             check if git hooks are installed")
@@ -1504,6 +1506,28 @@ def main() -> None:
                 pass
         result = run_benchmark(graph_path, corpus_words=corpus_words)
         print_benchmark(result)
+    elif cmd == "prompts":
+        # Print a bundled prompt template by name. Skills consume long prompts
+        # this way (instead of inlining 50+ lines into skill.md), which keeps
+        # SKILL.md slim and lets prompt content evolve in version-controlled files.
+        # Filename uses underscores; CLI accepts either underscores or hyphens
+        # (extraction_subagent / extraction-subagent are equivalent).
+        from graphify import prompts as _prompts
+        if len(sys.argv) < 3 or sys.argv[2] in ("--help", "-h"):
+            print("Usage: graphify prompts <name>", file=sys.stderr)
+            print("       graphify prompts list", file=sys.stderr)
+            print("Available:", ", ".join(_prompts.available()) or "(none)", file=sys.stderr)
+            sys.exit(1)
+        name = sys.argv[2]
+        if name == "list":
+            for n in _prompts.available():
+                print(n)
+            sys.exit(0)
+        try:
+            sys.stdout.write(_prompts.load(name.replace("-", "_")))
+        except FileNotFoundError as e:
+            print(f"error: {e}", file=sys.stderr)
+            sys.exit(1)
     else:
         print(f"error: unknown command '{cmd}'", file=sys.stderr)
         print("Run 'graphify --help' for usage.", file=sys.stderr)
