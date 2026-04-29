@@ -9,6 +9,7 @@ from graphify.security import sanitize_label
 from graphify.query_planner import select_start_nodes_by_degree, order_frontier_by_confidence
 from graphify.query_cache import cache_key, get_cached_query, set_cached_query
 from graphify.matviews import check_materialized_path
+from graphify.approx import sample_subgraph, _should_skip_query, build_path_bloom_filter
 
 
 def _load_graph(graph_path: str) -> nx.Graph:
@@ -375,6 +376,8 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                         "prefer": {"type": "string", "enum": ["extracted", "inferred", "all"], "default": "extracted",
                                    "description": "Edge confidence preference for traversal order"},
                         "materialize": {"type": "boolean", "default": False, "description": "Use planned BFS with confidence ordering"},
+                        "approximate": {"type": "boolean", "default": False, "description": "Query a sampled subgraph (~10x faster, ~90% accuracy)"},
+                        "sample_rate": {"type": "number", "default": 0.1, "description": "Fraction of graph to sample when approximate=True (0.01-1.0)"},
                     },
                     "required": ["question"],
                 },
@@ -445,6 +448,31 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         use_cache = arguments.get("use_cache", True)
         prefer = arguments.get("prefer", "extracted")
         materialize = arguments.get("materialize", False)
+        approximate = arguments.get("approximate", False)
+        sample_rate = float(arguments.get("sample_rate", 0.1))
+
+        if approximate:
+            cache_dir = Path("graphify-out/query_cache")
+            key = cache_key(question, mode, depth, budget)
+            if use_cache:
+                cached = get_cached_query(cache_dir, key)
+                if cached is not None:
+                    return cached
+            sampled_G = sample_subgraph(G, sample_rate=sample_rate, seed=42)
+            terms = [t.lower() for t in question.split() if len(t) > 2]
+            scored = _score_nodes(sampled_G, terms)
+            if not scored:
+                result = "[APPROXIMATE] No matching nodes found in sampled subgraph."
+                if use_cache:
+                    set_cached_query(cache_dir, key, result)
+                return result
+            start_nodes = [nid for _, nid in scored[:3]]
+            nodes, edges = _bfs(sampled_G, start_nodes, depth)
+            header = f"[APPROXIMATE] BFS depth={depth} sample={sample_rate} | {len(nodes)} nodes found\n\n"
+            result = header + _subgraph_to_text(sampled_G, nodes, edges, budget)
+            if use_cache:
+                set_cached_query(cache_dir, key, result)
+            return result
 
         if use_cache:
             cache_dir = Path("graphify-out/query_cache")

@@ -1,6 +1,6 @@
 # Graphify Fork Enhancement — Progress Tracker
 
-**Last updated:** 2026-04-29 (Phase 3 done)
+**Last updated:** 2026-04-29 (Phase 7 done)
 **Repo:** ~/graphify
 **Baseline commit:** (set after Phase 1)
 
@@ -11,7 +11,7 @@
 | 1 | pr-1 | A | ✅ Done | 2026-04-29 | 2026-04-29 | TBD | TBD | TBD |
 | 2 | pr-2 | A | ✅ Done | 2026-04-29 | 2026-04-29 | TBD | TBD | TBD |
 | 3 | pr-3 | A | ✅ Done | 2026-04-29 | 2026-04-29 | TBD | TBD | TBD |
-| 4 | pr-4 | A | ⬜ Not started | — | — | — | — | — |
+| 4 | pr-4 | A | ✅ Done | 2026-04-29 | 2026-04-29 | TBD | TBD | TBD |
 | 5 | pr-5 | B | ⬜ Not started | — | — | — | — | — |
 | 6 | pr-6 | B | ⬜ Not started | — | — | — | — | — |
 | 7 | pr-7 | B | ⬜ Not started | — | — | — | — | — |
@@ -28,7 +28,7 @@
 | 1-baseline | — | — | — | — | baseline (not yet benched) |
 | 2-indexing | — | — | — | — | indexes (not yet benched) |
 | 3-queryplan | 39,630 | 0.05 | 53.59 | — | Planner + Cache + Matviews |
-| 4-approximate | — | — | — | — | — |
+| 4-approximate | 34,622 | 0.06 | 52.34 | — | Bloom filter + Sampling + Embeddings |
 
 ## Accuracy Benchmarks
 
