@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=61"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -9,9 +9,10 @@ description = "AI coding assistant skill (Claude Code, Codex, OpenCode, Cursor, 
 readme = "README.md"
 license = { file = "LICENSE" }
 keywords = ["claude", "claude-code", "codex", "opencode", "cursor", "gemini", "aider", "kiro", "knowledge-graph", "rag", "graphrag", "obsidian", "community-detection", "tree-sitter", "leiden", "llm"]
-requires-python = ">=3.10,<3.14"
+requires-python = ">=3.7,<3.15"
 dependencies = [
-    "networkx",
+    "networkx<3.0; python_version < '3.8'",
+    "networkx>=3.0; python_version >= '3.8'",
     "tree-sitter>=0.23.0",
     "tree-sitter-python",
     "tree-sitter-javascript",
