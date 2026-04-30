@@ -43,7 +43,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
     report_root = _report_root_label(watch_path)
     try:
         from graphify.extract import extract
-        from graphify.detect import detect
+        from graphify.detect import detect, save_manifest
         from graphify.build import build_from_json
         from graphify.cluster import cluster, score_all
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
@@ -124,6 +124,15 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
         flag = out / "needs_update"
         if flag.exists():
             flag.unlink()
+
+        # Persist manifest so detect_incremental has a fresh baseline.
+        # Without this, detect_incremental returns every file as "new" on
+        # the next call, so `graphify update` and `graphify watch` re-fire
+        # every time. Closes #538.
+        try:
+            save_manifest(detected['files'])
+        except Exception as exc:
+            print(f"[graphify watch] Warning: manifest save failed: {exc}")
 
         print(f"[graphify watch] Rebuilt: {G.number_of_nodes()} nodes, "
               f"{G.number_of_edges()} edges, {len(communities)} communities")
