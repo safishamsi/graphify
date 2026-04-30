@@ -129,7 +129,7 @@ After building a graph, run this once in your project:
 | Kiro IDE/CLI | `graphify kiro install` |
 | Google Antigravity | `graphify antigravity install` |
 
-**Claude Code** does two things: writes a `CLAUDE.md` section telling Claude to read `graphify-out/GRAPH_REPORT.md` before answering architecture questions, and installs a **PreToolUse hook** (`settings.json`) that fires before every Glob and Grep call. If a knowledge graph exists, Claude sees: _"graphify: Knowledge graph exists. Read GRAPH_REPORT.md for god nodes and community structure before searching raw files."_ — so Claude navigates via the graph instead of grepping through every file.
+**Claude Code** writes a `CLAUDE.md` section and installs two hooks: a **UserPromptSubmit reminder** before Claude decides what to do, and a **PreToolUse guard** that blocks raw file search/read/list tools until the graph has been used in that session. If a knowledge graph exists, Claude is prompted to read `graphify-out/GRAPH_REPORT.md` or use `graphify query/path/explain` before grepping through files.
 
 **Codex** writes to `AGENTS.md` and also installs a **UserPromptSubmit hook** in `.codex/hooks.json` that fires when the user submits a prompt. This reminds Codex about `GRAPH_REPORT.md` before it decides whether to search files.
 
@@ -297,7 +297,7 @@ graphify hook uninstall
 graphify hook status
 
 # always-on assistant instructions - platform-specific
-graphify claude install            # CLAUDE.md + PreToolUse hook (Claude Code)
+graphify claude install            # CLAUDE.md + UserPromptSubmit reminder + PreToolUse guard (Claude Code)
 graphify claude uninstall
 graphify codex install             # AGENTS.md + UserPromptSubmit hook in .codex/hooks.json (Codex)
 graphify opencode install          # AGENTS.md + tool.execute.before plugin (OpenCode)

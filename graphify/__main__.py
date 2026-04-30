@@ -37,27 +37,125 @@ def _refresh_all_version_stamps() -> None:
         if vf.exists():
             vf.write_text(__version__, encoding="utf-8")
 
-_SETTINGS_HOOK = {
-    # Claude Code v2.1.117+ removed dedicated Grep/Glob tools; searches now go through Bash.
-    # We match on Bash and inspect the command string to avoid firing on every shell call.
-    "matcher": "Bash",
+_CLAUDE_USER_PROMPT_HOOK = {
     "hooks": [
         {
             "type": "command",
             "command": (
-                "CMD=$(python3 -c \""
-                "import json,sys; d=json.load(sys.stdin); "
-                "print(d.get('tool_input',d).get('command',''))\" 2>/dev/null || true); "
-                "case \"$CMD\" in "
-                r"*grep*|*rg\ *|*ripgrep*|*find\ *|*fd\ *|*ack\ *|*ag\ *) "
-                "  [ -f graphify-out/graph.json ] && "
-                r"""  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
-                "  || true ;; "
-                "esac"
+                "[ -f graphify-out/graph.json ] && "
+                r"""echo '{"hookSpecificOutput":{"hookEventName":"UserPromptSubmit","additionalContext":"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files. Use graphify query/path/explain before raw grep/find/ls/read."}}' """
+                "|| true"
             ),
         }
     ],
 }
+
+_CLAUDE_PRE_TOOL_GUARD_HOOK = {
+    "matcher": "Bash|Grep|Glob|Read|LS",
+    "hooks": [
+        {
+            "type": "command",
+            "command": "python3 .claude/hooks/graphify-guard.py",
+        }
+    ],
+}
+
+_GRAPHIFY_GUARD_SCRIPT = r'''#!/usr/bin/env python3
+import json
+import re
+import sys
+from pathlib import Path
+
+
+def load_input() -> dict:
+    try:
+        return json.load(sys.stdin)
+    except Exception:
+        return {}
+
+
+def state_file(session_id: str) -> Path:
+    root = Path(".claude/graphify-guard-state")
+    root.mkdir(parents=True, exist_ok=True)
+    safe_id = re.sub(r"[^A-Za-z0-9_.-]", "_", session_id or "unknown")
+    return root / safe_id
+
+
+def normalize_tool_path(path: str) -> str:
+    return path.replace("\\", "/")
+
+
+def is_graph_use(tool_name: str, tool_input: dict) -> bool:
+    if tool_name == "Bash":
+        command = tool_input.get("command", "")
+        if re.search(r"\bgraphify\s+(query|path|explain)\b", command):
+            return True
+        return "graphify-out/GRAPH_REPORT.md" in command or "graphify-out/wiki/index.md" in command
+
+    if tool_name == "Read":
+        path = normalize_tool_path(tool_input.get("file_path", ""))
+        return path.endswith("graphify-out/GRAPH_REPORT.md") or path.endswith("graphify-out/wiki/index.md")
+
+    return False
+
+
+def is_raw_code_exploration(tool_name: str, tool_input: dict) -> bool:
+    if tool_name in {"Grep", "Glob", "LS"}:
+        return True
+
+    if tool_name == "Read":
+        path = normalize_tool_path(tool_input.get("file_path", ""))
+        if not path:
+            return False
+        is_claude_path = path.startswith(".claude/") or "/.claude/" in path
+        return "graphify-out/" not in path and not is_claude_path and not path.endswith("CLAUDE.md")
+
+    if tool_name == "Bash":
+        command = tool_input.get("command", "")
+        if not command:
+            return False
+        if is_graph_use(tool_name, tool_input):
+            return False
+        return bool(re.search(r"(^|[;&|]\s*|\s)(grep|rg|find|ls|wc|cat|sed|head|tail|awk)\b", command))
+
+    return False
+
+
+def main() -> int:
+    data = load_input()
+    if not Path("graphify-out/graph.json").exists():
+        return 0
+
+    tool_name = data.get("tool_name", "")
+    tool_input = data.get("tool_input", {}) or {}
+    session_id = data.get("session_id", "")
+    marker = state_file(session_id)
+
+    if is_graph_use(tool_name, tool_input):
+        marker.write_text("used\n", encoding="utf-8")
+        return 0
+
+    if marker.exists():
+        return 0
+
+    if is_raw_code_exploration(tool_name, tool_input):
+        print(
+            "graphify guard: raw file search/read/list blocked until the graph is used in this session.\n"
+            "Start with one of:\n"
+            "  graphify query \"<your question>\" --budget 4000\n"
+            "  graphify path \"A\" \"B\"\n"
+            "  Read graphify-out/GRAPH_REPORT.md\n"
+            "After that, targeted file reads are allowed.",
+            file=sys.stderr,
+        )
+        return 2
+
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+'''
 
 _SKILL_REGISTRATION = (
     "\n# graphify\n"
@@ -203,9 +301,10 @@ _CLAUDE_MD_SECTION = """\
 This project has a graphify knowledge graph at graphify-out/.
 
 Rules:
-- Before answering architecture or codebase questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
+- Before answering architecture, codebase, file-location, or implementation questions, read graphify-out/GRAPH_REPORT.md for god nodes and community structure
 - If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
-- For cross-module "how does X relate to Y" questions, prefer `graphify query "<question>"`, `graphify path "<A>" "<B>"`, or `graphify explain "<concept>"` over grep — these traverse the graph's EXTRACTED + INFERRED edges instead of scanning files
+- For codebase discovery and cross-module "how does X relate to Y" questions, prefer `graphify query "<question>"`, `graphify path "<A>" "<B>"`, or `graphify explain "<concept>"` over grep — these traverse the graph's EXTRACTED + INFERRED edges instead of scanning files
+- Use grep/find/ls/read only after graphify has identified the relevant nodes or files
 - After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
 """
 
@@ -889,68 +988,116 @@ def _agents_uninstall(project_dir: Path, platform: str = "") -> None:
 
 
 def claude_install(project_dir: Path | None = None) -> None:
-    """Write the graphify section to the local CLAUDE.md."""
+    """Write or refresh the graphify section in local CLAUDE.md and install Claude hooks."""
     target = (project_dir or Path(".")) / "CLAUDE.md"
 
     if target.exists():
         content = target.read_text(encoding="utf-8")
         if _CLAUDE_MD_MARKER in content:
-            print("graphify already configured in CLAUDE.md")
-            return
-        new_content = content.rstrip() + "\n\n" + _CLAUDE_MD_SECTION
+            refreshed = re.sub(
+                r"(^|\n+)## graphify\n.*?(?=\n## |\Z)",
+                lambda m: m.group(1) + _CLAUDE_MD_SECTION.rstrip(),
+                content,
+                flags=re.DOTALL,
+            ).rstrip() + "\n"
+            target.write_text(refreshed, encoding="utf-8")
+            print(f"graphify section refreshed in {target.resolve()}")
+        else:
+            target.write_text(content.rstrip() + "\n\n" + _CLAUDE_MD_SECTION, encoding="utf-8")
+            print(f"graphify section written to {target.resolve()}")
     else:
-        new_content = _CLAUDE_MD_SECTION
+        target.write_text(_CLAUDE_MD_SECTION, encoding="utf-8")
+        print(f"graphify section written to {target.resolve()}")
 
-    target.write_text(new_content, encoding="utf-8")
-    print(f"graphify section written to {target.resolve()}")
-
-    # Also write Claude Code PreToolUse hook to .claude/settings.json
     _install_claude_hook(project_dir or Path("."))
 
     print()
     print("Claude Code will now check the knowledge graph before answering")
-    print("codebase questions and rebuild it after code changes.")
+    print("codebase questions and block raw search until graphify is used.")
+
+
+def _remove_graphify_claude_hooks(settings: dict) -> None:
+    """Remove graphify Claude hooks while preserving unrelated hooks."""
+    hooks = settings.get("hooks")
+    if not isinstance(hooks, dict):
+        settings["hooks"] = {}
+        return
+
+    for event in ("UserPromptSubmit", "PreToolUse"):
+        event_hooks = hooks.get(event)
+        if not isinstance(event_hooks, list):
+            hooks.pop(event, None)
+            continue
+        filtered = [h for h in event_hooks if "graphify" not in str(h)]
+        if filtered:
+            hooks[event] = filtered
+        else:
+            hooks.pop(event, None)
+
+    if not hooks:
+        settings.pop("hooks", None)
+
+
+def _load_json_object(path: Path) -> dict:
+    if not path.exists():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    return data if isinstance(data, dict) else {}
 
 
 def _install_claude_hook(project_dir: Path) -> None:
-    """Add graphify PreToolUse hook to .claude/settings.json."""
-    settings_path = project_dir / ".claude" / "settings.json"
-    settings_path.parent.mkdir(parents=True, exist_ok=True)
+    """Add graphify UserPromptSubmit reminder and PreToolUse guard to .claude/settings.json."""
+    claude_dir = project_dir / ".claude"
+    if claude_dir.exists() and not claude_dir.is_dir():
+        if claude_dir.is_file() and claude_dir.stat().st_size == 0:
+            claude_dir.unlink()
+        else:
+            raise RuntimeError(f"{claude_dir} exists but is not a directory")
 
-    if settings_path.exists():
-        try:
-            settings = json.loads(settings_path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            settings = {}
-    else:
-        settings = {}
+    settings_path = claude_dir / "settings.json"
+    hooks_dir = claude_dir / "hooks"
+    hooks_dir.mkdir(parents=True, exist_ok=True)
 
+    guard_path = hooks_dir / "graphify-guard.py"
+    guard_path.write_text(_GRAPHIFY_GUARD_SCRIPT, encoding="utf-8")
+    try:
+        guard_path.chmod(0o755)
+    except OSError:
+        pass
+
+    settings = _load_json_object(settings_path)
+    _remove_graphify_claude_hooks(settings)
     hooks = settings.setdefault("hooks", {})
-    pre_tool = hooks.setdefault("PreToolUse", [])
+    hooks.setdefault("UserPromptSubmit", []).append(_CLAUDE_USER_PROMPT_HOOK)
+    hooks.setdefault("PreToolUse", []).append(_CLAUDE_PRE_TOOL_GUARD_HOOK)
 
-    hooks["PreToolUse"] = [h for h in pre_tool if not (h.get("matcher") in ("Glob|Grep", "Bash") and "graphify" in str(h))]
-    hooks["PreToolUse"].append(_SETTINGS_HOOK)
     settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
-    print(f"  .claude/settings.json  ->  PreToolUse hook registered")
+    print("  .claude/settings.json  ->  UserPromptSubmit reminder + PreToolUse guard registered")
+    print("  .claude/hooks/graphify-guard.py  ->  installed")
 
 
 def _uninstall_claude_hook(project_dir: Path) -> None:
-    """Remove graphify PreToolUse hook from .claude/settings.json."""
-    settings_path = project_dir / ".claude" / "settings.json"
-    if not settings_path.exists():
+    """Remove graphify Claude hooks from .claude/settings.json and delete the guard script."""
+    claude_dir = project_dir / ".claude"
+    if claude_dir.exists() and not claude_dir.is_dir():
         return
-    try:
-        settings = json.loads(settings_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError:
-        return
-    pre_tool = settings.get("hooks", {}).get("PreToolUse", [])
-    filtered = [h for h in pre_tool if not (h.get("matcher") in ("Glob|Grep", "Bash") and "graphify" in str(h))]
-    if len(filtered) == len(pre_tool):
-        return
-    settings["hooks"]["PreToolUse"] = filtered
-    settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
-    print(f"  .claude/settings.json  ->  PreToolUse hook removed")
 
+    settings_path = claude_dir / "settings.json"
+    if settings_path.exists():
+        settings = _load_json_object(settings_path)
+        before = json.dumps(settings, sort_keys=True)
+        _remove_graphify_claude_hooks(settings)
+        if json.dumps(settings, sort_keys=True) != before:
+            settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
+            print("  .claude/settings.json  ->  graphify hooks removed")
+
+    guard_path = claude_dir / "hooks" / "graphify-guard.py"
+    if guard_path.exists():
+        guard_path.unlink()
+        print("  .claude/hooks/graphify-guard.py  ->  removed")
 
 def claude_uninstall(project_dir: Path | None = None) -> None:
     """Remove the graphify section from the local CLAUDE.md."""
