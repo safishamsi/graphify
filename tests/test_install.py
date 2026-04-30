@@ -1,11 +1,15 @@
 """Tests for graphify install --platform routing."""
 from contextlib import contextmanager
+import json
 import os
 from pathlib import Path
 import sys
 from unittest.mock import patch
 import re
-import tomllib
+try:
+    import tomllib
+except ModuleNotFoundError:  # pragma: no cover - Python < 3.11
+    import tomli as tomllib
 import pytest
 
 
@@ -21,6 +25,7 @@ PLATFORMS = {
     "trae": (".trae/skills/graphify/SKILL.md",),
     "trae-cn": (".trae-cn/skills/graphify/SKILL.md",),
     "hermes": (".hermes/skills/graphify/SKILL.md",),
+    "kimi": (".kimi/skills/graphify/SKILL.md",),
     "kiro": (".kiro/skills/graphify/SKILL.md",),
     "pi": (".pi/agent/skills/graphify/SKILL.md",),
     "antigravity": (".agent/skills/graphify/SKILL.md",),
@@ -182,7 +187,28 @@ def test_cli_skill_help_has_no_side_effects(tmp_path, capsys):
 def test_cli_setup_codex_configures_project(tmp_path):
     _run_main(tmp_path, ["graphify", "setup", "codex"])
     assert (tmp_path / "AGENTS.md").exists()
-    assert (tmp_path / ".codex" / "hooks.json").exists()
+    assert not (tmp_path / ".codex" / "hooks.json").exists()
+    config = tomllib.loads((tmp_path / ".codex" / "config.toml").read_text(encoding="utf-8"))
+    assert config["features"]["hooks"] is True
+
+
+def test_cli_setup_codex_migrates_deprecated_hooks_feature(tmp_path):
+    config_path = tmp_path / ".codex" / "config.toml"
+    config_path.parent.mkdir(parents=True)
+    config_path.write_text(
+        "[features]\n"
+        "codex_hooks = true\n"
+        "multi_agent = true\n",
+        encoding="utf-8",
+    )
+
+    _run_main(tmp_path, ["graphify", "setup", "codex"])
+
+    content = config_path.read_text(encoding="utf-8")
+    config = tomllib.loads(content)
+    assert config["features"]["hooks"] is True
+    assert config["features"]["multi_agent"] is True
+    assert "codex_hooks" not in content
 
 
 def test_cli_setup_requires_platform(tmp_path):
@@ -347,6 +373,83 @@ def test_codex_agents_install_writes_agents_md(tmp_path):
     assert agents_md.exists()
     assert "graphify" in agents_md.read_text()
     assert "GRAPH_REPORT.md" in agents_md.read_text()
+
+
+def test_codex_agents_install_cleans_legacy_hooks(tmp_path):
+    hooks_path = tmp_path / ".codex" / "hooks.json"
+    hooks_path.parent.mkdir(parents=True)
+    hooks_path.write_text(json.dumps({
+        "hooks": {
+            "UserPromptSubmit": [
+                {"hooks": [{"type": "command", "command": "echo graphify legacy prompt"}]},
+                {"hooks": [{"type": "command", "command": "echo keep prompt"}]},
+            ],
+            "PreToolUse": [
+                {"matcher": "Bash", "hooks": [{"type": "command", "command": "graphify hook-check"}]},
+                {"matcher": "Bash", "hooks": [{"type": "command", "command": "echo keep tool"}]},
+            ],
+        }
+    }))
+
+    _agents_install(tmp_path, "codex")
+
+    settings = json.loads(hooks_path.read_text())
+    hooks = settings["hooks"]
+    assert "legacy prompt" not in str(settings)
+    assert "keep prompt" in str(hooks.get("UserPromptSubmit", []))
+    assert "keep tool" in str(hooks.get("PreToolUse", []))
+    assert "hook-check" not in str(settings)
+
+
+def test_codex_hook_cleanup_preserves_unrelated_handlers_in_same_group(tmp_path):
+    from graphify.__main__ import _uninstall_codex_hook
+    hooks_path = tmp_path / ".codex" / "hooks.json"
+    hooks_path.parent.mkdir(parents=True)
+    hooks_path.write_text(json.dumps({
+        "hooks": {
+            "PreToolUse": [
+                {
+                    "matcher": "Bash",
+                    "hooks": [
+                        {"type": "command", "command": "graphify hook-check"},
+                        {"type": "command", "command": "echo keep same group"},
+                    ],
+                },
+            ],
+        }
+    }))
+
+    _uninstall_codex_hook(tmp_path)
+
+    settings = json.loads(hooks_path.read_text())
+    pre_tool = settings["hooks"]["PreToolUse"]
+    assert "graphify" not in str(pre_tool)
+    assert "echo keep same group" in str(pre_tool)
+
+
+def test_codex_uninstall_removes_all_graphify_hooks(tmp_path):
+    from graphify.__main__ import _uninstall_codex_hook
+    hooks_path = tmp_path / ".codex" / "hooks.json"
+    hooks_path.parent.mkdir(parents=True)
+    hooks_path.write_text(json.dumps({
+        "hooks": {
+            "UserPromptSubmit": [
+                {"hooks": [{"type": "command", "command": "echo graphify legacy prompt"}]},
+            ],
+            "PreToolUse": [
+                {"matcher": "Bash", "hooks": [{"type": "command", "command": "graphify hook-check"}]},
+            ],
+            "PostToolUse": [
+                {"matcher": "Bash", "hooks": [{"type": "command", "command": "echo keep"}]},
+            ],
+        }
+    }))
+
+    _uninstall_codex_hook(tmp_path)
+
+    settings = json.loads(hooks_path.read_text())
+    assert "graphify" not in str(settings)
+    assert "keep" in str(settings)
 
 
 def test_opencode_agents_install_writes_agents_md(tmp_path):

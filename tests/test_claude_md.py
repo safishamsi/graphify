@@ -1,7 +1,19 @@
 """Tests for graphify claude install / uninstall commands."""
-from pathlib import Path
-import pytest
-from graphify.__main__ import claude_install, claude_uninstall, _CLAUDE_MD_MARKER, _CLAUDE_MD_SECTION
+import json
+import subprocess
+import sys
+from graphify.__main__ import claude_install, claude_uninstall, _CLAUDE_MD_MARKER
+
+
+def run_claude_guard(tmp_path, payload, cwd=None):
+    return subprocess.run(
+        [sys.executable, "-m", "graphify", "claude-guard"],
+        input=json.dumps(payload),
+        text=True,
+        cwd=cwd or tmp_path,
+        capture_output=True,
+        check=False,
+    )
 
 
 # ---------------------------------------------------------------------------
@@ -22,6 +34,8 @@ def test_install_contains_expected_rules(tmp_path):
     content = (tmp_path / "CLAUDE.md").read_text()
     assert "GRAPH_REPORT.md" in content
     assert "wiki/index.md" in content
+    assert "graphify query" in content
+    assert "Use grep/find/ls/read only after graphify" in content
     assert "graphify update" in content
 
 
@@ -36,22 +50,43 @@ def test_install_appends_to_existing_claude_md(tmp_path):
 
 
 def test_install_is_idempotent(tmp_path, capsys):
-    """Running install twice does not duplicate the section."""
+    """Running install twice refreshes the section without duplicating it."""
     claude_install(tmp_path)
     claude_install(tmp_path)
     content = (tmp_path / "CLAUDE.md").read_text()
     assert content.count(_CLAUDE_MD_MARKER) == 1
     captured = capsys.readouterr()
-    assert "already configured" in captured.out
+    assert "refreshed" in captured.out
 
 
 def test_install_idempotent_message(tmp_path, capsys):
-    """Second install prints the 'already configured' message."""
+    """Second install prints the refresh message."""
     claude_install(tmp_path)
     capsys.readouterr()  # clear first call output
     claude_install(tmp_path)
     out = capsys.readouterr().out
-    assert "already configured" in out
+    assert "refreshed" in out
+
+
+def test_install_refreshes_existing_graphify_section(tmp_path):
+    """Existing stale graphify section is replaced while other content stays intact."""
+    target = tmp_path / "CLAUDE.md"
+    target.write_text(
+        "# Project rules\n\n"
+        "Keep this.\n\n"
+        "## graphify\n\n"
+        "Old graphify text.\n\n"
+        "## Other\n\n"
+        "Keep this too.\n"
+    )
+
+    claude_install(tmp_path)
+
+    content = target.read_text()
+    assert "Old graphify text" not in content
+    assert "Keep this." in content
+    assert "## Other" in content
+    assert "Use grep/find/ls/read only after graphify" in content
 
 
 # ---------------------------------------------------------------------------
@@ -102,35 +137,203 @@ def test_uninstall_no_op_when_no_file(tmp_path, capsys):
 # ---------------------------------------------------------------------------
 
 def test_install_creates_settings_json(tmp_path):
-    """claude_install also writes .claude/settings.json with PreToolUse hook."""
-    import json
+    """claude_install writes UserPromptSubmit reminder and PreToolUse guard."""
     claude_install(tmp_path)
     settings_path = tmp_path / ".claude" / "settings.json"
     assert settings_path.exists()
+    assert not (tmp_path / ".claude" / "hooks" / "graphify-guard.py").exists()
     settings = json.loads(settings_path.read_text())
-    hooks = settings.get("hooks", {}).get("PreToolUse", [])
-    assert any(h.get("matcher") == "Bash" for h in hooks)
+    hooks = settings.get("hooks", {})
+    assert any("graphify claude-reminder" in str(h) for h in hooks.get("UserPromptSubmit", []))
+    assert any(h.get("matcher") == "Bash|Grep|Glob|Read|LS" for h in hooks.get("PreToolUse", []))
+    assert any("graphify claude-guard" in str(h) for h in hooks.get("PreToolUse", []))
 
 
 def test_install_settings_json_idempotent(tmp_path):
-    """Running claude_install twice does not duplicate the PreToolUse hook."""
-    import json
+    """Running claude_install twice does not duplicate graphify hooks."""
     claude_install(tmp_path)
     claude_install(tmp_path)
     settings_path = tmp_path / ".claude" / "settings.json"
     settings = json.loads(settings_path.read_text())
-    hooks = settings.get("hooks", {}).get("PreToolUse", [])
-    bash_hooks = [h for h in hooks if h.get("matcher") == "Bash" and "graphify" in str(h)]
-    assert len(bash_hooks) == 1
+    hooks = settings.get("hooks", {})
+    prompt_hooks = [h for h in hooks.get("UserPromptSubmit", []) if "graphify" in str(h)]
+    guard_hooks = [h for h in hooks.get("PreToolUse", []) if "graphify" in str(h)]
+    assert len(prompt_hooks) == 1
+    assert len(guard_hooks) == 1
+
+
+def test_install_preserves_unrelated_settings_hooks(tmp_path):
+    """Installing graphify keeps non-graphify Claude hooks in place."""
+    settings_path = tmp_path / ".claude" / "settings.json"
+    settings_path.parent.mkdir(parents=True)
+    settings_path.write_text(json.dumps({
+        "hooks": {
+            "PreToolUse": [
+                {
+                    "matcher": "Bash",
+                    "hooks": [{"type": "command", "command": "echo keep me"}],
+                },
+                {
+                    "matcher": "Bash",
+                    "hooks": [{"type": "command", "command": "echo old graphify hook"}],
+                },
+            ]
+        }
+    }))
+
+    claude_install(tmp_path)
+
+    settings = json.loads(settings_path.read_text())
+    pre_tool = settings["hooks"]["PreToolUse"]
+    assert any("keep me" in str(h) for h in pre_tool)
+    assert not any("old graphify hook" in str(h) for h in pre_tool)
+    assert any("graphify claude-guard" in str(h) for h in pre_tool)
+
+
+def test_install_removes_legacy_claude_hook_script(tmp_path):
+    """Installing graphify removes old generated Claude hook scripts."""
+    hooks_dir = tmp_path / ".claude" / "hooks"
+    hooks_dir.mkdir(parents=True)
+    legacy_hook = hooks_dir / "graphify-hook.cjs"
+    legacy_hook.write_text("console.log('legacy graphify hook')")
+    legacy_guard_backup = hooks_dir / "graphify-guard.py.20260507103612.bak"
+    legacy_guard_backup.write_text("print('legacy graphify guard backup')")
+    settings_path = tmp_path / ".claude" / "settings.json"
+    settings_path.write_text(json.dumps({
+        "hooks": {
+            "UserPromptSubmit": [
+                {"hooks": [{"type": "command", "command": f"node {legacy_hook} user-prompt"}]},
+            ],
+            "PreToolUse": [
+                {"matcher": "Bash", "hooks": [{"type": "command", "command": "echo keep"}]},
+                {"matcher": "Bash", "hooks": [{"type": "command", "command": f"node {legacy_hook} pre-tool"}]},
+            ],
+        }
+    }))
+
+    claude_install(tmp_path)
+
+    settings = json.loads(settings_path.read_text())
+    assert not legacy_hook.exists()
+    assert not legacy_guard_backup.exists()
+    assert "graphify-hook.cjs" not in str(settings)
+    assert "echo keep" in str(settings)
+    assert not (hooks_dir / "graphify-guard.py").exists()
+    assert "graphify claude-guard" in str(settings)
 
 
 def test_uninstall_removes_settings_hook(tmp_path):
-    """claude_uninstall removes the PreToolUse hook from settings.json."""
-    import json
+    """claude_uninstall removes graphify hooks and guard script."""
     claude_install(tmp_path)
+    (tmp_path / ".claude" / "hooks").mkdir()
+    legacy_hook = tmp_path / ".claude" / "hooks" / "graphify-hook.cjs"
+    legacy_hook.write_text("console.log('legacy graphify hook')")
     claude_uninstall(tmp_path)
     settings_path = tmp_path / ".claude" / "settings.json"
+    guard_path = tmp_path / ".claude" / "hooks" / "graphify-guard.py"
+    assert not guard_path.exists()
+    assert not legacy_hook.exists()
     if settings_path.exists():
         settings = json.loads(settings_path.read_text())
-        hooks = settings.get("hooks", {}).get("PreToolUse", [])
-        assert not any(h.get("matcher") == "Bash" and "graphify" in str(h) for h in hooks)
+        hooks = settings.get("hooks", {})
+        assert "graphify" not in str(hooks.get("UserPromptSubmit", []))
+        assert "graphify" not in str(hooks.get("PreToolUse", []))
+
+
+def test_guard_blocks_raw_search_until_graph_used(tmp_path):
+    """The graphify CLI guard blocks raw search before graphify is used."""
+    claude_install(tmp_path)
+    graph_dir = tmp_path / "graphify-out"
+    graph_dir.mkdir()
+    (graph_dir / "graph.json").write_text('{"nodes":[],"edges":[]}')
+
+    blocked = run_claude_guard(
+        tmp_path,
+        {
+            "session_id": "blocked",
+            "tool_name": "Bash",
+            "tool_input": {"command": 'grep -r "xml" verframe/src'},
+        },
+    )
+    assert blocked.returncode == 2
+    assert "raw file search/read/list blocked" in blocked.stderr
+
+
+def test_guard_allows_raw_search_after_graph_used(tmp_path):
+    """After graphify query is used in a session, targeted raw reads are allowed."""
+    claude_install(tmp_path)
+    graph_dir = tmp_path / "graphify-out"
+    graph_dir.mkdir()
+    (graph_dir / "graph.json").write_text('{"nodes":[],"edges":[]}')
+
+    graph_use = run_claude_guard(
+        tmp_path,
+        {
+            "session_id": "allowed",
+            "tool_name": "Bash",
+            "tool_input": {"command": 'graphify query "xml export" --budget 4000'},
+        },
+    )
+    assert graph_use.returncode == 0
+
+    raw_search = run_claude_guard(
+        tmp_path,
+        {
+            "session_id": "allowed",
+            "tool_name": "Bash",
+            "tool_input": {"command": 'grep -r "xml" verframe/src'},
+        },
+    )
+    assert raw_search.returncode == 0
+
+
+def test_guard_treats_windows_graph_report_read_as_graph_use(tmp_path):
+    """Windows-style graph report paths count as graph usage."""
+    claude_install(tmp_path)
+    graph_dir = tmp_path / "graphify-out"
+    graph_dir.mkdir()
+    (graph_dir / "graph.json").write_text('{"nodes":[],"edges":[]}')
+
+    graph_read = run_claude_guard(
+        tmp_path,
+        {
+            "session_id": "windows-report",
+            "tool_name": "Read",
+            "tool_input": {"file_path": "graphify-out\\GRAPH_REPORT.md"},
+        },
+    )
+    assert graph_read.returncode == 0
+
+    raw_search = run_claude_guard(
+        tmp_path,
+        {
+            "session_id": "windows-report",
+            "tool_name": "Bash",
+            "tool_input": {"command": 'grep -r "xml" verframe/src'},
+        },
+    )
+    assert raw_search.returncode == 0
+
+
+def test_guard_uses_payload_cwd_when_claude_runs_from_subdirectory(tmp_path):
+    """The CLI guard resolves graph state from Claude's cwd payload."""
+    claude_install(tmp_path)
+    graph_dir = tmp_path / "graphify-out"
+    graph_dir.mkdir()
+    (graph_dir / "graph.json").write_text('{"nodes":[],"edges":[]}')
+    nested_cwd = tmp_path / "state" / "com_phase0" / "iterations" / "15820366"
+    nested_cwd.mkdir(parents=True)
+
+    blocked = run_claude_guard(
+        tmp_path,
+        {
+            "session_id": "nested-cwd",
+            "cwd": str(tmp_path),
+            "tool_name": "Bash",
+            "tool_input": {"command": 'grep -r "xml" verframe/src'},
+        },
+        cwd=nested_cwd,
+    )
+    assert blocked.returncode == 2
+    assert (tmp_path / ".claude" / "graphify-guard-state").exists()
+    assert not (nested_cwd / ".claude").exists()

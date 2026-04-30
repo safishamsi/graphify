@@ -52,9 +52,9 @@ graphify export callflow-html
 **Requires Python 3.10+**
 
 ```bash
-uv tool install graphifyy && graphify install
-# or: pipx install graphifyy && graphify install
-# or: pip install graphifyy && graphify install
+uv tool install graphifyy
+# or: pipx install graphifyy
+# or: pip install graphifyy
 ```
 
 > **Official package:** The PyPI package is `graphifyy` (double-y). Other `graphify*` packages on PyPI are not affiliated. The CLI command is still `graphify`.
@@ -65,28 +65,32 @@ uv tool install graphifyy && graphify install
 
 ### Pick your platform
 
+Install or refresh the user-level assistant skill:
+
 | Platform | Install command |
 |----------|----------------|
-| Claude Code (Linux/Mac) | `graphify install` |
-| Claude Code (Windows) | `graphify install --platform windows` |
-| Codex | `graphify install --platform codex` |
-| OpenCode | `graphify install --platform opencode` |
-| GitHub Copilot CLI | `graphify install --platform copilot` |
-| VS Code Copilot Chat | `graphify vscode install` |
-| Aider | `graphify install --platform aider` |
-| OpenClaw | `graphify install --platform claw` |
-| Factory Droid | `graphify install --platform droid` |
-| Trae | `graphify install --platform trae` |
-| Trae CN | `graphify install --platform trae-cn` |
-| Gemini CLI | `graphify install --platform gemini` |
-| Hermes | `graphify install --platform hermes` |
-| Kimi Code | `graphify install --platform kimi` |
-| Kiro IDE/CLI | `graphify kiro install` |
-| Pi coding agent | `graphify install --platform pi` |
-| Cursor | `graphify cursor install` |
-| Google Antigravity | `graphify antigravity install` |
+| Claude Code (Linux/Mac) | `graphify skill claude` |
+| Claude Code (Windows) | `graphify skill windows` |
+| Codex | `graphify skill codex` |
+| OpenCode | `graphify skill opencode` |
+| GitHub Copilot CLI | `graphify skill copilot` |
+| VS Code Copilot Chat | `graphify skill vscode` |
+| Aider | `graphify skill aider` |
+| OpenClaw | `graphify skill claw` |
+| Factory Droid | `graphify skill droid` |
+| Trae | `graphify skill trae` |
+| Trae CN | `graphify skill trae-cn` |
+| Gemini CLI | `graphify skill gemini` |
+| Hermes | `graphify skill hermes` |
+| Kimi Code | `graphify skill kimi` |
+| Kiro IDE/CLI | `graphify skill kiro` |
+| Pi coding agent | `graphify skill pi` |
+| Google Antigravity | `graphify skill antigravity` |
 
-> Codex users: also add `multi_agent = true` under `[features]` in `~/.codex/config.toml`.
+Deprecated aliases still work for compatibility: `graphify install`, `graphify install <platform>`, and `graphify install --platform <platform>`.
+
+> Codex users: `graphify setup codex` enables `[features].hooks = true` in the project `.codex/config.toml`.
+> Also add `multi_agent = true` under `[features]` in `~/.codex/config.toml` for parallel extraction.
 > Codex uses `$graphify` instead of `/graphify`.
 
 ---
@@ -97,27 +101,28 @@ Run this once in your project after building a graph:
 
 | Platform | Command |
 |----------|---------|
-| Claude Code | `graphify claude install` |
-| Codex | `graphify codex install` |
-| OpenCode | `graphify opencode install` |
-| GitHub Copilot CLI | `graphify copilot install` |
-| VS Code Copilot Chat | `graphify vscode install` |
-| Aider | `graphify aider install` |
-| OpenClaw | `graphify claw install` |
-| Factory Droid | `graphify droid install` |
-| Trae | `graphify trae install` |
-| Trae CN | `graphify trae-cn install` |
-| Cursor | `graphify cursor install` |
-| Gemini CLI | `graphify gemini install` |
-| Hermes | `graphify hermes install` |
-| Kimi Code | `graphify install --platform kimi` |
-| Kiro IDE/CLI | `graphify kiro install` |
-| Pi coding agent | `graphify pi install` |
-| Google Antigravity | `graphify antigravity install` |
+| Claude Code | `graphify setup claude` |
+| Codex | `graphify setup codex` |
+| OpenCode | `graphify setup opencode` |
+| GitHub Copilot CLI | `graphify setup copilot` |
+| VS Code Copilot Chat | `graphify setup vscode` |
+| Aider | `graphify setup aider` |
+| OpenClaw | `graphify setup claw` |
+| Factory Droid | `graphify setup droid` |
+| Trae | `graphify setup trae` |
+| Trae CN | `graphify setup trae-cn` |
+| Cursor | `graphify setup cursor` |
+| Gemini CLI | `graphify setup gemini` |
+| Hermes | `graphify setup hermes` |
+| Kiro IDE/CLI | `graphify setup kiro` |
+| Pi coding agent | `graphify setup pi` |
+| Google Antigravity | `graphify setup antigravity` |
 
-This writes a small config file that tells your assistant to read `GRAPH_REPORT.md` before answering questions about your codebase. On platforms that support hooks (Claude Code, Codex, Gemini CLI), a hook fires automatically before every file-read call — your assistant navigates by the graph instead of grepping through everything.
+Deprecated platform-first aliases still work for compatibility, for example `graphify codex install` and `graphify codex uninstall`.
 
-To remove graphify from all platforms at once: `graphify uninstall` (add `--purge` to also delete `graphify-out/`). Or use the per-platform command (e.g. `graphify claude uninstall`).
+This writes project-level assistant instructions that point to `GRAPH_REPORT.md` before raw file search. On platforms that support hooks, graphify also installs reminders or guards so the assistant sees the graph context before it starts grepping through files. Claude Code gets a `UserPromptSubmit` reminder and a `PreToolUse` guard that blocks raw search/read/list tools until the graph is used in the session.
+
+To remove graphify from all platforms at once: `graphify uninstall` (add `--purge` to also delete `graphify-out/`). Or use the matching per-platform command (e.g. `graphify setup remove codex`).
 
 ---
 
@@ -284,10 +289,33 @@ The MCP server gives your assistant structured access: `query_graph`, `get_node`
 /graphify path "DigestAuth" "Response"
 /graphify explain "SwinTransformer"
 
-graphify uninstall                 # remove from all platforms in one shot
-graphify uninstall --purge         # also delete graphify-out/
+# user-level assistant skills
+graphify skill claude                  # ~/.claude/skills/graphify/SKILL.md
+graphify skill codex                   # ~/.agents/skills/graphify/SKILL.md
+graphify skill opencode                # ~/.config/opencode/skills/graphify/SKILL.md
+graphify skill vscode                  # ~/.copilot/skills/graphify/SKILL.md
+graphify skill remove codex
 
-graphify hook install              # post-commit + post-checkout hooks
+# current-project assistant setup
+graphify setup claude                  # CLAUDE.md + UserPromptSubmit reminder + PreToolUse guard
+graphify setup codex                   # AGENTS.md + .codex/config.toml
+graphify setup opencode                # AGENTS.md + tool.execute.before plugin
+graphify setup cursor                  # .cursor/rules/graphify.mdc
+graphify setup gemini                  # GEMINI.md + BeforeTool hook
+graphify setup vscode                  # .github/copilot-instructions.md + VS Code skill
+graphify setup remove codex
+
+# deprecated aliases kept for compatibility
+graphify install codex                 # deprecated alias for: graphify skill codex
+graphify install --platform codex      # deprecated alias for: graphify skill codex
+graphify codex install                 # deprecated alias for: graphify setup codex
+graphify codex uninstall               # deprecated alias for: graphify setup remove codex
+
+graphify uninstall                     # remove from all platforms in one shot
+graphify uninstall --purge             # also delete graphify-out/
+
+# git hooks - platform-agnostic, rebuild graph on commit and branch switch
+graphify hook install
 graphify hook uninstall
 graphify hook status
 
@@ -306,6 +334,20 @@ graphify hermes install / uninstall
 graphify kiro install / uninstall
 graphify antigravity install / uninstall
 
+# query and navigate the graph directly from the terminal (no AI assistant needed)
+graphify query "what connects attention to the optimizer?"
+graphify query "show the auth flow" --dfs
+graphify query "what is CfgNode?" --budget 500
+graphify query "..." --graph path/to/graph.json
+graphify path "DigestAuth" "Response"       # shortest path between two nodes
+graphify explain "SwinTransformer"          # plain-language explanation of a node
+
+# add content and update the graph from the terminal
+graphify add https://arxiv.org/abs/1706.03762          # fetch paper, save to ./raw, update graph
+graphify add <video-url>
+graphify add https://... --author "Name" --contributor "Name"
+
+# headless extraction for CI/scripts
 graphify extract ./docs                        # headless LLM extraction for CI (no IDE needed)
 graphify extract ./docs --backend gemini       # explicit backend: gemini, kimi, claude, openai, ollama, or bedrock
 graphify extract ./docs --backend gemini --model gemini-3.1-pro-preview
@@ -328,18 +370,52 @@ graphify export callflow-html --max-sections 8      # cap generated architecture
 graphify export callflow-html --output docs/arch.html
 graphify export callflow-html ./some-repo/graphify-out
 
+# clone any GitHub repo and run the full pipeline on it
+graphify clone https://github.com/karpathy/nanoGPT
+graphify clone https://github.com/org/repo --branch dev --out ./my-clone
+
+# cross-repo/global graphs
+graphify merge-graphs repo1/graphify-out/graph.json repo2/graphify-out/graph.json
+graphify merge-graphs g1.json g2.json g3.json --out cross-repo.json
 graphify global add graphify-out/graph.json myrepo   # register a project graph into ~/.graphify/global.json
 graphify global remove myrepo                         # remove a project from the global graph
 graphify global list                                  # show all registered repos + node/edge counts
 graphify global path                                  # print path to the global graph file
 
-graphify clone https://github.com/karpathy/nanoGPT
-graphify merge-graphs a.json b.json --out merged.json
+# incremental update and maintenance
 graphify watch ./src
 graphify check-update ./src
 graphify update ./src
 graphify cluster-only ./my-project
-graphify cluster-only ./my-project --graph path/to/graph.json  # custom graph location
+graphify cluster-only ./my-project --graph path/to/graph.json
+```
+
+Works with any mix of file types:
+
+| Type | Extensions | Extraction |
+|------|-----------|------------|
+| Code | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .mm .jl .vue .svelte` | AST via tree-sitter + call-graph (cross-file for all languages) + Java extends/implements + docstring/comment rationale |
+| Docs | `.md .mdx .html .txt .rst .yaml .yml` | Concepts + relationships + design rationale via Claude |
+| Office | `.docx .xlsx` | Converted to markdown then extracted via Claude (requires `pip install graphifyy[office]`) |
+| Papers | `.pdf` | Citation mining + concept extraction |
+| Images | `.png .jpg .webp .gif` | Claude vision - screenshots, diagrams, any language |
+| Video / Audio | `.mp4 .mov .mkv .webm .avi .m4v .mp3 .wav .m4a .ogg` | Transcribed locally with faster-whisper, transcript fed into Claude extraction (requires `pip install graphifyy[video]`) |
+| YouTube / URLs | any video URL | Audio downloaded via yt-dlp, then same Whisper pipeline (requires `pip install graphifyy[video]`) |
+
+## Video and audio corpus
+
+Drop video or audio files into your corpus folder alongside your code and docs - graphify picks them up automatically:
+
+```bash
+pip install 'graphifyy[video]'   # one-time setup
+/graphify ./my-corpus            # transcribes any video/audio files it finds
+```
+
+Add a YouTube video (or any public video URL) directly:
+
+```bash
+graphify add <video-url>
+graphify add https://... --author "Name" --contributor "Name"
 ```
 
 ---

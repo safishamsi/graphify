@@ -93,7 +93,7 @@ Codex 사용자는 병렬 추출을 위해 `~/.codex/config.toml`의 `[features]
 
 **Claude Code**는 두 가지를 수행합니다: 아키텍처 질문에 답하기 전에 `graphify-out/GRAPH_REPORT.md`를 읽도록 Claude에게 지시하는 `CLAUDE.md` 섹션을 작성하고, 모든 Glob 및 Grep 호출 전에 실행되는 **PreToolUse 훅**(`settings.json`)을 설치합니다. 지식 그래프가 존재하면 Claude는 다음 메시지를 보게 됩니다: _"graphify: Knowledge graph exists. Read GRAPH_REPORT.md for god nodes and community structure before searching raw files."_ — 이를 통해 Claude는 모든 파일을 grep하는 대신 그래프를 통해 탐색합니다.
 
-**Codex**는 `AGENTS.md`에 작성하고 Bash 도구 호출 전에 실행되는 **PreToolUse 훅**을 `.codex/hooks.json`에 설치합니다 — Claude Code와 동일한 상시 작동 메커니즘입니다.
+**Codex**는 프로젝트 루트의 `AGENTS.md`에 동일한 규칙을 작성하고 `.codex/hooks.json`에 프로젝트 훅을 설치합니다. 이 훅은 `graphify hook-check`를 호출하며, AGENTS.md가 그래프 지침의 상시 작동 메커니즘입니다.
 
 **OpenCode, OpenClaw, Factory Droid, Trae**는 프로젝트 루트의 `AGENTS.md`에 동일한 규칙을 작성합니다. 이 플랫폼들은 PreToolUse 훅을 지원하지 않으므로 AGENTS.md가 상시 작동 메커니즘입니다.
 
