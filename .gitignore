@@ -27,3 +27,7 @@ scripts/run_k2_*.py
 scripts/llm.py
 scripts/benchmark_kimi*.json
 scripts/benchmark_kimi*.py
+
+# Dev artifacts that have leaked into the repo before
+graph.db
+_debug_ts.py
