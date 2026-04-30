@@ -3435,12 +3435,12 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
     # Cross-file call resolution for all languages
     # Each extractor saved unresolved calls in raw_calls. Now that we have all
     # nodes from all files, resolve any callee that exists in another file.
-    global_label_to_nid: dict[str, str] = {}
+    global_label_to_nids: dict[str, list[str]] = {}
     for n in all_nodes:
         raw = n.get("label", "")
         normalised = raw.strip("()").lstrip(".")
         if normalised:
-            global_label_to_nid[normalised.lower()] = n["id"]
+            global_label_to_nids.setdefault(normalised.lower(), []).append(n["id"])
 
     existing_pairs = {(e["source"], e["target"]) for e in all_edges}
     for result in per_file:
@@ -3452,7 +3452,14 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
             # and collides with any top-level function named "log" in the corpus.
             if rc.get("is_member_call"):
                 continue
-            tgt = global_label_to_nid.get(callee.lower())
+            # Unqualified cross-file calls are only safe when the label resolves
+            # uniquely. Common helper names such as log(), execute(), or main()
+            # often appear in many files; choosing the last node seen creates
+            # false INFERRED calls and inflates god_nodes rankings (#543).
+            candidates = global_label_to_nids.get(callee.lower(), [])
+            if len(candidates) != 1:
+                continue
+            tgt = candidates[0]
             caller = rc["caller_nid"]
             if tgt and tgt != caller and (caller, tgt) not in existing_pairs:
                 existing_pairs.add((caller, tgt))
