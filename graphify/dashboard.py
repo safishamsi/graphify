@@ -62,6 +62,18 @@ def create_app(graph_path: str | Path = "graphify-out/graph.json") -> "FastAPI":
     app = FastAPI(title="graphify dashboard")
     _load_graph(graph_path)
 
+    # Cached embedding index, lazily built on first /api/search hit.
+    # Previously each request rebuilt the index from scratch — with
+    # sentence-transformers installed, that meant reloading the model
+    # on every search, which dominated latency on real graphs.
+    embedding_index_holder: dict = {"idx": None}
+
+    def _get_embedding_index():
+        if embedding_index_holder["idx"] is None:
+            from graphify.embeddings import EmbeddingIndex
+            embedding_index_holder["idx"] = EmbeddingIndex().build(_G)
+        return embedding_index_holder["idx"]
+
     @app.get("/", response_class=HTMLResponse)
     def index() -> str:
         return _html_page()
@@ -97,8 +109,7 @@ def create_app(graph_path: str | Path = "graphify-out/graph.json") -> "FastAPI":
     def api_search(q: str = Query(...), top_k: int = 10) -> list[dict]:
         if _G is None:
             raise HTTPException(status_code=503, detail="Graph not loaded")
-        from graphify.embeddings import EmbeddingIndex
-        idx = EmbeddingIndex().build(_G)
+        idx = _get_embedding_index()
         results = idx.search(q, top_k=top_k)
         return [
             {"id": nid, "score": round(score, 4),
