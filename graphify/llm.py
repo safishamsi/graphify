@@ -139,6 +139,10 @@ def _call_openai_compat(
     result["input_tokens"] = resp.usage.prompt_tokens if resp.usage else 0
     result["output_tokens"] = resp.usage.completion_tokens if resp.usage else 0
     result["model"] = model
+    # `finish_reason == "length"` means the model hit max_completion_tokens
+    # mid-generation. The JSON we got back is truncated; callers should
+    # treat this as a signal to retry with smaller input.
+    result["finish_reason"] = resp.choices[0].finish_reason
     return result
 
 
@@ -163,6 +167,10 @@ def _call_claude(api_key: str, model: str, user_message: str) -> dict:
     result["input_tokens"] = resp.usage.input_tokens if resp.usage else 0
     result["output_tokens"] = resp.usage.output_tokens if resp.usage else 0
     result["model"] = model
+    # Normalise Anthropic's `stop_reason` to the OpenAI-compat `finish_reason`
+    # vocabulary so the adaptive-retry layer doesn't have to know which
+    # backend produced the result.
+    result["finish_reason"] = "length" if resp.stop_reason == "max_tokens" else "stop"
     return result
 
 
@@ -261,6 +269,83 @@ def _pack_chunks_by_tokens(
     return chunks
 
 
+def _extract_with_adaptive_retry(
+    chunk: list[Path],
+    backend: str,
+    api_key: str | None,
+    model: str | None,
+    root: Path,
+    max_depth: int,
+    _depth: int = 0,
+) -> dict:
+    """Extract a chunk; if the response is truncated (`finish_reason="length"`),
+    split the chunk in half and recurse.
+
+    The signal driving the retry is the API's own `finish_reason` — `"length"`
+    means the model hit `max_completion_tokens` mid-output. The truncated JSON
+    has nothing useful in it (parse fails partway through a string or array),
+    so we discard it and re-extract on smaller inputs that produce shorter
+    outputs.
+
+    Recursion is capped at `max_depth` to bound worst-case cost. A chunk of N
+    files can split into up to 2**max_depth pieces — at depth=3 that's 8x. If
+    still truncated at the cap, we surface the (likely empty) result with a
+    warning rather than infinite-loop.
+
+    A single-file chunk that truncates is unrecoverable here — we can't make
+    one file smaller than itself, so we return what we got and warn.
+    """
+    result = extract_files_direct(
+        chunk, backend=backend, api_key=api_key, model=model, root=root
+    )
+
+    if result.get("finish_reason") != "length":
+        return result
+
+    if len(chunk) <= 1:
+        print(
+            f"[graphify] single-file chunk {chunk[0]} truncated at "
+            f"max_completion_tokens — partial result kept",
+            file=sys.stderr,
+        )
+        return result
+
+    if _depth >= max_depth:
+        print(
+            f"[graphify] chunk of {len(chunk)} still truncated at recursion "
+            f"depth {_depth} (max {max_depth}) — partial result kept",
+            file=sys.stderr,
+        )
+        return result
+
+    print(
+        f"[graphify] chunk of {len(chunk)} truncated at depth {_depth}, "
+        f"splitting into halves of {len(chunk) // 2} and "
+        f"{len(chunk) - len(chunk) // 2}",
+        file=sys.stderr,
+    )
+    mid = len(chunk) // 2
+    left = _extract_with_adaptive_retry(
+        chunk[:mid], backend, api_key, model, root, max_depth, _depth + 1
+    )
+    right = _extract_with_adaptive_retry(
+        chunk[mid:], backend, api_key, model, root, max_depth, _depth + 1
+    )
+
+    return {
+        "nodes": left.get("nodes", []) + right.get("nodes", []),
+        "edges": left.get("edges", []) + right.get("edges", []),
+        "hyperedges": left.get("hyperedges", []) + right.get("hyperedges", []),
+        "input_tokens": left.get("input_tokens", 0) + right.get("input_tokens", 0),
+        "output_tokens": left.get("output_tokens", 0) + right.get("output_tokens", 0),
+        "model": result.get("model"),
+        # Both halves either succeeded or have already surfaced their own
+        # truncation warning; the merged result is no longer truncated as a
+        # logical unit.
+        "finish_reason": "stop",
+    }
+
+
 def extract_corpus_parallel(
     files: list[Path],
     backend: str = "kimi",
@@ -271,6 +356,7 @@ def extract_corpus_parallel(
     on_chunk_done: Callable | None = None,
     token_budget: int | None = 60_000,
     max_concurrency: int = 4,
+    max_retry_depth: int = 3,
 ) -> dict:
     """Extract a corpus in chunks, merging results.
 
@@ -287,9 +373,20 @@ def extract_corpus_parallel(
           (default 4 — conservative to stay under provider rate limits).
         - Set `max_concurrency=1` to force sequential execution.
 
+    Adaptive retry on truncation:
+        - When the LLM returns `finish_reason="length"` (output truncated at
+          `max_completion_tokens`), the chunk is split in half and each half
+          re-extracted recursively, up to `max_retry_depth` levels deep
+          (default 3 → max 8x expansion of one chunk).
+        - This is signal-driven: chunks too dense to fit in one response
+          self-heal by splitting until they do, while well-sized chunks pay
+          no extra cost. Set `max_retry_depth=0` to disable retries.
+
     `on_chunk_done(idx, total, chunk_result)` fires once per chunk as it
     completes (in completion order, not submission order). `idx` is the
-    chunk's submission index so callers can correlate progress.
+    chunk's submission index so callers can correlate progress. The
+    callback fires once per top-level chunk; recursive splits are merged
+    transparently before the callback is invoked.
 
     Returns merged dict with nodes, edges, hyperedges, input_tokens,
     output_tokens. Failed chunks are logged to stderr and skipped — one bad
@@ -306,7 +403,14 @@ def extract_corpus_parallel(
     def _run_one(idx: int, chunk: list[Path]) -> tuple[int, dict | None, Exception | None]:
         t0 = time.time()
         try:
-            result = extract_files_direct(chunk, backend=backend, api_key=api_key, model=model, root=root)
+            result = _extract_with_adaptive_retry(
+                chunk,
+                backend=backend,
+                api_key=api_key,
+                model=model,
+                root=root,
+                max_depth=max_retry_depth,
+            )
             result["elapsed_seconds"] = round(time.time() - t0, 2)
             return idx, result, None
         except Exception as exc:  # noqa: BLE001 — caller-facing surface, log + continue

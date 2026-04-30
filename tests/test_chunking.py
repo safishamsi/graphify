@@ -275,3 +275,178 @@ def test_corpus_parallel_token_budget_default_packs_files(tmp_path):
     # 50 tiny files at default 60k token budget should pack into 1 chunk
     assert len(chunks_seen) == 1
     assert chunks_seen[0] == 50
+
+
+# ---- Adaptive retry on truncation -------------------------------------------
+
+def _stub_with_finish(file_count: int, finish_reason: str = "stop") -> dict:
+    """Build a stub extraction result with a controllable finish_reason."""
+    return {
+        "nodes": [{"id": f"n_{i}"} for i in range(file_count)],
+        "edges": [],
+        "hyperedges": [],
+        "input_tokens": 100 * file_count,
+        "output_tokens": 50 * file_count,
+        "finish_reason": finish_reason,
+    }
+
+
+def test_adaptive_retry_returns_directly_when_not_truncated(tmp_path):
+    """No retry when finish_reason='stop' — single call, result passes through."""
+    from graphify.llm import _extract_with_adaptive_retry
+
+    files = [tmp_path / f"f{i}.py" for i in range(4)]
+    for f in files:
+        f.write_text("x")
+
+    calls = []
+
+    def stub(chunk, **kwargs):
+        calls.append(len(chunk))
+        return _stub_with_finish(len(chunk), finish_reason="stop")
+
+    with patch("graphify.llm.extract_files_direct", side_effect=stub):
+        result = _extract_with_adaptive_retry(
+            files, backend="kimi", api_key=None, model=None, root=tmp_path, max_depth=3
+        )
+
+    assert calls == [4], f"expected 1 call of 4 files, got {calls}"
+    assert len(result["nodes"]) == 4
+
+
+def test_adaptive_retry_splits_when_finish_reason_length(tmp_path):
+    """finish_reason='length' triggers split-in-half. Both halves succeed
+    on the second try (mocked) and results merge."""
+    from graphify.llm import _extract_with_adaptive_retry
+
+    files = [tmp_path / f"f{i}.py" for i in range(4)]
+    for f in files:
+        f.write_text("x")
+
+    calls = []
+
+    def stub(chunk, **kwargs):
+        calls.append(len(chunk))
+        finish = "length" if len(chunk) == 4 else "stop"
+        return _stub_with_finish(len(chunk), finish_reason=finish)
+
+    with patch("graphify.llm.extract_files_direct", side_effect=stub):
+        result = _extract_with_adaptive_retry(
+            files, backend="kimi", api_key=None, model=None, root=tmp_path, max_depth=3
+        )
+
+    assert calls == [4, 2, 2], f"expected [4, 2, 2], got {calls}"
+    assert len(result["nodes"]) == 4
+    assert result["finish_reason"] == "stop"
+
+
+def test_adaptive_retry_recurses_for_persistent_truncation(tmp_path):
+    """When even the half-chunk truncates, split again. With 8 files and a
+    truncation cutoff at >2 files, splits 8 → 4 → 2 (4 leaves of 2)."""
+    from graphify.llm import _extract_with_adaptive_retry
+
+    files = [tmp_path / f"f{i}.py" for i in range(8)]
+    for f in files:
+        f.write_text("x")
+
+    calls = []
+
+    def stub(chunk, **kwargs):
+        calls.append(len(chunk))
+        finish = "length" if len(chunk) > 2 else "stop"
+        return _stub_with_finish(len(chunk), finish_reason=finish)
+
+    with patch("graphify.llm.extract_files_direct", side_effect=stub):
+        result = _extract_with_adaptive_retry(
+            files, backend="kimi", api_key=None, model=None, root=tmp_path, max_depth=3
+        )
+
+    # Tree: 8 (trunc) → 4 + 4 (both trunc) → 2+2+2+2 (all stop)
+    # Total calls: 1 + 2 + 4 = 7
+    assert sorted(calls) == [2, 2, 2, 2, 4, 4, 8]
+    assert len(result["nodes"]) == 8
+
+
+def test_adaptive_retry_caps_at_max_depth(tmp_path, capsys):
+    """If everything truncates, retries stop at max_depth — partial result
+    kept with a warning, no infinite loop."""
+    from graphify.llm import _extract_with_adaptive_retry
+
+    files = [tmp_path / f"f{i}.py" for i in range(8)]
+    for f in files:
+        f.write_text("x")
+
+    calls = []
+
+    def always_truncate(chunk, **kwargs):
+        calls.append(len(chunk))
+        return _stub_with_finish(len(chunk), finish_reason="length")
+
+    with patch("graphify.llm.extract_files_direct", side_effect=always_truncate):
+        _extract_with_adaptive_retry(
+            files, backend="kimi", api_key=None, model=None, root=tmp_path, max_depth=2
+        )
+
+    # max_depth=2 bounds the tree: root + 2 + 4 = 7 calls maximum
+    assert len(calls) <= 7, f"recursion not bounded — {len(calls)} calls"
+    err = capsys.readouterr().err
+    assert "still truncated" in err
+
+
+def test_adaptive_retry_single_file_truncation_does_not_recurse(tmp_path, capsys):
+    """A single file that truncates can't be split further — surface a
+    warning and return what we got. No infinite loop."""
+    from graphify.llm import _extract_with_adaptive_retry
+
+    f = tmp_path / "huge.py"; f.write_text("x")
+
+    calls = []
+
+    def stub(chunk, **kwargs):
+        calls.append(len(chunk))
+        return _stub_with_finish(len(chunk), finish_reason="length")
+
+    with patch("graphify.llm.extract_files_direct", side_effect=stub):
+        _extract_with_adaptive_retry(
+            [f], backend="kimi", api_key=None, model=None, root=tmp_path, max_depth=3
+        )
+
+    assert calls == [1], f"single-file chunk recursed; calls = {calls}"
+    err = capsys.readouterr().err
+    assert "single-file chunk" in err and "truncated" in err
+
+
+def test_corpus_parallel_uses_adaptive_retry(tmp_path):
+    """End-to-end: extract_corpus_parallel routes through adaptive retry,
+    so a chunk that truncates gets split and merged transparently before
+    on_chunk_done fires."""
+    from graphify.llm import extract_corpus_parallel
+
+    files = [tmp_path / f"f{i}.py" for i in range(4)]
+    for f in files:
+        f.write_text("x")
+
+    calls = []
+
+    def stub(chunk, **kwargs):
+        calls.append(len(chunk))
+        finish = "length" if len(chunk) == 4 else "stop"
+        return _stub_with_finish(len(chunk), finish_reason=finish)
+
+    chunk_done_args = []
+    with patch("graphify.llm.extract_files_direct", side_effect=stub):
+        result = extract_corpus_parallel(
+            files,
+            backend="kimi",
+            token_budget=None,
+            chunk_size=4,
+            max_concurrency=1,
+            on_chunk_done=lambda i, t, r: chunk_done_args.append((i, t, len(r["nodes"]))),
+        )
+
+    # Adaptive retry runs INSIDE _run_one: 4 → 2 + 2 = 3 underlying API calls
+    assert calls == [4, 2, 2]
+    # User-visible: 1 chunk completion (the merged result)
+    assert len(chunk_done_args) == 1
+    assert chunk_done_args[0] == (0, 1, 4)
+    assert len(result["nodes"]) == 4
