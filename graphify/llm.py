@@ -102,6 +102,14 @@ def _call_openai_compat(
     }
     if temperature is not None:
         kwargs["temperature"] = temperature
+    # kimi-k2.6 is a reasoning model: it writes its chain-of-thought to
+    # `reasoning_content` and the answer to `content`. When reasoning consumes
+    # the entire max_completion_tokens budget on large chunks, `content` stays
+    # empty and we parse zero nodes while still paying for the input + reasoning
+    # tokens. For structured extraction we don't need chain-of-thought, so
+    # disable thinking on Moonshot-hosted models.
+    if "moonshot" in base_url:
+        kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
     resp = client.chat.completions.create(**kwargs)
     result = _parse_llm_json(resp.choices[0].message.content or "{}")
     result["input_tokens"] = resp.usage.prompt_tokens if resp.usage else 0
