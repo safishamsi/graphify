@@ -9,6 +9,7 @@ from __future__ import annotations
 import json
 import os
 import re
+import sys
 from enum import Enum
 from pathlib import Path
 
@@ -549,7 +550,7 @@ def _pattern_to_regex(p: str) -> re.Pattern:
         if c == '\\' and i + 1 < len(p):
             # Special Git escape characters: preserve as escapes.
             # Otherwise, treat backslash as a directory separator (Windows support).
-            if p[i+1] in (' ', '#', '!', '*', '?', '[', '\\'):
+            if p[i+1] in (' ', '#', '!', '*', '?', '[', ']', '\\'):
                 result.append(re.escape(p[i + 1]))
             else:
                 result.append('/')
@@ -612,7 +613,6 @@ def _pattern_to_regex(p: str) -> re.Pattern:
             i += 1
 
     # Use case-insensitive matching on Windows and macOS
-    import sys
     re_flags = 0
     if sys.platform in ("win32", "darwin"):
         re_flags = re.IGNORECASE
@@ -793,13 +793,18 @@ def _is_path_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]], i
             continue
 
         match = False
-        # Try path relative to the scan root.
-        try:
-            rel = str(path.relative_to(root)).replace(os.sep, '/')
-            if _match_ignore_pattern(rel, p, is_dir):
-                match = True
-        except ValueError:
-            pass
+        # Leading-slash patterns are anchored to their .graphifyignore location.
+        # Don't evaluate them relative to the scan root when the anchor is a parent
+        # directory — that would make /vendor/ in a parent ignore a src/vendor/ subtree.
+        leading_slash_anchored = p.startswith('/')
+        if not (leading_slash_anchored and anchor != root):
+            # Try path relative to the scan root.
+            try:
+                rel = str(path.relative_to(root)).replace(os.sep, '/')
+                if _match_ignore_pattern(rel, p, is_dir):
+                    match = True
+            except ValueError:
+                pass
 
         # Also try relative to the anchor dir (.graphifyignore's location)
         if not match and anchor != root:

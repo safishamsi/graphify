@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from graphify.detect import classify_file, count_words, detect, FileType, _looks_like_paper, _is_path_ignored, _load_graphifyignore, _match_ignore_pattern
 
@@ -194,6 +195,25 @@ def test_graphifyignore_parent_negation_reinclude(tmp_path):
     assert any("main.py" in f for f in code_files)
     assert any("keep.py" in f for f in code_files)
     assert not any("dep.py" in f for f in code_files)
+
+
+def test_anchored_parent_pattern_does_not_match_subdir_collision(tmp_path):
+    """/vendor/ in a parent .graphifyignore must NOT exclude src/vendor/ when scanning src/.
+
+    A leading-slash pattern is anchored to the .graphifyignore that defines it, not to
+    whatever directory the user passes to detect(). Without this guard the scan-root-relative
+    path 'vendor/lib.py' would incorrectly match the anchored regex produced by '/vendor/'.
+    """
+    (tmp_path / ".git").mkdir()
+    (tmp_path / ".graphifyignore").write_text("/vendor/\n")
+    src = tmp_path / "src"
+    src.mkdir()
+    (src / "vendor").mkdir()
+    (src / "vendor" / "lib.py").write_text("x = 1")
+
+    result = detect(src)
+    code_files = [f.replace(os.sep, "/") for f in result["files"]["code"]]
+    assert any("vendor/lib.py" in f for f in code_files)
 
 
 def test_graphifyignore_missing_is_fine(tmp_path):
