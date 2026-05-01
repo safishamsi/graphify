@@ -678,9 +678,20 @@ def _trim_trailing_spaces(s: str) -> str:
     return s
 
 
+_VCS_MARKERS = frozenset({".git", ".hg", ".svn", "_darcs", ".fossil"})
+
+
 def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
     """
     Discover and read .graphifyignore files from root and ancestors.
+
+    Boundary rule:
+    - VCS root found above scan dir (.git/.hg/.svn): walk up to it and load
+      all .graphifyignore files along the way (handles monorepos where a
+      global ignore file lives at the repo root).
+    - No VCS root above scan dir: treat scan root as the ceiling and load
+      only its own .graphifyignore, preventing accidental pickup of
+      home-directory-level ignore files for non-VCS projects.
 
     Parameters
     ----------
@@ -690,25 +701,39 @@ def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
     Returns
     -------
     list of tuple[Path, str]
-        A list of (anchor_dir, pattern) pairs. Search stops at .git boundaries.
+        A list of (anchor_dir, pattern) pairs ordered from outermost to
+        innermost, so that inner patterns take precedence (last-match-wins).
     """
-    patterns: list[tuple[Path, str]] = []
-    current = root.resolve()
+    resolved_root = root.resolve()
+
+    # Walk upward collecting candidates; stop when a VCS root is found.
+    candidates: list[Path] = [resolved_root]
+    current = resolved_root
+    vcs_found = False
+
     while True:
-        ignore_file = current / ".graphifyignore"
+        parent = current.parent
+        if parent == current:
+            break  # filesystem root reached without finding VCS
+        current = parent
+        candidates.append(current)
+        if any((current / m).exists() for m in _VCS_MARKERS):
+            vcs_found = True
+            break
+
+    # No VCS root anywhere above: scan root is the ceiling.
+    dirs = candidates if vcs_found else [resolved_root]
+
+    patterns: list[tuple[Path, str]] = []
+    for d in reversed(dirs):
+        ignore_file = d / ".graphifyignore"
         if ignore_file.exists():
             for line in ignore_file.read_text(encoding="utf-8", errors="ignore").splitlines():
                 if line and not line.startswith("#"):
                     line = _trim_trailing_spaces(line)
                     if line:
-                        patterns.append((current, line))
-        # Stop climbing once we've processed the git repo root
-        if (current / ".git").exists():
-            break
-        parent = current.parent
-        if parent == current:
-            break  # filesystem root
-        current = parent
+                        patterns.append((d, line))
+
     return patterns
 
 

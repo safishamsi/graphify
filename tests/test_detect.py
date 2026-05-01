@@ -176,7 +176,9 @@ def test_graphifyignore_parent_negation_reinclude(tmp_path):
     """Parent .graphifyignore wildcard + negation applies to subdirectory scans.
 
     Uses vendor/* (not vendor/) so the directory is traversed and keep.py can be re-included.
+    A VCS root (.git) is present so the upward walk reaches the parent ignore file.
     """
+    (tmp_path / ".git").mkdir()
     (tmp_path / ".graphifyignore").write_text("vendor/*\n!vendor/keep.py\n")
     sub = tmp_path / "sub"
     sub.mkdir()
@@ -236,7 +238,8 @@ def test_detect_follows_symlinked_file(tmp_path):
 
 
 def test_graphifyignore_discovered_from_parent(tmp_path):
-    """A .graphifyignore in a parent directory applies to subdirectory scans."""
+    """A .graphifyignore in a VCS-rooted parent directory applies to subdirectory scans."""
+    (tmp_path / ".git").mkdir()
     (tmp_path / ".graphifyignore").write_text("vendor/\n")
     sub = tmp_path / "packages" / "mylib"
     sub.mkdir(parents=True)
@@ -252,8 +255,8 @@ def test_graphifyignore_discovered_from_parent(tmp_path):
     assert result["graphifyignore_patterns"] >= 1
 
 
-def test_graphifyignore_stops_at_git_boundary(tmp_path):
-    """Upward search stops at the git repo root (.git directory)."""
+def test_graphifyignore_stops_at_project_boundary(tmp_path):
+    """Upward search stops at the first recognised project-root marker."""
     (tmp_path / ".graphifyignore").write_text("main.py\n")
     repo = tmp_path / "repo"
     repo.mkdir()
@@ -266,6 +269,38 @@ def test_graphifyignore_stops_at_git_boundary(tmp_path):
     code_files = result["files"]["code"]
     assert any("main.py" in f for f in code_files)
     assert result["graphifyignore_patterns"] == 0
+
+
+def test_graphifyignore_stops_at_non_git_boundary(tmp_path):
+    """Without a VCS root, scan root is the ceiling — outer ignore files are not loaded."""
+    (tmp_path / ".graphifyignore").write_text("main.py\n")
+    sub = tmp_path / "project" / "src"
+    sub.mkdir(parents=True)
+    (sub / "main.py").write_text("x = 1")
+
+    result = detect(sub)
+    code_files = result["files"]["code"]
+    assert any("main.py" in f for f in code_files)
+    assert result["graphifyignore_patterns"] == 0
+
+
+def test_graphifyignore_monorepo_walks_past_package_json(tmp_path):
+    """In a monorepo, package.json in a sub-package does not stop the walk;
+    the .git root boundary is always honoured."""
+    repo = tmp_path / "monorepo"
+    repo.mkdir()
+    (repo / ".git").mkdir()
+    (repo / ".graphifyignore").write_text("*.log\n")
+    pkg = repo / "packages" / "my-lib"
+    pkg.mkdir(parents=True)
+    (pkg / "package.json").write_text("{}\n")
+    src = pkg / "src"
+    src.mkdir()
+    (src / "index.ts").write_text("export default 1;")
+    (src / "debug.log").write_text("log")
+
+    result = detect(src)
+    assert result["graphifyignore_patterns"] == 1
 
 
 def test_graphifyignore_at_git_root_is_included(tmp_path):
