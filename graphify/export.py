@@ -55,9 +55,14 @@ def _html_styles() -> str:
   .legend-label { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .legend-count { color: #666; font-size: 11px; }
   #stats { padding: 10px 14px; border-top: 1px solid #2a2a4e; font-size: 11px; color: #555; }
-  #legend-controls { display: flex; gap: 6px; margin-bottom: 8px; }
-  #legend-controls button { flex: 1; background: #0f0f1a; border: 1px solid #3a3a5e; color: #aaa; padding: 4px 0; border-radius: 4px; font-size: 11px; cursor: pointer; }
-  #legend-controls button:hover { border-color: #4E79A7; color: #e0e0e0; }
+  #legend-controls { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; padding: 4px 0; }
+  #legend-controls label { display: flex; align-items: center; gap: 6px; cursor: pointer; font-size: 12px; color: #aaa; user-select: none; }
+  #legend-controls label:hover { color: #e0e0e0; }
+  .legend-cb, #select-all-cb { appearance: none; -webkit-appearance: none; width: 14px; height: 14px; border: 1.5px solid #3a3a5e; border-radius: 3px; background: #0f0f1a; cursor: pointer; position: relative; flex-shrink: 0; }
+  .legend-cb:checked, #select-all-cb:checked { background: #4E79A7; border-color: #4E79A7; }
+  .legend-cb:checked::after, #select-all-cb:checked::after { content: ''; position: absolute; left: 3.5px; top: 1px; width: 4px; height: 7px; border: solid #fff; border-width: 0 2px 2px 0; transform: rotate(45deg); }
+  #select-all-cb:indeterminate { background: #4E79A7; border-color: #4E79A7; }
+  #select-all-cb:indeterminate::after { content: ''; position: absolute; left: 2px; top: 5px; width: 8px; height: 2px; background: #fff; border: none; transform: none; }
 </style>"""
 
 
@@ -244,26 +249,41 @@ document.addEventListener('click', e => {{
 
 const hiddenCommunities = new Set();
 
+const selectAllCb = document.getElementById('select-all-cb');
+
+function updateSelectAllState() {{
+  const total = LEGEND.length;
+  const hidden = hiddenCommunities.size;
+  selectAllCb.checked = hidden === 0;
+  selectAllCb.indeterminate = hidden > 0 && hidden < total;
+}}
+
 function toggleAllCommunities(hide) {{
   document.querySelectorAll('.legend-item').forEach(item => {{
     hide ? item.classList.add('dimmed') : item.classList.remove('dimmed');
+  }});
+  document.querySelectorAll('.legend-cb').forEach(cb => {{
+    cb.checked = !hide;
   }});
   LEGEND.forEach(c => {{
     if (hide) hiddenCommunities.add(c.cid); else hiddenCommunities.delete(c.cid);
   }});
   const updates = RAW_NODES.map(n => ({{ id: n.id, hidden: hide }}));
   nodesDS.update(updates);
+  updateSelectAllState();
 }}
 
 const legendEl = document.getElementById('legend');
 LEGEND.forEach(c => {{
   const item = document.createElement('div');
   item.className = 'legend-item';
-  item.innerHTML = `<div class="legend-dot" style="background:${{c.color}}"></div>
-    <span class="legend-label">${{c.label}}</span>
-    <span class="legend-count">${{c.count}}</span>`;
-  item.onclick = () => {{
-    if (hiddenCommunities.has(c.cid)) {{
+  const cb = document.createElement('input');
+  cb.type = 'checkbox';
+  cb.className = 'legend-cb';
+  cb.checked = true;
+  cb.addEventListener('change', (e) => {{
+    e.stopPropagation();
+    if (cb.checked) {{
       hiddenCommunities.delete(c.cid);
       item.classList.remove('dimmed');
     }} else {{
@@ -272,8 +292,18 @@ LEGEND.forEach(c => {{
     }}
     const updates = RAW_NODES
       .filter(n => n.community === c.cid)
-      .map(n => ({{ id: n.id, hidden: hiddenCommunities.has(c.cid) }}));
+      .map(n => ({{ id: n.id, hidden: !cb.checked }}));
     nodesDS.update(updates);
+    updateSelectAllState();
+  }});
+  item.innerHTML = `<div class="legend-dot" style="background:${{c.color}}"></div>
+    <span class="legend-label">${{c.label}}</span>
+    <span class="legend-count">${{c.count}}</span>`;
+  item.prepend(cb);
+  item.onclick = (e) => {{
+    if (e.target === cb) return;
+    cb.checked = !cb.checked;
+    cb.dispatchEvent(new Event('change'));
   }};
   legendEl.appendChild(item);
 }});
@@ -488,8 +518,7 @@ def to_html(
   <div id="legend-wrap">
     <h3>Communities</h3>
     <div id="legend-controls">
-      <button onclick="toggleAllCommunities(false)">Show All</button>
-      <button onclick="toggleAllCommunities(true)">Hide All</button>
+      <label><input type="checkbox" id="select-all-cb" checked onchange="toggleAllCommunities(!this.checked)">Select All</label>
     </div>
     <div id="legend"></div>
   </div>
