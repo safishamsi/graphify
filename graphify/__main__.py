@@ -1001,6 +1001,8 @@ def main() -> None:
         print("    --dir <path>            target directory (default: ./raw)")
         print("  watch <path>            watch a folder and rebuild the graph on code changes")
         print("  update <path>           re-extract code files and update the graph (no LLM needed)")
+        print("    --force                 overwrite graph.json even if the rebuild has fewer nodes")
+        print("                            (also: GRAPHIFY_FORCE=1 env var; use after refactors that delete code)")
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
@@ -1411,8 +1413,17 @@ def main() -> None:
         print(f"Done — {len(communities)} communities. GRAPH_REPORT.md, graph.json and graph.html updated.")
 
     elif cmd == "update":
-        if len(sys.argv) > 2:
-            watch_path = Path(sys.argv[2])
+        # Strip optional --force flag (or honor GRAPHIFY_FORCE env var) before
+        # interpreting positional <path>. Force bypasses the node-count safety
+        # check in to_json — use it after refactors that legitimately shrink
+        # the graph (renames, package deletions).
+        force = os.environ.get("GRAPHIFY_FORCE", "").lower() in ("1", "true", "yes")
+        argv = list(sys.argv)
+        if "--force" in argv[2:]:
+            force = True
+            argv = [a for a in argv if a != "--force"]
+        if len(argv) > 2:
+            watch_path = Path(argv[2])
         else:
             # Try to recover the scan root saved by the last full build
             saved = Path("graphify-out/.graphify_root")
@@ -1425,7 +1436,7 @@ def main() -> None:
             sys.exit(1)
         from graphify.watch import _rebuild_code
         print(f"Re-extracting code files in {watch_path} (no LLM needed)...")
-        ok = _rebuild_code(watch_path)
+        ok = _rebuild_code(watch_path, force=force)
         if ok:
             print("Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.")
             if not os.environ.get("MOONSHOT_API_KEY") and not os.environ.get("GRAPHIFY_NO_TIPS"):

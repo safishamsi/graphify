@@ -33,8 +33,12 @@ def _relativize_source_files(payload: dict, root: Path) -> None:
                 continue
 
 
-def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
+def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: bool = False) -> bool:
     """Re-run AST extraction + build + cluster + report for code files. No LLM needed.
+
+    When ``force`` is True, the node-count safety check in ``to_json`` is bypassed
+    and the rebuilt graph overwrites ``graph.json`` even if it has fewer nodes.
+    Use this for legitimate shrinks (refactors that delete code).
 
     Returns True on success, False on error.
     """
@@ -100,7 +104,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
         out.mkdir(exist_ok=True)
         (out / ".graphify_root").write_text(str(watch_root), encoding="utf-8")
 
-        json_written = to_json(G, communities, str(out / "graph.json"))
+        json_written = to_json(G, communities, str(out / "graph.json"), force=force)
         if not json_written:
             return False
 
