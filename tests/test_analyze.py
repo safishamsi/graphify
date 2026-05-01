@@ -160,6 +160,64 @@ def test_is_concept_node_real_file():
     assert _is_concept_node(G, "n1") is False
 
 
+def test_surprising_connections_filters_cross_language_inferred_calls():
+    """A Python→TypeScript INFERRED `calls` edge with no import bridge must
+    not be promoted in Surprising Connections — it is almost always resolver
+    pollution from a shared function name (#630)."""
+    G = nx.Graph()
+    # Python helper
+    G.add_node("py_normalize", label="normalize", source_file="scripts/build.py", file_type="code")
+    # TypeScript route handler with a colliding name
+    G.add_node("ts_normalize", label="normalize", source_file="src/app/api/report/route.ts", file_type="code")
+    # An unrelated, plausible cross-file edge so the function still has candidates to choose from
+    G.add_node("py_a", label="parse_args", source_file="scripts/build.py", file_type="code")
+    G.add_node("py_b", label="load_config", source_file="scripts/config.py", file_type="code")
+    G.add_edge("py_a", "py_b", relation="calls", confidence="INFERRED",
+               source_file="scripts/build.py", weight=1.0)
+    # The bogus cross-language inferred call
+    G.add_edge("py_normalize", "ts_normalize", relation="calls", confidence="INFERRED",
+               source_file="scripts/build.py", weight=1.0)
+
+    surprises = surprising_connections(G, {})
+    for s in surprises:
+        files = set(s["source_files"])
+        assert files != {"scripts/build.py", "src/app/api/report/route.ts"}, (
+            "cross-language INFERRED calls edge should be filtered out"
+        )
+
+
+def test_surprising_connections_keeps_cross_language_call_with_import_bridge():
+    """If an explicit import edge connects the two source files, a cross-language
+    INFERRED `calls` edge between them is plausible interop and should be kept."""
+    G = nx.Graph()
+    G.add_node("py_fn", label="run", source_file="bridge/host.py", file_type="code")
+    G.add_node("ts_fn", label="run", source_file="bridge/worker.ts", file_type="code")
+    # Module-level nodes carrying the import edge between the two files
+    G.add_node("py_mod", label="host", source_file="bridge/host.py", file_type="code")
+    G.add_node("ts_mod", label="worker", source_file="bridge/worker.ts", file_type="code")
+    G.add_edge("py_mod", "ts_mod", relation="imports", confidence="EXTRACTED",
+               source_file="bridge/host.py", weight=1.0)
+    G.add_edge("py_fn", "ts_fn", relation="calls", confidence="INFERRED",
+               source_file="bridge/host.py", weight=1.0)
+
+    surprises = surprising_connections(G, {})
+    file_pairs = {frozenset(s["source_files"]) for s in surprises}
+    assert frozenset({"bridge/host.py", "bridge/worker.ts"}) in file_pairs
+
+
+def test_surprising_connections_keeps_same_ecosystem_inferred_calls():
+    """TS↔JS calls share an ecosystem and remain valid even when INFERRED."""
+    G = nx.Graph()
+    G.add_node("ts_fn", label="render", source_file="src/page.tsx", file_type="code")
+    G.add_node("js_fn", label="render", source_file="src/util.js", file_type="code")
+    G.add_edge("ts_fn", "js_fn", relation="calls", confidence="INFERRED",
+               source_file="src/page.tsx", weight=1.0)
+
+    surprises = surprising_connections(G, {})
+    file_pairs = {frozenset(s["source_files"]) for s in surprises}
+    assert frozenset({"src/page.tsx", "src/util.js"}) in file_pairs
+
+
 def test_surprising_connections_have_required_keys():
     G = make_graph()
     communities = cluster(G)

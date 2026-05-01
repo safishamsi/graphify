@@ -123,6 +123,61 @@ def _file_category(path: str) -> str:
     return "doc"
 
 
+# Map a file extension to its language ecosystem. Files in the same ecosystem
+# can plausibly call each other directly (TS↔JS, Kotlin↔Java, ObjC↔C/C++).
+# Files in different ecosystems generally cannot — a Python→TypeScript `calls`
+# edge with no import bridge is almost always resolver pollution from a
+# shared function name.
+_LANG_ECOSYSTEM = {
+    ".ts": "js", ".tsx": "js", ".js": "js", ".jsx": "js",
+    ".mjs": "js", ".ejs": "js", ".vue": "js", ".svelte": "js",
+    ".java": "jvm", ".kt": "jvm", ".kts": "jvm", ".scala": "jvm",
+    ".c": "c", ".cpp": "c", ".cc": "c", ".cxx": "c",
+    ".h": "c", ".hpp": "c", ".m": "c", ".mm": "c",
+    ".py": "python", ".pyi": "python",
+    ".rs": "rust",
+    ".go": "go",
+    ".rb": "ruby",
+    ".swift": "swift",
+    ".cs": "csharp",
+    ".php": "php",
+    ".lua": "lua",
+    ".zig": "zig",
+    ".ps1": "powershell",
+    ".ex": "elixir", ".exs": "elixir",
+    ".jl": "julia",
+    ".dart": "dart",
+    ".v": "v", ".sv": "v",
+}
+
+
+def _file_ecosystem(path: str) -> str | None:
+    """Return the language ecosystem for a source file path, or None if not code."""
+    ext = ("." + path.rsplit(".", 1)[-1].lower()) if "." in path else ""
+    return _LANG_ECOSYSTEM.get(ext)
+
+
+def _is_cross_language_call(u_source: str, v_source: str) -> bool:
+    """True when both files are code in different language ecosystems."""
+    eu = _file_ecosystem(u_source)
+    ev = _file_ecosystem(v_source)
+    return eu is not None and ev is not None and eu != ev
+
+
+def _bridged_file_pairs(G: nx.Graph) -> set[frozenset[str]]:
+    """Source-file pairs connected by an explicit import edge — evidence the
+    two files actually interoperate, regardless of language."""
+    pairs: set[frozenset[str]] = set()
+    for u, v, data in G.edges(data=True):
+        if data.get("relation") not in ("imports", "imports_from"):
+            continue
+        u_src = G.nodes[u].get("source_file", "")
+        v_src = G.nodes[v].get("source_file", "")
+        if u_src and v_src and u_src != v_src:
+            pairs.add(frozenset({u_src, v_src}))
+    return pairs
+
+
 def _top_level_dir(path: str) -> str:
     """Return the first path component - used to detect cross-repo edges."""
     return path.split("/")[0] if "/" in path else path
@@ -199,6 +254,7 @@ def _cross_file_surprises(G: nx.Graph, communities: dict[int, list[str]], top_n:
     Each result includes a 'why' field explaining what makes it non-obvious.
     """
     node_community = _node_community_map(communities)
+    bridged_pairs = _bridged_file_pairs(G)
     candidates = []
 
     for u, v, data in G.edges(data=True):
@@ -214,6 +270,17 @@ def _cross_file_surprises(G: nx.Graph, communities: dict[int, list[str]], top_n:
         v_source = G.nodes[v].get("source_file", "")
 
         if not u_source or not v_source or u_source == v_source:
+            continue
+
+        # Skip cross-language INFERRED `calls` edges with no import bridge.
+        # Without runtime/FFI evidence these are almost always resolver
+        # pollution from a function name shared across languages (#630).
+        if (
+            relation == "calls"
+            and data.get("confidence") == "INFERRED"
+            and _is_cross_language_call(u_source, v_source)
+            and frozenset({u_source, v_source}) not in bridged_pairs
+        ):
             continue
 
         score, reasons = _surprise_score(G, u, v, data, node_community, u_source, v_source)
