@@ -49,7 +49,7 @@ dist/
 *.generated.py
 ```
 
-Same syntax as `.gitignore`. You can keep a single `.graphifyignore` at your repo root — patterns work correctly even when graphify is run on a subfolder.
+Full gitignore semantics: `**` crosses directories, `!` negates (last pattern wins), trailing `/` matches directories only, leading `/` anchors to the root. Place it at your repo root — graphify walks up to the `.git` boundary to find it, so patterns apply correctly even when run on a subfolder.
 
 ## How it works
 
@@ -183,7 +183,7 @@ graphify-out/cost.json
 3. Install the post-commit hook (`graphify hook install`) so the graph rebuilds automatically after code changes — no LLM calls needed for code-only updates.
 4. For doc/paper changes, whoever edits the files runs `/graphify --update` to refresh semantic nodes.
 
-**Excluding paths** — create `.graphifyignore` in your project root (same syntax as `.gitignore`). Files matching those patterns are skipped during detection and extraction.
+**Excluding paths** — create `.graphifyignore` in your project root. It follows the full gitignore specification: `**` globs, `!` negation with last-match-wins ordering, trailing `/` for directory-only patterns, leading `/` anchored to root. Files matching those patterns are skipped during detection and extraction.
 
 ```
 # .graphifyignore example

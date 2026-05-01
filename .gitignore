@@ -17,6 +17,7 @@ graphify-out/
 .graphify_*.json
 .graphify_python
 .claude/
+.gemini/
 skills/
 docs/superpowers/
 .vscode/

@@ -1,6 +1,11 @@
-# file discovery, type classification, and corpus health checks
+"""
+File discovery, type classification, and corpus health checks.
+
+This module provides the core logic for scanning directories, identifying 
+relevant files for the knowledge graph, and handling incremental updates 
+while respecting exclusion rules and built-in noise filters.
+"""
 from __future__ import annotations
-import fnmatch
 import json
 import os
 import re
@@ -9,6 +14,7 @@ from pathlib import Path
 
 
 class FileType(str, Enum):
+    """Enumeration of supported file categories for graph extraction."""
     CODE = "code"
     DOCUMENT = "document"
     PAPER = "paper"
@@ -18,6 +24,7 @@ class FileType(str, Enum):
 
 _MANIFEST_PATH = "graphify-out/manifest.json"
 
+# Supported extensions for automated classification
 CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.mjs', '.ejs', '.go', '.rs', '.java', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.dart', '.v', '.sv', '.sql'}
 DOC_EXTENSIONS = {'.md', '.mdx', '.txt', '.rst', '.html', '.yaml', '.yml'}
 PAPER_EXTENSIONS = {'.pdf'}
@@ -25,11 +32,12 @@ IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'}
 OFFICE_EXTENSIONS = {'.docx', '.xlsx'}
 VIDEO_EXTENSIONS = {'.mp4', '.mov', '.webm', '.mkv', '.avi', '.m4v', '.mp3', '.wav', '.m4a', '.ogg'}
 
+# Corpus size thresholds for user warnings
 CORPUS_WARN_THRESHOLD = 50_000    # words - below this, warn "you may not need a graph"
 CORPUS_UPPER_THRESHOLD = 500_000  # words - above this, warn about token cost
 FILE_COUNT_UPPER = 200             # files - above this, warn about token cost
 
-# Files that may contain secrets - skip silently
+# Patterns for identifying files likely containing secrets or credentials
 _SENSITIVE_PATTERNS = [
     re.compile(r'(^|[\\/])\.(env|envrc)(\.|$)', re.IGNORECASE),
     re.compile(r'\.(pem|key|p12|pfx|cert|crt|der|p8)$', re.IGNORECASE),
@@ -39,7 +47,7 @@ _SENSITIVE_PATTERNS = [
     re.compile(r'(aws_credentials|gcloud_credentials|service.account)', re.IGNORECASE),
 ]
 
-# Signals that a .md/.txt file is actually a converted academic paper
+# Textual markers identifying converted markdown files as academic papers
 _PAPER_SIGNALS = [
     re.compile(r'\barxiv\b', re.IGNORECASE),
     re.compile(r'\bdoi\s*:', re.IGNORECASE),
@@ -55,19 +63,43 @@ _PAPER_SIGNALS = [
     re.compile(r'\bwe propose\b', re.IGNORECASE),   # common academic phrasing
     re.compile(r'\bliterature\b', re.IGNORECASE),   # "from the literature"
 ]
-_PAPER_SIGNAL_THRESHOLD = 3  # need at least this many signals to call it a paper
+_PAPER_SIGNAL_THRESHOLD = 3  # minimum matches required for paper classification
 
 
 def _is_sensitive(path: Path) -> bool:
-    """Return True if this file likely contains secrets and should be skipped."""
+    """
+    Check if a file likely contains sensitive information or secrets.
+
+    Parameters
+    ----------
+    path : Path
+        The file path to check.
+
+    Returns
+    -------
+    bool
+        True if the file matches known sensitive patterns, False otherwise.
+    """
     name = path.name
     return any(p.search(name) for p in _SENSITIVE_PATTERNS)
 
 
 def _looks_like_paper(path: Path) -> bool:
-    """Heuristic: does this text file read like an academic paper?"""
+    """
+    Heuristically determine if a text file represents an academic paper.
+
+    Parameters
+    ----------
+    path : Path
+        The file path to evaluate.
+
+    Returns
+    -------
+    bool
+        True if the file content contains sufficient academic markers.
+    """
     try:
-        # Only scan first 3000 chars for speed
+        # Scan initial segment for performance
         text = path.read_text(encoding="utf-8", errors="ignore")[:3000]
         hits = sum(1 for pattern in _PAPER_SIGNALS if pattern.search(text))
         return hits >= _PAPER_SIGNAL_THRESHOLD
@@ -79,6 +111,19 @@ _ASSET_DIR_MARKERS = {".imageset", ".xcassets", ".appiconset", ".colorset", ".la
 
 
 def classify_file(path: Path) -> FileType | None:
+    """
+    Determine the type of a file based on its extension and content.
+
+    Parameters
+    ----------
+    path : Path
+        The file path to classify.
+
+    Returns
+    -------
+    FileType or None
+        The detected file category, or None if unknown.
+    """
     # Compound extensions must be checked before simple suffix lookup
     if path.name.lower().endswith(".blade.php"):
         return FileType.CODE
@@ -105,7 +150,19 @@ def classify_file(path: Path) -> FileType | None:
 
 
 def extract_pdf_text(path: Path) -> str:
-    """Extract plain text from a PDF file using pypdf."""
+    """
+    Extract plain text from a PDF file using pypdf.
+
+    Parameters
+    ----------
+    path : Path
+        Path to the PDF file.
+
+    Returns
+    -------
+    str
+        Extracted text content.
+    """
     try:
         from pypdf import PdfReader
         reader = PdfReader(str(path))
@@ -120,7 +177,19 @@ def extract_pdf_text(path: Path) -> str:
 
 
 def docx_to_markdown(path: Path) -> str:
-    """Convert a .docx file to markdown text using python-docx."""
+    """
+    Convert a .docx file to markdown text using python-docx.
+
+    Parameters
+    ----------
+    path : Path
+        Path to the .docx file.
+
+    Returns
+    -------
+    str
+        Converted markdown content.
+    """
     try:
         from docx import Document
         from docx.oxml.ns import qn
@@ -160,7 +229,19 @@ def docx_to_markdown(path: Path) -> str:
 
 
 def xlsx_to_markdown(path: Path) -> str:
-    """Convert an .xlsx file to markdown text using openpyxl."""
+    """
+    Convert an .xlsx file to markdown text using openpyxl.
+
+    Parameters
+    ----------
+    path : Path
+        Path to the .xlsx file.
+
+    Returns
+    -------
+    str
+        Converted markdown content.
+    """
     try:
         import openpyxl
         wb = openpyxl.load_workbook(str(path), read_only=True, data_only=True)
@@ -190,10 +271,18 @@ def xlsx_to_markdown(path: Path) -> str:
 
 
 def xlsx_extract_structure(path: Path) -> dict:
-    """Extract structural nodes (sheets, named tables, column headers) from an .xlsx file.
+    """
+    Extract structural nodes (sheets, tables, headers) from an .xlsx file.
 
-    Returns a nodes/edges dict compatible with the graphify extract pipeline.
-    Used in addition to xlsx_to_markdown so Claude sees both structure and content.
+    Parameters
+    ----------
+    path : Path
+        Path to the .xlsx file.
+
+    Returns
+    -------
+    dict
+        A dictionary containing extracted 'nodes' and 'edges'.
     """
     def _nid(*parts: str) -> str:
         return re.sub(r"[^a-z0-9_]", "_", "_".join(p.lower() for p in parts).strip("_"))
@@ -208,7 +297,7 @@ def xlsx_extract_structure(path: Path) -> dict:
     except Exception:
         return {"nodes": [], "edges": []}
 
-    stem = _re.sub(r"[^a-z0-9]", "_", path.stem.lower())
+    stem = re.sub(r"[^a-z0-9]", "_", path.stem.lower())
     str_path = str(path)
     file_nid = _nid(str_path)
     nodes: list[dict] = [{"id": file_nid, "label": path.name, "file_type": "document",
@@ -275,10 +364,20 @@ def xlsx_extract_structure(path: Path) -> dict:
 
 
 def convert_office_file(path: Path, out_dir: Path) -> Path | None:
-    """Convert a .docx or .xlsx to a markdown sidecar in out_dir.
+    """
+    Convert a .docx or .xlsx to a markdown sidecar.
 
-    Returns the path of the converted .md file, or None if conversion failed
-    or the required library is not installed.
+    Parameters
+    ----------
+    path : Path
+        The office file to convert.
+    out_dir : Path
+        The output directory for the converted markdown file.
+
+    Returns
+    -------
+    Path or None
+        Path to the converted file, or None if conversion failed.
     """
     ext = path.suffix.lower()
     if ext == ".docx":
@@ -304,6 +403,19 @@ def convert_office_file(path: Path, out_dir: Path) -> Path | None:
 
 
 def count_words(path: Path) -> int:
+    """
+    Count the number of words in a file.
+
+    Parameters
+    ----------
+    path : Path
+        The file to count words in.
+
+    Returns
+    -------
+    int
+        The word count.
+    """
     try:
         ext = path.suffix.lower()
         if ext == ".pdf":
@@ -336,7 +448,19 @@ _SKIP_FILES = {
 }
 
 def _is_noise_dir(part: str) -> bool:
-    """Return True if this directory name looks like a venv, cache, or dep dir."""
+    """
+    Check if a directory name matches known noise patterns (e.g., venvs, caches).
+
+    Parameters
+    ----------
+    part : str
+        The directory name to evaluate.
+
+    Returns
+    -------
+    bool
+        True if the directory is considered noise, False otherwise.
+    """
     if part in _SKIP_DIRS:
         return True
     # Catch *_venv, *_repo/site-packages patterns
@@ -347,16 +471,226 @@ def _is_noise_dir(part: str) -> bool:
     return False
 
 
+# POSIX bracket expression names mapped to Python regex character-range equivalents.
+# Used by _pattern_to_regex when scanning [[:class:]] patterns.
+_POSIX_CLASSES: dict[str, str] = {
+    '[:alnum:]':  'a-zA-Z0-9',
+    '[:alpha:]':  'a-zA-Z',
+    '[:blank:]':  r' \t',
+    '[:cntrl:]':  r'\x00-\x1F\x7F',
+    '[:digit:]':  '0-9',
+    '[:graph:]':  r'\x21-\x7E',
+    '[:lower:]':  'a-z',
+    '[:print:]':  r'\x20-\x7E',
+    '[:punct:]':  r'\x21-\x2F\x3A-\x40\x5B-\x60\x7B-\x7E',
+    '[:space:]':  r' \t\r\n\v\f',
+    '[:upper:]':  'A-Z',
+    '[:xdigit:]': 'A-Fa-f0-9',
+}
+
+
+def _pattern_to_regex(p: str) -> re.Pattern:
+    """
+    Convert a graphifyignore wildcard pattern to a compiled regular expression.
+
+    Implements wildcard rules where '*' does not cross directory separators 
+    but '**' does, following standard ignore specification.
+
+    Parameters
+    ----------
+    p : str
+        The wildcard pattern to convert.
+
+    Returns
+    -------
+    re.Pattern
+        The compiled regular expression matching the pattern's logic.
+    """
+    # Pre-process: expand POSIX [:class:] names to regex equivalents, but only
+    # when they appear inside an open '[', preserving positional correctness.
+    chars = []
+    in_bracket = False
+    i = 0
+    while i < len(p):
+        if p[i] == '[':
+            if in_bracket:
+                matched_posix = False
+                for posix, py_eq in _POSIX_CLASSES.items():
+                    if p.startswith(posix, i):
+                        chars.append(py_eq)
+                        i += len(posix)
+                        matched_posix = True
+                        break
+                if matched_posix:
+                    continue
+            in_bracket = True
+            chars.append(p[i])
+            i += 1
+        elif p[i] == ']':
+            in_bracket = False
+            chars.append(p[i])
+            i += 1
+        elif p[i] == '\\':
+            # Skip the next character so an escaped bracket doesn't toggle state
+            chars.append(p[i])
+            if i + 1 < len(p):
+                chars.append(p[i + 1])
+                i += 1
+            i += 1
+        else:
+            chars.append(p[i])
+            i += 1
+    p = "".join(chars)
+
+    result: list[str] = []
+    i = 0
+    while i < len(p):
+        c = p[i]
+        if c == '\\' and i + 1 < len(p):
+            result.append(re.escape(p[i + 1]))
+            i += 2
+        elif c == '*' and i + 1 < len(p) and p[i + 1] == '*':
+            # ** is only special at the pattern start or immediately after /. 
+            # In any other position it behaves like *.
+            preceded_by_slash = (i == 0) or (result and result[-1] == '/')
+            if i + 2 < len(p) and p[i + 2] == '/':
+                if preceded_by_slash:
+                    # **/ at start or after /: zero or more directory segments.
+                    if result and result[-1] == '/':
+                        result[-1] = '/(?:[^/]+/)*'
+                    else:
+                        result.append('(?:[^/]+/)*')
+                    i += 3
+                else:
+                    # foo**/ → treat ** as *; / is handled in the next iteration.
+                    result.append('[^/]*')
+                    i += 2
+            else:
+                if preceded_by_slash:
+                    # /** or leading **: match everything including separators.
+                    result.append('.*')
+                else:
+                    # foo** → treat as foo*.
+                    result.append('[^/]*')
+                i += 2
+        elif c == '*':
+            result.append('[^/]*')
+            i += 1
+        elif c == '?':
+            result.append('[^/]')
+            i += 1
+        elif c == '[':
+            # Copy character class until closing ], converting [! to [^ for Python re.
+            j = i + 1
+            negate = j < len(p) and p[j] == '!'
+            if j < len(p) and p[j] in ('!', '^'):
+                j += 1
+            if j < len(p) and p[j] == ']':
+                j += 1
+            while j < len(p) and p[j] != ']':
+                j += 1
+            cls = p[i:j + 1]
+            if negate:
+                cls = '[^' + cls[2:]  # [!xyz] → [^xyz] for Python re
+            
+            result.append(cls)
+            i = j + 1
+        else:
+            result.append(re.escape(c))
+            i += 1
+    return re.compile(''.join(result))
+
+
+def _match_ignore_pattern(rel: str, pattern: str, is_dir: bool) -> bool:
+    """
+    Check if a relative path matches an ignore pattern.
+
+    Parameters
+    ----------
+    rel : str
+        The forward-slash relative path to check.
+    pattern : str
+        The ignore pattern (without leading '!').
+    is_dir : bool
+        Whether the path represents a directory.
+
+    Returns
+    -------
+    bool
+        True if the path matches the pattern according to ignore rules.
+    """
+    dir_only = pattern.endswith('/')
+    p = pattern.rstrip('/')
+
+    anchored = p.startswith('/') or ('/' in p)
+    if p.startswith('/'):
+        p = p[1:]
+
+    regex = _pattern_to_regex(p)
+    parts = rel.split('/')
+
+    if anchored:
+        # Full-path match
+        if regex.fullmatch(rel):
+            if dir_only and not is_dir:
+                return False
+            return True
+        # Prefix match (ignoring a directory ignores its contents)
+        for i in range(1, len(parts)):
+            if regex.fullmatch('/'.join(parts[:i])):
+                return True
+        return False
+    else:
+        # Basename match
+        if regex.fullmatch(parts[-1]):
+            if dir_only and not is_dir:
+                return False
+            return True
+        # Directory component match
+        for part in parts[:-1]:
+            if regex.fullmatch(part):
+                return True
+        return False
+
+
+def _trim_trailing_spaces(s: str) -> str:
+    """
+    Trim trailing spaces exactly as Git's dir.c:trim_trailing_spaces does.
+    
+    Unescaped trailing spaces are removed. A backslash escapes the next character 
+    (including a space), preserving it.
+    """
+    last_space = -1
+    i = 0
+    while i < len(s):
+        if s[i] == ' ':
+            if last_space == -1:
+                last_space = i
+            i += 1
+        elif s[i] == '\\':
+            i += 2
+            last_space = -1
+        else:
+            last_space = -1
+            i += 1
+    if last_space != -1:
+        return s[:last_space]
+    return s
+
+
 def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
-    """Read .graphifyignore from root **and ancestor directories**.
+    """
+    Discover and read .graphifyignore files from root and ancestors.
 
-    Returns a list of (anchor_dir, pattern) pairs. Each pattern is matched
-    against paths relative to both the scan root and the anchor_dir where
-    the .graphifyignore file was found — so patterns written relative to a
-    parent directory still work when graphify is run on a subfolder.
+    Parameters
+    ----------
+    root : Path
+        The starting directory for the upward search.
 
-    Walks upward from *root* towards the filesystem root, stopping at a
-    ``.git`` boundary. Lines starting with # are comments; blank lines ignored.
+    Returns
+    -------
+    list of tuple[Path, str]
+        A list of (anchor_dir, pattern) pairs. Search stops at .git boundaries.
     """
     patterns: list[tuple[Path, str]] = []
     current = root.resolve()
@@ -364,9 +698,10 @@ def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
         ignore_file = current / ".graphifyignore"
         if ignore_file.exists():
             for line in ignore_file.read_text(encoding="utf-8", errors="ignore").splitlines():
-                line = line.strip()
                 if line and not line.startswith("#"):
-                    patterns.append((current, line))
+                    line = _trim_trailing_spaces(line)
+                    if line:
+                        patterns.append((current, line))
         # Stop climbing once we've processed the git repo root
         if (current / ".git").exists():
             break
@@ -377,48 +712,83 @@ def _load_graphifyignore(root: Path) -> list[tuple[Path, str]]:
     return patterns
 
 
-def _is_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]]) -> bool:
-    """Return True if path matches any .graphifyignore pattern."""
+def _is_path_ignored(path: Path, root: Path, patterns: list[tuple[Path, str]], is_dir: bool | None = None) -> bool:
+    """
+    Determine if a path is excluded by .graphifyignore patterns.
+
+    Implements ordered semantics where later patterns override earlier ones
+    (negation).
+
+    Parameters
+    ----------
+    path : Path
+        The file or directory path to check.
+    root : Path
+        The scan root directory.
+    patterns : list of tuple[Path, str]
+        Discovered ignore patterns.
+    is_dir : bool, optional
+        Whether the path is a directory. If None, it is determined via path.is_dir().
+
+    Returns
+    -------
+    bool
+        True if the path is ignored and not subsequently negated.
+    """
     if not patterns:
         return False
 
-    def _matches(rel: str, p: str) -> bool:
-        parts = rel.split("/")
-        if fnmatch.fnmatch(rel, p):
-            return True
-        if fnmatch.fnmatch(path.name, p):
-            return True
-        for i, part in enumerate(parts):
-            if fnmatch.fnmatch(part, p):
-                return True
-            if fnmatch.fnmatch("/".join(parts[:i + 1]), p):
-                return True
-        return False
+    if is_dir is None:
+        is_dir = path.is_dir()
+
+    ignored = False
 
     for anchor, pattern in patterns:
-        p = pattern.strip("/")
-        if not p:
+        is_negation = pattern.startswith('!')
+        p = pattern[1:] if is_negation else pattern
+        if not p.strip('/'):
             continue
-        # Try path relative to the scan root
+
+        match = False
+        # Try path relative to the scan root.
         try:
-            rel = str(path.relative_to(root)).replace(os.sep, "/")
-            if _matches(rel, p):
-                return True
+            rel = str(path.relative_to(root)).replace(os.sep, '/')
+            if _match_ignore_pattern(rel, p, is_dir):
+                match = True
         except ValueError:
             pass
-        # Also try relative to the anchor dir (the .graphifyignore's location),
-        # so patterns written at a parent level still fire when running on a subfolder
-        if anchor != root:
+
+        # Also try relative to the anchor dir (.graphifyignore's location)
+        if not match and anchor != root:
             try:
-                rel_anchor = str(path.relative_to(anchor)).replace(os.sep, "/")
-                if _matches(rel_anchor, p):
-                    return True
+                rel_anchor = str(path.relative_to(anchor)).replace(os.sep, '/')
+                if _match_ignore_pattern(rel_anchor, p, is_dir):
+                    match = True
             except ValueError:
                 pass
-    return False
+
+        if match:
+            ignored = not is_negation
+
+    return ignored
 
 
 def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
+    """
+    Scan a directory for files to include in the graph.
+
+    Parameters
+    ----------
+    root : Path
+        The directory to scan.
+    follow_symlinks : bool, default False
+        Whether to follow directory symlinks.
+
+    Returns
+    -------
+    dict
+        Categorized files and health metadata.
+    """
     root = root.resolve()
     files: dict[FileType, list[str]] = {
         FileType.CODE: [],
@@ -452,12 +822,13 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
                     dirnames.clear()
                     continue
             if not in_memory_tree:
-                # Prune noise dirs in-place so os.walk never descends into them
+                # Prune noise dirs and ignored dirs in-place.
+                # Per standard ignore semantics, we do not descend into ignored directories.
                 dirnames[:] = [
                     d for d in dirnames
                     if not d.startswith(".")
                     and not _is_noise_dir(d)
-                    and not _is_ignored(dp / d, root, ignore_patterns)
+                    and not _is_path_ignored(dp / d, root, ignore_patterns, is_dir=True)
                 ]
             for fname in filenames:
                 if fname in _SKIP_FILES:
@@ -480,8 +851,10 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
             # Skip files inside our own converted/ dir (avoid re-processing sidecars)
             if str(p).startswith(str(converted_dir)):
                 continue
-        if _is_ignored(p, root, ignore_patterns):
-            continue
+            # Standard ignore check (files only)
+            if _is_path_ignored(p, root, ignore_patterns, is_dir=False):
+                continue
+        
         if _is_sensitive(p):
             skipped_sensitive.append(str(p))
             continue
@@ -530,7 +903,19 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
 
 
 def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict[str, float]:
-    """Load the file modification time manifest from a previous run."""
+    """
+    Load the file modification time manifest from a previous run.
+
+    Parameters
+    ----------
+    manifest_path : str, default _MANIFEST_PATH
+        The path to the manifest JSON file.
+
+    Returns
+    -------
+    dict of str to float
+        A mapping of file paths to their last recorded modification timestamps.
+    """
     try:
         return json.loads(Path(manifest_path).read_text(encoding="utf-8"))
     except Exception:
@@ -538,7 +923,18 @@ def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict[str, float]:
 
 
 def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PATH) -> None:
-    """Save current file mtimes so the next --update run can diff against them."""
+    """
+    Save current file modification times to the manifest.
+
+    Used to enable incremental updates in subsequent runs.
+
+    Parameters
+    ----------
+    files : dict of str to list of str
+        The categorized lists of discovered files.
+    manifest_path : str, default _MANIFEST_PATH
+        The path where the manifest should be saved.
+    """
     manifest: dict[str, float] = {}
     for file_list in files.values():
         for f in file_list:
@@ -551,10 +947,21 @@ def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PA
 
 
 def detect_incremental(root: Path, manifest_path: str = _MANIFEST_PATH) -> dict:
-    """Like detect(), but returns only new or modified files since the last run.
+    """
+    Identify files that have changed or been added since the last run.
 
-    Compares current file mtimes against the stored manifest.
-    Use for --update mode: re-extract only what changed, merge into existing graph.
+    Parameters
+    ----------
+    root : Path
+        The directory to scan.
+    manifest_path : str, default _MANIFEST_PATH
+        The path to the existing manifest file.
+
+    Returns
+    -------
+    dict
+        A dictionary containing incremental scan results, including new, 
+        deleted, and unchanged file lists.
     """
     full = detect(root)
     manifest = load_manifest(manifest_path)

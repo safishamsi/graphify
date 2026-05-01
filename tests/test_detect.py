@@ -1,5 +1,5 @@
 from pathlib import Path
-from graphify.detect import classify_file, count_words, detect, FileType, _looks_like_paper, _is_ignored, _load_graphifyignore
+from graphify.detect import classify_file, count_words, detect, FileType, _looks_like_paper, _is_path_ignored, _load_graphifyignore, _match_ignore_pattern
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -95,6 +95,103 @@ def test_graphifyignore_excludes_file(tmp_path):
     assert not any("vendor" in f for f in file_list)
     assert not any("generated" in f for f in file_list)
     assert result["graphifyignore_patterns"] == 2
+
+
+def test_graphifyignore_negation(tmp_path):
+    """Support ! negation patterns in .graphifyignore."""
+    (tmp_path / ".graphifyignore").write_text("*.py\n!important.py\n")
+    (tmp_path / "main.py").write_text("print('hi')")
+    (tmp_path / "important.py").write_text("print('important')")
+    (tmp_path / "other.py").write_text("print('other')")
+
+    result = detect(tmp_path)
+    file_list = result["files"]["code"]
+
+    # important.py should be included because of !important.py
+    assert any("important.py" in f for f in file_list)
+    # main.py and other.py should be ignored because of *.py
+    assert not any("main.py" in f for f in file_list)
+    assert not any("other.py" in f for f in file_list)
+
+
+def test_graphifyignore_trailing_slash_directory_only(tmp_path):
+    """Trailing / means directory-only: ignored/ prunes the dir but does NOT match a file named ignored.py."""
+    (tmp_path / ".graphifyignore").write_text("ignored/\n")
+
+    ignored_dir = tmp_path / "ignored"
+    ignored_dir.mkdir()
+    (ignored_dir / "skip.py").write_text("skip")
+    (tmp_path / "ignored.py").write_text("this is a file named ignored.py")
+    (tmp_path / "main.py").write_text("x = 1")
+
+    result = detect(tmp_path)
+    file_list = result["files"]["code"]
+
+    # The directory and all its contents are pruned
+    assert not any("skip.py" in f for f in file_list)
+    # But a FILE named ignored.py is NOT excluded (trailing / means dirs only)
+    assert any("ignored.py" in f for f in file_list)
+    assert any("main.py" in f for f in file_list)
+
+
+def test_graphifyignore_reinclude_requires_wildcard(tmp_path):
+    """Per gitignore spec, re-including a file inside an excluded dir requires dir/* not dir/.
+
+    ignored/ prunes the directory entirely — !ignored/keep.py has no effect.
+    The correct pattern is ignored/* (exclude contents) + !ignored/keep.py.
+    """
+    (tmp_path / ".graphifyignore").write_text("ignored/*\n!ignored/keep.py\n")
+
+    ignored_dir = tmp_path / "ignored"
+    ignored_dir.mkdir()
+    (ignored_dir / "skip.py").write_text("skip")
+    (ignored_dir / "keep.py").write_text("keep")
+
+    result = detect(tmp_path)
+    file_list = result["files"]["code"]
+
+    # keep.py is re-included because ignored/* doesn't prune the directory itself
+    assert any("keep.py" in f for f in file_list)
+    assert not any("skip.py" in f for f in file_list)
+
+
+def test_graphifyignore_negation_reproducer(tmp_path):
+    """Issue #628 reproducer: broad glob excludes specific paths, ! re-includes vetted file."""    
+    (tmp_path / ".graphifyignore").write_text("**/*vetted*\n!**/src/lib/vetted.ts\n")
+    src_lib = tmp_path / "src" / "lib"
+    src_lib.mkdir(parents=True)
+    (src_lib / "vetted.ts").write_text("// SDK wrapper - no actual secrets")
+    # Another file that also matches **/*vetted* but is NOT re-included
+    (tmp_path / "src" / "my-vetted.ts").write_text("vetted=abc")
+
+    result = detect(tmp_path)
+    file_list = result["files"]["code"]
+
+    # src/lib/vetted.ts is re-included by the ! pattern
+    assert any("vetted.ts" in f and "lib" in f for f in file_list)
+    # src/my-vetted.ts matches **/*vetted* and stays excluded
+    assert not any("my-vetted.ts" in f for f in file_list)
+
+def test_graphifyignore_parent_negation_reinclude(tmp_path):
+    """Parent .graphifyignore wildcard + negation applies to subdirectory scans.
+
+    Uses vendor/* (not vendor/) so the directory is traversed and keep.py can be re-included.
+    """
+    (tmp_path / ".graphifyignore").write_text("vendor/*\n!vendor/keep.py\n")
+    sub = tmp_path / "sub"
+    sub.mkdir()
+    vendor = sub / "vendor"
+    vendor.mkdir()
+    (vendor / "dep.py").write_text("y = 2")
+    (vendor / "keep.py").write_text("z = 3")
+    (sub / "main.py").write_text("x = 1")
+
+    result = detect(sub)
+    code_files = result["files"]["code"]
+
+    assert any("main.py" in f for f in code_files)
+    assert any("keep.py" in f for f in code_files)
+    assert not any("dep.py" in f for f in code_files)
 
 
 def test_graphifyignore_missing_is_fine(tmp_path):
@@ -236,3 +333,92 @@ def test_detect_video_not_in_words(tmp_path):
     result = detect(tmp_path)
     # Only video file present — total_words should be 0
     assert result["total_words"] == 0
+
+
+# ---------------------------------------------------------------------------
+# _match_ignore_pattern unit tests — cover standard ignore categories
+# ---------------------------------------------------------------------------
+
+def test_ignore_pattern_double_star_leading():
+    """`**/foo` matches foo at any depth including root."""
+    assert _match_ignore_pattern("foo.py", "**/foo.py", is_dir=False)
+    assert _match_ignore_pattern("src/foo.py", "**/foo.py", is_dir=False)
+    assert _match_ignore_pattern("a/b/c/foo.py", "**/foo.py", is_dir=False)
+    assert not _match_ignore_pattern("foo.ts", "**/foo.py", is_dir=False)
+
+
+def test_ignore_pattern_double_star_trailing():
+    """`logs/**` matches everything inside logs/."""
+    assert _match_ignore_pattern("logs/app.log", "logs/**", is_dir=False)
+    assert _match_ignore_pattern("logs/2024/app.log", "logs/**", is_dir=False)
+    assert not _match_ignore_pattern("logs", "logs/**", is_dir=True)
+    assert not _match_ignore_pattern("other/app.log", "logs/**", is_dir=False)
+
+
+def test_ignore_pattern_double_star_middle():
+    """`a/**/b` matches a/b, a/x/b, a/x/y/b — zero or more intermediate dirs."""
+    assert _match_ignore_pattern("a/b", "a/**/b", is_dir=False)
+    assert _match_ignore_pattern("a/x/b", "a/**/b", is_dir=False)
+    assert _match_ignore_pattern("a/x/y/b", "a/**/b", is_dir=False)
+    assert not _match_ignore_pattern("b", "a/**/b", is_dir=False)
+    # a/b is matched by a/**/b, so any file inside a/b (like a/b/c) is ignored.
+    assert _match_ignore_pattern("a/b/c", "a/**/b", is_dir=False)
+
+
+def test_ignore_pattern_double_star_non_special():
+    """`foo**/bar` — ** not after / is treated as *."""
+    assert _match_ignore_pattern("foo/bar", "foo**/bar", is_dir=False)
+    assert _match_ignore_pattern("fooxyz/bar", "foo**/bar", is_dir=False)
+    # ** treated as *, so it cannot cross a second /
+    assert not _match_ignore_pattern("foo/baz/bar", "foo**/bar", is_dir=False)
+
+
+def test_ignore_pattern_leading_slash_anchored():
+    """`/main.py` is anchored to root — does not match src/main.py."""
+    assert _match_ignore_pattern("main.py", "/main.py", is_dir=False)
+    assert not _match_ignore_pattern("src/main.py", "/main.py", is_dir=False)
+    assert not _match_ignore_pattern("a/b/main.py", "/main.py", is_dir=False)
+
+
+def test_ignore_pattern_trailing_slash_not_file():
+    """`vendor/` must NOT match a file named vendor.py."""
+    assert not _match_ignore_pattern("vendor.py", "vendor/", is_dir=False)
+    assert not _match_ignore_pattern("vendors.py", "vendor/", is_dir=False)
+    # But it does match the directory itself and files inside
+    assert _match_ignore_pattern("vendor", "vendor/", is_dir=True)
+    assert _match_ignore_pattern("vendor/lib.py", "vendor/", is_dir=False)
+
+
+def test_ignore_pattern_question_mark_wildcard():
+    """`?` matches exactly one character except /."""
+    assert _match_ignore_pattern("a.py", "?.py", is_dir=False)
+    assert not _match_ignore_pattern("ab.py", "?.py", is_dir=False)
+    # ?.py is unanchored, so it matches any file whose basename matches ?.py.
+    # a/b.py has basename b.py which matches ?.py.
+    assert _match_ignore_pattern("a/b.py", "?.py", is_dir=False)
+    assert _match_ignore_pattern("foo", "f?o", is_dir=False)
+    assert not _match_ignore_pattern("fo", "f?o", is_dir=False)
+
+
+def test_ignore_pattern_character_class():
+    """`[abc].py` matches a.py, b.py, c.py but not d.py."""
+    assert _match_ignore_pattern("a.py", "[abc].py", is_dir=False)
+    assert _match_ignore_pattern("b.py", "[abc].py", is_dir=False)
+    assert _match_ignore_pattern("c.py", "[abc].py", is_dir=False)
+    assert not _match_ignore_pattern("d.py", "[abc].py", is_dir=False)
+    assert not _match_ignore_pattern("ab.py", "[abc].py", is_dir=False)
+
+
+def test_ignore_pattern_negated_character_class():
+    """`[!abc].py` matches any single char except a, b, c before .py."""
+    assert _match_ignore_pattern("d.py", "[!abc].py", is_dir=False)
+    assert _match_ignore_pattern("z.py", "[!abc].py", is_dir=False)
+    assert not _match_ignore_pattern("a.py", "[!abc].py", is_dir=False)
+    assert not _match_ignore_pattern("b.py", "[!abc].py", is_dir=False)
+
+
+def test_ignore_pattern_single_star_no_cross_slash():
+    """`src/*.py` matches src/foo.py but NOT src/lib/foo.py (* can't cross /)."""
+    assert _match_ignore_pattern("src/foo.py", "src/*.py", is_dir=False)
+    assert not _match_ignore_pattern("src/lib/foo.py", "src/*.py", is_dir=False)
+    assert not _match_ignore_pattern("foo.py", "src/*.py", is_dir=False)

@@ -184,6 +184,9 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
     except ImportError as e:
         raise ImportError("watchdog not installed. Run: pip install watchdog") from e
 
+    from graphify.detect import _load_graphifyignore, _is_path_ignored
+
+    ignore_patterns = _load_graphifyignore(watch_path)
     last_trigger: float = 0.0
     pending: bool = False
     changed: set[Path] = set()
@@ -196,10 +199,21 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
             path = Path(event.src_path)
             if path.suffix.lower() not in _WATCHED_EXTENSIONS:
                 return
+            
+            # Use real project root for anchoring ignore patterns
+            root = watch_path.resolve()
+            
+            # Skip hidden files
             if any(part.startswith(".") for part in path.parts):
                 return
+            # Skip own output
             if "graphify-out" in path.parts:
                 return
+                
+            # Skip user-ignored files
+            if _is_path_ignored(path, root, ignore_patterns, is_dir=False):
+                return
+            
             last_trigger = time.monotonic()
             pending = True
             changed.add(path)
