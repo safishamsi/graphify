@@ -547,7 +547,12 @@ def _pattern_to_regex(p: str) -> re.Pattern:
     while i < len(p):
         c = p[i]
         if c == '\\' and i + 1 < len(p):
-            result.append(re.escape(p[i + 1]))
+            # Special Git escape characters: preserve as escapes.
+            # Otherwise, treat backslash as a directory separator (Windows support).
+            if p[i+1] in (' ', '#', '!', '*', '?', '[', '\\'):
+                result.append(re.escape(p[i + 1]))
+            else:
+                result.append('/')
             i += 2
         elif c == '*' and i + 1 < len(p) and p[i + 1] == '*':
             # ** is only special at the pattern start or immediately after /. 
@@ -589,6 +594,13 @@ def _pattern_to_regex(p: str) -> re.Pattern:
                 j += 1
             while j < len(p) and p[j] != ']':
                 j += 1
+            
+            if j == len(p):
+                # Unclosed bracket: treat as literal [
+                result.append(re.escape('['))
+                i += 1
+                continue
+
             cls = p[i:j + 1]
             if negate:
                 cls = '[^' + cls[2:]  # [!xyz] → [^xyz] for Python re
@@ -598,7 +610,13 @@ def _pattern_to_regex(p: str) -> re.Pattern:
         else:
             result.append(re.escape(c))
             i += 1
-    return re.compile(''.join(result))
+
+    # Use case-insensitive matching on Windows and macOS
+    import sys
+    re_flags = 0
+    if sys.platform in ("win32", "darwin"):
+        re_flags = re.IGNORECASE
+    return re.compile(''.join(result), re_flags)
 
 
 def _match_ignore_pattern(rel: str, pattern: str, is_dir: bool) -> bool:
