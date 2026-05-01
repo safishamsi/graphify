@@ -11,6 +11,7 @@ from graphify.serve import (
     _dfs,
     _subgraph_to_text,
     _load_graph,
+    EXACT_MATCH_BONUS,
 )
 
 
@@ -151,3 +152,101 @@ def test_load_graph_missing_file(tmp_path):
     graphify_dir.mkdir()
     with pytest.raises(SystemExit):
         _load_graph(str(graphify_dir / "nonexistent.json"))
+
+
+# --- exact-match bonus + seed-first rendering ---
+#
+# Single-token identifier queries (e.g. a function name) used to tie at score 1
+# against every node containing the substring, then lose tie-breaks during
+# _subgraph_to_text rendering, where high-degree hubs (app.js, controller.js)
+# always rendered first. The two changes below — EXACT_MATCH_BONUS in
+# _score_nodes and the optional `seeds` arg in _subgraph_to_text — fix that.
+
+def _make_hub_graph() -> nx.Graph:
+    """Graph with a low-degree exact-match seed and a high-degree hub."""
+    G = nx.Graph()
+    # Seed: the function we're querying for. Degree 1.
+    G.add_node("seed", label="pasteFromClipboard()", source_file="frontend/clipboard.js",
+               source_location="L42", community=1)
+    # High-degree hub. The substring "pasteFromClipboard" also appears in app.js
+    # via call sites, so it scores 1 on a single-token query without the bonus.
+    G.add_node("hub", label="app.js", source_file="frontend/app.js",
+               source_location="L1", community=1)
+    G.add_edge("seed", "hub", relation="defined_in", confidence="EXTRACTED")
+    # Distractors that mention the substring but aren't exact matches.
+    for i, name in enumerate(["pasteFromClipboard_handler", "wrap_pasteFromClipboard", "_pasteFromClipboard_inner"]):
+        nid = f"sub{i}"
+        G.add_node(nid, label=name, source_file="frontend/app.js",
+                   source_location=f"L{100+i}", community=1)
+        G.add_edge("hub", nid, relation="defines", confidence="EXTRACTED")
+    # Pad the hub up to degree ~10 so degree-sort would otherwise float it to top.
+    for i in range(7):
+        nid = f"pad{i}"
+        G.add_node(nid, label=f"helper{i}", source_file="frontend/app.js",
+                   source_location=f"L{200+i}", community=1)
+        G.add_edge("hub", nid, relation="defines", confidence="EXTRACTED")
+    return G
+
+
+def test_score_nodes_exact_match_beats_substring():
+    G = _make_hub_graph()
+    scored = _score_nodes(G, ["pastefromclipboard"])
+    assert scored, "expected at least one scoring node"
+    top_score, top_nid = scored[0]
+    assert top_nid == "seed", f"exact match should win; got {top_nid}"
+    # Bonus should dominate any substring sum.
+    assert top_score >= EXACT_MATCH_BONUS
+    # The substring-only matches must rank well below the seed.
+    sub_scores = [s for s, nid in scored if nid != "seed"]
+    assert all(s < EXACT_MATCH_BONUS for s in sub_scores)
+
+
+def test_score_nodes_exact_match_strips_function_parens():
+    """Labels emitted by the AST extractor often carry trailing parens (foo())."""
+    G = nx.Graph()
+    G.add_node("a", label="saveDiagram()", source_file="x.js", source_location="L1", community=0)
+    G.add_node("b", label="saveDiagram_helper", source_file="x.js", source_location="L2", community=0)
+    scored = _score_nodes(G, ["savediagram"])
+    assert scored[0][1] == "a"
+    assert scored[0][0] >= EXACT_MATCH_BONUS
+
+
+def test_score_nodes_exact_match_no_false_positive():
+    """Unrelated query must not trigger the bonus."""
+    G = _make_hub_graph()
+    scored = _score_nodes(G, ["xyzzy"])
+    assert scored == []
+
+
+def test_subgraph_to_text_seeds_render_first():
+    G = _make_hub_graph()
+    nodes = {"seed", "hub", "sub0", "sub1", "sub2"} | {f"pad{i}" for i in range(7)}
+    edges = list(G.edges())
+    text = _subgraph_to_text(G, nodes, edges, token_budget=4000, seeds=["seed"])
+    seed_pos = text.index("pasteFromClipboard")
+    hub_pos = text.index("app.js")
+    assert seed_pos < hub_pos, "seed must render before the high-degree hub"
+
+
+def test_subgraph_to_text_no_seeds_preserves_legacy_order():
+    """Without seeds, ordering still falls back to degree desc (back-compat)."""
+    G = _make_hub_graph()
+    nodes = {"seed", "hub", "sub0", "sub1", "sub2"} | {f"pad{i}" for i in range(7)}
+    edges = list(G.edges())
+    legacy = _subgraph_to_text(G, nodes, edges, token_budget=4000)
+    explicit_none = _subgraph_to_text(G, nodes, edges, token_budget=4000, seeds=None)
+    assert legacy == explicit_none
+    # Hub has degree ~11 vs seed degree 1, so without seeds the hub renders first.
+    assert legacy.index("app.js") < legacy.index("pasteFromClipboard")
+
+
+def test_query_pipeline_exact_match_ranks_above_hub():
+    """End-to-end: _score_nodes -> _bfs -> _subgraph_to_text(seeds=...)."""
+    G = _make_hub_graph()
+    terms = ["pastefromclipboard"]
+    scored = _score_nodes(G, terms)
+    start = [nid for _, nid in scored[:5]]
+    assert start[0] == "seed"
+    nodes, edges = _bfs(G, start, depth=2)
+    text = _subgraph_to_text(G, nodes, edges, token_budget=4000, seeds=start)
+    assert text.index("pasteFromClipboard") < text.index("app.js")

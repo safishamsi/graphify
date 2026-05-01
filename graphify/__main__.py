@@ -1223,7 +1223,7 @@ def main() -> None:
             sys.exit(0)
         start = [nid for _, nid in scored[:5]]
         nodes, edges = (_dfs if use_dfs else _bfs)(G, start, depth=2)
-        print(_subgraph_to_text(G, nodes, edges, token_budget=budget))
+        print(_subgraph_to_text(G, nodes, edges, token_budget=budget, seeds=start))
     elif cmd == "save-result":
         # graphify save-result --question Q --answer A --type T [--nodes N1 N2 ...]
         import argparse as _ap
