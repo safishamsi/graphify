@@ -185,6 +185,15 @@ def to_wiki(
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
 
+    # Clear stale .md files from previous runs to prevent orphan accumulation.
+    # Community labels are LLM-generated (per skill.md Step 5) and non-deterministic
+    # across runs — the same conceptual community may be named differently each time
+    # (e.g. "AutoAgent Skills" → "AutoAgent Methodology"), leaving the previous file
+    # as an orphan. Since to_wiki() owns wiki/ entirely (always writes the full set),
+    # it can safely clear .md files at the start of each call.
+    for old_article in out.glob("*.md"):
+        old_article.unlink()
+
     labels = community_labels or {cid: f"Community {cid}" for cid in communities}
     cohesion = cohesion or {}
     god_nodes_data = god_nodes_data or []
