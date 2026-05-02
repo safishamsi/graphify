@@ -22,6 +22,7 @@ Turn any folder of files into a navigable knowledge graph with community detecti
 /graphify <path> --graphml                            # export graph.graphml (Gephi, yEd)
 /graphify <path> --neo4j                              # generate graphify-out/cypher.txt for Neo4j
 /graphify <path> --neo4j-push bolt://localhost:7687   # push directly to Neo4j
+/graphify <path> --wiki                               # build agent-crawlable wiki (index.md + one article per community)
 /graphify <path> --mcp                                # start MCP stdio server for agent access
 /graphify <path> --watch                              # watch folder, auto-rebuild on code changes (no LLM needed)
 /graphify add <url>                                   # fetch URL, save to ./raw, update graph
@@ -504,6 +505,36 @@ if G.number_of_nodes() > 5000:
 else:
     to_html(G, communities, 'graphify-out/graph.html', community_labels=labels or None)
     print('graph.html written - open in any browser, no server needed')
+"
+```
+
+### Step 6b - Wiki (only if --wiki flag)
+
+**Only run this step if `--wiki` was explicitly given in the original command.**
+
+Run this before Step 9 (cleanup) so `.graphify_labels.json` is still available.
+
+```bash
+$(cat .graphify_python) -c "
+import json
+from graphify.build import build_from_json
+from graphify.wiki import to_wiki
+from graphify.analyze import god_nodes
+from pathlib import Path
+
+extraction = json.loads(Path('.graphify_extract.json').read_text())
+analysis   = json.loads(Path('.graphify_analysis.json').read_text())
+labels_raw = json.loads(Path('.graphify_labels.json').read_text()) if Path('.graphify_labels.json').exists() else {}
+
+G = build_from_json(extraction)
+communities = {int(k): v for k, v in analysis['communities'].items()}
+cohesion = {int(k): v for k, v in analysis['cohesion'].items()}
+labels = {int(k): v for k, v in labels_raw.items()}
+gods = god_nodes(G)
+
+n = to_wiki(G, communities, 'graphify-out/wiki', community_labels=labels or None, cohesion=cohesion, god_nodes_data=gods)
+print(f'Wiki: {n} articles written to graphify-out/wiki/')
+print('  graphify-out/wiki/index.md  ->  agent entry point')
 "
 ```
 
