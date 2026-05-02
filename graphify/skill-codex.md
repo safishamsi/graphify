@@ -38,6 +38,11 @@ Turn any folder of files into a navigable knowledge graph with community detecti
 
 graphify is built around Andrej Karpathy's /raw folder workflow: drop anything into a folder - papers, tweets, screenshots, code, notes - and get a structured knowledge graph that shows you what you didn't know was connected.
 
+Graphify is not specific to Second Brain. Treat it as a repo or corpus analysis
+layer that can be applied to bounded targets. Treat `graphify-out/` as derived
+evidence, not canonical project state, durable memory, or an automatic input to
+Second Brain reflection.
+
 Three things it does that your AI assistant alone cannot:
 1. **Persistent graph** - relationships are stored in `graphify-out/graph.json` and survive across sessions. Ask questions weeks later without re-reading everything.
 2. **Honest audit trail** - every edge is tagged EXTRACTED, INFERRED, or AMBIGUOUS. You know what was found vs invented.
@@ -55,10 +60,22 @@ If no path was given, use `.` (current directory). Do not ask the user for a pat
 
 Follow these steps in order. Do not skip steps.
 
-### Step 0 - Preflight target repo and active install
+### Step 0 - Preflight target, ignore rules, and active install
 
 Run this preflight from the target repo before building or activating Graphify.
-Summarize the results before writing new files.
+Summarize the results before writing new files. Do not scan a broad workspace
+root such as `/Users/mase/Codebase`; choose a bounded repo, package, docs
+folder, or corpus root.
+
+Scope rule:
+- For cross-layer repo understanding, prefer the repo root with a strict
+  `.graphifyignore`. This preserves links between implementation, tests, PRDs,
+  plans, and docs.
+- Use a narrower root only when the user asks about one isolated subsystem,
+  such as only a router, one package, or one docs folder.
+- For Second Brain-style repos, do not default to tiny slices just because some
+  paths are private or noisy. Exclude those paths explicitly and keep the
+  useful repo-level context.
 
 ```bash
 git status --short --branch 2>/dev/null || true
@@ -69,6 +86,37 @@ Review existing `AGENTS.md`, `.codex/hooks.json`, `.graphifyignore`, and
 `graphify-out/` if present. If `.graphifyignore` is missing, draft one before
 the first graph build when the repo contains generated, cache, virtualenv,
 secret, or broad artifact paths.
+
+Minimum exclusions to consider for code repos:
+
+```gitignore
+.git/
+.venv/
+.pytest_cache/
+.worktrees/
+__pycache__/
+.env
+graphify-out/
+```
+
+Add repo-specific generated or sensitive paths before scanning. For Second
+Brain-style repos, consider excluding runtime data, private integration caches,
+and broad artifacts unless the user intentionally asks to graph them.
+
+Second Brain-style strict ignore starter:
+
+```gitignore
+.git/
+.venv/
+__pycache__/
+.pytest_cache/
+graphify-out/
+.claude/data/
+Memory/
+artifacts/
+*.log
+.env
+```
 
 In Mase's Codex setup, verify the active CLI still points to the local fork
 before graphing another repo:
@@ -92,17 +140,20 @@ Do not continue by running a plain `pip install graphifyy` or
 ### Step 1 - Ensure graphify is installed
 
 ```bash
-# Detect the correct Python interpreter (handles pipx, venv, system installs)
+# Detect the verified graphify interpreter. Do not fall back to PyPI here.
 GRAPHIFY_BIN=$(which graphify 2>/dev/null)
-if [ -n "$GRAPHIFY_BIN" ]; then
-    PYTHON=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
-    case "$PYTHON" in
-        *[!a-zA-Z0-9/_.-]*) PYTHON="python3" ;;
-    esac
-else
-    PYTHON="python3"
+if [ -z "$GRAPHIFY_BIN" ]; then
+    echo "graphify CLI not found. Install from Mase's fork, then rerun doctor."
+    exit 1
 fi
-"$PYTHON" -c "import graphify" 2>/dev/null || "$PYTHON" -m pip install graphifyy -q 2>/dev/null || "$PYTHON" -m pip install graphifyy -q --break-system-packages 2>&1 | tail -3
+PYTHON=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
+case "$PYTHON" in
+    *[!a-zA-Z0-9/_.-]*) PYTHON="python3" ;;
+esac
+"$PYTHON" -c "import graphify" 2>/dev/null || {
+    echo "graphify import failed from the verified CLI interpreter. Reinstall from Mase's fork."
+    exit 1
+}
 # Write interpreter path for all subsequent steps
 "$PYTHON" -c "import sys; from pathlib import Path; Path('graphify-out').mkdir(exist_ok=True); Path('.graphify_python').write_text(sys.executable); Path('graphify-out/.graphify_python').write_text(sys.executable)"
 ```
@@ -119,8 +170,11 @@ import json
 from graphify.detect import detect
 from pathlib import Path
 result = detect(Path('INPUT_PATH'))
-print(json.dumps(result))
-" > .graphify_detect.json
+payload = json.dumps(result)
+Path('.graphify_detect.json').write_text(payload)
+Path('graphify-out').mkdir(exist_ok=True)
+Path('graphify-out/.graphify_detect.json').write_text(payload)
+"
 ```
 
 Replace INPUT_PATH with the actual path the user provided. Do NOT cat or print the JSON - read it silently and present a clean summary instead:
@@ -777,6 +831,17 @@ If graphify saved you time, consider supporting it: https://github.com/sponsors/
 
 Replace PATH_TO_DIR with the actual absolute path of the directory that was processed.
 
+Before offering any repo activation, verify the success checklist:
+- `graphify-out/GRAPH_REPORT.md` exists and includes plausible god nodes,
+  community labels, surprising connections, and suggested questions.
+- `graphify-out/graph.json` exists and has non-empty nodes and edges unless the
+  corpus was intentionally tiny.
+- `graphify-out/graph.html` exists if visualization was not disabled.
+
+Only after that checklist passes should you offer optional repo-local activation
+with `graphify codex install` or Git hooks. A successful scan does not imply the
+repo should install reminders or hooks.
+
 Then paste these sections from GRAPH_REPORT.md directly into the chat:
 - God Nodes
 - Surprising Connections
@@ -1283,7 +1348,8 @@ If a post-commit hook already exists, graphify appends to it rather than replaci
 
 ## For native Codex AGENTS.md integration
 
-Run once per project after the first graph has been built:
+Optional. Run only after the first graph has been built and the success
+checklist above passed:
 
 ```bash
 graphify codex install
