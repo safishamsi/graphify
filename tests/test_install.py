@@ -129,6 +129,43 @@ def test_codex_agents_install_writes_agents_md(tmp_path):
     assert "GRAPH_REPORT.md" in agents_md.read_text()
 
 
+def test_codex_agents_install_writes_supported_hook_output(tmp_path):
+    """Codex rejects Claude-style additionalContext hook output."""
+    import json as _json
+    import re
+    import subprocess
+
+    _agents_install(tmp_path, "codex")
+    hooks_path = tmp_path / ".codex" / "hooks.json"
+    hooks = _json.loads(hooks_path.read_text())["hooks"]["PreToolUse"]
+    command = hooks[0]["hooks"][0]["command"]
+    match = re.search(r"echo '([^']+)'", command)
+    assert match, command
+
+    allowed_keys = {"systemMessage"}
+    unsupported_keys = {"additionalContext", "hookSpecificOutput", "permissionDecision"}
+    literal_output = _json.loads(match.group(1))
+
+    assert set(literal_output) == allowed_keys
+    assert unsupported_keys.isdisjoint(literal_output)
+
+    graph_path = tmp_path / "graphify-out" / "graph.json"
+    graph_path.parent.mkdir()
+    graph_path.write_text("{}")
+    result = subprocess.run(
+        command,
+        shell=True,
+        cwd=tmp_path,
+        check=False,
+        capture_output=True,
+        text=True,
+    )
+    assert result.returncode == 0
+    runtime_output = _json.loads(result.stdout)
+    assert set(runtime_output) == allowed_keys
+    assert unsupported_keys.isdisjoint(runtime_output)
+
+
 def test_opencode_agents_install_writes_agents_md(tmp_path):
     _agents_install(tmp_path, "opencode")
     assert (tmp_path / "AGENTS.md").exists()
