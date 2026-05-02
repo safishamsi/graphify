@@ -58,7 +58,7 @@ def download_audio(url: str, output_dir: Path) -> Path:
 
     # yt-dlp uses %(title)s which can be long/weird — use a stable name based on URL hash
     import hashlib
-    url_hash = hashlib.sha1(url.encode()).hexdigest()[:12]
+    url_hash = hashlib.sha1(url.encode(), usedforsecurity=False).hexdigest()[:12]
     out_template = str(output_dir / f"yt_{url_hash}.%(ext)s")
 
     # Check for already-downloaded file

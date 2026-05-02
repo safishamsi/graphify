@@ -736,7 +736,7 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
 def _md5_file(path: Path) -> str:
     """MD5 of file contents streamed in 64KB chunks — for change detection only."""
     import hashlib as _hl
-    h = _hl.md5()
+    h = _hl.md5(usedforsecurity=False)
     try:
         with path.open("rb") as f:
             for chunk in iter(lambda: f.read(65536), b""):
