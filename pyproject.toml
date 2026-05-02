@@ -50,8 +50,8 @@ svg = ["matplotlib"]
 leiden = ["graspologic; python_version < '3.13'"]
 office = ["python-docx", "openpyxl"]
 video = ["faster-whisper", "yt-dlp"]
-kimi = ["openai"]
-all = ["mcp", "neo4j", "pypdf", "html2text", "watchdog", "graspologic; python_version < '3.13'", "python-docx", "openpyxl", "faster-whisper", "yt-dlp", "matplotlib", "openai"]
+kimi = ["openai", "tiktoken"]
+all = ["mcp", "neo4j", "pypdf", "html2text", "watchdog", "graspologic; python_version < '3.13'", "python-docx", "openpyxl", "faster-whisper", "yt-dlp", "matplotlib", "openai", "tiktoken"]
 
 [project.scripts]
 graphify = "graphify.__main__:main"
