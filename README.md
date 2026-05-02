@@ -426,6 +426,14 @@ Token reduction scales with corpus size. 6 files fits in a context window anyway
 
 graphify sends file contents to your AI coding assistant's underlying model API for semantic extraction of docs, papers, and images — Anthropic (Claude Code), OpenAI (Codex), or whichever provider your platform uses. Code files are processed locally via tree-sitter AST — no file contents leave your machine for code. Video and audio files are transcribed locally with faster-whisper — audio never leaves your machine. No telemetry, usage tracking, or analytics of any kind. The only network calls are to your platform's model API during extraction, using your own API key.
 
+## Optional integrations
+
+Runbooks for setting up extra tooling alongside graphify. None of these are required.
+
+| Integration | Doc |
+|---|---|
+| Docker MCP Toolkit + SQLite MCP server (lightweight persistent SQL workspace exposed to any MCP client) | [`docs/docker-mcp-sqlite.md`](docs/docker-mcp-sqlite.md) |
+
 ## Tech stack
 
 NetworkX + Leiden (graspologic) + tree-sitter + vis.js. Semantic extraction via Claude (Claude Code), GPT-4 (Codex), or whichever model your platform runs. Video transcription via faster-whisper + yt-dlp (optional, `pip install graphifyy[video]`). No Neo4j required, no server, runs entirely locally.
