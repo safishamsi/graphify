@@ -3695,7 +3695,17 @@ def _get_extractor(path: Path) -> Any | None:
     """Return the correct extractor function for a file, or None if unsupported."""
     if path.name.endswith(".blade.php"):
         return extract_blade
-    return _DISPATCH.get(path.suffix)
+    suffix = path.suffix
+    extractor = _DISPATCH.get(suffix)
+    if extractor is not None:
+        return extractor
+    # Honor user-registered extension aliases (e.g. .pic → .php) declared via
+    # GRAPHIFY_EXTENSION_ALIASES or register_extension_alias().
+    from graphify.detect import EXTENSION_ALIASES
+    canonical = EXTENSION_ALIASES.get(suffix.lower())
+    if canonical is not None:
+        return _DISPATCH.get(canonical)
+    return None
 
 
 def _extract_single_file(args: tuple) -> tuple[int, dict]:
@@ -4009,7 +4019,11 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
         ".lua", ".toc", ".zig", ".ps1",
         ".m", ".mm",
     }
-    from graphify.detect import _load_graphifyignore, _is_ignored
+    from graphify.detect import _load_graphifyignore, _is_ignored, EXTENSION_ALIASES
+    # Include any user-registered alias whose canonical is a discoverable code extension
+    for _custom_ext, _canonical_ext in EXTENSION_ALIASES.items():
+        if _canonical_ext in _EXTENSIONS:
+            _EXTENSIONS.add(_custom_ext)
     ignore_root = root if root is not None else target
     patterns = _load_graphifyignore(ignore_root)
 

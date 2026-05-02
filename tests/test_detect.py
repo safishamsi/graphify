@@ -255,3 +255,120 @@ def test_detect_video_not_in_words(tmp_path):
     result = detect(tmp_path)
     # Only video file present — total_words should be 0
     assert result["total_words"] == 0
+
+
+# ── Custom extension aliases ─────────────────────────────────────────────────
+
+import pytest
+
+from graphify import detect as _detect_module
+
+
+@pytest.fixture
+def alias_state():
+    """Snapshot and restore extension-alias module state around a test."""
+    snapshot_aliases = dict(_detect_module.EXTENSION_ALIASES)
+    snapshot_code = set(_detect_module.CODE_EXTENSIONS)
+    snapshot_doc = set(_detect_module.DOC_EXTENSIONS)
+    try:
+        yield
+    finally:
+        _detect_module.EXTENSION_ALIASES.clear()
+        _detect_module.EXTENSION_ALIASES.update(snapshot_aliases)
+        _detect_module.CODE_EXTENSIONS.clear()
+        _detect_module.CODE_EXTENSIONS.update(snapshot_code)
+        _detect_module.DOC_EXTENSIONS.clear()
+        _detect_module.DOC_EXTENSIONS.update(snapshot_doc)
+
+
+def test_register_alias_code_extension(alias_state):
+    from graphify.detect import register_extension_alias, EXTENSION_ALIASES, CODE_EXTENSIONS
+    register_extension_alias(".pic", ".php")
+    assert ".pic" in CODE_EXTENSIONS
+    assert EXTENSION_ALIASES[".pic"] == ".php"
+    assert classify_file(Path("controller.pic")) == FileType.CODE
+
+
+def test_register_alias_doc_extension(alias_state):
+    from graphify.detect import register_extension_alias, EXTENSION_ALIASES, DOC_EXTENSIONS
+    register_extension_alias(".note", ".md")
+    assert ".note" in DOC_EXTENSIONS
+    assert EXTENSION_ALIASES[".note"] == ".md"
+    assert classify_file(Path("readme.note")) == FileType.DOCUMENT
+
+
+def test_register_alias_normalizes_case(alias_state):
+    from graphify.detect import register_extension_alias, EXTENSION_ALIASES, CODE_EXTENSIONS
+    register_extension_alias(".PIC", ".PHP")
+    assert ".pic" in CODE_EXTENSIONS
+    assert ".pic" in EXTENSION_ALIASES
+
+
+def test_register_alias_requires_leading_dot(alias_state):
+    from graphify.detect import register_extension_alias
+    with pytest.raises(ValueError, match="must start with"):
+        register_extension_alias("pic", ".php")
+    with pytest.raises(ValueError, match="must start with"):
+        register_extension_alias(".pic", "php")
+
+
+def test_register_alias_rejects_unknown_canonical(alias_state):
+    from graphify.detect import register_extension_alias
+    with pytest.raises(ValueError, match="not a known"):
+        register_extension_alias(".pic", ".unknownlang")
+
+
+def test_apply_extension_aliases_from_env_single(alias_state, monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_EXTENSION_ALIASES", ".pic:.php")
+    _detect_module._apply_extension_aliases_from_env()
+    assert _detect_module.EXTENSION_ALIASES.get(".pic") == ".php"
+
+
+def test_apply_extension_aliases_from_env_multiple(alias_state, monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_EXTENSION_ALIASES", ".pic:.php , .note:.md ,.x:.py")
+    _detect_module._apply_extension_aliases_from_env()
+    assert _detect_module.EXTENSION_ALIASES.get(".pic") == ".php"
+    assert _detect_module.EXTENSION_ALIASES.get(".note") == ".md"
+    assert _detect_module.EXTENSION_ALIASES.get(".x") == ".py"
+
+
+def test_apply_extension_aliases_from_env_skips_malformed(alias_state, monkeypatch):
+    # Malformed entries should be skipped silently — never crash on bad config
+    monkeypatch.setenv(
+        "GRAPHIFY_EXTENSION_ALIASES",
+        ".valid:.py,broken,no-colon, : ,.bad:.unknownlang",
+    )
+    _detect_module._apply_extension_aliases_from_env()
+    assert _detect_module.EXTENSION_ALIASES.get(".valid") == ".py"
+    assert ".bad" not in _detect_module.EXTENSION_ALIASES
+
+
+def test_apply_extension_aliases_from_env_empty(alias_state, monkeypatch):
+    monkeypatch.delenv("GRAPHIFY_EXTENSION_ALIASES", raising=False)
+    _detect_module._apply_extension_aliases_from_env()
+    # Should be a no-op — no entries added beyond what was already snapshotted
+    assert _detect_module.EXTENSION_ALIASES == {}
+
+
+def test_collect_files_includes_aliased_extension(alias_state, tmp_path):
+    from graphify.detect import register_extension_alias
+    from graphify.extract import collect_files
+    register_extension_alias(".pic", ".php")
+    (tmp_path / "main.pic").write_text("<?php class Foo {} ?>")
+    (tmp_path / "ignore.txt").write_text("not code")
+    found = collect_files(tmp_path)
+    assert any(p.name == "main.pic" for p in found)
+
+
+def test_extract_dispatches_aliased_extension(alias_state, tmp_path):
+    from graphify.detect import register_extension_alias
+    from graphify.extract import collect_files, extract
+    register_extension_alias(".pic", ".php")
+    (tmp_path / "shop.pic").write_text(
+        "<?php\nclass ShopCart {\n    public function checkout() { return 1; }\n}\n"
+    )
+    paths = collect_files(tmp_path)
+    result = extract(paths, cache_root=tmp_path)
+    labels = {n.get("label", "") for n in result["nodes"]}
+    # PHP grammar should have produced a class node for ShopCart
+    assert any("ShopCart" in label or "shopcart" in label.lower() for label in labels)

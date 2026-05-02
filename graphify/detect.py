@@ -25,6 +25,66 @@ IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'}
 OFFICE_EXTENSIONS = {'.docx', '.xlsx'}
 VIDEO_EXTENSIONS = {'.mp4', '.mov', '.webm', '.mkv', '.avi', '.m4v', '.mp3', '.wav', '.m4a', '.ogg'}
 
+# User-defined extension aliases: maps a custom extension to a canonical one
+# already supported by graphify. Treats `.pic` files as `.php`, `.foo` as `.py`,
+# etc. Populated by register_extension_alias() and from the
+# GRAPHIFY_EXTENSION_ALIASES env var on import.
+EXTENSION_ALIASES: dict[str, str] = {}
+
+
+def register_extension_alias(custom: str, canonical: str) -> None:
+    """Treat files with extension ``custom`` as if they had extension ``canonical``.
+
+    Useful when a project uses a custom file extension for a language graphify
+    already supports — for example, a codebase that uses ``.pic`` for PHP
+    sources can register ``.pic`` as an alias of ``.php`` so those files are
+    classified as code and parsed with the PHP grammar.
+
+    Both extensions must start with a dot. The canonical extension must already
+    be a known code or document extension.
+
+    Updates ``CODE_EXTENSIONS`` (or ``DOC_EXTENSIONS``) and ``EXTENSION_ALIASES``
+    so downstream callers — ``classify_file``, ``collect_files``, the AST
+    dispatch in ``extract`` — pick up the alias.
+    """
+    if not custom.startswith("."):
+        raise ValueError(f"custom extension must start with '.': {custom!r}")
+    if not canonical.startswith("."):
+        raise ValueError(f"canonical extension must start with '.': {canonical!r}")
+    custom = custom.lower()
+    canonical = canonical.lower()
+    if canonical in CODE_EXTENSIONS:
+        CODE_EXTENSIONS.add(custom)
+    elif canonical in DOC_EXTENSIONS:
+        DOC_EXTENSIONS.add(custom)
+    else:
+        raise ValueError(
+            f"canonical extension {canonical!r} is not a known code or doc extension"
+        )
+    EXTENSION_ALIASES[custom] = canonical
+
+
+def _apply_extension_aliases_from_env() -> None:
+    """Parse ``GRAPHIFY_EXTENSION_ALIASES`` and register each alias.
+
+    Format: ``.pic:.php,.foo:.py`` — comma-separated ``custom:canonical`` pairs.
+    Whitespace is ignored. Malformed pairs and unknown canonical extensions are
+    skipped silently so a bad env var never crashes the pipeline.
+    """
+    raw = os.environ.get("GRAPHIFY_EXTENSION_ALIASES", "").strip()
+    if not raw:
+        return
+    for pair in raw.split(","):
+        pair = pair.strip()
+        if not pair or ":" not in pair:
+            continue
+        custom, canonical = (s.strip() for s in pair.split(":", 1))
+        try:
+            register_extension_alias(custom, canonical)
+        except ValueError:
+            continue
+
+
 CORPUS_WARN_THRESHOLD = 50_000    # words - below this, warn "you may not need a graph"
 CORPUS_UPPER_THRESHOLD = 500_000  # words - above this, warn about token cost
 FILE_COUNT_UPPER = 200             # files - above this, warn about token cost
@@ -828,3 +888,7 @@ def detect_incremental(root: Path, manifest_path: str = _MANIFEST_PATH) -> dict:
     full["new_total"] = new_total
     full["deleted_files"] = deleted_files
     return full
+
+
+# Apply any aliases declared via GRAPHIFY_EXTENSION_ALIASES at module load time
+_apply_extension_aliases_from_env()

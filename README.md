@@ -199,6 +199,21 @@ GEMINI.md
 docs/translations/ # generated content you don't want in the graph
 ```
 
+**Custom file extensions** — if your project uses non-standard extensions for a language graphify already supports (for example `.pic` files that are valid PHP), register an alias and they'll be classified as code and parsed with the canonical grammar. Set `GRAPHIFY_EXTENSION_ALIASES` before running graphify, or call `register_extension_alias` from Python:
+
+```bash
+# treat .pic as PHP and .foo as Python for this run
+export GRAPHIFY_EXTENSION_ALIASES=".pic:.php,.foo:.py"
+/graphify .
+```
+
+```python
+from graphify.detect import register_extension_alias
+register_extension_alias(".pic", ".php")
+```
+
+The canonical extension must already be a known code or document extension. Aliases flow through file detection, the AST dispatch in `extract`, and `collect_files`.
+
 ## Using `graph.json` with an LLM
 
 `graph.json` is not meant to be pasted into a prompt all at once. The useful
