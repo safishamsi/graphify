@@ -55,8 +55,8 @@ def load_cached(path: Path, root: Path = Path(".")) -> dict | None:
     if not entry.exists():
         return None
     try:
-        return json.loads(entry.read_text())
-    except (json.JSONDecodeError, OSError):
+        return json.loads(entry.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError, UnicodeDecodeError):
         return None
 
 
@@ -70,7 +70,10 @@ def save_cached(path: Path, result: dict, root: Path = Path(".")) -> None:
     entry = cache_dir(root) / f"{h}.json"
     tmp = entry.with_suffix(".tmp")
     try:
-        tmp.write_text(json.dumps(result))
+        # ensure_ascii=False keeps non-ASCII identifiers/labels readable in
+        # the cache file; encoding="utf-8" prevents UnicodeEncodeError on
+        # Windows where the default cp1252 codec cannot encode CJK/emoji.
+        tmp.write_text(json.dumps(result, ensure_ascii=False), encoding="utf-8")
         os.replace(tmp, entry)
     except Exception:
         tmp.unlink(missing_ok=True)
