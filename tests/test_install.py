@@ -98,6 +98,26 @@ def test_all_skill_files_exist_in_package():
         assert (pkg / name).exists(), f"Missing: {name}"
 
 
+def test_doctor_accepts_required_matching_source(tmp_path, monkeypatch, capsys):
+    from graphify import __main__ as main_mod
+
+    monkeypatch.setattr(main_mod, "_install_source", lambda: tmp_path.resolve())
+    assert main_mod._doctor(require_source=str(tmp_path)) == 0
+    assert f"graphify install source: {tmp_path.resolve()}" in capsys.readouterr().out
+
+
+def test_doctor_rejects_required_mismatched_source(tmp_path, monkeypatch, capsys):
+    from graphify import __main__ as main_mod
+
+    actual = tmp_path / "actual"
+    expected = tmp_path / "expected"
+    monkeypatch.setattr(main_mod, "_install_source", lambda: actual.resolve())
+    assert main_mod._doctor(require_source=str(expected)) == 1
+    captured = capsys.readouterr()
+    assert f"graphify install source: {actual.resolve()}" in captured.out
+    assert f"expected install source {expected.resolve()}" in captured.err
+
+
 def test_claude_install_registers_claude_md(tmp_path):
     """Claude platform install writes CLAUDE.md; others do not."""
     _install(tmp_path, "claude")

@@ -24,6 +24,19 @@ uv tool install --force --reinstall /Users/mase/Codebase/Personal-Projects/graph
   --with watchdog
 ```
 
+Verify the active tool still points to this checkout before bootstrapping
+Graphify in another repo:
+
+```bash
+graphify doctor --require-source /Users/mase/Codebase/Personal-Projects/graphify
+```
+
+A repo-local Git hook cannot reliably prevent `uv tool upgrade graphifyy`,
+because that command mutates the global uv tool installation outside this git
+repo. Use the verifier above before repo bootstraps. If a hard block is ever
+needed, add it as an explicit shell wrapper or Codex command hook rather than as
+a Graphify repo Git hook.
+
 ## Upstream Sync
 
 To take upstream changes while preserving local fixes:

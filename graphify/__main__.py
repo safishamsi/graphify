@@ -6,13 +6,60 @@ import platform
 import re
 import shutil
 import sys
+import urllib.parse
 from pathlib import Path
 
 try:
+    from importlib.metadata import distribution as _pkg_distribution
     from importlib.metadata import version as _pkg_version
     __version__ = _pkg_version("graphifyy")
 except Exception:
+    _pkg_distribution = None
     __version__ = "unknown"
+
+
+def _install_source() -> Path | str | None:
+    """Return the direct install source for graphifyy when package metadata records it."""
+    if _pkg_distribution is None:
+        return None
+    try:
+        dist = _pkg_distribution("graphifyy")
+        text = dist.read_text("direct_url.json") or "{}"
+        data = json.loads(text)
+    except Exception:
+        return None
+    url = data.get("url")
+    if not url:
+        return None
+    parsed = urllib.parse.urlparse(url)
+    if parsed.scheme == "file":
+        return Path(urllib.parse.unquote(parsed.path)).resolve()
+    return url
+
+
+def _doctor(require_source: str | None = None) -> int:
+    """Print install diagnostics and return a process exit code."""
+    source = _install_source()
+    module_path = Path(__file__).resolve()
+    print(f"graphify version: {__version__}")
+    print(f"graphify module: {module_path}")
+    print(f"graphify install source: {source or '<unknown>'}")
+
+    if require_source:
+        expected = Path(require_source).expanduser().resolve()
+        module_under_expected = False
+        try:
+            module_path.relative_to(expected)
+            module_under_expected = True
+        except ValueError:
+            pass
+        if source != expected and not (source is None and module_under_expected):
+            print(
+                f"error: expected install source {expected}, got {source or '<unknown>'}",
+                file=sys.stderr,
+            )
+            return 1
+    return 0
 
 
 def _check_skill_version(skill_dst: Path) -> None:
@@ -189,7 +236,7 @@ def install(platform: str = "claude") -> None:
             print(f"  CLAUDE.md        ->  created at {claude_md}")
 
     if platform == "opencode":
-        _install_opencode_plugin(Path("."))
+        _install_opencode_plugin(Path.home())
 
     # Refresh version stamps in all other previously-installed skill dirs so
     # stale-version warnings don't fire for platforms not explicitly re-installed.
@@ -1043,6 +1090,8 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
+        print("  doctor                  print install diagnostics")
+        print("    --require-source DIR   fail unless package was installed from DIR")
         print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi)")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
@@ -1122,7 +1171,17 @@ def main() -> None:
         return
 
     cmd = sys.argv[1]
-    if cmd == "install":
+    if cmd == "doctor":
+        args = sys.argv[2:]
+        require_source = None
+        if "--require-source" in args:
+            idx = args.index("--require-source")
+            if idx + 1 >= len(args):
+                print("Usage: graphify doctor [--require-source DIR]", file=sys.stderr)
+                sys.exit(1)
+            require_source = args[idx + 1]
+        sys.exit(_doctor(require_source=require_source))
+    elif cmd == "install":
         # Default to windows platform on Windows, claude elsewhere
         default_platform = "windows" if platform.system() == "Windows" else "claude"
         chosen_platform = default_platform

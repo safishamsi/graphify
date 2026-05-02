@@ -55,6 +55,40 @@ If no path was given, use `.` (current directory). Do not ask the user for a pat
 
 Follow these steps in order. Do not skip steps.
 
+### Step 0 - Preflight target repo and active install
+
+Run this preflight from the target repo before building or activating Graphify.
+Summarize the results before writing new files.
+
+```bash
+git status --short --branch 2>/dev/null || true
+find . -maxdepth 2 \( -name AGENTS.md -o -name .codex -o -name .graphifyignore -o -name graphify-out \) -print
+```
+
+Review existing `AGENTS.md`, `.codex/hooks.json`, `.graphifyignore`, and
+`graphify-out/` if present. If `.graphifyignore` is missing, draft one before
+the first graph build when the repo contains generated, cache, virtualenv,
+secret, or broad artifact paths.
+
+In Mase's Codex setup, verify the active CLI still points to the local fork
+before graphing another repo:
+
+```bash
+graphify doctor --require-source /Users/mase/Codebase/Personal-Projects/graphify
+```
+
+If this check fails, stop and reinstall from the fork before continuing:
+
+```bash
+uv tool install --force --reinstall /Users/mase/Codebase/Personal-Projects/graphify \
+  --with faster-whisper \
+  --with yt-dlp \
+  --with watchdog
+```
+
+Do not continue by running a plain `pip install graphifyy` or
+`uv tool upgrade graphifyy` when Mase's fork fixes are still required.
+
 ### Step 1 - Ensure graphify is installed
 
 ```bash
