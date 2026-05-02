@@ -21,7 +21,7 @@
   </a>
 </p>
 
-**An AI coding assistant skill.** Type `/graphify` in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kiro, or Google Antigravity - it reads your files, builds a knowledge graph, and gives you back structure you didn't know was there. Understand a codebase faster. Find the "why" behind architectural decisions.
+**An AI coding assistant skill.** Type `/graphify` in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kiro, Windsurf, or Google Antigravity - it reads your files, builds a knowledge graph, and gives you back structure you didn't know was there. Understand a codebase faster. Find the "why" behind architectural decisions.
 
 Fully multimodal. Drop in code, PDFs, markdown, screenshots, diagrams, whiteboard photos, images in other languages, or video and audio files - graphify extracts concepts and relationships from all of it and connects them into one graph. Videos are transcribed with Whisper using a domain-aware prompt derived from your corpus. YAML/YML files (Kubernetes, Kustomize, Helm, config) are indexed for semantic extraction. 25 languages supported via tree-sitter AST (Python, JS, TS, Go, Rust, Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift, Lua, Zig, PowerShell, Elixir, Objective-C, Julia, Verilog, SystemVerilog, Vue, Svelte, Dart).
 
@@ -61,7 +61,7 @@ Every relationship is tagged `EXTRACTED` (found directly in source), `INFERRED` 
 
 ## Install
 
-**Requires:** Python 3.10+ and one of: [Claude Code](https://claude.ai/code), [Codex](https://openai.com/codex), [OpenCode](https://opencode.ai), [Cursor](https://cursor.com), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli), [VS Code Copilot Chat](https://code.visualstudio.com/docs/copilot/overview), [Aider](https://aider.chat), [OpenClaw](https://openclaw.ai), [Factory Droid](https://factory.ai), [Trae](https://trae.ai), [Kiro](https://kiro.dev), Hermes, or [Google Antigravity](https://antigravity.google)
+**Requires:** Python 3.10+ and one of: [Claude Code](https://claude.ai/code), [Codex](https://openai.com/codex), [OpenCode](https://opencode.ai), [Cursor](https://cursor.com), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli), [VS Code Copilot Chat](https://code.visualstudio.com/docs/copilot/overview), [Aider](https://aider.chat), [OpenClaw](https://openclaw.ai), [Factory Droid](https://factory.ai), [Trae](https://trae.ai), [Kiro](https://kiro.dev), Hermes, [Windsurf](https://codeium.com/windsurf), or [Google Antigravity](https://antigravity.google)
 
 ```bash
 # Recommended — works on Mac and Linux with no PATH setup needed
@@ -95,9 +95,10 @@ pip install graphifyy && graphify install
 | Hermes | `graphify install --platform hermes` |
 | Kiro IDE/CLI | `graphify kiro install` |
 | Cursor | `graphify cursor install` |
+| Windsurf | `graphify install --platform windsurf` |
 | Google Antigravity | `graphify antigravity install` |
 
-Codex users also need `multi_agent = true` under `[features]` in `~/.codex/config.toml` for parallel extraction. Factory Droid uses the `Task` tool for parallel subagent dispatch. OpenClaw and Aider use sequential extraction (parallel agent support is still early on those platforms). Trae uses the Agent tool for parallel subagent dispatch and does **not** support PreToolUse hooks — AGENTS.md is the always-on mechanism. Codex supports PreToolUse hooks — `graphify codex install` installs one in `.codex/hooks.json` in addition to writing AGENTS.md.
+Codex users also need `multi_agent = true` under `[features]` in `~/.codex/config.toml` for parallel extraction. Factory Droid uses the `Task` tool for parallel subagent dispatch. OpenClaw, Aider, and Windsurf use sequential extraction (Windsurf's parallel agents run in separate worktrees, not via programmatic spawning within a Cascade session). Trae uses the Agent tool for parallel subagent dispatch and does **not** support PreToolUse hooks — AGENTS.md is the always-on mechanism. Codex supports PreToolUse hooks — `graphify codex install` installs one in `.codex/hooks.json` in addition to writing AGENTS.md.
 
 Then open your AI coding assistant and type:
 
@@ -127,6 +128,7 @@ After building a graph, run this once in your project:
 | Gemini CLI | `graphify gemini install` |
 | Hermes | `graphify hermes install` |
 | Kiro IDE/CLI | `graphify kiro install` |
+| Windsurf | `graphify windsurf install` |
 | Google Antigravity | `graphify antigravity install` |
 
 **Claude Code** does two things: writes a `CLAUDE.md` section telling Claude to read `graphify-out/GRAPH_REPORT.md` before answering architecture questions, and installs a **PreToolUse hook** (`settings.json`) that fires before every Glob and Grep call. If a knowledge graph exists, Claude sees: _"graphify: Knowledge graph exists. Read GRAPH_REPORT.md for god nodes and community structure before searching raw files."_ — so Claude navigates via the graph instead of grepping through every file.
@@ -139,7 +141,9 @@ After building a graph, run this once in your project:
 
 **Gemini CLI** copies the skill to `~/.gemini/skills/graphify/SKILL.md`, writes a `GEMINI.md` section, and installs a `BeforeTool` hook in `.gemini/settings.json` that fires before file-read tool calls — same always-on mechanism as Claude Code.
 
-**Aider, OpenClaw, Factory Droid, Trae, and Hermes** write the same rules to `AGENTS.md` in your project root and copy the skill to the platform's global skill directory. These platforms don't support tool hooks, so AGENTS.md is the always-on mechanism.
+**Aider, OpenClaw, Factory Droid, and Trae** write the same rules to `AGENTS.md` in your project root. These platforms don't support tool hooks, so AGENTS.md is the always-on mechanism.
+
+**Windsurf** writes `.windsurf/workflows/graphify.md` (registers `/graphify` as a Cascade slash command) and appends a `## graphify` section to `.windsurfrules` for always-on context. Run `graphify install --platform windsurf` separately to copy the full skill logic to `~/.codeium/windsurf/skills/graphify/SKILL.md`.
 
 **Kiro IDE/CLI** writes the skill to `.kiro/skills/graphify/SKILL.md` (invoked via `/graphify`) and a steering file to `.kiro/steering/graphify.md` with `inclusion: always` — Kiro injects this into every conversation automatically, no hook needed.
 
@@ -319,6 +323,8 @@ graphify hermes install             # AGENTS.md + ~/.hermes/skills/ (Hermes)
 graphify hermes uninstall
 graphify kiro install               # .kiro/skills/ + .kiro/steering/graphify.md (Kiro IDE/CLI)
 graphify kiro uninstall
+graphify windsurf install          # .windsurf/workflows/ + .windsurfrules (Windsurf)
+graphify windsurf uninstall
 graphify antigravity install       # .agents/rules + .agents/workflows (Google Antigravity)
 graphify antigravity uninstall
 
