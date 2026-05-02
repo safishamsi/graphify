@@ -9,6 +9,11 @@ def test_classify_python():
 def test_classify_typescript():
     assert classify_file(Path("bar.ts")) == FileType.CODE
 
+def test_classify_godot_gd():
+    # GDScript files (.gd) are Godot engine scripts and should be treated as code
+    assert classify_file(Path("Player.gd")) == FileType.CODE
+    assert classify_file(Path("scenes/Enemy.gd")) == FileType.CODE
+
 def test_classify_markdown():
     assert classify_file(Path("README.md")) == FileType.DOCUMENT
 

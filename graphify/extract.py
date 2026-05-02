@@ -2677,6 +2677,7 @@ def collect_files(target: Path, *, follow_symlinks: bool = False) -> list[Path]:
         ".rb", ".cs", ".kt", ".kts", ".scala", ".php", ".swift",
         ".lua", ".toc", ".zig", ".ps1",
         ".m", ".mm",
+        ".gd",
     }
     if not follow_symlinks:
         results: list[Path] = []
