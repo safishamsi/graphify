@@ -457,6 +457,32 @@ print(f'Merged: {total} nodes, {edges} edges ({len(ast[\"nodes\"])} AST + {len(s
 "
 ```
 
+#### Part D - Deduplicate merged nodes by source location (prevents duplicate god nodes)
+
+The merge above deduplicates by node ID, but AST-extracted and semantically-extracted nodes for the same entity may have different IDs (e.g., `lib_sort_all_nodes_topologically` vs `sort_all_nodes_topologically`). This second pass merges nodes that share the same `(source_file, source_location)` or a close normalized label match.
+
+```bash
+$(cat graphify-out/.graphify_python) -c "
+import json
+from graphify.build import deduplicate_by_source_location
+from pathlib import Path
+
+extraction = json.loads(Path('graphify-out/.graphify_extract.json').read_text())
+before_nodes = len(extraction.get('nodes', []))
+before_edges = len(extraction.get('edges', []))
+
+result = deduplicate_by_source_location(extraction)
+
+after_nodes = len(result.get('nodes', []))
+after_edges = len(result.get('edges', []))
+removed_nodes = before_nodes - after_nodes
+removed_edges = before_edges - after_edges
+
+Path('graphify-out/.graphify_extract.json').write_text(json.dumps(result, indent=2))
+print(f'Dedup: {before_nodes}→{after_nodes} nodes ({removed_nodes} merged), {before_edges}→{after_edges} edges ({removed_edges} consolidated)')
+"
+```
+
 ### Step 4 - Build graph, cluster, analyze, generate outputs
 
 **Before starting:** note whether `--directed` was given. If so, pass `directed=True` to `build_from_json()` in the code block below. This builds a `DiGraph` that preserves edge direction (source→target) instead of the default undirected `Graph`.
