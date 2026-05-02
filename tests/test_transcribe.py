@@ -12,6 +12,7 @@ from graphify.transcribe import (
     build_whisper_prompt,
     transcribe,
     transcribe_all,
+    _transcript_path,
 )
 
 
@@ -71,7 +72,7 @@ def test_transcribe_uses_cache(tmp_path):
     video.write_bytes(b"fake")
     out_dir = tmp_path / "transcripts"
     out_dir.mkdir()
-    cached = out_dir / "lecture.txt"
+    cached = _transcript_path(video, out_dir)
     cached.write_text("Cached transcript content.")
 
     result = transcribe(video, output_dir=out_dir)
@@ -84,7 +85,7 @@ def test_transcribe_force_reruns(tmp_path):
     video.write_bytes(b"fake")
     out_dir = tmp_path / "transcripts"
     out_dir.mkdir()
-    (out_dir / "talk.txt").write_text("Old transcript.")
+    _transcript_path(video, out_dir).write_text("Old transcript.")
 
     fake_segment = MagicMock()
     fake_segment.text = "New transcript segment."
@@ -125,12 +126,28 @@ def test_transcribe_all_uses_cache(tmp_path):
     video.write_bytes(b"fake")
     out_dir = tmp_path / "transcripts"
     out_dir.mkdir()
-    cached = out_dir / "lecture.txt"
+    cached = _transcript_path(video, out_dir)
     cached.write_text("Cached.")
 
     results = transcribe_all([str(video)], output_dir=out_dir)
     assert len(results) == 1
     assert str(cached) in results[0]
+
+
+def test_transcript_paths_do_not_collide_for_same_stem(tmp_path):
+    """Same-stem media with different suffixes get distinct transcript files."""
+    mp3 = tmp_path / "sample.mp3"
+    mp4 = tmp_path / "sample.mp4"
+    mp3.write_bytes(b"fake mp3")
+    mp4.write_bytes(b"fake mp4")
+    out_dir = tmp_path / "transcripts"
+
+    mp3_path = _transcript_path(mp3, out_dir)
+    mp4_path = _transcript_path(mp4, out_dir)
+
+    assert mp3_path != mp4_path
+    assert mp3_path.name.startswith("sample__mp3__")
+    assert mp4_path.name.startswith("sample__mp4__")
 
 
 def test_transcribe_all_skips_failed(tmp_path):

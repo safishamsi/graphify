@@ -1,6 +1,7 @@
 # monitor a folder and auto-trigger --update when files change
 from __future__ import annotations
 import json
+import re
 import sys
 import time
 from pathlib import Path
@@ -10,6 +11,50 @@ from graphify.detect import CODE_EXTENSIONS, DOC_EXTENSIONS, PAPER_EXTENSIONS, I
 
 _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAGE_EXTENSIONS
 _CODE_EXTENSIONS = CODE_EXTENSIONS
+
+
+def _parse_report_community_labels(report_path: Path) -> dict[int, str]:
+    """Recover semantic community labels from an existing GRAPH_REPORT.md."""
+    if not report_path.exists():
+        return {}
+    labels: dict[int, str] = {}
+    pattern = re.compile(r'^### Community\s+(\d+)\s+-\s+"([^"]+)"\s*$')
+    for line in report_path.read_text(encoding="utf-8", errors="replace").splitlines():
+        match = pattern.match(line.strip())
+        if not match:
+            continue
+        labels[int(match.group(1))] = match.group(2)
+    return labels
+
+
+def _load_community_labels(out: Path) -> dict[int, str]:
+    """Load durable labels, falling back to the previous human report."""
+    candidates = [
+        out / "community_labels.json",
+        out / ".graphify_labels.json",
+        out.parent / ".graphify_labels.json",
+    ]
+    for candidate in candidates:
+        if not candidate.exists():
+            continue
+        try:
+            raw = json.loads(candidate.read_text(encoding="utf-8"))
+            return {int(k): str(v) for k, v in raw.items()}
+        except Exception:
+            continue
+    return _parse_report_community_labels(out / "GRAPH_REPORT.md")
+
+
+def _save_community_labels(out: Path, labels: dict[int, str]) -> None:
+    """Persist labels for future code-only rebuilds."""
+    if not labels:
+        return
+    out.mkdir(exist_ok=True)
+    payload = {str(k): v for k, v in sorted(labels.items())}
+    (out / "community_labels.json").write_text(
+        json.dumps(payload, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _report_root_label(watch_path: Path) -> str:
@@ -103,11 +148,16 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
         cohesion = score_all(G, communities)
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)
-        labels = {cid: "Community " + str(cid) for cid in communities}
+        preserved_labels = _load_community_labels(out)
+        labels = {
+            cid: preserved_labels.get(cid, "Community " + str(cid))
+            for cid in communities
+        }
         questions = suggest_questions(G, communities, labels)
 
         out.mkdir(exist_ok=True)
         (out / ".graphify_root").write_text(str(watch_root), encoding="utf-8")
+        _save_community_labels(out, labels)
 
         json_written = to_json(G, communities, str(out / "graph.json"), force=force)
         if not json_written:

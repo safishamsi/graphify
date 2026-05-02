@@ -3,7 +3,13 @@ import time
 from pathlib import Path
 import pytest
 
-from graphify.watch import _notify_only, _WATCHED_EXTENSIONS
+from graphify.watch import (
+    _load_community_labels,
+    _notify_only,
+    _parse_report_community_labels,
+    _save_community_labels,
+    _WATCHED_EXTENSIONS,
+)
 
 
 # --- _notify_only ---
@@ -94,3 +100,41 @@ def test_watch_raises_without_watchdog(tmp_path, monkeypatch):
     from graphify.watch import watch
     with pytest.raises(ImportError, match="watchdog not installed"):
         watch(tmp_path)
+
+
+# --- community label preservation ---
+
+def test_parse_report_community_labels(tmp_path):
+    report = tmp_path / "GRAPH_REPORT.md"
+    report.write_text(
+        '### Community 0 - "Runtime Configuration"\n'
+        '### Community 12 - "Auth And Query Scope"\n',
+        encoding="utf-8",
+    )
+
+    assert _parse_report_community_labels(report) == {
+        0: "Runtime Configuration",
+        12: "Auth And Query Scope",
+    }
+
+
+def test_load_community_labels_prefers_durable_json(tmp_path):
+    out = tmp_path / "graphify-out"
+    _save_community_labels(out, {0: "Durable Label"})
+    (out / "GRAPH_REPORT.md").write_text(
+        '### Community 0 - "Report Label"\n',
+        encoding="utf-8",
+    )
+
+    assert _load_community_labels(out) == {0: "Durable Label"}
+
+
+def test_load_community_labels_falls_back_to_report(tmp_path):
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    (out / "GRAPH_REPORT.md").write_text(
+        '### Community 3 - "Media Chunking Pipeline"\n',
+        encoding="utf-8",
+    )
+
+    assert _load_community_labels(out) == {3: "Media Chunking Pipeline"}

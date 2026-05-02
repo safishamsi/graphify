@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import os
+import hashlib
+import re
 from pathlib import Path
 
 
@@ -113,6 +115,15 @@ def build_whisper_prompt(god_nodes: list[dict]) -> str:
     return f"Technical discussion about {topics}. Use proper punctuation and paragraph breaks."
 
 
+def _transcript_path(audio_path: Path, out_dir: Path) -> Path:
+    """Return a stable transcript path that cannot collide on same-stem media."""
+    suffix = audio_path.suffix.lower().lstrip(".") or "media"
+    stem = re.sub(r"[^A-Za-z0-9_.-]+", "_", audio_path.stem).strip("._") or "media"
+    identity = str(audio_path.resolve() if audio_path.exists() else audio_path)
+    digest = hashlib.sha1(identity.encode("utf-8")).hexdigest()[:10]
+    return out_dir / f"{stem}__{suffix}__{digest}.txt"
+
+
 def transcribe(
     video_path: Path | str,
     output_dir: Path | None = None,
@@ -136,7 +147,7 @@ def transcribe(
     else:
         audio_path = Path(video_path)
 
-    transcript_path = out_dir / (audio_path.stem + ".txt")
+    transcript_path = _transcript_path(audio_path, out_dir)
     if transcript_path.exists() and not force:
         return transcript_path
 
