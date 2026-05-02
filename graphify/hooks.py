@@ -42,10 +42,43 @@ if [ -z "$GRAPHIFY_PYTHON" ]; then
 fi
 """
 
-_HOOK_SCRIPT = """\
+_WIKI_REBUILD_PYTHON = """
+# Optional wiki rebuild (#549 - 'graphify hook install --with-wiki')
+try:
+    import json as _json
+    out_dir = Path('graphify-out')
+    graph_json = out_dir / 'graph.json'
+    if graph_json.exists():
+        from graphify.build import build_from_json
+        from graphify.cluster import cluster, score_all
+        from graphify.analyze import god_nodes
+        from graphify.wiki import to_wiki
+        graph_data = _json.loads(graph_json.read_text(encoding='utf-8'))
+        G2 = build_from_json(graph_data)
+        comms = cluster(G2)
+        cohesion = score_all(G2, comms)
+        gods = god_nodes(G2)
+        labels_path = out_dir / '.graphify_labels.json'
+        labels = {}
+        if labels_path.exists():
+            labels = {int(k): v for k, v in _json.loads(labels_path.read_text(encoding='utf-8')).items()}
+        n_articles = to_wiki(G2, comms, str(out_dir / 'wiki'),
+                             community_labels=labels or None,
+                             cohesion=cohesion, god_nodes_data=gods)
+        print(f'[graphify hook] Wiki rebuilt: {n_articles} article(s) in {out_dir}/wiki/')
+except Exception as _wiki_exc:
+    print(f'[graphify hook] Wiki rebuild skipped: {_wiki_exc}')
+"""
+
+
+def _build_hook_script(*, with_wiki: bool = False) -> str:
+    """Build the post-commit hook body. Optionally inject a wiki rebuild step
+    after the AST rebuild (#549)."""
+    wiki_block = _WIKI_REBUILD_PYTHON if with_wiki else ""
+    return """\
 # graphify-hook-start
 # Auto-rebuilds the knowledge graph after each commit (code files only, no LLM needed).
-# Installed by: graphify hook install
+# Installed by: graphify hook install""" + (" --with-wiki" if with_wiki else "") + """
 
 # Skip during rebase/merge/cherry-pick to avoid blocking --continue with unstaged changes
 GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
@@ -87,10 +120,15 @@ try:
 except Exception as exc:
     print(f'[graphify hook] Rebuild failed: {exc}')
     sys.exit(1)
+""" + wiki_block + """
 " > "$_GRAPHIFY_LOG" 2>&1 < /dev/null &
 disown 2>/dev/null || true
 # graphify-hook-end
 """
+
+
+# Backwards-compat: legacy callers and tests may still reference _HOOK_SCRIPT
+_HOOK_SCRIPT = _build_hook_script(with_wiki=False)
 
 
 _CHECKOUT_SCRIPT = """\
@@ -205,15 +243,23 @@ def _uninstall_hook(hooks_dir: Path, name: str, marker: str, marker_end: str) ->
     return f"graphify removed from {name} at {hook_path} (other hook content preserved)"
 
 
-def install(path: Path = Path(".")) -> str:
-    """Install graphify post-commit and post-checkout hooks in the nearest git repo."""
+def install(path: Path = Path("."), *, with_wiki: bool = False) -> str:
+    """Install graphify post-commit and post-checkout hooks in the nearest git repo.
+
+    Args:
+        with_wiki: If True, the post-commit hook also rebuilds the wiki
+            (graphify-out/wiki/) after the AST rebuild. Useful for users who
+            keep agent-crawlable docs in sync with code (#549). No LLM cost —
+            pure clustering + community-article generation.
+    """
     root = _git_root(path)
     if root is None:
         raise RuntimeError(f"No git repository found at or above {path.resolve()}")
 
     hooks_dir = _hooks_dir(root)
 
-    commit_msg = _install_hook(hooks_dir, "post-commit", _HOOK_SCRIPT, _HOOK_MARKER)
+    commit_script = _build_hook_script(with_wiki=with_wiki)
+    commit_msg = _install_hook(hooks_dir, "post-commit", commit_script, _HOOK_MARKER)
     checkout_msg = _install_hook(hooks_dir, "post-checkout", _CHECKOUT_SCRIPT, _CHECKOUT_MARKER)
 
     return f"post-commit: {commit_msg}\npost-checkout: {checkout_msg}"

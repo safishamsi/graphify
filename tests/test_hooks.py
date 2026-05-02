@@ -142,3 +142,47 @@ def test_hook_check_no_additionalContext(tmp_path):
     assert result.returncode == 0
     assert result.stdout == ""
     assert result.stderr == ""
+
+
+def test_install_default_omits_wiki_rebuild(tmp_path):
+    """Without --with-wiki, the post-commit hook must not import or call to_wiki (#549)."""
+    repo = _make_git_repo(tmp_path)
+    install(repo)
+    hook_text = (repo / ".git" / "hooks" / "post-commit").read_text(encoding="utf-8")
+    assert "from graphify.wiki import to_wiki" not in hook_text
+    assert "Wiki rebuilt" not in hook_text
+
+
+def test_install_with_wiki_injects_wiki_rebuild(tmp_path):
+    """With with_wiki=True, the post-commit hook contains the wiki rebuild block (#549)."""
+    repo = _make_git_repo(tmp_path)
+    install(repo, with_wiki=True)
+    hook_text = (repo / ".git" / "hooks" / "post-commit").read_text(encoding="utf-8")
+    assert "from graphify.wiki import to_wiki" in hook_text
+    assert "Wiki rebuilt" in hook_text
+    # The hook should still rebuild the AST graph first - wiki is additive
+    assert "from graphify.watch import _rebuild_code" in hook_text
+    # And the install header should record the flag for later debugging
+    assert "--with-wiki" in hook_text
+
+
+def test_install_with_wiki_then_uninstall_clean(tmp_path):
+    """A --with-wiki install followed by uninstall must leave no graphify section behind."""
+    repo = _make_git_repo(tmp_path)
+    install(repo, with_wiki=True)
+    uninstall(repo)
+    hook = repo / ".git" / "hooks" / "post-commit"
+    if hook.exists():
+        text = hook.read_text(encoding="utf-8")
+        assert _HOOK_MARKER not in text
+        assert "from graphify.wiki import to_wiki" not in text
+
+
+def test_build_hook_script_wiki_block_only_when_requested():
+    """_build_hook_script(with_wiki=False) must produce identical script to legacy _HOOK_SCRIPT."""
+    from graphify.hooks import _build_hook_script, _HOOK_SCRIPT
+    assert _build_hook_script(with_wiki=False) == _HOOK_SCRIPT
+    # And with_wiki=True must be a strict superset (wiki block added)
+    with_wiki = _build_hook_script(with_wiki=True)
+    assert len(with_wiki) > len(_HOOK_SCRIPT)
+    assert "to_wiki" in with_wiki and "to_wiki" not in _HOOK_SCRIPT
