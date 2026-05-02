@@ -188,6 +188,18 @@ def test_kotlin_finds_function():
     r = extract_kotlin(FIXTURES / "sample.kt")
     assert any("createClient" in l for l in _labels(r))
 
+def test_kotlin_emits_in_file_calls():
+    """Regression test for the call-walker `simple_identifier` /
+    `identifier` rename — see graphify-kmp's PythonParityTest."""
+    r = extract_kotlin(FIXTURES / "sample.kt")
+    calls = _calls(r)
+    # In sample.kt: get() and post() both call buildRequest(), and
+    # createClient() invokes Config and HttpClient (constructor calls).
+    assert (".get()", ".buildRequest()") in calls
+    assert (".post()", ".buildRequest()") in calls
+    assert ("createClient()", "Config") in calls
+    assert ("createClient()", "HttpClient") in calls
+
 
 # ── Scala ─────────────────────────────────────────────────────────────────────
 

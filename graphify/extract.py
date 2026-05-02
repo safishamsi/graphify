@@ -590,7 +590,11 @@ _KOTLIN_CONFIG = LanguageConfig(
     call_function_field="",
     call_accessor_node_types=frozenset({"navigation_expression"}),
     call_accessor_field="",
-    name_fallback_child_types=("simple_identifier",),
+    # Different tree-sitter-kotlin grammar versions name plain identifier
+    # nodes differently: PyPI's `tree_sitter_kotlin` uses `identifier`,
+    # older forks use `simple_identifier`. Accept both so the extractor
+    # works across grammar generations.
+    name_fallback_child_types=("simple_identifier", "identifier"),
     body_fallback_child_types=("function_body", "class_body"),
     function_boundary_types=frozenset({"function_declaration"}),
     import_handler=_import_kotlin,
@@ -1069,15 +1073,19 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                                     if sc.type == "simple_identifier":
                                         callee_name = _read_text(sc, source)
             elif config.ts_module == "tree_sitter_kotlin":
-                # Kotlin: first child may be simple_identifier or navigation_expression
+                # Kotlin: first child may be simple_identifier/identifier or
+                # navigation_expression. PyPI's `tree_sitter_kotlin` produces
+                # `identifier` for plain identifier nodes; older grammar
+                # versions (including the JVM `io.github.bonede:tree-sitter-kotlin`
+                # binding) produce `simple_identifier`. Accept both.
                 first = node.children[0] if node.children else None
                 if first:
-                    if first.type == "simple_identifier":
+                    if first.type in ("simple_identifier", "identifier"):
                         callee_name = _read_text(first, source)
                     elif first.type == "navigation_expression":
                         is_member_call = True
                         for child in reversed(first.children):
-                            if child.type == "simple_identifier":
+                            if child.type in ("simple_identifier", "identifier"):
                                 callee_name = _read_text(child, source)
                                 break
             elif config.ts_module == "tree_sitter_scala":
