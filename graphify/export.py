@@ -25,6 +25,22 @@ COMMUNITY_COLORS = [
 MAX_NODES_FOR_VIZ = 5_000
 
 
+def _viz_node_limit() -> int:
+    """Return the effective viz node limit, honoring GRAPHIFY_VIZ_NODE_LIMIT env var.
+
+    Falls back to MAX_NODES_FOR_VIZ when the env var is unset, empty, or non-integer.
+    Set to 0 to disable HTML viz unconditionally (useful for CI runners).
+    """
+    import os
+    raw = os.environ.get("GRAPHIFY_VIZ_NODE_LIMIT")
+    if raw is None or not raw.strip():
+        return MAX_NODES_FOR_VIZ
+    try:
+        return int(raw)
+    except ValueError:
+        return MAX_NODES_FOR_VIZ
+
+
 def _html_styles() -> str:
     return """<style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -395,15 +411,18 @@ def to_html(
 
     Features: node size by degree, click-to-inspect panel, search box,
     community filter, physics clustering by community, confidence-styled edges.
-    Raises ValueError if graph exceeds MAX_NODES_FOR_VIZ.
+    Raises ValueError if graph exceeds the effective viz node limit
+    (MAX_NODES_FOR_VIZ by default; overridable via GRAPHIFY_VIZ_NODE_LIMIT env var).
 
     If member_counts is provided (aggregated community view), node sizes are
     based on community member counts rather than graph degree.
     """
-    if G.number_of_nodes() > MAX_NODES_FOR_VIZ:
+    limit = _viz_node_limit()
+    if G.number_of_nodes() > limit:
         raise ValueError(
-            f"Graph has {G.number_of_nodes()} nodes - too large for HTML viz. "
-            f"Use --no-viz or reduce input size."
+            f"Graph has {G.number_of_nodes()} nodes - too large for HTML viz "
+            f"(limit: {limit}). Use --no-viz, raise GRAPHIFY_VIZ_NODE_LIMIT, "
+            f"or reduce input size."
         )
 
     node_community = _node_community_map(communities)

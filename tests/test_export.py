@@ -1,9 +1,19 @@
 import json
+import os
 import tempfile
+import pytest
 from pathlib import Path
 from graphify.build import build_from_json
 from graphify.cluster import cluster
-from graphify.export import to_json, to_cypher, to_graphml, to_html, to_canvas
+from graphify.export import (
+    to_json,
+    to_cypher,
+    to_graphml,
+    to_html,
+    to_canvas,
+    _viz_node_limit,
+    MAX_NODES_FOR_VIZ,
+)
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -125,6 +135,62 @@ def test_to_html_contains_nodes_and_edges():
         content = out.read_text()
         assert "RAW_NODES" in content
         assert "RAW_EDGES" in content
+
+
+# --- GRAPHIFY_VIZ_NODE_LIMIT env var --------------------------------------------
+
+@pytest.fixture
+def restore_viz_env(monkeypatch):
+    """Ensure each test runs without GRAPHIFY_VIZ_NODE_LIMIT bleeding across cases."""
+    monkeypatch.delenv("GRAPHIFY_VIZ_NODE_LIMIT", raising=False)
+    yield
+
+
+def test_viz_node_limit_default(restore_viz_env):
+    assert _viz_node_limit() == MAX_NODES_FOR_VIZ
+
+
+def test_viz_node_limit_env_override_higher(restore_viz_env, monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_VIZ_NODE_LIMIT", "20000")
+    assert _viz_node_limit() == 20000
+
+
+def test_viz_node_limit_env_override_zero_disables(restore_viz_env, monkeypatch):
+    """Setting to 0 lets users disable HTML viz unconditionally (CI runners)."""
+    monkeypatch.setenv("GRAPHIFY_VIZ_NODE_LIMIT", "0")
+    assert _viz_node_limit() == 0
+
+
+def test_viz_node_limit_invalid_falls_back_to_default(restore_viz_env, monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_VIZ_NODE_LIMIT", "not-an-int")
+    assert _viz_node_limit() == MAX_NODES_FOR_VIZ
+
+
+def test_viz_node_limit_empty_falls_back_to_default(restore_viz_env, monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_VIZ_NODE_LIMIT", "  ")
+    assert _viz_node_limit() == MAX_NODES_FOR_VIZ
+
+
+def test_to_html_raises_with_lowered_limit(restore_viz_env, monkeypatch):
+    """Lowering the limit below the test graph's size triggers ValueError."""
+    G = make_graph()
+    communities = cluster(G)
+    monkeypatch.setenv("GRAPHIFY_VIZ_NODE_LIMIT", "1")
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "graph.html"
+        with pytest.raises(ValueError, match="too large for HTML viz"):
+            to_html(G, communities, str(out))
+
+
+def test_to_html_writes_with_raised_limit(restore_viz_env, monkeypatch):
+    """Raising the limit above the graph's size lets to_html proceed normally."""
+    G = make_graph()
+    communities = cluster(G)
+    monkeypatch.setenv("GRAPHIFY_VIZ_NODE_LIMIT", "100000")
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "graph.html"
+        to_html(G, communities, str(out))
+        assert out.exists()
 
 
 def test_to_html_member_counts_accepted():
