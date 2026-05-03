@@ -1,0 +1,1200 @@
+"""
+生成 graphify Web Console 的 HTML 模板文件
+"""
+from pathlib import Path
+
+# HTML 模板内容
+HTML_TEMPLATE = '''<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>graphify Web Console</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f0f1a;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 20px 0; border-bottom: 1px solid #2a2a4e; margin-bottom: 30px;
+        }
+        .logo h1 { color: #4E79A7; font-size: 28px; font-weight: 600; }
+        nav { display: flex; gap: 8px; }
+        nav button {
+            padding: 10px 20px; background: transparent; border: 1px solid #3a3a5e;
+            color: #aaa; border-radius: 6px; cursor: pointer; font-size: 14px;
+            transition: all 0.2s;
+        }
+        nav button:hover { border-color: #4E79A7; color: #4E79A7; }
+        nav button.active { background: #4E79A7; border-color: #4E79A7; color: white; }
+        .section { display: none; }
+        .section.active { display: block; }
+        .card {
+            background: #1a1a2e; border: 1px solid #2a2a4e;
+            border-radius: 8px; padding: 24px; margin-bottom: 20px;
+        }
+        .card h2 { color: #fff; font-size: 18px; margin-bottom: 16px; font-weight: 500; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; color: #aaa; font-size: 13px; margin-bottom: 8px; }
+        .form-group input[type="text"], .form-group select, .search-box input {
+            width: 100%; padding: 12px 16px; background: #0f0f1a;
+            border: 1px solid #3a3a5e; border-radius: 6px; color: #e0e0e0;
+            font-size: 14px; outline: none;
+        }
+        .form-group input[type="text"]:focus, .form-group select:focus { border-color: #4E79A7; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .btn {
+            padding: 12px 24px; border: none; border-radius: 6px;
+            font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s;
+        }
+        .btn-primary { background: #4E79A7; color: white; }
+        .btn-primary:hover { background: #3d638c; }
+        .btn-secondary { background: transparent; border: 1px solid #3a3a5e; color: #ccc; }
+        .btn-secondary:hover { border-color: #4E79A7; color: #4E79A7; }
+        .btn-success { background: #59A14F; color: white; }
+        .btn-success:hover { background: #4a8a41; }
+        .btn-danger { background: #E15759; color: white; }
+        .btn-group { display: flex; gap: 12px; }
+        .progress-container { margin-bottom: 20px; }
+        .progress-bar {
+            width: 100%; height: 8px; background: #2a2a4e;
+            border-radius: 4px; overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; background: linear-gradient(90deg, #4E79A7, #76B7B2);
+            border-radius: 4px; transition: width 0.3s;
+        }
+        .progress-text {
+            display: flex; justify-content: space-between;
+            color: #888; font-size: 13px; margin-top: 8px;
+        }
+        .progress-step {
+            display: flex; align-items: center; gap: 12px;
+            padding: 12px 16px; background: #0f0f1a;
+            border-radius: 6px; margin-bottom: 8px;
+            border-left: 3px solid #3a3a5e;
+        }
+        .progress-step.active { border-left-color: #4E79A7; background: #1a1a3a; }
+        .progress-step.completed { border-left-color: #59A14F; }
+        .step-indicator {
+            width: 24px; height: 24px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 600;
+            background: #3a3a5e; color: #888;
+        }
+        .progress-step.active .step-indicator { background: #4E79A7; color: white; }
+        .progress-step.completed .step-indicator { background: #59A14F; color: white; }
+        .step-text { color: #ccc; font-size: 14px; }
+        .progress-step.active .step-text { color: #4E79A7; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+        .stat-card {
+            background: linear-gradient(135deg, #1a1a2e, #1a1a3a);
+            border: 1px solid #2a2a4e; border-radius: 8px;
+            padding: 20px; text-align: center;
+        }
+        .stat-value {
+            font-size: 32px; font-weight: 600;
+            color: #4E79A7; margin-bottom: 4px;
+        }
+        .stat-label { color: #888; font-size: 13px; }
+        .status-badge {
+            display: inline-block; padding: 4px 12px;
+            border-radius: 4px; font-size: 12px; font-weight: 500;
+        }
+        .status-completed { background: rgba(89, 161, 79, 0.2); color: #59A14F; }
+        .status-info { background: rgba(78, 121, 167, 0.2); color: #4E79A7; }
+        .project-list { display: flex; flex-direction: column; gap: 12px; }
+        .project-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 16px 20px; background: #0f0f1a;
+            border: 1px solid #2a2a4e; border-radius: 6px;
+            transition: all 0.2s; cursor: pointer;
+        }
+        .project-item:hover { border-color: #4E79A7; background: #1a1a3a; }
+        .project-info h4 { color: #fff; font-size: 15px; margin-bottom: 4px; }
+        .project-info p { color: #888; font-size: 12px; }
+        .empty-state { text-align: center; padding: 60px 20px; color: #666; }
+        .empty-state h3 { color: #888; margin-bottom: 8px; }
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 12px 16px; text-align: left; border-bottom: 1px solid #2a2a4e; }
+        th { color: #888; font-size: 12px; font-weight: 500; text-transform: uppercase; }
+        td { color: #ccc; font-size: 14px; }
+        tr:hover td { background: #1a1a3a; }
+        .node-label { color: #fff; font-weight: 500; }
+        .tabs {
+            display: flex; gap: 4px; margin-bottom: 20px;
+            background: #0f0f1a; padding: 4px; border-radius: 8px;
+            width: fit-content;
+        }
+        .tab {
+            padding: 8px 16px; background: transparent; border: none;
+            color: #888; font-size: 13px; cursor: pointer;
+            border-radius: 6px; transition: all 0.2s;
+        }
+        .tab:hover { color: #ccc; }
+        .tab.active { background: #4E79A7; color: white; }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .search-box { margin-bottom: 20px; position: relative; }
+        .search-box input { padding-left: 44px; }
+        .search-icon {
+            position: absolute; left: 16px; top: 50%;
+            transform: translateY(-50%); color: #666;
+        }
+        .toast {
+            position: fixed; bottom: 20px; right: 20px;
+            padding: 16px 24px; border-radius: 8px;
+            color: white; font-size: 14px; z-index: 1000;
+            display: none; animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .toast-success { background: #59A14F; }
+        .toast-error { background: #E15759; }
+        .toast-info { background: #4E79A7; }
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8); display: none;
+            align-items: center; justify-content: center; z-index: 1000;
+        }
+        .modal.active { display: flex; }
+        .modal-content {
+            background: #1a1a2e; border: 1px solid #2a2a4e;
+            border-radius: 12px; padding: 30px; max-width: 600px;
+            width: 90%; max-height: 80vh; overflow-y: auto;
+        }
+        .modal-header {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 20px;
+        }
+        .modal-header h3 { color: #fff; font-size: 18px; }
+        .modal-close {
+            background: none; border: none; color: #888;
+            font-size: 24px; cursor: pointer; padding: 0; line-height: 1;
+        }
+        .modal-close:hover { color: #fff; }
+        .code-block {
+            background: #0f0f1a; border: 1px solid #2a2a4e;
+            border-radius: 6px; padding: 16px;
+            font-family: monospace; font-size: 13px;
+            line-height: 1.6; overflow-x: auto;
+            white-space: pre-wrap; color: #ccc;
+            max-height: 500px; overflow-y: auto;
+        }
+        .checkbox-group { display: flex; flex-wrap: wrap; gap: 16px; }
+        .checkbox-item { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .checkbox-item input[type="checkbox"] { width: 18px; height: 18px; accent-color: #4E79A7; }
+        .checkbox-item span { color: #ccc; font-size: 14px; }
+        .file-badge {
+            display: inline-flex; align-items: center; gap: 4px;
+            padding: 4px 8px; background: rgba(78, 121, 167, 0.15);
+            border-radius: 4px; font-size: 11px; color: #4E79A7;
+        }
+        .hidden { display: none !important; }
+        .community-card {
+            background: #0f0f1a; border: 1px solid #2a2a4e;
+            border-radius: 8px; padding: 16px; margin-bottom: 12px;
+        }
+        .community-header {
+            display: flex; justify-content: space-between;
+            align-items: center; margin-bottom: 12px;
+        }
+        .community-name { color: #fff; font-weight: 500; }
+        .community-count { color: #888; font-size: 13px; }
+        .color-dot {
+            width: 12px; height: 12px; border-radius: 50%;
+            display: inline-block; margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo"><h1>graphify</h1></div>
+            <nav>
+                <button class="active" data-section="scan">扫描项目</button>
+                <button data-section="projects">项目列表</button>
+                <button data-section="graph">图谱查看</button>
+                <button data-section="search">节点搜索</button>
+                <button data-section="export">导出报告</button>
+            </nav>
+        </header>
+        
+        <!-- 扫描项目 Section -->
+        <section id="section-scan" class="section active">
+            <div class="card">
+                <h2>📂 选择项目目录</h2>
+                <div class="form-group">
+                    <label>项目路径</label>
+                    <input type="text" id="project-path" placeholder="输入项目目录路径" value="d:\\repoList\\graphify\\worked\\example">
+                </div>
+                <div class="form-group">
+                    <label>最近项目</label>
+                    <div class="project-list" id="recent-projects">
+                        <div class="empty-state"><h3>暂无最近项目</h3><p>输入项目路径开始扫描</p></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <h2>⚙️ 扫描选项</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>扫描模式</label>
+                        <select id="scan-mode">
+                            <option value="standard">标准模式</option>
+                            <option value="deep">深度模式</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>图谱类型</label>
+                        <select id="graph-type">
+                            <option value="undirected">无向图</option>
+                            <option value="directed">有向图</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>输出选项</label>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="opt-no-viz">
+                            <span>跳过 HTML 可视化</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="opt-svg">
+                            <span>导出 SVG 格式</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="opt-graphml">
+                            <span>导出 GraphML 格式</span>
+                        </label>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card" id="scan-progress-card" style="display: none;">
+                <h2>🔄 扫描进度</h2>
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill" style="width: 0%"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span id="progress-step">准备中...</span>
+                        <span id="progress-percent">0%</span>
+                    </div>
+                </div>
+                <div id="scan-steps">
+                    <div class="progress-step" data-step="1">
+                        <div class="step-indicator">1</div>
+                        <span class="step-text">检测文件</span>
+                    </div>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-indicator">2</div>
+                        <span class="step-text">提取代码结构 (AST)</span>
+                    </div>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-indicator">3</div>
+                        <span class="step-text">准备提取结果</span>
+                    </div>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-indicator">4</div>
+                        <span class="step-text">构建知识图谱</span>
+                    </div>
+                    <div class="progress-step" data-step="5">
+                        <div class="step-indicator">5</div>
+                        <span class="step-text">社区检测</span>
+                    </div>
+                    <div class="progress-step" data-step="6">
+                        <div class="step-indicator">6</div>
+                        <span class="step-text">分析图谱</span>
+                    </div>
+                    <div class="progress-step" data-step="7">
+                        <div class="step-indicator">7</div>
+                        <span class="step-text">生成报告</span>
+                    </div>
+                    <div class="progress-step" data-step="8">
+                        <div class="step-indicator">8</div>
+                        <span class="step-text">导出图谱</span>
+                    </div>
+                </div>
+                <div class="btn-group" style="margin-top: 20px;">
+                    <button class="btn btn-danger" id="cancel-scan-btn">取消扫描</button>
+                </div>
+            </div>
+            
+            <div class="btn-group">
+                <button class="btn btn-primary" id="start-scan-btn">开始扫描</button>
+                <button class="btn btn-secondary" id="check-existing-btn">检查已有图谱</button>
+            </div>
+            
+            <div id="scan-results" style="display: none; margin-top: 20px;">
+                <div class="card">
+                    <h2>✅ 扫描完成</h2>
+                    <div class="grid-3">
+                        <div class="stat-card">
+                            <div class="stat-value" id="result-nodes">0</div>
+                            <div class="stat-label">节点数</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="result-edges">0</div>
+                            <div class="stat-label">边数</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="result-communities">0</div>
+                            <div class="stat-label">社区数</div>
+                        </div>
+                    </div>
+                    <div class="btn-group" style="margin-top: 20px;">
+                        <button class="btn btn-success" id="view-graph-btn">查看图谱</button>
+                        <button class="btn btn-secondary" id="view-report-btn">查看报告</button>
+                        <button class="btn btn-secondary" id="export-all-btn">导出全部</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 项目列表 Section -->
+        <section id="section-projects" class="section">
+            <div class="card">
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label>搜索路径</label>
+                        <div class="form-row">
+                            <input type="text" id="search-base-path" placeholder="输入搜索根目录" value="d:\\repoList\\graphify">
+                            <button class="btn btn-secondary" id="refresh-projects-btn">刷新</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-list" id="all-projects">
+                    <div class="empty-state"><h3>暂无项目</h3><p>点击刷新按钮搜索项目</p></div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 图谱查看 Section -->
+        <section id="section-graph" class="section">
+            <div class="card">
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label>项目路径</label>
+                        <input type="text" id="graph-project-path" placeholder="输入项目目录路径">
+                    </div>
+                    <div style="display: flex; align-items: flex-end;">
+                        <button class="btn btn-primary" id="load-graph-btn">加载图谱</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="graph-stats-container" style="display: none;">
+                <div class="card">
+                    <h2>📊 图谱统计</h2>
+                    <div class="grid-3">
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-nodes">0</div>
+                            <div class="stat-label">节点</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-edges">0</div>
+                            <div class="stat-label">边</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-communities">0</div>
+                            <div class="stat-label">社区</div>
+                        </div>
+                    </div>
+                    <div class="btn-group" style="margin-top: 20px;">
+                        <button class="btn btn-success" id="open-graph-html-btn">打开交互式图谱</button>
+                        <button class="btn btn-secondary" id="view-god-nodes-btn">查看 God Nodes</button>
+                        <button class="btn btn-secondary" id="view-surprises-btn">查看惊喜连接</button>
+                    </div>
+                </div>
+                
+                <div class="tabs">
+                    <button class="tab active" data-tab="nodes">节点列表</button>
+                    <button class="tab" data-tab="communities">社区列表</button>
+                    <button class="tab" data-tab="god-nodes">God Nodes</button>
+                    <button class="tab" data-tab="surprises">惊喜连接</button>
+                </div>
+                
+                <div class="card">
+                    <div id="tab-nodes" class="tab-content active">
+                        <div class="search-box">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="node-search-input" placeholder="搜索节点...">
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead><tr><th>节点标签</th><th>类型</th><th>来源文件</th><th>社区</th><th>连接数</th></tr></thead>
+                                <tbody id="nodes-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tab-communities" class="tab-content">
+                        <div id="communities-list"><div class="empty-state"><p>加载中...</p></div></div>
+                    </div>
+                    <div id="tab-god-nodes" class="tab-content">
+                        <div id="god-nodes-list"><div class="empty-state"><p>加载中...</p></div></div>
+                    </div>
+                    <div id="tab-surprises" class="tab-content">
+                        <div id="surprises-list"><div class="empty-state"><p>加载中...</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 节点搜索 Section -->
+        <section id="section-search" class="section">
+            <div class="card">
+                <h2>🔍 节点搜索</h2>
+                <div class="form-row">
+                    <div class="form-group" style="flex: 1;">
+                        <label>项目路径</label>
+                        <input type="text" id="search-project-path" placeholder="输入项目目录路径">
+                    </div>
+                </div>
+                <div class="search-box">
+                    <span class="search-icon">🔍</span>
+                    <input type="text" id="global-search-input" placeholder="输入搜索关键词">
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="search-nodes-btn">搜索</button>
+                </div>
+            </div>
+            <div id="search-results-container" style="display: none;">
+                <div class="card">
+                    <h2>搜索结果 <span id="search-results-count" class="status-badge status-completed">0 个结果</span></h2>
+                    <div class="table-container">
+                        <table>
+                            <thead><tr><th>匹配度</th><th>节点标签</th><th>类型</th><th>来源文件</th><th>社区</th><th>连接数</th><th>操作</th></tr></thead>
+                            <tbody id="search-results-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 导出报告 Section -->
+        <section id="section-export" class="section">
+            <div class="card">
+                <h2>📥 导出报告</h2>
+                <div class="form-group">
+                    <label>项目路径</label>
+                    <input type="text" id="export-project-path" placeholder="输入项目目录路径">
+                </div>
+                <div class="form-group">
+                    <label>可用文件</label>
+                    <div id="available-files">
+                        <div class="empty-state"><p>请先输入项目路径</p></div>
+                    </div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" id="download-json-btn">下载 graph.json</button>
+                    <button class="btn btn-secondary" id="download-report-btn">下载 GRAPH_REPORT.md</button>
+                    <button class="btn btn-secondary" id="download-html-btn">下载 graph.html</button>
+                    <button class="btn btn-success" id="download-all-btn">下载全部 (ZIP)</button>
+                </div>
+            </div>
+            <div class="card" id="report-preview-card" style="display: none;">
+                <h2>📄 报告预览</h2>
+                <div class="code-block" id="report-preview">加载中...</div>
+            </div>
+        </section>
+    </div>
+    
+    <!-- 节点详情模态框 -->
+    <div class="modal" id="node-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-node-title">节点详情</h3>
+                <button class="modal-close" id="modal-close">&times;</button>
+            </div>
+            <div id="modal-node-content"></div>
+        </div>
+    </div>
+    
+    <!-- Toast 通知 -->
+    <div class="toast" id="toast"></div>
+    
+    <script>
+        let currentScanId = null;
+        let scanPollingInterval = null;
+        let currentProjectPath = '';
+        const API_BASE = '';
+        const COMMUNITY_COLORS = ['#4E79A7', '#F28E2B', '#E15759', '#76B7B2', '#59A14F', '#EDC948', '#B07AA1', '#FF9DA7', '#9C755F', '#BAB0AC'];
+        
+        const navButtons = document.querySelectorAll('nav button');
+        const sections = document.querySelectorAll('.section');
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            initNavigation();
+            initScanSection();
+            initProjectsSection();
+            initGraphSection();
+            initSearchSection();
+            initExportSection();
+            initModal();
+            loadRecentProjects();
+        });
+        
+        function initNavigation() {
+            navButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const sectionId = btn.dataset.section;
+                    navButtons.forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    sections.forEach(s => s.classList.remove('active'));
+                    document.getElementById(`section-${sectionId}`).classList.add('active');
+                });
+            });
+        }
+        
+        function initScanSection() {
+            document.getElementById('start-scan-btn').addEventListener('click', startScan);
+            document.getElementById('check-existing-btn').addEventListener('click', checkExistingGraph);
+            document.getElementById('cancel-scan-btn').addEventListener('click', cancelScan);
+            document.getElementById('view-graph-btn').addEventListener('click', () => {
+                const path = document.getElementById('project-path').value;
+                switchToSection('graph', path);
+            });
+            document.getElementById('view-report-btn').addEventListener('click', () => {
+                const path = document.getElementById('project-path').value;
+                switchToSection('export', path);
+            });
+            document.getElementById('export-all-btn').addEventListener('click', () => {
+                const path = document.getElementById('project-path').value;
+                downloadAll(path);
+            });
+        }
+        
+        function initProjectsSection() {
+            document.getElementById('refresh-projects-btn').addEventListener('click', loadProjects);
+        }
+        
+        function initGraphSection() {
+            document.getElementById('load-graph-btn').addEventListener('click', loadGraphStats);
+            document.getElementById('open-graph-html-btn').addEventListener('click', openGraphHtml);
+            
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.dataset.tab;
+                    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                    document.getElementById(`tab-${tabId}`).classList.add('active');
+                });
+            });
+            
+            document.getElementById('node-search-input').addEventListener('input', debounce(filterNodes, 300));
+            document.getElementById('view-god-nodes-btn').addEventListener('click', () => {
+                document.querySelector('.tab[data-tab="god-nodes"]').click();
+            });
+            document.getElementById('view-surprises-btn').addEventListener('click', () => {
+                document.querySelector('.tab[data-tab="surprises"]').click();
+            });
+        }
+        
+        function initSearchSection() {
+            document.getElementById('search-nodes-btn').addEventListener('click', performSearch);
+            document.getElementById('global-search-input').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') performSearch();
+            });
+        }
+        
+        function initExportSection() {
+            const pathInput = document.getElementById('export-project-path');
+            pathInput.addEventListener('input', debounce(checkAvailableFiles, 500));
+            
+            document.getElementById('download-json-btn').addEventListener('click', () => {
+                downloadFile(document.getElementById('export-project-path').value, 'graph');
+            });
+            document.getElementById('download-report-btn').addEventListener('click', () => {
+                downloadFile(document.getElementById('export-project-path').value, 'report');
+            });
+            document.getElementById('download-html-btn').addEventListener('click', () => {
+                downloadFile(document.getElementById('export-project-path').value, 'html');
+            });
+            document.getElementById('download-all-btn').addEventListener('click', () => {
+                downloadAll(document.getElementById('export-project-path').value);
+            });
+        }
+        
+        function initModal() {
+            const modal = document.getElementById('node-modal');
+            document.getElementById('modal-close').addEventListener('click', () => {
+                modal.classList.remove('active');
+            });
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) modal.classList.remove('active');
+            });
+        }
+        
+        async function startScan() {
+            const projectPath = document.getElementById('project-path').value.trim();
+            if (!projectPath) {
+                showToast('请输入项目路径', 'error');
+                return;
+            }
+            
+            const mode = document.getElementById('scan-mode').value;
+            const directed = document.getElementById('graph-type').value === 'directed';
+            const noViz = document.getElementById('opt-no-viz').checked;
+            const includeSvg = document.getElementById('opt-svg').checked;
+            const includeGraphml = document.getElementById('opt-graphml').checked;
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/scan`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        project_path: projectPath, mode, directed, no_viz: noViz,
+                        include_svg: includeSvg, include_graphml: includeGraphml
+                    })
+                });
+                
+                const data = await response.json();
+                if (response.ok) {
+                    currentScanId = data.scan_id;
+                    currentProjectPath = projectPath;
+                    
+                    document.getElementById('scan-progress-card').style.display = 'block';
+                    document.getElementById('scan-results').style.display = 'none';
+                    
+                    document.querySelectorAll('.progress-step').forEach(step => {
+                        step.classList.remove('active', 'completed');
+                    });
+                    
+                    startScanPolling();
+                    showToast('扫描已开始', 'info');
+                    saveToRecentProjects(projectPath);
+                } else {
+                    showToast(data.detail || '启动扫描失败', 'error');
+                }
+            } catch (error) {
+                showToast('网络错误: ' + error.message, 'error');
+            }
+        }
+        
+        function startScanPolling() {
+            if (scanPollingInterval) clearInterval(scanPollingInterval);
+            
+            scanPollingInterval = setInterval(async () => {
+                if (!currentScanId) {
+                    clearInterval(scanPollingInterval);
+                    return;
+                }
+                
+                try {
+                    const response = await fetch(`${API_BASE}/api/scan/${currentScanId}`);
+                    const data = await response.json();
+                    
+                    if (response.ok) {
+                        updateScanProgress(data);
+                        
+                        if (data.status === 'completed' || data.status === 'failed' || data.status === 'cancelled') {
+                            clearInterval(scanPollingInterval);
+                            scanPollingInterval = null;
+                            
+                            if (data.status === 'completed' && data.results) {
+                                showScanResults(data.results);
+                            } else if (data.status === 'failed') {
+                                showToast('扫描失败: ' + (data.error_message || '未知错误'), 'error');
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.error('Polling error:', error);
+                }
+            }, 1000);
+        }
+        
+        function updateScanProgress(data) {
+            const percent = Math.round(data.progress * 100);
+            document.getElementById('progress-fill').style.width = `${percent}%`;
+            document.getElementById('progress-percent').textContent = `${percent}%`;
+            document.getElementById('progress-step').textContent = data.current_step;
+            
+            document.querySelectorAll('.progress-step').forEach((step, idx) => {
+                const stepNum = idx + 1;
+                step.classList.remove('active', 'completed');
+                if (stepNum < data.steps_completed) step.classList.add('completed');
+                else if (stepNum === data.steps_completed) step.classList.add('active');
+            });
+        }
+        
+        function showScanResults(results) {
+            document.getElementById('scan-progress-card').style.display = 'none';
+            document.getElementById('scan-results').style.display = 'block';
+            
+            document.getElementById('result-nodes').textContent = results.node_count;
+            document.getElementById('result-edges').textContent = results.edge_count;
+            document.getElementById('result-communities').textContent = results.community_count;
+            
+            showToast('扫描完成！', 'success');
+        }
+        
+        async function cancelScan() {
+            if (!currentScanId) return;
+            try {
+                await fetch(`${API_BASE}/api/scan/${currentScanId}/cancel`);
+                clearInterval(scanPollingInterval);
+                scanPollingInterval = null;
+                showToast('扫描已取消', 'info');
+            } catch (error) {
+                showToast('取消扫描失败', 'error');
+            }
+        }
+        
+        async function checkExistingGraph() {
+            const path = document.getElementById('project-path').value.trim();
+            if (!path) {
+                showToast('请输入项目路径', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/graph/exists?project_path=${encodeURIComponent(path)}`);
+                const data = await response.json();
+                
+                if (data.exists) {
+                    currentProjectPath = path;
+                    document.getElementById('graph-project-path').value = path;
+                    document.getElementById('search-project-path').value = path;
+                    document.getElementById('export-project-path').value = path;
+                    
+                    await loadGraphStats();
+                    switchToSection('graph', path);
+                    showToast('找到已有图谱', 'success');
+                } else {
+                    showToast('未找到已有图谱，请开始扫描', 'info');
+                }
+            } catch (error) {
+                showToast('检查失败: ' + error.message, 'error');
+            }
+        }
+        
+        async function loadProjects() {
+            const basePath = document.getElementById('search-base-path').value.trim();
+            const container = document.getElementById('all-projects');
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/projects?path=${encodeURIComponent(basePath)}`);
+                const data = await response.json();
+                
+                if (data.projects && data.projects.length > 0) {
+                    container.innerHTML = data.projects.map(project => `
+                        <div class="project-item" onclick="selectProject('${project.path}')">
+                            <div class="project-info">
+                                <h4>${project.name}</h4>
+                                <p>${project.path}</p>
+                            </div>
+                            <div class="project-meta">
+                                ${project.has_graph_json ? '<span class="file-badge">📊 graph.json</span>' : ''}
+                                ${project.has_graph_html ? '<span class="file-badge">🌐 graph.html</span>' : ''}
+                                ${project.has_report ? '<span class="file-badge">📄 报告</span>' : ''}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `<div class="empty-state"><h3>未找到项目</h3><p>在 ${basePath} 下未找到包含 graphify-out 的项目</p></div>`;
+                }
+            } catch (error) {
+                container.innerHTML = `<div class="empty-state"><h3>加载失败</h3><p>${error.message}</p></div>`;
+            }
+        }
+        
+        function selectProject(path) {
+            document.getElementById('project-path').value = path;
+            document.getElementById('graph-project-path').value = path;
+            document.getElementById('search-project-path').value = path;
+            document.getElementById('export-project-path').value = path;
+            
+            saveToRecentProjects(path);
+            switchToSection('graph', path);
+        }
+        
+        async function loadGraphStats() {
+            const path = document.getElementById('graph-project-path').value.trim();
+            if (!path) {
+                showToast('请输入项目路径', 'error');
+                return;
+            }
+            
+            currentProjectPath = path;
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/graph/stats?project_path=${encodeURIComponent(path)}`);
+                const stats = await response.json();
+                
+                document.getElementById('stat-nodes').textContent = stats.node_count;
+                document.getElementById('stat-edges').textContent = stats.edge_count;
+                document.getElementById('stat-communities').textContent = stats.community_count;
+                
+                document.getElementById('graph-stats-container').style.display = 'block';
+                
+                await loadNodesList(path);
+                await loadCommunitiesList(path);
+                await loadGodNodes(path);
+                await loadSurprises(path);
+                
+            } catch (error) {
+                showToast('加载图谱失败: ' + error.message, 'error');
+            }
+        }
+        
+        async function loadNodesList(path) {
+            try {
+                const response = await fetch(`${API_BASE}/api/graph/nodes?project_path=${encodeURIComponent(path)}&limit=100`);
+                const data = await response.json();
+                
+                const tbody = document.getElementById('nodes-table-body');
+                tbody.innerHTML = data.nodes.map(node => `
+                    <tr onclick="showNodeDetails('${node.id}', '${encodeURIComponent(path)}')" style="cursor: pointer;">
+                        <td><span class="node-label">${escapeHtml(node.label)}</span></td>
+                        <td>${node.file_type || '-'}</td>
+                        <td>${node.source_file || '-'}</td>
+                        <td>${node.community !== undefined ? `<span class="status-badge status-info">社区 ${node.community}</span>` : '-'}</td>
+                        <td>${node.degree}</td>
+                    </tr>
+                `).join('');
+            } catch (error) {
+                console.error('Load nodes error:', error);
+            }
+        }
+        
+        async function loadCommunitiesList(path) {
+            try {
+                const response = await fetch(`${API_BASE}/api/graph/communities?project_path=${encodeURIComponent(path)}`);
+                const data = await response.json();
+                
+                const container = document.getElementById('communities-list');
+                container.innerHTML = data.communities.map(comm => `
+                    <div class="community-card">
+                        <div class="community-header">
+                            <div>
+                                <span class="color-dot" style="background: ${COMMUNITY_COLORS[comm.community_id % COMMUNITY_COLORS.length]};"></span>
+                                <span class="community-name">${escapeHtml(comm.label)}</span>
+                            </div>
+                            <span class="community-count">${comm.member_count} 个节点</span>
+                        </div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+                            ${comm.top_nodes.map(n => `<span class="file-badge">${escapeHtml(n.label)}</span>`).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Load communities error:', error);
+            }
+        }
+        
+        async function loadGodNodes(path) {
+            try {
+                const response = await fetch(`${API_BASE}/api/graph/god-nodes?project_path=${encodeURIComponent(path)}`);
+                const data = await response.json();
+                
+                const container = document.getElementById('god-nodes-list');
+                container.innerHTML = data.god_nodes.map((node, idx) => `
+                    <div class="community-card">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <span class="status-badge status-completed">#${idx + 1}</span>
+                                <span class="node-label" style="margin-left: 12px;">${escapeHtml(node.label)}</span>
+                            </div>
+                            <span class="community-count">${node.degree} 条连接</span>
+                        </div>
+                    </div>
+                `).join('');
+            } catch (error) {
+                console.error('Load god nodes error:', error);
+            }
+        }
+        
+        async function loadSurprises(path) {
+            try {
+                const response = await fetch(`${API_BASE}/api/graph/surprising-connections?project_path=${encodeURIComponent(path)}`);
+                const data = await response.json();
+                
+                const container = document.getElementById('surprises-list');
+                
+                if (data.surprising_connections && data.surprising_connections.length > 0) {
+                    container.innerHTML = data.surprising_connections.map(s => `
+                        <div class="community-card">
+                            <div style="margin-bottom: 8px;">
+                                <code>${escapeHtml(s.source)}</code>
+                                <span style="color: #4E79A7; margin: 0 8px;">--${s.relation || 'related_to'}--></span>
+                                <code>${escapeHtml(s.target)}</code>
+                            </div>
+                            <div style="color: #888; font-size: 13px;">
+                                ${s.source_files ? s.source_files.join(' → ') : ''}
+                                ${s.note ? `<div style="margin-top: 4px; font-style: italic;">${escapeHtml(s.note)}</div>` : ''}
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    container.innerHTML = `<div class="empty-state"><h3>暂无惊喜连接</h3><p>所有连接都在同一源文件内</p></div>`;
+                }
+            } catch (error) {
+                console.error('Load surprises error:', error);
+            }
+        }
+        
+        async function showNodeDetails(nodeId, encodedPath) {
+            const path = decodeURIComponent(encodedPath);
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/graph/nodes/${nodeId}?project_path=${encodeURIComponent(path)}`);
+                const node = await response.json();
+                
+                const modal = document.getElementById('node-modal');
+                const title = document.getElementById('modal-node-title');
+                const content = document.getElementById('modal-node-content');
+                
+                title.textContent = node.label;
+                
+                content.innerHTML = `
+                    <div class="grid-3" style="margin-bottom: 20px;">
+                        <div class="stat-card">
+                            <div class="stat-value">${node.degree}</div>
+                            <div class="stat-label">连接数</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value">${node.neighbor_count}</div>
+                            <div class="stat-label">邻居数</div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 20px;">
+                        <h3 style="color: #ccc; font-size: 14px; margin-bottom: 12px;">基本信息</h3>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div><span style="color: #888; font-size: 12px;">类型</span><div style="color: #fff;">${node.file_type || '-'}</div></div>
+                            <div><span style="color: #888; font-size: 12px;">社区</span><div style="color: #fff;">${node.community !== undefined ? `社区 ${node.community}` : '-'}</div></div>
+                            <div style="grid-column: span 2;"><span style="color: #888; font-size: 12px;">来源文件</span><div style="color: #fff; font-family: monospace;">${node.source_file || '-'}</div></div>
+                            ${node.source_location ? `<div style="grid-column: span 2;"><span style="color: #888; font-size: 12px;">源代码位置</span><div style="color: #fff; font-family: monospace;">${node.source_location}</div></div>` : ''}
+                        </div>
+                    </div>
+                    ${node.neighbors && node.neighbors.length > 0 ? `
+                    <div>
+                        <h3 style="color: #ccc; font-size: 14px; margin-bottom: 12px;">邻居节点 (${node.neighbors.length})</h3>
+                        <div style="max-height: 300px; overflow-y: auto;">
+                            ${node.neighbors.map(nb => `
+                                <div style="padding: 10px 12px; background: #0f0f1a; border-radius: 6px; margin-bottom: 8px; cursor: pointer;" onclick="showNodeDetails('${nb.id}', '${encodeURIComponent(path)}')">
+                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                        <span style="color: #fff; font-weight: 500;">${escapeHtml(nb.label)}</span>
+                                        <span class="status-badge ${nb.confidence === 'EXTRACTED' ? 'status-completed' : 'status-info'}">${nb.relation || 'related_to'}</span>
+                                    </div>
+                                    ${nb.source_file ? `<div style="color: #888; font-size: 12px; margin-top: 4px;">${nb.source_file}</div>` : ''}
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                    ` : ''}
+                `;
+                
+                modal.classList.add('active');
+            } catch (error) {
+                showToast('获取节点详情失败: ' + error.message, 'error');
+            }
+        }
+        
+        async function performSearch() {
+            const path = document.getElementById('search-project-path').value.trim();
+            const query = document.getElementById('global-search-input').value.trim();
+            
+            if (!path || !query) {
+                showToast('请输入项目路径和搜索关键词', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/graph/nodes/search?project_path=${encodeURIComponent(path)}&query=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                
+                const container = document.getElementById('search-results-container');
+                const countEl = document.getElementById('search-results-count');
+                const tbody = document.getElementById('search-results-table');
+                
+                countEl.textContent = `${data.total} 个结果`;
+                
+                if (data.nodes && data.nodes.length > 0) {
+                    tbody.innerHTML = data.nodes.map(node => `
+                        <tr onclick="showNodeDetails('${node.id}', '${encodeURIComponent(path)}')" style="cursor: pointer;">
+                            <td><span class="status-badge status-info">${node.score.toFixed(1)}</span></td>
+                            <td><span class="node-label">${escapeHtml(node.label)}</span></td>
+                            <td>${node.file_type || '-'}</td>
+                            <td>${node.source_file || '-'}</td>
+                            <td>${node.community !== undefined ? `社区 ${node.community}` : '-'}</td>
+                            <td>${node.degree}</td>
+                            <td><button class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="event.stopPropagation(); showNodeDetails('${node.id}', '${encodeURIComponent(path)}')">查看</button></td>
+                        </tr>
+                    `).join('');
+                } else {
+                    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; padding: 40px; color: #666;">未找到匹配的节点</td></tr>`;
+                }
+                
+                container.style.display = 'block';
+            } catch (error) {
+                showToast('搜索失败: ' + error.message, 'error');
+            }
+        }
+        
+        async function checkAvailableFiles() {
+            const path = document.getElementById('export-project-path').value.trim();
+            const container = document.getElementById('available-files');
+            
+            if (!path) {
+                container.innerHTML = `<div class="empty-state"><p>请输入项目路径</p></div>`;
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/graph/exists?project_path=${encodeURIComponent(path)}`);
+                const data = await response.json();
+                
+                if (data.exists) {
+                    let filesHtml = '<div style="display: flex; flex-wrap: wrap; gap: 12px;">';
+                    
+                    try {
+                        const reportResp = await fetch(`${API_BASE}/api/report?project_path=${encodeURIComponent(path)}&format=text`);
+                        if (reportResp.ok) {
+                            const reportData = await reportResp.json();
+                            filesHtml += `<div class="file-badge" style="padding: 8px 12px;">📄 GRAPH_REPORT.md</div>`;
+                            document.getElementById('report-preview').textContent = reportData.content.substring(0, 3000) + (reportData.content.length > 3000 ? '\\n... (内容已截断)' : '');
+                            document.getElementById('report-preview-card').style.display = 'block';
+                        }
+                    } catch (e) {
+                        console.error('Report check error:', e);
+                    }
+                    
+                    filesHtml += `<div class="file-badge" style="padding: 8px 12px;">📊 graph.json</div></div>`;
+                    container.innerHTML = filesHtml;
+                } else {
+                    container.innerHTML = `<div class="empty-state"><h3>未找到输出文件</h3><p>该项目尚未执行过扫描</p></div>`;
+                    document.getElementById('report-preview-card').style.display = 'none';
+                }
+            } catch (error) {
+                container.innerHTML = `<div class="empty-state"><p>检查失败: ${error.message}</p></div>`;
+            }
+        }
+        
+        function downloadFile(path, type) {
+            let endpoint = '';
+            switch (type) {
+                case 'graph': endpoint = '/api/export/graph'; break;
+                case 'report': endpoint = '/api/export/report'; break;
+                case 'html': endpoint = '/api/export/html'; break;
+            }
+            window.open(`${API_BASE}${endpoint}?project_path=${encodeURIComponent(path)}`, '_blank');
+            showToast(`正在下载文件`, 'info');
+        }
+        
+        function downloadAll(path) {
+            window.open(`${API_BASE}/api/export/all?project_path=${encodeURIComponent(path)}`, '_blank');
+            showToast('正在下载所有文件 (ZIP)', 'info');
+        }
+        
+        function openGraphHtml() {
+            const path = document.getElementById('graph-project-path').value.trim();
+            if (!path) {
+                showToast('请输入项目路径', 'error');
+                return;
+            }
+            window.open(`${API_BASE}/api/view/graph?project_path=${encodeURIComponent(path)}`, '_blank');
+        }
+        
+        function filterNodes() {
+            const query = document.getElementById('node-search-input').value.toLowerCase();
+            const rows = document.querySelectorAll('#nodes-table-body tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query) ? '' : 'none';
+            });
+        }
+        
+        function switchToSection(sectionId, path = null) {
+            navButtons.forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.section === sectionId);
+            });
+            sections.forEach(s => {
+                s.classList.toggle('active', s.id === `section-${sectionId}`);
+            });
+            if (path) {
+                document.getElementById('graph-project-path').value = path;
+                document.getElementById('search-project-path').value = path;
+                document.getElementById('export-project-path').value = path;
+            }
+        }
+        
+        function saveToRecentProjects(path) {
+            let recent = JSON.parse(localStorage.getItem('graphify_recent') || '[]');
+            recent = recent.filter(p => p !== path);
+            recent.unshift(path);
+            recent = recent.slice(0, 5);
+            localStorage.setItem('graphify_recent', JSON.stringify(recent));
+            loadRecentProjects();
+        }
+        
+        function loadRecentProjects() {
+            const recent = JSON.parse(localStorage.getItem('graphify_recent') || '[]');
+            const container = document.getElementById('recent-projects');
+            
+            if (recent.length > 0) {
+                container.innerHTML = recent.map(path => {
+                    const parts = path.split(/[\\\\\\/]/);
+                    const name = parts[parts.length - 1] || path;
+                    return `
+                        <div class="project-item" onclick="selectProject('${path}')">
+                            <div class="project-info">
+                                <h4>${name}</h4>
+                                <p>${path}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            } else {
+                container.innerHTML = `<div class="empty-state"><h3>暂无最近项目</h3><p>输入项目路径开始扫描</p></div>`;
+            }
+        }
+        
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast toast-${type}`;
+            toast.style.display = 'block';
+            setTimeout(() => { toast.style.display = 'none'; }, 3000);
+        }
+        
+        function escapeHtml(text) {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+        
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => { clearTimeout(timeout); func(...args); };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
+        }
+    </script>
+</body>
+</html>
+'''
+
+# 写入文件
+def write_html_template():
+    template_path = Path('d:/repoList/graphify/graphify/web/templates/index.html')
+    template_path.write_text(HTML_TEMPLATE, encoding='utf-8')
+    print(f'HTML 模板已写入: {template_path}')
+
+if __name__ == '__main__':
+    write_html_template()

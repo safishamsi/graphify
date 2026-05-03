@@ -1102,6 +1102,10 @@ def main() -> None:
         print("  pi install              write skill to ~/.pi/agent/skills/graphify/ (Pi coding agent)")
         print("  pi uninstall            remove skill from ~/.pi/agent/skills/graphify/")
         print()
+        print("  web                     start the graphify Web Console (visual interface)")
+        print("    --host HOST           host to bind to (default: 127.0.0.1)")
+        print("    --port PORT           port to use (default: 8000)")
+        print()
         return
 
     cmd = sys.argv[1]
@@ -1671,6 +1675,61 @@ def main() -> None:
                 i += 1
         local_path = _clone_repo(url, branch=branch, out_dir=out_dir)
         print(local_path)
+
+    elif cmd == "web":
+        host = "127.0.0.1"
+        port = 8000
+        args = sys.argv[2:]
+        i = 0
+        while i < len(args):
+            if args[i] == "--host" and i + 1 < len(args):
+                host = args[i + 1]
+                i += 2
+            elif args[i].startswith("--host="):
+                host = args[i].split("=", 1)[1]
+                i += 1
+            elif args[i] == "--port" and i + 1 < len(args):
+                try:
+                    port = int(args[i + 1])
+                except ValueError:
+                    print(f"error: --port must be an integer", file=sys.stderr)
+                    sys.exit(1)
+                i += 2
+            elif args[i].startswith("--port="):
+                try:
+                    port = int(args[i].split("=", 1)[1])
+                except ValueError:
+                    print(f"error: --port must be an integer", file=sys.stderr)
+                    sys.exit(1)
+                i += 1
+            elif args[i] in ("-h", "--help"):
+                print("Usage: graphify web [--host HOST] [--port PORT]")
+                print("  --host HOST           host to bind to (default: 127.0.0.1)")
+                print("  --port PORT           port to use (default: 8000)")
+                return
+            else:
+                i += 1
+        
+        print("Starting graphify Web Console...")
+        print(f"  URL: http://{host}:{port}")
+        print()
+        print("Features:")
+        print("  - Scan projects and build knowledge graphs")
+        print("  - View graphs and search nodes")
+        print("  - Export graph.json and GRAPH_REPORT.md")
+        print()
+        print("Press Ctrl+C to stop the server.")
+        print()
+        
+        try:
+            import uvicorn
+            from graphify.web_console import app
+            uvicorn.run(app, host=host, port=port)
+        except ImportError as e:
+            print(f"error: missing dependencies: {e}", file=sys.stderr)
+            print("Install required packages with:", file=sys.stderr)
+            print("  pip install fastapi uvicorn python-multipart", file=sys.stderr)
+            sys.exit(1)
 
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
