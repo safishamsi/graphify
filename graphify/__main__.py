@@ -1073,6 +1073,7 @@ def main() -> None:
         print("    --label NAME            project label in header")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
+        print("    --with-wiki             also rebuild the wiki on each commit (#549)")
         print("  hook uninstall          remove git hooks")
         print("  hook status             check if git hooks are installed")
         print("  gemini install          write GEMINI.md section + BeforeTool hook (Gemini CLI)")
@@ -1238,13 +1239,14 @@ def main() -> None:
         from graphify.hooks import install as hook_install, uninstall as hook_uninstall, status as hook_status
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
-            print(hook_install(Path(".")))
+            with_wiki = "--with-wiki" in sys.argv[3:]
+            print(hook_install(Path("."), with_wiki=with_wiki))
         elif subcmd == "uninstall":
             print(hook_uninstall(Path(".")))
         elif subcmd == "status":
             print(hook_status(Path(".")))
         else:
-            print("Usage: graphify hook [install|uninstall|status]", file=sys.stderr)
+            print("Usage: graphify hook [install [--with-wiki] | uninstall | status]", file=sys.stderr)
             sys.exit(1)
     elif cmd == "query":
         if len(sys.argv) < 3:
