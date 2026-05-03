@@ -242,18 +242,17 @@
                 <h2>⚙️ 扫描选项</h2>
                 <div class="form-row">
                     <div class="form-group">
-                        <label>扫描模式</label>
-                        <select id="scan-mode">
-                            <option value="standard">标准模式</option>
-                            <option value="deep">深度模式</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
                         <label>图谱类型</label>
                         <select id="graph-type">
                             <option value="undirected">无向图</option>
                             <option value="directed">有向图</option>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label>LLM 后端状态</label>
+                        <div id="backend-status" style="padding: 10px; background: #0f0f1a; border-radius: 6px;">
+                            <span style="color: #888;">检查中...</span>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -271,6 +270,30 @@
                             <input type="checkbox" id="opt-graphml">
                             <span>导出 GraphML 格式</span>
                         </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" id="opt-obsidian">
+                            <span>导出 Obsidian 格式</span>
+                        </label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label style="display: flex; align-items: center; justify-content: space-between;">
+                        <span>关于语义提取</span>
+                        <button type="button" class="btn btn-secondary" style="padding: 6px 12px; font-size: 12px;" onclick="toggleSemanticInfo()">ℹ️ 详情</button>
+                    </label>
+                    <div id="semantic-info" style="display: none; margin-top: 12px; padding: 12px; background: #0f0f1a; border-radius: 6px; font-size: 13px; line-height: 1.6;">
+                        <p style="color: #aaa; margin-bottom: 8px;"><strong>完整扫描流程：</strong></p>
+                        <ul style="color: #888; padding-left: 20px; margin-bottom: 12px;">
+                            <li>代码文件 → AST 结构提取（无需 API）</li>
+                            <li>文档/图片/论文 → 语义提取（需要 LLM API）</li>
+                            <li>音视频文件 → 转录后语义提取（需要 API）</li>
+                        </ul>
+                        <p style="color: #aaa; margin-bottom: 8px;"><strong>支持的后端：</strong></p>
+                        <ul style="color: #888; padding-left: 20px;">
+                            <li><code>MOONSHOT_API_KEY</code> → Kimi (月之暗面)</li>
+                            <li><code>ANTHROPIC_API_KEY</code> → Claude</li>
+                        </ul>
+                        <p style="color: #666; margin-top: 12px; font-style: italic;">未设置 API Key 时，仅提取代码结构，非代码文件将被跳过。</p>
                     </div>
                 </div>
             </div>
@@ -293,30 +316,38 @@
                     </div>
                     <div class="progress-step" data-step="2">
                         <div class="step-indicator">2</div>
-                        <span class="step-text">提取代码结构 (AST)</span>
+                        <span class="step-text">音视频转录</span>
                     </div>
                     <div class="progress-step" data-step="3">
                         <div class="step-indicator">3</div>
-                        <span class="step-text">准备提取结果</span>
+                        <span class="step-text">提取代码结构 (AST)</span>
                     </div>
                     <div class="progress-step" data-step="4">
                         <div class="step-indicator">4</div>
-                        <span class="step-text">构建知识图谱</span>
+                        <span class="step-text">检查语义提取</span>
                     </div>
                     <div class="progress-step" data-step="5">
                         <div class="step-indicator">5</div>
-                        <span class="step-text">社区检测</span>
+                        <span class="step-text">语义提取 (LLM)</span>
                     </div>
                     <div class="progress-step" data-step="6">
                         <div class="step-indicator">6</div>
-                        <span class="step-text">分析图谱</span>
+                        <span class="step-text">合并提取结果</span>
                     </div>
                     <div class="progress-step" data-step="7">
                         <div class="step-indicator">7</div>
-                        <span class="step-text">生成报告</span>
+                        <span class="step-text">构建知识图谱</span>
                     </div>
                     <div class="progress-step" data-step="8">
                         <div class="step-indicator">8</div>
+                        <span class="step-text">社区检测</span>
+                    </div>
+                    <div class="progress-step" data-step="9">
+                        <div class="step-indicator">9</div>
+                        <span class="step-text">生成报告</span>
+                    </div>
+                    <div class="progress-step" data-step="10">
+                        <div class="step-indicator">10</div>
                         <span class="step-text">导出图谱</span>
                     </div>
                 </div>
@@ -537,7 +568,34 @@
             initExportSection();
             initModal();
             loadRecentProjects();
+            loadBackendStatus();
         });
+        
+        async function loadBackendStatus() {
+            try {
+                const response = await fetch(`${API_BASE}/api/backend/status`);
+                const data = await response.json();
+                const statusEl = document.getElementById('backend-status');
+                
+                if (data.backend_available) {
+                    statusEl.innerHTML = `<span style="color: #59A14F;">✅ 已连接: ${data.backend}</span>`;
+                } else {
+                    statusEl.innerHTML = `<span style="color: #E15759;">⚠️ 未设置 API Key</span>`;
+                }
+            } catch (error) {
+                const statusEl = document.getElementById('backend-status');
+                statusEl.innerHTML = `<span style="color: #888;">状态未知</span>`;
+            }
+        }
+        
+        function toggleSemanticInfo() {
+            const infoEl = document.getElementById('semantic-info');
+            if (infoEl.style.display === 'none') {
+                infoEl.style.display = 'block';
+            } else {
+                infoEl.style.display = 'none';
+            }
+        }
         
         function initNavigation() {
             navButtons.forEach(btn => {
@@ -638,19 +696,23 @@
                 return;
             }
             
-            const mode = document.getElementById('scan-mode').value;
             const directed = document.getElementById('graph-type').value === 'directed';
             const noViz = document.getElementById('opt-no-viz').checked;
             const includeSvg = document.getElementById('opt-svg').checked;
             const includeGraphml = document.getElementById('opt-graphml').checked;
+            const includeObsidian = document.getElementById('opt-obsidian').checked;
             
             try {
                 const response = await fetch(`${API_BASE}/api/scan`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        project_path: projectPath, mode, directed, no_viz: noViz,
-                        include_svg: includeSvg, include_graphml: includeGraphml
+                        project_path: projectPath,
+                        directed: directed,
+                        no_viz: noViz,
+                        include_obsidian: includeObsidian,
+                        include_svg: includeSvg,
+                        include_graphml: includeGraphml
                     })
                 });
                 

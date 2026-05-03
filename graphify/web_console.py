@@ -3,7 +3,7 @@ graphify Web Console - A web interface for graphify knowledge graph tool.
 Provides a user-friendly interface to scan projects, view graphs, and export reports.
 """
 from __future__ import annotations
-import asyncio
+
 import json
 import os
 import shutil
@@ -11,36 +11,35 @@ import sys
 import tempfile
 import threading
 import uuid
+import time
 from datetime import datetime
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 from zipfile import ZipFile
 
 import networkx as nx
-from fastapi import FastAPI, HTTPException, Query, BackgroundTasks
+from fastapi import FastAPI, HTTPException, Query
 from fastapi.responses import FileResponse, JSONResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from networkx.readwrite import json_graph
 
-# Import existing graphify modules
-from graphify.detect import detect, detect_incremental
+from graphify.detect import detect
 from graphify.build import build_from_json
 from graphify.cluster import cluster, score_all
 from graphify.analyze import god_nodes, surprising_connections, suggest_questions
 from graphify.report import generate
-from graphify.export import to_json, to_html, to_graphml, to_svg
+from graphify.export import to_json, to_html, to_graphml, to_svg, to_obsidian, to_canvas
 
-# Global state for scan tracking
 scan_sessions: Dict[str, Dict[str, Any]] = {}
+scan_cancel_events: Dict[str, threading.Event] = {}
 active_scans: Dict[str, threading.Thread] = {}
 scan_lock = threading.Lock()
 
 
 class ScanRequest(BaseModel):
     project_path: str
-    mode: str = "standard"  # standard, deep
     directed: bool = False
     no_viz: bool = False
     include_obsidian: bool = False
@@ -56,7 +55,7 @@ class NodeSearchRequest(BaseModel):
 
 class ScanStatus(BaseModel):
     scan_id: str
-    status: str  # pending, running, completed, failed, cancelled
+    status: str
     project_path: str
     progress: float
     current_step: str
@@ -68,14 +67,12 @@ class ScanStatus(BaseModel):
     results: Optional[Dict[str, Any]] = None
 
 
-# Initialize FastAPI app
 app = FastAPI(
     title="graphify Web Console",
     description="Web interface for graphify knowledge graph tool",
     version="0.1.0",
 )
 
-# Add CORS middleware for development
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -84,38 +81,31 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Create static and templates directories if they don't exist
 STATIC_DIR = Path(__file__).parent / "web" / "static"
 TEMPLATES_DIR = Path(__file__).parent / "web" / "templates"
 STATIC_DIR.mkdir(parents=True, exist_ok=True)
 TEMPLATES_DIR.mkdir(parents=True, exist_ok=True)
 
-# Mount static files
 app.mount("/static", StaticFiles(directory=str(STATIC_DIR)), name="static")
 
 
 def _get_graph_path(project_path: str) -> Path:
-    """Get the path to graph.json for a project."""
     return Path(project_path) / "graphify-out" / "graph.json"
 
 
 def _get_report_path(project_path: str) -> Path:
-    """Get the path to GRAPH_REPORT.md for a project."""
     return Path(project_path) / "graphify-out" / "GRAPH_REPORT.md"
 
 
 def _get_graph_html_path(project_path: str) -> Path:
-    """Get the path to graph.html for a project."""
     return Path(project_path) / "graphify-out" / "graph.html"
 
 
 def _get_output_dir(project_path: str) -> Path:
-    """Get the output directory for a project."""
     return Path(project_path) / "graphify-out"
 
 
 def _load_graph(graph_path: str) -> nx.Graph:
-    """Load a graph from JSON file."""
     try:
         resolved = Path(graph_path).resolve()
         if not resolved.exists():
@@ -135,7 +125,6 @@ def _load_graph(graph_path: str) -> nx.Graph:
 
 
 def _communities_from_graph(G: nx.Graph) -> Dict[int, List[str]]:
-    """Reconstruct community dict from community property stored on nodes."""
     communities: Dict[int, List[str]] = {}
     for node_id, data in G.nodes(data=True):
         cid = data.get("community")
@@ -145,14 +134,12 @@ def _communities_from_graph(G: nx.Graph) -> Dict[int, List[str]]:
 
 
 def _strip_diacritics(text: str) -> str:
-    """Strip diacritics from text for case-insensitive search."""
     import unicodedata
     nfkd = unicodedata.normalize("NFKD", text)
     return "".join(c for c in nfkd if not unicodedata.combining(c))
 
 
 def _score_nodes(G: nx.Graph, terms: List[str]) -> List[tuple]:
-    """Score nodes based on search terms."""
     scored = []
     norm_terms = [_strip_diacritics(t).lower() for t in terms]
     for nid, data in G.nodes(data=True):
@@ -163,7 +150,6 @@ def _score_nodes(G: nx.Graph, terms: List[str]) -> List[tuple]:
         score = sum(1 for t in norm_terms if t in norm_label) + sum(
             0.5 for t in norm_terms if t in source
         )
-        # Exact match bonus
         if any(t == norm_label or t == norm_label.rstrip("()") for t in norm_terms):
             score += 100.0
         if score > 0:
@@ -171,11 +157,130 @@ def _score_nodes(G: nx.Graph, terms: List[str]) -> List[tuple]:
     return sorted(scored, reverse=True)
 
 
-# === Scan Worker ===
+def _is_cancelled(scan_id: str) -> bool:
+    with scan_lock:
+        if scan_id in scan_cancel_events:
+            return scan_cancel_events[scan_id].is_set()
+    return False
+
+
+def _check_cancel_and_sleep(scan_id: str, sleep_seconds: float = 0.1):
+    if _is_cancelled(scan_id):
+        raise InterruptedError("Scan cancelled by user")
+    if sleep_seconds > 0:
+        time.sleep(sleep_seconds)
+
+
+def _update_scan_status(scan_id: str, step: int, total: int, message: str):
+    with scan_lock:
+        if scan_id in scan_sessions:
+            scan_sessions[scan_id].update({
+                "progress": step / total,
+                "current_step": message,
+                "steps_completed": step,
+                "total_steps": total,
+            })
+
+
+def _detect_backend() -> Optional[str]:
+    if os.environ.get("MOONSHOT_API_KEY"):
+        return "kimi"
+    if os.environ.get("ANTHROPIC_API_KEY"):
+        return "claude"
+    return None
+
+
+def _transcribe_video_files(
+    scan_id: str,
+    video_files: List[str],
+    output_dir: Path,
+) -> List[str]:
+    if not video_files:
+        return []
+    
+    try:
+        from graphify.transcribe import transcribe_all
+    except ImportError as e:
+        print(f"Warning: Video transcription not available: {e}")
+        print("Install video support with: pip install 'graphifyy[video]'")
+        return []
+    
+    try:
+        _check_cancel_and_sleep(scan_id, 0)
+        transcript_paths = transcribe_all(video_files, output_dir=output_dir / "transcripts")
+        return transcript_paths
+    except Exception as e:
+        print(f"Warning: Transcription failed: {e}")
+        return []
+
+
+def _get_all_files_for_semantic_extraction(detection_result: dict, transcript_paths: List[str]) -> List[Path]:
+    all_files = []
+    
+    for file_type in ["document", "paper", "image"]:
+        files = detection_result.get("files", {}).get(file_type, [])
+        for f in files:
+            p = Path(f)
+            if p.exists():
+                all_files.append(p)
+    
+    for t in transcript_paths:
+        p = Path(t)
+        if p.exists():
+            all_files.append(p)
+    
+    return all_files
+
+
+def _run_semantic_extraction(
+    scan_id: str,
+    files: List[Path],
+    root: Path,
+    backend: str,
+) -> dict:
+    if not files:
+        return {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+    
+    try:
+        from graphify.llm import extract_corpus_parallel
+    except ImportError as e:
+        print(f"Warning: LLM extraction not available: {e}")
+        if backend == "kimi":
+            print("Install Kimi support with: pip install openai tiktoken")
+        elif backend == "claude":
+            print("Install Claude support with: pip install anthropic")
+        return {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+    
+    total = len(files)
+    completed = 0
+    results = []
+    
+    def _on_chunk_done(idx: int, total_chunks: int, chunk_result: dict):
+        nonlocal completed
+        completed += 1
+        print(f"[semantic] Chunk {idx + 1}/{total_chunks} done: {len(chunk_result.get('nodes', []))} nodes")
+    
+    try:
+        _check_cancel_and_sleep(scan_id, 0)
+        result = extract_corpus_parallel(
+            files,
+            backend=backend,
+            root=root,
+            max_concurrency=4,
+            on_chunk_done=_on_chunk_done,
+        )
+        return result
+    except InterruptedError:
+        raise
+    except Exception as e:
+        print(f"Warning: Semantic extraction failed: {e}")
+        import traceback
+        traceback.print_exc()
+        return {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
 
 
 def run_scan(scan_id: str, request: ScanRequest):
-    """Run the full graphify scan pipeline in a background thread."""
+    total_steps = 10
     try:
         with scan_lock:
             scan_sessions[scan_id] = {
@@ -185,33 +290,44 @@ def run_scan(scan_id: str, request: ScanRequest):
                 "progress": 0.0,
                 "current_step": "Initializing...",
                 "steps_completed": 0,
-                "total_steps": 8,
+                "total_steps": total_steps,
                 "start_time": datetime.now(),
                 "error_message": None,
                 "results": None,
             }
+            scan_cancel_events[scan_id] = threading.Event()
 
         project_path = Path(request.project_path)
         output_dir = project_path / "graphify-out"
         output_dir.mkdir(parents=True, exist_ok=True)
+        
+        (output_dir / ".graphify_root").write_text(str(project_path.resolve()), encoding="utf-8")
 
-        # Step 1: Detect files
-        _update_scan_status(scan_id, 1, 8, "Detecting files...")
+        _check_cancel_and_sleep(scan_id, 0.01)
+
+        _update_scan_status(scan_id, 1, total_steps, "Detecting files...")
         detection_result = detect(project_path)
-
-        # Save detection result
+        
         (output_dir / ".graphify_detect.json").write_text(
             json.dumps(detection_result, indent=2), encoding="utf-8"
         )
 
-        # Check if we have files to process
         if detection_result.get("total_files", 0) == 0:
             raise ValueError(f"No supported files found in {project_path}")
 
-        # Step 2: Extract code (AST)
-        _update_scan_status(scan_id, 2, 8, "Extracting code structure (AST)...")
+        _check_cancel_and_sleep(scan_id, 0.01)
+
+        video_files = detection_result.get("files", {}).get("video", [])
+        transcript_paths = []
+        if video_files:
+            _update_scan_status(scan_id, 2, total_steps, f"Transcribing {len(video_files)} video/audio file(s)...")
+            transcript_paths = _transcribe_video_files(scan_id, video_files, output_dir)
+            print(f"Transcribed: {len(transcript_paths)} files")
         
-        # Import extract module
+        _check_cancel_and_sleep(scan_id, 0.01)
+
+        _update_scan_status(scan_id, 3, total_steps, "Extracting code structure (AST)...")
+        
         from graphify.extract import collect_files, extract
         
         code_files = []
@@ -224,64 +340,111 @@ def run_scan(scan_id: str, request: ScanRequest):
         ast_result = {"nodes": [], "edges": [], "input_tokens": 0, "output_tokens": 0}
         if code_files:
             try:
+                _check_cancel_and_sleep(scan_id, 0.01)
                 ast_result = extract(code_files, cache_root=Path("."))
             except Exception as e:
                 print(f"Warning: AST extraction failed: {e}")
         
-        # Save AST result
         (output_dir / ".graphify_ast.json").write_text(
             json.dumps(ast_result, indent=2), encoding="utf-8"
         )
-
-        # Step 3: For now, we'll skip semantic extraction since it requires LLM/subagents
-        # In a real implementation, this would dispatch to subagents
-        _update_scan_status(scan_id, 3, 8, "Preparing extraction results...")
         
-        # Create merged extraction (just AST for now)
+        print(f"AST: {len(ast_result.get('nodes', []))} nodes, {len(ast_result.get('edges', []))} edges")
+        
+        _check_cancel_and_sleep(scan_id, 0.01)
+
+        _update_scan_status(scan_id, 4, total_steps, "Checking for semantic extraction...")
+        
+        semantic_files = _get_all_files_for_semantic_extraction(detection_result, transcript_paths)
+        semantic_result = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+        
+        backend = _detect_backend()
+        if semantic_files and backend:
+            _update_scan_status(
+                scan_id, 
+                5, 
+                total_steps, 
+                f"Semantic extraction on {len(semantic_files)} files using {backend}..."
+            )
+            print(f"Semantic extraction: {len(semantic_files)} files, backend={backend}")
+            
+            try:
+                _check_cancel_and_sleep(scan_id, 0.01)
+                semantic_result = _run_semantic_extraction(
+                    scan_id, 
+                    semantic_files, 
+                    project_path, 
+                    backend
+                )
+            except InterruptedError:
+                raise
+            except Exception as e:
+                print(f"Warning: Semantic extraction failed: {e}")
+        elif semantic_files:
+            print(f"Note: {len(semantic_files)} non-code files detected but no LLM API key set.")
+            print("      Set MOONSHOT_API_KEY (Kimi) or ANTHROPIC_API_KEY (Claude) for semantic extraction.")
+            print("      Proceeding with AST-only extraction (code files only).")
+        else:
+            print("No non-code files - AST-only extraction is complete.")
+        
+        print(f"Semantic: {len(semantic_result.get('nodes', []))} nodes, {len(semantic_result.get('edges', []))} edges")
+        
+        _check_cancel_and_sleep(scan_id, 0.01)
+
+        _update_scan_status(scan_id, 6, total_steps, "Merging extraction results...")
+        
+        seen_ids = {n["id"] for n in ast_result.get("nodes", [])}
+        merged_nodes = list(ast_result.get("nodes", []))
+        
+        for n in semantic_result.get("nodes", []):
+            if n["id"] not in seen_ids:
+                merged_nodes.append(n)
+                seen_ids.add(n["id"])
+        
         merged_extraction = {
-            "nodes": ast_result.get("nodes", []),
-            "edges": ast_result.get("edges", []),
-            "hyperedges": [],
-            "input_tokens": ast_result.get("input_tokens", 0),
-            "output_tokens": ast_result.get("output_tokens", 0),
+            "nodes": merged_nodes,
+            "edges": ast_result.get("edges", []) + semantic_result.get("edges", []),
+            "hyperedges": semantic_result.get("hyperedges", []),
+            "input_tokens": ast_result.get("input_tokens", 0) + semantic_result.get("input_tokens", 0),
+            "output_tokens": ast_result.get("output_tokens", 0) + semantic_result.get("output_tokens", 0),
         }
         
-        # Save merged extraction
         (output_dir / ".graphify_extract.json").write_text(
             json.dumps(merged_extraction, indent=2), encoding="utf-8"
         )
+        
+        print(f"Merged: {len(merged_extraction['nodes'])} nodes, {len(merged_extraction['edges'])} edges")
+        
+        _check_cancel_and_sleep(scan_id, 0.01)
 
-        # Step 4: Build graph
-        _update_scan_status(scan_id, 4, 8, "Building knowledge graph...")
+        _update_scan_status(scan_id, 7, total_steps, "Building knowledge graph...")
         G = build_from_json(merged_extraction, directed=request.directed)
 
-        # Check if graph is empty
         if G.number_of_nodes() == 0:
             raise ValueError(
                 "Graph is empty - extraction produced no nodes. "
                 "Possible causes: all files were skipped, binary-only corpus, or extraction failed."
             )
 
-        # Step 5: Cluster
-        _update_scan_status(scan_id, 5, 8, "Running community detection...")
+        _check_cancel_and_sleep(scan_id, 0.01)
+
+        _update_scan_status(scan_id, 8, total_steps, "Running community detection...")
         communities = cluster(G)
         cohesion = score_all(G, communities)
 
-        # Step 6: Analyze
-        _update_scan_status(scan_id, 6, 8, "Analyzing graph...")
+        _check_cancel_and_sleep(scan_id, 0.01)
+
+        _update_scan_status(scan_id, 9, total_steps, "Generating report...")
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)
         labels = {cid: f"Community {cid}" for cid in communities}
         questions = suggest_questions(G, communities, labels)
 
-        # Token cost
         token_cost = {
             "input": merged_extraction.get("input_tokens", 0),
             "output": merged_extraction.get("output_tokens", 0),
         }
 
-        # Step 7: Generate report
-        _update_scan_status(scan_id, 7, 8, "Generating report...")
         report = generate(
             G,
             communities,
@@ -297,13 +460,12 @@ def run_scan(scan_id: str, request: ScanRequest):
         report_path = output_dir / "GRAPH_REPORT.md"
         report_path.write_text(report, encoding="utf-8")
 
-        # Step 8: Export outputs
-        _update_scan_status(scan_id, 8, 8, "Exporting graph outputs...")
+        _check_cancel_and_sleep(scan_id, 0.01)
+
+        _update_scan_status(scan_id, 10, total_steps, "Exporting graph outputs...")
         
-        # Export JSON
         to_json(G, communities, str(output_dir / "graph.json"))
         
-        # Export HTML if not disabled
         if not request.no_viz:
             try:
                 to_html(
@@ -315,7 +477,6 @@ def run_scan(scan_id: str, request: ScanRequest):
             except Exception as e:
                 print(f"Warning: HTML generation failed: {e}")
         
-        # Export optional formats
         if request.include_svg:
             try:
                 to_svg(
@@ -336,8 +497,22 @@ def run_scan(scan_id: str, request: ScanRequest):
                 )
             except Exception as e:
                 print(f"Warning: GraphML generation failed: {e}")
+        
+        if request.include_obsidian:
+            try:
+                obsidian_dir = output_dir / "obsidian"
+                obsidian_count = to_obsidian(
+                    G, 
+                    communities, 
+                    str(obsidian_dir), 
+                    community_labels=labels or None,
+                    cohesion=cohesion
+                )
+                to_canvas(G, communities, str(obsidian_dir / "graph.canvas"), community_labels=labels or None)
+                print(f"Obsidian vault: {obsidian_count} notes")
+            except Exception as e:
+                print(f"Warning: Obsidian generation failed: {e}")
 
-        # Save analysis data
         analysis = {
             "communities": {str(k): v for k, v in communities.items()},
             "cohesion": {str(k): v for k, v in cohesion.items()},
@@ -349,13 +524,11 @@ def run_scan(scan_id: str, request: ScanRequest):
             json.dumps(analysis, indent=2), encoding="utf-8"
         )
         
-        # Save labels
         (output_dir / ".graphify_labels.json").write_text(
             json.dumps({str(k): v for k, v in labels.items()}, indent=2),
             encoding="utf-8",
         )
 
-        # Prepare results
         results = {
             "project_path": str(project_path),
             "output_dir": str(output_dir),
@@ -364,6 +537,7 @@ def run_scan(scan_id: str, request: ScanRequest):
             "community_count": len(communities),
             "god_nodes": gods,
             "surprising_connections": surprises,
+            "semantic_backend": backend,
             "files": {
                 "graph_json": str(output_dir / "graph.json"),
                 "graph_html": str(output_dir / "graph.html") if not request.no_viz else None,
@@ -371,17 +545,23 @@ def run_scan(scan_id: str, request: ScanRequest):
             },
         }
 
-        # Update final status
         with scan_lock:
             scan_sessions[scan_id].update({
                 "status": "completed",
                 "progress": 1.0,
                 "current_step": "Scan completed successfully!",
-                "steps_completed": 8,
+                "steps_completed": total_steps,
                 "end_time": datetime.now(),
                 "results": results,
             })
 
+    except InterruptedError:
+        with scan_lock:
+            scan_sessions[scan_id].update({
+                "status": "cancelled",
+                "error_message": "Scan cancelled by user",
+                "end_time": datetime.now(),
+            })
     except Exception as e:
         with scan_lock:
             scan_sessions[scan_id].update({
@@ -391,30 +571,20 @@ def run_scan(scan_id: str, request: ScanRequest):
             })
         import traceback
         traceback.print_exc()
+    finally:
+        with scan_lock:
+            if scan_id in active_scans:
+                del active_scans[scan_id]
+            if scan_id in scan_cancel_events:
+                del scan_cancel_events[scan_id]
 
-
-def _update_scan_status(scan_id: str, step: int, total: int, message: str):
-    """Update scan status with progress."""
-    with scan_lock:
-        if scan_id in scan_sessions:
-            scan_sessions[scan_id].update({
-                "progress": step / total,
-                "current_step": message,
-                "steps_completed": step,
-                "total_steps": total,
-            })
-
-
-# === API Routes ===
 
 @app.get("/", response_class=HTMLResponse)
 async def get_index():
-    """Serve the main web console page."""
     index_path = TEMPLATES_DIR / "index.html"
     if index_path.exists():
         return HTMLResponse(content=index_path.read_text(encoding="utf-8"))
     else:
-        # Return a simple placeholder if template doesn't exist yet
         return HTMLResponse(content="""
         <html>
         <head>
@@ -437,30 +607,39 @@ async def get_index():
 
 @app.get("/api/health")
 async def health_check():
-    """Health check endpoint."""
     return {"status": "healthy", "timestamp": datetime.now().isoformat()}
+
+
+@app.get("/api/backend/status")
+async def get_backend_status():
+    backend = _detect_backend()
+    return {
+        "backend_available": backend is not None,
+        "backend": backend,
+        "message": (
+            f"Semantic extraction enabled using {backend}" 
+            if backend 
+            else "No LLM API key set. Set MOONSHOT_API_KEY or ANTHROPIC_API_KEY for semantic extraction."
+        )
+    }
 
 
 @app.get("/api/projects")
 async def list_projects(path: str = Query(".", description="Base path to search for projects")):
-    """List projects that have graphify outputs."""
     base_path = Path(path).resolve()
     projects = []
     
     if not base_path.exists():
         return {"projects": [], "error": f"Path not found: {base_path}"}
     
-    # Look for graphify-out directories
     for item in base_path.iterdir():
         if item.is_dir():
             graphify_out = item / "graphify-out"
             if graphify_out.exists():
-                # Check for key output files
                 has_graph_json = (graphify_out / "graph.json").exists()
                 has_graph_html = (graphify_out / "graph.html").exists()
                 has_report = (graphify_out / "GRAPH_REPORT.md").exists()
                 
-                # Get modification time
                 try:
                     mtime = datetime.fromtimestamp(graphify_out.stat().st_mtime)
                 except:
@@ -479,8 +658,7 @@ async def list_projects(path: str = Query(".", description="Base path to search 
 
 
 @app.post("/api/scan")
-async def start_scan(request: ScanRequest, background_tasks: BackgroundTasks):
-    """Start a new scan session."""
+async def start_scan(request: ScanRequest):
     project_path = Path(request.project_path).resolve()
     
     if not project_path.exists():
@@ -491,7 +669,6 @@ async def start_scan(request: ScanRequest, background_tasks: BackgroundTasks):
     
     scan_id = str(uuid.uuid4())[:8]
     
-    # Start scan in background thread
     scan_thread = threading.Thread(
         target=run_scan,
         args=(scan_id, request),
@@ -512,16 +689,14 @@ async def start_scan(request: ScanRequest, background_tasks: BackgroundTasks):
 
 @app.get("/api/scan/{scan_id}")
 async def get_scan_status(scan_id: str):
-    """Get the status of a scan session."""
     with scan_lock:
         if scan_id not in scan_sessions:
             raise HTTPException(status_code=404, detail=f"Scan not found: {scan_id}")
         return scan_sessions[scan_id]
 
 
-@app.get("/api/scan/{scan_id}/cancel")
+@app.post("/api/scan/{scan_id}/cancel")
 async def cancel_scan(scan_id: str):
-    """Cancel a running scan."""
     with scan_lock:
         if scan_id not in scan_sessions:
             raise HTTPException(status_code=404, detail=f"Scan not found: {scan_id}")
@@ -529,23 +704,23 @@ async def cancel_scan(scan_id: str):
         if scan_sessions[scan_id]["status"] != "running":
             return {"message": f"Scan is not running: {scan_sessions[scan_id]['status']}"}
         
-        # Mark as cancelled
-        scan_sessions[scan_id]["status"] = "cancelled"
-        scan_sessions[scan_id]["error_message"] = "Scan cancelled by user"
+        if scan_id in scan_cancel_events:
+            scan_cancel_events[scan_id].set()
         
-        return {"message": "Scan cancelled successfully"}
+        scan_sessions[scan_id]["status"] = "cancelled"
+        scan_sessions[scan_id]["error_message"] = "Scan cancellation requested - stopping at next safe point..."
+        
+        return {"message": "Scan cancellation requested. The scan will stop at the next safe point."}
 
 
 @app.get("/api/graph/exists")
 async def check_graph_exists(project_path: str = Query(..., description="Project path")):
-    """Check if a graph exists for a project."""
     graph_path = _get_graph_path(project_path)
     return {"exists": graph_path.exists()}
 
 
 @app.get("/api/graph/stats")
 async def get_graph_stats(project_path: str = Query(..., description="Project path")):
-    """Get statistics about a graph."""
     graph_path = _get_graph_path(project_path)
     if not graph_path.exists():
         raise HTTPException(status_code=404, detail=f"Graph not found: {graph_path}")
@@ -553,7 +728,6 @@ async def get_graph_stats(project_path: str = Query(..., description="Project pa
     G = _load_graph(str(graph_path))
     communities = _communities_from_graph(G)
     
-    # Calculate confidence breakdown
     confs = [d.get("confidence", "EXTRACTED") for _, _, d in G.edges(data=True)]
     total = len(confs) or 1
     
@@ -575,7 +749,6 @@ async def get_nodes(
     limit: int = Query(100, ge=1, le=1000, description="Maximum nodes to return"),
     offset: int = Query(0, ge=0, description="Offset for pagination"),
 ):
-    """Get nodes from a graph with pagination."""
     graph_path = _get_graph_path(project_path)
     if not graph_path.exists():
         raise HTTPException(status_code=404, detail=f"Graph not found: {graph_path}")
@@ -612,7 +785,6 @@ async def search_nodes(
     project_path: str = Query(..., description="Project path"),
     limit: int = Query(20, ge=1, le=100, description="Maximum results"),
 ):
-    """Search for nodes in a graph."""
     graph_path = _get_graph_path(project_path)
     if not graph_path.exists():
         raise HTTPException(status_code=404, detail=f"Graph not found: {graph_path}")
@@ -646,7 +818,6 @@ async def get_node_details(
     node_id: str,
     project_path: str = Query(..., description="Project path"),
 ):
-    """Get detailed information about a specific node."""
     graph_path = _get_graph_path(project_path)
     if not graph_path.exists():
         raise HTTPException(status_code=404, detail=f"Graph not found: {graph_path}")
@@ -658,7 +829,6 @@ async def get_node_details(
     
     data = G.nodes[node_id]
     
-    # Get neighbors
     neighbors = []
     for neighbor in G.neighbors(node_id):
         edge_data = G.edges[node_id, neighbor]
@@ -687,7 +857,6 @@ async def get_node_details(
 async def get_communities(
     project_path: str = Query(..., description="Project path"),
 ):
-    """Get all communities in the graph."""
     graph_path = _get_graph_path(project_path)
     if not graph_path.exists():
         raise HTTPException(status_code=404, detail=f"Graph not found: {graph_path}")
@@ -695,117 +864,125 @@ async def get_communities(
     G = _load_graph(str(graph_path))
     communities = _communities_from_graph(G)
     
-    # Try to load community labels
     labels_path = Path(project_path) / "graphify-out" / ".graphify_labels.json"
     labels = {}
     if labels_path.exists():
         try:
             labels = json.loads(labels_path.read_text(encoding="utf-8"))
-            labels = {int(k): v for k, v in labels.items()}
         except:
             pass
     
     result = []
-    for cid, members in sorted(communities.items(), key=lambda x: -len(x[1])):
-        # Get top nodes by degree
-        member_degrees = [(n, G.degree(n)) for n in members]
-        member_degrees.sort(key=lambda x: -x[1])
+    for cid, members in communities.items():
+        top_nodes = []
+        for nid in sorted(members, key=lambda n: G.degree(n), reverse=True)[:5]:
+            top_nodes.append({
+                "id": nid,
+                "label": G.nodes[nid].get("label", nid),
+                "degree": G.degree(nid),
+            })
         
+        label_key = str(cid)
         result.append({
             "community_id": cid,
-            "label": labels.get(cid, f"Community {cid}"),
+            "label": labels.get(label_key, f"Community {cid}"),
             "member_count": len(members),
-            "top_nodes": [
-                {
-                    "id": n,
-                    "label": G.nodes[n].get("label", n),
-                    "degree": deg,
-                }
-                for n, deg in member_degrees[:10]
-            ],
+            "top_nodes": top_nodes,
         })
     
-    return {"communities": result}
+    return {"communities": result, "total": len(communities)}
 
 
 @app.get("/api/graph/god-nodes")
 async def get_god_nodes(
     project_path: str = Query(..., description="Project path"),
-    top_n: int = Query(10, ge=1, le=50, description="Number of top god nodes"),
+    limit: int = Query(20, ge=1, le=100),
 ):
-    """Get the most connected nodes (god nodes) in the graph."""
     graph_path = _get_graph_path(project_path)
     if not graph_path.exists():
         raise HTTPException(status_code=404, detail=f"Graph not found: {graph_path}")
     
     G = _load_graph(str(graph_path))
+    gods = god_nodes(G)
     
-    from graphify.analyze import god_nodes as _god_nodes
-    gods = _god_nodes(G, top_n=top_n)
+    result = []
+    for g in gods[:limit]:
+        nid = g.get("node_id") or g.get("id")
+        if nid and nid in G.nodes():
+            data = G.nodes[nid]
+            result.append({
+                "id": nid,
+                "label": data.get("label", nid),
+                "degree": G.degree(nid),
+                "file_type": data.get("file_type", ""),
+                "source_file": data.get("source_file", ""),
+            })
     
-    return {"god_nodes": gods}
+    return {"god_nodes": result, "total": len(gods)}
 
 
 @app.get("/api/graph/surprising-connections")
 async def get_surprising_connections(
     project_path: str = Query(..., description="Project path"),
-    limit: int = Query(10, ge=1, le=50, description="Maximum connections to return"),
+    limit: int = Query(20, ge=1, le=100),
 ):
-    """Get surprising connections in the graph."""
     graph_path = _get_graph_path(project_path)
     if not graph_path.exists():
         raise HTTPException(status_code=404, detail=f"Graph not found: {graph_path}")
     
     G = _load_graph(str(graph_path))
     communities = _communities_from_graph(G)
+    surprises = surprising_connections(G, communities)
     
-    from graphify.analyze import surprising_connections as _surprising_connections
-    surprises = _surprising_connections(G, communities)
+    result = []
+    for s in surprises[:limit]:
+        result.append({
+            "source": s.get("source"),
+            "target": s.get("target"),
+            "source_files": s.get("source_files", []),
+            "relation": s.get("relation"),
+            "note": s.get("note"),
+        })
     
-    return {"surprising_connections": surprises[:limit]}
+    return {"surprising_connections": result, "total": len(surprises)}
 
 
 @app.get("/api/report")
 async def get_report(
     project_path: str = Query(..., description="Project path"),
-    format: str = Query("text", description="Output format: text or json"),
+    format: str = Query("text", description="Format: text or html"),
 ):
-    """Get the GRAPH_REPORT.md content."""
     report_path = _get_report_path(project_path)
     if not report_path.exists():
         raise HTTPException(status_code=404, detail=f"Report not found: {report_path}")
     
     content = report_path.read_text(encoding="utf-8")
     
-    if format == "json":
-        # Parse sections from markdown
-        sections = []
-        current_section = {"title": "Overview", "content": ""}
-        
-        for line in content.split("\n"):
-            if line.startswith("# "):
-                if current_section["content"]:
-                    sections.append(current_section)
-                current_section = {
-                    "title": line[2:].strip(),
-                    "content": "",
-                }
-            elif current_section:
-                current_section["content"] += line + "\n"
-        
-        if current_section["content"]:
-            sections.append(current_section)
-        
-        return {"sections": sections, "raw": content}
+    if format == "html":
+        html_content = f"<pre>{content}</pre>"
+        return HTMLResponse(content=html_content)
     
     return {"content": content}
+
+
+@app.get("/api/view/graph")
+async def view_graph_html(
+    project_path: str = Query(..., description="Project path"),
+):
+    graph_html_path = _get_graph_html_path(project_path)
+    if not graph_html_path.exists():
+        raise HTTPException(status_code=404, detail=f"Graph HTML not found: {graph_html_path}")
+    
+    return FileResponse(
+        path=str(graph_html_path),
+        media_type="text/html",
+    )
 
 
 @app.get("/api/export/graph")
 async def export_graph_json(
     project_path: str = Query(..., description="Project path"),
 ):
-    """Export graph.json file for download."""
     graph_path = _get_graph_path(project_path)
     if not graph_path.exists():
         raise HTTPException(status_code=404, detail=f"Graph not found: {graph_path}")
@@ -821,7 +998,6 @@ async def export_graph_json(
 async def export_report(
     project_path: str = Query(..., description="Project path"),
 ):
-    """Export GRAPH_REPORT.md file for download."""
     report_path = _get_report_path(project_path)
     if not report_path.exists():
         raise HTTPException(status_code=404, detail=f"Report not found: {report_path}")
@@ -834,16 +1010,15 @@ async def export_report(
 
 
 @app.get("/api/export/html")
-async def export_graph_html(
+async def export_html(
     project_path: str = Query(..., description="Project path"),
 ):
-    """Export graph.html file for download or viewing."""
-    html_path = _get_graph_html_path(project_path)
-    if not html_path.exists():
-        raise HTTPException(status_code=404, detail=f"Graph HTML not found: {html_path}")
+    graph_html_path = _get_graph_html_path(project_path)
+    if not graph_html_path.exists():
+        raise HTTPException(status_code=404, detail=f"Graph HTML not found: {graph_html_path}")
     
     return FileResponse(
-        path=str(html_path),
+        path=str(graph_html_path),
         media_type="text/html",
         filename="graph.html",
     )
@@ -853,97 +1028,36 @@ async def export_graph_html(
 async def export_all(
     project_path: str = Query(..., description="Project path"),
 ):
-    """Export all graphify outputs as a ZIP file."""
     output_dir = _get_output_dir(project_path)
     if not output_dir.exists():
         raise HTTPException(status_code=404, detail=f"Output directory not found: {output_dir}")
     
-    # Create a temporary ZIP file
-    with tempfile.NamedTemporaryFile(suffix=".zip", delete=False) as tmp:
-        zip_path = Path(tmp.name)
+    temp_dir = tempfile.mkdtemp()
+    zip_path = Path(temp_dir) / f"graphify_export_{datetime.now().strftime('%Y%m%d_%H%M%S')}.zip"
     
-    try:
-        with ZipFile(zip_path, "w") as zipf:
-            # Add key output files
-            key_files = [
-                "graph.json",
-                "graph.html",
-                "GRAPH_REPORT.md",
-            ]
-            
-            for filename in key_files:
-                file_path = output_dir / filename
-                if file_path.exists():
-                    zipf.write(file_path, arcname=filename)
-            
-            # Add optional files if they exist
-            optional_files = [
-                "graph.svg",
-                "graph.graphml",
-                "cypher.txt",
-            ]
-            
-            for filename in optional_files:
-                file_path = output_dir / filename
-                if file_path.exists():
-                    zipf.write(file_path, arcname=filename)
+    with ZipFile(zip_path, 'w') as zipf:
+        graph_path = output_dir / "graph.json"
+        if graph_path.exists():
+            zipf.write(graph_path, "graph.json")
         
-        return FileResponse(
-            path=str(zip_path),
-            media_type="application/zip",
-            filename=f"graphify-export-{datetime.now().strftime('%Y%m%d-%H%M%S')}.zip",
-        )
-    except Exception as e:
-        if zip_path.exists():
-            zip_path.unlink()
-        raise HTTPException(status_code=500, detail=f"Failed to create ZIP: {e}")
-
-
-@app.get("/api/view/graph")
-async def view_graph(
-    project_path: str = Query(..., description="Project path"),
-):
-    """View the interactive graph HTML in the browser."""
-    html_path = _get_graph_html_path(project_path)
-    if not html_path.exists():
-        raise HTTPException(status_code=404, detail=f"Graph HTML not found: {html_path}")
+        report_path = output_dir / "GRAPH_REPORT.md"
+        if report_path.exists():
+            zipf.write(report_path, "GRAPH_REPORT.md")
+        
+        html_path = output_dir / "graph.html"
+        if html_path.exists():
+            zipf.write(html_path, "graph.html")
+        
+        svg_path = output_dir / "graph.svg"
+        if svg_path.exists():
+            zipf.write(svg_path, "graph.svg")
+        
+        graphml_path = output_dir / "graph.graphml"
+        if graphml_path.exists():
+            zipf.write(graphml_path, "graph.graphml")
     
-    # Read and return the HTML content
-    content = html_path.read_text(encoding="utf-8")
-    return HTMLResponse(content=content)
-
-
-# === CLI Entry Point ===
-
-def run_server(
-    host: str = "127.0.0.1",
-    port: int = 8000,
-    reload: bool = False,
-):
-    """Run the FastAPI server."""
-    import uvicorn
-    
-    print(f"Starting graphify Web Console on http://{host}:{port}")
-    print(f"API Documentation: http://{host}:{port}/docs")
-    print(f"OpenAPI Schema: http://{host}:{port}/openapi.json")
-    print()
-    print("Press Ctrl+C to stop the server.")
-    
-    uvicorn.run(
-        "graphify.web_console:app",
-        host=host,
-        port=port,
-        reload=reload,
+    return FileResponse(
+        path=str(zip_path),
+        media_type="application/zip",
+        filename=zip_path.name,
     )
-
-
-if __name__ == "__main__":
-    import argparse
-    
-    parser = argparse.ArgumentParser(description="graphify Web Console")
-    parser.add_argument("--host", default="127.0.0.1", help="Host address")
-    parser.add_argument("--port", type=int, default=8000, help="Port number")
-    parser.add_argument("--reload", action="store_true", help="Enable auto-reload (development)")
-    
-    args = parser.parse_args()
-    run_server(host=args.host, port=args.port, reload=args.reload)
