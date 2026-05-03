@@ -811,6 +811,39 @@ def _import_swift(node, source: bytes, file_nid: str, stem: str, edges: list, st
             break
 
 
+def _import_pascal(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+    """Extract moduleName from declUses in Pascal."""
+    for child in node.children:
+        if child.type == "moduleName":
+            raw = _read_text(child, source)
+            if raw:
+                tgt_nid = _make_id(raw)
+                edges.append({
+                    "source": file_nid,
+                    "target": tgt_nid,
+                    "relation": "imports",
+                    "context": "import",
+                    "confidence": "EXTRACTED",
+                    "source_file": str_path,
+                    "source_location": f"L{node.start_point[0] + 1}",
+                    "weight": 1.0,
+                })
+
+
+_PASCAL_CONFIG = LanguageConfig(
+    ts_module="tree_sitter_language_pack",
+    ts_language_fn="pascal",
+    class_types=frozenset({"declClass"}),
+    function_types=frozenset({"declFunc", "defFunc", "declProc", "defProc"}),
+    import_types=frozenset({"declUses"}),
+    call_types=frozenset({"exprCall"}),
+    name_fallback_child_types=("identifier", "moduleName"),
+    body_fallback_child_types=("block", "interface", "implementation"),
+    function_boundary_types=frozenset({"defFunc", "defProc"}),
+    import_handler=_import_pascal,
+)
+
+
 def _read_csharp_type_name(node, source: bytes) -> str | None:
     """Resolve a readable C# type name from a field/type node."""
     if node is None:
@@ -852,15 +885,19 @@ _SWIFT_CONFIG = LanguageConfig(
 def _extract_generic(path: Path, config: LanguageConfig) -> dict:
     """Generic AST extractor driven by LanguageConfig."""
     try:
-        mod = importlib.import_module(config.ts_module)
         from tree_sitter import Language, Parser
-        lang_fn = getattr(mod, config.ts_language_fn, None)
-        if lang_fn is None:
-            # Fallback for PHP: try "language_php" then "language"
-            lang_fn = getattr(mod, "language", None)
-        if lang_fn is None:
-            return {"nodes": [], "edges": [], "error": f"No language function in {config.ts_module}"}
-        language = Language(lang_fn())
+        if config.ts_module == "tree_sitter_language_pack":
+            import tree_sitter_language_pack
+            language = tree_sitter_language_pack.get_language(config.ts_language_fn)
+        else:
+            mod = importlib.import_module(config.ts_module)
+            lang_fn = getattr(mod, config.ts_language_fn, None)
+            if lang_fn is None:
+                # Fallback for PHP: try "language_php" then "language"
+                lang_fn = getattr(mod, "language", None)
+            if lang_fn is None:
+                return {"nodes": [], "edges": [], "error": f"No language function in {config.ts_module}"}
+            language = Language(lang_fn())
     except ImportError:
         return {"nodes": [], "edges": [], "error": f"{config.ts_module} not installed"}
     except Exception as e:
@@ -1741,6 +1778,136 @@ def extract_blade(path: Path) -> dict:
                       "source_file": str(path), "source_location": None, "weight": 1.0})
 
     return {"nodes": nodes, "edges": edges}
+
+
+def extract_pascal(path: Path) -> dict:
+    """Extract units, classes, functions, and imports from a .pas/.pp file."""
+    try:
+        return _extract_generic(path, _PASCAL_CONFIG)
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+
+def extract_lfm(path: Path) -> dict:
+    """Extract UI components and event handlers from Lazarus Form files (.lfm)."""
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    try:
+        content = path.read_text(encoding="utf-8", errors="replace")
+        str_path = str(path)
+        file_nid = _make_id(str_path)
+        nodes.append({
+            "id": file_nid,
+            "label": path.name,
+            "file_type": "code",
+            "source_file": str_path,
+            "source_location": "L1",
+        })
+
+        for i, line in enumerate(content.splitlines()):
+            trimmed = line.strip()
+            # Match object/inherited definitions: "object Form1: TForm1"
+            m = re.match(r"^\s*(object|inherited)\s+(\w+)\s*:\s*(\w+)", trimmed, re.I)
+            if m:
+                obj_name, obj_type = m.group(2), m.group(3)
+                obj_nid = _make_id(str_path, obj_name)
+                nodes.append({
+                    "id": obj_nid,
+                    "label": f"{obj_name}: {obj_type}",
+                    "file_type": "code",
+                    "source_file": str_path,
+                    "source_location": f"L{i+1}",
+                })
+                edges.append({
+                    "source": file_nid,
+                    "target": obj_nid,
+                    "relation": "contains",
+                    "confidence": "EXTRACTED",
+                    "source_file": str_path,
+                    "source_location": f"L{i+1}",
+                    "weight": 1.0
+                })
+                continue
+
+            # Match references to event handlers: "OnClick = Button1Click"
+            m = re.match(r"^\s*(\w+)\s*=\s*(\w+)", trimmed)
+            if m:
+                prop, handler = m.group(1), m.group(2)
+                if prop.startswith("On"):
+                    handler_nid = _make_id(handler)
+                    edges.append({
+                        "source": file_nid,
+                        "target": handler_nid,
+                        "relation": "triggers",
+                        "context": prop,
+                        "confidence": "EXTRACTED",
+                        "source_file": str_path,
+                        "source_location": f"L{i+1}",
+                        "weight": 1.0
+                    })
+        return {"nodes": nodes, "edges": edges}
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+
+def extract_lpi(path: Path) -> dict:
+    """Extract units and project dependencies from Lazarus Project files (.lpi)."""
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    try:
+        import xml.etree.ElementTree as ET
+        tree = ET.parse(path)
+        root = tree.getroot()
+        str_path = str(path)
+        file_nid = _make_id(str_path)
+        nodes.append({
+            "id": file_nid,
+            "label": path.name,
+            "file_type": "code",
+            "source_file": str_path,
+            "source_location": "L1",
+        })
+
+        # Find units in the project
+        for unit in root.findall(".//Units/Unit"):
+            filename = unit.get("Filename")
+            if filename:
+                unit_nid = _make_id(str(path.parent / filename))
+                edges.append({
+                    "source": file_nid,
+                    "target": unit_nid,
+                    "relation": "contains",
+                    "confidence": "EXTRACTED",
+                    "source_file": str_path,
+                    "source_location": None,
+                    "weight": 1.0
+                })
+
+        # Find required packages
+        for pkg in root.findall(".//RequiredPackages/Item"):
+            pkg_name = pkg.get("PackageName")
+            if pkg_name:
+                pkg_nid = _make_id(pkg_name)
+                nodes.append({
+                    "id": pkg_nid,
+                    "label": pkg_name,
+                    "file_type": "code",
+                    "source_file": str_path,
+                    "source_location": None,
+                })
+                edges.append({
+                    "source": file_nid,
+                    "target": pkg_nid,
+                    "relation": "depends_on",
+                    "confidence": "EXTRACTED",
+                    "source_file": str_path,
+                    "source_location": None,
+                    "weight": 1.0
+                })
+
+        return {"nodes": nodes, "edges": edges}
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
 
 
 def extract_dart(path: Path) -> dict:
@@ -3685,6 +3852,12 @@ _DISPATCH: dict[str, Any] = {
     ".vue": extract_js,
     ".svelte": extract_js,
     ".dart": extract_dart,
+    ".pas": extract_pascal,
+    ".pp": extract_pascal,
+    ".inc": extract_pascal,
+    ".lpr": extract_pascal,
+    ".lfm": extract_lfm,
+    ".lpi": extract_lpi,
     ".v": extract_verilog,
     ".sv": extract_verilog,
     ".sql": extract_sql,

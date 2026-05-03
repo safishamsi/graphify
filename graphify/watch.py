@@ -61,13 +61,12 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
             print("[graphify watch] No code files found - nothing to rebuild.")
             return False
 
+        # Skip cross-file resolution if no .py or .java files to save time
+        py_paths = [p for p in code_files if p.suffix == ".py"]
+        java_paths = [p for p in code_files if p.suffix == ".java"]
+
         result = extract(code_files, cache_root=watch_root)
 
-        # Preserve semantic nodes/edges from a previous full run.
-        # AST-only rebuild replaces nodes for changed files; everything else is kept.
-        # Filter by node ID membership in the new AST output, not by file_type —
-        # INFERRED/AMBIGUOUS nodes extracted from code files also carry file_type="code"
-        # and would be wrongly dropped by a file_type-based filter.
         out = watch_path / "graphify-out"
         existing_graph = out / "graph.json"
         if existing_graph.exists():
@@ -87,8 +86,8 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
                     "input_tokens": 0,
                     "output_tokens": 0,
                 }
-            except Exception:
-                pass  # corrupt graph.json - proceed with AST-only
+            except Exception as e:
+                pass
 
         _relativize_source_files(result, project_root)
 
