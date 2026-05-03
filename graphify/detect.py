@@ -316,7 +316,7 @@ def _is_ignored(path: Path, root: Path, patterns: list[str]) -> bool:
     return False
 
 
-def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
+def detect(root: Path, *, follow_symlinks: bool = False, write_sidecars: bool = True) -> dict:
     files: dict[FileType, list[str]] = {
         FileType.CODE: [],
         FileType.DOCUMENT: [],
@@ -384,13 +384,34 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
         if ftype:
             # Office files: convert to markdown sidecar so subagents can read them
             if p.suffix.lower() in OFFICE_EXTENSIONS:
-                md_path = convert_office_file(p, converted_dir)
-                if md_path:
-                    files[ftype].append(str(md_path))
-                    total_words += count_words(md_path)
+                if write_sidecars:
+                    md_path = convert_office_file(p, converted_dir)
+                    if md_path:
+                        files[ftype].append(str(md_path))
+                        total_words += count_words(md_path)
+                    else:
+                        # Conversion failed (library not installed) - skip with note
+                        skipped_sensitive.append(str(p) + " [office conversion failed - pip install graphifyy[office]]")
                 else:
-                    # Conversion failed (library not installed) - skip with note
-                    skipped_sensitive.append(str(p) + " [office conversion failed - pip install graphifyy[office]]")
+                    # dry-run: no sidecar writes allowed.
+                    # Probe whether office deps are installed by attempting an
+                    # in-memory conversion. If the result is empty the real run
+                    # would also produce no content — surface a warning now.
+                    ext = p.suffix.lower()
+                    if ext == ".docx":
+                        probe = docx_to_markdown(p)
+                    elif ext == ".xlsx":
+                        probe = xlsx_to_markdown(p)
+                    else:
+                        probe = None  # unknown office type — count as-is
+
+                    if probe is not None and not probe.strip():
+                        skipped_sensitive.append(
+                            str(p) + " [office deps missing - pip install graphify[office]]"
+                        )
+                    else:
+                        files[ftype].append(str(p))
+                        total_words += count_words(p)
                 continue
             files[ftype].append(str(p))
             if ftype != FileType.VIDEO:

@@ -648,6 +648,7 @@ def main() -> None:
         print("    --type T                query type: query|path_query|explain (default: query)")
         print("    --nodes N1 N2 ...       source node labels cited in the answer")
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
+        print("  dry-run [path]          scan corpus and report file counts/health without building")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
@@ -845,6 +846,43 @@ def main() -> None:
             source_nodes=opts.nodes or None,
         )
         print(f"Saved to {out}")
+    elif cmd == "dry-run":
+        root = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".")
+        if not root.exists():
+            print(f"error: path not found: {root}", file=sys.stderr)
+            sys.exit(1)
+        from graphify.detect import detect as _detect
+        result = _detect(root, write_sidecars=False)
+        files = result["files"]
+        total_files = result["total_files"]
+        total_words = result["total_words"]
+        print(f"Corpus scan: {root.resolve()}")
+        print()
+        type_labels = {
+            "code": "Code files",
+            "document": "Documents",
+            "paper": "Papers/PDFs",
+            "image": "Images",
+        }
+        for ftype, label in type_labels.items():
+            count = len(files.get(ftype, []))
+            if count:
+                print(f"  {label:<16} {count:>5}")
+        print(f"  {'Total':<16} {total_files:>5}  (~{total_words:,} words)")
+        skipped = result.get("skipped_sensitive", [])
+        office_missing = [s for s in skipped if "office deps missing" in s]
+        sensitive = [s for s in skipped if "office deps missing" not in s]
+        if sensitive:
+            print(f"\n  Skipped (sensitive): {len(sensitive)} file(s)")
+        if office_missing:
+            print(f"\n  Skipped (office deps missing): {len(office_missing)} file(s)")
+            print("  Install office support: pip install graphify[office]")
+            print("  These files will not be extracted in a real run without the extras.")
+        if result.get("warning"):
+            print(f"\nwarning: {result['warning']}")
+        elif not office_missing:
+            print("\nCorpus looks healthy — no warnings.")
+        print("\nNo files were written. Run without dry-run to build the graph.")
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
         graph_path = sys.argv[2] if len(sys.argv) > 2 else "graphify-out/graph.json"
