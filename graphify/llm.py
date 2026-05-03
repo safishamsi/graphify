@@ -100,18 +100,85 @@ def _read_files(paths: list[Path], root: Path) -> str:
     return "\n\n".join(parts)
 
 
-def _parse_llm_json(raw: str) -> dict:
-    """Strip optional markdown fences and parse JSON. Returns empty fragment on failure."""
+def _repair_json(raw: str) -> str:
+    """Attempt to repair truncated JSON by closing open strings and brackets."""
+    raw = raw.strip()
+    if not raw:
+        return "{}"
+
+    # 1. Close unterminated string
+    # We check if the last quote is unescaped
+    unescaped_quotes = 0
+    i = 0
+    while i < len(raw):
+        if raw[i] == '"':
+            # Count backslashes preceding this quote
+            j = i - 1
+            slashes = 0
+            while j >= 0 and raw[j] == "\\":
+                slashes += 1
+                j -= 1
+            if slashes % 2 == 0:
+                unescaped_quotes += 1
+        i += 1
+    if unescaped_quotes % 2 != 0:
+        raw += '"'
+
+    # 2. Close unterminated brackets/braces
+    stack = []
+    # We need to skip characters inside strings to avoid false positives
+    in_string = False
+    i = 0
+    while i < len(raw):
+        char = raw[i]
+        if char == '"':
+            j = i - 1
+            slashes = 0
+            while j >= 0 and raw[j] == "\\":
+                slashes += 1
+                j -= 1
+            if slashes % 2 == 0:
+                in_string = not in_string
+        elif not in_string:
+            if char == "{":
+                stack.append("}")
+            elif char == "[":
+                stack.append("]")
+            elif char == "}" and stack and stack[-1] == "}":
+                stack.pop()
+            elif char == "]" and stack and stack[-1] == "]":
+                stack.pop()
+        i += 1
+
+    # Append the needed closers in reverse order
+    raw += "".join(reversed(stack))
+    return raw
+
+
+def _parse_llm_json(raw: str) -> tuple[dict, str | None]:
+    """Strip optional markdown fences and parse JSON.
+    Returns (result_dict, error_message_or_none).
+    Attempts to repair truncated JSON before giving up.
+    """
     if raw.startswith("```"):
-        raw = raw.split("```", 2)[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.rsplit("```", 1)[0]
+        try:
+            raw = raw.split("```", 2)[1]
+            if raw.startswith("json"):
+                raw = raw[4:]
+            raw = raw.rsplit("```", 1)[0]
+        except IndexError:
+            pass
+
+    raw = raw.strip()
     try:
-        return json.loads(raw.strip())
-    except json.JSONDecodeError as exc:
-        print(f"[graphify] LLM returned invalid JSON, skipping chunk: {exc}", file=sys.stderr)
-        return {"nodes": [], "edges": [], "hyperedges": []}
+        return json.loads(raw), None
+    except json.JSONDecodeError:
+        # Try repair
+        repaired = _repair_json(raw)
+        try:
+            return json.loads(repaired), None
+        except json.JSONDecodeError as exc:
+            return {"nodes": [], "edges": [], "hyperedges": []}, str(exc)
 
 
 def _call_openai_compat(
@@ -145,7 +212,7 @@ def _call_openai_compat(
     if "moonshot" in base_url:
         kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
     resp = client.chat.completions.create(**kwargs)
-    result = _parse_llm_json(resp.choices[0].message.content or "{}")
+    result, parse_err = _parse_llm_json(resp.choices[0].message.content or "{}")
     result["input_tokens"] = resp.usage.prompt_tokens if resp.usage else 0
     result["output_tokens"] = resp.usage.completion_tokens if resp.usage else 0
     result["model"] = model
@@ -153,6 +220,7 @@ def _call_openai_compat(
     # mid-generation. The JSON we got back is truncated; callers should
     # treat this as a signal to retry with smaller input.
     result["finish_reason"] = resp.choices[0].finish_reason
+    result["parse_error"] = parse_err
     return result
 
 
@@ -173,7 +241,7 @@ def _call_claude(api_key: str, model: str, user_message: str) -> dict:
         system=_EXTRACTION_SYSTEM,
         messages=[{"role": "user", "content": user_message}],
     )
-    result = _parse_llm_json(resp.content[0].text if resp.content else "{}")
+    result, parse_err = _parse_llm_json(resp.content[0].text if resp.content else "{}")
     result["input_tokens"] = resp.usage.input_tokens if resp.usage else 0
     result["output_tokens"] = resp.usage.output_tokens if resp.usage else 0
     result["model"] = model
@@ -181,6 +249,7 @@ def _call_claude(api_key: str, model: str, user_message: str) -> dict:
     # vocabulary so the adaptive-retry layer doesn't have to know which
     # backend produced the result.
     result["finish_reason"] = "length" if resp.stop_reason == "max_tokens" else "stop"
+    result["parse_error"] = parse_err
     return result
 
 
@@ -308,14 +377,27 @@ def _extract_with_adaptive_retry(
     result = extract_files_direct(
         chunk, backend=backend, api_key=api_key, model=model, root=root
     )
+    parse_err = result.get("parse_error")
 
-    if result.get("finish_reason") != "length":
+    # Case 1: Success (no parse error)
+    if not parse_err:
         return result
 
+    # Case 2: Parse error but NOT due to truncation (hallucination or logic error)
+    # We don't retry these because splitting files won't fix model logic/hallucination.
+    if result.get("finish_reason") != "length":
+        print(
+            f"[graphify] LLM returned invalid JSON, skipping chunk: {parse_err}",
+            file=sys.stderr,
+        )
+        return result
+
+    # Case 3: Truncation detected. Decide whether to retry or give up.
     if len(chunk) <= 1:
         print(
             f"[graphify] single-file chunk {chunk[0]} truncated at "
-            f"max_completion_tokens — partial result kept",
+            f"max_completion_tokens (output: {result.get('output_tokens')} tokens) "
+            f"— partial result kept. Error: {parse_err}",
             file=sys.stderr,
         )
         return result
@@ -323,11 +405,13 @@ def _extract_with_adaptive_retry(
     if _depth >= max_depth:
         print(
             f"[graphify] chunk of {len(chunk)} still truncated at recursion "
-            f"depth {_depth} (max {max_depth}) — partial result kept",
+            f"depth {_depth} (max {max_depth}) — partial result kept. "
+            f"Error: {parse_err}",
             file=sys.stderr,
         )
         return result
 
+    # Silence the error and split/retry
     print(
         f"[graphify] chunk of {len(chunk)} truncated at depth {_depth}, "
         f"splitting into halves of {len(chunk) // 2} and "
