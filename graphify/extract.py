@@ -1363,6 +1363,253 @@ def extract_julia(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges}
 
 
+# ── Haskell extractor (custom walk) ──────────────────────────────────────────
+
+def _preprocess_lhs(source: bytes) -> bytes:
+    """Convert literate Haskell (.lhs) to plain Haskell, preserving line numbers."""
+    lines = source.decode("utf-8", errors="replace").splitlines()
+    code_lines: list[str] = []
+    in_code_block = False
+    for line in lines:
+        stripped = line.strip()
+        if stripped == "\\begin{code}":
+            in_code_block = True
+            code_lines.append("")
+        elif stripped == "\\end{code}":
+            in_code_block = False
+            code_lines.append("")
+        elif in_code_block:
+            code_lines.append(line)
+        elif line.startswith("> "):
+            code_lines.append(line[2:])
+        elif line == ">":
+            code_lines.append("")
+        else:
+            code_lines.append("")
+    return "\n".join(code_lines).encode("utf-8")
+
+
+def extract_haskell(path: Path) -> dict:
+    """Extract modules, types, classes, functions, imports, and calls from a .hs/.lhs file."""
+    try:
+        import tree_sitter_haskell as tshaskell
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree-sitter-haskell not installed"}
+
+    try:
+        language = Language(tshaskell.language())
+        parser = Parser(language)
+        source = path.read_bytes()
+        if path.suffix == ".lhs":
+            source = _preprocess_lhs(source)
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = path.stem
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    function_bodies: list[tuple[str, object]] = []
+    seen_functions: set[str] = set()
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({
+                "id": nid,
+                "label": label,
+                "file_type": "code",
+                "source_file": str_path,
+                "source_location": f"L{line}",
+            })
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
+        edges.append({
+            "source": src,
+            "target": tgt,
+            "relation": relation,
+            "confidence": confidence,
+            "source_file": str_path,
+            "source_location": f"L{line}",
+            "weight": weight,
+        })
+
+    file_nid = _make_id(stem)
+    add_node(file_nid, path.name, 1)
+
+    module_nid = file_nid
+
+    def walk(node, scope_nid: str) -> None:
+        nonlocal module_nid
+        t = node.type
+
+        # Module header: haskell > header > module (keyword) + module (name node)
+        if t == "header":
+            for child in node.children:
+                if child.type == "module" and child.child_count > 0:
+                    mod_name = _read_text(child, source).strip()
+                    mod_nid = _make_id(stem, mod_name)
+                    line = child.start_point[0] + 1
+                    add_node(mod_nid, mod_name, line)
+                    add_edge(file_nid, mod_nid, "contains", line)
+                    module_nid = mod_nid
+            return
+
+        # Import declarations
+        if t == "import":
+            line = node.start_point[0] + 1
+            for child in node.children:
+                if child.type == "module" and child.child_count > 0:
+                    mod_name = _read_text(child, source).strip()
+                    imp_nid = _make_id(mod_name)
+                    add_node(imp_nid, mod_name, line)
+                    add_edge(module_nid, imp_nid, "imports", line)
+                    break
+            return
+
+        # data Type = Constructor1 | Constructor2
+        if t == "data_type":
+            line = node.start_point[0] + 1
+            name_node = next((c for c in node.children if c.type == "name"), None)
+            if name_node:
+                type_name = _read_text(name_node, source).strip()
+                type_nid = _make_id(stem, type_name)
+                add_node(type_nid, type_name, line)
+                add_edge(module_nid, type_nid, "contains", line)
+                cons_node = next((c for c in node.children if c.type == "data_constructors"), None)
+                if cons_node:
+                    for dc in cons_node.children:
+                        if dc.type == "data_constructor":
+                            for prefix in dc.children:
+                                if prefix.type == "prefix":
+                                    cn = next((c for c in prefix.children if c.type == "constructor"), None)
+                                    if cn:
+                                        con_name = _read_text(cn, source).strip()
+                                        con_nid = _make_id(stem, type_name, con_name)
+                                        add_node(con_nid, con_name, dc.start_point[0] + 1)
+                                        add_edge(type_nid, con_nid, "contains", dc.start_point[0] + 1)
+            return
+
+        # newtype Wrapper a = Wrapper a
+        if t == "newtype":
+            line = node.start_point[0] + 1
+            name_node = next((c for c in node.children if c.type == "name"), None)
+            if name_node:
+                type_name = _read_text(name_node, source).strip()
+                type_nid = _make_id(stem, type_name)
+                add_node(type_nid, type_name, line)
+                add_edge(module_nid, type_nid, "contains", line)
+            return
+
+        # type Name = String (tree-sitter-haskell spells it "type_synomym")
+        if t == "type_synomym":
+            line = node.start_point[0] + 1
+            name_node = next((c for c in node.children if c.type == "name"), None)
+            if name_node:
+                type_name = _read_text(name_node, source).strip()
+                type_nid = _make_id(stem, type_name)
+                add_node(type_nid, type_name, line)
+                add_edge(module_nid, type_nid, "contains", line)
+            return
+
+        # class Describable a where
+        if t == "class":
+            line = node.start_point[0] + 1
+            name_node = next((c for c in node.children if c.type == "name"), None)
+            if name_node:
+                class_name = _read_text(name_node, source).strip()
+                class_nid = _make_id(stem, class_name)
+                add_node(class_nid, class_name, line)
+                add_edge(module_nid, class_nid, "contains", line)
+            return
+
+        # instance Describable Shape where
+        if t == "instance":
+            line = node.start_point[0] + 1
+            class_name_node = next((c for c in node.children if c.type == "name"), None)
+            type_patterns = next((c for c in node.children if c.type == "type_patterns"), None)
+            if class_name_node and type_patterns:
+                class_name = _read_text(class_name_node, source).strip()
+                type_name_node = next((c for c in type_patterns.children if c.type == "name"), None)
+                if type_name_node:
+                    type_name = _read_text(type_name_node, source).strip()
+                    type_nid = _make_id(stem, type_name)
+                    class_nid = _make_id(stem, class_name)
+                    add_edge(type_nid, class_nid, "inherits", line)
+            return
+
+        # Standalone type signatures — skip (functions cover these)
+        if t == "signature":
+            return
+
+        # Function equation: function > variable (name) + patterns + match(es) + local_binds
+        if t == "function":
+            line = node.start_point[0] + 1
+            name_node = next((c for c in node.children if c.type == "variable"), None)
+            if name_node:
+                func_name = _read_text(name_node, source).strip()
+                func_nid = _make_id(stem, func_name)
+                if func_name not in seen_functions:
+                    seen_functions.add(func_name)
+                    add_node(func_nid, f"{func_name}()", line)
+                    add_edge(module_nid, func_nid, "contains", line)
+                for child in node.children:
+                    if child.type in ("match", "local_binds"):
+                        function_bodies.append((func_nid, child))
+            return
+
+        for child in node.children:
+            walk(child, scope_nid)
+
+    walk(root, file_nid)
+
+    # Call resolution
+    label_to_nid: dict[str, str] = {}
+    for n in nodes:
+        raw = n["label"]
+        normalised = raw.strip("()").lstrip(".")
+        label_to_nid[normalised.lower()] = n["id"]
+
+    seen_call_pairs: set[tuple[str, str]] = set()
+
+    def _get_callee_name(apply_node) -> str | None:
+        """Extract callee name from an apply node (leftmost variable leaf)."""
+        if not apply_node.children:
+            return None
+        first = apply_node.children[0]
+        if first.type == "variable":
+            return _read_text(first, source).strip()
+        if first.type == "apply":
+            return _get_callee_name(first)
+        return None
+
+    def walk_calls(node, caller_nid: str) -> None:
+        if node.type == "function":
+            return
+        if node.type == "apply":
+            callee_name = _get_callee_name(node)
+            if callee_name:
+                tgt_nid = label_to_nid.get(callee_name.lower())
+                if tgt_nid and tgt_nid != caller_nid:
+                    pair = (caller_nid, tgt_nid)
+                    if pair not in seen_call_pairs:
+                        seen_call_pairs.add(pair)
+                        add_edge(caller_nid, tgt_nid, "calls",
+                                 node.start_point[0] + 1, confidence="INFERRED")
+        for child in node.children:
+            walk_calls(child, caller_nid)
+
+    for caller_nid, body_node in function_bodies:
+        walk_calls(body_node, caller_nid)
+
+    return {"nodes": nodes, "edges": edges}
+
+
 # ── Go extractor (custom walk) ────────────────────────────────────────────────
 
 def extract_go(path: Path) -> dict:
@@ -2622,6 +2869,8 @@ def extract(paths: list[Path]) -> dict:
         ".m": extract_objc,
         ".mm": extract_objc,
         ".jl": extract_julia,
+        ".hs": extract_haskell,
+        ".lhs": extract_haskell,
     }
 
     total = len(paths)
@@ -2676,6 +2925,8 @@ def collect_files(target: Path, *, follow_symlinks: bool = False) -> list[Path]:
         ".java", ".c", ".h", ".cpp", ".cc", ".cxx", ".hpp",
         ".rb", ".cs", ".kt", ".kts", ".scala", ".php", ".swift",
         ".lua", ".toc", ".zig", ".ps1",
+        ".ex", ".exs", ".jl",
+        ".hs", ".lhs",
         ".m", ".mm",
     }
     if not follow_symlinks:

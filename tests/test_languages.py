@@ -5,7 +5,8 @@ import pytest
 from graphify.extract import (
     extract_java, extract_c, extract_cpp, extract_ruby,
     extract_csharp, extract_kotlin, extract_scala, extract_php,
-    extract_swift, extract_go, extract_julia,
+    extract_swift, extract_go, extract_julia, extract_haskell,
+    collect_files,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -508,3 +509,99 @@ def test_julia_no_dangling_edges():
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids, f"Dangling source: {e}"
+
+
+# ── Haskell ──────────────────────────────────────────────────────────────────
+
+def test_haskell_no_error():
+    r = extract_haskell(FIXTURES / "sample.hs")
+    assert "error" not in r
+
+
+def test_haskell_finds_module():
+    r = extract_haskell(FIXTURES / "sample.hs")
+    labels = _labels(r)
+    assert "Sample" in labels
+
+
+def test_haskell_finds_functions():
+    r = extract_haskell(FIXTURES / "sample.hs")
+    labels = _labels(r)
+    assert any("area" in l for l in labels)
+    assert any("perimeter" in l for l in labels)
+    assert any("classify" in l for l in labels)
+    assert any("summarize" in l for l in labels)
+    assert any("double" in l for l in labels)
+
+
+def test_haskell_finds_data_types():
+    r = extract_haskell(FIXTURES / "sample.hs")
+    labels = _labels(r)
+    assert "Shape" in labels
+    assert "Wrapper" in labels
+    assert "Name" in labels
+
+
+def test_haskell_finds_constructors():
+    r = extract_haskell(FIXTURES / "sample.hs")
+    labels = _labels(r)
+    assert "Circle" in labels
+    assert "Rectangle" in labels
+    # Constructors should have contains edges from Shape
+    shape_nid = next(n["id"] for n in r["nodes"] if n["label"] == "Shape")
+    con_edges = [e for e in r["edges"]
+                 if e["source"] == shape_nid and e["relation"] == "contains"]
+    assert len(con_edges) >= 2
+
+
+def test_haskell_finds_typeclass():
+    r = extract_haskell(FIXTURES / "sample.hs")
+    labels = _labels(r)
+    assert "Describable" in labels
+
+
+def test_haskell_finds_imports():
+    r = extract_haskell(FIXTURES / "sample.hs")
+    import_edges = [e for e in r["edges"] if e["relation"] == "imports"]
+    assert len(import_edges) >= 2
+    import_labels = _labels(r)
+    assert any("Data.List" in l for l in import_labels)
+    assert any("Data.Map" in l for l in import_labels)
+
+
+def test_haskell_finds_instance():
+    r = extract_haskell(FIXTURES / "sample.hs")
+    inherits = [e for e in r["edges"] if e["relation"] == "inherits"]
+    assert len(inherits) >= 1
+
+
+def test_haskell_finds_calls():
+    r = extract_haskell(FIXTURES / "sample.hs")
+    call_edges = [e for e in r["edges"] if e["relation"] == "calls"]
+    assert len(call_edges) >= 1
+
+
+def test_haskell_no_dangling_edges():
+    r = extract_haskell(FIXTURES / "sample.hs")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids, f"Dangling source: {e}"
+        assert e["target"] in node_ids, f"Dangling target: {e}"
+
+
+def test_haskell_lhs_parsing():
+    r = extract_haskell(FIXTURES / "sample.lhs")
+    assert "error" not in r
+    labels = _labels(r)
+    assert "SampleLhs" in labels
+    assert any("greet" in l for l in labels)
+
+
+def test_collect_files_includes_all_extensions(tmp_path):
+    """collect_files should discover .hs, .lhs, .ex, .exs, .jl files."""
+    for ext in (".hs", ".lhs", ".ex", ".exs", ".jl"):
+        (tmp_path / f"test{ext}").write_text("-- placeholder")
+    files = collect_files(tmp_path)
+    found_exts = {p.suffix for p in files}
+    for ext in (".hs", ".lhs", ".ex", ".exs", ".jl"):
+        assert ext in found_exts, f"{ext} not found by collect_files"

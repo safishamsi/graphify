@@ -33,6 +33,7 @@ dependencies = [
     "tree-sitter-elixir",
     "tree-sitter-objc",
     "tree-sitter-julia",
+    "tree-sitter-haskell",
 ]
 
 [project.urls]
