@@ -1538,8 +1538,8 @@ def main() -> None:
         ok = _rebuild_code(watch_path, force=force)
         if ok:
             print("Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.")
-            if not os.environ.get("MOONSHOT_API_KEY") and not os.environ.get("GRAPHIFY_NO_TIPS"):
-                print("Tip: set MOONSHOT_API_KEY to use Kimi K2.6 for semantic extraction — 3x cheaper, richer graphs. pip install 'graphifyy[kimi]'")
+            if not os.environ.get("MOONSHOT_API_KEY") and not os.environ.get("OPENAI_API_KEY") and not os.environ.get("GRAPHIFY_NO_TIPS"):
+                print("Tip: set OPENAI_API_KEY (gpt-5.4-mini) or MOONSHOT_API_KEY (kimi-k2.6) for semantic extraction — richer graphs. pip install 'graphifyy[all]'")
         else:
             print("Nothing to update or rebuild failed — check output above.", file=sys.stderr)
             sys.exit(1)

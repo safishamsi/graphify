@@ -58,6 +58,13 @@ BACKENDS: dict[str, dict] = {
         "pricing": {"input": 0.74, "output": 4.66},  # USD per 1M tokens
         "temperature": None,  # kimi-k2.6 enforces its own fixed temperature; sending any value raises 400
     },
+    "openai": {
+        "base_url": "https://api.openai.com/v1",
+        "default_model": "gpt-5.4-mini",
+        "env_key": "OPENAI_API_KEY",
+        "pricing": {"input": 0.15, "output": 0.60},  # USD per 1M tokens (estimated for gpt-5.4-mini)
+        "temperature": 0,
+    },
 }
 
 _EXTRACTION_SYSTEM = """\
@@ -199,7 +206,7 @@ def extract_files_direct(
             f"No API key for backend '{backend}'. "
             f"Set {cfg['env_key']} or pass api_key=."
         )
-    mdl = model or cfg["default_model"]
+    mdl = model or os.environ.get("GRAPHIFY_MODEL") or cfg["default_model"]
     user_msg = _read_files(files, root)
 
     if backend == "claude":
@@ -473,6 +480,8 @@ def detect_backend() -> str | None:
     """
     if os.environ.get("MOONSHOT_API_KEY"):
         return "kimi"
+    if os.environ.get("OPENAI_API_KEY"):
+        return "openai"
     if os.environ.get("ANTHROPIC_API_KEY"):
         return "claude"
     return None
