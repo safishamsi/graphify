@@ -6,9 +6,9 @@
 [![PyPI](https://img.shields.io/pypi/v/graphifyy)](https://pypi.org/project/graphifyy/)
 [![Sponsor](https://img.shields.io/badge/sponsor-safishamsi-ea4aaa?logo=github-sponsors)](https://github.com/sponsors/safishamsi)
 
-**AIコーディングアシスタント向けのスキル。** Claude Code、Codex、OpenCode、OpenClaw、Factory Droid で `/graphify` と入力するだけで、ファイルを読み込んでナレッジグラフを構築し、あなたが気づいていなかった構造を返します。コードベースをより速く理解し、アーキテクチャ上の意思決定の「なぜ」を見つけ出します。
+**AIコーディングアシスタント向けのスキル。** Claude Code、Codex、OpenCode、Cursor、Gemini CLI、GitHub Copilot CLI、Aider、OpenClaw、Factory Droid、Trae で `/graphify` と入力するだけで、ファイルを読み込んでナレッジグラフを構築し、あなたが気づいていなかった構造を返します。コードベースをより速く理解し、アーキテクチャ上の意思決定の「なぜ」を見つけ出します。
 
-完全にマルチモーダル対応。コード、PDF、Markdown、スクリーンショット、図、ホワイトボード写真、他言語の画像まで――graphify は Claude Vision を使ってそれらすべてから概念と関係性を抽出し、1 つのグラフに接続します。tree-sitter AST により 19 言語をサポート（Python、JS、TS、Go、Rust、Java、C、C++、Ruby、C#、Kotlin、Scala、PHP、Swift、Lua、Zig、PowerShell、Elixir、Objective-C）。
+完全にマルチモーダル対応。コード、PDF、Markdown、スクリーンショット、図、ホワイトボード写真、他言語の画像まで――graphify は Claude Vision を使ってそれらすべてから概念と関係性を抽出し、1 つのグラフに接続します。tree-sitter AST により 20 言語をサポート（Python、JS、TS、Go、Rust、Java、C、C++、Ruby、C#、Kotlin、Scala、PHP、Swift、Lua、Zig、PowerShell、Elixir、Objective-C、Julia）。
 
 > Andrej Karpathy は論文、ツイート、スクリーンショット、メモを放り込む `/raw` フォルダを持っています。graphify はまさにその問題への答えです――生ファイルを読むのに比べて1クエリあたりのトークン数が 71.5 倍少なく、セッションをまたいで永続化され、見つけたものと推測したものを正直に区別します。
 
@@ -46,7 +46,7 @@ graphify は 2 パスで動作します。まず、決定論的な AST パスが
 
 ## インストール
 
-**必要なもの:** Python 3.10+ および以下のいずれか： [Claude Code](https://claude.ai/code), [Codex](https://openai.com/codex), [OpenCode](https://opencode.ai), [OpenClaw](https://openclaw.ai), または [Factory Droid](https://factory.ai)
+**必要なもの:** Python 3.10+ および以下のいずれか： [Claude Code](https://claude.ai/code), [Codex](https://openai.com/codex), [OpenCode](https://opencode.ai), [Cursor](https://cursor.com), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli), [Aider](https://aider.chat), [OpenClaw](https://openclaw.ai), [Factory Droid](https://factory.ai), または [Trae](https://trae.ai)
 
 ```bash
 pip install graphifyy && graphify install
@@ -62,10 +62,16 @@ pip install graphifyy && graphify install
 | Claude Code (Windows) | `graphify install`（自動検出）または `graphify install --platform windows` |
 | Codex | `graphify install --platform codex` |
 | OpenCode | `graphify install --platform opencode` |
+| GitHub Copilot CLI | `graphify install --platform copilot` |
+| Aider | `graphify install --platform aider` |
 | OpenClaw | `graphify install --platform claw` |
 | Factory Droid | `graphify install --platform droid` |
+| Trae | `graphify install --platform trae` |
+| Trae CN | `graphify install --platform trae-cn` |
+| Gemini CLI | `graphify install --platform gemini` |
+| Cursor | `graphify cursor install` |
 
-Codex ユーザーは並列抽出のために `~/.codex/config.toml` の `[features]` の下に `multi_agent = true` も必要です。Factory Droid は並列サブエージェントディスパッチに `Task` ツールを使用します。OpenClaw は逐次抽出を使用します（並列エージェントサポートはこのプラットフォームではまだ初期段階です）。
+Codex ユーザーは並列抽出のために `~/.codex/config.toml` の `[features]` の下に `multi_agent = true` も必要です。Factory Droid は並列サブエージェントディスパッチに `Task` ツールを使用します。OpenClaw と Aider は逐次抽出を使用します（並列エージェントサポートはこれらのプラットフォームではまだ初期段階です）。Trae は並列サブエージェントディスパッチに Agent ツールを使用し、PreToolUse フックを**サポートしません** — AGENTS.md が常時有効のメカニズムです。
 
 次に、AI コーディングアシスタントを開いて入力します：
 
@@ -84,12 +90,28 @@ Codex ユーザーは並列抽出のために `~/.codex/config.toml` の `[featu
 | Claude Code | `graphify claude install` |
 | Codex | `graphify codex install` |
 | OpenCode | `graphify opencode install` |
+| GitHub Copilot CLI | `graphify copilot install` |
+| Aider | `graphify aider install` |
 | OpenClaw | `graphify claw install` |
 | Factory Droid | `graphify droid install` |
+| Trae | `graphify trae install` |
+| Trae CN | `graphify trae-cn install` |
+| Cursor | `graphify cursor install` |
+| Gemini CLI | `graphify gemini install` |
 
 **Claude Code** は 2 つのことを行います：Claude にアーキテクチャの質問に答える前に `graphify-out/GRAPH_REPORT.md` を読むように指示する `CLAUDE.md` セクションを書き込み、すべての Glob と Grep 呼び出しの前に発火する **PreToolUse フック**（`settings.json`）をインストールします。ナレッジグラフが存在する場合、Claude は次のメッセージを見ます：_"graphify: Knowledge graph exists. Read GRAPH_REPORT.md for god nodes and community structure before searching raw files."_ ――これにより Claude はすべてのファイルを grep するのではなく、グラフを介してナビゲートします。
 
-**Codex、OpenCode、OpenClaw、Factory Droid** は同じルールをプロジェクトルートの `AGENTS.md` に書き込みます。これらのプラットフォームは PreToolUse フックをサポートしていないため、AGENTS.md が常時有効のメカニズムとなります。
+**Codex** は `AGENTS.md` に書き込み、Bash ツール呼び出しの前に発火する **PreToolUse フック**を `.codex/hooks.json` にインストールします — Claude Code と同じ常時有効のメカニズムです。
+
+**OpenCode** は `AGENTS.md` に書き込み、bash ツール呼び出しの前に発火する **`tool.execute.before` プラグイン**（`.opencode/plugins/graphify.js` + `opencode.json` 登録）をインストールします — グラフが存在するときツール出力にグラフリマインダーを挿入します。
+
+**Cursor** は `alwaysApply: true` で `.cursor/rules/graphify.mdc` を書き込みます — Cursor がすべての会話に自動で含めるため、フックは不要です。
+
+**Gemini CLI** はスキルを `~/.gemini/skills/graphify/SKILL.md` にコピーし、`GEMINI.md` セクションを書き込み、ファイル読み取りツール呼び出しの前に発火する `BeforeTool` フックを `.gemini/settings.json` にインストールします — Claude Code と同じ常時有効のメカニズムです。
+
+**Aider、OpenClaw、Factory Droid、Trae** はプロジェクトルートの `AGENTS.md` に同じルールを書き込みます。これらのプラットフォームはツールフックをサポートしていないため、AGENTS.md が常時有効のメカニズムとなります。
+
+**GitHub Copilot CLI** はスキルを `~/.copilot/skills/graphify/SKILL.md` にコピーします。`graphify copilot install` を実行してセットアップしてください。
 
 アンインストールは対応するアンインストールコマンドで行います（例：`graphify claude uninstall`）。
 
@@ -159,9 +181,21 @@ graphify hook status
 graphify claude install            # CLAUDE.md + PreToolUse フック（Claude Code）
 graphify claude uninstall
 graphify codex install             # AGENTS.md（Codex）
-graphify opencode install          # AGENTS.md（OpenCode）
+graphify opencode install          # AGENTS.md + tool.execute.before プラグイン（OpenCode）
+graphify copilot install           # スキルファイル（GitHub Copilot CLI）
+graphify copilot uninstall
+graphify aider install             # AGENTS.md（Aider）
+graphify aider uninstall
 graphify claw install              # AGENTS.md（OpenClaw）
 graphify droid install             # AGENTS.md（Factory Droid）
+graphify trae install              # AGENTS.md（Trae）
+graphify trae uninstall
+graphify trae-cn install           # AGENTS.md（Trae CN）
+graphify trae-cn uninstall
+graphify cursor install            # .cursor/rules/graphify.mdc（Cursor）
+graphify cursor uninstall
+graphify gemini install            # GEMINI.md + BeforeTool フック（Gemini CLI）
+graphify gemini uninstall
 
 # ターミナルから直接グラフをクエリ（AI アシスタント不要）
 graphify query "アテンションとオプティマイザを結ぶものは？"
@@ -174,7 +208,7 @@ graphify query "..." --graph path/to/graph.json
 
 | タイプ | 拡張子 | 抽出方法 |
 |------|-----------|------------|
-| コード | `.py .ts .js .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .mm` | tree-sitter による AST + コールグラフ + docstring/コメントの根拠 |
+| コード | `.py .ts .js .jsx .tsx .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .mm .jl` | tree-sitter による AST + コールグラフ + docstring/コメントの根拠 |
 | ドキュメント | `.md .txt .rst` | Claude による概念 + 関係性 + 設計根拠 |
 | Office | `.docx .xlsx` | Markdown に変換した後 Claude で抽出（`pip install graphifyy[office]` が必要） |
 | 論文 | `.pdf` | 引用マイニング + 概念抽出 |
