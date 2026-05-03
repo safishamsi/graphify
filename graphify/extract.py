@@ -2544,6 +2544,284 @@ def extract_elixir(path: Path) -> dict:
     return {"nodes": nodes, "edges": clean_edges, "input_tokens": 0, "output_tokens": 0}
 
 
+# ── Dart extractor (custom walk) ────────────────────────────────────────────
+
+def extract_dart(path: Path) -> dict:
+    """Extract classes, mixins, extensions, enums, functions, imports, and calls from a .dart file."""
+    try:
+        import tree_sitter_dart_orchard as tsdart
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree-sitter-dart-orchard not installed"}
+
+    try:
+        language = Language(tsdart.language())
+        parser = Parser(language)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = path.stem
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    function_bodies: list[tuple[str, Any]] = []
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({"id": nid, "label": label, "file_type": "code",
+                          "source_file": str_path, "source_location": f"L{line}"})
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
+        edges.append({"source": src, "target": tgt, "relation": relation,
+                      "confidence": confidence, "source_file": str_path,
+                      "source_location": f"L{line}", "weight": weight})
+
+    file_nid = _make_id(stem)
+    add_node(file_nid, path.name, 1)
+
+    def _text(node) -> str:
+        return source[node.start_byte:node.end_byte].decode("utf-8", errors="replace")
+
+    def _get_name(node) -> str | None:
+        """Get name from a node via 'name' field or first identifier child."""
+        n = node.child_by_field_name("name")
+        if n:
+            return _text(n)
+        for child in node.children:
+            if child.type == "identifier":
+                return _text(child)
+        return None
+
+    def _extract_superclass(class_node, class_nid: str, line: int) -> None:
+        """Extract inheritance and mixin edges from a class definition."""
+        for child in class_node.children:
+            if child.type == "superclass":
+                for sc in child.children:
+                    if sc.type == "type_identifier":
+                        super_name = _text(sc)
+                        super_nid = _make_id(stem, super_name)
+                        add_node(super_nid, super_name, line)
+                        add_edge(class_nid, super_nid, "inherits", line)
+                    elif sc.type == "mixins":
+                        for mx in sc.children:
+                            if mx.type == "type_identifier":
+                                mixin_name = _text(mx)
+                                mixin_nid = _make_id(stem, mixin_name)
+                                add_node(mixin_nid, mixin_name, line)
+                                add_edge(class_nid, mixin_nid, "inherits", line)
+            elif child.type == "interfaces":
+                for ic in child.children:
+                    if ic.type == "type_identifier":
+                        iface_name = _text(ic)
+                        iface_nid = _make_id(stem, iface_name)
+                        add_node(iface_nid, iface_name, line)
+                        add_edge(class_nid, iface_nid, "inherits", line)
+
+    def _walk_class_body(body_node, class_nid: str) -> None:
+        """Walk a class/mixin/extension/enum body for methods."""
+        children = body_node.children
+        i = 0
+        while i < len(children):
+            child = children[i]
+            if child.type == "method_signature":
+                # method_signature wraps function_signature or factory_constructor_signature
+                inner = None
+                for ic in child.children:
+                    if ic.type == "function_signature":
+                        inner = ic
+                        break
+                    elif ic.type == "factory_constructor_signature":
+                        inner = ic
+                        break
+                method_name = None
+                if inner is not None and inner.type == "factory_constructor_signature":
+                    # Factory: "factory ClassName.namedCtor(...)" — join identifiers with dot
+                    idents = [_text(c) for c in inner.children if c.type == "identifier"]
+                    method_name = ".".join(idents) if idents else None
+                elif inner is not None:
+                    method_name = _get_name(inner)
+                else:
+                    method_name = _get_name(child)
+                if method_name:
+                    method_nid = _make_id(stem, method_name)
+                    line = child.start_point[0] + 1
+                    add_node(method_nid, f"{method_name}()", line)
+                    add_edge(class_nid, method_nid, "method", line)
+                    # Pair with following function_body
+                    if i + 1 < len(children) and children[i + 1].type == "function_body":
+                        function_bodies.append((method_nid, children[i + 1]))
+                        i += 1
+            elif child.type == "enum_constant":
+                case_name = _get_name(child)
+                if case_name:
+                    case_nid = _make_id(stem, case_name)
+                    line = child.start_point[0] + 1
+                    add_node(case_nid, case_name, line)
+                    add_edge(case_nid, class_nid, "case_of", line)
+            i += 1
+
+    def walk_calls(node, caller_nid: str) -> None:
+        """Walk a function body for call expressions (identifier > selector pattern)."""
+        if node.type in ("function_signature", "method_signature"):
+            return
+        children = node.children
+        i = 0
+        while i < len(children):
+            child = children[i]
+            if child.type == "identifier":
+                callee_name = _text(child)
+                # Check if next sibling is a selector with argument_part (simple call)
+                if i + 1 < len(children) and children[i + 1].type == "selector":
+                    sel = children[i + 1]
+                    has_args = any(c.type == "argument_part" for c in sel.children)
+                    if has_args:
+                        # Simple call: func(args)
+                        target_nid = _make_id(stem, callee_name)
+                        add_edge(caller_nid, target_nid, "calls",
+                                 child.start_point[0] + 1, confidence="INFERRED")
+                    else:
+                        # Method call: obj.method(args) — check for .method selector then args selector
+                        method_name = None
+                        for sc in sel.children:
+                            if sc.type == "unconditional_assignable_selector":
+                                for gc in sc.children:
+                                    if gc.type == "identifier":
+                                        method_name = _text(gc)
+                        if method_name and i + 2 < len(children) and children[i + 2].type == "selector":
+                            target_nid = _make_id(stem, method_name)
+                            add_edge(caller_nid, target_nid, "calls",
+                                     child.start_point[0] + 1, confidence="INFERRED")
+            walk_calls(child, caller_nid)
+            i += 1
+
+    def walk(node) -> None:
+        children = node.children
+        i = 0
+        while i < len(children):
+            child = children[i]
+            t = child.type
+            line = child.start_point[0] + 1
+
+            # Classes
+            if t == "class_definition":
+                name = _get_name(child)
+                if name:
+                    nid = _make_id(stem, name)
+                    add_node(nid, name, line)
+                    add_edge(file_nid, nid, "defines", line)
+                    _extract_superclass(child, nid, line)
+                    body = child.child_by_field_name("body")
+                    if body is None:
+                        for bc in child.children:
+                            if bc.type == "class_body":
+                                body = bc
+                                break
+                    if body:
+                        _walk_class_body(body, nid)
+
+            # Mixins
+            elif t == "mixin_declaration":
+                name = _get_name(child)
+                if name:
+                    nid = _make_id(stem, name)
+                    add_node(nid, name, line)
+                    add_edge(file_nid, nid, "defines", line)
+                    for mc in child.children:
+                        if mc.type == "class_body":
+                            _walk_class_body(mc, nid)
+                            break
+
+            # Extensions
+            elif t == "extension_declaration":
+                name = _get_name(child)
+                if name:
+                    nid = _make_id(stem, name)
+                    add_node(nid, name, line)
+                    add_edge(file_nid, nid, "defines", line)
+                    for ec in child.children:
+                        if ec.type == "extension_body":
+                            _walk_class_body(ec, nid)
+                            break
+
+            # Enums
+            elif t == "enum_declaration":
+                name = _get_name(child)
+                if name:
+                    nid = _make_id(stem, name)
+                    add_node(nid, name, line)
+                    add_edge(file_nid, nid, "defines", line)
+                    for ec in child.children:
+                        if ec.type == "enum_body":
+                            _walk_class_body(ec, nid)
+                            break
+
+            # Top-level functions: function_signature + function_body siblings
+            elif t == "function_signature":
+                name = _get_name(child)
+                if name:
+                    nid = _make_id(stem, name)
+                    add_node(nid, f"{name}()", line)
+                    add_edge(file_nid, nid, "defines", line)
+                    if i + 1 < len(children) and children[i + 1].type == "function_body":
+                        function_bodies.append((nid, children[i + 1]))
+                        i += 1
+
+            # Imports
+            elif t == "import_or_export":
+                for imp_child in child.children:
+                    if imp_child.type == "library_import":
+                        for spec in imp_child.children:
+                            if spec.type == "import_specification":
+                                import_text = _text(spec).strip().strip("'\"")
+                                imp_nid = _make_id(import_text)
+                                add_node(imp_nid, import_text, line)
+                                add_edge(file_nid, imp_nid, "imports", line)
+                                break
+
+            # Part directives
+            elif t == "part_directive":
+                part_text = None
+                for pc in child.children:
+                    if pc.type == "uri":
+                        part_text = _text(pc).strip().strip("'\"")
+                        break
+                    elif pc.type == "string_literal":
+                        part_text = _text(pc).strip().strip("'\"")
+                        break
+                if part_text:
+                    part_nid = _make_id(part_text)
+                    add_node(part_nid, part_text, line)
+                    add_edge(file_nid, part_nid, "imports", line)
+
+            elif t == "part_of_directive":
+                part_of_text = None
+                for pc in child.children:
+                    if pc.type in ("uri", "string_literal", "identifier", "dotted_identifier_list"):
+                        part_of_text = _text(pc).strip().strip("'\"")
+                        break
+                if part_of_text:
+                    part_nid = _make_id(part_of_text)
+                    add_node(part_nid, part_of_text, line)
+                    add_edge(file_nid, part_nid, "imports", line)
+
+            i += 1
+
+    walk(root)
+
+    for func_nid, body_node in function_bodies:
+        walk_calls(body_node, func_nid)
+
+    clean_edges = [e for e in edges if e["source"] in seen_ids and
+                   (e["target"] in seen_ids or e["relation"] == "imports")]
+    return {"nodes": nodes, "edges": clean_edges}
+
+
 # ── Main extract and collect_files ────────────────────────────────────────────
 
 
@@ -2622,6 +2900,7 @@ def extract(paths: list[Path]) -> dict:
         ".m": extract_objc,
         ".mm": extract_objc,
         ".jl": extract_julia,
+        ".dart": extract_dart,
     }
 
     total = len(paths)
@@ -2676,7 +2955,7 @@ def collect_files(target: Path, *, follow_symlinks: bool = False) -> list[Path]:
         ".java", ".c", ".h", ".cpp", ".cc", ".cxx", ".hpp",
         ".rb", ".cs", ".kt", ".kts", ".scala", ".php", ".swift",
         ".lua", ".toc", ".zig", ".ps1",
-        ".m", ".mm",
+        ".ex", ".exs", ".m", ".mm", ".jl", ".dart",
     }
     if not follow_symlinks:
         results: list[Path] = []
