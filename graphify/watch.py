@@ -33,8 +33,11 @@ def _relativize_source_files(payload: dict, root: Path) -> None:
                 continue
 
 
-def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: bool = False) -> bool:
-    """Re-run AST extraction + build + cluster + report for code files. No LLM needed.
+def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: bool = False, semantic: bool = False) -> bool:
+    """Re-run AST extraction + optional semantic extraction + build + cluster + report.
+
+    When ``semantic`` is True, also runs LLM-based semantic extraction for code files
+    using the detected backend (e.g. OpenAI/Kimi).
 
     When ``force`` is True the node-count safety check in ``to_json`` is bypassed
     so the rebuilt graph overwrites graph.json even if it has fewer nodes.
@@ -66,6 +69,25 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
         java_paths = [p for p in code_files if p.suffix == ".java"]
 
         result = extract(code_files, cache_root=watch_root)
+
+        if semantic:
+            from graphify.llm import extract_corpus_parallel, detect_backend
+            backend = detect_backend()
+            if backend:
+                print(f"[graphify] Running semantic extraction with {backend}...")
+                sem = extract_corpus_parallel(code_files, backend=backend, root=watch_root)
+                # Merge semantic results into AST result
+                seen = {n['id'] for n in result['nodes']}
+                for n in sem['nodes']:
+                    if n['id'] not in seen:
+                        result['nodes'].append(n)
+                        seen.add(n['id'])
+                result['edges'].extend(sem['edges'])
+                result['hyperedges'] = sem.get('hyperedges', [])
+                result['input_tokens'] = sem.get('input_tokens', 0)
+                result['output_tokens'] = sem.get('output_tokens', 0)
+            else:
+                print("[graphify] No API key found for semantic extraction. Skipping.")
 
         out = watch_path / "graphify-out"
         existing_graph = out / "graph.json"

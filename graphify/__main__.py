@@ -1521,6 +1521,9 @@ def main() -> None:
         if "--force" in argv[2:]:
             force = True
             argv = [a for a in argv if a != "--force"]
+        semantic = "--semantic" in argv[2:]
+        if semantic:
+            argv = [a for a in argv if a != "--semantic"]
         if len(argv) > 2:
             watch_path = Path(argv[2])
         else:
@@ -1534,8 +1537,13 @@ def main() -> None:
             print(f"error: path not found: {watch_path}", file=sys.stderr)
             sys.exit(1)
         from graphify.watch import _rebuild_code
-        print(f"Re-extracting code files in {watch_path} (no LLM needed)...")
-        ok = _rebuild_code(watch_path, force=force)
+        msg = f"Re-extracting code files in {watch_path}"
+        if semantic:
+            msg += " with semantic LLM..."
+        else:
+            msg += " (no LLM needed)..."
+        print(msg)
+        ok = _rebuild_code(watch_path, force=force, semantic=semantic)
         if ok:
             print("Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.")
             if not os.environ.get("MOONSHOT_API_KEY") and not os.environ.get("OPENAI_API_KEY") and not os.environ.get("GRAPHIFY_NO_TIPS"):
