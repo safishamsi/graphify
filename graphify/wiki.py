@@ -21,6 +21,17 @@ def _safe_filename(name: str) -> str:
     return s[:200] if s else 'unnamed'
 
 
+def _wikilink(label: str, slug_map: dict[str, str] | None = None) -> str:
+    """Render a wiki reference. If slug_map[label] is a known article filename,
+    emit the mixed [[label]](filename.md) form so non-Obsidian agents can
+    follow the link as plain markdown (#228). Otherwise fall back to a bare
+    [[label]] wikilink for nodes that don't have their own article.
+    """
+    if slug_map and label in slug_map:
+        return f"[[{label}]]({slug_map[label]}.md)"
+    return f"[[{label}]]"
+
+
 def _cross_community_links(G: nx.Graph, nodes: list[str], own_cid: int, labels: dict[int, str]) -> list[tuple[str, int]]:
     """Return (community_label, edge_count) pairs for cross-community connections, sorted descending."""
     counts: dict[str, int] = Counter()
@@ -40,6 +51,7 @@ def _community_article(
     label: str,
     labels: dict[int, str],
     cohesion: float | None,
+    slug_map: dict[str, str] | None = None,
 ) -> str:
     top_nodes = sorted(nodes, key=lambda n: G.degree(n), reverse=True)[:25]
     cross = _cross_community_links(G, nodes, cid, labels)
@@ -78,7 +90,7 @@ def _community_article(
     lines += ["## Relationships", ""]
     if cross:
         for other_label, count in cross[:12]:
-            lines.append(f"- [[{other_label}]] ({count} shared connections)")
+            lines.append(f"- {_wikilink(other_label, slug_map)} ({count} shared connections)")
     else:
         lines.append("- No strong cross-community connections detected")
     lines.append("")
@@ -100,7 +112,7 @@ def _community_article(
     return "\n".join(lines)
 
 
-def _god_node_article(G: nx.Graph, nid: str, labels: dict[int, str]) -> str:
+def _god_node_article(G: nx.Graph, nid: str, labels: dict[int, str], slug_map: dict[str, str] | None = None) -> str:
     d = G.nodes[nid]
     node_label = d.get("label", nid)
     src = d.get("source_file", "")
@@ -112,7 +124,7 @@ def _god_node_article(G: nx.Graph, nid: str, labels: dict[int, str]) -> str:
     lines += [f"> God node · {G.degree(nid)} connections · `{src}`", ""]
 
     if community_name:
-        lines += [f"**Community:** [[{community_name}]]", ""]
+        lines += [f"**Community:** {_wikilink(community_name, slug_map)}", ""]
 
     # Group neighbors by relation type
     by_relation: dict[str, list[str]] = {}
@@ -123,7 +135,7 @@ def _god_node_article(G: nx.Graph, nid: str, labels: dict[int, str]) -> str:
         neighbor_label = nd.get("label", neighbor)
         conf = ed.get("confidence", "")
         conf_str = f" `{conf}`" if conf else ""
-        by_relation.setdefault(rel, []).append(f"[[{neighbor_label}]]{conf_str}")
+        by_relation.setdefault(rel, []).append(f"{_wikilink(neighbor_label, slug_map)}{conf_str}")
 
     lines += ["## Connections by Relation", ""]
     for rel, targets in sorted(by_relation.items()):
@@ -142,6 +154,7 @@ def _index_md(
     god_nodes_data: list[dict],
     total_nodes: int,
     total_edges: int,
+    slug_map: dict[str, str] | None = None,
 ) -> str:
     lines: list[str] = [
         "# Knowledge Graph Index",
@@ -159,13 +172,13 @@ def _index_md(
 
     for cid, nodes in sorted(communities.items(), key=lambda x: -len(x[1])):
         label = labels.get(cid, f"Community {cid}")
-        lines.append(f"- [[{label}]] — {len(nodes)} nodes")
+        lines.append(f"- {_wikilink(label, slug_map)} — {len(nodes)} nodes")
     lines.append("")
 
     if god_nodes_data:
         lines += ["## God Nodes", "(most connected concepts — the load-bearing abstractions)", ""]
         for node in god_nodes_data:
-            lines.append(f"- [[{node['label']}]] — {node['degree']} connections")
+            lines.append(f"- {_wikilink(node['label'], slug_map)} — {node['degree']} connections")
         lines.append("")
 
     lines += [
@@ -221,11 +234,30 @@ def to_wiki(
         used_slugs.add(slug)
         return slug
 
+    # Pre-compute the label -> slug map (#228) so that each generated article
+    # can emit mixed [[label]](filename.md) links — Obsidian still parses the
+    # [[ ]] portion, while standard markdown renderers and agents follow the
+    # explicit relative path.
+    slug_map: dict[str, str] = {}
+    community_slugs: dict[int, str] = {}
+    for cid, nodes in communities.items():
+        label = labels.get(cid, f"Community {cid}")
+        slug = _unique_slug(_safe_filename(label))
+        community_slugs[cid] = slug
+        slug_map[label] = slug
+    god_node_slugs: dict[str, str] = {}
+    for node_data in god_nodes_data:
+        nid = node_data.get("id")
+        if nid and nid in G:
+            slug = _unique_slug(_safe_filename(node_data['label']))
+            god_node_slugs[nid] = slug
+            slug_map[node_data['label']] = slug
+
     # Community articles
     for cid, nodes in communities.items():
         label = labels.get(cid, f"Community {cid}")
-        article = _community_article(G, cid, nodes, label, labels, cohesion.get(cid))
-        slug = _unique_slug(_safe_filename(label))
+        article = _community_article(G, cid, nodes, label, labels, cohesion.get(cid), slug_map)
+        slug = community_slugs[cid]
         (out / f"{slug}.md").write_text(article, encoding="utf-8")
         count += 1
 
@@ -233,14 +265,15 @@ def to_wiki(
     for node_data in god_nodes_data:
         nid = node_data.get("id")
         if nid and nid in G:
-            article = _god_node_article(G, nid, labels)
-            slug = _unique_slug(_safe_filename(node_data['label']))
+            article = _god_node_article(G, nid, labels, slug_map)
+            slug = god_node_slugs[nid]
             (out / f"{slug}.md").write_text(article, encoding="utf-8")
             count += 1
 
     # Index
     (out / "index.md").write_text(
-        _index_md(communities, labels, god_nodes_data, G.number_of_nodes(), G.number_of_edges()),
+        _index_md(communities, labels, god_nodes_data,
+                  G.number_of_nodes(), G.number_of_edges(), slug_map),
         encoding="utf-8",
     )
 
