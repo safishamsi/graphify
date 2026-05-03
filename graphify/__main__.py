@@ -368,11 +368,25 @@ def gemini_uninstall(project_dir: Path | None = None) -> None:
 
 _VSCODE_INSTRUCTIONS_MARKER = "## graphify"
 _VSCODE_INSTRUCTIONS_SECTION = """\
-## graphify
+## graphify (MANDATORY FIRST STEP)
 
-Before answering architecture or codebase questions, read `graphify-out/GRAPH_REPORT.md` if it exists.
-If `graphify-out/wiki/index.md` exists, navigate it for deep questions.
-Type `/graphify` in Copilot Chat to build or update the knowledge graph.
+For ANY question about this repo's architecture, structure, components, conventions,
+or how to add/modify/find code, your **first tool call MUST be** to read
+`graphify-out/GRAPH_REPORT.md` (if it exists). No exceptions — even for "simple" questions,
+even if you've read it earlier in the session.
+
+Triggers include: "how do I…", "where is…", "what does … do", "add/modify a <component>",
+"explain the <architecture|flow>", or anything that depends on how files/classes relate.
+
+After reading the report (and `graphify-out/wiki/index.md` for deep questions), answer
+from the graph. **Do NOT re-verify by opening source files** for conceptual questions —
+the graph is the grounding. Read source only when (a) modifying/debugging specific code,
+(b) the graph genuinely lacks the needed detail, or (c) the graph is missing/stale.
+
+Before each reply, self-check: did my first tool call read `GRAPH_REPORT.md`? If not, stop
+and read it now.
+
+Type `/graphify` in Copilot Chat to build or update the graph.
 """
 
 
