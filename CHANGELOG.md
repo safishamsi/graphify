@@ -2,6 +2,15 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## 0.6.8 (2026-05-03)
+
+- Fix: `.graphifyignore` negation patterns (`!src/**`) now work correctly — when any `!` pattern is present, directory pruning is deferred to per-file checks so negated files inside ignored directories are reached (#676)
+- Fix: Antigravity slash command `/graphify` now appears in the command dropdown — workflow file now includes YAML frontmatter with `name: graphify` required for Antigravity discovery (#678)
+- Fix: Gemini CLI BeforeTool hook replaced `[ -f ... ] && echo` (bash-only) with cross-platform `python -c` using `json.dumps` — fixes hook failure on Windows CMD and Git Bash (#681)
+- Fix: Codex hook-check exits silently — resolves `additionalContext` rejection on Codex Desktop PreToolUse (#651)
+- Fix: `graphify install --platform codex` now writes absolute path to `graphify` executable — fixes PATH resolution in VS Code extension on Windows (#651)
+- Fix: thin communities (fewer than 3 concept nodes) are now omitted from the Communities section in `GRAPH_REPORT.md` by default; report header shows `(N total, M thin omitted)` and Knowledge Gaps collapses thin communities to one summary line (#664)
+
 ## 0.6.7 (2026-05-02)
 
 - Feat: `graphify tree` — self-contained D3 v7 collapsible-tree HTML view of `graph.json`; expand/collapse controls, depth-based colours, hover inspector; XSS-safe (#557)
