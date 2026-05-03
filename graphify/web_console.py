@@ -6,34 +6,34 @@ from __future__ import annotations
 
 import json
 import os
-import shutil
-import sys
 import tempfile
 import threading
 import uuid
-import time
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Union
+from typing import Any, Dict, Optional
 from zipfile import ZipFile
 
 import networkx as nx
 from fastapi import FastAPI, HTTPException, Query
-from fastapi.responses import FileResponse, JSONResponse, HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from networkx.readwrite import json_graph
 
-from graphify.detect import detect
-from graphify.build import build_from_json
-from graphify.cluster import cluster, score_all
-from graphify.analyze import god_nodes, surprising_connections, suggest_questions
-from graphify.report import generate
-from graphify.export import to_json, to_html, to_graphml, to_svg, to_obsidian, to_canvas
+from graphify.analyze import god_nodes, surprising_connections
+from graphify.pipeline import (
+    CancelHandler,
+    GraphifyPipeline,
+    ScanConfig,
+    ScanProgress,
+    ScanResult,
+)
+
 
 scan_sessions: Dict[str, Dict[str, Any]] = {}
-scan_cancel_events: Dict[str, threading.Event] = {}
+scan_cancel_handlers: Dict[str, CancelHandler] = {}
 active_scans: Dict[str, threading.Thread] = {}
 scan_lock = threading.Lock()
 
@@ -43,6 +43,7 @@ class ScanRequest(BaseModel):
     directed: bool = False
     no_viz: bool = False
     include_obsidian: bool = False
+    obsidian_dir: Optional[str] = None
     include_svg: bool = False
     include_graphml: bool = False
 
@@ -70,7 +71,7 @@ class ScanStatus(BaseModel):
 app = FastAPI(
     title="graphify Web Console",
     description="Web interface for graphify knowledge graph tool",
-    version="0.1.0",
+    version="0.2.0",
 )
 
 app.add_middleware(
@@ -124,8 +125,8 @@ def _load_graph(graph_path: str) -> nx.Graph:
         )
 
 
-def _communities_from_graph(G: nx.Graph) -> Dict[int, List[str]]:
-    communities: Dict[int, List[str]] = {}
+def _communities_from_graph(G: nx.Graph) -> Dict[int, Any]:
+    communities: Dict[int, Any] = {}
     for node_id, data in G.nodes(data=True):
         cid = data.get("community")
         if cid is not None:
@@ -139,7 +140,7 @@ def _strip_diacritics(text: str) -> str:
     return "".join(c for c in nfkd if not unicodedata.combining(c))
 
 
-def _score_nodes(G: nx.Graph, terms: List[str]) -> List[tuple]:
+def _score_nodes(G: nx.Graph, terms: list[str]) -> list[tuple]:
     scored = []
     norm_terms = [_strip_diacritics(t).lower() for t in terms]
     for nid, data in G.nodes(data=True):
@@ -157,31 +158,6 @@ def _score_nodes(G: nx.Graph, terms: List[str]) -> List[tuple]:
     return sorted(scored, reverse=True)
 
 
-def _is_cancelled(scan_id: str) -> bool:
-    with scan_lock:
-        if scan_id in scan_cancel_events:
-            return scan_cancel_events[scan_id].is_set()
-    return False
-
-
-def _check_cancel_and_sleep(scan_id: str, sleep_seconds: float = 0.1):
-    if _is_cancelled(scan_id):
-        raise InterruptedError("Scan cancelled by user")
-    if sleep_seconds > 0:
-        time.sleep(sleep_seconds)
-
-
-def _update_scan_status(scan_id: str, step: int, total: int, message: str):
-    with scan_lock:
-        if scan_id in scan_sessions:
-            scan_sessions[scan_id].update({
-                "progress": step / total,
-                "current_step": message,
-                "steps_completed": step,
-                "total_steps": total,
-            })
-
-
 def _detect_backend() -> Optional[str]:
     if os.environ.get("MOONSHOT_API_KEY"):
         return "kimi"
@@ -190,98 +166,23 @@ def _detect_backend() -> Optional[str]:
     return None
 
 
-def _transcribe_video_files(
-    scan_id: str,
-    video_files: List[str],
-    output_dir: Path,
-) -> List[str]:
-    if not video_files:
-        return []
-    
-    try:
-        from graphify.transcribe import transcribe_all
-    except ImportError as e:
-        print(f"Warning: Video transcription not available: {e}")
-        print("Install video support with: pip install 'graphifyy[video]'")
-        return []
-    
-    try:
-        _check_cancel_and_sleep(scan_id, 0)
-        transcript_paths = transcribe_all(video_files, output_dir=output_dir / "transcripts")
-        return transcript_paths
-    except Exception as e:
-        print(f"Warning: Transcription failed: {e}")
-        return []
-
-
-def _get_all_files_for_semantic_extraction(detection_result: dict, transcript_paths: List[str]) -> List[Path]:
-    all_files = []
-    
-    for file_type in ["document", "paper", "image"]:
-        files = detection_result.get("files", {}).get(file_type, [])
-        for f in files:
-            p = Path(f)
-            if p.exists():
-                all_files.append(p)
-    
-    for t in transcript_paths:
-        p = Path(t)
-        if p.exists():
-            all_files.append(p)
-    
-    return all_files
-
-
-def _run_semantic_extraction(
-    scan_id: str,
-    files: List[Path],
-    root: Path,
-    backend: str,
-) -> dict:
-    if not files:
-        return {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
-    
-    try:
-        from graphify.llm import extract_corpus_parallel
-    except ImportError as e:
-        print(f"Warning: LLM extraction not available: {e}")
-        if backend == "kimi":
-            print("Install Kimi support with: pip install openai tiktoken")
-        elif backend == "claude":
-            print("Install Claude support with: pip install anthropic")
-        return {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
-    
-    total = len(files)
-    completed = 0
-    results = []
-    
-    def _on_chunk_done(idx: int, total_chunks: int, chunk_result: dict):
-        nonlocal completed
-        completed += 1
-        print(f"[semantic] Chunk {idx + 1}/{total_chunks} done: {len(chunk_result.get('nodes', []))} nodes")
-    
-    try:
-        _check_cancel_and_sleep(scan_id, 0)
-        result = extract_corpus_parallel(
-            files,
-            backend=backend,
-            root=root,
-            max_concurrency=4,
-            on_chunk_done=_on_chunk_done,
-        )
-        return result
-    except InterruptedError:
-        raise
-    except Exception as e:
-        print(f"Warning: Semantic extraction failed: {e}")
-        import traceback
-        traceback.print_exc()
-        return {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+def _create_progress_callback(scan_id: str):
+    def callback(progress: ScanProgress):
+        with scan_lock:
+            if scan_id in scan_sessions:
+                scan_sessions[scan_id].update({
+                    "progress": progress.step / progress.total_steps,
+                    "current_step": progress.message,
+                    "steps_completed": progress.step,
+                    "total_steps": progress.total_steps,
+                })
+    return callback
 
 
 def run_scan(scan_id: str, request: ScanRequest):
-    total_steps = 10
     try:
+        cancel_handler = CancelHandler()
+        
         with scan_lock:
             scan_sessions[scan_id] = {
                 "scan_id": scan_id,
@@ -290,278 +191,87 @@ def run_scan(scan_id: str, request: ScanRequest):
                 "progress": 0.0,
                 "current_step": "Initializing...",
                 "steps_completed": 0,
-                "total_steps": total_steps,
+                "total_steps": GraphifyPipeline.TOTAL_STEPS,
                 "start_time": datetime.now(),
                 "error_message": None,
                 "results": None,
             }
-            scan_cancel_events[scan_id] = threading.Event()
+            scan_cancel_handlers[scan_id] = cancel_handler
 
-        project_path = Path(request.project_path)
-        output_dir = project_path / "graphify-out"
-        output_dir.mkdir(parents=True, exist_ok=True)
-        
-        (output_dir / ".graphify_root").write_text(str(project_path.resolve()), encoding="utf-8")
-
-        _check_cancel_and_sleep(scan_id, 0.01)
-
-        _update_scan_status(scan_id, 1, total_steps, "Detecting files...")
-        detection_result = detect(project_path)
-        
-        (output_dir / ".graphify_detect.json").write_text(
-            json.dumps(detection_result, indent=2), encoding="utf-8"
-        )
-
-        if detection_result.get("total_files", 0) == 0:
-            raise ValueError(f"No supported files found in {project_path}")
-
-        _check_cancel_and_sleep(scan_id, 0.01)
-
-        video_files = detection_result.get("files", {}).get("video", [])
-        transcript_paths = []
-        if video_files:
-            _update_scan_status(scan_id, 2, total_steps, f"Transcribing {len(video_files)} video/audio file(s)...")
-            transcript_paths = _transcribe_video_files(scan_id, video_files, output_dir)
-            print(f"Transcribed: {len(transcript_paths)} files")
-        
-        _check_cancel_and_sleep(scan_id, 0.01)
-
-        _update_scan_status(scan_id, 3, total_steps, "Extracting code structure (AST)...")
-        
-        from graphify.extract import collect_files, extract
-        
-        code_files = []
-        for f in detection_result.get("files", {}).get("code", []):
-            if Path(f).is_dir():
-                code_files.extend(collect_files(Path(f)))
-            else:
-                code_files.append(Path(f))
-        
-        ast_result = {"nodes": [], "edges": [], "input_tokens": 0, "output_tokens": 0}
-        if code_files:
-            try:
-                _check_cancel_and_sleep(scan_id, 0.01)
-                ast_result = extract(code_files, cache_root=Path("."))
-            except Exception as e:
-                print(f"Warning: AST extraction failed: {e}")
-        
-        (output_dir / ".graphify_ast.json").write_text(
-            json.dumps(ast_result, indent=2), encoding="utf-8"
+        config = ScanConfig(
+            project_path=request.project_path,
+            directed=request.directed,
+            no_viz=request.no_viz,
+            include_obsidian=request.include_obsidian,
+            obsidian_dir=request.obsidian_dir,
+            include_svg=request.include_svg,
+            include_graphml=request.include_graphml,
         )
         
-        print(f"AST: {len(ast_result.get('nodes', []))} nodes, {len(ast_result.get('edges', []))} edges")
-        
-        _check_cancel_and_sleep(scan_id, 0.01)
-
-        _update_scan_status(scan_id, 4, total_steps, "Checking for semantic extraction...")
-        
-        semantic_files = _get_all_files_for_semantic_extraction(detection_result, transcript_paths)
-        semantic_result = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
-        
-        backend = _detect_backend()
-        if semantic_files and backend:
-            _update_scan_status(
-                scan_id, 
-                5, 
-                total_steps, 
-                f"Semantic extraction on {len(semantic_files)} files using {backend}..."
-            )
-            print(f"Semantic extraction: {len(semantic_files)} files, backend={backend}")
-            
-            try:
-                _check_cancel_and_sleep(scan_id, 0.01)
-                semantic_result = _run_semantic_extraction(
-                    scan_id, 
-                    semantic_files, 
-                    project_path, 
-                    backend
-                )
-            except InterruptedError:
-                raise
-            except Exception as e:
-                print(f"Warning: Semantic extraction failed: {e}")
-        elif semantic_files:
-            print(f"Note: {len(semantic_files)} non-code files detected but no LLM API key set.")
-            print("      Set MOONSHOT_API_KEY (Kimi) or ANTHROPIC_API_KEY (Claude) for semantic extraction.")
-            print("      Proceeding with AST-only extraction (code files only).")
-        else:
-            print("No non-code files - AST-only extraction is complete.")
-        
-        print(f"Semantic: {len(semantic_result.get('nodes', []))} nodes, {len(semantic_result.get('edges', []))} edges")
-        
-        _check_cancel_and_sleep(scan_id, 0.01)
-
-        _update_scan_status(scan_id, 6, total_steps, "Merging extraction results...")
-        
-        seen_ids = {n["id"] for n in ast_result.get("nodes", [])}
-        merged_nodes = list(ast_result.get("nodes", []))
-        
-        for n in semantic_result.get("nodes", []):
-            if n["id"] not in seen_ids:
-                merged_nodes.append(n)
-                seen_ids.add(n["id"])
-        
-        merged_extraction = {
-            "nodes": merged_nodes,
-            "edges": ast_result.get("edges", []) + semantic_result.get("edges", []),
-            "hyperedges": semantic_result.get("hyperedges", []),
-            "input_tokens": ast_result.get("input_tokens", 0) + semantic_result.get("input_tokens", 0),
-            "output_tokens": ast_result.get("output_tokens", 0) + semantic_result.get("output_tokens", 0),
-        }
-        
-        (output_dir / ".graphify_extract.json").write_text(
-            json.dumps(merged_extraction, indent=2), encoding="utf-8"
+        pipeline = GraphifyPipeline(
+            config=config,
+            progress_callback=_create_progress_callback(scan_id),
+            cancel_handler=cancel_handler,
         )
         
-        print(f"Merged: {len(merged_extraction['nodes'])} nodes, {len(merged_extraction['edges'])} edges")
+        result = pipeline.run()
         
-        _check_cancel_and_sleep(scan_id, 0.01)
-
-        _update_scan_status(scan_id, 7, total_steps, "Building knowledge graph...")
-        G = build_from_json(merged_extraction, directed=request.directed)
-
-        if G.number_of_nodes() == 0:
-            raise ValueError(
-                "Graph is empty - extraction produced no nodes. "
-                "Possible causes: all files were skipped, binary-only corpus, or extraction failed."
-            )
-
-        _check_cancel_and_sleep(scan_id, 0.01)
-
-        _update_scan_status(scan_id, 8, total_steps, "Running community detection...")
-        communities = cluster(G)
-        cohesion = score_all(G, communities)
-
-        _check_cancel_and_sleep(scan_id, 0.01)
-
-        _update_scan_status(scan_id, 9, total_steps, "Generating report...")
-        gods = god_nodes(G)
-        surprises = surprising_connections(G, communities)
-        labels = {cid: f"Community {cid}" for cid in communities}
-        questions = suggest_questions(G, communities, labels)
-
-        token_cost = {
-            "input": merged_extraction.get("input_tokens", 0),
-            "output": merged_extraction.get("output_tokens", 0),
-        }
-
-        report = generate(
-            G,
-            communities,
-            cohesion,
-            labels,
-            gods,
-            surprises,
-            detection_result,
-            token_cost,
-            str(project_path),
-            suggested_questions=questions,
-        )
-        report_path = output_dir / "GRAPH_REPORT.md"
-        report_path.write_text(report, encoding="utf-8")
-
-        _check_cancel_and_sleep(scan_id, 0.01)
-
-        _update_scan_status(scan_id, 10, total_steps, "Exporting graph outputs...")
+        if result.cancelled:
+            with scan_lock:
+                scan_sessions[scan_id].update({
+                    "status": "cancelled",
+                    "error_message": "Scan cancelled by user",
+                    "end_time": datetime.now(),
+                })
+            return
         
-        to_json(G, communities, str(output_dir / "graph.json"))
+        if not result.success:
+            with scan_lock:
+                scan_sessions[scan_id].update({
+                    "status": "failed",
+                    "error_message": result.error_message or "Scan failed",
+                    "end_time": datetime.now(),
+                })
+            return
         
-        if not request.no_viz:
-            try:
-                to_html(
-                    G,
-                    communities,
-                    str(output_dir / "graph.html"),
-                    community_labels=labels,
-                )
-            except Exception as e:
-                print(f"Warning: HTML generation failed: {e}")
-        
-        if request.include_svg:
-            try:
-                to_svg(
-                    G,
-                    communities,
-                    str(output_dir / "graph.svg"),
-                    community_labels=labels,
-                )
-            except Exception as e:
-                print(f"Warning: SVG generation failed: {e}")
-        
-        if request.include_graphml:
-            try:
-                to_graphml(
-                    G,
-                    communities,
-                    str(output_dir / "graph.graphml"),
-                )
-            except Exception as e:
-                print(f"Warning: GraphML generation failed: {e}")
-        
-        if request.include_obsidian:
-            try:
-                obsidian_dir = output_dir / "obsidian"
-                obsidian_count = to_obsidian(
-                    G, 
-                    communities, 
-                    str(obsidian_dir), 
-                    community_labels=labels or None,
-                    cohesion=cohesion
-                )
-                to_canvas(G, communities, str(obsidian_dir / "graph.canvas"), community_labels=labels or None)
-                print(f"Obsidian vault: {obsidian_count} notes")
-            except Exception as e:
-                print(f"Warning: Obsidian generation failed: {e}")
-
-        analysis = {
-            "communities": {str(k): v for k, v in communities.items()},
-            "cohesion": {str(k): v for k, v in cohesion.items()},
-            "gods": gods,
-            "surprises": surprises,
-            "questions": questions,
-        }
-        (output_dir / ".graphify_analysis.json").write_text(
-            json.dumps(analysis, indent=2), encoding="utf-8"
-        )
-        
-        (output_dir / ".graphify_labels.json").write_text(
-            json.dumps({str(k): v for k, v in labels.items()}, indent=2),
-            encoding="utf-8",
-        )
-
         results = {
-            "project_path": str(project_path),
-            "output_dir": str(output_dir),
-            "node_count": G.number_of_nodes(),
-            "edge_count": G.number_of_edges(),
-            "community_count": len(communities),
-            "god_nodes": gods,
-            "surprising_connections": surprises,
-            "semantic_backend": backend,
+            "project_path": str(request.project_path),
+            "output_dir": str(result.output_dir) if result.output_dir else None,
+            "node_count": result.nodes,
+            "edge_count": result.edges,
+            "community_count": result.communities,
+            "semantic_backend": _detect_backend(),
             "files": {
-                "graph_json": str(output_dir / "graph.json"),
-                "graph_html": str(output_dir / "graph.html") if not request.no_viz else None,
-                "graph_report": str(output_dir / "GRAPH_REPORT.md"),
+                "graph_json": str(result.graph_path) if result.graph_path else None,
+                "graph_html": str(result.html_path) if result.html_path else None,
+                "graph_report": str(result.report_path) if result.report_path else None,
+                "obsidian_dir": str(result.obsidian_dir) if result.obsidian_dir else None,
+                "svg_path": str(result.svg_path) if result.svg_path else None,
+                "graphml_path": str(result.graphml_path) if result.graphml_path else None,
             },
         }
-
+        
+        if result.graph_path and result.graph_path.exists():
+            try:
+                G = _load_graph(str(result.graph_path))
+                communities = _communities_from_graph(G)
+                gods = god_nodes(G)
+                surprises = surprising_connections(G, communities)
+                results["god_nodes"] = gods
+                results["surprising_connections"] = surprises
+            except Exception:
+                pass
+        
         with scan_lock:
             scan_sessions[scan_id].update({
                 "status": "completed",
                 "progress": 1.0,
                 "current_step": "Scan completed successfully!",
-                "steps_completed": total_steps,
+                "steps_completed": GraphifyPipeline.TOTAL_STEPS,
                 "end_time": datetime.now(),
                 "results": results,
             })
 
-    except InterruptedError:
-        with scan_lock:
-            scan_sessions[scan_id].update({
-                "status": "cancelled",
-                "error_message": "Scan cancelled by user",
-                "end_time": datetime.now(),
-            })
     except Exception as e:
         with scan_lock:
             scan_sessions[scan_id].update({
@@ -575,8 +285,8 @@ def run_scan(scan_id: str, request: ScanRequest):
         with scan_lock:
             if scan_id in active_scans:
                 del active_scans[scan_id]
-            if scan_id in scan_cancel_events:
-                del scan_cancel_events[scan_id]
+            if scan_id in scan_cancel_handlers:
+                del scan_cancel_handlers[scan_id]
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -704,8 +414,8 @@ async def cancel_scan(scan_id: str):
         if scan_sessions[scan_id]["status"] != "running":
             return {"message": f"Scan is not running: {scan_sessions[scan_id]['status']}"}
         
-        if scan_id in scan_cancel_events:
-            scan_cancel_events[scan_id].set()
+        if scan_id in scan_cancel_handlers:
+            scan_cancel_handlers[scan_id].cancel()
         
         scan_sessions[scan_id]["status"] = "cancelled"
         scan_sessions[scan_id]["error_message"] = "Scan cancellation requested - stopping at next safe point..."
