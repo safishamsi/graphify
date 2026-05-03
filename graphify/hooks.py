@@ -161,35 +161,61 @@ def _hooks_dir(root: Path) -> Path:
                 p = Path(custom).expanduser()
                 if not p.is_absolute():
                     p = root / p
-                p.mkdir(parents=True, exist_ok=True)
+                try:
+                    p.mkdir(parents=True, exist_ok=True)
+                except OSError:
+                    pass
                 return p
     except (OSError, FileNotFoundError):
         pass
     d = root / ".git" / "hooks"
-    d.mkdir(exist_ok=True)
+    try:
+        d.mkdir(exist_ok=True)
+    except OSError:
+        pass
     return d
 
 
 def _install_hook(hooks_dir: Path, name: str, script: str, marker: str) -> str:
     """Install a single git hook, appending if an existing hook is present."""
     hook_path = hooks_dir / name
-    if hook_path.exists():
-        content = hook_path.read_text(encoding="utf-8")
+    try:
+        exists = hook_path.exists()
+    except OSError as exc:
+        return f"permission denied accessing {hook_path}: {exc}"
+    if exists:
+        try:
+            content = hook_path.read_text(encoding="utf-8")
+        except OSError as exc:
+            return f"permission denied reading {hook_path}: {exc}"
         if marker in content:
             return f"already installed at {hook_path}"
-        hook_path.write_text(content.rstrip() + "\n\n" + script, encoding="utf-8", newline="\n")
+        try:
+            hook_path.write_text(content.rstrip() + "\n\n" + script, encoding="utf-8", newline="\n")
+        except OSError as exc:
+            return f"permission denied writing {hook_path}: {exc}"
         return f"appended to existing {name} hook at {hook_path}"
-    hook_path.write_text("#!/bin/sh\n" + script, encoding="utf-8", newline="\n")
-    hook_path.chmod(0o755)
+    try:
+        hook_path.write_text("#!/bin/sh\n" + script, encoding="utf-8", newline="\n")
+        hook_path.chmod(0o755)
+    except OSError as exc:
+        return f"permission denied writing {hook_path}: {exc}"
     return f"installed at {hook_path}"
 
 
 def _uninstall_hook(hooks_dir: Path, name: str, marker: str, marker_end: str) -> str:
     """Remove graphify section from a git hook using start/end markers."""
     hook_path = hooks_dir / name
-    if not hook_path.exists():
+    try:
+        exists = hook_path.exists()
+    except OSError as exc:
+        return f"permission denied accessing {hook_path}: {exc}"
+    if not exists:
         return f"no {name} hook found - nothing to remove."
-    content = hook_path.read_text(encoding="utf-8")
+    try:
+        content = hook_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        return f"permission denied reading {hook_path}: {exc}"
     if marker not in content:
         return f"graphify hook not found in {name} - nothing to remove."
     new_content = re.sub(
@@ -199,9 +225,15 @@ def _uninstall_hook(hooks_dir: Path, name: str, marker: str, marker_end: str) ->
         flags=re.DOTALL,
     ).strip()
     if not new_content or new_content in ("#!/bin/bash", "#!/bin/sh"):
-        hook_path.unlink()
+        try:
+            hook_path.unlink()
+        except OSError as exc:
+            return f"permission denied removing {hook_path}: {exc}"
         return f"removed {name} hook at {hook_path}"
-    hook_path.write_text(new_content + "\n", encoding="utf-8", newline="\n")
+    try:
+        hook_path.write_text(new_content + "\n", encoding="utf-8", newline="\n")
+    except OSError as exc:
+        return f"permission denied writing {hook_path}: {exc}"
     return f"graphify removed from {name} at {hook_path} (other hook content preserved)"
 
 
@@ -241,9 +273,17 @@ def status(path: Path = Path(".")) -> str:
 
     def _check(name: str, marker: str) -> str:
         p = hooks_dir / name
-        if not p.exists():
+        try:
+            exists = p.exists()
+        except OSError as exc:
+            return f"permission denied accessing hook: {exc}"
+        if not exists:
             return "not installed"
-        return "installed" if marker in p.read_text(encoding="utf-8") else "not installed (hook exists but graphify not found)"
+        try:
+            content = p.read_text(encoding="utf-8")
+        except OSError as exc:
+            return f"permission denied reading hook: {exc}"
+        return "installed" if marker in content else "not installed (hook exists but graphify not found)"
 
     commit = _check("post-commit", _HOOK_MARKER)
     checkout = _check("post-checkout", _CHECKOUT_MARKER)

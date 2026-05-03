@@ -5,7 +5,9 @@ import os
 import platform
 import re
 import shutil
+import shlex
 import sys
+import sysconfig
 from pathlib import Path
 
 try:
@@ -270,23 +272,30 @@ def gemini_install(project_dir: Path | None = None) -> None:
         skill_dst = Path.home() / ".agents" / "skills" / "graphify" / "SKILL.md"
     else:
         skill_dst = Path.home() / ".gemini" / "skills" / "graphify" / "SKILL.md"
-    skill_dst.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy(skill_src, skill_dst)
-    (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
-    print(f"  skill installed  ->  {skill_dst}")
+    try:
+        skill_dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(skill_src, skill_dst)
+        (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
+        print(f"  skill installed  ->  {skill_dst}")
+    except OSError as exc:
+        print(f"  warning: could not install Gemini skill at {skill_dst} ({exc})")
+        print("  Project GEMINI.md and hook configuration will still be updated.")
 
     target = (project_dir or Path(".")) / "GEMINI.md"
 
-    if target.exists():
-        content = target.read_text(encoding="utf-8")
-        if _GEMINI_MD_MARKER in content:
-            print("graphify already configured in GEMINI.md")
+    try:
+        if target.exists():
+            content = target.read_text(encoding="utf-8")
+            if _GEMINI_MD_MARKER in content:
+                print("graphify already configured in GEMINI.md")
+            else:
+                target.write_text(content.rstrip() + "\n\n" + _GEMINI_MD_SECTION, encoding="utf-8")
+                print(f"graphify section written to {target.resolve()}")
         else:
-            target.write_text(content.rstrip() + "\n\n" + _GEMINI_MD_SECTION, encoding="utf-8")
+            target.write_text(_GEMINI_MD_SECTION, encoding="utf-8")
             print(f"graphify section written to {target.resolve()}")
-    else:
-        target.write_text(_GEMINI_MD_SECTION, encoding="utf-8")
-        print(f"graphify section written to {target.resolve()}")
+    except OSError as exc:
+        print(f"  warning: could not update GEMINI.md at {target} ({exc})")
 
     _install_gemini_hook(project_dir or Path("."))
     print()
@@ -296,15 +305,26 @@ def gemini_install(project_dir: Path | None = None) -> None:
 
 def _install_gemini_hook(project_dir: Path) -> None:
     settings_path = project_dir / ".gemini" / "settings.json"
-    settings_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        settings_path.parent.mkdir(parents=True, exist_ok=True)
+    except OSError as exc:
+        print(f"  warning: could not create Gemini hook directory at {settings_path.parent} ({exc})")
+        return
     try:
         settings = json.loads(settings_path.read_text(encoding="utf-8")) if settings_path.exists() else {}
     except json.JSONDecodeError:
         settings = {}
+    except OSError as exc:
+        print(f"  warning: could not read Gemini hook config at {settings_path} ({exc})")
+        return
     before_tool = settings.setdefault("hooks", {}).setdefault("BeforeTool", [])
     settings["hooks"]["BeforeTool"] = [h for h in before_tool if "graphify" not in str(h)]
     settings["hooks"]["BeforeTool"].append(_GEMINI_HOOK)
-    settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
+    try:
+        settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
+    except OSError as exc:
+        print(f"  warning: could not write Gemini hook config at {settings_path} ({exc})")
+        return
     print("  .gemini/settings.json  ->  BeforeTool hook registered")
 
 
@@ -333,11 +353,17 @@ def gemini_uninstall(project_dir: Path | None = None) -> None:
     else:
         skill_dst = Path.home() / ".gemini" / "skills" / "graphify" / "SKILL.md"
     if skill_dst.exists():
-        skill_dst.unlink()
-        print(f"  skill removed    ->  {skill_dst}")
+        try:
+            skill_dst.unlink()
+            print(f"  skill removed    ->  {skill_dst}")
+        except OSError as exc:
+            print(f"  warning: could not remove Gemini skill at {skill_dst} ({exc})")
     version_file = skill_dst.parent / ".graphify_version"
     if version_file.exists():
-        version_file.unlink()
+        try:
+            version_file.unlink()
+        except OSError as exc:
+            print(f"  warning: could not remove Gemini version stamp at {version_file} ({exc})")
     for d in (skill_dst.parent, skill_dst.parent.parent):
         try:
             d.rmdir()
@@ -715,67 +741,54 @@ def _uninstall_opencode_plugin(project_dir: Path) -> None:
         print(f"  {_OPENCODE_CONFIG_PATH}  ->  plugin deregistered")
 
 
-_CODEX_HOOK = {
-    "hooks": {
-        "PreToolUse": [
-            {
-                "matcher": "Bash",
-                "hooks": [
-                    {
-                        "type": "command",
-                        # Use the graphify CLI itself so the hook is shell-agnostic:
-                        # no [ -f ] bash syntax, no python3 vs python Conda issue,
-                        # no JSON escaping inside PowerShell strings. Works on
-                        # Windows (PowerShell/cmd.exe), macOS, and Linux.
-                        "command": "graphify hook-check",
-                    }
-                ],
-            }
-        ]
-    }
-}
+def _resolve_graphify_hook_command() -> str:
+    """Return the command Codex should run for graphify hook-check.
 
-
-def _resolve_graphify_exe() -> str:
-    """Return the absolute path to the graphify executable.
-
-    Falls back to bare 'graphify' if resolution fails. Using an absolute path
-    ensures the hook works in environments where the venv Scripts/ directory is
-    not on PATH (e.g. VS Code Codex extension on Windows).
+    Prefer the entry point from the current interpreter environment over PATH so
+    installs cannot register an older global graphify executable, while avoiding
+    `python -m graphify` cwd shadowing in target repositories.
     """
-    import shutil
-    found = shutil.which("graphify")
-    if found:
-        return found
-    # Derive from sys.executable: same Scripts/ (Windows) or bin/ (Unix) dir
-    scripts_dir = Path(sys.executable).parent
-    for name in ("graphify.exe", "graphify"):
-        candidate = scripts_dir / name
+    scripts_dir = Path(sysconfig.get_path("scripts") or Path(sys.executable).parent)
+    candidates = [scripts_dir / "graphify.exe", scripts_dir / "graphify"]
+    for candidate in candidates:
         if candidate.exists():
-            return str(candidate)
-    return "graphify"
+            args = [str(candidate), "hook-check"]
+            break
+    else:
+        args = [sys.executable, str(Path(__file__).resolve()), "hook-check"]
+    if platform.system() == "Windows":
+        return "& " + " ".join("'" + arg.replace("'", "''") + "'" for arg in args)
+    return shlex.join(args)
 
 
 def _install_codex_hook(project_dir: Path) -> None:
     """Add graphify PreToolUse hook to .codex/hooks.json."""
     hooks_path = project_dir / ".codex" / "hooks.json"
-    hooks_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        hooks_path.parent.mkdir(parents=True, exist_ok=True)
+    except OSError as exc:
+        print(f"  warning: could not create .codex hook directory ({exc})")
+        return
 
     if hooks_path.exists():
         try:
             existing = json.loads(hooks_path.read_text(encoding="utf-8"))
         except json.JSONDecodeError:
             existing = {}
+        except OSError as exc:
+            print(f"  warning: could not read .codex/hooks.json ({exc})")
+            print("  AGENTS.md was updated; rerun `graphify codex install` outside the sandbox to register the PreToolUse hook.")
+            return
     else:
         existing = {}
 
-    graphify_exe = _resolve_graphify_exe()
+    hook_command = _resolve_graphify_hook_command()
     hook_entry = {
         "hooks": {
             "PreToolUse": [
                 {
                     "matcher": "Bash",
-                    "hooks": [{"type": "command", "command": f"{graphify_exe} hook-check"}],
+                    "hooks": [{"type": "command", "command": hook_command}],
                 }
             ]
         }
@@ -784,8 +797,13 @@ def _install_codex_hook(project_dir: Path) -> None:
     pre_tool = existing.setdefault("hooks", {}).setdefault("PreToolUse", [])
     existing["hooks"]["PreToolUse"] = [h for h in pre_tool if "graphify" not in str(h)]
     existing["hooks"]["PreToolUse"].extend(hook_entry["hooks"]["PreToolUse"])
-    hooks_path.write_text(json.dumps(existing, indent=2), encoding="utf-8")
-    print(f"  .codex/hooks.json  ->  PreToolUse hook registered ({graphify_exe} hook-check)")
+    try:
+        hooks_path.write_text(json.dumps(existing, indent=2), encoding="utf-8")
+    except OSError as exc:
+        print(f"  warning: could not write .codex/hooks.json ({exc})")
+        print("  AGENTS.md was updated; rerun `graphify codex install` outside the sandbox to register the PreToolUse hook.")
+        return
+    print(f"  .codex/hooks.json  ->  PreToolUse hook registered ({hook_command})")
 
 
 def _uninstall_codex_hook(project_dir: Path) -> None:
@@ -797,10 +815,19 @@ def _uninstall_codex_hook(project_dir: Path) -> None:
         existing = json.loads(hooks_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return
+    except OSError as exc:
+        print(f"  warning: could not read .codex/hooks.json ({exc})")
+        print("  Rerun `graphify codex uninstall` outside the sandbox to remove the PreToolUse hook.")
+        return
     pre_tool = existing.get("hooks", {}).get("PreToolUse", [])
     filtered = [h for h in pre_tool if "graphify" not in str(h)]
     existing["hooks"]["PreToolUse"] = filtered
-    hooks_path.write_text(json.dumps(existing, indent=2), encoding="utf-8")
+    try:
+        hooks_path.write_text(json.dumps(existing, indent=2), encoding="utf-8")
+    except OSError as exc:
+        print(f"  warning: could not write .codex/hooks.json ({exc})")
+        print("  Rerun `graphify codex uninstall` outside the sandbox to remove the PreToolUse hook.")
+        return
     print(f"  .codex/hooks.json  ->  PreToolUse hook removed")
 
 

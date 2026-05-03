@@ -5,6 +5,7 @@ import json
 import os
 import re
 import sys
+from concurrent.futures.process import BrokenProcessPool
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Any
@@ -3868,9 +3869,16 @@ def extract(
     # Phase 2: extract uncached files (parallel or sequential)
     if uncached_work:
         if parallel and len(uncached_work) >= _PARALLEL_THRESHOLD:
-            _extract_parallel(
-                uncached_work, per_file, effective_root, max_workers, total
-            )
+            try:
+                _extract_parallel(
+                    uncached_work, per_file, effective_root, max_workers, total
+                )
+            except (OSError, BrokenProcessPool) as exc:
+                print(
+                    f"  AST extraction: parallel worker startup failed ({exc}); falling back to sequential extraction",
+                    flush=True,
+                )
+                _extract_sequential(uncached_work, per_file, effective_root, total)
         else:
             _extract_sequential(uncached_work, per_file, effective_root, total)
 

@@ -16,55 +16,58 @@ PLATFORMS = {
 }
 
 
-def _install(tmp_path, platform):
+def _install(tmp_path, platform, monkeypatch=None):
     from graphify.__main__ import install
+    if monkeypatch is not None:
+        monkeypatch.chdir(tmp_path)
     with patch("graphify.__main__.Path.home", return_value=tmp_path):
         install(platform=platform)
 
 
-def test_install_default_claude(tmp_path):
-    _install(tmp_path, "claude")
+def test_install_default_claude(tmp_path, monkeypatch):
+    _install(tmp_path, "claude", monkeypatch)
     assert (tmp_path / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
 
 
-def test_install_codex(tmp_path):
-    _install(tmp_path, "codex")
+def test_install_codex(tmp_path, monkeypatch):
+    _install(tmp_path, "codex", monkeypatch)
     assert (tmp_path / ".agents" / "skills" / "graphify" / "SKILL.md").exists()
 
 
-def test_install_opencode(tmp_path):
-    _install(tmp_path, "opencode")
+def test_install_opencode(tmp_path, monkeypatch):
+    _install(tmp_path, "opencode", monkeypatch)
     assert (tmp_path / ".config" / "opencode" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".opencode" / "plugins" / "graphify.js").exists()
 
 
-def test_install_claw(tmp_path):
-    _install(tmp_path, "claw")
+def test_install_claw(tmp_path, monkeypatch):
+    _install(tmp_path, "claw", monkeypatch)
     assert (tmp_path / ".openclaw" / "skills" / "graphify" / "SKILL.md").exists()
 
 
-def test_install_droid(tmp_path):
-    _install(tmp_path, "droid")
+def test_install_droid(tmp_path, monkeypatch):
+    _install(tmp_path, "droid", monkeypatch)
     assert (tmp_path / ".factory" / "skills" / "graphify" / "SKILL.md").exists()
 
 
-def test_install_trae(tmp_path):
-    _install(tmp_path, "trae")
+def test_install_trae(tmp_path, monkeypatch):
+    _install(tmp_path, "trae", monkeypatch)
     assert (tmp_path / ".trae" / "skills" / "graphify" / "SKILL.md").exists()
 
 
-def test_install_trae_cn(tmp_path):
-    _install(tmp_path, "trae-cn")
+def test_install_trae_cn(tmp_path, monkeypatch):
+    _install(tmp_path, "trae-cn", monkeypatch)
     assert (tmp_path / ".trae-cn" / "skills" / "graphify" / "SKILL.md").exists()
 
 
-def test_install_windows(tmp_path):
-    _install(tmp_path, "windows")
+def test_install_windows(tmp_path, monkeypatch):
+    _install(tmp_path, "windows", monkeypatch)
     assert (tmp_path / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
 
 
-def test_install_unknown_platform_exits(tmp_path):
+def test_install_unknown_platform_exits(tmp_path, monkeypatch):
     with pytest.raises(SystemExit):
-        _install(tmp_path, "unknown")
+        _install(tmp_path, "unknown", monkeypatch)
 
 
 def test_codex_skill_contains_spawn_agent():
@@ -98,14 +101,14 @@ def test_all_skill_files_exist_in_package():
         assert (pkg / name).exists(), f"Missing: {name}"
 
 
-def test_claude_install_registers_claude_md(tmp_path):
+def test_claude_install_registers_claude_md(tmp_path, monkeypatch):
     """Claude platform install writes CLAUDE.md; others do not."""
-    _install(tmp_path, "claude")
+    _install(tmp_path, "claude", monkeypatch)
     assert (tmp_path / ".claude" / "CLAUDE.md").exists()
 
 
-def test_codex_install_does_not_write_claude_md(tmp_path):
-    _install(tmp_path, "codex")
+def test_codex_install_does_not_write_claude_md(tmp_path, monkeypatch):
+    _install(tmp_path, "codex", monkeypatch)
     assert not (tmp_path / ".claude" / "CLAUDE.md").exists()
 
 
@@ -127,6 +130,106 @@ def test_codex_agents_install_writes_agents_md(tmp_path):
     assert agents_md.exists()
     assert "graphify" in agents_md.read_text()
     assert "GRAPH_REPORT.md" in agents_md.read_text()
+
+
+def test_codex_hook_uses_current_interpreter(tmp_path, monkeypatch):
+    """Codex hook must not point at a stale graphify binary from PATH."""
+    import json as _json
+    import shlex
+    import graphify.__main__ as main
+
+    scripts = tmp_path / "venv" / "bin"
+    scripts.mkdir(parents=True)
+    graphify_bin = scripts / "graphify"
+    graphify_bin.write_text("#!/bin/sh\n", encoding="utf-8")
+    monkeypatch.setattr(main.sysconfig, "get_path", lambda name: str(scripts) if name == "scripts" else "")
+    monkeypatch.setattr(main.platform, "system", lambda: "Darwin")
+    _agents_install(tmp_path, "codex")
+    hooks = _json.loads((tmp_path / ".codex" / "hooks.json").read_text())
+    command = hooks["hooks"]["PreToolUse"][0]["hooks"][0]["command"]
+    assert command == shlex.join([str(graphify_bin), "hook-check"])
+    assert "-m graphify" not in command
+
+
+@pytest.mark.parametrize("shadow_kind", ["module", "package"])
+def test_codex_hook_command_avoids_target_repo_graphify_shadowing(tmp_path, shadow_kind):
+    """Hook command should run installed graphify even if cwd has graphify/."""
+    import json as _json
+    import subprocess
+
+    _agents_install(tmp_path, "codex")
+    hooks = _json.loads((tmp_path / ".codex" / "hooks.json").read_text())
+    command = hooks["hooks"]["PreToolUse"][0]["hooks"][0]["command"]
+
+    target = tmp_path / "target"
+    target.mkdir()
+    if shadow_kind == "module":
+        (target / "graphify.py").write_text(
+            'raise RuntimeError("shadow graphify module imported")\n',
+            encoding="utf-8",
+        )
+    else:
+        shadow_pkg = target / "graphify"
+        shadow_pkg.mkdir()
+        (shadow_pkg / "__init__.py").write_text(
+            'raise RuntimeError("shadow graphify package imported")\n',
+            encoding="utf-8",
+        )
+
+    result = subprocess.run(command, cwd=target, shell=True, capture_output=True, text=True)
+
+    assert result.returncode == 0, result.stderr
+    assert result.stdout == ""
+    assert result.stderr == ""
+
+
+def test_codex_hook_command_posix_quotes_shell_metacharacters(monkeypatch):
+    """POSIX hooks should not expose interpreter paths to shell expansion."""
+    import shlex
+    import graphify.__main__ as main
+
+    exe = '/tmp/a$b`c" d/bin/python'
+    scripts = Path('/tmp/a$b`c" d/bin')
+    monkeypatch.setattr(main.sys, "executable", exe)
+    monkeypatch.setattr(main.sysconfig, "get_path", lambda name: str(scripts) if name == "scripts" else "")
+    monkeypatch.setattr(Path, "exists", lambda self: self == scripts / "graphify")
+    monkeypatch.setattr(main.platform, "system", lambda: "Darwin")
+
+    assert main._resolve_graphify_hook_command() == shlex.join(
+        [str(scripts / "graphify"), "hook-check"]
+    )
+
+
+def test_codex_hook_command_falls_back_to_absolute_main(monkeypatch):
+    """Fallback should not use cwd-sensitive `python -m graphify`."""
+    import shlex
+    import sys
+    import graphify.__main__ as main
+
+    monkeypatch.setattr(main.sysconfig, "get_path", lambda name: "" if name == "scripts" else "")
+    monkeypatch.setattr(Path, "exists", lambda self: False)
+    monkeypatch.setattr(main.platform, "system", lambda: "Darwin")
+
+    command = main._resolve_graphify_hook_command()
+
+    assert command == shlex.join([sys.executable, str(Path(main.__file__).resolve()), "hook-check"])
+    assert "-m graphify" not in command
+
+
+def test_codex_hook_command_windows_uses_powershell_call_operator(monkeypatch):
+    """Windows Codex hooks run under PowerShell and need explicit invocation."""
+    import graphify.__main__ as main
+
+    exe = r"C:\Users\O'Brien\AppData\Local\Programs\Python\python.exe"
+    scripts = Path(r"C:\Users\O'Brien\AppData\Local\Programs\Python\Scripts")
+    monkeypatch.setattr(main.sys, "executable", exe)
+    monkeypatch.setattr(main.sysconfig, "get_path", lambda name: str(scripts) if name == "scripts" else "")
+    monkeypatch.setattr(Path, "exists", lambda self: self == scripts / "graphify.exe")
+    monkeypatch.setattr(main.platform, "system", lambda: "Windows")
+
+    assert main._resolve_graphify_hook_command() == (
+        r"& 'C:\Users\O''Brien\AppData\Local\Programs\Python\Scripts/graphify.exe' 'hook-check'"
+    )
 
 
 def test_opencode_agents_install_writes_agents_md(tmp_path):
@@ -155,6 +258,41 @@ def test_agents_install_appends_to_existing(tmp_path):
     content = agents_md.read_text()
     assert "Do not break things." in content
     assert "## graphify" in content
+
+
+def test_codex_agents_install_warns_when_hook_write_denied(tmp_path, monkeypatch, capsys):
+    """Codex install should still write AGENTS.md if .codex is protected."""
+    original = Path.write_text
+
+    def deny_hooks_json(self, *args, **kwargs):
+        if self.name == "hooks.json":
+            raise PermissionError("sandbox denied")
+        return original(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "write_text", deny_hooks_json)
+    _agents_install(tmp_path, "codex")
+
+    assert (tmp_path / "AGENTS.md").exists()
+    assert "could not write .codex/hooks.json" in capsys.readouterr().out
+
+
+def test_codex_agents_install_warns_when_hook_read_denied(tmp_path, monkeypatch, capsys):
+    """Unreadable existing Codex hook config should not crash install."""
+    hooks = tmp_path / ".codex" / "hooks.json"
+    hooks.parent.mkdir()
+    hooks.write_text("{}", encoding="utf-8")
+    original = Path.read_text
+
+    def deny_hooks_json(self, *args, **kwargs):
+        if self == hooks:
+            raise PermissionError("sandbox denied")
+        return original(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", deny_hooks_json)
+    _agents_install(tmp_path, "codex")
+
+    assert (tmp_path / "AGENTS.md").exists()
+    assert "could not read .codex/hooks.json" in capsys.readouterr().out
 
 
 def test_agents_uninstall_removes_section(tmp_path):
@@ -274,6 +412,43 @@ def test_gemini_install_writes_gemini_md(tmp_path):
     md = tmp_path / "GEMINI.md"
     assert md.exists()
     assert "graphify-out/GRAPH_REPORT.md" in md.read_text()
+
+def test_gemini_install_continues_when_global_skill_denied(tmp_path, monkeypatch, capsys):
+    from graphify.__main__ import gemini_install
+    original_mkdir = Path.mkdir
+
+    def deny_skill_dir(self, *args, **kwargs):
+        if "skills" in self.parts:
+            raise PermissionError("sandbox denied")
+        return original_mkdir(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "home", lambda: tmp_path / "home")
+    monkeypatch.setattr(Path, "mkdir", deny_skill_dir)
+    gemini_install(tmp_path)
+
+    assert (tmp_path / "GEMINI.md").exists()
+    out = capsys.readouterr().out
+    assert "could not install Gemini skill" in out
+    assert "BeforeTool hook registered" in out
+
+
+def test_gemini_install_warns_when_hook_write_denied(tmp_path, monkeypatch, capsys):
+    from graphify.__main__ import gemini_install
+    original = Path.write_text
+
+    def deny_settings_json(self, *args, **kwargs):
+        if self.name == "settings.json":
+            raise PermissionError("sandbox denied")
+        return original(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "home", lambda: tmp_path / "home")
+    monkeypatch.setattr(Path, "write_text", deny_settings_json)
+    gemini_install(tmp_path)
+
+    out = capsys.readouterr().out
+    assert (tmp_path / "GEMINI.md").exists()
+    assert "could not write Gemini hook config" in out
+
 
 def test_gemini_install_writes_hook(tmp_path):
     import json as _json

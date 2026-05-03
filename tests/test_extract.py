@@ -56,6 +56,49 @@ def test_extract_merges_multiple_files():
     assert result["input_tokens"] == 0
 
 
+def test_extract_falls_back_when_parallel_startup_fails(tmp_path, monkeypatch, capsys):
+    from concurrent.futures.process import BrokenProcessPool
+    import graphify.extract as extract_mod
+
+    paths = []
+    for i in range(20):
+        path = tmp_path / f"mod_{i}.py"
+        path.write_text(f"def func_{i}():\n    return {i}\n", encoding="utf-8")
+        paths.append(path)
+
+    called_sequential = False
+    original_sequential = extract_mod._extract_sequential
+
+    def fail_parallel(*args, **kwargs):
+        raise OSError("sandbox denied semaphores")
+
+    def track_sequential(*args, **kwargs):
+        nonlocal called_sequential
+        called_sequential = True
+        return original_sequential(*args, **kwargs)
+
+    monkeypatch.setattr(extract_mod, "_extract_parallel", fail_parallel)
+    monkeypatch.setattr(extract_mod, "_extract_sequential", track_sequential)
+
+    result = extract_mod.extract(paths, cache_root=tmp_path / "cache", parallel=True)
+
+    assert called_sequential
+    assert len(result["nodes"]) > 0
+    assert "falling back to sequential extraction" in capsys.readouterr().out
+
+    called_sequential = False
+
+    def fail_broken_pool(*args, **kwargs):
+        raise BrokenProcessPool("worker died")
+
+    monkeypatch.setattr(extract_mod, "_extract_parallel", fail_broken_pool)
+
+    result = extract_mod.extract(paths, cache_root=tmp_path / "cache2", parallel=True)
+
+    assert called_sequential
+    assert len(result["nodes"]) > 0
+
+
 def test_collect_files_from_dir():
     files = collect_files(FIXTURES)
     supported = {".py", ".js", ".ts", ".tsx", ".go", ".rs",

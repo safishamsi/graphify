@@ -119,6 +119,61 @@ def test_status_shows_both_hooks(tmp_path):
     assert result.count("installed") >= 2
 
 
+def test_install_reports_permission_denied(tmp_path, monkeypatch):
+    """Protected hook dirs should not crash hook install."""
+    repo = _make_git_repo(tmp_path)
+    original = Path.write_text
+
+    def deny_post_commit(self, *args, **kwargs):
+        if self.name == "post-commit":
+            raise PermissionError("sandbox denied")
+        return original(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "write_text", deny_post_commit)
+    result = install(repo)
+
+    assert "post-commit: permission denied" in result
+    assert "post-checkout: installed" in result
+
+
+def test_install_reports_permission_denied_reading_existing_hook(tmp_path, monkeypatch):
+    """Unreadable existing hooks should be reported without crashing."""
+    repo = _make_git_repo(tmp_path)
+    hook = repo / ".git" / "hooks" / "post-commit"
+    hook.write_text("#!/bin/sh\necho existing\n", encoding="utf-8")
+    original = Path.read_text
+
+    def deny_post_commit(self, *args, **kwargs):
+        if self == hook:
+            raise PermissionError("sandbox denied")
+        return original(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", deny_post_commit)
+    result = install(repo)
+
+    assert "post-commit: permission denied reading" in result
+    assert "post-checkout: installed" in result
+
+
+def test_status_reports_permission_denied_reading_existing_hook(tmp_path, monkeypatch):
+    """Protected hook files should not crash hook status."""
+    repo = _make_git_repo(tmp_path)
+    hook = repo / ".git" / "hooks" / "post-commit"
+    hook.write_text("#!/bin/sh\necho existing\n", encoding="utf-8")
+    original = Path.read_text
+
+    def deny_post_commit(self, *args, **kwargs):
+        if self == hook:
+            raise PermissionError("sandbox denied")
+        return original(self, *args, **kwargs)
+
+    monkeypatch.setattr(Path, "read_text", deny_post_commit)
+    result = status(repo)
+
+    assert "post-commit: permission denied reading hook" in result
+    assert "post-checkout: not installed" in result
+
+
 def test_hook_skips_head_on_exe():
     """Hook script must skip shebang extraction for .exe binaries (Windows)."""
     from graphify.hooks import _PYTHON_DETECT
