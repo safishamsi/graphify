@@ -72,6 +72,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".copilot") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
+    "ob1": {
+        "skill_file": "skill-ob1.md",
+        "skill_dst": Path(".ob1") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
     "claw": {
         "skill_file": "skill-claw.md",
         "skill_dst": Path(".claw") / "skills" / "graphify" / "SKILL.md",
@@ -637,7 +642,7 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
-        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|ob1|claw|droid|trae|trae-cn|gemini|cursor)")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
         print("    --budget N              cap output at N tokens (default 2000)")
@@ -666,6 +671,8 @@ def main() -> None:
         print("  aider uninstall         remove graphify section from AGENTS.md")
         print("  copilot install         copy graphify skill to ~/.copilot/skills (GitHub Copilot CLI)")
         print("  copilot uninstall       remove graphify skill from ~/.copilot/skills")
+        print("  ob1 install             write graphify section to AGENTS.md (OB-1)")
+        print("  ob1 uninstall           remove graphify section from AGENTS.md")
         print("  claw install            write graphify section to AGENTS.md (OpenClaw)")
         print("  claw uninstall          remove graphify section from AGENTS.md")
         print("  droid install           write graphify section to AGENTS.md (Factory Droid)")
@@ -743,7 +750,7 @@ def main() -> None:
         else:
             print("Usage: graphify copilot [install|uninstall]", file=sys.stderr)
             sys.exit(1)
-    elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn"):
+    elif cmd in ("aider", "codex", "opencode", "ob1", "claw", "droid", "trae", "trae-cn"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
             _agents_install(Path("."), cmd)
