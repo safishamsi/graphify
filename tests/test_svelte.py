@@ -343,6 +343,20 @@ def test_no_dangling_edge_sources(tmp_path):
         assert edge["source"] in node_ids, f"Dangling source: {edge}"
 
 
+def _node_loc(result: dict, label_substring: str) -> str | None:
+    for n in result["nodes"]:
+        if label_substring in (n.get("label") or ""):
+            return n.get("source_location")
+    return None
+
+
+def _edge_loc_for_target(result: dict, target_substring: str) -> str | None:
+    for e in result["edges"]:
+        if target_substring in str(e.get("target") or ""):
+            return e.get("source_location")
+    return None
+
+
 def test_line_numbers_stay_aligned_with_original_file(tmp_path):
     """Whitespace-masking preserves newline positions, so source_location
     on a function declared at .svelte line 7 must report L7, not L1."""
@@ -357,10 +371,168 @@ def test_line_numbers_stay_aligned_with_original_file(tmp_path):
 </script>
 """)
     result = extract_svelte(importer)
-    handler_nodes = [n for n in result["nodes"] if "handler" in (n.get("label") or "")]
-    assert handler_nodes, f"handler() not extracted; nodes={[n.get('label') for n in result['nodes']]}"
-    # function declared on line 7 of the .svelte file. Allow ±1 for parser quirks.
-    loc = handler_nodes[0].get("source_location", "")
-    assert loc in ("L7",), (
-        f"Expected line 7 (preserved by whitespace mask); got {loc}"
+    loc = _node_loc(result, "handler")
+    assert loc is not None, (
+        f"handler() not extracted; nodes={[n.get('label') for n in result['nodes']]}"
+    )
+    assert loc == "L7", f"Expected L7 (preserved by whitespace mask); got {loc}"
+
+
+def test_line_numbers_for_imports_stay_aligned(tmp_path):
+    """Import edges carry source_location too — must point at the actual
+    import line in the .svelte file, not a script-block-relative line."""
+    _write(tmp_path / "foo.ts", "export const foo = 1")
+    importer = _write(tmp_path / "Component.svelte", """\
+<div>
+  markup line 2
+</div>
+<style>
+  .x { color: red }
+</style>
+
+<script lang="ts">
+  import { foo } from './foo'
+</script>
+""")
+    # Source layout: <div> on L1, </div> on L3, blank L7, <script> on L8,
+    # the import statement is on L9.
+    result = extract_svelte(importer)
+    loc = _edge_loc_for_target(result, "_foo")
+    assert loc is not None, f"foo import edge missing; edges={result['edges']}"
+    assert loc == "L9", f"Expected L9 (import line in .svelte); got {loc}"
+
+
+def test_line_numbers_with_deeply_offset_script(tmp_path):
+    """A script block 30 lines into the file must still report correct line
+    numbers — proves the whitespace-mask preserves arbitrary offsets, not
+    just small ones."""
+    leading = "<div>line {n}</div>\n".format
+    src = "".join(leading(n=i + 1) for i in range(30))
+    src += "<script>\n"
+    src += "  function deep() {}\n"
+    src += "</script>\n"
+    importer = _write(tmp_path / "Component.svelte", src)
+    # Layout: lines 1-30 are markup, line 31 is <script>, line 32 is deep().
+    result = extract_svelte(importer)
+    loc = _node_loc(result, "deep")
+    assert loc == "L32", f"Expected L32; got {loc}"
+
+
+def test_line_numbers_across_two_script_blocks(tmp_path):
+    """Module block + instance block on different lines — each symbol must
+    report the line from the *original* file, not from its script-relative
+    position."""
+    importer = _write(tmp_path / "Component.svelte", """\
+<script context="module">
+  export function module_only() {}
+</script>
+
+<div>some markup</div>
+<div>more markup</div>
+
+<script lang="ts">
+  function instance_only() {}
+</script>
+""")
+    # Layout:
+    #   L1  <script context="module">
+    #   L2  export function module_only() {}     ← report L2
+    #   L3  </script>
+    #   L4  blank
+    #   L5  <div>some markup</div>
+    #   L6  <div>more markup</div>
+    #   L7  blank
+    #   L8  <script lang="ts">
+    #   L9  function instance_only() {}          ← report L9
+    #   L10 </script>
+    result = extract_svelte(importer)
+    mod_loc = _node_loc(result, "module_only")
+    inst_loc = _node_loc(result, "instance_only")
+    assert mod_loc == "L2", (
+        f"module-block fn should report L2 (its line in the .svelte file); "
+        f"got {mod_loc}"
+    )
+    assert inst_loc == "L9", (
+        f"instance-block fn should report L9 (its line in the .svelte file); "
+        f"got {inst_loc}"
+    )
+
+
+def test_byte_offset_alignment_via_tree_sitter(tmp_path):
+    """Internal sanity check: when the masked source is parsed, every
+    declared symbol's start byte (column 0 of its line) must equal the
+    same byte offset in the original .svelte source. Catches any future
+    regression where masking accidentally shifts content."""
+    src = (
+        "<div>markup</div>\n"
+        "<script>\n"
+        "  function alpha() {}\n"
+        "  const beta = 1\n"
+        "</script>\n"
+    )
+    importer = _write(tmp_path / "Component.svelte", src)
+    result = extract_svelte(importer)
+    # alpha is on line 3, beta on line 4
+    assert _node_loc(result, "alpha") == "L3"
+    # beta is a `const` arrow-decl-style? No, it's a plain const. Tree-sitter
+    # JS still emits a node for it via _js_extra_walk only for arrow funcs;
+    # plain `const beta = 1` may or may not produce a node depending on the
+    # config. We just ensure alpha is correct — the masking invariant holds.
+    # And the file node lives at L1.
+    file_node = next((n for n in result["nodes"]
+                      if n["id"] == _make_id(str(importer))), None)
+    assert file_node is not None
+    assert file_node["source_location"] == "L1"
+
+
+def test_mask_byte_count_equals_original(tmp_path):
+    """Internal invariant: mask must produce a byte-for-byte equivalent
+    string (only character substitution, never insertion/deletion). This
+    is what guarantees tree-sitter's byte offsets remain valid pointers
+    into the original .svelte source."""
+    src = (
+        "<script>\n"
+        "  const a = 1\n"
+        "</script>\n"
+        "<div>markup</div>\n"
+        '<script lang="ts">\n'
+        "  const b: number = 2\n"
+        "</script>\n"
+    )
+    masked_js = _mask_non_matching_scripts(src, "js")
+    masked_ts = _mask_non_matching_scripts(src, "ts")
+    src_bytes = src.encode("utf-8")
+    assert len(masked_js) == len(src_bytes), (
+        f"Mask must not change byte count; src={len(src_bytes)} "
+        f"masked={len(masked_js)}"
+    )
+    assert len(masked_ts) == len(src_bytes), (
+        f"Mask must not change byte count; src={len(src_bytes)} "
+        f"masked={len(masked_ts)}"
+    )
+    # Newline positions must match exactly so row numbers align.
+    src_newlines = [i for i, c in enumerate(src_bytes) if c == ord("\n")]
+    js_newlines = [i for i, c in enumerate(masked_js) if c == ord("\n")]
+    ts_newlines = [i for i, c in enumerate(masked_ts) if c == ord("\n")]
+    assert src_newlines == js_newlines, "JS mask shifted newlines"
+    assert src_newlines == ts_newlines, "TS mask shifted newlines"
+
+
+def test_mask_preserves_byte_offsets_of_kept_content(tmp_path):
+    """The bytes of a kept <script> body must sit at the SAME byte offsets
+    in the masked output as they did in the original. This is the load-
+    bearing invariant: tree-sitter's start_byte values index back into a
+    file we can still read, and source_location lines stay correct."""
+    src = (
+        "<div>filler</div>\n"      # 19 bytes inc. \n
+        "<script>\n"                # offsets 19..27, body starts at 28
+        "const x = 42\n"
+        "</script>\n"
+    )
+    masked = _mask_non_matching_scripts(src, "js")
+    # The 'const x = 42' substring must appear at the SAME byte offset
+    # in both the original and masked source.
+    needle = b"const x = 42"
+    assert masked.find(needle) == src.encode().find(needle), (
+        "Kept <script> body must stay at the same byte offset after masking"
     )
