@@ -6,6 +6,12 @@ from pathlib import Path
 import networkx as nx
 from networkx.readwrite import json_graph
 from graphify.security import sanitize_label
+from graphify.constants import (
+    DEFAULT_TRAVERSAL_DEPTH,
+    MAX_TRAVERSAL_DEPTH,
+    DEFAULT_TOKEN_BUDGET,
+    CHARS_PER_TOKEN,
+)
 
 
 def _load_graph(graph_path: str) -> nx.Graph:
@@ -82,9 +88,9 @@ def _dfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], lis
     return visited, edges_seen
 
 
-def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_budget: int = 2000) -> str:
-    """Render subgraph as text, cutting at token_budget (approx 3 chars/token)."""
-    char_budget = token_budget * 3
+def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_budget: int = DEFAULT_TOKEN_BUDGET) -> str:
+    """Render subgraph as text, cutting at token_budget."""
+    char_budget = token_budget * CHARS_PER_TOKEN
     lines = []
     for nid in sorted(nodes, key=lambda n: G.degree(n), reverse=True):
         d = G.nodes[nid]
@@ -93,7 +99,8 @@ def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_bu
     for u, v in edges:
         if u in nodes and v in nodes:
             d = G.edges[u, v]
-            line = f"EDGE {sanitize_label(G.nodes[u].get('label', u))} --{d.get('relation', '')} [{d.get('confidence', '')}]--> {sanitize_label(G.nodes[v].get('label', v))}"
+            src, tgt = (u, v) if G.is_directed() else (d.get("_src", u), d.get("_tgt", v))
+            line = f"EDGE {sanitize_label(G.nodes[src].get('label', src))} --{d.get('relation', '')} [{d.get('confidence', '')}]--> {sanitize_label(G.nodes[tgt].get('label', tgt))}"
             lines.append(line)
     output = "\n".join(lines)
     if len(output) > char_budget:
@@ -198,8 +205,8 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
     def _tool_query_graph(arguments: dict) -> str:
         question = arguments["question"]
         mode = arguments.get("mode", "bfs")
-        depth = min(int(arguments.get("depth", 3)), 6)
-        budget = int(arguments.get("token_budget", 2000))
+        depth = min(int(arguments.get("depth", DEFAULT_TRAVERSAL_DEPTH)), MAX_TRAVERSAL_DEPTH)
+        budget = int(arguments.get("token_budget", DEFAULT_TOKEN_BUDGET))
         terms = [t.lower() for t in question.split() if len(t) > 2]
         scored = _score_nodes(G, terms)
         start_nodes = [nid for _, nid in scored[:3]]
@@ -315,9 +322,14 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         if not handler:
             return [types.TextContent(type="text", text=f"Unknown tool: {name}")]
         try:
-            return [types.TextContent(type="text", text=handler(arguments))]
+            result = handler(arguments or {})
+            return [types.TextContent(type="text", text=result)]
+        except KeyError as exc:
+            return [types.TextContent(type="text", text=f"Missing required argument: {exc}")]
+        except (TypeError, ValueError) as exc:
+            return [types.TextContent(type="text", text=f"Invalid argument: {exc}")]
         except Exception as exc:
-            return [types.TextContent(type="text", text=f"Error executing {name}: {exc}")]
+            return [types.TextContent(type="text", text=f"Internal error in {name}: {exc}")]
 
     import asyncio
 

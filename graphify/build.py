@@ -46,10 +46,6 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
         if src not in node_set or tgt not in node_set:
             continue  # skip edges to external/stdlib nodes - expected, not an error
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target")}
-        # Preserve original edge direction - undirected graphs lose it otherwise,
-        # causing display functions to show edges backwards.
-        attrs["_src"] = src
-        attrs["_tgt"] = tgt
         G.add_edge(src, tgt, **attrs)
     hyperedges = extraction.get("hyperedges", [])
     if hyperedges:

@@ -45,6 +45,26 @@ graphify runs in three passes. First, a deterministic AST pass extracts structur
 
 Every relationship is tagged `EXTRACTED` (found directly in source), `INFERRED` (reasonable inference, with a confidence score), or `AMBIGUOUS` (flagged for review). You always know what was found vs guessed.
 
+### Demo: what the output looks like
+
+The interactive HTML graph (`graph.html`) renders a force-directed visualization with community coloring, search, and click-to-inspect:
+
+```
+  ┌─────────────┐        calls         ┌──────────────┐
+  │  AuthServer  │─────────────────────▶│  TokenStore   │
+  │ (community 0)│                      │ (community 0) │
+  └──────┬───────┘                      └───────┬───────┘
+         │ contains                             │ imports
+         ▼                                      ▼
+  ┌─────────────┐   semantically_similar  ┌──────────────┐
+  │  validate()  │◀ ─ ─ ─ INFERRED ─ ─ ─▶│  check_jwt() │
+  └─────────────┘                         └──────────────┘
+
+  Legend:  ── EXTRACTED (certain)   ─ ─ INFERRED (reasoned)   ... AMBIGUOUS (flagged)
+```
+
+Open `graphify-out/graph.html` in a browser to explore the full interactive graph with search, filtering, and node detail panels. Run `graphify dry-run .` to preview what would be processed before building.
+
 ## Install
 
 **Requires:** Python 3.10+ and one of: [Claude Code](https://claude.ai/code), [Codex](https://openai.com/codex), [OpenCode](https://opencode.ai), [Cursor](https://cursor.com), [Gemini CLI](https://github.com/google-gemini/gemini-cli), [GitHub Copilot CLI](https://docs.github.com/en/copilot/how-tos/copilot-cli), [Aider](https://aider.chat), [OpenClaw](https://openclaw.ai), [Factory Droid](https://factory.ai), or [Trae](https://trae.ai)

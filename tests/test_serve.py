@@ -15,7 +15,7 @@ from graphify.serve import (
 
 
 def _make_graph() -> nx.Graph:
-    G = nx.Graph()
+    G = nx.DiGraph()
     G.add_node("n1", label="extract", source_file="extract.py", source_location="L10", community=0)
     G.add_node("n2", label="cluster", source_file="cluster.py", source_location="L5", community=0)
     G.add_node("n3", label="build", source_file="build.py", source_location="L1", community=1)
@@ -39,7 +39,7 @@ def test_communities_from_graph_basic():
     assert "n3" in communities[1]
 
 def test_communities_from_graph_no_community_attr():
-    G = nx.Graph()
+    G = nx.DiGraph()
     G.add_node("a", label="foo")  # no community attr
     communities = _communities_from_graph(G)
     assert communities == {}

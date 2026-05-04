@@ -9,7 +9,7 @@ from graphify.benchmark import run_benchmark, print_benchmark, _query_subgraph_t
 
 
 def _make_graph() -> nx.Graph:
-    G = nx.Graph()
+    G = nx.DiGraph()
     G.add_node("n1", label="authentication", source_file="auth.py", source_location="L1", community=0)
     G.add_node("n2", label="api_handler", source_file="api.py", source_location="L5", community=0)
     G.add_node("n3", label="main_entry", source_file="main.py", source_location="L1", community=1)
@@ -86,7 +86,7 @@ def test_run_benchmark_estimates_corpus_if_no_words(tmp_path):
     assert result["corpus_words"] > 0
 
 def test_run_benchmark_error_on_empty_graph(tmp_path):
-    G = nx.Graph()
+    G = nx.DiGraph()
     graph_file = tmp_path / "empty.json"
     _write_graph(G, graph_file)
     result = run_benchmark(str(graph_file), corpus_words=1_000)

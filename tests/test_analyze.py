@@ -60,7 +60,7 @@ def test_surprising_connections_excludes_concept_nodes():
 
 def test_surprising_connections_single_file_uses_community_bridges():
     """Single-file graph: should return cross-community edges, not empty list."""
-    G = nx.Graph()
+    G = nx.DiGraph()
     # Build a graph with 2 clear communities + 1 bridge edge
     for i in range(5):
         G.add_node(f"a{i}", label=f"A{i}", file_type="code", source_file="single.py",
@@ -87,7 +87,7 @@ def test_surprising_connections_single_file_uses_community_bridges():
 
 def test_surprising_connections_ambiguous_scores_higher_than_extracted():
     """AMBIGUOUS edge should score higher than an otherwise identical EXTRACTED edge."""
-    G = nx.Graph()
+    G = nx.DiGraph()
     for nid, label, src in [
         ("a", "Alpha", "repo1/model.py"),
         ("b", "Beta", "repo2/train.py"),
@@ -106,7 +106,7 @@ def test_surprising_connections_ambiguous_scores_higher_than_extracted():
 
 def test_surprising_connections_cross_type_scores_higher():
     """Code↔paper edge should score higher than code↔code edge."""
-    G = nx.Graph()
+    G = nx.DiGraph()
     for nid, label, src in [
         ("a", "Transformer", "code/model.py"),
         ("b", "FlashAttn", "papers/flash.pdf"),
@@ -149,13 +149,13 @@ def test_file_category():
 
 
 def test_is_concept_node_empty_source():
-    G = nx.Graph()
+    G = nx.DiGraph()
     G.add_node("c1", source_file="")
     assert _is_concept_node(G, "c1") is True
 
 
 def test_is_concept_node_real_file():
-    G = nx.Graph()
+    G = nx.DiGraph()
     G.add_node("n1", source_file="model.py")
     assert _is_concept_node(G, "n1") is False
 
@@ -174,7 +174,7 @@ def test_surprising_connections_have_required_keys():
 
 def _make_simple_graph(nodes, edges):
     """Helper: build a small nx.Graph from node/edge specs."""
-    G = nx.Graph()
+    G = nx.DiGraph()
     for node_id, label in nodes:
         G.add_node(node_id, label=label, source_file="test.py")
     for src, tgt, rel, conf in edges:

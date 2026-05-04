@@ -42,7 +42,7 @@ def _make_graph_with_semantic_edge():
 
 def _make_two_edge_graph():
     """Graph with one semantically_similar_to edge and one references edge, both cross-file."""
-    G = nx.Graph()
+    G = nx.DiGraph()
     for nid, label, src in [
         ("a", "ValidateInput", "auth/validators.py"),
         ("b", "CheckInput", "api/checks.py"),
@@ -52,12 +52,10 @@ def _make_two_edge_graph():
         G.add_node(nid, label=label, source_file=src, file_type="code")
     # semantically_similar_to edge
     G.add_edge("a", "b", relation="semantically_similar_to", confidence="INFERRED",
-               confidence_score=0.82, source_file="auth/validators.py", weight=0.82,
-               _src="a", _tgt="b")
+               confidence_score=0.82, source_file="auth/validators.py", weight=0.82)
     # plain references edge (same confidence tier)
     G.add_edge("c", "d", relation="references", confidence="INFERRED",
-               confidence_score=0.7, source_file="config/loader.py", weight=0.7,
-               _src="c", _tgt="d")
+               confidence_score=0.7, source_file="config/loader.py", weight=0.7)
     return G
 
 
@@ -165,7 +163,7 @@ def test_report_semantic_tag_on_correct_line():
 
 def test_report_no_semantic_tag_for_other_relations():
     """Non-semantic edges must not get the [semantically similar] tag."""
-    G = nx.Graph()
+    G = nx.DiGraph()
     for nid, label, src in [
         ("x", "Alpha", "repo1/a.py"),
         ("y", "Beta", "repo2/b.py"),

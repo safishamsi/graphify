@@ -6,7 +6,7 @@ from graphify.wiki import to_wiki, _index_md, _community_article, _god_node_arti
 
 
 def _make_graph():
-    G = nx.Graph()
+    G = nx.DiGraph()
     G.add_node("n1", label="parse", file_type="code", source_file="parser.py", community=0)
     G.add_node("n2", label="validate", file_type="code", source_file="parser.py", community=0)
     G.add_node("n3", label="render", file_type="code", source_file="renderer.py", community=1)
@@ -127,7 +127,7 @@ def test_article_navigation_footer(tmp_path):
 
 def test_community_article_truncation_notice(tmp_path):
     """Communities with more than 25 nodes show a truncation notice."""
-    G = nx.Graph()
+    G = nx.DiGraph()
     nodes = [f"n{i}" for i in range(30)]
     for nid in nodes:
         G.add_node(nid, label=f"concept_{nid}", file_type="code", source_file="a.py", community=0)

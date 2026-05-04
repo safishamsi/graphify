@@ -52,11 +52,11 @@ def _partition(G: nx.Graph) -> dict[str, int]:
     return {node: cid for cid, nodes in enumerate(communities) for node in nodes}
 
 
-_MAX_COMMUNITY_FRACTION = 0.25   # communities larger than 25% of graph get split
-_MIN_SPLIT_SIZE = 10             # only split if community has at least this many nodes
+from .constants import MAX_COMMUNITY_FRACTION as _MAX_COMMUNITY_FRACTION
+from .constants import MIN_SPLIT_SIZE as _MIN_SPLIT_SIZE
 
 
-def cluster(G: nx.Graph) -> dict[int, list[str]]:
+def cluster(G: nx.Graph | nx.DiGraph) -> dict[int, list[str]]:
     """Run Leiden community detection. Returns {community_id: [node_ids]}.
 
     Community IDs are stable across runs: 0 = largest community after splitting.
@@ -73,16 +73,29 @@ def cluster(G: nx.Graph) -> dict[int, list[str]]:
     if G.number_of_edges() == 0:
         return {i: [n] for i, n in enumerate(sorted(G.nodes))}
 
-    # Leiden warns and drops isolates - handle them separately
-    isolates = [n for n in G.nodes() if G.degree(n) == 0]
-    connected_nodes = [n for n in G.nodes() if G.degree(n) > 0]
-    connected = G.subgraph(connected_nodes)
+    # G is already undirected at this point (converted above if needed)
+    U = G
+
+    # Pre-filter: split into connected components and run Leiden on each
+    # independently. This avoids running Leiden on the full graph when it
+    # consists of multiple disconnected subgraphs (common for multi-repo corpora).
+    isolates = [n for n in U.nodes() if U.degree(n) == 0]
 
     raw: dict[int, list[str]] = {}
-    if connected.number_of_nodes() > 0:
-        partition = _partition(connected)
+    next_cid = 0
+    for component in nx.connected_components(U):
+        if len(component) == 1:
+            isolates.extend(component)
+            continue
+        subgraph = U.subgraph(component)
+        partition = _partition(subgraph)
+        # Remap community IDs to avoid collisions between components
+        local_communities: dict[int, list[str]] = {}
         for node, cid in partition.items():
-            raw.setdefault(cid, []).append(node)
+            local_communities.setdefault(cid, []).append(node)
+        for nodes in local_communities.values():
+            raw[next_cid] = nodes
+            next_cid += 1
 
     # Each isolate becomes its own single-node community
     next_cid = max(raw.keys(), default=-1) + 1
@@ -91,11 +104,11 @@ def cluster(G: nx.Graph) -> dict[int, list[str]]:
         next_cid += 1
 
     # Split oversized communities
-    max_size = max(_MIN_SPLIT_SIZE, int(G.number_of_nodes() * _MAX_COMMUNITY_FRACTION))
+    max_size = max(_MIN_SPLIT_SIZE, int(U.number_of_nodes() * _MAX_COMMUNITY_FRACTION))
     final_communities: list[list[str]] = []
     for nodes in raw.values():
         if len(nodes) > max_size:
-            final_communities.extend(_split_community(G, nodes))
+            final_communities.extend(_split_community(U, nodes))
         else:
             final_communities.append(nodes)
 
@@ -122,16 +135,17 @@ def _split_community(G: nx.Graph, nodes: list[str]) -> list[list[str]]:
         return [sorted(nodes)]
 
 
-def cohesion_score(G: nx.Graph, community_nodes: list[str]) -> float:
+def cohesion_score(G: nx.Graph | nx.DiGraph, community_nodes: list[str]) -> float:
     """Ratio of actual intra-community edges to maximum possible."""
     n = len(community_nodes)
     if n <= 1:
         return 1.0
-    subgraph = G.subgraph(community_nodes)
+    U = G.to_undirected() if G.is_directed() else G
+    subgraph = U.subgraph(community_nodes)
     actual = subgraph.number_of_edges()
     possible = n * (n - 1) / 2
     return round(actual / possible, 2) if possible > 0 else 0.0
 
 
-def score_all(G: nx.Graph, communities: dict[int, list[str]]) -> dict[int, float]:
+def score_all(G: nx.Graph | nx.DiGraph, communities: dict[int, list[str]]) -> dict[int, float]:
     return {cid: cohesion_score(G, nodes) for cid, nodes in communities.items()}

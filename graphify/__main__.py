@@ -648,6 +648,8 @@ def main() -> None:
         print("    --type T                query type: query|path_query|explain (default: query)")
         print("    --nodes N1 N2 ...       source node labels cited in the answer")
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
+        print("  dry-run [path]          show what would be processed without building the graph")
+        print("  diff <old> <new>        compare two graph.json files and show what changed")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
@@ -845,6 +847,69 @@ def main() -> None:
             source_nodes=opts.nodes or None,
         )
         print(f"Saved to {out}")
+    elif cmd == "dry-run":
+        from graphify.detect import detect
+        target = Path(sys.argv[2]) if len(sys.argv) > 2 else Path(".")
+        if not target.exists():
+            print(f"error: path '{target}' does not exist", file=sys.stderr)
+            sys.exit(1)
+        result = detect(target.resolve())
+        print(f"Dry-run analysis of: {target.resolve()}")
+        print()
+        total = sum(len(v) for v in result.get("files", {}).values())
+        print(f"  Total files: {total}")
+        for ftype, fpaths in result.get("files", {}).items():
+            if fpaths:
+                print(f"  {ftype}: {len(fpaths)} files")
+        print(f"  Total words: {result.get('total_words', 0):,}")
+        needs = result.get("needs_graph", True)
+        print(f"  Needs graph: {'yes' if needs else 'no (corpus too small)'}")
+        warning = result.get("warning")
+        if warning:
+            print(f"  Warning: {warning}")
+        print()
+        print("No graph was built. Remove --dry-run / dry-run to proceed.")
+    elif cmd == "diff":
+        if len(sys.argv) < 4:
+            print("Usage: graphify diff <old-graph.json> <new-graph.json>", file=sys.stderr)
+            sys.exit(1)
+        from graphify.analyze import graph_diff
+        from networkx.readwrite import json_graph as _jg
+        old_path, new_path = Path(sys.argv[2]), Path(sys.argv[3])
+        for p in (old_path, new_path):
+            if not p.exists():
+                print(f"error: file not found: {p}", file=sys.stderr)
+                sys.exit(1)
+        try:
+            old_data = json.loads(old_path.read_text(encoding="utf-8"))
+            new_data = json.loads(new_path.read_text(encoding="utf-8"))
+            try:
+                G_old = _jg.node_link_graph(old_data, edges="links")
+                G_new = _jg.node_link_graph(new_data, edges="links")
+            except TypeError:
+                G_old = _jg.node_link_graph(old_data)
+                G_new = _jg.node_link_graph(new_data)
+        except Exception as exc:
+            print(f"error: could not load graphs: {exc}", file=sys.stderr)
+            sys.exit(1)
+        diff = graph_diff(G_old, G_new)
+        print(f"Graph diff: {diff['summary']}")
+        if diff["new_nodes"]:
+            print(f"\nNew nodes ({len(diff['new_nodes'])}):")
+            for n in diff["new_nodes"][:20]:
+                print(f"  + {n['label']}")
+        if diff["removed_nodes"]:
+            print(f"\nRemoved nodes ({len(diff['removed_nodes'])}):")
+            for n in diff["removed_nodes"][:20]:
+                print(f"  - {n['label']}")
+        if diff["new_edges"]:
+            print(f"\nNew edges ({len(diff['new_edges'])}):")
+            for e in diff["new_edges"][:20]:
+                print(f"  + {e['source']} --{e['relation']}--> {e['target']} [{e['confidence']}]")
+        if diff["removed_edges"]:
+            print(f"\nRemoved edges ({len(diff['removed_edges'])}):")
+            for e in diff["removed_edges"][:20]:
+                print(f"  - {e['source']} --{e['relation']}--> {e['target']} [{e['confidence']}]")
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
         graph_path = sys.argv[2] if len(sys.argv) > 2 else "graphify-out/graph.json"

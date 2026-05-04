@@ -28,13 +28,13 @@ def test_cohesion_score_complete_graph():
     assert score == 1.0
 
 def test_cohesion_score_single_node():
-    G = nx.Graph()
+    G = nx.DiGraph()
     G.add_node("a")
     score = cohesion_score(G, ["a"])
     assert score == 1.0
 
 def test_cohesion_score_disconnected():
-    G = nx.Graph()
+    G = nx.DiGraph()
     G.add_nodes_from(["a", "b", "c"])
     score = cohesion_score(G, ["a", "b", "c"])
     assert score == 0.0

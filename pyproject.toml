@@ -48,6 +48,7 @@ watch = ["watchdog"]
 leiden = ["graspologic"]
 office = ["python-docx", "openpyxl"]
 video = ["faster-whisper", "yt-dlp"]
+test = ["pytest", "hypothesis"]
 all = ["mcp", "neo4j", "pypdf", "html2text", "watchdog", "graspologic", "python-docx", "openpyxl", "faster-whisper", "yt-dlp"]
 
 [project.scripts]

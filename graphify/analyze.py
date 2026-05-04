@@ -1,6 +1,17 @@
 """Graph analysis: god nodes (most connected), surprising connections (cross-community), suggested questions."""
 from __future__ import annotations
 import networkx as nx
+from .constants import (
+    Confidence,
+    CONFIDENCE_BONUS,
+    CROSS_FILE_TYPE_BONUS,
+    CROSS_REPO_BONUS,
+    CROSS_COMMUNITY_BONUS,
+    SEMANTIC_SIMILARITY_MULTIPLIER,
+    PERIPHERAL_HUB_BONUS,
+    PERIPHERAL_MAX_DEGREE,
+    HUB_MIN_DEGREE,
+)
 
 
 def _node_community_map(communities: dict[int, list[str]]) -> dict[str, int]:
@@ -142,43 +153,44 @@ def _surprise_score(
     reasons: list[str] = []
 
     # 1. Confidence weight - uncertain connections are more noteworthy
-    conf = data.get("confidence", "EXTRACTED")
-    conf_bonus = {"AMBIGUOUS": 3, "INFERRED": 2, "EXTRACTED": 1}.get(conf, 1)
+    conf = data.get("confidence", Confidence.EXTRACTED)
+    # Confidence(str, Enum) so string keys match enum keys in dict lookup
+    conf_bonus = CONFIDENCE_BONUS.get(conf, 1)
     score += conf_bonus
-    if conf in ("AMBIGUOUS", "INFERRED"):
-        reasons.append(f"{conf.lower()} connection - not explicitly stated in source")
+    if conf in (Confidence.AMBIGUOUS, Confidence.INFERRED):
+        reasons.append(f"{str(conf).lower()} connection - not explicitly stated in source")
 
     # 2. Cross file-type bonus - code↔paper or code↔image is non-obvious
     cat_u = _file_category(u_source)
     cat_v = _file_category(v_source)
     if cat_u != cat_v:
-        score += 2
+        score += CROSS_FILE_TYPE_BONUS
         reasons.append(f"crosses file types ({cat_u} ↔ {cat_v})")
 
     # 3. Cross-repo bonus - different top-level directory
     if _top_level_dir(u_source) != _top_level_dir(v_source):
-        score += 2
+        score += CROSS_REPO_BONUS
         reasons.append("connects across different repos/directories")
 
     # 4. Cross-community bonus - Leiden says these are structurally distant
     cid_u = node_community.get(u)
     cid_v = node_community.get(v)
     if cid_u is not None and cid_v is not None and cid_u != cid_v:
-        score += 1
+        score += CROSS_COMMUNITY_BONUS
         reasons.append("bridges separate communities")
 
     # 4b. Semantic similarity bonus - non-obvious conceptual links score higher
     if data.get("relation") == "semantically_similar_to":
-        score = int(score * 1.5)
+        score = int(score * SEMANTIC_SIMILARITY_MULTIPLIER)
         reasons.append("semantically similar concepts with no structural link")
 
     # 5. Peripheral→hub: a low-degree node connecting to a high-degree one
     deg_u = G.degree(u)
     deg_v = G.degree(v)
-    if min(deg_u, deg_v) <= 2 and max(deg_u, deg_v) >= 5:
-        score += 1
-        peripheral = G.nodes[u].get("label", u) if deg_u <= 2 else G.nodes[v].get("label", v)
-        hub = G.nodes[v].get("label", v) if deg_u <= 2 else G.nodes[u].get("label", u)
+    if min(deg_u, deg_v) <= PERIPHERAL_MAX_DEGREE and max(deg_u, deg_v) >= HUB_MIN_DEGREE:
+        score += PERIPHERAL_HUB_BONUS
+        peripheral = G.nodes[u].get("label", u) if deg_u <= PERIPHERAL_MAX_DEGREE else G.nodes[v].get("label", v)
+        hub = G.nodes[v].get("label", v) if deg_u <= PERIPHERAL_MAX_DEGREE else G.nodes[u].get("label", u)
         reasons.append(f"peripheral node `{peripheral}` unexpectedly reaches hub `{hub}`")
 
     return score, reasons
@@ -217,15 +229,13 @@ def _cross_file_surprises(G: nx.Graph, communities: dict[int, list[str]], top_n:
             continue
 
         score, reasons = _surprise_score(G, u, v, data, node_community, u_source, v_source)
-        src_id = data.get("_src", u)
-        tgt_id = data.get("_tgt", v)
         candidates.append({
             "_score": score,
-            "source": G.nodes[src_id].get("label", src_id),
-            "target": G.nodes[tgt_id].get("label", tgt_id),
+            "source": G.nodes[u].get("label", u),
+            "target": G.nodes[v].get("label", v),
             "source_files": [
-                G.nodes[src_id].get("source_file", ""),
-                G.nodes[tgt_id].get("source_file", ""),
+                G.nodes[u].get("source_file", ""),
+                G.nodes[v].get("source_file", ""),
             ],
             "confidence": data.get("confidence", "EXTRACTED"),
             "relation": relation,
@@ -293,14 +303,12 @@ def _cross_community_surprises(
             continue
         # This edge crosses community boundaries - interesting
         confidence = data.get("confidence", "EXTRACTED")
-        src_id = data.get("_src", u)
-        tgt_id = data.get("_tgt", v)
         surprises.append({
-            "source": G.nodes[src_id].get("label", src_id),
-            "target": G.nodes[tgt_id].get("label", tgt_id),
+            "source": G.nodes[u].get("label", u),
+            "target": G.nodes[v].get("label", v),
             "source_files": [
-                G.nodes[src_id].get("source_file", ""),
-                G.nodes[tgt_id].get("source_file", ""),
+                G.nodes[u].get("source_file", ""),
+                G.nodes[v].get("source_file", ""),
             ],
             "confidence": confidence,
             "relation": relation,
@@ -388,12 +396,9 @@ def suggest_questions(
         ]
         if len(inferred) >= 2:
             label = G.nodes[node_id].get("label", node_id)
-            # Use _src/_tgt to get the correct direction; fall back to v (the other node)
             others = []
             for u, v, d in inferred[:2]:
-                src_id = d.get("_src", u)
-                tgt_id = d.get("_tgt", v)
-                other_id = tgt_id if src_id == node_id else src_id
+                other_id = v if u == node_id else u
                 others.append(G.nodes[other_id].get("label", other_id))
             questions.append({
                 "type": "verify_inferred",

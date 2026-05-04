@@ -79,13 +79,13 @@ def test_build_from_json_missing_hyperedges_key():
 # ---------------------------------------------------------------------------
 
 def test_attach_hyperedges_adds_new():
-    G = nx.Graph()
+    G = nx.DiGraph()
     attach_hyperedges(G, [{"id": "auth_flow", "label": "Auth Flow", "nodes": ["A", "B", "C"]}])
     assert len(G.graph["hyperedges"]) == 1
 
 
 def test_attach_hyperedges_deduplicates():
-    G = nx.Graph()
+    G = nx.DiGraph()
     h = {"id": "auth_flow", "label": "Auth Flow", "nodes": ["A", "B", "C"]}
     attach_hyperedges(G, [h])
     attach_hyperedges(G, [h])  # second call with same id should not duplicate
@@ -93,7 +93,7 @@ def test_attach_hyperedges_deduplicates():
 
 
 def test_attach_hyperedges_multiple_different_ids():
-    G = nx.Graph()
+    G = nx.DiGraph()
     attach_hyperedges(G, [
         {"id": "flow_a", "label": "Flow A", "nodes": ["A", "B", "C"]},
         {"id": "flow_b", "label": "Flow B", "nodes": ["D", "E", "F"]},
@@ -102,7 +102,7 @@ def test_attach_hyperedges_multiple_different_ids():
 
 
 def test_attach_hyperedges_skips_entry_without_id():
-    G = nx.Graph()
+    G = nx.DiGraph()
     attach_hyperedges(G, [{"label": "No ID", "nodes": ["A", "B", "C"]}])
     assert G.graph.get("hyperedges", []) == []
 
