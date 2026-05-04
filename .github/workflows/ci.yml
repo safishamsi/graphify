@@ -2,9 +2,10 @@ name: CI
 
 on:
   push:
-    branches: ["v1", "v2", "v3", "v4", "main"]
+    branches: ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "main"]
   pull_request:
-    branches: ["v1", "v2", "v3", "v4", "main"]
+    branches: ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "main"]
+  workflow_dispatch:
 
 jobs:
   test:
@@ -23,7 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -e ".[mcp,pdf,watch]"
+          pip install -e ".[mcp,pdf,watch,sql]"
           pip install pytest
 
       - name: Run tests
