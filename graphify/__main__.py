@@ -648,6 +648,7 @@ def main() -> None:
         print("    --type T                query type: query|path_query|explain (default: query)")
         print("    --nodes N1 N2 ...       source node labels cited in the answer")
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
+        print("  diff <old.json> <new.json>  compare two graph snapshots and print what changed")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
@@ -845,6 +846,52 @@ def main() -> None:
             source_nodes=opts.nodes or None,
         )
         print(f"Saved to {out}")
+    elif cmd == "diff":
+        if len(sys.argv) < 4:
+            print("Usage: graphify diff <old-graph.json> <new-graph.json>", file=sys.stderr)
+            sys.exit(1)
+        old_path = Path(sys.argv[2]).resolve()
+        new_path = Path(sys.argv[3]).resolve()
+        for p in (old_path, new_path):
+            if not p.exists():
+                print(f"error: file not found: {p}", file=sys.stderr)
+                sys.exit(1)
+            if p.suffix != ".json":
+                print(f"error: expected a .json file: {p}", file=sys.stderr)
+                sys.exit(1)
+        try:
+            import networkx as _nx
+            from networkx.readwrite import json_graph as _jg
+            def _load_graph(p: Path) -> _nx.Graph:
+                raw = json.loads(p.read_text(encoding="utf-8"))
+                try:
+                    return _jg.node_link_graph(raw, edges="links")
+                except TypeError:
+                    return _jg.node_link_graph(raw)
+            G_old = _load_graph(old_path)
+            G_new = _load_graph(new_path)
+        except Exception as exc:
+            print(f"error: could not load graphs: {exc}", file=sys.stderr)
+            sys.exit(1)
+        from graphify.analyze import graph_diff as _graph_diff
+        diff = _graph_diff(G_old, G_new)
+        print(f"Summary: {diff['summary']}")
+        if diff["new_nodes"]:
+            print(f"\nNew nodes ({len(diff['new_nodes'])}):")
+            for n in diff["new_nodes"]:
+                print(f"  + {n['label']} ({n['id']})")
+        if diff["removed_nodes"]:
+            print(f"\nRemoved nodes ({len(diff['removed_nodes'])}):")
+            for n in diff["removed_nodes"]:
+                print(f"  - {n['label']} ({n['id']})")
+        if diff["new_edges"]:
+            print(f"\nNew edges ({len(diff['new_edges'])}):")
+            for e in diff["new_edges"]:
+                print(f"  + {e['source']} --[{e['relation']}]--> {e['target']}")
+        if diff["removed_edges"]:
+            print(f"\nRemoved edges ({len(diff['removed_edges'])}):")
+            for e in diff["removed_edges"]:
+                print(f"  - {e['source']} --[{e['relation']}]--> {e['target']}")
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
         graph_path = sys.argv[2] if len(sys.argv) > 2 else "graphify-out/graph.json"
