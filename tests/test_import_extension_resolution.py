@@ -89,6 +89,51 @@ def test_resolve_svelte_to_svelte_ts_for_rune_files(tmp_path):
     )
 
 
+def test_resolve_svelte_to_svelte_js_for_javascript_rune_files(tmp_path):
+    """JS variant of the rune file pattern: a `.svelte.js` file (used in
+    JavaScript-only Svelte 5 projects, no TypeScript). `from './foo.svelte'`
+    must resolve to `foo.svelte.js` when no `.ts` variant exists.
+
+    Same code path as the .svelte.ts case — the generalized resolver tries
+    every extension in priority order, so JS-only and TS-only projects
+    both work without special-casing."""
+    target = _write(tmp_path / "store.svelte.js",
+                    "export const count = $state(0)")
+    written_as = tmp_path / "store.svelte"
+    resolved = _resolve_js_module_path(written_as)
+    assert resolved == target
+
+
+def test_resolve_svelte_prefers_svelte_ts_over_svelte_js(tmp_path):
+    """When both `.svelte.ts` and `.svelte.js` exist (hybrid project mid-
+    migration, or a build artifact alongside the source), `.ts` wins —
+    matching the resolver's stated TypeScript-first priority order.
+
+    Note: Vite's default `resolve.extensions` puts `.js` before `.ts`, but
+    in practice TypeScript codebases that emit `.svelte.js` build artifacts
+    expect tooling to read the `.svelte.ts` source. graphify is a source-
+    code tool, not a runtime resolver, so source-first ordering is correct
+    for our use case."""
+    ts_target = _write(tmp_path / "store.svelte.ts",
+                       "export const count = $state(0)")
+    _write(tmp_path / "store.svelte.js",
+           "export const count = 0  // build artifact")
+    written_as = tmp_path / "store.svelte"
+    resolved = _resolve_js_module_path(written_as)
+    assert resolved == ts_target
+
+
+def test_resolve_real_svelte_file_wins_over_svelte_ts_sibling(tmp_path):
+    """If `foo.svelte` IS a real markup file, importing `./foo.svelte`
+    must resolve to that — not get hijacked to a sibling `foo.svelte.ts`
+    rune file. The existence-check short-circuits before any append."""
+    real = _write(tmp_path / "Card.svelte", "<div>card markup</div>")
+    _write(tmp_path / "Card.svelte.ts",
+           "export const helpers = {}  // rune sibling, not the import target")
+    resolved = _resolve_js_module_path(real)
+    assert resolved == real
+
+
 def test_resolve_js_to_ts_when_real_file_is_ts(tmp_path):
     """TS ESM convention: imports written as .js but the actual file is .ts."""
     target = _write(tmp_path / "foo.ts", "export const x = 1")
