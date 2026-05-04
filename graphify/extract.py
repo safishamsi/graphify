@@ -1076,6 +1076,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
         if node.type in config.call_types:
             callee_name: str | None = None
             is_member_call: bool = False
+            func_node = None
 
             # Special handling per language
             if config.ts_module == "tree_sitter_swift":
@@ -1083,8 +1084,10 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                 first = node.children[0] if node.children else None
                 if first:
                     if first.type == "simple_identifier":
+                        func_node = first
                         callee_name = _read_text(first, source)
                     elif first.type == "navigation_expression":
+                        func_node = first
                         is_member_call = True
                         for child in first.children:
                             if child.type == "navigation_suffix":
@@ -1096,8 +1099,10 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                 first = node.children[0] if node.children else None
                 if first:
                     if first.type == "simple_identifier":
+                        func_node = first
                         callee_name = _read_text(first, source)
                     elif first.type == "navigation_expression":
+                        func_node = first
                         is_member_call = True
                         for child in reversed(first.children):
                             if child.type == "simple_identifier":
@@ -1108,8 +1113,10 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                 first = node.children[0] if node.children else None
                 if first:
                     if first.type == "identifier":
+                        func_node = first
                         callee_name = _read_text(first, source)
                     elif first.type == "field_expression":
+                        func_node = first
                         is_member_call = True
                         field = first.child_by_field_name("field")
                         if field:
@@ -1123,10 +1130,12 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                 # C#: try name field, then first named child
                 name_node = node.child_by_field_name("name")
                 if name_node:
+                    func_node = name_node
                     callee_name = _read_text(name_node, source)
                 else:
                     for child in node.children:
                         if child.is_named:
+                            func_node = child
                             raw = _read_text(child, source)
                             if "." in raw:
                                 callee_name = raw.split(".")[-1]
@@ -1142,11 +1151,13 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                         callee_name = _read_text(func_node, source)
                 elif node.type == "scoped_call_expression":
                     # Static method call: Helper::format() → callee = "Helper"
+                    func_node = node
                     scope_node = node.child_by_field_name("scope")
                     if scope_node:
                         callee_name = _read_text(scope_node, source)
                 else:
                     # member_call_expression: $obj->method()
+                    func_node = node
                     is_member_call = True
                     name_node = node.child_by_field_name("name")
                     if name_node:
@@ -3441,26 +3452,53 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
         all_nodes.extend(result.get("nodes", []))
         all_edges.extend(result.get("edges", []))
 
-    # Remap file node IDs from absolute-path-derived to project-relative so
-    # graph.json edge endpoints are stable across machines (#502)
+    # Remap IDs from absolute-path-derived to project-relative so graph.json
+    # endpoints are stable across machines (#502). File node IDs use the whole
+    # path, while entity IDs use _file_stem(path) as their prefix (#550), so
+    # both forms need to be normalized before cross-file edge resolution.
     id_remap: dict[str, str] = {}
+    stem_prefix_remaps: list[tuple[str, str]] = []
     for path in paths:
         old_id = _make_id(str(path))
         try:
-            new_id = _make_id(str(path.relative_to(root)))
+            rel_path = path.relative_to(root)
         except ValueError:
             continue
+        new_id = _make_id(str(rel_path))
         if old_id != new_id:
             id_remap[old_id] = new_id
-    if id_remap:
+
+        old_stem_id = _make_id(_file_stem(path))
+        new_stem_id = _make_id(_file_stem(rel_path))
+        if old_stem_id != new_stem_id:
+            stem_prefix_remaps.append((old_stem_id, new_stem_id))
+
+    def _remap_extracted_id(nid: str | None) -> str | None:
+        if not nid:
+            return nid
+        if nid in id_remap:
+            return id_remap[nid]
+        for old_prefix, new_prefix in stem_prefix_remaps:
+            if nid == old_prefix:
+                return new_prefix
+            prefix = old_prefix + "_"
+            if nid.startswith(prefix):
+                return new_prefix + nid[len(old_prefix):]
+        return nid
+
+    if id_remap or stem_prefix_remaps:
         for n in all_nodes:
-            if n.get("id") in id_remap:
-                n["id"] = id_remap[n["id"]]
+            remapped = _remap_extracted_id(n.get("id"))
+            if remapped:
+                n["id"] = remapped
         for e in all_edges:
-            if e.get("source") in id_remap:
-                e["source"] = id_remap[e["source"]]
-            if e.get("target") in id_remap:
-                e["target"] = id_remap[e["target"]]
+            e["source"] = _remap_extracted_id(e.get("source"))
+            e["target"] = _remap_extracted_id(e.get("target"))
+        for result in per_file:
+            for rc in result.get("raw_calls", []):
+                remapped = _remap_extracted_id(rc.get("caller_nid"))
+                if remapped:
+                    rc["caller_nid"] = remapped
 
     # Add cross-file class-level edges (Python only - uses Python parser internally)
     py_paths = [p for p in paths if p.suffix == ".py"]
@@ -3511,10 +3549,6 @@ def extract(paths: list[Path], cache_root: Path | None = None) -> dict:
                 continue
             callee = rc.get("callee", "")
             if not callee:
-                continue
-            # Skip member-call callees: obj.log() → "log" has no import evidence
-            # and collides with any top-level function named "log" in the corpus.
-            if rc.get("is_member_call"):
                 continue
             tgt = global_label_to_nid.get(callee.lower())
             caller = rc["caller_nid"]
