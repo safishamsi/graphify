@@ -1,5 +1,6 @@
 from pathlib import Path
-from graphify.extract import extract_python, extract, collect_files, _make_id
+from graphify.extract import extract_python, extract, collect_files, _make_id, extract_js
+from graphify.detect import load_tsconfig_paths, resolve_ts_alias
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -168,3 +169,59 @@ def test_calls_deduplication():
     result = extract_python(FIXTURES / "sample_calls.py")
     call_pairs = [(e["source"], e["target"]) for e in result["edges"] if e["relation"] == "calls"]
     assert len(call_pairs) == len(set(call_pairs)), "Duplicate calls edges found"
+
+
+# ── tsconfig path alias tests ─────────────────────────────────────────────────
+
+TSCONFIG_FIXTURE = FIXTURES / "tsconfig_alias"
+
+
+def test_load_tsconfig_paths_finds_config():
+    """load_tsconfig_paths returns a non-empty map when tsconfig.json with paths exists."""
+    alias_map = load_tsconfig_paths(TSCONFIG_FIXTURE / "src" / "pages")
+    assert "@" in alias_map or any(k.startswith("@") for k in alias_map)
+
+
+def test_load_tsconfig_paths_no_config(tmp_path):
+    """load_tsconfig_paths returns empty dict when no tsconfig.json is found."""
+    result = load_tsconfig_paths(tmp_path)
+    assert result == {}
+
+
+def test_resolve_ts_alias_replaces_prefix():
+    """resolve_ts_alias maps @/foo/bar to the resolved path."""
+    alias_map = {"@": "/project/src", "@components": "/project/src/components"}
+    result = resolve_ts_alias("@/hooks/useAuth", alias_map)
+    assert result == "/project/src/hooks/useAuth"
+
+
+def test_resolve_ts_alias_longer_prefix_wins():
+    """More specific alias (@components) takes precedence over shorter one (@)."""
+    alias_map = {"@": "/project/src", "@components": "/project/src/components"}
+    result = resolve_ts_alias("@components/Sidebar", alias_map)
+    assert result == "/project/src/components/Sidebar"
+
+
+def test_resolve_ts_alias_no_match():
+    """resolve_ts_alias returns the original path when no alias matches."""
+    alias_map = {"@": "/project/src"}
+    assert resolve_ts_alias("./local/module", alias_map) == "./local/module"
+    assert resolve_ts_alias("react", alias_map) == "react"
+
+
+def test_extract_js_resolves_aliases():
+    """extract_js resolves tsconfig path aliases to real module names in edges."""
+    import pytest
+    result = extract_js(TSCONFIG_FIXTURE / "src" / "pages" / "Home.ts")
+    if result.get("error") and "not installed" in result["error"]:
+        pytest.skip(f"tree-sitter backend not installed: {result['error']}")
+    import_targets = {
+        e["target"] for e in result["edges"] if e["relation"] == "imports_from"
+    }
+    # @/components/Button → Button, @/hooks/useAuth → useAuth, @components/Sidebar → Sidebar
+    lowered = {t.lower() for t in import_targets}
+    assert "button" in lowered, f"Expected 'button' in targets, got: {import_targets}"
+    # Aliases should NOT appear raw as targets
+    assert not any("@" in t for t in import_targets), (
+        f"Raw alias found in targets: {import_targets}"
+    )

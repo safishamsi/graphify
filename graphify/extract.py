@@ -125,11 +125,16 @@ def _import_python(node, source: bytes, file_nid: str, stem: str, edges: list, s
             })
 
 
-def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+               alias_map: dict | None = None) -> None:
     for child in node.children:
         if child.type == "string":
             raw = _read_text(child, source).strip("'\"` ")
-            module_name = raw.lstrip("./").split("/")[-1]
+            resolved = raw
+            if alias_map:
+                from .detect import resolve_ts_alias
+                resolved = resolve_ts_alias(raw, alias_map)
+            module_name = resolved.lstrip("./").split("/")[-1]
             if module_name:
                 tgt_nid = _make_id(module_name)
                 edges.append({
@@ -1097,7 +1102,20 @@ def extract_python(path: Path) -> dict:
 
 def extract_js(path: Path) -> dict:
     """Extract classes, functions, arrow functions, and imports from a .js/.ts/.tsx file."""
-    config = _TS_CONFIG if path.suffix in (".ts", ".tsx") else _JS_CONFIG
+    from .detect import load_tsconfig_paths
+    import dataclasses
+
+    base_config = _TS_CONFIG if path.suffix in (".ts", ".tsx") else _JS_CONFIG
+    alias_map = load_tsconfig_paths(path.parent)
+
+    if alias_map:
+        def _import_js_with_aliases(node, source, file_nid, stem, edges, str_path):
+            _import_js(node, source, file_nid, stem, edges, str_path, alias_map=alias_map)
+
+        config = dataclasses.replace(base_config, import_handler=_import_js_with_aliases)
+    else:
+        config = base_config
+
     return _extract_generic(path, config)
 
 
@@ -2632,13 +2650,24 @@ def extract(paths: list[Path]) -> dict:
         extractor = _DISPATCH.get(path.suffix)
         if extractor is None:
             continue
-        cached = load_cached(path, root)
+        # For JS/TS files, include the effective tsconfig.json content in the
+        # cache key so that alias-map changes invalidate cached import edges.
+        extra_key = b""
+        if path.suffix in (".js", ".ts", ".tsx", ".jsx"):
+            from .detect import load_tsconfig_paths
+            import hashlib as _hashlib
+            alias_map = load_tsconfig_paths(path.parent)
+            if alias_map:
+                extra_key = _hashlib.sha256(
+                    json.dumps(alias_map, sort_keys=True).encode()
+                ).digest()
+        cached = load_cached(path, root, extra_key)
         if cached is not None:
             per_file.append(cached)
             continue
         result = extractor(path)
         if "error" not in result:
-            save_cached(path, result, root)
+            save_cached(path, result, root, extra_key)
         per_file.append(result)
     if total >= _PROGRESS_INTERVAL:
         print(f"  AST extraction: {total}/{total} files (100%)", flush=True)
