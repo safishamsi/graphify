@@ -14,6 +14,7 @@ Turn any folder of files into a navigable knowledge graph with community detecti
 /graphify                                             # full pipeline on current directory → Obsidian vault
 /graphify <path>                                      # full pipeline on specific path
 /graphify <path> --mode deep                          # thorough extraction, richer INFERRED edges
+/graphify <path> --mode prose                         # non-code corpus: skip AST, per-file LLM extraction
 /graphify <path> --update                             # incremental - re-extract only new/changed files
 /graphify <path> --directed                            # build directed graph (preserves edge direction: source→target)
 /graphify <path> --whisper-model medium                # use a larger Whisper model for better transcription accuracy
@@ -160,7 +161,9 @@ After transcription:
 
 ### Step 3 - Extract entities and relationships
 
-**Before starting:** note whether `--mode deep` was given. You must pass `DEEP_MODE=true` to every subagent in Step B2 if it was. Track this from the original invocation - do not lose it.
+**Before starting:** note whether `--mode deep` or `--mode prose` was given. You must pass `DEEP_MODE=true` to every subagent in Step B2 if deep mode was given. Track this from the original invocation - do not lose it.
+
+**If `--mode prose` was given, skip to [Part P - Prose extraction](#part-p---prose-extraction-mode-prose-only) below.** Prose mode bypasses AST extraction entirely and uses direct per-file LLM extraction with a structured schema.
 
 This step has two parts: **structural extraction** (deterministic, free) and **semantic extraction** (Claude, costs tokens).
 
@@ -387,6 +390,128 @@ edges = len(merged_edges)
 print(f'Merged: {total} nodes, {edges} edges ({len(ast[\"nodes\"])} AST + {len(sem[\"nodes\"])} semantic)')
 "
 ```
+
+#### Part P - Prose extraction (--mode prose only)
+
+**This section replaces Parts A, B, and C when `--mode prose` is given.** It bypasses AST extraction entirely - there is no tree-sitter pass. Instead, it runs deterministic structural parsing followed by LLM-based concept extraction.
+
+**Step P1 - Structural extraction from prose files**
+
+```bash
+$(cat .graphify_python) -c "
+import sys, json
+from graphify.extract_prose import extract_prose
+from pathlib import Path
+
+detect = json.loads(Path('.graphify_detect.json').read_text())
+all_files = []
+for category in detect.get('files', {}).values():
+    all_files.extend(Path(f) for f in category)
+
+result = extract_prose(all_files)
+Path('.graphify_prose_structure.json').write_text(json.dumps(result, indent=2))
+print(f'Prose structure: {len(result[\"nodes\"])} nodes, {len(result[\"edges\"])} edges')
+"
+```
+
+**Step P2 - Semantic extraction via subagents**
+
+Check the extraction cache first (same as Step B0), then dispatch subagents for uncached files. The subagent prompt is different from the standard one - it is optimized for prose corpora.
+
+Run cache check:
+```bash
+$(cat .graphify_python) -c "
+import json
+from graphify.cache import check_semantic_cache
+from pathlib import Path
+
+detect = json.loads(Path('.graphify_detect.json').read_text())
+all_files = [f for files in detect['files'].values() for f in files]
+
+cached_nodes, cached_edges, cached_hyperedges, uncached = check_semantic_cache(all_files)
+
+if cached_nodes or cached_edges or cached_hyperedges:
+    Path('.graphify_cached.json').write_text(json.dumps({'nodes': cached_nodes, 'edges': cached_edges, 'hyperedges': cached_hyperedges}))
+Path('.graphify_uncached.txt').write_text('\n'.join(uncached))
+print(f'Cache: {len(all_files)-len(uncached)} files hit, {len(uncached)} files need extraction')
+"
+```
+
+Split uncached files into chunks of 20-25. Dispatch ALL subagents in a single message (same parallel rules as Step B2). Each subagent receives this prose-specific prompt:
+
+```
+You are a graphify prose extraction subagent. Read the files listed and extract a knowledge graph fragment optimized for non-code corpora (academic papers, research notes, prose documents).
+
+Output ONLY valid JSON matching the schema below - no explanation, no markdown fences, no preamble.
+
+Files (chunk CHUNK_NUM of TOTAL_CHUNKS):
+FILE_LIST
+
+Extraction rules for prose:
+- Extract key concepts, named entities, topics, methodologies, theorems, and definitions as nodes.
+- Every node MUST have: id (snake_case), label (human readable), source_file, file_type ("document" or "paper").
+- Node IDs use snake_case normalization for cross-file deduplication: "Gradient Descent" becomes "gradient_descent".
+- Extract typed directional edges between concepts. Use these relation types:
+  references, builds_on, applies, derives_from, contrasts_with, exemplifies, contains, prerequisite_for,
+  cites, conceptually_related_to, semantically_similar_to, rationale_for
+- Every edge MUST have: source, target, relation, confidence, confidence_score, source_file.
+- EXTRACTED: relationship explicit in source (citation, "see section X", "based on Y", direct reference)
+- INFERRED: reasonable inference (concepts co-occur in same section, shared terminology, implied dependency)
+- AMBIGUOUS: uncertain - flag for review, do not omit
+- confidence_score is REQUIRED on every edge:
+  EXTRACTED: 1.0 always. INFERRED: 0.6-0.9. AMBIGUOUS: 0.1-0.3.
+- Extract rationale: sections that explain WHY a decision was made or trade-offs chosen become nodes with rationale_for edges.
+- Do NOT attempt code-style extraction (no imports, no function calls, no class hierarchies).
+
+If a file has YAML frontmatter (--- ... ---), copy source_url, captured_at, author, contributor onto every node from that file.
+
+Hyperedges: if 3+ nodes participate in a shared concept or flow not captured by pairwise edges, add a hyperedge. Maximum 3 per chunk.
+
+Output exactly this JSON (no other text):
+{"nodes":[{"id":"snake_case_concept","label":"Human Readable Name","file_type":"document|paper","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"references|builds_on|applies|derives_from|contrasts_with|exemplifies|contains|prerequisite_for|cites|conceptually_related_to|semantically_similar_to|rationale_for","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
+```
+
+**Step P3 - Merge structural + semantic results**
+
+Collect subagent results, cache them (same as Step B3), then merge the structural graph with semantic extractions:
+
+```bash
+$(cat .graphify_python) -c "
+import sys, json
+from pathlib import Path
+
+structure = json.loads(Path('.graphify_prose_structure.json').read_text())
+cached = json.loads(Path('.graphify_cached.json').read_text()) if Path('.graphify_cached.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
+new = json.loads(Path('.graphify_semantic_new.json').read_text()) if Path('.graphify_semantic_new.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
+
+# Merge: structural nodes first, then semantic (cached + new), deduplicated by id
+seen = set()
+merged_nodes = []
+for n in structure['nodes'] + cached['nodes'] + new.get('nodes', []):
+    if n['id'] not in seen:
+        merged_nodes.append(n)
+        seen.add(n['id'])
+
+merged_edges = structure['edges'] + cached['edges'] + new.get('edges', [])
+merged_hyperedges = cached.get('hyperedges', []) + new.get('hyperedges', [])
+
+merged = {
+    'nodes': merged_nodes,
+    'edges': merged_edges,
+    'hyperedges': merged_hyperedges,
+    'input_tokens': new.get('input_tokens', 0),
+    'output_tokens': new.get('output_tokens', 0),
+}
+Path('.graphify_extract.json').write_text(json.dumps(merged, indent=2))
+print(f'Prose extraction complete: {len(merged_nodes)} nodes, {len(merged_edges)} edges')
+print(f'  structural: {len(structure[\"nodes\"])} nodes, {len(structure[\"edges\"])} edges')
+print(f'  semantic:   {len(cached[\"nodes\"]) + len(new.get(\"nodes\",[]))} nodes (cached + new)')
+"
+```
+
+Clean up temp files: `rm -f .graphify_cached.json .graphify_uncached.txt .graphify_semantic_new.json .graphify_prose_structure.json`
+
+After Part P completes, proceed directly to Step 4 (the `.graphify_extract.json` file is ready).
 
 ### Step 4 - Build graph, cluster, analyze, generate outputs
 
