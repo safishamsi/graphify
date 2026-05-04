@@ -223,6 +223,28 @@ Load files from `.graphify_uncached.txt`. Split into chunks of 20-25 files each.
 
 **Step B2 - Dispatch ALL subagents in a single message**
 
+**Markdown helper for source_location (orchestrator-bound data):** Before dispatching subagents on a chunk that contains `.md` files, the ORCHESTRATOR must call `graphify.extract.parse_markdown_sections` for every `.md` file in the chunk and substitute the JSON output into the subagent prompt's `MARKDOWN_SECTIONS_JSON` placeholder. The subagent does NOT call `parse_markdown_sections` itself — it consumes ranges that the orchestrator computed. This is what binds LLM output to ground-truth ranges; without it, subagents fabricate `L1-L9999`-style ranges and the validation pass in Step B3 silently drops them.
+
+Build the per-chunk JSON like this:
+
+```python
+python -c "
+import sys
+sys.stdout.reconfigure(encoding='utf-8')
+import json
+from pathlib import Path
+from graphify.extract import parse_markdown_sections
+
+# md_files = list of .md paths in this chunk
+md_sections = {}
+for p in md_files:
+    md_sections[str(p)] = parse_markdown_sections(Path(p))
+print(json.dumps(md_sections, indent=2))
+"
+```
+
+Then substitute the resulting JSON object as MARKDOWN_SECTIONS_JSON in the subagent prompt below. If a chunk contains no `.md` files, substitute `{}` (empty object) — the subagent will simply have no markdown ranges to bind to.
+
 Call the Agent tool multiple times IN THE SAME RESPONSE - one call per chunk. This is the only way they run in parallel. If you make one Agent call, wait, then make another, you are doing it sequentially and defeating the purpose.
 
 Concrete example for 3 chunks:
@@ -233,7 +255,7 @@ Concrete example for 3 chunks:
 ```
 All three in one message. Not three separate messages.
 
-Each subagent receives this exact prompt (substitute FILE_LIST, CHUNK_NUM, TOTAL_CHUNKS, and DEEP_MODE):
+Each subagent receives this exact prompt (substitute FILE_LIST, CHUNK_NUM, TOTAL_CHUNKS, DEEP_MODE, and MARKDOWN_SECTIONS_JSON):
 
 ```
 You are a graphify extraction subagent. Read the files listed and extract a knowledge graph fragment.
@@ -242,6 +264,9 @@ Output ONLY valid JSON matching the schema below - no explanation, no markdown f
 Files (chunk CHUNK_NUM of TOTAL_CHUNKS):
 FILE_LIST
 
+Authoritative markdown section ranges (orchestrator-derived; treat as ground truth):
+MARKDOWN_SECTIONS_JSON
+
 Rules:
 - EXTRACTED: relationship explicit in source (import, call, citation, "see §3.2")
 - INFERRED: reasonable inference (shared data structure, implied dependency)
@@ -249,7 +274,7 @@ Rules:
 
 Code files: focus on semantic edges AST cannot find (call relationships, shared data, arch patterns).
   Do not re-extract imports - AST already has those.
-Doc/paper files: extract named concepts, entities, citations. For rationale (WHY decisions were made, trade-offs, design intent): store as a `rationale` attribute on the relevant concept node — do NOT create a separate rationale node or fragment node. Only create a node for something that is itself a named entity or concept. Use `file_type:"rationale"` for concept-like nodes (ideas, principles, mechanisms, design patterns). Do NOT invent file_types like `concept` — valid values are only `code|document|paper|image|rationale`.
+Doc/paper files: extract named concepts, entities, citations. For rationale (WHY decisions were made, trade-offs, design intent): store as a `rationale` attribute on the relevant concept node — do NOT create a separate rationale node or fragment node. Only create a node for something that is itself a named entity or concept. Use `file_type:"rationale"` for concept-like nodes (ideas, principles, mechanisms, design patterns). Do NOT invent file_types like `concept` — valid values are only `code|document|paper|image|rationale`. For Markdown (.md) files, the orchestrator has already provided the authoritative section ranges in MARKDOWN_SECTIONS_JSON above. When you emit a concept node sourced from a markdown file, set source_location to the matching section's "L<start_line>-L<end_line>" — copy the values verbatim from MARKDOWN_SECTIONS_JSON, do NOT invent or recompute them. Use `null` only if the concept does not correspond to any section in the JSON, or if MARKDOWN_SECTIONS_JSON is empty for that file. Do NOT emit made-up ranges like L1-L9999 — the orchestrator runs a validation pass that drops bad ranges to null with a stderr warning.
 Code files: when adding `calls` edges, source MUST be the caller (the function/class doing the calling), target MUST be the callee. Never reverse this direction.
 Image files: use vision to understand what the image IS - do not just OCR.
   UI screenshot: layout patterns, design decisions, key elements, purpose.
@@ -258,6 +283,12 @@ Image files: use vision to understand what the image IS - do not just OCR.
   Diagram: components and connections.
   Research figure: what it demonstrates, method, result.
   Handwritten/whiteboard: ideas and arrows, mark uncertain readings AMBIGUOUS.
+
+COVERAGE GUARANTEE for markdown: for every `##` and `###` header in MARKDOWN_SECTIONS_JSON, you MUST emit at least one node whose source_location matches that section's "L<start_line>-L<end_line>". Either:
+(a) emit a node for the header itself — label = the header text (or a more meaningful concept name extracted from the section), source_location = section's "L<start_line>-L<end_line>"; OR
+(b) emit a more specific concept node from within that section, with the section's "L<start_line>-L<end_line>" as its source_location.
+Trivial structural headers may be skipped if they contain no extractable concept (e.g., "Notes", "TODO", "See Also", "References", "Changelog", "Footnotes"). Skip ONLY when the section is genuinely structural; when in doubt, emit a node.
+This guarantees every section is addressable via `graphify query`.
 
 DEEP_MODE (if --mode deep was given): be aggressive with INFERRED edges - indirect deps,
   shared assumptions, latent couplings. Mark uncertain ones AMBIGUOUS instead of omitting.
@@ -292,7 +323,7 @@ confidence_score is REQUIRED on every edge - never omit it, never use 0.5 as a d
 - AMBIGUOUS edges: 0.1-0.3
 
 Output exactly this JSON (no other text):
-{"nodes":[{"id":"filestem_entityname","label":"Human Readable Name","file_type":"code|document|paper|image|rationale","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to|rationale_for","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
+{"nodes":[{"id":"filestem_entityname","label":"Human Readable Name","file_type":"code|document|paper|image|rationale","source_file":"relative/path","source_location":"L1-L50","source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to|rationale_for","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":"L1-L50","weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
 ```
 
 **Step B3 - Collect, cache, and merge**
@@ -326,6 +357,76 @@ Path('graphify-out/.graphify_semantic_new.json').write_text(json.dumps({
     'input_tokens': total_in, 'output_tokens': total_out,
 }, indent=2))
 print(f'Merged {len(chunks)} chunks: {total_in:,} in / {total_out:,} out tokens')
+"
+```
+
+**Step B3 validation pass (markdown source_location bounds + membership check).** Validate every node and edge `source_location` against the authoritative ranges from `parse_markdown_sections`. Subagents may still emit malformed or fabricated ranges; this pass catches them. Runs BEFORE the cache write so bad ranges never get cached. Pure stdlib + the helper.
+
+```powershell
+python -c "
+# B3-VALIDATE: drop bogus markdown source_location ranges from new chunk results
+# Runs BEFORE save_semantic_cache so bad ranges never enter the on-disk cache.
+# NOTE (cache invalidation, follow-up): if MARKDOWN_SECTIONS_JSON for a file
+# has changed since the last run (e.g. the .md was edited and headers shifted),
+# the cached entries for that file are stale. Detection + bypass is tracked
+# as a follow-up. This pass only sanity-checks the NEW results.
+import json, re, sys
+from pathlib import Path
+from graphify.extract import parse_markdown_sections
+
+p = Path('.graphify_semantic_new.json')
+if not p.exists():
+    raise SystemExit(0)
+data = json.loads(p.read_text())
+range_re = re.compile(r'^L\\d+(-L\\d+)?$')
+sections_cache = {}
+
+def get_ranges_and_total(f):
+    if f not in sections_cache:
+        try:
+            secs = parse_markdown_sections(Path(f))
+            ranges = {(s['start_line'], s['end_line']) for s in secs}
+            total = len(Path(f).read_text(encoding='utf-8', errors='replace').splitlines())
+            sections_cache[f] = (ranges, total)
+        except OSError:
+            sections_cache[f] = (None, None)
+    return sections_cache[f]
+
+def validate_loc(loc, sf):
+    '''Returns (ok, reason). On not-ok, caller sets loc = None.'''
+    if loc is None:
+        return True, ''
+    if not isinstance(loc, str) or not range_re.match(loc):
+        return False, f'malformed {loc!r}'
+    parts = loc[1:].split('-L')
+    start = int(parts[0])
+    end = int(parts[1]) if len(parts) > 1 else start
+    if start < 1 or end < start:
+        return False, f'inverted {loc!r}'
+    ranges, total = get_ranges_and_total(sf)
+    if total is not None and end > total:
+        return False, f'out-of-bounds {loc!r} (file has {total} lines)'
+    # Membership check: range (start != end) must match a section. Single-line
+    # refs (start == end) allowed without section match — they may be a precise
+    # in-section pointer.
+    if ranges is not None and start != end and (start, end) not in ranges:
+        return False, f'not in parser-derived sections {loc!r}'
+    return True, ''
+
+dropped = 0
+for kind in ('nodes', 'edges'):
+    for item in data.get(kind, []):
+        sf = (item.get('source_file') or '').replace('\\\\', '/')
+        if not sf.lower().endswith('.md'):
+            continue
+        loc = item.get('source_location')
+        ok, reason = validate_loc(loc, sf)
+        if not ok:
+            sys.stderr.write(f'[graphify] B3: dropped {kind[:-1]} source_location ({reason}) on item {item.get(\"id\") or item.get(\"source\",\"?\") + \"->\" + item.get(\"target\",\"?\")}\\n')
+            item['source_location'] = None
+            dropped += 1
+p.write_text(json.dumps(data, indent=2))
+print(f'B3 validation: dropped {dropped} bad markdown source_location value(s)')
 "
 ```
 

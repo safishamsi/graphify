@@ -72,8 +72,15 @@ Rules:
 Node ID format: lowercase, only [a-z0-9_], no dots or slashes.
 Format: {stem}_{entity} where stem = filename without extension, entity = symbol name (both normalised).
 
+For Markdown (.md) files, populate `source_location` as "L<start>-L<end>" pointing at the section the
+concept came from (the line of its `#`/`##`/`###` heading through the line before the next heading
+at the same or shallower level, or the last line of the file). Use `null` only when no heading
+applies. Code-AST nodes already carry `L<n>` ranges from tree-sitter; this gives doc nodes parity
+so callers can target a `Read` with `offset`/`limit` instead of loading whole files.
+For Markdown files, ensure every `##` and `###` header has at least one node with source_location set to that section's "L<start>-L<end>". Skip only trivial structural headers (Notes, TODO, See Also, References).
+
 Output exactly this schema:
-{"nodes":[{"id":"stem_entity","label":"Human Readable Name","file_type":"code|document|paper|image|concept","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[],"input_tokens":0,"output_tokens":0}
+{"nodes":[{"id":"stem_entity","label":"Human Readable Name","file_type":"code|document|paper|image|concept","source_file":"relative/path","source_location":"L1-L50","source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":"L1-L50","weight":1.0}],"hyperedges":[],"input_tokens":0,"output_tokens":0}
 """
 
 
