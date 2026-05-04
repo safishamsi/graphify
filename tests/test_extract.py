@@ -62,7 +62,7 @@ def test_collect_files_from_dir():
                  ".java", ".c", ".cpp", ".cc", ".cxx", ".rb",
                  ".cs", ".kt", ".kts", ".scala", ".php", ".h", ".hpp",
                  ".swift", ".lua", ".toc", ".zig", ".ps1", ".ex", ".exs",
-                 ".m", ".mm"}
+                 ".m", ".mm", ".gd"}
     assert all(f.suffix in supported for f in files)
     assert len(files) > 0
 
@@ -71,6 +71,15 @@ def test_collect_files_skips_hidden():
     files = collect_files(FIXTURES)
     for f in files:
         assert not any(part.startswith(".") for part in f.parts)
+
+
+def test_collect_files_picks_up_godot_gd(tmp_path):
+    # Regression test for #535 - Godot .gd script files were not being
+    # picked up by collect_files() after upgrade.
+    gd_file = tmp_path / "Player.gd"
+    gd_file.write_text("extends Node\n\nfunc _ready():\n    pass\n")
+    files = collect_files(tmp_path)
+    assert gd_file in files
 
 
 def test_collect_files_follows_symlinked_directory(tmp_path):

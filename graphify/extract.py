@@ -4008,6 +4008,7 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
         ".rb", ".cs", ".kt", ".kts", ".scala", ".php", ".swift",
         ".lua", ".toc", ".zig", ".ps1",
         ".m", ".mm",
+        ".gd",
     }
     from graphify.detect import _load_graphifyignore, _is_ignored
     ignore_root = root if root is not None else target
