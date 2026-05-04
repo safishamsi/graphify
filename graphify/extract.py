@@ -1758,6 +1758,11 @@ def extract_svelte(path: Path) -> dict:
             raw = m.group(1)
             if not raw:
                 continue
+            # target_source_file: where the IMPORTED file actually lives.
+            # Used as the stub node's source_file so build_from_json's
+            # last-write-wins merge agrees with the real file's extraction.
+            # Empty for bare/scoped externals where we don't know the path (#712).
+            target_source_file = ""
             if raw.startswith("."):
                 # Relative import - resolve to full path so IDs match file node IDs.
                 resolved = Path(os.path.normpath(path.parent / raw))
@@ -1767,6 +1772,7 @@ def extract_svelte(path: Path) -> dict:
                 elif resolved.suffix == ".jsx":
                     resolved = resolved.with_suffix(".tsx")
                 node_id = _make_id(str(resolved))
+                target_source_file = str(resolved)
             else:
                 # Check tsconfig.json path aliases (e.g. "$lib/" -> "src/lib/", "@/" -> "src/")
                 # before treating as external. Mirrors _import_js logic so SvelteKit alias
@@ -1779,6 +1785,7 @@ def extract_svelte(path: Path) -> dict:
                         break
                 if resolved_alias is not None:
                     node_id = _make_id(str(resolved_alias))
+                    target_source_file = str(resolved_alias)
                 else:
                     # Bare/scoped import (node_modules) - use last segment;
                     # build_from_json drops as external if no matching node exists.
@@ -1786,6 +1793,9 @@ def extract_svelte(path: Path) -> dict:
                     if not module_name:
                         continue
                     node_id = _make_id(module_name)
+                    # target_source_file stays "" — we genuinely don't know
+                    # where externals live, and stamping the importer's path
+                    # would corrupt the node's metadata (#712).
             if node_id in existing_ids:
                 # Edge target already a real node - just add the edge, don't add a node.
                 result.setdefault("edges", []).append({
@@ -1796,7 +1806,7 @@ def extract_svelte(path: Path) -> dict:
                 continue
             result.setdefault("nodes", []).append({
                 "id": node_id, "label": raw,
-                "file_type": "code", "source_file": str(path),
+                "file_type": "code", "source_file": target_source_file,
                 "confidence": "EXTRACTED",
             })
             result.setdefault("edges", []).append({
