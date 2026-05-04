@@ -36,13 +36,78 @@ def _make_id(*parts: str) -> str:
     return cleaned.strip("_").lower()
 
 
-def _file_stem(path: Path) -> str:
-    """Return a stem qualified with the parent directory name to avoid ID collisions
-    when multiple files share the same filename in different directories (#550)."""
+def _initial_stem(path: Path) -> str:
+    """Return the legacy 1-parent stem (parent.dir + filename without ext)."""
     parent = path.parent.name
     if parent and parent not in (".", ""):
         return f"{parent}.{path.stem}"
     return path.stem
+
+
+def _stem_at_depth(path: Path, depth: int) -> str:
+    """Return the file stem joined with up to `depth` parent dir names.
+    depth=1 reproduces the legacy `_initial_stem` behaviour."""
+    segs: list[str] = []
+    cur = path
+    for _ in range(depth):
+        parent = cur.parent
+        if parent.name and parent.name not in (".", ""):
+            segs.append(parent.name)
+            cur = parent
+        else:
+            break
+    segs.reverse()
+    segs.append(path.stem)
+    return ".".join(segs)
+
+
+# Per-path stem cache populated by `resolve_stems_for_corpus()`. Lookups fall
+# back to the legacy 1-parent stem when no entry exists, so callers that don't
+# pre-resolve stems see byte-identical behaviour.
+_STEM_CACHE: dict[Path, str] = {}
+
+
+def resolve_stems_for_corpus(paths: list[Path], *, max_depth: int = 5) -> None:
+    """Two-pass adaptive stem computation: deepen on collision, populate cache.
+
+    Stems start at 1-parent depth (legacy). When >1 file shares a stem, the
+    colliding files get progressively deeper stems until they're unique
+    (max `max_depth` parents). Files with no collision keep the legacy stem
+    so existing graphs round-trip correctly.
+
+    Call this once per build before any `_file_stem(path)` lookup. Subsequent
+    `_file_stem` calls return the resolved (possibly deepened) stem from the
+    cache, falling back to the legacy stem for any path not pre-resolved.
+    """
+    from collections import defaultdict
+    by_initial: dict[str, list[Path]] = defaultdict(list)
+    resolved_paths = [Path(p).resolve() for p in paths]
+    for p in resolved_paths:
+        by_initial[_initial_stem(p)].append(p)
+    for stem, group in by_initial.items():
+        if len(group) == 1:
+            _STEM_CACHE[group[0]] = stem
+            continue
+        for p in group:
+            for depth in range(2, max_depth + 1):
+                cand = _stem_at_depth(p, depth)
+                if all(_stem_at_depth(other, depth) != cand
+                       for other in group if other != p):
+                    _STEM_CACHE[p] = cand
+                    break
+            else:
+                # All members of group share path tail up to max_depth — fall
+                # back to a deterministic short hash suffix so IDs stay unique.
+                _STEM_CACHE[p] = f"{stem}.{abs(hash(str(p))) & 0xFFFF:04x}"
+
+
+def _file_stem(path: Path) -> str:
+    """Public stem accessor: returns cached deepened stem if pre-resolved
+    via `resolve_stems_for_corpus()`, else legacy 1-parent stem."""
+    cached = _STEM_CACHE.get(Path(path).resolve())
+    if cached is not None:
+        return cached
+    return _initial_stem(path)
 
 
 _TSCONFIG_ALIAS_CACHE: dict[str, dict[str, str]] = {}
