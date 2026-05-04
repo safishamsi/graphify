@@ -2257,6 +2257,183 @@ def extract_julia(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges}
 
 
+# ── GDScript extractor (custom walk) ──────────────────────────────────────────
+
+def extract_gdscript(path: Path) -> dict:
+    """Extract classes, functions, signals, variables, extends, and calls from a .gd file."""
+    try:
+        import tree_sitter_gdscript as tsgd
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree-sitter-gdscript not installed"}
+
+    try:
+        language = Language(tsgd.language())
+        parser = Parser(language)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    function_bodies: list[tuple[str, object]] = []
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({
+                "id": nid,
+                "label": label,
+                "file_type": "code",
+                "source_file": str_path,
+                "source_location": f"L{line}",
+            })
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", weight: float = 1.0,
+                 context: str | None = None) -> None:
+        edge = {"source": src, "target": tgt, "relation": relation,
+                "confidence": confidence, "source_file": str_path,
+                "source_location": f"L{line}", "weight": weight}
+        if context:
+            edge["context"] = context
+        edges.append(edge)
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, 1)
+
+    def walk_calls(body_node, func_nid: str) -> None:
+        """Second pass: resolve function calls within a function body."""
+        if body_node is None:
+            return
+        t = body_node.type
+        if t in ("function_definition", "class_definition"):
+            return
+        if t == "call":
+            children = body_node.children
+            if len(children) >= 1 and children[0].type == "identifier":
+                callee_name = _read_text(children[0], source)
+                callee_nid = _make_id(stem, callee_name)
+                add_edge(func_nid, callee_nid, "calls",
+                         body_node.start_point[0] + 1, confidence="EXTRACTED", context="call")
+            return
+        if t == "attribute":
+            children = body_node.children
+            method_name = None
+            for i, child in enumerate(children):
+                if child.type == "attribute_call":
+                    for sub in child.children:
+                        if sub.type == "identifier":
+                            method_name = _read_text(sub, source)
+                            break
+                    break
+            if method_name:
+                method_nid = _make_id(stem, method_name)
+                add_edge(func_nid, method_nid, "calls",
+                         body_node.start_point[0] + 1, confidence="EXTRACTED", context="call")
+            return
+        if t == "base_call":
+            for child in body_node.children:
+                if child.type == "identifier":
+                    method_name = _read_text(child, source)
+                    method_nid = _make_id(stem, method_name)
+                    add_edge(func_nid, method_nid, "calls",
+                             body_node.start_point[0] + 1, confidence="EXTRACTED", context="call")
+                    break
+            return
+        for child in body_node.children:
+            walk_calls(child, func_nid)
+
+    def walk(node, parent_nid: str) -> None:
+        t = node.type
+        line = node.start_point[0] + 1
+
+        if t == "class_definition":
+            name_node = node.child_by_field_name("name")
+            if name_node:
+                class_name = _read_text(name_node, source)
+                class_nid = _make_id(stem, class_name)
+                add_node(class_nid, class_name, line)
+                add_edge(parent_nid, class_nid, "defines", line)
+                class_body = node.child_by_field_name("class_body")
+                if class_body:
+                    for child in class_body.children:
+                        walk(child, class_nid)
+            return
+
+        if t == "function_definition":
+            name_node = node.child_by_field_name("name")
+            if name_node:
+                func_name = _read_text(name_node, source)
+                func_nid_local = _make_id(parent_nid, func_name)
+                add_node(func_nid_local, f"{func_name}()", line)
+                add_edge(parent_nid, func_nid_local, "defines", line)
+                body_node = node.child_by_field_name("body")
+                if body_node:
+                    function_bodies.append((func_nid_local, body_node))
+            return
+
+        if t == "variable_statement":
+            name_node = node.child_by_field_name("name")
+            if name_node:
+                var_name = _read_text(name_node, source)
+                var_nid = _make_id(parent_nid, var_name)
+                add_node(var_nid, var_name, line)
+                add_edge(parent_nid, var_nid, "defines", line)
+            return
+
+        if t == "const_statement":
+            name_node = node.child_by_field_name("name")
+            if name_node:
+                const_name = _read_text(name_node, source)
+                const_nid = _make_id(parent_nid, const_name)
+                add_node(const_nid, const_name, line)
+                add_edge(parent_nid, const_nid, "defines", line)
+            return
+
+        if t == "signal_statement":
+            name_node = node.child_by_field_name("name")
+            if name_node:
+                sig_name = _read_text(name_node, source)
+                sig_nid = _make_id(parent_nid, sig_name)
+                add_node(sig_nid, f"signal {sig_name}", line)
+                add_edge(parent_nid, sig_nid, "defines", line)
+            return
+
+        if t == "extends_statement":
+            type_node = node.child_by_field_name("type")
+            if type_node:
+                extends_name = _read_text(type_node, source).strip('"')
+                base_name = extends_name.split(".")[-1].strip('"')
+                if base_name:
+                    base_nid = _make_id(base_name)
+                    add_edge(parent_nid, base_nid, "inherits", line)
+            return
+
+        if t == "class_name_statement":
+            name_node = node.child_by_field_name("name")
+            if name_node:
+                class_name = _read_text(name_node, source)
+                alias_nid = _make_id(class_name)
+                add_edge(file_nid, alias_nid, "type_alias", line)
+            return
+
+        for child in node.children:
+            walk(child, parent_nid)
+
+    walk(root, file_nid)
+
+    for func_nid, body_node in function_bodies:
+        walk_calls(body_node, func_nid)
+
+    return {"nodes": nodes, "edges": edges}
+
+
 # ── Go extractor (custom walk) ────────────────────────────────────────────────
 
 def extract_go(path: Path) -> dict:
@@ -3682,6 +3859,7 @@ _DISPATCH: dict[str, Any] = {
     ".m": extract_objc,
     ".mm": extract_objc,
     ".jl": extract_julia,
+    ".gd": extract_gdscript,
     ".vue": extract_js,
     ".svelte": extract_js,
     ".dart": extract_dart,
@@ -4008,6 +4186,7 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
         ".rb", ".cs", ".kt", ".kts", ".scala", ".php", ".swift",
         ".lua", ".toc", ".zig", ".ps1",
         ".m", ".mm",
+        ".jl", ".gd",
     }
     from graphify.detect import _load_graphifyignore, _is_ignored
     ignore_root = root if root is not None else target
