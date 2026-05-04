@@ -2544,6 +2544,319 @@ def extract_elixir(path: Path) -> dict:
     return {"nodes": nodes, "edges": clean_edges, "input_tokens": 0, "output_tokens": 0}
 
 
+# ── F# ────────────────────────────────────────────────────────────────────────
+
+def extract_fsharp(path: Path) -> dict:
+    """Extract F# (.fs / .fsx) definitions and calls using tree-sitter-fsharp."""
+    try:
+        import tree_sitter_fsharp as tsfsharp
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree-sitter-fsharp not installed"}
+
+    try:
+        language = Language(tsfsharp.language())
+        parser = Parser(language)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = path.stem
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    function_bodies: list[tuple[str, object]] = []
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({
+                "id": nid,
+                "label": label,
+                "file_type": "code",
+                "source_file": str_path,
+                "source_location": f"L{line}",
+            })
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
+        edges.append({
+            "source": src,
+            "target": tgt,
+            "relation": relation,
+            "confidence": confidence,
+            "source_file": str_path,
+            "source_location": f"L{line}",
+            "weight": weight,
+        })
+
+    file_nid = _make_id(stem)
+    add_node(file_nid, path.name, 1)
+
+    def _fsharp_func_name(node) -> str | None:
+        """Extract function/value name from function_or_value_defn."""
+        for child in node.children:
+            if child.type == "function_declaration_left":
+                # Function binding: first identifier child is the name
+                for gc in child.children:
+                    if gc.type == "identifier":
+                        return _read_text(gc, source)
+            elif child.type == "value_declaration_left":
+                # Value binding: look for identifier_pattern or identifier
+                for gc in child.children:
+                    if gc.type == "identifier_pattern":
+                        # identifier_pattern may contain long_identifier_or_op + paren_pattern
+                        # We only want the name part (long_identifier_or_op or first identifier)
+                        for ggc in gc.children:
+                            if ggc.type == "long_identifier_or_op":
+                                return _read_text(ggc, source)
+                            if ggc.type == "identifier":
+                                return _read_text(ggc, source)
+                        # Fallback: if no sub-identifier found, use the whole text
+                        return _read_text(gc, source)
+                    if gc.type == "identifier":
+                        return _read_text(gc, source)
+        return None
+
+    def _is_function_binding(node) -> bool:
+        """True if this function_or_value_defn defines a function (has arguments)."""
+        for child in node.children:
+            if child.type == "function_declaration_left":
+                return True
+            if child.type == "value_declaration_left":
+                # Check if identifier_pattern has argument patterns (paren_pattern, etc.)
+                for gc in child.children:
+                    if gc.type == "identifier_pattern":
+                        for ggc in gc.children:
+                            if ggc.type in ("paren_pattern", "argument_patterns"):
+                                return True
+                # Check for argument_patterns as direct child of value_declaration_left
+                for gc in child.children:
+                    if gc.type == "argument_patterns":
+                        return True
+        return False
+
+    def _fsharp_body(node):
+        """Return the body expression of a function_or_value_defn.
+        In F# AST the body is typically the last meaningful child after '='."""
+        # Try field lookup first
+        body = node.child_by_field_name("body")
+        if body:
+            return body
+        # Fallback: the last child that isn't a keyword or operator
+        skip_types = {"let", "=", "function_declaration_left", "value_declaration_left",
+                      "attribute", "attributes", "rec", "inline", "mutable"}
+        for child in reversed(node.children):
+            if child.type not in skip_types:
+                return child
+        return None
+
+    def _type_name(node) -> str | None:
+        """Extract the type name from a type definition node."""
+        for child in node.children:
+            if child.type == "type_name":
+                for gc in child.children:
+                    if gc.type == "identifier":
+                        return _read_text(gc, source)
+        # Fallback: direct identifier child
+        name_node = node.child_by_field_name("name")
+        if name_node:
+            return _read_text(name_node, source)
+        return None
+
+    def walk(node, module_nid: str | None = None) -> None:
+        t = node.type
+        parent_nid = module_nid or file_nid
+
+        # ── Functions and value bindings ──
+        if t == "function_or_value_defn":
+            name = _fsharp_func_name(node)
+            if name and not name.startswith("_"):
+                line = node.start_point[0] + 1
+                is_func = _is_function_binding(node)
+                if module_nid:
+                    func_nid = _make_id(module_nid, name)
+                    label = f".{name}()" if is_func else f".{name}"
+                    add_node(func_nid, label, line)
+                    add_edge(module_nid, func_nid, "method" if is_func else "contains", line)
+                else:
+                    func_nid = _make_id(stem, name)
+                    label = f"{name}()" if is_func else name
+                    add_node(func_nid, label, line)
+                    add_edge(file_nid, func_nid, "contains", line)
+                body = _fsharp_body(node)
+                if body and is_func:
+                    function_bodies.append((func_nid, body))
+            return
+
+        # ── Type definitions: DUs, records, type aliases ──
+        if t in ("union_type_defn", "record_type_defn", "type_abbrev_defn"):
+            name = _type_name(node)
+            if name:
+                line = node.start_point[0] + 1
+                type_nid = _make_id(module_nid, name) if module_nid else _make_id(stem, name)
+                add_node(type_nid, name, line)
+                add_edge(parent_nid, type_nid, "contains", line)
+            return
+
+        # ── Nested modules ──
+        if t == "module_defn":
+            mod_name = None
+            for child in node.children:
+                if child.type == "identifier" or child.type == "long_identifier":
+                    mod_name = _read_text(child, source)
+                    break
+            if mod_name:
+                line = node.start_point[0] + 1
+                mod_nid = _make_id(parent_nid, mod_name)
+                add_node(mod_nid, mod_name, line)
+                add_edge(parent_nid, mod_nid, "contains", line)
+                # Walk children inside the module context
+                for child in node.children:
+                    walk(child, module_nid=mod_nid)
+            return
+
+        # ── Imports (open statements) ──
+        if t == "import_decl":
+            # Look for the long_identifier after 'open'
+            for child in node.children:
+                if child.type == "long_identifier":
+                    module_path = _read_text(child, source)
+                    # Use last segment as the import target
+                    segments = module_path.split(".")
+                    target_name = segments[-1].strip()
+                    if target_name:
+                        tgt_nid = _make_id(target_name)
+                        add_edge(file_nid, tgt_nid, "imports_from", node.start_point[0] + 1)
+                    break
+            return
+
+        # ── Recurse into children ──
+        for child in node.children:
+            walk(child, module_nid=module_nid)
+
+    walk(root)
+
+    # ── Pass 2: resolve calls ──
+    label_to_nid: dict[str, str] = {}
+    for n in nodes:
+        raw = n["label"]
+        normalised = raw.strip("()").lstrip(".")
+        label_to_nid[normalised.lower()] = n["id"]
+
+    seen_call_pairs: set[tuple[str, str]] = set()
+
+    def _resolve_callee(node) -> str | None:
+        """Resolve the callee name from an application_expression or pipe.
+        For curried calls like `f a b` (nested application_expression),
+        chase the first child down to the leaf identifier."""
+        cursor = node
+        # Unwrap nested application_expression to find the callee
+        while cursor.type == "application_expression" and cursor.child_count > 0:
+            cursor = cursor.children[0]
+        # Now cursor should be the callee identifier
+        if cursor.type == "long_identifier_or_op":
+            # May contain a direct identifier (simple call) or
+            # a long_identifier (qualified call like Module.func)
+            for child in cursor.children:
+                if child.type == "identifier":
+                    return _read_text(child, source)
+                if child.type == "long_identifier":
+                    # Qualified: take last segment
+                    parts = _read_text(child, source).split(".")
+                    return parts[-1].strip() if parts else None
+            return _read_text(cursor, source)
+        if cursor.type == "long_identifier":
+            # Qualified call like Module.func — take last segment
+            parts = _read_text(cursor, source).split(".")
+            return parts[-1].strip() if parts else None
+        if cursor.type == "identifier":
+            return _read_text(cursor, source)
+        if cursor.type == "dot_expression":
+            # member access: take the rightmost identifier
+            for child in reversed(cursor.children):
+                if child.type == "identifier":
+                    return _read_text(child, source)
+        return None
+
+    def _try_emit_call(caller_nid: str, callee_name: str, line: int) -> None:
+        """Emit a call edge if callee_name resolves to a known node."""
+        tgt_nid = label_to_nid.get(callee_name.lower())
+        if tgt_nid and tgt_nid != caller_nid:
+            pair = (caller_nid, tgt_nid)
+            if pair not in seen_call_pairs:
+                seen_call_pairs.add(pair)
+                add_edge(caller_nid, tgt_nid, "calls",
+                         line, confidence="EXTRACTED", weight=1.0)
+
+    def _resolve_identifier(node) -> str | None:
+        """Resolve a leaf identifier or qualified name to its last segment."""
+        if node.type == "identifier":
+            return _read_text(node, source)
+        if node.type in ("long_identifier_or_op", "long_identifier"):
+            text = _read_text(node, source)
+            parts = text.split(".")
+            return parts[-1].strip() if parts else None
+        return None
+
+    def walk_calls(node, caller_nid: str) -> None:
+        # For nested let-bindings (value or function), still walk the body
+        # for calls, but don't treat the binding itself as a new caller.
+        if node.type == "function_or_value_defn":
+            # Walk children to find calls inside the body
+            for child in node.children:
+                if child.type not in ("let", "=", "function_declaration_left",
+                                      "value_declaration_left", "rec", "inline"):
+                    walk_calls(child, caller_nid)
+            return
+
+        if node.type == "application_expression":
+            callee_name = _resolve_callee(node)
+            if callee_name:
+                _try_emit_call(caller_nid, callee_name, node.start_point[0] + 1)
+            # Also check non-callee arguments for function references
+            # e.g. List.map describePoint — describePoint is an argument
+            for child in node.children[1:]:
+                arg_name = _resolve_identifier(child)
+                if arg_name:
+                    _try_emit_call(caller_nid, arg_name, child.start_point[0] + 1)
+
+        # Handle pipe expressions: x |> func
+        if node.type == "infix_expression":
+            children = [c for c in node.children if c.type not in ("infix_op",)]
+            # Pattern: lhs |> rhs — rhs is the callee
+            op_node = None
+            for child in node.children:
+                if child.type == "infix_op":
+                    op_text = _read_text(child, source).strip()
+                    if op_text == "|>":
+                        op_node = child
+                        break
+            if op_node and len(children) >= 2:
+                rhs = children[-1]
+                callee_name = None
+                if rhs.type in ("long_identifier_or_op", "long_identifier", "identifier"):
+                    callee_name = _read_text(rhs, source).split(".")[-1].strip()
+                elif rhs.type == "application_expression":
+                    callee_name = _resolve_callee(rhs)
+                if callee_name:
+                    _try_emit_call(caller_nid, callee_name, node.start_point[0] + 1)
+
+        for child in node.children:
+            walk_calls(child, caller_nid)
+
+    for caller_nid, body_node in function_bodies:
+        walk_calls(body_node, caller_nid)
+
+    # Clean edges: only keep edges where both ends exist, or imports
+    clean_edges = [e for e in edges if e["source"] in seen_ids and
+                   (e["target"] in seen_ids or e["relation"] in ("imports", "imports_from"))]
+    return {"nodes": nodes, "edges": clean_edges}
+
+
 # ── Main extract and collect_files ────────────────────────────────────────────
 
 
@@ -2624,6 +2937,10 @@ def extract(paths: list[Path]) -> dict:
         ".jl": extract_julia,
     }
 
+    if importlib.util.find_spec("tree_sitter_fsharp") is not None:
+        _DISPATCH[".fs"] = extract_fsharp
+        _DISPATCH[".fsx"] = extract_fsharp
+
     total = len(paths)
     _PROGRESS_INTERVAL = 100
     for i, path in enumerate(paths):
@@ -2678,6 +2995,8 @@ def collect_files(target: Path, *, follow_symlinks: bool = False) -> list[Path]:
         ".lua", ".toc", ".zig", ".ps1",
         ".m", ".mm",
     }
+    if importlib.util.find_spec("tree_sitter_fsharp") is not None:
+        _EXTENSIONS |= {".fs", ".fsx"}
     if not follow_symlinks:
         results: list[Path] = []
         for ext in sorted(_EXTENSIONS):

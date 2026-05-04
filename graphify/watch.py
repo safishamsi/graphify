@@ -53,7 +53,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False) -> bool:
 
         report = generate(G, communities, cohesion, labels, gods, surprises, detection,
                           {"input": 0, "output": 0}, str(watch_path), suggested_questions=questions)
-        (out / "GRAPH_REPORT.md").write_text(report)
+        (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
         to_json(G, communities, str(out / "graph.json"))
 
         # clear stale needs_update flag if present

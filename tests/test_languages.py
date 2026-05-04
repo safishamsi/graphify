@@ -1,5 +1,6 @@
-"""Tests for language extractors: Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift, Go, Julia."""
+"""Tests for language extractors: Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift, Go, Julia, F#."""
 from __future__ import annotations
+import importlib.util
 from pathlib import Path
 import pytest
 from graphify.extract import (
@@ -505,6 +506,90 @@ def test_julia_finds_calls():
 
 def test_julia_no_dangling_edges():
     r = extract_julia(FIXTURES / "sample.jl")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids, f"Dangling source: {e}"
+
+
+# ── F# ───────────────────────────────────────────────────────────────────────
+
+from graphify.extract import extract_fsharp
+
+_fsharp_available = importlib.util.find_spec("tree_sitter_fsharp") is not None
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_no_error():
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    assert "error" not in r
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_finds_discriminated_union():
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    labels = _labels(r)
+    assert any("Color" in l for l in labels)
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_finds_record():
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    labels = _labels(r)
+    assert any("Point" in l for l in labels)
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_finds_type_alias():
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    labels = _labels(r)
+    assert any("Distance" in l for l in labels)
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_finds_module():
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    labels = _labels(r)
+    assert any("Geometry" in l for l in labels)
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_finds_functions():
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    labels = _labels(r)
+    assert any("colorName" in l for l in labels)
+    assert any("describePoint" in l for l in labels)
+    assert any("processPoints" in l for l in labels)
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_finds_module_functions():
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    labels = _labels(r)
+    assert any("distance" in l for l in labels)
+    assert any("midpoint" in l for l in labels)
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_finds_imports():
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    import_edges = [e for e in r["edges"] if e["relation"] == "imports_from"]
+    assert len(import_edges) >= 1
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_emits_calls():
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    calls = _calls(r)
+    assert any("describePoint" in (src or "") for src, tgt in calls)
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_pipe_calls():
+    """Pipe operator |> should resolve as a call edge."""
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    calls = _calls(r)
+    # processPoints pipes into describePoint via List.map
+    assert any("processPoints" in (src or "") and "describePoint" in (tgt or "") for src, tgt in calls)
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_module_methods_have_method_edge():
+    r = extract_fsharp(FIXTURES / "sample.fs")
+    method_edges = [e for e in r["edges"] if e["relation"] == "method"]
+    assert len(method_edges) >= 1
+
+@pytest.mark.skipif(not _fsharp_available, reason="tree-sitter-fsharp not installed")
+def test_fsharp_no_dangling_edges():
+    r = extract_fsharp(FIXTURES / "sample.fs")
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids, f"Dangling source: {e}"
