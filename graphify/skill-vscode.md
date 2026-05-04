@@ -8,6 +8,19 @@ trigger: /graphify
 
 Turn any folder of files into a navigable knowledge graph with community detection, an honest audit trail, and three outputs: interactive HTML, GraphRAG-ready JSON, and a plain-language GRAPH_REPORT.md.
 
+> **Known limitation (markdown `source_location`):** This VS Code Copilot
+> variant uses a stripped-down extraction schema (`{id, label, file_type}` —
+> no `source_file`, no `source_location`, no `confidence_score`, no audit
+> fields). The markdown `source_location` feature shipped in skill.md and the
+> 10 other variants (where every `.md`-derived concept node carries
+> `"L<start>-L<end>"` ranges bound to `parse_markdown_sections` output) is
+> **not yet supported here**. VS Code Copilot users will see `null` /
+> missing `source_location` on markdown concept nodes and won't be able to
+> jump from a node to the source heading. Tracked as a follow-up; see
+> CHANGELOG `## Unreleased` for context. The smaller schema is intentional
+> for VS Code Copilot's tighter context budget — adding the three audit
+> fields would require a separate impact assessment.
+
 ## Usage
 
 ```
@@ -120,6 +133,14 @@ For each chunk of uncached files (20-25 files per chunk), dispatch a subagent wi
 ```
 You are a graphify extraction subagent. Read the files listed and extract a knowledge graph fragment.
 Output ONLY valid JSON: {"nodes": [...], "edges": [...], "hyperedges": [...]}
+
+# TODO (markdown source_location): The schema below is a stripped-down
+# variant for VS Code Copilot's smaller context budget. It does NOT include
+# source_file, source_location, confidence_score, or other audit fields that
+# skill.md ships. As a result, markdown concept nodes from this variant will
+# NOT carry "L<start>-L<end>" ranges, and queries that depend on jumping
+# from a graph node to a markdown heading line range won't work here.
+# Tracked as a follow-up — see CHANGELOG ## Unreleased.
 
 Each node: {"id": "unique_id", "label": "Human Name", "file_type": "code|document|paper|image"}
 Each edge: {"source": "id", "target": "id", "relation": "verb_phrase", "confidence": "EXTRACTED|INFERRED|AMBIGUOUS"}

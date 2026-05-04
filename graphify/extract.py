@@ -60,6 +60,111 @@ def _load_tsconfig_aliases(start_dir: Path) -> dict[str, str]:
     return {}
 
 
+# ── Markdown section parser (public helper) ──────────────────────────────────
+
+def parse_markdown_sections(path: Path) -> list[dict]:
+    """Parse a markdown file and return its sections with line ranges.
+
+    Returns a list of dicts: [{"label": str, "level": int, "start_line": int, "end_line": int}, ...]
+    - label: header text without leading # marks
+    - level: header depth (1 = #, 2 = ##, etc.)
+    - start_line: 1-indexed line of the header
+    - end_line: 1-indexed line of the last content line in this section
+                (line before next header at same/shallower level, or last line of file)
+
+    Skips:
+    - YAML frontmatter at the start of the file (--- ... --- block)
+    - Headers inside fenced code blocks (``` ... ```)
+
+    Returns empty list if the file has no headers.
+    """
+    text = Path(path).read_text(encoding="utf-8", errors="replace")
+    lines = text.split("\n")
+    # If the file ends with a trailing newline, split() yields a trailing empty
+    # string. Drop it so total_lines matches the human-visible line count.
+    if lines and lines[-1] == "" and text.endswith("\n"):
+        lines = lines[:-1]
+    total_lines = len(lines)
+
+    # Detect YAML frontmatter: first non-empty line is exactly "---", followed
+    # by a closing "---" on its own line. Skip everything up to and including
+    # the closing marker.
+    start_idx = 0
+    if total_lines >= 2 and lines[0].rstrip() == "---":
+        for j in range(1, total_lines):
+            if lines[j].rstrip() == "---":
+                start_idx = j + 1
+                break
+
+    header_re = re.compile(r"^(#{1,6})\s+(.+?)\s*$")
+    # CommonMark: a fence opener may be indented by 0-3 spaces (4+ is a code block).
+    # Capture the indent + the marker so we can enforce the same rule on closers.
+    fence_re = re.compile(r"^( {0,3})(`{3,}|~{3,})(.*)$")
+
+    headers: list[dict] = []  # [{"start_line": int, "level": int, "label": str}, ...]
+    in_fence = False
+    fence_marker = ""  # the exact backtick/tilde run that opened the fence
+    for i in range(start_idx, total_lines):
+        line = lines[i]
+        fence_match = fence_re.match(line)
+        if fence_match:
+            indent, marker, trailing = fence_match.group(1), fence_match.group(2), fence_match.group(3)
+            if not in_fence:
+                # Opener: any trailing text is the info string (e.g., ```python). Allowed.
+                in_fence = True
+                # Remember the FULL opener (e.g. "````" for a 4-backtick fence),
+                # not just a normalized 3-char form. CommonMark requires the
+                # closer to use the same character class AND be at least as long
+                # as the opener — so a 4-backtick block can legitimately contain
+                # a "```" line as content without being closed early.
+                fence_marker = marker
+            else:
+                # A closing fence must (a) use the same character class as the
+                # opener, (b) be at least as long, AND (c) be followed only by
+                # whitespace (CommonMark forbids info strings on closers, so a
+                # line like ` ```python ` inside a ``` block is content, not a
+                # closer).
+                if (
+                    marker[0] == fence_marker[0]
+                    and len(marker) >= len(fence_marker)
+                    and trailing.strip() == ""
+                ):
+                    in_fence = False
+                    fence_marker = ""
+            continue
+        if in_fence:
+            continue
+        m = header_re.match(line)
+        if m:
+            headers.append(
+                {
+                    "level": len(m.group(1)),
+                    "label": m.group(2),
+                    "start_line": i + 1,  # 1-indexed
+                }
+            )
+
+    if not headers:
+        return []
+
+    sections: list[dict] = []
+    for idx, h in enumerate(headers):
+        end_line = total_lines
+        for j in range(idx + 1, len(headers)):
+            if headers[j]["level"] <= h["level"]:
+                end_line = headers[j]["start_line"] - 1
+                break
+        sections.append(
+            {
+                "label": h["label"],
+                "level": h["level"],
+                "start_line": h["start_line"],
+                "end_line": end_line,
+            }
+        )
+    return sections
+
+
 # ── LanguageConfig dataclass ─────────────────────────────────────────────────
 
 @dataclass

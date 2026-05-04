@@ -2,6 +2,14 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## Unreleased
+
+- Feat: `parse_markdown_sections(path)` — new public helper in `graphify.extract` that returns `[{label, level, start_line, end_line}, ...]` for each section in a markdown file. Skips YAML frontmatter and fenced code blocks. Pure stdlib.
+- Fix: `parse_markdown_sections` fenced-code detection — a 4-backtick (or longer) fence opener is no longer closed early by an inner triple-backtick line. CommonMark requires the closer to use the same character class AND have length >= opener length; previously the opener was normalized to a 3-char form, so any inner triple fence inside a 4+ fenced block would terminate the outer block and the parser would treat subsequent in-block lines as document headers. Same fix applies to tilde fences. Three new tests in `tests/test_markdown_sections.py` cover the regression.
+- Feat: skill prompts (`skill.md` + 10 variants) bind subagent markdown `source_location` output to parser-derived ranges — the orchestrator now substitutes a `MARKDOWN_SECTIONS_JSON` block into each subagent prompt (parser output keyed by file path), and the subagent is instructed to copy values verbatim instead of inventing them. Sequential variants (aider/claw/pi/kiro) instruct the agent to call `parse_markdown_sections` itself and copy verbatim.
+- Feat: skill prompts now include a Step B3 validation pass that drops malformed markdown `source_location` values (regex check + bounds check + start<=end + drop-to-null on mismatch + stderr warning). Pure stdlib. Catches LLM-fabricated `L1-L9999`-style ranges that would otherwise be cached.
+- Note: VS Code Copilot variant (`skill-vscode.md`) is **NOT supported** for the markdown `source_location` feature. Its stripped-down schema (`{id, label, file_type}` only, intentionally trimmed for tighter context budget) does not include `source_file` / `source_location` / `confidence_score`. A `# TODO:` was added to the prompt's schema and a top-of-file note documents the gap. Tracked as a follow-up; expanding the vscode schema needs a separate impact assessment.
+
 ## 0.6.9 (2026-05-03)
 
 - Fix: `source_file` path separators normalized to forward slashes at graph ingestion — same physical file emitted with backslashes (Windows AST extractor) and forward slashes (semantic subagents) now merges into one node instead of splitting into two disconnected components (#683)
