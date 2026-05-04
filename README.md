@@ -21,6 +21,43 @@
   </a>
 </p>
 
+---
+
+## 🔀 This Fork: `imfarhanm/graphify`
+
+> **What's different?** This fork adds **Markdown structural extraction** and fixes the `graphify update` command to include `.md` / `.mdx` files — so your docs, guides, and knowledge files become part of the knowledge graph **without needing an LLM**.
+
+### What this fork adds
+
+| Feature | Upstream | This Fork |
+|---------|----------|-----------|
+| `.md` / `.mdx` AST extraction | ❌ Needs LLM | ✅ Zero-dependency, line-by-line parser |
+| `graphify update .` includes `.md` | ❌ Code-only | ✅ Markdown included automatically |
+| Headings → graph nodes | ❌ | ✅ `# / ## / ###` become nodes |
+| Code blocks → graph nodes | ❌ | ✅ Fenced code blocks extracted |
+| Heading nesting → edges | ❌ | ✅ Parent-child heading relationships |
+
+### Install (one-liner)
+
+```bash
+pip install git+https://github.com/imfarhanm/graphify.git@feat/md-extraction-and-extensions-sync
+```
+
+Then use normally:
+
+```bash
+graphify install                   # set up your IDE
+graphify update .                  # now includes .md files!
+graphify explain "GUIDE.md"        # query your docs
+graphify query "deployment steps"  # search across code + docs
+```
+
+### Branch
+
+All changes are on: **`feat/md-extraction-and-extensions-sync`**
+
+---
+
 Type `/graphify` in your AI coding assistant and it maps your entire project — code, docs, PDFs, images, videos — into a knowledge graph you can query instead of grepping through files.
 
 Works in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kiro, Pi, and Google Antigravity.
