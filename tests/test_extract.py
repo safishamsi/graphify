@@ -323,6 +323,27 @@ def test_cross_file_call_remains_inferred_without_import_evidence(tmp_path):
     assert call_edges[0]["confidence"] == "INFERRED"
 
 
+def test_cross_file_member_call_without_import_evidence_is_not_resolved(tmp_path):
+    """Member calls must not resolve to unrelated same-name functions."""
+    caller = tmp_path / "caller.js"
+    callee = tmp_path / "lib.js"
+    caller.write_text("function run(obj) { obj.doUnique(); }\n")
+    callee.write_text(
+        "function doUnique() { return 1; }\n"
+        "module.exports = { doUnique };\n"
+    )
+    result = extract([caller, callee], cache_root=tmp_path)
+    nodes = {n["id"]: n for n in result["nodes"]}
+    call_edges = [
+        e for e in result["edges"]
+        if e["relation"] == "calls"
+        and nodes[e["source"]]["label"] == "run()"
+        and nodes[e["target"]]["label"] == "doUnique()"
+    ]
+
+    assert call_edges == []
+
+
 # ── TSX (JSX-aware) parsing ──────────────────────────────────────────────────
 # .tsx files require tree-sitter-typescript's `language_tsx`, not the plain
 # `language_typescript` grammar. Parsing JSX with the wrong grammar produces
