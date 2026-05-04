@@ -257,6 +257,11 @@ Process each file one at a time. For each file:
    - AMBIGUOUS: uncertain — flag it, do not omit
    - Code files: semantic edges AST cannot find. Do not re-extract imports.
    - Doc/paper files: named concepts, entities, citations. Store rationale (WHY decisions were made) as a `rationale` attribute on the relevant node, not as a separate node. Use `file_type:"rationale"` for concept-like nodes (ideas, principles, mechanisms). Do NOT invent file_types like `concept`. When adding `calls` edges: source is caller, target is callee. For Markdown (.md) files, call `graphify.extract.parse_markdown_sections` FIRST to get authoritative section ranges; then for each concept node you emit that corresponds to a section heading, set source_location to that section's "L<start_line>-L<end_line>" — copy the values verbatim, do NOT invent or recompute them. Use `null` if the concept does not correspond to any returned section. Do NOT emit made-up ranges like L1-L9999 — the orchestrator runs a validation pass after merge that drops bad ranges to null with a stderr warning.
+   - COVERAGE GUARANTEE for markdown: for every `##` and `###` header in MARKDOWN_SECTIONS_JSON, you MUST emit at least one node whose source_location matches that section's "L<start_line>-L<end_line>". Either:
+     (a) emit a node for the header itself — label = the header text (or a more meaningful concept name extracted from the section), source_location = section's "L<start_line>-L<end_line>"; OR
+     (b) emit a more specific concept node from within that section, with the section's "L<start_line>-L<end_line>" as its source_location.
+     Trivial structural headers may be skipped if they contain no extractable concept (e.g., "Notes", "TODO", "See Also", "References", "Changelog", "Footnotes"). Skip ONLY when the section is genuinely structural; when in doubt, emit a node.
+     This guarantees every section is addressable via `graphify query`.
    - Image files: use vision — understand what the image IS, not just OCR
    - DEEP_MODE (if --mode deep): be aggressive with INFERRED edges
    - Semantic similarity: if two concepts solve the same problem without a structural link, add `semantically_similar_to` INFERRED edge (confidence 0.6-0.95). Non-obvious cross-file links only.

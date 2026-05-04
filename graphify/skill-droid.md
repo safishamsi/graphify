@@ -295,6 +295,12 @@ Image files: use vision to understand what the image IS - do not just OCR.
   Research figure: what it demonstrates, method, result.
   Handwritten/whiteboard: ideas and arrows, mark uncertain readings AMBIGUOUS.
 
+COVERAGE GUARANTEE for markdown: for every `##` and `###` header in MARKDOWN_SECTIONS_JSON, you MUST emit at least one node whose source_location matches that section's "L<start_line>-L<end_line>". Either:
+(a) emit a node for the header itself — label = the header text (or a more meaningful concept name extracted from the section), source_location = section's "L<start_line>-L<end_line>"; OR
+(b) emit a more specific concept node from within that section, with the section's "L<start_line>-L<end_line>" as its source_location.
+Trivial structural headers may be skipped if they contain no extractable concept (e.g., "Notes", "TODO", "See Also", "References", "Changelog", "Footnotes"). Skip ONLY when the section is genuinely structural; when in doubt, emit a node.
+This guarantees every section is addressable via `graphify query`.
+
 DEEP_MODE (if --mode deep was given): be aggressive with INFERRED edges - indirect deps,
   shared assumptions, latent couplings. Mark uncertain ones AMBIGUOUS instead of omitting.
 
