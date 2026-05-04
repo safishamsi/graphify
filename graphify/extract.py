@@ -930,8 +930,16 @@ _SWIFT_CONFIG = LanguageConfig(
 
 # ── Generic extractor ─────────────────────────────────────────────────────────
 
-def _extract_generic(path: Path, config: LanguageConfig) -> dict:
-    """Generic AST extractor driven by LanguageConfig."""
+def _extract_generic(path: Path, config: LanguageConfig,
+                     *, source_bytes: bytes | None = None) -> dict:
+    """Generic AST extractor driven by LanguageConfig.
+
+    If source_bytes is provided, parses that instead of reading from path.
+    The path is still used for ID stamping, source_file metadata, and stem
+    derivation. This is what extract_svelte() uses to feed pre-sliced
+    <script> block content to tree-sitter while preserving file-level
+    identity (#713).
+    """
     try:
         mod = importlib.import_module(config.ts_module)
         from tree_sitter import Language, Parser
@@ -949,7 +957,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
 
     try:
         parser = Parser(language)
-        source = path.read_bytes()
+        source = source_bytes if source_bytes is not None else path.read_bytes()
         tree = parser.parse(source)
         root = tree.root_node
     except Exception as e:
@@ -1737,24 +1745,129 @@ def extract_js(path: Path) -> dict:
     return _extract_generic(path, config)
 
 
-def extract_svelte(path: Path) -> dict:
-    """Extract imports from .svelte files: script-block via JS AST + template regex fallback.
+# Matches a Svelte <script> block. Captures opening-tag attributes and body
+# separately so we can read lang= without re-parsing. Non-greedy body so
+# multiple script blocks in one file (instance + module) match independently.
+_SVELTE_SCRIPT_RE = re.compile(
+    r"<script\b(?P<attrs>[^>]*)>(?P<body>.*?)</script\s*>",
+    re.DOTALL | re.IGNORECASE,
+)
+_SVELTE_LANG_RE = re.compile(r"""\blang\s*=\s*['"]?([a-zA-Z]+)""", re.IGNORECASE)
 
-    Tree-sitter only sees the <script> block. Svelte template syntax like
-    {#await import('./X.svelte')} lives in the markup layer and is invisible
-    to the JS parser, so a regex pass covers those dynamic imports.
+
+def _svelte_script_lang(attrs: str) -> str:
+    """Return 'ts' for lang=\"ts\"/\"typescript\", else 'js' (the Svelte default)."""
+    m = _SVELTE_LANG_RE.search(attrs or "")
+    if m and m.group(1).lower() in ("ts", "typescript"):
+        return "ts"
+    return "js"
+
+
+def _mask_non_matching_scripts(src: str, target_lang: str) -> bytes:
+    """Whitespace-mask everything except <script> blocks matching target_lang.
+
+    Preserves newlines so AST line numbers stay accurate relative to the
+    original .svelte file. The kept script bodies remain at their original
+    byte offsets, so source_location values point at the right line in
+    the .svelte file rather than a synthetic offset (#713).
     """
-    result = _extract_generic(path, _JS_CONFIG)
+    def _mask(s: str) -> str:
+        return "".join(c if c == "\n" else " " for c in s)
+
+    out: list[str] = []
+    cursor = 0
+    for m in _SVELTE_SCRIPT_RE.finditer(src):
+        out.append(_mask(src[cursor:m.start()]))
+        block_lang = _svelte_script_lang(m.group("attrs"))
+        if block_lang == target_lang:
+            # Mask the <script ...> opening tag (so tree-sitter doesn't see "<")
+            # but keep the body verbatim, then mask the </script> closing tag.
+            out.append(_mask(src[m.start():m.start("body")]))
+            out.append(src[m.start("body"):m.end("body")])
+            out.append(_mask(src[m.end("body"):m.end()]))
+        else:
+            out.append(_mask(src[m.start():m.end()]))
+        cursor = m.end()
+    out.append(_mask(src[cursor:]))
+    return "".join(out).encode("utf-8")
+
+
+def _dedupe_extraction(result: dict) -> dict:
+    """Drop duplicate nodes/edges produced by running _extract_generic twice
+    (once for JS-flavored script blocks, once for TS) on the same .svelte file.
+    Both passes create the same file_nid; we keep the first occurrence."""
+    seen_nodes: set[str] = set()
+    unique_nodes: list[dict] = []
+    for n in result.get("nodes", []):
+        nid = n.get("id")
+        if nid and nid not in seen_nodes:
+            seen_nodes.add(nid)
+            unique_nodes.append(n)
+    seen_edges: set[tuple] = set()
+    unique_edges: list[dict] = []
+    for e in result.get("edges", []):
+        key = (e.get("source"), e.get("target"), e.get("relation"),
+               e.get("source_location"))
+        if key not in seen_edges:
+            seen_edges.add(key)
+            unique_edges.append(e)
+    result["nodes"] = unique_nodes
+    result["edges"] = unique_edges
+    return result
+
+
+def extract_svelte(path: Path) -> dict:
+    """Extract imports from .svelte files: <script>-block AST + markup regex fallback.
+
+    Each <script> block is sliced out and parsed with tree-sitter (JS or TS
+    depending on lang=). Non-script content is whitespace-masked so line
+    numbers stay aligned with the original file. Both Svelte 4
+    `<script context="module">` and Svelte 5 `<script module>` are handled
+    by the same loop (#713).
+
+    A regex pass over the full .svelte source then captures dynamic imports
+    written in the markup layer like `{#await import('./X.svelte')}`, which
+    are invisible to the AST since they live outside <script> (#701).
+    """
     try:
-        import re as _re
         src = path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    result: dict = {"nodes": [], "edges": []}
+
+    # Detect which script flavors are present; only invoke each grammar once.
+    script_langs = {_svelte_script_lang(m.group("attrs"))
+                    for m in _SVELTE_SCRIPT_RE.finditer(src)}
+
+    if "js" in script_langs:
+        masked = _mask_non_matching_scripts(src, "js")
+        partial = _extract_generic(path, _JS_CONFIG, source_bytes=masked)
+        result["nodes"].extend(partial.get("nodes", []))
+        result["edges"].extend(partial.get("edges", []))
+    if "ts" in script_langs:
+        masked = _mask_non_matching_scripts(src, "ts")
+        partial = _extract_generic(path, _TS_CONFIG, source_bytes=masked)
+        result["nodes"].extend(partial.get("nodes", []))
+        result["edges"].extend(partial.get("edges", []))
+
+    # Always create the file node, even for markup-only .svelte files.
+    file_node_id = _make_id(str(path))
+    if not any(n.get("id") == file_node_id for n in result["nodes"]):
+        result["nodes"].append({
+            "id": file_node_id,
+            "label": path.name,
+            "file_type": "code",
+            "source_file": str(path),
+            "source_location": "L1",
+        })
+
+    _dedupe_extraction(result)
+
+    try:
         existing_ids = {n["id"] for n in result.get("nodes", [])}
-        # Source file node ID must match the one _extract_generic creates:
-        # _make_id(str(path)) - single arg, no stem prefix. Otherwise the source
-        # endpoint is a phantom node and build_from_json drops the edge (#701).
-        file_node_id = _make_id(str(path))
         aliases = _load_tsconfig_aliases(path.parent)
-        for m in _re.finditer(r"""import\(\s*['"]([^'"]+)['"]\s*\)""", src):
+        for m in re.finditer(r"""import\(\s*['"]([^'"]+)['"]\s*\)""", src):
             raw = m.group(1)
             if not raw:
                 continue
