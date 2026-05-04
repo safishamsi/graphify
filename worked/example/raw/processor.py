@@ -6,6 +6,7 @@ import re
 from storage import load_index, save_processed
 
 
+
 STOPWORDS = {"the", "a", "an", "and", "or", "but", "in", "on", "at", "to", "for", "of", "with"}
 
 
