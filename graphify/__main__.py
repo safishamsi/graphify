@@ -135,7 +135,7 @@ _PLATFORM_CONFIG: dict[str, dict] = {
     },
     "antigravity": {
         "skill_file": "skill.md",
-        "skill_dst": Path(".agents") / "skills" / "graphify" / "SKILL.md",
+        "skill_dst": Path.home() / ".agent" / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
     "windows": {
@@ -447,8 +447,8 @@ def vscode_uninstall(project_dir: Path | None = None) -> None:
         print(f"  {instructions}  ->  deleted (was empty after removal)")
 
 
-_ANTIGRAVITY_RULES_PATH = Path(".agents") / "rules" / "graphify.md"
-_ANTIGRAVITY_WORKFLOW_PATH = Path(".agents") / "workflows" / "graphify.md"
+_ANTIGRAVITY_RULES_PATH = Path(".agent") / "rules" / "graphify.md"
+_ANTIGRAVITY_WORKFLOW_PATH = Path(".agent") / "workflows" / "graphify.md"
 
 _ANTIGRAVITY_RULES = """\
 ## graphify
@@ -471,7 +471,7 @@ description: Turn any folder of files into a navigable knowledge graph
 
 # Workflow: graphify
 
-Follow the graphify skill installed at ~/.agents/skills/graphify/SKILL.md to run the full pipeline.
+Follow the graphify skill installed at ~/.agent/skills/graphify/SKILL.md to run the full pipeline.
 
 If no path argument is given, use `.` (current directory).
 """
@@ -1126,8 +1126,8 @@ def main() -> None:
         print("  trae uninstall         remove graphify section from AGENTS.md")
         print("  trae-cn install         write graphify section to AGENTS.md (Trae CN)")
         print("  trae-cn uninstall      remove graphify section from AGENTS.md")
-        print("  antigravity install     write .agents/rules + .agents/workflows + skill (Google Antigravity)")
-        print("  antigravity uninstall   remove .agents/rules, .agents/workflows, and skill")
+        print("  antigravity install     write .agent/rules + .agent/workflows + skill (Google Antigravity)")
+        print("  antigravity uninstall   remove .agent/rules, .agent/workflows, and skill")
         print("  hermes install          write skill to ~/.hermes/skills/graphify/ (Hermes)")
         print("  hermes uninstall        remove skill from ~/.hermes/skills/graphify/")
         print("  kiro install            write skill to .kiro/skills/graphify/ + steering file (Kiro IDE/CLI)")
