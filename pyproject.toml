@@ -50,6 +50,14 @@ office = ["python-docx", "openpyxl"]
 video = ["faster-whisper", "yt-dlp"]
 all = ["mcp", "neo4j", "pypdf", "html2text", "watchdog", "graspologic", "python-docx", "openpyxl", "faster-whisper", "yt-dlp"]
 
+[dependency-groups]
+dev = [
+    "pytest",
+]
+
+[tool.uv]
+default-groups = ["dev"]
+
 [project.scripts]
 graphify = "graphify.__main__:main"
 

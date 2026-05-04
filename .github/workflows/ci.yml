@@ -21,16 +21,16 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
+      - name: Set up uv
+        uses: astral-sh/setup-uv@v5
+
       - name: Install dependencies
-        run: |
-          pip install -e ".[mcp,pdf,watch]"
-          pip install pytest
+        run: uv sync --locked --extra mcp --extra pdf --extra watch
 
       - name: Run tests
-        run: |
-          python -m pytest tests/ -q --tb=short
+        run: uv run --locked python -m pytest tests/ -q --tb=short
 
       - name: Verify install works end-to-end
         run: |
-          graphify --help
-          graphify install
+          uv run --locked graphify --help
+          uv run --locked graphify install
