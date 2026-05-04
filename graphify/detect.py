@@ -29,11 +29,30 @@ CORPUS_WARN_THRESHOLD = 50_000    # words - below this, warn "you may not need a
 CORPUS_UPPER_THRESHOLD = 500_000  # words - above this, warn about token cost
 FILE_COUNT_UPPER = 200             # files - above this, warn about token cost
 
-# Files that may contain secrets - skip silently
+# Files that may contain secrets - skip silently.
+#
+# Keyword pattern is named separately so _is_sensitive() can opt source-code
+# files out of it: source files are CODE, not credential storage, so something
+# like 'password-reset.ts' or 'AuthOauthAccessToken.model.ts' should not be
+# silently dropped from the graph just because the filename mentions auth
+# concepts. Word boundaries also narrow the match so 'tokenizer' / 'secretary'
+# (substrings inside larger words) don't trip the filter even on data files.
+# The other patterns target real credential storage by extension or exact name
+# and continue to apply to ALL files regardless of code/data classification.
+# Optional `s?` after each keyword catches plurals (`secrets.json`,
+# `database-credentials.yml`) without re-introducing the substring-match
+# false positives the word boundaries are there to prevent. Trailing word
+# chars after the optional `s` ('tokenizer', 'credentialing', 'secretary',
+# 'passwordless') still fail the closing \b and pass the filter.
+_SENSITIVE_KEYWORD_PATTERN = re.compile(
+    r'\b(credential|secret|passwd|password|token|private_key)s?\b',
+    re.IGNORECASE,
+)
+
 _SENSITIVE_PATTERNS = [
     re.compile(r'(^|[\\/])\.(env|envrc)(\.|$)', re.IGNORECASE),
     re.compile(r'\.(pem|key|p12|pfx|cert|crt|der|p8)$', re.IGNORECASE),
-    re.compile(r'(credential|secret|passwd|password|token|private_key)', re.IGNORECASE),
+    _SENSITIVE_KEYWORD_PATTERN,
     re.compile(r'(id_rsa|id_dsa|id_ecdsa|id_ed25519)(\.pub)?$'),
     re.compile(r'(\.netrc|\.pgpass|\.htpasswd)$', re.IGNORECASE),
     re.compile(r'(aws_credentials|gcloud_credentials|service.account)', re.IGNORECASE),
@@ -59,9 +78,23 @@ _PAPER_SIGNAL_THRESHOLD = 3  # need at least this many signals to call it a pape
 
 
 def _is_sensitive(path: Path) -> bool:
-    """Return True if this file likely contains secrets and should be skipped."""
+    """Return True if this file likely contains secrets and should be skipped.
+
+    The generic keyword pattern (password/token/secret/...) is suppressed for
+    known source-code extensions so legitimate code files with auth-related
+    names ('password-reset.ts', 'AuthOauthAccessToken.model.ts',
+    'access-token.svelte', etc.) aren't silently dropped from the graph.
+    Specific patterns targeting real credential storage (.env, .pem, id_rsa,
+    .netrc, etc.) keep applying to all files.
+    """
     name = path.name
-    return any(p.search(name) for p in _SENSITIVE_PATTERNS)
+    is_code = path.suffix.lower() in CODE_EXTENSIONS
+    for pattern in _SENSITIVE_PATTERNS:
+        if pattern is _SENSITIVE_KEYWORD_PATTERN and is_code:
+            continue
+        if pattern.search(name):
+            return True
+    return False
 
 
 def _looks_like_paper(path: Path) -> bool:
