@@ -11,6 +11,7 @@ def __getattr__(name):
         "score_all": ("graphify.cluster", "score_all"),
         "cohesion_score": ("graphify.cluster", "cohesion_score"),
         "god_nodes": ("graphify.analyze", "god_nodes"),
+        "graph_diff": ("graphify.analyze", "graph_diff"),
         "surprising_connections": ("graphify.analyze", "surprising_connections"),
         "suggest_questions": ("graphify.analyze", "suggest_questions"),
         "generate": ("graphify.report", "generate"),

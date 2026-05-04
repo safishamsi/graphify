@@ -37,6 +37,35 @@ dist/
 
 Same syntax as `.gitignore`. Patterns match against file paths relative to the folder you run graphify on.
 
+## What it looks like
+
+Running graphify on [httpx](https://github.com/encode/httpx) produces this report:
+
+```
+Graph Report - httpx/  (144 nodes · 330 edges · 6 communities)
+Extraction: 53% EXTRACTED · 47% INFERRED · 0% AMBIGUOUS
+
+God Nodes (most connected - your core abstractions)
+  1. Client        - 26 edges
+  2. AsyncClient   - 25 edges
+  3. Response      - 24 edges
+  4. Request       - 21 edges
+  5. BaseClient    - 18 edges
+
+Surprising Connections (you probably didn't know these)
+  Timeout --uses--> URL        [INFERRED]  client.py → models.py
+  Timeout --uses--> Headers    [INFERRED]  client.py → models.py
+  Timeout --uses--> BaseTransport [INFERRED]  client.py → transport.py
+
+Communities
+  Community 0: ConnectError, AsyncHTTPTransport, BaseTransport, HTTPTransport … (8 nodes)
+  Community 1: Auth, BasicAuth, DigestAuth, Limits, Timeout, Request … (9 nodes)
+  Community 2: AsyncClient, BaseClient, Client (3 nodes)
+  Community 3: Cookies, Headers, URL (3 nodes)
+```
+
+`graph.html` is an interactive force-directed graph — click any node to highlight its neighbors, search by label, and filter by community. See the [`worked/`](worked/) directory for full examples on httpx and the Karpathy repos.
+
 ## How it works
 
 graphify runs in three passes. First, a deterministic AST pass extracts structure from code files (classes, functions, imports, call graphs, docstrings, rationale comments) with no LLM needed. Second, video and audio files are transcribed locally with faster-whisper using a domain-aware prompt derived from corpus god nodes — transcripts are cached so re-runs are instant. Third, Claude subagents run in parallel over docs, papers, images, and transcripts to extract concepts, relationships, and design rationale. The results are merged into a NetworkX graph, clustered with Leiden community detection, and exported as interactive HTML, queryable JSON, and a plain-language audit report.

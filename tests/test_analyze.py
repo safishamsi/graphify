@@ -230,3 +230,25 @@ def test_graph_diff_empty_diff():
     assert diff["new_edges"] == []
     assert diff["removed_edges"] == []
     assert diff["summary"] == "no changes"
+
+
+# --- graph_diff public API export ---
+
+def test_graph_diff_importable_from_graphify():
+    import graphify
+    fn = graphify.graph_diff
+    assert callable(fn)
+
+
+def test_graph_diff_public_api_returns_correct_shape():
+    import graphify
+    nodes = [("a", "Alpha"), ("b", "Beta")]
+    G_old = _make_simple_graph(nodes, [])
+    G_new = _make_simple_graph(nodes + [("c", "Gamma")], [])
+    diff = graphify.graph_diff(G_old, G_new)
+    assert "new_nodes" in diff
+    assert "removed_nodes" in diff
+    assert "new_edges" in diff
+    assert "removed_edges" in diff
+    assert "summary" in diff
+    assert any(n["id"] == "c" for n in diff["new_nodes"])
