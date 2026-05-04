@@ -45,11 +45,17 @@ def _norm_source_file(p: str | None) -> str | None:
     return p.replace("\\", "/") if p else p
 
 
-def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
+def build_from_json(extraction: dict, *, directed: bool = False,
+                    multigraph: bool = False) -> nx.Graph:
     """Build a NetworkX graph from an extraction dict.
 
     directed=True produces a DiGraph that preserves edge direction (source→target).
     directed=False (default) produces an undirected Graph for backward compatibility.
+
+    multigraph=True produces a MultiGraph (or MultiDiGraph if directed=True) so
+    parallel edges with different `relation` values between the same node pair
+    are preserved instead of overwriting each other. Default False keeps the
+    legacy single-edge behaviour.
     """
     # NetworkX <= 3.1 serialised edges as "links"; remap to "edges" for compatibility.
     if "edges" not in extraction and "links" in extraction:
@@ -77,7 +83,10 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
     real_errors = [e for e in errors if "does not match any node id" not in e]
     if real_errors:
         print(f"[graphify] Extraction warning ({len(real_errors)} issues): {real_errors[0]}", file=sys.stderr)
-    G: nx.Graph = nx.DiGraph() if directed else nx.Graph()
+    if multigraph:
+        G: nx.Graph = nx.MultiDiGraph() if directed else nx.MultiGraph()
+    else:
+        G = nx.DiGraph() if directed else nx.Graph()
     for node in extraction.get("nodes", []):
         if "source_file" in node:
             node["source_file"] = _norm_source_file(node["source_file"])
@@ -109,7 +118,11 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
         # causing display functions to show edges backwards.
         attrs["_src"] = src
         attrs["_tgt"] = tgt
-        G.add_edge(src, tgt, **attrs)
+        # MultiGraph keys parallel edges by relation so .edges[u, v, k] resolves.
+        if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)):
+            G.add_edge(src, tgt, key=attrs.get("relation", "RELATES_TO"), **attrs)
+        else:
+            G.add_edge(src, tgt, **attrs)
     hyperedges = extraction.get("hyperedges", [])
     if hyperedges:
         G.graph["hyperedges"] = hyperedges
