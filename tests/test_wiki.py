@@ -137,3 +137,79 @@ def test_community_article_truncation_notice(tmp_path):
     to_wiki(G, communities, tmp_path, community_labels={0: "Big Community"})
     article = (tmp_path / "Big_Community.md").read_text()
     assert "and 5 more nodes" in article
+
+
+# -- #228: mixed [[label]](filename.md) wikilinks for non-Obsidian agents -----
+
+def test_index_uses_mixed_wikilink_for_communities(tmp_path):
+    """Communities in index.md must point at real filenames so non-Obsidian
+    agents can follow the link by reading the markdown directly (#228)."""
+    G = _make_graph()
+    to_wiki(G, COMMUNITIES, tmp_path, community_labels=LABELS)
+    index = (tmp_path / "index.md").read_text(encoding="utf-8")
+    assert "[[Parsing Layer]](Parsing_Layer.md)" in index
+    assert "[[Rendering Layer]](Rendering_Layer.md)" in index
+
+
+def test_index_uses_mixed_wikilink_for_god_nodes(tmp_path):
+    """God nodes in index.md must also point at their article filenames (#228)."""
+    G = _make_graph()
+    to_wiki(G, COMMUNITIES, tmp_path, community_labels=LABELS,
+            god_nodes_data=GOD_NODES)
+    index = (tmp_path / "index.md").read_text(encoding="utf-8")
+    assert "[[parse]](parse.md)" in index
+
+
+def test_community_article_cross_links_use_mixed_format(tmp_path):
+    """Cross-community links inside an article must follow the mixed format
+    so they're navigable from a plain markdown viewer (#228)."""
+    G = _make_graph()
+    to_wiki(G, COMMUNITIES, tmp_path, community_labels=LABELS, cohesion=COHESION)
+    parsing = (tmp_path / "Parsing_Layer.md").read_text(encoding="utf-8")
+    # Parsing community connects to Rendering community via n1 -> n3
+    assert "[[Rendering Layer]](Rendering_Layer.md)" in parsing
+
+
+def test_god_node_article_community_link_is_mixed(tmp_path):
+    """The 'Community: ...' line at the top of a god-node article must point
+    to the community article on disk (#228)."""
+    G = _make_graph()
+    to_wiki(G, COMMUNITIES, tmp_path, community_labels=LABELS,
+            god_nodes_data=GOD_NODES)
+    parse_article = (tmp_path / "parse.md").read_text(encoding="utf-8")
+    assert "Community:** [[Parsing Layer]](Parsing_Layer.md)" in parse_article
+
+
+def test_neighbor_without_article_keeps_bare_wikilink(tmp_path):
+    """Neighbors that don't have their own .md article must stay as plain
+    [[label]] wikilinks - emitting a path to a non-existent file would
+    break agent navigation worse than the bare wikilink does."""
+    G = _make_graph()
+    to_wiki(G, COMMUNITIES, tmp_path, community_labels=LABELS,
+            god_nodes_data=GOD_NODES)
+    parse_article = (tmp_path / "parse.md").read_text(encoding="utf-8")
+    # n2 (validate) is a regular node, not a god node, so it has no article.
+    # Its link from the parse god-node article must stay bare.
+    assert "[[validate]]" in parse_article
+    assert "[[validate]](validate.md)" not in parse_article
+
+
+def test_filenames_unique_under_collisions(tmp_path):
+    """If two community labels would map to the same _safe_filename, the
+    resulting links must point at the disambiguated slugs that actually exist."""
+    G = nx.Graph()
+    G.add_node("a", label="alpha", file_type="code", source_file="a.py", community=0)
+    G.add_node("b", label="beta",  file_type="code", source_file="b.py", community=1)
+    G.add_edge("a", "b", relation="calls", confidence="EXTRACTED", weight=1.0)
+    communities = {0: ["a"], 1: ["b"]}
+    # Two different labels that both collapse to the same _safe_filename:
+    labels = {0: "Foo: Bar", 1: "Foo: Bar"}  # same string -> same slug, second gets _2
+    to_wiki(G, communities, tmp_path, community_labels=labels)
+
+    # Every filename referenced from index.md must actually exist on disk.
+    index = (tmp_path / "index.md").read_text(encoding="utf-8")
+    import re
+    referenced = re.findall(r"\]\(([^)]+\.md)\)", index)
+    assert referenced  # the test would be vacuous otherwise
+    for fname in referenced:
+        assert (tmp_path / fname).exists(), f"index.md links to missing {fname!r}"
