@@ -27,3 +27,26 @@ scripts/run_k2_*.py
 scripts/llm.py
 scripts/benchmark_kimi*.json
 scripts/benchmark_kimi*.py
+
+# Local-only artifacts — never commit
+.env
+.env.*
+*.local
+.DS_Store
+.idea/
+.cursor/
+.windsurf/
+.forge/
+.codex/
+.gemini/
+.aider*
+.continue/
+.opencode/
+notes/
+plans/
+scratch/
+tmp/
+.temp/
+.resources/
+.audit/
+graphify-out/
