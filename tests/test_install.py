@@ -39,6 +39,19 @@ def test_install_codex(tmp_path):
     assert (tmp_path / ".agents" / "skills" / "graphify" / "SKILL.md").exists()
 
 
+def test_install_codex_prints_dollar_skill_invocation(tmp_path, capsys):
+    _install(tmp_path, "codex")
+    out = capsys.readouterr().out
+    assert "$graphify ." in out
+    assert "/graphify ." not in out
+
+
+def test_install_claude_prints_slash_command_invocation(tmp_path, capsys):
+    _install(tmp_path, "claude")
+    out = capsys.readouterr().out
+    assert "/graphify ." in out
+
+
 def test_install_opencode(tmp_path):
     _install(tmp_path, "opencode")
     assert (tmp_path / ".config" / "opencode" / "skills" / "graphify" / "SKILL.md").exists()
@@ -102,6 +115,18 @@ def test_codex_skill_contains_spawn_agent():
     import graphify
     skill = (Path(graphify.__file__).parent / "skill-codex.md").read_text()
     assert "spawn_agent" in skill
+
+
+def test_codex_skill_uses_dollar_skill_invocation():
+    """Codex uses $graphify because /graphify is parsed as a built-in slash command."""
+    import graphify
+    skill = (Path(graphify.__file__).parent / "skill-codex.md").read_text()
+    assert "trigger: $graphify" in skill
+    assert "$graphify" in skill
+    assert "trigger: /graphify" not in skill
+    assert "\n# /graphify" not in skill
+    assert "\n/graphify" not in skill
+    assert "`/graphify" not in skill
 
 
 def test_opencode_skill_contains_mention():

@@ -1,7 +1,8 @@
 """Entity deduplication pipeline for graphify knowledge graphs.
 
-Pipeline: exact normalization → entropy gate → MinHash/LSH blocking →
-Jaro-Winkler verification → same-community boost → union-find merge.
+Pipeline: source-location pre-pass → exact normalization → entropy gate →
+MinHash/LSH blocking → Jaro-Winkler verification → same-community boost →
+union-find merge → prune stale references.
 """
 from __future__ import annotations
 import math
@@ -81,6 +82,212 @@ _MERGE_THRESHOLD = 92.0     # rapidfuzz normalized_similarity * 100
 _COMMUNITY_BOOST = 5.0      # score bonus when both nodes share community
 _NUM_PERM = 128
 _CHUNK_SUFFIX = re.compile(r"_c\d+$")
+_AST_PREFIX = re.compile(r"^[a-z]+_", re.IGNORECASE)
+
+# ── source-location dedup helpers ─────────────────────────────────────────────
+
+def _norm_member_label(label: str) -> str:
+    """Strip common chunk prefix like 'T-21  ' from member labels."""
+    label = label.strip()
+    if not label:
+        return ""
+    parts = label.split(None, 1)
+    if len(parts) == 2 and re.match(r"^[A-Z]-\d+$", parts[0]):
+        return parts[1].strip()
+    return label
+
+
+def _compatible_duplicate(a: dict, b: dict) -> bool:
+    """Return True if two nodes at the same source location are
+    likely the same entity (conservative guard)."""
+    a_label = _norm(a.get("label") or "")
+    b_label = _norm(b.get("label") or "")
+    a_id = _norm(a.get("id") or "")
+    b_id = _norm(b.get("id") or "")
+
+    if a_label and b_label and a_label == b_label:
+        return True
+    if a_id and b_id and a_id == b_id:
+        return True
+    if a_label and b_label:
+        if a_label in b_label or b_label in a_label:
+            return True
+    if a_id and b_id:
+        if a_id in b_id or b_id in a_id:
+            return True
+    a_snip = (a.get("source_snippet") or "").strip()
+    b_snip = (b.get("source_snippet") or "").strip()
+    if a_snip and b_snip and a_snip == b_snip and (a_label or b_label or a_id or b_id):
+        return True
+    return False
+
+
+def _dedup_key(node: dict) -> tuple[str, str] | None:
+    """Return stable dedup key from source identity."""
+    sf = (node.get("source_file") or "").strip()
+    sl = (node.get("source_location") or "").strip()
+    if not sf or not sl:
+        return None
+    return (sf, sl)
+
+
+def _edge_key(edge: dict) -> tuple:
+    """Return deduplication key for an edge."""
+    return (
+        edge.get("source"),
+        edge.get("target"),
+        edge.get("relation"),
+        edge.get("source_file"),
+        edge.get("confidence"),
+    )
+
+
+def _canonical_score(node: dict) -> tuple:
+    """Score a node for canonical selection (higher = better).
+    Prefers: has label, long label, many attrs, shorter ID, fewer underscores.
+    Semantic nodes naturally score higher via attr_cnt (more metadata)
+    and lexical tiebreaker (sem_* > ast_* alphabetically)."""
+    label = (node.get("label") or "").strip()
+    node_id = node.get("id", "")
+    has_label = 1 if label else 0
+    label_len = len(label)
+    attr_cnt = sum(1 for v in node.values() if v not in (None, "", [], {}))
+    shorter_id = -len(node_id)
+    fewer_underscores = -node_id.count("_")
+    return (has_label, label_len, attr_cnt, shorter_id, fewer_underscores, node_id)
+
+
+# ── internal dedup passes ─────────────────────────────────────────────────────
+
+def _source_location_dedup(
+    nodes: list[dict],
+    edges: list[dict],
+    hyperedges: list[dict] | None,
+) -> tuple[list[dict], list[dict], list[dict] | None, int, int]:
+    """Pre-pass: merge nodes sharing the same (source_file, source_location)."""
+    groups: dict[tuple[str, str], list[dict]] = defaultdict(list)
+    for node in nodes:
+        key = _dedup_key(node)
+        if key:
+            groups[key].append(node)
+
+    merges = 0
+    remap: dict[str, str] = {}
+    for group in groups.values():
+        if len(group) < 2:
+            continue
+        group.sort(key=_canonical_score, reverse=True)
+        canonical = group[0]
+        for node in group[1:]:
+            if _compatible_duplicate(canonical, node):
+                remap[node["id"]] = canonical["id"]
+                merges += 1
+
+    if not merges:
+        return nodes, edges, hyperedges, 0, 0
+
+    remove_ids = set(remap.keys())
+    deduped_nodes = [n for n in nodes if n["id"] not in remove_ids]
+
+    deduped_edges: list[dict] = []
+    seen = set()
+    for edge in edges:
+        e = dict(edge)
+        e["source"] = remap.get(e["source"], e["source"])
+        e["target"] = remap.get(e["target"], e["target"])
+        if e["source"] == e["target"]:
+            continue
+        key = _edge_key(e)
+        if key in seen:
+            continue
+        seen.add(key)
+        deduped_edges.append(e)
+
+    deduped_hyperedges: list[dict] | None = None
+    hyperedges_remapped = 0
+    if hyperedges is not None:
+        deduped_hyperedges = []
+        for he in hyperedges:
+            h = dict(he)
+            members = he.get("nodes", [])
+            remapped: list[str] = []
+            remapped_seen: set[str] = set()
+            was_remapped = False
+            for mid in members:
+                new_id = remap.get(mid, mid)
+                if new_id != mid:
+                    was_remapped = True
+                if new_id not in remapped_seen:
+                    remapped.append(new_id)
+                    remapped_seen.add(new_id)
+            if was_remapped:
+                hyperedges_remapped += 1
+            if len(remapped) >= 2:
+                h["nodes"] = remapped
+                deduped_hyperedges.append(h)
+
+    return deduped_nodes, deduped_edges, deduped_hyperedges, merges, hyperedges_remapped
+
+
+def prune_graph_references(
+    nodes_or_extraction: list[dict] | dict,
+    edges: list[dict] | None = None,
+    hyperedges: list[dict] | None = None,
+) -> tuple[list[dict], list[dict], list[dict] | None, int] | dict:
+    """Post-pass: remove edges and hyperedge members referencing missing nodes.
+
+    Accepts either a dict extraction or separate (nodes, edges, hyperedges).
+    Returns a dict if given a dict, otherwise a tuple.
+    """
+    if isinstance(nodes_or_extraction, dict):
+        ex = nodes_or_extraction
+        nodes = ex.get("nodes", [])
+        edges = ex.get("edges", [])
+        hyperedges = ex.get("hyperedges", [])
+        is_dict = True
+    else:
+        nodes = nodes_or_extraction
+        edges = edges or []
+        hyperedges = hyperedges or []
+        is_dict = False
+    dropped = 0
+    node_ids = {n["id"] for n in nodes}
+
+    pruned_edges: list[dict] = []
+    seen = set()
+    for edge in edges:
+        if edge["source"] not in node_ids or edge["target"] not in node_ids:
+            dropped += 1
+            continue
+        if edge["source"] == edge["target"]:
+            dropped += 1
+            continue
+        key = _edge_key(edge)
+        if key in seen:
+            dropped += 1
+            continue
+        seen.add(key)
+        pruned_edges.append(edge)
+
+    pruned_hyperedges: list[dict] | None = None
+    if hyperedges is not None:
+        pruned_hyperedges = []
+        for he in hyperedges:
+            h = dict(he)
+            members = [m for m in h.get("nodes", []) if m in node_ids]
+            unique = list(dict.fromkeys(members))
+            if len(unique) >= 2:
+                h["nodes"] = unique
+                pruned_hyperedges.append(h)
+            else:
+                dropped += 1
+
+    if is_dict:
+        nodes_or_extraction["nodes"] = nodes
+        nodes_or_extraction["edges"] = pruned_edges
+        nodes_or_extraction["hyperedges"] = pruned_hyperedges
+        return nodes_or_extraction
+    return nodes, pruned_edges, pruned_hyperedges, dropped
 
 
 # ── main entry point ──────────────────────────────────────────────────────────
@@ -88,21 +295,32 @@ _CHUNK_SUFFIX = re.compile(r"_c\d+$")
 def deduplicate_entities(
     nodes: list[dict],
     edges: list[dict],
+    hyperedges: list[dict] | None = None,
     *,
-    communities: dict[str, int],
+    communities: dict[str, int] | None = None,
     dedup_llm_backend: str | None = None,
-) -> tuple[list[dict], list[dict]]:
-    """Deduplicate near-identical entities in a knowledge graph.
+) -> tuple[list[dict], list[dict], list[dict] | None, dict]:
+    """Deduplicate entities in a knowledge graph.
+
+    Runs three phases internally:
+    1. Source-location pre-pass: merge nodes at the same source_location
+    2. Entity dedup: exact normalization → MinHash/LSH → Jaro-Winkler → LLM
+    3. Prune: remove stale edges and hyperedge members
 
     Args:
         nodes: list of node dicts with at minimum {"id": str, "label": str}
-        edges: list of edge dicts with {"source": str, "target": str, ...}
+        edges: list of edge dicts
         communities: mapping of node_id -> community_id (from cluster())
+        hyperedges: optional list of hyperedge dicts
         dedup_llm_backend: if set, use LLM to resolve ambiguous pairs
 
     Returns:
-        (deduped_nodes, deduped_edges) with edges rewired to survivors
+        (nodes, edges) when hyperedges is None,
+        (nodes, edges, hyperedges) when hyperedges provided.
     """
+    if communities is None:
+        communities = {}
+
     # Guard: cross-project dedup is not supported — nodes from different repos
     # share label names by coincidence and must never be merged by string similarity.
     # If you need to dedup a global graph, run deduplicate_entities per-repo first.
@@ -113,10 +331,24 @@ def deduplicate_entities(
             f"Cross-project dedup is disabled — run dedup per-repo before merging."
         )
 
-    if len(nodes) <= 1:
-        return nodes, edges
+    # ── phase 1: source-location dedup ───────────────────────────────────────
+    nodes, edges, hyperedges, _loc_merges, _loc_hyper_remapped = _source_location_dedup(
+        nodes, edges, hyperedges
+    )
 
-    # Pre-deduplicate: keep first occurrence of each id
+    # ── pre-deduplicate: keep first occurrence of each id ────────────────────
+    if len(nodes) <= 1:
+        nodes, edges, hyperedges, dropped = prune_graph_references(nodes, edges, hyperedges)
+        stats = {
+            "merged_nodes": _loc_merges,
+            "source_location_groups": 0,
+            "deduped_edges": dropped,
+            "dropped_self_loops": 0,
+            "hyperedges_remapped": _loc_hyper_remapped,
+            "hyperedge_member_sets": [list(h.get("nodes", [])) for h in (hyperedges or [])],
+        }
+        return _maybe_return(nodes, edges, hyperedges, stats)
+
     seen_ids: dict[str, dict] = {}
     for node in nodes:
         nid = node.get("id", "")
@@ -125,7 +357,16 @@ def deduplicate_entities(
     unique_nodes = list(seen_ids.values())
 
     if len(unique_nodes) <= 1:
-        return unique_nodes, edges
+        unique_nodes, edges, hyperedges, dropped = prune_graph_references(unique_nodes, edges, hyperedges)
+        stats = {
+            "merged_nodes": _loc_merges,
+            "source_location_groups": 0,
+            "deduped_edges": dropped,
+            "dropped_self_loops": 0,
+            "hyperedges_remapped": _loc_hyper_remapped,
+            "hyperedge_member_sets": [list(h.get("nodes", [])) for h in (hyperedges or [])],
+        }
+        return _maybe_return(unique_nodes, edges, hyperedges, stats)
 
     # ── pass 1: exact normalization ───────────────────────────────────────────
     norm_to_nodes: dict[str, list[dict]] = defaultdict(list)
@@ -217,28 +458,89 @@ def deduplicate_entities(
                 remap[member] = winner_id
 
     # ── apply remap ───────────────────────────────────────────────────────────
-    if not remap:
-        return unique_nodes, edges
+    if remap:
+        total = len(remap)
+        msg = f"[graphify] Deduplicated {total} node(s)"
+        if _loc_merges:
+            msg += f" ({_loc_merges} source-location"
+            msg += f", {exact_merges} exact" if exact_merges else ""
+            if fuzzy_merges:
+                msg += f", {fuzzy_merges} fuzzy"
+            msg += ")"
+        elif exact_merges:
+            msg += f" ({exact_merges} exact"
+            if fuzzy_merges:
+                msg += f", {fuzzy_merges} fuzzy"
+            msg += ")"
+        print(msg + ".", flush=True)
 
-    total = len(remap)
-    msg = f"[graphify] Deduplicated {total} node(s)"
-    if exact_merges:
-        msg += f" ({exact_merges} exact"
-        if fuzzy_merges:
-            msg += f", {fuzzy_merges} fuzzy"
-        msg += ")"
-    print(msg + ".", flush=True)
+        deduped_nodes = [n for n in unique_nodes if n["id"] not in remap]
+        deduped_edges: list[dict] = []
+        for edge in edges:
+            e = dict(edge)
+            e["source"] = remap.get(e["source"], e["source"])
+            e["target"] = remap.get(e["target"], e["target"])
+            if e["source"] != e["target"]:
+                deduped_edges.append(e)
 
-    deduped_nodes = [n for n in unique_nodes if n["id"] not in remap]
-    deduped_edges = []
-    for edge in edges:
-        e = dict(edge)
-        e["source"] = remap.get(e["source"], e["source"])
-        e["target"] = remap.get(e["target"], e["target"])
-        if e["source"] != e["target"]:
-            deduped_edges.append(e)
+        # Remap hyperedge member IDs too
+        hyperedges_remapped_count = 0
+        if hyperedges is not None:
+            deduped_hyperedges: list[dict] = []
+            for he in hyperedges:
+                h = dict(he)
+                remapped_members: list[str] = []
+                remapped_seen: set[str] = set()
+                was_remapped = False
+                for mid in h.get("nodes", []):
+                    new_id = remap.get(mid, mid)
+                    if new_id != mid:
+                        was_remapped = True
+                    if new_id not in remapped_seen:
+                        remapped_members.append(new_id)
+                        remapped_seen.add(new_id)
+                if was_remapped:
+                    hyperedges_remapped_count += 1
+                if len(remapped_members) >= 2:
+                    h["nodes"] = remapped_members
+                    deduped_hyperedges.append(h)
+            hyperedges = deduped_hyperedges
+    else:
+        hyperedges_remapped_count = 0
+        deduped_nodes = unique_nodes
+        deduped_edges = edges
 
-    return deduped_nodes, deduped_edges
+    # ── phase 3: prune stale references ───────────────────────────────────────
+    orig_hyper_len = len(hyperedges) if hyperedges is not None else 0
+    deduped_nodes, deduped_edges, hyperedges, _dropped = prune_graph_references(
+        deduped_nodes, deduped_edges, hyperedges
+    )
+    final_hyper_len = len(hyperedges) if hyperedges is not None else 0
+    hyperedges_remapped_count += (orig_hyper_len - final_hyper_len)
+
+    stats = {
+        "merged_nodes": _loc_merges + (len(remap) if remap else 0),
+        "source_location_groups": len(components),
+        "deduped_edges": _dropped,
+        "dropped_self_loops": 0,
+        "hyperedges_remapped": hyperedges_remapped_count + _loc_hyper_remapped,
+        "hyperedge_member_sets": [list(h.get("nodes", [])) for h in (hyperedges or [])],
+    }
+    return _maybe_return(deduped_nodes, deduped_edges, hyperedges, stats)
+
+
+def _maybe_return(
+    nodes: list[dict],
+    edges: list[dict],
+    hyperedges: list[dict] | None,
+    stats: dict | None = None,
+) -> tuple[list[dict], list[dict], list[dict] | None, dict]:
+    """Return 4-tuple (nodes, edges, hyperedges|None, stats)."""
+    if stats is None:
+        stats = {}
+    if hyperedges is not None:
+        return nodes, edges, hyperedges, stats
+    return nodes, edges, None, stats
 
 
 def _pick_winner(nodes: list[dict]) -> dict:

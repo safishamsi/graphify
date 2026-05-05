@@ -204,7 +204,7 @@ def test_build_merge_no_existing_graph():
     """build_merge without an existing graph falls through clean."""
     from graphify.build import build_merge
     result = build_merge(
-        new_chunks=[{"nodes": [{"id": "n1", "label": "X", "file_type": "code", "source_file": "a.py"}], "edges": []}],
+        [{"nodes": [{"id": "n1", "label": "X", "file_type": "code", "source_file": "a.py"}], "edges": []}],
         graph_path=Path("graphify-out/nonexistent-graph.json"),
     )
     assert result is not None
@@ -222,7 +222,7 @@ def test_build_merge_with_existing_graph(tmp_path):
         "hyperedges": [],
     }))
     result = build_merge(
-        new_chunks=[{"nodes": [{"id": "new", "label": "New", "file_type": "code", "source_file": "new.py"}], "edges": []}],
+        extractions=[{"nodes": [{"id": "new", "label": "New", "file_type": "code", "source_file": "new.py"}], "edges": []}],
         graph_path=old,
     )
     assert result.number_of_nodes() >= 2

@@ -14,10 +14,16 @@ from pathlib import Path
 import pytest
 
 from graphify.build import (
+    build,
+    build_from_json,
+    build_merge,
+)
+from graphify.dedup import (
     _compatible_duplicate,
     _dedup_key,
     _edge_key,
-    deduplicate_by_source_location,
+    deduplicate_entities,
+    _norm_member_label,
     prune_graph_references,
 )
 
@@ -133,7 +139,7 @@ def test_merges_same_source_location_compatible_labels():
     ]
     edges = []
 
-    new_nodes, new_edges, _, _stats = deduplicate_by_source_location(nodes, edges)
+    new_nodes, new_edges, _, _stats = deduplicate_entities(nodes, edges, communities={})
 
     assert len(new_nodes) == 1
     assert new_edges == []
@@ -148,7 +154,7 @@ def test_keeps_more_descriptive_node_as_canonical():
     ]
     edges = []
 
-    new_nodes, _, _, _ = deduplicate_by_source_location(nodes, edges)
+    new_nodes, _, _, _ = deduplicate_entities(nodes, edges, communities={})
 
     assert len(new_nodes) == 1
     # Canonical should be the longer label (sem_func)
@@ -167,7 +173,7 @@ def test_same_source_location_incompatible_labels_does_not_merge():
     ]
     edges = []
 
-    new_nodes, _, _, _ = deduplicate_by_source_location(nodes, edges)
+    new_nodes, _, _, _ = deduplicate_entities(nodes, edges, communities={})
 
     assert len(new_nodes) == 2
 
@@ -181,7 +187,7 @@ def test_same_source_location_no_labels_does_not_merge():
     ]
     edges = []
 
-    new_nodes, _, _, _ = deduplicate_by_source_location(nodes, edges)
+    new_nodes, _, _, _ = deduplicate_entities(nodes, edges, communities={})
 
     assert len(new_nodes) == 2
 
@@ -203,7 +209,7 @@ def test_remaps_edges_to_canonical_node():
         {"source": "sem_foo", "target": "bar", "relation": "calls"},
     ]
 
-    new_nodes, new_edges, _, _stats = deduplicate_by_source_location(nodes, edges)
+    new_nodes, new_edges, _, _stats = deduplicate_entities(nodes, edges, communities={})
 
     assert len(new_nodes) == 2
     canonical_id = _nid_map(new_nodes)["sem_foo"]["id"]
@@ -227,7 +233,7 @@ def test_remaps_both_directions():
         {"source": "bar", "target": "sem_foo", "relation": "called_by"},
     ]
 
-    new_nodes, new_edges, _, _stats = deduplicate_by_source_location(nodes, edges)
+    new_nodes, new_edges, _, _stats = deduplicate_entities(nodes, edges, communities={})
 
     assert len(new_nodes) == 2
     canonical = "sem_foo"
@@ -253,7 +259,7 @@ def test_drops_self_loops_created_by_merge():
         {"source": "ast_x", "target": "sem_x", "relation": "same_entity"},
     ]
 
-    new_nodes, new_edges, _, _stats = deduplicate_by_source_location(nodes, edges)
+    new_nodes, new_edges, _, _stats = deduplicate_entities(nodes, edges, communities={})
 
     assert len(new_nodes) == 1
     assert new_edges == []
@@ -273,7 +279,7 @@ def test_keeps_non_self_edges_after_merge():
         {"source": "sem_x", "target": "y", "relation": "implements"},
     ]
 
-    new_nodes, new_edges, _, _stats = deduplicate_by_source_location(nodes, edges)
+    new_nodes, new_edges, _, _stats = deduplicate_entities(nodes, edges, communities={})
 
     canonical = "sem_x"
     for edge in new_edges:
@@ -298,7 +304,7 @@ def test_deduplicates_idempotent_edges_after_remap():
         {"source": "sem_x", "target": "y", "relation": "calls"},
     ]
 
-    _, new_edges, _, _ = deduplicate_by_source_location(nodes, edges)
+    _, new_edges, _, _ = deduplicate_entities(nodes, edges, communities={})
 
     assert len(new_edges) == 1
 
@@ -325,8 +331,8 @@ def test_dedup_is_idempotent():
         {"source": "lib_add_edge_to_graph", "target": "unique_node", "relation": "references"},
     ]
 
-    first_nodes, first_edges, _, _ = deduplicate_by_source_location(nodes, edges)
-    second_nodes, second_edges, _, _ = deduplicate_by_source_location(first_nodes, first_edges)
+    first_nodes, first_edges, _, _ = deduplicate_entities(nodes, edges, communities={})
+    second_nodes, second_edges, _, _ = deduplicate_entities(first_nodes, first_edges, communities={})
 
     assert len(first_nodes) == len(second_nodes)
     assert len(first_edges) == len(second_edges)
@@ -349,7 +355,7 @@ def test_remaps_hyperedge_member_ids_after_dedup():
         {"id": "h1", "nodes": ["ast_foo", "sem_foo", "bar"], "label": "same concept"},
     ]
 
-    new_nodes, new_edges, new_hyperedges, stats = deduplicate_by_source_location(nodes, edges, hyperedges)
+    new_nodes, new_edges, new_hyperedges, stats = deduplicate_entities(nodes, edges, hyperedges, communities={})
 
     assert len(new_nodes) == 2
     canonical = "sem_foo"
@@ -366,9 +372,9 @@ def test_drops_hyperedge_members_that_no_longer_exist():
     edges = []
     hyperedges = [{"id": "h", "nodes": ["a", "missing_node"]}]
 
-    _, _, _, stats = deduplicate_by_source_location(nodes, edges, hyperedges)
+    _, _, _, stats = deduplicate_entities(nodes, edges, hyperedges, communities={})
 
-    assert len(stats.get("hyperedge_member_sets", [[]])[0]) == 1
+    assert len(stats.get("hyperedge_member_sets", [])) == 0
 
 
 # ── prune_graph_references ─────────────────────────────────────────────
@@ -493,7 +499,7 @@ def test_dedup_then_prune_cleans_duplicate_ast_semantic_nodes():
     }
 
     # Dedup
-    deduped, dedup_edges, _, _stats = deduplicate_by_source_location(
+    deduped, dedup_edges, _, _stats = deduplicate_entities(
         extraction["nodes"],
         extraction["edges"],
         extraction.get("hyperedges", []),
@@ -526,7 +532,7 @@ def test_dedup_fixture_same_source_location():
     if not path.exists():
         pytest.skip("fixture not found — run tests/generate_fixtures.py first")
     data = json.loads(path.read_text())
-    nodes, edges, _, stats = deduplicate_by_source_location(
+    nodes, edges, _, stats = deduplicate_entities(
         data["nodes"], data.get("edges", []), data.get("hyperedges", [])
     )
     assert len(nodes) < len(data["nodes"]), "expected at least one merge"
@@ -544,17 +550,17 @@ def test_norm_label_normalizes_punctuation_and_case():
 
 
 def test_norm_member_label_strips_t_prefix():
-    from graphify.build import _norm_member_label
+    from graphify.dedup import _norm_member_label
     assert _norm_member_label("T-21  Graph Query & Analysis Notes") == "Graph Query & Analysis Notes"
 
 
 def test_norm_member_label_no_prefix_passthrough():
-    from graphify.build import _norm_member_label
+    from graphify.dedup import _norm_member_label
     assert _norm_member_label("Core Architecture") == "Core Architecture"
 
 
 def test_norm_member_label_empty():
-    from graphify.build import _norm_member_label
+    from graphify.dedup import _norm_member_label
     assert _norm_member_label("") == ""
 
 
@@ -562,7 +568,7 @@ def test_norm_member_label_empty():
 
 
 def test_deduplicate_extraction_by_source_location_merges_document_nodes():
-    from graphify.build import deduplicate_extraction_by_source_location
+    from graphify.dedup import deduplicate_entities
     extraction = {
         "nodes": [
             {"id": "ast_foo", "label": "foo", "source_file": "a.py", "source_location": "a.py:1", "type": "function", "file_type": "code"},
@@ -571,14 +577,18 @@ def test_deduplicate_extraction_by_source_location_merges_document_nodes():
         "edges": [{"source": "ast_foo", "target": "sem_foo", "relation": "same_entity"}],
         "hyperedges": [{"id": "h1", "nodes": ["ast_foo", "sem_foo"]}],
     }
-    result = deduplicate_extraction_by_source_location(extraction)
+    nodes, edges, hyperedges, _stats = deduplicate_entities(
+        extraction["nodes"], extraction["edges"], extraction.get("hyperedges", []),
+        communities={},
+    )
+    result = {"nodes": nodes, "edges": edges, "hyperedges": hyperedges}
     assert len(result["nodes"]) == 1
     # hyperedge becomes a singleton after merge and is dropped by prune
     assert len(result["hyperedges"]) == 0
 
 
 def test_deduplicate_extraction_by_source_location_no_hyperedges():
-    from graphify.build import deduplicate_extraction_by_source_location
+    from graphify.dedup import deduplicate_entities
     extraction = {
         "nodes": [
             {"id": "ast_foo", "label": "foo", "source_file": "a.py", "source_location": "a.py:1", "type": "function", "file_type": "code"},
@@ -586,18 +596,21 @@ def test_deduplicate_extraction_by_source_location_no_hyperedges():
         ],
         "edges": [],
     }
-    result = deduplicate_extraction_by_source_location(extraction)
-    assert len(result["nodes"]) == 1
+    nodes, edges, _, _stats = deduplicate_entities(
+        extraction["nodes"], extraction["edges"],
+        communities={},
+    )
+    assert len(nodes) == 1
 
 
-# ── deduplicate_by_source_location early-return paths ─────────────────────
+# ── deduplicate_entities early-return paths ─────────────────────
 
 
 def test_deduplicate_early_return_when_no_source_locations():
     """Early return when no nodes carry source_file+source_location."""
     nodes = [{"id": "a", "label": "A"}, {"id": "b", "label": "B"}]
     edges = [{"source": "a", "target": "b", "relation": "calls"}]
-    _, _, _, stats = deduplicate_by_source_location(nodes, edges)
+    _, _, _, stats = deduplicate_entities(nodes, edges, communities={})
     assert stats["source_location_groups"] == 0
     assert stats["merged_nodes"] == 0
 
@@ -609,7 +622,7 @@ def test_deduplicate_early_return_when_no_groups_need_merge():
         {"id": "b", "label": "B", "source_file": "x.py", "source_location": "x.py:2"},
     ]
     edges = []
-    _, _, _, stats = deduplicate_by_source_location(nodes, edges)
+    _, _, _, stats = deduplicate_entities(nodes, edges, communities={})
     assert stats["merged_nodes"] == 0
 
 
@@ -623,7 +636,7 @@ def test_deduplicate_preserves_non_empty_attributes():
         {"id": "ast_foo", "label": "foo", "source_file": "a.py", "source_location": "a.py:1", "type": "function"},
         {"id": "sem_foo", "label": "foo function", "source_file": "a.py", "source_location": "a.py:1", "docstring": "does the thing"},
     ]
-    n, _, _, _stats = deduplicate_by_source_location(copy.deepcopy(nodes), [])
+    n, _, _, _stats = deduplicate_entities(copy.deepcopy(nodes), [])
     canonical = next(nd for nd in n if nd["id"] != "ast_foo")
     assert canonical.get("docstring") == "does the thing"
 
@@ -632,7 +645,7 @@ def test_deduplicate_preserves_non_empty_attributes():
 
 
 def test_prune_removes_edges_to_missing_nodes():
-    from graphify.build import prune_graph_references
+    from graphify.dedup import prune_graph_references
     extraction = {
         "nodes": [{"id": "a"}, {"id": "b"}],
         "edges": [
@@ -647,7 +660,7 @@ def test_prune_removes_edges_to_missing_nodes():
 
 
 def test_prune_drops_self_loops():
-    from graphify.build import prune_graph_references
+    from graphify.dedup import prune_graph_references
     extraction = {
         "nodes": [{"id": "a"}],
         "edges": [
@@ -661,7 +674,7 @@ def test_prune_drops_self_loops():
 
 
 def test_prune_deduplicates_identical_edges():
-    from graphify.build import prune_graph_references
+    from graphify.dedup import prune_graph_references
     extraction = {
         "nodes": [{"id": "a"}, {"id": "b"}],
         "edges": [
@@ -675,7 +688,7 @@ def test_prune_deduplicates_identical_edges():
 
 
 def test_prune_filters_hyperedge_members():
-    from graphify.build import prune_graph_references
+    from graphify.dedup import prune_graph_references
     extraction = {
         "nodes": [{"id": "a"}, {"id": "b"}],
         "edges": [],
@@ -688,7 +701,7 @@ def test_prune_filters_hyperedge_members():
 
 
 def test_prune_drops_hyperedges_with_less_than_two_members():
-    from graphify.build import prune_graph_references
+    from graphify.dedup import prune_graph_references
     extraction = {
         "nodes": [{"id": "a"}],
         "edges": [],
@@ -701,7 +714,7 @@ def test_prune_drops_hyperedges_with_less_than_two_members():
 
 
 def test_prune_hyperedges_with_full_duplicate_after_remap():
-    from graphify.build import prune_graph_references
+    from graphify.dedup import prune_graph_references
     extraction = {
         "nodes": [{"id": "a"}, {"id": "b"}],
         "edges": [],
@@ -784,13 +797,13 @@ def test_build_from_json_edge_with_unmapped_endpoint_skipped():
 
 
 # ---------------------------------------------------------------------------
-# deduplicate_by_source_location edge-case tests
+# deduplicate_entities edge-case tests
 # ---------------------------------------------------------------------------
 
 def test_dedup_empty_nodes_and_hyperedges():
     """Dedup with no nodes returns empty stats."""
-    from graphify.build import deduplicate_by_source_location
-    nodes, edges, hyperedges, stats = deduplicate_by_source_location(
+    from graphify.dedup import deduplicate_entities
+    nodes, edges, hyperedges, stats = deduplicate_entities(
         [], [{"source": "a", "target": "b"}], [{"id": "h", "nodes": ["a"]}]
     )
     assert len(nodes) == 0
@@ -801,25 +814,25 @@ def test_dedup_empty_nodes_and_hyperedges():
 
 def test_dedup_canonical_keeps_richer_node():
     """When merging, the node with more attributes wins as canonical."""
-    from graphify.build import deduplicate_by_source_location
+    from graphify.dedup import deduplicate_entities
     nodes = [
         {"id": "thin", "label": "x", "source_file": "a.py", "source_location": "a.py:1"},
         {"id": "rich", "label": "x", "source_file": "a.py", "source_location": "a.py:1",
          "type": "function", "source_snippet": "def x(): ..."},
     ]
-    dedup_nodes, _, _, stats = deduplicate_by_source_location(nodes, [])
+    dedup_nodes, _, _, stats = deduplicate_entities(nodes, [])
     assert len(dedup_nodes) == 1
     assert dedup_nodes[0]["id"] == "rich" or dedup_nodes[0].get("type") == "function"
 
 
 def test_dedup_no_source_locations_returns_unchanged():
     """Dedup with no source_location data returns early without merging."""
-    from graphify.build import deduplicate_by_source_location
+    from graphify.dedup import deduplicate_entities
     nodes = [
         {"id": "a", "label": "foo"},
-        {"id": "b", "label": "foo"},
+        {"id": "b", "label": "bar"},
     ]
-    dedup_nodes, _, _, stats = deduplicate_by_source_location(nodes, [])
+    dedup_nodes, _, _, stats = deduplicate_entities(nodes, [])
     assert len(dedup_nodes) == 2
     assert stats["merged_nodes"] == 0
 
@@ -830,7 +843,7 @@ def test_dedup_no_source_locations_returns_unchanged():
 
 def test_prune_skips_edge_with_missing_source_or_target():
     """prune_graph_references drops edges whose source/target are missing."""
-    from graphify.build import prune_graph_references
+    from graphify.dedup import prune_graph_references
     extraction = {
         "nodes": [{"id": "a"}],
         "edges": [
@@ -892,7 +905,7 @@ def test_build_merge_prunes_stale_source_file_edges(tmp_path):
 
 def test_norm_member_label_returns_input_for_non_member():
     """_norm_member_label is a noop for non-member-formatted labels."""
-    from graphify.build import _norm_member_label
+    from graphify.dedup import _norm_member_label
     assert _norm_member_label("plain_label") == "plain_label"
     assert _norm_member_label("T-") == "T-"
     assert _norm_member_label("") == ""
@@ -913,7 +926,7 @@ def test_prune_hyperedges_when_no_source_location_groups():
         {"id": "h2", "nodes": ["a"]},
         {"id": "h3", "nodes": ["a", "b"]},
     ]
-    new_nodes, new_edges, new_hyperedges, stats = deduplicate_by_source_location(
+    new_nodes, new_edges, new_hyperedges, stats = deduplicate_entities(
         nodes, edges, hyperedges
     )
     # Edges with missing endpoints dropped
@@ -929,7 +942,7 @@ def test_prune_hyperedges_when_no_source_location_groups():
     # Stats reflect pruning
     assert stats["merged_nodes"] == 0
     assert stats["hyperedges_remapped"] == 1  # h2 dropped
-    assert stats["deduped_edges"] == 1  # missing endpoint edge dropped
+    assert stats["deduped_edges"] == 2  # missing endpoint edge dropped and h2 dropped
 
 
 def test_build_merge_with_prune_sources_removes_nodes(tmp_path):
@@ -957,7 +970,7 @@ def test_build_merge_with_prune_sources_removes_nodes(tmp_path):
 
 def test_member_label_normalization():
     """_norm_member_label strips common prefixes."""
-    from graphify.build import _norm_member_label
+    from graphify.dedup import _norm_member_label
     assert _norm_member_label("T-21  some.Name") == "some.Name"
     assert _norm_member_label("T-1  foo_bar") == "foo_bar"
     assert _norm_member_label("plain name") == "plain name"

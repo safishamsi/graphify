@@ -1,9 +1,12 @@
 venv/
 .venv/
 env/
+# local python artifacts
 __pycache__/
-*.pyc
 *.egg-info/
+.coverage
+.coverage.*
+htmlcov/
 .eggs/
 dist/
 build/

@@ -221,7 +221,7 @@ def test_dedup_ok_with_single_repo():
         {"id": "repoA::userservice", "label": "UserService", "repo": "repoA"},
         {"id": "repoA::auth", "label": "Auth", "repo": "repoA"},
     ]
-    result_nodes, result_edges = deduplicate_entities(nodes, [], communities={})
+    result_nodes, result_edges, _, _ = deduplicate_entities(nodes, [], communities={})
     assert len(result_nodes) == 2  # no false merge
 
 
@@ -231,7 +231,7 @@ def test_dedup_ok_with_no_repo_attr():
         {"id": "userservice", "label": "UserService"},
         {"id": "auth", "label": "Auth"},
     ]
-    result_nodes, result_edges = deduplicate_entities(nodes, [], communities={})
+    result_nodes, result_edges, _, _ = deduplicate_entities(nodes, [], communities={})
     assert len(result_nodes) == 2
 
 

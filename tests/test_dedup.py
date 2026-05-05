@@ -41,7 +41,7 @@ def _make_edges(src, tgt, relation="relates_to"):
 def test_exact_duplicates_merged():
     nodes = _make_nodes("UserService", "userservice", "User Service")
     edges = []
-    result_nodes, result_edges = deduplicate_entities(nodes, edges, communities={})
+    result_nodes, result_edges, _, _ = deduplicate_entities(nodes, edges, communities={})
     # All three are the same concept — only one survives
     assert len(result_nodes) == 1
 
@@ -50,14 +50,14 @@ def test_typo_merged():
     # "GraphExtractor" vs "Graph Extractor" — Jaro-Winkler >= 0.92
     nodes = _make_nodes("GraphExtractor", "Graph Extractor")
     edges = []
-    result_nodes, _ = deduplicate_entities(nodes, edges, communities={})
+    result_nodes, _, _, _ = deduplicate_entities(nodes, edges, communities={})
     assert len(result_nodes) == 1
 
 
 def test_unrelated_not_merged():
     nodes = _make_nodes("UserService", "OrderService")
     edges = []
-    result_nodes, _ = deduplicate_entities(nodes, edges, communities={})
+    result_nodes, _, _, _ = deduplicate_entities(nodes, edges, communities={})
     assert len(result_nodes) == 2
 
 
@@ -65,7 +65,7 @@ def test_short_low_entropy_not_merged():
     # "AI" and "ML" are low-entropy — entropy gate skips them
     nodes = _make_nodes("AI", "ML")
     edges = []
-    result_nodes, _ = deduplicate_entities(nodes, edges, communities={})
+    result_nodes, _, _, _ = deduplicate_entities(nodes, edges, communities={})
     assert len(result_nodes) == 2
 
 
@@ -73,7 +73,7 @@ def test_edges_rewired_after_merge():
     nodes = _make_nodes("GraphExtractor", "Graph Extractor", "Parser")
     # edge from loser to Parser should be rewired to winner
     edges = [{"source": "graph_extractor", "target": "parser", "relation": "uses"}]
-    result_nodes, result_edges = deduplicate_entities(nodes, edges, communities={})
+    result_nodes, result_edges, _, _ = deduplicate_entities(nodes, edges, communities={})
     assert len(result_nodes) == 2  # merged + Parser
     # edge should still exist (rewired to winner)
     assert len(result_edges) == 1
@@ -83,7 +83,7 @@ def test_self_loops_dropped_after_merge():
     # If both endpoints of an edge get merged into same node, drop the edge
     nodes = _make_nodes("GraphExtractor", "Graph Extractor")
     edges = [{"source": "graphextractor", "target": "graph_extractor", "relation": "same"}]
-    _, result_edges = deduplicate_entities(nodes, edges, communities={})
+    _, result_edges, _, _ = deduplicate_entities(nodes, edges, communities={})
     assert result_edges == []
 
 
@@ -93,22 +93,21 @@ def test_community_boost_aids_merge():
     edges = []
     # Same community → boost → merge
     communities = {"authmanager": 1, "auth_manager": 1}
-    result_with, _ = deduplicate_entities(nodes, edges, communities=communities)
+    result_with, _, _, _ = deduplicate_entities(nodes, edges, communities=communities)
     # Different community → no boost
     communities_diff = {"authmanager": 1, "auth_manager": 2}
-    result_without, _ = deduplicate_entities(nodes, edges, communities=communities_diff)
+    result_without, _, _, _ = deduplicate_entities(nodes, edges, communities=communities_diff)
     assert len(result_with) <= len(result_without)
 
-
 def test_empty_inputs():
-    result_nodes, result_edges = deduplicate_entities([], [], communities={})
+    result_nodes, result_edges, _, _ = deduplicate_entities([], [], communities={})
     assert result_nodes == []
     assert result_edges == []
 
 
 def test_single_node_no_crash():
     nodes = _make_nodes("UserService")
-    result_nodes, _ = deduplicate_entities(nodes, [], communities={})
+    result_nodes, _, _, _ = deduplicate_entities(nodes, [], communities={})
     assert len(result_nodes) == 1
 
 
@@ -116,7 +115,7 @@ def test_dedup_llm_flag_accepted():
     """deduplicate_entities accepts dedup_llm_backend without crashing when no ambiguous pairs exist."""
     nodes = _make_nodes("UserService", "OrderService")
     edges = []
-    result_nodes, _ = deduplicate_entities(nodes, edges, communities={}, dedup_llm_backend=None)
+    result_nodes, _, _, _ = deduplicate_entities(nodes, edges, communities={}, dedup_llm_backend=None)
     assert len(result_nodes) == 2
 
 

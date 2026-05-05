@@ -80,3 +80,18 @@ graphify = ["skill.md", "skill-codex.md", "skill-opencode.md", "skill-aider.md",
 
 [tool.bandit]
 skips = ["B404"]
+
+[dependency-groups]
+dev = [
+    "bandit>=1.9.4",
+    "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
+    "safety>=3.7.0",
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning:graspologic.*",
+    "ignore::DeprecationWarning:hyppo.*",
+    "ignore:.*nopython=False.*:numba.core.errors.NumbaDeprecationWarning"
+]
