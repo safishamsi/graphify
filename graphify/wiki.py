@@ -205,7 +205,7 @@ def to_wiki(
         )
 
     # Clear stale .md files from previous runs to prevent orphan accumulation.
-    # Community labels are LLM-generated (per skill.md Step 5) and non-deterministic
+    # Community labels are LLM-generated (per skill-claude.md Step 5) and non-deterministic
     # across runs — the same conceptual community may be named differently each time
     # (e.g. "AutoAgent Skills" → "AutoAgent Methodology"), leaving the previous file
     # as an orphan. Since to_wiki() owns wiki/ entirely (always writes the full set),

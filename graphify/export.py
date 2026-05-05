@@ -701,7 +701,7 @@ def to_html(
     Path(output_path).write_text(html, encoding="utf-8")  # nosec
 
 
-# Keep backward-compatible alias - skill.md calls generate_html
+# Keep backward-compatible alias - older assistant skills call generate_html
 generate_html = to_html
 
 

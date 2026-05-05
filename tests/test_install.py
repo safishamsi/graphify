@@ -1,8 +1,11 @@
 """Tests for graphify install --platform routing."""
+from contextlib import contextmanager
 import os
 from pathlib import Path
 import sys
 from unittest.mock import patch
+import re
+import tomllib
 import pytest
 
 
@@ -10,23 +13,48 @@ PLATFORMS = {
     "claude": (".claude/skills/graphify/SKILL.md",),
     "codex": (".agents/skills/graphify/SKILL.md",),
     "opencode": (".config/opencode/skills/graphify/SKILL.md",),
+    "aider": (".aider/graphify/SKILL.md",),
+    "copilot": (".copilot/skills/graphify/SKILL.md",),
+    "vscode": (".copilot/skills/graphify/SKILL.md",),
     "claw": (".openclaw/skills/graphify/SKILL.md",),
     "droid": (".factory/skills/graphify/SKILL.md",),
     "trae": (".trae/skills/graphify/SKILL.md",),
     "trae-cn": (".trae-cn/skills/graphify/SKILL.md",),
+    "hermes": (".hermes/skills/graphify/SKILL.md",),
+    "kiro": (".kiro/skills/graphify/SKILL.md",),
+    "pi": (".pi/agent/skills/graphify/SKILL.md",),
+    "antigravity": (".agent/skills/graphify/SKILL.md",),
     "windows": (".claude/skills/graphify/SKILL.md",),
 }
 
 
-def _install(tmp_path, platform):
-    from graphify.__main__ import install
+@contextmanager
+def _patched_home(tmp_path):
     old_cwd = Path.cwd()
+    os.chdir(tmp_path)
     try:
-        os.chdir(tmp_path)
-        with patch("graphify.__main__.Path.home", return_value=tmp_path):
-            install(platform=platform)
+        with patch("graphify.__main__.Path.home", return_value=tmp_path), patch.dict(os.environ, {}, clear=True):
+            yield
     finally:
         os.chdir(old_cwd)
+
+
+def _install(tmp_path, platform):
+    from graphify.__main__ import install
+    with _patched_home(tmp_path):
+        install(platform=platform)
+
+
+def _skill_source_text(platform):
+    from graphify.__main__ import _platform_skill_source
+    return _platform_skill_source(platform).read_text(encoding="utf-8")
+
+
+def _run_main(tmp_path, argv):
+    from graphify.__main__ import main
+    with _patched_home(tmp_path), patch.object(sys, "argv", argv):
+        result = main()
+    assert result in (None, 0)
 
 
 def test_install_default_claude(tmp_path):
@@ -97,11 +125,135 @@ def test_install_unknown_platform_exits(tmp_path):
         _install(tmp_path, "unknown")
 
 
+def test_legacy_install_parser_keeps_default_platform():
+    from graphify.__main__ import _parse_install_args
+    assert _parse_install_args([]) == "claude"
+
+
+def test_legacy_install_parser_uses_windows_default():
+    from graphify.__main__ import _parse_install_args
+    with patch("graphify.__main__.platform.system", return_value="Windows"):
+        assert _parse_install_args([]) == "windows"
+
+
+def test_legacy_install_parser_accepts_positional_platform():
+    from graphify.__main__ import _parse_install_args
+    assert _parse_install_args(["codex"]) == "codex"
+
+
+def test_legacy_install_parser_accepts_platform_flag():
+    from graphify.__main__ import _parse_install_args
+    assert _parse_install_args(["--platform", "codex"]) == "codex"
+    assert _parse_install_args(["--platform=codex"]) == "codex"
+
+
+def test_named_command_parser_requires_explicit_platform():
+    from graphify.__main__ import _parse_named_command_args
+    assert _parse_named_command_args([]) == (None, False)
+
+
+def test_named_command_parser_accepts_platform_and_remove_forms():
+    from graphify.__main__ import _parse_named_command_args
+    assert _parse_named_command_args(["codex"]) == ("codex", False)
+    assert _parse_named_command_args(["install", "codex"]) == ("codex", False)
+    assert _parse_named_command_args(["remove", "codex"]) == ("codex", True)
+    assert _parse_named_command_args(["codex", "remove"]) == ("codex", True)
+
+
+def test_cli_skill_codex_installs_user_skill(tmp_path):
+    _run_main(tmp_path, ["graphify", "skill", "codex"])
+    assert (tmp_path / ".agents" / "skills" / "graphify" / "SKILL.md").exists()
+
+
+def test_cli_skill_requires_platform(tmp_path):
+    from graphify.__main__ import main
+    with _patched_home(tmp_path), patch.object(sys, "argv", ["graphify", "skill"]):
+        with pytest.raises(SystemExit):
+            main()
+
+
+def test_cli_skill_help_has_no_side_effects(tmp_path, capsys):
+    _run_main(tmp_path, ["graphify", "skill", "codex", "--help"])
+    captured = capsys.readouterr()
+    assert "Usage: graphify skill" in captured.out
+    assert not (tmp_path / ".agents").exists()
+
+
+def test_cli_setup_codex_configures_project(tmp_path):
+    _run_main(tmp_path, ["graphify", "setup", "codex"])
+    assert (tmp_path / "AGENTS.md").exists()
+    assert (tmp_path / ".codex" / "hooks.json").exists()
+
+
+def test_cli_setup_requires_platform(tmp_path):
+    from graphify.__main__ import main
+    with _patched_home(tmp_path), patch.object(sys, "argv", ["graphify", "setup"]):
+        with pytest.raises(SystemExit):
+            main()
+
+
+def test_cli_setup_help_has_no_side_effects(tmp_path, capsys):
+    _run_main(tmp_path, ["graphify", "setup", "codex", "--help"])
+    captured = capsys.readouterr()
+    assert "Usage: graphify setup" in captured.out
+    assert not (tmp_path / "AGENTS.md").exists()
+
+
+def test_cli_install_help_has_no_side_effects(tmp_path, capsys):
+    _run_main(tmp_path, ["graphify", "install", "codex", "--help"])
+    captured = capsys.readouterr()
+    assert "Deprecated alias" in captured.out
+    assert not (tmp_path / ".agents").exists()
+
+
+def test_cli_install_positional_platform_is_deprecated_alias(tmp_path, capsys):
+    _run_main(tmp_path, ["graphify", "install", "codex"])
+    captured = capsys.readouterr()
+    assert "deprecated alias" in captured.err
+    assert (tmp_path / ".agents" / "skills" / "graphify" / "SKILL.md").exists()
+
+
+def test_cli_platform_install_is_deprecated_setup_alias(tmp_path, capsys):
+    _run_main(tmp_path, ["graphify", "codex", "install"])
+    captured = capsys.readouterr()
+    assert "deprecated alias" in captured.err
+    assert (tmp_path / "AGENTS.md").exists()
+
+
+@pytest.mark.parametrize("platform, paths", sorted(PLATFORMS.items()))
+def test_install_copies_configured_skill_source(tmp_path, platform, paths):
+    _install(tmp_path, platform)
+    installed = tmp_path / paths[0]
+    assert installed.exists()
+    assert installed.read_text(encoding="utf-8") == _skill_source_text(platform)
+
+
 def test_codex_skill_contains_spawn_agent():
     """Codex skill file must reference spawn_agent."""
     import graphify
     skill = (Path(graphify.__file__).parent / "skill-codex.md").read_text()
     assert "spawn_agent" in skill
+
+
+def test_codex_skill_contains_kimi_fast_path():
+    """Codex skill file must document the direct Kimi extraction path."""
+    import graphify
+    skill = (Path(graphify.__file__).parent / "skill-codex.md").read_text()
+    assert "MOONSHOT_API_KEY" in skill
+    assert "extract_corpus_parallel" in skill
+    assert 'backend="kimi"' in skill
+
+
+def test_claude_and_codex_skills_share_kimi_fast_path_contract():
+    """Both Claude and Codex document the same Kimi fast-path output contract."""
+    import graphify
+    pkg = Path(graphify.__file__).parent
+    for name in ("skill-claude.md", "skill-codex.md"):
+        skill = (pkg / name).read_text(encoding="utf-8")
+        assert "MOONSHOT_API_KEY" in skill
+        assert "extract_corpus_parallel" in skill
+        assert 'backend="kimi"' in skill
+        assert "graphify-out/.graphify_semantic_new.json" in skill
 
 
 def test_opencode_skill_contains_mention():
@@ -122,10 +274,48 @@ def test_claw_skill_is_sequential():
 
 def test_all_skill_files_exist_in_package():
     """All installable platform skill files must be present in the installed package."""
+    from graphify.__main__ import _PLATFORM_CONFIG, _platform_skill_source
+    for platform, cfg in _PLATFORM_CONFIG.items():
+        assert cfg["skill_file"].startswith("skill-")
+        assert cfg["skill_file"].endswith(".md")
+        assert cfg["skill_file"] != "skill.md"
+        assert _platform_skill_source(platform).exists(), f"Missing: {cfg['skill_file']}"
+
+
+def test_all_configured_install_paths_are_home_relative():
+    """Platform config should not freeze Path.home() at import time."""
+    from graphify.__main__ import _PLATFORM_CONFIG
+    for platform, cfg in _PLATFORM_CONFIG.items():
+        assert not cfg["skill_dst"].is_absolute(), f"{platform} has absolute skill_dst"
+
+
+def test_packaged_skill_files_match_source_tree():
+    """Every source skill file is declared in package data, with no legacy skill.md alias."""
+    root = Path(__file__).resolve().parents[1]
+    pyproject = tomllib.loads((root / "pyproject.toml").read_text(encoding="utf-8"))
+    declared = set(pyproject["tool"]["setuptools"]["package-data"]["graphify"])
+    source = {p.name for p in (root / "graphify").glob("skill-*.md")}
+    assert declared == source
+    assert "skill.md" not in declared
+    assert not (root / "graphify" / "skill.md").exists()
+
+
+def test_skill_temp_files_stay_under_graphify_out():
+    """No platform skill should write root-level .graphify_* temp files."""
     import graphify
     pkg = Path(graphify.__file__).parent
-    for name in ("skill.md", "skill-codex.md", "skill-opencode.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md"):
-        assert (pkg / name).exists(), f"Missing: {name}"
+    legacy_temp = re.compile(
+        r"(?<!graphify-out/)\.graphify_"
+        r"(python|detect|transcripts|ast|cached|uncached|semantic_new|semantic|extract|analysis|labels|incremental|old|chunk_)"
+    )
+    for skill_path in pkg.glob("skill-*.md"):
+        assert not legacy_temp.search(skill_path.read_text(encoding="utf-8")), skill_path.name
+
+
+def test_claude_platform_uses_named_skill_source():
+    """Claude installs from the explicit Claude skill source file."""
+    from graphify.__main__ import _PLATFORM_CONFIG
+    assert _PLATFORM_CONFIG["claude"]["skill_file"] == "skill-claude.md"
 
 
 def test_claude_install_registers_claude_md(tmp_path):
@@ -296,11 +486,40 @@ def test_cursor_uninstall_noop_if_not_installed(tmp_path):
     _cursor_uninstall(tmp_path)  # should not raise
 
 
+# ── Skill-copying special installers ─────────────────────────────────────────
+
+def test_vscode_install_copies_vscode_skill_source(tmp_path):
+    from graphify.__main__ import vscode_install
+    with _patched_home(tmp_path):
+        vscode_install(tmp_path)
+    installed = tmp_path / ".copilot" / "skills" / "graphify" / "SKILL.md"
+    assert installed.read_text(encoding="utf-8") == _skill_source_text("vscode")
+
+
+def test_kiro_install_copies_kiro_skill_source(tmp_path):
+    from graphify.__main__ import _kiro_install
+    _kiro_install(tmp_path)
+    installed = tmp_path / ".kiro" / "skills" / "graphify" / "SKILL.md"
+    assert installed.read_text(encoding="utf-8") == _skill_source_text("kiro")
+
+
+def test_antigravity_install_copies_claude_skill_with_frontmatter(tmp_path):
+    from graphify.__main__ import _antigravity_install
+    with _patched_home(tmp_path):
+        _antigravity_install(tmp_path)
+    installed = tmp_path / ".agent" / "skills" / "graphify" / "SKILL.md"
+    content = installed.read_text(encoding="utf-8")
+    assert content.startswith("---\nname: graphify-manager\n")
+    source_body = _skill_source_text("antigravity").split("\n---\n", 1)[1].lstrip()
+    assert content.endswith(source_body)
+
+
 # ── Gemini CLI ────────────────────────────────────────────────────────────────
 
 def test_gemini_install_writes_gemini_md(tmp_path):
     from graphify.__main__ import gemini_install
-    gemini_install(tmp_path)
+    with _patched_home(tmp_path):
+        gemini_install(tmp_path)
     md = tmp_path / "GEMINI.md"
     assert md.exists()
     assert "graphify-out/GRAPH_REPORT.md" in md.read_text()
@@ -308,38 +527,57 @@ def test_gemini_install_writes_gemini_md(tmp_path):
 def test_gemini_install_writes_hook(tmp_path):
     import json as _json
     from graphify.__main__ import gemini_install
-    gemini_install(tmp_path)
+    with _patched_home(tmp_path):
+        gemini_install(tmp_path)
     settings = _json.loads((tmp_path / ".gemini" / "settings.json").read_text())
     hooks = settings["hooks"]["BeforeTool"]
     assert any("graphify" in str(h) for h in hooks)
 
+def test_gemini_install_copies_claude_skill_source(tmp_path):
+    from graphify.__main__ import gemini_install
+    with _patched_home(tmp_path):
+        gemini_install(tmp_path)
+    installed = tmp_path / ".gemini" / "skills" / "graphify" / "SKILL.md"
+    assert installed.read_text(encoding="utf-8") == _skill_source_text("claude")
+
+def test_gemini_windows_install_uses_agents_skill_dir(tmp_path):
+    from graphify.__main__ import gemini_install
+    with _patched_home(tmp_path), patch("graphify.__main__.platform.system", return_value="Windows"):
+        gemini_install(tmp_path)
+    installed = tmp_path / ".agents" / "skills" / "graphify" / "SKILL.md"
+    assert installed.read_text(encoding="utf-8") == _skill_source_text("claude")
+
 def test_gemini_install_idempotent(tmp_path):
     from graphify.__main__ import gemini_install
-    gemini_install(tmp_path)
-    gemini_install(tmp_path)
+    with _patched_home(tmp_path):
+        gemini_install(tmp_path)
+        gemini_install(tmp_path)
     md = tmp_path / "GEMINI.md"
     assert md.read_text().count("## graphify") == 1
 
 def test_gemini_install_merges_existing_gemini_md(tmp_path):
     from graphify.__main__ import gemini_install
     (tmp_path / "GEMINI.md").write_text("# My project rules\n")
-    gemini_install(tmp_path)
+    with _patched_home(tmp_path):
+        gemini_install(tmp_path)
     content = (tmp_path / "GEMINI.md").read_text()
     assert "# My project rules" in content
     assert "graphify-out/GRAPH_REPORT.md" in content
 
 def test_gemini_uninstall_removes_section(tmp_path):
     from graphify.__main__ import gemini_install, gemini_uninstall
-    gemini_install(tmp_path)
-    gemini_uninstall(tmp_path)
+    with _patched_home(tmp_path):
+        gemini_install(tmp_path)
+        gemini_uninstall(tmp_path)
     md = tmp_path / "GEMINI.md"
     assert not md.exists()
 
 def test_gemini_uninstall_removes_hook(tmp_path):
     import json as _json
     from graphify.__main__ import gemini_install, gemini_uninstall
-    gemini_install(tmp_path)
-    gemini_uninstall(tmp_path)
+    with _patched_home(tmp_path):
+        gemini_install(tmp_path)
+        gemini_uninstall(tmp_path)
     settings_path = tmp_path / ".gemini" / "settings.json"
     if settings_path.exists():
         settings = _json.loads(settings_path.read_text())
@@ -348,4 +586,5 @@ def test_gemini_uninstall_removes_hook(tmp_path):
 
 def test_gemini_uninstall_noop_if_not_installed(tmp_path):
     from graphify.__main__ import gemini_uninstall
-    gemini_uninstall(tmp_path)  # should not raise
+    with _patched_home(tmp_path):
+        gemini_uninstall(tmp_path)  # should not raise

@@ -76,7 +76,7 @@ packages = ["graphify"]
 include-package-data = false
 
 [tool.setuptools.package-data]
-graphify = ["skill.md", "skill-codex.md", "skill-opencode.md", "skill-aider.md", "skill-copilot.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md", "skill-kiro.md", "skill-vscode.md", "skill-pi.md"]
+graphify = ["skill-claude.md", "skill-codex.md", "skill-opencode.md", "skill-aider.md", "skill-copilot.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md", "skill-kiro.md", "skill-vscode.md", "skill-pi.md"]
 
 [tool.bandit]
 skips = ["B404"]
