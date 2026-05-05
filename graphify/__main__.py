@@ -1081,6 +1081,10 @@ def main() -> None:
         print("    --context C             explicit edge-context filter (repeatable)")
         print("    --budget N              cap output at N tokens (default 2000)")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("  affected \"X\"             reverse traversal to find nodes impacted by X")
+        print("    --relation R            edge relation to traverse in reverse (repeatable)")
+        print("    --depth N               reverse traversal depth (default 2)")
+        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  save-result             save a Q&A result to graphify-out/memory/ for graph feedback loop")
         print("    --question Q            the question asked")
         print("    --answer A              the answer to save")
@@ -1347,6 +1351,66 @@ def main() -> None:
                 depth=2,
                 token_budget=budget,
                 context_filters=context_filters,
+            )
+        )
+    elif cmd == "affected":
+        if len(sys.argv) < 3:
+            print("Usage: graphify affected \"<node-or-label>\" [--relation R] [--depth N] [--graph path]", file=sys.stderr)
+            sys.exit(1)
+        from graphify.affected import DEFAULT_AFFECTED_RELATIONS, format_affected, load_graph
+        query = sys.argv[2]
+        graph_path = "graphify-out/graph.json"
+        depth = 2
+        relations: list[str] = []
+        args = sys.argv[3:]
+        i = 0
+        while i < len(args):
+            if args[i] == "--graph" and i + 1 < len(args):
+                graph_path = args[i + 1]
+                i += 2
+            elif args[i].startswith("--graph="):
+                graph_path = args[i].split("=", 1)[1]
+                i += 1
+            elif args[i] == "--depth" and i + 1 < len(args):
+                try:
+                    depth = int(args[i + 1])
+                except ValueError:
+                    print("error: --depth must be an integer", file=sys.stderr)
+                    sys.exit(1)
+                i += 2
+            elif args[i].startswith("--depth="):
+                try:
+                    depth = int(args[i].split("=", 1)[1])
+                except ValueError:
+                    print("error: --depth must be an integer", file=sys.stderr)
+                    sys.exit(1)
+                i += 1
+            elif args[i] == "--relation" and i + 1 < len(args):
+                relations.append(args[i + 1])
+                i += 2
+            elif args[i].startswith("--relation="):
+                relations.append(args[i].split("=", 1)[1])
+                i += 1
+            else:
+                i += 1
+        gp = Path(graph_path).resolve()
+        if not gp.exists():
+            print(f"error: graph file not found: {gp}", file=sys.stderr)
+            sys.exit(1)
+        if not gp.suffix == ".json":
+            print("error: graph file must be a .json file", file=sys.stderr)
+            sys.exit(1)
+        try:
+            graph = load_graph(gp)
+        except Exception as exc:
+            print(f"error: could not load graph: {exc}", file=sys.stderr)
+            sys.exit(1)
+        print(
+            format_affected(
+                graph,
+                query,
+                relations=relations or DEFAULT_AFFECTED_RELATIONS,
+                depth=depth,
             )
         )
     elif cmd == "save-result":
