@@ -1091,6 +1091,433 @@ def push_to_neo4j(
     return {"nodes": nodes_pushed, "edges": edges_pushed}
 
 
+def to_hugegraph(
+    G: nx.Graph,
+    communities: dict[int, list[str]],
+    output_dir: str,
+) -> dict[str, int]:
+    """Export graph as HugeGraph Loader-compatible files.
+
+    Writes six files to output_dir:
+
+    REST API input (pretty-printed JSON arrays):
+      hugegraph_vertices.json   — vertex list for REST API batch endpoint
+      hugegraph_edges.json      — edge list for REST API batch endpoint
+
+    HugeGraph Loader input (NDJSON — one record per line):
+      hugegraph_loader_vertices.json  — one vertex JSON object per line, per vertex label
+      hugegraph_loader_edges.json     — one edge JSON object per line, all edge labels
+
+    HugeGraph Loader config:
+      schema.groovy   — Groovy DSL schema (propertyKey / vertexLabel / edgeLabel)
+      struct.json     — Loader mapping file linking NDJSON files to schema labels
+
+    Import with HugeGraph Loader:
+      bin/hugegraph-loader -g hugegraph -f hugegraph-out/struct.json \\
+          -s hugegraph-out/schema.groovy --host localhost --port 8080
+    """
+    out = Path(output_dir)
+    out.mkdir(parents=True, exist_ok=True)
+
+    node_community = _node_community_map(communities)
+
+    def _safe_label(s: str) -> str:
+        sanitized = re.sub(r"[^A-Za-z0-9_]", "_", s).strip("_")
+        return sanitized if sanitized else "entity"
+
+    # ── 1. Collect vertex and edge data ──────────────────────────────────────
+
+    # Track which property keys each vertex label actually uses (for schema)
+    vertex_label_props: dict[str, set[str]] = {}
+    # All possible vertex props in declaration order
+    _ALL_V_PROPS = ["id", "name", "source_file", "source_location",
+                    "author", "contributor", "community"]
+
+    vertices = []
+    # Per-label NDJSON rows: {vlabel: [row_dict, ...]}
+    loader_v_rows: dict[str, list[dict]] = {}
+
+    for node_id, data in G.nodes(data=True):
+        ftype = data.get("file_type", "entity") or "entity"
+        vlabel = _safe_label(ftype.lower())
+
+        # REST API format — nested properties dict
+        rest_props: dict = {
+            "id": node_id,
+            "label": data.get("label", node_id),
+        }
+        for key in ("source_file", "source_location", "author", "contributor"):
+            val = data.get(key)
+            if val:
+                rest_props[key] = val
+        cid = node_community.get(node_id)
+        if cid is not None:
+            rest_props["community"] = cid
+        vertices.append({"label": vlabel, "properties": rest_props})
+
+        # Loader NDJSON format — flat row (primary key = "id")
+        loader_row: dict = {"id": node_id, "name": data.get("label", node_id)}
+        for key in ("source_file", "source_location", "author", "contributor"):
+            val = data.get(key)
+            loader_row[key] = val if val else ""
+        loader_row["community"] = cid if cid is not None else -1
+
+        loader_v_rows.setdefault(vlabel, []).append(loader_row)
+        vertex_label_props.setdefault(vlabel, set()).update(loader_row.keys())
+
+    # ── 2. Collect edge data ──────────────────────────────────────────────────
+
+    # Track which (src_label, tgt_label) pairs each edge label uses (for schema)
+    # We pick the most common src/tgt label pair per edge label.
+    from collections import Counter as _Counter
+    edge_label_pairs: dict[str, _Counter] = {}
+
+    node_vlabel: dict[str, str] = {}
+    for node_id, data in G.nodes(data=True):
+        ftype = data.get("file_type", "entity") or "entity"
+        node_vlabel[node_id] = _safe_label(ftype.lower())
+
+    edges = []
+    loader_e_rows: list[dict] = []
+
+    for u, v, data in G.edges(data=True):
+        relation = data.get("relation", "related_to") or "related_to"
+        elabel = _safe_label(relation.lower())
+        confidence = data.get("confidence", "EXTRACTED")
+        confidence_score = float(data.get("confidence_score", 1.0))
+        weight = float(data.get("weight", 1.0))
+
+        # REST API format
+        edges.append({
+            "label": elabel,
+            "outV": u,
+            "inV": v,
+            "properties": {
+                "confidence": confidence,
+                "confidence_score": confidence_score,
+                "weight": weight,
+                "edge_label": elabel,
+            },
+        })
+
+        # Loader NDJSON format — flat row with src/tgt primary keys
+        loader_e_rows.append({
+            "out_id": u,
+            "in_id": v,
+            "edge_label": elabel,
+            "confidence": confidence,
+            "confidence_score": confidence_score,
+            "weight": weight,
+        })
+
+        # Track src→tgt label pairs for schema declaration
+        src_lbl = node_vlabel.get(u, "entity")
+        tgt_lbl = node_vlabel.get(v, "entity")
+        edge_label_pairs.setdefault(elabel, _Counter())[(src_lbl, tgt_lbl)] += 1
+
+    # ── 3. Write REST API JSON arrays ─────────────────────────────────────────
+
+    (out / "hugegraph_vertices.json").write_text(
+        json.dumps(vertices, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+    (out / "hugegraph_edges.json").write_text(
+        json.dumps(edges, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+    # ── 4. Write Loader NDJSON files ──────────────────────────────────────────
+
+    loader_dir = out / "loader"
+    loader_dir.mkdir(exist_ok=True)
+
+    for vlabel, rows in loader_v_rows.items():
+        fname = loader_dir / f"vertices_{vlabel}.json"
+        lines = [json.dumps(row, ensure_ascii=False) for row in rows]
+        fname.write_text("\n".join(lines), encoding="utf-8")
+
+    # One NDJSON file per edge label so struct.json needs no mapping_filter.
+    loader_e_rows_by_label: dict[str, list[dict]] = {}
+    for row in loader_e_rows:
+        loader_e_rows_by_label.setdefault(row["edge_label"], []).append(row)
+    for elabel, rows in loader_e_rows_by_label.items():
+        e_lines = [json.dumps(r, ensure_ascii=False) for r in rows]
+        (loader_dir / f"edges_{elabel}.json").write_text("\n".join(e_lines), encoding="utf-8")
+
+    # ── 5. Generate schema.groovy ─────────────────────────────────────────────
+
+    groovy_lines = [
+        "// HugeGraph schema — generated by /graphify",
+        "// Run: hugegraph-loader -g hugegraph -f struct.json -s schema.groovy",
+        "",
+        "// ── Property Keys ────────────────────────────────────────────────",
+        'schema.propertyKey("id").asText().ifNotExist().create();',
+        'schema.propertyKey("name").asText().ifNotExist().create();',
+        'schema.propertyKey("source_file").asText().ifNotExist().create();',
+        'schema.propertyKey("source_location").asText().ifNotExist().create();',
+        'schema.propertyKey("author").asText().ifNotExist().create();',
+        'schema.propertyKey("contributor").asText().ifNotExist().create();',
+        'schema.propertyKey("community").asInt().ifNotExist().create();',
+        'schema.propertyKey("confidence").asText().ifNotExist().create();',
+        'schema.propertyKey("confidence_score").asDouble().ifNotExist().create();',
+        'schema.propertyKey("weight").asDouble().ifNotExist().create();',
+        'schema.propertyKey("edge_label").asText().ifNotExist().create();',
+        "",
+        "// ── Vertex Labels ────────────────────────────────────────────────",
+    ]
+    for vlabel in sorted(vertex_label_props):
+        groovy_lines.append(
+            f'schema.vertexLabel("{vlabel}")'
+            f'.properties("id","name","source_file","source_location","author","contributor","community")'
+            f'.primaryKeys("id")'
+            f'.nullableKeys("source_file","source_location","author","contributor","community")'
+            f'.ifNotExist().create();'
+        )
+
+    groovy_lines += ["", "// ── Edge Labels ─────────────────────────────────────────────────"]
+    for elabel in sorted(edge_label_pairs):
+        # Pick the most frequent src/tgt pair for this edge label
+        (src_lbl, tgt_lbl), _ = edge_label_pairs[elabel].most_common(1)[0]
+        groovy_lines.append(
+            f'schema.edgeLabel("{elabel}")'
+            f'.sourceLabel("{src_lbl}").targetLabel("{tgt_lbl}")'
+            f'.properties("confidence","confidence_score","weight","edge_label")'
+            f'.nullableKeys("confidence_score","weight")'
+            f'.ifNotExist().create();'
+        )
+
+    groovy_lines.append("")
+    (out / "schema.groovy").write_text("\n".join(groovy_lines), encoding="utf-8")
+
+    # ── 6. Generate struct.json ───────────────────────────────────────────────
+
+    struct_vertices = []
+    for vlabel in sorted(loader_v_rows):
+        struct_vertices.append({
+            "label": vlabel,
+            "input": {
+                "type": "file",
+                "path": f"loader/vertices_{vlabel}.json",
+                "format": "JSON",
+                "charset": "UTF-8",
+            },
+            "null_values": ["", "null", "NULL"],
+            "field_mapping": {"name": "name"},
+        })
+
+    # One struct entry per edge label, referencing its own NDJSON file.
+    # mapping_filter is NOT used — HugeGraph Loader 1.7.0 does not support it.
+    struct_edges = []
+    for elabel in sorted(edge_label_pairs):
+        (src_lbl, tgt_lbl), _ = edge_label_pairs[elabel].most_common(1)[0]
+        struct_edges.append({
+            "label": elabel,
+            "input": {
+                "type": "file",
+                "path": f"loader/edges_{elabel}.json",
+                "format": "JSON",
+                "charset": "UTF-8",
+            },
+            "source": ["out_id"],
+            "target": ["in_id"],
+            "field_mapping": {
+                "out_id": "id",
+                "in_id": "id",
+            },
+            "null_values": ["", "null"],
+        })
+
+    struct = {"vertices": struct_vertices, "edges": struct_edges}
+    (out / "struct.json").write_text(
+        json.dumps(struct, ensure_ascii=False, indent=2), encoding="utf-8"
+    )
+
+    return {"vertices": len(vertices), "edges": len(edges)}
+
+
+def push_to_hugegraph(
+    G: nx.Graph,
+    host: str,
+    communities: dict[int, list[str]] | None = None,
+    graph: str = "hugegraph",
+    batch_size: int = 100,
+) -> dict[str, int]:
+    """Push graph directly to a running HugeGraph instance via the REST API.
+
+    host example: 'localhost:8080' or 'http://localhost:8080'
+
+    Uses the HugeGraph Gremlin/API batch vertex+edge endpoint.
+    Requires: pip install requests
+
+    Vertex labels and edge labels are auto-created if the schema does not
+    already define them (open schema / allow_all_vertices mode).
+
+    Returns counts of vertices and edges pushed.
+    """
+    try:
+        import requests
+    except ImportError as e:
+        raise ImportError("requests not installed. Run: pip install requests") from e
+
+    base = host.rstrip("/")
+    if not base.startswith("http"):
+        base = f"http://{base}"
+
+    node_community = _node_community_map(communities) if communities else {}
+
+    def _safe_label(s: str) -> str:
+        sanitized = re.sub(r"[^A-Za-z0-9_]", "_", s).strip("_")
+        return sanitized if sanitized else "entity"
+
+    # Collect all vertex labels and edge labels for schema initialisation
+    vertex_labels: set[str] = set()
+    edge_labels: set[str] = set()
+    for _, data in G.nodes(data=True):
+        vertex_labels.add(_safe_label((data.get("file_type") or "entity").lower()))
+    for _, _, data in G.edges(data=True):
+        edge_labels.add(_safe_label((data.get("relation") or "related_to").lower()))
+
+    schema_url = f"{base}/apis/raft/leader/transfer"  # probe to detect version
+    # Ensure open schema allows unknown labels (best-effort; ignore errors)
+    try:
+        requests.get(f"{base}/apis", timeout=5)
+    except Exception:
+        pass
+
+    # Create vertex label schemas (PropertyKey + VertexLabel)
+    # We declare a minimal set of common properties and use open schema for the rest.
+    _schema_props = [
+        ("id_prop", "TEXT"),
+        ("label_prop", "TEXT"),
+        ("source_file", "TEXT"),
+        ("community", "INT"),
+        ("confidence", "TEXT"),
+    ]
+    _prop_map = {
+        "id_prop": "id",
+        "label_prop": "label",
+        "source_file": "source_file",
+        "community": "community",
+        "confidence": "confidence",
+    }
+
+    def _post(url: str, payload: dict) -> requests.Response:
+        return requests.post(
+            url,
+            json=payload,
+            headers={"Content-Type": "application/json"},
+            timeout=30,
+        )
+
+    schema_base = f"{base}/apis/{graph}/schema"
+
+    # Create property keys (ignore 409 = already exists)
+    for prop_name, prop_type in [
+        ("id", "TEXT"), ("label", "TEXT"), ("source_file", "TEXT"),
+        ("community", "INT"), ("confidence", "TEXT"),
+        ("confidence_score", "DOUBLE"), ("weight", "DOUBLE"),
+        ("edge_label", "TEXT"),
+    ]:
+        resp = _post(f"{schema_base}/propertykeys", {
+            "name": prop_name, "data_type": prop_type, "cardinality": "SINGLE"
+        })
+        # 409 = already exists — acceptable
+        if resp.status_code not in (200, 201, 409):
+            raise RuntimeError(
+                f"Failed to create property key '{prop_name}': {resp.status_code} {resp.text[:200]}"
+            )
+
+    # Create vertex labels
+    for vlabel in vertex_labels:
+        resp = _post(f"{schema_base}/vertexlabels", {
+            "name": vlabel,
+            "id_strategy": "PRIMARY_KEY",
+            "primary_keys": ["id"],
+            "properties": ["id", "label", "source_file", "community"],
+            "nullable_keys": ["source_file", "community"],
+        })
+        if resp.status_code not in (200, 201, 409):
+            raise RuntimeError(
+                f"Failed to create vertex label '{vlabel}': {resp.status_code} {resp.text[:200]}"
+            )
+
+    # Create edge labels
+    for elabel in edge_labels:
+        resp = _post(f"{schema_base}/edgelabels", {
+            "name": elabel,
+            "source_label": "*",
+            "target_label": "*",
+            "properties": ["confidence", "confidence_score", "weight", "edge_label"],
+            "nullable_keys": ["confidence_score", "weight"],
+        })
+        if resp.status_code not in (200, 201, 409):
+            raise RuntimeError(
+                f"Failed to create edge label '{elabel}': {resp.status_code} {resp.text[:200]}"
+            )
+
+    # Push vertices in batches
+    vertices_url = f"{base}/apis/{graph}/graph/vertices/batch"
+    vertex_list = []
+    for node_id, data in G.nodes(data=True):
+        ftype = data.get("file_type", "entity") or "entity"
+        vlabel = _safe_label(ftype.lower())
+        props = {
+            "id": node_id,
+            "label": data.get("label", node_id),
+        }
+        sf = data.get("source_file")
+        if sf:
+            props["source_file"] = sf
+        cid = node_community.get(node_id)
+        if cid is not None:
+            props["community"] = cid
+        vertex_list.append({"label": vlabel, "properties": props})
+
+    vertices_pushed = 0
+    for i in range(0, len(vertex_list), batch_size):
+        batch = vertex_list[i : i + batch_size]
+        resp = _post(vertices_url, batch)
+        if resp.status_code not in (200, 201):
+            raise RuntimeError(
+                f"Vertex batch {i//batch_size} failed: {resp.status_code} {resp.text[:300]}"
+            )
+        vertices_pushed += len(batch)
+
+    # Push edges in batches
+    edges_url = f"{base}/apis/{graph}/graph/edges/batch"
+    edge_list = []
+    for u, v, data in G.edges(data=True):
+        relation = data.get("relation", "related_to") or "related_to"
+        elabel = _safe_label(relation.lower())
+        edge_list.append({
+            "label": elabel,
+            "outV": u,
+            "outVLabel": _safe_label(
+                (G.nodes[u].get("file_type") or "entity").lower()
+            ),
+            "inV": v,
+            "inVLabel": _safe_label(
+                (G.nodes[v].get("file_type") or "entity").lower()
+            ),
+            "properties": {
+                "confidence": data.get("confidence", "EXTRACTED"),
+                "confidence_score": float(data.get("confidence_score", 1.0)),
+                "weight": float(data.get("weight", 1.0)),
+                "edge_label": elabel,
+            },
+        })
+
+    edges_pushed = 0
+    for i in range(0, len(edge_list), batch_size):
+        batch = edge_list[i : i + batch_size]
+        resp = _post(edges_url, batch)
+        if resp.status_code not in (200, 201):
+            raise RuntimeError(
+                f"Edge batch {i//batch_size} failed: {resp.status_code} {resp.text[:300]}"
+            )
+        edges_pushed += len(batch)
+
+    return {"vertices": vertices_pushed, "edges": edges_pushed}
+
+
 def to_graphml(
     G: nx.Graph,
     communities: dict[int, list[str]],

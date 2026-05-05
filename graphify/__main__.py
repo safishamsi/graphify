@@ -1740,7 +1740,7 @@ def main() -> None:
 
     elif cmd == "export":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
-        if subcmd not in ("html", "obsidian", "wiki", "svg", "graphml", "neo4j"):
+        if subcmd not in ("html", "obsidian", "wiki", "svg", "graphml", "neo4j", "hugegraph"):
             print("Usage: graphify export <format>", file=sys.stderr)
             print("  html      [--graph PATH] [--labels PATH] [--node-limit N] [--no-viz]", file=sys.stderr)
             print("  obsidian  [--graph PATH] [--labels PATH] [--dir PATH]", file=sys.stderr)
@@ -1748,6 +1748,7 @@ def main() -> None:
             print("  svg       [--graph PATH] [--labels PATH]", file=sys.stderr)
             print("  graphml   [--graph PATH]", file=sys.stderr)
             print("  neo4j     [--graph PATH] [--push URI] [--user U] [--password P]", file=sys.stderr)
+            print("  hugegraph [--graph PATH] [--push HOST] [--graph-name NAME] [--batch N]", file=sys.stderr)
             sys.exit(1)
 
         # Parse shared args
@@ -1761,6 +1762,9 @@ def main() -> None:
         neo4j_uri: str | None = None
         neo4j_user = "neo4j"
         neo4j_password: str | None = None
+        hugegraph_host: str | None = None
+        hugegraph_graph = "hugegraph"
+        hugegraph_batch = 100
         i = 0
         while i < len(args):
             a = args[i]
@@ -1775,11 +1779,19 @@ def main() -> None:
             elif a == "--dir" and i + 1 < len(args):
                 obsidian_dir = Path(args[i + 1]); i += 2
             elif a == "--push" and i + 1 < len(args):
-                neo4j_uri = args[i + 1]; i += 2
+                if subcmd == "hugegraph":
+                    hugegraph_host = args[i + 1]
+                else:
+                    neo4j_uri = args[i + 1]
+                i += 2
             elif a == "--user" and i + 1 < len(args):
                 neo4j_user = args[i + 1]; i += 2
             elif a == "--password" and i + 1 < len(args):
                 neo4j_password = args[i + 1]; i += 2
+            elif a == "--graph-name" and i + 1 < len(args):
+                hugegraph_graph = args[i + 1]; i += 2
+            elif a == "--batch" and i + 1 < len(args):
+                hugegraph_batch = int(args[i + 1]); i += 2
             else:
                 i += 1
 
@@ -1871,6 +1883,27 @@ def main() -> None:
                 from graphify.export import to_cypher as _to_cypher
                 _to_cypher(G, str(out_dir / "cypher.txt"))
                 print(f"cypher.txt written - import with: cypher-shell < {out_dir}/cypher.txt")
+
+        elif subcmd == "hugegraph":
+            if hugegraph_host:
+                from graphify.export import push_to_hugegraph as _push_hg
+                result = _push_hg(G, host=hugegraph_host, communities=communities,
+                                  graph=hugegraph_graph, batch_size=hugegraph_batch)
+                print(f"Pushed to HugeGraph: {result['vertices']} vertices, {result['edges']} edges")
+            else:
+                from graphify.export import to_hugegraph as _to_hg
+                hg_dir = out_dir / "hugegraph"
+                r = _to_hg(G, communities, str(hg_dir))
+                print(f"hugegraph_vertices.json  — {r['vertices']} vertices (REST API)")
+                print(f"hugegraph_edges.json     — {r['edges']} edges (REST API)")
+                print(f"loader/vertices_*.json   — NDJSON per vertex label (Loader)")
+                print(f"loader/edges_*.json      — NDJSON per edge label (Loader)")
+                print(f"schema.groovy            — schema definition")
+                print(f"struct.json              — Loader mapping file")
+                print(f"")
+                print(f"Import with HugeGraph Loader:")
+                print(f"  bin/hugegraph-loader -g hugegraph -f {hg_dir}/struct.json \\")
+                print(f"      -s {hg_dir}/schema.groovy --host localhost --port 8080")
 
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
