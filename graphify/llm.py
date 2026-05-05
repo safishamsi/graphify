@@ -58,6 +58,14 @@ BACKENDS: dict[str, dict] = {
         "pricing": {"input": 0.74, "output": 4.66},  # USD per 1M tokens
         "temperature": None,  # kimi-k2.6 enforces its own fixed temperature; sending any value raises 400
     },
+    "custom": {
+        # For users who want to specify their own OpenAI-compatible endpoint and model.
+        "base_url": os.environ.get("GRAPHIFY_LLM_BASE_URL", None),  # Must be set by caller
+        "default_model": os.environ.get("GRAPHIFY_LLM_MODEL", "kimi-k2.5"),  # Must be set by caller
+        "env_key": "GRAPHIFY_LLM_API_KEY",
+        "pricing": {"input": 0.0, "output": 0.0},  # User must estimate separately
+        "temperature": os.environ.get("GRAPHIFY_LLM_TEMPERATURE", None),  # Optional override; defaults to None (use model default)
+    }
 }
 
 _EXTRACTION_SYSTEM = """\
@@ -468,11 +476,14 @@ def estimate_cost(backend: str, input_tokens: int, output_tokens: int) -> float:
 def detect_backend() -> str | None:
     """Return the name of whichever backend has an API key set, or None.
 
-    Kimi is checked first (opt-in). Falls back to Claude if ANTHROPIC_API_KEY is set.
-    Claude is the default for the skill.md subagent pipeline and is never forced here.
+    Kimi is checked first (opt-in). Then checks for a custom defined LLM with Base URL. 
+    Falls back to Claude if ANTHROPIC_API_KEY is set. Claude is the default for the skill.md 
+    subagent pipeline and is never forced here.
     """
     if os.environ.get("MOONSHOT_API_KEY"):
         return "kimi"
+    if os.environ.get("GRAPHIFY_LLM_BASE_URL"):
+        return "custom"
     if os.environ.get("ANTHROPIC_API_KEY"):
         return "claude"
     return None

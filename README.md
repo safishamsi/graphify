@@ -226,6 +226,33 @@ The MCP server gives your assistant structured access: `query_graph`, `get_node`
 
 ---
 
+## Using Kimi or a custom "cheaper" LLM instead of Claude
+
+Graphify can use **Kimi 2.6** (Via Moonshot) or any other openai-compatible model for semantic extraction. Kimi, for example is roughly 3x cheaper than claude per token.
+
+### Option A: Kimi 2.6 via Moonshot (recommended)
+
+Get a key from https://platform.moonshot.ai/, configure it as an env var, No further config needed.
+
+```bash
+export MOONSHOT_API_KEY=<your-moonshot-key>
+```
+
+### Option B: Any other LLM provider
+
+Graphify can use any LLM provider which gives an openAI compatible endpoint:
+
+Example with Openrouter and Qwen3.6
+```bash
+export GRAPHIFY_LLM_BASE_URL=https://openrouter.ai/api/v1
+export GRAPHIFY_LLM_MODEL=qwen/qwen3.6-35b-a3b
+export GRAPHIFY_LLM_API_KEY=<your-openrouter-key>
+# Optional, if required by your model
+export GRAPHIFY_LLM_TEMPERATURE=0.6
+```
+
+---
+
 ## Full command reference
 
 ```
