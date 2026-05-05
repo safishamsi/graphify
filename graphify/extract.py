@@ -3603,8 +3603,7 @@ def _disambiguate_colliding_node_ids(
             source_key = _source_key(str(node.get("source_file", "")), root)
             if not source_key:
                 continue
-            source_prefix = str(Path(source_key).with_suffix(""))
-            new_id = _make_id(source_prefix, node.get("label", old_id))
+            new_id = _make_id(source_key, old_id)
             remap[(old_id, source_key)] = new_id
             if new_id != old_id:
                 node["id"] = new_id
@@ -3670,10 +3669,11 @@ def _rewire_unique_stub_nodes(nodes: list[dict], edges: list[dict]) -> None:
         key = _node_label_key(node)
         if not key:
             continue
-        if node.get("source_file") and _is_type_like_definition(node):
-            real_by_label.setdefault(key, []).append(node)
-        else:
-            stubs.append(node)
+        if node.get("source_file"):
+            if _is_type_like_definition(node):
+                real_by_label.setdefault(key, []).append(node)
+            continue
+        stubs.append(node)
 
     remap: dict[str, str] = {}
     drop_ids: set[str] = set()

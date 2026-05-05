@@ -187,6 +187,28 @@ def test_extract_does_not_rewire_inheritance_stub_to_same_named_function(tmp_pat
     )
 
 
+def test_extract_does_not_rewire_constructor_method_to_same_named_class(tmp_path):
+    source = tmp_path / "Sample.java"
+    source.write_text(
+        "class DataProcessor {\n"
+        "    public DataProcessor() {}\n"
+        "}\n",
+        encoding="utf-8",
+    )
+
+    result = extract([source], cache_root=tmp_path)
+
+    constructor_nodes = [
+        node for node in result["nodes"]
+        if node["label"] == ".DataProcessor()"
+    ]
+    assert constructor_nodes
+    assert not any(
+        edge["source"] == edge["target"]
+        for edge in result["edges"]
+    )
+
+
 def test_collect_files_from_dir():
     files = collect_files(FIXTURES)
     supported = {".py", ".js", ".ts", ".tsx", ".go", ".rs",

@@ -221,34 +221,39 @@ def test_cache_miss_after_file_change(tmp_path):
 
 # ── SQL ───────────────────────────────────────────────────────────────────────
 
+def _extract_sql_or_skip():
+    pytest.importorskip("tree_sitter_sql")
+    return extract_sql(FIXTURES / "sample.sql")
+
+
 def test_sql_finds_tables():
-    r = extract_sql(FIXTURES / "sample.sql")
+    r = _extract_sql_or_skip()
     labels = [n["label"] for n in r["nodes"]]
     assert any("users" in l for l in labels)
     assert any("organizations" in l for l in labels)
 
 def test_sql_finds_view():
-    r = extract_sql(FIXTURES / "sample.sql")
+    r = _extract_sql_or_skip()
     labels = [n["label"] for n in r["nodes"]]
     assert any("active_users" in l for l in labels)
 
 def test_sql_finds_function():
-    r = extract_sql(FIXTURES / "sample.sql")
+    r = _extract_sql_or_skip()
     labels = [n["label"] for n in r["nodes"]]
     assert any("get_user" in l for l in labels)
 
 def test_sql_emits_foreign_key_edge():
-    r = extract_sql(FIXTURES / "sample.sql")
+    r = _extract_sql_or_skip()
     relations = {e["relation"] for e in r["edges"]}
     assert "references" in relations
 
 def test_sql_emits_reads_from_edge():
-    r = extract_sql(FIXTURES / "sample.sql")
+    r = _extract_sql_or_skip()
     relations = {e["relation"] for e in r["edges"]}
     assert "reads_from" in relations
 
 def test_sql_no_dangling_edges():
-    r = extract_sql(FIXTURES / "sample.sql")
+    r = _extract_sql_or_skip()
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids, f"dangling source: {e['source']}"
