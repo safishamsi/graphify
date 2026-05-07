@@ -2,6 +2,10 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## Unreleased
+
+- Feat: Solidity support -- `.sol` files extracted via `tree-sitter-solidity`. Covers contracts/interfaces/libraries, free functions, modifiers, events, errors, structs, enums, state variables, constructors, and fallback/receive. Edges include `inherits`, `imports`, `imports_from` (named imports + `using ... for ...`), `applies_modifier`, `emits`, and `calls` (low-confidence 0.5 for member calls, 1.0 for direct). A pre-pass collects file-wide name maps so inheritance, modifier invocations, and emit statements resolve to in-file definitions instead of dangling bare-name targets. Builtins (`require`/`assert`/`keccak256`/type conversions) are filtered from `calls`, and `revert_statement` subtrees are skipped so error construction is not misclassified as a function call. Available via `pip install graphifyy[solidity]`. Validated against OpenZeppelin contracts (349 `.sol` files, 0 errors, ~0.8 ms/file).
+
 ## 0.7.15 (2026-05-11)
 
 - Fix: `-h`/`--help`/`-?` in any position now stops execution — previously `graphify cursor install --help` silently installed into Cursor; `graphify benchmark --help` crashed with FileNotFoundError (#821)
