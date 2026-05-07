@@ -141,6 +141,113 @@ def test_export_neo4j_creates_cypher(tmp_path):
     assert "MERGE" in content or "CREATE" in content
 
 
+# ── graphify export hugegraph ─────────────────────────────────────────────────
+
+def test_export_hugegraph_creates_files(tmp_path):
+    _make_graph(tmp_path)
+    r = _run(["export", "hugegraph"], tmp_path)
+    assert r.returncode == 0, r.stderr
+    out = tmp_path / "graphify-out" / "hugegraph"
+    assert (out / "hugegraph_vertices.json").exists()
+    assert (out / "hugegraph_edges.json").exists()
+    assert (out / "schema.groovy").exists()
+    assert (out / "struct.json").exists()
+    loader = out / "loader"
+    assert loader.exists()
+    # At least one per-label vertex file and one per-label edge file
+    assert len(list(loader.glob("vertices_*.json"))) > 0
+    assert len(list(loader.glob("edges_*.json"))) > 0
+
+
+def test_export_hugegraph_vertices_schema(tmp_path):
+    _make_graph(tmp_path)
+    _run(["export", "hugegraph"], tmp_path)
+    out = tmp_path / "graphify-out" / "hugegraph"
+    vertices = json.loads((out / "hugegraph_vertices.json").read_text())
+    assert isinstance(vertices, list)
+    assert len(vertices) > 0
+    v = vertices[0]
+    assert "label" in v
+    assert "properties" in v
+    assert "id" in v["properties"]
+    assert "label" in v["properties"]
+
+
+def test_export_hugegraph_edges_schema(tmp_path):
+    _make_graph(tmp_path)
+    _run(["export", "hugegraph"], tmp_path)
+    out = tmp_path / "graphify-out" / "hugegraph"
+    edges = json.loads((out / "hugegraph_edges.json").read_text())
+    assert isinstance(edges, list)
+    if edges:
+        e = edges[0]
+        assert "label" in e
+        assert "outV" in e
+        assert "inV" in e
+        assert "properties" in e
+        assert "confidence" in e["properties"]
+        assert "edge_label" in e["properties"]
+
+
+def test_export_hugegraph_schema_groovy(tmp_path):
+    _make_graph(tmp_path)
+    _run(["export", "hugegraph"], tmp_path)
+    groovy = (tmp_path / "graphify-out" / "hugegraph" / "schema.groovy").read_text()
+    assert "schema.propertyKey" in groovy
+    assert "schema.vertexLabel" in groovy
+    assert "schema.edgeLabel" in groovy
+    assert ".primaryKeys(" in groovy
+    assert ".ifNotExist().create()" in groovy
+    assert 'schema.propertyKey("edge_label")' in groovy
+    assert '.properties("confidence","confidence_score","weight","edge_label")' in groovy
+
+
+def test_export_hugegraph_struct_json(tmp_path):
+    _make_graph(tmp_path)
+    _run(["export", "hugegraph"], tmp_path)
+    struct = json.loads((tmp_path / "graphify-out" / "hugegraph" / "struct.json").read_text())
+    assert "vertices" in struct
+    assert "edges" in struct
+    assert len(struct["vertices"]) > 0
+    sv = struct["vertices"][0]
+    assert "label" in sv
+    assert "input" in sv
+    assert sv["input"]["format"] == "JSON"
+    if struct["edges"]:
+        se = struct["edges"][0]
+        assert "source" in se
+        assert "target" in se
+        assert "field_mapping" in se
+
+
+def test_export_hugegraph_loader_ndjson(tmp_path):
+    _make_graph(tmp_path)
+    _run(["export", "hugegraph"], tmp_path)
+    loader = tmp_path / "graphify-out" / "hugegraph" / "loader"
+    # Vertex NDJSON: each line must be valid JSON with "id" and "name"
+    for vfile in loader.glob("vertices_*.json"):
+        for line in vfile.read_text().splitlines():
+            if line.strip():
+                obj = json.loads(line)
+                assert "id" in obj
+                assert "name" in obj
+    # Edge NDJSON: one file per label, each line must have out_id and in_id
+    edge_files = list(loader.glob("edges_*.json"))
+    assert len(edge_files) > 0
+    for efile in edge_files:
+        for line in efile.read_text().splitlines():
+            if line.strip():
+                obj = json.loads(line)
+                assert "out_id" in obj
+                assert "in_id" in obj
+                assert "edge_label" in obj
+
+
+def test_export_hugegraph_missing_graph_fails(tmp_path):
+    r = _run(["export", "hugegraph"], tmp_path)
+    assert r.returncode != 0
+
+
 # ── graphify query ───────────────────────────────────────────────────────────
 
 def test_query_returns_output(tmp_path):
