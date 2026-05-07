@@ -1952,7 +1952,15 @@ def extract_python(path: Path) -> dict:
 def extract_js(path: Path) -> dict:
     """Extract classes, functions, arrow functions, and imports from a .js/.ts/.tsx file."""
     config = _TS_CONFIG if path.suffix in (".ts", ".tsx") else _JS_CONFIG
-    return _extract_generic(path, config)
+    result = _extract_generic(path, config)
+    # Tauri cross-language bridge: collect invoke("X", ...) calls so the
+    # extract() pipeline can resolve them to Rust #[tauri::command] fns.
+    if path.suffix in (".ts", ".tsx"):
+        try:
+            result["tauri_invokes"] = _collect_js_tauri_invokes(path, config)
+        except Exception:
+            result["tauri_invokes"] = []
+    return result
 
 
 def extract_svelte(path: Path) -> dict:
@@ -3407,7 +3415,15 @@ def extract_rust(path: Path) -> dict:
         if src in valid_ids and (tgt in valid_ids or edge["relation"] in ("imports", "imports_from")):
             clean_edges.append(edge)
 
-    return {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls}
+    # Tauri cross-language bridge: collect #[tauri::command] fns so the extract()
+    # pipeline can resolve TS-side invoke("X") calls to these Rust handlers.
+    try:
+        tauri_commands = _collect_rust_tauri_commands(root, source, stem, str_path)
+    except Exception:
+        tauri_commands = []
+
+    return {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls,
+            "tauri_commands": tauri_commands}
 
 
 # ── Zig ───────────────────────────────────────────────────────────────────────
@@ -4781,6 +4797,19 @@ def extract(
             if e.get("target") in id_remap:
                 e["target"] = id_remap[e["target"]]
 
+    # Cross-language Tauri bridge: resolve TS-side invoke("X") calls to
+    # Rust-side #[tauri::command] handlers. No-op for projects without both
+    # halves; safe to run on any corpus.
+    try:
+        tauri_edges = _resolve_tauri_bridges(per_file, all_nodes, id_remap)
+        if tauri_edges:
+            all_edges.extend(tauri_edges)
+    except Exception as exc:
+        import logging
+        logging.getLogger(__name__).warning(
+            "Tauri bridge resolution failed, skipping: %s", exc
+        )
+
     # Add cross-file class-level edges (Python only - uses Python parser internally)
     py_paths = [p for p in paths if p.suffix == ".py"]
     if py_paths:
@@ -4958,6 +4987,278 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
             if p.suffix in _EXTENSIONS and not fname.startswith(".") and not _ignored(p):
                 results.append(p)
     return sorted(results)
+
+
+# ── Tauri cross-language bridge helpers ──────────────────────────────────────
+# Tauri apps dispatch from TypeScript to Rust through a string-based registry:
+#
+#   // TS side
+#   import { invoke } from "@tauri-apps/api/core";
+#   const result = await invoke<HealthReport>("cmd_health_check", { ... });
+#
+#   // Rust side
+#   #[tauri::command]
+#   pub async fn cmd_health_check() -> Result<HealthReport, String> { ... }
+#
+# Neither extractor on its own can connect those two — they live in different
+# files and different ASTs. The helpers below collect the two halves; extract()
+# joins them in a post-processing pass.
+
+def _rust_attr_is_tauri_command(attr_item, source: bytes) -> bool:
+    """True if an attribute_item AST node is `#[tauri::command]` or `#[command]`."""
+    for c in attr_item.children:
+        if c.type != "attribute":
+            continue
+        for cc in c.children:
+            if cc.type == "scoped_identifier":
+                text = source[cc.start_byte:cc.end_byte].decode("utf-8", errors="replace")
+                if text == "tauri::command":
+                    return True
+            elif cc.type == "identifier":
+                # `use tauri::command;` followed by `#[command]`
+                text = source[cc.start_byte:cc.end_byte].decode("utf-8", errors="replace")
+                if text == "command":
+                    return True
+    return False
+
+
+def _collect_rust_tauri_commands(root, source: bytes, stem: str, str_path: str) -> list[dict]:
+    """Walk a Rust AST and return entries for every #[tauri::command]-decorated fn.
+
+    Returns: [{name, node_id, source_file, line}]. The node_id matches the id
+    extract_rust assigns to the same fn so post-processing can hook edges
+    onto the existing graph nodes.
+    """
+    commands: list[dict] = []
+
+    def _check_function(fn_node, prev_siblings, parent_impl_nid):
+        # Look back through immediate sibling attribute_items for our marker.
+        has_tauri = False
+        for sib in reversed(prev_siblings):
+            if sib.type == "attribute_item":
+                if _rust_attr_is_tauri_command(sib, source):
+                    has_tauri = True
+                    break
+                # Other attributes (#[derive], #[cfg]) — keep walking back.
+                continue
+            if sib.type in ("line_comment", "block_comment"):
+                continue
+            break  # any other sibling resets the search
+        if not has_tauri:
+            return
+        name_node = fn_node.child_by_field_name("name")
+        if name_node is None:
+            return
+        fn_name = source[name_node.start_byte:name_node.end_byte].decode(
+            "utf-8", errors="replace"
+        )
+        if parent_impl_nid:
+            node_id = _make_id(parent_impl_nid, fn_name)
+        else:
+            node_id = _make_id(stem, fn_name)
+        commands.append({
+            "name": fn_name,
+            "node_id": node_id,
+            "source_file": str_path,
+            "line": fn_node.start_point[0] + 1,
+        })
+
+    def walk(node, parent_impl_nid=None):
+        children = list(node.children)
+        for i, child in enumerate(children):
+            if child.type == "function_item":
+                _check_function(child, children[:i], parent_impl_nid)
+            elif child.type == "impl_item":
+                # Find type identifier so methods get the right namespace
+                impl_nid = None
+                for c in child.children:
+                    if c.type == "type_identifier":
+                        type_name = source[c.start_byte:c.end_byte].decode(
+                            "utf-8", errors="replace"
+                        )
+                        impl_nid = _make_id(stem, type_name)
+                        break
+                # Recurse into the impl block's declaration_list
+                for c in child.children:
+                    if c.type == "declaration_list":
+                        walk(c, parent_impl_nid=impl_nid)
+            elif child.type in ("mod_item", "declaration_list", "source_file", "block"):
+                walk(child, parent_impl_nid=parent_impl_nid)
+
+    walk(root)
+    return commands
+
+
+def _collect_js_tauri_invokes(path: Path, config: "LanguageConfig") -> list[dict]:
+    """Walk a JS/TS/TSX AST and return every invoke("name", ...) call found.
+
+    Returns: [{command_name, caller_nid, source_file, line}]. caller_nid is
+    the id of the enclosing named function (or None for module-level invokes).
+    Only call sites whose first argument is a plain string literal are
+    captured — dynamic command names cannot be statically resolved.
+    """
+    import importlib
+    try:
+        mod = importlib.import_module(config.ts_module)
+        lang_fn = getattr(mod, config.ts_language_fn, None)
+        if lang_fn is None:
+            return []
+        from tree_sitter import Language, Parser
+        language = Language(lang_fn())
+        parser = Parser(language)
+    except Exception:
+        return []
+
+    try:
+        source = path.read_bytes()
+        tree = parser.parse(source)
+    except Exception:
+        return []
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    invokes: list[dict] = []
+
+    def _identifier_text(node) -> str | None:
+        if node is None:
+            return None
+        return source[node.start_byte:node.end_byte].decode("utf-8", errors="replace")
+
+    def _is_invoke_callee(fn_field) -> bool:
+        if fn_field is None:
+            return False
+        # Direct: `invoke("X")`
+        if fn_field.type == "identifier":
+            return _identifier_text(fn_field) == "invoke"
+        # `await invoke<T>("X")` parses with `await invoke` as the function field
+        if fn_field.type == "await_expression":
+            for c in fn_field.children:
+                if c.type == "identifier" and _identifier_text(c) == "invoke":
+                    return True
+        return False
+
+    def _first_string_arg(args_node) -> str | None:
+        if args_node is None:
+            return None
+        for c in args_node.children:
+            if c.type == "string":
+                # tree-sitter wraps the literal in `string > string_fragment`
+                for cc in c.children:
+                    if cc.type == "string_fragment":
+                        return source[cc.start_byte:cc.end_byte].decode(
+                            "utf-8", errors="replace"
+                        )
+                # Fall back to whole string text minus quotes
+                raw = source[c.start_byte:c.end_byte].decode("utf-8", errors="replace")
+                return raw.strip("\"'`")
+        return None
+
+    def walk(node, enclosing_fn_nid=None):
+        next_enclosing = enclosing_fn_nid
+        if node.type == "function_declaration":
+            name = node.child_by_field_name("name")
+            if name is not None:
+                fn_name = _identifier_text(name)
+                if fn_name:
+                    next_enclosing = _make_id(stem, fn_name)
+        elif node.type == "method_definition":
+            name = node.child_by_field_name("name")
+            if name is not None:
+                fn_name = _identifier_text(name)
+                if fn_name:
+                    # Methods reuse the enclosing class id when present, but we
+                    # do not track class scope here — fall back to the file stem
+                    # so the caller is still attributed to *something*.
+                    next_enclosing = _make_id(stem, fn_name)
+        # Arrow / function expressions stay anonymous: keep enclosing_fn_nid.
+
+        if node.type == "call_expression":
+            fn_field = node.child_by_field_name("function")
+            args = node.child_by_field_name("arguments")
+            if _is_invoke_callee(fn_field):
+                cmd_name = _first_string_arg(args)
+                if cmd_name:
+                    invokes.append({
+                        "command_name": cmd_name,
+                        "caller_nid": next_enclosing,
+                        "source_file": str_path,
+                        "line": node.start_point[0] + 1,
+                    })
+
+        for c in node.children:
+            walk(c, next_enclosing)
+
+    walk(tree.root_node)
+    return invokes
+
+
+def _resolve_tauri_bridges(
+    per_file_results: list[dict | None],
+    all_nodes: list[dict],
+    id_remap: dict[str, str] | None = None,
+) -> list[dict]:
+    """Match TS-side invoke() calls to Rust-side #[tauri::command] fns.
+
+    Emits `relation: invokes` edges with `context: tauri_command`. Skips
+    ambiguous command names (defined in multiple Rust files) and dynamic call
+    sites (no static string argument). Returns the list of new edges.
+    """
+    commands: list[dict] = []
+    invokes: list[dict] = []
+    for result in per_file_results:
+        if not result:
+            continue
+        commands.extend(result.get("tauri_commands", []) or [])
+        invokes.extend(result.get("tauri_invokes", []) or [])
+
+    if not commands or not invokes:
+        return []
+
+    # Apply id_remap if provided (paths get relativized in extract())
+    if id_remap:
+        for c in commands:
+            if c["node_id"] in id_remap:
+                c["node_id"] = id_remap[c["node_id"]]
+        for inv in invokes:
+            cid = inv.get("caller_nid")
+            if cid and cid in id_remap:
+                inv["caller_nid"] = id_remap[cid]
+
+    by_name: dict[str, list[dict]] = {}
+    for c in commands:
+        by_name.setdefault(c["name"], []).append(c)
+
+    valid_node_ids = {n["id"] for n in all_nodes}
+    edges: list[dict] = []
+    seen_pairs: set[tuple[str, str]] = set()
+    for inv in invokes:
+        targets = by_name.get(inv["command_name"], [])
+        if len(targets) != 1:
+            continue  # 0 = no Rust handler; 2+ = ambiguous, skip
+        tgt = targets[0]
+        if tgt["node_id"] not in valid_node_ids:
+            continue
+        caller = inv.get("caller_nid")
+        if not caller or caller not in valid_node_ids:
+            continue
+        if caller == tgt["node_id"]:
+            continue
+        pair = (caller, tgt["node_id"])
+        if pair in seen_pairs:
+            continue
+        seen_pairs.add(pair)
+        edges.append({
+            "source": caller,
+            "target": tgt["node_id"],
+            "relation": "invokes",
+            "context": "tauri_command",
+            "confidence": "EXTRACTED",
+            "confidence_score": 1.0,
+            "source_file": inv["source_file"],
+            "source_location": f"L{inv['line']}",
+            "weight": 1.0,
+        })
+    return edges
 
 
 if __name__ == "__main__":
