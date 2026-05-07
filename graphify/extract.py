@@ -4819,6 +4819,19 @@ def extract(
             import logging
             logging.getLogger(__name__).warning("Python import-guided call resolution failed, skipping: %s", exc)
 
+    # Build label -> node_id index for cross-file call resolution.
+    # Skip rationale nodes (their labels are docstring text, not callable
+    # identifiers, and they were polluting matches for short names — #563).
+    global_label_to_nids: dict[str, list[str]] = {}
+    for n in all_nodes:
+        if n.get("file_type") == "rationale":
+            continue
+        raw = n.get("label", "")
+        normalised = raw.strip("()").lstrip(".")
+        if normalised:
+            key = normalised.lower()
+            global_label_to_nids.setdefault(key, []).append(n["id"])
+
     # Build evidence index from import edges so cross-file calls backed by an
     # explicit import statement can be promoted from INFERRED to EXTRACTED.
     # Direct symbol imports (`import { foo }` / `const { foo } = require()`) are
