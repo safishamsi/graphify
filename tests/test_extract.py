@@ -321,3 +321,47 @@ def test_cross_file_call_remains_inferred_without_import_evidence(tmp_path):
     ]
     assert len(call_edges) == 1
     assert call_edges[0]["confidence"] == "INFERRED"
+
+
+# ── TSX (JSX-aware) parsing ──────────────────────────────────────────────────
+# .tsx files require tree-sitter-typescript's `language_tsx`, not the plain
+# `language_typescript` grammar. Parsing JSX with the wrong grammar produces
+# silent ERROR nodes and drops every function/call inside JSX trees.
+
+def test_extract_tsx_finds_helpers_and_component():
+    """Functions defined alongside a JSX-returning component must be captured."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "sample.tsx")
+    labels = [n["label"] for n in result["nodes"]]
+    assert any("fmtDate" in l for l in labels), f"fmtDate missing from {labels}"
+    assert any("fmtCount" in l for l in labels), f"fmtCount missing from {labels}"
+    assert any("App" in l for l in labels), f"App missing from {labels}"
+
+
+def test_extract_tsx_jsx_expression_calls_resolve():
+    """Calls inside JSX expressions like `{fmtDate(now)}` must yield call edges.
+
+    Regression guard for the TSX language fix: with `language_typescript`,
+    JSX is parsed as ERROR nodes and these call_expressions disappear.
+    """
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "sample.tsx")
+    nodes_by_id = {n["id"]: n for n in result["nodes"]}
+    call_targets = {
+        nodes_by_id[e["target"]]["label"]
+        for e in result["edges"]
+        if e["relation"] == "calls" and e["target"] in nodes_by_id
+    }
+    assert "fmtDate()" in call_targets, (
+        f"JSX expression call to fmtDate() not captured. Targets: {call_targets}"
+    )
+    assert "fmtCount()" in call_targets, (
+        f"JSX expression call to fmtCount() not captured. Targets: {call_targets}"
+    )
+
+
+def test_extract_tsx_uses_tsx_grammar():
+    """Wiring check: the .tsx config must use tree-sitter's `language_tsx`."""
+    from graphify.extract import _TSX_CONFIG, _TS_CONFIG
+    assert _TSX_CONFIG.ts_language_fn == "language_tsx"
+    assert _TS_CONFIG.ts_language_fn == "language_typescript"
