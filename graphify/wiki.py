@@ -196,6 +196,12 @@ def to_wiki(
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
 
+    if not communities:
+        raise ValueError(
+            "communities dict is empty — refusing to clear wiki/. "
+            "Run `graphify extract .` or `graphify cluster-only .` first."
+        )
+
     # Clear stale .md files from previous runs to prevent orphan accumulation.
     # Community labels are LLM-generated (per skill.md Step 5) and non-deterministic
     # across runs — the same conceptual community may be named differently each time

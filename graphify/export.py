@@ -26,6 +26,44 @@ def _strip_diacritics(text: str) -> str:
     return "".join(c for c in nfkd if not unicodedata.combining(c))
 
 
+def _yaml_str(s: str) -> str:
+    """Escape a value for safe embedding in a YAML double-quoted scalar (F-009).
+
+    See `graphify.ingest._yaml_str` for the full rationale; duplicated here to
+    avoid pulling the URL-fetching `ingest` module into export's dependency
+    graph. Handles backslash, double-quote, all line breaks (\\n, \\r,
+    U+2028, U+2029), tab, NUL, and other C0/DEL control characters that
+    would otherwise let a hostile `source_file` / `community` / etc. break
+    out of the YAML scalar and inject sibling keys.
+    """
+    if s is None:
+        return ""
+    out: list[str] = []
+    for ch in str(s):
+        cp = ord(ch)
+        if ch == "\\":
+            out.append("\\\\")
+        elif ch == '"':
+            out.append('\\"')
+        elif ch == "\n":
+            out.append("\\n")
+        elif ch == "\r":
+            out.append("\\r")
+        elif ch == "\t":
+            out.append("\\t")
+        elif ch == "\0":
+            out.append("\\0")
+        elif cp == 0x2028:
+            out.append("\\L")
+        elif cp == 0x2029:
+            out.append("\\P")
+        elif cp < 0x20 or cp == 0x7F:
+            out.append(f"\\x{cp:02x}")
+        else:
+            out.append(ch)
+    return "".join(out)
+
+
 COMMUNITY_COLORS = [
     "#4E79A7", "#F28E2B", "#E15759", "#76B7B2", "#59A14F",
     "#EDC948", "#B07AA1", "#FF9DA7", "#9C755F", "#BAB0AC",
@@ -426,8 +464,48 @@ def prune_dangling_edges(graph_data: dict) -> tuple[dict, int]:
 
 
 def _cypher_escape(s: str) -> str:
-    """Escape a string for safe embedding in a Cypher single-quoted literal."""
-    return s.replace("\\", "\\\\").replace("'", "\\'")
+    """Escape a string for safe embedding in a Cypher single-quoted literal.
+
+    Handles all characters that could prematurely terminate the literal or
+    inject control sequences:
+      - `\\` and `'` (literal terminators)
+      - newlines/CRs (would break the per-line statement framing)
+      - NUL/control bytes (defensive — Neo4j errors on raw NULs)
+
+    Also strips any leading/trailing whitespace that would let an attacker
+    break the `;`-terminated statement boundary used by `cypher-shell`.
+    Closing `}` and `)` are NOT special inside a single-quoted Cypher string,
+    so escaping the quote and backslash correctly is sufficient (a `}` inside
+    a properly-closed `'...'` literal is just a character) — but we previously
+    missed `\\n` / `\\r` which DO let a payload break out of the statement
+    line and inject a fresh MATCH/DELETE on the following line. See F-008.
+    """
+    # First normalise: drop NUL and other C0 control chars except tab.
+    s = "".join(ch for ch in s if ch >= " " or ch == "\t")
+    return (
+        s.replace("\\", "\\\\")
+         .replace("'", "\\'")
+         .replace("\n", "\\n")
+         .replace("\r", "\\r")
+    )
+
+
+# Restrict identifier-position values (labels and relationship types are NOT
+# quoted in Cypher and so cannot be safely escaped — they must be allowlisted).
+_CYPHER_IDENT_RE = re.compile(r"[^A-Za-z0-9_]")
+
+
+def _cypher_label(raw: str, fallback: str) -> str:
+    """Sanitise a value used in identifier position (node label / rel type).
+
+    Cypher does not provide a way to escape `:Foo` label syntax, so we must
+    strip everything except `[A-Za-z0-9_]` and require the result to start
+    with a letter; otherwise we fall back to a safe constant.
+    """
+    cleaned = _CYPHER_IDENT_RE.sub("", raw or "")
+    if not cleaned or not cleaned[0].isalpha():
+        return fallback
+    return cleaned
 
 
 def to_cypher(G: nx.Graph, output_path: str) -> None:
@@ -435,12 +513,17 @@ def to_cypher(G: nx.Graph, output_path: str) -> None:
     for node_id, data in G.nodes(data=True):
         label = _cypher_escape(data.get("label", node_id))
         node_id_esc = _cypher_escape(node_id)
-        _ft = re.sub(r"[^A-Za-z0-9_]", "", data.get("file_type", "unknown").capitalize())
-        ftype = (_ft if _ft and _ft[0].isalpha() else "Entity")
+        ftype = _cypher_label(
+            (data.get("file_type", "unknown") or "unknown").capitalize(),
+            "Entity",
+        )
         lines.append(f"MERGE (n:{ftype} {{id: '{node_id_esc}', label: '{label}'}});")
     lines.append("")
     for u, v, data in G.edges(data=True):
-        rel = re.sub(r"[^A-Za-z0-9_]", "_", data.get("relation", "RELATES_TO").upper())
+        rel = _cypher_label(
+            (data.get("relation", "RELATES_TO") or "RELATES_TO").upper(),
+            "RELATES_TO",
+        )
         conf = _cypher_escape(data.get("confidence", "EXTRACTED"))
         u_esc = _cypher_escape(u)
         v_esc = _cypher_escape(v)
@@ -646,7 +729,7 @@ def to_obsidian(
     def safe_name(label: str) -> str:
         cleaned = re.sub(r'[\\/*?:"<>|#^[\]]', "", label.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")).strip()
         # Strip trailing .md/.mdx/.markdown so "CLAUDE.md" doesn't become "CLAUDE.md.md"
-        cleaned = re.sub(r"\.(md|mdx|markdown)$", "", cleaned, flags=re.IGNORECASE)
+        cleaned = re.sub(r"\.(md|mdx|qmd|markdown)$", "", cleaned, flags=re.IGNORECASE)
         return cleaned or "unnamed"
 
     node_filename: dict[str, str] = {}
@@ -697,15 +780,17 @@ def to_obsidian(
 
         lines: list[str] = []
 
-        # YAML frontmatter - readable in Obsidian's properties panel
+        # YAML frontmatter - readable in Obsidian's properties panel.
+        # All scalars pass through _yaml_str so a hostile source_file or
+        # community label cannot break out and inject sibling keys (F-009).
         lines += [
             "---",
-            f'source_file: "{data.get("source_file", "")}"',
-            f'type: "{ftype}"',
-            f'community: "{community_name}"',
+            f'source_file: "{_yaml_str(data.get("source_file", ""))}"',
+            f'type: "{_yaml_str(ftype)}"',
+            f'community: "{_yaml_str(community_name)}"',
         ]
         if data.get("source_location"):
-            lines.append(f'location: "{data["source_location"]}"')
+            lines.append(f'location: "{_yaml_str(str(data["source_location"]))}"')
         # Add tags list to frontmatter
         lines.append("tags:")
         for tag in node_tags:
@@ -884,7 +969,7 @@ def to_canvas(
 
     def safe_name(label: str) -> str:
         cleaned = re.sub(r'[\\/*?:"<>|#^[\]]', "", label.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")).strip()
-        cleaned = re.sub(r"\.(md|mdx|markdown)$", "", cleaned, flags=re.IGNORECASE)
+        cleaned = re.sub(r"\.(md|mdx|qmd|markdown)$", "", cleaned, flags=re.IGNORECASE)
         return cleaned or "unnamed"
 
     # Build node_filenames if not provided (same dedup logic as to_obsidian)

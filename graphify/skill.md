@@ -191,10 +191,10 @@ After transcription:
 
 This step has two parts: **structural extraction** (deterministic, free) and **semantic extraction** (LLM, costs tokens).
 
-**Before dispatching subagents:** check whether `MOONSHOT_API_KEY` is set. If it is NOT set, print this one-liner to the user:
-> Tip: set `MOONSHOT_API_KEY` to use Kimi K2.6 for semantic extraction — 3x cheaper, richer graphs (`pip install 'graphifyy[kimi]'`).
+**Before dispatching subagents:** check whether `GEMINI_API_KEY` or `GOOGLE_API_KEY` is set. If neither is set, print this one-liner to the user:
+> Tip: set `GEMINI_API_KEY` or `GOOGLE_API_KEY` to use Gemini for semantic extraction (`pip install 'graphifyy[gemini]'`).
 
-Print it once, then continue. If `MOONSHOT_API_KEY` IS set, use `graphify.llm.extract_corpus_parallel(files, backend="kimi")` for semantic extraction instead of dispatching Claude subagents.
+Print it once, then continue. If `GEMINI_API_KEY` or `GOOGLE_API_KEY` IS set, use `graphify.llm.extract_corpus_parallel(files, backend="gemini")` for semantic extraction instead of dispatching Claude subagents. The default Gemini model is `gemini-3-flash-preview`; set `GRAPHIFY_GEMINI_MODEL` or pass `--model` in headless CLI flows to override it.
 
 **Run Part A (AST) and Part B (semantic) in parallel. Dispatch all semantic subagents AND start AST extraction in the same message. Both can run simultaneously since they operate on different file types. Merge results in Part C as before.**
 

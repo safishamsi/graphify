@@ -1,5 +1,6 @@
-# Direct LLM backend for semantic extraction — supports Claude and Kimi K2.6.
-# Used by `graphify . --backend kimi` and the benchmark scripts.
+# Direct LLM backend for semantic extraction — supports Claude, Kimi K2.6,
+# Gemini, and OpenAI.
+# Used by `graphify extract . --backend gemini` and the benchmark scripts.
 # The default graphify pipeline uses Claude Code subagents via skill.md;
 # this module provides a direct API path for non-Claude-Code environments.
 from __future__ import annotations
@@ -68,6 +69,31 @@ BACKENDS: dict[str, dict] = {
         "temperature": 0,
         "max_tokens": 16384,
     },
+    "gemini": {
+        "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
+        "default_model": "gemini-3-flash-preview",
+        "env_keys": ["GEMINI_API_KEY", "GOOGLE_API_KEY"],
+        "model_env_key": "GRAPHIFY_GEMINI_MODEL",
+        "pricing": {"input": 0.50, "output": 3.00},  # USD per 1M tokens
+        "temperature": 0,
+        "reasoning_effort": "low",
+        "max_completion_tokens": 16384,
+    },
+    "openai": {
+        "base_url": "https://api.openai.com/v1",
+        "default_model": "gpt-4.1-mini",
+        "env_key": "OPENAI_API_KEY",
+        "model_env_key": "GRAPHIFY_OPENAI_MODEL",
+        "pricing": {"input": 0.40, "output": 1.60},  # USD per 1M tokens
+        "temperature": 0,
+    },
+    "bedrock": {
+        "default_model": "anthropic.claude-3-5-sonnet-20241022-v2:0",
+        "model_env_key": "GRAPHIFY_BEDROCK_MODEL",
+        "pricing": {"input": 3.0, "output": 15.0},  # USD per 1M tokens
+        "temperature": 0,
+        "max_tokens": 16384,
+    },
 }
 
 
@@ -116,8 +142,22 @@ def _read_files(paths: list[Path], root: Path) -> str:
     return "\n\n".join(parts)
 
 
+_LLM_JSON_MAX_BYTES = 10 * 1024 * 1024  # 10 MB hard cap before json.loads (F-016)
+
+
 def _parse_llm_json(raw: str) -> dict:
-    """Strip optional markdown fences and parse JSON. Returns empty fragment on failure."""
+    """Strip optional markdown fences and parse JSON. Returns empty fragment on failure.
+
+    Caps the input at `_LLM_JSON_MAX_BYTES` so a hostile or runaway model
+    response cannot exhaust memory inside `json.loads` (F-016).
+    """
+    if len(raw) > _LLM_JSON_MAX_BYTES:
+        print(
+            f"[graphify] LLM response exceeds {_LLM_JSON_MAX_BYTES} bytes "
+            f"({len(raw)} bytes); refusing to parse and dropping chunk.",
+            file=sys.stderr,
+        )
+        return {"nodes": [], "edges": [], "hyperedges": []}
     if raw.startswith("```"):
         raw = raw.split("```", 2)[1]
         if raw.startswith("json"):
@@ -130,13 +170,52 @@ def _parse_llm_json(raw: str) -> dict:
         return {"nodes": [], "edges": [], "hyperedges": []}
 
 
+def _backend_env_keys(backend: str) -> list[str]:
+    """Return accepted API-key environment variables for a backend."""
+    cfg = BACKENDS[backend]
+    keys = cfg.get("env_keys")
+    if keys:
+        return list(keys)
+    env_key = cfg.get("env_key")
+    if env_key:
+        return [env_key]
+    return []
+
+
+def _get_backend_api_key(backend: str) -> str:
+    """Return the first configured API key for backend, or an empty string."""
+    for env_key in _backend_env_keys(backend):
+        value = os.environ.get(env_key)
+        if value:
+            return value
+    return ""
+
+
+def _format_backend_env_keys(backend: str) -> str:
+    """Return user-facing accepted API-key variable names."""
+    keys = _backend_env_keys(backend)
+    return " or ".join(keys) if keys else "AWS_PROFILE or AWS_REGION"
+
+
+def _default_model_for_backend(backend: str) -> str:
+    """Return configured model override or backend default model."""
+    cfg = BACKENDS[backend]
+    model_env_key = cfg.get("model_env_key")
+    if model_env_key:
+        model = os.environ.get(model_env_key)
+        if model:
+            return model
+    return cfg["default_model"]
+
+
 def _call_openai_compat(
     base_url: str,
     api_key: str,
     model: str,
     user_message: str,
     temperature: float | None = 0,
-    max_tokens: int = 8192,
+    reasoning_effort: str | None = None,
+    max_completion_tokens: int = 8192,
     *,
     backend: str = "",
 ) -> dict:
@@ -144,9 +223,10 @@ def _call_openai_compat(
     try:
         from openai import OpenAI
     except ImportError as exc:
+        pkg_hint = "graphifyy[kimi]" if backend == "kimi" else "openai"
         raise ImportError(
-            "Kimi/OpenAI-compatible extraction requires the openai package. "
-            "Run: pip install openai"
+            "Gemini/Kimi/Ollama/OpenAI-compatible extraction requires the openai package. "
+            f"Run: pip install {pkg_hint}"
         ) from exc
 
     client = OpenAI(api_key=api_key, base_url=base_url)
@@ -156,10 +236,12 @@ def _call_openai_compat(
             {"role": "system", "content": _EXTRACTION_SYSTEM},
             {"role": "user", "content": user_message},
         ],
-        "max_completion_tokens": max_tokens,
+        "max_completion_tokens": max_completion_tokens,
     }
     if temperature is not None:
         kwargs["temperature"] = temperature
+    if reasoning_effort is not None:
+        kwargs["reasoning_effort"] = reasoning_effort
     # Kimi-k2.6 is a reasoning model — disable thinking so content isn't empty
     if "moonshot" in base_url:
         kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
@@ -211,6 +293,43 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
     return result
 
 
+def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192) -> dict:
+    """Call AWS Bedrock via boto3 Converse API using the standard AWS credential chain."""
+    try:
+        import boto3
+        import botocore.exceptions
+    except ImportError as exc:
+        raise ImportError(
+            "AWS Bedrock extraction requires boto3. Run: pip install graphifyy[bedrock]"
+        ) from exc
+
+    region = os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION") or "us-east-1"
+    profile = os.environ.get("AWS_PROFILE")
+    session = boto3.Session(profile_name=profile, region_name=region)
+    client = session.client("bedrock-runtime")
+
+    try:
+        resp = client.converse(
+            modelId=model,
+            system=[{"text": _EXTRACTION_SYSTEM}],
+            messages=[{"role": "user", "content": [{"text": user_message}]}],
+            inferenceConfig={"maxTokens": max_tokens, "temperature": 0},
+        )
+    except botocore.exceptions.ClientError as exc:
+        code = exc.response["Error"]["Code"]
+        msg = exc.response["Error"]["Message"]
+        raise RuntimeError(f"Bedrock API error ({code}): {msg}") from exc
+
+    text = resp.get("output", {}).get("message", {}).get("content", [{}])[0].get("text", "{}")
+    result = _parse_llm_json(text)
+    usage = resp.get("usage", {})
+    result["input_tokens"] = usage.get("inputTokens", 0)
+    result["output_tokens"] = usage.get("outputTokens", 0)
+    result["model"] = model
+    result["finish_reason"] = "length" if resp.get("stopReason") == "max_tokens" else "stop"
+    return result
+
+
 def extract_files_direct(
     files: list[Path],
     backend: str = "kimi",
@@ -227,22 +346,43 @@ def extract_files_direct(
         raise ValueError(f"Unknown backend {backend!r}. Available: {sorted(BACKENDS)}")
 
     cfg = BACKENDS[backend]
-    key = api_key or os.environ.get(cfg["env_key"], "")
+    key = api_key or _get_backend_api_key(backend)
     if not key and backend == "ollama":
-        key = "ollama"  # Ollama ignores auth but openai client requires non-empty
-    if not key:
+        # Ollama ignores auth but the OpenAI client library requires a non-empty
+        # string. Use a placeholder and surface a visible warning so this never
+        # silently routes traffic without the user realising — see F-029.
+        ollama_url = os.environ.get("OLLAMA_BASE_URL", cfg.get("base_url", ""))
+        _validate_ollama_base_url(ollama_url)
+        print(
+            "[graphify] WARNING: ollama backend selected with no OLLAMA_API_KEY set; "
+            f"sending corpus to {ollama_url}. Set OLLAMA_API_KEY (any non-empty value) "
+            "to suppress this warning.",
+            file=sys.stderr,
+        )
+        key = "ollama"
+    if not key and backend != "bedrock":
         raise ValueError(
             f"No API key for backend '{backend}'. "
-            f"Set {cfg['env_key']} or pass api_key=."
+            f"Set {_format_backend_env_keys(backend)} or pass api_key=."
         )
-    mdl = model or cfg["default_model"]
+    mdl = model or _default_model_for_backend(backend)
     user_msg = _read_files(files, root)
     max_out = _resolve_max_tokens(cfg.get("max_tokens", 8192))
 
     if backend == "claude":
         return _call_claude(key, mdl, user_msg, max_tokens=max_out)
-    else:
-        return _call_openai_compat(cfg["base_url"], key, mdl, user_msg, temperature=cfg.get("temperature", 0), max_tokens=max_out, backend=backend)
+    if backend == "bedrock":
+        return _call_bedrock(mdl, user_msg, max_tokens=max_out)
+    return _call_openai_compat(
+        cfg["base_url"],
+        key,
+        mdl,
+        user_msg,
+        temperature=cfg.get("temperature", 0),
+        reasoning_effort=cfg.get("reasoning_effort"),
+        max_completion_tokens=cfg.get("max_completion_tokens", max_out),
+        backend=backend,
+    )
 
 
 def _estimate_file_tokens(path: Path) -> int:
@@ -494,6 +634,83 @@ def _merge_into(merged: dict, result: dict) -> None:
     merged["output_tokens"] += result.get("output_tokens", 0)
 
 
+def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
+    """Send a plain-text prompt to `backend` and return the model's text reply.
+
+    Used by lightweight callers (e.g. `graphify.dedup` LLM tiebreaker) that
+    don't need the full extraction prompt or JSON-shaped output. Mirrors the
+    backend dispatch logic of `extract_files_direct` but skips the
+    `_EXTRACTION_SYSTEM` prompt and JSON parsing.
+
+    Previously `graphify.dedup` imported a `_call_llm` symbol that did not
+    exist in this module, so the LLM tiebreaker silently no-op'd on
+    `ImportError` (F-038). Adding the function here re-enables it.
+    """
+    if backend not in BACKENDS:
+        raise ValueError(f"Unknown backend {backend!r}")
+    cfg = BACKENDS[backend]
+    key = _get_backend_api_key(backend)
+    if not key and backend == "ollama":
+        ollama_url = os.environ.get("OLLAMA_BASE_URL", cfg.get("base_url", ""))
+        _validate_ollama_base_url(ollama_url)
+        key = "ollama"
+    if not key and backend != "bedrock":
+        raise ValueError(
+            f"No API key for backend '{backend}'. Set {_format_backend_env_keys(backend)}."
+        )
+    mdl = _default_model_for_backend(backend)
+
+    if backend == "claude":
+        try:
+            import anthropic
+        except ImportError as exc:
+            raise ImportError("anthropic package required for claude backend") from exc
+        client = anthropic.Anthropic(api_key=key)
+        resp = client.messages.create(
+            model=mdl,
+            max_tokens=max_tokens,
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return resp.content[0].text if resp.content else ""
+
+    if backend == "bedrock":
+        try:
+            import boto3
+        except ImportError as exc:
+            raise ImportError("boto3 required for bedrock backend") from exc
+        region = os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION") or "us-east-1"
+        profile = os.environ.get("AWS_PROFILE")
+        session = boto3.Session(profile_name=profile, region_name=region)
+        client = session.client("bedrock-runtime")
+        resp = client.converse(
+            modelId=mdl,
+            messages=[{"role": "user", "content": [{"text": prompt}]}],
+            inferenceConfig={"maxTokens": max_tokens, "temperature": 0},
+        )
+        return resp.get("output", {}).get("message", {}).get("content", [{}])[0].get("text", "")
+
+    # OpenAI-compatible (kimi, openai, gemini, ollama)
+    try:
+        from openai import OpenAI
+    except ImportError as exc:
+        raise ImportError("openai package required for this backend") from exc
+    client = OpenAI(api_key=key, base_url=cfg["base_url"])
+    kwargs: dict = {
+        "model": mdl,
+        "messages": [{"role": "user", "content": prompt}],
+        "max_completion_tokens": max_tokens,
+    }
+    temperature = cfg.get("temperature", 0)
+    if temperature is not None:
+        kwargs["temperature"] = temperature
+    if cfg.get("reasoning_effort"):
+        kwargs["reasoning_effort"] = cfg["reasoning_effort"]
+    if "moonshot" in cfg["base_url"]:
+        kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
+    resp = client.chat.completions.create(**kwargs)
+    return resp.choices[0].message.content or ""
+
+
 def estimate_cost(backend: str, input_tokens: int, output_tokens: int) -> float:
     """Estimate USD cost for a given token count using published pricing."""
     if backend not in BACKENDS:
@@ -502,16 +719,59 @@ def estimate_cost(backend: str, input_tokens: int, output_tokens: int) -> float:
     return (input_tokens * p["input"] + output_tokens * p["output"]) / 1_000_000
 
 
+def _validate_ollama_base_url(url: str) -> None:
+    """Warn (do not raise) if OLLAMA_BASE_URL looks unsafe.
+
+    Sending an entire corpus to a non-loopback http:// endpoint silently leaks
+    proprietary code; we surface a visible stderr warning instead of failing
+    closed (some users genuinely run Ollama on a LAN host they trust).
+    """
+    try:
+        from urllib.parse import urlparse
+        parsed = urlparse(url)
+    except Exception:
+        print(
+            f"[graphify] WARNING: OLLAMA_BASE_URL={url!r} is not a parseable URL.",
+            file=sys.stderr,
+        )
+        return
+    if parsed.scheme not in ("http", "https"):
+        print(
+            f"[graphify] WARNING: OLLAMA_BASE_URL has unexpected scheme {parsed.scheme!r}; "
+            "expected http or https.",
+            file=sys.stderr,
+        )
+        return
+    host = (parsed.hostname or "").lower()
+    is_loopback = host in ("localhost", "127.0.0.1", "::1") or host.startswith("127.")
+    if not is_loopback:
+        scheme_note = " (UNENCRYPTED)" if parsed.scheme == "http" else ""
+        print(
+            f"[graphify] WARNING: OLLAMA_BASE_URL points to non-loopback host {host!r}{scheme_note}. "
+            "Your full corpus will be sent to that endpoint. "
+            "Set OLLAMA_BASE_URL=http://localhost:11434/v1 to keep extraction local.",
+            file=sys.stderr,
+        )
+
+
 def detect_backend() -> str | None:
     """Return the name of whichever backend has an API key set, or None.
 
-    Priority: kimi → ollama (if OLLAMA_BASE_URL set) → claude.
-    Ollama is opt-in via env var — never auto-probed.
+    Priority: gemini → kimi → claude → openai → bedrock → ollama (last, opt-in).
+
+    Ollama is intentionally checked LAST so a paid API key (Anthropic/OpenAI/etc.)
+    is never silently shadowed by an incidental OLLAMA_BASE_URL in the environment
+    — see security finding F-002/F-029. Setting OLLAMA_BASE_URL alongside a paid
+    key now keeps you on the paid backend; remove the paid key (or pass
+    --backend ollama explicitly) to route to the local model.
     """
-    if os.environ.get("MOONSHOT_API_KEY"):
-        return "kimi"
-    if os.environ.get("OLLAMA_BASE_URL"):
+    for backend in ("gemini", "kimi", "claude", "openai"):
+        if _get_backend_api_key(backend):
+            return backend
+    if os.environ.get("AWS_PROFILE") or os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION"):
+        return "bedrock"
+    ollama_url = os.environ.get("OLLAMA_BASE_URL")
+    if ollama_url:
+        _validate_ollama_base_url(ollama_url)
         return "ollama"
-    if os.environ.get("ANTHROPIC_API_KEY"):
-        return "claude"
     return None

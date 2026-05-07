@@ -17,13 +17,13 @@
 
 <p align="center">
   <a href="https://star-history.com/#safishamsi/graphify&Date">
-    <img src="https://api.star-history.com/svg?repos=safishamsi/graphify&type=Date" alt="Star History Chart" width="600"/>
+    <img src="https://api.star-history.com/svg?repos=safishamsi/graphify&type=Date" alt="Star History Chart" width="370"/>
   </a>
 </p>
 
 Type `/graphify` in your AI coding assistant and it maps your entire project — code, docs, PDFs, images, videos — into a knowledge graph you can query instead of grepping through files.
 
-Works in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kiro, Pi, and Google Antigravity.
+Works in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kimi Code, Kiro, Pi, and Google Antigravity.
 
 ```
 /graphify .
@@ -52,6 +52,8 @@ uv tool install graphifyy && graphify install
 
 > **Official package:** The PyPI package is `graphifyy` (double-y). Other `graphify*` packages on PyPI are not affiliated. The CLI command is still `graphify`.
 
+> **PowerShell note:** Use `graphify .` not `/graphify .` — the leading slash is a path separator in PowerShell and will cause a "not recognized" error.
+
 > **`graphify: command not found`?** Use `uv tool install graphifyy` or `pipx install graphifyy` — both put the CLI on PATH automatically. With plain `pip`, add `~/.local/bin` (Linux) or `~/Library/Python/3.x/bin` (Mac) to your PATH, or run `python -m graphify`.
 
 ### Pick your platform
@@ -71,6 +73,7 @@ uv tool install graphifyy && graphify install
 | Trae CN | `graphify install --platform trae-cn` |
 | Gemini CLI | `graphify install --platform gemini` |
 | Hermes | `graphify install --platform hermes` |
+| Kimi Code | `graphify install --platform kimi` |
 | Kiro IDE/CLI | `graphify kiro install` |
 | Pi coding agent | `graphify install --platform pi` |
 | Cursor | `graphify cursor install` |
@@ -100,6 +103,7 @@ Run this once in your project after building a graph:
 | Cursor | `graphify cursor install` |
 | Gemini CLI | `graphify gemini install` |
 | Hermes | `graphify hermes install` |
+| Kimi Code | `graphify install --platform kimi` |
 | Kiro IDE/CLI | `graphify kiro install` |
 | Pi coding agent | `graphify pi install` |
 | Google Antigravity | `graphify antigravity install` |
@@ -124,15 +128,30 @@ Uninstall with the matching command (e.g. `graphify claude uninstall`).
 
 | Type | Extensions |
 |------|-----------|
-| Code (26 languages) | `.py .ts .js .jsx .tsx .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .zig .ps1 .ex .exs .m .jl .vue .svelte .sql .f .F .f90 .F90 .f95 .F95 .f03 .F03 .f08 .F08` |
-| Docs | `.md .mdx .html .txt .rst .yaml .yml` |
+| Code (28 languages) | `.py .ts .js .jsx .tsx .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .luau .zig .ps1 .ex .exs .m .jl .vue .svelte .groovy .gradle .sql .f .F .f90 .F90 .f95 .F95 .f03 .F03 .f08 .F08` |
+| Docs | `.md .mdx .qmd .html .txt .rst .yaml .yml` |
 | Office | `.docx .xlsx` (requires `pip install graphifyy[office]`) |
+| Google Workspace | `.gdoc .gsheet .gslides` (opt-in; requires `gws` auth and `--google-workspace`; Sheets need `pip install graphifyy[google]`) |
 | PDFs | `.pdf` |
 | Images | `.png .jpg .webp .gif` |
 | Video / Audio | `.mp4 .mov .mp3 .wav` and more (requires `pip install graphifyy[video]`) |
 | YouTube / URLs | any video URL (requires `pip install graphifyy[video]`) |
 
 Code is extracted locally with no API calls (AST via tree-sitter). Everything else goes through your AI assistant's model API.
+
+Google Drive for desktop `.gdoc`, `.gsheet`, and `.gslides` files are shortcut
+pointers, not document content. To include native Google Docs, Sheets, and Slides
+in a headless extraction, install and authenticate the
+[`gws` CLI](https://github.com/googleworkspace/cli), then run:
+
+```bash
+pip install "graphifyy[google]"  # needed for Google Sheets table rendering
+gws auth login -s drive
+graphify extract ./docs --google-workspace
+```
+
+You can also set `GRAPHIFY_GOOGLE_WORKSPACE=1`. Graphify exports shortcuts into
+`graphify-out/converted/` as Markdown sidecars, then extracts those files.
 
 ---
 
@@ -206,6 +225,9 @@ graphify query "what connects DigestAuth to Response?" --graph graphify-out/grap
 
 # expose the graph as an MCP server (for repeated tool-call access)
 python -m graphify.serve graphify-out/graph.json
+
+# register with Kimi Code:
+kimi mcp add --transport stdio graphify -- python -m graphify.serve graphify-out/graph.json
 ```
 
 The MCP server gives your assistant structured access: `query_graph`, `get_node`, `get_neighbors`, `shortest_path`.
@@ -221,7 +243,7 @@ The MCP server gives your assistant structured access: `query_graph`, `get_node`
 
 - **Code files** — processed locally via tree-sitter. Nothing leaves your machine.
 - **Video / audio** — transcribed locally with faster-whisper. Nothing leaves your machine.
-- **Docs, PDFs, images** — sent to your AI assistant for semantic extraction (via the `/graphify` skill, using whatever model your IDE session runs). Headless `graphify extract` requires `ANTHROPIC_API_KEY` (Claude), `MOONSHOT_API_KEY` (Kimi), or a running Ollama instance (`OLLAMA_BASE_URL`). The `--dedup-llm` flag uses the same key.
+- **Docs, PDFs, images** — sent to your AI assistant for semantic extraction (via the `/graphify` skill, using whatever model your IDE session runs). Headless `graphify extract` requires `GEMINI_API_KEY` / `GOOGLE_API_KEY` (Gemini), `MOONSHOT_API_KEY` (Kimi), `ANTHROPIC_API_KEY` (Claude), `OPENAI_API_KEY` (OpenAI), a running Ollama instance (`OLLAMA_BASE_URL`), or AWS credentials via the standard provider chain (Bedrock - no API key needed, uses IAM). The `--dedup-llm` flag uses the same key.
 - No telemetry, no usage tracking, no analytics.
 
 ---
@@ -274,8 +296,11 @@ graphify kiro install / uninstall
 graphify antigravity install / uninstall
 
 graphify extract ./docs                        # headless LLM extraction for CI (no IDE needed)
-graphify extract ./docs --backend claude       # explicit backend: claude (ANTHROPIC_API_KEY) or kimi (MOONSHOT_API_KEY)
+graphify extract ./docs --backend gemini       # explicit backend: gemini, kimi, claude, openai, ollama, or bedrock
+graphify extract ./docs --backend gemini --model gemini-3.1-pro-preview
 graphify extract ./docs --backend ollama       # local Ollama (set OLLAMA_BASE_URL / OLLAMA_MODEL)
+graphify extract ./docs --backend bedrock      # AWS Bedrock via IAM - no API key, uses AWS credential chain
+graphify extract ./docs --google-workspace     # export .gdoc/.gsheet/.gslides via gws before extraction
 graphify extract ./docs --no-cluster           # raw extraction only, skip clustering
 graphify extract ./docs --dedup-llm            # LLM tiebreaker for ambiguous entity pairs (uses same API key)
 graphify extract ./docs --global --as myrepo   # extract and register into the cross-project global graph

@@ -265,11 +265,13 @@ def _llm_tiebreak(
 ) -> None:
     """Batch-resolve ambiguous pairs (score in [low, high)) via LLM."""
     try:
-        from graphify.llm import BACKENDS
-        import os
-        env_key = BACKENDS.get(backend, {}).get("env_key", "")
-        if not os.environ.get(env_key):
-            print(f"[graphify] --dedup-llm: {env_key} not set, skipping LLM tiebreaker.", flush=True)
+        from graphify.llm import BACKENDS, _format_backend_env_keys, _get_backend_api_key
+        if backend not in BACKENDS:
+            print(f"[graphify] --dedup-llm: unknown backend {backend!r}, skipping LLM tiebreaker.", flush=True)
+            return
+        if not _get_backend_api_key(backend):
+            env_keys = _format_backend_env_keys(backend)
+            print(f"[graphify] --dedup-llm: {env_keys} not set, skipping LLM tiebreaker.", flush=True)
             return
     except ImportError:
         return
@@ -295,7 +297,14 @@ def _llm_tiebreak(
 
     try:
         from graphify.llm import _call_llm
-    except ImportError:
+    except ImportError as exc:
+        # F-038: previously this silent fallback hid the fact that `_call_llm`
+        # didn't exist in `graphify.llm` at all, so `--dedup-llm` was a no-op.
+        # Surface the import failure so future regressions are visible.
+        print(
+            f"[graphify] --dedup-llm: cannot import _call_llm ({exc}); skipping LLM tiebreaker.",
+            flush=True,
+        )
         return
 
     for batch_start in range(0, len(ambiguous), batch_size):

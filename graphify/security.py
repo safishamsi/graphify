@@ -19,6 +19,9 @@ _MAX_TEXT_BYTES  = 10_485_760   # 10 MB hard cap for HTML / text
 # AWS metadata, link-local, and common cloud metadata endpoints
 _BLOCKED_HOSTS = {"metadata.google.internal", "metadata.google.com"}
 
+# RFC 6598 Shared Address Space (CGN) -- is_private misses this on Python <3.11
+_CGN_NETWORK = ipaddress.ip_network("100.64.0.0/10")
+
 
 # ---------------------------------------------------------------------------
 # URL validation
@@ -54,7 +57,7 @@ def validate_url(url: str) -> str:
             for info in infos:
                 addr = info[4][0]
                 ip = ipaddress.ip_address(addr)
-                if ip.is_private or ip.is_reserved or ip.is_loopback or ip.is_link_local:
+                if ip.is_private or ip.is_reserved or ip.is_loopback or ip.is_link_local or ip in _CGN_NETWORK:
                     raise ValueError(
                         f"Blocked private/internal IP {addr} (resolved from '{hostname}'). "
                         f"Got: {url!r}"
@@ -85,7 +88,7 @@ def _ssrf_guarded_socket():
                 ip = ipaddress.ip_address(addr)
             except ValueError:
                 continue
-            if ip.is_private or ip.is_reserved or ip.is_loopback or ip.is_link_local:
+            if ip.is_private or ip.is_reserved or ip.is_loopback or ip.is_link_local or ip in _CGN_NETWORK:
                 raise OSError(
                     f"SSRF blocked: IP {addr} resolved from '{host}' is private/reserved"
                 )

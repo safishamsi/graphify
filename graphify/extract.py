@@ -58,6 +58,7 @@ def _resolve_js_import_path(candidate: Path) -> Path:
     if candidate.is_file():
         return candidate
 
+    # TS ESM convention: imports often spell .js/.jsx while source is .ts/.tsx.
     if candidate.suffix == ".js":
         ts_candidate = candidate.with_suffix(".ts")
         if ts_candidate.is_file():
@@ -66,16 +67,16 @@ def _resolve_js_import_path(candidate: Path) -> Path:
         tsx_candidate = candidate.with_suffix(".tsx")
         if tsx_candidate.is_file():
             return tsx_candidate
-    elif candidate.suffix == ".svelte":
-        rune_candidate = candidate.parent / f"{candidate.name}.ts"
-        if rune_candidate.is_file():
-            return rune_candidate
 
-    if candidate.suffix == "":
-        for ext in _JS_RESOLVE_EXTS:
-            with_ext = candidate.with_suffix(ext)
-            if with_ext.is_file():
-                return with_ext
+    # Append extensions to the full filename, which covers extensionless imports,
+    # multi-dot helpers, and Svelte 5 rune files like Foo.svelte.ts.
+    for ext in _JS_RESOLVE_EXTS:
+        with_ext = candidate.parent / f"{candidate.name}{ext}"
+        if with_ext.is_file():
+            return with_ext
+
+    # Only fall back to directory indexes after file candidates lose.
+    if candidate.is_dir():
         for index_name in _JS_INDEX_FILES:
             index_candidate = candidate / index_name
             if index_candidate.is_file():
@@ -280,8 +281,18 @@ def _resolve_workspace_import(raw: str, start_dir: Path) -> Path | None:
     return None
 
 
-def _resolve_js_module_path(raw: str, start_dir: Path) -> Path | None:
-    """Resolve a JS/TS module specifier to a local source file when possible."""
+def _resolve_js_module_path(raw: str | Path, start_dir: Path | None = None) -> Path | None:
+    """Resolve a JS/TS module path or specifier to a local source file.
+
+    With a Path argument this preserves the path-based helper API used by
+    import-extension tests. With a string plus start_dir it resolves JS/TS
+    module specifiers including relative paths, tsconfig aliases, and workspace
+    packages.
+    """
+    if isinstance(raw, Path):
+        return _resolve_js_import_path(raw)
+    if start_dir is None:
+        return _resolve_js_import_path(Path(raw))
     if raw.startswith("."):
         return _resolve_js_import_path(start_dir / raw)
 
@@ -417,41 +428,33 @@ def _import_python(node, source: bytes, file_nid: str, stem: str, edges: list, s
             })
 
 
+def _resolve_js_import_target(raw: str, str_path: str) -> "tuple[str, Path | None] | None":
+    """Resolve a JS/TS import path string to (target_nid, resolved_path).
+
+    Handles relative paths, tsconfig path aliases, workspace packages, and
+    bare/scoped imports.
+    Returns None if `raw` is empty.
+    """
+    if not raw:
+        return None
+    resolved_path = _resolve_js_module_path(raw, Path(str_path).parent)
+    if resolved_path is not None:
+        return _make_id(str(resolved_path)), resolved_path
+    module_name = raw.split("/")[-1]
+    if not module_name:
+        return None
+    return _make_id(module_name), None
+
+
 def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
     resolved_path: "Path | None" = None
     for child in node.children:
         if child.type == "string":
             raw = _read_text(child, source).strip("'\"` ")
-            if not raw:
+            resolved = _resolve_js_import_target(raw, str_path)
+            if resolved is None:
                 break
-            if raw.startswith("."):
-                resolved = _resolve_js_import_path(Path(str_path).parent / raw)
-                tgt_nid = _make_id(str(resolved))
-                resolved_path = resolved
-            else:
-                # Check tsconfig.json path aliases (e.g. "@/" → "src/") before treating as external (#575)
-                aliases = _load_tsconfig_aliases(Path(str_path).parent)
-                resolved_alias = None
-                for alias_prefix, alias_base in aliases.items():
-                    if raw == alias_prefix or raw.startswith(alias_prefix + "/"):
-                        rest = raw[len(alias_prefix):].lstrip("/")
-                        resolved_alias = Path(os.path.normpath(Path(alias_base) / rest))
-                        break
-                if resolved_alias is not None:
-                    resolved = _resolve_js_import_path(resolved_alias)
-                    tgt_nid = _make_id(str(resolved))
-                    resolved_path = resolved
-                else:
-                    workspace_target = _resolve_workspace_import(raw, Path(str_path).parent)
-                    if workspace_target is not None:
-                        tgt_nid = _make_id(str(workspace_target))
-                        resolved_path = workspace_target
-                    else:
-                        # Bare/scoped import (node_modules) - use last segment; dropped as external
-                        module_name = raw.split("/")[-1]
-                        if not module_name:
-                            break
-                        tgt_nid = _make_id(module_name)
+            tgt_nid, resolved_path = resolved
             edges.append({
                 "source": file_nid,
                 "target": tgt_nid,
@@ -532,29 +535,11 @@ def _dynamic_import_js(node, source: bytes, caller_nid: str, str_path: str, edge
             continue
         if not raw:
             break
-        # Resolve path using the same logic as static imports
-        if raw.startswith("."):
-            resolved = Path(os.path.normpath(Path(str_path).parent / raw))
-            if resolved.suffix == ".js":
-                resolved = resolved.with_suffix(".ts")
-            elif resolved.suffix == ".jsx":
-                resolved = resolved.with_suffix(".tsx")
-            tgt_nid = _make_id(str(resolved))
-        else:
-            aliases = _load_tsconfig_aliases(Path(str_path).parent)
-            resolved_alias = None
-            for alias_prefix, alias_base in aliases.items():
-                if raw == alias_prefix or raw.startswith(alias_prefix + "/"):
-                    rest = raw[len(alias_prefix):].lstrip("/")
-                    resolved_alias = Path(os.path.normpath(Path(alias_base) / rest))
-                    break
-            if resolved_alias is not None:
-                tgt_nid = _make_id(str(resolved_alias))
-            else:
-                module_name = raw.split("/")[-1]
-                if not module_name:
-                    break
-                tgt_nid = _make_id(module_name)
+        # Resolve path using the same logic as static imports.
+        resolved = _resolve_js_import_target(raw, str_path)
+        if resolved is None:
+            break
+        tgt_nid, _ = resolved
         pair = (caller_nid, tgt_nid)
         if pair not in seen_dyn_pairs:
             seen_dyn_pairs.add(pair)
@@ -562,6 +547,7 @@ def _dynamic_import_js(node, source: bytes, caller_nid: str, str_path: str, edge
                 "source": caller_nid,
                 "target": tgt_nid,
                 "relation": "imports_from",
+                "context": "import",
                 "confidence": "EXTRACTED",
                 "source_file": str_path,
                 "source_location": f"L{node.start_point[0] + 1}",
@@ -760,26 +746,149 @@ def _get_cpp_func_name(node, source: bytes) -> str | None:
 
 # ── JS/TS extra walk for arrow functions ──────────────────────────────────────
 
+def _find_require_call(value_node):
+    """Return the call_expression node if `value_node` is a `require(...)` call
+    or `require(...).x` member access. Otherwise None."""
+    if value_node is None:
+        return None
+    if value_node.type == "call_expression":
+        fn = value_node.child_by_field_name("function")
+        if fn is not None and fn.type == "identifier":
+            return value_node
+    if value_node.type == "member_expression":
+        obj = value_node.child_by_field_name("object")
+        return _find_require_call(obj)
+    return None
+
+
+def _require_imports_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> bool:
+    """Detect CommonJS require imports inside lexical_declaration / variable_declaration.
+
+    Handles three patterns:
+      const { foo, bar } = require('./mod')   → file → mod (imports_from), file → foo, file → bar
+      const mod         = require('./mod')   → file → mod (imports_from)
+      const x           = require('./mod').y → file → mod (imports_from), file → y
+
+    Returns True if any require import was found.
+    """
+    if node.type not in ("lexical_declaration", "variable_declaration"):
+        return False
+    found = False
+    for child in node.children:
+        if child.type != "variable_declarator":
+            continue
+        value = child.child_by_field_name("value")
+        call = _find_require_call(value)
+        if call is None:
+            continue
+        fn = call.child_by_field_name("function")
+        if fn is None or _read_text(fn, source) != "require":
+            continue
+        args = call.child_by_field_name("arguments")
+        if args is None:
+            continue
+        raw = None
+        for arg in args.children:
+            if arg.type == "string":
+                raw = _read_text(arg, source).strip("'\"` ")
+                break
+        if not raw:
+            continue
+        resolved = _resolve_js_import_target(raw, str_path)
+        if resolved is None:
+            continue
+        tgt_nid, resolved_path = resolved
+        line = node.start_point[0] + 1
+        edges.append({
+            "source": file_nid,
+            "target": tgt_nid,
+            "relation": "imports_from",
+            "context": "import",
+            "confidence": "EXTRACTED",
+            "source_file": str_path,
+            "source_location": f"L{line}",
+            "weight": 1.0,
+        })
+        found = True
+
+        # Symbol-level edges for destructured / accessor binders.
+        target_stem = _file_stem(resolved_path) if resolved_path is not None else None
+        name_node = child.child_by_field_name("name")
+        sym_names: list[str] = []
+        if name_node is not None and name_node.type == "object_pattern":
+            # `const { a, b: alias } = require('./m')` — emit edges for each property key
+            for prop in name_node.children:
+                if prop.type == "shorthand_property_identifier_pattern":
+                    sym_names.append(_read_text(prop, source))
+                elif prop.type == "pair_pattern":
+                    key = prop.child_by_field_name("key")
+                    if key is not None:
+                        sym_names.append(_read_text(key, source))
+        elif value is not None and value.type == "member_expression":
+            # `const x = require('./m').y` — symbol is the property accessed
+            prop = value.child_by_field_name("property")
+            if prop is not None:
+                sym_names.append(_read_text(prop, source))
+        if target_stem is not None:
+            for sym in sym_names:
+                edges.append({
+                    "source": file_nid,
+                    "target": _make_id(target_stem, sym),
+                    "relation": "imports",
+                    "context": "import",
+                    "confidence": "EXTRACTED",
+                    "source_file": str_path,
+                    "source_location": f"L{line}",
+                    "weight": 1.0,
+                })
+    return found
+
+
 def _js_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path: str,
                    nodes: list, edges: list, seen_ids: set, function_bodies: list,
                    parent_class_nid: str | None, add_node_fn, add_edge_fn) -> bool:
-    """Handle lexical_declaration (arrow functions) for JS/TS. Returns True if handled."""
-    if node.type == "lexical_declaration":
-        for child in node.children:
-            if child.type == "variable_declarator":
-                value = child.child_by_field_name("value")
-                if value and value.type == "arrow_function":
-                    name_node = child.child_by_field_name("name")
-                    if name_node:
-                        func_name = _read_text(name_node, source)
-                        line = child.start_point[0] + 1
-                        func_nid = _make_id(stem, func_name)
-                        add_node_fn(func_nid, f"{func_name}()", line)
-                        add_edge_fn(file_nid, func_nid, "contains", line)
-                        body = value.child_by_field_name("body")
-                        if body:
-                            function_bodies.append((func_nid, body))
-        return True
+    """Handle lexical_declaration (arrow functions, CJS requires, module-level const literals) for JS/TS. Returns True if handled."""
+    if node.type in ("lexical_declaration", "variable_declaration"):
+        # CJS require imports — emit edges, do not block other lexical_declaration handling
+        require_found = _require_imports_js(node, source, file_nid, stem, edges, str_path)
+
+        # Arrow function declarations and module-level const literals (lexical_declaration only)
+        arrow_found = False
+        const_found = False
+        if node.type == "lexical_declaration":
+            for child in node.children:
+                if child.type == "variable_declarator":
+                    value = child.child_by_field_name("value")
+                    if value and value.type == "arrow_function":
+                        name_node = child.child_by_field_name("name")
+                        if name_node:
+                            func_name = _read_text(name_node, source)
+                            line = child.start_point[0] + 1
+                            func_nid = _make_id(stem, func_name)
+                            add_node_fn(func_nid, f"{func_name}()", line)
+                            add_edge_fn(file_nid, func_nid, "contains", line)
+                            body = value.child_by_field_name("body")
+                            if body:
+                                function_bodies.append((func_nid, body))
+                            arrow_found = True
+                    elif value and value.type in (
+                        "object", "array", "as_expression", "call_expression", "new_expression",
+                    ):
+                        # Module-level const with literal/object/array/factory value
+                        name_node = child.child_by_field_name("name")
+                        if name_node:
+                            const_name = _read_text(name_node, source)
+                            line = child.start_point[0] + 1
+                            const_nid = _make_id(stem, const_name)
+                            add_node_fn(const_nid, const_name, line)
+                            add_edge_fn(file_nid, const_nid, "contains", line)
+                            const_found = True
+        if arrow_found:
+            return True
+        if const_found:
+            return True
+        if require_found:
+            return True
     return False
 
 
@@ -844,7 +953,7 @@ _JS_CONFIG = LanguageConfig(
     class_types=frozenset({"class_declaration"}),
     function_types=frozenset({"function_declaration", "method_definition"}),
     import_types=frozenset({"import_statement"}),
-    call_types=frozenset({"call_expression"}),
+    call_types=frozenset({"call_expression", "new_expression"}),
     call_function_field="function",
     call_accessor_node_types=frozenset({"member_expression"}),
     call_accessor_field="property",
@@ -855,10 +964,15 @@ _JS_CONFIG = LanguageConfig(
 _TS_CONFIG = LanguageConfig(
     ts_module="tree_sitter_typescript",
     ts_language_fn="language_typescript",
-    class_types=frozenset({"class_declaration"}),
+    class_types=frozenset({
+        "class_declaration",
+        "interface_declaration",   # parity with Java/C#
+        "enum_declaration",        # named enums
+        "type_alias_declaration",  # named type aliases
+    }),
     function_types=frozenset({"function_declaration", "method_definition"}),
     import_types=frozenset({"import_statement"}),
-    call_types=frozenset({"call_expression"}),
+    call_types=frozenset({"call_expression", "new_expression"}),
     call_function_field="function",
     call_accessor_node_types=frozenset({"member_expression"}),
     call_accessor_field="property",
@@ -868,6 +982,18 @@ _TS_CONFIG = LanguageConfig(
 
 _JAVA_CONFIG = LanguageConfig(
     ts_module="tree_sitter_java",
+    class_types=frozenset({"class_declaration", "interface_declaration"}),
+    function_types=frozenset({"method_declaration", "constructor_declaration"}),
+    import_types=frozenset({"import_declaration"}),
+    call_types=frozenset({"method_invocation"}),
+    call_function_field="name",
+    call_accessor_node_types=frozenset(),
+    function_boundary_types=frozenset({"method_declaration", "constructor_declaration"}),
+    import_handler=_import_java,
+)
+
+_GROOVY_CONFIG = LanguageConfig(
+    ts_module="tree_sitter_groovy",
     class_types=frozenset({"class_declaration", "interface_declaration"}),
     function_types=frozenset({"method_declaration", "constructor_declaration"}),
     import_types=frozenset({"import_declaration"}),
@@ -1096,6 +1222,15 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
         language = Language(lang_fn())
     except ImportError:
         return {"nodes": [], "edges": [], "error": f"{config.ts_module} not installed"}
+    except TypeError as e:
+        # tree-sitter version mismatch: old Language() expects (lib_path),
+        # new Language() expects (language_capsule, name). Surface a hint
+        # so users see the upgrade path instead of a bare TypeError.
+        hint = (
+            f"tree-sitter version mismatch for {config.ts_module}: {e}. "
+            "Try: pip install --upgrade tree-sitter tree-sitter-languages"
+        )
+        return {"nodes": [], "edges": [], "error": hint}
     except Exception as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
@@ -1913,11 +2048,10 @@ def extract_svelte(path: Path) -> dict:
             if raw.startswith("."):
                 # Relative import - resolve to full path so IDs match file node IDs.
                 resolved = Path(os.path.normpath(path.parent / raw))
-                # TypeScript ESM: imports written as .js but actual file is .ts/.tsx
-                if resolved.suffix == ".js":
-                    resolved = resolved.with_suffix(".ts")
-                elif resolved.suffix == ".jsx":
-                    resolved = resolved.with_suffix(".tsx")
+                # Apply same TS/Svelte resolver fixups as static imports so dynamic
+                # imports of bare paths and .svelte.ts rune files land on real
+                # file nodes instead of phantom ids (#716).
+                resolved = _resolve_js_module_path(resolved)
                 node_id = _make_id(str(resolved))
                 stub_source_file = str(resolved)
             else:
@@ -1931,6 +2065,7 @@ def extract_svelte(path: Path) -> dict:
                         resolved_alias = Path(os.path.normpath(Path(alias_base) / rest))
                         break
                 if resolved_alias is not None:
+                    resolved_alias = _resolve_js_module_path(resolved_alias)
                     node_id = _make_id(str(resolved_alias))
                     stub_source_file = str(resolved_alias)
                 else:
@@ -2027,6 +2162,122 @@ def extract_svelte(path: Path) -> dict:
 def extract_java(path: Path) -> dict:
     """Extract classes, interfaces, methods, constructors, and imports from a .java file."""
     return _extract_generic(path, _JAVA_CONFIG)
+
+
+def _is_spock_file(path: Path, ts_result: dict) -> bool:
+    """Return True when the file contains Spock-style ``def "feature"()`` methods
+    that tree-sitter-groovy cannot parse, detected by checking the raw source."""
+    import re as _re
+    _SPOCK_FEATURE_RE = _re.compile(r"""^\s*def\s+[\"']""", _re.MULTILINE)
+    try:
+        return bool(_SPOCK_FEATURE_RE.search(path.read_text(errors="replace")))
+    except OSError:
+        return False
+
+
+def _extract_spock_fallback(path: Path, ts_result: dict) -> dict:
+    """Regex-based fallback for Spock spec files where tree-sitter-groovy cannot parse
+    ``def "feature name"()`` methods. Merges import edges from the tree-sitter pass
+    (which survive reliably) with class and feature-method nodes extracted via regex.
+    """
+    import re as _re
+    source = path.read_text(errors="replace")
+    str_path = str(path)
+    stem = _file_stem(path)
+
+    # Only keep the file node from the tree-sitter pass (guaranteed present and
+    # correctly IDed) plus all import edges.  All other ts nodes are discarded to
+    # avoid orphaned method/constructor nodes whose parent edges were dropped.
+    file_node = next((n for n in ts_result.get("nodes", []) if n.get("label") == path.name), None)
+    nodes: list[dict] = [file_node] if file_node else []
+    edges: list[dict] = [e for e in ts_result.get("edges", []) if e.get("context") == "import"]
+    seen_ids: set[str] = {n["id"] for n in nodes}
+
+    def _add_node(nid: str, label: str, line: int) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({
+                "id": nid,
+                "label": label,
+                "file_type": "code",
+                "source_file": str_path,
+                "source_location": f"L{line}",
+            })
+
+    def _add_edge(src: str, tgt: str, relation: str, line: int,
+                  confidence: str = "EXTRACTED") -> None:
+        edges.append({
+            "source": src,
+            "target": tgt,
+            "relation": relation,
+            "confidence": confidence,
+            "source_file": str_path,
+            "source_location": f"L{line}",
+            "weight": 1.0,
+        })
+
+    lines_text = source.splitlines()
+
+    # Extract class declarations
+    class_re = _re.compile(r"^\s*(?:[\w@]+\s+)*class\s+(\w+)")
+    # Extract Spock feature methods: def "..." () or def '...' ()
+    # Two separate capture groups per quote style so apostrophes inside
+    # double-quoted names (e.g. "shouldn't") are captured correctly.
+    feature_re = _re.compile(r"""^\s*def\s+(?:\"([^\"]+)\"|'([^']+)')\s*\(""")
+    # Extract plain def methods (non-string names) as well
+    plain_method_re = _re.compile(r"""^\s*def\s+(\w+)\s*\(""")
+
+    current_class_nid: str | None = None
+    file_nid = _make_id(str_path)
+
+    # Ensure the file node exists (tree-sitter pass may have emitted it)
+    if file_nid not in seen_ids:
+        _add_node(file_nid, path.name, 1)
+
+    for lineno, line_text in enumerate(lines_text, start=1):
+        cm = class_re.match(line_text)
+        if cm:
+            class_name = cm.group(1)
+            class_nid = _make_id(stem, class_name)
+            _add_node(class_nid, class_name, lineno)
+            _add_edge(file_nid, class_nid, "contains", lineno)
+            current_class_nid = class_nid
+            continue
+
+        if current_class_nid is None:
+            continue
+
+        fm = feature_re.match(line_text)
+        if fm:
+            method_name = fm.group(1) or fm.group(2)
+            method_label = f'"{method_name}"'
+            method_nid = _make_id(current_class_nid, method_name)
+            _add_node(method_nid, method_label, lineno)
+            _add_edge(current_class_nid, method_nid, "method", lineno)
+            continue
+
+        pm = plain_method_re.match(line_text)
+        if pm:
+            method_name = pm.group(1)
+            if method_name not in ("if", "while", "for", "switch", "catch"):
+                method_label = f".{method_name}()"
+                method_nid = _make_id(current_class_nid, method_name)
+                _add_node(method_nid, method_label, lineno)
+                _add_edge(current_class_nid, method_nid, "method", lineno)
+
+    return {"nodes": nodes, "edges": edges}
+
+
+def extract_groovy(path: Path) -> dict:
+    """Extract classes, methods, constructors, and imports from a .groovy/.gradle file.
+
+    Falls back to a regex-based Spock extractor when tree-sitter-groovy cannot parse
+    ``def "feature name"()`` methods (common in Spock specification classes).
+    """
+    result = _extract_generic(path, _GROOVY_CONFIG)
+    if _is_spock_file(path, result):
+        result = _extract_spock_fallback(path, result)
+    return result
 
 
 def extract_c(path: Path) -> dict:
@@ -2634,6 +2885,13 @@ def _cpp_preprocess(path: Path) -> bytes:
     Falls back to raw file bytes if cpp is not available. Capital-F extensions
     conventionally require C preprocessor expansion (#ifdef MPI, #define REAL8, etc.)
     before parsing.
+
+    Security (F-007): we pass `-nostdinc` and `-I /dev/null` so a malicious
+    source file containing `#include "/home/victim/.ssh/id_rsa"` (or any other
+    include directive) cannot inline arbitrary host files into the output that
+    we then ship to an LLM. Without these flags `cpp` happily resolves any
+    relative or absolute include path it can read, which is a corpus-side
+    file-exfiltration vector.
     """
     import shutil
     import subprocess
@@ -2641,7 +2899,7 @@ def _cpp_preprocess(path: Path) -> bytes:
         return path.read_bytes()
     try:
         result = subprocess.run(
-            ["cpp", "-w", "-P", str(path)],
+            ["cpp", "-w", "-P", "-nostdinc", "-I", "/dev/null", str(path)],
             capture_output=True,
             timeout=30,
         )
@@ -5066,6 +5324,116 @@ def extract_elixir(path: Path) -> dict:
     return {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls, "input_tokens": 0, "output_tokens": 0}
 
 
+def extract_markdown(path: Path) -> dict:
+    """Extract structural nodes and edges from a Markdown file.
+
+    Produces nodes for:
+    - The file itself
+    - Each heading (# / ## / ### etc.)
+    - Each fenced code block (``` ... ```)
+
+    Produces edges for:
+    - file --contains--> heading
+    - parent heading --contains--> child heading (nesting by level)
+    - heading --contains--> code block
+    - heading --references--> other node (when backtick `Name` matches a known pattern)
+
+    No tree-sitter dependency — pure line-by-line parsing.
+    """
+    try:
+        source = path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+
+    def add_node(nid: str, label: str, line: int, file_type: str = "document") -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({"id": nid, "label": label, "file_type": file_type,
+                          "source_file": str_path, "source_location": f"L{line}"})
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
+        edges.append({"source": src, "target": tgt, "relation": relation,
+                      "confidence": confidence, "source_file": str_path,
+                      "source_location": f"L{line}", "weight": weight})
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, 1)
+
+    # Track heading stack for nesting: [(level, nid), ...]
+    heading_stack: list[tuple[int, str]] = []
+    in_code_block = False
+    code_block_lang: str | None = None
+    code_block_start: int = 0
+    code_block_lines: list[str] = []
+    code_block_count = 0
+
+    lines = source.splitlines()
+    for line_num_0, line_text in enumerate(lines):
+        line_num = line_num_0 + 1
+
+        # Toggle fenced code blocks
+        stripped = line_text.strip()
+        if stripped.startswith("```"):
+            if not in_code_block:
+                in_code_block = True
+                code_block_lang = stripped[3:].strip().split()[0] if len(stripped) > 3 else None
+                code_block_start = line_num
+                code_block_lines = []
+                continue
+            else:
+                # End of code block — create a node
+                in_code_block = False
+                code_block_count += 1
+                snippet = "\n".join(code_block_lines[:3])  # first 3 lines as preview
+                label = f"code:{code_block_lang}" if code_block_lang else f"code:block{code_block_count}"
+                if snippet:
+                    # Use first meaningful line as label hint
+                    first_line = code_block_lines[0].strip()[:60] if code_block_lines else ""
+                    if first_line:
+                        label = f"{label} ({first_line})"
+                cb_nid = _make_id(stem, f"codeblock_{code_block_count}")
+                add_node(cb_nid, label, code_block_start)
+                # Attach to nearest heading or file
+                parent = heading_stack[-1][1] if heading_stack else file_nid
+                add_edge(parent, cb_nid, "contains", code_block_start)
+                continue
+
+        if in_code_block:
+            code_block_lines.append(line_text)
+            continue
+
+        # Detect headings: # Heading, ## Heading, etc.
+        heading_match = re.match(r'^(#{1,6})\s+(.+)', line_text)
+        if heading_match:
+            level = len(heading_match.group(1))
+            title = heading_match.group(2).strip()
+            h_nid = _make_id(stem, title)
+            # Avoid duplicate heading IDs by appending line number
+            if h_nid in seen_ids:
+                h_nid = _make_id(stem, title, str(line_num))
+            add_node(h_nid, title, line_num)
+
+            # Pop headings at same or deeper level
+            while heading_stack and heading_stack[-1][0] >= level:
+                heading_stack.pop()
+
+            # Connect to parent heading or file
+            parent = heading_stack[-1][1] if heading_stack else file_nid
+            add_edge(parent, h_nid, "contains", line_num)
+
+            heading_stack.append((level, h_nid))
+            continue
+
+    return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
+
+
 # ── Main extract and collect_files ────────────────────────────────────────────
 
 
@@ -5097,6 +5465,8 @@ _DISPATCH: dict[str, Any] = {
     ".go": extract_go,
     ".rs": extract_rust,
     ".java": extract_java,
+    ".groovy": extract_groovy,
+    ".gradle": extract_groovy,
     ".c": extract_c,
     ".h": extract_c,
     ".cpp": extract_cpp,
@@ -5111,6 +5481,7 @@ _DISPATCH: dict[str, Any] = {
     ".php": extract_php,
     ".swift": extract_swift,
     ".lua": extract_lua,
+    ".luau": extract_lua,
     ".toc": extract_lua,
     ".zig": extract_zig,
     ".ps1": extract_powershell,
@@ -5135,6 +5506,9 @@ _DISPATCH: dict[str, Any] = {
     ".v": extract_verilog,
     ".sv": extract_verilog,
     ".sql": extract_sql,
+    ".md": extract_markdown,
+    ".mdx": extract_markdown,
+    ".qmd": extract_markdown,
 }
 
 
@@ -5411,6 +5785,35 @@ def extract(
             key = normalised.lower()
             global_label_to_nids.setdefault(key, []).append(n["id"])
 
+    # Build evidence index from import edges so cross-file calls backed by an
+    # explicit import statement can be promoted from INFERRED to EXTRACTED.
+    # Direct symbol imports (`import { foo }` / `const { foo } = require()`) are
+    # the strongest evidence — caller's file_id has an `imports` edge directly to
+    # the callee's symbol id. Module imports (`imports_from`) are weaker but still
+    # confirm the caller pulled in the callee's source file.
+    file_to_symbol_imports: dict[str, set[str]] = {}
+    file_to_module_imports: dict[str, set[str]] = {}
+    for e in all_edges:
+        if e.get("relation") == "imports":
+            file_to_symbol_imports.setdefault(e["source"], set()).add(e["target"])
+        elif e.get("relation") == "imports_from":
+            file_to_module_imports.setdefault(e["source"], set()).add(e["target"])
+
+    # Map each node back to its containing file_id so we can ask
+    # "did the caller's file import the callee's file?"
+    # Use relativized paths to match how file node IDs were remapped above (#502).
+    nid_to_file_nid: dict[str, str] = {}
+    for n in all_nodes:
+        sf = n.get("source_file")
+        if not sf:
+            continue
+        sf_path = Path(sf)
+        try:
+            sf_rel = sf_path.relative_to(root) if sf_path.is_absolute() else sf_path
+        except ValueError:
+            sf_rel = sf_path
+        nid_to_file_nid[n["id"]] = _make_id(str(sf_rel))
+
     existing_pairs = {(e["source"], e["target"]) for e in all_edges}
     for rc in all_raw_calls:
         callee = rc.get("callee", "")
@@ -5430,13 +5833,30 @@ def extract(
         caller = rc["caller_nid"]
         if tgt != caller and (caller, tgt) not in existing_pairs:
             existing_pairs.add((caller, tgt))
+            # Promote to EXTRACTED when there's a direct import edge from the
+            # caller's file pointing at either the callee symbol itself or the
+            # file the callee lives in.
+            caller_file_nid = nid_to_file_nid.get(caller)
+            callee_file_nid = nid_to_file_nid.get(tgt)
+            imported_symbols = file_to_symbol_imports.get(caller_file_nid, set())
+            imported_modules = file_to_module_imports.get(caller_file_nid, set())
+            has_import_evidence = (
+                tgt in imported_symbols
+                or (callee_file_nid is not None and callee_file_nid in imported_modules)
+            )
+            if has_import_evidence:
+                confidence = "EXTRACTED"
+                confidence_score = 1.0
+            else:
+                confidence = "INFERRED"
+                confidence_score = 0.8
             all_edges.append({
                 "source": caller,
                 "target": tgt,
                 "relation": "calls",
                 "context": "call",
-                "confidence": "INFERRED",
-                "confidence_score": 0.8,
+                "confidence": confidence,
+                "confidence_score": confidence_score,
                 "source_file": rc.get("source_file", ""),
                 "source_location": rc.get("source_location"),
                 "weight": 1.0,
@@ -5466,13 +5886,7 @@ def extract(
 def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | None = None) -> list[Path]:
     if target.is_file():
         return [target]
-    _EXTENSIONS = {
-        ".py", ".js", ".ts", ".tsx", ".go", ".rs",
-        ".java", ".c", ".h", ".cpp", ".cc", ".cxx", ".hpp",
-        ".rb", ".cs", ".kt", ".kts", ".scala", ".php", ".swift",
-        ".lua", ".toc", ".zig", ".ps1",
-        ".m", ".mm",
-    }
+    _EXTENSIONS = set(_DISPATCH.keys())
     from graphify.detect import _load_graphifyignore, _is_ignored
     ignore_root = root if root is not None else target
     patterns = _load_graphifyignore(ignore_root)

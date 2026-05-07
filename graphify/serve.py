@@ -17,6 +17,8 @@ def _load_graph(graph_path: str) -> nx.Graph:
             raise FileNotFoundError(f"Graph file not found: {resolved}")
         safe = resolved
         data = json.loads(safe.read_text(encoding="utf-8"))
+        if "links" not in data and "edges" in data:
+            data = dict(data, links=data["edges"])
         try:
             return json_graph.node_link_graph(data, edges="links")
         except TypeError:
@@ -170,17 +172,28 @@ def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_bu
               sorted(nodes - seed_set, key=lambda n: G.degree(n), reverse=True)
     for nid in ordered:
         d = G.nodes[nid]
-        line = f"NODE {sanitize_label(d.get('label', nid))} [src={d.get('source_file', '')} loc={d.get('source_location', '')} community={d.get('community', '')}]"
+        # Every LLM-derived field passes through sanitize_label before being
+        # concatenated into MCP tool output (F-010): an attacker who controls a
+        # corpus document can otherwise inject ANSI escapes, fake graphify-out
+        # log lines, or prompt-injection markup into the model's context via
+        # source_file / source_location / community.
+        line = (
+            f"NODE {sanitize_label(d.get('label', nid))} "
+            f"[src={sanitize_label(str(d.get('source_file', '')))} "
+            f"loc={sanitize_label(str(d.get('source_location', '')))} "
+            f"community={sanitize_label(str(d.get('community', '')))}]"
+        )
         lines.append(line)
     for u, v in edges:
         if u in nodes and v in nodes:
             raw = G[u][v]
             d = next(iter(raw.values()), {}) if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)) else raw
             context = d.get("context")
-            context_suffix = f" context={context}" if context else ""
+            context_suffix = f" context={sanitize_label(str(context))}" if context else ""
             line = (
                 f"EDGE {sanitize_label(G.nodes[u].get('label', u))} "
-                f"--{d.get('relation', '')} [{d.get('confidence', '')}{context_suffix}]--> "
+                f"--{sanitize_label(str(d.get('relation', '')))} "
+                f"[{sanitize_label(str(d.get('confidence', '')))}{context_suffix}]--> "
                 f"{sanitize_label(G.nodes[v].get('label', v))}"
             )
             lines.append(line)
@@ -262,6 +275,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         from mcp.server import Server
         from mcp.server.stdio import stdio_server
         from mcp import types
+        from mcp.types import AnyUrl
     except ImportError as e:
         raise ImportError("mcp not installed. Run: pip install mcp") from e
 
@@ -370,12 +384,13 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         if not matches:
             return f"No node matching '{label}' found."
         nid, d = matches[0]
+        # Sanitise every LLM-derived field before concatenation (F-010).
         return "\n".join([
-            f"Node: {d.get('label', nid)}",
-            f"  ID: {nid}",
-            f"  Source: {d.get('source_file', '')} {d.get('source_location', '')}",
-            f"  Type: {d.get('file_type', '')}",
-            f"  Community: {d.get('community', '')}",
+            f"Node: {sanitize_label(d.get('label', nid))}",
+            f"  ID: {sanitize_label(nid)}",
+            f"  Source: {sanitize_label(str(d.get('source_file', '')))} {sanitize_label(str(d.get('source_location', '')))}",
+            f"  Type: {sanitize_label(str(d.get('file_type', '')))}",
+            f"  Community: {sanitize_label(str(d.get('community', '')))}",
             f"  Degree: {G.degree(nid)}",
         ])
 
@@ -386,13 +401,16 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         if not matches:
             return f"No node matching '{label}' found."
         nid = matches[0]
-        lines = [f"Neighbors of {G.nodes[nid].get('label', nid)}:"]
+        lines = [f"Neighbors of {sanitize_label(G.nodes[nid].get('label', nid))}:"]
         for neighbor in G.neighbors(nid):
             d = G.edges[nid, neighbor]
             rel = d.get("relation", "")
             if rel_filter and rel_filter not in rel.lower():
                 continue
-            lines.append(f"  --> {G.nodes[neighbor].get('label', neighbor)} [{rel}] [{d.get('confidence', '')}]")
+            lines.append(
+                f"  --> {sanitize_label(G.nodes[neighbor].get('label', neighbor))} "
+                f"[{sanitize_label(str(rel))}] [{sanitize_label(str(d.get('confidence', '')))}]"
+            )
         return "\n".join(lines)
 
     def _tool_get_community(arguments: dict) -> str:
@@ -403,7 +421,11 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         lines = [f"Community {cid} ({len(nodes)} nodes):"]
         for n in nodes:
             d = G.nodes[n]
-            lines.append(f"  {d.get('label', n)} [{d.get('source_file', '')}]")
+            # Sanitise label and source_file (F-010).
+            lines.append(
+                f"  {sanitize_label(d.get('label', n))} "
+                f"[{sanitize_label(str(d.get('source_file', '')))}]"
+            )
         return "\n".join(lines)
 
     def _tool_god_nodes(arguments: dict) -> str:
@@ -462,6 +484,77 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         "graph_stats": _tool_graph_stats,
         "shortest_path": _tool_shortest_path,
     }
+
+    def _load_community_labels() -> dict[int, str]:
+        labels_path = Path(graph_path).parent / ".graphify_labels.json"
+        if labels_path.exists():
+            try:
+                return {int(k): v for k, v in json.loads(labels_path.read_text(encoding="utf-8")).items()}
+            except Exception:
+                pass
+        return {cid: f"Community {cid}" for cid in communities}
+
+    @server.list_resources()
+    async def list_resources() -> list[types.Resource]:
+        return [
+            types.Resource(uri=AnyUrl("graphify://report"), name="Graph Report", description="Full GRAPH_REPORT.md", mimeType="text/markdown"),
+            types.Resource(uri=AnyUrl("graphify://stats"), name="Graph Stats", description="Node/edge/community counts and confidence breakdown", mimeType="text/plain"),
+            types.Resource(uri=AnyUrl("graphify://god-nodes"), name="God Nodes", description="Top 10 most-connected nodes", mimeType="text/plain"),
+            types.Resource(uri=AnyUrl("graphify://surprises"), name="Surprising Connections", description="Cross-community surprising connections", mimeType="text/plain"),
+            types.Resource(uri=AnyUrl("graphify://audit"), name="Confidence Audit", description="EXTRACTED/INFERRED/AMBIGUOUS edge breakdown", mimeType="text/plain"),
+            types.Resource(uri=AnyUrl("graphify://questions"), name="Suggested Questions", description="Suggested questions for this codebase", mimeType="text/plain"),
+        ]
+
+    @server.read_resource()
+    async def read_resource(uri: AnyUrl) -> str:
+        uri_str = str(uri)
+        if uri_str == "graphify://report":
+            report_path = Path(graph_path).parent / "GRAPH_REPORT.md"
+            if report_path.exists():
+                return report_path.read_text(encoding="utf-8")
+            return "GRAPH_REPORT.md not found. Run graphify extract first."
+        if uri_str == "graphify://stats":
+            return _tool_graph_stats({})
+        if uri_str == "graphify://god-nodes":
+            return _tool_god_nodes({"top_n": 10})
+        if uri_str == "graphify://surprises":
+            try:
+                from graphify.analyze import surprising_connections
+                surprises = surprising_connections(G, communities, top_n=10)
+                if not surprises:
+                    return "No surprising connections found."
+                lines = ["Surprising cross-community connections:"]
+                for s in surprises:
+                    lines.append(f"  {s.get('source', '')} <-> {s.get('target', '')} [{s.get('relation', '')}]")
+                return "\n".join(lines)
+            except Exception as exc:
+                return f"Could not compute surprising connections: {exc}"
+        if uri_str == "graphify://audit":
+            confs = [d.get("confidence", "EXTRACTED") for _, _, d in G.edges(data=True)]
+            total = len(confs) or 1
+            return (
+                f"Total edges: {total}\n"
+                f"EXTRACTED: {confs.count('EXTRACTED')} ({round(confs.count('EXTRACTED')/total*100)}%)\n"
+                f"INFERRED: {confs.count('INFERRED')} ({round(confs.count('INFERRED')/total*100)}%)\n"
+                f"AMBIGUOUS: {confs.count('AMBIGUOUS')} ({round(confs.count('AMBIGUOUS')/total*100)}%)\n"
+            )
+        if uri_str == "graphify://questions":
+            try:
+                from graphify.analyze import suggest_questions
+                community_labels = _load_community_labels()
+                questions = suggest_questions(G, communities, community_labels, top_n=10)
+                if not questions:
+                    return "No suggested questions available."
+                lines = ["Suggested questions:"]
+                for q in questions:
+                    if isinstance(q, dict):
+                        lines.append(f"  - {q.get('question', '')}")
+                    else:
+                        lines.append(f"  - {q}")
+                return "\n".join(lines)
+            except Exception as exc:
+                return f"Could not generate questions: {exc}"
+        raise ValueError(f"Unknown resource: {uri_str}")
 
     @server.call_tool()
     async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:

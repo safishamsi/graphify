@@ -5,6 +5,7 @@ and asserts the expected output file exists and is non-empty / valid.
 """
 from __future__ import annotations
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -15,12 +16,13 @@ PYTHON = sys.executable
 FIXTURES = Path(__file__).parent / "fixtures"
 
 
-def _run(args: list[str], cwd: Path) -> subprocess.CompletedProcess:
+def _run(args: list[str], cwd: Path, env: dict[str, str] | None = None) -> subprocess.CompletedProcess:
     return subprocess.run(
         [PYTHON, "-m", "graphify"] + args,
         cwd=cwd,
         capture_output=True,
         text=True,
+        env=env,
     )
 
 
@@ -165,6 +167,19 @@ def test_query_missing_graph_fails(tmp_path):
     assert r.returncode != 0
 
 
+def test_query_uses_graphify_out_env(tmp_path):
+    out = _make_graph(tmp_path)
+    custom_out = tmp_path / "custom-graph"
+    out.rename(custom_out)
+    env = os.environ.copy()
+    env["GRAPHIFY_OUT"] = custom_out.name
+
+    r = _run(["query", "test"], tmp_path, env=env)
+
+    assert r.returncode == 0, r.stderr
+    assert len(r.stdout) > 0
+
+
 # ── graphify path ────────────────────────────────────────────────────────────
 
 def test_path_runs_without_error(tmp_path):
@@ -179,6 +194,18 @@ def test_path_missing_graph_fails(tmp_path):
     assert r.returncode != 0
 
 
+def test_path_uses_graphify_out_env(tmp_path):
+    out = _make_graph(tmp_path)
+    custom_out = tmp_path / "custom-graph"
+    out.rename(custom_out)
+    env = os.environ.copy()
+    env["GRAPHIFY_OUT"] = custom_out.name
+
+    r = _run(["path", "Transformer", "LayerNorm"], tmp_path, env=env)
+
+    assert r.returncode == 0, r.stderr
+
+
 # ── graphify explain ─────────────────────────────────────────────────────────
 
 def test_explain_runs_without_error(tmp_path):
@@ -190,6 +217,18 @@ def test_explain_runs_without_error(tmp_path):
 def test_explain_missing_graph_fails(tmp_path):
     r = _run(["explain", "anything"], tmp_path)
     assert r.returncode != 0
+
+
+def test_explain_uses_graphify_out_env(tmp_path):
+    out = _make_graph(tmp_path)
+    custom_out = tmp_path / "custom-graph"
+    out.rename(custom_out)
+    env = os.environ.copy()
+    env["GRAPHIFY_OUT"] = custom_out.name
+
+    r = _run(["explain", "test"], tmp_path, env=env)
+
+    assert r.returncode == 0, r.stderr
 
 
 # ── graphify export unknown format ───────────────────────────────────────────

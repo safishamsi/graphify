@@ -1,5 +1,7 @@
 """Tests for graphify install --platform routing."""
+import os
 from pathlib import Path
+import sys
 from unittest.mock import patch
 import pytest
 
@@ -18,8 +20,13 @@ PLATFORMS = {
 
 def _install(tmp_path, platform):
     from graphify.__main__ import install
-    with patch("graphify.__main__.Path.home", return_value=tmp_path):
-        install(platform=platform)
+    old_cwd = Path.cwd()
+    try:
+        os.chdir(tmp_path)
+        with patch("graphify.__main__.Path.home", return_value=tmp_path):
+            install(platform=platform)
+    finally:
+        os.chdir(old_cwd)
 
 
 def test_install_default_claude(tmp_path):
@@ -35,6 +42,29 @@ def test_install_codex(tmp_path):
 def test_install_opencode(tmp_path):
     _install(tmp_path, "opencode")
     assert (tmp_path / ".config" / "opencode" / "skills" / "graphify" / "SKILL.md").exists()
+
+
+def test_install_positional_platform_opencode(tmp_path, monkeypatch):
+    from graphify.__main__ import main
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["graphify", "install", "opencode"])
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        main()
+    assert (tmp_path / ".config" / "opencode" / "skills" / "graphify" / "SKILL.md").exists()
+    assert not (tmp_path / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
+
+
+def test_install_help_does_not_install_default(tmp_path, monkeypatch, capsys):
+    from graphify.__main__ import main
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["graphify", "install", "opencode", "--help"])
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        main()
+    out = capsys.readouterr().out
+    assert "Usage: graphify install" in out
+    assert "opencode" in out
+    assert not (tmp_path / ".claude").exists()
+    assert not (tmp_path / ".config").exists()
 
 
 def test_install_claw(tmp_path):

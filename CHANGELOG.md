@@ -2,6 +2,30 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## 0.7.9 (2026-05-07)
+
+- Feat: TypeScript extraction parity -- interface, enum, type alias, and module-level const nodes extracted; new_expression emits calls edges; parity with Java/C# class_types (#708)
+- Feat: Quarto (`.qmd`) file support -- routed through existing Markdown extractor; Quarto executable code blocks (` ```{python} `) extracted as code nodes (#761)
+- Feat: optional Google Workspace shortcut export for headless extraction -- `graphify extract ./docs --google-workspace` converts `.gdoc`, `.gsheet`, and `.gslides` files into Markdown sidecars with the `gws` CLI before semantic extraction; account email pseudonymized via SHA256 hash; `[google]` extra adds Sheets table rendering support (#752)
+- Feat: AWS Bedrock backend -- `graphify extract ./docs --backend bedrock`; credentials via standard AWS provider chain (AWS_PROFILE, AWS_REGION, IAM roles, SSO); model via GRAPHIFY_BEDROCK_MODEL (default anthropic.claude-3-5-sonnet-20241022-v2:0); `[bedrock]` extra adds boto3 (#757)
+
+## 0.7.8 (2026-05-06)
+
+- Fix: CommonJS `require()` imports now extracted from JS/TS -- `const { foo } = require('./mod')`, `const m = require('./mod')`, and `const x = require('./mod').y` all emit EXTRACTED `imports_from` (and per-symbol `imports`) edges. Previously CJS-only Node.js codebases produced AST graphs missing every import edge, which downgraded all cross-file calls to INFERRED.
+- Fix: cross-file `calls` edges are now promoted from INFERRED to EXTRACTED when the caller's file has an explicit `imports` or `imports_from` edge to the callee. Previously every cross-file call was unconditionally INFERRED, even when a top-of-file `import` / `require` proved the binding. On a 92-file CJS Node.js corpus this promoted 88% of cross-file calls (104 of 118) to EXTRACTED.
+- Feat: Gemini and OpenAI backends -- `graphify extract ./docs --backend gemini` (GEMINI_API_KEY / GOOGLE_API_KEY) or `--backend openai` (OPENAI_API_KEY); `[gemini]` and `[openai]` extras added (#735)
+- Feat: Groovy and Spock support -- `.groovy` and `.gradle` extracted via tree-sitter-groovy; Spock spec files (`def "feature"()` syntax) handled via regex fallback (#732)
+- Feat: Luau support -- `.luau` (Roblox Luau) added to code extraction using the Lua tree-sitter parser (#745)
+- Feat: Markdown structural extraction -- headings, fenced code blocks, and nesting hierarchy extracted as graph nodes from `.md` and `.mdx` files with zero new dependencies (#711)
+- Fix: `collect_files()` extension set now auto-syncs with `_DISPATCH` -- previously 18 extensions (`.sql`, `.vue`, `.svelte`, `.jsx`, `.ex`, `.jl`, etc.) were silently skipped in skill-mode extraction (#711)
+- Fix: `detect_incremental` now forwards `follow_symlinks` to `detect()` -- symlinked subtrees no longer vanish on `--update` runs (#736)
+- Fix: TS bare-path / `.svelte.ts` / `.svelte.js` / `index.ts` directory / multi-dot imports now resolve correctly -- previously these produced phantom edges dropped at merge time (#717, #716)
+- Fix: `cluster-only` now loads and saves `.graphify_labels.json` -- human-readable community labels survive re-clustering instead of resetting to "Community N" (#744)
+- Fix: `graphify export wiki` now fails fast with exit 1 if `.graphify_analysis.json` is missing -- prevents silent deletion of existing wiki articles (#746)
+- Fix: `to_wiki()` now raises before the cleanup loop when `communities` is empty -- second safety layer against wiki data loss (#746)
+- Fix: Ollama import error message now says "Ollama" not "Kimi" and points to `pip install openai`; `[ollama]` extras group added (#750)
+- Security: hooks.py path execution now validates scripts are within the repo root -- closes supply-chain attack vector where a malicious commit could redirect hook execution (#747)
+
 ## 0.7.7 (2026-05-05)
 
 - Feat: Ollama backend for headless extraction -- `graphify extract ./docs --backend ollama`; auto-detected when `OLLAMA_BASE_URL` is set; defaults to `qwen2.5-coder:7b`; zero cost ($0.00); sentinel API key handles OpenAI client auth requirement (#729)
@@ -9,6 +33,7 @@ Full release notes with details on each version: [GitHub Releases](https://githu
 - Feat: `graphify extract --global --as <tag>` flag -- after building a project graph, auto-registers it into the global graph in one step (#729)
 - Feat: `merge-graphs` now prefix-relabels each input graph before composing, preventing silent node ID collisions when two projects share entity names (#729)
 - Fix: `deduplicate_entities` raises `ValueError` if called with nodes spanning multiple repos (cross-project dedup disabled by design -- per-project graphs are deduplicated in isolation) (#729)
+- Fix: `detect_incremental()` now accepts and forwards `follow_symlinks` to `detect()`. Without this, `--update` runs silently miss any files reached through a symlinked sub-tree (e.g. `state_of_truth/` symlinking to a directory outside the corpus root), even when the original full run had detected them. Previously the flag was on `detect()` and `collect_files()` only. (#736)
 
 ## 0.7.6 (2026-05-05)
 

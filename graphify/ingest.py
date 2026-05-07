@@ -11,8 +11,45 @@ from graphify.security import safe_fetch, safe_fetch_text, validate_url
 
 
 def _yaml_str(s: str) -> str:
-    """Escape a string for embedding in a YAML double-quoted scalar."""
-    return s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", " ").replace("\r", " ")
+    """Escape a string for embedding in a YAML double-quoted scalar.
+
+    Handles every YAML 1.1/1.2 line-break and control character that could
+    let a hostile value (e.g. a fetched page title) break out of the quoted
+    scalar and inject sibling YAML keys (F-009 / F-019). The previous
+    implementation missed `\\t`, `\\0`, the unicode line-separator U+2028 and
+    paragraph-separator U+2029 — all of which YAML treats as line breaks.
+
+    We intentionally do not depend on PyYAML (not in pyproject deps) and
+    instead emit safely-escaped double-quoted scalars by hand: the YAML
+    double-quoted form recognises `\\\\`, `\\"`, `\\n`, `\\r`, `\\t`, `\\0`,
+    `\\L` (U+2028), `\\P` (U+2029), and `\\xNN`/`\\uNNNN` numeric escapes.
+    """
+    if s is None:
+        return ""
+    out: list[str] = []
+    for ch in str(s):
+        cp = ord(ch)
+        if ch == "\\":
+            out.append("\\\\")
+        elif ch == '"':
+            out.append('\\"')
+        elif ch == "\n":
+            out.append("\\n")
+        elif ch == "\r":
+            out.append("\\r")
+        elif ch == "\t":
+            out.append("\\t")
+        elif ch == "\0":
+            out.append("\\0")
+        elif cp == 0x2028:
+            out.append("\\L")
+        elif cp == 0x2029:
+            out.append("\\P")
+        elif cp < 0x20 or cp == 0x7F:
+            out.append(f"\\x{cp:02x}")
+        else:
+            out.append(ch)
+    return "".join(out)
 
 
 def _safe_filename(url: str, suffix: str) -> str:

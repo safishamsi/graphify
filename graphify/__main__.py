@@ -19,6 +19,10 @@ except Exception:
 _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
 
 
+def _default_graph_path() -> str:
+    return str(Path(_GRAPHIFY_OUT) / "graph.json")
+
+
 def _check_skill_version(skill_dst: Path) -> None:
     """Warn if the installed skill is from an older graphify version."""
     version_file = skill_dst.parent / ".graphify_version"
@@ -143,6 +147,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".claude") / "skills" / "graphify" / "SKILL.md",
         "claude_md": True,
     },
+    "kimi": {
+        "skill_file": "skill.md",
+        "skill_dst": Path(".kimi") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
 }
 
 
@@ -204,6 +213,12 @@ def install(platform: str = "claude") -> None:
     print()
     print("  /graphify .")
     print()
+
+
+def _print_install_usage() -> None:
+    platforms = ", ".join([*_PLATFORM_CONFIG, "gemini", "cursor"])
+    print("Usage: graphify install [--platform P|P]")
+    print(f"Platforms: {platforms}")
 
 
 _CLAUDE_MD_SECTION = """\
@@ -1100,9 +1115,10 @@ def main() -> None:
         print("    --top-k-edges N         per-symbol outbound edges in inspector (default 12)")
         print("    --label NAME            project label in header")
         print("  extract <path>          headless full extraction (AST + semantic LLM) for CI/scripts")
-        print("    --backend B             kimi|claude (default: whichever API key is set)")
-        print("    --model <name>          override the backend's default model")
+        print("    --backend B             gemini|kimi|claude|openai|ollama (default: whichever API key is set)")
+        print("    --model M               override backend default model")
         print("    --out DIR               output dir (default: <path>); writes <DIR>/graphify-out/")
+        print("    --google-workspace      export .gdoc/.gsheet/.gslides shortcuts via gws before extraction")
         print("    --no-cluster            skip clustering, write raw extraction only")
         print("    --global                also merge the resulting graph into the global graph")
         print("    --as <tag>              repo tag for --global (default: target directory name)")
@@ -1154,18 +1170,41 @@ def main() -> None:
     if cmd == "install":
         # Default to windows platform on Windows, claude elsewhere
         default_platform = "windows" if platform.system() == "Windows" else "claude"
-        chosen_platform = default_platform
+        selected_platform: str | None = None
         args = sys.argv[2:]
         i = 0
         while i < len(args):
-            if args[i].startswith("--platform="):
-                chosen_platform = args[i].split("=", 1)[1]
+            arg = args[i]
+            if arg in ("-h", "--help"):
+                _print_install_usage()
+                return
+            if arg.startswith("--platform="):
+                candidate = arg.split("=", 1)[1]
+                if selected_platform and selected_platform != candidate:
+                    print("error: specify install platform only once", file=sys.stderr)
+                    sys.exit(1)
+                selected_platform = candidate
                 i += 1
-            elif args[i] == "--platform" and i + 1 < len(args):
-                chosen_platform = args[i + 1]
+            elif arg == "--platform":
+                if i + 1 >= len(args):
+                    print("error: --platform requires a value", file=sys.stderr)
+                    sys.exit(1)
+                candidate = args[i + 1]
+                if selected_platform and selected_platform != candidate:
+                    print("error: specify install platform only once", file=sys.stderr)
+                    sys.exit(1)
+                selected_platform = candidate
                 i += 2
+            elif arg.startswith("-"):
+                print(f"error: unknown install option '{arg}'", file=sys.stderr)
+                sys.exit(1)
             else:
+                if selected_platform and selected_platform != arg:
+                    print("error: specify install platform only once", file=sys.stderr)
+                    sys.exit(1)
+                selected_platform = arg
                 i += 1
+        chosen_platform = selected_platform or default_platform
         install(platform=chosen_platform)
     elif cmd == "claude":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
@@ -1296,7 +1335,7 @@ def main() -> None:
         question = sys.argv[2]
         use_dfs = "--dfs" in sys.argv
         budget = 2000
-        graph_path = "graphify-out/graph.json"
+        graph_path = _default_graph_path()
         context_filters: list[str] = []
         args = sys.argv[3:]
         i = 0
@@ -1336,6 +1375,8 @@ def main() -> None:
             import json as _json
             import networkx as _nx
             _raw = _json.loads(gp.read_text(encoding="utf-8"))
+            if "links" not in _raw and "edges" in _raw:
+                _raw = dict(_raw, links=_raw["edges"])
             try:
                 G = json_graph.node_link_graph(_raw, edges="links")
             except TypeError:
@@ -1441,7 +1482,7 @@ def main() -> None:
         import networkx as _nx
         source_label = sys.argv[2]
         target_label = sys.argv[3]
-        graph_path = "graphify-out/graph.json"
+        graph_path = _default_graph_path()
         args = sys.argv[4:]
         for i, a in enumerate(args):
             if a == "--graph" and i + 1 < len(args):
@@ -1451,6 +1492,8 @@ def main() -> None:
             print(f"error: graph file not found: {gp}", file=sys.stderr)
             sys.exit(1)
         _raw = json.loads(gp.read_text(encoding="utf-8"))
+        if "links" not in _raw and "edges" in _raw:
+            _raw = dict(_raw, links=_raw["edges"])
         try:
             G = json_graph.node_link_graph(_raw, edges="links")
         except TypeError:
@@ -1489,7 +1532,7 @@ def main() -> None:
         from graphify.serve import _find_node
         from networkx.readwrite import json_graph
         label = sys.argv[2]
-        graph_path = "graphify-out/graph.json"
+        graph_path = _default_graph_path()
         args = sys.argv[3:]
         for i, a in enumerate(args):
             if a == "--graph" and i + 1 < len(args):
@@ -1499,6 +1542,8 @@ def main() -> None:
             print(f"error: graph file not found: {gp}", file=sys.stderr)
             sys.exit(1)
         _raw = json.loads(gp.read_text(encoding="utf-8"))
+        if "links" not in _raw and "edges" in _raw:
+            _raw = dict(_raw, links=_raw["edges"])
         try:
             G = json_graph.node_link_graph(_raw, edges="links")
         except TypeError:
@@ -1610,7 +1655,15 @@ def main() -> None:
         cohesion = score_all(G, communities)
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)
-        labels = {cid: f"Community {cid}" for cid in communities}
+        out = watch_path / "graphify-out"
+        labels_path = out / ".graphify_labels.json"
+        if labels_path.exists():
+            try:
+                labels = {int(k): v for k, v in json.loads(labels_path.read_text(encoding="utf-8")).items()}
+            except Exception:
+                labels = {cid: f"Community {cid}" for cid in communities}
+        else:
+            labels = {cid: f"Community {cid}" for cid in communities}
         questions = suggest_questions(G, communities, labels)
         tokens = {"input": 0, "output": 0}
         from graphify.export import _git_head as _gh
@@ -1619,9 +1672,9 @@ def main() -> None:
                           {"warning": "cluster-only mode — file stats not available"},
                           tokens, str(watch_path), suggested_questions=questions,
                           min_community_size=min_community_size, built_at_commit=_commit)
-        out = watch_path / "graphify-out"
         (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
         to_json(G, communities, str(out / "graph.json"))
+        labels_path.write_text(json.dumps({str(k): v for k, v in labels.items()}, ensure_ascii=False), encoding="utf-8")
 
         # Mirror watch.py pattern: gate to_html so core outputs (graph.json +
         # GRAPH_REPORT.md) always land. Honor --no-viz explicitly; otherwise
@@ -1665,8 +1718,13 @@ def main() -> None:
         ok = _rebuild_code(watch_path, force=force)
         if ok:
             print("Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.")
-            if not os.environ.get("MOONSHOT_API_KEY") and not os.environ.get("GRAPHIFY_NO_TIPS"):
-                print("Tip: set MOONSHOT_API_KEY to use Kimi K2.6 for semantic extraction — 3x cheaper, richer graphs. pip install 'graphifyy[kimi]'")
+            if not (
+                os.environ.get("GEMINI_API_KEY")
+                or os.environ.get("GOOGLE_API_KEY")
+                or os.environ.get("MOONSHOT_API_KEY")
+                or os.environ.get("GRAPHIFY_NO_TIPS")
+            ):
+                print("Tip: set GEMINI_API_KEY or GOOGLE_API_KEY to use Gemini for semantic extraction.")
         else:
             print("Nothing to update or rebuild failed — check output above.", file=sys.stderr)
             sys.exit(1)
@@ -1741,17 +1799,33 @@ def main() -> None:
 
     elif cmd == "merge-driver":
         # git merge driver for graph.json — takes (base, current, other) and writes
-        # the union of current+other nodes/edges back to current. Always exits 0
-        # so git never marks graph.json as conflicted.
+        # the union of current+other nodes/edges back to current. Exits 1 on
+        # corrupt input so git surfaces the conflict instead of silently
+        # accepting a poisoned merge (see F-005).
         # Usage: graphify merge-driver %O %A %B  (set in .git/config merge driver)
         if len(sys.argv) < 5:
             print("Usage: graphify merge-driver <base> <current> <other>", file=sys.stderr)
             sys.exit(1)
         _base_path, _current_path, _other_path = sys.argv[2], sys.argv[3], sys.argv[4]
+        # Hard caps so a malicious or corrupted graph.json cannot exhaust memory
+        # at parse time. 50 MB / 100k nodes are well above any realistic graph
+        # (typical graphs are <5 MB / <50k nodes); anything larger should fail
+        # the merge so a human can investigate.
+        _MERGE_MAX_BYTES = 50 * 1024 * 1024
+        _MERGE_MAX_NODES = 100_000
         import networkx as _nx
         from networkx.readwrite import json_graph as _jg
         def _load_graph(p: str):
-            data = json.loads(Path(p).read_text(encoding="utf-8"))
+            path_obj = Path(p)
+            try:
+                size = path_obj.stat().st_size
+            except OSError as exc:
+                raise RuntimeError(f"cannot stat {p}: {exc}") from exc
+            if size > _MERGE_MAX_BYTES:
+                raise RuntimeError(
+                    f"graph.json {p} is {size} bytes, exceeds {_MERGE_MAX_BYTES}-byte cap"
+                )
+            data = json.loads(path_obj.read_text(encoding="utf-8"))
             try:
                 return _jg.node_link_graph(data, edges="links"), data
             except TypeError:
@@ -1761,8 +1835,15 @@ def main() -> None:
             G_oth, _ = _load_graph(_other_path)
         except Exception as exc:
             print(f"[graphify merge-driver] error loading graphs: {exc}", file=sys.stderr)
-            sys.exit(0)  # exit 0 so git doesn't block the merge
+            sys.exit(1)  # surface the conflict so git doesn't accept a corrupt merge
         merged = _nx.compose(G_cur, G_oth)
+        if merged.number_of_nodes() > _MERGE_MAX_NODES:
+            print(
+                f"[graphify merge-driver] merged graph has {merged.number_of_nodes()} nodes, "
+                f"exceeds {_MERGE_MAX_NODES}-node cap; aborting merge.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
         try:
             out_data = _jg.node_link_data(merged, edges="links")
         except TypeError:
@@ -1845,6 +1926,7 @@ def main() -> None:
             print("  svg       [--graph PATH] [--labels PATH]", file=sys.stderr)
             print("  graphml   [--graph PATH]", file=sys.stderr)
             print("  neo4j     [--graph PATH] [--push URI] [--user U] [--password P]", file=sys.stderr)
+            print("            (or set NEO4J_PASSWORD instead of --password to keep it off argv)", file=sys.stderr)
             sys.exit(1)
 
         # Parse shared args
@@ -1857,7 +1939,10 @@ def main() -> None:
         obsidian_dir = Path(_GRAPHIFY_OUT) / "obsidian"
         neo4j_uri: str | None = None
         neo4j_user = "neo4j"
-        neo4j_password: str | None = None
+        # F-031: prefer the NEO4J_PASSWORD env var so the password never
+        # appears on argv (visible in `ps` output / shell history). The
+        # explicit --password flag still overrides it for compatibility.
+        neo4j_password: str | None = os.environ.get("NEO4J_PASSWORD") or None
         i = 0
         while i < len(args):
             a = args[i]
@@ -1936,6 +2021,13 @@ def main() -> None:
         elif subcmd == "wiki":
             from graphify.wiki import to_wiki as _to_wiki
             from graphify.analyze import god_nodes as _god_nodes
+            if not communities:
+                print(
+                    "error: .graphify_analysis.json is missing or empty — refusing to export wiki to prevent data loss.\n"
+                    "Run `graphify extract .` (or `graphify cluster-only .`) to regenerate community data first.",
+                    file=sys.stderr,
+                )
+                sys.exit(1)
             if not gods_data:
                 gods_data = _god_nodes(G)
             n = _to_wiki(G, communities, str(out_dir / "wiki"),
@@ -2049,8 +2141,8 @@ def main() -> None:
         # has an API key set.
         if len(sys.argv) < 3:
             print(
-                "Usage: graphify extract <path> [--backend kimi|claude] "
-                "[--out DIR] [--no-cluster]",
+                "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai] "
+                "[--out DIR] [--google-workspace] [--no-cluster]",
                 file=sys.stderr,
             )
             sys.exit(1)
@@ -2061,10 +2153,11 @@ def main() -> None:
             sys.exit(1)
 
         backend: str | None = None
+        model: str | None = None
         out_dir: Path | None = None
         no_cluster = False
         dedup_llm = False
-        model_override: str | None = None
+        google_workspace = False
         global_merge = False
         global_repo_tag: str | None = None
         args = sys.argv[3:]
@@ -2076,9 +2169,9 @@ def main() -> None:
             elif a.startswith("--backend="):
                 backend = a.split("=", 1)[1]; i += 1
             elif a == "--model" and i + 1 < len(args):
-                model_override = args[i + 1]; i += 2
+                model = args[i + 1]; i += 2
             elif a.startswith("--model="):
-                model_override = a.split("=", 1)[1]; i += 1
+                model = a.split("=", 1)[1]; i += 1
             elif a == "--out" and i + 1 < len(args):
                 out_dir = Path(args[i + 1]); i += 2
             elif a.startswith("--out="):
@@ -2087,6 +2180,8 @@ def main() -> None:
                 no_cluster = True; i += 1
             elif a == "--dedup-llm":
                 dedup_llm = True; i += 1
+            elif a == "--google-workspace":
+                google_workspace = True; i += 1
             elif a == "--global":
                 global_merge = True; i += 1
             elif a == "--as" and i + 1 < len(args):
@@ -2103,13 +2198,16 @@ def main() -> None:
             detect_backend as _detect_backend,
             estimate_cost as _estimate_cost,
             extract_corpus_parallel as _extract_corpus_parallel,
+            _format_backend_env_keys,
+            _get_backend_api_key,
         )
         if backend is None:
             backend = _detect_backend()
             if backend is None:
                 print(
-                    "error: no LLM API key found. Set MOONSHOT_API_KEY (kimi) "
-                    "or ANTHROPIC_API_KEY (claude), or pass --backend.",
+                    "error: no LLM API key found. Set GEMINI_API_KEY or GOOGLE_API_KEY "
+                    "(gemini), MOONSHOT_API_KEY (kimi), ANTHROPIC_API_KEY (claude), "
+                    "or OPENAI_API_KEY (openai), or pass --backend.",
                     file=sys.stderr,
                 )
                 sys.exit(1)
@@ -2120,10 +2218,9 @@ def main() -> None:
                 file=sys.stderr,
             )
             sys.exit(1)
-        env_key = _BACKENDS[backend]["env_key"]
-        if not os.environ.get(env_key):
+        if not _get_backend_api_key(backend):
             print(
-                f"error: backend '{backend}' requires {env_key} to be set.",
+                f"error: backend '{backend}' requires {_format_backend_env_keys(backend)} to be set.",
                 file=sys.stderr,
             )
             sys.exit(1)
@@ -2146,10 +2243,14 @@ def main() -> None:
 
         if incremental_mode:
             print(f"[graphify extract] incremental scan of {target}")
-            detection = _detect_incremental(target, manifest_path=str(manifest_path))
+            detection = _detect_incremental(
+                target,
+                manifest_path=str(manifest_path),
+                google_workspace=google_workspace or None,
+            )
         else:
             print(f"[graphify extract] scanning {target}")
-            detection = _detect(target)
+            detection = _detect(target, google_workspace=google_workspace or None)
 
         files_by_type = detection.get("files", {})
         if incremental_mode:
@@ -2224,7 +2325,7 @@ def main() -> None:
                     fresh = _extract_corpus_parallel(
                         [Path(p) for p in uncached_paths],
                         backend=backend,
-                        model=model_override,
+                        model=model,
                         root=target,
                     )
                 except ImportError as exc:

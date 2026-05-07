@@ -75,3 +75,56 @@ def test_build_merges_multiple_extractions():
     G = build([ext1, ext2])
     assert G.number_of_nodes() == 2
     assert G.number_of_edges() == 1
+
+
+def test_none_file_type_defaults_to_concept(capsys):
+    """Legacy nodes with file_type=None (e.g. preserved from older graph.json
+    by `_rebuild_code`) must not trigger 'invalid file_type None' warnings (#660)."""
+    ext = {
+        "nodes": [
+            {"id": "n1", "label": "Stub", "file_type": None, "source_file": "a.py"},
+            {"id": "n2", "label": "Real", "file_type": "code", "source_file": "b.py"},
+        ],
+        "edges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    G = build_from_json(ext)
+    err = capsys.readouterr().err
+    assert "invalid file_type" not in err
+    # The legacy node still exists in the graph and has been canonicalized
+    assert G.nodes["n1"]["file_type"] == "concept"
+    assert G.nodes["n2"]["file_type"] == "code"
+
+
+def test_missing_file_type_defaults_to_concept(capsys):
+    """Nodes missing file_type entirely should also be canonicalized to 'concept'."""
+    ext = {
+        "nodes": [
+            {"id": "n1", "label": "Bare", "source_file": "a.py"},
+        ],
+        "edges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    G = build_from_json(ext)
+    err = capsys.readouterr().err
+    assert "invalid file_type" not in err
+    assert "missing required field 'file_type'" not in err
+    assert G.nodes["n1"]["file_type"] == "concept"
+
+
+def test_real_invalid_file_type_still_warns(capsys):
+    """Truly invalid file_type values (not None, not empty) must still warn."""
+    ext = {
+        "nodes": [
+            {"id": "n1", "label": "Bad", "file_type": "weird_type", "source_file": "a.py"},
+        ],
+        "edges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    build_from_json(ext)
+    err = capsys.readouterr().err
+    assert "invalid file_type" in err
+    assert "weird_type" in err
