@@ -7,6 +7,7 @@ import re
 import shutil
 import sys
 from pathlib import Path
+from graphify.tui import interactive_init, auto_init
 
 try:
     from importlib.metadata import version as _pkg_version
@@ -1035,6 +1036,13 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
     return dest
 
 
+
+def _maybe_run_init(project_root: Path, force: bool = False) -> None:
+    """Launch TUI wizard on first run or when --ignore flag is passed."""
+    if force or not (project_root / ".graphifyignore").exists():
+        interactive_init(project_root)
+
+
 def main() -> None:
     # Check all known skill install locations for a stale version stamp.
     # Skip during install/uninstall (hook writes trigger a fresh check anyway).
@@ -1062,7 +1070,9 @@ def main() -> None:
         print("    --contributor \"Name\"    tag who added it to the corpus")
         print("    --dir <path>            target directory (default: ./raw)")
         print("  watch <path>            watch a folder and rebuild the graph on code changes")
+        print("    --ignore                re-open the .graphifyignore wizard before watching")
         print("  update <path>           re-extract code files and update the graph (no LLM needed)")
+        print("    --ignore                re-open the .graphifyignore wizard before updating")
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("    --no-viz                skip graph.html generation (useful for >5000 node graphs / CI)")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
@@ -1077,6 +1087,7 @@ def main() -> None:
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
         print("  check-update <path>     check needs_update flag and notify if semantic re-extraction is pending (cron-safe)")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
+        print("  ignore [path]           open the interactive .graphifyignore wizard")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
         print("  hook status             check if git hooks are installed")
@@ -1433,6 +1444,7 @@ def main() -> None:
         if not watch_path.exists():
             print(f"error: path not found: {watch_path}", file=sys.stderr)
             sys.exit(1)
+        _maybe_run_init(watch_path, force="--ignore" in sys.argv)
         from graphify.watch import watch as _watch
         try:
             _watch(watch_path)
@@ -1504,6 +1516,7 @@ def main() -> None:
         if not watch_path.exists():
             print(f"error: path not found: {watch_path}", file=sys.stderr)
             sys.exit(1)
+        _maybe_run_init(watch_path, force="--ignore" in sys.argv)
         from graphify.watch import _rebuild_code
         print(f"Re-extracting code files in {watch_path} (no LLM needed)...")
         ok = _rebuild_code(watch_path)
@@ -1581,6 +1594,13 @@ def main() -> None:
                 i += 1
         local_path = _clone_repo(url, branch=branch, out_dir=out_dir)
         print(local_path)
+
+    elif cmd == "ignore":
+        target = Path(sys.argv[2]).resolve() if len(sys.argv) > 2 else Path(".").resolve()
+        if not target.exists():
+            print(f"error: path not found: {target}", file=sys.stderr)
+            sys.exit(1)
+        _maybe_run_init(target, force=True)
 
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
