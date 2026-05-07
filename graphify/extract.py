@@ -9,6 +9,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Any
 from .cache import load_cached, save_cached
+from .deterministic_docs import enrich_python_doc_tags
+from .symbol_resolution import (
+    resolve_cross_file_raw_calls,
+    resolve_python_import_guided_calls,
+)
+from .test_linking import resolve_python_test_edges
 
 _RECURSION_LIMIT = 10_000
 
@@ -1942,10 +1948,11 @@ def _extract_python_rationale(path: Path, result: dict) -> None:
 # ── Public API ────────────────────────────────────────────────────────────────
 
 def extract_python(path: Path) -> dict:
-    """Extract classes, functions, and imports from a .py file via tree-sitter AST."""
+    """Extract classes, functions, imports, rationale, and doc tags from a Python file."""
     result = _extract_generic(path, _PYTHON_CONFIG)
     if "error" not in result:
         _extract_python_rationale(path, result)
+        enrich_python_doc_tags(path, result, make_id=_make_id, file_stem=_file_stem)
     return result
 
 
@@ -4802,24 +4809,15 @@ def extract(
             import logging
             logging.getLogger(__name__).warning("Java cross-file import resolution failed, skipping: %s", exc)
 
-    # Cross-file call resolution for all languages
-    # Each extractor saved unresolved calls in raw_calls. Now that we have all
-    # nodes from all files, resolve any callee that exists in another file.
-    # Build name → ALL matching node IDs so we can skip ambiguous common names
-    # (e.g. "log", "execute", "find") that appear in multiple files — resolving
-    # those inflates god_nodes ranking with spurious cross-file edges.
-    # Build label -> node_id index for cross-file call resolution.
-    # Skip rationale nodes (their labels are docstring text, not callable
-    # identifiers, and they were polluting matches for short names — #563).
-    global_label_to_nids: dict[str, list[str]] = {}
-    for n in all_nodes:
-        if n.get("file_type") == "rationale":
-            continue
-        raw = n.get("label", "")
-        normalised = raw.strip("()").lstrip(".")
-        if normalised:
-            key = normalised.lower()
-            global_label_to_nids.setdefault(key, []).append(n["id"])
+    # Python import-guided call resolution.
+    # This runs before global raw-call fallback so import-backed calls can be
+    # emitted as EXTRACTED instead of weaker INFERRED edges.
+    if py_paths:
+        try:
+            all_edges.extend(resolve_python_import_guided_calls(per_file, paths, all_nodes, all_edges))
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Python import-guided call resolution failed, skipping: %s", exc)
 
     # Build evidence index from import edges so cross-file calls backed by an
     # explicit import statement can be promoted from INFERRED to EXTRACTED.
@@ -4898,6 +4896,19 @@ def extract(
                     "source_location": rc.get("source_location"),
                     "weight": 1.0,
                 })
+
+    # Phase 5: Test-to-source linking.
+    # For Python files, discover test functions/classes by naming convention
+    # (test_* / Test*) and create test_of edges linking them to their
+    # production-code counterparts.
+    if py_paths:
+        try:
+            for path in py_paths:
+                source_file = str(path)
+                resolve_python_test_edges(all_nodes, all_edges, source_file, language="python")
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Test linking failed, skipping: %s", exc)
 
     # Relativize source_file fields so paths are portable across machines (#555)
     for item in all_nodes + all_edges:

@@ -1,8 +1,14 @@
 # validate extraction JSON against the graphify schema before graph assembly
 from __future__ import annotations
 
-VALID_FILE_TYPES = {"code", "document", "paper", "image", "rationale", "concept"}
+VALID_FILE_TYPES = {"code", "document", "paper", "image", "rationale", "concept",
+                    "doc_tag", "code_index", "code_index_symbol"}
 VALID_CONFIDENCES = {"EXTRACTED", "INFERRED", "AMBIGUOUS"}
+VALID_CONTEXTS = {
+    "import", "call", "reference", "field", "case",
+    "import_guided_call", "docstring_tag", "test_to_code_import_call",
+    "scip_index_occurrence", "scip_index_resolution",
+}
 REQUIRED_NODE_FIELDS = {"id", "label", "file_type", "source_file"}
 REQUIRED_EDGE_FIELDS = {"source", "target", "relation", "confidence", "source_file"}
 

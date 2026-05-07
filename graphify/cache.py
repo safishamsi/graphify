@@ -12,6 +12,10 @@ from pathlib import Path
 # absolute path ("/shared/graphify-out").
 _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
 
+# Known cache kinds — used by cache_dir, cached_files, clear_cache, etc.
+# Phase 7: centralized list for cache-kind validation and iteration.
+_KNOWN_CACHE_KINDS = ["ast", "semantic"]
+
 
 def _body_content(content: bytes) -> bytes:
     """Strip YAML frontmatter from Markdown content, returning only the body."""
@@ -153,7 +157,7 @@ def cached_files(root: Path = Path(".")) -> set[str]:
     if base.is_dir():
         hashes.update(p.stem for p in base.glob("*.json"))
     # Namespaced entries
-    for kind in ("ast", "semantic"):
+    for kind in _KNOWN_CACHE_KINDS:
         d = base / kind
         if d.is_dir():
             hashes.update(p.stem for p in d.glob("*.json"))
@@ -168,7 +172,7 @@ def clear_cache(root: Path = Path(".")) -> None:
         for f in base.glob("*.json"):
             f.unlink()
     # Namespaced entries
-    for kind in ("ast", "semantic"):
+    for kind in _KNOWN_CACHE_KINDS:
         d = base / kind
         if d.is_dir():
             for f in d.glob("*.json"):
