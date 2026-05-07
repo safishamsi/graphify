@@ -52,6 +52,8 @@ uv tool install graphifyy && graphify install
 
 > **Official package:** The PyPI package is `graphifyy` (double-y). Other `graphify*` packages on PyPI are not affiliated. The CLI command is still `graphify`.
 
+> **PowerShell note:** Use `graphify .` not `/graphify .` — the leading slash is a path separator in PowerShell and will cause a "not recognized" error.
+
 > **`graphify: command not found`?** Use `uv tool install graphifyy` or `pipx install graphifyy` — both put the CLI on PATH automatically. With plain `pip`, add `~/.local/bin` (Linux) or `~/Library/Python/3.x/bin` (Mac) to your PATH, or run `python -m graphify`.
 
 ### Pick your platform
