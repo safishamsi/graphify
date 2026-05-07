@@ -100,12 +100,17 @@ def _run_gws_export(file_id: str, mime_type: str, output: Path, resource_key: st
         )
 
     params: dict[str, str] = {"fileId": file_id, "mimeType": mime_type}
-    if resource_key:
-        params["resourceKey"] = resource_key
+    # Drive resource keys are sent via X-Goog-Drive-Resource-Keys. The current
+    # gws export command has no custom-header flag, so do not pass resourceKey
+    # as an unsupported query parameter.
+    _ = resource_key
+    output = output.resolve()
+    output.parent.mkdir(parents=True, exist_ok=True)
     timeout = int(os.environ.get("GRAPHIFY_GOOGLE_WORKSPACE_TIMEOUT", "120"))
     result = subprocess.run(
-        [exe, "drive", "files", "export", "--params", json.dumps(params), "-o", str(output)],
+        [exe, "drive", "files", "export", "--params", json.dumps(params), "-o", output.name],
         capture_output=True,
+        cwd=output.parent,
         text=True,
         timeout=timeout,
     )

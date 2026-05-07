@@ -1,4 +1,5 @@
 from pathlib import Path
+import json
 
 import graphify.google_workspace as gw
 
@@ -71,6 +72,53 @@ def test_convert_gsheet_uses_xlsx_markdown_callback(tmp_path, monkeypatch):
 
     assert out is not None
     assert "## Sheet: Main" in out.read_text(encoding="utf-8")
+
+
+def test_run_gws_export_uses_output_directory_as_cwd(tmp_path, monkeypatch):
+    output = tmp_path / "converted" / "doc.md"
+    calls = []
+
+    class Result:
+        returncode = 0
+        stdout = ""
+        stderr = ""
+
+    def fake_run(cmd, **kwargs):
+        calls.append((cmd, kwargs))
+        return Result()
+
+    monkeypatch.setattr(gw.shutil, "which", lambda name: "/usr/local/bin/gws")
+    monkeypatch.setattr(gw.subprocess, "run", fake_run)
+
+    gw._run_gws_export("doc-123", "text/markdown", output)
+
+    assert output.parent.exists()
+    cmd, kwargs = calls[0]
+    assert kwargs["cwd"] == output.parent.resolve()
+    assert cmd[:4] == ["/usr/local/bin/gws", "drive", "files", "export"]
+    assert cmd[-2:] == ["-o", "doc.md"]
+
+
+def test_run_gws_export_does_not_send_resource_key_as_query_param(tmp_path, monkeypatch):
+    output = tmp_path / "converted" / "doc.md"
+    calls = []
+
+    class Result:
+        returncode = 0
+        stdout = ""
+        stderr = ""
+
+    def fake_run(cmd, **kwargs):
+        calls.append(cmd)
+        return Result()
+
+    monkeypatch.setattr(gw.shutil, "which", lambda name: "/usr/local/bin/gws")
+    monkeypatch.setattr(gw.subprocess, "run", fake_run)
+
+    gw._run_gws_export("doc-123", "text/markdown", output, resource_key="rk-1")
+
+    params = json.loads(calls[0][calls[0].index("--params") + 1])
+    assert params == {"fileId": "doc-123", "mimeType": "text/markdown"}
 
 
 def test_google_workspace_enabled_env(monkeypatch):
