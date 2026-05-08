@@ -110,6 +110,7 @@ def test_pack_chunks_rejects_non_positive_budget(tmp_path):
 def test_estimate_file_tokens_uses_tiktoken_when_available(tmp_path):
     """When tiktoken is installed, the estimator should call into it for
     accurate counts rather than the chars/4 heuristic."""
+    pytest.importorskip('tiktoken')
     from graphify import llm
 
     f = tmp_path / "sample.py"

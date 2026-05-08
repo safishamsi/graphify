@@ -25,7 +25,7 @@ class FileType(str, Enum):
 _MANIFEST_PATH = "graphify-out/manifest.json"
 
 CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.mjs', '.ejs', '.go', '.rs', '.java', '.groovy', '.gradle', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.luau', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.dart', '.v', '.sv', '.sql', '.r', '.f', '.F', '.f90', '.F90', '.f95', '.F95', '.f03', '.F03', '.f08', '.F08'}
-DOC_EXTENSIONS = {'.md', '.mdx', '.qmd', '.txt', '.rst', '.html', '.yaml', '.yml'}
+DOC_EXTENSIONS = {'.md', '.mdx', '.qmd', '.txt', '.rst', '.html', '.yaml', '.yml', '.json', '.jsonc'}
 PAPER_EXTENSIONS = {'.pdf'}
 IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'}
 OFFICE_EXTENSIONS = {'.docx', '.xlsx'}
@@ -379,6 +379,40 @@ _SKIP_FILES = {
     "composer.lock", "go.sum", "go.work.sum",
 }
 
+# Patterns for generated/bundled files that produce noisy extraction (#728)
+_GENERATED_FILE_PATTERNS = (
+    "*.min.js",
+    "*.min.css",
+    "*.bundle.js",
+    "*.bundle.css",
+    "*.map",
+    "*.d.ts",
+    "*.generated.*",
+    "*.gen.*",
+    "*-generated.*",
+    "*_generated.*",
+)
+
+
+def _is_generated_or_bundle(path: Path, root: Path, include_patterns: list[tuple[Path, str]]) -> bool:
+    """Return True for generated/bundled files that should be skipped by default.
+
+    #728's root cause is not a graph algorithm failure; it is noisy source
+    files entering extraction. .graphifyinclude remains the escape hatch for
+    teams that intentionally want a generated declaration or bundle indexed.
+    """
+    if _is_included(path, root, include_patterns):
+        return False
+    name = path.name.lower()
+    try:
+        rel = str(path.relative_to(root)).replace(os.sep, "/").lower()
+    except ValueError:
+        rel = name
+    # fnmatch is used intentionally for both the basename and normalized
+    # project-relative path. Keep patterns conservative and document
+    # .graphifyinclude as the false-positive escape hatch.
+    return any(fnmatch.fnmatch(name, pattern) or fnmatch.fnmatch(rel, pattern) for pattern in _GENERATED_FILE_PATTERNS)
+
 def _is_noise_dir(part: str) -> bool:
     """Return True if this directory name looks like a venv, cache, or dep dir."""
     if part in _SKIP_DIRS:
@@ -701,6 +735,9 @@ def detect(root: Path, *, follow_symlinks: bool = False, google_workspace: bool 
             # Skip files inside our own converted/ dir (avoid re-processing sidecars)
             if str(p).startswith(str(converted_dir)):
                 continue
+            # Skip generated/bundled files unless explicitly included (#728)
+            if _is_generated_or_bundle(p, root, include_patterns):
+                continue
         if _is_ignored(p, root, ignore_patterns):
             continue
         if _is_sensitive(p):
@@ -782,26 +819,128 @@ def _md5_file(path: Path) -> str:
     return h.hexdigest()
 
 
-def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict:
-    """Load the manifest from a previous run. Returns {} on any error."""
+def _manifest_root(manifest_path: str | Path) -> Path:
+    """Infer the scan root for graphify-out/manifest.json.
+
+    Current code writes raw detect() paths as manifest keys. detect() resolves
+    the scan root, so those keys are absolute and break after clone (#777).
+    Prefer the sibling .graphify_root value because it records the user's scan
+    root. Fall back to the output directory parent for first-run and legacy
+    cases where .graphify_root is missing.
+    """
+    manifest = Path(manifest_path)
+    out_dir = manifest.parent
+    root_file = out_dir / ".graphify_root"
+    if root_file.exists():
+        raw_root = root_file.read_text(encoding="utf-8").strip()
+        if raw_root:
+            saved_root = Path(raw_root)
+            return saved_root.resolve() if saved_root.is_absolute() else (out_dir.parent / saved_root).resolve()
+    if out_dir.name:
+        return out_dir.parent.resolve()
+    return Path(".").resolve()
+
+
+def _manifest_key(path: str | Path, root: Path) -> str:
+    """Return the portable manifest key for a source path."""
+    root = root.resolve()
+    p = Path(path)
+    if not p.is_absolute():
+        p = (root / p).resolve()
+    else:
+        p = p.resolve()
     try:
-        return json.loads(Path(manifest_path).read_text(encoding="utf-8"))
+        return str(p.relative_to(root))
+    except ValueError:
+        # Files outside the scan root are rare but possible via explicit inputs.
+        # Keep them absolute rather than manufacturing a misleading relpath.
+        return str(p)
+
+
+def _manifest_path(key: str, root: Path) -> Path:
+    """Anchor a manifest key back to an actual path."""
+    p = Path(key)
+    return p if p.is_absolute() else root.resolve() / p
+
+
+def _manifest_entry_for(path: str | Path, manifest: dict, root: Path) -> object | None:
+    """Find a manifest entry using new relative keys and legacy absolute keys.
+
+    The *manifest* is expected to already be normalized by :func:`load_manifest`
+    (which resolves legacy absolute keys).  We still try multiple candidate forms
+    for the incoming *path* so that callers are not forced to resolve beforehand.
+    """
+    p = Path(path)
+    root = root.resolve()
+    candidates: list[str] = [str(p), _manifest_key(p, root)]
+    if not p.is_absolute():
+        candidates.append(str((root / p).resolve()))
+    else:
+        resolved = str(p.resolve())
+        if resolved != str(p):
+            candidates.append(resolved)
+    for key in candidates:
+        if key in manifest:
+            return manifest[key]
+    return None
+
+
+def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict:
+    """Load the manifest from a previous run. Returns {} on any error.
+
+    Legacy manifests stored absolute path keys (e.g. from ``str(tmp_path/file)``).
+    On macOS ``/var`` is a symlink to ``/private/var``, so the same file can
+    appear as ``/var/...`` (unresolved) or ``/private/var/...`` (resolved).
+    Normalizing keys through ``Path.resolve()`` at load time prevents spurious
+    cache misses when the manifest was written with unresolved paths but
+    :func:`detect` returns resolved paths (or vice versa).
+    """
+    try:
+        manifest = json.loads(Path(manifest_path).read_text(encoding="utf-8"))
     except Exception:
         return {}
+    # Normalize legacy absolute keys so they match the resolved paths coming
+    # from detect() (which resolves the scan root).
+    out: dict = {}
+    for key, value in manifest.items():
+        try:
+            pk = Path(key)
+            if pk.is_absolute():
+                out[str(pk.resolve())] = value
+            else:
+                out[key] = value
+        except Exception:
+            out[key] = value
+    return out
 
 
-def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PATH) -> None:
-    """Save current file mtimes + content hashes for change detection on --update."""
+def save_manifest(
+    files: dict[str, list[str]],
+    manifest_path: str = _MANIFEST_PATH,
+    *,
+    root: Path | None = None,
+) -> None:
+    """Save current file mtimes + content hashes for change detection.
+
+    Before #777 this function used the raw file string as the JSON key. Because
+    detect() returns absolute paths, committed manifests leaked user paths and
+    missed after clone. This version writes root-relative keys when possible.
+    """
+    root = (root or _manifest_root(manifest_path)).resolve()
     manifest: dict[str, dict] = {}
     for file_list in files.values():
         for f in file_list:
             try:
                 p = Path(f)
-                manifest[f] = {"mtime": p.stat().st_mtime, "hash": _md5_file(p)}
+                if not p.is_absolute():
+                    p = root / p
+                key = _manifest_key(p, root)
+                manifest[key] = {"mtime": p.stat().st_mtime, "hash": _md5_file(p)}
             except OSError:
-                pass  # file deleted between detect() and manifest write - skip it
-    Path(manifest_path).parent.mkdir(parents=True, exist_ok=True)
-    Path(manifest_path).write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+                pass
+    target = Path(manifest_path)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
 
 
 def detect_incremental(
@@ -810,29 +949,26 @@ def detect_incremental(
     *,
     follow_symlinks: bool = False,
     google_workspace: bool | None = None,
+    full: dict | None = None,
 ) -> dict:
     """Like detect(), but returns only new or modified files since the last run.
 
-    Fast path: mtime unchanged → unchanged (free, no hash).
-    Slow path: mtime bumped → compare MD5. Same hash = sync tool touched mtime,
-    treat as unchanged. Different hash = actually changed, re-extract.
-
-    Backwards compatible with legacy manifests storing plain float mtime values.
-
-    The ``follow_symlinks`` flag is forwarded to :func:`detect` so corpora that
-    rely on symlinked sub-trees (e.g. a ``state_of_truth/`` symlink pointing to a
-    directory outside the scan root) are scanned consistently between full and
-    incremental runs.
+    This remains backwards compatible with legacy absolute-key manifests while
+    supporting the portable root-relative keys written by save_manifest().
+    Callers that already ran detect() can pass ``full`` to avoid a second full
+    filesystem scan in the no-op update fast path (#741).
     """
-    full = detect(root, follow_symlinks=follow_symlinks, google_workspace=google_workspace)
+    root = Path(root).resolve()
+    if full is None:
+        full = detect(root, follow_symlinks=follow_symlinks, google_workspace=google_workspace)
     manifest = load_manifest(manifest_path)
 
     if not manifest:
-        # No previous run - treat everything as new
         full["incremental"] = True
         full["new_files"] = full["files"]
         full["unchanged_files"] = {k: [] for k in full["files"]}
         full["new_total"] = full["total_files"]
+        full["deleted_files"] = []
         return full
 
     new_files: dict[str, list[str]] = {k: [] for k in full["files"]}
@@ -840,33 +976,49 @@ def detect_incremental(
 
     for ftype, file_list in full["files"].items():
         for f in file_list:
-            stored = manifest.get(f)
+            stored = _manifest_entry_for(f, manifest, root)
+            p = Path(f)
             try:
-                current_mtime = Path(f).stat().st_mtime
+                current_mtime = p.stat().st_mtime
             except Exception:
                 current_mtime = 0
 
-            # Legacy manifest: plain float value
             if isinstance(stored, (int, float)):
                 changed = stored is None or current_mtime > stored
             elif isinstance(stored, dict):
                 stored_mtime = stored.get("mtime")
+                stored_hash = stored.get("hash", "")
                 if stored_mtime is None or current_mtime != stored_mtime:
-                    # mtime bumped — verify with content hash before re-extracting
-                    changed = _md5_file(Path(f)) != stored.get("hash", "")
+                    changed = not stored_hash or _md5_file(p) != stored_hash
                 else:
-                    changed = False
+                    # mtime unchanged — still verify hash to catch rapid writes
+                    # or tools that preserve mtimes (#F7)
+                    changed = bool(stored_hash) and _md5_file(p) != stored_hash
             else:
-                changed = True  # unknown format, re-extract to be safe
+                changed = True
 
             if changed:
                 new_files[ftype].append(f)
             else:
                 unchanged_files[ftype].append(f)
 
-    # Files in manifest that no longer exist - their cached nodes are now ghost nodes
-    current_files = {f for flist in full["files"].values() for f in flist}
-    deleted_files = [f for f in manifest if f not in current_files]
+    current_keys = {
+        _manifest_key(f, root)
+        for flist in full["files"].values()
+        for f in flist
+    }
+    current_legacy = {
+        str(Path(f))
+        for flist in full["files"].values()
+        for f in flist
+    }
+    deleted_files = [
+        str(_manifest_path(key, root))
+        for key in manifest
+        if key not in current_keys
+        and key not in current_legacy
+        and not _manifest_path(key, root).exists()
+    ]
 
     new_total = sum(len(v) for v in new_files.values())
     full["incremental"] = True

@@ -9,6 +9,12 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Any
 from .cache import load_cached, save_cached
+from .deterministic_docs import enrich_python_doc_tags
+from .symbol_resolution import (
+    resolve_cross_file_raw_calls,
+    resolve_python_import_guided_calls,
+)
+from .test_linking import resolve_python_test_edges
 
 _RECURSION_LIMIT = 10_000
 
@@ -391,20 +397,31 @@ def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_p
                 for sub in child.children:
                     if sub.type == "named_imports":
                         for spec in sub.children:
-                            if spec.type == "import_specifier":
-                                name_node = spec.child_by_field_name("name")
-                                if name_node:
-                                    sym = _read_text(name_node, source)
-                                    edges.append({
-                                        "source": file_nid,
-                                        "target": _make_id(target_stem, sym),
-                                        "relation": "imports",
-                                        "context": "import",
-                                        "confidence": "EXTRACTED",
-                                        "source_file": str_path,
-                                        "source_location": f"L{line}",
-                                        "weight": 1.0,
-                                    })
+                            if spec.type != "import_specifier":
+                                continue
+                            name_node = spec.child_by_field_name("name")
+                            alias_node = spec.child_by_field_name("alias")
+                            if not name_node:
+                                continue
+                            imported_sym = _read_text(name_node, source)
+                            local_sym = _read_text(alias_node, source) if alias_node else imported_sym
+                            edge = {
+                                "source": file_nid,
+                                "target": _make_id(target_stem, imported_sym),
+                                "relation": "imports",
+                                "context": "import",
+                                "confidence": "EXTRACTED",
+                                "source_file": str_path,
+                                "source_location": f"L{line}",
+                                "weight": 1.0,
+                            }
+                            if local_sym != imported_sym:
+                                # This annotation explains why a later raw call to the
+                                # local alias can still be tied back to the imported
+                                # symbol without weakening non-aliased imports.
+                                edge["local_name"] = local_sym
+                                edge["imported_name"] = imported_sym
+                            edges.append(edge)
 
 
 def _dynamic_import_js(node, source: bytes, caller_nid: str, str_path: str, edges: list,
@@ -1519,7 +1536,18 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
     for n in nodes:
         raw = n["label"]
         normalised = raw.strip("()").lstrip(".")
-        label_to_nid[normalised.lower()] = n["id"]
+        key = normalised.lower()
+        if key in label_to_nid:
+            # Duplicate label — mark ambiguous so calls to this name skip
+            # intra-file resolution and go to cross-file resolution instead.
+            # (#F4: prevents wrong binding when two classes in same file
+            # both define .save(), .run(), .close(), etc.)
+            label_to_nid[key] = ""
+        else:
+            label_to_nid[key] = n["id"]
+
+    # Remove ambiguous entries (empty string values) so get() returns None
+    label_to_nid = {k: v for k, v in label_to_nid.items() if v}
 
     seen_call_pairs: set[tuple[str, str]] = set()
     seen_dyn_import_pairs: set[tuple[str, str]] = set()
@@ -1960,10 +1988,11 @@ def _extract_python_rationale(path: Path, result: dict) -> None:
 # ── Public API ────────────────────────────────────────────────────────────────
 
 def extract_python(path: Path) -> dict:
-    """Extract classes, functions, and imports from a .py file via tree-sitter AST."""
+    """Extract classes, functions, imports, rationale, and doc tags from a Python file."""
     result = _extract_generic(path, _PYTHON_CONFIG)
     if "error" not in result:
         _extract_python_rationale(path, result)
+        enrich_python_doc_tags(path, result, make_id=_make_id, file_stem=_file_stem)
     return result
 
 
@@ -3190,7 +3219,12 @@ def extract_go(path: Path) -> dict:
     for n in nodes:
         raw = n["label"]
         normalised = raw.strip("()").lstrip(".")
-        label_to_nid[normalised.lower()] = n["id"]
+        key = normalised.lower()
+        if key in label_to_nid:
+            label_to_nid[key] = ""  # duplicate — mark ambiguous (#F4)
+        else:
+            label_to_nid[key] = n["id"]
+    label_to_nid = {k: v for k, v in label_to_nid.items() if v}
 
     seen_call_pairs: set[tuple[str, str]] = set()
     raw_calls: list[dict] = []
@@ -3375,7 +3409,12 @@ def extract_rust(path: Path) -> dict:
     for n in nodes:
         raw = n["label"]
         normalised = raw.strip("()").lstrip(".")
-        label_to_nid[normalised.lower()] = n["id"]
+        key = normalised.lower()
+        if key in label_to_nid:
+            label_to_nid[key] = ""  # duplicate — mark ambiguous (#F4)
+        else:
+            label_to_nid[key] = n["id"]
+    label_to_nid = {k: v for k, v in label_to_nid.items() if v}
 
     seen_call_pairs: set[tuple[str, str]] = set()
     raw_calls: list[dict] = []
@@ -4341,7 +4380,12 @@ def extract_elixir(path: Path) -> dict:
     label_to_nid: dict[str, str] = {}
     for n in nodes:
         normalised = n["label"].strip("()").lstrip(".")
-        label_to_nid[normalised.lower()] = n["id"]
+        key = normalised.lower()
+        if key in label_to_nid:
+            label_to_nid[key] = ""  # duplicate — mark ambiguous (#F4)
+        else:
+            label_to_nid[key] = n["id"]
+    label_to_nid = {k: v for k, v in label_to_nid.items() if v}
 
     seen_call_pairs: set[tuple[str, str]] = set()
     raw_calls: list[dict] = []
@@ -4832,12 +4876,16 @@ def extract(
             import logging
             logging.getLogger(__name__).warning("Java cross-file import resolution failed, skipping: %s", exc)
 
-    # Cross-file call resolution for all languages
-    # Each extractor saved unresolved calls in raw_calls. Now that we have all
-    # nodes from all files, resolve any callee that exists in another file.
-    # Build name → ALL matching node IDs so we can skip ambiguous common names
-    # (e.g. "log", "execute", "find") that appear in multiple files — resolving
-    # those inflates god_nodes ranking with spurious cross-file edges.
+    # Python import-guided call resolution.
+    # This runs before global raw-call fallback so import-backed calls can be
+    # emitted as EXTRACTED instead of weaker INFERRED edges.
+    if py_paths:
+        try:
+            all_edges.extend(resolve_python_import_guided_calls(per_file, paths, all_nodes, all_edges))
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Python import-guided call resolution failed, skipping: %s", exc)
+
     # Build label -> node_id index for cross-file call resolution.
     # Skip rationale nodes (their labels are docstring text, not callable
     # identifiers, and they were polluting matches for short names — #563).
@@ -4859,9 +4907,13 @@ def extract(
     # confirm the caller pulled in the callee's source file.
     file_to_symbol_imports: dict[str, set[str]] = {}
     file_to_module_imports: dict[str, set[str]] = {}
+    file_to_symbol_aliases: dict[str, dict[str, str]] = {}
     for e in all_edges:
         if e.get("relation") == "imports":
             file_to_symbol_imports.setdefault(e["source"], set()).add(e["target"])
+            local_name = e.get("local_name")
+            if local_name:
+                file_to_symbol_aliases.setdefault(e["source"], {})[str(local_name).lower()] = e["target"]
         elif e.get("relation") == "imports_from":
             file_to_module_imports.setdefault(e["source"], set()).add(e["target"])
 
@@ -4880,7 +4932,9 @@ def extract(
             sf_rel = sf_path
         nid_to_file_nid[n["id"]] = _make_id(str(sf_rel))
 
-    existing_pairs = {(e["source"], e["target"]) for e in all_edges}
+    # Include relation so that a prior "contains" or "method" edge does not
+    # suppress a semantically distinct "calls" edge between the same endpoints (#F5).
+    existing_pairs = {(e["source"], e["target"], e.get("relation", "")) for e in all_edges}
     for result in per_file:
         for rc in result.get("raw_calls", []):
             callee = rc.get("callee", "")
@@ -4898,8 +4952,8 @@ def extract(
                 continue
             tgt = candidates[0]
             caller = rc["caller_nid"]
-            if tgt != caller and (caller, tgt) not in existing_pairs:
-                existing_pairs.add((caller, tgt))
+            if tgt != caller and (caller, tgt, "calls") not in existing_pairs:
+                existing_pairs.add((caller, tgt, "calls"))
                 # Promote to EXTRACTED when there's a direct import edge from the
                 # caller's file pointing at either the callee symbol itself or the
                 # file the callee lives in.
@@ -4907,8 +4961,11 @@ def extract(
                 callee_file_nid = nid_to_file_nid.get(tgt)
                 imported_symbols = file_to_symbol_imports.get(caller_file_nid, set())
                 imported_modules = file_to_module_imports.get(caller_file_nid, set())
+                imported_aliases = file_to_symbol_aliases.get(caller_file_nid, {})
+                alias_target = imported_aliases.get(callee.lower())
                 has_import_evidence = (
                     tgt in imported_symbols
+                    or alias_target == tgt
                     or (callee_file_nid is not None and callee_file_nid in imported_modules)
                 )
                 if has_import_evidence:
@@ -4928,6 +4985,19 @@ def extract(
                     "source_location": rc.get("source_location"),
                     "weight": 1.0,
                 })
+
+    # Phase 5: Test-to-source linking.
+    # For Python files, discover test functions/classes by naming convention
+    # (test_* / Test*) and create test_of edges linking them to their
+    # production-code counterparts.
+    if py_paths:
+        try:
+            for path in py_paths:
+                source_file = str(path)
+                resolve_python_test_edges(all_nodes, all_edges, source_file, language="python")
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Test linking failed, skipping: %s", exc)
 
     # Relativize source_file fields so paths are portable across machines (#555)
     for item in all_nodes + all_edges:

@@ -152,6 +152,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".kimi") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
+    "windsurf": {
+        "skill_file": "skill.md",
+        "skill_dst": Path(".windsurf") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
 }
 
 
@@ -211,7 +216,8 @@ def install(platform: str = "claude") -> None:
     print()
     print("Done. Open your AI coding assistant and type:")
     print()
-    print("  /graphify .")
+    invocation = "$graphify ." if platform == "codex" else "/graphify ."
+    print(f"  {invocation}")
     print()
 
 
@@ -1061,7 +1067,7 @@ def main() -> None:
     # Check all known skill install locations for a stale version stamp.
     # Skip during install/uninstall (hook writes trigger a fresh check anyway).
     # Deduplicate paths so platforms sharing the same install dir don't warn twice.
-    if not any(arg in ("install", "uninstall") for arg in sys.argv):
+    if not any(arg in ("install", "uninstall", "hook-check") for arg in sys.argv):
         for skill_dst in {Path.home() / cfg["skill_dst"] for cfg in _PLATFORM_CONFIG.values()}:
             _check_skill_version(skill_dst)
 
@@ -1069,7 +1075,7 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
-        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|windsurf|gemini|cursor|antigravity|hermes|kiro|pi)")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
@@ -1159,6 +1165,8 @@ def main() -> None:
         print("  kiro uninstall          remove skill + steering file")
         print("  pi install              write skill to ~/.pi/agent/skills/graphify/ (Pi coding agent)")
         print("  pi uninstall            remove skill from ~/.pi/agent/skills/graphify/")
+        print("  windsurf install        write skill to ~/.windsurf/skills/graphify/ (Windsurf)")
+        print("  windsurf uninstall      remove skill from ~/.windsurf/skills/graphify/")
         print()
         return
 
@@ -1288,6 +1296,26 @@ def main() -> None:
                     break
         else:
             print("Usage: graphify pi [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
+    elif cmd == "windsurf":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            install("windsurf")
+        elif subcmd == "uninstall":
+            skill_dst = Path.home() / ".windsurf" / "skills" / "graphify" / "SKILL.md"
+            if skill_dst.exists():
+                skill_dst.unlink()
+                print(f"  skill removed    ->  {skill_dst}")
+            version_file = skill_dst.parent / ".graphify_version"
+            if version_file.exists():
+                version_file.unlink()
+            for d in (skill_dst.parent, skill_dst.parent.parent, skill_dst.parent.parent.parent):
+                try:
+                    d.rmdir()
+                except OSError:
+                    break
+        else:
+            print("Usage: graphify windsurf [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
@@ -1643,7 +1671,12 @@ def main() -> None:
             # Try to recover the scan root saved by the last full build
             saved = Path(_GRAPHIFY_OUT) / ".graphify_root"
             if saved.exists():
-                watch_path = Path(saved.read_text(encoding="utf-8").strip())
+                raw_root = saved.read_text(encoding="utf-8").strip()
+                watch_path = Path(raw_root)
+                if not watch_path.is_absolute():
+                    # #777: .graphify_root is now portable. Resolve it relative to the
+                    # current checkout, not the machine that originally built graphify-out.
+                    watch_path = Path.cwd() / watch_path
             else:
                 watch_path = Path(".")
         if not watch_path.exists():
@@ -2196,6 +2229,16 @@ def main() -> None:
             paper_files = [Path(p) for p in new_by_type.get("paper", [])]
             image_files = [Path(p) for p in new_by_type.get("image", [])]
             deleted_files = list(detection.get("deleted_files", []))
+            # F1: normalize deleted_files to project-relative paths for compare
+            # against relativized source_file values in graph nodes (#777).
+            _deleted_rel: list[str] = []
+            for df in deleted_files:
+                _deleted_rel.append(df)
+                try:
+                    _deleted_rel.append(str(Path(df).resolve().relative_to(target)))
+                except ValueError:
+                    pass
+            deleted_files = _deleted_rel
             unchanged_total = sum(len(v) for v in detection.get("unchanged_files", {}).values())
         else:
             code_files = [Path(p) for p in files_by_type.get("code", [])]
@@ -2359,6 +2402,7 @@ def main() -> None:
                 prune_sources=deleted_files or None,
                 dedup=True,
                 dedup_llm_backend=dedup_backend,
+                root=target,
             )
         else:
             G = _build([merged], dedup=True, dedup_llm_backend=dedup_backend)

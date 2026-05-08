@@ -24,7 +24,7 @@
 
 Type `/graphify` in your AI coding assistant and it maps your entire project — code, docs, PDFs, images, videos — into a knowledge graph you can query instead of grepping through files.
 
-Works in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kimi Code, Kiro, Pi, and Google Antigravity.
+Works in Claude Code, Codex, OpenCode, Windsurf, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kimi Code, Kiro, Pi, and Google Antigravity.
 
 ```
 /graphify .
@@ -55,7 +55,14 @@ uv tool install graphifyy && graphify install
 
 > **PowerShell note:** Use `graphify .` not `/graphify .` — the leading slash is a path separator in PowerShell and will cause a "not recognized" error.
 
-> **`graphify: command not found`?** Use `uv tool install graphifyy` or `pipx install graphifyy` — both put the CLI on PATH automatically. With plain `pip`, add `~/.local/bin` (Linux) or `~/Library/Python/3.x/bin` (Mac) to your PATH, or run `python -m graphify`.
+> **`graphify: command not found` or PowerShell "not recognized"?** Prefer `uv tool install graphifyy` or `pipx install graphifyy`; both put the CLI on PATH. With plain `pip`, add the user Scripts directory to PATH or run the module form:
+>
+> - Linux: `~/.local/bin`
+> - macOS: `~/Library/Python/3.x/bin`
+> - Windows: `C:\Users\<username>\AppData\Roaming\Python\Python3xx\Scripts`
+>
+> Windows one-session fix: `$env:Path += ";C:\Users\<username>\AppData\Roaming\Python\Python3xx\Scripts"`.
+> Cross-platform fallback: `python -m graphify install`; on Windows, `py -m graphify install` also works.
 
 ### Pick your platform
 
@@ -77,6 +84,7 @@ uv tool install graphifyy && graphify install
 | Kimi Code | `graphify install --platform kimi` |
 | Kiro IDE/CLI | `graphify kiro install` |
 | Pi coding agent | `graphify install --platform pi` |
+| Windsurf | `graphify install --platform windsurf` |
 | Cursor | `graphify cursor install` |
 | Google Antigravity | `graphify antigravity install` |
 
@@ -107,6 +115,7 @@ Run this once in your project after building a graph:
 | Kimi Code | `graphify install --platform kimi` |
 | Kiro IDE/CLI | `graphify kiro install` |
 | Pi coding agent | `graphify pi install` |
+| Windsurf | `graphify windsurf install` |
 | Google Antigravity | `graphify antigravity install` |
 
 This writes a small config file that tells your assistant to read `GRAPH_REPORT.md` before answering questions about your codebase. On platforms that support hooks (Claude Code, Codex, Gemini CLI), a hook fires automatically before every file-read call — your assistant navigates by the graph instead of grepping through everything.
@@ -130,7 +139,7 @@ Uninstall with the matching command (e.g. `graphify claude uninstall`).
 | Type | Extensions |
 |------|-----------|
 | Code (28 languages) | `.py .ts .js .jsx .tsx .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .luau .zig .ps1 .ex .exs .m .jl .vue .svelte .groovy .gradle .sql .f .F .f90 .F90 .f95 .F95 .f03 .F03 .f08 .F08` |
-| Docs | `.md .mdx .qmd .html .txt .rst .yaml .yml` |
+| Docs | `.md .mdx .qmd .html .txt .rst .yaml .yml .json .jsonc` |
 | Office | `.docx .xlsx` (requires `pip install graphifyy[office]`) |
 | Google Workspace | `.gdoc .gsheet .gslides` (opt-in; requires `gws` auth and `--google-workspace`; Sheets need `pip install graphifyy[google]`) |
 | PDFs | `.pdf` |
@@ -160,7 +169,7 @@ You can also set `GRAPHIFY_GOOGLE_WORKSPACE=1`. Graphify exports shortcuts into
 
 ```bash
 /graphify .                        # build graph for current folder
-/graphify ./docs --update          # re-extract only changed files
+/graphify ./docs --update          # re-extract changed files and prune deleted files
 /graphify . --cluster-only         # rerun clustering without re-extracting
 /graphify . --no-viz               # skip the HTML, just the report + JSON
 /graphify . --wiki                 # build a markdown wiki from the graph
@@ -204,10 +213,11 @@ dist/
 
 **Recommended `.gitignore` additions:**
 ```
-graphify-out/manifest.json    # mtime-based, breaks after git clone
 graphify-out/cost.json        # local only
 # graphify-out/cache/         # optional: commit for speed, skip to keep repo small
 ```
+
+`graphify-out/manifest.json` is portable and may be committed with `graphify-out/` to make `graphify update` fast after clone.
 
 **Workflow:**
 1. One person runs `/graphify .` and commits `graphify-out/`.
@@ -255,7 +265,7 @@ The MCP server gives your assistant structured access: `query_graph`, `get_node`
 /graphify                          # run on current directory
 /graphify ./raw                    # run on a specific folder
 /graphify ./raw --mode deep        # more aggressive relationship extraction
-/graphify ./raw --update           # re-extract only changed files
+/graphify ./raw --update           # re-extract changed files and prune deleted files
 /graphify ./raw --directed         # preserve edge direction
 /graphify ./raw --cluster-only     # rerun clustering on existing graph
 /graphify ./raw --no-viz           # skip HTML visualization
@@ -295,6 +305,7 @@ graphify trae-cn install / uninstall
 graphify hermes install / uninstall
 graphify kiro install / uninstall
 graphify antigravity install / uninstall
+graphify windsurf install / uninstall
 
 graphify extract ./docs                        # headless LLM extraction for CI (no IDE needed)
 graphify extract ./docs --backend gemini       # explicit backend: gemini, kimi, claude, openai, ollama, or bedrock

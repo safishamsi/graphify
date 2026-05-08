@@ -38,6 +38,14 @@ def generate(
     inf_scores = [d.get("confidence_score", 0.5) for _, _, d in inf_edges]
     inf_avg = round(sum(inf_scores) / len(inf_scores), 2) if inf_scores else None
 
+    from .analyze import _is_file_node as _ifn, _is_concept_node as _icn
+
+    weak_nodes = [
+        n for n in G.nodes()
+        if G.degree(n) <= 1 and not _ifn(G, n) and not _icn(G, n)
+    ]
+    weak_pct = round((len(weak_nodes) / G.number_of_nodes()) * 100, 1) if G.number_of_nodes() else 0.0
+
     lines = [
         f"# Graph Report - {root}  ({today})",
         "",
@@ -51,7 +59,6 @@ def generate(
             "- Verdict: corpus is large enough that graph structure adds value.",
         ]
 
-    from .analyze import _is_file_node as _ifn
     non_empty = {cid: nodes for cid, nodes in communities.items()
                  if any(not _ifn(G, n) for n in nodes)}
     thin_count_summary = sum(
@@ -68,7 +75,11 @@ def generate(
         f"- Extraction: {ext_pct}% EXTRACTED · {inf_pct}% INFERRED · {amb_pct}% AMBIGUOUS"
         + (f" · INFERRED: {len(inf_edges)} edges (avg confidence: {inf_avg})" if inf_avg is not None else ""),
         f"- Token cost: {token_cost.get('input', 0):,} input · {token_cost.get('output', 0):,} output",
+        f"- Graph hygiene: {len(weak_nodes)} weak node(s) with degree <=1 ({weak_pct}% of nodes)",
     ]
+
+    if weak_pct >= 20.0:
+        lines.append("- Warning: weak-node ratio is high. Check generated/bundled inputs before trusting community structure.")
 
     if built_at_commit:
         lines += [
@@ -156,15 +167,11 @@ def generate(
             ]
 
     # --- Gaps section ---
-    from .analyze import _is_file_node, _is_concept_node
 
-    isolated = [
-        n for n in G.nodes()
-        if G.degree(n) <= 1 and not _is_file_node(G, n) and not _is_concept_node(G, n)
-    ]
+    isolated = weak_nodes
     thin_communities = {
         cid: nodes for cid, nodes in communities.items()
-        if 0 < sum(1 for n in nodes if not _is_file_node(G, n)) < 3
+        if 0 < sum(1 for n in nodes if not _ifn(G, n)) < 3
     }
     gap_count = len(isolated) + len(thin_communities)
 

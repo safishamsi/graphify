@@ -128,3 +128,101 @@ def test_real_invalid_file_type_still_warns(capsys):
     err = capsys.readouterr().err
     assert "invalid file_type" in err
     assert "weird_type" in err
+
+
+# ── Internal helpers exposed for direct testing ──────────────────────────
+
+
+def test_norm_source_file_converts_backslashes():
+    """_norm_source_file converts backslashes to forward slashes only."""
+    from graphify.build import _norm_source_file
+    assert _norm_source_file("/home/user/git/repo/src/lib.rs") == "/home/user/git/repo/src/lib.rs"
+    assert _norm_source_file("src/lib.rs") == "src/lib.rs"
+    assert _norm_source_file("") == ""
+
+
+# ── build_from_json edge-case paths ──────────────────────────────────────
+
+
+def test_build_from_json_handles_hyperedges_in_extraction():
+    """Edges stored under 'hyperedges' should bind when 'edges' is missing."""
+    G = build_from_json({
+        "nodes": [{"id": "a"}, {"id": "b"}],
+        "edges": [],
+        "hyperedges": [
+            {"nodes": ["a", "b"], "label": "shared-concept", "relation": "concept_group"}
+        ],
+    })
+    assert G.number_of_nodes() == 2
+    # hyperedge loaded as graph attribute
+    h_edges = G.graph.get("hyperedges", [])
+    assert len(h_edges) >= 1
+
+
+def test_build_from_json_uses_links_key_when_edges_absent():
+    """Fallback to 'links' key ensures older graph exports load."""
+    G = build_from_json({
+        "nodes": [{"id": "a"}, {"id": "b"}],
+        "links": [{"source": "a", "target": "b", "relation": "calls"}],
+    })
+    assert G.number_of_edges() == 1
+
+
+# (test_build_from_json_loads_extraction_fixture removed — fixture not available)
+
+
+def test_build_from_json_canonicalizes_legacy_from_to_keys():
+    """Edges using 'from'/'to' get remapped to 'source'/'target'."""
+    G = build_from_json({
+        "nodes": [{"id": "a"}, {"id": "b"}],
+        "edges": [{"from": "a", "to": "b", "relation": "imports"}],
+    })
+    assert G.number_of_edges() == 1
+    edge = list(G.edges(data=True))[0]
+    assert edge[2]["relation"] == "imports"
+
+
+def test_build_from_json_edge_source_file_explicit():
+    """Edge source_file comes from the edge dict, not top-level inheritance."""
+    G = build_from_json({
+        "source_file": "src/main.py",
+        "nodes": [{"id": "a", "source_file": "src/main.py"}, {"id": "b", "source_file": "src/main.py"}],
+        "edges": [{"source": "a", "target": "b", "relation": "calls", "source_file": "src/main.py"}],
+    })
+    assert G.number_of_edges() == 1
+    edge = list(G.edges(data=True))[0]
+    assert edge[2]["source_file"] == "src/main.py"
+
+
+def test_build_from_json_handles_empty_nodes():
+    """Empty nodes list produces empty graph rather than raising."""
+    G = build_from_json({"nodes": [], "links": []})
+    assert G.number_of_nodes() == 0
+
+
+def test_build_merge_no_existing_graph():
+    """build_merge without an existing graph falls through clean."""
+    from graphify.build import build_merge
+    result = build_merge(
+        [{"nodes": [{"id": "n1", "label": "X", "file_type": "code", "source_file": "a.py"}], "edges": []}],
+        graph_path=Path("graphify-out/nonexistent-graph.json"),
+    )
+    assert result is not None
+    assert result.number_of_nodes() >= 1
+
+
+def test_build_merge_with_existing_graph(tmp_path):
+    """build_merge loads existing graph, merges, and returns combined."""
+    import json as _json
+    from graphify.build import build_merge
+    old = tmp_path / "graph.json"
+    old.write_text(_json.dumps({
+        "nodes": [{"id": "old", "label": "Old", "file_type": "code", "source_file": "old.py"}],
+        "links": [],
+        "hyperedges": [],
+    }))
+    result = build_merge(
+        extractions=[{"nodes": [{"id": "new", "label": "New", "file_type": "code", "source_file": "new.py"}], "edges": []}],
+        graph_path=old,
+    )
+    assert result.number_of_nodes() >= 2

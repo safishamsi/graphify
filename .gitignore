@@ -1,9 +1,12 @@
 venv/
 .venv/
 env/
+# local python artifacts
 __pycache__/
-*.pyc
 *.egg-info/
+.coverage
+.coverage.*
+htmlcov/
 .eggs/
 dist/
 build/
@@ -27,3 +30,29 @@ scripts/run_k2_*.py
 scripts/llm.py
 scripts/benchmark_kimi*.json
 scripts/benchmark_kimi*.py
+
+# Local-only artifacts — never commit
+.env
+.env.*
+*.local
+.DS_Store
+.idea/
+.cursor/
+.windsurf/
+.forge/
+.codex/
+.gemini/
+.aider*
+.continue/
+.opencode/
+notes/
+plans/
+scratch/
+tmp/
+.temp/
+.resources/
+.audit/
+/.dox/
+coverage.json
+GEMINI.md
+graphify-out/

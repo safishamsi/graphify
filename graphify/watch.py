@@ -31,6 +31,33 @@ def _report_root_label(watch_path: Path) -> str:
     return Path.cwd().name if watch_path == Path(".") else str(watch_path)
 
 
+def _portable_root_label(watch_path: Path, project_root: Path) -> str:
+    """Return the value to persist in graphify-out/.graphify_root.
+
+    Current code stores watch_path.resolve(), which breaks after clone (#777).
+    Preserve explicit relative paths such as "." and "src"; for absolute paths
+    inside the current project, store a project-relative path.
+    """
+    if not watch_path.is_absolute():
+        return str(watch_path)
+    try:
+        return str(watch_path.resolve().relative_to(project_root.resolve()))
+    except ValueError:
+        return str(watch_path.resolve())
+
+
+def _changed_extractor_inputs(incremental: dict) -> list[str]:
+    """Return changed files that affect AST-only graph output."""
+    from graphify.extract import _get_extractor
+
+    changed: list[str] = []
+    for file_list in incremental.get("new_files", {}).values():
+        for f in file_list:
+            if _get_extractor(Path(f)) is not None:
+                changed.append(f)
+    return changed
+
+
 def _relativize_source_files(payload: dict, root: Path) -> None:
     for bucket in ("nodes", "edges", "hyperedges"):
         for item in payload.get(bucket, []):
@@ -47,20 +74,15 @@ def _relativize_source_files(payload: dict, root: Path) -> None:
 
 
 def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: bool = False) -> bool:
-    """Re-run AST extraction + build + cluster + report for code files. No LLM needed.
-
-    When ``force`` is True the node-count safety check in ``to_json`` is bypassed
-    so the rebuilt graph overwrites graph.json even if it has fewer nodes.
-    Use this after refactors that legitimately delete code.
-
-    Returns True on success, False on error.
-    """
+    """Re-run AST extraction + build + cluster + report for code files. No LLM needed."""
     watch_root = watch_path.resolve()
     project_root = Path.cwd().resolve() if not watch_path.is_absolute() else watch_root
     report_root = _report_root_label(watch_path)
+    out = watch_path / _GRAPHIFY_OUT
+    manifest_path = out / "manifest.json"
     try:
         from graphify.extract import extract
-        from graphify.detect import detect
+        from graphify.detect import detect, detect_incremental
         from graphify.build import build_from_json
         from graphify.cluster import cluster, score_all
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
@@ -68,11 +90,10 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
         from graphify.export import to_json, to_html
 
         detected = detect(watch_path, follow_symlinks=follow_symlinks)
-        code_files = [Path(f) for f in detected['files']['code']]
+        code_files = [Path(f) for f in detected["files"]["code"]]
 
-        # Include document files that have AST extractors (e.g. .md, .mdx, .qmd)
         from graphify.extract import _get_extractor
-        for doc_file in detected['files'].get('document', []):
+        for doc_file in detected["files"].get("document", []):
             p = Path(doc_file)
             if _get_extractor(p) is not None:
                 code_files.append(p)
@@ -81,35 +102,70 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
             print("[graphify watch] No code files found - nothing to rebuild.")
             return False
 
+        existing_graph = out / "graph.json"
+        deleted_inputs: list[str] = []
+        if not force and existing_graph.exists() and manifest_path.exists():
+            incremental = detect_incremental(
+                watch_root,
+                manifest_path=str(manifest_path),
+                follow_symlinks=follow_symlinks,
+                full=detected,
+            )
+            changed_inputs = _changed_extractor_inputs(incremental)
+            deleted_inputs = incremental.get("deleted_files", [])
+            if not changed_inputs and not deleted_inputs:
+                print("[graphify watch] Already up to date; graph outputs left unchanged.")
+                return True
+
         commit = _git_head()
         result = extract(code_files, cache_root=watch_root)
 
-        # Preserve semantic nodes/edges from a previous full run.
-        # AST-only rebuild replaces nodes for changed files; everything else is kept.
-        # Filter by node ID membership in the new AST output, not by file_type —
-        # INFERRED/AMBIGUOUS nodes extracted from code files also carry file_type="code"
-        # and would be wrongly dropped by a file_type-based filter.
-        out = watch_path / _GRAPHIFY_OUT
-        existing_graph = out / "graph.json"
         if existing_graph.exists():
             try:
                 existing = json.loads(existing_graph.read_text(encoding="utf-8"))
                 new_ast_ids = {n["id"] for n in result["nodes"]}
-                preserved_nodes = [n for n in existing.get("nodes", []) if n["id"] not in new_ast_ids]
+                # F2: Build deleted-source set for filtering preserved nodes.
+                # deleted_inputs are absolute paths from detect_incremental;
+                # graph node source_file may be relative (#777). Match both forms.
+                _deleted_sources: set[str] = set()
+                for dp in deleted_inputs:
+                    _deleted_sources.add(dp)
+                    try:
+                        _deleted_sources.add(str(Path(dp).resolve().relative_to(project_root)))
+                    except ValueError:
+                        pass
+                preserved_nodes = [
+                    n for n in existing.get("nodes", [])
+                    if n["id"] not in new_ast_ids
+                    and n.get("source_file") not in _deleted_sources
+                ]
                 all_ids = new_ast_ids | {n["id"] for n in preserved_nodes}
                 preserved_edges = [
                     e for e in existing.get("links", existing.get("edges", []))
                     if e.get("source") in all_ids and e.get("target") in all_ids
                 ]
+                # F2: filter hyperedges to drop members from deleted files
+                _preserved_hyperedges: list[dict] = []
+                for he in existing.get("hyperedges", []):
+                    members = [
+                        m for m in he.get("nodes", [])
+                        if m in all_ids
+                    ]
+                    if len(members) >= 2:
+                        _preserved_hyperedges.append({**he, "nodes": members})
                 result = {
                     "nodes": result["nodes"] + preserved_nodes,
                     "edges": result["edges"] + preserved_edges,
-                    "hyperedges": existing.get("hyperedges", []),
+                    "hyperedges": _preserved_hyperedges,
                     "input_tokens": 0,
                     "output_tokens": 0,
                 }
             except Exception:
-                pass  # corrupt graph.json - proceed with AST-only
+                print(
+                    f"[graphify watch] Could not read {existing_graph}; rebuilding from AST only.",
+                    file=sys.stderr,
+                )
+                pass
 
         _relativize_source_files(result, project_root)
 
@@ -129,7 +185,6 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
             raw = json.loads(labels_file.read_text(encoding="utf-8")) if labels_file.exists() else {}
             labels = {int(k): v for k, v in raw.items() if int(k) in communities}
         except Exception:
-            raw = {}
             labels = {}
         for cid in communities:
             if cid not in labels:
@@ -137,7 +192,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
         questions = suggest_questions(G, communities, labels)
 
         out.mkdir(exist_ok=True)
-        (out / ".graphify_root").write_text(str(watch_root), encoding="utf-8")
+        (out / ".graphify_root").write_text(_portable_root_label(watch_path, project_root), encoding="utf-8")
 
         json_written = to_json(G, communities, str(out / "graph.json"), force=force, built_at_commit=commit)
         if not json_written:
@@ -145,17 +200,25 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
 
         try:
             from graphify.detect import save_manifest
-            save_manifest(detected["files"])
+            save_manifest(detected["files"], manifest_path=str(manifest_path), root=watch_root)
         except Exception:
             pass
 
-        report = generate(G, communities, cohesion, labels, gods, surprises, detection,
-                          {"input": 0, "output": 0}, report_root, suggested_questions=questions,
-                          built_at_commit=commit)
+        report = generate(
+            G,
+            communities,
+            cohesion,
+            labels,
+            gods,
+            surprises,
+            detection,
+            {"input": 0, "output": 0},
+            report_root,
+            suggested_questions=questions,
+            built_at_commit=commit,
+        )
         (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
 
-        # to_html raises ValueError for graphs > MAX_NODES_FOR_VIZ (5000).
-        # Wrap so core outputs (graph.json + GRAPH_REPORT.md) always land.
         html_written = False
         try:
             to_html(G, communities, str(out / "graph.html"), community_labels=labels or None)
@@ -166,19 +229,16 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
             if stale.exists():
                 stale.unlink()
 
-        # clear stale needs_update flag if present
         flag = out / "needs_update"
         if flag.exists():
             flag.unlink()
 
-        print(f"[graphify watch] Rebuilt: {G.number_of_nodes()} nodes, "
-              f"{G.number_of_edges()} edges, {len(communities)} communities")
-        products = "graph.json" + (", graph.html" if html_written else "") + " and GRAPH_REPORT.md"
-        print(f"[graphify watch] {products} updated in {out}")
+        print(f"[graphify watch] Rebuilt: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges, {len(communities)} communities")
+        if not html_written:
+            print(f"[graphify watch] Wrote graph.json + GRAPH_REPORT.md to {out}")
         return True
-
-    except Exception as exc:
-        print(f"[graphify watch] Rebuild failed: {exc}")
+    except Exception as e:
+        print(f"[graphify watch] Rebuild failed: {e}", file=sys.stderr)
         return False
 
 
