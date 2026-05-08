@@ -147,6 +147,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".claude") / "skills" / "graphify" / "SKILL.md",
         "claude_md": True,
     },
+    "cmd": {
+        "skill_file": "skill-cmd.md",
+        "skill_dst": Path(".claude") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": True,
+    },
     "kimi": {
         "skill_file": "skill.md",
         "skill_dst": Path(".kimi") / "skills" / "graphify" / "SKILL.md",
@@ -176,7 +181,7 @@ def install(platform: str = "claude") -> None:
         sys.exit(1)
 
     import os as _os
-    if platform in ("claude", "windows") and _os.environ.get("CLAUDE_CONFIG_DIR"):
+    if platform in ("claude", "windows", "cmd") and _os.environ.get("CLAUDE_CONFIG_DIR"):
         _claude_base = Path(_os.environ["CLAUDE_CONFIG_DIR"])
         skill_dst = _claude_base / "skills" / "graphify" / "SKILL.md"
     else:
@@ -758,25 +763,21 @@ def _uninstall_opencode_plugin(project_dir: Path) -> None:
         print(f"  {_OPENCODE_CONFIG_PATH}  ->  plugin deregistered")
 
 
-_CODEX_HOOK = {
-    "hooks": {
-        "PreToolUse": [
-            {
-                "matcher": "Bash",
-                "hooks": [
-                    {
-                        "type": "command",
-                        # Use the graphify CLI itself so the hook is shell-agnostic:
-                        # no [ -f ] bash syntax, no python3 vs python Conda issue,
-                        # no JSON escaping inside PowerShell strings. Works on
-                        # Windows (PowerShell/cmd.exe), macOS, and Linux.
-                        "command": "graphify hook-check",
-                    }
-                ],
-            }
-        ]
-    }
+_LEGACY_CODEX_PRE_TOOL_HOOK = {
+    "matcher": "Bash",
+    "hooks": [
+        {
+            "type": "command",
+            # This legacy PreToolUse hook is kept only so installs can remove it.
+            "command": "graphify hook-check",
+        }
+    ],
 }
+
+_CODEX_CONTEXT = (
+    "graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for "
+    "god nodes and community structure before searching raw files."
+)
 
 
 def _resolve_graphify_exe() -> str:
@@ -800,7 +801,7 @@ def _resolve_graphify_exe() -> str:
 
 
 def _install_codex_hook(project_dir: Path) -> None:
-    """Add graphify PreToolUse hook to .codex/hooks.json."""
+    """Add graphify UserPromptSubmit hook to .codex/hooks.json."""
     hooks_path = project_dir / ".codex" / "hooks.json"
     hooks_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -812,27 +813,32 @@ def _install_codex_hook(project_dir: Path) -> None:
     else:
         existing = {}
 
-    graphify_exe = _resolve_graphify_exe()
-    hook_entry = {
-        "hooks": {
-            "PreToolUse": [
-                {
-                    "matcher": "Bash",
-                    "hooks": [{"type": "command", "command": f"{graphify_exe} hook-check"}],
-                }
-            ]
-        }
-    }
+    hooks = existing.get("hooks")
+    if hooks is not None and not isinstance(hooks, dict):
+        hooks_path.write_text(json.dumps(existing, indent=2), encoding="utf-8")
+        print("  .codex/hooks.json  ->  existing non-object hooks preserved")
+        return
 
-    pre_tool = existing.setdefault("hooks", {}).setdefault("PreToolUse", [])
-    existing["hooks"]["PreToolUse"] = [h for h in pre_tool if "graphify" not in str(h)]
-    existing["hooks"]["PreToolUse"].extend(hook_entry["hooks"]["PreToolUse"])
+    graphify_exe = _resolve_graphify_exe()
+    command = f"{graphify_exe} hook-check --event UserPromptSubmit --additionalContext --report graphify-out/GRAPH_REPORT.md"
+    hooks = existing.setdefault("hooks", {})
+    pre_tool = hooks.get("PreToolUse", [])
+    if isinstance(pre_tool, list):
+        hooks["PreToolUse"] = [
+            h for h in pre_tool
+            if h != _LEGACY_CODEX_PRE_TOOL_HOOK and "hook-check" not in str(h)
+        ]
+        if not hooks["PreToolUse"]:
+            hooks.pop("PreToolUse")
+    user_prompt = hooks.setdefault("UserPromptSubmit", [])
+    user_prompt[:] = [h for h in user_prompt if "hook-check" not in str(h)]
+    user_prompt.append({"hooks": [{"type": "command", "command": command}]})
     hooks_path.write_text(json.dumps(existing, indent=2), encoding="utf-8")
-    print(f"  .codex/hooks.json  ->  PreToolUse hook registered ({graphify_exe} hook-check)")
+    print(f"  .codex/hooks.json  ->  UserPromptSubmit hook registered ({command})")
 
 
 def _uninstall_codex_hook(project_dir: Path) -> None:
-    """Remove graphify PreToolUse hook from .codex/hooks.json."""
+    """Remove graphify Codex hooks from .codex/hooks.json."""
     hooks_path = project_dir / ".codex" / "hooks.json"
     if not hooks_path.exists():
         return
@@ -840,11 +846,19 @@ def _uninstall_codex_hook(project_dir: Path) -> None:
         existing = json.loads(hooks_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return
-    pre_tool = existing.get("hooks", {}).get("PreToolUse", [])
-    filtered = [h for h in pre_tool if "graphify" not in str(h)]
-    existing["hooks"]["PreToolUse"] = filtered
+    hooks = existing.get("hooks", {})
+    if not isinstance(hooks, dict):
+        return
+    for event in ("PreToolUse", "UserPromptSubmit"):
+        entries = hooks.get(event, [])
+        if isinstance(entries, list):
+            filtered = [h for h in entries if "hook-check" not in str(h)]
+            if filtered:
+                hooks[event] = filtered
+            else:
+                hooks.pop(event, None)
     hooks_path.write_text(json.dumps(existing, indent=2), encoding="utf-8")
-    print(f"  .codex/hooks.json  ->  PreToolUse hook removed")
+    print(f"  .codex/hooks.json  ->  graphify hooks removed")
 
 
 def _agents_install(project_dir: Path, platform: str) -> None:
@@ -1069,7 +1083,7 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
-        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|cmd|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi)")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
@@ -1666,9 +1680,15 @@ def main() -> None:
             sys.exit(1)
 
     elif cmd == "hook-check":
-        # Codex Desktop rejects hookSpecificOutput.additionalContext on PreToolUse.
-        # Keep this as a cross-platform no-op so installed hooks never break Bash
-        # tool calls. Graph guidance reaches the agent via AGENTS.md / skill instead.
+        # PreToolUse invocations stay silent for Codex Desktop compatibility.
+        # UserPromptSubmit can add prompt context before the assistant responds.
+        if "--event" in sys.argv and "UserPromptSubmit" in sys.argv and Path(_GRAPHIFY_OUT, "graph.json").exists():
+            print(json.dumps({
+                "hookSpecificOutput": {
+                    "hookEventName": "UserPromptSubmit",
+                    "additionalContext": _CODEX_CONTEXT,
+                }
+            }))
         sys.exit(0)
     elif cmd == "check-update":
         if len(sys.argv) < 3:
