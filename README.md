@@ -299,6 +299,8 @@ graphify antigravity install / uninstall
 graphify extract ./docs                        # headless LLM extraction for CI (no IDE needed)
 graphify extract ./docs --backend gemini       # explicit backend: gemini, kimi, claude, openai, ollama, or bedrock
 graphify extract ./docs --backend gemini --model gemini-3.1-pro-preview
+graphify extract ./docs --backend openai --model gpt-5.5-mini
+GRAPHIFY_OPENAI_FALLBACK_MODELS=gpt-5.4-mini,gpt-4.1-mini graphify extract ./docs --backend openai --model gpt-5.5-mini
 graphify extract ./docs --backend ollama       # local Ollama (set OLLAMA_BASE_URL / OLLAMA_MODEL)
 graphify extract ./docs --backend bedrock      # AWS Bedrock via IAM - no API key, uses AWS credential chain
 graphify extract ./docs --google-workspace     # export .gdoc/.gsheet/.gslides via gws before extraction

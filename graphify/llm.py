@@ -84,6 +84,7 @@ BACKENDS: dict[str, dict] = {
         "default_model": "gpt-4.1-mini",
         "env_key": "OPENAI_API_KEY",
         "model_env_key": "GRAPHIFY_OPENAI_MODEL",
+        "fallback_models_env_key": "GRAPHIFY_OPENAI_FALLBACK_MODELS",
         "pricing": {"input": 0.40, "output": 1.60},  # USD per 1M tokens
         "temperature": 0,
     },
@@ -208,6 +209,84 @@ def _default_model_for_backend(backend: str) -> str:
     return cfg["default_model"]
 
 
+def _split_model_list(raw: str | None) -> list[str]:
+    """Parse comma-separated model names, preserving order and removing duplicates."""
+    if not raw:
+        return []
+    models: list[str] = []
+    seen: set[str] = set()
+    for item in raw.split(","):
+        model = item.strip()
+        if model and model not in seen:
+            models.append(model)
+            seen.add(model)
+    return models
+
+
+def _model_candidates_for_backend(backend: str, model: str | None) -> list[str]:
+    """Return primary model plus opt-in fallback candidates for a backend."""
+    cfg = BACKENDS[backend]
+    candidates = [model or _default_model_for_backend(backend)]
+    fallback_env_key = cfg.get("fallback_models_env_key")
+    if fallback_env_key:
+        candidates.extend(_split_model_list(os.environ.get(fallback_env_key)))
+
+    deduped: list[str] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        if candidate and candidate not in seen:
+            deduped.append(candidate)
+            seen.add(candidate)
+    return deduped
+
+
+def _openai_model_uses_responses(model: str) -> bool:
+    """Return True for OpenAI model families that need or prefer Responses."""
+    m = model.lower()
+    return m.startswith("gpt-5") or m.startswith("codex-mini") or "-codex" in m
+
+
+def _responses_text(resp) -> str:
+    """Extract text from an OpenAI Responses API object across SDK versions."""
+    output_text = getattr(resp, "output_text", None)
+    if output_text:
+        return output_text
+
+    parts: list[str] = []
+    for item in getattr(resp, "output", []) or []:
+        content = getattr(item, "content", None)
+        if content is None and isinstance(item, dict):
+            content = item.get("content", [])
+        for part in content or []:
+            text = getattr(part, "text", None)
+            if text is None and isinstance(part, dict):
+                text = part.get("text")
+            if text:
+                parts.append(text)
+    return "\n".join(parts)
+
+
+def _usage_tokens(usage, *names: str) -> int:
+    """Read the first available token-count attribute/key from an API usage object."""
+    if usage is None:
+        return 0
+    for name in names:
+        value = getattr(usage, name, None)
+        if value is None and isinstance(usage, dict):
+            value = usage.get(name)
+        if value is not None:
+            return int(value)
+    return 0
+
+
+def _finish_reason_from_responses(resp) -> str:
+    status = getattr(resp, "status", None)
+    incomplete = getattr(resp, "incomplete_details", None)
+    if status == "incomplete" or incomplete:
+        return "length"
+    return "stop"
+
+
 def _call_openai_compat(
     base_url: str,
     api_key: str,
@@ -262,6 +341,43 @@ def _call_openai_compat(
             "Try a larger model with --model (e.g. --model qwen2.5-coder:14b).",
             file=sys.stderr,
         )
+    return result
+
+
+def _call_openai_responses(
+    base_url: str,
+    api_key: str,
+    model: str,
+    user_message: str,
+    *,
+    max_output_tokens: int = 8192,
+    reasoning_effort: str | None = None,
+) -> dict:
+    """Call OpenAI's Responses API for GPT-5/Codex models and return parsed JSON."""
+    try:
+        from openai import OpenAI
+    except ImportError as exc:
+        raise ImportError(
+            "OpenAI Responses extraction requires the openai package. "
+            "Run: pip install graphifyy[openai]"
+        ) from exc
+
+    client = OpenAI(api_key=api_key, base_url=base_url)
+    kwargs: dict = {
+        "model": model,
+        "instructions": _EXTRACTION_SYSTEM,
+        "input": user_message,
+        "max_output_tokens": max_output_tokens,
+    }
+    if reasoning_effort is not None:
+        kwargs["reasoning"] = {"effort": reasoning_effort}
+
+    resp = client.responses.create(**kwargs)
+    result = _parse_llm_json(_responses_text(resp) or "{}")
+    result["input_tokens"] = _usage_tokens(resp.usage, "input_tokens", "prompt_tokens")
+    result["output_tokens"] = _usage_tokens(resp.usage, "output_tokens", "completion_tokens")
+    result["model"] = model
+    result["finish_reason"] = _finish_reason_from_responses(resp)
     return result
 
 
@@ -365,7 +481,8 @@ def extract_files_direct(
             f"No API key for backend '{backend}'. "
             f"Set {_format_backend_env_keys(backend)} or pass api_key=."
         )
-    mdl = model or _default_model_for_backend(backend)
+    model_candidates = _model_candidates_for_backend(backend, model)
+    mdl = model_candidates[0]
     user_msg = _read_files(files, root)
     max_out = _resolve_max_tokens(cfg.get("max_tokens", 8192))
 
@@ -373,6 +490,41 @@ def extract_files_direct(
         return _call_claude(key, mdl, user_msg, max_tokens=max_out)
     if backend == "bedrock":
         return _call_bedrock(mdl, user_msg, max_tokens=max_out)
+    if backend == "openai":
+        last_exc: Exception | None = None
+        for idx, candidate in enumerate(model_candidates):
+            try:
+                if _openai_model_uses_responses(candidate):
+                    return _call_openai_responses(
+                        cfg["base_url"],
+                        key,
+                        candidate,
+                        user_msg,
+                        max_output_tokens=cfg.get("max_completion_tokens", max_out),
+                        reasoning_effort=cfg.get("reasoning_effort"),
+                    )
+                return _call_openai_compat(
+                    cfg["base_url"],
+                    key,
+                    candidate,
+                    user_msg,
+                    temperature=cfg.get("temperature", 0),
+                    reasoning_effort=cfg.get("reasoning_effort"),
+                    max_completion_tokens=cfg.get("max_completion_tokens", max_out),
+                    backend=backend,
+                )
+            except Exception as exc:  # noqa: BLE001 - retry explicitly configured fallback models
+                last_exc = exc
+                if idx >= len(model_candidates) - 1:
+                    break
+                next_model = model_candidates[idx + 1]
+                print(
+                    f"[graphify] openai model {candidate!r} failed: {exc}; "
+                    f"retrying with {next_model!r}.",
+                    file=sys.stderr,
+                )
+        assert last_exc is not None
+        raise last_exc
     return _call_openai_compat(
         cfg["base_url"],
         key,

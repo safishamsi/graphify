@@ -1111,8 +1111,10 @@ def main() -> None:
         print("    --top-k-edges N         per-symbol outbound edges in inspector (default 12)")
         print("    --label NAME            project label in header")
         print("  extract <path>          headless full extraction (AST + semantic LLM) for CI/scripts")
-        print("    --backend B             gemini|kimi|claude|openai|ollama (default: whichever API key is set)")
+        print("    --backend B             gemini|kimi|claude|openai|ollama|bedrock (default: whichever API key is set)")
         print("    --model M               override backend default model")
+        print("                            OpenAI GPT-5.x/Codex models use Responses API")
+        print("                            fallback: GRAPHIFY_OPENAI_FALLBACK_MODELS=m1,m2")
         print("    --out DIR               output dir (default: <path>); writes <DIR>/graphify-out/")
         print("    --google-workspace      export .gdoc/.gsheet/.gslides shortcuts via gws before extraction")
         print("    --no-cluster            skip clustering, write raw extraction only")
@@ -2077,8 +2079,8 @@ def main() -> None:
         # has an API key set.
         if len(sys.argv) < 3:
             print(
-                "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai] "
-                "[--out DIR] [--google-workspace] [--no-cluster]",
+                "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai|ollama|bedrock] "
+                "[--model MODEL] [--out DIR] [--google-workspace] [--no-cluster]",
                 file=sys.stderr,
             )
             sys.exit(1)
