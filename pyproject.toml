@@ -5,10 +5,10 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "graphifyy"
 version = "0.7.10"
-description = "AI coding assistant skill (Claude Code, Codex, OpenCode, Cursor, Gemini CLI, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kiro, Pi, Google Antigravity) - turn any folder of code, docs, papers, images, or videos into a queryable knowledge graph"
+description = "AI coding assistant skill (Claude Code, Codex, OpenCode, ForgeCode, Windsurf, Cursor, Gemini CLI, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kimi Code, Kiro, Pi, Google Antigravity) - turn any folder of code, docs, papers, images, or videos into a queryable knowledge graph"
 readme = "README.md"
 license = { file = "LICENSE" }
-keywords = ["claude", "claude-code", "codex", "opencode", "cursor", "gemini", "aider", "kiro", "pi", "knowledge-graph", "rag", "graphrag", "obsidian", "community-detection", "tree-sitter", "leiden", "llm"]
+keywords = ["claude", "claude-code", "codex", "opencode", "forgecode", "windsurf", "cursor", "gemini", "aider", "kiro", "pi", "knowledge-graph", "rag", "graphrag", "obsidian", "community-detection", "tree-sitter", "leiden", "llm"]
 requires-python = ">=3.10"
 dependencies = [
     "networkx",
@@ -38,6 +38,7 @@ dependencies = [
     "tree-sitter-julia",
     "tree-sitter-verilog",
     "tree-sitter-fortran",
+    "tree-sitter-bash",
 ]
 
 [project.urls]
@@ -80,3 +81,18 @@ graphify = ["skill.md", "skill-codex.md", "skill-opencode.md", "skill-aider.md",
 
 [tool.bandit]
 skips = ["B404"]
+
+[dependency-groups]
+dev = [
+    "bandit>=1.9.4",
+    "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
+    "safety>=3.7.0",
+]
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning:graspologic.*",
+    "ignore::DeprecationWarning:hyppo.*",
+    "ignore:.*nopython=False.*:numba.core.errors.NumbaDeprecationWarning"
+]

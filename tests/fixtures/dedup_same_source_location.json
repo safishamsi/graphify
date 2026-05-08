@@ -1,0 +1,105 @@
+{
+    "nodes": [
+        {
+            "id": "lib_sort_all_nodes_topologically",
+            "label": "sort_all_nodes_topologically Method",
+            "file_type": "code",
+            "source_file": "src/lib.rs",
+            "source_location": "lib.rs:187",
+            "type": "function",
+            "confidence": "EXTRACTED"
+        },
+        {
+            "id": "sort_all_nodes_topologically",
+            "label": "sort_all_nodes_topologically Method",
+            "file_type": "code",
+            "source_file": "src/lib.rs",
+            "source_location": "lib.rs:187",
+            "type": "function",
+            "confidence": "EXTRACTED"
+        },
+        {
+            "id": "lib_add_edge_to_graph",
+            "label": "add_edge_to_graph Method",
+            "file_type": "code",
+            "source_file": "src/lib.rs",
+            "source_location": "lib.rs:125",
+            "type": "function",
+            "confidence": "EXTRACTED"
+        },
+        {
+            "id": "add_edge_to_graph",
+            "label": "add_edge_to_graph Method",
+            "file_type": "code",
+            "source_file": "src/lib.rs",
+            "source_location": "lib.rs:125",
+            "type": "function",
+            "confidence": "EXTRACTED"
+        },
+        {
+            "id": "error_toposorterror",
+            "label": "TopoSortError Enum",
+            "file_type": "code",
+            "source_file": "src/error.rs",
+            "source_location": "error.rs:10",
+            "type": "enum",
+            "confidence": "EXTRACTED"
+        },
+        {
+            "id": "sym_a",
+            "label": "SymbolA",
+            "file_type": "code",
+            "source_file": "src/module.py",
+            "source_location": "module.py:42",
+            "type": "class",
+            "confidence": "EXTRACTED"
+        },
+        {
+            "id": "sym_b",
+            "label": "SymbolB",
+            "file_type": "code",
+            "source_file": "src/module.py",
+            "source_location": "module.py:42",
+            "type": "class",
+            "confidence": "EXTRACTED"
+        }
+    ],
+    "edges": [
+        {
+            "source": "lib_sort_all_nodes_topologically",
+            "target": "lib_add_edge_to_graph",
+            "relation": "calls",
+            "confidence": "EXTRACTED"
+        },
+        {
+            "source": "sort_all_nodes_topologically",
+            "target": "add_edge_to_graph",
+            "relation": "calls",
+            "confidence": "EXTRACTED"
+        },
+        {
+            "source": "lib_sort_all_nodes_topologically",
+            "target": "error_toposorterror",
+            "relation": "references",
+            "confidence": "EXTRACTED"
+        },
+        {
+            "source": "lib_add_edge_to_graph",
+            "target": "add_edge_to_graph",
+            "relation": "same_entity",
+            "confidence": "INFERRED"
+        }
+    ],
+    "hyperedges": [
+        {
+            "id": "h_core",
+            "nodes": [
+                "lib_sort_all_nodes_topologically",
+                "sort_all_nodes_topologically",
+                "lib_add_edge_to_graph",
+                "add_edge_to_graph"
+            ],
+            "label": "Core Functions"
+        }
+    ]
+}

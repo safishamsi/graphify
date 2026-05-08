@@ -8,6 +8,8 @@ import shutil
 import sys
 from pathlib import Path
 
+from graphify.security import validate_graph_path
+
 try:
     from importlib.metadata import version as _pkg_version
     __version__ = _pkg_version("graphifyy")
@@ -21,6 +23,33 @@ _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
 
 def _default_graph_path() -> str:
     return str(Path(_GRAPHIFY_OUT) / "graph.json")
+
+
+# Maximum graph.json file size before rejection (512 MiB) — #F4.
+_MAX_GRAPH_FILE_BYTES = 512 * 1024 * 1024
+
+
+def _load_graph_json(graph_path_str: str) -> dict:
+    """Load a graph JSON file with size cap and path validation.
+
+    #F4: Reject files larger than _MAX_GRAPH_FILE_BYTES before parsing.
+    #F5: Route through validate_graph_path for path security.
+    """
+    gp = Path(graph_path_str)
+    #F4 Size cap
+    try:
+        size = gp.stat().st_size
+        if size > _MAX_GRAPH_FILE_BYTES:
+            raise ValueError(
+                f"Graph file is {size:_d} bytes — exceeds {_MAX_GRAPH_FILE_BYTES:_d} byte limit"
+            )
+    except OSError:
+        pass  # stat may fail; let validate_graph_path handle it
+    resolved = validate_graph_path(str(gp), base=gp.resolve().parent)
+    if resolved.suffix != ".json":
+        raise ValueError(f"Graph path must be a .json file, got: {graph_path_str!r}")
+    data = json.loads(resolved.read_text(encoding="utf-8"))
+    return data
 
 
 def _check_skill_version(skill_dst: Path) -> None:
@@ -152,6 +181,16 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".kimi") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
+    "windsurf": {
+        "skill_file": "skill.md",
+        "skill_dst": Path(".windsurf") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
+    "forgecode": {
+        "skill_file": "skill.md",
+        "skill_dst": Path(".forgecode") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
 }
 
 
@@ -211,7 +250,8 @@ def install(platform: str = "claude") -> None:
     print()
     print("Done. Open your AI coding assistant and type:")
     print()
-    print("  /graphify .")
+    invocation = "$graphify ." if platform == "codex" else "/graphify ."
+    print(f"  {invocation}")
     print()
 
 
@@ -1024,6 +1064,22 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
         sys.exit(1)
     owner, repo = m.group(1), m.group(2)
 
+    #F6: Validate owner/repo against GitHub naming rules
+    _gh_name_re = _re.compile(r"^[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?$")
+    if not _gh_name_re.match(owner) or not _gh_name_re.match(repo):
+        print(
+            f"error: invalid GitHub owner or repo name: {owner!r}/{repo!r}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    if len(owner) > 39 or len(repo) > 100:
+        print(
+            f"error: GitHub owner or repo name too long (max 39/100 chars): "
+            f"{owner!r}/{repo!r}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     if out_dir:
         dest = out_dir
     else:
@@ -1061,7 +1117,7 @@ def main() -> None:
     # Check all known skill install locations for a stale version stamp.
     # Skip during install/uninstall (hook writes trigger a fresh check anyway).
     # Deduplicate paths so platforms sharing the same install dir don't warn twice.
-    if not any(arg in ("install", "uninstall") for arg in sys.argv):
+    if not any(arg in ("install", "uninstall", "hook-check") for arg in sys.argv):
         for skill_dst in {Path.home() / cfg["skill_dst"] for cfg in _PLATFORM_CONFIG.values()}:
             _check_skill_version(skill_dst)
 
@@ -1069,7 +1125,7 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
-        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|windsurf|forgecode|gemini|cursor|antigravity|hermes|kiro|pi)")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
@@ -1159,6 +1215,10 @@ def main() -> None:
         print("  kiro uninstall          remove skill + steering file")
         print("  pi install              write skill to ~/.pi/agent/skills/graphify/ (Pi coding agent)")
         print("  pi uninstall            remove skill from ~/.pi/agent/skills/graphify/")
+        print("  windsurf install        write skill to ~/.windsurf/skills/graphify/ (Windsurf)")
+        print("  windsurf uninstall      remove skill from ~/.windsurf/skills/graphify/")
+        print("  forgecode install       write skill to ~/.forgecode/skills/graphify/ (ForgeCode)")
+        print("  forgecode uninstall     remove skill from ~/.forgecode/skills/graphify/")
         print()
         return
 
@@ -1289,6 +1349,46 @@ def main() -> None:
         else:
             print("Usage: graphify pi [install|uninstall]", file=sys.stderr)
             sys.exit(1)
+    elif cmd == "windsurf":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            install("windsurf")
+        elif subcmd == "uninstall":
+            skill_dst = Path.home() / ".windsurf" / "skills" / "graphify" / "SKILL.md"
+            if skill_dst.exists():
+                skill_dst.unlink()
+                print(f"  skill removed    ->  {skill_dst}")
+            version_file = skill_dst.parent / ".graphify_version"
+            if version_file.exists():
+                version_file.unlink()
+            for d in (skill_dst.parent, skill_dst.parent.parent, skill_dst.parent.parent.parent):
+                try:
+                    d.rmdir()
+                except OSError:
+                    break
+        else:
+            print("Usage: graphify windsurf [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
+    elif cmd == "forgecode":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            install("forgecode")
+        elif subcmd == "uninstall":
+            skill_dst = Path.home() / ".forgecode" / "skills" / "graphify" / "SKILL.md"
+            if skill_dst.exists():
+                skill_dst.unlink()
+                print(f"  skill removed    ->  {skill_dst}")
+            version_file = skill_dst.parent / ".graphify_version"
+            if version_file.exists():
+                version_file.unlink()
+            for d in (skill_dst.parent, skill_dst.parent.parent, skill_dst.parent.parent.parent):
+                try:
+                    d.rmdir()
+                except OSError:
+                    break
+        else:
+            print("Usage: graphify forgecode [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
     elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
@@ -1360,17 +1460,10 @@ def main() -> None:
                 graph_path = args[i + 1]; i += 2
             else:
                 i += 1
-        gp = Path(graph_path).resolve()
-        if not gp.exists():
-            print(f"error: graph file not found: {gp}", file=sys.stderr)
-            sys.exit(1)
-        if not gp.suffix == ".json":
-            print(f"error: graph file must be a .json file", file=sys.stderr)
-            sys.exit(1)
         try:
             import json as _json
             import networkx as _nx
-            _raw = _json.loads(gp.read_text(encoding="utf-8"))
+            _raw = _load_graph_json(graph_path)
             if "links" not in _raw and "edges" in _raw:
                 _raw = dict(_raw, links=_raw["edges"])
             try:
@@ -1423,11 +1516,11 @@ def main() -> None:
         for i, a in enumerate(args):
             if a == "--graph" and i + 1 < len(args):
                 graph_path = args[i + 1]
-        gp = Path(graph_path).resolve()
-        if not gp.exists():
-            print(f"error: graph file not found: {gp}", file=sys.stderr)
+        try:
+            _raw = _load_graph_json(graph_path)
+        except (ValueError, FileNotFoundError) as exc:
+            print(f"error: {exc}", file=sys.stderr)
             sys.exit(1)
-        _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
         try:
@@ -1473,11 +1566,11 @@ def main() -> None:
         for i, a in enumerate(args):
             if a == "--graph" and i + 1 < len(args):
                 graph_path = args[i + 1]
-        gp = Path(graph_path).resolve()
-        if not gp.exists():
-            print(f"error: graph file not found: {gp}", file=sys.stderr)
+        try:
+            _raw = _load_graph_json(graph_path)
+        except (ValueError, FileNotFoundError) as exc:
+            print(f"error: {exc}", file=sys.stderr)
             sys.exit(1)
-        _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
         try:
@@ -1582,7 +1675,7 @@ def main() -> None:
         from graphify.report import generate
         from graphify.export import to_json, to_html
         print("Loading existing graph...")
-        _raw = json.loads(graph_json.read_text(encoding="utf-8"))
+        _raw = _load_graph_json(str(graph_json))
         _directed = bool(_raw.get("directed", False))
         G = build_from_json(_raw, directed=_directed)
         print(f"Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
@@ -1643,7 +1736,12 @@ def main() -> None:
             # Try to recover the scan root saved by the last full build
             saved = Path(_GRAPHIFY_OUT) / ".graphify_root"
             if saved.exists():
-                watch_path = Path(saved.read_text(encoding="utf-8").strip())
+                raw_root = saved.read_text(encoding="utf-8").strip()
+                watch_path = Path(raw_root)
+                if not watch_path.is_absolute():
+                    # #777: .graphify_root is now portable. Resolve it relative to the
+                    # current checkout, not the machine that originally built graphify-out.
+                    watch_path = Path.cwd() / watch_path
             else:
                 watch_path = Path(".")
         if not watch_path.exists():
@@ -2196,6 +2294,16 @@ def main() -> None:
             paper_files = [Path(p) for p in new_by_type.get("paper", [])]
             image_files = [Path(p) for p in new_by_type.get("image", [])]
             deleted_files = list(detection.get("deleted_files", []))
+            # F1: normalize deleted_files to project-relative paths for compare
+            # against relativized source_file values in graph nodes (#777).
+            _deleted_rel: list[str] = []
+            for df in deleted_files:
+                _deleted_rel.append(df)
+                try:
+                    _deleted_rel.append(str(Path(df).resolve().relative_to(target)))
+                except ValueError:
+                    pass
+            deleted_files = _deleted_rel
             unchanged_total = sum(len(v) for v in detection.get("unchanged_files", {}).values())
         else:
             code_files = [Path(p) for p in files_by_type.get("code", [])]
@@ -2359,6 +2467,7 @@ def main() -> None:
                 prune_sources=deleted_files or None,
                 dedup=True,
                 dedup_llm_backend=dedup_backend,
+                root=target,
             )
         else:
             G = _build([merged], dedup=True, dedup_llm_backend=dedup_backend)

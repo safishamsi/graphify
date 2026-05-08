@@ -14,7 +14,7 @@ Turn any folder of files into a navigable knowledge graph with community detecti
 /graphify                                             # full pipeline on current directory → Obsidian vault
 /graphify <path>                                      # full pipeline on specific path
 /graphify <path> --mode deep                          # thorough extraction, richer INFERRED edges
-/graphify <path> --update                             # incremental - re-extract only new/changed files
+/graphify <path> --update                             # incremental - re-extract new/changed files and prune deleted files
 /graphify <path> --directed                            # build directed graph (preserves edge direction: source→target)
 /graphify <path> --cluster-only                       # rerun clustering on existing graph
 /graphify <path> --no-viz                             # skip visualization, just report + JSON
@@ -757,7 +757,7 @@ The graph is the map. Your job after the pipeline is to be the guide.
 
 ## For --update (incremental re-extraction)
 
-Use when you've added or modified files since the last run. Only re-extracts changed files - saves tokens and time.
+Use when you've added, modified, or deleted files since the last run. Re-extracts new/changed files, prunes deleted files, and skips unchanged content to save tokens and time.
 
 ```powershell
 python -c "
@@ -767,74 +767,78 @@ from pathlib import Path
 
 result = detect_incremental(Path('INPUT_PATH'))
 new_total = result.get('new_total', 0)
+deleted_total = len(result.get('deleted_files', []))
 print(json.dumps(result, indent=2))
 Path('.graphify_incremental.json').write_text(json.dumps(result))
-if new_total == 0:
-    print('No files changed since last run. Nothing to update.')
+if new_total == 0 and deleted_total == 0:
+    print('No files changed or deleted since last run. Nothing to update.')
     raise SystemExit(0)
-print(f'{new_total} new/changed file(s) to re-extract.')
+print(f'{new_total} new/changed file(s), {deleted_total} deleted file(s) to process.')
 "
 ```
 
-If new files exist, first check whether all changed files are code files:
+If new/changed files exist, first check whether all changed files are code files:
 
 ```powershell
 python -c "
 import json
 from pathlib import Path
+from graphify.detect import CODE_EXTENSIONS
 
 result = json.loads(open('.graphify_incremental.json').read()) if Path('.graphify_incremental.json').exists() else {}
-code_exts = {'.py','.ts','.js','.go','.rs','.java','.cpp','.c','.rb','.swift','.kt','.cs','.scala','.php','.cc','.cxx','.hpp','.h','.kts','.lua','.toc'}
 new_files = result.get('new_files', {})
 all_changed = [f for files in new_files.values() for f in files]
-code_only = all(Path(f).suffix.lower() in code_exts for f in all_changed)
+code_only = bool(all_changed) and all(Path(f).suffix.lower() in CODE_EXTENSIONS for f in all_changed)
 print('code_only:', code_only)
 "
 ```
 
+If `all_changed` is empty, skip extraction and go straight to merge/prune.
+
 If `code_only` is True: print `[graphify update] Code-only changes detected - skipping semantic extraction (no LLM needed)`, run only Step 3A (AST) on the changed files, skip Step 3B entirely (no subagents), then go straight to merge and Steps 4–8.
 
-If `code_only` is False (any changed file is a doc/paper/image): run the full Steps 3A–3C pipeline as normal.
+If `all_changed` is non-empty and `code_only` is False (any changed file is a doc/paper/image): run the full Steps 3A–3C pipeline as normal.
 
-Then:
+Then merge with `build_merge()`, which evicts stale nodes from modified sources and normalizes deleted-file pruning before rebuilding the graph:
 
 ```powershell
 python -c "
-import sys, json
-from graphify.build import build_from_json
-from graphify.export import to_json
-from networkx.readwrite import json_graph
-import networkx as nx
+import json
 from pathlib import Path
-
-# Load existing graph
-existing_data = json.loads(Path('graphify-out/graph.json').read_text())
-G_existing = json_graph.node_link_graph(existing_data, edges='links')
-
-# Load new extraction
-new_extraction = json.loads(Path('.graphify_extract.json').read_text())
-G_new = build_from_json(new_extraction)
-
-# Prune nodes from deleted files
-incremental = json.loads(Path('.graphify_incremental.json').read_text())
-deleted = set(incremental.get('deleted_files', []))
-if deleted:
-    to_remove = [n for n, d in G_existing.nodes(data=True) if d.get('source_file') in deleted]
-    G_existing.remove_nodes_from(to_remove)
-    if to_remove:
-        print(f'Pruned {len(to_remove)} ghost node(s) from {len(deleted)} deleted file(s) — drift detected and corrected.')
-    else:
-        print(f'{len(deleted)} file(s) deleted since last run, but no ghost nodes were present in the graph — no drift.')
-
-# Merge: new nodes/edges into existing graph
-G_existing.update(G_new)
-print(f'Merged: {G_existing.number_of_nodes()} nodes, {G_existing.number_of_edges()} edges')
-
-# Save manifest with the CURRENT full file list so the next --update
-# diffs against today's filesystem state, not the prior --update's
-# baseline. Without this, deleted files get reported as ghosts again
-# on every subsequent --update until a full rebuild runs.
+from graphify.build import build_merge
 from graphify.detect import save_manifest
+
+incremental_path = Path('.graphify_incremental.json')
+if not incremental_path.exists():
+    incremental_path = Path('graphify-out/.graphify_incremental.json')
+extract_path = Path('.graphify_extract.json')
+if not extract_path.exists() and Path('graphify-out/.graphify_extract.json').exists():
+    extract_path = Path('graphify-out/.graphify_extract.json')
+
+incremental = json.loads(incremental_path.read_text())
+if extract_path.exists():
+    new_extraction = json.loads(extract_path.read_text())
+else:
+    new_extraction = {'nodes': [], 'edges': [], 'hyperedges': [], 'input_tokens': 0, 'output_tokens': 0}
+
+G = build_merge(
+    [new_extraction],
+    graph_path='graphify-out/graph.json',
+    prune_sources=incremental.get('deleted_files') or None,
+    root=Path('INPUT_PATH').resolve(),
+)
+
+merged_out = {
+    'nodes': [{'id': n, **d} for n, d in G.nodes(data=True)],
+    'edges': [{'source': u, 'target': v, **d} for u, v, d in G.edges(data=True)],
+    'hyperedges': G.graph.get('hyperedges', []),
+    'input_tokens': new_extraction.get('input_tokens', 0),
+    'output_tokens': new_extraction.get('output_tokens', 0),
+}
+extract_path.parent.mkdir(parents=True, exist_ok=True)
+extract_path.write_text(json.dumps(merged_out))
+print('[graphify update] Merged extraction written ({} nodes, {} edges)'.format(len(merged_out['nodes']), len(merged_out['edges'])))
+
 save_manifest(incremental['files'])
 print('[graphify update] Manifest saved.')
 " 

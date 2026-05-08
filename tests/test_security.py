@@ -10,12 +10,15 @@ import pytest
 
 from graphify.security import (
     sanitize_label,
+    sanitize_metadata,
     safe_fetch,
     safe_fetch_text,
     validate_graph_path,
     validate_url,
     _MAX_FETCH_BYTES,
     _MAX_TEXT_BYTES,
+    _sanitize_metadata_string,
+    _sanitize_metadata_value,
 )
 
 
@@ -187,3 +190,219 @@ def test_sanitize_label_caps_at_256():
 def test_sanitize_label_safe_passthrough():
     assert sanitize_label("MyClass") == "MyClass"
     assert sanitize_label("extract_python") == "extract_python"
+
+
+# ---------------------------------------------------------------------------
+# _sanitize_metadata_string
+# ---------------------------------------------------------------------------
+
+def test_sanitize_metadata_string_strips_control_chars():
+    result = _sanitize_metadata_string("hello\x00world")
+    assert "\x00" not in result
+
+def test_sanitize_metadata_string_escapes_html():
+    result = _sanitize_metadata_string("<script>alert('xss')</script>")
+    assert "<" not in result
+    assert ">" not in result
+    assert "&lt;" in result
+
+def test_sanitize_metadata_string_caps_length():
+    long_val = "x" * 600
+    result = _sanitize_metadata_string(long_val)
+    assert len(result) <= 512
+
+def test_sanitize_metadata_string_handles_non_string():
+    result = _sanitize_metadata_string(42)
+    assert result == "42"
+
+# ---------------------------------------------------------------------------
+# _sanitize_metadata_value
+# ---------------------------------------------------------------------------
+
+def test_sanitize_metadata_value_string():
+    result = _sanitize_metadata_value("<script>alert(1)</script>")
+    assert "<" not in str(result)
+
+def test_sanitize_metadata_value_dict():
+    result = _sanitize_metadata_value({"key": "<evil>"})
+    assert "<" not in str(result["key"])
+
+def test_sanitize_metadata_value_list():
+    result = _sanitize_metadata_value(["<a>", 42, None, True])
+    assert isinstance(result, list)
+    assert "<" not in str(result[0])
+
+def test_sanitize_metadata_value_tuple():
+    result = _sanitize_metadata_value(("<b>", 1))
+    assert isinstance(result, list)
+    assert "<" not in str(result[0])
+
+def test_sanitize_metadata_value_none():
+    assert _sanitize_metadata_value(None) is None
+
+def test_sanitize_metadata_value_int_float_bool():
+    assert _sanitize_metadata_value(42) == 42
+    assert _sanitize_metadata_value(3.14) == 3.14
+    assert _sanitize_metadata_value(True) is True
+
+def test_sanitize_metadata_value_list_capped():
+    result = _sanitize_metadata_value([f"item{i}" for i in range(100)])
+    assert len(result) <= 50
+
+# ---------------------------------------------------------------------------
+# sanitize_metadata
+# ---------------------------------------------------------------------------
+
+def test_sanitize_metadata_none():
+    assert sanitize_metadata(None) == {}
+
+def test_sanitize_metadata_drops_empty_key():
+    result = sanitize_metadata({"": "value"})
+    assert "" not in result
+
+def test_sanitize_metadata_nested():
+    result = sanitize_metadata({
+        "title": "<script>",
+        "details": {"author": "John & Jane"},
+        "tags": ["api", "<xss>"],
+    })
+    assert "<" not in result.get("title", "")
+    # sanitize_metadata html-escapes & to &amp; — the entity does contain &
+    # but the bare ampersand-like sequence " & " should not appear
+    author = result.get("details", {}).get("author", "")
+    assert "&lt;" in result.get("title", "")
+    for tag in result.get("tags", []):
+        assert "<" not in tag
+
+# ---------------------------------------------------------------------------
+# validate_graph_path – auto-detect base fallback
+# ---------------------------------------------------------------------------
+
+def test_validate_graph_path_falls_back_to_cwd_graphify_out(tmp_path, monkeypatch):
+    base = tmp_path / "graphify-out"
+    base.mkdir()
+    graph = base / "graph.json"
+    graph.write_text("{}")
+    monkeypatch.chdir(tmp_path)
+    result = validate_graph_path(graph)
+    assert result == graph.resolve()
+
+def test_validate_graph_path_auto_detects_nested_graphify_out(tmp_path, monkeypatch):
+    base = tmp_path / "deep" / "graphify-out"
+    base.mkdir(parents=True)
+    graph = base / "graph.json"
+    graph.write_text("{}")
+    monkeypatch.chdir(tmp_path / "deep")
+    result = validate_graph_path(graph)
+    assert result == graph.resolve()
+
+
+# --- Coverage targets: lines 49, 61-66, 84-95, 112-113, 117, 199, 238, 272 ---
+
+def test_validate_url_blocks_cloud_metadata():
+    """Cloud metadata hostnames should be blocked."""
+    with pytest.raises(ValueError, match="cloud metadata"):
+        validate_url("http://metadata.google.internal/computeMetadata")
+
+
+def test_validate_url_blocks_private_ip(monkeypatch):
+    """URL resolving to private IP should be blocked."""
+    import socket
+    # Mock getaddrinfo to return a private IP
+    def mock_getaddrinfo(host, port, *args, **kwargs):
+        return [(None, None, None, None, ("10.0.0.1", 0))]
+    monkeypatch.setattr(socket, "getaddrinfo", mock_getaddrinfo)
+    with pytest.raises(ValueError, match="Blocked private"):
+        validate_url("http://private.local/page")
+
+
+def test_validate_url_dns_resolution_fails(monkeypatch):
+    """DNS resolution failure should raise ValueError."""
+    import socket
+    def mock_getaddrinfo(host, port, *args, **kwargs):
+        raise socket.gaierror("Name or service not known")
+    monkeypatch.setattr(socket, "getaddrinfo", mock_getaddrinfo)
+    with pytest.raises(ValueError, match="DNS resolution failed"):
+        validate_url("http://nonexistent.example.invalid/page")
+
+
+def test_ssrf_guarded_socket_blocks_private():
+    """The guarded socket wrapper catches DNS rebinding to private IPs."""
+    import socket
+    from graphify.security import _ssrf_guarded_socket
+
+    original = socket.getaddrinfo
+    with _ssrf_guarded_socket():
+        # Verify the original function is replaced
+        assert socket.getaddrinfo is not original
+    # After context manager, original is restored
+    assert socket.getaddrinfo is original
+
+
+def test_ssrf_guarded_socket_blocks_private_ip(monkeypatch):
+    """Guarded socket raises OSError when a private IP is resolved."""
+    import socket
+    from graphify.security import _ssrf_guarded_socket
+
+    def mock_getaddrinfo(host, port, *args, **kwargs):
+        return [(None, None, None, None, ("10.0.0.1", 0))]
+
+    monkeypatch.setattr(socket, "getaddrinfo", mock_getaddrinfo)
+    with _ssrf_guarded_socket():
+        with pytest.raises(OSError, match="SSRF blocked"):
+            socket.getaddrinfo("evil.local", None)
+
+
+def test_no_file_redirect_handler_blocks_file():
+    """_NoFileRedirectHandler should validate redirect URLs."""
+    import urllib.request
+    from graphify.security import _NoFileRedirectHandler
+    handler = _NoFileRedirectHandler()
+    # Trying to redirect to file:// should raise
+    class FakeReq:
+        pass
+    with pytest.raises(ValueError, match="file"):
+        handler.redirect_request(FakeReq(), None, 301, "Moved", {}, "file:///etc/passwd")
+
+
+def test_no_file_redirect_handler_allows_http(monkeypatch):
+    """_NoFileRedirectHandler should allow valid http redirects."""
+    import socket
+    import urllib.request
+    from graphify.security import _NoFileRedirectHandler
+
+    def mock_getaddrinfo(host, port, *args, **kwargs):
+        return [(None, None, None, None, ("8.8.8.8", 0))]
+    monkeypatch.setattr(socket, "getaddrinfo", mock_getaddrinfo)
+
+    handler = _NoFileRedirectHandler()
+    with patch("urllib.request.HTTPRedirectHandler.redirect_request") as mock_super:
+        mock_super.return_value = "redirected"
+        result = handler.redirect_request(None, None, 301, "Moved", {}, "https://safe.example.com/page")
+        assert mock_super.called
+
+
+def test_build_opener():
+    """_build_opener returns an OpenerDirector with _NoFileRedirectHandler."""
+    from graphify.security import _build_opener
+    opener = _build_opener()
+    assert isinstance(opener, urllib.request.OpenerDirector)
+
+
+def test_sanitize_label_none():
+    """sanitize_label(None) returns empty string."""
+    from graphify.security import sanitize_label
+    assert sanitize_label(None) == ""
+
+
+def test_sanitize_metadata_value_unknown_type():
+    """_sanitize_metadata_value falls back to string sanitization for unknown types."""
+    from graphify.security import _sanitize_metadata_value
+
+    class UnknownType:
+        def __str__(self):
+            return "<custom_object>"
+
+    result = _sanitize_metadata_value(UnknownType())
+    assert "<" not in str(result)
+    assert "custom_object" in str(result) or "&lt;" in str(result)

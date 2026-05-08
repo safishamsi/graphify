@@ -131,6 +131,7 @@ def test_export_graphml_creates_file(tmp_path):
 # ── graphify export neo4j (cypher) ───────────────────────────────────────────
 
 def test_export_neo4j_creates_cypher(tmp_path):
+    pytest.importorskip('neo4j')
     _make_graph(tmp_path)
     r = _run(["export", "neo4j"], tmp_path)
     assert r.returncode == 0, r.stderr

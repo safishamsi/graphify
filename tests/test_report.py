@@ -61,3 +61,33 @@ def test_report_shows_raw_cohesion_scores():
     assert "Cohesion:" in report
     assert "✓" not in report
     assert "⚠" not in report
+
+
+def test_report_surfaces_high_weak_node_ratio():
+    """When >=20% of nodes are weak (degree <=1, non-file, non-concept),
+    the report should include a high-noise warning."""
+    import networkx as nx
+    G = nx.Graph()
+    # 3 weak nodes: low degree, look like real entities (have source_file with extension)
+    for i in range(3):
+        G.add_node(f"weak_{i}", label=f"isolated_func_{i}", source_file=f"module_{i}.py")
+    # 7 normal well-connected nodes
+    for i in range(7):
+        G.add_node(f"normal_{i}", label=f"connected_{i}", source_file=f"core_{i}.py")
+    for i in range(7):
+        for j in range(i + 1, 7):
+            G.add_edge(f"normal_{i}", f"normal_{j}", confidence="EXTRACTED")
+    # Give one weak node a single edge (degree=1 still weak)
+    G.add_edge("weak_0", "normal_0", confidence="EXTRACTED")
+    # weak_1 and weak_2 stay at degree 0
+
+    detection = {"total_files": 10, "total_words": 5000, "needs_graph": True, "warning": None}
+    tokens = {"input": 1000, "output": 2000}
+    communities = {0: [f"normal_{i}" for i in range(7)] + [f"weak_{i}" for i in range(3)]}
+    cohesion = {0: 0.5}
+    labels = {0: "Test Community"}
+    gods = []
+    surprises = []
+
+    report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, "./test")
+    assert "Warning: weak-node ratio is high" in report

@@ -2,6 +2,20 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## Unreleased
+
+- Add: ForgeCode platform support via `graphify install --platform forgecode` and `graphify forgecode install/uninstall`.
+- Added first-class Bash extraction for `.sh`, `.bash`, `.bats`, and extensionless Bash shebang scripts, including function nodes, script entrypoint nodes, same-file calls, and source-aware cross-file calls.
+- Fix: incremental graph merge now evicts stale nodes from modified source files before merging fresh extraction results, so renamed or deleted symbols do not survive successful `--update` runs.
+- Fix: deleted-file pruning now normalizes absolute `detect_incremental()` paths against root-relative graph `source_file` values, and the CLI passes the project root through to `build_merge()`.
+- Fix: watch/update preservation now filters removed source nodes, stale edges, and stale hyperedge members instead of carrying deleted symbols forward.
+- Fix: relation-aware call-edge de-duplication now keys on `(source, target, relation)`, so a prior `contains`, `method`, `imports`, or other relation no longer suppresses a distinct `calls` edge.
+- Fix: same-line source-location deduplication now uses token-level compatibility instead of substring containment, preventing symbols like `user` and `userId` from merging just because they share a line.
+- Fix: incremental detection now verifies stored content hashes even when mtimes are unchanged, catching rapid writes and tools that preserve timestamps.
+- Fix: normalized endpoint remapping now skips ambiguous normalized node-id collisions instead of attaching fuzzy endpoints to an arbitrary colliding node.
+- Fix: graph construction now deterministically keeps the first relation for same-endpoint edge collisions and emits a warning; plain NetworkX `Graph`/`DiGraph` still cannot store parallel relation edges without a future MultiGraph migration.
+- Docs: skill update instructions now route incremental merges through `build_merge()` and describe new/changed/deleted-file handling.
+
 ## 0.7.10 (2026-05-07)
 
 - Fix: `.tsx` files now use `language_tsx` grammar for JSX-aware parsing -- previously `language_typescript` was used, silently dropping all JSX-specific nodes (#766)

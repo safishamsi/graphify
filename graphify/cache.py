@@ -1,6 +1,7 @@
 # per-file extraction cache - skip unchanged files on re-run
 from __future__ import annotations
 
+import copy
 import hashlib
 import json
 import os
@@ -11,6 +12,10 @@ from pathlib import Path
 # shared-output setups. Accepts a relative name ("graphify-out-feature") or an
 # absolute path ("/shared/graphify-out").
 _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
+
+# Known cache kinds — used by cache_dir, cached_files, clear_cache, etc.
+# Phase 7: centralized list for cache-kind validation and iteration.
+_KNOWN_CACHE_KINDS = ["ast", "semantic"]
 
 
 def _body_content(content: bytes) -> bytes:
@@ -74,16 +79,76 @@ def cache_dir(root: Path = Path("."), kind: str = "ast") -> Path:
     return d
 
 
-def load_cached(path: Path, root: Path = Path("."), kind: str = "ast") -> dict | None:
-    """Return cached extraction for this file if hash matches, else None.
+def _relativize_source_value(value: str, root: Path) -> str:
+    """Store source_file values relative to root when possible.
 
-    Cache key: SHA256 of file contents.
-    Cache value: stored as graphify-out/cache/{kind}/{hash}.json
-
-    For kind="ast", also checks the legacy flat cache/  directory so users
-    upgrading from pre-0.5.3 don't lose their existing AST cache entries.
-    Returns None if no cache entry or file has changed.
+    The cache key was already portable, but the cached payload still leaked
+    absolute source_file paths (#777). This helper fixes the serialized payload.
     """
+    if not value:
+        return value
+    root = root.resolve()
+    p = Path(value)
+    if not p.is_absolute():
+        return value
+    try:
+        return str(p.resolve().relative_to(root))
+    except ValueError:
+        return value
+
+
+def _load_source_value(value: str, root: Path, current_path: Path | None = None) -> str:
+    """Normalize cached source_file values on load.
+
+    Relative cache entries stay relative, which matches the final graph output
+    and the cross-file resolver's existing relative-path handling. Legacy
+    absolute entries inside root are migrated to relative values. Legacy entries
+    outside root came from another checkout; for per-file caches, the current
+    source path is the only trustworthy replacement.
+    """
+    if not value:
+        return value
+    root = root.resolve()
+    p = Path(value)
+    if not p.is_absolute():
+        return value
+    try:
+        return str(p.resolve().relative_to(root))
+    except ValueError:
+        if current_path is not None:
+            try:
+                return str(current_path.resolve().relative_to(root))
+            except ValueError:
+                return str(current_path.resolve())
+        return value
+
+
+def _rewrite_result_source_files(
+    result: dict,
+    root: Path,
+    *,
+    for_cache: bool,
+    current_path: Path | None = None,
+) -> dict:
+    """Copy a cached extraction result and rewrite source_file fields.
+
+    The copy prevents cache normalization from mutating the in-memory result
+    that extract() is still using during the current process.
+    """
+    rewritten = copy.deepcopy(result)
+    for bucket in ("nodes", "edges", "hyperedges"):
+        for item in rewritten.get(bucket, []) or []:
+            source_file = item.get("source_file")
+            if source_file:
+                if for_cache:
+                    item["source_file"] = _relativize_source_value(str(source_file), root)
+                else:
+                    item["source_file"] = _load_source_value(str(source_file), root, current_path)
+    return rewritten
+
+
+def load_cached(path: Path, root: Path = Path("."), kind: str = "ast") -> dict | None:
+    """Return cached extraction for this file if hash matches, else None."""
     try:
         h = file_hash(path, root)
     except OSError:
@@ -91,45 +156,37 @@ def load_cached(path: Path, root: Path = Path("."), kind: str = "ast") -> dict |
     entry = cache_dir(root, kind) / f"{h}.json"
     if entry.exists():
         try:
-            return json.loads(entry.read_text(encoding="utf-8"))
+            data = json.loads(entry.read_text(encoding="utf-8"))
+            return _rewrite_result_source_files(data, Path(root), for_cache=False, current_path=path)
         except (json.JSONDecodeError, OSError):
             return None
-    # Migration fallback: check legacy flat cache/ dir for AST entries
     if kind == "ast":
         legacy = Path(root).resolve() / _GRAPHIFY_OUT / "cache" / f"{h}.json"
         if legacy.exists():
             try:
-                return json.loads(legacy.read_text(encoding="utf-8"))
+                data = json.loads(legacy.read_text(encoding="utf-8"))
+                return _rewrite_result_source_files(data, Path(root), for_cache=False, current_path=path)
             except (json.JSONDecodeError, OSError):
                 return None
     return None
 
 
 def save_cached(path: Path, result: dict, root: Path = Path("."), kind: str = "ast") -> None:
-    """Save extraction result for this file.
-
-    Stores as graphify-out/cache/{kind}/{hash}.json where hash = SHA256 of current file contents.
-    result should be a dict with 'nodes' and 'edges' lists.
-
-    No-ops if `path` is not a regular file. Subagent-produced semantic fragments
-    occasionally carry a directory path in `source_file`; skipping them prevents
-    IsADirectoryError from aborting the whole batch.
-    """
+    """Save extraction result for this file with portable source_file fields."""
     p = Path(path)
     if not p.is_file():
         return
     h = file_hash(p, root)
     target_dir = cache_dir(root, kind)
     entry = target_dir / f"{h}.json"
+    portable_result = _rewrite_result_source_files(result, Path(root), for_cache=True)
     fd, tmp_path = tempfile.mkstemp(dir=target_dir, prefix=f"{h}.", suffix=".tmp")
     try:
-        os.write(fd, json.dumps(result).encode())
+        os.write(fd, json.dumps(portable_result, sort_keys=True).encode())
         os.close(fd)
         try:
             os.replace(tmp_path, entry)
         except PermissionError:
-            # Windows: os.replace can fail with WinError 5 if the target is
-            # briefly locked. Fall back to copy-then-delete.
             import shutil
             shutil.copy2(tmp_path, entry)
             os.unlink(tmp_path)
@@ -153,7 +210,7 @@ def cached_files(root: Path = Path(".")) -> set[str]:
     if base.is_dir():
         hashes.update(p.stem for p in base.glob("*.json"))
     # Namespaced entries
-    for kind in ("ast", "semantic"):
+    for kind in _KNOWN_CACHE_KINDS:
         d = base / kind
         if d.is_dir():
             hashes.update(p.stem for p in d.glob("*.json"))
@@ -168,7 +225,7 @@ def clear_cache(root: Path = Path(".")) -> None:
         for f in base.glob("*.json"):
             f.unlink()
     # Namespaced entries
-    for kind in ("ast", "semantic"):
+    for kind in _KNOWN_CACHE_KINDS:
         d = base / kind
         if d.is_dir():
             for f in d.glob("*.json"):

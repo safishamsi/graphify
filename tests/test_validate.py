@@ -85,3 +85,74 @@ def test_assert_valid_raises_on_errors():
 
 def test_assert_valid_passes_silently():
     assert_valid(VALID)  # should not raise
+
+
+# --- Coverage targets: lines 34-35, 50, 55-56 ---
+
+def test_validate_node_not_dict():
+    """Node entry that is not a dict (e.g. a string) triggers error + continue."""
+    data = {
+        "nodes": [
+            {"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"},
+            "not_a_dict",
+        ],
+        "edges": [],
+    }
+    errors = validate_extraction(data)
+    assert any("Node 1" in e and "object" in e for e in errors)
+
+
+def test_validate_edges_not_list():
+    """'edges' value that is not a list triggers error."""
+    data = {
+        "nodes": [{"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"}],
+        "edges": "not_a_list",
+    }
+    errors = validate_extraction(data)
+    assert any("'edges' must be a list" in e for e in errors)
+
+
+def test_validate_edge_not_dict():
+    """Edge entry that is not a dict triggers error + continue."""
+    data = {
+        "nodes": [
+            {"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"},
+            {"id": "n2", "label": "B", "file_type": "code", "source_file": "b.py"},
+        ],
+        "edges": [
+            {"source": "n1", "target": "n2", "relation": "calls",
+             "confidence": "EXTRACTED", "source_file": "a.py"},
+            42,  # not a dict
+        ],
+    }
+    errors = validate_extraction(data)
+    assert any("Edge 1 must be an object" in e for e in errors)
+
+
+def test_validate_accepts_links_fallback():
+    """'links' key is accepted as fallback for 'edges'."""
+    data = {
+        "nodes": [{"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"}],
+        "links": [
+            {"source": "n1", "target": "n2", "relation": "calls",
+             "confidence": "EXTRACTED", "source_file": "a.py"},
+        ],
+    }
+    errors = validate_extraction(data)
+    # This should have a dangling edge error (n2 doesn't exist) but NOT missing 'edges'
+    assert not any("Missing required key 'edges'" in e for e in errors)
+
+
+def test_validate_edge_missing_required_field():
+    """Edge dict missing required field triggers 'missing required field' error."""
+    data = {
+        "nodes": [
+            {"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"},
+            {"id": "n2", "label": "B", "file_type": "code", "source_file": "b.py"},
+        ],
+        "edges": [
+            {"source": "n1", "target": "n2"},  # missing 'relation'
+        ],
+    }
+    errors = validate_extraction(data)
+    assert any("missing required field" in e for e in errors)

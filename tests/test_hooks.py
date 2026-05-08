@@ -142,3 +142,98 @@ def test_hook_check_no_additionalContext(tmp_path):
     assert result.returncode == 0
     assert result.stdout == ""
     assert result.stderr == ""
+
+
+# --- Coverage targets: lines 160-177, 208, 218-219, 240, 253 ---
+
+def test_hooks_dir_custom_hooks_path(tmp_path):
+    """Custom core.hooksPath in git config should be respected."""
+    repo = _make_git_repo(tmp_path)
+    custom_dir = tmp_path / "custom_hooks"
+    # Set custom hooksPath in git config
+    subprocess.run(
+        ["git", "config", "core.hooksPath", str(custom_dir.relative_to(repo))],
+        cwd=repo, check=True, capture_output=True,
+    )
+    from graphify.hooks import _hooks_dir
+    result = _hooks_dir(repo)
+    assert custom_dir.exists()
+    assert result == custom_dir
+
+
+def test_hooks_dir_custom_hooks_path_absolute(tmp_path):
+    """Absolute custom hooksPath should be respected."""
+    repo = _make_git_repo(tmp_path)
+    custom_dir = tmp_path / "abs_hooks"
+    subprocess.run(
+        ["git", "config", "core.hooksPath", str(custom_dir)],
+        cwd=repo, check=True, capture_output=True,
+    )
+    from graphify.hooks import _hooks_dir
+    result = _hooks_dir(repo)
+    assert custom_dir.exists()
+    assert result == custom_dir
+
+
+def test_hooks_dir_custom_path_outside_repo_falls_back(tmp_path):
+    """Custom hooksPath that escapes repo root should fall back to .git/hooks."""
+    repo = _make_git_repo(tmp_path)
+    # Set hooksPath to something outside the repo
+    subprocess.run(
+        ["git", "config", "core.hooksPath", "../outside"],
+        cwd=repo, check=True, capture_output=True,
+    )
+    from graphify.hooks import _hooks_dir
+    result = _hooks_dir(repo)
+    expected = repo / ".git" / "hooks"
+    assert result == expected
+
+
+def test_hooks_dir_config_error_falls_back(tmp_path, capsys):
+    """Corrupt git config should fall back and print warning to stderr."""
+    repo = _make_git_repo(tmp_path)
+    # Corrupt the git config
+    (repo / ".git" / "config").write_text("this is not valid ini[[[")
+    from graphify.hooks import _hooks_dir
+    result = _hooks_dir(repo)
+    expected = repo / ".git" / "hooks"
+    assert result == expected
+    captured = capsys.readouterr()
+    assert "could not read core.hooksPath" in captured.err
+
+
+def test_uninstall_hook_not_present(tmp_path):
+    """_uninstall_hook returns appropriate message when marker not in content."""
+    repo = _make_git_repo(tmp_path)
+    hook = repo / ".git" / "hooks" / "post-commit"
+    hook.write_text("#!/bin/sh\necho other hook\n")
+    from graphify.hooks import _uninstall_hook, _HOOK_MARKER, _HOOK_MARKER_END
+    msg = _uninstall_hook(repo / ".git" / "hooks", "post-commit", _HOOK_MARKER, _HOOK_MARKER_END)
+    assert "not found" in msg.lower()
+
+
+def test_uninstall_hook_preserves_other_content(tmp_path):
+    """_uninstall_hook should preserve non-graphify hook content."""
+    repo = _make_git_repo(tmp_path)
+    hook = repo / ".git" / "hooks" / "post-commit"
+    hook.write_text("#!/bin/sh\necho existing\n\n" + "# graphify-hook-start\n...\n# graphify-hook-end\n")
+    from graphify.hooks import _uninstall_hook, _HOOK_MARKER, _HOOK_MARKER_END
+    msg = _uninstall_hook(repo / ".git" / "hooks", "post-commit", _HOOK_MARKER, _HOOK_MARKER_END)
+    content = hook.read_text()
+    assert "echo existing" in content
+    assert _HOOK_MARKER not in content
+    assert "other hook content preserved" in msg
+
+
+def test_uninstall_no_git_repo_raises(tmp_path):
+    """uninstall() should raise RuntimeError when not in a git repo."""
+    from graphify.hooks import uninstall
+    with pytest.raises(RuntimeError, match="No git repository"):
+        uninstall(tmp_path / "not_a_repo")
+
+
+def test_status_no_git_repo(tmp_path):
+    """status() returns 'Not in a git repository.' when not in a git repo."""
+    from graphify.hooks import status
+    result = status(tmp_path / "not_a_repo")
+    assert result == "Not in a git repository."

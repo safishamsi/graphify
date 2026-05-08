@@ -6,6 +6,8 @@ import io
 import sys
 import networkx as nx
 
+_CLUSTER_SEED = 42
+
 
 def _suppress_output():
     """Context manager to suppress stdout/stderr during library calls.
@@ -19,33 +21,33 @@ def _suppress_output():
 
 
 def _partition(G: nx.Graph) -> dict[str, int]:
-    """Run community detection. Returns {node_id: community_id}.
-
-    Tries Leiden (graspologic) first — best quality.
-    Falls back to Louvain (built into networkx) if graspologic is not installed.
-
-    Output from graspologic is suppressed to prevent ANSI escape codes
-    from corrupting terminal scroll buffers on Windows PowerShell 5.1.
-    """
+    """Run community detection. Returns {node_id: community_id}."""
     try:
         from graspologic.partition import leiden
-        # Suppress graspologic output to prevent ANSI escape codes from
-        # corrupting PowerShell 5.1 scroll buffer (issue #19)
         old_stderr = sys.stderr
         try:
             sys.stderr = io.StringIO()
+            kwargs: dict = {}
+            params = inspect.signature(leiden).parameters
+            if "random_seed" in params:
+                kwargs["random_seed"] = _CLUSTER_SEED
+            elif "seed" in params:
+                kwargs["seed"] = _CLUSTER_SEED
+            else:
+                print(
+                    "[graphify cluster] warning: installed graspologic Leiden "
+                    "does not expose a seed parameter; clustering may be non-deterministic.",
+                    file=sys.stderr,
+                )
             with _suppress_output():
-                result = leiden(G)
+                result = leiden(G, **kwargs)
         finally:
             sys.stderr = old_stderr
         return result
     except ImportError:
         pass
 
-    # Fallback: networkx louvain (available since networkx 2.7).
-    # Inspect kwargs to stay compatible across NetworkX versions — max_level
-    # was added in a later release and prevents hangs on large sparse graphs.
-    kwargs: dict = {"seed": 42, "threshold": 1e-4}
+    kwargs: dict = {"seed": _CLUSTER_SEED, "threshold": 1e-4}
     if "max_level" in inspect.signature(nx.community.louvain_communities).parameters:
         kwargs["max_level"] = 10
     communities = nx.community.louvain_communities(G, **kwargs)
@@ -56,6 +58,12 @@ _MAX_COMMUNITY_FRACTION = 0.25   # communities larger than 25% of graph get spli
 _MIN_SPLIT_SIZE = 10             # only split if community has at least this many nodes
 _COHESION_SPLIT_THRESHOLD = 0.05 # re-split communities with cohesion below this
 _COHESION_SPLIT_MIN_SIZE = 50    # only cohesion-split if community has at least this many nodes
+
+
+def _community_sort_key(nodes: list[str]) -> tuple[int, str]:
+    """Stable community ordering: largest first, then lexical first node."""
+    ordered = sorted(nodes)
+    return (-len(ordered), ordered[0] if ordered else "")
 
 
 def cluster(G: nx.Graph) -> dict[int, list[str]]:
@@ -113,7 +121,7 @@ def cluster(G: nx.Graph) -> dict[int, list[str]]:
     final_communities = second_pass
 
     # Re-index by size descending for deterministic ordering
-    final_communities.sort(key=len, reverse=True)
+    final_communities.sort(key=_community_sort_key)
     return {i: sorted(nodes) for i, nodes in enumerate(final_communities)}
 
 
@@ -130,7 +138,7 @@ def _split_community(G: nx.Graph, nodes: list[str]) -> list[list[str]]:
             sub_communities.setdefault(cid, []).append(node)
         if len(sub_communities) <= 1:
             return [sorted(nodes)]
-        return [sorted(v) for v in sub_communities.values()]
+        return sorted((sorted(nodes) for nodes in sub_communities.values()), key=_community_sort_key)
     except Exception:
         return [sorted(nodes)]
 

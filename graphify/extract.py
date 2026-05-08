@@ -9,6 +9,13 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Any
 from .cache import load_cached, save_cached
+from .deterministic_docs import enrich_python_doc_tags
+from .symbol_resolution import (
+    resolve_bash_source_edges,
+    resolve_cross_file_raw_calls,
+    resolve_python_import_guided_calls,
+)
+from .test_linking import resolve_python_test_edges
 
 _RECURSION_LIMIT = 10_000
 
@@ -193,6 +200,38 @@ class LanguageConfig:
 # id matches the one _extract_generic creates for the target file.
 _JS_RESOLVE_EXTS = (".ts", ".tsx", ".svelte", ".js", ".jsx", ".mjs")
 _JS_INDEX_FILES = ("index.ts", "index.tsx", "index.js", "index.jsx")
+
+_BASH_EXTENSIONS = frozenset({".sh", ".bash", ".bats", ".zsh"})
+_BASH_SHEBANG_INTERPRETERS = frozenset({"bash", "sh", "dash", "zsh"})
+_BASH_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_-]*$")
+_BASH_SOURCE_COMMANDS = frozenset({"source", "."})
+_BASH_EXTERNAL_OR_BUILTIN_COMMANDS = frozenset({
+    "alias", "bg", "bind", "break", "builtin", "caller", "case", "cd",
+    "command", "compgen", "complete", "continue", "declare", "dirs", "disown",
+    "do", "done", "echo", "elif", "else", "enable", "esac", "eval", "exec",
+    "exit", "export", "false", "fc", "fg", "fi", "for", "function", "getopts",
+    "hash", "help", "history", "if", "in", "jobs", "kill", "let", "local",
+    "logout", "mapfile", "popd", "printf", "pushd", "pwd", "read", "readarray",
+    "readonly", "return", "select", "set", "shift", "shopt", "source", "test",
+    "then", "times", "trap", "true", "type", "typeset", "ulimit", "umask",
+    "unalias", "unset", "until", "wait", "while",
+    "awk", "basename", "cat", "chmod", "chown", "cp", "curl", "cut", "date",
+    "dirname", "env", "find", "git", "grep", "head", "install", "jq", "ln",
+    "mkdir", "mv", "python", "python3", "rm", "rsync", "sed", "sort", "tail",
+    "tar", "tee", "touch", "tr", "xargs",
+})
+
+
+def _is_bash_path(path: Path) -> bool:
+    if path.suffix.lower() in _BASH_EXTENSIONS:
+        return True
+    if path.suffix:
+        return False
+    try:
+        from graphify.detect import _shebang_interpreter
+    except Exception:
+        return False
+    return _shebang_interpreter(path) in _BASH_SHEBANG_INTERPRETERS
 
 
 def _resolve_js_module_path(p: Path) -> Path:
@@ -391,20 +430,31 @@ def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_p
                 for sub in child.children:
                     if sub.type == "named_imports":
                         for spec in sub.children:
-                            if spec.type == "import_specifier":
-                                name_node = spec.child_by_field_name("name")
-                                if name_node:
-                                    sym = _read_text(name_node, source)
-                                    edges.append({
-                                        "source": file_nid,
-                                        "target": _make_id(target_stem, sym),
-                                        "relation": "imports",
-                                        "context": "import",
-                                        "confidence": "EXTRACTED",
-                                        "source_file": str_path,
-                                        "source_location": f"L{line}",
-                                        "weight": 1.0,
-                                    })
+                            if spec.type != "import_specifier":
+                                continue
+                            name_node = spec.child_by_field_name("name")
+                            alias_node = spec.child_by_field_name("alias")
+                            if not name_node:
+                                continue
+                            imported_sym = _read_text(name_node, source)
+                            local_sym = _read_text(alias_node, source) if alias_node else imported_sym
+                            edge = {
+                                "source": file_nid,
+                                "target": _make_id(target_stem, imported_sym),
+                                "relation": "imports",
+                                "context": "import",
+                                "confidence": "EXTRACTED",
+                                "source_file": str_path,
+                                "source_location": f"L{line}",
+                                "weight": 1.0,
+                            }
+                            if local_sym != imported_sym:
+                                # This annotation explains why a later raw call to the
+                                # local alias can still be tied back to the imported
+                                # symbol without weakening non-aliased imports.
+                                edge["local_name"] = local_sym
+                                edge["imported_name"] = imported_sym
+                            edges.append(edge)
 
 
 def _dynamic_import_js(node, source: bytes, caller_nid: str, str_path: str, edges: list,
@@ -1519,7 +1569,18 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
     for n in nodes:
         raw = n["label"]
         normalised = raw.strip("()").lstrip(".")
-        label_to_nid[normalised.lower()] = n["id"]
+        key = normalised.lower()
+        if key in label_to_nid:
+            # Duplicate label — mark ambiguous so calls to this name skip
+            # intra-file resolution and go to cross-file resolution instead.
+            # (#F4: prevents wrong binding when two classes in same file
+            # both define .save(), .run(), .close(), etc.)
+            label_to_nid[key] = ""
+        else:
+            label_to_nid[key] = n["id"]
+
+    # Remove ambiguous entries (empty string values) so get() returns None
+    label_to_nid = {k: v for k, v in label_to_nid.items() if v}
 
     seen_call_pairs: set[tuple[str, str]] = set()
     seen_dyn_import_pairs: set[tuple[str, str]] = set()
@@ -1960,10 +2021,11 @@ def _extract_python_rationale(path: Path, result: dict) -> None:
 # ── Public API ────────────────────────────────────────────────────────────────
 
 def extract_python(path: Path) -> dict:
-    """Extract classes, functions, and imports from a .py file via tree-sitter AST."""
+    """Extract classes, functions, imports, rationale, and doc tags from a Python file."""
     result = _extract_generic(path, _PYTHON_CONFIG)
     if "error" not in result:
         _extract_python_rationale(path, result)
+        enrich_python_doc_tags(path, result, make_id=_make_id, file_stem=_file_stem)
     return result
 
 
@@ -3190,7 +3252,12 @@ def extract_go(path: Path) -> dict:
     for n in nodes:
         raw = n["label"]
         normalised = raw.strip("()").lstrip(".")
-        label_to_nid[normalised.lower()] = n["id"]
+        key = normalised.lower()
+        if key in label_to_nid:
+            label_to_nid[key] = ""  # duplicate — mark ambiguous (#F4)
+        else:
+            label_to_nid[key] = n["id"]
+    label_to_nid = {k: v for k, v in label_to_nid.items() if v}
 
     seen_call_pairs: set[tuple[str, str]] = set()
     raw_calls: list[dict] = []
@@ -3375,7 +3442,12 @@ def extract_rust(path: Path) -> dict:
     for n in nodes:
         raw = n["label"]
         normalised = raw.strip("()").lstrip(".")
-        label_to_nid[normalised.lower()] = n["id"]
+        key = normalised.lower()
+        if key in label_to_nid:
+            label_to_nid[key] = ""  # duplicate — mark ambiguous (#F4)
+        else:
+            label_to_nid[key] = n["id"]
+    label_to_nid = {k: v for k, v in label_to_nid.items() if v}
 
     seen_call_pairs: set[tuple[str, str]] = set()
     raw_calls: list[dict] = []
@@ -3777,6 +3849,196 @@ def extract_powershell(path: Path) -> dict:
     clean_edges = [e for e in edges if e["source"] in seen_ids and
                    (e["target"] in seen_ids or e["relation"] == "imports_from")]
     return {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls}
+
+
+# ── Bash ──────────────────────────────────────────────────────────────────────
+
+
+def extract_bash(path: Path) -> dict:
+    """Extract script entrypoint, functions, sourced files, and function calls from Bash."""
+    try:
+        import tree_sitter_bash as tsbash
+        from tree_sitter import Language, Parser
+        language = Language(tsbash.language())
+        parser = Parser(language)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        root = tree.root_node
+        parse_error = bool(getattr(root, "has_error", False))
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree-sitter-bash not installed"}
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    function_bodies: list[tuple[str, object]] = []
+    bash_sources: list[dict] = []
+    seen_sources: set[tuple[str, str]] = set()
+    raw_calls: list[dict] = []
+    seen_call_pairs: set[tuple[str, str]] = set()
+
+    def add_node(nid: str, label: str, line: int, *, kind: str) -> None:
+        if nid in seen_ids:
+            return
+        seen_ids.add(nid)
+        nodes.append({
+            "id": nid,
+            "label": label,
+            "file_type": "code",
+            "source_file": str_path,
+            "source_location": f"L{line}",
+            "metadata": {"language": "bash", "kind": kind},
+        })
+
+    def add_edge(src: str, tgt: str, relation: str, line: int, *, context: str | None = None) -> None:
+        edge = {
+            "source": src,
+            "target": tgt,
+            "relation": relation,
+            "confidence": "EXTRACTED",
+            "confidence_score": 1.0,
+            "source_file": str_path,
+            "source_location": f"L{line}",
+            "weight": 1.0,
+        }
+        if context:
+            edge["context"] = context
+        edges.append(edge)
+
+    file_nid = _make_id(str(path))
+    entry_nid = _make_id(stem, "__script__")
+    add_node(file_nid, path.name, 1, kind="file")
+    add_node(entry_nid, f"{path.name} script", 1, kind="bash_entrypoint")
+    add_edge(file_nid, entry_nid, "contains", 1)
+
+    def text(node) -> str:
+        return source[node.start_byte:node.end_byte].decode("utf-8", errors="replace")
+
+    def literal(node) -> str | None:
+        raw = text(node).strip()
+        if not raw:
+            return None
+        if raw[0:1] in {"'", '"'} and raw[-1:] == raw[0]:
+            raw = raw[1:-1]
+        if any(token in raw for token in ("$", "`", "$(", "<(", ">", "|", ";", "&")):
+            return None
+        return raw
+
+    def command_name(node) -> str | None:
+        name_node = node.child_by_field_name("name")
+        if name_node is None:
+            return None
+        return literal(name_node)
+
+    def command_args(node) -> list[str]:
+        # py-tree-sitter exposes repeated command arguments by field name.
+        # This avoids relying on child position and avoids the incorrect
+        # field_name_for_child(child_node) pattern; that API expects an index.
+        args: list[str] = []
+        for child in node.children_by_field_name("argument"):
+            value = literal(child)
+            if value:
+                args.append(value)
+        return args
+
+    def record_source(node, command: str) -> None:
+        args = command_args(node)
+        if not args:
+            return
+        target = (path.parent / args[0]).resolve()
+        if not target.exists() or not target.is_file():
+            return
+        key = (str_path, str(target))
+        if key in seen_sources:
+            return
+        seen_sources.add(key)
+        bash_sources.append({
+            "source_file": str_path,
+            "target_path": str(target),
+            "source_location": f"L{node.start_point[0] + 1}",
+        })
+
+    def walk_definitions(node) -> None:
+        if node.type == "function_definition":
+            name_node = node.child_by_field_name("name")
+            name = literal(name_node) if name_node is not None else None
+            if name:
+                line = node.start_point[0] + 1
+                func_nid = _make_id(stem, name)
+                add_node(func_nid, f"{name}()", line, kind="bash_function")
+                add_edge(file_nid, func_nid, "contains", line)
+                body = node.child_by_field_name("body")
+                if body is not None:
+                    function_bodies.append((func_nid, body))
+            return
+        if node.type == "command":
+            name = command_name(node)
+            if name in _BASH_SOURCE_COMMANDS:
+                record_source(node, name)
+        for child in node.children:
+            walk_definitions(child)
+
+    walk_definitions(root)
+
+    function_by_name = {
+        n["label"].removesuffix("()"): n["id"]
+        for n in nodes
+        if n.get("metadata", {}).get("kind") == "bash_function"
+    }
+
+    def should_record_raw(name: str) -> bool:
+        return (
+            bool(_BASH_NAME_RE.match(name))
+            and name not in _BASH_SOURCE_COMMANDS
+            and name not in _BASH_EXTERNAL_OR_BUILTIN_COMMANDS
+        )
+
+    def walk_calls(node, caller_nid: str) -> None:
+        if node.type == "function_definition":
+            return
+        if node.type == "command":
+            name = command_name(node)
+            if name:
+                line = node.start_point[0] + 1
+                if name in _BASH_SOURCE_COMMANDS:
+                    record_source(node, name)
+                elif name in function_by_name and function_by_name[name] != caller_nid:
+                    tgt = function_by_name[name]
+                    pair = (caller_nid, tgt)
+                    if pair not in seen_call_pairs:
+                        seen_call_pairs.add(pair)
+                        add_edge(caller_nid, tgt, "calls", line, context="call")
+                elif should_record_raw(name):
+                    raw_calls.append({
+                        "language": "bash",
+                        "caller_nid": caller_nid,
+                        "callee": name,
+                        "is_member_call": False,
+                        "source_file": str_path,
+                        "source_location": f"L{line}",
+                    })
+        for child in node.children:
+            walk_calls(child, caller_nid)
+
+    walk_calls(root, entry_nid)
+    for caller_nid, body in function_bodies:
+        walk_calls(body, caller_nid)
+
+    result = {
+        "nodes": nodes,
+        "edges": edges,
+        "raw_calls": raw_calls,
+        "bash_sources": bash_sources,
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    if parse_error:
+        result["parse_error"] = True
+    return result
 
 
 # ── Cross-file import resolution ──────────────────────────────────────────────
@@ -4341,7 +4603,12 @@ def extract_elixir(path: Path) -> dict:
     label_to_nid: dict[str, str] = {}
     for n in nodes:
         normalised = n["label"].strip("()").lstrip(".")
-        label_to_nid[normalised.lower()] = n["id"]
+        key = normalised.lower()
+        if key in label_to_nid:
+            label_to_nid[key] = ""  # duplicate — mark ambiguous (#F4)
+        else:
+            label_to_nid[key] = n["id"]
+    label_to_nid = {k: v for k, v in label_to_nid.items() if v}
 
     seen_call_pairs: set[tuple[str, str]] = set()
     raw_calls: list[dict] = []
@@ -4582,6 +4849,9 @@ _DISPATCH: dict[str, Any] = {
     ".F03": extract_fortran,
     ".f08": extract_fortran,
     ".F08": extract_fortran,
+    ".sh": extract_bash,
+    ".bash": extract_bash,
+    ".bats": extract_bash,
     ".vue": extract_js,
     ".svelte": extract_svelte,
     ".dart": extract_dart,
@@ -4598,7 +4868,12 @@ def _get_extractor(path: Path) -> Any | None:
     """Return the correct extractor function for a file, or None if unsupported."""
     if path.name.endswith(".blade.php"):
         return extract_blade
-    return _DISPATCH.get(path.suffix)
+    extractor = _DISPATCH.get(path.suffix)
+    if extractor is not None:
+        return extractor
+    if _is_bash_path(path):
+        return extract_bash
+    return None
 
 
 def _extract_single_file(args: tuple) -> tuple[int, dict]:
@@ -4794,9 +5069,17 @@ def extract(
     # graph.json edge endpoints are stable across machines (#502)
     id_remap: dict[str, str] = {}
     for path in paths:
+        # Resolve symlinks before computing relative paths (#F2).  Without
+        # this a symlink outside the project root cannot be relativised,
+        # causing the remap to silently skip the file and produce a
+        # different node ID on the next machine.
+        try:
+            real = path.resolve()
+        except OSError:
+            real = path
         old_id = _make_id(str(path))
         try:
-            new_id = _make_id(str(path.relative_to(root)))
+            new_id = _make_id(str(real.relative_to(root)))
         except ValueError:
             continue
         if old_id != new_id:
@@ -4832,12 +5115,24 @@ def extract(
             import logging
             logging.getLogger(__name__).warning("Java cross-file import resolution failed, skipping: %s", exc)
 
-    # Cross-file call resolution for all languages
-    # Each extractor saved unresolved calls in raw_calls. Now that we have all
-    # nodes from all files, resolve any callee that exists in another file.
-    # Build name → ALL matching node IDs so we can skip ambiguous common names
-    # (e.g. "log", "execute", "find") that appear in multiple files — resolving
-    # those inflates god_nodes ranking with spurious cross-file edges.
+    # Python import-guided call resolution.
+    # This runs before global raw-call fallback so import-backed calls can be
+    # emitted as EXTRACTED instead of weaker INFERRED edges.
+    if py_paths:
+        try:
+            all_edges.extend(resolve_python_import_guided_calls(per_file, paths, all_nodes, all_edges))
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Python import-guided call resolution failed, skipping: %s", exc)
+
+    # Bash source-aware cross-file call resolution.
+    if any(_is_bash_path(p) for p in paths):
+        try:
+            all_edges.extend(resolve_bash_source_edges(per_file, paths, root, all_edges))
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Bash source resolution failed, skipping: %s", exc)
+
     # Build label -> node_id index for cross-file call resolution.
     # Skip rationale nodes (their labels are docstring text, not callable
     # identifiers, and they were polluting matches for short names — #563).
@@ -4859,9 +5154,13 @@ def extract(
     # confirm the caller pulled in the callee's source file.
     file_to_symbol_imports: dict[str, set[str]] = {}
     file_to_module_imports: dict[str, set[str]] = {}
+    file_to_symbol_aliases: dict[str, dict[str, str]] = {}
     for e in all_edges:
         if e.get("relation") == "imports":
             file_to_symbol_imports.setdefault(e["source"], set()).add(e["target"])
+            local_name = e.get("local_name")
+            if local_name:
+                file_to_symbol_aliases.setdefault(e["source"], {})[str(local_name).lower()] = e["target"]
         elif e.get("relation") == "imports_from":
             file_to_module_imports.setdefault(e["source"], set()).add(e["target"])
 
@@ -4880,7 +5179,9 @@ def extract(
             sf_rel = sf_path
         nid_to_file_nid[n["id"]] = _make_id(str(sf_rel))
 
-    existing_pairs = {(e["source"], e["target"]) for e in all_edges}
+    # Include relation so that a prior "contains" or "method" edge does not
+    # suppress a semantically distinct "calls" edge between the same endpoints (#F5).
+    existing_pairs = {(e["source"], e["target"], e.get("relation", "")) for e in all_edges}
     for result in per_file:
         for rc in result.get("raw_calls", []):
             callee = rc.get("callee", "")
@@ -4890,6 +5191,8 @@ def extract(
             # and collides with any top-level function named "log" in the corpus.
             if rc.get("is_member_call"):
                 continue
+            if rc.get("language") == "bash":
+                continue
             candidates = global_label_to_nids.get(callee.lower(), [])
             # Skip ambiguous names that resolve to multiple nodes — these are
             # common short names (log, execute, find) with no import evidence
@@ -4898,8 +5201,8 @@ def extract(
                 continue
             tgt = candidates[0]
             caller = rc["caller_nid"]
-            if tgt != caller and (caller, tgt) not in existing_pairs:
-                existing_pairs.add((caller, tgt))
+            if tgt != caller and (caller, tgt, "calls") not in existing_pairs:
+                existing_pairs.add((caller, tgt, "calls"))
                 # Promote to EXTRACTED when there's a direct import edge from the
                 # caller's file pointing at either the callee symbol itself or the
                 # file the callee lives in.
@@ -4907,8 +5210,11 @@ def extract(
                 callee_file_nid = nid_to_file_nid.get(tgt)
                 imported_symbols = file_to_symbol_imports.get(caller_file_nid, set())
                 imported_modules = file_to_module_imports.get(caller_file_nid, set())
+                imported_aliases = file_to_symbol_aliases.get(caller_file_nid, {})
+                alias_target = imported_aliases.get(callee.lower())
                 has_import_evidence = (
                     tgt in imported_symbols
+                    or alias_target == tgt
                     or (callee_file_nid is not None and callee_file_nid in imported_modules)
                 )
                 if has_import_evidence:
@@ -4928,6 +5234,19 @@ def extract(
                     "source_location": rc.get("source_location"),
                     "weight": 1.0,
                 })
+
+    # Phase 5: Test-to-source linking.
+    # For Python files, discover test functions/classes by naming convention
+    # (test_* / Test*) and create test_of edges linking them to their
+    # production-code counterparts.
+    if py_paths:
+        try:
+            for path in py_paths:
+                source_file = str(path)
+                resolve_python_test_edges(all_nodes, all_edges, source_file, language="python")
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Test linking failed, skipping: %s", exc)
 
     # Relativize source_file fields so paths are portable across machines (#555)
     for item in all_nodes + all_edges:
@@ -4969,6 +5288,14 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
                 if not any(part.startswith(".") for part in p.parts)
                 and not _ignored(p)
             )
+        # Extensionless bash shebang scripts
+        for p in target.rglob("*"):
+            if p.suffix or not p.is_file():
+                continue
+            if any(part.startswith(".") for part in p.parts) or _ignored(p):
+                continue
+            if _is_bash_path(p):
+                results.append(p)
         return sorted(results)
     # Walk with symlink following + cycle detection
     results = []
@@ -4986,6 +5313,8 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
         for fname in filenames:
             p = dp / fname
             if p.suffix in _EXTENSIONS and not fname.startswith(".") and not _ignored(p):
+                results.append(p)
+            elif not p.suffix and not fname.startswith(".") and not _ignored(p) and _is_bash_path(p):
                 results.append(p)
     return sorted(results)
 

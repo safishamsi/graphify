@@ -94,7 +94,29 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
     # Normalized ID map: lets edges survive when the LLM generates IDs with
     # slightly different casing or punctuation than the AST extractor.
     # e.g. "Session_ValidateToken" maps to "session_validatetoken".
-    norm_to_id: dict[str, str] = {_normalize_id(nid): nid for nid in node_set}
+    # F8: detect collisions where two real node ids normalize to the same key
+    # (e.g. "api-v1" and "api_v1" both → "api_v1") and skip remapping for those.
+    raw_norm: dict[str, list[str]] = {}
+    for nid in node_set:
+        nk = _normalize_id(nid)
+        raw_norm.setdefault(nk, []).append(nid)
+    norm_to_id: dict[str, str] = {}
+    collisions: set[str] = set()
+    for nk, ids in raw_norm.items():
+        if len(ids) == 1:
+            norm_to_id[nk] = ids[0]
+        else:
+            # Two or more real node ids normalize to the same key.
+            # Skip remapping for this key — ambiguous which one is intended (#F8)
+            collisions.add(nk)
+    # Deduplicate edges by (source, target, relation) and prevent edge collapse
+    # (#F3): NetworkX Graph can only store one edge per (source, target) pair.
+    # When multiple edges share the same endpoints but have different relations,
+    # the first one wins (deterministic) and a warning is emitted.
+    deduped_edges: list[dict] = []
+    seen_edge_pairs: set[tuple[str, str, str]] = set()
+    seen_endpoint_pairs: set[tuple[str, str]] = set()
+    collapsed: int = 0
     for edge in extraction.get("edges", []):
         if "source" not in edge and "from" in edge:
             edge["source"] = edge["from"]
@@ -103,11 +125,38 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
         if "source" not in edge or "target" not in edge:
             continue
         src, tgt = edge["source"], edge["target"]
+        rel = edge.get("relation", "")
+        triple = (src, tgt, rel)
+        if triple in seen_edge_pairs:
+            continue  # exact duplicate
+        seen_edge_pairs.add(triple)
+        # In undirected mode, (A,B) and (B,A) map to the same NetworkX edge.
+        # Check both directions so reversed-endpoint distinct relations don't
+        # silently overwrite the first edge stored (#F1).
+        endpoint_forward = (src, tgt)
+        endpoint_reverse = (tgt, src)
+        if endpoint_forward in seen_endpoint_pairs or endpoint_reverse in seen_endpoint_pairs:
+            collapsed += 1
+            continue
+        seen_endpoint_pairs.add(endpoint_forward)
+        deduped_edges.append(edge)
+    if collapsed:
+        print(f"[graphify] Note: {collapsed} edge(s) between same endpoints with "
+              f"different relations could not be stored in the graph (#F3). "
+              f"The first relation found for each (source, target) pair was kept. "
+              f"Consider upgrading to MultiGraph in a future release.",
+              file=sys.stderr)
+    for edge in deduped_edges:
+        src, tgt = edge["source"], edge["target"]
         # Remap mismatched IDs via normalization before dropping the edge.
         if src not in node_set:
-            src = norm_to_id.get(_normalize_id(src), src)
+            src_nk = _normalize_id(src)
+            if src_nk not in collisions:
+                src = norm_to_id.get(src_nk, src)
         if tgt not in node_set:
-            tgt = norm_to_id.get(_normalize_id(tgt), tgt)
+            tgt_nk = _normalize_id(tgt)
+            if tgt_nk not in collisions:
+                tgt = norm_to_id.get(tgt_nk, tgt)
         if src not in node_set or tgt not in node_set:
             continue  # skip edges to external/stdlib nodes - expected, not an error
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target")}
@@ -136,7 +185,7 @@ def build(
     directed=True produces a DiGraph that preserves edge direction (source→target).
     directed=False (default) produces an undirected Graph for backward compatibility.
     dedup=True (default) runs entity deduplication before building the graph.
-    dedup_llm_backend: if set (e.g. "gemini", "claude", or "kimi"), uses LLM to resolve
+    dedup_llm_backend: if set (e.g. "claude", "kimi", or "gemini"), uses LLM to resolve
         ambiguous pairs in the 75–92 Jaro-Winkler score zone.
 
     Extractions are merged in order. For nodes with the same ID, the last
@@ -153,8 +202,9 @@ def build(
         combined["input_tokens"] += ext.get("input_tokens", 0)
         combined["output_tokens"] += ext.get("output_tokens", 0)
     if dedup and combined["nodes"]:
-        combined["nodes"], combined["edges"] = deduplicate_entities(
-            combined["nodes"], combined["edges"], communities={},
+        combined["nodes"], combined["edges"], combined["hyperedges"], _stats = deduplicate_entities(
+            combined["nodes"], combined["edges"], combined["hyperedges"],
+            communities={},
             dedup_llm_backend=dedup_llm_backend,
         )
     return build_from_json(combined, directed=directed)
@@ -165,67 +215,33 @@ def _norm_label(label: str) -> str:
     return re.sub(r"[^a-z0-9 ]", "", label.lower()).strip()
 
 
-def deduplicate_by_label(nodes: list[dict], edges: list[dict]) -> tuple[list[dict], list[dict]]:
-    """Merge nodes that share a normalised label, rewriting edge references.
-
-    Prefers IDs without chunk suffixes (_c\\d+) and shorter IDs when tied.
-    Drops self-loops created by the merge. Called in build() automatically.
-    """
-    _CHUNK_SUFFIX = re.compile(r"_c\d+$")
-    canonical: dict[str, dict] = {}  # norm_label -> surviving node
-    remap: dict[str, str] = {}       # old_id -> surviving_id
-
-    for node in nodes:
-        key = _norm_label(node.get("label", node.get("id", "")))
-        if not key:
-            continue
-        existing = canonical.get(key)
-        if existing is None:
-            canonical[key] = node
-        else:
-            has_suffix = bool(_CHUNK_SUFFIX.search(node["id"]))
-            existing_has_suffix = bool(_CHUNK_SUFFIX.search(existing["id"]))
-            if has_suffix and not existing_has_suffix:
-                remap[node["id"]] = existing["id"]
-            elif existing_has_suffix and not has_suffix:
-                remap[existing["id"]] = node["id"]
-                canonical[key] = node
-            elif len(node["id"]) < len(existing["id"]):
-                remap[existing["id"]] = node["id"]
-                canonical[key] = node
-            else:
-                remap[node["id"]] = existing["id"]
-
-    if not remap:
-        return nodes, edges
-
-    print(f"[graphify] Deduplicated {len(remap)} duplicate node(s) by label.", file=sys.stderr)
-    deduped_nodes = list(canonical.values())
-    deduped_edges = []
-    for edge in edges:
-        e = dict(edge)
-        e["source"] = remap.get(e["source"], e["source"])
-        e["target"] = remap.get(e["target"], e["target"])
-        if e["source"] != e["target"]:
-            deduped_edges.append(e)
-    return deduped_nodes, deduped_edges
-
 
 def build_merge(
-    new_chunks: list[dict],
+    new_chunks: list[dict] | None = None,
     graph_path: str | Path = "graphify-out/graph.json",
     prune_sources: list[str] | None = None,
     *,
     directed: bool = False,
     dedup: bool = True,
     dedup_llm_backend: str | None = None,
+    extractions: list[dict] | None = None,
+    root: Path | None = None,
 ) -> nx.Graph:
     """Load existing graph.json, merge new chunks into it, and save back.
 
     Never replaces — only grows (or prunes deleted-file nodes via prune_sources).
     Safe to call repeatedly: existing nodes and edges are preserved.
+
+    F1: root is used to normalize prune_sources paths for comparison against
+    relativized source_file values on graph nodes. New-chunk source_file values
+    are checked to evict stale nodes from modified files before merging.
     """
     from networkx.readwrite import json_graph as _jg
+
+    if new_chunks is None:
+        new_chunks = extractions or []
+    elif extractions is not None:
+        raise TypeError("build_merge received both new_chunks and extractions")
 
     graph_path = Path(graph_path)
     if graph_path.exists():
@@ -234,11 +250,28 @@ def build_merge(
             existing_G = _jg.node_link_graph(data, edges="links")
         except TypeError:
             existing_G = _jg.node_link_graph(data)
+        # F1: Evict stale nodes from sources that appear in new_chunks.
+        # If a file was modified, its old extraction nodes must be cleared
+        # before merging the new extraction; otherwise renamed/removed symbols
+        # survive alongside their replacements.
+        new_source_files: set[str] = set()
+        for chunk in (new_chunks or []):
+            for node in chunk.get("nodes", []):
+                sf = node.get("source_file")
+                if sf:
+                    new_source_files.add(sf)
+        if new_source_files:
+            stale_nodes = [
+                n for n, d in existing_G.nodes(data=True)
+                if d.get("source_file") in new_source_files
+            ]
+            if stale_nodes:
+                existing_G.remove_nodes_from(stale_nodes)
         # Reconstruct as a plain extraction dict so build() can merge it
         existing_nodes = [{"id": n, **existing_G.nodes[n]} for n in existing_G.nodes]
-        existing_edges = [
-            {"source": u, "target": v, **d} for u, v, d in existing_G.edges(data=True)
-        ]
+        existing_edges = []
+        for u, v, d in existing_G.edges(data=True):
+            existing_edges.append({"source": u, "target": v, **d})
         base = [{"nodes": existing_nodes, "edges": existing_edges}]
     else:
         base = []
@@ -248,9 +281,19 @@ def build_merge(
 
     # Prune nodes from deleted source files
     if prune_sources:
+        # F1: normalize prune_sources for comparison against graph node
+        # source_file values. detect_incremental returns absolute paths, but
+        # graph nodes may store relativized values (extract.py rel#555).
+        prune_set: set[str] = set(prune_sources)
+        if root is not None:
+            for p in prune_sources:
+                try:
+                    prune_set.add(str(Path(p).resolve().relative_to(root.resolve())))
+                except ValueError:
+                    pass  # not under root, keep original only
         to_remove = [
             n for n, d in G.nodes(data=True)
-            if d.get("source_file") in prune_sources
+            if d.get("source_file") in prune_set
         ]
         G.remove_nodes_from(to_remove)
         n_files = len(prune_sources)
