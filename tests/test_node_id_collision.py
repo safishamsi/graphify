@@ -63,3 +63,21 @@ def test_cross_file_edges_remapped():
             if e["target"] in node_ids:
                 continue
             # Target may be an external ref (MyService, Helper) — that's fine
+
+
+def test_rename_does_not_collide_with_preexisting_id():
+    """Regression: a renamed ID must not collide with an existing node ID
+    from a non-colliding group. proj1/Startup.cs and proj2/Startup.cs collide
+    on 'startup_startup'; the rename of proj1's node must not produce an ID
+    that clashes with the node from proj1_startup.cs."""
+    result = _extract_collision_files(["preexist/proj1", "preexist/proj2", "preexist"])
+    ids = [n["id"] for n in result["nodes"]]
+    assert len(ids) == len(set(ids)), (
+        f"Duplicate IDs after disambiguation (preexisting collision): "
+        f"{[i for i in ids if ids.count(i) > 1]}"
+    )
+    # All file nodes and class nodes must survive — none dropped
+    node_files = {n.get("source_file", "") for n in result["nodes"]}
+    assert any("proj1/Startup.cs" in f or "proj1\\Startup.cs" in f for f in node_files)
+    assert any("proj2/Startup.cs" in f or "proj2\\Startup.cs" in f for f in node_files)
+    assert any("proj1_startup.cs" in f for f in node_files)
