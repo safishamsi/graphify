@@ -3,6 +3,7 @@ from __future__ import annotations
 import html as _html
 import json
 import math
+import os
 import re
 from collections import Counter
 from pathlib import Path
@@ -443,8 +444,11 @@ def to_json(G: nx.Graph, communities: dict[int, list[str]], output_path: str, *,
     commit = built_at_commit if built_at_commit is not None else _git_head()
     if commit:
         data["built_at_commit"] = commit
-    with open(output_path, "w", encoding="utf-8") as f:  # nosec
+    # Atomic write: write to temp file and rename to avoid partial writes (#F7).
+    tmp_path = output_path + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8") as f:  # nosec
         json.dump(data, f, indent=2)
+    os.replace(tmp_path, output_path)
     return True
 
 
@@ -669,7 +673,9 @@ def to_html(
 <head>
 <meta charset="UTF-8">
 <title>graphify - {title}</title>
-<script src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+<script src="https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js"
+        integrity="sha384-Ux6phic9PEHJ38YtrijhkzyJ8yQlH8i/+buBR8s3mAZOJrP1gwyvAcIYl3GWtpX1"
+        crossorigin="anonymous"></script>
 {_html_styles()}
 </head>
 <body>
@@ -940,7 +946,7 @@ def to_obsidian(
     graph_config = {
         "colorGroups": [
             {
-                "query": f"tag:#community/{label.replace(' ', '_')}",
+                "query": f"tag:#community/{_obsidian_tag(label)}",
                 "color": {"a": 1, "rgb": int(COMMUNITY_COLORS[cid % len(COMMUNITY_COLORS)].lstrip('#'), 16)}
             }
             for cid, label in sorted((community_labels or {}).items())

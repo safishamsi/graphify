@@ -8,6 +8,8 @@ import shutil
 import sys
 from pathlib import Path
 
+from graphify.security import validate_graph_path
+
 try:
     from importlib.metadata import version as _pkg_version
     __version__ = _pkg_version("graphifyy")
@@ -21,6 +23,33 @@ _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
 
 def _default_graph_path() -> str:
     return str(Path(_GRAPHIFY_OUT) / "graph.json")
+
+
+# Maximum graph.json file size before rejection (512 MiB) — #F4.
+_MAX_GRAPH_FILE_BYTES = 512 * 1024 * 1024
+
+
+def _load_graph_json(graph_path_str: str) -> dict:
+    """Load a graph JSON file with size cap and path validation.
+
+    #F4: Reject files larger than _MAX_GRAPH_FILE_BYTES before parsing.
+    #F5: Route through validate_graph_path for path security.
+    """
+    gp = Path(graph_path_str)
+    #F4 Size cap
+    try:
+        size = gp.stat().st_size
+        if size > _MAX_GRAPH_FILE_BYTES:
+            raise ValueError(
+                f"Graph file is {size:_d} bytes — exceeds {_MAX_GRAPH_FILE_BYTES:_d} byte limit"
+            )
+    except OSError:
+        pass  # stat may fail; let validate_graph_path handle it
+    resolved = validate_graph_path(str(gp), base=gp.resolve().parent)
+    if resolved.suffix != ".json":
+        raise ValueError(f"Graph path must be a .json file, got: {graph_path_str!r}")
+    data = json.loads(resolved.read_text(encoding="utf-8"))
+    return data
 
 
 def _check_skill_version(skill_dst: Path) -> None:
@@ -1035,6 +1064,22 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
         sys.exit(1)
     owner, repo = m.group(1), m.group(2)
 
+    #F6: Validate owner/repo against GitHub naming rules
+    _gh_name_re = _re.compile(r"^[a-zA-Z0-9]([a-zA-Z0-9._-]*[a-zA-Z0-9])?$")
+    if not _gh_name_re.match(owner) or not _gh_name_re.match(repo):
+        print(
+            f"error: invalid GitHub owner or repo name: {owner!r}/{repo!r}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+    if len(owner) > 39 or len(repo) > 100:
+        print(
+            f"error: GitHub owner or repo name too long (max 39/100 chars): "
+            f"{owner!r}/{repo!r}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     if out_dir:
         dest = out_dir
     else:
@@ -1415,17 +1460,10 @@ def main() -> None:
                 graph_path = args[i + 1]; i += 2
             else:
                 i += 1
-        gp = Path(graph_path).resolve()
-        if not gp.exists():
-            print(f"error: graph file not found: {gp}", file=sys.stderr)
-            sys.exit(1)
-        if not gp.suffix == ".json":
-            print(f"error: graph file must be a .json file", file=sys.stderr)
-            sys.exit(1)
         try:
             import json as _json
             import networkx as _nx
-            _raw = _json.loads(gp.read_text(encoding="utf-8"))
+            _raw = _load_graph_json(graph_path)
             if "links" not in _raw and "edges" in _raw:
                 _raw = dict(_raw, links=_raw["edges"])
             try:
@@ -1478,11 +1516,11 @@ def main() -> None:
         for i, a in enumerate(args):
             if a == "--graph" and i + 1 < len(args):
                 graph_path = args[i + 1]
-        gp = Path(graph_path).resolve()
-        if not gp.exists():
-            print(f"error: graph file not found: {gp}", file=sys.stderr)
+        try:
+            _raw = _load_graph_json(graph_path)
+        except (ValueError, FileNotFoundError) as exc:
+            print(f"error: {exc}", file=sys.stderr)
             sys.exit(1)
-        _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
         try:
@@ -1528,11 +1566,11 @@ def main() -> None:
         for i, a in enumerate(args):
             if a == "--graph" and i + 1 < len(args):
                 graph_path = args[i + 1]
-        gp = Path(graph_path).resolve()
-        if not gp.exists():
-            print(f"error: graph file not found: {gp}", file=sys.stderr)
+        try:
+            _raw = _load_graph_json(graph_path)
+        except (ValueError, FileNotFoundError) as exc:
+            print(f"error: {exc}", file=sys.stderr)
             sys.exit(1)
-        _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
         try:
@@ -1637,7 +1675,7 @@ def main() -> None:
         from graphify.report import generate
         from graphify.export import to_json, to_html
         print("Loading existing graph...")
-        _raw = json.loads(graph_json.read_text(encoding="utf-8"))
+        _raw = _load_graph_json(str(graph_json))
         _directed = bool(_raw.get("directed", False))
         G = build_from_json(_raw, directed=_directed)
         print(f"Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")

@@ -25,7 +25,7 @@ class FileType(str, Enum):
 
 _MANIFEST_PATH = "graphify-out/manifest.json"
 
-CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.mjs', '.ejs', '.go', '.rs', '.java', '.groovy', '.gradle', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.luau', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.dart', '.v', '.sv', '.sql', '.r', '.sh', '.bash', '.bats', '.f', '.F', '.f90', '.F90', '.f95', '.F95', '.f03', '.F03', '.f08', '.F08'}
+CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.mjs', '.ejs', '.go', '.rs', '.java', '.groovy', '.gradle', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.luau', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.dart', '.v', '.sv', '.sql', '.r', '.sh', '.bash', '.bats', '.zsh', '.f', '.F', '.f90', '.F90', '.f95', '.F95', '.f03', '.F03', '.f08', '.F08'}
 DOC_EXTENSIONS = {'.md', '.mdx', '.qmd', '.txt', '.rst', '.html', '.yaml', '.yml', '.json', '.jsonc'}
 PAPER_EXTENSIONS = {'.pdf'}
 IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'}
@@ -954,7 +954,10 @@ def save_manifest(
                 pass
     target = Path(manifest_path)
     target.parent.mkdir(parents=True, exist_ok=True)
-    target.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    # Atomic write: write to temp file and rename to avoid partial writes (#F7).
+    tmp_target = target.with_suffix(target.suffix + ".tmp")
+    tmp_target.write_text(json.dumps(manifest, indent=2, sort_keys=True), encoding="utf-8")
+    tmp_target.replace(target)
 
 
 def detect_incremental(

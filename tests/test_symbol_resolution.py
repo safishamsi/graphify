@@ -4,12 +4,14 @@ from __future__ import annotations
 from pathlib import Path
 
 from graphify.symbol_resolution import (
+    _bash_make_id,
     build_label_index,
     build_python_symbol_index,
     find_unique_python_symbol,
     node_is_resolvable_symbol,
     normalise_callable_label,
     parse_python_import_aliases,
+    resolve_bash_source_edges,
     resolve_cross_file_raw_calls,
     resolve_python_import_guided_calls,
 )
@@ -217,3 +219,218 @@ def test_resolve_python_import_guided_calls_emits_extracted_edge(tmp_path: Path)
             },
         }
     ]
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ── Bash source edges resolver tests ──────────────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════════════
+
+
+def test_bash_call_resolver_emits_source_edges(tmp_path: Path) -> None:
+    a_sh = tmp_path / "a.sh"
+    b_sh = tmp_path / "b.sh"
+    a_sh.write_text("#!/usr/bin/env bash\nsource ./b.sh\n")
+    b_sh.write_text("#!/usr/bin/env bash\nb_func() { echo ok; }\n")
+
+    per_file = [
+        {
+            "nodes": [
+                {"id": "a_sh", "label": "a.sh", "file_type": "code", "source_file": str(a_sh)},
+                {"id": "a_entry", "label": "a.sh script", "file_type": "code", "source_file": str(a_sh)},
+            ],
+            "edges": [],
+            "raw_calls": [],
+            "bash_sources": [
+                {"source_file": str(a_sh), "target_path": str(b_sh), "source_location": "L2"}
+            ],
+        },
+        {
+            "nodes": [
+                {"id": "b_sh", "label": "b.sh", "file_type": "code", "source_file": str(b_sh)},
+                {"id": "b_func", "label": "b_func()", "file_type": "code", "source_file": str(b_sh),
+                 "metadata": {"kind": "bash_function"}},
+            ],
+            "edges": [],
+            "raw_calls": [],
+            "bash_sources": [],
+        },
+    ]
+
+    edges = resolve_bash_source_edges(per_file, [a_sh, b_sh], tmp_path)
+
+    imports = [e for e in edges if e["relation"] == "imports_from"]
+    assert len(imports) == 1
+    assert imports[0]["confidence"] == "EXTRACTED"
+
+
+def test_bash_call_resolver_emits_call_edges_from_sourced_files(tmp_path: Path) -> None:
+    a_sh = tmp_path / "a.sh"
+    b_sh = tmp_path / "b.sh"
+    a_sh.write_text("#!/usr/bin/env bash\nsource ./b.sh\nmain() { b_func; }\n")
+    b_sh.write_text("#!/usr/bin/env bash\nb_func() { echo ok; }\n")
+
+    per_file = [
+        {
+            "nodes": [
+                {"id": "a_sh", "label": "a.sh", "file_type": "code", "source_file": str(a_sh)},
+                {"id": "main", "label": "main()", "file_type": "code", "source_file": str(a_sh),
+                 "metadata": {"kind": "bash_function"}},
+            ],
+            "edges": [],
+            "raw_calls": [
+                {"language": "bash", "caller_nid": "main", "callee": "b_func",
+                 "is_member_call": False, "source_file": str(a_sh), "source_location": "L3"}
+            ],
+            "bash_sources": [
+                {"source_file": str(a_sh), "target_path": str(b_sh), "source_location": "L2"}
+            ],
+        },
+        {
+            "nodes": [
+                {"id": "b_sh", "label": "b.sh", "file_type": "code", "source_file": str(b_sh)},
+                {"id": "b_func", "label": "b_func()", "file_type": "code", "source_file": str(b_sh),
+                 "metadata": {"kind": "bash_function"}},
+            ],
+            "edges": [],
+            "raw_calls": [],
+            "bash_sources": [],
+        },
+    ]
+
+    edges = resolve_bash_source_edges(per_file, [a_sh, b_sh], tmp_path)
+
+    calls = [e for e in edges if e["relation"] == "calls"]
+    assert len(calls) == 1
+    assert calls[0]["source"] == "main"
+    assert calls[0]["target"] == "b_func"
+    assert calls[0]["confidence"] == "EXTRACTED"
+
+
+def test_bash_call_resolver_skips_existing_pair(tmp_path: Path) -> None:
+    a_sh = tmp_path / "a.sh"
+    b_sh = tmp_path / "b.sh"
+    a_sh.write_text("#!/usr/bin/env bash\nsource ./b.sh\nmain() { b_func; }\n")
+    b_sh.write_text("#!/usr/bin/env bash\nb_func() { echo ok; }\n")
+
+    per_file = [
+        {
+            "nodes": [
+                {"id": "a_sh", "label": "a.sh", "file_type": "code", "source_file": str(a_sh)},
+                {"id": "main", "label": "main()", "file_type": "code", "source_file": str(a_sh),
+                 "metadata": {"kind": "bash_function"}},
+            ],
+            "edges": [],
+            "raw_calls": [
+                {"language": "bash", "caller_nid": "main", "callee": "b_func",
+                 "is_member_call": False, "source_file": str(a_sh), "source_location": "L3"}
+            ],
+            "bash_sources": [
+                {"source_file": str(a_sh), "target_path": str(b_sh), "source_location": "L2"}
+            ],
+        },
+        {
+            "nodes": [
+                {"id": "b_sh", "label": "b.sh", "file_type": "code", "source_file": str(b_sh)},
+                {"id": "b_func", "label": "b_func()", "file_type": "code", "source_file": str(b_sh),
+                 "metadata": {"kind": "bash_function"}},
+            ],
+            "edges": [],
+            "raw_calls": [],
+            "bash_sources": [],
+        },
+    ]
+    existing = [
+        {"source": "main", "target": "b_func", "relation": "calls"}
+    ]
+
+    edges = resolve_bash_source_edges(per_file, [a_sh, b_sh], tmp_path, existing_edges=existing)
+
+    calls = [e for e in edges if e["relation"] == "calls"]
+    assert len(calls) == 0, f"Should skip existing pair but got: {calls}"
+
+
+def test_bash_call_resolver_skips_ambiguous_multiple_candidates(tmp_path: Path) -> None:
+    """When a callee function is defined in multiple sourced files, skip it."""
+    a_sh = tmp_path / "a.sh"
+    b_sh = tmp_path / "b.sh"
+    c_sh = tmp_path / "c.sh"
+    a_sh.write_text("#!/usr/bin/env bash\nsource ./b.sh\nsource ./c.sh\nmain() { helper; }\n")
+    b_sh.write_text("#!/usr/bin/env bash\nhelper() { echo b; }\n")
+    c_sh.write_text("#!/usr/bin/env bash\nhelper() { echo c; }\n")
+
+    per_file = [
+        {
+            "nodes": [
+                {"id": "a_sh", "label": "a.sh", "file_type": "code", "source_file": str(a_sh)},
+                {"id": "main", "label": "main()", "file_type": "code", "source_file": str(a_sh),
+                 "metadata": {"kind": "bash_function"}},
+            ],
+            "edges": [],
+            "raw_calls": [
+                {"language": "bash", "caller_nid": "main", "callee": "helper",
+                 "is_member_call": False, "source_file": str(a_sh), "source_location": "L4"}
+            ],
+            "bash_sources": [
+                {"source_file": str(a_sh), "target_path": str(b_sh), "source_location": "L2"},
+                {"source_file": str(a_sh), "target_path": str(c_sh), "source_location": "L3"},
+            ],
+        },
+        {
+            "nodes": [
+                {"id": "b_sh", "label": "b.sh", "file_type": "code", "source_file": str(b_sh)},
+                {"id": "b_helper", "label": "helper()", "file_type": "code", "source_file": str(b_sh),
+                 "metadata": {"kind": "bash_function"}},
+            ],
+            "edges": [],
+            "raw_calls": [],
+            "bash_sources": [],
+        },
+        {
+            "nodes": [
+                {"id": "c_sh", "label": "c.sh", "file_type": "code", "source_file": str(c_sh)},
+                {"id": "c_helper", "label": "helper()", "file_type": "code", "source_file": str(c_sh),
+                 "metadata": {"kind": "bash_function"}},
+            ],
+            "edges": [],
+            "raw_calls": [],
+            "bash_sources": [],
+        },
+    ]
+
+    edges = resolve_bash_source_edges(per_file, [a_sh, b_sh, c_sh], tmp_path)
+
+    calls = [e for e in edges if e["relation"] == "calls"]
+    # helper() is defined in both b.sh and c.sh → ambiguous → should be skipped
+    assert len(calls) == 0, f"Should skip ambiguous callee but got: {calls}"
+
+
+def test_bash_call_resolver_skips_non_bash_raw_calls(tmp_path: Path) -> None:
+    """Non-bash raw_calls inside sourced-file per_file entries are ignored."""
+    a_sh = tmp_path / "a.sh"
+    a_sh.write_text("#!/usr/bin/env bash\n")
+
+    per_file = [
+        {
+            "nodes": [
+                {"id": "a_sh", "label": "a.sh", "file_type": "code", "source_file": str(a_sh)},
+            ],
+            "edges": [],
+            "raw_calls": [
+                {"language": "python", "caller_nid": "a_main", "callee": "helper",
+                 "is_member_call": False, "source_file": str(a_sh), "source_location": "L1"}
+            ],
+            "bash_sources": [],
+        },
+    ]
+
+    edges = resolve_bash_source_edges(per_file, [a_sh], tmp_path)
+    assert edges == [], f"Should ignore non-bash raw_calls but got: {edges}"
+
+
+def test_bash_make_id_identical_to_make_id() -> None:
+    from graphify.extract import _make_id
+
+    assert _bash_make_id("foo", "bar") == _make_id("foo", "bar")
+    assert _bash_make_id("auth") == _make_id("auth")
+    assert _bash_make_id("_module", "_helper") == _make_id("_module", "_helper")
+    assert _bash_make_id("my-script", "main") == _make_id("my-script", "main")

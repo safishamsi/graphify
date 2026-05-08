@@ -24,7 +24,7 @@
 
 Type `/graphify` in your AI coding assistant and it maps your entire project — code, docs, PDFs, images, videos — into a knowledge graph you can query instead of grepping through files.
 
-Works in Claude Code, Codex, OpenCode, Windsurf, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kimi Code, Kiro, Pi, and Google Antigravity.
+Works in Claude Code, Codex, OpenCode, ForgeCode, Windsurf, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kimi Code, Kiro, Pi, and Google Antigravity.
 
 ```
 /graphify .
@@ -72,6 +72,7 @@ uv tool install graphifyy && graphify install
 | Claude Code (Windows) | `graphify install --platform windows` |
 | Codex | `graphify install --platform codex` |
 | OpenCode | `graphify install --platform opencode` |
+| ForgeCode | `graphify install --platform forgecode` |
 | GitHub Copilot CLI | `graphify install --platform copilot` |
 | VS Code Copilot Chat | `graphify vscode install` |
 | Aider | `graphify install --platform aider` |
@@ -102,6 +103,7 @@ Run this once in your project after building a graph:
 | Claude Code | `graphify claude install` |
 | Codex | `graphify codex install` |
 | OpenCode | `graphify opencode install` |
+| ForgeCode | `graphify forgecode install` |
 | GitHub Copilot CLI | `graphify copilot install` |
 | VS Code Copilot Chat | `graphify vscode install` |
 | Aider | `graphify aider install` |
@@ -297,6 +299,7 @@ graphify hook status
 graphify claude install / uninstall
 graphify codex install / uninstall
 graphify opencode install
+graphify forgecode install / uninstall
 graphify cursor install / uninstall
 graphify gemini install / uninstall
 graphify copilot install / uninstall

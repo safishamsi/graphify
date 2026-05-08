@@ -201,8 +201,8 @@ class LanguageConfig:
 _JS_RESOLVE_EXTS = (".ts", ".tsx", ".svelte", ".js", ".jsx", ".mjs")
 _JS_INDEX_FILES = ("index.ts", "index.tsx", "index.js", "index.jsx")
 
-_BASH_EXTENSIONS = frozenset({".sh", ".bash", ".bats"})
-_BASH_SHEBANG_INTERPRETERS = frozenset({"bash", "sh", "dash"})
+_BASH_EXTENSIONS = frozenset({".sh", ".bash", ".bats", ".zsh"})
+_BASH_SHEBANG_INTERPRETERS = frozenset({"bash", "sh", "dash", "zsh"})
 _BASH_NAME_RE = re.compile(r"^[A-Za-z_][A-Za-z0-9_-]*$")
 _BASH_SOURCE_COMMANDS = frozenset({"source", "."})
 _BASH_EXTERNAL_OR_BUILTIN_COMMANDS = frozenset({
@@ -5069,9 +5069,17 @@ def extract(
     # graph.json edge endpoints are stable across machines (#502)
     id_remap: dict[str, str] = {}
     for path in paths:
+        # Resolve symlinks before computing relative paths (#F2).  Without
+        # this a symlink outside the project root cannot be relativised,
+        # causing the remap to silently skip the file and produce a
+        # different node ID on the next machine.
+        try:
+            real = path.resolve()
+        except OSError:
+            real = path
         old_id = _make_id(str(path))
         try:
-            new_id = _make_id(str(path.relative_to(root)))
+            new_id = _make_id(str(real.relative_to(root)))
         except ValueError:
             continue
         if old_id != new_id:

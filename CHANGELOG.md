@@ -4,6 +4,7 @@ Full release notes with details on each version: [GitHub Releases](https://githu
 
 ## Unreleased
 
+- Add: ForgeCode platform support via `graphify install --platform forgecode` and `graphify forgecode install/uninstall`.
 - Added first-class Bash extraction for `.sh`, `.bash`, `.bats`, and extensionless Bash shebang scripts, including function nodes, script entrypoint nodes, same-file calls, and source-aware cross-file calls.
 - Fix: incremental graph merge now evicts stale nodes from modified source files before merging fresh extraction results, so renamed or deleted symbols do not survive successful `--update` runs.
 - Fix: deleted-file pruning now normalizes absolute `detect_incremental()` paths against root-relative graph `source_file` values, and the CLI passes the project root through to `build_merge()`.

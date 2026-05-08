@@ -388,6 +388,61 @@ def test_install_forgecode(tmp_path):
     assert (tmp_path / ".forgecode" / "skills" / "graphify" / ".graphify_version").exists()
 
 
+def test_forgecode_in_platforms_dict():
+    """ForgeCode must be registered in PLATFORMS alongside other platforms."""
+    assert "forgecode" in PLATFORMS, "ForgeCode is missing from PLATFORMS dict"
+    expected_dir = ".forgecode/skills/graphify/SKILL.md"
+    assert expected_dir in PLATFORMS["forgecode"], (
+        f"PLATFORMS[forgecode] should contain {expected_dir}"
+    )
+
+
+def test_install_forgecode_cli(tmp_path, monkeypatch):
+    """graphify forgecode install should route through the CLI handler."""
+    from graphify.__main__ import main
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["graphify", "forgecode", "install"])
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        main()
+    assert (tmp_path / ".forgecode" / "skills" / "graphify" / "SKILL.md").exists()
+
+
+def test_install_forgecode_uninstall_removes_skill_and_version(tmp_path, capsys):
+    """graphify forgecode uninstall removes SKILL.md and .graphify_version."""
+    from graphify.__main__ import main
+    monkeypatch = pytest.MonkeyPatch()
+    monkeypatch.chdir(tmp_path)
+
+    # Install first
+    monkeypatch.setattr(sys, "argv", ["graphify", "forgecode", "install"])
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        main()
+    skill_path = tmp_path / ".forgecode" / "skills" / "graphify" / "SKILL.md"
+    version_path = tmp_path / ".forgecode" / "skills" / "graphify" / ".graphify_version"
+    assert skill_path.exists(), "SKILL.md should exist after install"
+    assert version_path.exists(), ".graphify_version should exist after install"
+
+    # Then uninstall
+    monkeypatch.setattr(sys, "argv", ["graphify", "forgecode", "uninstall"])
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        main()
+    assert not skill_path.exists(), "SKILL.md should be removed after uninstall"
+    assert not version_path.exists(), ".graphify_version should be removed after uninstall"
+
+
+def test_install_forgecode_refreshes_version_stamp(tmp_path):
+    """Re-installing ForgeCode refreshes the version stamp, same as other platforms."""
+    from graphify.__main__ import __version__
+
+    _install(tmp_path, "forgecode")
+    stamp = tmp_path / ".forgecode" / "skills" / "graphify" / ".graphify_version"
+    stamp.write_text("0.0.0", encoding="utf-8")
+
+    _install(tmp_path, "forgecode")
+
+    assert stamp.read_text(encoding="utf-8") == __version__
+
+
 # ── Version stamp regression ─────────────────────────────────────────────────
 
 def test_install_refreshes_version_stamp_even_when_skill_exists(tmp_path):
@@ -415,3 +470,13 @@ def test_install_graphify_out_argument_does_not_create_skill_dir(tmp_path):
     assert not (tmp_path / ".claude" / "skills" / "graphify-out").exists()
     assert not (tmp_path / ".windsurf" / "skills" / "graphify-out").exists()
     assert not (tmp_path / ".forgecode" / "skills" / "graphify-out").exists()
+
+
+def test_install_forgecode_uninstall_noop_if_not_installed(tmp_path):
+    """ForgeCode uninstall should not raise if nothing was installed."""
+    from graphify.__main__ import main
+    monkeypatch = pytest.MonkeyPatch()
+    monkeypatch.chdir(tmp_path)
+    monkeypatch.setattr(sys, "argv", ["graphify", "forgecode", "uninstall"])
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        main()  # should not raise

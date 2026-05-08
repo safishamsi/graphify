@@ -130,12 +130,15 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
         if triple in seen_edge_pairs:
             continue  # exact duplicate
         seen_edge_pairs.add(triple)
-        endpoint_pair = (src, tgt)
-        if endpoint_pair in seen_endpoint_pairs:
+        # In undirected mode, (A,B) and (B,A) map to the same NetworkX edge.
+        # Check both directions so reversed-endpoint distinct relations don't
+        # silently overwrite the first edge stored (#F1).
+        endpoint_forward = (src, tgt)
+        endpoint_reverse = (tgt, src)
+        if endpoint_forward in seen_endpoint_pairs or endpoint_reverse in seen_endpoint_pairs:
             collapsed += 1
-            # Skip this edge — a different relation already uses this pair
             continue
-        seen_endpoint_pairs.add(endpoint_pair)
+        seen_endpoint_pairs.add(endpoint_forward)
         deduped_edges.append(edge)
     if collapsed:
         print(f"[graphify] Note: {collapsed} edge(s) between same endpoints with "

@@ -5,18 +5,28 @@ import sys
 from pathlib import Path
 import networkx as nx
 from networkx.readwrite import json_graph
-from graphify.security import sanitize_label
+from graphify.security import sanitize_label, validate_graph_path
+
+# Maximum graph.json file size before rejection (512 MiB) — #F4.
+_MAX_GRAPH_FILE_BYTES = 512 * 1024 * 1024
 
 
 def _load_graph(graph_path: str) -> nx.Graph:
+    #F4 Size cap: reject oversized files before parsing to prevent memory bombs.
     try:
-        resolved = Path(graph_path).resolve()
+        size = Path(graph_path).stat().st_size
+        if size > _MAX_GRAPH_FILE_BYTES:
+            raise ValueError(
+                f"Graph file is {size:_d} bytes — exceeds {_MAX_GRAPH_FILE_BYTES:_d} byte limit. "
+                f"Re-run /graphify or use a smaller graph."
+            )
+    except OSError:
+        pass  # stat may fail for non-existent paths; let validate_graph_path handle it
+    try:
+        resolved = validate_graph_path(graph_path, base=Path(graph_path).resolve().parent)  #F5: use security module
         if resolved.suffix != ".json":
             raise ValueError(f"Graph path must be a .json file, got: {graph_path!r}")
-        if not resolved.exists():
-            raise FileNotFoundError(f"Graph file not found: {resolved}")
-        safe = resolved
-        data = json.loads(safe.read_text(encoding="utf-8"))
+        data = json.loads(resolved.read_text(encoding="utf-8"))
         if "links" not in data and "edges" in data:
             data = dict(data, links=data["edges"])
         try:
@@ -127,6 +137,10 @@ def _filter_graph_by_context(G: nx.Graph, context_filters: list[str] | None) -> 
     return H
 
 
+# Limits to prevent unbounded traversal in MCP tools (#F8).
+_MAX_TRAVERSAL_NODES = 2000	# maximum nodes visited
+_MAX_TRAVERSAL_EDGES = 5000	# maximum edges collected
+
 def _bfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], list[tuple]]:
     visited: set[str] = set(start_nodes)
     frontier = set(start_nodes)
@@ -136,8 +150,17 @@ def _bfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], lis
         for n in frontier:
             for neighbor in G.neighbors(n):
                 if neighbor not in visited:
+                    if len(visited) >= _MAX_TRAVERSAL_NODES:
+                        break
+                    visited.add(neighbor)
                     next_frontier.add(neighbor)
                     edges_seen.append((n, neighbor))
+                    if len(edges_seen) >= _MAX_TRAVERSAL_EDGES:
+                        break
+            if len(visited) >= _MAX_TRAVERSAL_NODES or len(edges_seen) >= _MAX_TRAVERSAL_EDGES:
+                break
+        if len(visited) >= _MAX_TRAVERSAL_NODES or len(edges_seen) >= _MAX_TRAVERSAL_EDGES:
+            break
         visited.update(next_frontier)
         frontier = next_frontier
     return visited, edges_seen
@@ -151,11 +174,17 @@ def _dfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], lis
         node, d = stack.pop()
         if node in visited or d > depth:
             continue
+        if len(visited) >= _MAX_TRAVERSAL_NODES:
+            break
         visited.add(node)
         for neighbor in G.neighbors(node):
             if neighbor not in visited:
+                if len(edges_seen) >= _MAX_TRAVERSAL_EDGES:
+                    break
                 stack.append((neighbor, d + 1))
                 edges_seen.append((node, neighbor))
+        if len(edges_seen) >= _MAX_TRAVERSAL_EDGES:
+            break
     return visited, edges_seen
 
 

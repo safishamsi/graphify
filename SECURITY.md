@@ -22,7 +22,7 @@ We will acknowledge receipt within 48 hours and aim to release a fix within 7 da
 
 ## Security Model
 
-graphify is a **local development tool**. It runs as a Claude Code skill and optionally as a local MCP stdio server. It makes no network calls during graph analysis - only during `ingest` (explicit URL fetch by the user).
+graphify is a **local development tool**. It runs as an AI coding assistant skill across supported platforms such as Claude Code, Codex, OpenCode, ForgeCode, Cursor, Gemini CLI, and others, and optionally as a local MCP stdio server. Local code, video, and audio extraction do not make network calls. Model-assisted semantic extraction for docs, PDFs, images, and transcripts uses the active assistant or configured backend, and `ingest` fetches URLs explicitly provided by the user.
 
 ### Threat Surface
 
@@ -49,5 +49,6 @@ graphify is a **local development tool**. It runs as a Claude Code skill and opt
 ### Optional network calls
 
 - `ingest` subcommand: fetches URLs explicitly provided by the user
+- Model-assisted semantic extraction: sends docs, PDFs, images, or transcripts to the active assistant workflow or configured headless backend
 - PDF extraction: reads local files only (pypdf does not make network calls)
 - watch mode: local filesystem events only (watchdog does not make network calls)

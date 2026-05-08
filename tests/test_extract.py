@@ -2715,3 +2715,88 @@ def test_collect_files_includes_bash_extensions_and_shebang(tmp_path):
     assert bash in files
     assert bats in files
     assert shebang in files
+
+
+# ═══════════════════════════════════════════════════════
+# ── Bash external command suppression tests ──────────
+# ═══════════════════════════════════════════════════════
+
+
+def test_extract_bash_suppresses_builtin_echo(tmp_path):
+    """Builtin echo should NOT create call edges or raw calls."""
+    from graphify.extract import extract_bash
+
+    sh = tmp_path / "echoer.sh"
+    sh.write_text("#!/usr/bin/env bash\nmain() { echo hello; }\n")
+    result = extract_bash(sh)
+
+    calls = [e for e in result["edges"] if e["relation"] == "calls"]
+    raw_calls = result.get("raw_calls", [])
+    assert len(calls) == 0, f"echo should not create call edges: {calls}"
+    assert not any(rc["callee"] == "echo" for rc in raw_calls), (
+        f"echo should not create raw calls: {raw_calls}")
+
+
+def test_extract_bash_suppresses_builtin_cd(tmp_path):
+    """Builtin cd should NOT create call edges or raw calls."""
+    from graphify.extract import extract_bash
+
+    sh = tmp_path / "cder.sh"
+    sh.write_text("#!/usr/bin/env bash\nmain() { cd /tmp; }\n")
+    result = extract_bash(sh)
+
+    calls = [e for e in result["edges"] if e["relation"] == "calls"]
+    raw_calls = result.get("raw_calls", [])
+    assert len(calls) == 0, f"cd should not create call edges: {calls}"
+    assert not any(rc["callee"] == "cd" for rc in raw_calls), (
+        f"cd should not create raw calls: {raw_calls}")
+
+
+def test_extract_bash_non_builtin_creates_raw_call(tmp_path):
+    """A command NOT in the suppression list should create a raw call."""
+    from graphify.extract import extract_bash
+
+    sh = tmp_path / "dockerer.sh"
+    sh.write_text("#!/usr/bin/env bash\nmain() { docker info; }\n")
+    result = extract_bash(sh)
+
+    raw_calls = result.get("raw_calls", [])
+    docker_calls = [rc for rc in raw_calls if rc["callee"] == "docker"]
+    assert len(docker_calls) > 0, f"docker should create raw call: {raw_calls}"
+    assert docker_calls[0]["language"] == "bash"
+    assert docker_calls[0]["is_member_call"] is False
+
+
+def test_extract_bash_source_missing_file_no_error(tmp_path):
+    """Sourcing a nonexistent file should not crash or produce an error key."""
+    from graphify.extract import extract_bash
+
+    sh = tmp_path / "sourcer.sh"
+    sh.write_text("#!/usr/bin/env bash\nsource ./nonexistent.sh\nmain() { echo ok; }\n")
+    result = extract_bash(sh)
+
+    assert "error" not in result
+    # Should not have sourced the missing file
+    assert len(result.get("bash_sources", [])) == 0
+
+
+def test_bash_make_id_available_in_extract():
+    """_bash_make_id should be importable from symbol_resolution."""
+    from graphify.symbol_resolution import _bash_make_id
+    assert _bash_make_id("foo") == "foo"
+    assert _bash_make_id("_foo", "bar") == "foo_bar"
+
+
+def test_extract_bash_zsh_shebang_detected(tmp_path):
+    """Extensionless files with #!/bin/zsh shebang should be extracted."""
+    from graphify.extract import extract_bash, _is_bash_path
+
+    zsh_script = tmp_path / "myscript"
+    zsh_script.write_text("#!/bin/zsh\nhello() { echo hi; }\nhello\n")
+    # _is_bash_path checks shebang; zsh is in the detect.py map
+    assert _is_bash_path(zsh_script), "zsh shebang should be detected as bash-adjacent"
+
+    result = extract_bash(zsh_script)
+    assert "error" not in result
+    labels = [n["label"] for n in result["nodes"]]
+    assert "myscript" in labels
