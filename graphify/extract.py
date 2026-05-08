@@ -4537,6 +4537,285 @@ def extract_markdown(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
 
 
+# ── Pascal / Delphi extractor ─────────────────────────────────────────────────
+
+_pascal_unit_cache: dict[str, dict[str, str]] = {}
+
+
+def _pascal_project_root(from_path: Path) -> Path:
+    """Return the highest ancestor directory that looks like a Pascal project root.
+
+    Walks up the directory tree and tracks the topmost directory that:
+      - is NOT a filesystem root (e.g. D:/, C:/, /)
+      - has at least 2 .pas files OR at least 1 .dpr file as direct children
+
+    The minimum-2 threshold avoids treating a level as the root just because a
+    single stray .pas file was copied there.  The filesystem-root exclusion
+    prevents overshoot on drives that have a stray file directly at D:/.
+
+    Falls back to from_path.parent if nothing better is found.
+    """
+    best = from_path.parent
+    current = from_path.parent
+    for _ in range(12):
+        if len(current.parts) <= 1:
+            break  # never use a filesystem root (D:/, C:/, /)
+        pas_count = sum(1 for _ in current.glob("*.pas"))
+        dpr_count = sum(1 for _ in current.glob("*.dpr"))
+        if pas_count >= 2 or dpr_count >= 1:
+            best = current
+        parent = current.parent
+        if parent == current:
+            break
+        current = parent
+    return best
+
+
+def _pascal_resolve_unit(from_path: Path, unit_name: str) -> str:
+    """Resolve a Pascal unit name to the graphify node ID of its source file.
+
+    Scans all Pascal files under the project root (the highest ancestor that
+    directly contains .pas/.dpr files) and returns _make_id(str(matched_path)).
+    Result is cached per project root so the rglob runs at most once per
+    project.  Falls back to _make_id(unit_name) for units not found on disk
+    (e.g. standard RTL units like SysUtils, Windows).
+    """
+    root = _pascal_project_root(from_path)
+    root_key = str(root)
+    if root_key not in _pascal_unit_cache:
+        unit_map: dict[str, str] = {}
+        for ext in (".pas", ".pp", ".dpr", ".dpk", ".inc"):
+            for f in root.rglob("*" + ext):
+                unit_map[f.stem.lower()] = _make_id(str(f))
+        _pascal_unit_cache[root_key] = unit_map
+    return _pascal_unit_cache[root_key].get(unit_name.lower(), _make_id(unit_name))
+
+
+def extract_pascal(path: Path) -> dict:
+    """Extract units, classes, procedures, uses-imports, and calls from Pascal/Delphi files.
+
+    Produces nodes for:
+    - The file itself
+    - unit / program / library declarations
+    - class and interface type declarations
+    - procedure / function implementations (including qualified TClass.Method names)
+
+    Produces edges for:
+    - file --contains--> module
+    - module --imports--> other file node (via uses clause, resolved to path-based IDs)
+    - class --inherits--> base class
+    - class/module --contains--> method forward declaration
+    - class/module --contains--> procedure/function implementation
+    - procedure --calls--> other procedure (within the same file)
+
+    Requires tree-sitter-pascal: pip install tree-sitter-pascal
+    (https://github.com/Isopod/tree-sitter-pascal)
+    """
+    try:
+        import tree_sitter_pascal as tspascal
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {
+            "nodes": [], "edges": [],
+            "error": "tree_sitter_pascal not installed. Run: pip install tree-sitter-pascal",
+        }
+
+    try:
+        language = Language(tspascal.language())
+        parser = Parser(language)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    proc_bodies: list[tuple[str, Any]] = []
+
+    def _read(node) -> str:  # type: ignore[no-untyped-def]
+        return source[node.start_byte:node.end_byte].decode("utf-8", errors="replace")
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({
+                "id": nid, "label": label, "file_type": "code",
+                "source_file": str_path, "source_location": f"L{line}",
+            })
+
+    def add_edge(
+        src: str, tgt: str, relation: str, line: int,
+        confidence: str = "EXTRACTED", weight: float = 1.0,
+        context: str | None = None,
+    ) -> None:
+        edge: dict[str, Any] = {
+            "source": src, "target": tgt, "relation": relation,
+            "confidence": confidence, "source_file": str_path,
+            "source_location": f"L{line}", "weight": weight,
+        }
+        if context:
+            edge["context"] = context
+        edges.append(edge)
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, 1)
+    module_nid = file_nid
+
+    def _proc_name(header_node) -> str | None:  # type: ignore[no-untyped-def]
+        name_node = header_node.child_by_field_name("name")
+        if name_node:
+            return _read(name_node)
+        for child in header_node.children:
+            if child.type in ("identifier", "genericDot", "genericTpl"):
+                return _read(child)
+        return None
+
+    def walk(node, parent_nid: str) -> None:  # type: ignore[no-untyped-def]
+        nonlocal module_nid
+        t = node.type
+        line = node.start_point[0] + 1
+
+        if t in ("unit", "program", "library"):
+            name_node = next((c for c in node.children if c.type == "moduleName"), None)
+            mod_name = _read(name_node) if name_node else path.stem
+            mod_nid = _make_id(stem, mod_name)
+            add_node(mod_nid, mod_name, line)
+            add_edge(file_nid, mod_nid, "contains", line)
+            module_nid = mod_nid
+            for child in node.children:
+                walk(child, mod_nid)
+            return
+
+        if t == "declUses":
+            for child in node.children:
+                if child.type == "moduleName":
+                    mod_name = _read(child)
+                    tgt_nid = _pascal_resolve_unit(path, mod_name)
+                    add_edge(parent_nid, tgt_nid, "imports", line, context="import")
+            return
+
+        if t == "declType":
+            type_name = None
+            kind_node = None
+            for child in node.children:
+                if child.type == "identifier" and type_name is None:
+                    type_name = _read(child)
+                elif child.type in ("declClass", "declIntf", "declHelper") and kind_node is None:
+                    kind_node = child
+            if type_name and kind_node:
+                cls_nid = _make_id(stem, type_name)
+                add_node(cls_nid, type_name, line)
+                add_edge(parent_nid, cls_nid, "contains", line)
+                for child in kind_node.children:
+                    if child.type == "typeref":
+                        add_edge(cls_nid, _make_id(_read(child)), "inherits", line)
+                        break
+                for child in kind_node.children:
+                    walk(child, cls_nid)
+                return
+            for child in node.children:
+                walk(child, parent_nid)
+            return
+
+        if t == "declProcFwd":
+            header = next((c for c in node.children if c.type == "declProc"), None)
+            if header:
+                name = _proc_name(header)
+                if name and "." not in name:
+                    method_nid = _make_id(parent_nid, name)
+                    add_node(method_nid, f"{name}()", line)
+                    add_edge(parent_nid, method_nid, "method", line)
+            return
+
+        if t == "defProc":
+            header = next((c for c in node.children if c.type == "declProc"), None)
+            body_node = next((c for c in node.children if c.type == "block"), None)
+            if not header:
+                for child in node.children:
+                    walk(child, parent_nid)
+                return
+            name = _proc_name(header)
+            if not name:
+                for child in node.children:
+                    walk(child, parent_nid)
+                return
+            container = parent_nid
+            if "." in name:
+                parts = name.split(".", 1)
+                cls_nid = _make_id(stem, parts[0])
+                if cls_nid in seen_ids:
+                    container = cls_nid
+                label = f"{parts[-1]}()"
+            else:
+                label = f"{name}()"
+            proc_nid = _make_id(stem, name)
+            add_node(proc_nid, label, line)
+            add_edge(
+                container, proc_nid,
+                "method" if container != parent_nid else "contains",
+                line,
+            )
+            if body_node:
+                proc_bodies.append((proc_nid, body_node))
+            return
+
+        for child in node.children:
+            walk(child, parent_nid)
+
+    walk(root, file_nid)
+
+    # Second pass: resolve calls inside procedure/function bodies
+    all_procs: dict[str, str] = {
+        n["label"].rstrip("()").lower(): n["id"]
+        for n in nodes if n["id"] != file_nid
+    }
+    seen_call_pairs: set[tuple[str, str]] = set()
+
+    def walk_calls(node, caller_nid: str) -> None:  # type: ignore[no-untyped-def]
+        if node.type == "exprCall":
+            callee_text = None
+            for child in node.children:
+                if child.is_named and child.type not in ("exprArgs",):
+                    callee_text = _read(child).split(".")[-1]
+                    break
+            if callee_text:
+                callee_nid = all_procs.get(callee_text.lower())
+                if callee_nid and callee_nid != caller_nid:
+                    pair = (caller_nid, callee_nid)
+                    if pair not in seen_call_pairs:
+                        seen_call_pairs.add(pair)
+                        add_edge(
+                            caller_nid, callee_nid, "calls",
+                            node.start_point[0] + 1, context="call",
+                        )
+        elif node.type == "statement":
+            # Pascal bare procedure calls with no args: `Reset;`
+            # tree-sitter represents these as statement → identifier (no exprCall wrapper)
+            named = [c for c in node.children if c.is_named]
+            if len(named) == 1 and named[0].type == "identifier":
+                callee_text = _read(named[0])
+                callee_nid = all_procs.get(callee_text.lower())
+                if callee_nid and callee_nid != caller_nid:
+                    pair = (caller_nid, callee_nid)
+                    if pair not in seen_call_pairs:
+                        seen_call_pairs.add(pair)
+                        add_edge(
+                            caller_nid, callee_nid, "calls",
+                            node.start_point[0] + 1, context="call",
+                        )
+        for child in node.children:
+            walk_calls(child, caller_nid)
+
+    for proc_nid, body_node in proc_bodies:
+        walk_calls(body_node, proc_nid)
+
+    return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
+
+
 # ── Main extract and collect_files ────────────────────────────────────────────
 
 
@@ -4612,6 +4891,11 @@ _DISPATCH: dict[str, Any] = {
     ".md": extract_markdown,
     ".mdx": extract_markdown,
     ".qmd": extract_markdown,
+    ".pas": extract_pascal,
+    ".pp": extract_pascal,
+    ".dpr": extract_pascal,
+    ".dpk": extract_pascal,
+    ".inc": extract_pascal,
 }
 
 
