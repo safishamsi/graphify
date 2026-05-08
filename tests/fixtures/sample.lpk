@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <Package Version="5">
+    <Name Value="SamplePackage"/>
+    <Description Value="A sample Lazarus package"/>
+    <Files Count="2">
+      <Item1>
+        <Filename Value="sample.pas"/>
+        <UnitName Value="sample"/>
+      </Item1>
+      <Item2>
+        <Filename Value="sampleutils.pas"/>
+        <UnitName Value="sampleutils"/>
+      </Item2>
+    </Files>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="FCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+    </RequiredPkgs>
+  </Package>
+</CONFIG>

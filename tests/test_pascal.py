@@ -152,6 +152,8 @@ def test_pascal_dispatch_registered():
     assert ".dpr" in _DISPATCH
     assert ".dpk" in _DISPATCH
     assert ".inc" in _DISPATCH
+    assert ".lfm" in _DISPATCH
+    assert ".lpk" in _DISPATCH
 
 
 @pascal_required
@@ -160,3 +162,105 @@ def test_pascal_detect_extensions_registered():
     assert ".pas" in CODE_EXTENSIONS
     assert ".pp" in CODE_EXTENSIONS
     assert ".dpr" in CODE_EXTENSIONS
+    assert ".lfm" in CODE_EXTENSIONS
+    assert ".lpk" in CODE_EXTENSIONS
+
+
+# ── Lazarus Form (.lfm) ───────────────────────────────────────────────────────
+
+def test_lfm_no_error():
+    from graphify.extract import extract_lazarus_form
+    r = extract_lazarus_form(FIXTURES / "sample.lfm")
+    assert "error" not in r
+
+
+def test_lfm_finds_root_form_class():
+    from graphify.extract import extract_lazarus_form
+    r = extract_lazarus_form(FIXTURES / "sample.lfm")
+    assert any("TSampleForm" in l for l in _labels(r))
+
+
+def test_lfm_finds_component_classes():
+    from graphify.extract import extract_lazarus_form
+    r = extract_lazarus_form(FIXTURES / "sample.lfm")
+    labels = _labels(r)
+    assert any("TPanel" in l for l in labels)
+    assert any("TButton" in l for l in labels)
+    assert any("TLabel" in l for l in labels)
+    assert any("TTimer" in l for l in labels)
+
+
+def test_lfm_finds_event_handlers():
+    from graphify.extract import extract_lazarus_form
+    r = extract_lazarus_form(FIXTURES / "sample.lfm")
+    labels = _labels(r)
+    assert any("ButtonOKClick" in l for l in labels)
+    assert any("TimerRefreshTimer" in l for l in labels)
+
+
+def test_lfm_event_edges_have_event_context():
+    from graphify.extract import extract_lazarus_form
+    r = extract_lazarus_form(FIXTURES / "sample.lfm")
+    ref_edges = [e for e in r["edges"] if e["relation"] == "references"]
+    assert ref_edges
+    assert all(e.get("context") == "event" for e in ref_edges)
+
+
+def test_lfm_contains_edges_form_hierarchy():
+    from graphify.extract import extract_lazarus_form
+    r = extract_lazarus_form(FIXTURES / "sample.lfm")
+    assert "contains" in _relations(r)
+
+
+def test_lfm_no_dangling_edges():
+    from graphify.extract import extract_lazarus_form
+    r = extract_lazarus_form(FIXTURES / "sample.lfm")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids, f"Dangling source: {e}"
+
+
+# ── Lazarus Package (.lpk) ───────────────────────────────────────────────────
+
+def test_lpk_no_error():
+    from graphify.extract import extract_lazarus_package
+    r = extract_lazarus_package(FIXTURES / "sample.lpk")
+    assert "error" not in r
+
+
+def test_lpk_finds_package_name():
+    from graphify.extract import extract_lazarus_package
+    r = extract_lazarus_package(FIXTURES / "sample.lpk")
+    assert any("SamplePackage" in l for l in _labels(r))
+
+
+def test_lpk_finds_required_packages():
+    from graphify.extract import extract_lazarus_package
+    r = extract_lazarus_package(FIXTURES / "sample.lpk")
+    labels = _labels(r)
+    assert any("FCL" in l for l in labels)
+    assert any("LCL" in l for l in labels)
+
+
+def test_lpk_imports_edges_have_import_context():
+    from graphify.extract import extract_lazarus_package
+    r = extract_lazarus_package(FIXTURES / "sample.lpk")
+    import_edges = _edges_with_relation(r, "imports")
+    assert import_edges
+    assert all(e.get("context") == "import" for e in import_edges)
+
+
+def test_lpk_contains_listed_units():
+    from graphify.extract import extract_lazarus_package
+    r = extract_lazarus_package(FIXTURES / "sample.lpk")
+    labels = _labels(r)
+    assert any("sample" in l.lower() for l in labels)
+    assert any("sampleutils" in l.lower() for l in labels)
+
+
+def test_lpk_no_dangling_edges():
+    from graphify.extract import extract_lazarus_package
+    r = extract_lazarus_package(FIXTURES / "sample.lpk")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids, f"Dangling source: {e}"

@@ -4816,6 +4816,180 @@ def extract_pascal(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
 
 
+def extract_lazarus_form(path: Path) -> dict:
+    """Extract component hierarchy from Lazarus .lfm form files.
+
+    .lfm is a text-based declarative format for UI component trees, structured as:
+        object ComponentName: TClassName
+          PropertyName = Value
+          OnEvent = HandlerName
+          object ChildName: TChildClass
+            ...
+          end
+        end
+
+    Produces nodes for:
+    - The form file itself
+    - Each component class encountered (TForm1, TButton, TPanel, ...)
+    - Event handler names referenced by OnXxx properties
+
+    Produces edges for:
+    - file --contains--> root form class
+    - parent component --contains--> child component class
+    - component --references--> event handler (context: "event")
+    """
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    import re
+    str_path = str(path)
+    stem = _file_stem(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    seen_edge_pairs: set[tuple[str, str, str]] = set()
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({
+                "id": nid, "label": label, "file_type": "code",
+                "source_file": str_path, "source_location": f"L{line}",
+            })
+
+    def add_edge(
+        src: str, tgt: str, relation: str, line: int,
+        context: str | None = None,
+    ) -> None:
+        key = (src, tgt, relation)
+        if key in seen_edge_pairs:
+            return
+        seen_edge_pairs.add(key)
+        edge: dict[str, Any] = {
+            "source": src, "target": tgt, "relation": relation,
+            "confidence": "EXTRACTED", "source_file": str_path,
+            "source_location": f"L{line}", "weight": 1.0,
+        }
+        if context:
+            edge["context"] = context
+        edges.append(edge)
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, 1)
+
+    obj_re = re.compile(r"^\s*object\s+\w+\s*:\s*(\w+)", re.IGNORECASE)
+    event_re = re.compile(r"^\s*On\w+\s*=\s*(\w+)", re.IGNORECASE)
+    end_re = re.compile(r"^\s*end\s*$", re.IGNORECASE)
+
+    # Stack of node IDs representing the nesting of object...end blocks
+    stack: list[str] = [file_nid]
+
+    for lineno, line in enumerate(text.splitlines(), 1):
+        m = obj_re.match(line)
+        if m:
+            class_name = m.group(1)
+            nid = _make_id(stem, class_name)
+            add_node(nid, class_name, lineno)
+            add_edge(stack[-1], nid, "contains", lineno)
+            stack.append(nid)
+            continue
+
+        m = event_re.match(line)
+        if m and len(stack) > 1:
+            handler = m.group(1)
+            handler_nid = _make_id(stem, handler)
+            add_node(handler_nid, f"{handler}()", lineno)
+            add_edge(stack[-1], handler_nid, "references", lineno, context="event")
+            continue
+
+        if end_re.match(line) and len(stack) > 1:
+            stack.pop()
+
+    return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
+
+
+def extract_lazarus_package(path: Path) -> dict:
+    """Extract package metadata from Lazarus .lpk package files (XML format).
+
+    .lpk is an XML file listing the package name, required dependencies,
+    and the Pascal units that belong to the package.
+
+    Produces nodes for:
+    - The package file itself
+    - The package (by name)
+    - Each required package (dependency)
+    - Each listed unit file (resolved to path-based IDs where possible)
+
+    Produces edges for:
+    - file --contains--> package
+    - package --imports--> required dependency (context: "import")
+    - package --contains--> listed unit
+    """
+    try:
+        import xml.etree.ElementTree as ET
+        text = path.read_text(encoding="utf-8", errors="replace")
+        xml_root = ET.fromstring(text)
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    str_path = str(path)
+    stem = _file_stem(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+
+    def add_node(nid: str, label: str) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({
+                "id": nid, "label": label, "file_type": "code",
+                "source_file": str_path, "source_location": "L1",
+            })
+
+    def add_edge(src: str, tgt: str, relation: str, context: str | None = None) -> None:
+        edge: dict[str, Any] = {
+            "source": src, "target": tgt, "relation": relation,
+            "confidence": "EXTRACTED", "source_file": str_path,
+            "source_location": "L1", "weight": 1.0,
+        }
+        if context:
+            edge["context"] = context
+        edges.append(edge)
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name)
+
+    name_elem = xml_root.find(".//Package/Name")
+    pkg_name = name_elem.get("Value") if name_elem is not None else path.stem
+    pkg_nid = _make_id(stem, pkg_name)
+    add_node(pkg_nid, pkg_name)
+    add_edge(file_nid, pkg_nid, "contains")
+
+    # Required packages → imports edges
+    for item in xml_root.findall(".//RequiredPkgs/"):
+        dep_elem = item.find("PackageName")
+        if dep_elem is not None:
+            dep_name = dep_elem.get("Value", "")
+            if dep_name:
+                dep_nid = _make_id(dep_name)
+                add_node(dep_nid, dep_name)
+                add_edge(pkg_nid, dep_nid, "imports", context="import")
+
+    # Listed units → contains edges, resolved to path-based IDs where possible
+    for item in xml_root.findall(".//Files/"):
+        unit_elem = item.find("UnitName")
+        if unit_elem is not None:
+            unit_name = unit_elem.get("Value", "")
+            if unit_name:
+                unit_nid = _pascal_resolve_unit(path, unit_name)
+                add_node(unit_nid, unit_name)
+                add_edge(pkg_nid, unit_nid, "contains")
+
+    return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
+
+
 # ── Main extract and collect_files ────────────────────────────────────────────
 
 
@@ -4896,6 +5070,8 @@ _DISPATCH: dict[str, Any] = {
     ".dpr": extract_pascal,
     ".dpk": extract_pascal,
     ".inc": extract_pascal,
+    ".lfm": extract_lazarus_form,
+    ".lpk": extract_lazarus_package,
 }
 
 

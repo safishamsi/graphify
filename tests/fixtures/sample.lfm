@@ -1,0 +1,30 @@
+object SampleForm: TSampleForm
+  Left = 100
+  Top = 100
+  Caption = 'Sample Form'
+  ClientHeight = 300
+  ClientWidth = 400
+  object PanelMain: TPanel
+    Left = 0
+    Top = 0
+    Width = 400
+    Height = 260
+    object ButtonOK: TButton
+      Left = 160
+      Top = 220
+      Width = 75
+      Height = 25
+      Caption = 'OK'
+      OnClick = ButtonOKClick
+    end
+    object LabelTitle: TLabel
+      Left = 10
+      Top = 10
+      Caption = 'Title'
+    end
+  end
+  object TimerRefresh: TTimer
+    Interval = 1000
+    OnTimer = TimerRefreshTimer
+  end
+end
