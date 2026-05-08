@@ -268,3 +268,83 @@ def test_lpk_no_dangling_edges():
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids, f"Dangling source: {e}"
+
+
+# ── Delphi Form (.dfm) ───────────────────────────────────────────────────────
+
+def test_dfm_no_error():
+    from graphify.extract import extract_delphi_form
+    r = extract_delphi_form(FIXTURES / "sample.dfm")
+    assert "error" not in r
+
+
+def test_dfm_finds_root_form_class():
+    from graphify.extract import extract_delphi_form
+    r = extract_delphi_form(FIXTURES / "sample.dfm")
+    assert any("TMainForm" in l for l in _labels(r))
+
+
+def test_dfm_finds_component_classes():
+    from graphify.extract import extract_delphi_form
+    r = extract_delphi_form(FIXTURES / "sample.dfm")
+    labels = _labels(r)
+    assert any("TPanel" in l for l in labels)
+    assert any("TButton" in l for l in labels)
+    assert any("TMemo" in l for l in labels)
+    assert any("TStatusBar" in l for l in labels)
+
+
+def test_dfm_finds_event_handlers():
+    from graphify.extract import extract_delphi_form
+    r = extract_delphi_form(FIXTURES / "sample.dfm")
+    labels = _labels(r)
+    assert any("FormCreate" in l for l in labels)
+    assert any("ButtonOKClick" in l for l in labels)
+
+
+def test_dfm_event_edges_have_event_context():
+    from graphify.extract import extract_delphi_form
+    r = extract_delphi_form(FIXTURES / "sample.dfm")
+    ref_edges = [e for e in r["edges"] if e["relation"] == "references"]
+    assert ref_edges
+    assert all(e.get("context") == "event" for e in ref_edges)
+
+
+def test_dfm_contains_edges_form_hierarchy():
+    from graphify.extract import extract_delphi_form
+    r = extract_delphi_form(FIXTURES / "sample.dfm")
+    assert "contains" in _relations(r)
+
+
+def test_dfm_no_dangling_edges():
+    from graphify.extract import extract_delphi_form
+    r = extract_delphi_form(FIXTURES / "sample.dfm")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids, f"Dangling source: {e}"
+
+
+def test_dfm_binary_returns_empty_not_crash():
+    from graphify.extract import extract_delphi_form
+    import tempfile, pathlib
+    # Write a fake binary DFM (FF 0A magic header)
+    with tempfile.NamedTemporaryFile(suffix=".dfm", delete=False) as f:
+        f.write(b"\xff\x0a\x00\x00some binary data")
+        tmp = pathlib.Path(f.name)
+    try:
+        r = extract_delphi_form(tmp)
+        assert r["nodes"] == []
+        assert r["edges"] == []
+        assert "error" in r
+    finally:
+        tmp.unlink()
+
+
+def test_dfm_dispatch_registered():
+    from graphify.extract import _DISPATCH
+    assert ".dfm" in _DISPATCH
+
+
+def test_dfm_detect_extension_registered():
+    from graphify.detect import CODE_EXTENSIONS
+    assert ".dfm" in CODE_EXTENSIONS
