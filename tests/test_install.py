@@ -16,6 +16,7 @@ PLATFORMS = {
     "trae-cn": (".trae-cn/skills/graphify/SKILL.md",),
     "windows": (".claude/skills/graphify/SKILL.md",),
     "windsurf": (".windsurf/skills/graphify/SKILL.md",),
+    "forgecode": (".forgecode/skills/graphify/SKILL.md",),
 }
 
 
@@ -381,6 +382,12 @@ def test_install_windsurf(tmp_path):
     assert (tmp_path / ".windsurf" / "skills" / "graphify" / ".graphify_version").exists()
 
 
+def test_install_forgecode(tmp_path):
+    _install(tmp_path, "forgecode")
+    assert (tmp_path / ".forgecode" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".forgecode" / "skills" / "graphify" / ".graphify_version").exists()
+
+
 # ── Version stamp regression ─────────────────────────────────────────────────
 
 def test_install_refreshes_version_stamp_even_when_skill_exists(tmp_path):
@@ -407,3 +414,4 @@ def test_install_graphify_out_argument_does_not_create_skill_dir(tmp_path):
     assert not (tmp_path / "skills" / "graphify-out").exists()
     assert not (tmp_path / ".claude" / "skills" / "graphify-out").exists()
     assert not (tmp_path / ".windsurf" / "skills" / "graphify-out").exists()
+    assert not (tmp_path / ".forgecode" / "skills" / "graphify-out").exists()

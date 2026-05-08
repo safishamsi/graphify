@@ -60,7 +60,9 @@ Every extractor returns:
 2. Register the file suffix in `extract.py`'s dispatch table. `collect_files()` derives its extension set from that dispatch table.
 3. Add the suffix to `CODE_EXTENSIONS` in `detect.py`; `watch.py` imports those extension sets rather than maintaining its own copy.
 4. Add the tree-sitter package to `pyproject.toml` dependencies.
-5. Add a fixture file to `tests/fixtures/` and tests to `tests/test_languages.py`.
+5. For languages with common extensionless scripts (e.g., Bash), update `_get_extractor()` and `collect_files()` in `extract.py`, the shebang-aware `_is_code_path()` logic in `watch.py`, and the `_LANG_FAMILY` mapping in `analyze.py`.
+6. Add a display name label in `tests/bench_extract.py` for each new extension.
+7. Add a fixture file to `tests/fixtures/` and tests to `tests/test_languages.py`.
 
 ## Security
 

@@ -94,7 +94,7 @@ def test_collect_files_from_dir():
     from graphify.extract import _DISPATCH
     files = collect_files(FIXTURES)
     supported = set(_DISPATCH.keys())
-    assert all(f.suffix in supported for f in files)
+    assert all((f.suffix in supported) or not f.suffix for f in files)
     assert len(files) > 0
 
 
@@ -1209,7 +1209,8 @@ def test_dispatch_has_all_expected_extensions():
     """_DISPATCH dict has expected common extensions."""
     expected = {".py", ".js", ".ts", ".go", ".rs", ".java", ".c", ".cpp", ".rb",
                 ".cs", ".kt", ".scala", ".php", ".swift", ".lua", ".zig",
-                ".ps1", ".ex", ".m", ".jl", ".f90", ".sql", ".md"}
+                ".ps1", ".ex", ".m", ".jl", ".f90", ".sql", ".md",
+                ".sh", ".bash", ".bats"}
     assert expected.issubset(set(_DISPATCH.keys())), f"Missing: {expected - set(_DISPATCH.keys())}"
 
 
@@ -2628,3 +2629,89 @@ def test_collect_files_no_such_path():
     """collect_files with nonexistent path returns empty list."""
     result = collect_files(Path("/nonexistent/path/to/xyzzy/thing"))
     assert result == []
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ── Bash extraction tests ────────────────────────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════════════
+
+
+def test_extract_bash_finds_entrypoint_functions_and_calls():
+    from graphify.extract import extract_bash
+
+    result = extract_bash(FIXTURES / "sample.sh")
+    assert "error" not in result
+
+    labels = [n["label"] for n in result["nodes"]]
+    assert "sample.sh" in labels
+    assert "sample.sh script" in labels
+    assert "deploy()" in labels
+    assert "main()" in labels
+
+    node_by_id = {n["id"]: n["label"] for n in result["nodes"]}
+    calls = {
+        (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    }
+    assert ("main()", "deploy()") in calls
+    assert all(e["confidence"] == "EXTRACTED" for e in result["edges"] if e["relation"] == "calls")
+
+
+def test_extract_bash_records_source_imports():
+    from graphify.extract import extract_bash
+
+    result = extract_bash(FIXTURES / "sample.sh")
+    assert result["bash_sources"]
+    assert any(source["target_path"].endswith("lib.sh") for source in result["bash_sources"])
+
+
+def test_extract_bash_zero_function_script_still_has_entrypoint():
+    from graphify.extract import extract_bash
+
+    result = extract_bash(FIXTURES / "imperative.sh")
+    assert "error" not in result
+
+    labels = [n["label"] for n in result["nodes"]]
+    assert "imperative.sh" in labels
+    assert "imperative.sh script" in labels
+    assert not any(n.get("metadata", {}).get("kind") == "bash_function" for n in result["nodes"])
+
+
+def test_extract_bash_syntax_error_keeps_partial_graph():
+    from graphify.extract import extract_bash
+
+    result = extract_bash(FIXTURES / "broken.sh")
+    assert "error" not in result
+    assert result.get("parse_error") is True
+
+    labels = [n["label"] for n in result["nodes"]]
+    assert "broken.sh" in labels
+    assert "broken.sh script" in labels
+
+
+def test_extract_dispatches_bash_fixture():
+    from graphify.extract import extract
+
+    result = extract([FIXTURES / "sample.sh"], cache_root=FIXTURES, parallel=False)
+    labels = [n["label"] for n in result["nodes"]]
+    assert "deploy()" in labels
+    assert "main()" in labels
+
+
+def test_collect_files_includes_bash_extensions_and_shebang(tmp_path):
+    from graphify.extract import collect_files
+
+    sh = tmp_path / "deploy.sh"
+    bash = tmp_path / "profile.bash"
+    bats = tmp_path / "build.bats"
+    shebang = tmp_path / "release"
+    for p in (sh, bash, bats):
+        p.write_text("main() { echo ok; }\n")
+    shebang.write_text("#!/usr/bin/env bash\nmain() { echo ok; }\n")
+
+    files = collect_files(tmp_path)
+    assert sh in files
+    assert bash in files
+    assert bats in files
+    assert shebang in files

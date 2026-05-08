@@ -248,6 +248,13 @@ def test_has_non_code_no_suffix():
     assert _has_non_code([Path("Makefile")]) is True
 
 
+def test_has_non_code_extensionless_bash_is_code(tmp_path):
+    script = tmp_path / "deploy"
+    script.write_text("#!/usr/bin/env bash\nmain \"$@\"\n")
+
+    assert _has_non_code([script]) is False
+
+
 # ============================================================================
 # _notify_only
 # ============================================================================

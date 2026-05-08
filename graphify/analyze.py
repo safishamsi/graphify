@@ -16,6 +16,7 @@ _LANG_FAMILY: dict[str, str] = {
     **{e: "dotnet" for e in (".cs",)},
     **{e: "php" for e in (".php",)},
     **{e: "r" for e in (".r",)},
+    **{e: "shell" for e in (".sh", ".bash", ".bats")},
 }
 
 
@@ -130,6 +131,9 @@ def _is_concept_node(G: nx.Graph, node_id: str) -> bool:
     source = data.get("source_file", "")
     if not source:
         return True
+    # Extensionless code files (e.g., Bash shebang scripts) are real code, not concepts
+    if data.get("file_type") == "code":
+        return False
     # Has no file extension → probably a concept label, not a real file
     if "." not in source.split("/")[-1]:
         return True

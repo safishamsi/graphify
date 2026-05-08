@@ -157,6 +157,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".windsurf") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
+    "forgecode": {
+        "skill_file": "skill.md",
+        "skill_dst": Path(".forgecode") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
 }
 
 
@@ -1075,7 +1080,7 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
-        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|windsurf|gemini|cursor|antigravity|hermes|kiro|pi)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|windsurf|forgecode|gemini|cursor|antigravity|hermes|kiro|pi)")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
@@ -1167,6 +1172,8 @@ def main() -> None:
         print("  pi uninstall            remove skill from ~/.pi/agent/skills/graphify/")
         print("  windsurf install        write skill to ~/.windsurf/skills/graphify/ (Windsurf)")
         print("  windsurf uninstall      remove skill from ~/.windsurf/skills/graphify/")
+        print("  forgecode install       write skill to ~/.forgecode/skills/graphify/ (ForgeCode)")
+        print("  forgecode uninstall     remove skill from ~/.forgecode/skills/graphify/")
         print()
         return
 
@@ -1316,6 +1323,26 @@ def main() -> None:
                     break
         else:
             print("Usage: graphify windsurf [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
+    elif cmd == "forgecode":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            install("forgecode")
+        elif subcmd == "uninstall":
+            skill_dst = Path.home() / ".forgecode" / "skills" / "graphify" / "SKILL.md"
+            if skill_dst.exists():
+                skill_dst.unlink()
+                print(f"  skill removed    ->  {skill_dst}")
+            version_file = skill_dst.parent / ".graphify_version"
+            if version_file.exists():
+                version_file.unlink()
+            for d in (skill_dst.parent, skill_dst.parent.parent, skill_dst.parent.parent.parent):
+                try:
+                    d.rmdir()
+                except OSError:
+                    break
+        else:
+            print("Usage: graphify forgecode [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""

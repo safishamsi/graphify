@@ -82,6 +82,9 @@ _EXT_NAMES: dict[str, str] = {
     ".v": "Verilog",
     ".sv": "SystemVerilog",
     ".sql": "SQL",
+    ".sh": "Bash",
+    ".bash": "Bash",
+    ".bats": "Bats",
 }
 
 

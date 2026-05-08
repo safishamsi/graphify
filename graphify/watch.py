@@ -25,6 +25,23 @@ _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAG
 _CODE_EXTENSIONS = CODE_EXTENSIONS
 
 
+def _is_code_path(path: Path) -> bool:
+    """Return True if this path is a code file (detection-based, not suffix-only).
+
+    Handles extensionless files with Bash-family shebangs that suffix-only
+    checks would miss.
+    """
+    if path.suffix.lower() in _CODE_EXTENSIONS:
+        return True
+    if path.suffix:
+        return False
+    try:
+        from graphify.detect import classify_file, FileType
+        return classify_file(path) == FileType.CODE
+    except Exception:
+        return False
+
+
 def _report_root_label(watch_path: Path) -> str:
     if watch_path.is_absolute():
         return watch_path.name or str(watch_path)
@@ -269,7 +286,7 @@ def _notify_only(watch_path: Path) -> None:
 
 
 def _has_non_code(changed_paths: list[Path]) -> bool:
-    return any(p.suffix.lower() not in _CODE_EXTENSIONS for p in changed_paths)
+    return any(not _is_code_path(p) for p in changed_paths)
 
 
 def watch(watch_path: Path, debounce: float = 3.0) -> None:
@@ -300,7 +317,7 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
             if event.is_directory:
                 return
             path = Path(event.src_path)
-            if path.suffix.lower() not in _WATCHED_EXTENSIONS:
+            if path.suffix.lower() not in _WATCHED_EXTENSIONS and not _is_code_path(path):
                 return
             if any(part.startswith(".") for part in path.parts):
                 return
@@ -330,7 +347,7 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
                 changed.clear()
                 print(f"\n[graphify watch] {len(batch)} file(s) changed")
                 has_non_code = _has_non_code(batch)
-                has_code = any(p.suffix.lower() in _CODE_EXTENSIONS for p in batch)
+                has_code = any(_is_code_path(p) for p in batch)
                 if has_code:
                     _rebuild_code(watch_path)
                 if has_non_code:

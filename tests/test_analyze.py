@@ -542,3 +542,18 @@ def test_graph_diff_removed_edges_plural():
     diff = graph_diff(G_old, G_new)
     assert len(diff["removed_edges"]) == 2
     assert "2 edges removed" in diff["summary"]
+
+
+def test_cross_language_shell_family_same_language():
+    from graphify.analyze import _cross_language
+
+    assert _cross_language("scripts/deploy.sh", "scripts/lib.bash") is False
+
+
+def test_extensionless_code_source_is_not_concept_node():
+    import networkx as nx
+    from graphify.analyze import _is_concept_node
+
+    G = nx.Graph()
+    G.add_node("deploy", label="deploy", file_type="code", source_file="deploy")
+    assert _is_concept_node(G, "deploy") is False

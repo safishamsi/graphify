@@ -252,3 +252,79 @@ def test_sql_no_dangling_edges():
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids, f"dangling source: {e['source']}"
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# ── Bash cross-file source resolution tests ───────────────────────────────────
+# ═══════════════════════════════════════════════════════════════════════════════
+
+
+def test_extract_bash_resolves_sourced_function_calls(tmp_path):
+    from graphify.extract import extract
+
+    lib = tmp_path / "lib.sh"
+    lib.write_text(
+        "#!/usr/bin/env bash\n"
+        "build_artifact() {\n"
+        "  echo building\n"
+        "}\n"
+    )
+    app = tmp_path / "deploy.sh"
+    app.write_text(
+        "#!/usr/bin/env bash\n"
+        "source ./lib.sh\n"
+        "main() {\n"
+        "  build_artifact\n"
+        "}\n"
+    )
+
+    result = extract([lib, app], cache_root=tmp_path, parallel=False)
+    node_by_id = {n["id"]: n["label"] for n in result["nodes"]}
+    calls = [
+        (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]), e)
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    ]
+
+    assert any(src == "main()" and tgt == "build_artifact()" and e["confidence"] == "EXTRACTED"
+               for src, tgt, e in calls)
+    assert any(e["relation"] == "imports_from" for e in result["edges"])
+
+
+def test_extract_bash_circular_sourcing_terminates(tmp_path):
+    from graphify.extract import extract
+
+    a = tmp_path / "a.sh"
+    b = tmp_path / "b.sh"
+    a.write_text("#!/usr/bin/env bash\nsource ./b.sh\na_main() { b_func; }\n")
+    b.write_text("#!/usr/bin/env bash\nsource ./a.sh\nb_func() { echo ok; }\n")
+
+    result = extract([a, b], cache_root=tmp_path, parallel=False)
+    imports = [e for e in result["edges"] if e["relation"] == "imports_from"]
+    assert len(imports) == 2
+
+    node_by_id = {n["id"]: n["label"] for n in result["nodes"]}
+    calls = {
+        (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    }
+    assert ("a_main()", "b_func()") in calls
+
+
+def test_bash_raw_calls_do_not_resolve_to_python_without_source_evidence(tmp_path):
+    from graphify.extract import extract
+
+    py = tmp_path / "helper.py"
+    sh = tmp_path / "deploy.sh"
+    py.write_text("def helper():\n    return 1\n")
+    sh.write_text("#!/usr/bin/env bash\nmain() { helper; }\n")
+
+    result = extract([py, sh], cache_root=tmp_path, parallel=False)
+    node_by_id = {n["id"]: n["label"] for n in result["nodes"]}
+    assert not any(
+        e["relation"] == "calls"
+        and node_by_id.get(e["source"]) == "main()"
+        and node_by_id.get(e["target"]) == "helper()"
+        for e in result["edges"]
+    )

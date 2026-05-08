@@ -783,12 +783,12 @@ If new/changed files exist, first check whether all changed files are code files
 $(cat graphify-out/.graphify_python) -c "
 import json
 from pathlib import Path
-from graphify.detect import CODE_EXTENSIONS
+from graphify.detect import FileType, classify_file
 
 result = json.loads(open('graphify-out/.graphify_incremental.json').read()) if Path('graphify-out/.graphify_incremental.json').exists() else {}
 new_files = result.get('new_files', {})
 all_changed = [f for files in new_files.values() for f in files]
-code_only = bool(all_changed) and all(Path(f).suffix.lower() in CODE_EXTENSIONS for f in all_changed)
+code_only = bool(all_changed) and all(classify_file(Path(f)) == FileType.CODE for f in all_changed)
 print('code_only:', code_only)
 "
 ```

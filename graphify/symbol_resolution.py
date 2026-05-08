@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import ast
+import re
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -308,3 +309,104 @@ def resolve_cross_file_raw_calls(
         )
 
     return resolved
+
+
+def _bash_make_id(*parts: str) -> str:
+    """Local copy of Graphify's node-id normalization to avoid an import cycle."""
+    combined = "_".join(p.strip("._") for p in parts if p)
+    cleaned = re.sub(r"[^a-zA-Z0-9]+", "_", combined)
+    return cleaned.strip("_").lower()
+
+
+def _file_node_id_for_path(path: Path, root: Path) -> str:
+    try:
+        return _bash_make_id(str(path.resolve().relative_to(root.resolve())))
+    except ValueError:
+        return _bash_make_id(str(path))
+
+
+def resolve_bash_source_edges(
+    per_file: list[dict],
+    paths: list[Path],
+    root: Path,
+    existing_edges: list[dict] | None = None,
+) -> list[dict]:
+    """Resolve Bash source/import edges and source-backed function calls."""
+    path_by_index = [Path(p).resolve() for p in paths]
+    file_nid_by_path = {
+        p: _file_node_id_for_path(p, root)
+        for p in path_by_index
+    }
+
+    functions_by_file: dict[str, dict[str, str]] = {}
+    for result, path in zip(per_file, path_by_index):
+        file_nid = file_nid_by_path[path]
+        for node in result.get("nodes", []):
+            if node.get("metadata", {}).get("kind") != "bash_function":
+                continue
+            name = str(node.get("label", "")).removesuffix("()")
+            if name:
+                functions_by_file.setdefault(file_nid, {})[name] = node["id"]
+
+    sourced_files: dict[str, set[str]] = {}
+    resolved_edges: list[dict] = []
+    existing = existing_edge_pairs(existing_edges or [])
+
+    for result, path in zip(per_file, path_by_index):
+        src_file_nid = file_nid_by_path[path]
+        for source in result.get("bash_sources", []):
+            target_path = Path(source["target_path"]).resolve()
+            target_file_nid = file_nid_by_path.get(target_path)
+            if target_file_nid is None:
+                continue
+            sourced_files.setdefault(src_file_nid, set()).add(target_file_nid)
+            key = (src_file_nid, target_file_nid, "imports_from")
+            if key in existing:
+                continue
+            existing.add(key)
+            resolved_edges.append({
+                "source": src_file_nid,
+                "target": target_file_nid,
+                "relation": "imports_from",
+                "context": "import",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": source.get("source_file", str(path)),
+                "source_location": source.get("source_location", ""),
+                "weight": 1.0,
+            })
+
+    for result, path in zip(per_file, path_by_index):
+        caller_file_nid = file_nid_by_path[path]
+        imported_file_ids = sourced_files.get(caller_file_nid, set())
+        if not imported_file_ids:
+            continue
+        for raw_call in result.get("raw_calls", []):
+            if raw_call.get("language") != "bash":
+                continue
+            callee = raw_call.get("callee")
+            matches = [
+                functions_by_file[file_nid][callee]
+                for file_nid in imported_file_ids
+                if callee in functions_by_file.get(file_nid, {})
+            ]
+            if len(matches) != 1:
+                continue
+            target = matches[0]
+            key = (raw_call["caller_nid"], target, "calls")
+            if key in existing:
+                continue
+            existing.add(key)
+            resolved_edges.append({
+                "source": raw_call["caller_nid"],
+                "target": target,
+                "relation": "calls",
+                "context": "call",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": raw_call.get("source_file", str(path)),
+                "source_location": raw_call.get("source_location", ""),
+                "weight": 1.0,
+            })
+
+    return resolved_edges

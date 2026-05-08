@@ -637,7 +637,7 @@ def test_serve_initialization(tmp_path):
     mock_streams = (MagicMock(), MagicMock())
     mock_stdio_server.return_value.__aenter__ = MagicMock(return_value=mock_streams)
 
-    mock_asyncio_run = MagicMock()
+    mock_asyncio_run = MagicMock(side_effect=lambda coro: coro.close())
     mock_filter = MagicMock()
 
     # Use proper module objects to prevent real mcp from being loaded
@@ -744,7 +744,7 @@ def _serve_and_capture_all_handlers(graph_path: str):
     mock_mcp.types = mock_types
 
     mock_filter = MagicMock()
-    mock_asyncio_run = MagicMock()
+    mock_asyncio_run = MagicMock(side_effect=lambda coro: coro.close())
 
     with patch("graphify.serve._filter_blank_stdin", mock_filter):
         with patch.dict(sys.modules, {

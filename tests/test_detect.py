@@ -2305,3 +2305,34 @@ def test_manifest_root_with_dotfile(tmp_path):
 
     result = _manifest_root(str(manifest))
     assert result == (tmp_path / "custom_root").resolve()
+
+
+def test_classify_file_shell_extensions():
+    assert classify_file(Path("deploy.sh")) == FileType.CODE
+    assert classify_file(Path("profile.bash")) == FileType.CODE
+    assert classify_file(Path("build.bats")) == FileType.CODE
+
+
+def test_shebang_file_type_env_s_bash(tmp_path):
+    from graphify.detect import _shebang_file_type
+
+    f = tmp_path / "deploy"
+    f.write_text("#!/usr/bin/env -S bash -e\nmain \"$@\"\n")
+    assert _shebang_file_type(f) == FileType.CODE
+
+
+def test_detect_includes_bash_extensions(tmp_path):
+    for name in ("deploy.sh", "profile.bash", "build.bats"):
+        (tmp_path / name).write_text("main() { echo ok; }\n")
+
+    result = detect(tmp_path)
+    names = {Path(p).name for p in result["files"]["code"]}
+    assert {"deploy.sh", "profile.bash", "build.bats"}.issubset(names)
+
+
+def test_detect_includes_extensionless_bash_shebang(tmp_path):
+    script = tmp_path / "deploy"
+    script.write_text("#!/usr/bin/env bash\nmain \"$@\"\n")
+
+    result = detect(tmp_path)
+    assert any(Path(p).name == "deploy" for p in result["files"]["code"])

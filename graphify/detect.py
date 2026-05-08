@@ -4,6 +4,7 @@ import fnmatch
 import json
 import os
 import re
+import shlex
 from enum import Enum
 from pathlib import Path
 
@@ -24,7 +25,7 @@ class FileType(str, Enum):
 
 _MANIFEST_PATH = "graphify-out/manifest.json"
 
-CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.mjs', '.ejs', '.go', '.rs', '.java', '.groovy', '.gradle', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.luau', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.dart', '.v', '.sv', '.sql', '.r', '.f', '.F', '.f90', '.F90', '.f95', '.F95', '.f03', '.F03', '.f08', '.F08'}
+CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.mjs', '.ejs', '.go', '.rs', '.java', '.groovy', '.gradle', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.luau', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.dart', '.v', '.sv', '.sql', '.r', '.sh', '.bash', '.bats', '.f', '.F', '.f90', '.F90', '.f95', '.F95', '.f03', '.F03', '.f08', '.F08'}
 DOC_EXTENSIONS = {'.md', '.mdx', '.qmd', '.txt', '.rst', '.html', '.yaml', '.yml', '.json', '.jsonc'}
 PAPER_EXTENSIONS = {'.pdf'}
 IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'}
@@ -92,24 +93,37 @@ _SHEBANG_CODE_INTERPRETERS = {
 }
 
 
-def _shebang_file_type(path: Path) -> FileType | None:
-    """Peek at the first line of an extensionless file for a shebang."""
+def _shebang_interpreter(path: Path) -> str | None:
+    """Return the basename of the interpreter named by a shebang."""
     try:
         with path.open("rb") as f:
-            first = f.read(128)
+            first = f.read(256)
         if not first.startswith(b"#!"):
             return None
-        line = first.split(b"\n")[0].decode(errors="replace")
-        parts = line[2:].strip().split()
+        line = first.split(b"\n")[0].decode(errors="replace")[2:].strip()
+        parts = shlex.split(line)
         if not parts:
             return None
-        interp = parts[0].split("/")[-1]  # /usr/bin/env → env
-        if interp == "env" and len(parts) > 1:
-            interp = parts[1].split("/")[-1]
-        if interp in _SHEBANG_CODE_INTERPRETERS:
-            return FileType.CODE
-    except OSError:
-        pass
+        interp = Path(parts[0]).name
+        if interp == "env":
+            env_args = parts[1:]
+            if env_args and env_args[0] == "-S":
+                env_args = shlex.split(" ".join(env_args[1:]))
+            while env_args and (env_args[0].startswith("-") or "=" in env_args[0]):
+                env_args = env_args[1:]
+            if not env_args:
+                return None
+            interp = Path(env_args[0]).name
+        return interp
+    except (OSError, ValueError):
+        return None
+
+
+def _shebang_file_type(path: Path) -> FileType | None:
+    """Peek at the first line of an extensionless file for a shebang."""
+    interp = _shebang_interpreter(path)
+    if interp in _SHEBANG_CODE_INTERPRETERS:
+        return FileType.CODE
     return None
 
 

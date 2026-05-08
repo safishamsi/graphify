@@ -138,7 +138,7 @@ Uninstall with the matching command (e.g. `graphify claude uninstall`).
 
 | Type | Extensions |
 |------|-----------|
-| Code (28 languages) | `.py .ts .js .jsx .tsx .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .luau .zig .ps1 .ex .exs .m .jl .vue .svelte .groovy .gradle .sql .f .F .f90 .F90 .f95 .F95 .f03 .F03 .f08 .F08` |
+| Code (29 languages) | `.py .ts .js .jsx .tsx .go .rs .java .c .cpp .rb .cs .kt .scala .php .swift .lua .luau .zig .ps1 .ex .exs .m .jl .vue .svelte .groovy .gradle .sql .sh .bash .bats .f .F .f90 .F90 .f95 .F95 .f03 .F03 .f08 .F08` |
 | Docs | `.md .mdx .qmd .html .txt .rst .yaml .yml .json .jsonc` |
 | Office | `.docx .xlsx` (requires `pip install graphifyy[office]`) |
 | Google Workspace | `.gdoc .gsheet .gslides` (opt-in; requires `gws` auth and `--google-workspace`; Sheets need `pip install graphifyy[google]`) |
@@ -148,6 +148,9 @@ Uninstall with the matching command (e.g. `graphify claude uninstall`).
 | YouTube / URLs | any video URL (requires `pip install graphifyy[video]`) |
 
 Code is extracted locally with no API calls (AST via tree-sitter). Everything else goes through your AI assistant's model API.
+
+Extensionless scripts with Bash-family shebangs such as `#!/usr/bin/env bash`
+are also treated as code.
 
 Google Drive for desktop `.gdoc`, `.gsheet`, and `.gslides` files are shortcut
 pointers, not document content. To include native Google Docs, Sheets, and Slides
