@@ -252,3 +252,30 @@ def test_sql_no_dangling_edges():
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids, f"dangling source: {e['source']}"
+
+def test_sql_alter_table_fk_edge():
+    """ALTER TABLE ... FOREIGN KEY ... REFERENCES produces a references edge."""
+    r = extract_sql(FIXTURES / "sample_alter_fk.sql")
+    fk_edges = [e for e in r["edges"] if e["relation"] == "references"]
+    assert len(fk_edges) >= 1
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in fk_edges:
+        assert e["source"] in node_ids, f"dangling source: {e['source']}"
+        assert e["target"] in node_ids, f"dangling target: {e['target']}"
+
+def test_sql_schema_qualified_names():
+    """Schema-qualified table names (Schema.Table) are preserved."""
+    r = extract_sql(FIXTURES / "sample_schema_qualified.sql")
+    labels = [n["label"] for n in r["nodes"]]
+    assert any("Sales.Customer" in l for l in labels)
+    assert any("Sales.SalesOrder" in l for l in labels)
+
+def test_sql_schema_qualified_alter_fk():
+    """ALTER TABLE with schema-qualified names produces correct edges."""
+    r = extract_sql(FIXTURES / "sample_schema_qualified.sql")
+    fk_edges = [e for e in r["edges"] if e["relation"] == "references"]
+    assert len(fk_edges) >= 1
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in fk_edges:
+        assert e["source"] in node_ids, f"dangling source: {e['source']}"
+        assert e["target"] in node_ids, f"dangling target: {e['target']}"
