@@ -790,16 +790,22 @@ def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict:
         return {}
 
 
-def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PATH) -> None:
+def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PATH, *, root: Path | None = None) -> None:
     """Save current file mtimes + content hashes for change detection on --update."""
+    if root is None:
+        mp = Path(manifest_path).parent
+        root = mp.parent if mp.name == "graphify-out" else mp
+    root = root.resolve()
     manifest: dict[str, dict] = {}
     for file_list in files.values():
         for f in file_list:
             try:
                 p = Path(f)
-                manifest[f] = {"mtime": p.stat().st_mtime, "hash": _md5_file(p)}
-            except OSError:
-                pass  # file deleted between detect() and manifest write - skip it
+                rp = p.resolve() if p.is_absolute() else p
+                key = str(rp.relative_to(root)) if p.is_absolute() else f
+                manifest[key] = {"mtime": p.stat().st_mtime, "hash": _md5_file(p)}
+            except (OSError, ValueError):
+                pass  # file deleted or outside root - skip it
     Path(manifest_path).parent.mkdir(parents=True, exist_ok=True)
     Path(manifest_path).write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
@@ -825,6 +831,7 @@ def detect_incremental(
     incremental runs.
     """
     full = detect(root, follow_symlinks=follow_symlinks, google_workspace=google_workspace)
+    root = root.resolve()
     manifest = load_manifest(manifest_path)
 
     if not manifest:
@@ -840,9 +847,12 @@ def detect_incremental(
 
     for ftype, file_list in full["files"].items():
         for f in file_list:
-            stored = manifest.get(f)
+            fp = Path(f)
+            rfp = fp.resolve() if fp.is_absolute() else fp
+            rel_key = str(rfp.relative_to(root)) if fp.is_absolute() else f
+            stored = manifest.get(f) or manifest.get(rel_key)
             try:
-                current_mtime = Path(f).stat().st_mtime
+                current_mtime = fp.stat().st_mtime
             except Exception:
                 current_mtime = 0
 
@@ -866,7 +876,17 @@ def detect_incremental(
 
     # Files in manifest that no longer exist - their cached nodes are now ghost nodes
     current_files = {f for flist in full["files"].values() for f in flist}
-    deleted_files = [f for f in manifest if f not in current_files]
+    current_rel = set()
+    for f in current_files:
+        fp = Path(f)
+        if fp.is_absolute():
+            try:
+                current_rel.add(str(fp.resolve().relative_to(root)))
+            except ValueError:
+                pass
+        else:
+            current_rel.add(f)
+    deleted_files = [f for f in manifest if f not in current_files and f not in current_rel]
 
     new_total = sum(len(v) for v in new_files.values())
     full["incremental"] = True
