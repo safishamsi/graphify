@@ -4540,6 +4540,7 @@ def extract_markdown(path: Path) -> dict:
 # ── Pascal / Delphi extractor ─────────────────────────────────────────────────
 
 _pascal_unit_cache: dict[str, dict[str, str]] = {}
+_pascal_class_stem_cache: dict[str, dict[str, str]] = {}  # root_key → {stem_lower: _file_stem}
 
 
 def _pascal_project_root(from_path: Path) -> Path:
@@ -4589,6 +4590,34 @@ def _pascal_resolve_unit(from_path: Path, unit_name: str) -> str:
                 unit_map[f.stem.lower()] = _make_id(str(f))
         _pascal_unit_cache[root_key] = unit_map
     return _pascal_unit_cache[root_key].get(unit_name.lower(), _make_id(unit_name))
+
+
+def _pascal_resolve_class(from_path: Path, class_name: str) -> str | None:
+    """Resolve a Pascal class/interface name to the node ID of its defining file's class node.
+
+    Pascal convention: TFooBar is defined in FooBar.pas, IFooBar in FooBar.pas.
+    Strips the leading T/I prefix, finds the file, and returns
+    _make_id(_file_stem(found_file), class_name).
+
+    Returns None when no matching file is found on disk (RTL, stdlib, or
+    unconventionally-named class — caller should create a stub node).
+    """
+    prefix = class_name[:1]
+    unit_name = class_name[1:] if prefix in ("T", "I") else class_name
+
+    root = _pascal_project_root(from_path)
+    root_key = str(root)
+    if root_key not in _pascal_class_stem_cache:
+        stem_map: dict[str, str] = {}
+        for ext in (".pas", ".pp", ".dpr", ".dpk"):
+            for f in root.rglob("*" + ext):
+                stem_map[f.stem.lower()] = _file_stem(f)
+        _pascal_class_stem_cache[root_key] = stem_map
+
+    file_stem = _pascal_class_stem_cache[root_key].get(unit_name.lower())
+    if file_stem:
+        return _make_id(file_stem, class_name)
+    return None
 
 
 def extract_pascal(path: Path) -> dict:
@@ -4712,8 +4741,16 @@ def extract_pascal(path: Path) -> dict:
                 add_edge(parent_nid, cls_nid, "contains", line)
                 for child in kind_node.children:
                     if child.type == "typeref":
-                        add_edge(cls_nid, _make_id(_read(child)), "inherits", line)
-                        break
+                        base_name = _read(child)
+                        base_nid = _make_id(stem, base_name)
+                        if base_nid not in seen_ids:
+                            # Try cross-file resolution (TFooBar → FooBar.pas)
+                            resolved = _pascal_resolve_class(path, base_name)
+                            base_nid = resolved if resolved else _make_id(base_name)
+                            if base_nid not in seen_ids:
+                                # Stub for RTL/external/cross-file base classes
+                                add_node(base_nid, base_name, line)
+                        add_edge(cls_nid, base_nid, "inherits", line)
                 for child in kind_node.children:
                     walk(child, cls_nid)
                 return

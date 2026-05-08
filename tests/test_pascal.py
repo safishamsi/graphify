@@ -140,8 +140,12 @@ def test_pascal_no_dangling_edges():
     from graphify.extract import extract_pascal
     r = extract_pascal(FIXTURES / "sample.pas")
     node_ids = {n["id"] for n in r["nodes"]}
+    # imports edges are cross-file by design; only check within-file edge targets
+    within_file_relations = {"contains", "method", "inherits", "calls"}
     for e in r["edges"]:
         assert e["source"] in node_ids, f"Dangling source: {e}"
+        if e["relation"] in within_file_relations:
+            assert e["target"] in node_ids, f"Dangling target: {e}"
 
 
 @pascal_required
