@@ -155,6 +155,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".kimi") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
+    "amp": {
+        "skill_file": "skill-amp.md",
+        "skill_dst": Path(".amp") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
 }
 
 
@@ -1344,7 +1349,7 @@ def main() -> None:
         else:
             print("Usage: graphify pi [install|uninstall]", file=sys.stderr)
             sys.exit(1)
-    elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
+    elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes", "amp"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
             _agents_install(Path("."), cmd)
