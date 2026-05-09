@@ -31,6 +31,9 @@ Turn any folder of files into a navigable knowledge graph with community detecti
 /graphify <path> --watch                              # watch folder, auto-rebuild on code changes (no LLM needed)
 /graphify <path> --wiki                               # build agent-crawlable wiki (index.md + one article per community)
 /graphify <path> --obsidian --obsidian-dir ~/vaults/my-project  # write vault to custom path (e.g. existing vault)
+/graphify <path> --db                                 # persist as graph.db (SQLite) instead of graph.json — opt-in on fresh KBs
+/graphify migrate-store --to db                       # convert an existing graph.json knowledge base to graph.db
+/graphify migrate-store --to json                     # convert an existing graph.db knowledge base to graph.json
 /graphify add <url>                                   # fetch URL, save to ./raw, update graph
 /graphify add <url> --author "Name"                   # tag who wrote it
 /graphify add <url> --contributor "Name"              # tag who added it to the corpus
@@ -50,6 +53,8 @@ Drop any folder of code, docs, papers, images, or video into graphify and get a 
 If no path was given, use `.` (current directory). Do not ask the user for a path.
 
 If the path argument starts with `https://github.com/` or `http://github.com/`, treat it as a GitHub URL — run Step 0 before anything else, then continue with the resolved local path.
+
+**Backend selection.** A knowledge base persists as either `graphify-out/graph.json` (default) or `graphify-out/graph.db` (SQLite, opt-in). Only one may exist per KB; the dispatcher errors if both are present. Track whether the user passed `--db`: if so, set `USE_DB = True` for Step 4's save; otherwise `USE_DB = False`. Subsequent `--update` / `--cluster-only` runs auto-detect the existing backend and write back to it without needing the flag again.
 
 Follow these steps in order. Do not skip steps.
 
@@ -469,7 +474,7 @@ from graphify.build import build_from_json
 from graphify.cluster import cluster, score_all
 from graphify.analyze import god_nodes, surprising_connections, suggest_questions
 from graphify.report import generate
-from graphify.export import to_json
+from graphify.store import save as _gx_save
 from pathlib import Path
 
 extraction = json.loads(Path('graphify-out/.graphify_extract.json').read_text())
@@ -487,7 +492,8 @@ questions = suggest_questions(G, communities, labels)
 
 report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, 'INPUT_PATH', suggested_questions=questions)
 Path('graphify-out/GRAPH_REPORT.md').write_text(report)
-to_json(G, communities, 'graphify-out/graph.json')
+# Backend-aware save: respects existing graph.json or graph.db; pass backend='db' for fresh --db builds.
+_gx_save('graphify-out', G, communities, backend=('db' if USE_DB else None))
 
 analysis = {
     'communities': {str(k): v for k, v in communities.items()},
@@ -610,8 +616,10 @@ graphify export graphml
 ### Step 7d - MCP server (only if --mcp flag)
 
 ```bash
-python3 -m graphify.serve graphify-out/graph.json
+python3 -m graphify.serve graphify-out
 ```
+
+(Pass the `graphify-out/` directory; the server auto-detects whether the KB is `graph.json` or `graph.db`.)
 
 This starts a stdio MCP server that exposes tools: `query_graph`, `get_node`, `get_neighbors`, `get_community`, `god_nodes`, `graph_stats`, `shortest_path`. Add to Claude Desktop or any MCP-compatible agent orchestrator so other agents can query the graph live.
 
@@ -621,7 +629,7 @@ To configure in Claude Desktop, add to `claude_desktop_config.json`:
   "mcpServers": {
     "graphify": {
       "command": "python3",
-      "args": ["-m", "graphify.serve", "/absolute/path/to/graphify-out/graph.json"]
+      "args": ["-m", "graphify.serve", "/absolute/path/to/graphify-out"]
     }
   }
 }
@@ -680,13 +688,13 @@ rm -f graphify-out/.graphify_detect.json graphify-out/.graphify_extract.json gra
 rm -f graphify-out/.needs_update 2>/dev/null || true
 ```
 
-Tell the user (omit the obsidian line unless --obsidian was given):
+Tell the user (replace `graph.json` with `graph.db` if `--db` was given; omit the obsidian line unless `--obsidian` was given):
 ```
 Graph complete. Outputs in PATH_TO_DIR/graphify-out/
 
   graph.html            - interactive graph, open in browser
   GRAPH_REPORT.md       - audit report
-  graph.json            - raw graph data
+  graph.json            - raw graph data (or graph.db if --db was given)
   obsidian/             - Obsidian vault (only if --obsidian was given)
 ```
 
@@ -776,14 +784,12 @@ Then:
 $(cat graphify-out/.graphify_python) -c "
 import sys, json
 from graphify.build import build_from_json
-from graphify.export import to_json
-from networkx.readwrite import json_graph
+from graphify.store import load as _gx_load
 import networkx as nx
 from pathlib import Path
 
-# Load existing graph
-existing_data = json.loads(Path('graphify-out/graph.json').read_text())
-G_existing = json_graph.node_link_graph(existing_data, edges='links')
+# Load existing graph (backend-aware: graph.json or graph.db)
+G_existing = _gx_load('graphify-out')
 
 # Load new extraction
 new_extraction = json.loads(Path('graphify-out/.graphify_extract.json').read_text())
@@ -834,17 +840,16 @@ $(cat graphify-out/.graphify_python) -c "
 import json
 from graphify.analyze import graph_diff
 from graphify.build import build_from_json
-from networkx.readwrite import json_graph
-import networkx as nx
+from graphify.store import backup_path as _gx_backup_path, load_path as _gx_load_path
 from pathlib import Path
 
-# Load old graph (before update) from backup written before merge
-old_data = json.loads(Path('graphify-out/.graphify_old.json').read_text()) if Path('graphify-out/.graphify_old.json').exists() else None
+# Load old graph (before update) from backend-aware backup written before merge
+old_path = _gx_backup_path('graphify-out')
+G_old = _gx_load_path(old_path) if old_path else None
 new_extract = json.loads(Path('graphify-out/.graphify_extract.json').read_text())
 G_new = build_from_json(new_extract)
 
-if old_data:
-    G_old = json_graph.node_link_graph(old_data, edges='links')
+if G_old is not None:
     diff = graph_diff(G_old, G_new)
     print(diff['summary'])
     if diff['new_nodes']:
@@ -854,8 +859,14 @@ if old_data:
 "
 ```
 
-Before the merge step, save the old graph: `cp graphify-out/graph.json graphify-out/.graphify_old.json`
-Clean up after: `rm -f graphify-out/.graphify_old.json`
+Before the merge step, snapshot the existing graph (backend-aware):
+```bash
+$(cat graphify-out/.graphify_python) -c "from graphify.store import make_backup; make_backup('graphify-out')"
+```
+Clean up after:
+```bash
+$(cat graphify-out/.graphify_python) -c "from graphify.store import remove_backup; remove_backup('graphify-out')"
+```
 
 ---
 

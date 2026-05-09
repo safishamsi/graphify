@@ -2,16 +2,17 @@ name: CI
 
 on:
   push:
-    branches: ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "main"]
-  pull_request:
-    branches: ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "main"]
+    branches: ['**']
   workflow_dispatch:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    name: Test on ${{ matrix.os }} (Python ${{ matrix.python-version }})
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ["3.10", "3.12"]
 
     steps:
@@ -24,7 +25,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -e ".[mcp,pdf,watch,sql]"
+          python -m pip install --upgrade pip
+          pip install -e ".[all]"
           pip install pytest
 
       - name: Run tests

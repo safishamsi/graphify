@@ -20,7 +20,10 @@ _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
 
 
 def _default_graph_path() -> str:
-    return str(Path(_GRAPHIFY_OUT) / "graph.json")
+    out = Path(_GRAPHIFY_OUT)
+    if (out / "graph.db").exists() and not (out / "graph.json").exists():
+        return str(out / "graph.db")
+    return str(out / "graph.json")
 
 
 def _check_skill_version(skill_dst: Path) -> None:
@@ -1419,19 +1422,12 @@ def main() -> None:
         if not gp.exists():
             print(f"error: graph file not found: {gp}", file=sys.stderr)
             sys.exit(1)
-        if not gp.suffix == ".json":
-            print(f"error: graph file must be a .json file", file=sys.stderr)
+        if gp.suffix not in (".json", ".db") and not gp.is_dir():
+            print(f"error: graph file must be a .json file, .db file, or directory", file=sys.stderr)
             sys.exit(1)
         try:
-            import json as _json
-            import networkx as _nx
-            _raw = _json.loads(gp.read_text(encoding="utf-8"))
-            if "links" not in _raw and "edges" in _raw:
-                _raw = dict(_raw, links=_raw["edges"])
-            try:
-                G = json_graph.node_link_graph(_raw, edges="links")
-            except TypeError:
-                G = json_graph.node_link_graph(_raw)
+            from graphify.store import load_path as _load_path
+            G = _load_path(gp)
         except Exception as exc:
             print(f"error: could not load graph: {exc}", file=sys.stderr)
             sys.exit(1)
@@ -1482,13 +1478,8 @@ def main() -> None:
         if not gp.exists():
             print(f"error: graph file not found: {gp}", file=sys.stderr)
             sys.exit(1)
-        _raw = json.loads(gp.read_text(encoding="utf-8"))
-        if "links" not in _raw and "edges" in _raw:
-            _raw = dict(_raw, links=_raw["edges"])
-        try:
-            G = json_graph.node_link_graph(_raw, edges="links")
-        except TypeError:
-            G = json_graph.node_link_graph(_raw)
+        from graphify.store import load_path as _load_path
+        G = _load_path(gp)
         src_scored = _score_nodes(G, [t.lower() for t in source_label.split()])
         tgt_scored = _score_nodes(G, [t.lower() for t in target_label.split()])
         if not src_scored:
@@ -1532,13 +1523,8 @@ def main() -> None:
         if not gp.exists():
             print(f"error: graph file not found: {gp}", file=sys.stderr)
             sys.exit(1)
-        _raw = json.loads(gp.read_text(encoding="utf-8"))
-        if "links" not in _raw and "edges" in _raw:
-            _raw = dict(_raw, links=_raw["edges"])
-        try:
-            G = json_graph.node_link_graph(_raw, edges="links")
-        except TypeError:
-            G = json_graph.node_link_graph(_raw)
+        from graphify.store import load_path as _load_path
+        G = _load_path(gp)
         matches = _find_node(G, label)
         if not matches:
             print(f"No node matching '{label}' found.")
@@ -1627,7 +1613,10 @@ def main() -> None:
         if watch_path is None:
             watch_path = Path(".")
         graph_json = graph_override if graph_override is not None else watch_path / "graphify-out" / "graph.json"
-        if not graph_json.exists():
+        from graphify import store as _store
+        _db_path = watch_path / "graphify-out" / "graph.db"
+        _use_db = graph_override is None and _db_path.exists() and not graph_json.exists()
+        if not _use_db and not graph_json.exists():
             print(f"error: no graph found at {graph_json} — run /graphify first", file=sys.stderr)
             sys.exit(1)
         from networkx.readwrite import json_graph as _jg
@@ -1637,9 +1626,12 @@ def main() -> None:
         from graphify.report import generate
         from graphify.export import to_json, to_html
         print("Loading existing graph...")
-        _raw = json.loads(graph_json.read_text(encoding="utf-8"))
-        _directed = bool(_raw.get("directed", False))
-        G = build_from_json(_raw, directed=_directed)
+        if _use_db:
+            G = _store.load(watch_path / "graphify-out")
+        else:
+            _raw = json.loads(graph_json.read_text(encoding="utf-8"))
+            _directed = bool(_raw.get("directed", False))
+            G = build_from_json(_raw, directed=_directed)
         print(f"Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
         print("Re-clustering...")
         communities = cluster(G)
@@ -1664,7 +1656,7 @@ def main() -> None:
                           tokens, str(watch_path), suggested_questions=questions,
                           min_community_size=min_community_size, built_at_commit=_commit)
         (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
-        to_json(G, communities, str(out / "graph.json"))
+        _store.save(out, G, communities)
         labels_path.write_text(json.dumps({str(k): v for k, v in labels.items()}, ensure_ascii=False), encoding="utf-8")
 
         # Mirror watch.py pattern: gate to_html so core outputs (graph.json +
@@ -1672,19 +1664,20 @@ def main() -> None:
         # fall back to ValueError handling so an oversized graph doesn't crash
         # the CLI mid-write and leave a stale graph.html on disk.
         html_target = out / "graph.html"
+        _artifact = _store.artifact_name(out)
         if no_viz:
             if html_target.exists():
                 html_target.unlink()
-            print(f"Done — {len(communities)} communities. GRAPH_REPORT.md and graph.json updated (--no-viz; graph.html removed).")
+            print(f"Done — {len(communities)} communities. GRAPH_REPORT.md and {_artifact} updated (--no-viz; graph.html removed).")
         else:
             try:
                 to_html(G, communities, str(html_target), community_labels=labels or None)
-                print(f"Done — {len(communities)} communities. GRAPH_REPORT.md, graph.json and graph.html updated.")
+                print(f"Done — {len(communities)} communities. GRAPH_REPORT.md, {_artifact} and graph.html updated.")
             except ValueError as viz_err:
                 if html_target.exists():
                     html_target.unlink()
                 print(f"Skipped graph.html: {viz_err}")
-                print(f"Done — {len(communities)} communities. GRAPH_REPORT.md and graph.json updated.")
+                print(f"Done — {len(communities)} communities. GRAPH_REPORT.md and {_artifact} updated.")
 
     elif cmd == "update":
         force = os.environ.get("GRAPHIFY_FORCE", "").lower() in ("1", "true", "yes")
@@ -1720,6 +1713,34 @@ def main() -> None:
             print("Nothing to update or rebuild failed — check output above.", file=sys.stderr)
             sys.exit(1)
 
+    elif cmd == "migrate-store":
+        # graphify migrate-store --to <json|db>  — convert between backends
+        target_backend = None
+        for j, a in enumerate(sys.argv[2:]):
+            if a == "--to" and j + 1 < len(sys.argv[2:]):
+                target_backend = sys.argv[2:][j + 1]
+                break
+            if a.startswith("--to="):
+                target_backend = a.split("=", 1)[1]
+                break
+        if target_backend not in ("json", "db"):
+            print("Usage: graphify migrate-store --to <json|db>", file=sys.stderr)
+            sys.exit(1)
+        from graphify import store as _store_mig
+        out_dir_path = Path(_GRAPHIFY_OUT)
+        try:
+            src, tgt = _store_mig.migrate(out_dir_path, target_backend)
+        except FileNotFoundError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            sys.exit(1)
+        except RuntimeError as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            sys.exit(1)
+        if src == tgt:
+            print(f"already on {tgt} backend, nothing to migrate.")
+        else:
+            print(f"migrated {src} → {tgt} in {out_dir_path}/")
+        sys.exit(0)
     elif cmd == "hook-check":
         # Codex Desktop rejects hookSpecificOutput.additionalContext on PreToolUse.
         # Keep this as a cross-platform no-op so installed hooks never break Bash
@@ -1740,7 +1761,9 @@ def main() -> None:
         # showing top-K outbound edges per symbol.
         from typing import Optional as _Opt
         from graphify.tree_html import write_tree_html, DEFAULT_MAX_CHILDREN
-        graph_path = Path(_GRAPHIFY_OUT) / "graph.json"
+        # Default to whichever backend exists; --graph still wins if specified.
+        _default_out = Path(_GRAPHIFY_OUT)
+        graph_path = (_default_out / "graph.db") if (_default_out / "graph.db").exists() else (_default_out / "graph.json")
         output_path: "_Opt[Path]" = None
         root: "_Opt[str]" = None
         max_children = DEFAULT_MAX_CHILDREN
@@ -1774,7 +1797,7 @@ def main() -> None:
             else:
                 i_arg += 1
         if not graph_path.is_file():
-            print(f"error: graph.json not found at {graph_path}", file=sys.stderr)
+            print(f"error: graph not found at {graph_path}", file=sys.stderr)
             sys.exit(1)
         if output_path is None:
             output_path = graph_path.parent / "GRAPH_TREE.html"
@@ -1859,21 +1882,13 @@ def main() -> None:
         import networkx as _nx
         from networkx.readwrite import json_graph as _jg
         from graphify.build import prefix_graph_for_global as _prefix
+        from graphify.store import load_path as _load_path
         graphs = []
         for gp in graph_paths:
             if not gp.exists():
                 print(f"error: not found: {gp}", file=sys.stderr)
                 sys.exit(1)
-            data = json.loads(gp.read_text(encoding="utf-8"))
-            # Normalize edges/links key before loading — graphify writes "links"
-            # via node_link_data but older runs may have used "edges" (#738).
-            if "links" not in data and "edges" in data:
-                data = dict(data, links=data["edges"])
-            try:
-                G = _jg.node_link_graph(data, edges="links")
-            except TypeError:
-                G = _jg.node_link_graph(data)
-            graphs.append(G)
+            graphs.append(_load_path(gp))
         merged = _nx.Graph()
         for G, gp in zip(graphs, graph_paths):
             repo_tag = gp.parent.parent.name  # graphify-out/../ → repo dir name
@@ -1960,14 +1975,8 @@ def main() -> None:
             print(f"error: graph not found: {graph_path}. Run /graphify <path> first.", file=sys.stderr)
             sys.exit(1)
 
-        from networkx.readwrite import json_graph as _jg
-        from graphify.build import build_from_json as _bfj
-
-        _raw = json.loads(graph_path.read_text(encoding="utf-8"))
-        try:
-            G = _jg.node_link_graph(_raw, edges="links")
-        except TypeError:
-            G = _jg.node_link_graph(_raw)
+        from graphify.store import load_path as _load_path
+        G = _load_path(graph_path)
 
         # Load optional analysis/labels
         communities: dict[int, list[str]] = {}
@@ -2054,7 +2063,14 @@ def main() -> None:
 
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
-        graph_path = sys.argv[2] if len(sys.argv) > 2 else "graphify-out/graph.json"
+        # Default to whichever backend exists in graphify-out/.
+        _bench_default = Path(_GRAPHIFY_OUT)
+        _default_bench = (
+            str(_bench_default / "graph.db")
+            if (_bench_default / "graph.db").exists()
+            else str(_bench_default / "graph.json")
+        )
+        graph_path = sys.argv[2] if len(sys.argv) > 2 else _default_bench
         # Try to load corpus_words from detect output
         corpus_words = None
         detect_path = Path(".graphify_detect.json")
@@ -2151,6 +2167,7 @@ def main() -> None:
         google_workspace = False
         global_merge = False
         global_repo_tag: str | None = None
+        use_db = False
         args = sys.argv[3:]
         i = 0
         while i < len(args):
@@ -2177,6 +2194,8 @@ def main() -> None:
                 global_merge = True; i += 1
             elif a == "--as" and i + 1 < len(args):
                 global_repo_tag = args[i + 1]; i += 2
+            elif a == "--db":
+                use_db = True; i += 1
             else:
                 i += 1
 
@@ -2230,7 +2249,8 @@ def main() -> None:
         )
         manifest_path = graphify_out / "manifest.json"
         existing_graph_path = graphify_out / "graph.json"
-        incremental_mode = manifest_path.exists() and existing_graph_path.exists()
+        existing_db_path = graphify_out / "graph.db"
+        incremental_mode = manifest_path.exists() and (existing_graph_path.exists() or existing_db_path.exists())
 
         if incremental_mode:
             print(f"[graphify extract] incremental scan of {target}")
@@ -2359,19 +2379,34 @@ def main() -> None:
         analysis_path = graphify_out / ".graphify_analysis.json"
 
         if no_cluster:
-            # --no-cluster: dump the raw merged extraction as graph.json.
-            # No NetworkX, no community detection, no analysis sidecar.
-            graph_json_path.write_text(
-                json.dumps(merged, indent=2), encoding="utf-8"
-            )
+            # --no-cluster: skip community detection. JSON path dumps the raw
+            # extraction as graph.json; DB path builds the graph and saves
+            # without clustering (DB schema requires a NetworkX round-trip).
             cost = _estimate_cost(
                 backend, merged["input_tokens"], merged["output_tokens"]
             )
-            print(
-                f"[graphify extract] wrote {graph_json_path} — "
-                f"{len(merged['nodes'])} nodes, {len(merged['edges'])} edges "
-                f"(no clustering)"
-            )
+            if use_db:
+                from graphify.build import build as _build_nc
+                from graphify import store as _store_nc
+                G_nc = _build_nc([merged], dedup=True)
+                if G_nc.number_of_nodes() == 0:
+                    print("[graphify extract] graph is empty — extraction produced no nodes.", file=sys.stderr)
+                    sys.exit(1)
+                _store_nc.save(graphify_out, G_nc, communities={}, backend="db", force=True)
+                print(
+                    f"[graphify extract] wrote {graphify_out / 'graph.db'} — "
+                    f"{G_nc.number_of_nodes()} nodes, {G_nc.number_of_edges()} edges "
+                    f"(no clustering)"
+                )
+            else:
+                graph_json_path.write_text(
+                    json.dumps(merged, indent=2), encoding="utf-8"
+                )
+                print(
+                    f"[graphify extract] wrote {graph_json_path} — "
+                    f"{len(merged['nodes'])} nodes, {len(merged['edges'])} edges "
+                    f"(no clustering)"
+                )
             if merged["input_tokens"] or merged["output_tokens"]:
                 print(
                     f"[graphify extract] tokens: "
@@ -2385,9 +2420,10 @@ def main() -> None:
                 print(f"[graphify extract] warning: could not write manifest: {exc}", file=sys.stderr)
             if global_merge:
                 from graphify.global_graph import global_add as _global_add
+                from graphify import store as _gx_store_g
                 _tag = global_repo_tag or target.name
                 try:
-                    result = _global_add(graphify_out / "graph.json", _tag)
+                    result = _global_add(graphify_out / _gx_store_g.artifact_name(graphify_out), _tag)
                     if result["skipped"]:
                         print(f"[graphify global] '{_tag}' unchanged since last add — skipped.")
                     else:
@@ -2408,9 +2444,10 @@ def main() -> None:
         from graphify.analyze import god_nodes as _god_nodes, surprising_connections as _surprising
         dedup_backend = backend if dedup_llm else None
         if incremental_mode:
-            G = _build_merge(
+            from graphify import store as _store_inc
+            G = _store_inc.build_merge_compat(
                 [merged],
-                graph_path=existing_graph_path,
+                graphify_out,
                 prune_sources=deleted_files or None,
                 dedup=True,
                 dedup_llm_backend=dedup_backend,
@@ -2437,12 +2474,13 @@ def main() -> None:
         except Exception:
             surprises = []
 
-        _to_json(G, communities, str(graph_json_path), force=True)
+        from graphify import store as _store_save
+        _store_save.save(graphify_out, G, communities, backend=("db" if use_db else None), force=True)
         if global_merge:
             from graphify.global_graph import global_add as _global_add
             _tag = global_repo_tag or target.name
             try:
-                result = _global_add(graphify_out / "graph.json", _tag)
+                result = _global_add(graphify_out / _store_save.artifact_name(graphify_out), _tag)
                 if result["skipped"]:
                     print(f"[graphify global] '{_tag}' unchanged since last add — skipped.")
                 else:

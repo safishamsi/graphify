@@ -354,3 +354,5 @@ Built for people whose work lives across hundreds of conversations and documents
 See [ARCHITECTURE.md](ARCHITECTURE.md) for module responsibilities and how to add a language.
 
 </details>
+# Branch Protection Test
+Second check for strict protection.
