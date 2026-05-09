@@ -2,6 +2,10 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## Unreleased
+
+- Feat: ReScript (`.res`, `.resi`) extraction -- modules (with arbitrarily nested submodules), types, let-bindings as functions or variables, tuple/record destructure patterns, `external` JS bindings (callable when the type annotation is a function_type, value otherwise), nested let-functions inside function bodies (registered as methods of their parent function), `.resi` signature-only lets (function vs variable resolved from the type annotation), `open` / `include` imports with cross-file resolution that maps bare module names to real file ids, intra- and cross-file calls including qualified calls (`Foo.bar`, `Belt.Array.some`) and pipe-style calls (`arr->some(...)`). Brings ReScript shops on graphify from "0 ReScript symbols, 15 README nodes" to ~4.2k nodes / ~4.7k edges on a 186-file `.res`/`.resi` corpus. The tree-sitter binding is vendored under `graphify/_vendor/tree_sitter_rescript/` (rescript-lang/tree-sitter-rescript v6.0.0) because there's no `tree-sitter-rescript` PyPI release; setup.py compiles the C extension as part of graphify's wheel build, so users see no extra install step.
+
 ## 0.8.19 (2026-05-26)
 
 - Feat: .NET project file support — `.sln`, `.csproj`, `.fsproj`, `.vbproj`, `.razor`, `.cshtml` now extracted; captures NuGet package refs, project-to-project dependencies, target frameworks, SDK attributes, Blazor/Razor directives (`@using`, `@inject`, `@inherits`, `@model`, `@page`), component refs, and `@code` block methods (#1025)
@@ -226,7 +230,6 @@ Full release notes with details on each version: [GitHub Releases](https://githu
 - Feat: `graphify extract` gains `--max-workers`, `--token-budget`, `--max-concurrency`, `--api-timeout` flags; hard 8-worker AST cap removed; explicit HTTP timeout on OpenAI client (default 600s, `GRAPHIFY_API_TIMEOUT`); ollama API key gate skipped for loopback URLs (#792)
 - Feat: Pascal/Delphi extraction now works without `tree-sitter-pascal` -- regex fallback covers unit/program/library headers, uses clauses, class/interface inheritance, method declarations, and intra-file calls (#781)
 - Feat: `/graphify --help` now prints the Usage block and stops without running pipeline steps (all 12 skill files) (#795)
-
 ## 0.7.11 (2026-05-09)
 
 - Fix: context-window-exceeded API errors now trigger automatic retry with bisected file chunks -- exponential bisection up to 6 levels deep; covers `"context_length_exceeded"`, `"maximum context length"`, and `"too_large"` across OpenAI-compat backends (#789)
