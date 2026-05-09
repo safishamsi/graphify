@@ -157,7 +157,7 @@ _PLATFORM_CONFIG: dict[str, dict] = {
     },
     "amp": {
         "skill_file": "skill-amp.md",
-        "skill_dst": Path(".amp") / "skills" / "graphify" / "SKILL.md",
+        "skill_dst": Path(".agents") / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
 }
