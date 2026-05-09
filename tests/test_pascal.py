@@ -155,6 +155,7 @@ def test_pascal_dispatch_registered():
     assert ".pp" in _DISPATCH
     assert ".dpr" in _DISPATCH
     assert ".dpk" in _DISPATCH
+    assert ".lpr" in _DISPATCH
     assert ".inc" in _DISPATCH
     assert ".lfm" in _DISPATCH
     assert ".lpk" in _DISPATCH
@@ -166,6 +167,7 @@ def test_pascal_detect_extensions_registered():
     assert ".pas" in CODE_EXTENSIONS
     assert ".pp" in CODE_EXTENSIONS
     assert ".dpr" in CODE_EXTENSIONS
+    assert ".lpr" in CODE_EXTENSIONS
     assert ".lfm" in CODE_EXTENSIONS
     assert ".lpk" in CODE_EXTENSIONS
 

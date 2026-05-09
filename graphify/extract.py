@@ -4807,7 +4807,7 @@ def extract_pascal(path: Path) -> dict:
 
     # Second pass: resolve calls inside procedure/function bodies
     all_procs: dict[str, str] = {
-        n["label"].rstrip("()").lower(): n["id"]
+        n["label"].removesuffix("()").lower(): n["id"]
         for n in nodes if n["id"] != file_nid
     }
     seen_call_pairs: set[tuple[str, str]] = set()
@@ -5202,6 +5202,7 @@ _DISPATCH: dict[str, Any] = {
     ".pp": extract_pascal,
     ".dpr": extract_pascal,
     ".dpk": extract_pascal,
+    ".lpr": extract_pascal,
     ".inc": extract_pascal,
     ".dfm": extract_delphi_form,
     ".lfm": extract_lazarus_form,
