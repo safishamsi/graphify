@@ -6,7 +6,7 @@ from graphify.extract import (
     extract_java, extract_c, extract_cpp, extract_ruby,
     extract_csharp, extract_kotlin, extract_scala, extract_php,
     extract_swift, extract_go, extract_julia, extract_js, extract_fortran,
-    extract_groovy, extract_sln, extract_csproj, extract_razor,
+    extract_groovy, extract_sln, extract_csproj, extract_razor, extract_rescript,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -1130,3 +1130,208 @@ def test_razor_no_dangling_edges():
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids
+
+# ── ReScript ─────────────────────────────────────────────────────────────────
+
+RESCRIPT_FIXTURES = FIXTURES / "rescript"
+
+
+def test_rescript_no_error():
+    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    assert "error" not in r
+
+
+def test_rescript_finds_type():
+    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    assert any(l == "flag" for l in _labels(r))
+
+
+def test_rescript_finds_variable():
+    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    # Plain `let allFlags = [...]` — bare label, no parens.
+    assert any(l == "allFlags" for l in _labels(r))
+
+
+def test_rescript_finds_functions():
+    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    labels = _labels(r)
+    assert "flagToString()" in labels
+    assert "isEnabled()" in labels
+    assert "isEnabledForUser()" in labels
+
+
+def test_rescript_finds_module():
+    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    assert any(l == "Internal" for l in _labels(r))
+
+
+def test_rescript_finds_module_method():
+    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    # Methods inside modules use the ".name()" label shape.
+    assert any(l == ".parse()" for l in _labels(r))
+
+
+def test_rescript_intra_file_call_edge():
+    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    calls = _calls(r)
+    assert any(
+        "isEnabledForUser" in src and "isEnabled" in tgt
+        for src, tgt in calls
+    )
+
+
+def test_rescript_call_edges_have_call_context():
+    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    call_edges = _edges_with_relation(r, "calls")
+    assert call_edges
+    assert all(e.get("context") == "call" for e in call_edges)
+
+
+def test_rescript_caller_emits_open_import():
+    r = extract_rescript(RESCRIPT_FIXTURES / "Caller.res")
+    import_edges = _edges_with_relation(r, "imports")
+    assert import_edges
+    assert all(e.get("context") == "import" for e in import_edges)
+    # `open FeatureFlag` should target a node-id derived from the module name.
+    assert any("featureflag" in e["target"].lower() for e in import_edges)
+
+
+def test_rescript_caller_finds_local_functions():
+    r = extract_rescript(RESCRIPT_FIXTURES / "Caller.res")
+    labels = _labels(r)
+    assert "darkModeOn()" in labels
+    assert "betaForUser()" in labels
+
+
+def test_rescript_no_dangling_source_edges():
+    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        # Imports may point at unresolved module IDs (resolved cross-file
+        # in extract()), so allow phantom targets only for "imports".
+        assert e["source"] in node_ids
+        if e["relation"] not in ("imports", "imports_from"):
+            assert e["target"] in node_ids
+
+
+# Helper: write a small .res snippet to a tmp file, extract, return result.
+def _extract_rescript_snippet(tmp_path, src):
+    p = tmp_path / "Sample.res"
+    p.write_text(src)
+    return extract_rescript(p)
+
+
+def test_rescript_external_callable_emits_function_node(tmp_path):
+    r = _extract_rescript_snippet(tmp_path,
+        'external alert: string => unit = "alert"\n')
+    assert "alert()" in _labels(r), \
+        "external with function-type annotation should emit a function node"
+
+
+def test_rescript_external_value_emits_variable_node(tmp_path):
+    r = _extract_rescript_snippet(tmp_path,
+        'external pi: float = "Math.PI"\n')
+    labels = _labels(r)
+    assert "pi" in labels, \
+        "external with non-function type should emit a bare-label variable node"
+    assert "pi()" not in labels
+
+
+def test_rescript_function_locals_are_not_nodes(tmp_path):
+    """Nested let-bindings inside function bodies are locals, not module
+    surface. Emitting them inflates the graph with `let url = ...`,
+    `let now = Date.now()`, etc. — same convention as Python and JS,
+    where nested function-scoped definitions aren't graph nodes.
+    """
+    src = (
+        "let getKeys = () => {\n"
+        "  let url = \"/api/keys\"\n"
+        "  let now = Date.now()\n"
+        "  let helper = (x) => x + 1\n"
+        "  Js.fetch(url)\n"
+        "}\n"
+    )
+    r = _extract_rescript_snippet(tmp_path, src)
+    labels = _labels(r)
+    assert "getKeys()" in labels
+    # Nothing inside the function body should leak as a graph node.
+    for local in ("url", "now", "helper", ".helper()", "helper()"):
+        assert local not in labels, f"function-local {local!r} should not be a node"
+
+
+def test_rescript_nested_module_emits_full_hierarchy(tmp_path):
+    src = (
+        "module Outer = {\n"
+        "  module Inner = {\n"
+        "    let foo = 1\n"
+        "    let bar = (x) => x + 1\n"
+        "  }\n"
+        "  let baz = 2\n"
+        "}\n"
+    )
+    r = _extract_rescript_snippet(tmp_path, src)
+    labels = _labels(r)
+    assert "Outer" in labels
+    assert "Inner" in labels
+    # foo and baz are values (no parens), bar is a function (.bar()).
+    assert "foo" in labels
+    assert ".bar()" in labels
+    assert "baz" in labels
+    # Edges should attach Inner to Outer (not to file).
+    nb = {n["id"]: n["label"] for n in r["nodes"]}
+    parent_of_inner = [
+        nb.get(e["source"]) for e in r["edges"]
+        if nb.get(e.get("target")) == "Inner" and e["relation"] == "contains"
+    ]
+    assert "Outer" in parent_of_inner
+
+
+def test_rescript_tuple_destructure_emits_each_name(tmp_path):
+    r = _extract_rescript_snippet(tmp_path, "let (first, second) = pair\n")
+    labels = _labels(r)
+    assert "first" in labels
+    assert "second" in labels
+
+
+def test_rescript_record_destructure_emits_each_name(tmp_path):
+    r = _extract_rescript_snippet(tmp_path, "let {alpha, beta} = record\n")
+    labels = _labels(r)
+    assert "alpha" in labels
+    assert "beta" in labels
+
+
+def test_rescript_resi_signature_function_emits_function_node(tmp_path):
+    # `.resi` interface files have signature-only let bindings (no body, just
+    # a type annotation). Those whose annotated type is a function_type
+    # should emit Function nodes; others should emit Variable nodes.
+    p = tmp_path / "Sample.resi"
+    p.write_text(
+        "let getFoo: (~base: int) => int\n"
+        "let pi: float\n"
+    )
+    r = extract_rescript(p)
+    labels = _labels(r)
+    assert "getFoo()" in labels, "function-typed .resi signature should be a function node"
+    assert "pi" in labels, "plain-typed .resi signature should be a variable node"
+    assert "pi()" not in labels
+
+
+def test_rescript_module_method_with_function_body(tmp_path):
+    """Module-level let-functions with non-trivial bodies still register as
+    methods of the module. The body's locals stay invisible (per the
+    function_locals_are_not_nodes contract); only the method itself is on
+    the graph.
+    """
+    src = (
+        "module M = {\n"
+        "  let f = (x) => {\n"
+        "    let g = (y) => y + 1\n"
+        "    g(x)\n"
+        "  }\n"
+        "}\n"
+    )
+    r = _extract_rescript_snippet(tmp_path, src)
+    labels = _labels(r)
+    assert "M" in labels
+    assert ".f()" in labels       # f is a method of M
+    assert ".g()" not in labels   # g is a function-local, not a graph node
