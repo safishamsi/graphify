@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=68", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -93,11 +93,16 @@ dev = [
 package = true
 
 [tool.setuptools]
-packages = ["graphify"]
+packages = [
+    "graphify",
+    "graphify._vendor",
+    "graphify._vendor.tree_sitter_rescript",
+]
 include-package-data = false
 
 [tool.setuptools.package-data]
 graphify = ["skill.md", "skill-codex.md", "skill-opencode.md", "skill-aider.md", "skill-copilot.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md", "skill-kiro.md", "skill-vscode.md", "skill-pi.md", "skill-devin.md"]
+"graphify._vendor.tree_sitter_rescript" = ["LICENSE", "*.pyi", "py.typed", "src/*.json", "src/tree_sitter/*.h"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
