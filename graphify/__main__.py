@@ -51,6 +51,41 @@ def _refresh_all_version_stamps() -> None:
         if skill_dst.exists():
             vf.write_text(__version__, encoding="utf-8")
 
+
+def _get_specialized_skill_content(src_path: Path) -> str:
+    """Read skill content and specialize it if running as a standalone binary."""
+    content = src_path.read_text(encoding="utf-8")
+    if not getattr(sys, "frozen", False):
+        return content
+
+    # Specialization for standalone binaries
+    bin_path = sys.executable
+    if " " in bin_path:
+        bin_path = f'"{bin_path}"'
+
+    # 1. Simplify Step 1 interpreter detection for binary
+    step1_pattern = r"### Step 1 - Ensure graphify is installed\n\n```bash\n# Detect the correct Python interpreter.*?\n```"
+    step1_replacement = f"""### Step 1 - Ensure graphify is installed
+
+```bash
+# Running as a standalone binary
+PYTHON={bin_path}
+mkdir -p graphify-out
+echo "$PYTHON" > graphify-out/.graphify_python
+# Save scan root so `graphify update` (no args) knows where to look next time
+echo "$(cd INPUT_PATH && pwd)" > graphify-out/.graphify_root
+```"""
+    content = re.sub(step1_pattern, step1_replacement, content, flags=re.DOTALL)
+
+    # 2. Replace interpreter + -c with binary + eval
+    content = content.replace("$(cat graphify-out/.graphify_python) -c \"", f"{bin_path} eval \"")
+    content = content.replace("\"$PYTHON\" -c \"", f"{bin_path} eval \"")
+
+    # 3. Fix VS Code Copilot Chat instruction specifically if it uses python3 -m
+    content = content.replace("python3 -m graphify", bin_path)
+
+    return content
+
 _SETTINGS_HOOK = {
     # Claude Code v2.1.117+ removed dedicated Grep/Glob tools; searches now go through Bash.
     # We match on Bash and inspect the command string to avoid firing on every shell call.
@@ -188,9 +223,19 @@ def install(platform: str = "claude") -> None:
     else:
         skill_dst = Path.home() / cfg["skill_dst"]
     skill_dst.parent.mkdir(parents=True, exist_ok=True)
+
+    # Backup existing skill if it exists
+    if skill_dst.exists():
+        backup = skill_dst.with_suffix(skill_dst.suffix + ".bak")
+        try:
+            shutil.copy2(skill_dst, backup)
+        except Exception as e:
+            print(f"  warning: failed to back up existing skill: {e}")
+
     tmp_dst = skill_dst.with_suffix(skill_dst.suffix + ".tmp")
     try:
-        shutil.copy(skill_src, tmp_dst)
+        content = _get_specialized_skill_content(skill_src)
+        tmp_dst.write_text(content, encoding="utf-8")
         os.replace(tmp_dst, skill_dst)
     except Exception:
         try:
@@ -309,7 +354,16 @@ def gemini_install(project_dir: Path | None = None) -> None:
     else:
         skill_dst = Path.home() / ".gemini" / "skills" / "graphify" / "SKILL.md"
     skill_dst.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy(skill_src, skill_dst)
+
+    if skill_dst.exists():
+        backup = skill_dst.with_suffix(skill_dst.suffix + ".bak")
+        try:
+            shutil.copy2(skill_dst, backup)
+        except Exception as e:
+            print(f"  warning: failed to back up existing skill: {e}")
+
+    content = _get_specialized_skill_content(skill_src)
+    skill_dst.write_text(content, encoding="utf-8")
     (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
     print(f"  skill installed  ->  {skill_dst}")
 
@@ -425,7 +479,16 @@ def vscode_install(project_dir: Path | None = None) -> None:
         skill_src = Path(__file__).parent / "skill-copilot.md"
     skill_dst = Path.home() / ".copilot" / "skills" / "graphify" / "SKILL.md"
     skill_dst.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy(skill_src, skill_dst)
+
+    if skill_dst.exists():
+        backup = skill_dst.with_suffix(skill_dst.suffix + ".bak")
+        try:
+            shutil.copy2(skill_dst, backup)
+        except Exception as e:
+            print(f"  warning: failed to back up existing skill: {e}")
+
+    content = _get_specialized_skill_content(skill_src)
+    skill_dst.write_text(content, encoding="utf-8")
     (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
     print(f"  skill installed  ->  {skill_dst}")
 
@@ -1214,10 +1277,30 @@ def main() -> None:
         print("  kiro uninstall          remove skill + steering file")
         print("  pi install              write skill to ~/.pi/agent/skills/graphify/ (Pi coding agent)")
         print("  pi uninstall            remove skill from ~/.pi/agent/skills/graphify/")
+        print("  eval \"<code>\"           run arbitrary Python code (internal use for standalone binaries)")
         print()
         return
 
     cmd = sys.argv[1]
+    if cmd == "eval":
+        if len(sys.argv) < 3:
+            print("Usage: graphify eval \"<code>\"", file=sys.stderr)
+            sys.exit(1)
+        code = sys.argv[2]
+        import graphify
+        namespace = {
+            "graphify": graphify,
+            "sys": sys,
+            "os": os,
+            "platform": platform,
+            "re": re,
+            "shutil": shutil,
+            "Path": Path,
+            "json": json,
+        }
+        exec(code, namespace)
+        return
+
     if cmd == "install":
         # Default to windows platform on Windows, claude elsewhere
         default_platform = "windows" if platform.system() == "Windows" else "claude"
