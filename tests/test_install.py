@@ -105,6 +105,24 @@ def test_cmd_skill_normalizes_backslash_paths_in_python_payloads():
     assert "Never paste raw backslash paths" in skill
 
 
+def test_windows_skills_reuse_recorded_python_interpreter_after_step_1():
+    """Windows platform skills must use the interpreter captured in Step 1."""
+    import graphify
+    pkg = Path(graphify.__file__).parent
+
+    cmd_skill = (pkg / "skill-cmd.md").read_text()
+    cmd_after_step_1 = cmd_skill.split("### Step 2 - Detect files", 1)[1]
+    assert 'for /f "usebackq delims=" %P in (".graphify_python") do "%P"' in cmd_after_step_1
+    assert 'python -c "exec' not in cmd_after_step_1
+    assert "\npython -m graphify" not in cmd_after_step_1
+
+    windows_skill = (pkg / "skill-windows.md").read_text()
+    windows_after_step_1 = windows_skill.split("### Step 2 - Detect files", 1)[1]
+    assert "& ((Get-Content .graphify_python -Raw).Trim())" in windows_after_step_1
+    assert "| python -" not in windows_after_step_1
+    assert "\npython -m graphify" not in windows_after_step_1
+
+
 def test_all_skill_files_exist_in_package():
     """All installable platform skill files must be present in the installed package."""
     import graphify
