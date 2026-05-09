@@ -28,6 +28,9 @@ def _check_skill_version(skill_dst: Path) -> None:
     version_file = skill_dst.parent / ".graphify_version"
     if not version_file.exists():
         return
+    if not skill_dst.exists():
+        print("  warning: skill dir exists but SKILL.md is missing. Run 'graphify install' to repair.")
+        return
     installed = version_file.read_text(encoding="utf-8").strip()
     if installed != __version__:
         print(f"  warning: skill is from graphify {installed}, package is {__version__}. Run 'graphify install' to update.")
@@ -40,9 +43,9 @@ def _refresh_all_version_stamps() -> None:
     but not explicitly re-installed during this upgrade.
     """
     for cfg in _PLATFORM_CONFIG.values():
-        vf = Path.home() / cfg["skill_dst"]
-        vf = vf.parent / ".graphify_version"
-        if vf.exists():
+        skill_dst = Path.home() / cfg["skill_dst"]
+        vf = skill_dst.parent / ".graphify_version"
+        if skill_dst.exists():
             vf.write_text(__version__, encoding="utf-8")
 
 _SETTINGS_HOOK = {
@@ -187,7 +190,16 @@ def install(platform: str = "claude") -> None:
     else:
         skill_dst = Path.home() / cfg["skill_dst"]
     skill_dst.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy(skill_src, skill_dst)
+    tmp_dst = skill_dst.with_suffix(skill_dst.suffix + ".tmp")
+    try:
+        shutil.copy(skill_src, tmp_dst)
+        os.replace(tmp_dst, skill_dst)
+    except Exception:
+        try:
+            tmp_dst.unlink(missing_ok=True)
+        except OSError:
+            pass
+        raise
     (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
     print(f"  skill installed  ->  {skill_dst}")
 
@@ -984,6 +996,44 @@ def _uninstall_claude_hook(project_dir: Path) -> None:
     print(f"  .claude/settings.json  ->  PreToolUse hook removed")
 
 
+def uninstall_all(project_dir: Path | None = None, purge: bool = False) -> None:
+    """Remove graphify from every platform detected in the current project."""
+    pd = project_dir or Path(".")
+    print("Uninstalling graphify from all detected platforms...\n")
+
+    # Skill-file / config-section uninstallers
+    claude_uninstall(pd)
+    gemini_uninstall(pd)
+    vscode_uninstall(pd)
+    _cursor_uninstall(pd)
+    _kiro_uninstall(pd)
+    _antigravity_uninstall(pd)
+    # AGENTS.md covers: codex, aider, opencode, claw, droid, trae, trae-cn, hermes, copilot
+    _agents_uninstall(pd)
+    _uninstall_opencode_plugin(pd)
+    _uninstall_codex_hook(pd)
+
+    # Git hook
+    try:
+        from graphify.hooks import uninstall as hook_uninstall
+        result = hook_uninstall(pd)
+        if result:
+            print(result)
+    except Exception:
+        pass
+
+    if purge:
+        import shutil as _shutil
+        out = pd / "graphify-out"
+        if out.exists():
+            _shutil.rmtree(out)
+            print(f"\n  graphify-out/  ->  deleted (--purge)")
+        else:
+            print("\n  graphify-out/  ->  not found (nothing to purge)")
+
+    print("\nDone. Run 'pip uninstall graphifyy' to remove the package itself.")
+
+
 def claude_uninstall(project_dir: Path | None = None) -> None:
     """Remove the graphify section from the local CLAUDE.md."""
     target = (project_dir or Path(".")) / "CLAUDE.md"
@@ -1084,6 +1134,9 @@ def main() -> None:
         print()
         print("Commands:")
         print("  install [--platform P]  copy skill to platform config dir (claude|windows|cmd|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi)")
+        print("  uninstall               remove graphify from all detected platforms in one shot")
+        print("    --purge                 also delete graphify-out/ directory")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
@@ -1216,6 +1269,9 @@ def main() -> None:
                 i += 1
         chosen_platform = selected_platform or default_platform
         install(platform=chosen_platform)
+    elif cmd == "uninstall":
+        purge = "--purge" in sys.argv[2:]
+        uninstall_all(purge=purge)
     elif cmd == "claude":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":

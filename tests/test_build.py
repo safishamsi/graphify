@@ -1,6 +1,6 @@
 import json
 from pathlib import Path
-from graphify.build import build_from_json, build
+from graphify.build import build_from_json, build, build_merge
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -128,3 +128,70 @@ def test_real_invalid_file_type_still_warns(capsys):
     err = capsys.readouterr().err
     assert "invalid file_type" in err
     assert "weird_type" in err
+
+
+def test_build_merge_preserves_call_edge_direction(tmp_path):
+    """Regression for #760.
+
+    When the callee is defined before the caller in source, NetworkX's
+    undirected Graph stores edges in node-insertion order. Going through
+    node_link_graph() + edges() during build_merge previously flipped the
+    `calls` edge so that on the next save source/target were swapped.
+
+    build_merge must read the saved JSON's source/target verbatim instead
+    of round-tripping through NetworkX.
+    """
+    from graphify.extract import extract_js
+    from graphify.export import to_json
+
+    # Callee `b` is defined before caller `a` so node insertion order
+    # is b, a. An undirected Graph then yields the edge as (b, a) on
+    # iteration, which is the wrong direction for `calls` (a calls b).
+    src = "function b() {}\nfunction a() { b(); }\n"
+    src_file = tmp_path / "x.js"
+    src_file.write_text(src)
+
+    extraction = extract_js(src_file)
+    assert "error" not in extraction
+
+    # Locate the `calls` edge in the raw extraction so we know the truth.
+    call_edges = [e for e in extraction["edges"] if e["relation"] == "calls"]
+    assert len(call_edges) == 1, "expected exactly one calls edge from the snippet"
+    truth_src = call_edges[0]["source"]
+    truth_tgt = call_edges[0]["target"]
+
+    nodes_by_id = {n["id"]: n for n in extraction["nodes"]}
+    assert nodes_by_id[truth_src]["label"].startswith("a")
+    assert nodes_by_id[truth_tgt]["label"].startswith("b")
+
+    # First build + save.
+    G1 = build([extraction], dedup=False)
+    graph_path = tmp_path / "graph.json"
+    communities: dict = {}
+    assert to_json(G1, communities, str(graph_path), force=True)
+
+    # Verify direction is correct in the freshly written JSON.
+    saved = json.loads(graph_path.read_text())
+    saved_calls = [e for e in saved.get("links", saved.get("edges", []))
+                   if e.get("relation") == "calls"]
+    assert len(saved_calls) == 1
+    assert saved_calls[0]["source"] == truth_src
+    assert saved_calls[0]["target"] == truth_tgt
+
+    # Now simulate `--update` with no new chunks — load + re-save.
+    G2 = build_merge([], graph_path, dedup=False)
+    assert to_json(G2, communities, str(graph_path), force=True)
+
+    # The calls edge must still go a -> b, not b -> a.
+    reloaded = json.loads(graph_path.read_text())
+    reloaded_calls = [e for e in reloaded.get("links", reloaded.get("edges", []))
+                      if e.get("relation") == "calls"]
+    assert len(reloaded_calls) == 1
+    assert reloaded_calls[0]["source"] == truth_src, (
+        f"calls edge source flipped after build_merge round-trip: "
+        f"expected {truth_src} (a), got {reloaded_calls[0]['source']}"
+    )
+    assert reloaded_calls[0]["target"] == truth_tgt, (
+        f"calls edge target flipped after build_merge round-trip: "
+        f"expected {truth_tgt} (b), got {reloaded_calls[0]['target']}"
+    )

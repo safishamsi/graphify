@@ -2505,9 +2505,7 @@ def extract_sql(path: Path) -> dict:
     def _obj_name(n) -> str | None:
         for c in n.children:
             if c.type == "object_reference":
-                for cc in c.children:
-                    if cc.type == "identifier":
-                        return _read(cc)
+                return _read(c)
         return None
 
     def _add_node(nid: str, label: str, line: int) -> None:
@@ -2546,9 +2544,7 @@ def extract_sql(path: Path) -> dict:
                                 if cc.type == "keyword_references":
                                     found_ref = True
                                 elif found_ref and cc.type == "object_reference":
-                                    for ccc in cc.children:
-                                        if ccc.type == "identifier":
-                                            ref_name = _read(ccc)
+                                    ref_name = _read(cc)
                                     break
                             if ref_name:
                                 ref_nid = _make_id(stem, ref_name)
@@ -2577,6 +2573,33 @@ def extract_sql(path: Path) -> dict:
                 _add_node(nid, f"{name}()", line)
                 _walk_from_refs(node, nid, line)
 
+        elif t == "alter_table":
+            name = _obj_name(node)
+            if name:
+                src_nid = table_nids.get(name.lower())
+                if not src_nid:
+                    src_nid = _make_id(stem, name)
+                    _add_node(src_nid, name, line)
+                    table_nids[name.lower()] = src_nid
+                for child in node.children:
+                    if child.type == "add_constraint":
+                        for cc in child.children:
+                            if cc.type != "constraint":
+                                continue
+                            found_ref = False
+                            ref_name: str | None = None
+                            for ccc in cc.children:
+                                if ccc.type == "keyword_references":
+                                    found_ref = True
+                                elif found_ref and ccc.type == "object_reference":
+                                    ref_name = _read(ccc)
+                                    break
+                            if ref_name:
+                                ref_nid = table_nids.get(ref_name.lower())
+                                if not ref_nid:
+                                    ref_nid = _make_id(stem, ref_name)
+                                _add_edge(src_nid, ref_nid, "references", line)
+
         for child in node.children:
             walk(child)
 
@@ -2587,12 +2610,10 @@ def extract_sql(path: Path) -> dict:
                 if c.type == "relation":
                     for cc in c.children:
                         if cc.type == "object_reference":
-                            for ccc in cc.children:
-                                if ccc.type == "identifier":
-                                    tbl = _read(ccc)
-                                    tbl_nid = _make_id(stem, tbl)
-                                    _add_edge(caller_nid, tbl_nid, "reads_from",
-                                              c.start_point[0] + 1)
+                            tbl = _read(cc)
+                            tbl_nid = _make_id(stem, tbl)
+                            _add_edge(caller_nid, tbl_nid, "reads_from",
+                                      c.start_point[0] + 1)
         for child in node.children:
             _walk_from_refs(child, caller_nid, line)
 

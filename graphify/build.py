@@ -222,25 +222,25 @@ def build_merge(
 ) -> nx.Graph:
     """Load existing graph.json, merge new chunks into it, and save back.
 
-    Never replaces — only grows (or prunes deleted-file nodes via prune_sources).
+    Never replaces - only grows (or prunes deleted-file nodes via prune_sources).
     Safe to call repeatedly: existing nodes and edges are preserved.
     """
-    from networkx.readwrite import json_graph as _jg
-
     graph_path = Path(graph_path)
     if graph_path.exists():
+        # Read JSON directly instead of going through node_link_graph().
+        # The latter rebuilds an undirected nx.Graph and then enumerating
+        # edges() yields endpoints based on node insertion order, which
+        # silently flips directional edges (e.g. `calls`) when the callee
+        # was inserted before the caller. The _src/_tgt direction-preserving
+        # attrs are popped before saving in export.py, so going through the
+        # NetworkX round-trip loses direction permanently (#760).
         data = json.loads(graph_path.read_text(encoding="utf-8"))
-        try:
-            existing_G = _jg.node_link_graph(data, edges="links")
-        except TypeError:
-            existing_G = _jg.node_link_graph(data)
-        # Reconstruct as a plain extraction dict so build() can merge it
-        existing_nodes = [{"id": n, **existing_G.nodes[n]} for n in existing_G.nodes]
-        existing_edges = [
-            {"source": u, "target": v, **d} for u, v, d in existing_G.edges(data=True)
-        ]
+        links_key = "links" if "links" in data else "edges"
+        existing_nodes = list(data.get("nodes", []))
+        existing_edges = list(data.get(links_key, []))
         base = [{"nodes": existing_nodes, "edges": existing_edges}]
     else:
+        existing_nodes = []
         base = []
 
     all_chunks = base + list(new_chunks)

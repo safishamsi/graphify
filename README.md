@@ -112,7 +112,7 @@ Run this once in your project after building a graph:
 
 This writes a small config file that tells your assistant to read `GRAPH_REPORT.md` before answering questions about your codebase. On platforms that support hooks (Claude Code, Codex, Gemini CLI), a hook fires automatically before every file-read call — your assistant navigates by the graph instead of grepping through everything.
 
-Uninstall with the matching command (e.g. `graphify claude uninstall`).
+To remove graphify from all platforms at once: `graphify uninstall` (add `--purge` to also delete `graphify-out/`). Or use the per-platform command (e.g. `graphify claude uninstall`).
 
 ---
 
@@ -277,6 +277,9 @@ The MCP server gives your assistant structured access: `query_graph`, `get_node`
 /graphify query "..." --dfs --budget 1500
 /graphify path "DigestAuth" "Response"
 /graphify explain "SwinTransformer"
+
+graphify uninstall                 # remove from all platforms in one shot
+graphify uninstall --purge         # also delete graphify-out/
 
 graphify hook install              # post-commit + post-checkout hooks
 graphify hook uninstall
