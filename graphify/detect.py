@@ -654,6 +654,11 @@ def detect(root: Path, *, follow_symlinks: bool = False, google_workspace: bool 
         scan_paths.append(memory_dir)
 
     seen: set[Path] = set()
+    # realpath_seen prevents the same on-disk file from being processed twice
+    # when reached via multiple paths (multiple symlinks to one target). Without
+    # this, mirrored corpora produce duplicate nodes since IDs derive from the
+    # walked path stem, not the canonical realpath.
+    realpath_seen: set[str] = set()
     all_files: list[Path] = []
 
     for scan_root in scan_paths:
@@ -666,6 +671,13 @@ def detect(root: Path, *, follow_symlinks: bool = False, google_workspace: bool 
                 if parent_real == real or parent_real.startswith(real + os.sep):
                     dirnames.clear()
                     continue
+                # Also skip if we've already walked this real directory via
+                # another alias — catches multi-symlink fan-out (alias_a, alias_b
+                # both pointing to /shared/dir).
+                if real in realpath_seen:
+                    dirnames.clear()
+                    continue
+                realpath_seen.add(real)
             if not in_memory_tree:
                 # Prune noise dirs in-place so os.walk never descends into them.
                 # Hidden dirs are allowed through if they could contain an
@@ -683,9 +695,14 @@ def detect(root: Path, *, follow_symlinks: bool = False, google_workspace: bool 
                 if fname in _SKIP_FILES:
                     continue
                 p = dp / fname
-                if p not in seen:
-                    seen.add(p)
-                    all_files.append(p)
+                if p in seen:
+                    continue
+                real_file = os.path.realpath(p)
+                if real_file in realpath_seen:
+                    continue
+                seen.add(p)
+                realpath_seen.add(real_file)
+                all_files.append(p)
 
     converted_dir = root / "graphify-out" / "converted"
 

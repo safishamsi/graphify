@@ -79,14 +79,9 @@ def global_add(source_path: Path, repo_tag: str) -> dict:
     if existing.get("source_hash") == src_hash:
         return {"repo_tag": repo_tag, "nodes_added": 0, "nodes_removed": 0, "skipped": True}
 
-    # Load source graph
-    data = json.loads(source_path.read_text(encoding="utf-8"))
-    if "links" not in data and "edges" in data:
-        data = dict(data, links=data["edges"])
-    try:
-        src_G = _jg.node_link_graph(data, edges="links")
-    except TypeError:
-        src_G = _jg.node_link_graph(data)
+    # Load source graph (backend-aware: graph.json or graph.db)
+    from graphify.store import load_path as _gx_load_path
+    src_G = _gx_load_path(source_path)
 
     # Prefix IDs for cross-project isolation
     prefixed = prefix_graph_for_global(src_G, repo_tag)

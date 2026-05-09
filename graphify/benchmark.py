@@ -95,11 +95,8 @@ def run_benchmark(
 
     Returns dict with: corpus_tokens, avg_query_tokens, reduction_ratio, per_question
     """
-    data = json.loads(Path(graph_path).read_text(encoding="utf-8"))
-    try:
-        G = json_graph.node_link_graph(data, edges="links")
-    except TypeError:
-        G = json_graph.node_link_graph(data)
+    from graphify.store import load_path as _gx_load_path
+    G = _gx_load_path(Path(graph_path))
 
     if corpus_words is None:
         # Rough estimate: each node label is ~3 words, plus source context
