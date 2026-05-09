@@ -53,6 +53,112 @@ def test_openai_backend_detected(monkeypatch):
     assert llm._get_backend_api_key("openai") == "openai-key"
 
 
+def test_openai_default_model_stays_existing_chat_model(monkeypatch):
+    _clear_backend_env(monkeypatch)
+    monkeypatch.delenv("GRAPHIFY_OPENAI_MODEL", raising=False)
+    monkeypatch.delenv("GRAPHIFY_OPENAI_FALLBACK_MODELS", raising=False)
+
+    assert llm._default_model_for_backend("openai") == "gpt-4.1-mini"
+    assert llm._model_candidates_for_backend("openai", None) == ["gpt-4.1-mini"]
+
+
+def test_openai_fallback_models_can_be_overridden_by_env(monkeypatch):
+    _clear_backend_env(monkeypatch)
+    monkeypatch.setenv("GRAPHIFY_OPENAI_MODEL", "gpt-5.5-mini")
+    monkeypatch.setenv(
+        "GRAPHIFY_OPENAI_FALLBACK_MODELS",
+        "gpt-5.4-mini, gpt-4.1-mini, gpt-5.4-mini",
+    )
+
+    assert llm._model_candidates_for_backend("openai", None) == [
+        "gpt-5.5-mini",
+        "gpt-5.4-mini",
+        "gpt-4.1-mini",
+    ]
+
+
+def test_extract_files_direct_retries_openai_model_fallback(tmp_path, monkeypatch, capsys):
+    _clear_backend_env(monkeypatch)
+    monkeypatch.setenv("OPENAI_API_KEY", "openai-key")
+    monkeypatch.setenv("GRAPHIFY_OPENAI_FALLBACK_MODELS", "gpt-5-mini")
+    source = tmp_path / "note.md"
+    source.write_text("# Architecture\n")
+    fallback_result = {
+        "nodes": [],
+        "edges": [],
+        "hyperedges": [],
+        "input_tokens": 1,
+        "output_tokens": 1,
+        "model": "gpt-5-mini",
+    }
+
+    with patch(
+        "graphify.llm._call_openai_responses",
+        side_effect=[RuntimeError("model unavailable"), fallback_result],
+    ) as responses_call:
+        result = llm.extract_files_direct(
+            [source],
+            backend="openai",
+            model="gpt-5.5-mini",
+            root=tmp_path,
+        )
+
+    assert result is fallback_result
+    assert [call.args[2] for call in responses_call.call_args_list] == [
+        "gpt-5.5-mini",
+        "gpt-5-mini",
+    ]
+    err = capsys.readouterr().err
+    assert "gpt-5.5-mini" in err
+    assert "gpt-5-mini" in err
+
+
+def test_openai_gpt5_mini_model_uses_responses_api(tmp_path, monkeypatch):
+    _clear_backend_env(monkeypatch)
+    monkeypatch.setenv("OPENAI_API_KEY", "openai-key")
+    source = tmp_path / "note.md"
+    source.write_text("# Architecture\n")
+    result = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 1, "output_tokens": 1}
+
+    with patch("graphify.llm._call_openai_compat") as compat_call:
+        with patch("graphify.llm._call_openai_responses", return_value=result) as responses_call:
+            assert (
+                llm.extract_files_direct(
+                    [source],
+                    backend="openai",
+                    model="gpt-5.4-mini",
+                    root=tmp_path,
+                )
+                is result
+            )
+
+    compat_call.assert_not_called()
+    assert responses_call.call_args.args[2] == "gpt-5.4-mini"
+
+
+def test_openai_chat_model_still_uses_chat_completions(tmp_path, monkeypatch):
+    _clear_backend_env(monkeypatch)
+    monkeypatch.setenv("OPENAI_API_KEY", "openai-key")
+    source = tmp_path / "note.md"
+    source.write_text("# Architecture\n")
+    result = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 1, "output_tokens": 1}
+
+    with patch("graphify.llm._call_openai_responses") as responses_call:
+        with patch("graphify.llm._call_openai_compat", return_value=result) as compat_call:
+            assert (
+                llm.extract_files_direct(
+                    [source],
+                    backend="openai",
+                    model="gpt-4.1-mini",
+                    root=tmp_path,
+                )
+                is result
+            )
+
+    responses_call.assert_not_called()
+    assert compat_call.call_args.args[2] == "gpt-4.1-mini"
+
+
 def test_extract_files_direct_routes_gemini_through_openai_compat(tmp_path, monkeypatch):
     _clear_backend_env(monkeypatch)
     monkeypatch.setenv("GOOGLE_API_KEY", "google-key")
