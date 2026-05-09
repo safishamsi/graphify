@@ -90,26 +90,26 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
         # INFERRED/AMBIGUOUS nodes extracted from code files also carry file_type="code"
         # and would be wrongly dropped by a file_type-based filter.
         out = watch_path / _GRAPHIFY_OUT
-        existing_graph = out / "graph.json"
-        if existing_graph.exists():
+        from graphify import store
+        if store.detect_backend(out) in ("json", "db"):
             try:
-                existing = json.loads(existing_graph.read_text(encoding="utf-8"))
+                existing = store.to_extraction(out)
                 new_ast_ids = {n["id"] for n in result["nodes"]}
-                preserved_nodes = [n for n in existing.get("nodes", []) if n["id"] not in new_ast_ids]
+                preserved_nodes = [n for n in existing["nodes"] if n["id"] not in new_ast_ids]
                 all_ids = new_ast_ids | {n["id"] for n in preserved_nodes}
                 preserved_edges = [
-                    e for e in existing.get("links", existing.get("edges", []))
+                    e for e in existing["edges"]
                     if e.get("source") in all_ids and e.get("target") in all_ids
                 ]
                 result = {
                     "nodes": result["nodes"] + preserved_nodes,
                     "edges": result["edges"] + preserved_edges,
-                    "hyperedges": existing.get("hyperedges", []),
+                    "hyperedges": existing["hyperedges"],
                     "input_tokens": 0,
                     "output_tokens": 0,
                 }
             except Exception:
-                pass  # corrupt graph.json - proceed with AST-only
+                pass  # corrupt graph - proceed with AST-only
 
         _relativize_source_files(result, project_root)
 
@@ -139,7 +139,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
         out.mkdir(exist_ok=True)
         (out / ".graphify_root").write_text(str(watch_root), encoding="utf-8")
 
-        json_written = to_json(G, communities, str(out / "graph.json"), force=force, built_at_commit=commit)
+        json_written = store.save(out, G, communities, force=force, built_at_commit=commit)
         if not json_written:
             return False
 
@@ -173,7 +173,7 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
 
         print(f"[graphify watch] Rebuilt: {G.number_of_nodes()} nodes, "
               f"{G.number_of_edges()} edges, {len(communities)} communities")
-        products = "graph.json" + (", graph.html" if html_written else "") + " and GRAPH_REPORT.md"
+        products = store.artifact_name(out) + (", graph.html" if html_written else "") + " and GRAPH_REPORT.md"
         print(f"[graphify watch] {products} updated in {out}")
         return True
 

@@ -123,9 +123,13 @@ def test_detect_follows_symlinked_directory(tmp_path):
     result_no = detect(tmp_path, follow_symlinks=False)
     result_yes = detect(tmp_path, follow_symlinks=True)
 
+    # Without symlink-following: only the real directory is walked.
     assert any("real_lib" in f for f in result_no["files"]["code"])
     assert not any("linked_lib" in f for f in result_no["files"]["code"])
-    assert any("linked_lib" in f for f in result_yes["files"]["code"])
+    # With symlink-following: util.py is reachable via either path, but
+    # realpath dedup ensures it's emitted exactly once.
+    util_paths = [f for f in result_yes["files"]["code"] if f.endswith("util.py")]
+    assert len(util_paths) == 1, f"expected 1 util.py, got: {util_paths}"
 
 
 def test_detect_follows_symlinked_file(tmp_path):
@@ -134,8 +138,48 @@ def test_detect_follows_symlinked_file(tmp_path):
 
     result = detect(tmp_path, follow_symlinks=True)
     code = result["files"]["code"]
-    assert any("real.py" in f for f in code)
-    assert any("link.py" in f for f in code)
+    # Both paths point to the same on-disk file. Realpath dedup means it shows
+    # up exactly once (whichever the walker hit first).
+    matches = [f for f in code if f.endswith(("real.py", "link.py"))]
+    assert len(matches) == 1, f"expected 1 entry for the deduplicated file, got: {matches}"
+
+
+def test_detect_dedupes_multi_alias_directories(tmp_path):
+    """Three distinct symlinks pointing to the same target dir should walk
+    that target's contents once, not three times."""
+    real_dir = tmp_path / "shared"
+    real_dir.mkdir()
+    (real_dir / "shared_mod.py").write_text("x = 1")
+    (tmp_path / "alias_a").symlink_to(real_dir)
+    (tmp_path / "alias_b").symlink_to(real_dir)
+    (tmp_path / "alias_c").symlink_to(real_dir)
+
+    result = detect(tmp_path, follow_symlinks=True)
+    matches = [f for f in result["files"]["code"] if f.endswith("shared_mod.py")]
+    assert len(matches) == 1, (
+        f"shared_mod.py should be emitted once across 3 aliases + the real "
+        f"directory, got: {matches}"
+    )
+
+
+def test_detect_dedupes_multiple_file_symlinks_to_same_target(tmp_path):
+    """Multiple file-level symlinks (default mode, no follow_symlinks) all
+    pointing to one target should produce one corpus entry, not many."""
+    target_dir = tmp_path / "external"
+    target_dir.mkdir()
+    target = target_dir / "shared.py"
+    target.write_text("x = 1")
+    inside = tmp_path / "inside"
+    inside.mkdir()
+    (inside / "alpha.py").symlink_to(target)
+    (inside / "beta.py").symlink_to(target)
+    (inside / "gamma.py").symlink_to(target)
+
+    result = detect(inside)  # default: follow_symlinks=False
+    py_files = result["files"]["code"]
+    assert len(py_files) == 1, (
+        f"three symlinks to the same target should dedupe to one, got: {py_files}"
+    )
 
 
 def test_graphifyignore_hermetic_without_vcs(tmp_path):
@@ -236,10 +280,15 @@ def test_detect_incremental_propagates_follow_symlinks(tmp_path, monkeypatch):
     no_link = detect_incremental(tmp_path, manifest_path, follow_symlinks=False)
     assert not any("linked_corpus" in f for f in no_link["files"]["document"])
 
-    # With follow_symlinks=True, the symlinked dir contents appear and are new.
+    # With follow_symlinks=True, the symlinked dir's contents are reachable.
+    # Realpath dedup means note.md is emitted once (via whichever path was
+    # walked first), not twice — so the corpus reflects the real dir, not a
+    # cartesian product of aliases.
     yes_link = detect_incremental(tmp_path, manifest_path, follow_symlinks=True)
-    assert any("linked_corpus" in f for f in yes_link["files"]["document"])
-    assert yes_link["new_total"] >= 2  # real + linked
+    docs = yes_link["files"]["document"]
+    note_paths = [f for f in docs if f.endswith("note.md")]
+    assert len(note_paths) == 1, f"expected 1 deduplicated note.md, got: {note_paths}"
+    assert yes_link["new_total"] >= 1
 
     # After saving manifest, a second incremental scan should see no changes.
     save_manifest(yes_link["files"], manifest_path)

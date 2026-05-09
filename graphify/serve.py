@@ -11,18 +11,12 @@ from graphify.security import sanitize_label
 def _load_graph(graph_path: str) -> nx.Graph:
     try:
         resolved = Path(graph_path).resolve()
-        if resolved.suffix != ".json":
-            raise ValueError(f"Graph path must be a .json file, got: {graph_path!r}")
+        if resolved.suffix not in (".json", ".db") and not resolved.is_dir():
+            raise ValueError(f"Graph path must be a .json file, .db file, or directory, got: {graph_path!r}")
         if not resolved.exists():
             raise FileNotFoundError(f"Graph file not found: {resolved}")
-        safe = resolved
-        data = json.loads(safe.read_text(encoding="utf-8"))
-        if "links" not in data and "edges" in data:
-            data = dict(data, links=data["edges"])
-        try:
-            return json_graph.node_link_graph(data, edges="links")
-        except TypeError:
-            return json_graph.node_link_graph(data)
+        from graphify.store import load_path
+        return load_path(resolved)
     except (ValueError, FileNotFoundError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         sys.exit(1)

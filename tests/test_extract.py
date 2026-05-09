@@ -79,8 +79,37 @@ def test_collect_files_follows_symlinked_directory(tmp_path):
     files_no = collect_files(tmp_path, follow_symlinks=False)
     files_yes = collect_files(tmp_path, follow_symlinks=True)
 
+    # Default: only the real directory is walked.
     assert [f.name for f in files_no].count("lib.py") == 1
-    assert [f.name for f in files_yes].count("lib.py") == 2
+    # With symlink-following: realpath dedup ensures lib.py is emitted once,
+    # regardless of whether reached via real_src or linked_src.
+    assert [f.name for f in files_yes].count("lib.py") == 1
+
+
+def test_collect_files_dedupes_multi_alias_directories(tmp_path):
+    """Three aliases for the same dir → contents collected once."""
+    real_dir = tmp_path / "shared"
+    real_dir.mkdir()
+    (real_dir / "mod.py").write_text("x = 1")
+    (tmp_path / "alias_a").symlink_to(real_dir)
+    (tmp_path / "alias_b").symlink_to(real_dir)
+    (tmp_path / "alias_c").symlink_to(real_dir)
+
+    files = collect_files(tmp_path, follow_symlinks=True)
+    assert [f.name for f in files].count("mod.py") == 1
+
+
+def test_collect_files_dedupes_file_symlinks(tmp_path):
+    """Multiple file-level symlinks to one target → one entry (default mode)."""
+    target = tmp_path / "external.py"
+    target.write_text("x = 1")
+    sub = tmp_path / "src"
+    sub.mkdir()
+    (sub / "a.py").symlink_to(target)
+    (sub / "b.py").symlink_to(target)
+
+    files = collect_files(sub, follow_symlinks=False)
+    assert len(files) == 1, f"two symlinks to one file should dedupe, got {files}"
 
 
 def test_collect_files_handles_circular_symlinks(tmp_path):

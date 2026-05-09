@@ -569,7 +569,11 @@ def write_tree_html(
     # kept for CLI compatibility with the older signature; ignored now
     top_k_edges: int = 0,
 ) -> Path:
-    graph = json.loads(graph_path.read_text(encoding="utf-8"))
+    # Backend-aware load: handles graph.json, graph.db, and graphify-out/ directories.
+    # Reconstruct the {nodes: [...]} dict that build_tree consumes.
+    from graphify.store import load_path as _gx_load_path
+    G = _gx_load_path(graph_path)
+    graph = {"nodes": [{"id": nid, **attrs} for nid, attrs in G.nodes(data=True)]}
     tree = build_tree(graph, root=root, max_children=max_children,
                       project_label=project_label)
     title = f"{tree['name']} — graphify tree viewer"

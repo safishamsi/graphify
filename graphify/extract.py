@@ -5005,14 +5005,27 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
     def _ignored(p: Path) -> bool:
         return bool(patterns and _is_ignored(p, ignore_root, patterns))
 
+    # Realpath-based dedup: prevents the same on-disk file from being processed
+    # twice when reached via multiple symlinks (mirrored corpora otherwise
+    # produce duplicate nodes since IDs derive from the walked path stem).
+    realpath_seen: set[str] = set()
+
+    def _add_unique(results: list[Path], p: Path) -> None:
+        real = os.path.realpath(p)
+        if real in realpath_seen:
+            return
+        realpath_seen.add(real)
+        results.append(p)
+
     if not follow_symlinks:
         results: list[Path] = []
         for ext in sorted(_EXTENSIONS):
-            results.extend(
-                p for p in target.rglob(f"*{ext}")
-                if not any(part.startswith(".") for part in p.parts)
-                and not _ignored(p)
-            )
+            for p in target.rglob(f"*{ext}"):
+                if any(part.startswith(".") for part in p.parts):
+                    continue
+                if _ignored(p):
+                    continue
+                _add_unique(results, p)
         return sorted(results)
     # Walk with symlink following + cycle detection
     results = []
@@ -5023,6 +5036,12 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
             if parent_real == real or parent_real.startswith(real + os.sep):
                 dirnames.clear()
                 continue
+            # Multi-alias dedup: if we've already walked this real directory via
+            # another path, don't recurse into the alias.
+            if real in realpath_seen:
+                dirnames.clear()
+                continue
+            realpath_seen.add(real)
         dp = Path(dirpath)
         if any(part.startswith(".") for part in dp.parts):
             dirnames.clear()
@@ -5030,7 +5049,7 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
         for fname in filenames:
             p = dp / fname
             if p.suffix in _EXTENSIONS and not fname.startswith(".") and not _ignored(p):
-                results.append(p)
+                _add_unique(results, p)
     return sorted(results)
 
 
