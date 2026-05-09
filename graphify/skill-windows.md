@@ -88,9 +88,9 @@ import json
 from graphify.detect import detect
 from pathlib import Path
 result = detect(Path('INPUT_PATH'))
-print(json.dumps(result))
+Path('.graphify_detect.json').write_text(json.dumps(result), encoding='utf-8')
 '@ | Out-File -FilePath .graphify_step_2_detect_files_3.py -Encoding utf8
-python .graphify_step_2_detect_files_3.py > .graphify_detect.json
+& ((Get-Content .graphify_python -Raw).Trim()) .graphify_step_2_detect_files_3.py
 Remove-Item -ErrorAction SilentlyContinue .graphify_step_2_detect_files_3.py
 ```
 
@@ -140,14 +140,20 @@ import json, os
 from pathlib import Path
 from graphify.transcribe import transcribe_all
 
-detect = json.loads(Path('graphify-out/.graphify_detect.json').read_text(encoding='utf-8-sig'))
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
+detect = load_json('.graphify_detect.json')
 video_files = detect.get('files', {}).get('video', [])
 prompt = os.environ.get('GRAPHIFY_WHISPER_PROMPT', 'Use proper punctuation and paragraph breaks.')
 
 transcript_paths = transcribe_all(video_files, initial_prompt=prompt)
 print(json.dumps(transcript_paths))
 '@ | Out-File -FilePath .graphify_step_transcribe.py -Encoding utf8
-& (Get-Content graphify-out\.graphify_python) .graphify_step_transcribe.py | Out-File -FilePath graphify-out\.graphify_transcripts.json -Encoding utf8
+& (Get-Content .graphify_python) .graphify_step_transcribe.py | Out-File -FilePath graphify-out\.graphify_transcripts.json -Encoding utf8
 Remove-Item -ErrorAction SilentlyContinue .graphify_step_transcribe.py
 ```
 
@@ -180,18 +186,25 @@ from graphify.extract import collect_files, extract
 from pathlib import Path
 
 
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
+
 def main():
     code_files = []
-    detect = json.loads(Path('.graphify_detect.json').read_text())
+    detect = load_json('.graphify_detect.json')
     for f in detect.get('files', {}).get('code', []):
         code_files.extend(collect_files(Path(f)) if Path(f).is_dir() else [Path(f)])
 
     if code_files:
         result = extract(code_files)
-        Path('.graphify_ast.json').write_text(json.dumps(result, indent=2))
+        Path('.graphify_ast.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
         print(f'AST: {len(result["nodes"])} nodes, {len(result["edges"])} edges')
     else:
-        Path('.graphify_ast.json').write_text(json.dumps({'nodes':[],'edges':[],'input_tokens':0,'output_tokens':0}))
+        Path('.graphify_ast.json').write_text(json.dumps({'nodes':[],'edges':[],'input_tokens':0,'output_tokens':0}), encoding='utf-8')
         print('No code files - skipping AST extraction')
 
 
@@ -203,7 +216,7 @@ def main():
 if __name__ == '__main__':
     main()
 '@ | Out-File -FilePath .graphify_step_ast.py -Encoding utf8
-python .graphify_step_ast.py
+& ((Get-Content .graphify_python -Raw).Trim()) .graphify_step_ast.py
 Remove-Item -ErrorAction SilentlyContinue .graphify_step_ast.py
 ```
 
@@ -229,7 +242,13 @@ import json
 from graphify.cache import check_semantic_cache
 from pathlib import Path
 
-detect = json.loads(Path('.graphify_detect.json').read_text(encoding='utf-8-sig'))
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
+detect = load_json('.graphify_detect.json')
 all_files = [f for files in detect['files'].values() for f in files]
 
 cached_nodes, cached_edges, cached_hyperedges, uncached = check_semantic_cache(all_files)
@@ -431,8 +450,14 @@ from graphify.report import generate
 from graphify.export import to_json
 from pathlib import Path
 
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
 extraction = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
-detection  = json.loads(Path('.graphify_detect.json').read_text(encoding='utf-8-sig'))
+detection  = load_json('.graphify_detect.json')
 
 G = build_from_json(extraction)
 communities = cluster(G)
@@ -485,8 +510,14 @@ from graphify.analyze import god_nodes, surprising_connections, suggest_question
 from graphify.report import generate
 from pathlib import Path
 
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
 extraction = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
-detection  = json.loads(Path('.graphify_detect.json').read_text(encoding='utf-8-sig'))
+detection  = load_json('.graphify_detect.json')
 analysis   = json.loads(Path('.graphify_analysis.json').read_text(encoding='utf-8-sig'))
 
 G = build_from_json(extraction)
@@ -701,7 +732,13 @@ import json
 from graphify.benchmark import run_benchmark, print_benchmark
 from pathlib import Path
 
-detection = json.loads(Path('.graphify_detect.json').read_text(encoding='utf-8-sig'))
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
+detection = load_json('.graphify_detect.json')
 result = run_benchmark('graphify-out/graph.json', corpus_words=detection['total_words'])
 print_benchmark(result)
 '@ | Out-File -FilePath .graphify_step_8_token_reduction_benchmark_only_17.py -Encoding utf8
@@ -722,8 +759,14 @@ from pathlib import Path
 from datetime import datetime, timezone
 from graphify.detect import save_manifest
 
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
 # Save manifest for --update
-detect = json.loads(Path('.graphify_detect.json').read_text(encoding='utf-8-sig'))
+detect = load_json('.graphify_detect.json')
 save_manifest(detect['files'])
 
 # Update cumulative cost tracker
