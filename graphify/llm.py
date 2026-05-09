@@ -281,17 +281,25 @@ def _call_openai_compat(
         kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
     # Ollama defaults num_ctx to 2048 and silently truncates prompts larger
     # than that — the symptom is hollow 200 OK responses after the first few
-    # chunks (#798). We send num_ctx large enough to fit our default 60k-token
-    # chunk budget plus system prompt and JSON output headroom. Ollama caps
-    # gracefully at the model's built-in limit if it's lower, so a large
-    # default is safe. keep_alive pins the model in VRAM across chunks so it
-    # isn't unloaded/reloaded mid-run under concurrency pressure.
+    # chunks (#798). We derive num_ctx from the actual prompt size so we don't
+    # over-allocate KV-cache VRAM. Over-allocation (e.g. 128k slots for an 8k
+    # prompt on a 31B model) exhausts VRAM by chunk 4 and produces the same
+    # hollow-200 symptom — just from a different direction (#798 follow-up).
+    # Formula: actual input tokens + output cap + system prompt headroom.
+    # Capped at 131072 (enough for the default 60k token_budget); env var wins.
     if backend == "ollama":
         num_ctx_raw = os.environ.get("GRAPHIFY_OLLAMA_NUM_CTX", "").strip()
-        try:
-            num_ctx = int(num_ctx_raw) if num_ctx_raw else 131072
-        except ValueError:
-            num_ctx = 131072
+        if num_ctx_raw:
+            try:
+                num_ctx = int(num_ctx_raw)
+            except ValueError:
+                num_ctx = 131072
+        else:
+            # Estimate input tokens: user_message chars / 4 (standard BPE
+            # heuristic) + 400 for the system prompt, then add output headroom.
+            estimated_input = len(user_message) // _CHARS_PER_TOKEN + 400
+            num_ctx = min(estimated_input + max_completion_tokens + 2000, 131072)
+            num_ctx = max(num_ctx, 8192)  # floor: never under-allocate badly
         keep_alive = os.environ.get("GRAPHIFY_OLLAMA_KEEP_ALIVE", "30m")
         kwargs["extra_body"] = {"options": {"num_ctx": num_ctx}, "keep_alive": keep_alive}
     resp = client.chat.completions.create(**kwargs)
@@ -321,9 +329,12 @@ def _call_openai_compat(
     output_tokens = result["output_tokens"]
     if output_tokens < 50 and backend == "ollama":
         print(
-            "[graphify] warning: ollama returned very few tokens — the model may be "
-            "too small or not following the JSON instruction format. "
-            "Try a larger model with --model (e.g. --model qwen2.5-coder:14b).",
+            "[graphify] warning: ollama returned very few tokens — likely causes: "
+            "(1) VRAM pressure: check `nvidia-smi` and reduce chunk size with "
+            "--token-budget (e.g. --token-budget 4096) or set "
+            "GRAPHIFY_OLLAMA_NUM_CTX to a smaller value; "
+            "(2) model too small for JSON instruction following — "
+            "try a larger model with --model (e.g. --model qwen2.5-coder:14b).",
             file=sys.stderr,
         )
     return result

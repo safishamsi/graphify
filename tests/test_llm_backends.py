@@ -369,8 +369,36 @@ def test_ollama_extra_body_sets_num_ctx_and_keep_alive(monkeypatch):
 
     assert "extra_body" in captured, "extra_body must be sent to Ollama"
     eb = captured["extra_body"]
-    assert eb.get("options", {}).get("num_ctx") == 131072, "default num_ctx must be 131072"
+    # num_ctx is now dynamic: derived from message size, not hardcoded 131072
+    assert "num_ctx" in eb.get("options", {}), "num_ctx must be present"
+    assert eb["options"]["num_ctx"] >= 8192, "num_ctx must be at least the floor value"
     assert eb.get("keep_alive") == "30m", "default keep_alive must be 30m"
+
+
+def test_ollama_num_ctx_scales_with_small_token_budget(monkeypatch):
+    # Regression for #798 follow-up: with --token-budget 8192, the old hardcoded
+    # 131072 forced Ollama to allocate 128k KV-cache slots on a 31B model, causing
+    # VRAM exhaustion by chunk 4. num_ctx must now reflect actual chunk size.
+    captured = _install_capturing_openai(monkeypatch)
+    monkeypatch.delenv("GRAPHIFY_OLLAMA_NUM_CTX", raising=False)
+    monkeypatch.delenv("GRAPHIFY_OLLAMA_KEEP_ALIVE", raising=False)
+
+    # Simulate an 8k-token chunk: ~32k chars of content
+    small_chunk_msg = "x" * 32_000
+
+    llm._call_openai_compat(
+        "http://localhost:11434/v1", "ollama", "qwen2.5-coder:7b",
+        small_chunk_msg, temperature=0, max_completion_tokens=16384, backend="ollama",
+    )
+
+    num_ctx = captured["extra_body"]["options"]["num_ctx"]
+    # Should be far less than 131072 for an 8k input — VRAM-friendly
+    assert num_ctx < 131072, (
+        f"num_ctx={num_ctx} is too large for a small chunk; "
+        "this wastes VRAM and causes OOM on large models (#798)"
+    )
+    # But still large enough to fit input + output
+    assert num_ctx >= 8192, "num_ctx must cover at least the output cap"
 
 
 def test_ollama_num_ctx_env_override(monkeypatch):
