@@ -2,6 +2,15 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## 0.7.11 (2026-05-09)
+
+- Fix: context-window-exceeded API errors now trigger automatic retry with bisected file chunks -- exponential bisection up to 6 levels deep; covers `"context_length_exceeded"`, `"maximum context length"`, and `"too_large"` across OpenAI-compat backends (#789)
+- Fix: Windows pipeline unblocked -- `print_benchmark()` falls back to ASCII box-drawing on cp1252 consoles; `ProcessPoolExecutor` `BrokenProcessPool` caught and falls back to sequential extraction when caller lacks `if __name__ == "__main__":` guard; Windows skill file (`skill-windows.md`) rewrites all `python -c "..."` blocks as PowerShell heredocs to fix quote-escaping failures (#788)
+- Fix: reversed `calls` edges after `--update` -- `build_merge()` now reads the saved JSON directly instead of round-tripping through NetworkX `node_link_graph()`, which was silently reversing edge direction on reload (#760)
+- Fix: atomic SKILL.md install -- temp-file + `os.replace()` pattern prevents half-installed empty skill directories that looked valid but contained no file; version-stamp guard and warning added for missing installs (#725)
+- Feat: `graphify uninstall` top-level command -- removes graphify skill files from all platforms in one shot; `--purge` flag also deletes `graphify-out/`
+- Feat: SQL `ALTER TABLE` FK extraction -- `ADD CONSTRAINT ... FOREIGN KEY` and `ADD FOREIGN KEY` DDL statements now emit `references` edges; schema-qualified table names (`schema.table`) correctly resolved (#779)
+
 ## 0.7.10 (2026-05-07)
 
 - Fix: `.tsx` files now use `language_tsx` grammar for JSX-aware parsing -- previously `language_typescript` was used, silently dropping all JSX-specific nodes (#766)

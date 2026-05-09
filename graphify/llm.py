@@ -449,6 +449,35 @@ def _pack_chunks_by_tokens(
     return chunks
 
 
+_CONTEXT_EXCEEDED_MARKERS = (
+    "context size",
+    "context length",
+    "context_length",
+    "context window",
+    "n_keep",
+    "exceeds the available",
+    "n_ctx",
+    "maximum context",
+    "too many tokens",
+    "prompt is too long",
+    "context_length_exceeded",
+)
+
+
+def _looks_like_context_exceeded(exc: BaseException) -> bool:
+    """Heuristically classify an exception as a context-window overflow.
+
+    Different backends raise different exception types and messages for the
+    same underlying problem ("the prompt + max_completion_tokens did not fit
+    in the model's context window"). We match on substrings of the stringified
+    exception so the retry layer can recover without depending on a specific
+    SDK class. False positives are cheap (we'll re-extract on halves and
+    likely recover); false negatives are expensive (chunk fails entirely).
+    """
+    msg = str(exc).lower()
+    return any(marker in msg for marker in _CONTEXT_EXCEEDED_MARKERS)
+
+
 def _extract_with_adaptive_retry(
     chunk: list[Path],
     backend: str,
@@ -458,26 +487,73 @@ def _extract_with_adaptive_retry(
     max_depth: int,
     _depth: int = 0,
 ) -> dict:
-    """Extract a chunk; if the response is truncated (`finish_reason="length"`),
+    """Extract a chunk; if the response is truncated (`finish_reason="length"`)
+    or the API rejects the prompt as too large for the model's context window,
     split the chunk in half and recurse.
 
-    The signal driving the retry is the API's own `finish_reason` — `"length"`
-    means the model hit `max_completion_tokens` mid-output. The truncated JSON
-    has nothing useful in it (parse fails partway through a string or array),
-    so we discard it and re-extract on smaller inputs that produce shorter
-    outputs.
+    Two signals drive the retry:
+
+    - `finish_reason == "length"` — the model accepted the input but ran out of
+      `max_completion_tokens` mid-output. The truncated JSON is unparseable, so
+      we discard it and re-extract on smaller inputs that produce shorter
+      outputs.
+
+    - context-window-exceeded API errors — the model rejected the input
+      outright (HTTP 400 from LM Studio, llama.cpp, vLLM, OpenAI, etc.).
+      Without a retry the whole chunk would fail with no output. Splitting in
+      half is the same recovery as for the `length` case and works for the
+      same reason.
 
     Recursion is capped at `max_depth` to bound worst-case cost. A chunk of N
     files can split into up to 2**max_depth pieces — at depth=3 that's 8x. If
-    still truncated at the cap, we surface the (likely empty) result with a
+    still failing at the cap, we surface the (likely empty) result with a
     warning rather than infinite-loop.
 
-    A single-file chunk that truncates is unrecoverable here — we can't make
+    A single-file chunk that overflows is unrecoverable here — we can't make
     one file smaller than itself, so we return what we got and warn.
     """
-    result = extract_files_direct(
-        chunk, backend=backend, api_key=api_key, model=model, root=root
-    )
+    try:
+        result = extract_files_direct(
+            chunk, backend=backend, api_key=api_key, model=model, root=root
+        )
+    except Exception as exc:  # noqa: BLE001 — re-raise unless it's a known context overflow
+        if not _looks_like_context_exceeded(exc):
+            raise
+        if len(chunk) <= 1:
+            print(
+                f"[graphify] single-file chunk {chunk[0]} exceeds model context "
+                f"and cannot be split further: {exc}",
+                file=sys.stderr,
+            )
+            return {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0, "model": model, "finish_reason": "stop"}
+        if _depth >= max_depth:
+            print(
+                f"[graphify] chunk of {len(chunk)} still overflows context at "
+                f"recursion depth {_depth} (max {max_depth}) — dropping",
+                file=sys.stderr,
+            )
+            return {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0, "model": model, "finish_reason": "stop"}
+        print(
+            f"[graphify] chunk of {len(chunk)} exceeded context at depth "
+            f"{_depth} ({type(exc).__name__}); splitting in half and retrying",
+            file=sys.stderr,
+        )
+        mid = len(chunk) // 2
+        left = _extract_with_adaptive_retry(
+            chunk[:mid], backend, api_key, model, root, max_depth, _depth + 1
+        )
+        right = _extract_with_adaptive_retry(
+            chunk[mid:], backend, api_key, model, root, max_depth, _depth + 1
+        )
+        return {
+            "nodes": left.get("nodes", []) + right.get("nodes", []),
+            "edges": left.get("edges", []) + right.get("edges", []),
+            "hyperedges": left.get("hyperedges", []) + right.get("hyperedges", []),
+            "input_tokens": left.get("input_tokens", 0) + right.get("input_tokens", 0),
+            "output_tokens": left.get("output_tokens", 0) + right.get("output_tokens", 0),
+            "model": model,
+            "finish_reason": "stop",
+        }
 
     if result.get("finish_reason") != "length":
         return result
