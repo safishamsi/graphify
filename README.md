@@ -39,6 +39,12 @@ graphify-out/
 └── graph.json       the full graph — query it anytime without re-reading your files
 ```
 
+For a readable architecture page with Mermaid call-flow diagrams, run:
+
+```bash
+graphify export callflow-html
+```
+
 ---
 
 ## Install
@@ -164,6 +170,7 @@ You can also set `GRAPHIFY_GOOGLE_WORKSPACE=1`. Graphify exports shortcuts into
 /graphify . --cluster-only         # rerun clustering without re-extracting
 /graphify . --no-viz               # skip the HTML, just the report + JSON
 /graphify . --wiki                 # build a markdown wiki from the graph
+graphify export callflow-html      # architecture/call-flow HTML from graphify-out/
 
 /graphify query "what connects auth to the database?"
 /graphify path "UserService" "DatabasePool"
@@ -309,6 +316,11 @@ graphify extract ./docs --no-cluster           # raw extraction only, skip clust
 graphify extract ./docs --dedup-llm            # LLM tiebreaker for ambiguous entity pairs (uses same API key)
 graphify extract ./docs --global --as myrepo   # extract and register into the cross-project global graph
 GRAPHIFY_MAX_OUTPUT_TOKENS=32768 graphify extract ./docs --backend claude  # raise output cap for dense corpora
+
+graphify export callflow-html                       # graphify-out/<project>-callflow.html
+graphify export callflow-html --max-sections 8      # cap generated architecture sections
+graphify export callflow-html --output docs/arch.html
+graphify export callflow-html ./some-repo/graphify-out
 
 graphify global add graphify-out/graph.json myrepo   # register a project graph into ~/.graphify/global.json
 graphify global remove myrepo                         # remove a project from the global graph

@@ -21,6 +21,7 @@ Each stage is a single function in its own module. They communicate through plai
 | `analyze.py` | `analyze(G)` | graph → analysis dict (god nodes, surprises, questions) |
 | `report.py` | `render_report(G, analysis)` | graph + analysis → GRAPH_REPORT.md string |
 | `export.py` | `export(G, out_dir, ...)` | graph → Obsidian vault, graph.json, graph.html, graph.svg |
+| `callflow_html.py` | `write_callflow_html(...)` | graphify-out files → Mermaid architecture/call-flow HTML |
 | `ingest.py` | `ingest(url, ...)` | URL → file saved to corpus dir |
 | `cache.py` | `check_semantic_cache / save_semantic_cache` | files → (cached, uncached) split |
 | `security.py` | validation helpers | URL / path / label → validated or raises |

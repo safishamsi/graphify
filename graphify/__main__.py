@@ -1185,6 +1185,7 @@ def main() -> None:
         print("  global list              list repos in the global graph")
         print("  global path              print path to the global graph file")
         print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
+        print("  export callflow-html    emit Mermaid-based architecture/call-flow HTML")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
         print("  hook status             check if git hooks are installed")
@@ -1921,9 +1922,11 @@ def main() -> None:
 
     elif cmd == "export":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
-        if subcmd not in ("html", "obsidian", "wiki", "svg", "graphml", "neo4j"):
+        if subcmd not in ("html", "callflow-html", "obsidian", "wiki", "svg", "graphml", "neo4j"):
             print("Usage: graphify export <format>", file=sys.stderr)
             print("  html      [--graph PATH] [--labels PATH] [--node-limit N] [--no-viz]", file=sys.stderr)
+            print("  callflow-html [GRAPH|DIR] [--graph PATH] [--labels PATH] [--report PATH] [--sections PATH] [--output HTML]", file=sys.stderr)
+            print("            [--lang auto|zh-CN|en] [--max-sections N] [--diagram-scale N]", file=sys.stderr)
             print("  obsidian  [--graph PATH] [--labels PATH] [--dir PATH]", file=sys.stderr)
             print("  wiki      [--graph PATH] [--labels PATH]", file=sys.stderr)
             print("  svg       [--graph PATH] [--labels PATH]", file=sys.stderr)
@@ -1935,7 +1938,18 @@ def main() -> None:
         # Parse shared args
         args = sys.argv[3:]
         graph_path = Path(_GRAPHIFY_OUT) / "graph.json"
+        graph_path_explicit = False
         labels_path = Path(_GRAPHIFY_OUT) / ".graphify_labels.json"
+        labels_path_explicit = False
+        report_path = Path(_GRAPHIFY_OUT) / "GRAPH_REPORT.md"
+        report_path_explicit = False
+        sections_path: Path | None = None
+        callflow_output: Path | None = None
+        callflow_lang = "auto"
+        callflow_max_sections = 15
+        callflow_diagram_scale = 1.0
+        callflow_max_diagram_nodes = 18
+        callflow_max_diagram_edges = 24
         analysis_path = Path(_GRAPHIFY_OUT) / ".graphify_analysis.json"
         node_limit = 5000
         no_viz = False
@@ -1950,9 +1964,45 @@ def main() -> None:
         while i < len(args):
             a = args[i]
             if a == "--graph" and i + 1 < len(args):
-                graph_path = Path(args[i + 1]); i += 2
+                graph_path = Path(args[i + 1])
+                graph_path_explicit = True
+                i += 2
             elif a == "--labels" and i + 1 < len(args):
-                labels_path = Path(args[i + 1]); i += 2
+                labels_path = Path(args[i + 1])
+                labels_path_explicit = True
+                i += 2
+            elif a == "--report" and i + 1 < len(args):
+                report_path = Path(args[i + 1])
+                report_path_explicit = True
+                i += 2
+            elif a == "--sections" and i + 1 < len(args):
+                sections_path = Path(args[i + 1]); i += 2
+            elif a == "--output" and i + 1 < len(args):
+                callflow_output = Path(args[i + 1]).expanduser()
+                if not callflow_output.is_absolute():
+                    callflow_output = Path.cwd() / callflow_output
+                i += 2
+            elif a == "--lang" and i + 1 < len(args):
+                callflow_lang = args[i + 1]; i += 2
+            elif a == "--max-sections" and i + 1 < len(args):
+                callflow_max_sections = int(args[i + 1]); i += 2
+            elif a == "--diagram-scale" and i + 1 < len(args):
+                callflow_diagram_scale = float(args[i + 1]); i += 2
+            elif a == "--max-diagram-nodes" and i + 1 < len(args):
+                callflow_max_diagram_nodes = int(args[i + 1]); i += 2
+            elif a == "--max-diagram-edges" and i + 1 < len(args):
+                callflow_max_diagram_edges = int(args[i + 1]); i += 2
+            elif a in ("-h", "--help") and subcmd == "callflow-html":
+                print("Usage: graphify export callflow-html [GRAPH|DIR] [--graph PATH] [--labels PATH]")
+                print("  --report PATH          path to GRAPH_REPORT.md")
+                print("  --sections PATH        JSON section definitions")
+                print("  --output HTML          output path (default graphify-out/<project>-callflow.html)")
+                print("  --lang LANG            auto, zh-CN, en, etc. (default auto)")
+                print("  --max-sections N       maximum auto-derived sections (default 15)")
+                print("  --diagram-scale N      Mermaid diagram scale (default 1.0)")
+                print("  --max-diagram-nodes N  representative nodes per section (default 18)")
+                print("  --max-diagram-edges N  representative edges per section (default 24)")
+                sys.exit(0)
             elif a == "--node-limit" and i + 1 < len(args):
                 node_limit = int(args[i + 1]); i += 2
             elif a == "--no-viz":
@@ -1965,12 +2015,50 @@ def main() -> None:
                 neo4j_user = args[i + 1]; i += 2
             elif a == "--password" and i + 1 < len(args):
                 neo4j_password = args[i + 1]; i += 2
+            elif subcmd == "callflow-html" and not a.startswith("-") and not graph_path_explicit:
+                candidate = Path(a)
+                if candidate.name == "graph.json" or candidate.suffix.lower() == ".json":
+                    graph_path = candidate
+                elif (candidate / "graph.json").exists():
+                    graph_path = candidate / "graph.json"
+                else:
+                    graph_path = candidate / _GRAPHIFY_OUT / "graph.json"
+                graph_path_explicit = True
+                i += 1
             else:
                 i += 1
+
+        graph_path = graph_path.expanduser()
+        if graph_path_explicit:
+            graph_out_dir = graph_path.parent
+            if not labels_path_explicit:
+                labels_path = graph_out_dir / ".graphify_labels.json"
+            if not report_path_explicit:
+                report_path = graph_out_dir / "GRAPH_REPORT.md"
+        labels_path = labels_path.expanduser()
+        report_path = report_path.expanduser()
 
         if not graph_path.exists():
             print(f"error: graph not found: {graph_path}. Run /graphify <path> first.", file=sys.stderr)
             sys.exit(1)
+
+        if subcmd == "callflow-html":
+            from graphify.callflow_html import write_callflow_html as _write_callflow_html
+            out = _write_callflow_html(
+                graph=graph_path,
+                report=report_path,
+                labels=labels_path,
+                sections=sections_path,
+                output=callflow_output,
+                lang=callflow_lang,
+                max_sections=callflow_max_sections,
+                diagram_scale=callflow_diagram_scale,
+                max_diagram_nodes=callflow_max_diagram_nodes,
+                max_diagram_edges=callflow_max_diagram_edges,
+                verbose=True,
+            )
+            print(f"callflow HTML written - open in any browser: {out}")
+            sys.exit(0)
 
         from networkx.readwrite import json_graph as _jg
         from graphify.build import build_from_json as _bfj
