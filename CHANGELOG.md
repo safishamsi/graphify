@@ -2,6 +2,17 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## 0.7.12 (2026-05-09)
+
+- Fix: `graphify explain` and `graphify path` no longer crash on `MultiGraph` inputs -- new `edge_data()`/`edge_datas()` helpers in `build.py` handle both simple and multi-graphs; all 8 production call sites and 30 skill-file inline heredocs updated (#796)
+- Fix: hollow Ollama responses (0 tokens / empty string) now trigger adaptive retry bisection instead of silently dropping the chunk -- `_response_is_hollow()` detects empty/null/whitespace content and parsed results with no nodes/edges, then rewrites `finish_reason="length"` to route into the existing bisection path (#792)
+- Fix: post-commit hook no longer spawns unbounded parallel rebuilds -- per-repo `fcntl.flock` non-blocking lock in `_rebuild_code`; `changed_paths` wired from hook through to AST extractor; stale nodes evicted on deletion; `GRAPHIFY_REBUILD_TIMEOUT` watchdog; Darwin-aware memory cap (#791)
+- Fix: Antigravity install now writes to `.agents/` (plural) -- corrected in platform config, paths, workflow body, and help text (#453)
+- Fix: Antigravity rules file now includes `trigger: always_on` YAML frontmatter so Antigravity recognises it (#785)
+- Feat: `graphify extract` gains `--max-workers`, `--token-budget`, `--max-concurrency`, `--api-timeout` flags; hard 8-worker AST cap removed; explicit HTTP timeout on OpenAI client (default 600s, `GRAPHIFY_API_TIMEOUT`); ollama API key gate skipped for loopback URLs (#792)
+- Feat: Pascal/Delphi extraction now works without `tree-sitter-pascal` -- regex fallback covers unit/program/library headers, uses clauses, class/interface inheritance, method declarations, and intra-file calls (#781)
+- Feat: `/graphify --help` now prints the Usage block and stops without running pipeline steps (all 12 skill files) (#795)
+
 ## 0.7.11 (2026-05-09)
 
 - Fix: context-window-exceeded API errors now trigger automatic retry with bisected file chunks -- exponential bisection up to 6 levels deep; covers `"context_length_exceeded"`, `"maximum context length"`, and `"too_large"` across OpenAI-compat backends (#789)
