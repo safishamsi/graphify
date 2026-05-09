@@ -1335,3 +1335,130 @@ def test_rescript_module_method_with_function_body(tmp_path):
     assert "M" in labels
     assert ".f()" in labels       # f is a method of M
     assert ".g()" not in labels   # g is a function-local, not a graph node
+
+
+# Helpers for type-reference-edge tests.
+
+def _type_refs(r):
+    """Return the set of (source_label, target_id) pairs for references_type edges."""
+    nb = {n["id"]: n["label"] for n in r["nodes"]}
+    return {
+        (nb.get(e["source"], e["source"]), e["target"])
+        for e in r["edges"]
+        if e["relation"] == "references_type"
+    }
+
+
+def test_rescript_record_field_emits_type_ref_edge(tmp_path):
+    src = "type result = {species: Animal.species}\n"
+    r = _extract_rescript_snippet(tmp_path, src)
+    refs = _type_refs(r)
+    assert ("result", "animal_species") in refs
+
+
+def test_rescript_variant_arm_payload_emits_type_ref_edge(tmp_path):
+    src = (
+        "type action =\n"
+        "  | Eat(Animal.food)\n"
+        "  | Move(Animal.location, Animal.speed)\n"
+    )
+    r = _extract_rescript_snippet(tmp_path, src)
+    refs = _type_refs(r)
+    # Both arms should contribute, with two edges from `Move`'s payload.
+    assert ("action", "animal_food") in refs
+    assert ("action", "animal_location") in refs
+    assert ("action", "animal_speed") in refs
+
+
+def test_rescript_polyvar_arm_payload_emits_type_ref_edge(tmp_path):
+    src = "type act = [ #Walk(Animal.speed) | #Sleep(Animal.duration) ]\n"
+    r = _extract_rescript_snippet(tmp_path, src)
+    refs = _type_refs(r)
+    assert ("act", "animal_speed") in refs
+    assert ("act", "animal_duration") in refs
+
+
+def test_rescript_function_signature_emits_type_ref_edges(tmp_path):
+    src = "let feed = (a: Animal.species): Animal.food => Animal.eat(a)\n"
+    r = _extract_rescript_snippet(tmp_path, src)
+    refs = _type_refs(r)
+    assert ("feed()", "animal_species") in refs
+    assert ("feed()", "animal_food") in refs
+
+
+def test_rescript_external_declaration_emits_type_ref_edges(tmp_path):
+    src = 'external make: Animal.config => Animal.t = "default"\n'
+    r = _extract_rescript_snippet(tmp_path, src)
+    refs = _type_refs(r)
+    assert ("make()", "animal_config") in refs
+    assert ("make()", "animal_t") in refs
+
+
+def test_rescript_nested_module_path_uses_leftmost(tmp_path):
+    """`Animal.Habitat.species` should target the leftmost module
+    (`Animal`), not the inner submodule (`Habitat`). Real codebases tend
+    to organise around top-level modules; targeting the leaf would
+    produce a flatter, less useful dependency graph."""
+    src = "type t = Animal.Habitat.species\n"
+    r = _extract_rescript_snippet(tmp_path, src)
+    refs = _type_refs(r)
+    targets = {tgt for _src, tgt in refs}
+    assert "animal_species" in targets
+    # The inner module name must NOT appear in any target id.
+    assert not any("habitat" in t for t in targets), \
+        f"nested-path target should use leftmost module only: {targets}"
+
+
+def test_rescript_bare_local_type_emits_no_edge(tmp_path):
+    """Plain `option`, `int`, `string`, etc. parse as `type_identifier`,
+    not `type_identifier_path`. They have no module-qualifier so they
+    must produce no `references_type` edge."""
+    src = "type result = {value: option<int>, count: int}\n"
+    r = _extract_rescript_snippet(tmp_path, src)
+    refs = _type_refs(r)
+    assert refs == set(), \
+        f"bare local types should not emit references_type edges: {refs}"
+
+
+def test_rescript_self_reference_uses_extracted_confidence(tmp_path):
+    """A type reference whose leftmost module matches the current file's
+    bare stem (e.g. `Animal.species` from inside `Animal.res`) is a
+    self-reference and gets EXTRACTED confidence; cross-file references
+    stay INFERRED until the multi-file extract() resolver runs."""
+    p = tmp_path / "Animal.res"
+    p.write_text("type wrapper = Animal.species\n")
+    r = extract_rescript(p)
+    self_edges = [
+        e for e in r["edges"]
+        if e["relation"] == "references_type" and "animal_species" in e["target"]
+    ]
+    assert self_edges, "expected at least one self-reference edge"
+    assert all(e["confidence"] == "EXTRACTED" for e in self_edges)
+
+
+def test_rescript_cross_file_type_ref_resolves_to_real_node():
+    """End-to-end: a `references_type` edge whose target file is in the
+    same scan should be rewritten by `extract()`'s cross-file resolver
+    so it points at the real node id (not the bare-module phantom)."""
+    import tempfile
+    from graphify.extract import extract
+    with tempfile.TemporaryDirectory() as tmp:
+        animal = Path(tmp) / "Animal.res"
+        animal.write_text("type species = string\n")
+        zoo = Path(tmp) / "Zoo.res"
+        zoo.write_text("type entry = {species: Animal.species}\n")
+        r = extract([animal, zoo])
+    refs = [
+        e for e in r["edges"]
+        if e["relation"] == "references_type"
+    ]
+    assert refs, "expected at least one references_type edge"
+    species_node = next(
+        n for n in r["nodes"]
+        if n["label"] == "species" and "Animal.res" in n.get("source_file", "")
+    )
+    # The cross-file resolver should have rewritten the bare-module
+    # target (`animal_species`) to the real node id of species in
+    # Animal.res.
+    assert any(e["target"] == species_node["id"] for e in refs), \
+        f"expected target {species_node['id']!r} in {[e['target'] for e in refs]!r}"

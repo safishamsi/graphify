@@ -1348,6 +1348,72 @@ def _rescript_type_annotation_is_function(node) -> bool:
     return False
 
 
+def _rescript_walk_type_refs(node, source: bytes, source_nid: str, stem: str,
+                             str_path: str, edges: list) -> None:
+    """Recursively scan a subtree for `type_identifier_path` nodes and emit
+    one `references_type` edge per match from `source_nid` to the
+    referenced `<module>.<type>`.
+
+    The leftmost `module_identifier` (drilled out of `module_identifier_path`
+    for nested forms like `Animal.Habitat.species`) is the import target.
+    The trailing `type_identifier` is the type name. Target id =
+    `_make_id(module_lower, type_name)` — same shape that
+    `type_declaration` emits when registering the type node, so cross-file
+    edges resolve at build time the same way other graphify cross-file
+    edges do.
+
+    Bare local type identifiers (`option`, `int`, `result`) come through
+    the grammar as plain `type_identifier`, not `type_identifier_path`,
+    so they're skipped by construction — no edge for `let x: int`.
+
+    Confidence:
+      - EXTRACTED when the referenced module matches the current file's
+        bare stem (a self-reference like `Animal.species` from inside
+        `Animal.res`; rare but legal).
+      - INFERRED otherwise — we can't be certain at extraction time
+        that the leftmost module identifier resolves to a `<Name>.res`
+        file in this corpus; build's node-existence filter drops the
+        edge if it doesn't.
+    """
+    file_module = stem.rsplit(".", 1)[-1].lower()
+    for child in node.children:
+        if child.type == "type_identifier_path":
+            module_node = None
+            type_node = None
+            for sub in child.children:
+                if sub.type == "module_identifier":
+                    module_node = sub
+                elif sub.type == "module_identifier_path":
+                    # Nested path: take leftmost module_identifier inside.
+                    for inner in sub.children:
+                        if inner.type == "module_identifier":
+                            module_node = inner
+                            break
+                elif sub.type == "type_identifier":
+                    type_node = sub
+            if module_node is not None and type_node is not None:
+                module_name = _read_text(module_node, source)
+                type_name = _read_text(type_node, source)
+                if module_name and type_name:
+                    same_file = module_name.lower() == file_module
+                    line = child.start_point[0] + 1
+                    edges.append({
+                        "source": source_nid,
+                        "target": _make_id(module_name.lower(), type_name),
+                        "relation": "references_type",
+                        "context": "type_reference",
+                        "confidence": "EXTRACTED" if same_file else "INFERRED",
+                        "confidence_score": 1.0 if same_file else 0.8,
+                        "source_file": str_path,
+                        "source_location": f"L{line}",
+                        "weight": 1.0,
+                    })
+            # type_identifier_path is a leaf for our purposes — its only
+            # children are module_identifier(_path) and type_identifier.
+            continue
+        _rescript_walk_type_refs(child, source, source_nid, stem, str_path, edges)
+
+
 def _rescript_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path: str,
                          nodes: list, edges: list, seen_ids: set, function_bodies: list,
                          parent_class_nid: str | None, add_node_fn, add_edge_fn,
@@ -1424,6 +1490,14 @@ def _rescript_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path
                     inner = body.child_by_field_name("body")
                     if inner is not None:
                         function_bodies.append((nid, inner))
+                # Walk the entire let_binding subtree for type references
+                # (covers `let helper: Animal.eventId = ...`, function
+                # parameter and return-type annotations on
+                # `let feed = (a: Animal.species): Animal.food => ...`,
+                # and signature-only `.resi` lets). The function body
+                # expression contains call_expressions / value_identifiers,
+                # not type_identifier_paths, so walking it is safe.
+                _rescript_walk_type_refs(child, source, nid, stem, str_path, edges)
                 emitted = True
             else:
                 # Value let or destructure — one variable node per bound name.
@@ -1436,6 +1510,9 @@ def _rescript_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path
                         nid = _make_id(stem, name)
                         add_node_fn(nid, name, name_line)
                         add_edge_fn(file_nid, nid, "contains", name_line)
+                    # Type-annotated value let (`let x: Some.t = ...`) →
+                    # references_type edge from the variable node.
+                    _rescript_walk_type_refs(child, source, nid, stem, str_path, edges)
                     emitted = True
         return emitted
 
@@ -1490,6 +1567,10 @@ def _rescript_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path
                 nid = _make_id(stem, name)
                 add_node_fn(nid, name, line)
                 add_edge_fn(file_nid, nid, "contains", line)
+            # Walk the type_binding for type references (record fields,
+            # variant arm payloads, polyvar arms, generic instantiations,
+            # type-alias RHS).
+            _rescript_walk_type_refs(child, source, nid, stem, str_path, edges)
             return True
         return False
 
@@ -1522,6 +1603,10 @@ def _rescript_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path
             label = f"{name}()" if is_callable else name
             add_node_fn(nid, label, line)
             add_edge_fn(file_nid, nid, "contains", line)
+        # Walk the type_annotation for type references (covers each
+        # parameter type and the return type of a function-typed
+        # external, plus the annotated type of a value-typed external).
+        _rescript_walk_type_refs(node, source, nid, stem, str_path, edges)
         return True
 
     return False
@@ -2763,9 +2848,17 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
     # ── Clean edges ───────────────────────────────────────────────────────────
     valid_ids = seen_ids
     clean_edges = []
+    # `references_type` is allowed to survive with a phantom target for the
+    # same reason as `imports` / `imports_from`: ReScript's
+    # `_rescript_walk_type_refs` emits cross-module type references whose
+    # target id (`<module>.<type>`) only resolves once `extract()` sees all
+    # files in scope. The corresponding cross-file resolver in `extract()`
+    # rewrites these to real type-node ids; build.py then drops any that
+    # still don't resolve (third-party `Belt.list` etc.).
+    survives_unresolved = ("imports", "imports_from", "re_exports", "references_type")
     for edge in edges:
         src, tgt = edge["source"], edge["target"]
-        if src in valid_ids and (tgt in valid_ids or edge["relation"] in ("imports", "imports_from", "re_exports")):
+        if src in valid_ids and (tgt in valid_ids or edge["relation"] in survives_unresolved):
             clean_edges.append(edge)
 
     result = {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls}
@@ -8836,14 +8929,20 @@ def extract(
             import logging
             logging.getLogger(__name__).warning("Java cross-file import resolution failed, skipping: %s", exc)
 
-    # ReScript `open Foo` / `include Foo` target the bare module name; rewrite
-    # to the real file node id so the edge survives build's node-existence
-    # filter. Map every `.res`/`.resi` file's stem to its (already-remapped)
-    # node id, then walk the import edges from rescript files and replace
-    # targets that match a known stem.
+    # ReScript cross-file resolution. Two passes:
+    #   1. `open Foo` / `include Foo` import edges target the bare module
+    #      name (e.g. `featureflag`); rewrite to the real file node id.
+    #   2. `references_type` edges (emitted by `_rescript_walk_type_refs`)
+    #      target `<module>.<type>` ids built from the *bare* module name
+    #      (path.stem) which won't match real node ids when files live
+    #      under a parent directory (the real id uses the
+    #      parent-qualified stem from `_file_stem`). Build the same
+    #      module-keyed id → real id index for non-file, non-method
+    #      nodes in ReScript files and rewrite matching targets.
     if any(p.suffix in (".res", ".resi") for p in paths):
         rescript_file_ids: set[str] = set()
         module_to_fileid: dict[str, str] = {}
+        type_ref_target_to_real: dict[str, str] = {}
         for n in all_nodes:
             sf = n.get("source_file", "")
             if not sf:
@@ -8851,13 +8950,26 @@ def extract(
             sf_path = Path(sf)
             if sf_path.suffix not in (".res", ".resi"):
                 continue
-            # File-level node: label equals the bare filename.
-            if n.get("label") != sf_path.name:
+            label = n.get("label", "")
+            bare_module = sf_path.stem.lower()
+            if label == sf_path.name:
+                # File-level node: label equals the bare filename.
+                rescript_file_ids.add(n["id"])
+                if bare_module:
+                    module_to_fileid.setdefault(bare_module, n["id"])
                 continue
-            rescript_file_ids.add(n["id"])
-            stem = sf_path.stem
-            if stem:
-                module_to_fileid.setdefault(stem.lower(), n["id"])
+            # Symbol-level node — register its `<module>.<symbol>` external
+            # form so cross-file `references_type` edges can be rewritten
+            # to the real node id. Skip method-shaped labels (`".name()"`)
+            # — module-qualified type references target the module's own
+            # symbols, not nested-module methods.
+            if label.startswith("."):
+                continue
+            symbol_name = label.rstrip("()")
+            if not symbol_name or not bare_module:
+                continue
+            external_id = _make_id(bare_module, symbol_name)
+            type_ref_target_to_real.setdefault(external_id, n["id"])
         if module_to_fileid:
             for edge in all_edges:
                 if edge.get("relation") != "imports":
@@ -8867,6 +8979,13 @@ def extract(
                 fid = module_to_fileid.get(edge.get("target", "").lower())
                 if fid:
                     edge["target"] = fid
+        if type_ref_target_to_real:
+            for edge in all_edges:
+                if edge.get("relation") != "references_type":
+                    continue
+                real_id = type_ref_target_to_real.get(edge.get("target", ""))
+                if real_id and real_id != edge["target"]:
+                    edge["target"] = real_id
 
     # Cross-file call resolution for all languages
     # Each extractor saved unresolved calls in raw_calls. Now that we have all

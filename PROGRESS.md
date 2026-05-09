@@ -24,6 +24,7 @@ real ~200-file ReScript codebase used as the smoke-test corpus:
 | Local call `f(x)` | Resolves against same-file functions; cross-file via `raw_calls` matching against `global_label_to_nids`. |
 | Qualified call `Foo.bar(x)` / `Belt.Array.some(...)` | Last `value_identifier` of the `value_identifier_path` is the callee name; resolves cross-file the same way local calls do. |
 | Pipe expression `arr->Belt.Array.some(...)` | `pipe_expression` wraps the inner `call_expression`; generic recursion picks it up — no special handling needed. |
+| Module-qualified type references | `references_type` edge from the enclosing entity (type / let / external) to `<module>.<type>`. Covers record field types (`{x: Animal.species}`), variant and polyvariant arm payloads (`Eat(Animal.food)`, `#Walk(Animal.speed)`), function signatures (`(a: Animal.species): Animal.food`), let-binding annotations (`let helper: Animal.eventId = ...`), and `external` type annotations. Nested paths (`Animal.Habitat.species`) target the leftmost module. Bare local types (`option`, `int`) parse as `type_identifier` not `type_identifier_path`, so they emit no edges. Same-file self-references are EXTRACTED; cross-file are INFERRED at extraction and rewritten to real type-node ids by the multi-file resolver in `extract()`. ReScript is currently the only graphify language emitting type-reference edges — Java/TS/Scala could follow as separate PRs. |
 
 Numbers from the smoke run on a ~200-file ReScript codebase:
 
