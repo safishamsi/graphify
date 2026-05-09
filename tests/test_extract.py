@@ -365,3 +365,63 @@ def test_extract_tsx_uses_tsx_grammar():
     from graphify.extract import _TSX_CONFIG, _TS_CONFIG
     assert _TSX_CONFIG.ts_language_fn == "language_tsx"
     assert _TS_CONFIG.ts_language_fn == "language_typescript"
+
+
+# --- Windows-spawn ProcessPool fallback (regression for #?) ---
+# When the caller has no `if __name__ == "__main__":` guard, ProcessPoolExecutor
+# on Windows raises BrokenProcessPool before any work completes. extract() must
+# detect this, warn, and fall back to sequential extraction rather than
+# propagating a 290-line traceback.
+
+def test_extract_falls_back_to_sequential_when_parallel_returns_false(tmp_path, monkeypatch):
+    """extract() must run sequential when _extract_parallel signals failure (returns False)."""
+    from graphify import extract as extract_mod
+
+    files = [FIXTURES / "sample.py"] * 25  # >= _PARALLEL_THRESHOLD triggers parallel branch
+    cache_root = tmp_path / "cache"
+    cache_root.mkdir()
+
+    calls = {"parallel": 0, "sequential": 0}
+    real_sequential = extract_mod._extract_sequential
+
+    def fake_parallel(uncached_work, per_file, effective_root, max_workers, total_files):
+        calls["parallel"] += 1
+        return False  # simulate the post-fix BrokenProcessPool branch
+
+    def wrapped_sequential(*args, **kwargs):
+        calls["sequential"] += 1
+        return real_sequential(*args, **kwargs)
+
+    monkeypatch.setattr(extract_mod, "_extract_parallel", fake_parallel)
+    monkeypatch.setattr(extract_mod, "_extract_sequential", wrapped_sequential)
+
+    result = extract_mod.extract(files, cache_root=cache_root)
+    assert calls["parallel"] == 1, "parallel path should have been attempted once"
+    assert calls["sequential"] == 1, "sequential fallback should have run exactly once"
+    assert result["nodes"], "extract should still produce nodes after fallback"
+
+
+def test_extract_parallel_returns_false_on_broken_pool(tmp_path, monkeypatch, capsys):
+    """_extract_parallel must catch BrokenProcessPool internally and return False."""
+    from concurrent.futures.process import BrokenProcessPool
+    import concurrent.futures
+    from graphify import extract as extract_mod
+
+    class FakePool:
+        def __init__(self, *a, **kw): pass
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def submit(self, *a, **kw):
+            raise BrokenProcessPool("simulated spawn failure")
+
+    monkeypatch.setattr(
+        concurrent.futures, "ProcessPoolExecutor", lambda *a, **kw: FakePool()
+    )
+
+    uncached = [(0, FIXTURES / "sample.py")]
+    per_file: list = [None]
+    ok = extract_mod._extract_parallel(uncached, per_file, tmp_path, 2, 1)
+    assert ok is False, "function should report failure via return value, not raise"
+    out = capsys.readouterr().out
+    assert "BrokenProcessPool" in out, "user-facing warning must mention the failure"
+    assert "__main__" in out, "warning must hint at the Windows __main__ guard idiom"

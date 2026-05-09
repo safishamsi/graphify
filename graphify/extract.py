@@ -4660,8 +4660,14 @@ def _extract_parallel(
     effective_root: Path,
     max_workers: int | None,
     total_files: int,
-) -> None:
-    """Extract uncached files in parallel using ProcessPoolExecutor."""
+) -> bool:
+    """Extract uncached files in parallel using ProcessPoolExecutor.
+
+    Returns True if the pool ran to completion. Returns False if the pool
+    failed in a recoverable way (typically Windows-spawn without an
+    ``if __name__ == "__main__"`` guard in the calling script, which causes
+    BrokenProcessPool); the caller should fall back to sequential extraction.
+    """
     import concurrent.futures
 
     if max_workers is None:
@@ -4672,28 +4678,44 @@ def _extract_parallel(
 
     done_count = 0
     _PROGRESS_INTERVAL = 100
-    with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as pool:
-        futures = {
-            pool.submit(_extract_single_file, item): item[0] for item in work_items
-        }
-        for future in concurrent.futures.as_completed(futures):
-            idx, result = future.result()
-            per_file[idx] = result
-            done_count += 1
-            if (
-                total_files >= _PROGRESS_INTERVAL
-                and done_count % _PROGRESS_INTERVAL == 0
-            ):
-                print(
-                    f"  AST extraction: {done_count}/{len(uncached_work)} uncached files "
-                    f"({done_count * 100 // len(uncached_work)}%) [{max_workers} workers]",
-                    flush=True,
-                )
+    try:
+        with concurrent.futures.ProcessPoolExecutor(max_workers=max_workers) as pool:
+            futures = {
+                pool.submit(_extract_single_file, item): item[0] for item in work_items
+            }
+            for future in concurrent.futures.as_completed(futures):
+                idx, result = future.result()
+                per_file[idx] = result
+                done_count += 1
+                if (
+                    total_files >= _PROGRESS_INTERVAL
+                    and done_count % _PROGRESS_INTERVAL == 0
+                ):
+                    print(
+                        f"  AST extraction: {done_count}/{len(uncached_work)} uncached files "
+                        f"({done_count * 100 // len(uncached_work)}%) [{max_workers} workers]",
+                        flush=True,
+                    )
+    except concurrent.futures.process.BrokenProcessPool:
+        # On Windows (spawn start method) the worker subprocesses re-import the
+        # caller's __main__. Inline invocations like `python -c "..."` have no
+        # __main__ guard, so worker bootstrap raises and the pool dies before
+        # any work completes. Fall back to in-process sequential extraction —
+        # slower but correct.
+        print(
+            "  warning: parallel extraction failed (BrokenProcessPool); "
+            "falling back to sequential. On Windows this usually means the "
+            'caller is missing an `if __name__ == "__main__":` guard. Pass '
+            "parallel=False to extract() to skip the pool entirely.",
+            flush=True,
+        )
+        return False
     if total_files >= _PROGRESS_INTERVAL:
         print(
             f"  AST extraction: {total_files}/{total_files} files (100%) [{max_workers} workers]",
             flush=True,
         )
+    return True
 
 
 def _extract_sequential(
@@ -4793,11 +4815,12 @@ def extract(
 
     # Phase 2: extract uncached files (parallel or sequential)
     if uncached_work:
+        ran_parallel = False
         if parallel and len(uncached_work) >= _PARALLEL_THRESHOLD:
-            _extract_parallel(
+            ran_parallel = _extract_parallel(
                 uncached_work, per_file, effective_root, max_workers, total
             )
-        else:
+        if not ran_parallel:
             _extract_sequential(uncached_work, per_file, effective_root, total)
 
     # Fill any remaining None slots (shouldn't happen, but defensive)
