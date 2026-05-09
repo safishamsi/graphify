@@ -62,7 +62,8 @@ uv tool install graphifyy && graphify install
 | Platform | Install command |
 |----------|----------------|
 | Claude Code (Linux/Mac) | `graphify install` |
-| Claude Code (Windows) | `graphify install --platform windows` |
+| Claude Code (Windows PowerShell) | `graphify install --platform windows` |
+| Claude Code (Windows cmd.exe) | `graphify install --platform cmd` |
 | Codex | `graphify install --platform codex` |
 | OpenCode | `graphify install --platform opencode` |
 | GitHub Copilot CLI | `graphify install --platform copilot` |

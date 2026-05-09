@@ -1,6 +1,6 @@
 ---
 name: graphify-windows
-description: "any input (code, docs, papers, images) → knowledge graph → clustered communities → HTML + JSON + audit report. Use when user asks any question about a codebase, project content, architecture, or file relationships — especially if graphify-out/ exists. Provides persistent graph with god nodes, community detection, and BFS/DFS query tools."
+description: any input (code, docs, papers, images) → knowledge graph → clustered communities → HTML + JSON + audit report
 trigger: /graphify
 ---
 
@@ -78,6 +78,8 @@ Remove-Item -ErrorAction SilentlyContinue .graphify_step_1_ensure_graphify_is_in
 
 If the import succeeds, print nothing and move straight to Step 2.
 
+All subsequent PowerShell examples must invoke Python through the recorded interpreter: `& ((Get-Content .graphify_python -Raw).Trim()) ...`.
+
 ### Step 2 - Detect files
 
 ```powershell
@@ -86,9 +88,9 @@ import json
 from graphify.detect import detect
 from pathlib import Path
 result = detect(Path('INPUT_PATH'))
-print(json.dumps(result))
+Path('.graphify_detect.json').write_text(json.dumps(result), encoding='utf-8')
 '@ | Out-File -FilePath .graphify_step_2_detect_files_3.py -Encoding utf8
-python .graphify_step_2_detect_files_3.py > .graphify_detect.json
+& ((Get-Content .graphify_python -Raw).Trim()) .graphify_step_2_detect_files_3.py
 Remove-Item -ErrorAction SilentlyContinue .graphify_step_2_detect_files_3.py
 ```
 
@@ -138,14 +140,20 @@ import json, os
 from pathlib import Path
 from graphify.transcribe import transcribe_all
 
-detect = json.loads(Path('graphify-out/.graphify_detect.json').read_text())
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
+detect = load_json('.graphify_detect.json')
 video_files = detect.get('files', {}).get('video', [])
 prompt = os.environ.get('GRAPHIFY_WHISPER_PROMPT', 'Use proper punctuation and paragraph breaks.')
 
 transcript_paths = transcribe_all(video_files, initial_prompt=prompt)
 print(json.dumps(transcript_paths))
 '@ | Out-File -FilePath .graphify_step_transcribe.py -Encoding utf8
-& (Get-Content graphify-out\.graphify_python) .graphify_step_transcribe.py | Out-File -FilePath graphify-out\.graphify_transcripts.json -Encoding utf8
+& (Get-Content .graphify_python) .graphify_step_transcribe.py | Out-File -FilePath graphify-out\.graphify_transcripts.json -Encoding utf8
 Remove-Item -ErrorAction SilentlyContinue .graphify_step_transcribe.py
 ```
 
@@ -178,18 +186,25 @@ from graphify.extract import collect_files, extract
 from pathlib import Path
 
 
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
+
 def main():
     code_files = []
-    detect = json.loads(Path('.graphify_detect.json').read_text())
+    detect = load_json('.graphify_detect.json')
     for f in detect.get('files', {}).get('code', []):
         code_files.extend(collect_files(Path(f)) if Path(f).is_dir() else [Path(f)])
 
     if code_files:
         result = extract(code_files)
-        Path('.graphify_ast.json').write_text(json.dumps(result, indent=2))
+        Path('.graphify_ast.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
         print(f'AST: {len(result["nodes"])} nodes, {len(result["edges"])} edges')
     else:
-        Path('.graphify_ast.json').write_text(json.dumps({'nodes':[],'edges':[],'input_tokens':0,'output_tokens':0}))
+        Path('.graphify_ast.json').write_text(json.dumps({'nodes':[],'edges':[],'input_tokens':0,'output_tokens':0}), encoding='utf-8')
         print('No code files - skipping AST extraction')
 
 
@@ -201,7 +216,7 @@ def main():
 if __name__ == '__main__':
     main()
 '@ | Out-File -FilePath .graphify_step_ast.py -Encoding utf8
-python .graphify_step_ast.py
+& ((Get-Content .graphify_python -Raw).Trim()) .graphify_step_ast.py
 Remove-Item -ErrorAction SilentlyContinue .graphify_step_ast.py
 ```
 
@@ -227,14 +242,20 @@ import json
 from graphify.cache import check_semantic_cache
 from pathlib import Path
 
-detect = json.loads(Path('.graphify_detect.json').read_text())
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
+detect = load_json('.graphify_detect.json')
 all_files = [f for files in detect['files'].values() for f in files]
 
 cached_nodes, cached_edges, cached_hyperedges, uncached = check_semantic_cache(all_files)
 
 if cached_nodes or cached_edges or cached_hyperedges:
-    Path('.graphify_cached.json').write_text(json.dumps({'nodes': cached_nodes, 'edges': cached_edges, 'hyperedges': cached_hyperedges}))
-Path('.graphify_uncached.txt').write_text('\n'.join(uncached))
+    Path('.graphify_cached.json').write_text(json.dumps({'nodes': cached_nodes, 'edges': cached_edges, 'hyperedges': cached_hyperedges}), encoding='utf-8')
+Path('.graphify_uncached.txt').write_text('\n'.join(uncached), encoding='utf-8')
 print(f'Cache: {len(all_files)-len(uncached)} files hit, {len(uncached)} files need extraction')
 '@ | Out-File -FilePath .graphify_step_3_extract_entities_and_relations_5.py -Encoding utf8
 python .graphify_step_3_extract_entities_and_relations_5.py
@@ -275,7 +296,7 @@ Rules:
 
 Code files: focus on semantic edges AST cannot find (call relationships, shared data, arch patterns).
   Do not re-extract imports - AST already has those.
-Doc/paper files: extract named concepts, entities, citations. For rationale (WHY decisions were made, trade-offs, design intent): store as a `rationale` attribute on the relevant concept node — do NOT create a separate rationale node or fragment node. Only create a node for something that is itself a named entity or concept. Use `file_type:"rationale"` for concept-like nodes (ideas, principles, mechanisms, design patterns). Do NOT invent file_types like `concept` — valid values are only `code|document|paper|image|rationale`.
+Doc/paper files: extract named concepts, entities, citations. For rationale (WHY decisions were made, trade-offs, design intent): store as a `rationale` attribute on the relevant concept node — do NOT create a separate rationale node or fragment node. Only create a node for something that is itself a named entity or concept.
 Code files: when adding `calls` edges, source MUST be the caller (the function/class doing the calling), target MUST be the callee. Never reverse this direction.
 Image files: use vision to understand what the image IS - do not just OCR.
   UI screenshot: layout patterns, design decisions, key elements, purpose.
@@ -318,7 +339,7 @@ confidence_score is REQUIRED on every edge - never omit it, never use 0.5 as a d
 - AMBIGUOUS edges: 0.1-0.3
 
 Output exactly this JSON (no other text):
-{"nodes":[{"id":"filestem_entityname","label":"Human Readable Name","file_type":"code|document|paper|image|rationale","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to|rationale_for","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
+{"nodes":[{"id":"filestem_entityname","label":"Human Readable Name","file_type":"code|document|paper|image","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to|rationale_for","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
 ```
 
 **Step B3 - Collect, cache, and merge**
@@ -331,30 +352,6 @@ Wait for all subagents. For each result:
 
 If more than half the chunks failed or are missing, stop and tell the user to re-run and ensure `subagent_type="general-purpose"` is used.
 
-Merge all chunk files into `.graphify_semantic_new.json`. **After each Agent call completes, read the real token counts from the Agent tool result's `usage` field and write them back into the chunk JSON before merging** — the chunk JSON itself always has placeholder zeros. Then run:
-```bash
-$(cat graphify-out/.graphify_python) -c "
-import json, glob
-from pathlib import Path
-
-chunks = sorted(glob.glob('graphify-out/.graphify_chunk_*.json'))
-all_nodes, all_edges, all_hyperedges = [], [], []
-total_in, total_out = 0, 0
-for c in chunks:
-    d = json.loads(Path(c).read_text())
-    all_nodes += d.get('nodes', [])
-    all_edges += d.get('edges', [])
-    all_hyperedges += d.get('hyperedges', [])
-    total_in += d.get('input_tokens', 0)
-    total_out += d.get('output_tokens', 0)
-Path('graphify-out/.graphify_semantic_new.json').write_text(json.dumps({
-    'nodes': all_nodes, 'edges': all_edges, 'hyperedges': all_hyperedges,
-    'input_tokens': total_in, 'output_tokens': total_out,
-}, indent=2))
-print(f'Merged {len(chunks)} chunks: {total_in:,} in / {total_out:,} out tokens')
-"
-```
-
 Save new results to cache:
 ```powershell
 @'
@@ -362,7 +359,7 @@ import json
 from graphify.cache import save_semantic_cache
 from pathlib import Path
 
-new = json.loads(Path('.graphify_semantic_new.json').read_text()) if Path('.graphify_semantic_new.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
+new = json.loads(Path('.graphify_semantic_new.json').read_text(encoding='utf-8-sig')) if Path('.graphify_semantic_new.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
 saved = save_semantic_cache(new.get('nodes', []), new.get('edges', []), new.get('hyperedges', []))
 print(f'Cached {saved} files')
 '@ | Out-File -FilePath .graphify_step_3_extract_entities_and_relations_6.py -Encoding utf8
@@ -376,8 +373,8 @@ Merge cached + new results into `.graphify_semantic.json`:
 import json
 from pathlib import Path
 
-cached = json.loads(Path('.graphify_cached.json').read_text()) if Path('.graphify_cached.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
-new = json.loads(Path('.graphify_semantic_new.json').read_text()) if Path('.graphify_semantic_new.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
+cached = json.loads(Path('.graphify_cached.json').read_text(encoding='utf-8-sig')) if Path('.graphify_cached.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
+new = json.loads(Path('.graphify_semantic_new.json').read_text(encoding='utf-8-sig')) if Path('.graphify_semantic_new.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
 
 all_nodes = cached['nodes'] + new.get('nodes', [])
 all_edges = cached['edges'] + new.get('edges', [])
@@ -411,8 +408,8 @@ Clean up temp files: `Remove-Item -ErrorAction SilentlyContinue .graphify_cached
 import sys, json
 from pathlib import Path
 
-ast = json.loads(Path('.graphify_ast.json').read_text())
-sem = json.loads(Path('.graphify_semantic.json').read_text())
+ast = json.loads(Path('.graphify_ast.json').read_text(encoding='utf-8-sig'))
+sem = json.loads(Path('.graphify_semantic.json').read_text(encoding='utf-8-sig'))
 
 # Merge: AST nodes first, semantic nodes deduplicated by id
 seen = {n['id'] for n in ast['nodes']}
@@ -431,7 +428,7 @@ merged = {
     'input_tokens': sem.get('input_tokens', 0),
     'output_tokens': sem.get('output_tokens', 0),
 }
-Path('.graphify_extract.json').write_text(json.dumps(merged, indent=2))
+Path('.graphify_extract.json').write_text(json.dumps(merged, indent=2), encoding='utf-8')
 total = len(merged_nodes)
 edges = len(merged_edges)
 print(f'Merged: {total} nodes, {edges} edges ({len(ast["nodes"])} AST + {len(sem["nodes"])} semantic)')
@@ -453,8 +450,14 @@ from graphify.report import generate
 from graphify.export import to_json
 from pathlib import Path
 
-extraction = json.loads(Path('.graphify_extract.json').read_text())
-detection  = json.loads(Path('.graphify_detect.json').read_text())
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
+extraction = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
+detection  = load_json('.graphify_detect.json')
 
 G = build_from_json(extraction)
 communities = cluster(G)
@@ -467,7 +470,7 @@ labels = {cid: 'Community ' + str(cid) for cid in communities}
 questions = suggest_questions(G, communities, labels)
 
 report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, 'INPUT_PATH', suggested_questions=questions)
-Path('graphify-out/GRAPH_REPORT.md').write_text(report)
+Path('graphify-out/GRAPH_REPORT.md').write_text(report, encoding='utf-8')
 to_json(G, communities, 'graphify-out/graph.json')
 
 analysis = {
@@ -477,7 +480,7 @@ analysis = {
     'surprises': surprises,
     'questions': questions,
 }
-Path('.graphify_analysis.json').write_text(json.dumps(analysis, indent=2))
+Path('.graphify_analysis.json').write_text(json.dumps(analysis, indent=2), encoding='utf-8')
 if G.number_of_nodes() == 0:
     print('ERROR: Graph is empty - extraction produced no nodes.')
     print('Possible causes: all files were skipped, binary-only corpus, or extraction failed.')
@@ -507,9 +510,15 @@ from graphify.analyze import god_nodes, surprising_connections, suggest_question
 from graphify.report import generate
 from pathlib import Path
 
-extraction = json.loads(Path('.graphify_extract.json').read_text())
-detection  = json.loads(Path('.graphify_detect.json').read_text())
-analysis   = json.loads(Path('.graphify_analysis.json').read_text())
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
+extraction = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
+detection  = load_json('.graphify_detect.json')
+analysis   = json.loads(Path('.graphify_analysis.json').read_text(encoding='utf-8-sig'))
 
 G = build_from_json(extraction)
 communities = {int(k): v for k, v in analysis['communities'].items()}
@@ -523,8 +532,8 @@ labels = LABELS_DICT
 questions = suggest_questions(G, communities, labels)
 
 report = generate(G, communities, cohesion, labels, analysis['gods'], analysis['surprises'], detection, tokens, 'INPUT_PATH', suggested_questions=questions)
-Path('graphify-out/GRAPH_REPORT.md').write_text(report)
-Path('.graphify_labels.json').write_text(json.dumps({str(k): v for k, v in labels.items()}))
+Path('graphify-out/GRAPH_REPORT.md').write_text(report, encoding='utf-8')
+Path('.graphify_labels.json').write_text(json.dumps({str(k): v for k, v in labels.items()}), encoding='utf-8')
 print('Report updated with community labels')
 '@ | Out-File -FilePath .graphify_step_5_label_communities_10.py -Encoding utf8
 python .graphify_step_5_label_communities_10.py
@@ -549,9 +558,9 @@ from graphify.build import build_from_json
 from graphify.export import to_obsidian, to_canvas
 from pathlib import Path
 
-extraction = json.loads(Path('.graphify_extract.json').read_text())
-analysis   = json.loads(Path('.graphify_analysis.json').read_text())
-labels_raw = json.loads(Path('.graphify_labels.json').read_text()) if Path('.graphify_labels.json').exists() else {}
+extraction = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
+analysis   = json.loads(Path('.graphify_analysis.json').read_text(encoding='utf-8-sig'))
+labels_raw = json.loads(Path('.graphify_labels.json').read_text(encoding='utf-8-sig')) if Path('.graphify_labels.json').exists() else {}
 
 G = build_from_json(extraction)
 communities = {int(k): v for k, v in analysis['communities'].items()}
@@ -584,9 +593,9 @@ from graphify.build import build_from_json
 from graphify.export import to_html
 from pathlib import Path
 
-extraction = json.loads(Path('.graphify_extract.json').read_text())
-analysis   = json.loads(Path('.graphify_analysis.json').read_text())
-labels_raw = json.loads(Path('.graphify_labels.json').read_text()) if Path('.graphify_labels.json').exists() else {}
+extraction = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
+analysis   = json.loads(Path('.graphify_analysis.json').read_text(encoding='utf-8-sig'))
+labels_raw = json.loads(Path('.graphify_labels.json').read_text(encoding='utf-8-sig')) if Path('.graphify_labels.json').exists() else {}
 
 G = build_from_json(extraction)
 communities = {int(k): v for k, v in analysis['communities'].items()}
@@ -613,7 +622,7 @@ from graphify.build import build_from_json
 from graphify.export import to_cypher
 from pathlib import Path
 
-G = build_from_json(json.loads(Path('.graphify_extract.json').read_text()))
+G = build_from_json(json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig')))
 to_cypher(G, 'graphify-out/cypher.txt')
 print('cypher.txt written - import with: cypher-shell < graphify-out/cypher.txt')
 '@ | Out-File -FilePath .graphify_step_7_neo4j_export_only_if_neo4j_or__13.py -Encoding utf8
@@ -631,8 +640,8 @@ from graphify.cluster import cluster
 from graphify.export import push_to_neo4j
 from pathlib import Path
 
-extraction = json.loads(Path('.graphify_extract.json').read_text())
-analysis   = json.loads(Path('.graphify_analysis.json').read_text())
+extraction = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
+analysis   = json.loads(Path('.graphify_analysis.json').read_text(encoding='utf-8-sig'))
 G = build_from_json(extraction)
 communities = {int(k): v for k, v in analysis['communities'].items()}
 
@@ -654,9 +663,9 @@ from graphify.build import build_from_json
 from graphify.export import to_svg
 from pathlib import Path
 
-extraction = json.loads(Path('.graphify_extract.json').read_text())
-analysis   = json.loads(Path('.graphify_analysis.json').read_text())
-labels_raw = json.loads(Path('.graphify_labels.json').read_text()) if Path('.graphify_labels.json').exists() else {}
+extraction = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
+analysis   = json.loads(Path('.graphify_analysis.json').read_text(encoding='utf-8-sig'))
+labels_raw = json.loads(Path('.graphify_labels.json').read_text(encoding='utf-8-sig')) if Path('.graphify_labels.json').exists() else {}
 
 G = build_from_json(extraction)
 communities = {int(k): v for k, v in analysis['communities'].items()}
@@ -678,8 +687,8 @@ from graphify.build import build_from_json
 from graphify.export import to_graphml
 from pathlib import Path
 
-extraction = json.loads(Path('.graphify_extract.json').read_text())
-analysis   = json.loads(Path('.graphify_analysis.json').read_text())
+extraction = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
+analysis   = json.loads(Path('.graphify_analysis.json').read_text(encoding='utf-8-sig'))
 
 G = build_from_json(extraction)
 communities = {int(k): v for k, v in analysis['communities'].items()}
@@ -694,7 +703,7 @@ Remove-Item -ErrorAction SilentlyContinue .graphify_step_7c_graphml_export_only_
 ### Step 7d - MCP server (only if --mcp flag)
 
 ```powershell
-python -m graphify.serve graphify-out/graph.json
+& ((Get-Content .graphify_python -Raw).Trim()) -m graphify.serve graphify-out/graph.json
 ```
 
 This starts a stdio MCP server that exposes tools: `query_graph`, `get_node`, `get_neighbors`, `get_community`, `god_nodes`, `graph_stats`, `shortest_path`. Add to Claude Desktop or any MCP-compatible agent orchestrator so other agents can query the graph live.
@@ -704,12 +713,14 @@ To configure in Claude Desktop, add to `claude_desktop_config.json`:
 {
   "mcpServers": {
     "graphify": {
-      "command": "python",
+      "command": "PATH_FROM_GRAPHIFY_PYTHON",
       "args": ["-m", "graphify.serve", "/absolute/path/to/graphify-out/graph.json"]
     }
   }
 }
 ```
+
+Replace `PATH_FROM_GRAPHIFY_PYTHON` with the absolute interpreter path stored in `.graphify_python`; use forward slashes if needed for JSON.
 
 ### Step 8 - Token reduction benchmark (only if total_words > 5000)
 
@@ -721,7 +732,13 @@ import json
 from graphify.benchmark import run_benchmark, print_benchmark
 from pathlib import Path
 
-detection = json.loads(Path('.graphify_detect.json').read_text())
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
+detection = load_json('.graphify_detect.json')
 result = run_benchmark('graphify-out/graph.json', corpus_words=detection['total_words'])
 print_benchmark(result)
 '@ | Out-File -FilePath .graphify_step_8_token_reduction_benchmark_only_17.py -Encoding utf8
@@ -742,18 +759,24 @@ from pathlib import Path
 from datetime import datetime, timezone
 from graphify.detect import save_manifest
 
+def load_json(path):
+    try:
+        return json.loads(Path(path).read_text(encoding='utf-8-sig'))
+    except UnicodeDecodeError:
+        return json.loads(Path(path).read_text(encoding='utf-16'))
+
 # Save manifest for --update
-detect = json.loads(Path('.graphify_detect.json').read_text())
+detect = load_json('.graphify_detect.json')
 save_manifest(detect['files'])
 
 # Update cumulative cost tracker
-extract = json.loads(Path('.graphify_extract.json').read_text())
+extract = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
 input_tok = extract.get('input_tokens', 0)
 output_tok = extract.get('output_tokens', 0)
 
 cost_path = Path('graphify-out/cost.json')
 if cost_path.exists():
-    cost = json.loads(cost_path.read_text())
+    cost = json.loads(cost_path.read_text(encoding='utf-8-sig'))
 else:
     cost = {'runs': [], 'total_input_tokens': 0, 'total_output_tokens': 0}
 
@@ -765,7 +788,7 @@ cost['runs'].append({
 })
 cost['total_input_tokens'] += input_tok
 cost['total_output_tokens'] += output_tok
-cost_path.write_text(json.dumps(cost, indent=2))
+cost_path.write_text(json.dumps(cost, indent=2), encoding='utf-8')
 
 print(f'This run: {input_tok:,} input tokens, {output_tok:,} output tokens')
 print(f'All time: {cost["total_input_tokens"]:,} input, {cost["total_output_tokens"]:,} output ({len(cost["runs"])} runs)')
@@ -820,7 +843,7 @@ from pathlib import Path
 result = detect_incremental(Path('INPUT_PATH'))
 new_total = result.get('new_total', 0)
 print(json.dumps(result, indent=2))
-Path('.graphify_incremental.json').write_text(json.dumps(result))
+Path('.graphify_incremental.json').write_text(json.dumps(result), encoding='utf-8')
 if new_total == 0:
     print('No files changed since last run. Nothing to update.')
     raise SystemExit(0)
@@ -837,7 +860,7 @@ If new files exist, first check whether all changed files are code files:
 import json
 from pathlib import Path
 
-result = json.loads(open('.graphify_incremental.json').read()) if Path('.graphify_incremental.json').exists() else {}
+result = json.loads(Path('.graphify_incremental.json').read_text(encoding='utf-8-sig')) if Path('.graphify_incremental.json').exists() else {}
 code_exts = {'.py','.ts','.js','.go','.rs','.java','.cpp','.c','.rb','.swift','.kt','.cs','.scala','.php','.cc','.cxx','.hpp','.h','.kts','.lua','.toc'}
 new_files = result.get('new_files', {})
 all_changed = [f for files in new_files.values() for f in files]
@@ -864,23 +887,12 @@ import networkx as nx
 from pathlib import Path
 
 # Load existing graph
-existing_data = json.loads(Path('graphify-out/graph.json').read_text())
+existing_data = json.loads(Path('graphify-out/graph.json').read_text(encoding='utf-8-sig'))
 G_existing = json_graph.node_link_graph(existing_data, edges='links')
 
 # Load new extraction
-new_extraction = json.loads(Path('.graphify_extract.json').read_text())
+new_extraction = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
 G_new = build_from_json(new_extraction)
-
-# Prune nodes from deleted files
-incremental = json.loads(Path('.graphify_incremental.json').read_text())
-deleted = set(incremental.get('deleted_files', []))
-if deleted:
-    to_remove = [n for n, d in G_existing.nodes(data=True) if d.get('source_file') in deleted]
-    G_existing.remove_nodes_from(to_remove)
-    if to_remove:
-        print(f'Pruned {len(to_remove)} ghost node(s) from {len(deleted)} deleted file(s) — drift detected and corrected.')
-    else:
-        print(f'{len(deleted)} file(s) deleted since last run, but no ghost nodes were present in the graph — no drift.')
 
 # Merge: new nodes/edges into existing graph
 G_existing.update(G_new)
@@ -912,8 +924,8 @@ import networkx as nx
 from pathlib import Path
 
 # Load old graph (before update) from backup written before merge
-old_data = json.loads(Path('.graphify_old.json').read_text()) if Path('.graphify_old.json').exists() else None
-new_extract = json.loads(Path('.graphify_extract.json').read_text())
+old_data = json.loads(Path('.graphify_old.json').read_text(encoding='utf-8-sig')) if Path('.graphify_old.json').exists() else None
+new_extract = json.loads(Path('.graphify_extract.json').read_text(encoding='utf-8-sig'))
 G_new = build_from_json(new_extract)
 
 if old_data:
@@ -949,7 +961,7 @@ from networkx.readwrite import json_graph
 import networkx as nx
 from pathlib import Path
 
-data = json.loads(Path('graphify-out/graph.json').read_text())
+data = json.loads(Path('graphify-out/graph.json').read_text(encoding='utf-8-sig'))
 G = json_graph.node_link_graph(data, edges='links')
 
 detection = {'total_files': 0, 'total_words': 99999, 'needs_graph': True, 'warning': None,
@@ -963,7 +975,7 @@ surprises = surprising_connections(G, communities)
 labels = {cid: 'Community ' + str(cid) for cid in communities}
 
 report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, '.')
-Path('graphify-out/GRAPH_REPORT.md').write_text(report)
+Path('graphify-out/GRAPH_REPORT.md').write_text(report, encoding='utf-8')
 to_json(G, communities, 'graphify-out/graph.json')
 
 analysis = {
@@ -972,7 +984,7 @@ analysis = {
     'gods': gods,
     'surprises': surprises,
 }
-Path('.graphify_analysis.json').write_text(json.dumps(analysis, indent=2))
+Path('.graphify_analysis.json').write_text(json.dumps(analysis, indent=2), encoding='utf-8')
 print(f'Re-clustered: {len(communities)} communities')
 '@ | Out-File -FilePath .graphify_step_for_cluster_only_23.py -Encoding utf8
 python .graphify_step_for_cluster_only_23.py
@@ -1020,7 +1032,7 @@ from networkx.readwrite import json_graph
 import networkx as nx
 from pathlib import Path
 
-data = json.loads(Path('graphify-out/graph.json').read_text())
+data = json.loads(Path('graphify-out/graph.json').read_text(encoding='utf-8-sig'))
 G = json_graph.node_link_graph(data, edges='links')
 
 question = 'QUESTION'
@@ -1107,7 +1119,7 @@ Replace `QUESTION` with the user's actual question, `MODE` with `bfs` or `dfs`, 
 After writing the answer, save it back into the graph so it improves future queries:
 
 ```powershell
-python -m graphify save-result --question "QUESTION" --answer "ANSWER" --type query --nodes NODE1 NODE2
+& ((Get-Content .graphify_python -Raw).Trim()) -m graphify save-result --question "QUESTION" --answer "ANSWER" --type query --nodes NODE1 NODE2
 ```
 
 Replace `QUESTION` with the question, `ANSWER` with your full answer text, `SOURCE_NODES` with the list of node labels you cited. This closes the feedback loop: the next `--update` will extract this Q&A as a node in the graph.
@@ -1138,7 +1150,7 @@ import networkx as nx
 from networkx.readwrite import json_graph
 from pathlib import Path
 
-data = json.loads(Path('graphify-out/graph.json').read_text())
+data = json.loads(Path('graphify-out/graph.json').read_text(encoding='utf-8-sig'))
 G = json_graph.node_link_graph(data, edges='links')
 
 a_term = 'NODE_A'
@@ -1186,7 +1198,7 @@ Replace `NODE_A` and `NODE_B` with the actual concept names from the user. Then 
 After writing the explanation, save it back:
 
 ```powershell
-python -m graphify save-result --question "Path from NODE_A to NODE_B" --answer "ANSWER" --type path_query --nodes NODE_A NODE_B
+& ((Get-Content .graphify_python -Raw).Trim()) -m graphify save-result --question "Path from NODE_A to NODE_B" --answer "ANSWER" --type path_query --nodes NODE_A NODE_B
 ```
 
 ---
@@ -1215,7 +1227,7 @@ import networkx as nx
 from networkx.readwrite import json_graph
 from pathlib import Path
 
-data = json.loads(Path('graphify-out/graph.json').read_text())
+data = json.loads(Path('graphify-out/graph.json').read_text(encoding='utf-8-sig'))
 G = json_graph.node_link_graph(data, edges='links')
 
 term = 'NODE_NAME'
@@ -1256,7 +1268,7 @@ Replace `NODE_NAME` with the concept the user asked about. Then write a 3-5 sent
 After writing the explanation, save it back:
 
 ```powershell
-python -m graphify save-result --question "Explain NODE_NAME" --answer "ANSWER" --type explain --nodes NODE_NAME
+& ((Get-Content .graphify_python -Raw).Trim()) -m graphify save-result --question "Explain NODE_NAME" --answer "ANSWER" --type explain --nodes NODE_NAME
 ```
 
 ---
@@ -1301,7 +1313,7 @@ Supported URL types (auto-detected):
 Start a background watcher that monitors a folder and auto-updates the graph when files change.
 
 ```powershell
-python -m graphify.watch INPUT_PATH --debounce 3
+& ((Get-Content .graphify_python -Raw).Trim()) -m graphify.watch INPUT_PATH --debounce 3
 ```
 
 Replace INPUT_PATH with the folder to watch. Behavior depends on what changed:

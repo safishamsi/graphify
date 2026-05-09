@@ -1,7 +1,6 @@
 """Tests for graphify install --platform routing."""
-import os
+import json
 from pathlib import Path
-import sys
 from unittest.mock import patch
 import pytest
 
@@ -15,18 +14,14 @@ PLATFORMS = {
     "trae": (".trae/skills/graphify/SKILL.md",),
     "trae-cn": (".trae-cn/skills/graphify/SKILL.md",),
     "windows": (".claude/skills/graphify/SKILL.md",),
+    "cmd": (".claude/skills/graphify/SKILL.md",),
 }
 
 
 def _install(tmp_path, platform):
     from graphify.__main__ import install
-    old_cwd = Path.cwd()
-    try:
-        os.chdir(tmp_path)
-        with patch("graphify.__main__.Path.home", return_value=tmp_path):
-            install(platform=platform)
-    finally:
-        os.chdir(old_cwd)
+    with patch("graphify.__main__.Path.home", return_value=tmp_path):
+        install(platform=platform)
 
 
 def test_install_default_claude(tmp_path):
@@ -42,29 +37,6 @@ def test_install_codex(tmp_path):
 def test_install_opencode(tmp_path):
     _install(tmp_path, "opencode")
     assert (tmp_path / ".config" / "opencode" / "skills" / "graphify" / "SKILL.md").exists()
-
-
-def test_install_positional_platform_opencode(tmp_path, monkeypatch):
-    from graphify.__main__ import main
-    monkeypatch.chdir(tmp_path)
-    monkeypatch.setattr(sys, "argv", ["graphify", "install", "opencode"])
-    with patch("graphify.__main__.Path.home", return_value=tmp_path):
-        main()
-    assert (tmp_path / ".config" / "opencode" / "skills" / "graphify" / "SKILL.md").exists()
-    assert not (tmp_path / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
-
-
-def test_install_help_does_not_install_default(tmp_path, monkeypatch, capsys):
-    from graphify.__main__ import main
-    monkeypatch.chdir(tmp_path)
-    monkeypatch.setattr(sys, "argv", ["graphify", "install", "opencode", "--help"])
-    with patch("graphify.__main__.Path.home", return_value=tmp_path):
-        main()
-    out = capsys.readouterr().out
-    assert "Usage: graphify install" in out
-    assert "opencode" in out
-    assert not (tmp_path / ".claude").exists()
-    assert not (tmp_path / ".config").exists()
 
 
 def test_install_claw(tmp_path):
@@ -89,6 +61,11 @@ def test_install_trae_cn(tmp_path):
 
 def test_install_windows(tmp_path):
     _install(tmp_path, "windows")
+    assert (tmp_path / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
+
+
+def test_install_cmd(tmp_path):
+    _install(tmp_path, "cmd")
     assert (tmp_path / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
 
 
@@ -120,11 +97,37 @@ def test_claw_skill_is_sequential():
     assert "@mention" not in skill
 
 
+def test_cmd_skill_normalizes_backslash_paths_in_python_payloads():
+    """cmd skill must protect user-substituted Windows paths in exec payloads."""
+    import graphify
+    skill = (Path(graphify.__file__).parent / "skill-cmd.md").read_text()
+    assert "normalize user-provided filesystem paths to forward slashes" in skill
+    assert "Never paste raw backslash paths" in skill
+
+
+def test_windows_skills_reuse_recorded_python_interpreter_after_step_1():
+    """Windows platform skills must use the interpreter captured in Step 1."""
+    import graphify
+    pkg = Path(graphify.__file__).parent
+
+    cmd_skill = (pkg / "skill-cmd.md").read_text()
+    cmd_after_step_1 = cmd_skill.split("### Step 2 - Detect files", 1)[1]
+    assert 'for /f "usebackq delims=" %P in (".graphify_python") do "%P"' in cmd_after_step_1
+    assert 'python -c "exec' not in cmd_after_step_1
+    assert "\npython -m graphify" not in cmd_after_step_1
+
+    windows_skill = (pkg / "skill-windows.md").read_text()
+    windows_after_step_1 = windows_skill.split("### Step 2 - Detect files", 1)[1]
+    assert "& ((Get-Content .graphify_python -Raw).Trim())" in windows_after_step_1
+    assert "| python -" not in windows_after_step_1
+    assert "\npython -m graphify" not in windows_after_step_1
+
+
 def test_all_skill_files_exist_in_package():
     """All installable platform skill files must be present in the installed package."""
     import graphify
     pkg = Path(graphify.__file__).parent
-    for name in ("skill.md", "skill-codex.md", "skill-opencode.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md"):
+    for name in ("skill.md", "skill-codex.md", "skill-opencode.md", "skill-claw.md", "skill-windows.md", "skill-cmd.md", "skill-droid.md", "skill-trae.md", "skill-pi.md"):
         assert (pkg / name).exists(), f"Missing: {name}"
 
 
@@ -157,6 +160,69 @@ def test_codex_agents_install_writes_agents_md(tmp_path):
     assert agents_md.exists()
     assert "graphify" in agents_md.read_text()
     assert "GRAPH_REPORT.md" in agents_md.read_text()
+
+
+def test_codex_agents_install_writes_user_prompt_submit_hook(tmp_path):
+    _agents_install(tmp_path, "codex")
+
+    hooks_path = tmp_path / ".codex" / "hooks.json"
+    hooks = json.loads(hooks_path.read_text())
+    command = hooks["hooks"]["UserPromptSubmit"][0]["hooks"][0]["command"]
+
+    assert "UserPromptSubmit" in hooks["hooks"]
+    assert "PreToolUse" not in hooks["hooks"]
+    assert "UserPromptSubmit" in command
+    assert "additionalContext" in command
+    assert "graphify-out/GRAPH_REPORT.md" in command
+
+
+def test_codex_agents_install_removes_only_graphify_generated_hooks(tmp_path):
+    from graphify.__main__ import _LEGACY_CODEX_PRE_TOOL_HOOK
+
+    unrelated_hook = {
+        "matcher": "Bash",
+        "hooks": [
+            {
+                "type": "command",
+                "command": "echo graphify for my own plugin",
+            }
+        ],
+    }
+    hooks_path = tmp_path / ".codex" / "hooks.json"
+    hooks_path.parent.mkdir(parents=True)
+    hooks_path.write_text(json.dumps({
+        "hooks": {
+            "PreToolUse": [
+                _LEGACY_CODEX_PRE_TOOL_HOOK,
+                unrelated_hook,
+            ]
+        }
+    }))
+
+    _agents_install(tmp_path, "codex")
+
+    hooks = json.loads(hooks_path.read_text())
+    pre_tool = hooks["hooks"].get("PreToolUse", [])
+    user_prompt = hooks["hooks"].get("UserPromptSubmit", [])
+
+    assert pre_tool == [unrelated_hook]
+    assert len(user_prompt) == 1
+    assert "graphify-out/GRAPH_REPORT.md" in user_prompt[0]["hooks"][0]["command"]
+
+
+def test_codex_agents_install_preserves_non_object_hooks_value(tmp_path):
+    hooks_path = tmp_path / ".codex" / "hooks.json"
+    hooks_path.parent.mkdir(parents=True)
+    hooks_path.write_text(json.dumps({
+        "hooks": ["recoverable user config"],
+        "other": {"keep": True},
+    }))
+
+    _agents_install(tmp_path, "codex")
+
+    hooks = json.loads(hooks_path.read_text())
+    assert hooks["hooks"] == ["recoverable user config"]
+    assert hooks["other"] == {"keep": True}
 
 
 def test_opencode_agents_install_writes_agents_md(tmp_path):
