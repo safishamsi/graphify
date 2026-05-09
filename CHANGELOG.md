@@ -2,6 +2,13 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## 0.7.13 (2026-05-09)
+
+- Fix: Ollama `num_ctx` now derived from actual chunk size instead of hardcoded 131072 -- over-allocating 128k KV-cache slots for small chunks exhausted VRAM by chunk 4 on large models; formula is `min(input_tokens + output_cap + 2000, 131072)` so `--token-budget 8192` gets ~26k instead of 131072 (#798)
+- Fix: hollow-response warning now mentions VRAM pressure and `GRAPHIFY_OLLAMA_NUM_CTX` / `GRAPHIFY_OLLAMA_KEEP_ALIVE` env vars as tuning knobs (#798)
+- Feat: `graphify export callflow-html` -- generates a self-contained Mermaid architecture/call-flow HTML page from `graphify-out/graph.json`, grouped by community with interactive zoom/pan diagrams, call detail tables, and graph report highlights (#797)
+- Feat: callflow HTML auto-regenerates on every `--watch` rebuild and post-commit hook if the file already exists -- opt-in by existence, zero config (#800)
+
 ## 0.7.12 (2026-05-09)
 
 - Fix: `graphify explain` and `graphify path` no longer crash on `MultiGraph` inputs -- new `edge_data()`/`edge_datas()` helpers in `build.py` handle both simple and multi-graphs; all 8 production call sites and 30 skill-file inline heredocs updated (#796)
