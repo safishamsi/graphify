@@ -66,7 +66,7 @@ exe = EXE(
     a.zipfiles,
     a.datas,
     [],
-    name='graphify',
+    name='aag',
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
