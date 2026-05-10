@@ -23,6 +23,18 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install UPX (Linux)
+        if: matrix.os == 'ubuntu-latest'
+        run: sudo apt-get install -y upx
+
+      - name: Install UPX (Windows)
+        if: matrix.os == 'windows-latest'
+        run: choco install upx
+
+      - name: Install UPX (macOS)
+        if: matrix.os == 'macos-latest'
+        run: brew install upx
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
