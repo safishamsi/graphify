@@ -62,7 +62,7 @@ jobs:
           
           if [ "${{ matrix.os }}" == "windows-latest" ]; then
             mv dist/graphify.exe dist/graphify-windows.exe
-            cd dist && zip "upload/graphify-${VERSION}-windows.zip" graphify-windows.exe README.md
+            powershell.exe -Command "Compress-Archive -Path 'dist/graphify-windows.exe', 'dist/README.md' -DestinationPath 'dist/upload/graphify-${VERSION}-windows.zip' -Force"
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
             cd dist && tar -czf "upload/graphify-${VERSION}-macos.tar.gz" graphify README.md
           else
