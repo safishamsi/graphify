@@ -13,7 +13,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        include:
+          - os: ubuntu-22.04
+            name: linux
+          - os: windows-latest
+            name: windows
+          - os: macos-latest
+            name: macos
 
     steps:
       - uses: actions/checkout@v4
@@ -24,7 +30,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install UPX (Linux)
-        if: matrix.os == 'ubuntu-latest'
+        if: matrix.os == 'ubuntu-22.04'
         run: sudo apt-get install -y upx
 
       - name: Install UPX (Windows)
