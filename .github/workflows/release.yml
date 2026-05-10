@@ -88,17 +88,14 @@ jobs:
       - name: Cleanup old assets
         shell: bash
         run: |
-          # Define old asset names to remove (including previous graphify/aa-graphify naming)
-          OLD_ASSETS=(
-            "graphify-linux" "graphify-macos" "graphify-windows.exe"
-            "graphify-latest-linux.tar.gz" "graphify-latest-macos.tar.gz" "graphify-latest-windows.zip"
-            "aa-graphify-linux" "aa-graphify-macos" "aa-graphify-windows.exe"
-            "aa-graphify-latest-linux.tar.gz" "aa-graphify-latest-macos.tar.gz" "aa-graphify-latest-windows.zip"
-          )
           TAG=${GITHUB_REF#refs/tags/}
+          echo "Cleaning up old assets for release $TAG"
           
-          for asset in "${OLD_ASSETS[@]}"; do
-            echo "Attempting to delete old asset: $asset from release $TAG"
+          # List all assets and delete those starting with graphify or aa-graphify
+          gh release view "$TAG" --json assets --template '{{range .assets}}{{.name}}{{"\n"}}{{end}}' | \
+          grep -E '^(graphify|aa-graphify)' | \
+          while read -r asset; do
+            echo "Deleting old asset: $asset"
             gh release delete-asset "$TAG" "$asset" --yes || true
           done
         env:
