@@ -96,3 +96,17 @@ jobs:
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Cleanup old assets
+        shell: bash
+        run: |
+          # Define old asset names to remove
+          OLD_ASSETS=("graphify-linux" "graphify-macos" "graphify-windows.exe")
+          TAG=${GITHUB_REF#refs/tags/}
+          
+          for asset in "${OLD_ASSETS[@]}"; do
+            echo "Attempting to delete old asset: $asset from release $TAG"
+            gh release delete-asset "$TAG" "$asset" --yes || true
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
