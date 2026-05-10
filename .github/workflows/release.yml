@@ -54,12 +54,19 @@ jobs:
         shell: bash
         run: |
           mkdir -p dist/upload
+          # Use tag name or 'latest' for archive naming
+          VERSION=${GITHUB_REF#refs/tags/}
+          if [[ $VERSION == refs/push/* || $VERSION == workflow_dispatch ]]; then VERSION="latest"; fi
+          
+          cp README-standalone.md dist/README.md
+          
           if [ "${{ matrix.os }}" == "windows-latest" ]; then
-            mv dist/graphify.exe dist/upload/graphify-windows.exe
+            mv dist/graphify.exe dist/graphify-windows.exe
+            cd dist && zip "upload/graphify-${VERSION}-windows.zip" graphify-windows.exe README.md
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-            mv dist/graphify dist/upload/graphify-macos
+            cd dist && tar -czf "upload/graphify-${VERSION}-macos.tar.gz" graphify README.md
           else
-            mv dist/graphify dist/upload/graphify-linux
+            cd dist && tar -czf "upload/graphify-${VERSION}-linux.tar.gz" graphify README.md
           fi
 
       - name: Upload Artifacts
