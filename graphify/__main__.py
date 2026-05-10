@@ -84,6 +84,18 @@ echo "$(cd INPUT_PATH && pwd)" > graphify-out/.graphify_root
     # 3. Fix VS Code Copilot Chat instruction specifically if it uses python3 -m
     content = content.replace("python3 -m graphify", bin_path)
 
+    # 4. Simplify Interpreter guard for subcommands
+    guard_pattern = r"## Interpreter guard for subcommands\n\nBefore running any subcommand.*?```bash\nif \[ ! -f graphify-out/\.graphify_python \]; then.*?fi\n```"
+    guard_replacement = f"""## Ensure graphify binary is available
+
+```bash
+# Using the standalone binary path directly
+PYTHON={bin_path}
+mkdir -p graphify-out
+echo "$PYTHON" > graphify-out/.graphify_python
+```"""
+    content = re.sub(guard_pattern, guard_replacement, content, flags=re.DOTALL)
+
     return content
 
 _SETTINGS_HOOK = {
@@ -212,6 +224,11 @@ def install(platform: str = "claude") -> None:
 
     cfg = _PLATFORM_CONFIG[platform]
     skill_src = Path(__file__).parent / cfg["skill_file"]
+
+    if getattr(sys, "frozen", False) and not skill_src.exists():
+        # Fallback for PyInstaller bundle structure
+        skill_src = Path(sys._MEIPASS) / "graphify" / cfg["skill_file"]
+
     if not skill_src.exists():
         print(f"error: {cfg['skill_file']} not found in package - reinstall graphify", file=sys.stderr)
         sys.exit(1)

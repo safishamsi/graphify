@@ -20,13 +20,19 @@ ts_packages = [
     'tree_sitter_sql'
 ]
 
+# Additional packages that need data files bundled
+extra_packages = [
+    'graspologic', 'networkx', 'matplotlib', 'datasketch', 'rapidfuzz',
+    'pypdf', 'docx', 'openpyxl'
+]
+
 hiddenimports = [
     'networkx', 'datasketch', 'rapidfuzz', 'pypdf', 'markdownify', 
     'watchdog', 'graspologic', 'docx', 'openpyxl', 'faster_whisper', 
     'yt_dlp', 'matplotlib', 'openai', 'tiktoken', 'boto3', 'mcp'
 ]
 
-for pkg in ts_packages:
+for pkg in ts_packages + extra_packages:
     try:
         datas += collect_data_files(pkg)
         hiddenimports += collect_submodules(pkg)
