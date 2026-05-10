@@ -80,12 +80,13 @@ jobs:
           # Ensure the release exists so we can query it
           gh release view "$TAG" || gh release create "$TAG" --draft --title "$TAG"
           
-          # List all assets and delete those starting with graphify or aa-graphify
+          # List all assets and delete them
           gh release view "$TAG" --json assets --template '{{range .assets}}{{.name}}{{"\n"}}{{end}}' | \
-          grep -E '^(graphify|aa-graphify)' | \
           while read -r asset; do
-            echo "Deleting old asset: $asset"
-            gh release delete-asset "$TAG" "$asset" --yes || true
+            if [ -n "$asset" ]; then
+              echo "Deleting old asset: $asset"
+              gh release delete-asset "$TAG" "$asset" --yes || true
+            fi
           done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
