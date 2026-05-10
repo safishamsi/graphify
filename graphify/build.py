@@ -101,7 +101,16 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
         if tgt not in node_set:
             tgt = norm_to_id.get(_normalize_id(tgt), tgt)
         if src not in node_set or tgt not in node_set:
-            continue  # skip edges to external/stdlib nodes - expected, not an error
+            if src in node_set and tgt not in node_set:
+                # If target is missing, add a placeholder node to preserve the edge.
+                # This ensures that imports to un-scanned or external units (especially
+                # in Pascal) are visible in the graph.
+                label = tgt.split("_")[-1] if "_" in tgt else tgt
+                G.add_node(tgt, label=label, file_type="code", source_file="", source_location="")
+                node_set.add(tgt)
+                norm_to_id[_normalize_id(tgt)] = tgt
+            else:
+                continue  # skip edges to external/stdlib nodes - expected, not an error
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target")}
         if "source_file" in attrs:
             attrs["source_file"] = _norm_source_file(attrs["source_file"])
