@@ -56,6 +56,9 @@ a = Analysis(
 )
 pyz = PYZ(a.pure, a.zipped_data, cipher=block_cipher)
 
+# Disable UPX on non-Windows due to compatibility issues
+is_win = sys.platform.startswith('win')
+
 exe = EXE(
     pyz,
     a.scripts,
@@ -67,7 +70,7 @@ exe = EXE(
     debug=False,
     bootloader_ignore_signals=False,
     strip=False,
-    upx=True,
+    upx=is_win,
     upx_exclude=[],
     runtime_tmpdir=None,
     console=True,
