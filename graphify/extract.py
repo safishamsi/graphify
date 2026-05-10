@@ -138,7 +138,8 @@ def _find_body(node, config: LanguageConfig):
 
 # ── Import handlers ───────────────────────────────────────────────────────────
 
-def _import_python(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_python(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+                   nodes: list, seen_ids: set) -> None:
     t = node.type
     if t == "import_statement":
         for child in node.children:
@@ -183,7 +184,8 @@ def _import_python(node, source: bytes, file_nid: str, stem: str, edges: list, s
             })
 
 
-def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+               nodes: list, seen_ids: set) -> None:
     resolved_path: "Path | None" = None
     for child in node.children:
         if child.type == "string":
@@ -338,7 +340,8 @@ def _dynamic_import_js(node, source: bytes, caller_nid: str, str_path: str, edge
     return True
 
 
-def _import_java(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_java(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+                 nodes: list, seen_ids: set) -> None:
     def _walk_scoped(n) -> str:
         parts: list[str] = []
         cur = n
@@ -377,7 +380,8 @@ def _import_java(node, source: bytes, file_nid: str, stem: str, edges: list, str
             break
 
 
-def _import_c(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_c(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+               nodes: list, seen_ids: set) -> None:
     for child in node.children:
         if child.type in ("string_literal", "system_lib_string", "string"):
             raw = _read_text(child, source).strip('"<> ')
@@ -397,7 +401,8 @@ def _import_c(node, source: bytes, file_nid: str, stem: str, edges: list, str_pa
             break
 
 
-def _import_csharp(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_csharp(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+                   nodes: list, seen_ids: set) -> None:
     for child in node.children:
         if child.type in ("qualified_name", "identifier", "name_equals"):
             raw = _read_text(child, source)
@@ -417,7 +422,8 @@ def _import_csharp(node, source: bytes, file_nid: str, stem: str, edges: list, s
             break
 
 
-def _import_kotlin(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_kotlin(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+                   nodes: list, seen_ids: set) -> None:
     path_node = node.child_by_field_name("path")
     if path_node:
         raw = _read_text(path_node, source)
@@ -453,7 +459,8 @@ def _import_kotlin(node, source: bytes, file_nid: str, stem: str, edges: list, s
             break
 
 
-def _import_scala(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_scala(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+                  nodes: list, seen_ids: set) -> None:
     for child in node.children:
         if child.type in ("stable_id", "identifier"):
             raw = _read_text(child, source)
@@ -473,7 +480,8 @@ def _import_scala(node, source: bytes, file_nid: str, stem: str, edges: list, st
             break
 
 
-def _import_php(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_php(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+                nodes: list, seen_ids: set) -> None:
     for child in node.children:
         if child.type in ("qualified_name", "name", "identifier"):
             raw = _read_text(child, source)
@@ -755,7 +763,8 @@ _PHP_CONFIG = LanguageConfig(
 )
 
 
-def _import_lua(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_lua(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+                nodes: list, seen_ids: set) -> None:
     """Extract require('module') from Lua variable_declaration nodes."""
     text = _read_text(node, source)
     import re
@@ -793,7 +802,8 @@ _LUA_CONFIG = LanguageConfig(
 )
 
 
-def _import_swift(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+def _import_swift(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+                  nodes: list, seen_ids: set) -> None:
     for child in node.children:
         if child.type == "identifier":
             raw = _read_text(child, source)
@@ -811,23 +821,58 @@ def _import_swift(node, source: bytes, file_nid: str, stem: str, edges: list, st
             break
 
 
-def _import_pascal(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
-    """Extract moduleName from declUses in Pascal."""
+def _resolve_pascal_unit(unit_name: str, current_file: Path) -> Path | None:
+    """Resolve a Pascal unit name to a file path in the same directory (case-insensitive)."""
+    parent = current_file.parent
+    if not parent.exists():
+        return None
+    # Check for common Pascal extensions
+    for ext in (".pas", ".pp", ".inc"):
+        candidate = (unit_name + ext).lower()
+        try:
+            for child in parent.iterdir():
+                if child.name.lower() == candidate:
+                    return child
+        except OSError:
+            continue
+    return None
+
+
+def _import_pascal(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
+                   nodes: list, seen_ids: set) -> None:
+    """Extract moduleName from declUses in Pascal, resolving to path where possible."""
     for child in node.children:
         if child.type == "moduleName":
             raw = _read_text(child, source)
-            if raw:
+            if not raw:
+                continue
+            
+            resolved = _resolve_pascal_unit(raw, Path(str_path))
+            if resolved:
+                tgt_nid = _make_id(str(resolved))
+            else:
+                # Placeholder for unresolvable unit name
                 tgt_nid = _make_id(raw)
-                edges.append({
-                    "source": file_nid,
-                    "target": tgt_nid,
-                    "relation": "imports",
-                    "context": "import",
-                    "confidence": "EXTRACTED",
-                    "source_file": str_path,
-                    "source_location": f"L{node.start_point[0] + 1}",
-                    "weight": 1.0,
-                })
+                if tgt_nid not in seen_ids:
+                    nodes.append({
+                        "id": tgt_nid,
+                        "label": raw,
+                        "file_type": "code",
+                        "source_file": "", # external/placeholder
+                        "source_location": "",
+                    })
+                    seen_ids.add(tgt_nid)
+
+            edges.append({
+                "source": file_nid,
+                "target": tgt_nid,
+                "relation": "imports",
+                "context": "import",
+                "confidence": "EXTRACTED",
+                "source_file": str_path,
+                "source_location": f"L{node.start_point[0] + 1}",
+                "weight": 1.0,
+            })
 
 
 _PASCAL_CONFIG = LanguageConfig(
@@ -964,7 +1009,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
         # Import types
         if t in config.import_types:
             if config.import_handler:
-                config.import_handler(node, source, file_nid, stem, edges, str_path)
+                config.import_handler(node, source, file_nid, stem, edges, str_path, nodes, seen_ids)
             return
 
         # Class types
