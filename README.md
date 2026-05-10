@@ -247,6 +247,28 @@ The MCP server gives your assistant structured access: `query_graph`, `get_node`
 
 ---
 
+## Publishing to understand-quickly (opt-in)
+
+[`looptech-ai/understand-quickly`](https://github.com/looptech-ai/understand-quickly) is a public registry of code-knowledge graphs that ships an MCP server and a stable `registry.json`. Adding `--publish` to `graphify extract` stamps `metadata.{tool, tool_version, generated_at, commit}` into `graphify-out/graph.json` and — when `UNDERSTAND_QUICKLY_TOKEN` is set — fires a `repository_dispatch` event so the registry picks up the new graph.
+
+```bash
+graphify extract . --publish
+```
+
+Without the token, `--publish` only writes the local stamped file (no network call). The recommended CI step is the [`looptech-ai/uq-publish-action`](https://github.com/looptech-ai/uq-publish-action) Marketplace Action:
+
+```yaml
+- uses: looptech-ai/uq-publish-action@v0.1.0
+  with:
+    graph-path: 'graphify-out/graph.json'
+    format: 'gitnexus@1'
+    token: ${{ secrets.UNDERSTAND_QUICKLY_TOKEN }}
+```
+
+Submitting via `--publish` is governed by the [Understand-Quickly Data License 1.0](https://github.com/looptech-ai/understand-quickly/blob/main/DATA-LICENSE.md). It is opt-in and requires the user to set the token explicitly.
+
+---
+
 ## Privacy
 
 - **Code files** — processed locally via tree-sitter. Nothing leaves your machine.
