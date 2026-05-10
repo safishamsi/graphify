@@ -229,6 +229,21 @@ confidence_score rules:
   Reasonable but not certain: 0.6-0.7. Weak inference: 0.4-0.5.
 - AMBIGUOUS edges: score 0.1-0.3
 
+Node ID format: lowercase, only `[a-z0-9_]`, no dots or slashes. Format: `{stem}_{entity}` where:
+- `stem` is the **relative path including parent directories**, with the file extension dropped and all non-alphanumeric chars (including `/`) replaced by `_`. Do NOT use just the filename — include the parent directories so the stem matches what the AST extractor produces.
+- `entity` is the symbol name, lowercased with non-alphanumerics replaced by `_`. Drop leading underscores from the symbol name (e.g., `_helper` → `helper`) — the AST extractor does this, so you must too.
+
+Examples (all using the relative-path stem, leading underscores dropped):
+- `src/auth/session.py` + `ValidateToken` → `src_auth_session_validatetoken`
+- `tests/test_foo.py` + `_helper` → `tests_test_foo_helper`
+- `lib/utils/helpers.py` + `parse_url` → `lib_utils_helpers_parse_url`
+
+This is critical: AST and semantic extractors must agree on the stem. If you use just the filename (e.g., `session_validatetoken` instead of `src_auth_session_validatetoken`), your nodes will become orphans alongside the AST-extracted versions and the merge step will not be able to dedupe them, splitting one entity into two communities.
+
+Module-level constants and aliases: AST only extracts functions and classes. If you need to add a node for a module-level constant or type alias, still use the path-based stem so it sits in the right community: `tests_test_foo_my_constant`, not `test_foo_my_constant`.
+
+CRITICAL: never append chunk numbers, sequence numbers, or any suffix to an ID (no `_c1`, `_c2`, `_chunk2`, etc.). IDs must be deterministic from the label alone — the same entity must always produce the same ID regardless of which chunk processes it.
+
 Output exactly this JSON (no other text):
 {"nodes":[{"id":"filestem_entityname","label":"Human Readable Name","file_type":"code|document|paper|image","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
 ```
@@ -294,15 +309,40 @@ from pathlib import Path
 ast = json.loads(Path('.graphify_ast.json').read_text())
 sem = json.loads(Path('.graphify_semantic.json').read_text())
 
-# Merge: AST nodes first, semantic nodes deduplicated by id
-seen = {n['id'] for n in ast['nodes']}
-merged_nodes = list(ast['nodes'])
-for n in sem['nodes']:
-    if n['id'] not in seen:
-        merged_nodes.append(n)
-        seen.add(n['id'])
+# Merge: AST nodes first, semantic nodes deduplicated by id.
+# Also catch ghost duplicates where the semantic subagent used a shorter
+# stem (e.g., 'foo_bar' instead of the path-based 'tests_foo_bar') —
+# rewrite the ghost ID to its AST-form match before merging so edges land
+# on the right node instead of splitting one entity into two communities.
+ast_ids = {n['id'] for n in ast['nodes']}
 
-merged_edges = ast['edges'] + sem['edges']
+def _alias_for(sem_id, ast_ids):
+    if sem_id in ast_ids:
+        return sem_id
+    # Match if an AST id ends with '_' + sem_id (i.e., AST adds a leading directory token)
+    candidates = [a for a in ast_ids if a.endswith('_' + sem_id)]
+    if candidates:
+        return max(candidates, key=len)
+    return sem_id
+
+alias_map = {n['id']: _alias_for(n['id'], ast_ids) for n in sem['nodes']}
+
+merged_nodes = list(ast['nodes'])
+seen = set(ast_ids)
+for n in sem['nodes']:
+    new_id = alias_map.get(n['id'], n['id'])
+    if new_id not in seen:
+        n = {**n, 'id': new_id}
+        merged_nodes.append(n)
+        seen.add(new_id)
+
+# Rewrite edge endpoints through the alias map so they land on canonical ids
+merged_edges = list(ast['edges'])
+for e in sem['edges']:
+    src = alias_map.get(e['source'], e['source'])
+    tgt = alias_map.get(e['target'], e['target'])
+    merged_edges.append({**e, 'source': src, 'target': tgt})
+
 merged = {
     'nodes': merged_nodes,
     'edges': merged_edges,
