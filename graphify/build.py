@@ -39,6 +39,12 @@ def _normalize_id(s: str) -> str:
     return cleaned.strip("_").lower()
 
 
+def _norm_source_file(p: str | None) -> str | None:
+    """Normalize path separators to forward slashes so Windows backslash paths
+    and POSIX paths from semantic subagents resolve to the same node identity."""
+    return p.replace("\\", "/") if p else p
+
+
 def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
     """Build a NetworkX graph from an extraction dict.
 
@@ -73,6 +79,8 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
         print(f"[graphify] Extraction warning ({len(real_errors)} issues): {real_errors[0]}", file=sys.stderr)
     G: nx.Graph = nx.DiGraph() if directed else nx.Graph()
     for node in extraction.get("nodes", []):
+        if "source_file" in node:
+            node["source_file"] = _norm_source_file(node["source_file"])
         G.add_node(node["id"], **{k: v for k, v in node.items() if k != "id"})
     node_set = set(G.nodes())
     # Normalized ID map: lets edges survive when the LLM generates IDs with
@@ -104,6 +112,8 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
             else:
                 continue  # skip edges to external/stdlib nodes - expected, not an error
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target")}
+        if "source_file" in attrs:
+            attrs["source_file"] = _norm_source_file(attrs["source_file"])
         # Preserve original edge direction - undirected graphs lose it otherwise,
         # causing display functions to show edges backwards.
         attrs["_src"] = src

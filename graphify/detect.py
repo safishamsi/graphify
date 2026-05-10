@@ -656,11 +656,14 @@ def detect(root: Path, *, follow_symlinks: bool = False) -> dict:
                 # Prune noise dirs in-place so os.walk never descends into them.
                 # Hidden dirs are allowed through if they could contain an
                 # explicitly included path (.graphifyinclude allowlist).
+                # When negation patterns (!) exist, skip directory-level ignore
+                # pruning so negated files inside can still be reached.
+                has_negation = any(p.startswith("!") for _, p in ignore_patterns)
                 dirnames[:] = [
                     d for d in dirnames
                     if (not d.startswith(".") or _could_contain_included_path(dp / d, root, include_patterns))
                     and not _is_noise_dir(d)
-                    and not _is_ignored(dp / d, root, ignore_patterns)
+                    and (has_negation or not _is_ignored(dp / d, root, ignore_patterns))
                 ]
             for fname in filenames:
                 if fname in _SKIP_FILES:

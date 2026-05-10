@@ -50,6 +50,21 @@ def test_legacy_edge_from_to_canonicalized():
     assert G.number_of_edges() == 1
 
 
+def test_source_file_backslash_normalized():
+    """Windows backslash paths and POSIX paths for the same file must produce one node."""
+    extraction = {
+        "nodes": [
+            {"id": "n1", "label": "A", "file_type": "code", "source_file": "src\\middleware\\auth.py"},
+            {"id": "n2", "label": "B", "file_type": "code", "source_file": "src/middleware/auth.py"},
+        ],
+        "edges": [],
+        "input_tokens": 0, "output_tokens": 0,
+    }
+    G = build_from_json(extraction)
+    sources = {G.nodes[n]["source_file"] for n in G.nodes()}
+    assert sources == {"src/middleware/auth.py"}
+
+
 def test_build_merges_multiple_extractions():
     ext1 = {"nodes": [{"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"}],
             "edges": [], "input_tokens": 0, "output_tokens": 0}
