@@ -71,6 +71,25 @@ jobs:
     permissions:
       contents: write
     steps:
+      - name: Cleanup old assets
+        shell: bash
+        run: |
+          TAG=${GITHUB_REF#refs/tags/}
+          echo "Cleaning up old assets for release $TAG"
+          
+          # Ensure the release exists so we can query it
+          gh release view "$TAG" || gh release create "$TAG" --draft --title "$TAG"
+          
+          # List all assets and delete those starting with graphify or aa-graphify
+          gh release view "$TAG" --json assets --template '{{range .assets}}{{.name}}{{"\n"}}{{end}}' | \
+          grep -E '^(graphify|aa-graphify)' | \
+          while read -r asset; do
+            echo "Deleting old asset: $asset"
+            gh release delete-asset "$TAG" "$asset" --yes || true
+          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
@@ -82,21 +101,5 @@ jobs:
         with:
           files: dist/all/*
           generate_release_notes: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Cleanup old assets
-        shell: bash
-        run: |
-          TAG=${GITHUB_REF#refs/tags/}
-          echo "Cleaning up old assets for release $TAG"
-          
-          # List all assets and delete those starting with graphify or aa-graphify
-          gh release view "$TAG" --json assets --template '{{range .assets}}{{.name}}{{"\n"}}{{end}}' | \
-          grep -E '^(graphify|aa-graphify)' | \
-          while read -r asset; do
-            echo "Deleting old asset: $asset"
-            gh release delete-asset "$TAG" "$asset" --yes || true
-          done
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
