@@ -29,18 +29,6 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install UPX (Linux)
-        if: matrix.os == 'ubuntu-22.04'
-        run: sudo apt-get install -y upx
-
-      - name: Install UPX (Windows)
-        if: matrix.os == 'windows-latest'
-        run: choco install upx
-
-      - name: Install UPX (macOS)
-        if: matrix.os == 'macos-latest'
-        run: brew install upx
-
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
@@ -61,18 +49,18 @@ jobs:
           cp README-standalone.md dist/README.md
           
           if [ "${{ matrix.os }}" == "windows-latest" ]; then
-            mv dist/graphify.exe dist/graphify-windows.exe
-            powershell.exe -Command "Compress-Archive -Path 'dist/graphify-windows.exe', 'dist/README.md' -DestinationPath 'dist/upload/graphify-${VERSION}-windows.zip' -Force"
+            mv dist/aag.exe dist/aag-windows.exe
+            powershell.exe -Command "Compress-Archive -Path 'dist/aag-windows.exe', 'dist/README.md' -DestinationPath 'dist/upload/aag-${VERSION}-windows.zip' -Force"
           elif [ "${{ matrix.os }}" == "macos-latest" ]; then
-            cd dist && tar -czf "upload/graphify-${VERSION}-macos.tar.gz" graphify README.md
+            cd dist && tar -czf "upload/aag-${VERSION}-macos.tar.gz" aag README.md
           else
-            cd dist && tar -czf "upload/graphify-${VERSION}-linux.tar.gz" graphify README.md
+            cd dist && tar -czf "upload/aag-${VERSION}-linux.tar.gz" aag README.md
           fi
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: graphify-${{ matrix.os }}
+          name: aag-${{ matrix.os }}
           path: dist/upload/*
 
   release:
@@ -100,8 +88,13 @@ jobs:
       - name: Cleanup old assets
         shell: bash
         run: |
-          # Define old asset names to remove
-          OLD_ASSETS=("graphify-linux" "graphify-macos" "graphify-windows.exe")
+          # Define old asset names to remove (including previous graphify/aa-graphify naming)
+          OLD_ASSETS=(
+            "graphify-linux" "graphify-macos" "graphify-windows.exe"
+            "graphify-latest-linux.tar.gz" "graphify-latest-macos.tar.gz" "graphify-latest-windows.zip"
+            "aa-graphify-linux" "aa-graphify-macos" "aa-graphify-windows.exe"
+            "aa-graphify-latest-linux.tar.gz" "aa-graphify-latest-macos.tar.gz" "aa-graphify-latest-windows.zip"
+          )
           TAG=${GITHUB_REF#refs/tags/}
           
           for asset in "${OLD_ASSETS[@]}"; do
