@@ -27,3 +27,8 @@ scripts/run_k2_*.py
 scripts/llm.py
 scripts/benchmark_kimi*.json
 scripts/benchmark_kimi*.py
+test_binary.sh
+.test_venv/
+.test_claude/
+dist/
+build/
