@@ -7,14 +7,14 @@ import pytest
 
 
 PLATFORMS = {
-    "claude": (".claude/skills/graphify/SKILL.md",),
-    "codex": (".agents/skills/graphify/SKILL.md",),
-    "opencode": (".config/opencode/skills/graphify/SKILL.md",),
-    "claw": (".openclaw/skills/graphify/SKILL.md",),
-    "droid": (".factory/skills/graphify/SKILL.md",),
-    "trae": (".trae/skills/graphify/SKILL.md",),
-    "trae-cn": (".trae-cn/skills/graphify/SKILL.md",),
-    "windows": (".claude/skills/graphify/SKILL.md",),
+    "claude": (".claude/skills/aag/SKILL.md",),
+    "codex": (".agents/skills/aag/SKILL.md",),
+    "opencode": (".config/opencode/skills/aag/SKILL.md",),
+    "claw": (".openclaw/skills/aag/SKILL.md",),
+    "droid": (".factory/skills/aag/SKILL.md",),
+    "trae": (".trae/skills/aag/SKILL.md",),
+    "trae-cn": (".trae-cn/skills/aag/SKILL.md",),
+    "windows": (".claude/skills/aag/SKILL.md",),
 }
 
 
@@ -31,17 +31,17 @@ def _install(tmp_path, platform):
 
 def test_install_default_claude(tmp_path):
     _install(tmp_path, "claude")
-    assert (tmp_path / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".claude" / "skills" / "aag" / "SKILL.md").exists()
 
 
 def test_install_codex(tmp_path):
     _install(tmp_path, "codex")
-    assert (tmp_path / ".agents" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".agents" / "skills" / "aag" / "SKILL.md").exists()
 
 
 def test_install_opencode(tmp_path):
     _install(tmp_path, "opencode")
-    assert (tmp_path / ".config" / "opencode" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".config" / "opencode" / "skills" / "aag" / "SKILL.md").exists()
 
 
 def test_install_positional_platform_opencode(tmp_path, monkeypatch):
@@ -50,8 +50,8 @@ def test_install_positional_platform_opencode(tmp_path, monkeypatch):
     monkeypatch.setattr(sys, "argv", ["graphify", "install", "opencode"])
     with patch("graphify.__main__.Path.home", return_value=tmp_path):
         main()
-    assert (tmp_path / ".config" / "opencode" / "skills" / "graphify" / "SKILL.md").exists()
-    assert not (tmp_path / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".config" / "opencode" / "skills" / "aag" / "SKILL.md").exists()
+    assert not (tmp_path / ".claude" / "skills" / "aag" / "SKILL.md").exists()
 
 
 def test_install_help_does_not_install_default(tmp_path, monkeypatch, capsys):
@@ -69,27 +69,27 @@ def test_install_help_does_not_install_default(tmp_path, monkeypatch, capsys):
 
 def test_install_claw(tmp_path):
     _install(tmp_path, "claw")
-    assert (tmp_path / ".openclaw" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".openclaw" / "skills" / "aag" / "SKILL.md").exists()
 
 
 def test_install_droid(tmp_path):
     _install(tmp_path, "droid")
-    assert (tmp_path / ".factory" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".factory" / "skills" / "aag" / "SKILL.md").exists()
 
 
 def test_install_trae(tmp_path):
     _install(tmp_path, "trae")
-    assert (tmp_path / ".trae" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".trae" / "skills" / "aag" / "SKILL.md").exists()
 
 
 def test_install_trae_cn(tmp_path):
     _install(tmp_path, "trae-cn")
-    assert (tmp_path / ".trae-cn" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".trae-cn" / "skills" / "aag" / "SKILL.md").exists()
 
 
 def test_install_windows(tmp_path):
     _install(tmp_path, "windows")
-    assert (tmp_path / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
+    assert (tmp_path / ".claude" / "skills" / "aag" / "SKILL.md").exists()
 
 
 def test_install_unknown_platform_exits(tmp_path):
@@ -174,7 +174,7 @@ def test_agents_install_idempotent(tmp_path):
     _agents_install(tmp_path, "codex")
     _agents_install(tmp_path, "codex")
     content = (tmp_path / "AGENTS.md").read_text()
-    assert content.count("## graphify") == 1
+    assert content.count("## aag") == 1
 
 
 def test_agents_install_appends_to_existing(tmp_path):
@@ -184,7 +184,7 @@ def test_agents_install_appends_to_existing(tmp_path):
     _agents_install(tmp_path, "codex")
     content = agents_md.read_text()
     assert "Do not break things." in content
-    assert "## graphify" in content
+    assert "## aag" in content
 
 
 def test_agents_uninstall_removes_section(tmp_path):
@@ -204,7 +204,7 @@ def test_agents_uninstall_preserves_other_content(tmp_path):
     assert agents_md.exists()
     content = agents_md.read_text()
     assert "Do not break things." in content
-    assert "## graphify" not in content
+    assert "## aag" not in content
 
 
 def test_agents_uninstall_no_op_when_not_installed(tmp_path, capsys):
@@ -261,10 +261,10 @@ def test_opencode_agents_uninstall_removes_plugin(tmp_path):
 # ── Cursor ────────────────────────────────────────────────────────────────────
 
 def test_cursor_install_writes_rule(tmp_path):
-    """cursor install writes .cursor/rules/graphify.mdc."""
+    """cursor install writes .cursor/rules/aag.mdc."""
     from graphify.__main__ import _cursor_install
     _cursor_install(tmp_path)
-    rule = tmp_path / ".cursor" / "rules" / "graphify.mdc"
+    rule = tmp_path / ".cursor" / "rules" / "aag.mdc"
     assert rule.exists()
     content = rule.read_text()
     assert "alwaysApply: true" in content
@@ -275,7 +275,7 @@ def test_cursor_install_idempotent(tmp_path):
     """cursor install does not overwrite an existing rule file."""
     from graphify.__main__ import _cursor_install
     _cursor_install(tmp_path)
-    rule = tmp_path / ".cursor" / "rules" / "graphify.mdc"
+    rule = tmp_path / ".cursor" / "rules" / "aag.mdc"
     original = rule.read_text()
     _cursor_install(tmp_path)
     assert rule.read_text() == original
@@ -286,7 +286,7 @@ def test_cursor_uninstall_removes_rule(tmp_path):
     from graphify.__main__ import _cursor_install, _cursor_uninstall
     _cursor_install(tmp_path)
     _cursor_uninstall(tmp_path)
-    rule = tmp_path / ".cursor" / "rules" / "graphify.mdc"
+    rule = tmp_path / ".cursor" / "rules" / "aag.mdc"
     assert not rule.exists()
 
 
@@ -318,7 +318,7 @@ def test_gemini_install_idempotent(tmp_path):
     gemini_install(tmp_path)
     gemini_install(tmp_path)
     md = tmp_path / "GEMINI.md"
-    assert md.read_text().count("## graphify") == 1
+    assert md.read_text().count("## aag") == 1
 
 def test_gemini_install_merges_existing_gemini_md(tmp_path):
     from graphify.__main__ import gemini_install

@@ -27,7 +27,7 @@ def test_query_cli_explicit_context_filter(monkeypatch, tmp_path, capsys):
     monkeypatch.setattr(
         mainmod.sys,
         "argv",
-        ["graphify", "query", "extract", "--context", "call", "--graph", str(graph_path)],
+        ["aag", "query", "extract", "--context", "call", "--graph", str(graph_path)],
     )
     mainmod.main()
     out = capsys.readouterr().out
@@ -42,7 +42,7 @@ def test_query_cli_heuristic_context_filter(monkeypatch, tmp_path, capsys):
     monkeypatch.setattr(
         mainmod.sys,
         "argv",
-        ["graphify", "query", "who calls extract", "--graph", str(graph_path)],
+        ["aag", "query", "who calls extract", "--graph", str(graph_path)],
     )
     mainmod.main()
     out = capsys.readouterr().out
