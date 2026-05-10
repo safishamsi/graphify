@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/safishamsi/graphify/v4/docs/logo-text.svg" width="260" height="64" alt="Graphify"/>
+  <img src="https://raw.githubusercontent.com/hhfeng/aa-graphify/v4/docs/logo-text.svg" width="260" height="64" alt="Graphify"/>
 </p>
 
 <p align="center">
@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/safishamsi/graphify/actions/workflows/ci.yml"><img src="https://github.com/safishamsi/graphify/actions/workflows/ci.yml/badge.svg?branch=v4" alt="CI"/></a>
+  <a href="https://github.com/hhfeng/aa-graphify/actions/workflows/ci.yml"><img src="https://github.com/hhfeng/aa-graphify/actions/workflows/ci.yml/badge.svg?branch=v4" alt="CI"/></a>
   <a href="https://pypi.org/project/graphifyy/"><img src="https://img.shields.io/pypi/v/graphifyy" alt="PyPI"/></a>
   <a href="https://pepy.tech/project/graphifyy"><img src="https://static.pepy.tech/badge/graphifyy" alt="Downloads"/></a>
   <a href="https://github.com/sponsors/safishamsi"><img src="https://img.shields.io/badge/sponsor-safishamsi-ea4aaa?logo=github-sponsors" alt="Sponsor"/></a>
@@ -49,7 +49,7 @@ pipx install graphifyy && graphify install
 pip install graphifyy && graphify install
 ```
 
-> **Pacchetto ufficiale:** Il pacchetto PyPI si chiama `graphifyy`. L'unico repository ufficiale è [safishamsi/graphify](https://github.com/safishamsi/graphify).
+> **Pacchetto ufficiale:** Il pacchetto PyPI si chiama `graphifyy`. L'unico repository ufficiale è [hhfeng/aa-graphify](https://github.com/hhfeng/aa-graphify).
 
 ## Utilizzo
 
@@ -75,4 +75,4 @@ I file di codice vengono elaborati localmente via tree-sitter AST. I video vengo
 
 [**Penpax**](https://safishamsi.github.io/penpax.ai) è il livello enterprise su graphify. **Prova gratuita in arrivo.** [Unisciti alla lista d'attesa →](https://safishamsi.github.io/penpax.ai)
 
-[![Star History Chart](https://api.star-history.com/svg?repos=safishamsi/graphify&type=Date)](https://star-history.com/#safishamsi/graphify&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=hhfeng/aa-graphify&type=Date)](https://star-history.com/#hhfeng/aa-graphify&Date)

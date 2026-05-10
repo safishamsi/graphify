@@ -1,6 +1,6 @@
 # Changelog
 
-Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
+Full release notes with details on each version: [GitHub Releases](https://github.com/hhfeng/aa-graphify/releases)
 
 ## 0.7.11 (2026-05-09)
 

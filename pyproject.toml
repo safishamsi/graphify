@@ -41,9 +41,9 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/safishamsi/graphify"
-Repository = "https://github.com/safishamsi/graphify"
-Issues = "https://github.com/safishamsi/graphify/issues"
+Homepage = "https://github.com/hhfeng/aa-graphify"
+Repository = "https://github.com/hhfeng/aa-graphify"
+Issues = "https://github.com/hhfeng/aa-graphify/issues"
 
 [project.optional-dependencies]
 mcp = ["mcp"]
