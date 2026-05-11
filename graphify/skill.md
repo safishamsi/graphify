@@ -342,16 +342,20 @@ confidence_score is REQUIRED on every edge - never omit it, never use 0.5 as a d
 
 Node ID format: lowercase, only `[a-z0-9_]`, no dots or slashes. Format: `{stem}_{entity}` where stem is the filename without extension and entity is the symbol name, both normalized (lowercase, non-alphanumeric chars replaced with `_`). Example: `src/auth/session.py` + `ValidateToken` → `session_validatetoken`. This must match the ID the AST extractor generates so cross-references between code and semantic nodes connect correctly. CRITICAL: never append chunk numbers, sequence numbers, or any suffix to an ID (no `_c1`, `_c2`, `_chunk2`, etc.). IDs must be deterministic from the label alone — the same entity must always produce the same ID regardless of which chunk processes it.
 
-Output exactly this JSON (no other text):
+**Output path:** Write the JSON to `/tmp/graphify_chunk_NN.json` (where NN is the chunk number, zero-padded — e.g. `/tmp/graphify_chunk_01.json`). The Claude Code general-purpose subagent's sandbox typically allows writes to `/tmp` but BLOCKS writes to project subdirectories like `graphify-out/`. Writing to `/tmp` is the portable path. The orchestrator (parent /graphify run) reads chunks from `/tmp/graphify_chunk_*.json` in Step B3.
+
+Use the Write tool with that exact `/tmp/graphify_chunk_NN.json` path. Then return a one-line confirmation to the orchestrator: "chunk_NN written: X nodes, Y edges, Z hyperedges". Nothing else.
+
+The JSON file content schema:
 {"nodes":[{"id":"session_validatetoken","label":"Human Readable Name","file_type":"code|document|paper|image|rationale","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to|rationale_for","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
 ```
 
 **Step B3 - Collect, cache, and merge**
 
 Wait for all subagents. For each result:
-- Check that `graphify-out/.graphify_chunk_NN.json` exists on disk — this is the success signal
+- Check that `/tmp/graphify_chunk_NN.json` exists on disk — this is the success signal
 - If the file exists and contains valid JSON with `nodes` and `edges`, include it and save to cache
-- If the file is missing, the subagent was likely dispatched as read-only (Explore type) — print a warning: "chunk N missing from disk — subagent may have been read-only. Re-run with general-purpose agent." Do not silently skip.
+- If the file is missing, the subagent was either dispatched as read-only (Explore type) OR failed silently — print a warning: "chunk N missing from /tmp — subagent may have been read-only or hit a sandbox restriction. Re-run with general-purpose agent." Do not silently skip.
 - If a subagent failed or returned invalid JSON, print a warning and skip that chunk - do not abort
 
 If more than half the chunks failed or are missing, stop and tell the user to re-run and ensure `subagent_type="general-purpose"` is used.
@@ -359,8 +363,14 @@ If more than half the chunks failed or are missing, stop and tell the user to re
 Merge all chunk files into `.graphify_semantic_new.json`. **After each Agent call completes, read the real token counts from the Agent tool result's `usage` field and write them back into the chunk JSON before merging** — the chunk JSON itself always has placeholder zeros. Then run:
 ```bash
 $(cat graphify-out/.graphify_python) -c "
-import json, glob
+import json, glob, shutil
 from pathlib import Path
+
+# Subagents write to /tmp (sandbox-permitted); copy into graphify-out for record + cleanup tracking
+tmp_chunks = sorted(glob.glob('/tmp/graphify_chunk_*.json'))
+for src in tmp_chunks:
+    dst = 'graphify-out/' + Path(src).name.replace('graphify_chunk_', '.graphify_chunk_')
+    shutil.copy(src, dst)
 
 chunks = sorted(glob.glob('graphify-out/.graphify_chunk_*.json'))
 all_nodes, all_edges, all_hyperedges = [], [], []
@@ -679,6 +689,7 @@ print(f'This run: {input_tok:,} input tokens, {output_tok:,} output tokens')
 print(f'All time: {cost[\"total_input_tokens\"]:,} input, {cost[\"total_output_tokens\"]:,} output ({len(cost[\"runs\"])} runs)')
 "
 rm -f graphify-out/.graphify_detect.json graphify-out/.graphify_extract.json graphify-out/.graphify_ast.json graphify-out/.graphify_semantic.json graphify-out/.graphify_analysis.json graphify-out/.graphify_chunk_*.json
+rm -f /tmp/graphify_chunk_*.json 2>/dev/null || true
 rm -f graphify-out/.needs_update 2>/dev/null || true
 ```
 
