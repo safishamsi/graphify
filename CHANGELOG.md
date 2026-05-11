@@ -2,6 +2,13 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## 0.7.15 (2026-05-11)
+
+- Fix: `-h`/`--help`/`-?` in any position now stops execution — previously `graphify cursor install --help` silently installed into Cursor; `graphify benchmark --help` crashed with FileNotFoundError (#821)
+- Fix: `--version`, `-v`, and `graphify version` now print the installed version and exit (#818)
+- Fix: `GRAPHIFY_OLLAMA_NUM_CTX=<invalid>` no longer falls back to hardcoded 131072 (which exhausted VRAM) — it now falls through to the auto-derived value and prints a warning (#820)
+- Fix: when `GRAPHIFY_OLLAMA_NUM_CTX` is set smaller than the estimated chunk size, graphify now warns explicitly that Ollama will silently truncate the prompt and suggests a corrected `--token-budget` (#820)
+
 ## 0.7.14 (2026-05-11)
 
 - Fix: `_make_id` and `_normalize_id` now apply NFKC Unicode normalization before ID generation -- composed/decomposed forms of the same character (e.g. `é` typed vs pasted from a PDF) now produce the same node ID; switched from `.lower()` to `.casefold()` for correct Turkish/German/Greek case folding; both functions are now byte-for-byte equivalent (#811)

@@ -289,17 +289,38 @@ def _call_openai_compat(
     # Capped at 131072 (enough for the default 60k token_budget); env var wins.
     if backend == "ollama":
         num_ctx_raw = os.environ.get("GRAPHIFY_OLLAMA_NUM_CTX", "").strip()
+        # Auto-derive num_ctx from actual chunk size regardless — used as the
+        # fallback and for the mismatch check below.
+        estimated_input = len(user_message) // _CHARS_PER_TOKEN + 400
+        auto_num_ctx = min(estimated_input + max_completion_tokens + 2000, 131072)
+        auto_num_ctx = max(auto_num_ctx, 8192)
         if num_ctx_raw:
             try:
                 num_ctx = int(num_ctx_raw)
             except ValueError:
-                num_ctx = 131072
+                # Bad env var: fall through to auto-derivation (not 131072 —
+                # hardcoding the cap is what causes OOM on constrained VRAM).
+                print(
+                    f"[graphify] GRAPHIFY_OLLAMA_NUM_CTX={num_ctx_raw!r} is not a valid integer; "
+                    f"using auto-derived value ({auto_num_ctx}).",
+                    file=sys.stderr,
+                )
+                num_ctx = auto_num_ctx
+            else:
+                # Warn when the pinned value is smaller than the estimated input —
+                # Ollama silently truncates the prompt and returns empty responses.
+                if num_ctx < estimated_input:
+                    print(
+                        f"[graphify] warning: GRAPHIFY_OLLAMA_NUM_CTX={num_ctx} is smaller than "
+                        f"the estimated chunk input (~{estimated_input} tokens). Ollama will "
+                        f"silently truncate the prompt and return empty responses. "
+                        f"Try --token-budget {max(1024, num_ctx // 3)} or increase NUM_CTX.",
+                        file=sys.stderr,
+                    )
         else:
             # Estimate input tokens: user_message chars / 4 (standard BPE
             # heuristic) + 400 for the system prompt, then add output headroom.
-            estimated_input = len(user_message) // _CHARS_PER_TOKEN + 400
-            num_ctx = min(estimated_input + max_completion_tokens + 2000, 131072)
-            num_ctx = max(num_ctx, 8192)  # floor: never under-allocate badly
+            num_ctx = auto_num_ctx
         keep_alive = os.environ.get("GRAPHIFY_OLLAMA_KEEP_ALIVE", "30m")
         kwargs["extra_body"] = {"options": {"num_ctx": num_ctx}, "keep_alive": keep_alive}
     resp = client.chat.completions.create(**kwargs)

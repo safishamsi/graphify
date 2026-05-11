@@ -1133,7 +1133,11 @@ def main() -> None:
         for skill_dst in {Path.home() / cfg["skill_dst"] for cfg in _PLATFORM_CONFIG.values()}:
             _check_skill_version(skill_dst)
 
-    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
+    if len(sys.argv) >= 2 and sys.argv[1] in ("-v", "--version", "version"):
+        print(f"graphify {__version__}")
+        return
+
+    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help", "-?"):
         print("Usage: graphify <command>")
         print()
         print("Commands:")
@@ -1238,6 +1242,17 @@ def main() -> None:
         return
 
     cmd = sys.argv[1]
+
+    # Universal help guard: -h/--help/-? anywhere after the command shows help
+    # and stops — prevents flags from silently triggering destructive subcommands
+    # (e.g. "cursor install --help" was silently installing into Cursor, #821).
+    # Exempt: free-text commands (user string may contain these tokens), and
+    # "install"/"uninstall" which have their own per-subcommand help handlers.
+    _FREE_TEXT_CMDS = {"query", "explain", "path", "save-result", "install", "uninstall"}
+    if cmd not in _FREE_TEXT_CMDS and any(a in {"-h", "--help", "-?"} for a in sys.argv[2:]):
+        print(f"Run 'graphify --help' for full usage.")
+        return
+
     if cmd == "install":
         # Default to windows platform on Windows, claude elsewhere
         default_platform = "windows" if platform.system() == "Windows" else "claude"
