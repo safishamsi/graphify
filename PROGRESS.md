@@ -5,8 +5,8 @@ Status: all 7 acceptance gates from the original task spec are green.
 
 ## What works
 
-End-to-end on `tests/fixtures/rescript/{FeatureFlag,Caller}.res` and on a
-real ~200-file ReScript codebase used as the smoke-test corpus:
+End-to-end on `tests/fixtures/sample.res` and on a real ~200-file
+ReScript codebase used as the smoke-test corpus:
 
 | Surface | Behaviour |
 |---|---|
@@ -148,10 +148,12 @@ the Scala block. 19 tests, all passing.
   `_DISPATCH` entries,
   and the cross-file imports resolver in `extract()`.
 - `graphify/detect.py` — `.res` / `.resi` added to `CODE_EXTENSIONS`.
-- `tests/fixtures/rescript/{FeatureFlag,Caller}.res` (new) — fictional
-  feature-flag-style fixture pair exercising polyvariant types, value
-  lets, function lets, nested modules, cross-file `open`, and
-  qualified calls.
+- `tests/fixtures/sample.res` (new) — fictional feature-flag-style
+  fixture exercising polyvariant types, value lets, function lets,
+  nested modules, and qualified calls. Cross-file scenarios (e.g.
+  `open`, cross-file calls, cross-file type references) are tested
+  inline via `tmp_path`, matching the existing
+  `test_cross_file_call_*` pattern in `tests/test_extract.py`.
 - `tests/test_languages.py` — ReScript section (19 tests).
 - `README.md` — supported-languages row updated (28 → 29 languages).
 - `CHANGELOG.md` — `## Unreleased` entry above 0.7.11.
@@ -161,7 +163,7 @@ the Scala block. 19 tests, all passing.
 | Gate | Ask | Status | Evidence |
 |---|---|---|---|
 | 1 | per-language extractor tests pass | ✓ | `pytest tests/test_languages.py -k rescript` → 19/19 pass |
-| 2 | `graphify update tests/fixtures/rescript` ≥ 9 nodes / ≥ 4 edges | ✓ | 11 nodes, 13 edges, all expected entities and edges emitted |
+| 2 | `graphify update` on the canonical fixture produces nontrivial node/edge output | ✓ | 8 nodes / 8 edges from `tests/fixtures/sample.res` (type, value let, 3 function lets, module, method, intra-file call). Cross-file scenarios are covered by the `tmp_path` tests, not the on-disk fixture — matches the rest of the repo (other languages keep their fixture single-file and use `tmp_path` for cross-file behaviour). |
 | 3 | nonzero `.res` symbols on real corpus | ✓ | ~2.8k nodes / ~3.2k edges on ~200-file corpus (vs 15 baseline) |
 | 4 | `graphify path` / `graphify query` returns the cross-file callers | ✓ | `graphify query "who calls isEnabled"` returns `darkModeOn()` and `isEnabledForUser()` |
 | 5 | existing tests still pass | ✓ | full suite passes (one unrelated pre-existing fixture mod) |

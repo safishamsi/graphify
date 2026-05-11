@@ -1300,7 +1300,7 @@ def _swift_extra_walk(node, source: bytes, file_nid: str, stem: str, str_path: s
     return False
 
 
-# ── ReScript extra walk: lets, modules, types, externals ────────────────────
+# ── ReScript extra walk for let / module / type / external declarations ─────
 
 def _rescript_pattern_names(pattern, source: bytes) -> list[tuple[str, int]]:
     """Extract `(name, line)` pairs bound by a let-binding pattern.

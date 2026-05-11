@@ -1133,27 +1133,25 @@ def test_razor_no_dangling_edges():
 
 # ── ReScript ─────────────────────────────────────────────────────────────────
 
-RESCRIPT_FIXTURES = FIXTURES / "rescript"
-
 
 def test_rescript_no_error():
-    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    r = extract_rescript(FIXTURES / "sample.res")
     assert "error" not in r
 
 
 def test_rescript_finds_type():
-    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    r = extract_rescript(FIXTURES / "sample.res")
     assert any(l == "flag" for l in _labels(r))
 
 
 def test_rescript_finds_variable():
-    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    r = extract_rescript(FIXTURES / "sample.res")
     # Plain `let allFlags = [...]` — bare label, no parens.
     assert any(l == "allFlags" for l in _labels(r))
 
 
 def test_rescript_finds_functions():
-    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    r = extract_rescript(FIXTURES / "sample.res")
     labels = _labels(r)
     assert "flagToString()" in labels
     assert "isEnabled()" in labels
@@ -1161,18 +1159,18 @@ def test_rescript_finds_functions():
 
 
 def test_rescript_finds_module():
-    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    r = extract_rescript(FIXTURES / "sample.res")
     assert any(l == "Internal" for l in _labels(r))
 
 
 def test_rescript_finds_module_method():
-    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    r = extract_rescript(FIXTURES / "sample.res")
     # Methods inside modules use the ".name()" label shape.
     assert any(l == ".parse()" for l in _labels(r))
 
 
 def test_rescript_intra_file_call_edge():
-    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    r = extract_rescript(FIXTURES / "sample.res")
     calls = _calls(r)
     assert any(
         "isEnabledForUser" in src and "isEnabled" in tgt
@@ -1181,30 +1179,47 @@ def test_rescript_intra_file_call_edge():
 
 
 def test_rescript_call_edges_have_call_context():
-    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    r = extract_rescript(FIXTURES / "sample.res")
     call_edges = _edges_with_relation(r, "calls")
     assert call_edges
     assert all(e.get("context") == "call" for e in call_edges)
 
 
-def test_rescript_caller_emits_open_import():
-    r = extract_rescript(RESCRIPT_FIXTURES / "Caller.res")
+def test_rescript_open_emits_import_edge(tmp_path):
+    """`open Foo` in one file produces an `imports` edge from the caller
+    file to the `Foo` module. Cross-file scenario tested via `tmp_path`
+    (matches the test_cross_file_call_* convention in test_extract.py)."""
+    lib = tmp_path / "lib.res"
+    lib.write_text("let helper = (x) => x + 1\n")
+    caller = tmp_path / "caller.res"
+    caller.write_text("open Lib\nlet wrap = (x) => helper(x)\n")
+    r = extract_rescript(caller)
     import_edges = _edges_with_relation(r, "imports")
     assert import_edges
     assert all(e.get("context") == "import" for e in import_edges)
-    # `open FeatureFlag` should target a node-id derived from the module name.
-    assert any("featureflag" in e["target"].lower() for e in import_edges)
+    # Target id is _make_id("Lib") = "lib" before the multi-file resolver
+    # rewrites it to the real file id; this single-file extract sees the
+    # unresolved form.
+    assert any(e["target"].lower() == "lib" for e in import_edges)
 
 
-def test_rescript_caller_finds_local_functions():
-    r = extract_rescript(RESCRIPT_FIXTURES / "Caller.res")
+def test_rescript_caller_finds_local_functions(tmp_path):
+    """A caller file with its own let-functions emits those as nodes
+    regardless of whether the imported module is in scope."""
+    caller = tmp_path / "caller.res"
+    caller.write_text(
+        "open Lib\n"
+        "let darkModeOn = (config) => isEnabled(config, #DarkMode)\n"
+        "let betaForUser = (user) => isEnabledForUser(user, #BetaCheckout)\n"
+    )
+    r = extract_rescript(caller)
     labels = _labels(r)
     assert "darkModeOn()" in labels
     assert "betaForUser()" in labels
 
 
 def test_rescript_no_dangling_source_edges():
-    r = extract_rescript(RESCRIPT_FIXTURES / "FeatureFlag.res")
+    r = extract_rescript(FIXTURES / "sample.res")
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         # Imports may point at unresolved module IDs (resolved cross-file
