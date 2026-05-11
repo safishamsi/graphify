@@ -75,7 +75,7 @@ Replace `INPUT_PATH` with the actual path. Present a clean summary — do not du
 ```python
 python -c "
 import json
-from graphify.extract import collect_files, extract
+from graphify.extract import collect_files, extract, _get_extractor
 from pathlib import Path
 
 detect = json.loads(Path('graphify-out/.graphify_detect.json').read_text())
@@ -84,13 +84,18 @@ for f in detect.get('files', {}).get('code', []):
     p = Path(f)
     code_files.extend(collect_files(p) if p.is_dir() else [p])
 
+for f in detect.get('files', {}).get('document', []):
+    p = Path(f)
+    if _get_extractor(p) is not None:
+        code_files.append(p)
+
 if code_files:
     result = extract(code_files)
     Path('graphify-out/.graphify_ast.json').write_text(json.dumps(result, indent=2))
     print(f'AST: {len(result[\"nodes\"])} nodes, {len(result[\"edges\"])} edges')
 else:
     Path('graphify-out/.graphify_ast.json').write_text(json.dumps({'nodes':[],'edges':[],'input_tokens':0,'output_tokens':0}))
-    print('No code files - skipping AST extraction')
+    print('No structurally extractable files - skipping AST extraction')
 "
 ```
 
@@ -136,35 +141,39 @@ Collect all subagent responses and merge them:
 ```python
 python -c "
 import json
+from graphify.pipeline import finalize_extraction_files
 from pathlib import Path
 
-# Merge: combine AST + cached + all semantic chunk results
-all_nodes, all_edges, all_hyperedges = [], [], []
-
-ast = json.loads(Path('graphify-out/.graphify_ast.json').read_text())
-all_nodes.extend(ast.get('nodes', []))
-all_edges.extend(ast.get('edges', []))
+semantic = {'nodes': [], 'edges': [], 'hyperedges': [], 'input_tokens': 0, 'output_tokens': 0}
 
 cached_path = Path('graphify-out/.graphify_cached.json')
 if cached_path.exists():
     cached = json.loads(cached_path.read_text())
-    all_nodes.extend(cached.get('nodes', []))
-    all_edges.extend(cached.get('edges', []))
-    all_hyperedges.extend(cached.get('hyperedges', []))
+    semantic['nodes'].extend(cached.get('nodes', []))
+    semantic['edges'].extend(cached.get('edges', []))
+    semantic['hyperedges'].extend(cached.get('hyperedges', []))
 
 # PASTE each subagent response here as chunk_1, chunk_2, etc.
-total_in, total_out = 0, 0
 for chunk_json in []:  # replace [] with your chunk results
     chunk = json.loads(chunk_json) if isinstance(chunk_json, str) else chunk_json
-    all_nodes.extend(chunk.get('nodes', []))
-    all_edges.extend(chunk.get('edges', []))
-    all_hyperedges.extend(chunk.get('hyperedges', []))
-    total_in += chunk.get('input_tokens', 0)
-    total_out += chunk.get('output_tokens', 0)
+    semantic['nodes'].extend(chunk.get('nodes', []))
+    semantic['edges'].extend(chunk.get('edges', []))
+    semantic['hyperedges'].extend(chunk.get('hyperedges', []))
+    semantic['input_tokens'] += chunk.get('input_tokens', 0)
+    semantic['output_tokens'] += chunk.get('output_tokens', 0)
 
-merged = {'nodes': all_nodes, 'edges': all_edges, 'hyperedges': all_hyperedges, 'input_tokens': total_in, 'output_tokens': total_out}
-Path('graphify-out/.graphify_extract.json').write_text(json.dumps(merged, indent=2))
-print(f'Merged: {len(all_nodes)} nodes, {len(all_edges)} edges')
+Path('graphify-out/.graphify_semantic.json').write_text(json.dumps(semantic, indent=2))
+merged, lsp_summary, stats = finalize_extraction_files(
+    ast_path=Path('graphify-out/.graphify_ast.json'),
+    semantic_path=Path('graphify-out/.graphify_semantic.json'),
+    output_path=Path('graphify-out/.graphify_extract.json'),
+    root=Path('INPUT_PATH'),
+    graphify_out=Path('graphify-out'),
+)
+print(f"Merged: {stats['total_nodes']} nodes, {stats['total_edges']} edges ({stats['ast_nodes']} AST + {stats['semantic_nodes']} semantic)")
+lsp_line = lsp_summary.brief_line()
+if lsp_line:
+    print(lsp_line)
 "
 ```
 

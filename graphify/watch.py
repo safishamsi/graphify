@@ -101,7 +101,7 @@ def _report_root_label(watch_path: Path) -> str:
 
 
 def _relativize_source_files(payload: dict, root: Path) -> None:
-    for bucket in ("nodes", "edges", "hyperedges"):
+    for bucket in ("nodes", "edges", "hyperedges", "unresolved_calls"):
         for item in payload.get(bucket, []):
             source = item.get("source_file")
             if not source:
@@ -145,6 +145,7 @@ def _rebuild_code(
     Returns True on success, False on error or skipped-due-to-lock.
     """
     out = watch_path / _GRAPHIFY_OUT
+    out_abs = out.resolve()
     if acquire_lock:
         with _rebuild_lock(out, blocking=block_on_lock) as got:
             if not got:
@@ -170,6 +171,7 @@ def _rebuild_code(
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
         from graphify.report import generate
         from graphify.export import to_json, to_html
+        from graphify.pipeline import finalize_extraction_for_build
 
         detected = detect(watch_path, follow_symlinks=follow_symlinks)
         code_files = [Path(f) for f in detected['files']['code']]
@@ -215,6 +217,13 @@ def _rebuild_code(
             "nodes": [], "edges": [], "hyperedges": [],
             "input_tokens": 0, "output_tokens": 0,
         }
+        evict_sources: set[str] = set(deleted_paths)
+        if changed_paths is not None:
+            for p in extract_targets:
+                try:
+                    evict_sources.add(str(p.relative_to(project_root)))
+                except ValueError:
+                    evict_sources.add(str(p))
 
         # Preserve semantic nodes/edges from a previous full run.
         # AST-only rebuild replaces nodes for changed files; everything else is kept.
@@ -229,13 +238,6 @@ def _rebuild_code(
             try:
                 existing = json.loads(existing_graph.read_text(encoding="utf-8"))
                 new_ast_ids = {n["id"] for n in result["nodes"]}
-                evict_sources: set[str] = set(deleted_paths)
-                if changed_paths is not None:
-                    for p in extract_targets:
-                        try:
-                            evict_sources.add(str(p.relative_to(project_root)))
-                        except ValueError:
-                            evict_sources.add(str(p))
                 preserved_nodes = [
                     n for n in existing.get("nodes", [])
                     if n["id"] not in new_ast_ids
@@ -250,6 +252,7 @@ def _rebuild_code(
                     "nodes": result["nodes"] + preserved_nodes,
                     "edges": result["edges"] + preserved_edges,
                     "hyperedges": existing.get("hyperedges", []),
+                    "unresolved_calls": result.get("unresolved_calls", []),
                     "input_tokens": 0,
                     "output_tokens": 0,
                 }
@@ -257,6 +260,19 @@ def _rebuild_code(
                 pass  # corrupt graph.json - proceed with AST-only
 
         _relativize_source_files(result, project_root)
+        try:
+            result, lsp_summary = finalize_extraction_for_build(
+                result,
+                root=project_root,
+                graphify_out=out_abs,
+                source_files=extract_targets,
+                evict_sources=evict_sources if changed_paths is not None else None,
+            )
+        except Exception as exc:
+            print(f"[graphify watch] LSP enrichment failed: {exc}", file=sys.stderr)
+            return False
+        for line in lsp_summary.log_lines("[graphify watch]"):
+            print(line)
 
         detection = {
             "files": {"code": [str(f) for f in code_files], "document": [], "paper": [], "image": []},

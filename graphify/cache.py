@@ -11,6 +11,7 @@ from pathlib import Path
 # shared-output setups. Accepts a relative name ("graphify-out-feature") or an
 # absolute path ("/shared/graphify-out").
 _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
+_AST_CACHE_VERSION = "ast-v2-member-calls-lsp-ranges"
 
 
 def _body_content(content: bytes) -> bytes:
@@ -91,7 +92,11 @@ def load_cached(path: Path, root: Path = Path("."), kind: str = "ast") -> dict |
     entry = cache_dir(root, kind) / f"{h}.json"
     if entry.exists():
         try:
-            return json.loads(entry.read_text(encoding="utf-8"))
+            data = json.loads(entry.read_text(encoding="utf-8"))
+            if kind == "ast" and data.get("_cache_version") != _AST_CACHE_VERSION:
+                return None
+            data.pop("_cache_version", None)
+            return data
         except (json.JSONDecodeError, OSError):
             return None
     # Migration fallback: check legacy flat cache/ dir for AST entries
@@ -99,7 +104,11 @@ def load_cached(path: Path, root: Path = Path("."), kind: str = "ast") -> dict |
         legacy = Path(root).resolve() / _GRAPHIFY_OUT / "cache" / f"{h}.json"
         if legacy.exists():
             try:
-                return json.loads(legacy.read_text(encoding="utf-8"))
+                data = json.loads(legacy.read_text(encoding="utf-8"))
+                if data.get("_cache_version") != _AST_CACHE_VERSION:
+                    return None
+                data.pop("_cache_version", None)
+                return data
             except (json.JSONDecodeError, OSError):
                 return None
     return None
@@ -121,9 +130,12 @@ def save_cached(path: Path, result: dict, root: Path = Path("."), kind: str = "a
     h = file_hash(p, root)
     target_dir = cache_dir(root, kind)
     entry = target_dir / f"{h}.json"
+    payload = dict(result)
+    if kind == "ast":
+        payload["_cache_version"] = _AST_CACHE_VERSION
     fd, tmp_path = tempfile.mkstemp(dir=target_dir, prefix=f"{h}.", suffix=".tmp")
     try:
-        os.write(fd, json.dumps(result).encode())
+        os.write(fd, json.dumps(payload).encode())
         os.close(fd)
         try:
             os.replace(tmp_path, entry)

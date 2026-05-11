@@ -169,14 +169,14 @@ This step has two parts: **structural extraction** (deterministic, free) and **s
 
 Note: Parallelizing AST + semantic saves 5-15s on large corpora. AST is deterministic and fast; start it while subagents are processing docs/papers.
 
-#### Part A - Structural extraction for code files
+#### Part A - Structural extraction for code and supported document files
 
-For any code files detected, run AST extraction in parallel with Part B subagents:
+For any code files and structurally supported document files detected, run AST extraction in parallel with Part B subagents:
 
 ```powershell
 @'
 import json
-from graphify.extract import collect_files, extract
+from graphify.extract import collect_files, extract, _get_extractor
 from pathlib import Path
 
 
@@ -186,13 +186,18 @@ def main():
     for f in detect.get('files', {}).get('code', []):
         code_files.extend(collect_files(Path(f)) if Path(f).is_dir() else [Path(f)])
 
+    for f in detect.get('files', {}).get('document', []):
+        p = Path(f)
+        if _get_extractor(p) is not None:
+            code_files.append(p)
+
     if code_files:
         result = extract(code_files)
         Path('.graphify_ast.json').write_text(json.dumps(result, indent=2))
         print(f'AST: {len(result["nodes"])} nodes, {len(result["edges"])} edges')
     else:
         Path('.graphify_ast.json').write_text(json.dumps({'nodes':[],'edges':[],'input_tokens':0,'output_tokens':0}))
-        print('No code files - skipping AST extraction')
+        print('No structurally extractable files - skipping AST extraction')
 
 
 # Windows-spawn ProcessPoolExecutor (used inside extract()) re-imports this
@@ -410,33 +415,20 @@ Clean up temp files: `Remove-Item -ErrorAction SilentlyContinue .graphify_cached
 
 ```powershell
 @'
-import sys, json
 from pathlib import Path
+from graphify.pipeline import finalize_extraction_files
 
-ast = json.loads(Path('.graphify_ast.json').read_text())
-sem = json.loads(Path('.graphify_semantic.json').read_text())
-
-# Merge: AST nodes first, semantic nodes deduplicated by id
-seen = {n['id'] for n in ast['nodes']}
-merged_nodes = list(ast['nodes'])
-for n in sem['nodes']:
-    if n['id'] not in seen:
-        merged_nodes.append(n)
-        seen.add(n['id'])
-
-merged_edges = ast['edges'] + sem['edges']
-merged_hyperedges = sem.get('hyperedges', [])
-merged = {
-    'nodes': merged_nodes,
-    'edges': merged_edges,
-    'hyperedges': merged_hyperedges,
-    'input_tokens': sem.get('input_tokens', 0),
-    'output_tokens': sem.get('output_tokens', 0),
-}
-Path('.graphify_extract.json').write_text(json.dumps(merged, indent=2))
-total = len(merged_nodes)
-edges = len(merged_edges)
-print(f'Merged: {total} nodes, {edges} edges ({len(ast["nodes"])} AST + {len(sem["nodes"])} semantic)')
+merged, lsp_summary, stats = finalize_extraction_files(
+    ast_path=Path('.graphify_ast.json'),
+    semantic_path=Path('.graphify_semantic.json'),
+    output_path=Path('.graphify_extract.json'),
+    root=Path('INPUT_PATH'),
+    graphify_out=Path('graphify-out'),
+)
+print(f"Merged: {stats['total_nodes']} nodes, {stats['total_edges']} edges ({stats['ast_nodes']} AST + {stats['semantic_nodes']} semantic)")
+lsp_line = lsp_summary.brief_line()
+if lsp_line:
+    print(lsp_line)
 '@ | Out-File -FilePath .graphify_step_3_extract_entities_and_relations_8.py -Encoding utf8
 python .graphify_step_3_extract_entities_and_relations_8.py
 Remove-Item -ErrorAction SilentlyContinue .graphify_step_3_extract_entities_and_relations_8.py
