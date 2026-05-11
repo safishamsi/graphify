@@ -784,7 +784,7 @@ def test_fortran_no_dangling_edges():
 
 
 def test_fortran_capital_F_parses_preprocessed():
-    r = extract_fortran(FIXTURES / "sample.F90")
+    r = extract_fortran(FIXTURES / "sample_preprocessed.F90")
     assert "error" not in r
     labels = [n["label"] for n in r["nodes"]]
     assert "shapes" in labels
