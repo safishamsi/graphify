@@ -171,7 +171,12 @@ def _rebuild_code(
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
         from graphify.report import generate
         from graphify.export import to_json, to_html
-        from graphify.pipeline import finalize_extraction_for_build
+        from graphify.pipeline import (
+            finalize_extraction_for_build,
+            merge_update_payload,
+            source_keys_from_paths,
+            source_keys_from_payload,
+        )
 
         detected = detect(watch_path, follow_symlinks=follow_symlinks)
         code_files = [Path(f) for f in detected['files']['code']]
@@ -224,6 +229,9 @@ def _rebuild_code(
                     evict_sources.add(str(p.relative_to(project_root)))
                 except ValueError:
                     evict_sources.add(str(p))
+        rebuilt_sources = source_keys_from_paths(list(extract_targets), project_root)
+        _relativize_source_files(result, project_root)
+        rebuilt_sources.update(source_keys_from_payload(result, project_root))
 
         # Preserve semantic nodes/edges from a previous full run.
         # AST-only rebuild replaces nodes for changed files; everything else is kept.
@@ -237,25 +245,13 @@ def _rebuild_code(
         if existing_graph.exists():
             try:
                 existing = json.loads(existing_graph.read_text(encoding="utf-8"))
-                new_ast_ids = {n["id"] for n in result["nodes"]}
-                preserved_nodes = [
-                    n for n in existing.get("nodes", [])
-                    if n["id"] not in new_ast_ids
-                    and (not evict_sources or n.get("source_file") not in evict_sources)
-                ]
-                all_ids = new_ast_ids | {n["id"] for n in preserved_nodes}
-                preserved_edges = [
-                    e for e in existing.get("links", existing.get("edges", []))
-                    if e.get("source") in all_ids and e.get("target") in all_ids
-                ]
-                result = {
-                    "nodes": result["nodes"] + preserved_nodes,
-                    "edges": result["edges"] + preserved_edges,
-                    "hyperedges": existing.get("hyperedges", []),
-                    "unresolved_calls": result.get("unresolved_calls", []),
-                    "input_tokens": 0,
-                    "output_tokens": 0,
-                }
+                result = merge_update_payload(
+                    existing,
+                    result,
+                    evict_sources=evict_sources,
+                    rebuilt_sources=rebuilt_sources,
+                    root=project_root,
+                )
             except Exception:
                 pass  # corrupt graph.json - proceed with AST-only
 

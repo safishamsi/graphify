@@ -792,30 +792,18 @@ print('code_only:', code_only)
 
 If `code_only` is True: print `[graphify update] Code-only changes detected - skipping semantic extraction (no LLM needed)`, run only Step 3A (AST) on the changed files, skip Step 3B entirely (no subagents), then go straight to merge and Steps 4–8.
 
-If `code_only` is False (any changed file is a doc/paper/image): run the full Steps 3A–3C pipeline as normal.
+If `code_only` is False (any changed file is a doc/paper/image): run the full Steps 3A–3C pipeline as normal, skip the incremental merge block below, then continue with Steps 4–8.
 
-Then:
+If `code_only` is True, merge the AST-only result into the existing graph:
 
 ```bash
 $(cat .graphify_python) -c "
-import sys, json
-from graphify.build import build_from_json
-from graphify.export import to_json
-from networkx.readwrite import json_graph
-import networkx as nx
-from pathlib import Path
+from graphify.pipeline import merge_update_files
 
-# Load existing graph
-existing_data = json.loads(Path('graphify-out/graph.json').read_text())
-G_existing = json_graph.node_link_graph(existing_data, edges='links')
-
-# Load new extraction
-new_extraction = json.loads(Path('.graphify_extract.json').read_text())
-G_new = build_from_json(new_extraction)
-
-# Merge: new nodes/edges into existing graph
-G_existing.update(G_new)
-print(f'Merged: {G_existing.number_of_nodes()} nodes, {G_existing.number_of_edges()} edges')
+merged_out, stats = merge_update_files(root='INPUT_PATH')
+print(f'[graphify update] Merged extraction written ({stats["nodes"]} nodes, {stats["edges"]} edges)')
+if stats.get('manifest_saved'):
+    print('[graphify update] Manifest saved.')
 " 
 ```
 

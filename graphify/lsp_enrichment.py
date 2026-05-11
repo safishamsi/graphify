@@ -95,8 +95,15 @@ def _without_lsp_edge_data(edge: dict) -> dict | None:
     if "context" in clean:
         clean["context"] = context
     if "contexts" in clean:
-        contexts = _without_lsp_contexts(clean["contexts"])
-        if contexts:
+        context_values = [
+            context for context in _context_values(clean["contexts"])
+            if not context.startswith(_LSP_CONTEXT_PREFIX)
+        ]
+        primary_context = clean.get("context")
+        if primary_context:
+            context_values.append(str(primary_context))
+        contexts = sorted(set(context_values))
+        if len(contexts) > 1:
             clean["contexts"] = contexts
         else:
             clean.pop("contexts", None)

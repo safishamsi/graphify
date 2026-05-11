@@ -773,54 +773,18 @@ print('code_only:', code_only)
 
 If `code_only` is True: print `[graphify update] Code-only changes detected - skipping semantic extraction (no LLM needed)`, run only Step 3A (AST) on the changed files, skip Step 3B entirely (no subagents), then go straight to merge and Steps 4–8.
 
-If `code_only` is False (any changed file is a doc/paper/image): run the full Steps 3A–3C pipeline as normal.
+If `code_only` is False (any changed file is a doc/paper/image): run the full Steps 3A–3C pipeline as normal, skip the incremental merge block below, then continue with Steps 4–8.
 
-Then:
+If `code_only` is True, merge the AST-only result into the existing graph:
 
 ```bash
 $(cat graphify-out/.graphify_python) -c "
-import json
-from pathlib import Path
-from graphify.build import build_merge
-from graphify.detect import save_manifest
+from graphify.pipeline import merge_update_files
 
-# Load new extraction and incremental state
-new_extraction = json.loads(Path('graphify-out/.graphify_extract.json').read_text())
-incremental = json.loads(Path('graphify-out/.graphify_incremental.json').read_text())
-deleted = list(incremental.get('deleted_files', []))
-
-# Use build_merge() — reads graph.json directly without NetworkX round-trip
-# so edge direction (calls, implements, imports) is always preserved (#801).
-G = build_merge(
-    [new_extraction],
-    graph_path='graphify-out/graph.json',
-    prune_sources=deleted or None,
-)
-print(f'[graphify update] Merged: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges')
-
-# Write merged result back to graphify-out/.graphify_extract.json so Step 4 sees the full graph
-merged_out = {
-    'nodes': [{'id': n, **d} for n, d in G.nodes(data=True)],
-    'edges': [
-        # Explicit source/target last so they win over any stale attrs in d.
-        {**{k: val for k, val in d.items() if k not in ('_src', '_tgt', 'source', 'target')},
-         'source': d.get('_src', u), 'target': d.get('_tgt', v)}
-        for u, v, d in G.edges(data=True)
-    ],
-    # G.graph["hyperedges"] holds hyperedges from both existing graph.json
-    # and new_extraction (build_merge combines them). Falling back to
-    # new_extraction only would silently drop prior-run hyperedges (#801).
-    'hyperedges': list(G.graph.get('hyperedges', [])),
-    'input_tokens': new_extraction.get('input_tokens', 0),
-    'output_tokens': new_extraction.get('output_tokens', 0),
-}
-Path('graphify-out/.graphify_extract.json').write_text(json.dumps(merged_out))
-print(f'[graphify update] Merged extraction written ({len(merged_out[\"nodes\"])} nodes, {len(merged_out[\"edges\"])} edges)')
-
-# Save manifest so next --update diffs against today's state, not the
-# prior run's baseline (prevents ghost-node reports on subsequent updates).
-save_manifest(incremental['files'])
-print('[graphify update] Manifest saved.')
+merged_out, stats = merge_update_files(root='INPUT_PATH')
+print(f'[graphify update] Merged extraction written ({stats["nodes"]} nodes, {stats["edges"]} edges)')
+if stats.get('manifest_saved'):
+    print('[graphify update] Manifest saved.')
 "
 ```
 

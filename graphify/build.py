@@ -109,6 +109,25 @@ def _merge_values(existing: dict, key: str, values) -> None:
         existing[key] = unique
 
 
+def _merge_context_values(existing: dict, values) -> None:
+    """Merge edge contexts, keeping the list only when it adds information."""
+    current = existing.get("contexts")
+    merged: list[str] = []
+    if isinstance(current, list):
+        merged.extend(str(value) for value in current if value)
+    elif current:
+        merged.append(str(current))
+    if isinstance(values, list):
+        merged.extend(str(value) for value in values if value)
+    elif values:
+        merged.append(str(values))
+    unique = sorted(set(merged))
+    if len(unique) > 1:
+        existing["contexts"] = unique
+    else:
+        existing.pop("contexts", None)
+
+
 def _merge_lsp_metadata(existing: dict, incoming: dict) -> None:
     context = incoming.get("context")
     if context:
@@ -164,9 +183,8 @@ def _merge_edge_attrs(existing: dict, incoming: dict) -> None:
     existing_context = existing.get("context")
     incoming_context = incoming.get("context")
     if existing_context or incoming_context:
-        _merge_values(
+        _merge_context_values(
             existing,
-            "contexts",
             [value for value in (existing_context, incoming_context) if value],
         )
 

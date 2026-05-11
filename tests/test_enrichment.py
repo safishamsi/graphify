@@ -808,7 +808,7 @@ def test_lsp_hooks_require_explicit_enable(tmp_path, monkeypatch):
         (edge["source"], edge["target"], edge["context"])
         for edge in merged["edges"]
     ] == [("runner", "structural_target", "call")]
-    assert merged["edges"][0]["contexts"] == ["call"]
+    assert "contexts" not in merged["edges"][0]
     assert not any(key.startswith("lsp_") for key in merged["edges"][0])
     for key in ("definition_file", "definition_uri", "receiver_type", "receiver_type_confidence"):
         assert key not in merged["edges"][0]
