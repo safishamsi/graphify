@@ -23,16 +23,18 @@ def _resource_path(relative_path: str) -> Path:
     """Get absolute path to resource, works for dev and for PyInstaller."""
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = Path(sys._MEIPASS)
+        # Based on graphify.spec, .md files are bundled under the 'graphify' subdirectory.
+        base_path = Path(sys._MEIPASS) / "graphify"
     except Exception:
         base_path = Path(__file__).parent
 
     return base_path / relative_path
 
 
-def _default_graph_path() -> str:
-    out = Path(_GRAPHIFY_OUT)
-    if (out / "graph.db").exists() and not (out / "graph.json").exists():
+def _default_graph_path(out_dir: str | Path | None = None) -> str:
+    """Return 'graph.db' if it exists, otherwise 'graph.json'."""
+    out = Path(out_dir or _GRAPHIFY_OUT)
+    if (out / "graph.db").exists():
         return str(out / "graph.db")
     return str(out / "graph.json")
 
@@ -67,6 +69,10 @@ def _get_specialized_skill_content(src_path: Path) -> str:
     """Read skill content and specialize it if running as a standalone binary."""
     content = src_path.read_text(encoding="utf-8")
     if not getattr(sys, "frozen", False):
+        # Even in python mode, the source skill.md uses `aag` module name for branding.
+        # We need to replace it with `graphify` so it works in standard python envs.
+        content = content.replace("from aag.", "from graphify.")
+        content = content.replace("import aag", "import graphify")
         return content
 
     # Specialization for standalone binaries
@@ -75,61 +81,96 @@ def _get_specialized_skill_content(src_path: Path) -> str:
         bin_path = f'"{bin_path}"'
 
     # 1. Simplify Step 1 interpreter detection for binary
-    step1_pattern = r"### Step 1 - Ensure graphify is installed\n\n```bash\n# Detect the correct Python interpreter.*?\n```"
-    step1_replacement = f"""### Step 1 - Ensure graphify is installed
+    step1_pattern = r"### Step 1 - Ensure aag is installed\n\n```bash\n# Detect the correct Python interpreter.*?\n```"
+    step1_replacement = f"""### Step 1 - Ensure aag is installed
 
 ```bash
 # Running as a standalone binary
 PYTHON={bin_path}
 mkdir -p graphify-out
-echo "$PYTHON" > graphify-out/.graphify_python
+echo "$PYTHON" > graphify-out/.aag_python
 # Save scan root so `aag update` (no args) knows where to look next time
-echo "$(cd INPUT_PATH && pwd)" > graphify-out/.graphify_root
+echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
 ```"""
     content = re.sub(step1_pattern, step1_replacement, content, flags=re.DOTALL)
 
     # 2. Replace interpreter + -c with binary + eval
-    content = content.replace("$(cat graphify-out/.graphify_python) -c \"", f"{bin_path} eval \"")
+    content = content.replace("$(cat graphify-out/.aag_python) -c \"", f"{bin_path} eval \"")
     content = content.replace("\"$PYTHON\" -c \"", f"{bin_path} eval \"")
 
-    # 3. Fix VS Code Copilot Chat instruction specifically if it uses python3 -m
+    # 3. Fix VS Code Copilot Chat instruction specifically if it uses python3 -m or aag.serve
     content = content.replace("python3 -m graphify", bin_path)
+    content = content.replace("python3 -m aag.serve", f"{bin_path} serve")
+    content = content.replace("python3 -m aag.watch", f"{bin_path} watch")
 
     # 4. Simplify Interpreter guard for subcommands
-    guard_pattern = r"## Interpreter guard for subcommands\n\nBefore running any subcommand.*?```bash\nif \[ ! -f graphify-out/\.graphify_python \]; then.*?fi\n```"
-    guard_replacement = f"""## Ensure graphify binary is available
+    guard_pattern = r"## Interpreter guard for subcommands\n\nBefore running any subcommand.*?```bash\nif \[ ! -f graphify-out/\.aag_python \]; then.*?fi\n```"
+    guard_replacement = f"""## Ensure aag binary is available
 
 ```bash
 # Using the standalone binary path directly
 PYTHON={bin_path}
 mkdir -p graphify-out
-echo "$PYTHON" > graphify-out/.graphify_python
+echo "$PYTHON" > graphify-out/.aag_python
 ```"""
     content = re.sub(guard_pattern, guard_replacement, content, flags=re.DOTALL)
 
     return content
 
-_SETTINGS_HOOK = {
-    # Claude Code v2.1.117+ removed dedicated Grep/Glob tools; searches now go through Bash.
-    # We match on Bash and inspect the command string to avoid firing on every shell call.
-    "matcher": "Bash",
-    "hooks": [
-        {
-            "type": "command",
-            "command": (
-                "CMD=$(python3 -c \""
-                "import json,sys; d=json.load(sys.stdin); "
-                "print(d.get('tool_input',d).get('command',''))\" 2>/dev/null || true); "
-                "case \"$CMD\" in "
-                r"*grep*|*rg\ *|*ripgrep*|*find\ *|*fd\ *|*ack\ *|*ag\ *) "
-                "  [ -f graphify-out/graph.json ] && "
-                r"""  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
-                "  || true ;; "
-                "esac"
-            ),
-        }
-    ],
-}
+def _get_interpreter_command() -> str:
+    """Return the base command for running python snippets (either python3 -c or aag eval)."""
+    if getattr(sys, "frozen", False):
+        bin_path = sys.executable
+        if " " in bin_path:
+            bin_path = f'"{bin_path}"'
+        return f"{bin_path} eval"
+    return "python3 -c"
+
+
+def _get_claude_hook() -> dict:
+    """Return the Claude Code PreToolUse hook with the correct interpreter."""
+    cmd = _get_interpreter_command()
+    return {
+        "matcher": "Bash",
+        "hooks": [
+            {
+                "type": "command",
+                "command": (
+                    f"CMD=$({cmd} \""
+                    "import json,sys; d=json.load(sys.stdin); "
+                    "print(d.get('tool_input',d).get('command',''))\" 2>/dev/null || true); "
+                    "case \"$CMD\" in "
+                    r"*grep*|*rg\ *|*ripgrep*|*find\ *|*fd\ *|*ack\ *|*ag\ *) "
+                    "  [ -f graphify-out/graph.json ] && "
+                    r"""  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"aag: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
+                    "  || true ;; "
+                    "esac"
+                ),
+            }
+        ],
+    }
+
+
+def _get_gemini_hook() -> dict:
+    """Return the Gemini CLI BeforeTool hook with the correct interpreter."""
+    cmd = _get_interpreter_command()
+    return {
+        "matcher": "read_file|list_directory",
+        "hooks": [
+            {
+                "type": "command",
+                "command": (
+                    f'{cmd} "'
+                    "import sys,pathlib,json;"
+                    "e=pathlib.Path('graphify-out/graph.json').exists();"
+                    "d={'decision':'allow'};"
+                    "e and d.update({'additionalContext':'aag: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files.'});"
+                    "sys.stdout.write(json.dumps(d))"
+                    '"'
+                ),
+            }
+        ],
+    }
 
 _SKILL_REGISTRATION = (
     "\n# aag\n"
@@ -349,24 +390,6 @@ Rules:
 
 _GEMINI_MD_MARKER = "## aag"
 
-_GEMINI_HOOK = {
-    "matcher": "read_file|list_directory",
-    "hooks": [
-        {
-            "type": "command",
-            "command": (
-                'python -c "'
-                "import sys,pathlib,json;"
-                "e=pathlib.Path('graphify-out/graph.json').exists();"
-                "d={'decision':'allow'};"
-                "e and d.update({'additionalContext':'aag: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files.'});"
-                "sys.stdout.write(json.dumps(d))"
-                '"'
-            ),
-        }
-    ],
-}
-
 
 def gemini_install(project_dir: Path | None = None) -> None:
     """Copy skill file to ~/.gemini/skills/aag/, write GEMINI.md section, and install BeforeTool hook."""
@@ -419,7 +442,7 @@ def _install_gemini_hook(project_dir: Path) -> None:
         settings = {}
     before_tool = settings.setdefault("hooks", {}).setdefault("BeforeTool", [])
     settings["hooks"]["BeforeTool"] = [h for h in before_tool if "graphify" not in str(h)]
-    settings["hooks"]["BeforeTool"].append(_GEMINI_HOOK)
+    settings["hooks"]["BeforeTool"].append(_get_gemini_hook())
     settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
     print("  .gemini/settings.json  ->  BeforeTool hook registered")
 
@@ -882,23 +905,28 @@ _CODEX_HOOK = {
 
 
 def _resolve_graphify_exe() -> str:
-    """Return the absolute path to the graphify executable.
+    """Return the absolute path to the graphify/aag executable.
 
-    Falls back to bare 'graphify' if resolution fails. Using an absolute path
+    Falls back to bare 'aag' if resolution fails. Using an absolute path
     ensures the hook works in environments where the venv Scripts/ directory is
     not on PATH (e.g. VS Code Codex extension on Windows).
     """
+    if getattr(sys, "frozen", False):
+        return sys.executable
+
     import shutil
-    found = shutil.which("graphify")
-    if found:
-        return found
+    for name in ("aag", "graphify"):
+        found = shutil.which(name)
+        if found:
+            return found
+
     # Derive from sys.executable: same Scripts/ (Windows) or bin/ (Unix) dir
     scripts_dir = Path(sys.executable).parent
-    for name in ("graphify.exe", "graphify"):
+    for name in ("aag.exe", "aag", "graphify.exe", "graphify"):
         candidate = scripts_dir / name
         if candidate.exists():
             return str(candidate)
-    return "graphify"
+    return "aag"
 
 
 def _install_codex_hook(project_dir: Path) -> None:
@@ -1049,7 +1077,7 @@ def _install_claude_hook(project_dir: Path) -> None:
     pre_tool = hooks.setdefault("PreToolUse", [])
 
     hooks["PreToolUse"] = [h for h in pre_tool if not (h.get("matcher") in ("Glob|Grep", "Bash") and "graphify" in str(h))]
-    hooks["PreToolUse"].append(_SETTINGS_HOOK)
+    hooks["PreToolUse"].append(_get_claude_hook())
     settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
     print(f"  .claude/settings.json  ->  PreToolUse hook registered")
 
@@ -1213,9 +1241,9 @@ def main() -> None:
         print("  uninstall               remove aag from all detected platforms in one shot")
         print("    --purge                 also delete graphify-out/ directory")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
-        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("    --graph <path>          path to graph file (default graphify-out/graph.json or .db)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
-        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("    --graph <path>          path to graph file (default graphify-out/graph.json or .db)")
         print("  clone <github-url>      clone a GitHub repo locally and print its path for /aag")
         print("  merge-driver <base> <current> <other>  git merge driver: union-merge two graph.json files (set up via hook install)")
         print("  merge-graphs <g1> <g2>  merge two or more graph.json files into one cross-repo graph")
@@ -1232,12 +1260,12 @@ def main() -> None:
         print("                            (also: GRAPHIFY_FORCE=1 env var; use after refactors that delete code)")
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("    --no-viz                skip graph.html generation (useful for >5000 node graphs / CI)")
-        print("    --graph <path>          path to graph.json (default <path>/graphify-out/graph.json)")
+        print("    --graph <path>          path to graph file (default <path>/graphify-out/graph.json or .db)")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
         print("    --context C             explicit edge-context filter (repeatable)")
         print("    --budget N              cap output at N tokens (default 2000)")
-        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("    --graph <path>          path to graph file (default graphify-out/graph.json or .db)")
         print("  save-result             save a Q&A result to graphify-out/memory/ for graph feedback loop")
         print("    --question Q            the question asked")
         print("    --answer A              the answer to save")
@@ -1246,7 +1274,7 @@ def main() -> None:
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
         print("  check-update <path>     check needs_update flag and notify if semantic re-extraction is pending (cron-safe)")
         print("  tree                    emit a D3 v7 collapsible-tree HTML for graph.json")
-        print("    --graph PATH            path to graph.json (default graphify-out/graph.json)")
+        print("    --graph PATH            path to graph file (default graphify-out/graph.json or .db)")
         print("    --output HTML           output path (default graphify-out/GRAPH_TREE.html)")
         print("    --root PATH             filesystem root for the hierarchy")
         print("    --max-children N        cap children per node (default 200)")
@@ -1308,11 +1336,14 @@ def main() -> None:
     cmd = sys.argv[1]
     if cmd == "eval":
         if len(sys.argv) < 3:
-            print("Usage: graphify eval \"<code>\"", file=sys.stderr)
+            print(f"Usage: {sys.argv[0]} eval \"<code>\"", file=sys.stderr)
             sys.exit(1)
         code = sys.argv[2]
         import graphify
+        # Alias aag to graphify in sys.modules so 'from aag.X import Y' works
+        sys.modules["aag"] = graphify
         namespace = {
+            "aag": graphify,
             "graphify": graphify,
             "sys": sys,
             "os": os,
@@ -1719,11 +1750,9 @@ def main() -> None:
                 i_arg += 1
         if watch_path is None:
             watch_path = Path(".")
-        graph_json = graph_override if graph_override is not None else watch_path / "graphify-out" / "graph.json"
+        graph_json = graph_override if graph_override is not None else Path(_default_graph_path(watch_path / "graphify-out"))
         from graphify import store as _store
-        _db_path = watch_path / "graphify-out" / "graph.db"
-        _use_db = graph_override is None and _db_path.exists() and not graph_json.exists()
-        if not _use_db and not graph_json.exists():
+        if not graph_json.exists():
             print(f"error: no graph found at {graph_json} — run /aag first", file=sys.stderr)
             sys.exit(1)
         from networkx.readwrite import json_graph as _jg
@@ -1733,12 +1762,7 @@ def main() -> None:
         from graphify.report import generate
         from graphify.export import to_json, to_html
         print("Loading existing graph...")
-        if _use_db:
-            G = _store.load(watch_path / "graphify-out")
-        else:
-            _raw = json.loads(graph_json.read_text(encoding="utf-8"))
-            _directed = bool(_raw.get("directed", False))
-            G = build_from_json(_raw, directed=_directed)
+        G = _store.load_path(graph_json)
         print(f"Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
         print("Re-clustering...")
         communities = cluster(G)
@@ -1894,7 +1918,7 @@ def main() -> None:
                 project_label = args[i_arg + 1]; i_arg += 2
             elif a in ("-h", "--help"):
                 print("Usage: graphify tree [--graph PATH] [--output HTML]")
-                print("  --graph PATH         path to graph.json (default graphify-out/graph.json)")
+                print("  --graph PATH         path to graph file (default graphify-out/graph.json or .db)")
                 print("  --output HTML        output path (default graphify-out/GRAPH_TREE.html)")
                 print("  --root PATH          filesystem root (default: longest common dir of all source_files)")
                 print("  --max-children N     cap visible children per node (default 200)")
@@ -2044,7 +2068,7 @@ def main() -> None:
 
         # Parse shared args
         args = sys.argv[3:]
-        graph_path = Path(_GRAPHIFY_OUT) / "graph.json"
+        graph_path = Path(_default_graph_path())
         labels_path = Path(_GRAPHIFY_OUT) / ".graphify_labels.json"
         analysis_path = Path(_GRAPHIFY_OUT) / ".graphify_analysis.json"
         node_limit = 5000
@@ -2171,12 +2195,7 @@ def main() -> None:
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
         # Default to whichever backend exists in graphify-out/.
-        _bench_default = Path(_GRAPHIFY_OUT)
-        _default_bench = (
-            str(_bench_default / "graph.db")
-            if (_bench_default / "graph.db").exists()
-            else str(_bench_default / "graph.json")
-        )
+        _default_bench = _default_graph_path()
         graph_path = sys.argv[2] if len(sys.argv) > 2 else _default_bench
         # Try to load corpus_words from detect output
         corpus_words = None
