@@ -23,7 +23,8 @@ def _resource_path(relative_path: str) -> Path:
     """Get absolute path to resource, works for dev and for PyInstaller."""
     try:
         # PyInstaller creates a temp folder and stores path in _MEIPASS
-        base_path = Path(sys._MEIPASS)
+        # Based on graphify.spec, .md files are bundled under the 'graphify' subdirectory.
+        base_path = Path(sys._MEIPASS) / "graphify"
     except Exception:
         base_path = Path(__file__).parent
 
@@ -75,61 +76,96 @@ def _get_specialized_skill_content(src_path: Path) -> str:
         bin_path = f'"{bin_path}"'
 
     # 1. Simplify Step 1 interpreter detection for binary
-    step1_pattern = r"### Step 1 - Ensure graphify is installed\n\n```bash\n# Detect the correct Python interpreter.*?\n```"
-    step1_replacement = f"""### Step 1 - Ensure graphify is installed
+    step1_pattern = r"### Step 1 - Ensure aag is installed\n\n```bash\n# Detect the correct Python interpreter.*?\n```"
+    step1_replacement = f"""### Step 1 - Ensure aag is installed
 
 ```bash
 # Running as a standalone binary
 PYTHON={bin_path}
 mkdir -p graphify-out
-echo "$PYTHON" > graphify-out/.graphify_python
+echo "$PYTHON" > graphify-out/.aag_python
 # Save scan root so `aag update` (no args) knows where to look next time
-echo "$(cd INPUT_PATH && pwd)" > graphify-out/.graphify_root
+echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
 ```"""
     content = re.sub(step1_pattern, step1_replacement, content, flags=re.DOTALL)
 
     # 2. Replace interpreter + -c with binary + eval
-    content = content.replace("$(cat graphify-out/.graphify_python) -c \"", f"{bin_path} eval \"")
+    content = content.replace("$(cat graphify-out/.aag_python) -c \"", f"{bin_path} eval \"")
     content = content.replace("\"$PYTHON\" -c \"", f"{bin_path} eval \"")
 
-    # 3. Fix VS Code Copilot Chat instruction specifically if it uses python3 -m
+    # 3. Fix VS Code Copilot Chat instruction specifically if it uses python3 -m or aag.serve
     content = content.replace("python3 -m graphify", bin_path)
+    content = content.replace("python3 -m aag.serve", f"{bin_path} serve")
+    content = content.replace("python3 -m aag.watch", f"{bin_path} watch")
 
     # 4. Simplify Interpreter guard for subcommands
-    guard_pattern = r"## Interpreter guard for subcommands\n\nBefore running any subcommand.*?```bash\nif \[ ! -f graphify-out/\.graphify_python \]; then.*?fi\n```"
-    guard_replacement = f"""## Ensure graphify binary is available
+    guard_pattern = r"## Interpreter guard for subcommands\n\nBefore running any subcommand.*?```bash\nif \[ ! -f graphify-out/\.aag_python \]; then.*?fi\n```"
+    guard_replacement = f"""## Ensure aag binary is available
 
 ```bash
 # Using the standalone binary path directly
 PYTHON={bin_path}
 mkdir -p graphify-out
-echo "$PYTHON" > graphify-out/.graphify_python
+echo "$PYTHON" > graphify-out/.aag_python
 ```"""
     content = re.sub(guard_pattern, guard_replacement, content, flags=re.DOTALL)
 
     return content
 
-_SETTINGS_HOOK = {
-    # Claude Code v2.1.117+ removed dedicated Grep/Glob tools; searches now go through Bash.
-    # We match on Bash and inspect the command string to avoid firing on every shell call.
-    "matcher": "Bash",
-    "hooks": [
-        {
-            "type": "command",
-            "command": (
-                "CMD=$(python3 -c \""
-                "import json,sys; d=json.load(sys.stdin); "
-                "print(d.get('tool_input',d).get('command',''))\" 2>/dev/null || true); "
-                "case \"$CMD\" in "
-                r"*grep*|*rg\ *|*ripgrep*|*find\ *|*fd\ *|*ack\ *|*ag\ *) "
-                "  [ -f graphify-out/graph.json ] && "
-                r"""  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"graphify: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
-                "  || true ;; "
-                "esac"
-            ),
-        }
-    ],
-}
+def _get_interpreter_command() -> str:
+    """Return the base command for running python snippets (either python3 -c or aag eval)."""
+    if getattr(sys, "frozen", False):
+        bin_path = sys.executable
+        if " " in bin_path:
+            bin_path = f'"{bin_path}"'
+        return f"{bin_path} eval"
+    return "python3 -c"
+
+
+def _get_claude_hook() -> dict:
+    """Return the Claude Code PreToolUse hook with the correct interpreter."""
+    cmd = _get_interpreter_command()
+    return {
+        "matcher": "Bash",
+        "hooks": [
+            {
+                "type": "command",
+                "command": (
+                    f"CMD=$({cmd} \""
+                    "import json,sys; d=json.load(sys.stdin); "
+                    "print(d.get('tool_input',d).get('command',''))\" 2>/dev/null || true); "
+                    "case \"$CMD\" in "
+                    r"*grep*|*rg\ *|*ripgrep*|*find\ *|*fd\ *|*ack\ *|*ag\ *) "
+                    "  [ -f graphify-out/graph.json ] && "
+                    r"""  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"aag: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
+                    "  || true ;; "
+                    "esac"
+                ),
+            }
+        ],
+    }
+
+
+def _get_gemini_hook() -> dict:
+    """Return the Gemini CLI BeforeTool hook with the correct interpreter."""
+    cmd = _get_interpreter_command()
+    return {
+        "matcher": "read_file|list_directory",
+        "hooks": [
+            {
+                "type": "command",
+                "command": (
+                    f'{cmd} "'
+                    "import sys,pathlib,json;"
+                    "e=pathlib.Path('graphify-out/graph.json').exists();"
+                    "d={'decision':'allow'};"
+                    "e and d.update({'additionalContext':'aag: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files.'});"
+                    "sys.stdout.write(json.dumps(d))"
+                    '"'
+                ),
+            }
+        ],
+    }
 
 _SKILL_REGISTRATION = (
     "\n# aag\n"
@@ -349,24 +385,6 @@ Rules:
 
 _GEMINI_MD_MARKER = "## aag"
 
-_GEMINI_HOOK = {
-    "matcher": "read_file|list_directory",
-    "hooks": [
-        {
-            "type": "command",
-            "command": (
-                'python -c "'
-                "import sys,pathlib,json;"
-                "e=pathlib.Path('graphify-out/graph.json').exists();"
-                "d={'decision':'allow'};"
-                "e and d.update({'additionalContext':'aag: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files.'});"
-                "sys.stdout.write(json.dumps(d))"
-                '"'
-            ),
-        }
-    ],
-}
-
 
 def gemini_install(project_dir: Path | None = None) -> None:
     """Copy skill file to ~/.gemini/skills/aag/, write GEMINI.md section, and install BeforeTool hook."""
@@ -419,7 +437,7 @@ def _install_gemini_hook(project_dir: Path) -> None:
         settings = {}
     before_tool = settings.setdefault("hooks", {}).setdefault("BeforeTool", [])
     settings["hooks"]["BeforeTool"] = [h for h in before_tool if "graphify" not in str(h)]
-    settings["hooks"]["BeforeTool"].append(_GEMINI_HOOK)
+    settings["hooks"]["BeforeTool"].append(_get_gemini_hook())
     settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
     print("  .gemini/settings.json  ->  BeforeTool hook registered")
 
@@ -882,23 +900,28 @@ _CODEX_HOOK = {
 
 
 def _resolve_graphify_exe() -> str:
-    """Return the absolute path to the graphify executable.
+    """Return the absolute path to the graphify/aag executable.
 
-    Falls back to bare 'graphify' if resolution fails. Using an absolute path
+    Falls back to bare 'aag' if resolution fails. Using an absolute path
     ensures the hook works in environments where the venv Scripts/ directory is
     not on PATH (e.g. VS Code Codex extension on Windows).
     """
+    if getattr(sys, "frozen", False):
+        return sys.executable
+
     import shutil
-    found = shutil.which("graphify")
-    if found:
-        return found
+    for name in ("aag", "graphify"):
+        found = shutil.which(name)
+        if found:
+            return found
+
     # Derive from sys.executable: same Scripts/ (Windows) or bin/ (Unix) dir
     scripts_dir = Path(sys.executable).parent
-    for name in ("graphify.exe", "graphify"):
+    for name in ("aag.exe", "aag", "graphify.exe", "graphify"):
         candidate = scripts_dir / name
         if candidate.exists():
             return str(candidate)
-    return "graphify"
+    return "aag"
 
 
 def _install_codex_hook(project_dir: Path) -> None:
@@ -1049,7 +1072,7 @@ def _install_claude_hook(project_dir: Path) -> None:
     pre_tool = hooks.setdefault("PreToolUse", [])
 
     hooks["PreToolUse"] = [h for h in pre_tool if not (h.get("matcher") in ("Glob|Grep", "Bash") and "graphify" in str(h))]
-    hooks["PreToolUse"].append(_SETTINGS_HOOK)
+    hooks["PreToolUse"].append(_get_claude_hook())
     settings_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
     print(f"  .claude/settings.json  ->  PreToolUse hook registered")
 
@@ -1308,11 +1331,12 @@ def main() -> None:
     cmd = sys.argv[1]
     if cmd == "eval":
         if len(sys.argv) < 3:
-            print("Usage: graphify eval \"<code>\"", file=sys.stderr)
+            print(f"Usage: {sys.argv[0]} eval \"<code>\"", file=sys.stderr)
             sys.exit(1)
         code = sys.argv[2]
         import graphify
         namespace = {
+            "aag": graphify,
             "graphify": graphify,
             "sys": sys,
             "os": os,
