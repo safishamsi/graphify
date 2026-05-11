@@ -7,14 +7,15 @@ import pytest
 from graphify.__main__ import _get_specialized_skill_content, _get_claude_hook, _get_gemini_hook
 
 def test_specialized_content_python():
-    """Verify content remains unchanged in python mode."""
+    """Verify 'aag' imports are replaced with 'graphify' in python mode."""
     with patch("sys.frozen", False, create=True):
-        src = Path("test_skill.md")
-        src.write_text("### Step 1 - Ensure aag is installed\n\n```bash\n# Detect the correct Python interpreter\nPYTHON=\"\"\n```", encoding="utf-8")
+        src = Path("test_skill_py.md")
+        src.write_text("from aag.extract import extract\nimport aag", encoding="utf-8")
         try:
             content = _get_specialized_skill_content(src)
-            assert "PYTHON=\"\"" in content
-            assert "aag eval" not in content
+            assert "from graphify.extract import extract" in content
+            assert "import graphify" in content
+            assert "from aag" not in content
         finally:
             src.unlink()
 

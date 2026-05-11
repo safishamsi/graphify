@@ -31,9 +31,10 @@ def _resource_path(relative_path: str) -> Path:
     return base_path / relative_path
 
 
-def _default_graph_path() -> str:
-    out = Path(_GRAPHIFY_OUT)
-    if (out / "graph.db").exists() and not (out / "graph.json").exists():
+def _default_graph_path(out_dir: str | Path | None = None) -> str:
+    """Return 'graph.db' if it exists, otherwise 'graph.json'."""
+    out = Path(out_dir or _GRAPHIFY_OUT)
+    if (out / "graph.db").exists():
         return str(out / "graph.db")
     return str(out / "graph.json")
 
@@ -68,6 +69,10 @@ def _get_specialized_skill_content(src_path: Path) -> str:
     """Read skill content and specialize it if running as a standalone binary."""
     content = src_path.read_text(encoding="utf-8")
     if not getattr(sys, "frozen", False):
+        # Even in python mode, the source skill.md uses `aag` module name for branding.
+        # We need to replace it with `graphify` so it works in standard python envs.
+        content = content.replace("from aag.", "from graphify.")
+        content = content.replace("import aag", "import graphify")
         return content
 
     # Specialization for standalone binaries
@@ -1236,9 +1241,9 @@ def main() -> None:
         print("  uninstall               remove aag from all detected platforms in one shot")
         print("    --purge                 also delete graphify-out/ directory")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
-        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("    --graph <path>          path to graph file (default graphify-out/graph.json or .db)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
-        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("    --graph <path>          path to graph file (default graphify-out/graph.json or .db)")
         print("  clone <github-url>      clone a GitHub repo locally and print its path for /aag")
         print("  merge-driver <base> <current> <other>  git merge driver: union-merge two graph.json files (set up via hook install)")
         print("  merge-graphs <g1> <g2>  merge two or more graph.json files into one cross-repo graph")
@@ -1255,12 +1260,12 @@ def main() -> None:
         print("                            (also: GRAPHIFY_FORCE=1 env var; use after refactors that delete code)")
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("    --no-viz                skip graph.html generation (useful for >5000 node graphs / CI)")
-        print("    --graph <path>          path to graph.json (default <path>/graphify-out/graph.json)")
+        print("    --graph <path>          path to graph file (default <path>/graphify-out/graph.json or .db)")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
         print("    --context C             explicit edge-context filter (repeatable)")
         print("    --budget N              cap output at N tokens (default 2000)")
-        print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("    --graph <path>          path to graph file (default graphify-out/graph.json or .db)")
         print("  save-result             save a Q&A result to graphify-out/memory/ for graph feedback loop")
         print("    --question Q            the question asked")
         print("    --answer A              the answer to save")
@@ -1269,7 +1274,7 @@ def main() -> None:
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
         print("  check-update <path>     check needs_update flag and notify if semantic re-extraction is pending (cron-safe)")
         print("  tree                    emit a D3 v7 collapsible-tree HTML for graph.json")
-        print("    --graph PATH            path to graph.json (default graphify-out/graph.json)")
+        print("    --graph PATH            path to graph file (default graphify-out/graph.json or .db)")
         print("    --output HTML           output path (default graphify-out/GRAPH_TREE.html)")
         print("    --root PATH             filesystem root for the hierarchy")
         print("    --max-children N        cap children per node (default 200)")
@@ -1335,6 +1340,8 @@ def main() -> None:
             sys.exit(1)
         code = sys.argv[2]
         import graphify
+        # Alias aag to graphify in sys.modules so 'from aag.X import Y' works
+        sys.modules["aag"] = graphify
         namespace = {
             "aag": graphify,
             "graphify": graphify,
@@ -1743,11 +1750,9 @@ def main() -> None:
                 i_arg += 1
         if watch_path is None:
             watch_path = Path(".")
-        graph_json = graph_override if graph_override is not None else watch_path / "graphify-out" / "graph.json"
+        graph_json = graph_override if graph_override is not None else Path(_default_graph_path(watch_path / "graphify-out"))
         from graphify import store as _store
-        _db_path = watch_path / "graphify-out" / "graph.db"
-        _use_db = graph_override is None and _db_path.exists() and not graph_json.exists()
-        if not _use_db and not graph_json.exists():
+        if not graph_json.exists():
             print(f"error: no graph found at {graph_json} — run /aag first", file=sys.stderr)
             sys.exit(1)
         from networkx.readwrite import json_graph as _jg
@@ -1757,12 +1762,7 @@ def main() -> None:
         from graphify.report import generate
         from graphify.export import to_json, to_html
         print("Loading existing graph...")
-        if _use_db:
-            G = _store.load(watch_path / "graphify-out")
-        else:
-            _raw = json.loads(graph_json.read_text(encoding="utf-8"))
-            _directed = bool(_raw.get("directed", False))
-            G = build_from_json(_raw, directed=_directed)
+        G = _store.load_path(graph_json)
         print(f"Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
         print("Re-clustering...")
         communities = cluster(G)
@@ -1918,7 +1918,7 @@ def main() -> None:
                 project_label = args[i_arg + 1]; i_arg += 2
             elif a in ("-h", "--help"):
                 print("Usage: graphify tree [--graph PATH] [--output HTML]")
-                print("  --graph PATH         path to graph.json (default graphify-out/graph.json)")
+                print("  --graph PATH         path to graph file (default graphify-out/graph.json or .db)")
                 print("  --output HTML        output path (default graphify-out/GRAPH_TREE.html)")
                 print("  --root PATH          filesystem root (default: longest common dir of all source_files)")
                 print("  --max-children N     cap visible children per node (default 200)")
@@ -2068,7 +2068,7 @@ def main() -> None:
 
         # Parse shared args
         args = sys.argv[3:]
-        graph_path = Path(_GRAPHIFY_OUT) / "graph.json"
+        graph_path = Path(_default_graph_path())
         labels_path = Path(_GRAPHIFY_OUT) / ".graphify_labels.json"
         analysis_path = Path(_GRAPHIFY_OUT) / ".graphify_analysis.json"
         node_limit = 5000
@@ -2195,12 +2195,7 @@ def main() -> None:
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
         # Default to whichever backend exists in graphify-out/.
-        _bench_default = Path(_GRAPHIFY_OUT)
-        _default_bench = (
-            str(_bench_default / "graph.db")
-            if (_bench_default / "graph.db").exists()
-            else str(_bench_default / "graph.json")
-        )
+        _default_bench = _default_graph_path()
         graph_path = sys.argv[2] if len(sys.argv) > 2 else _default_bench
         # Try to load corpus_words from detect output
         corpus_words = None
