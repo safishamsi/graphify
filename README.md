@@ -335,6 +335,7 @@ graphify global path                                  # print path to the global
 
 graphify clone https://github.com/karpathy/nanoGPT
 graphify merge-graphs a.json b.json --out merged.json
+graphify --version                                    # print installed version
 graphify watch ./src
 graphify check-update ./src
 graphify update ./src

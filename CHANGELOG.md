@@ -2,6 +2,17 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## 0.7.16 (2026-05-12)
+
+- Fix: all `read_text()`/`write_text()` calls in `skill.md` and `skill-windows.md` now specify `encoding="utf-8"` — bare calls defaulted to the system codepage on Chinese-locale Windows, silently mojibaking node labels and Markdown content on `--update` (#832)
+- Fix: `json.dumps` in skill pipeline now uses `ensure_ascii=False` so Chinese/CJK characters are stored as-is rather than `\uXXXX` escaped (#832)
+- Fix: Step 1 install fallback in skill now prefers `uv tool install --upgrade graphifyy` over `pip` when uv is on PATH — pip was installing to the wrong environment when graphify was originally installed via `uv tool` (#831)
+- Fix: `_score_nodes` in `serve.py` now uses three-tier precedence (exact 1000 / prefix 100 / substring 1) instead of flat substring scoring — `graphify path "Foo" "FooBar"` no longer returns 0 hops when both labels substring-match the same node (#828)
+- Fix: `graphify path` and MCP `_tool_shortest_path` now emit a clear error when source and target resolve to the same node, instead of silently returning 0 hops (#828)
+- Fix: `file_hash` in `cache.py` now normalises path keys via `.as_posix().lower()` — Windows junction/case variants of the same file now hash identically, fixing `save_semantic_cache` always reporting "Cached 0 files" on subsequent `--update` runs (#826)
+- Fix: `check_semantic_cache` now applies the same absolute-path normalization as `save_semantic_cache` so relative `source_file` paths resolve consistently on both sides (#826)
+- Fix: `_AGENTS_MD_SECTION` now includes the `/graphify` skill trigger instruction — all 7 AGENTS.md platforms (OpenCode, Codex, Aider, Trae, Hermes, OpenClaw, Factory Droid) now correctly invoke the skill tool when the user types `/graphify` (#827)
+
 ## 0.7.15 (2026-05-11)
 
 - Fix: `-h`/`--help`/`-?` in any position now stops execution — previously `graphify cursor install --help` silently installed into Cursor; `graphify benchmark --help` crashed with FileNotFoundError (#821)

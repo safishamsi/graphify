@@ -265,6 +265,8 @@ _AGENTS_MD_SECTION = """\
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
 
+When the user types `/graphify`, invoke the `skill` tool with `skill: "graphify"` before doing anything else.
+
 Rules:
 - ALWAYS read graphify-out/GRAPH_REPORT.md before reading any source files, running grep/glob searches, or answering codebase questions. The graph is your primary map of the codebase.
 - IF graphify-out/wiki/index.md EXISTS, navigate it instead of reading raw files
@@ -1536,6 +1538,25 @@ def main() -> None:
             print(f"No node matching '{target_label}' found.", file=sys.stderr)
             sys.exit(1)
         src_nid, tgt_nid = src_scored[0][1], tgt_scored[0][1]
+        # Ambiguity guard: when both queries resolve to the same node, the
+        # shortest path is trivially zero hops, which is almost never what the
+        # caller wanted (see bug #828).
+        if src_nid == tgt_nid:
+            print(
+                f"'{source_label}' and '{target_label}' both resolved to the same "
+                f"node '{src_nid}'. Use a more specific label or the exact node ID.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        for _name, _scored in (("source", src_scored), ("target", tgt_scored)):
+            if len(_scored) >= 2:
+                _top, _runner = _scored[0][0], _scored[1][0]
+                if _top > 0 and (_top - _runner) / _top < 0.10:
+                    print(
+                        f"warning: {_name} match was ambiguous "
+                        f"(top score {_top:g}, runner-up {_runner:g})",
+                        file=sys.stderr,
+                    )
         try:
             path_nodes = _nx.shortest_path(G, src_nid, tgt_nid)
         except (_nx.NetworkXNoPath, _nx.NodeNotFound):
