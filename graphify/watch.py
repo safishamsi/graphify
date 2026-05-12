@@ -346,6 +346,191 @@ def _rebuild_code(
         return False
 
 
+def expand_graph(
+    watch_path: Path,
+    expand_paths: list[Path],
+    *,
+    dry_run: bool = False,
+    force: bool = False,
+) -> bool:
+    """Add new directories/files to an existing graph incrementally.
+
+    Unlike _rebuild_code which re-extracts all files or specific changed files,
+    this function:
+    1. Detects code files in the expand_paths
+    2. Loads existing graph and finds files NOT already tracked
+    3. Extracts only the NEW files
+    4. Merges new nodes into existing graph (preserving all existing nodes)
+
+    Args:
+        watch_path: the project root (where graphify-out lives)
+        expand_paths: list of directories or files to add to the graph
+        dry_run: if True, only show what would be added without modifying the graph
+        force: if True, bypass node-count safety check
+
+    Returns True on success, False on error or nothing to add.
+    """
+    from graphify.detect import detect
+    from graphify.extract import extract, _get_extractor
+    from graphify.build import build_from_json
+    from graphify.cluster import cluster, score_all
+    from graphify.analyze import god_nodes, surprising_connections, suggest_questions
+    from graphify.report import generate
+    from graphify.export import to_json
+
+    out = watch_path / _GRAPHIFY_OUT
+    if not out.exists():
+        out.mkdir(parents=True, exist_ok=True)
+
+    # Load existing graph to find what's already tracked
+    existing_graph = out / "graph.json"
+    existing_files: set[str] = set()
+    existing_nodes: list[dict] = []
+    existing_edges: list[dict] = []
+    existing_hyperedges: list[dict] = []
+
+    if existing_graph.exists():
+        try:
+            existing = json.loads(existing_graph.read_text(encoding="utf-8"))
+            existing_nodes = existing.get("nodes", [])
+            existing_edges = existing.get("links", existing.get("edges", []))
+            existing_hyperedges = existing.get("hyperedges", [])
+            # Build set of files already in the graph
+            for node in existing_nodes:
+                if sf := node.get("source_file"):
+                    existing_files.add(sf)
+        except Exception as e:
+            print(f"[graphify expand] Warning: could not load existing graph: {e}")
+
+    # Detect files in the expand paths
+    all_candidate_files: list[Path] = []
+    for ep in expand_paths:
+        ep = ep.resolve()
+        if not ep.exists():
+            print(f"[graphify expand] Warning: path does not exist: {ep}")
+            continue
+
+        if ep.is_file():
+            if ep.suffix in _WATCHED_EXTENSIONS:
+                all_candidate_files.append(ep)
+        else:
+            # It's a directory - detect files in it
+            detected = detect(ep, follow_symlinks=False)
+            for f in detected['files']['code']:
+                all_candidate_files.append(Path(f))
+            # Also check document files with AST extractors
+            for f in detected['files'].get('document', []):
+                p = Path(f)
+                if _get_extractor(p) is not None:
+                    all_candidate_files.append(p)
+
+    # Filter to only truly NEW files (not already in graph)
+    new_files: list[Path] = []
+    for f in all_candidate_files:
+        try:
+            rel_path = str(f.relative_to(watch_path.resolve()))
+        except ValueError:
+            rel_path = str(f)
+        if rel_path not in existing_files:
+            new_files.append(f)
+
+    if not new_files:
+        print("[graphify expand] No new files to add - all files in specified paths are already in the graph.")
+        return True
+
+    print(f"[graphify expand] Found {len(new_files)} new file(s) to add (from {len(existing_files)} already tracked)")
+
+    if dry_run:
+        print("[graphify expand] Dry run - would add:")
+        for f in new_files[:20]:
+            print(f"  - {f}")
+        if len(new_files) > 20:
+            print(f"  ... and {len(new_files) - 20} more")
+        return True
+
+    # Extract new files
+    print(f"[graphify expand] Extracting {len(new_files)} new file(s)...")
+    result = extract(new_files, cache_root=watch_path.resolve())
+
+    # Merge with existing graph - preserve ALL existing nodes/edges
+    # (unlike _rebuild_code which evicts nodes for changed files)
+    new_ast_ids = {n["id"] for n in result["nodes"]}
+
+    # Keep all existing nodes that aren't being replaced (none should be, since these are new files)
+    preserved_nodes = [
+        n for n in existing_nodes
+        if n["id"] not in new_ast_ids
+    ]
+    all_ids = new_ast_ids | {n["id"] for n in preserved_nodes}
+
+    preserved_edges = [
+        e for e in existing_edges
+        if e.get("source") in all_ids and e.get("target") in all_ids
+    ]
+
+    # Merge results
+    merged_result = {
+        "nodes": result["nodes"] + preserved_nodes,
+        "edges": result["edges"] + preserved_edges,
+        "hyperedges": existing_hyperedges,
+        "input_tokens": result.get("input_tokens", 0),
+        "output_tokens": result.get("output_tokens", 0),
+    }
+
+    # Relativize source files
+    project_root = watch_path.resolve()
+    _relativize_source_files(merged_result, project_root)
+
+    # Build graph and run analysis
+    detection = {
+        "files": {
+            "code": [str(f) for f in all_candidate_files],  # All files in expand paths
+            "document": [],
+            "paper": [],
+            "image": []
+        },
+        "total_files": len(all_candidate_files),
+        "total_words": 0,  # Not computed for expand
+    }
+
+    G = build_from_json(merged_result)
+    communities = cluster(G)
+    cohesion = score_all(G, communities)
+    gods = god_nodes(G)
+    surprises = surprising_connections(G, communities)
+
+    # Load existing labels or create defaults
+    labels_file = out / ".graphify_labels.json"
+    try:
+        raw = json.loads(labels_file.read_text(encoding="utf-8")) if labels_file.exists() else {}
+        labels = {int(k): v for k, v in raw.items() if int(k) in communities}
+    except Exception:
+        raw = {}
+        labels = {}
+    for cid in communities:
+        if cid not in labels:
+            labels[cid] = "Community " + str(cid)
+
+    questions = suggest_questions(G, communities, labels)
+
+    # Save updated graph
+    commit = _git_head()
+    (out / ".graphify_root").write_text(str(watch_path.resolve()), encoding="utf-8")
+
+    json_written = to_json(G, communities, str(out / "graph.json"), force=force, built_at_commit=commit)
+    if not json_written:
+        return False
+
+    # Generate report
+    report = generate(G, communities, cohesion, labels, gods, surprises, detection,
+                      {"input": 0, "output": 0}, str(watch_path), suggested_questions=questions,
+                      built_at_commit=commit)
+    (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
+
+    print(f"[graphify expand] Done - added {len(new_files)} new file(s). Graph now has {G.number_of_nodes()} nodes.")
+    return True
+
+
 def check_update(watch_path: Path) -> bool:
     """Check for pending semantic update flag and notify the user if set.
 

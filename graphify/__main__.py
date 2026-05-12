@@ -1153,6 +1153,8 @@ def main() -> None:
         print("  update <path>           re-extract code files and update the graph (no LLM needed)")
         print("    --force                 overwrite graph.json even if the rebuild has fewer nodes")
         print("                            (also: GRAPHIFY_FORCE=1 env var; use after refactors that delete code)")
+        print("  expand <paths...>       add new directories/files to existing graph (incremental)")
+        print("    --dry-run               show what would be added without modifying the graph")
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("    --no-viz                skip graph.html generation (useful for >5000 node graphs / CI)")
         print("    --graph <path>          path to graph.json (default <path>/graphify-out/graph.json)")
@@ -1785,6 +1787,37 @@ def main() -> None:
         from graphify.watch import check_update
         check_update(Path(sys.argv[2]).resolve())
         sys.exit(0)
+
+    elif cmd == "expand":
+        # Add new directories/files to existing graph incrementally
+        argv = list(sys.argv)[2:]
+        dry_run = "--dry-run" in argv
+        if dry_run:
+            argv.remove("--dry-run")
+
+        if not argv:
+            print("Usage: graphify expand <paths...> [--dry-run]", file=sys.stderr)
+            print("  <paths...>    directories or files to add to the graph")
+            print("  --dry-run    show what would be added without modifying the graph")
+            sys.exit(1)
+
+        # Find project root (where graphify-out lives)
+        # Start from first expand path and look for graphify-out
+        first_path = Path(argv[0]).resolve()
+        watch_path = first_path
+        while watch_path != watch_path.parent:
+            if (watch_path / "graphify-out").exists():
+                break
+            watch_path = watch_path.parent
+        else:
+            # Didn't find graphify-out, use current directory
+            watch_path = Path.cwd()
+
+        from graphify.watch import expand_graph
+        expand_paths = [Path(p).resolve() for p in argv]
+        ok = expand_graph(watch_path, expand_paths, dry_run=dry_run)
+        sys.exit(0 if ok else 1)
+
     elif cmd == "tree":
         # Emit a D3 v7 collapsible-tree HTML view of graph.json:
         # expand-all / collapse-all / reset-view buttons, multi-line
