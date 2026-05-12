@@ -777,93 +777,172 @@ def _uninstall_opencode_plugin(project_dir: Path) -> None:
         print(f"  {_OPENCODE_CONFIG_PATH}  ->  plugin deregistered")
 
 
-_CODEX_HOOK = {
-    "hooks": {
-        "PreToolUse": [
-            {
-                "matcher": "Bash",
-                "hooks": [
-                    {
-                        "type": "command",
-                        # Use the graphify CLI itself so the hook is shell-agnostic:
-                        # no [ -f ] bash syntax, no python3 vs python Conda issue,
-                        # no JSON escaping inside PowerShell strings. Works on
-                        # Windows (PowerShell/cmd.exe), macOS, and Linux.
-                        "command": "graphify hook-check",
-                    }
-                ],
-            }
-        ]
-    }
-}
-
-
-def _resolve_graphify_exe() -> str:
-    """Return the absolute path to the graphify executable.
-
-    Falls back to bare 'graphify' if resolution fails. Using an absolute path
-    ensures the hook works in environments where the venv Scripts/ directory is
-    not on PATH (e.g. VS Code Codex extension on Windows).
-    """
-    import shutil
-    found = shutil.which("graphify")
-    if found:
-        return found
-    # Derive from sys.executable: same Scripts/ (Windows) or bin/ (Unix) dir
-    scripts_dir = Path(sys.executable).parent
-    for name in ("graphify.exe", "graphify"):
-        candidate = scripts_dir / name
-        if candidate.exists():
-            return str(candidate)
-    return "graphify"
-
-
+_CODEX_HOOKS_PATH = Path(".codex") / "hooks.json"
 def _install_codex_hook(project_dir: Path) -> None:
-    """Add graphify PreToolUse hook to .codex/hooks.json."""
-    hooks_path = project_dir / ".codex" / "hooks.json"
+    """Enable Codex hooks support and register graphify project hooks."""
+    _ensure_codex_hooks_feature(project_dir)
+    _install_codex_hooks(project_dir)
+
+
+def _ensure_codex_hooks_feature(project_dir: Path) -> None:
+    """Set the current Codex hooks feature flag in project config.toml."""
+    config_path = project_dir / ".codex" / "config.toml"
+    config_path.parent.mkdir(parents=True, exist_ok=True)
+    original = config_path.read_text(encoding="utf-8") if config_path.exists() else ""
+    updated = _codex_config_with_hooks_feature(original)
+    if updated == original:
+        print("  .codex/config.toml  ->  hooks feature already enabled")
+        return
+    config_path.write_text(updated, encoding="utf-8")
+    print("  .codex/config.toml  ->  hooks feature enabled")
+
+
+def _codex_config_with_hooks_feature(content: str) -> str:
+    """Return config.toml content with [features].hooks = true.
+
+    The deprecated key was [features].codex_hooks. Keep the rest of the file
+    intact because config.toml commonly contains local MCP server overrides.
+    """
+    lines = content.splitlines()
+    if not lines:
+        return "[features]\nhooks = true\n"
+
+    output: list[str] = []
+    in_features = False
+    saw_features = False
+    saw_hooks = False
+
+    for line in lines:
+        section = _toml_section_name(line)
+        if section is not None:
+            if in_features and not saw_hooks:
+                output.append("hooks = true")
+                saw_hooks = True
+            in_features = section == "features"
+            saw_features = saw_features or in_features
+
+        if in_features:
+            if re.match(r"^\s*codex_hooks\s*=", line):
+                continue
+            if re.match(r"^\s*hooks\s*=", line):
+                if not saw_hooks:
+                    indent = line[: len(line) - len(line.lstrip())]
+                    output.append(f"{indent}hooks = true")
+                    saw_hooks = True
+                continue
+
+        output.append(line)
+
+    if in_features and not saw_hooks:
+        output.append("hooks = true")
+    elif not saw_features:
+        if output and output[-1].strip():
+            output.append("")
+        output.extend(["[features]", "hooks = true"])
+
+    return "\n".join(output) + "\n"
+
+
+def _toml_section_name(line: str) -> str | None:
+    match = re.match(r"^\s*\[{1,2}([^\[\]]+)\]{1,2}\s*(?:#.*)?$", line)
+    return match.group(1).strip() if match else None
+
+
+def _install_codex_hooks(project_dir: Path) -> None:
+    hooks_path = project_dir / _CODEX_HOOKS_PATH
     hooks_path.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        settings = json.loads(hooks_path.read_text(encoding="utf-8")) if hooks_path.exists() else {}
+    except json.JSONDecodeError:
+        settings = {}
 
-    if hooks_path.exists():
-        try:
-            existing = json.loads(hooks_path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError:
-            existing = {}
-    else:
-        existing = {}
-
-    graphify_exe = _resolve_graphify_exe()
-    hook_entry = {
-        "hooks": {
-            "PreToolUse": [
-                {
-                    "matcher": "Bash",
-                    "hooks": [{"type": "command", "command": f"{graphify_exe} hook-check"}],
-                }
-            ]
+    _remove_graphify_hook_entries(settings)
+    hooks = settings.setdefault("hooks", {})
+    hooks.setdefault("Stop", []).append(
+        {
+            "hooks": [{
+                "type": "command",
+                "command": "graphify codex-update .",
+                "timeout": 300,
+                "statusMessage": "graphify: updating code graph",
+            }],
         }
-    }
+    )
+    hooks.setdefault("UserPromptSubmit", []).append(
+        {
+            "hooks": [{
+                "type": "command",
+                "command": "graphify check-update .",
+                "timeout": 30,
+                "statusMessage": "graphify: checking pending semantic updates",
+            }],
+        }
+    )
+    hooks_path.write_text(json.dumps(settings, indent=2), encoding="utf-8")
+    print(f"  {_CODEX_HOOKS_PATH}  ->  graphify hooks registered")
 
-    pre_tool = existing.setdefault("hooks", {}).setdefault("PreToolUse", [])
-    existing["hooks"]["PreToolUse"] = [h for h in pre_tool if "graphify" not in str(h)]
-    existing["hooks"]["PreToolUse"].extend(hook_entry["hooks"]["PreToolUse"])
-    hooks_path.write_text(json.dumps(existing, indent=2), encoding="utf-8")
-    print(f"  .codex/hooks.json  ->  PreToolUse hook registered ({graphify_exe} hook-check)")
+
+def _remove_graphify_hook_entries(settings: dict) -> None:
+    """Remove graphify hook entries while preserving unrelated hooks."""
+    hooks = settings.get("hooks")
+    if not isinstance(hooks, dict):
+        settings["hooks"] = {}
+        return
+
+    for event, event_hooks in list(hooks.items()):
+        if not isinstance(event_hooks, list):
+            if "graphify" in str(event_hooks):
+                hooks.pop(event, None)
+            continue
+        filtered = []
+        for hook_group in event_hooks:
+            cleaned = _remove_graphify_from_hook_group(hook_group)
+            if cleaned is not None:
+                filtered.append(cleaned)
+        if filtered:
+            hooks[event] = filtered
+        else:
+            hooks.pop(event, None)
+
+    if not hooks:
+        settings.pop("hooks", None)
+
+
+def _remove_graphify_from_hook_group(hook_group):
+    """Remove graphify handlers from one matcher group or direct hook entry."""
+    if not isinstance(hook_group, dict):
+        return None if "graphify" in str(hook_group) else hook_group
+
+    handlers = hook_group.get("hooks")
+    if not isinstance(handlers, list):
+        return None if "graphify" in str(hook_group) else hook_group
+
+    filtered_handlers = [handler for handler in handlers if "graphify" not in str(handler)]
+    if not filtered_handlers:
+        return None
+    if len(filtered_handlers) == len(handlers):
+        return hook_group
+
+    cleaned_group = dict(hook_group)
+    cleaned_group["hooks"] = filtered_handlers
+    return cleaned_group
 
 
 def _uninstall_codex_hook(project_dir: Path) -> None:
-    """Remove graphify PreToolUse hook from .codex/hooks.json."""
-    hooks_path = project_dir / ".codex" / "hooks.json"
+    """Remove graphify hooks from .codex/hooks.json."""
+    hooks_path = project_dir / _CODEX_HOOKS_PATH
     if not hooks_path.exists():
         return
     try:
         existing = json.loads(hooks_path.read_text(encoding="utf-8"))
     except json.JSONDecodeError:
         return
-    pre_tool = existing.get("hooks", {}).get("PreToolUse", [])
-    filtered = [h for h in pre_tool if "graphify" not in str(h)]
-    existing["hooks"]["PreToolUse"] = filtered
+    before = json.dumps(existing, sort_keys=True)
+    _remove_graphify_hook_entries(existing)
+    if json.dumps(existing, sort_keys=True) == before:
+        return
     hooks_path.write_text(json.dumps(existing, indent=2), encoding="utf-8")
-    print(f"  .codex/hooks.json  ->  PreToolUse hook removed")
+    print(f"  .codex/hooks.json  ->  graphify hooks removed")
 
 
 def _agents_install(project_dir: Path, platform: str) -> None:
@@ -1777,6 +1856,19 @@ def main() -> None:
         # Codex Desktop rejects hookSpecificOutput.additionalContext on PreToolUse.
         # Keep this as a cross-platform no-op so installed hooks never break Bash
         # tool calls. Graph guidance reaches the agent via AGENTS.md / skill instead.
+        sys.exit(0)
+    elif cmd == "codex-update":
+        if len(sys.argv) < 3:
+            print(json.dumps({"systemMessage": "Usage: graphify codex-update <path>"}))
+            sys.exit(0)
+        from contextlib import redirect_stdout
+        import io
+        from graphify.watch import _rebuild_code
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            ok = _rebuild_code(Path(sys.argv[2]).resolve(), block_on_lock=True)
+        payload = {} if ok else {"systemMessage": "graphify update skipped or failed; run graphify update . manually"}
+        print(json.dumps(payload))
         sys.exit(0)
     elif cmd == "check-update":
         if len(sys.argv) < 3:
