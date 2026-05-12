@@ -1187,6 +1187,10 @@ def main() -> None:
         print("    --no-cluster            skip clustering, write raw extraction only")
         print("    --global                also merge the resulting graph into the global graph")
         print("    --as <tag>              repo tag for --global (default: target directory name)")
+        print("    --publish               stamp metadata.{tool,tool_version,generated_at,commit}")
+        print("                             and (if UNDERSTAND_QUICKLY_TOKEN is set) dispatch to the")
+        print("                             understand-quickly registry — see")
+        print("                             https://github.com/looptech-ai/understand-quickly")
         print("  global add <graph.json>  add/update a project graph in the global graph (~/.graphify/global-graph.json)")
         print("    --as <tag>               repo tag (default: parent directory name)")
         print("  global remove <tag>      remove a repo's nodes from the global graph")
@@ -2298,6 +2302,7 @@ def main() -> None:
         cli_token_budget: int | None = None
         cli_max_concurrency: int | None = None
         cli_api_timeout: float | None = None
+        publish_to_uq = False
 
         def _parse_int(name: str, raw: str) -> int:
             try:
@@ -2320,6 +2325,7 @@ def main() -> None:
                 print(f"error: {name} must be > 0 (got {v})", file=sys.stderr)
                 sys.exit(2)
             return v
+
 
         args = sys.argv[3:]
         i = 0
@@ -2363,6 +2369,8 @@ def main() -> None:
                 cli_api_timeout = _parse_float("--api-timeout", args[i + 1]); i += 2
             elif a.startswith("--api-timeout="):
                 cli_api_timeout = _parse_float("--api-timeout", a.split("=", 1)[1]); i += 1
+            elif a == "--publish":
+                publish_to_uq = True; i += 1
             else:
                 i += 1
 
@@ -2630,6 +2638,17 @@ def main() -> None:
                               f"(+{result['nodes_added']} nodes, -{result['nodes_removed']} pruned).")
                 except Exception as exc:
                     print(f"[graphify global] warning: failed to merge into global graph: {exc}", file=sys.stderr)
+            if publish_to_uq:
+                # --no-cluster emits a raw merged extraction (edges/hyperedges),
+                # not the node-link gitnexus@1 shape the registry expects.
+                # Stamp metadata so the file is still self-describing, but skip
+                # dispatch to avoid publishing an unusable graph.
+                print(
+                    "[graphify publish] --no-cluster emits a non-publishable "
+                    "schema; skipping registry dispatch (run without "
+                    "--no-cluster to publish).",
+                    file=sys.stderr,
+                )
             sys.exit(0)
 
         # Build graph + cluster + score + write.
@@ -2724,6 +2743,13 @@ def main() -> None:
                 f"{merged['output_tokens']:,} out, "
                 f"est. cost (~{backend}): ${cost:.4f}"
             )
+
+        if publish_to_uq:
+            try:
+                from graphify.publish import publish as _uq_publish
+                _uq_publish(graph_json_path, repo_dir=target)
+            except Exception as exc:
+                print(f"[graphify publish] warning: {exc}", file=sys.stderr)
 
     else:
         print(f"error: unknown command '{cmd}'", file=sys.stderr)
