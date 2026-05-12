@@ -61,7 +61,8 @@ bedrock = ["boto3"]
 gemini = ["openai", "tiktoken"]
 openai = ["openai", "tiktoken"]
 sql = ["tree-sitter-sql"]
-all = ["mcp", "neo4j", "pypdf", "markdownify", "watchdog", "graspologic; python_version < '3.13'", "python-docx", "openpyxl", "faster-whisper", "yt-dlp", "matplotlib", "openai", "tiktoken", "boto3", "tree-sitter-sql"]
+solidity = ["tree-sitter-solidity>=1.2.13,<2"]
+all = ["mcp", "neo4j", "pypdf", "markdownify", "watchdog", "graspologic; python_version < '3.13'", "python-docx", "openpyxl", "faster-whisper", "yt-dlp", "matplotlib", "openai", "tiktoken", "boto3", "tree-sitter-sql", "tree-sitter-solidity>=1.2.13,<2"]
 
 [project.scripts]
 graphify = "graphify.__main__:main"

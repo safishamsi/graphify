@@ -27,3 +27,6 @@ scripts/run_k2_*.py
 scripts/llm.py
 scripts/benchmark_kimi*.json
 scripts/benchmark_kimi*.py
+
+# Local planning notes
+SOLIDITY_PLAN.md

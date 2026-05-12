@@ -4547,6 +4547,353 @@ def extract_markdown(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
 
 
+# Solidity built-in functions/types that parse as call_expression but aren't real calls.
+_SOL_BUILTINS: frozenset[str] = frozenset({
+    "require", "assert", "revert",
+    "keccak256", "sha256", "sha3", "ripemd160", "ecrecover",
+    "addmod", "mulmod", "blockhash", "gasleft", "selfdestruct",
+    "type", "address", "payable", "string", "bytes",
+    "uint", "uint8", "uint16", "uint32", "uint64", "uint128", "uint256",
+    "int", "int8", "int16", "int32", "int64", "int128", "int256",
+    "bool",
+})
+
+
+def extract_solidity(path: Path) -> dict:
+    """Extract contracts, interfaces, libraries, functions, modifiers, events, errors,
+    structs, enums, state variables, plus inheritance/imports/calls/emits/modifiers
+    from a .sol file via tree-sitter.
+
+    Two-pass: pre-pass collects file-wide declaration name→nid maps so that
+    inheritance, modifier invocations, and emit statements resolve to in-file
+    definitions when present (instead of producing dangling bare-name targets).
+    """
+    try:
+        import tree_sitter_solidity as tssol
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree_sitter_solidity not installed. Run: pip install tree-sitter-solidity"}
+
+    try:
+        language = Language(tssol.language())
+        parser = Parser(language)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({"id": nid, "label": label, "file_type": "code",
+                          "source_file": str_path, "source_location": f"L{line}",
+                          "confidence_score": 1.0})
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", score: float = 1.0,
+                 context: str | None = None) -> None:
+        edge = {"source": src, "target": tgt, "relation": relation,
+                "confidence": confidence, "confidence_score": score,
+                "source_file": str_path, "source_location": f"L{line}", "weight": 1.0}
+        if context:
+            edge["context"] = context
+        edges.append(edge)
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, 1)
+
+    def _name_text(node) -> str | None:
+        n = node.child_by_field_name("name")
+        if n:
+            return _read_text(n, source)
+        return None
+
+    # ── Pass 1: collect file-wide name maps for target resolution ────────────
+    decl_map: dict[str, str] = {}      # contract/interface/library name → nid
+    modifier_map: dict[str, str] = {}  # modifier name → nid (flat; collisions: last wins)
+    event_map: dict[str, str] = {}     # event name → nid
+
+    for top_child in root.children:
+        if top_child.type not in ("contract_declaration", "interface_declaration", "library_declaration"):
+            continue
+        decl_name = _name_text(top_child)
+        if not decl_name:
+            continue
+        decl_nid = _make_id(stem, decl_name)
+        decl_map[decl_name] = decl_nid
+
+        body = top_child.child_by_field_name("body")
+        if not body:
+            continue
+        for member in body.children:
+            mt = member.type
+            mname = _name_text(member)
+            if not mname:
+                continue
+            if mt == "modifier_definition":
+                modifier_map[mname] = _make_id(decl_nid, mname)
+            elif mt == "event_definition":
+                event_map[mname] = _make_id(decl_nid, "event", mname)
+
+    def _resolve_decl(name: str) -> str:
+        return decl_map.get(name) or _make_id(name)
+
+    def _resolve_modifier(name: str) -> str:
+        return modifier_map.get(name) or _make_id(name)
+
+    def _resolve_event(name: str) -> str:
+        return event_map.get(name) or _make_id(name)
+
+    # ── Helpers ──────────────────────────────────────────────────────────────
+
+    def _emit_event_name(emit_node) -> str | None:
+        # emit_statement.name field wraps an identifier or member_expression. Read
+        # only the name field (not full subtree) to avoid picking up identifiers
+        # from event arguments.
+        name_field = emit_node.child_by_field_name("name")
+        if not name_field:
+            return None
+        inner = name_field
+        # Unwrap `expression` wrapper if present
+        while inner.type == "expression" and inner.children:
+            inner = inner.children[0]
+        if inner.type == "identifier":
+            return _read_text(inner, source)
+        if inner.type == "member_expression":
+            prop = inner.child_by_field_name("property")
+            if prop:
+                return _read_text(prop, source)
+        # Fallback: first identifier child of name field
+        for c in name_field.children:
+            if c.type == "identifier":
+                return _read_text(c, source)
+        return None
+
+    def _walk_calls(body_node, caller_nid: str) -> None:
+        # Walk function body; emit `calls`/`emits` edges. Skip revert_statement
+        # subtrees (NotOwner(...) inside revert is error construction, not a call).
+        stack = [body_node]
+        while stack:
+            n = stack.pop()
+            t = n.type
+
+            if t == "revert_statement":
+                # Don't descend: revert_arguments contains a call_expression-like
+                # invocation of the error type, which isn't a function call.
+                continue
+
+            if t == "call_expression":
+                fn = n.child_by_field_name("function") or (n.children[0] if n.children else None)
+                if fn is not None:
+                    line = n.start_point[0] + 1
+                    if fn.type == "expression" and fn.children:
+                        fn = fn.children[0]
+                    if fn.type == "identifier":
+                        callee = _read_text(fn, source)
+                        if callee not in _SOL_BUILTINS:
+                            tgt = _make_id(callee)
+                            add_node(tgt, f"{callee}()", line)
+                            add_edge(caller_nid, tgt, "calls", line)
+                    elif fn.type == "member_expression":
+                        prop = fn.child_by_field_name("property")
+                        if prop:
+                            method = _read_text(prop, source)
+                            if method not in _SOL_BUILTINS:
+                                tgt = _make_id(method)
+                                add_node(tgt, f"{method}()", line)
+                                add_edge(caller_nid, tgt, "calls", line,
+                                         confidence="INFERRED", score=0.5,
+                                         context="member_call")
+                    elif fn.type == "primitive_type":
+                        # `address(this)`, `uint256(x)` etc — type conversion, not a call
+                        pass
+
+            elif t == "emit_statement":
+                event = _emit_event_name(n)
+                if event:
+                    line = n.start_point[0] + 1
+                    tgt = _resolve_event(event)
+                    add_node(tgt, event, line)
+                    add_edge(caller_nid, tgt, "emits", line)
+
+            for child in n.children:
+                stack.append(child)
+
+    def _walk_function(fn_node, parent_nid: str, parent_relation: str = "contains") -> None:
+        # Handles function_definition, modifier_definition, constructor_definition, fallback_receive_definition.
+        # parent_relation: "contains" for contract members, "defines" for file-scoped free functions.
+        t = fn_node.type
+        line = fn_node.start_point[0] + 1
+
+        if t == "constructor_definition":
+            fn_label = "constructor()"
+            fn_id_part = "constructor"
+        elif t == "fallback_receive_definition":
+            kind = "fallback"
+            for c in fn_node.children:
+                if c.type in ("receive", "fallback"):
+                    kind = c.type
+                    break
+            fn_label = f"{kind}()"
+            fn_id_part = kind
+        elif t == "modifier_definition":
+            name = _name_text(fn_node)
+            if not name:
+                return
+            fn_label = f"{name}()"
+            fn_id_part = name
+        else:
+            name = _name_text(fn_node)
+            if not name:
+                return
+            fn_label = f"{name}()"
+            fn_id_part = name
+
+        fn_nid = _make_id(parent_nid, fn_id_part)
+        add_node(fn_nid, fn_label, line)
+        add_edge(parent_nid, fn_nid, parent_relation, line)
+
+        # Modifier invocations on function header (skip on modifier definitions themselves)
+        if t != "modifier_definition":
+            for c in fn_node.children:
+                if c.type == "modifier_invocation":
+                    for grand in c.children:
+                        if grand.type == "identifier":
+                            mod_name = _read_text(grand, source)
+                            mod_line = c.start_point[0] + 1
+                            mod_tgt = _resolve_modifier(mod_name)
+                            add_node(mod_tgt, mod_name, mod_line)
+                            add_edge(fn_nid, mod_tgt, "applies_modifier", mod_line)
+                            break
+
+        body = fn_node.child_by_field_name("body")
+        if body:
+            _walk_calls(body, fn_nid)
+
+    def _walk_contract_body(body_node, contract_nid: str) -> None:
+        for child in body_node.children:
+            t = child.type
+            line = child.start_point[0] + 1
+
+            if t in ("function_definition", "modifier_definition",
+                     "constructor_definition", "fallback_receive_definition"):
+                _walk_function(child, contract_nid)
+
+            elif t == "event_definition":
+                name = _name_text(child)
+                if name:
+                    nid = _make_id(contract_nid, "event", name)
+                    add_node(nid, name, line)
+                    add_edge(contract_nid, nid, "contains", line)
+
+            elif t == "error_declaration":
+                name = _name_text(child)
+                if name:
+                    nid = _make_id(contract_nid, "error", name)
+                    add_node(nid, name, line)
+                    add_edge(contract_nid, nid, "contains", line)
+
+            elif t == "struct_declaration":
+                name = _name_text(child)
+                if name:
+                    nid = _make_id(contract_nid, "struct", name)
+                    add_node(nid, name, line)
+                    add_edge(contract_nid, nid, "contains", line)
+
+            elif t == "enum_declaration":
+                name = _name_text(child)
+                if name:
+                    nid = _make_id(contract_nid, "enum", name)
+                    add_node(nid, name, line)
+                    add_edge(contract_nid, nid, "contains", line)
+
+            elif t == "state_variable_declaration":
+                name = _name_text(child)
+                if name:
+                    nid = _make_id(contract_nid, "var", name)
+                    add_node(nid, name, line)
+                    add_edge(contract_nid, nid, "contains", line)
+
+            elif t == "using_directive":
+                # `using Lib for Type;` — emit imports_from edge from contract to library
+                lib_name = None
+                for c in child.children:
+                    if c.type == "type_alias":
+                        for g in c.children:
+                            if g.type == "identifier":
+                                lib_name = _read_text(g, source)
+                                break
+                        break
+                if lib_name:
+                    tgt = _resolve_decl(lib_name)
+                    add_node(tgt, lib_name, line)
+                    add_edge(contract_nid, tgt, "imports_from", line, context="using_for")
+
+    def _walk_top(node) -> None:
+        for child in node.children:
+            t = child.type
+            line = child.start_point[0] + 1
+
+            if t == "import_directive":
+                source_node = child.child_by_field_name("source")
+                import_name = child.child_by_field_name("import_name")
+                alias_node = child.child_by_field_name("alias")
+                if source_node:
+                    src_text = _read_text(source_node, source).strip('"\'')
+                    src_tgt = _make_id(src_text)
+                    add_node(src_tgt, src_text, line)
+                    if import_name:
+                        sym = _read_text(import_name, source)
+                        sym_tgt = _make_id(sym)
+                        add_node(sym_tgt, sym, line)
+                        add_edge(file_nid, sym_tgt, "imports_from", line, context=src_text)
+                    else:
+                        add_edge(file_nid, src_tgt, "imports", line)
+                    if alias_node:
+                        alias = _read_text(alias_node, source)
+                        alias_tgt = _make_id(alias)
+                        add_node(alias_tgt, alias, line)
+                        add_edge(file_nid, alias_tgt, "imports", line, context=f"alias_for:{src_text}")
+
+            elif t in ("contract_declaration", "interface_declaration", "library_declaration"):
+                name = _name_text(child)
+                if not name:
+                    continue
+                contract_nid = _make_id(stem, name)
+                add_node(contract_nid, name, line)
+                add_edge(file_nid, contract_nid, "defines", line)
+
+                for c in child.children:
+                    if c.type == "inheritance_specifier":
+                        anc = c.child_by_field_name("ancestor")
+                        if anc:
+                            for g in anc.children:
+                                if g.type == "identifier":
+                                    anc_name = _read_text(g, source)
+                                    anc_line = c.start_point[0] + 1
+                                    anc_tgt = _resolve_decl(anc_name)
+                                    add_node(anc_tgt, anc_name, anc_line)
+                                    add_edge(contract_nid, anc_tgt, "inherits", anc_line)
+                                    break
+
+                body = child.child_by_field_name("body")
+                if body:
+                    _walk_contract_body(body, contract_nid)
+
+            elif t == "function_definition":
+                _walk_function(child, file_nid, parent_relation="defines")
+
+    _walk_top(root)
+    return {"nodes": nodes, "edges": edges}
+
+
 # ── Pascal / Delphi extractor ─────────────────────────────────────────────────
 
 _pascal_unit_cache: dict[str, dict[str, str]] = {}
@@ -5506,6 +5853,7 @@ _DISPATCH: dict[str, Any] = {
     ".dfm": extract_delphi_form,
     ".lfm": extract_lazarus_form,
     ".lpk": extract_lazarus_package,
+    ".sol": extract_solidity,
 }
 
 
