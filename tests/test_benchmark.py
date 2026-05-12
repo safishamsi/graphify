@@ -101,6 +101,25 @@ def test_run_benchmark_includes_node_edge_counts(tmp_path):
     assert result["edges"] == G.number_of_edges()
 
 
+def test_run_benchmark_accepts_directory_with_graph_db(tmp_path):
+    """Passing the graphify-out/ directory must dispatch to graph.db when
+    that's the only backend present — guards run_benchmark's new default."""
+    from graphify import store
+
+    G = _make_graph()
+    communities = {0: ["n1", "n2"], 1: ["n3", "n4"], 2: ["n5"]}
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    store.save(out, G, communities, backend="db")
+    assert (out / "graph.db").exists()
+    assert not (out / "graph.json").exists()
+
+    result = run_benchmark(str(out), corpus_words=5_000)
+    assert "error" not in result, result
+    assert result["nodes"] == G.number_of_nodes()
+    assert result["edges"] == G.number_of_edges()
+
+
 # --- print_benchmark ---
 
 def test_print_benchmark_no_crash(tmp_path, capsys):

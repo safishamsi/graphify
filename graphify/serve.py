@@ -21,7 +21,7 @@ def _load_graph(graph_path: str) -> nx.Graph:
         print(f"error: {exc}", file=sys.stderr)
         sys.exit(1)
     except json.JSONDecodeError as exc:
-        print(f"error: graph.json is corrupted ({exc}). Re-run /graphify to rebuild.", file=sys.stderr)
+        print(f"error: graph file at {graph_path!r} is corrupted ({exc}). Re-run /aag to rebuild.", file=sys.stderr)
         sys.exit(1)
 
 
@@ -263,7 +263,7 @@ def _filter_blank_stdin() -> None:
     sys.stdin = open(0, "r", closefd=False)
 
 
-def serve(graph_path: str = "graphify-out/graph.json") -> None:
+def serve(graph_path: str = "graphify-out") -> None:
     """Start the MCP server. Requires pip install mcp."""
     try:
         from mcp.server import Server
@@ -571,5 +571,5 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
 
 if __name__ == "__main__":
-    graph_path = sys.argv[1] if len(sys.argv) > 1 else "graphify-out/graph.json"
+    graph_path = sys.argv[1] if len(sys.argv) > 1 else "graphify-out"
     serve(graph_path)

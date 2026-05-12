@@ -82,14 +82,16 @@ _SAMPLE_QUESTIONS = [
 
 
 def run_benchmark(
-    graph_path: str = "graphify-out/graph.json",
+    graph_path: str = "graphify-out",
     corpus_words: int | None = None,
     questions: list[str] | None = None,
 ) -> dict:
     """Measure token reduction: corpus tokens vs graphify query tokens.
 
     Args:
-        graph_path: path to the built graph
+        graph_path: path to the built graph — accepts the graphify-out/
+            directory (auto-detects graph.json vs graph.db backend) or an
+            explicit .json/.db file path.
         corpus_words: total word count from detect() output; if None, estimated from graph
         questions: list of questions to benchmark; defaults to _SAMPLE_QUESTIONS
 

@@ -196,3 +196,22 @@ def test_load_graph_missing_file(tmp_path):
     graphify_dir.mkdir()
     with pytest.raises(SystemExit):
         _load_graph(str(graphify_dir / "nonexistent.json"))
+
+
+def test_load_graph_accepts_graphify_out_directory_with_db(tmp_path):
+    """Passing the graphify-out/ directory must dispatch to the .db backend
+    when only graph.db is present — exercises the new default in serve()."""
+    from graphify import store
+    from graphify.cluster import cluster
+
+    G = _make_graph()
+    communities = cluster(G)
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    store.save(out, G, communities, backend="db")
+    assert (out / "graph.db").exists()
+    assert not (out / "graph.json").exists()
+
+    G2 = _load_graph(str(out))
+    assert G2.number_of_nodes() == G.number_of_nodes()
+    assert G2.number_of_edges() == G.number_of_edges()
