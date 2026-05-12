@@ -2069,8 +2069,19 @@ def main() -> None:
         # Parse shared args
         args = sys.argv[3:]
         graph_path = Path(_default_graph_path())
-        labels_path = Path(_GRAPHIFY_OUT) / ".graphify_labels.json"
-        analysis_path = Path(_GRAPHIFY_OUT) / ".graphify_analysis.json"
+        # Accept either the legacy ".graphify_*" names (older skill variants,
+        # `graphify extract` output) or the new ".aag_*" names (current aag
+        # skill). Prefer whichever exists; fall back to the legacy name so
+        # downstream "missing file" errors stay stable.
+        _go = Path(_GRAPHIFY_OUT)
+        labels_path = next(
+            (_go / n for n in (".graphify_labels.json", ".aag_labels.json") if (_go / n).exists()),
+            _go / ".graphify_labels.json",
+        )
+        analysis_path = next(
+            (_go / n for n in (".graphify_analysis.json", ".aag_analysis.json") if (_go / n).exists()),
+            _go / ".graphify_analysis.json",
+        )
         node_limit = 5000
         no_viz = False
         obsidian_dir = Path(_GRAPHIFY_OUT) / "obsidian"
@@ -2154,7 +2165,7 @@ def main() -> None:
             from graphify.analyze import god_nodes as _god_nodes
             if not communities:
                 print(
-                    "error: .graphify_analysis.json is missing or empty — refusing to export wiki to prevent data loss.\n"
+                    "error: .graphify_analysis.json / .aag_analysis.json is missing or empty — refusing to export wiki to prevent data loss.\n"
                     "Run `graphify extract .` (or `graphify cluster-only .`) to regenerate community data first.",
                     file=sys.stderr,
                 )

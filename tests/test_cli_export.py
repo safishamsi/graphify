@@ -115,6 +115,19 @@ def test_export_wiki_creates_articles(tmp_path):
     assert (wiki / "index.md").exists()
 
 
+def test_export_wiki_accepts_aag_filenames(tmp_path):
+    """The aag skill writes `.aag_analysis.json` / `.aag_labels.json` instead
+    of the legacy `.graphify_*` names; export wiki must accept either."""
+    out = _make_graph(tmp_path)
+    (out / ".aag_analysis.json").write_text((out / ".graphify_analysis.json").read_text())
+    (out / ".aag_labels.json").write_text((out / ".graphify_labels.json").read_text())
+    (out / ".graphify_analysis.json").unlink()
+    (out / ".graphify_labels.json").unlink()
+    r = _run(["export", "wiki"], tmp_path)
+    assert r.returncode == 0, r.stderr
+    assert (out / "wiki" / "index.md").exists()
+
+
 # ── graphify export graphml ──────────────────────────────────────────────────
 
 def test_export_graphml_creates_file(tmp_path):
