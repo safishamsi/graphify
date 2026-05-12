@@ -5422,6 +5422,243 @@ def extract_lazarus_package(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
 
 
+# Matches top-level Terraform blocks. The two-label form covers
+# `resource "TYPE" "NAME"` and `data "TYPE" "NAME"`; the one-label form covers
+# module/variable/output; `locals` is label-less and handled separately.
+_TERRAFORM_BLOCK_RE = re.compile(
+    r'(?m)^\s*(?:'
+    r'(resource|data|module|variable|output)\s+"([^"]+)"(?:\s+"([^"]+)")?\s*\{'
+    r'|(locals)\s*\{'
+    r')'
+)
+# Matches Terraform reference expressions. Order matters: the more specific
+# `data.TYPE.NAME` must precede the generic `TYPE.NAME` resource pattern, which
+# requires an underscore in TYPE to reduce false positives on ordinary
+# attribute access (e.g. `foo.bar` is ignored, `aws_s3_bucket.foo` matches).
+_TERRAFORM_REFERENCE_RE = re.compile(
+    r"\b("
+    r"data\.[A-Za-z0-9_]+\.[A-Za-z0-9_]+"
+    r"|module\.[A-Za-z0-9_]+"
+    r"|var\.[A-Za-z0-9_]+"
+    r"|local\.[A-Za-z0-9_]+"
+    r"|[A-Za-z0-9_]+_[A-Za-z0-9_]+\.[A-Za-z0-9_]+"
+    r")\b"
+)
+_TERRAFORM_SOURCE_RE = re.compile(r'(?m)^\s*source\s*=\s*"([^"]+)"')
+_TERRAFORM_LOCAL_RE = re.compile(r"(?m)^\s*([A-Za-z_][A-Za-z0-9_]*)\s*=")
+
+
+def _terraform_block_name(kind: str, type_label: str, local_name: str | None = None) -> tuple[str, str]:
+    """Return (reference key, human label) for a Terraform block.
+
+    For `resource "aws_lambda_function" "api"`, `type_label` is the resource
+    type (`aws_lambda_function`) and `local_name` is the user-chosen name
+    (`api`); the reference key is `aws_lambda_function.api`, matching the
+    syntax used elsewhere in HCL to refer back to the resource.
+    """
+    if kind == "resource":
+        ref = f"{type_label}.{local_name or ''}".rstrip(".")
+        return ref, ref
+    if kind == "data":
+        ref = f"data.{type_label}.{local_name or ''}".rstrip(".")
+        return ref, f"data {type_label}.{local_name}" if local_name else f"data {type_label}"
+    if kind == "module":
+        return f"module.{type_label}", f"module {type_label}"
+    if kind == "variable":
+        return f"var.{type_label}", f"variable {type_label}"
+    if kind == "output":
+        return f"output.{type_label}", f"output {type_label}"
+    return "locals", "locals"
+
+
+def extract_terraform(path: Path) -> dict:
+    """Extract Terraform/HCL blocks and same-module references from .tf files.
+
+    The extractor is intentionally structural and conservative. It creates
+    nodes for resource/data/module/variable/output/local blocks and records raw
+    references for a cross-file pass in extract(), where files in the same
+    Terraform module directory can be linked together.
+    """
+    try:
+        source = path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    seen_edges: set[tuple[str, str, str, int]] = set()
+    blocks: list[dict] = []
+    references: list[dict] = []
+    module_sources: list[dict] = []
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({"id": nid, "label": label, "file_type": "code",
+                          "source_file": str_path, "source_location": f"L{line}"})
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", score: float = 1.0) -> None:
+        key = (src, tgt, relation, line)
+        if key in seen_edges or src == tgt:
+            return
+        seen_edges.add(key)
+        edges.append({"source": src, "target": tgt, "relation": relation,
+                      "confidence": confidence, "confidence_score": score,
+                      "source_file": str_path, "source_location": f"L{line}",
+                      "weight": score})
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, 1)
+
+    # Convention: a `main.tf` inside `<repo>/modules/<name>/` is the entry
+    # file for a reusable local module. Emit a synthetic module node keyed by
+    # the module directory so callers using `source = "../modules/<name>"`
+    # can be linked to it during cross-file resolution.
+    if path.name == "main.tf" and path.parent.parent.name == "modules":
+        module_nid = _make_id("terraform_module", path.parent.name)
+        add_node(module_nid, f"Terraform Module {path.parent.name}", 1)
+        add_edge(file_nid, module_nid, "contains", 1)
+        blocks.append({"id": module_nid, "ref": f"terraform_module.{path.parent.name}",
+                       "line": 1, "module_dir": str(path.parent.resolve())})
+
+    # Slice the file into per-block bodies by walking match offsets: each
+    # block's body runs from its own start up to the next block's start (or
+    # EOF). This avoids brace counting and is good enough for reference
+    # extraction since nested blocks are scanned together with their parent.
+    matches = list(_TERRAFORM_BLOCK_RE.finditer(source))
+    for index, match in enumerate(matches):
+        kind = match.group(1) or match.group(4)
+        type_label = match.group(2) or "locals"
+        local_name = match.group(3)
+        start = match.start()
+        end = matches[index + 1].start() if index + 1 < len(matches) else len(source)
+        body = source[start:end]
+        line = source.count("\n", 0, start) + 1
+
+        if kind == "locals":
+            locals_nid = _make_id(stem, "locals", str(line))
+            add_node(locals_nid, "locals", line)
+            add_edge(file_nid, locals_nid, "contains", line)
+            for local_match in _TERRAFORM_LOCAL_RE.finditer(body):
+                local_name = local_match.group(1)
+                local_line = line + body.count("\n", 0, local_match.start())
+                ref = f"local.{local_name}"
+                local_nid = _make_id(stem, ref)
+                add_node(local_nid, ref, local_line)
+                add_edge(locals_nid, local_nid, "contains", local_line)
+                blocks.append({"id": local_nid, "ref": ref, "line": local_line})
+            block_nid = locals_nid
+        else:
+            ref, label = _terraform_block_name(kind, type_label, local_name)
+            block_nid = _make_id(stem, ref)
+            add_node(block_nid, label, line)
+            add_edge(file_nid, block_nid, "contains", line)
+            blocks.append({"id": block_nid, "ref": ref, "line": line})
+
+        if kind == "module":
+            source_match = _TERRAFORM_SOURCE_RE.search(body)
+            if source_match:
+                module_sources.append({
+                    "source": block_nid,
+                    "path": source_match.group(1),
+                    "line": line,
+                })
+
+        # Record outbound references for later cross-file resolution. Skip
+        # self-references against the most recently emitted block; for a
+        # `locals { ... }` block this drops a stray edge to the last local
+        # defined inside it, which is the common case worth filtering.
+        current_ref = blocks[-1].get("ref") if blocks else None
+        for ref in sorted(set(_TERRAFORM_REFERENCE_RE.findall(body))):
+            if ref == current_ref:
+                continue
+            references.append({"source": block_nid, "ref": ref, "line": line})
+
+    return {
+        "nodes": nodes,
+        "edges": edges,
+        "raw_terraform_blocks": blocks,
+        "raw_terraform_refs": references,
+        "raw_terraform_module_sources": module_sources,
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+
+
+def _resolve_cross_file_terraform_refs(
+    per_file: list[dict],
+    paths: list[Path],
+) -> list[dict]:
+    """Resolve Terraform references between files in the same module directory.
+
+    Terraform treats every .tf file in a directory as part of one module, so
+    references resolve against (parent_dir, ref) tuples rather than file
+    stems. A second pass also wires `module "x" { source = "..." }` blocks to
+    the synthetic Terraform Module node emitted for `modules/<name>/main.tf`,
+    skipping remote sources (anything containing `://`).
+    """
+    ref_index: dict[tuple[Path, str], str] = {}
+    module_dirs: dict[Path, str] = {}
+    new_edges: list[dict] = []
+    seen: set[tuple[str, str, str, str, int]] = set()
+
+    for result, path in zip(per_file, paths):
+        if path.suffix != ".tf":
+            continue
+        parent = path.parent.resolve()
+        for block in result.get("raw_terraform_blocks", []):
+            nid = block.get("id")
+            ref = block.get("ref")
+            if nid and ref:
+                ref_index[(parent, ref)] = nid
+            module_dir = block.get("module_dir")
+            if nid and module_dir:
+                module_dirs[Path(module_dir).resolve()] = nid
+
+    def add_edge(src: str, tgt: str, relation: str, path: Path, line: int,
+                 confidence: str = "EXTRACTED", score: float = 1.0) -> None:
+        key = (src, tgt, relation, str(path), line)
+        if key in seen or src == tgt:
+            return
+        seen.add(key)
+        new_edges.append({
+            "source": src,
+            "target": tgt,
+            "relation": relation,
+            "confidence": confidence,
+            "confidence_score": score,
+            "source_file": str(path),
+            "source_location": f"L{line}",
+            "weight": score,
+        })
+
+    for result, path in zip(per_file, paths):
+        if path.suffix != ".tf":
+            continue
+        parent = path.parent.resolve()
+        for ref in result.get("raw_terraform_refs", []):
+            src = ref.get("source")
+            target = ref_index.get((parent, ref.get("ref", "")))
+            if src and target:
+                add_edge(src, target, "references", path, int(ref.get("line") or 1))
+
+        for module_source in result.get("raw_terraform_module_sources", []):
+            src = module_source.get("source")
+            raw_path = module_source.get("path", "")
+            if not src or not raw_path or "://" in raw_path:
+                continue
+            target_dir = (parent / raw_path).resolve()
+            target = module_dirs.get(target_dir)
+            if target:
+                add_edge(src, target, "references", path, int(module_source.get("line") or 1))
+
+    return new_edges
+
+
 # ── Main extract and collect_files ────────────────────────────────────────────
 
 
@@ -5494,6 +5731,7 @@ _DISPATCH: dict[str, Any] = {
     ".v": extract_verilog,
     ".sv": extract_verilog,
     ".sql": extract_sql,
+    ".tf": extract_terraform,
     ".md": extract_markdown,
     ".mdx": extract_markdown,
     ".qmd": extract_markdown,
@@ -5785,6 +6023,17 @@ def extract(
         except Exception as exc:
             import logging
             logging.getLogger(__name__).warning("Java cross-file import resolution failed, skipping: %s", exc)
+
+    # Cross-file Terraform reference resolution within each Terraform module
+    # directory. This links resources in main.tf to variables.tf, outputs.tf,
+    # sibling resources, and local module source directories.
+    tf_paths = [p for p in paths if p.suffix == ".tf"]
+    if tf_paths:
+        try:
+            all_edges.extend(_resolve_cross_file_terraform_refs(per_file, paths))
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Terraform cross-file reference resolution failed, skipping: %s", exc)
 
     # Cross-file call resolution for all languages
     # Each extractor saved unresolved calls in raw_calls. Now that we have all

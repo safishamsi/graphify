@@ -1,5 +1,5 @@
 from pathlib import Path
-from graphify.extract import extract_python, extract, collect_files, _make_id
+from graphify.extract import extract_python, extract_terraform, extract, collect_files, _make_id
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -24,6 +24,60 @@ def test_extract_python_finds_class():
     result = extract_python(FIXTURES / "sample.py")
     labels = [n["label"] for n in result["nodes"]]
     assert "Transformer" in labels
+
+
+def test_extract_terraform_finds_blocks_and_references():
+    result = extract_terraform(FIXTURES / "sample.tf")
+    labels = {n["label"] for n in result["nodes"]}
+    assert "aws_lambda_function.api" in labels
+    assert "variable function_name" in labels
+    assert "output api_function_arn" in labels
+    assert any(ref["ref"] == "var.function_name" for ref in result["raw_terraform_refs"])
+
+
+def test_extract_terraform_cross_file_references(tmp_path):
+    main_tf = tmp_path / "main.tf"
+    variables_tf = tmp_path / "variables.tf"
+    outputs_tf = tmp_path / "outputs.tf"
+    main_tf.write_text(
+        'resource "aws_lambda_function" "api" {\n'
+        '  function_name = var.function_name\n'
+        '}\n'
+    )
+    variables_tf.write_text('variable "function_name" {}\n')
+    outputs_tf.write_text(
+        'output "api_function_arn" {\n'
+        '  value = aws_lambda_function.api.arn\n'
+        '}\n'
+    )
+
+    result = extract([main_tf, variables_tf, outputs_tf], parallel=False)
+    labels = {n["id"]: n["label"] for n in result["nodes"]}
+    reference_edges = [e for e in result["edges"] if e["relation"] == "references"]
+    edge_labels = {(labels.get(e["source"]), labels.get(e["target"])) for e in reference_edges}
+
+    assert ("aws_lambda_function.api", "variable function_name") in edge_labels
+    assert ("output api_function_arn", "aws_lambda_function.api") in edge_labels
+
+
+def test_extract_terraform_module_source_references_module_node(tmp_path):
+    env_main = tmp_path / "env" / "main.tf"
+    module_main = tmp_path / "modules" / "api" / "main.tf"
+    env_main.parent.mkdir(parents=True)
+    module_main.parent.mkdir(parents=True)
+    env_main.write_text(
+        'module "api" {\n'
+        '  source = "../modules/api"\n'
+        '}\n'
+    )
+    module_main.write_text('resource "aws_lambda_function" "api" {}\n')
+
+    result = extract([env_main, module_main], parallel=False)
+    labels = {n["id"]: n["label"] for n in result["nodes"]}
+    reference_edges = [e for e in result["edges"] if e["relation"] == "references"]
+    edge_labels = {(labels.get(e["source"]), labels.get(e["target"])) for e in reference_edges}
+
+    assert ("module api", "Terraform Module api") in edge_labels
 
 
 def test_extract_python_finds_methods():

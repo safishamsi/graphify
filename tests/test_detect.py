@@ -9,6 +9,10 @@ def test_classify_python():
 def test_classify_typescript():
     assert classify_file(Path("bar.ts")) == FileType.CODE
 
+def test_classify_terraform():
+    assert classify_file(Path("main.tf")) == FileType.CODE
+    assert classify_file(Path("terraform.tfvars")) is None
+
 def test_classify_markdown():
     assert classify_file(Path("README.md")) == FileType.DOCUMENT
 
