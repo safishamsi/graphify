@@ -1514,6 +1514,11 @@ def main() -> None:
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
+        # #849: the serialized link.source/link.target fields encode the original
+        # caller→callee (or import→importee) direction regardless of the top-level
+        # "directed" flag the build wrote. Force directed interpretation on read so
+        # the renderer can recover and display the correct arrow direction below.
+        _raw = {**_raw, "directed": True}
         try:
             G = json_graph.node_link_graph(_raw, edges="links")
         except TypeError:
@@ -1547,7 +1552,9 @@ def main() -> None:
                         file=sys.stderr,
                     )
         try:
-            path_nodes = _nx.shortest_path(G, src_nid, tgt_nid)
+            # Traverse on the undirected view so a path can be found regardless of
+            # which direction the user supplied src/tgt in.
+            path_nodes = _nx.shortest_path(G.to_undirected(as_view=True), src_nid, tgt_nid)
         except (_nx.NetworkXNoPath, _nx.NodeNotFound):
             print(f"No path found between '{source_label}' and '{target_label}'.")
             sys.exit(0)
@@ -1556,13 +1563,22 @@ def main() -> None:
         from graphify.build import edge_data
         for i in range(len(path_nodes) - 1):
             u, v = path_nodes[i], path_nodes[i + 1]
-            edata = edge_data(G, u, v)
+            # #849: render the arrow in the original stored edge direction.
+            if G.has_edge(u, v):
+                edata = edge_data(G, u, v)
+                forward = True
+            else:
+                edata = edge_data(G, v, u)
+                forward = False
             rel = edata.get("relation", "")
             conf = edata.get("confidence", "")
             conf_str = f" [{conf}]" if conf else ""
             if i == 0:
                 segments.append(G.nodes[u].get("label", u))
-            segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            if forward:
+                segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            else:
+                segments.append(f"<--{rel}{conf_str}-- {G.nodes[v].get('label', v)}")
         print(f"Shortest path ({hops} hops):\n  " + " ".join(segments))
 
     elif cmd == "explain":
