@@ -1773,7 +1773,14 @@ def main() -> None:
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)
         out = watch_path / "graphify-out"
-        labels_path = out / ".graphify_labels.json"
+        # Accept either the legacy ".graphify_labels.json" or the new
+        # ".aag_labels.json" name written by the current aag skill. Prefer
+        # whichever already exists so the write-back below stays on the
+        # same filename and doesn't fragment the labels into two files.
+        labels_path = next(
+            (out / n for n in (".graphify_labels.json", ".aag_labels.json") if (out / n).exists()),
+            out / ".graphify_labels.json",
+        )
         if labels_path.exists():
             try:
                 labels = {int(k): v for k, v in json.loads(labels_path.read_text(encoding="utf-8")).items()}

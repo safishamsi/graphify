@@ -123,3 +123,84 @@ def test_update_with_graph_db_preserves_backend_and_semantic_nodes(tmp_path):
         f"node count shrank from {pre_total} to {post.number_of_nodes()} after --update "
         f"— semantic content was likely thrown away"
     )
+
+
+def _build_json_kb_with_aag_labels(root: Path) -> tuple[Path, dict[int, str]]:
+    """Build a tiny JSON-backed KB and write community labels under the
+    new `.aag_labels.json` filename (what the current aag skill emits)."""
+    import json as _json
+    src = root / "src"
+    src.mkdir()
+    shutil.copy(FIXTURES / "sample.py", src / "sample.py")
+
+    ast = extract([src / "sample.py"], cache_root=src)
+    assert ast["nodes"]
+    extraction = {
+        "nodes": ast["nodes"],
+        "edges": ast["edges"],
+        "hyperedges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    G = build_from_json(extraction)
+    communities = cluster(G)
+
+    out = src / "graphify-out"
+    out.mkdir(exist_ok=True)
+    store.save(out, G, communities)
+    labels = {cid: f"Custom Group {cid}" for cid in communities}
+    (out / ".aag_labels.json").write_text(
+        _json.dumps({str(k): v for k, v in labels.items()})
+    )
+    return out, labels
+
+
+def test_update_preserves_aag_labels_from_skill(tmp_path):
+    """The aag skill writes `.aag_labels.json`; running `aag update .`
+    afterwards must pick up those labels rather than resetting every
+    community to "Community N"."""
+    out, labels = _build_json_kb_with_aag_labels(tmp_path)
+    src = out.parent
+
+    result = subprocess.run(
+        [PYTHON, "-m", "graphify", "update", str(src)],
+        capture_output=True,
+        text=True,
+        cwd=tmp_path,
+    )
+    assert result.returncode == 0, (
+        f"`graphify update` failed: {result.stderr}\n{result.stdout}"
+    )
+
+    report = (out / "GRAPH_REPORT.md").read_text()
+    expected_label = next(iter(labels.values()))
+    assert expected_label in report, (
+        f"label {expected_label!r} from .aag_labels.json missing from "
+        f"GRAPH_REPORT.md after update — labels were reset to generic "
+        f"'Community N'"
+    )
+
+
+def test_cluster_only_preserves_aag_labels_from_skill(tmp_path):
+    """`aag cluster-only` reads community labels before regenerating the
+    report. It must accept .aag_labels.json (skill-written), not just
+    the legacy .graphify_labels.json."""
+    out, labels = _build_json_kb_with_aag_labels(tmp_path)
+    src = out.parent
+
+    result = subprocess.run(
+        [PYTHON, "-m", "graphify", "cluster-only", str(src)],
+        capture_output=True,
+        text=True,
+        cwd=tmp_path,
+    )
+    assert result.returncode == 0, (
+        f"`graphify cluster-only` failed: {result.stderr}\n{result.stdout}"
+    )
+
+    report = (out / "GRAPH_REPORT.md").read_text()
+    expected_label = next(iter(labels.values()))
+    assert expected_label in report, (
+        f"label {expected_label!r} from .aag_labels.json missing from "
+        f"GRAPH_REPORT.md after cluster-only — labels were reset"
+    )
