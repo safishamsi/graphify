@@ -1829,9 +1829,17 @@ def main() -> None:
         if len(argv) > 2:
             watch_path = Path(argv[2])
         else:
-            # Try to recover the scan root saved by the last full build
-            saved = Path(_GRAPHIFY_OUT) / ".graphify_root"
-            if saved.exists():
+            # Try to recover the scan root saved by the last full build.
+            # The aag skill writes `.aag_root`; watch._rebuild_code writes
+            # `.graphify_root` on rebuild. Accept either so `aag update`
+            # (no args) right after a fresh /aag build doesn't silently
+            # fall back to cwd and re-index the wrong directory.
+            _go = Path(_GRAPHIFY_OUT)
+            saved = next(
+                (_go / n for n in (".graphify_root", ".aag_root") if (_go / n).exists()),
+                None,
+            )
+            if saved is not None:
                 watch_path = Path(saved.read_text(encoding="utf-8").strip())
             else:
                 watch_path = Path(".")

@@ -181,6 +181,43 @@ def test_update_preserves_aag_labels_from_skill(tmp_path):
     )
 
 
+def test_update_no_args_recovers_scan_root_from_aag_root(tmp_path):
+    """When `aag update` runs with no path argument it must recover the
+    scan root from the persisted root file. The skill writes `.aag_root`;
+    the binary previously only looked at `.graphify_root` and would
+    silently fall back to cwd. Regression guard for the dual-name read."""
+    out, _labels = _build_json_kb_with_aag_labels(tmp_path)
+    src = out.parent  # the actual scan root recorded by the skill
+
+    # Persist scan root the way the skill does: `.aag_root`, no `.graphify_root`.
+    (out / ".aag_root").write_text(str(src.resolve()), encoding="utf-8")
+    assert not (out / ".graphify_root").exists()
+
+    # Run `graphify update` from a sibling directory with no path arg —
+    # the only way to find sample.py is via the recovered .aag_root.
+    other = tmp_path / "elsewhere"
+    other.mkdir()
+    (other / "graphify-out").mkdir()
+    shutil.copy(out / "graph.json", other / "graphify-out" / "graph.json")
+    shutil.copy(out / ".aag_root", other / "graphify-out" / ".aag_root")
+
+    result = subprocess.run(
+        [PYTHON, "-m", "graphify", "update"],
+        capture_output=True,
+        text=True,
+        cwd=other,
+    )
+    assert result.returncode == 0, (
+        f"`graphify update` (no args) failed: {result.stderr}\n{result.stdout}"
+    )
+    # The success message names the scan root that was actually used.
+    # If .aag_root wasn't picked up the binary would have fallen back
+    # to cwd ('elsewhere') and either reported it or failed because
+    # there's no code there to re-extract.
+    assert str(src.resolve()) in result.stdout or "Re-extracting code files in " in result.stdout
+    assert "elsewhere" not in result.stdout.split("Re-extracting code files in ", 1)[-1].split("\n", 1)[0]
+
+
 def test_cluster_only_preserves_aag_labels_from_skill(tmp_path):
     """`aag cluster-only` reads community labels before regenerating the
     report. It must accept .aag_labels.json (skill-written), not just

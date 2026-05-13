@@ -8,6 +8,36 @@ from networkx.readwrite import json_graph
 from graphify.security import sanitize_label
 
 
+def _kb_dir(graph_path: str | Path) -> Path:
+    """Return the graphify-out/ directory for a graph_path argument.
+
+    Accepts the directory itself (e.g. "graphify-out") or an explicit
+    graph.json/.db file inside it. Phase 1 changed serve()'s default
+    from a file path to the directory; sidecar lookups (labels file,
+    GRAPH_REPORT.md) need to resolve from the right place either way.
+    """
+    p = Path(graph_path)
+    return p if p.is_dir() else p.parent
+
+
+def _load_community_labels(graph_path: str | Path, communities: dict[int, list[str]]) -> dict[int, str]:
+    """Load human-readable community labels written by the aag pipeline.
+
+    Accept either the legacy `.graphify_labels.json` or the new
+    `.aag_labels.json` (skill-written) name. Fall back to generic
+    "Community N" when neither is present or the file is corrupt.
+    """
+    kb = _kb_dir(graph_path)
+    for name in (".graphify_labels.json", ".aag_labels.json"):
+        labels_path = kb / name
+        if labels_path.exists():
+            try:
+                return {int(k): v for k, v in json.loads(labels_path.read_text(encoding="utf-8")).items()}
+            except Exception:
+                break
+    return {cid: f"Community {cid}" for cid in communities}
+
+
 def _load_graph(graph_path: str) -> nx.Graph:
     try:
         resolved = Path(graph_path).resolve()
@@ -479,14 +509,8 @@ def serve(graph_path: str = "graphify-out") -> None:
         "shortest_path": _tool_shortest_path,
     }
 
-    def _load_community_labels() -> dict[int, str]:
-        labels_path = Path(graph_path).parent / ".graphify_labels.json"
-        if labels_path.exists():
-            try:
-                return {int(k): v for k, v in json.loads(labels_path.read_text(encoding="utf-8")).items()}
-            except Exception:
-                pass
-        return {cid: f"Community {cid}" for cid in communities}
+    def _load_labels_closure() -> dict[int, str]:
+        return _load_community_labels(graph_path, communities)
 
     @server.list_resources()
     async def list_resources() -> list[types.Resource]:
@@ -503,7 +527,7 @@ def serve(graph_path: str = "graphify-out") -> None:
     async def read_resource(uri: AnyUrl) -> str:
         uri_str = str(uri)
         if uri_str == "graphify://report":
-            report_path = Path(graph_path).parent / "GRAPH_REPORT.md"
+            report_path = _kb_dir(graph_path) / "GRAPH_REPORT.md"
             if report_path.exists():
                 return report_path.read_text(encoding="utf-8")
             return "GRAPH_REPORT.md not found. Run graphify extract first."
@@ -535,7 +559,7 @@ def serve(graph_path: str = "graphify-out") -> None:
         if uri_str == "graphify://questions":
             try:
                 from graphify.analyze import suggest_questions
-                community_labels = _load_community_labels()
+                community_labels = _load_labels_closure()
                 questions = suggest_questions(G, communities, community_labels, top_n=10)
                 if not questions:
                     return "No suggested questions available."
