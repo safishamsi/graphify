@@ -170,6 +170,12 @@ def _canonical_topology_for_compare(graph_data: dict) -> dict:
             if not isinstance(edge, dict):
                 continue
             e = dict(edge)
+            # to_json writes _src/_tgt as the canonical directed endpoints and
+            # overwrites source/target with them before serialising, so the
+            # on-disk graph has no _src/_tgt. The candidate topology (fresh from
+            # node_link_data) still has them. Popping and reassigning here makes
+            # both sides comparable: existing gets no-op pops (None), candidate
+            # gets source/target overwritten from _src/_tgt — same result.
             true_src = e.pop("_src", None)
             true_tgt = e.pop("_tgt", None)
             if true_src is not None and true_tgt is not None:
@@ -200,6 +206,29 @@ def _topology_from_graph(G) -> dict:
         data = json_graph.node_link_data(G)
     data["hyperedges"] = getattr(G, "graph", {}).get("hyperedges", [])
     return data
+
+
+def _check_shrink(force: bool, existing_data: dict, new_data: dict, tmp: "Path | None" = None) -> bool:
+    """Return True (ok to proceed) or False (shrink refused).
+
+    When False, cleans up *tmp* if provided and prints a warning to stderr.
+    """
+    if force or not existing_data:
+        return True
+    existing_n = len(existing_data.get("nodes", []))
+    new_n = len(new_data.get("nodes", []))
+    if new_n < existing_n:
+        if tmp is not None:
+            tmp.unlink(missing_ok=True)
+        print(
+            f"[graphify] WARNING: new graph has {new_n} nodes but existing "
+            f"graph.json has {existing_n}. Refusing to overwrite — you may be "
+            f"missing chunk files from a previous session. "
+            f"Pass --force to override.",
+            file=sys.stderr,
+        )
+        return False
+    return True
 
 
 def _report_for_compare(report_text: str) -> str:
@@ -363,13 +392,16 @@ def _rebuild_code(
         (out / ".graphify_root").write_text(str(watch_root), encoding="utf-8")
 
         if no_cluster:
-            candidate_graph_data = dict(result)
+            # Normalise to "links" key so schema is consistent with the full clustered path.
+            candidate_graph_data = {
+                **{k: v for k, v in result.items() if k != "edges"},
+                "links": result.get("edges", []),
+            }
             candidate_graph_text = _json_text(candidate_graph_data)
-            existing_text = existing_graph.read_text(encoding="utf-8") if existing_graph.exists() else ""
             same_graph = False
             if existing_graph.exists():
                 try:
-                    existing_payload = json.loads(existing_text)
+                    existing_payload = json.loads(existing_graph.read_text(encoding="utf-8"))
                     same_graph = (
                         json.dumps(_canonical_graph_for_compare(existing_payload), sort_keys=True, ensure_ascii=False)
                         == json.dumps(_canonical_graph_for_compare(candidate_graph_data), sort_keys=True, ensure_ascii=False)
@@ -377,18 +409,8 @@ def _rebuild_code(
                 except Exception:
                     same_graph = False
             if not same_graph:
-                if (not force) and existing_graph_data:
-                    existing_n = len(existing_graph_data.get("nodes", []))
-                    new_n = len(candidate_graph_data.get("nodes", []))
-                    if new_n < existing_n:
-                        print(
-                            f"[graphify] WARNING: new graph has {new_n} nodes but existing "
-                            f"graph.json has {existing_n}. Refusing to overwrite — you may be "
-                            f"missing chunk files from a previous session. "
-                            f"Pass force=True to override.",
-                            file=sys.stderr,
-                        )
-                        return False
+                if not _check_shrink(force, existing_graph_data, candidate_graph_data):
+                    return False
                 existing_graph.write_text(candidate_graph_text, encoding="utf-8")
 
             try:
@@ -487,23 +509,11 @@ def _rebuild_code(
             graph_tmp.unlink(missing_ok=True)
             print("[graphify watch] No code-graph changes detected; graph.json/GRAPH_REPORT.md left untouched.")
         else:
-            if (not force) and existing_graph_data:
-                existing_n = len(existing_graph_data.get("nodes", []))
-                new_n = len(candidate_graph_data.get("nodes", []))
-                if new_n < existing_n:
-                    graph_tmp.unlink(missing_ok=True)
-                    print(
-                        f"[graphify] WARNING: new graph has {new_n} nodes but existing "
-                        f"graph.json has {existing_n}. Refusing to overwrite — you may be "
-                        f"missing chunk files from a previous session. "
-                        f"Pass force=True to override.",
-                        file=sys.stderr,
-                    )
-                    return False
+            if not _check_shrink(force, existing_graph_data, candidate_graph_data, tmp=graph_tmp):
+                return False
             graph_tmp.replace(existing_graph)
             report_path.write_text(report, encoding="utf-8")
-
-        labels_file.write_text(labels_json, encoding="utf-8")
+            labels_file.write_text(labels_json, encoding="utf-8")
 
         try:
             from graphify.detect import save_manifest

@@ -248,5 +248,5 @@ def test_update_no_cluster_writes_raw_graph(tmp_path):
     graph_path = tmp_path / "graphify-out" / "graph.json"
     assert graph_path.exists()
     data = json.loads(graph_path.read_text(encoding="utf-8"))
-    assert "nodes" in data and "edges" in data
+    assert "nodes" in data and "links" in data
     assert all("community" not in node for node in data["nodes"])
