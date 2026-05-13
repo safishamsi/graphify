@@ -349,3 +349,28 @@ def test_gemini_uninstall_removes_hook(tmp_path):
 def test_gemini_uninstall_noop_if_not_installed(tmp_path):
     from graphify.__main__ import gemini_uninstall
     gemini_uninstall(tmp_path)  # should not raise
+
+
+# --- Hook injection probes must recognize both graph.json and graph.db ---
+
+def test_claude_hook_probes_both_backends():
+    """The Claude PreToolUse hook checks for KB existence before injecting
+    a reminder. It must trigger for graph.json AND graph.db KBs (regression
+    guard: previously only graph.json was probed)."""
+    from graphify.__main__ import _get_claude_hook
+    cmd = _get_claude_hook()["hooks"][0]["command"]
+    assert "graphify-out/graph.json" in cmd
+    assert "graphify-out/graph.db" in cmd
+
+
+def test_gemini_hook_probes_both_backends():
+    from graphify.__main__ import _get_gemini_hook
+    cmd = _get_gemini_hook()["hooks"][0]["command"]
+    assert "graph.json" in cmd
+    assert "graph.db" in cmd
+
+
+def test_opencode_plugin_probes_both_backends():
+    from graphify.__main__ import _OPENCODE_PLUGIN_JS
+    assert "graph.json" in _OPENCODE_PLUGIN_JS
+    assert "graph.db" in _OPENCODE_PLUGIN_JS

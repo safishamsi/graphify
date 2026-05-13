@@ -141,7 +141,7 @@ def _get_claude_hook() -> dict:
                     "print(d.get('tool_input',d).get('command',''))\" 2>/dev/null || true); "
                     "case \"$CMD\" in "
                     r"*grep*|*rg\ *|*ripgrep*|*find\ *|*fd\ *|*ack\ *|*ag\ *) "
-                    "  [ -f graphify-out/graph.json ] && "
+                    "  { [ -f graphify-out/graph.json ] || [ -f graphify-out/graph.db ]; } && "
                     r"""  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"aag: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
                     "  || true ;; "
                     "esac"
@@ -162,7 +162,8 @@ def _get_gemini_hook() -> dict:
                 "command": (
                     f'{cmd} "'
                     "import sys,pathlib,json;"
-                    "e=pathlib.Path('graphify-out/graph.json').exists();"
+                    "p=pathlib.Path('graphify-out');"
+                    "e=(p/'graph.json').exists() or (p/'graph.db').exists();"
                     "d={'decision':'allow'};"
                     "e and d.update({'additionalContext':'aag: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files.'});"
                     "sys.stdout.write(json.dumps(d))"
@@ -803,7 +804,8 @@ def _cursor_uninstall(project_dir: Path) -> None:
 
 
 # OpenCode tool.execute.before plugin — fires before every tool call.
-# Injects a graph reminder into bash command output when graph.json exists.
+# Injects a graph reminder into bash command output when the KB exists
+# (either graph.json or graph.db, depending on the chosen backend).
 _OPENCODE_PLUGIN_JS = """\
 // graphify OpenCode plugin
 // Injects a knowledge graph reminder before bash tool calls when the graph exists.
@@ -816,7 +818,8 @@ export const GraphifyPlugin = async ({ directory }) => {
   return {
     "tool.execute.before": async (input, output) => {
       if (reminded) return;
-      if (!existsSync(join(directory, "graphify-out", "graph.json"))) return;
+      const out = join(directory, "graphify-out");
+      if (!existsSync(join(out, "graph.json")) && !existsSync(join(out, "graph.db"))) return;
 
       if (input.tool === "bash") {
         output.args.command =
