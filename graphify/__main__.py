@@ -1514,6 +1514,8 @@ def main() -> None:
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
+        # Force directed so the renderer can recover stored caller→callee direction.
+        _raw = {**_raw, "directed": True}
         try:
             G = json_graph.node_link_graph(_raw, edges="links")
         except TypeError:
@@ -1547,7 +1549,7 @@ def main() -> None:
                         file=sys.stderr,
                     )
         try:
-            path_nodes = _nx.shortest_path(G, src_nid, tgt_nid)
+            path_nodes = _nx.shortest_path(G.to_undirected(as_view=True), src_nid, tgt_nid)
         except (_nx.NetworkXNoPath, _nx.NodeNotFound):
             print(f"No path found between '{source_label}' and '{target_label}'.")
             sys.exit(0)
@@ -1556,13 +1558,22 @@ def main() -> None:
         from graphify.build import edge_data
         for i in range(len(path_nodes) - 1):
             u, v = path_nodes[i], path_nodes[i + 1]
-            edata = edge_data(G, u, v)
+            # Check which direction the stored edge points.
+            if G.has_edge(u, v):
+                edata = edge_data(G, u, v)
+                forward = True
+            else:
+                edata = edge_data(G, v, u)
+                forward = False
             rel = edata.get("relation", "")
             conf = edata.get("confidence", "")
             conf_str = f" [{conf}]" if conf else ""
             if i == 0:
                 segments.append(G.nodes[u].get("label", u))
-            segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            if forward:
+                segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            else:
+                segments.append(f"<--{rel}{conf_str}-- {G.nodes[v].get('label', v)}")
         print(f"Shortest path ({hops} hops):\n  " + " ".join(segments))
 
     elif cmd == "explain":
@@ -1584,6 +1595,8 @@ def main() -> None:
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
+        # Force directed so the renderer can recover stored caller→callee direction.
+        _raw = {**_raw, "directed": True}
         try:
             G = json_graph.node_link_graph(_raw, edges="links")
         except TypeError:
@@ -1600,17 +1613,22 @@ def main() -> None:
         print(f"  Type:      {d.get('file_type', '')}")
         print(f"  Community: {d.get('community', '')}")
         print(f"  Degree:    {G.degree(nid)}")
-        neighbors = list(G.neighbors(nid))
-        if neighbors:
-            from graphify.build import edge_data
-            print(f"\nConnections ({len(neighbors)}):")
-            for nb in sorted(neighbors, key=lambda n: G.degree(n), reverse=True)[:20]:
-                edata = edge_data(G, nid, nb)
+        from graphify.build import edge_data
+        connections: list[tuple[str, str, dict]] = []  # (direction, neighbor_id, edge_data)
+        for nb in G.successors(nid):
+            connections.append(("out", nb, edge_data(G, nid, nb)))
+        for nb in G.predecessors(nid):
+            connections.append(("in", nb, edge_data(G, nb, nid)))
+        if connections:
+            print(f"\nConnections ({len(connections)}):")
+            connections.sort(key=lambda c: G.degree(c[1]), reverse=True)
+            for direction, nb, edata in connections[:20]:
                 rel = edata.get("relation", "")
                 conf = edata.get("confidence", "")
-                print(f"  --> {G.nodes[nb].get('label', nb)} [{rel}] [{conf}]")
-            if len(neighbors) > 20:
-                print(f"  ... and {len(neighbors) - 20} more")
+                arrow = "-->" if direction == "out" else "<--"
+                print(f"  {arrow} {G.nodes[nb].get('label', nb)} [{rel}] [{conf}]")
+            if len(connections) > 20:
+                print(f"  ... and {len(connections) - 20} more")
 
     elif cmd == "add":
         if len(sys.argv) < 3:
@@ -2421,6 +2439,13 @@ def main() -> None:
                 allow_no_key = (
                     host in ("localhost", "127.0.0.1", "::1")
                     or host.startswith("127.")
+                )
+            elif backend == "bedrock":
+                allow_no_key = bool(
+                    os.environ.get("AWS_PROFILE")
+                    or os.environ.get("AWS_REGION")
+                    or os.environ.get("AWS_DEFAULT_REGION")
+                    or os.environ.get("AWS_ACCESS_KEY_ID")
                 )
             if not allow_no_key:
                 print(
