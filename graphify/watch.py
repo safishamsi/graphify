@@ -124,7 +124,15 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
         cohesion = score_all(G, communities)
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)
-        labels_file = out / ".graphify_labels.json"
+        # Accept either the legacy ".graphify_labels.json" or the new
+        # ".aag_labels.json" written by the current aag skill — otherwise
+        # an `aag update` (or watch-triggered rebuild) right after a fresh
+        # /aag build silently resets every community label back to
+        # "Community N" because the skill writes the .aag_* name.
+        labels_file = next(
+            (out / n for n in (".graphify_labels.json", ".aag_labels.json") if (out / n).exists()),
+            out / ".graphify_labels.json",
+        )
         try:
             raw = json.loads(labels_file.read_text(encoding="utf-8")) if labels_file.exists() else {}
             labels = {int(k): v for k, v in raw.items() if int(k) in communities}

@@ -141,7 +141,7 @@ def _get_claude_hook() -> dict:
                     "print(d.get('tool_input',d).get('command',''))\" 2>/dev/null || true); "
                     "case \"$CMD\" in "
                     r"*grep*|*rg\ *|*ripgrep*|*find\ *|*fd\ *|*ack\ *|*ag\ *) "
-                    "  [ -f graphify-out/graph.json ] && "
+                    "  { [ -f graphify-out/graph.json ] || [ -f graphify-out/graph.db ]; } && "
                     r"""  echo '{"hookSpecificOutput":{"hookEventName":"PreToolUse","additionalContext":"aag: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files."}}' """
                     "  || true ;; "
                     "esac"
@@ -162,7 +162,8 @@ def _get_gemini_hook() -> dict:
                 "command": (
                     f'{cmd} "'
                     "import sys,pathlib,json;"
-                    "e=pathlib.Path('graphify-out/graph.json').exists();"
+                    "p=pathlib.Path('graphify-out');"
+                    "e=(p/'graph.json').exists() or (p/'graph.db').exists();"
                     "d={'decision':'allow'};"
                     "e and d.update({'additionalContext':'aag: Knowledge graph exists. Read graphify-out/GRAPH_REPORT.md for god nodes and community structure before searching raw files.'});"
                     "sys.stdout.write(json.dumps(d))"
@@ -803,7 +804,8 @@ def _cursor_uninstall(project_dir: Path) -> None:
 
 
 # OpenCode tool.execute.before plugin — fires before every tool call.
-# Injects a graph reminder into bash command output when graph.json exists.
+# Injects a graph reminder into bash command output when the KB exists
+# (either graph.json or graph.db, depending on the chosen backend).
 _OPENCODE_PLUGIN_JS = """\
 // graphify OpenCode plugin
 // Injects a knowledge graph reminder before bash tool calls when the graph exists.
@@ -816,7 +818,8 @@ export const GraphifyPlugin = async ({ directory }) => {
   return {
     "tool.execute.before": async (input, output) => {
       if (reminded) return;
-      if (!existsSync(join(directory, "graphify-out", "graph.json"))) return;
+      const out = join(directory, "graphify-out");
+      if (!existsSync(join(out, "graph.json")) && !existsSync(join(out, "graph.db"))) return;
 
       if (input.tool === "bash") {
         output.args.command =
@@ -1240,13 +1243,13 @@ def main() -> None:
         print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi)")
         print("  uninstall               remove aag from all detected platforms in one shot")
         print("    --purge                 also delete graphify-out/ directory")
-        print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
+        print("  path \"A\" \"B\"            shortest path between two nodes in the knowledge graph")
         print("    --graph <path>          path to graph file (default graphify-out/graph.json or .db)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
         print("    --graph <path>          path to graph file (default graphify-out/graph.json or .db)")
         print("  clone <github-url>      clone a GitHub repo locally and print its path for /aag")
         print("  merge-driver <base> <current> <other>  git merge driver: union-merge two graph.json files (set up via hook install)")
-        print("  merge-graphs <g1> <g2>  merge two or more graph.json files into one cross-repo graph")
+        print("  merge-graphs <g1> <g2>  merge two or more per-repo graphs (graph.json or graph.db) into one cross-repo graph")
         print("    --out <path>            output path (default: graphify-out/merged-graph.json)")
         print("    --branch <branch>       checkout a specific branch (default: repo default)")
         print("    --out <dir>             clone to a custom directory (default: ~/.graphify/repos/<owner>/<repo>)")
@@ -1256,12 +1259,12 @@ def main() -> None:
         print("    --dir <path>            target directory (default: ./raw)")
         print("  watch <path>            watch a folder and rebuild the graph on code changes")
         print("  update <path>           re-extract code files and update the graph (no LLM needed)")
-        print("    --force                 overwrite graph.json even if the rebuild has fewer nodes")
+        print("    --force                 overwrite the persisted graph even if the rebuild has fewer nodes")
         print("                            (also: GRAPHIFY_FORCE=1 env var; use after refactors that delete code)")
-        print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
+        print("  cluster-only <path>     rerun clustering on an existing graph (graph.json or graph.db) and regenerate report")
         print("    --no-viz                skip graph.html generation (useful for >5000 node graphs / CI)")
         print("    --graph <path>          path to graph file (default <path>/graphify-out/graph.json or .db)")
-        print("  query \"<question>\"       BFS traversal of graph.json for a question")
+        print("  query \"<question>\"       BFS traversal of the knowledge graph for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
         print("    --context C             explicit edge-context filter (repeatable)")
         print("    --budget N              cap output at N tokens (default 2000)")
@@ -1273,7 +1276,7 @@ def main() -> None:
         print("    --nodes N1 N2 ...       source node labels cited in the answer")
         print("    --memory-dir DIR        memory directory (default: graphify-out/memory)")
         print("  check-update <path>     check needs_update flag and notify if semantic re-extraction is pending (cron-safe)")
-        print("  tree                    emit a D3 v7 collapsible-tree HTML for graph.json")
+        print("  tree                    emit a D3 v7 collapsible-tree HTML for the knowledge graph")
         print("    --graph PATH            path to graph file (default graphify-out/graph.json or .db)")
         print("    --output HTML           output path (default graphify-out/GRAPH_TREE.html)")
         print("    --root PATH             filesystem root for the hierarchy")
@@ -1288,12 +1291,12 @@ def main() -> None:
         print("    --no-cluster            skip clustering, write raw extraction only")
         print("    --global                also merge the resulting graph into the global graph")
         print("    --as <tag>              repo tag for --global (default: target directory name)")
-        print("  global add <graph.json>  add/update a project graph in the global graph (~/.graphify/global-graph.json)")
+        print("  global add <graph-path>  add/update a project graph (graph.json or graph.db) in the global graph (~/.graphify/global-graph.json)")
         print("    --as <tag>               repo tag (default: parent directory name)")
         print("  global remove <tag>      remove a repo's nodes from the global graph")
         print("  global list              list repos in the global graph")
         print("  global path              print path to the global graph file")
-        print("  benchmark [graph.json]  measure token reduction vs naive full-corpus approach")
+        print("  benchmark [graph-path]  measure token reduction vs naive full-corpus approach (graph-path defaults to graphify-out/, accepts graph.json or graph.db)")
         print("  hook install            install post-commit/post-checkout git hooks (all platforms)")
         print("  hook uninstall          remove git hooks")
         print("  hook status             check if git hooks are installed")
@@ -1770,7 +1773,14 @@ def main() -> None:
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)
         out = watch_path / "graphify-out"
-        labels_path = out / ".graphify_labels.json"
+        # Accept either the legacy ".graphify_labels.json" or the new
+        # ".aag_labels.json" name written by the current aag skill. Prefer
+        # whichever already exists so the write-back below stays on the
+        # same filename and doesn't fragment the labels into two files.
+        labels_path = next(
+            (out / n for n in (".graphify_labels.json", ".aag_labels.json") if (out / n).exists()),
+            out / ".graphify_labels.json",
+        )
         if labels_path.exists():
             try:
                 labels = {int(k): v for k, v in json.loads(labels_path.read_text(encoding="utf-8")).items()}
@@ -1819,9 +1829,17 @@ def main() -> None:
         if len(argv) > 2:
             watch_path = Path(argv[2])
         else:
-            # Try to recover the scan root saved by the last full build
-            saved = Path(_GRAPHIFY_OUT) / ".graphify_root"
-            if saved.exists():
+            # Try to recover the scan root saved by the last full build.
+            # The aag skill writes `.aag_root`; watch._rebuild_code writes
+            # `.graphify_root` on rebuild. Accept either so `aag update`
+            # (no args) right after a fresh /aag build doesn't silently
+            # fall back to cwd and re-index the wrong directory.
+            _go = Path(_GRAPHIFY_OUT)
+            saved = next(
+                (_go / n for n in (".graphify_root", ".aag_root") if (_go / n).exists()),
+                None,
+            )
+            if saved is not None:
                 watch_path = Path(saved.read_text(encoding="utf-8").strip())
             else:
                 watch_path = Path(".")

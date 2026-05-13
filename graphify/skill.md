@@ -71,8 +71,9 @@ LOCAL_PATH=$(aag clone <github-url> [--branch <branch>])
 # Clone each repo, run the full pipeline on each, then merge
 aag clone <url1>   # → ~/.aag/repos/<owner1>/<repo1>
 aag clone <url2>   # → ~/.aag/repos/<owner2>/<repo2>
-# Run /aag on each local path to produce their graph.json files
-# Then merge:
+# Run /aag on each local path to produce their per-repo graph artifacts
+# (graphify-out/graph.json or graph.db, depending on backend)
+# Then merge — merge-graphs accepts either backend per source path:
 aag merge-graphs \
   ~/.aag/repos/<owner1>/<repo1>/graphify-out/graph.json \
   ~/.aag/repos/<owner2>/<repo2>/graphify-out/graph.json \
@@ -988,7 +989,7 @@ python3 -m aag.watch INPUT_PATH --debounce 3
 
 Replace INPUT_PATH with the folder to watch. Behavior depends on what changed:
 
-- **Code files only (.py, .ts, .go, etc.):** re-runs AST extraction + rebuild + cluster immediately, no LLM needed. `graph.json` and `GRAPH_REPORT.md` are updated automatically.
+- **Code files only (.py, .ts, .go, etc.):** re-runs AST extraction + rebuild + cluster immediately, no LLM needed. The persisted graph (`graph.json` or `graph.db`, whichever backend the KB uses) and `GRAPH_REPORT.md` are updated automatically.
 - **Docs, papers, or images:** writes a `graphify-out/needs_update` flag and prints a notification to run `/aag --update` (LLM semantic re-extraction required).
 
 Debounce (default 3s): waits until file activity stops before triggering, so a wave of parallel agent writes doesn't trigger a rebuild per file.
@@ -1009,7 +1010,7 @@ aag hook uninstall  # remove
 aag hook status     # check
 ```
 
-After every `git commit`, the hook detects which code files changed (via `git diff HEAD~1`), re-runs AST extraction on those files, and rebuilds `graph.json` and `GRAPH_REPORT.md`. Doc/image changes are ignored by the hook - run `/aag --update` manually for those.
+After every `git commit`, the hook detects which code files changed (via `git diff HEAD~1`), re-runs AST extraction on those files, and rebuilds the persisted graph (`graph.json` or `graph.db`, whichever backend the KB uses) and `GRAPH_REPORT.md`. Doc/image changes are ignored by the hook - run `/aag --update` manually for those.
 
 If a post-commit hook already exists, aag appends to it rather than replacing it.
 

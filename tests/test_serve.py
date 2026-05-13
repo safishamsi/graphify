@@ -15,6 +15,8 @@ from graphify.serve import (
     _resolve_context_filters,
     _subgraph_to_text,
     _load_graph,
+    _kb_dir,
+    _load_community_labels,
 )
 
 
@@ -196,3 +198,78 @@ def test_load_graph_missing_file(tmp_path):
     graphify_dir.mkdir()
     with pytest.raises(SystemExit):
         _load_graph(str(graphify_dir / "nonexistent.json"))
+
+
+def test_load_graph_accepts_graphify_out_directory_with_db(tmp_path):
+    """Passing the graphify-out/ directory must dispatch to the .db backend
+    when only graph.db is present — exercises the new default in serve()."""
+    from graphify import store
+    from graphify.cluster import cluster
+
+    G = _make_graph()
+    communities = cluster(G)
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    store.save(out, G, communities, backend="db")
+    assert (out / "graph.db").exists()
+    assert not (out / "graph.json").exists()
+
+    G2 = _load_graph(str(out))
+    assert G2.number_of_nodes() == G.number_of_nodes()
+    assert G2.number_of_edges() == G.number_of_edges()
+
+
+# --- _kb_dir / _load_community_labels ---
+
+def test_kb_dir_resolves_directory_input(tmp_path):
+    """Phase 1 default for serve() is the directory 'graphify-out'.
+    _kb_dir must return the directory itself, not Path('.')."""
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    assert _kb_dir(out) == out
+
+
+def test_kb_dir_resolves_file_input(tmp_path):
+    """Legacy callers still pass an explicit graph.json path; _kb_dir
+    must return the parent directory in that case."""
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    graph_file = out / "graph.json"
+    graph_file.write_text("{}")
+    assert _kb_dir(graph_file) == out
+
+
+def test_load_community_labels_reads_legacy_graphify_labels(tmp_path):
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    (out / ".graphify_labels.json").write_text(json.dumps({"0": "Auth", "1": "API"}))
+    labels = _load_community_labels(out, {0: ["n1"], 1: ["n2"]})
+    assert labels == {0: "Auth", 1: "API"}
+
+
+def test_load_community_labels_reads_aag_labels(tmp_path):
+    """The current aag skill writes `.aag_labels.json`; MCP serve must
+    pick it up so community names don't reset to 'Community N'."""
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    (out / ".aag_labels.json").write_text(json.dumps({"0": "Skill-Auth", "1": "Skill-API"}))
+    labels = _load_community_labels(out, {0: ["n1"], 1: ["n2"]})
+    assert labels == {0: "Skill-Auth", 1: "Skill-API"}
+
+
+def test_load_community_labels_works_with_directory_path(tmp_path):
+    """Combined regression: pass the directory (Phase 1 default) and
+    have only the skill-written `.aag_labels.json` — both fixes meet here."""
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    (out / ".aag_labels.json").write_text(json.dumps({"0": "Combined"}))
+    # Caller passes the directory, not graph.json/graph.db.
+    labels = _load_community_labels(str(out), {0: ["n1"]})
+    assert labels == {0: "Combined"}
+
+
+def test_load_community_labels_falls_back_when_missing(tmp_path):
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    labels = _load_community_labels(out, {0: ["n1"], 5: ["n2"]})
+    assert labels == {0: "Community 0", 5: "Community 5"}
