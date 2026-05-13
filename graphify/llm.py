@@ -53,6 +53,20 @@ BACKENDS: dict[str, dict] = {
         "temperature": 0,
         "max_tokens": 16384,
     },
+    "claude-cli": {
+        # Routes through the locally-installed `claude` CLI (Claude Code) using
+        # `-p --output-format json`. Authenticates via the user's existing
+        # Pro/Max subscription instead of a separate ANTHROPIC_API_KEY — costs
+        # are billed to the plan, not pay-as-you-go API credit, so pricing
+        # below is zero for graphify's cost-estimator. Model selection is
+        # whatever the active Claude Code session is using; the `default_model`
+        # value is only for cost-tracking labels.
+        "default_model": "claude-code-plan",
+        "env_key": None,
+        "pricing": {"input": 0.0, "output": 0.0},
+        "temperature": 0,
+        "max_tokens": 16384,
+    },
     "kimi": {
         "base_url": "https://api.moonshot.ai/v1",
         "default_model": "kimi-k2.6",
@@ -397,6 +411,77 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
     return result
 
 
+def _call_claude_cli(user_message: str, max_tokens: int = 8192) -> dict:
+    """Call Claude via the locally-installed Claude Code CLI (`claude -p`).
+
+    Routes through the user's Claude Code subscription auth instead of a separate
+    ANTHROPIC_API_KEY. Useful for users on Pro/Max plans who don't want to
+    provision a pay-as-you-go API key just to run graphify's semantic pass.
+
+    Requires the `claude` binary to be on $PATH and the user to have already
+    authenticated via `claude` interactively at least once.
+    """
+    import shutil
+    import subprocess
+
+    if shutil.which("claude") is None:
+        raise RuntimeError(
+            "Claude Code CLI not found on $PATH. Install from "
+            "https://docs.claude.com/en/docs/agents-and-tools/claude-code and "
+            "run `claude` once interactively to authenticate."
+        )
+
+    proc = subprocess.run(
+        [
+            "claude", "-p",
+            "--output-format", "json",
+            "--append-system-prompt", _EXTRACTION_SYSTEM,
+        ],
+        input=user_message,
+        capture_output=True,
+        text=True,
+        timeout=600,
+        check=False,
+    )
+    if proc.returncode != 0:
+        raise RuntimeError(
+            f"claude -p exited {proc.returncode}: {proc.stderr.strip()[:500]}"
+        )
+
+    try:
+        envelope = json.loads(proc.stdout)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(
+            f"claude -p produced unparseable JSON envelope: {exc}; "
+            f"first 500 chars of stdout: {proc.stdout[:500]!r}"
+        ) from exc
+
+    raw_content = envelope.get("result", "")
+    result = _parse_llm_json(raw_content or "{}")
+    usage = envelope.get("usage") or {}
+    # Total input includes fresh input + cache reads + cache creation — all of
+    # those represent tokens the model processed for this call.
+    result["input_tokens"] = (
+        int(usage.get("input_tokens", 0) or 0)
+        + int(usage.get("cache_read_input_tokens", 0) or 0)
+        + int(usage.get("cache_creation_input_tokens", 0) or 0)
+    )
+    result["output_tokens"] = int(usage.get("output_tokens", 0) or 0)
+    # `modelUsage` keys look like "claude-opus-4-7[1m]" — first key is the active session model.
+    model_usage = envelope.get("modelUsage") or {}
+    result["model"] = next(iter(model_usage), "claude-code-plan")
+    stop_reason = envelope.get("stop_reason", "")
+    result["finish_reason"] = "length" if stop_reason == "max_tokens" else "stop"
+    if _response_is_hollow(raw_content, result) and result["finish_reason"] != "length":
+        print(
+            "[graphify] claude-cli returned a hollow response; treating as "
+            "truncation so adaptive retry can bisect the chunk.",
+            file=sys.stderr,
+        )
+        result["finish_reason"] = "length"
+    return result
+
+
 def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192) -> dict:
     """Call AWS Bedrock via boto3 Converse API using the standard AWS credential chain."""
     try:
@@ -471,7 +556,7 @@ def extract_files_direct(
             file=sys.stderr,
         )
         key = "ollama"
-    if not key and backend != "bedrock":
+    if not key and backend != "bedrock" and backend != "claude-cli":
         raise ValueError(
             f"No API key for backend '{backend}'. "
             f"Set {_format_backend_env_keys(backend)} or pass api_key=."
@@ -482,6 +567,8 @@ def extract_files_direct(
 
     if backend == "claude":
         return _call_claude(key, mdl, user_msg, max_tokens=max_out)
+    if backend == "claude-cli":
+        return _call_claude_cli(user_msg, max_tokens=max_out)
     if backend == "bedrock":
         return _call_bedrock(mdl, user_msg, max_tokens=max_out)
     return _call_openai_compat(
@@ -852,7 +939,7 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
         ollama_url = os.environ.get("OLLAMA_BASE_URL", cfg.get("base_url", ""))
         _validate_ollama_base_url(ollama_url)
         key = "ollama"
-    if not key and backend != "bedrock":
+    if not key and backend != "bedrock" and backend != "claude-cli":
         raise ValueError(
             f"No API key for backend '{backend}'. Set {_format_backend_env_keys(backend)}."
         )
@@ -870,6 +957,28 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
             messages=[{"role": "user", "content": prompt}],
         )
         return resp.content[0].text if resp.content else ""
+
+    if backend == "claude-cli":
+        # Plain-text completion path (no JSON-extraction system prompt). Used
+        # by dedup tiebreaker etc.
+        import shutil, subprocess
+        if shutil.which("claude") is None:
+            raise RuntimeError("Claude Code CLI not found on $PATH")
+        proc = subprocess.run(
+            ["claude", "-p", "--output-format", "json"],
+            input=prompt,
+            capture_output=True,
+            text=True,
+            timeout=600,
+            check=False,
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(f"claude -p exited {proc.returncode}: {proc.stderr.strip()[:500]}")
+        try:
+            envelope = json.loads(proc.stdout)
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(f"claude -p produced unparseable JSON envelope: {exc}") from exc
+        return envelope.get("result", "")
 
     if backend == "bedrock":
         try:

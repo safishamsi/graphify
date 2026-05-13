@@ -2422,6 +2422,18 @@ def main() -> None:
                     host in ("localhost", "127.0.0.1", "::1")
                     or host.startswith("127.")
                 )
+            if backend == "claude-cli":
+                # Routes through the locally-installed Claude Code CLI which
+                # authenticates via its own subscription session — no API key.
+                import shutil as _shutil_check
+                allow_no_key = _shutil_check.which("claude") is not None
+                if not allow_no_key:
+                    print(
+                        "error: backend 'claude-cli' requires the `claude` CLI on $PATH "
+                        "(install Claude Code and run `claude` once to authenticate).",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
             if not allow_no_key:
                 print(
                     f"error: backend '{backend}' requires {_format_backend_env_keys(backend)} to be set.",
