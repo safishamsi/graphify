@@ -380,6 +380,27 @@ def test_merge_update_files_rewrites_extraction_sidecar(tmp_path, monkeypatch):
     assert json.loads(extraction_path.read_text(encoding="utf-8")) == merged
 
 
+def test_rebuild_code_continues_when_lsp_enrichment_fails(tmp_path, monkeypatch, capsys):
+    from graphify import pipeline as pipeline_mod
+    from graphify.watch import _rebuild_code
+
+    src = tmp_path / "app.py"
+    src.write_text("def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n", encoding="utf-8")
+
+    def fail_finalize(result, **_kwargs):
+        raise RuntimeError("hook exploded")
+
+    monkeypatch.setattr(pipeline_mod, "finalize_extraction_for_build", fail_finalize)
+
+    assert _rebuild_code(tmp_path, no_cluster=True)
+
+    captured = capsys.readouterr()
+    assert "warning: LSP enrichment failed: hook exploded" in captured.err
+    graph = json.loads((tmp_path / "graphify-out" / "graph.json").read_text(encoding="utf-8"))
+    assert graph["nodes"]
+    assert "unresolved_calls" not in graph
+
+
 # --- _rebuild_lock (GH-858) ---
 
 

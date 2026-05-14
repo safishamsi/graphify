@@ -197,6 +197,11 @@ class LspClient:
             self.notify("exit")
         except Exception:
             self.proc.terminate()
+        try:
+            self.proc.wait(timeout=5.0)
+        except subprocess.TimeoutExpired:
+            self.proc.kill()
+            self.proc.wait(timeout=5.0)
 
     def stderr_tail(self, limit: int = 50) -> list[str]:
         return list(self._stderr)[-limit:]

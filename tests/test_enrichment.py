@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import sys
 
 from graphify.build import build, build_from_json, build_merge, edge_data
@@ -8,6 +9,7 @@ from graphify.ast_lsp import write_lsp_exchange
 from graphify.enrichment import load_enrichments, merge_enrichments
 from graphify.export import to_json
 from graphify.lsp_definition_hook import (
+    LspClient,
     command_label,
     initialize_capabilities,
     main as lsp_definition_main,
@@ -597,6 +599,155 @@ def test_lsp_hook_chain_runs_for_matching_language(tmp_path, monkeypatch):
     assert ran == ["ruby:test-hook"]
     chunks = load_enrichments([graphify_out / "enrichment" / "lsp"])
     assert chunks[0]["enrichments"][0]["generated_by"] == "test-hook"
+
+
+def test_lsp_hook_omitted_required_defaults_to_optional(tmp_path, monkeypatch, capsys):
+    _enable_hooks(monkeypatch)
+    graphify_out = tmp_path / "graphify-out"
+    unresolved_path, languages = write_lsp_exchange(
+        graphify_out,
+        {
+            "nodes": [{"id": "runner", "source_file": "runner.py"}],
+            "unresolved_calls": [
+                {"caller": "runner", "callee": "target", "source_file": "runner.py"}
+            ],
+        },
+        root=tmp_path,
+        source_files=[tmp_path / "runner.py"],
+    )
+    config = {
+        "lsp": {
+            "hooks": [
+                {
+                    "name": "optional-fail",
+                    "languages": ["python"],
+                    "command": [sys.executable, "-c", "raise SystemExit(7)"],
+                }
+            ]
+        }
+    }
+
+    ran = run_lsp_hooks(
+        root=tmp_path,
+        graphify_out=graphify_out,
+        languages=languages,
+        unresolved_calls_path=unresolved_path,
+        config=config,
+    )
+
+    assert ran == []
+    assert "warning" in capsys.readouterr().err
+
+
+def test_lsp_hook_required_true_raises_on_failure(tmp_path, monkeypatch):
+    _enable_hooks(monkeypatch)
+    graphify_out = tmp_path / "graphify-out"
+    unresolved_path, languages = write_lsp_exchange(
+        graphify_out,
+        {
+            "nodes": [{"id": "runner", "source_file": "runner.py"}],
+            "unresolved_calls": [
+                {"caller": "runner", "callee": "target", "source_file": "runner.py"}
+            ],
+        },
+        root=tmp_path,
+        source_files=[tmp_path / "runner.py"],
+    )
+    config = {
+        "lsp": {
+            "hooks": [
+                {
+                    "name": "required-fail",
+                    "languages": ["python"],
+                    "required": True,
+                    "command": [sys.executable, "-c", "raise SystemExit(7)"],
+                }
+            ]
+        }
+    }
+
+    try:
+        run_lsp_hooks(
+            root=tmp_path,
+            graphify_out=graphify_out,
+            languages=languages,
+            unresolved_calls_path=unresolved_path,
+            config=config,
+        )
+    except RuntimeError as exc:
+        assert "required-fail" in str(exc)
+    else:
+        raise AssertionError("required hook failure should raise")
+
+
+def test_lsp_client_close_waits_after_terminate():
+    class FakeProc:
+        def __init__(self):
+            self.terminated = False
+            self.killed = False
+            self.wait_timeouts = []
+
+        def poll(self):
+            return None
+
+        def terminate(self):
+            self.terminated = True
+
+        def kill(self):
+            self.killed = True
+
+        def wait(self, timeout=None):
+            self.wait_timeouts.append(timeout)
+            return 0
+
+    client = object.__new__(LspClient)
+    client.proc = FakeProc()
+
+    def fail_request(*_args, **_kwargs):
+        raise TimeoutError("shutdown timed out")
+
+    client.request = fail_request
+    client.close()
+
+    assert client.proc.terminated is True
+    assert client.proc.killed is False
+    assert client.proc.wait_timeouts == [5.0]
+
+
+def test_lsp_client_close_kills_if_process_does_not_exit_after_terminate():
+    class StubbornProc:
+        def __init__(self):
+            self.terminated = False
+            self.killed = False
+            self.wait_calls = 0
+
+        def poll(self):
+            return None
+
+        def terminate(self):
+            self.terminated = True
+
+        def kill(self):
+            self.killed = True
+
+        def wait(self, timeout=None):
+            self.wait_calls += 1
+            if self.wait_calls == 1:
+                raise subprocess.TimeoutExpired(cmd="lsp", timeout=timeout)
+            return 0
+
+    client = object.__new__(LspClient)
+    client.proc = StubbornProc()
+
+    def fail_request(*_args, **_kwargs):
+        raise TimeoutError("shutdown timed out")
+
+    client.request = fail_request
+    client.close()
+
+    assert client.proc.terminated is True
+    assert client.proc.killed is True
+    assert client.proc.wait_calls == 2
 
 
 def test_build_merge_prunes_stale_lsp_edges_for_changed_sources(tmp_path):

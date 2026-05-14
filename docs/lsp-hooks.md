@@ -68,7 +68,9 @@ when a project wants shared resolver settings.
 The `{python}` placeholder resolves to `.graphify_python`, then
 `graphify-out/.graphify_python`, then the current graphify interpreter. The
 Graphify skill bootstrap writes `graphify-out/.graphify_python`, so the examples
-below run the hook module from the same environment as graphify.
+below run the hook module from the same environment as graphify. Hooks are
+optional by default; set `"required": true` when a resolver failure should stop
+the enrichment stage.
 
 ```json
 {

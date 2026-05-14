@@ -424,10 +424,14 @@ def _rebuild_code(
                 evict_sources=evict_sources if changed_paths is not None else None,
             )
         except Exception as exc:
-            print(f"[graphify watch] LSP enrichment failed: {exc}", file=sys.stderr)
-            return False
-        for line in lsp_summary.log_lines("[graphify watch]"):
-            print(line)
+            from graphify.ast_lsp import without_unresolved_calls
+
+            print(f"[graphify watch] warning: LSP enrichment failed: {exc}", file=sys.stderr)
+            result = without_unresolved_calls(result)
+            lsp_summary = None
+        if lsp_summary is not None:
+            for line in lsp_summary.log_lines("[graphify watch]"):
+                print(line)
 
         if no_cluster:
             # Normalise to "links" key so schema is consistent with the full clustered path.

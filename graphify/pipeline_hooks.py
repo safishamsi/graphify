@@ -248,7 +248,7 @@ def _run_hooks(
         timeout_arg = float(timeout) if timeout not in (None, "") else None
         if timeout_arg is not None and timeout_arg <= 0:
             timeout_arg = None
-        required = hook.get("required", True) is not False
+        required = hook.get("required", False) is True
         hook_env = env.copy()
         hook_env["GRAPHIFY_HOOK_NAME"] = name
         hook_env["GRAPHIFY_HOOK_INDEX"] = str(idx)
@@ -304,7 +304,7 @@ def _run_hooks(
     for _idx, name, ok, error in sorted(results, key=lambda item: item[0]):
         if ok:
             ran.append(name)
-        elif required_by_name.get(name, True):
+        elif required_by_name.get(name, False):
             failures.append(error or f"hook {name!r} failed")
         else:
             print(f"[graphify hooks] warning: {error}", file=sys.stderr)
