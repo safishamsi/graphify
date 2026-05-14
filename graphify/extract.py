@@ -131,6 +131,34 @@ def _import_python(node, source: bytes, file_nid: str, stem: str, edges: list, s
             })
 
 
+_JS_MODULE_EXTENSIONS = (".ts", ".tsx", ".d.ts", ".js", ".jsx", ".mjs", ".cjs")
+
+
+def _resolve_module_file(base: Path) -> Path | None:
+    """Resolve a TypeScript/JavaScript module specifier to the actual file on disk.
+
+    Node-style resolution: tries the path as-is, then with each known extension,
+    then as a directory with ``index.{ts,tsx,js,jsx,...}``.  Returns None if
+    nothing matches.
+    """
+    try:
+        if base.is_file():
+            return base
+        s = str(base)
+        for ext in _JS_MODULE_EXTENSIONS:
+            cand = Path(s + ext)
+            if cand.is_file():
+                return cand
+        if base.is_dir():
+            for ext in _JS_MODULE_EXTENSIONS:
+                cand = base / f"index{ext}"
+                if cand.is_file():
+                    return cand
+    except OSError:
+        return None
+    return None
+
+
 def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
                alias_map: dict | None = None, project_root: Path | None = None) -> None:
     for child in node.children:
@@ -152,8 +180,10 @@ def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_p
                     except OSError:
                         abs_candidate = None
                 if abs_candidate is not None:
+                    actual = _resolve_module_file(abs_candidate)
+                    target_path = actual if actual is not None else abs_candidate
                     try:
-                        rel = abs_candidate.relative_to(project_root)
+                        rel = target_path.relative_to(project_root)
                         module_name = str(rel.with_suffix(""))
                     except (ValueError, OSError):
                         module_name = None
