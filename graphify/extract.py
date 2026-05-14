@@ -49,6 +49,12 @@ class LanguageConfig:
     # Import handler: called for import nodes instead of generic handling
     import_handler: Callable | None = None
 
+    # Optional override that converts an absolute Path to a per-file identifier
+    # used as the prefix for every node id derived from this file (file, class,
+    # method, function).  When set, this disambiguates files that share the
+    # same basename across the project (e.g. multiple ``test/data.ts``).
+    id_for_path: Callable | None = None
+
     # Optional custom name resolver for functions (C, C++ declarator unwrapping)
     resolve_function_name_fn: Callable | None = None
 
@@ -126,7 +132,7 @@ def _import_python(node, source: bytes, file_nid: str, stem: str, edges: list, s
 
 
 def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str,
-               alias_map: dict | None = None) -> None:
+               alias_map: dict | None = None, project_root: Path | None = None) -> None:
     for child in node.children:
         if child.type == "string":
             raw = _read_text(child, source).strip("'\"` ")
@@ -134,7 +140,27 @@ def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_p
             if alias_map:
                 from .detect import resolve_ts_alias
                 resolved = resolve_ts_alias(raw, alias_map)
-            module_name = resolved.lstrip("./").split("/")[-1]
+
+            module_name: str | None = None
+            if project_root is not None:
+                abs_candidate: Path | None = None
+                if resolved.startswith("/"):
+                    abs_candidate = Path(resolved)
+                elif resolved.startswith("./") or resolved.startswith("../"):
+                    try:
+                        abs_candidate = (Path(str_path).parent / resolved).resolve()
+                    except OSError:
+                        abs_candidate = None
+                if abs_candidate is not None:
+                    try:
+                        rel = abs_candidate.relative_to(project_root)
+                        module_name = str(rel.with_suffix(""))
+                    except (ValueError, OSError):
+                        module_name = None
+
+            if module_name is None:
+                module_name = resolved.lstrip("./").split("/")[-1]
+
             if module_name:
                 tgt_nid = _make_id(module_name)
                 edges.append({
@@ -649,6 +675,11 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
         return {"nodes": [], "edges": [], "error": str(e)}
 
     stem = path.stem
+    if config.id_for_path is not None:
+        try:
+            stem = config.id_for_path(path) or stem
+        except Exception:
+            pass
     str_path = str(path)
     nodes: list[dict] = []
     edges: list[dict] = []
@@ -1102,20 +1133,31 @@ def extract_python(path: Path) -> dict:
 
 def extract_js(path: Path) -> dict:
     """Extract classes, functions, arrow functions, and imports from a .js/.ts/.tsx file."""
-    from .detect import load_tsconfig_paths
+    from .detect import load_tsconfig_paths, find_project_root
     import dataclasses
 
     base_config = _TS_CONFIG if path.suffix in (".ts", ".tsx") else _JS_CONFIG
     alias_map = load_tsconfig_paths(path.parent)
+    project_root = find_project_root(path.parent)
 
-    if alias_map:
-        def _import_js_with_aliases(node, source, file_nid, stem, edges, str_path):
-            _import_js(node, source, file_nid, stem, edges, str_path, alias_map=alias_map)
+    overrides: dict = {}
 
-        config = dataclasses.replace(base_config, import_handler=_import_js_with_aliases)
-    else:
-        config = base_config
+    if project_root is not None:
+        def _id_for_path(p):
+            try:
+                rel = Path(p).resolve().relative_to(project_root)
+            except (ValueError, OSError):
+                return Path(p).stem
+            return str(rel.with_suffix(""))
+        overrides["id_for_path"] = _id_for_path
 
+    if alias_map or project_root is not None:
+        def _import_js_with_resolver(node, source, file_nid, stem, edges, str_path):
+            _import_js(node, source, file_nid, stem, edges, str_path,
+                       alias_map=alias_map or None, project_root=project_root)
+        overrides["import_handler"] = _import_js_with_resolver
+
+    config = dataclasses.replace(base_config, **overrides) if overrides else base_config
     return _extract_generic(path, config)
 
 
