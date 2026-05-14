@@ -30,6 +30,26 @@ import networkx as nx
 from .validate import validate_extraction
 
 
+# Synonym mapper for known invalid file_type values that LLM subagents commonly
+# emit. Keeps semantic intent close (markdown→document, tool→code) and falls
+# back to "concept" for any other invalid value (see #840).
+_FILE_TYPE_SYNONYMS = {
+    "markdown": "document",
+    "text": "document",
+    "tool": "code",
+    "library": "code",
+    "pattern": "concept",
+    "principle": "concept",
+    "constraint": "concept",
+    "tech": "concept",
+    "technology": "concept",
+    "data-source": "concept",
+    "data_source": "concept",
+    "gotcha": "concept",
+    "framework": "concept",
+}
+
+
 def _normalize_id(s: str) -> str:
     r"""Normalize an ID string the same way extract._make_id does.
 
@@ -105,6 +125,9 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
         # trigger spurious "invalid file_type 'None'" validator warnings (#660).
         if node.get("file_type") in (None, ""):
             node["file_type"] = "concept"
+        ft = node.get("file_type", "")
+        if ft and ft not in {"code", "document", "paper", "image", "rationale", "concept"}:
+            node["file_type"] = _FILE_TYPE_SYNONYMS.get(ft, "concept")
 
     errors = validate_extraction(extraction)
     # Dangling edges (stdlib/external imports) are expected - only warn about real schema errors.

@@ -236,3 +236,17 @@ def test_explain_uses_graphify_out_env(tmp_path):
 def test_export_unknown_format_fails(tmp_path):
     r = _run(["export", "pdf"], tmp_path)
     assert r.returncode != 0
+
+
+def test_update_no_cluster_writes_raw_graph(tmp_path):
+    src = tmp_path / "sample.py"
+    src.write_text("def f():\n    return 1\n", encoding="utf-8")
+
+    r = _run(["update", ".", "--no-cluster"], tmp_path)
+    assert r.returncode == 0, r.stderr
+
+    graph_path = tmp_path / "graphify-out" / "graph.json"
+    assert graph_path.exists()
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    assert "nodes" in data and "links" in data
+    assert all("community" not in node for node in data["nodes"])

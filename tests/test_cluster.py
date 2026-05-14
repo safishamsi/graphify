@@ -3,7 +3,7 @@ import sys
 import networkx as nx
 from pathlib import Path
 from graphify.build import build_from_json
-from graphify.cluster import cluster, cohesion_score, score_all
+from graphify.cluster import cluster, cohesion_score, remap_communities_to_previous, score_all
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -74,3 +74,27 @@ def test_cluster_does_not_write_to_stderr(capsys):
     # Allow logging output (starts with [graphify]) but no raw ANSI codes
     for line in captured.err.splitlines():
         assert "\x1b" not in line, f"cluster() wrote ANSI to stderr: {line!r}"
+
+
+def test_remap_communities_to_previous_reuses_old_ids():
+    communities = {
+        10: ["a", "b", "c"],
+        11: ["d", "e"],
+    }
+    previous = {"a": 5, "b": 5, "c": 5, "d": 1, "e": 1}
+    remapped = remap_communities_to_previous(communities, previous)
+    assert set(remapped.keys()) == {1, 5}
+    assert remapped[5] == ["a", "b", "c"]
+    assert remapped[1] == ["d", "e"]
+
+
+def test_remap_communities_to_previous_assigns_deterministic_new_ids():
+    communities = {
+        7: ["x", "y", "z"],
+        8: ["m"],
+    }
+    previous = {"a": 3}
+    remapped = remap_communities_to_previous(communities, previous)
+    assert list(remapped.keys()) == [0, 1]
+    assert remapped[0] == ["x", "y", "z"]
+    assert remapped[1] == ["m"]

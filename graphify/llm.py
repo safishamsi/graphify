@@ -94,6 +94,16 @@ BACKENDS: dict[str, dict] = {
         "temperature": 0,
         "max_tokens": 16384,
     },
+    "claude-cli": {
+        # Routes through the locally-installed `claude` CLI (Claude Code) using
+        # `-p --output-format json`. Authenticates via the user's existing
+        # Pro/Max subscription instead of a separate ANTHROPIC_API_KEY — costs
+        # are billed to the plan, not pay-as-you-go API credit.
+        "default_model": "claude-code-plan",
+        "pricing": {"input": 0.0, "output": 0.0},
+        "temperature": 0,
+        "max_tokens": 16384,
+    },
 }
 
 
@@ -122,7 +132,7 @@ Node ID format: lowercase, only [a-z0-9_], no dots or slashes.
 Format: {stem}_{entity} where stem = filename without extension, entity = symbol name (both normalised).
 
 Output exactly this schema:
-{"nodes":[{"id":"stem_entity","label":"Human Readable Name","file_type":"code|document|paper|image|concept","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[],"input_tokens":0,"output_tokens":0}
+{"nodes":[{"id":"stem_entity","label":"Human Readable Name","file_type":"code|document|paper|image|rationale|concept","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[],"input_tokens":0,"output_tokens":0}
 """
 
 
@@ -397,6 +407,71 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
     return result
 
 
+def _call_claude_cli(user_message: str, max_tokens: int = 8192) -> dict:
+    """Call Claude via the locally-installed Claude Code CLI (`claude -p`).
+
+    Routes through the user's Claude Code subscription auth instead of a separate
+    ANTHROPIC_API_KEY. Useful for Pro/Max subscribers who don't want to provision
+    a pay-as-you-go API key just to run graphify's semantic pass.
+    """
+    import shutil
+    import subprocess
+
+    if shutil.which("claude") is None:
+        raise RuntimeError(
+            "Claude Code CLI not found on $PATH. Install from "
+            "https://claude.ai/code and run `claude` once to authenticate."
+        )
+
+    proc = subprocess.run(
+        [
+            "claude", "-p",
+            "--output-format", "json",
+            "--no-session-persistence",
+            "--append-system-prompt", _EXTRACTION_SYSTEM,
+        ],
+        input=user_message,
+        capture_output=True,
+        text=True,
+        timeout=600,
+        check=False,
+    )
+    if proc.returncode != 0:
+        raise RuntimeError(
+            f"claude -p exited {proc.returncode}: {proc.stderr.strip()[:500]}"
+        )
+
+    try:
+        envelope = json.loads(proc.stdout)
+    except json.JSONDecodeError as exc:
+        raise RuntimeError(
+            f"claude -p produced unparseable JSON envelope: {exc}; "
+            f"first 500 chars of stdout: {proc.stdout[:500]!r}"
+        ) from exc
+
+    raw_content = envelope.get("result", "")
+    result = _parse_llm_json(raw_content or "{}")
+    usage = envelope.get("usage") or {}
+    result["input_tokens"] = (
+        int(usage.get("input_tokens", 0) or 0)
+        + int(usage.get("cache_read_input_tokens", 0) or 0)
+        + int(usage.get("cache_creation_input_tokens", 0) or 0)
+    )
+    result["output_tokens"] = int(usage.get("output_tokens", 0) or 0)
+    model_usage = envelope.get("modelUsage") or {}
+    result["model"] = next(iter(model_usage), "claude-code-plan")
+    stop_reason = envelope.get("stop_reason", "")
+    result["finish_reason"] = "length" if stop_reason == "max_tokens" else "stop"
+    if _response_is_hollow(raw_content, result) and result["finish_reason"] != "length":
+        print(
+            "[graphify] claude-cli returned a hollow response; treating as "
+            "truncation so adaptive retry can bisect the chunk.",
+            file=sys.stderr,
+        )
+        result["finish_reason"] = "length"
+    return result
+
+
 def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192) -> dict:
     """Call AWS Bedrock via boto3 Converse API using the standard AWS credential chain."""
     try:
@@ -471,7 +546,7 @@ def extract_files_direct(
             file=sys.stderr,
         )
         key = "ollama"
-    if not key and backend != "bedrock":
+    if not key and backend not in ("bedrock", "claude-cli"):
         raise ValueError(
             f"No API key for backend '{backend}'. "
             f"Set {_format_backend_env_keys(backend)} or pass api_key=."
@@ -482,6 +557,8 @@ def extract_files_direct(
 
     if backend == "claude":
         return _call_claude(key, mdl, user_msg, max_tokens=max_out)
+    if backend == "claude-cli":
+        return _call_claude_cli(user_msg, max_tokens=max_out)
     if backend == "bedrock":
         return _call_bedrock(mdl, user_msg, max_tokens=max_out)
     return _call_openai_compat(
@@ -794,6 +871,10 @@ def extract_corpus_parallel(
     # responses after 3-4 chunks (#798). Force serial unless the user opts in.
     if backend == "ollama" and os.environ.get("GRAPHIFY_OLLAMA_PARALLEL", "").strip() != "1":
         max_concurrency = 1
+    # claude-cli shells out to a Claude Code session; parallel subprocesses conflict
+    # over session state. Force serial unless the user explicitly opts in.
+    if backend == "claude-cli" and os.environ.get("GRAPHIFY_CLAUDE_CLI_PARALLEL", "").strip() != "1":
+        max_concurrency = 1
     workers = max(1, min(max_concurrency, total))
     if workers == 1:
         # Avoid thread pool overhead for single-worker runs (and keep
@@ -852,7 +933,7 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
         ollama_url = os.environ.get("OLLAMA_BASE_URL", cfg.get("base_url", ""))
         _validate_ollama_base_url(ollama_url)
         key = "ollama"
-    if not key and backend != "bedrock":
+    if not key and backend not in ("bedrock", "claude-cli"):
         raise ValueError(
             f"No API key for backend '{backend}'. Set {_format_backend_env_keys(backend)}."
         )
@@ -870,6 +951,26 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
             messages=[{"role": "user", "content": prompt}],
         )
         return resp.content[0].text if resp.content else ""
+
+    if backend == "claude-cli":
+        import shutil, subprocess
+        if shutil.which("claude") is None:
+            raise RuntimeError("Claude Code CLI not found on $PATH")
+        proc = subprocess.run(
+            ["claude", "-p", "--output-format", "json", "--no-session-persistence"],
+            input=prompt,
+            capture_output=True,
+            text=True,
+            timeout=600,
+            check=False,
+        )
+        if proc.returncode != 0:
+            raise RuntimeError(f"claude -p exited {proc.returncode}: {proc.stderr.strip()[:500]}")
+        try:
+            envelope = json.loads(proc.stdout)
+        except json.JSONDecodeError as exc:
+            raise RuntimeError(f"claude -p produced unparseable JSON envelope: {exc}") from exc
+        return envelope.get("result", "")
 
     if backend == "bedrock":
         try:

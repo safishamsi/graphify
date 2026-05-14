@@ -1153,6 +1153,7 @@ def main() -> None:
         print("  update <path>           re-extract code files and update the graph (no LLM needed)")
         print("    --force                 overwrite graph.json even if the rebuild has fewer nodes")
         print("                            (also: GRAPHIFY_FORCE=1 env var; use after refactors that delete code)")
+        print("    --no-cluster            skip clustering, write raw extraction only")
         print("  expand <paths...>       add new directories/files to existing graph (incremental)")
         print("    --dry-run               show what would be added without modifying the graph")
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
@@ -1516,6 +1517,8 @@ def main() -> None:
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
+        # Force directed so the renderer can recover stored caller→callee direction.
+        _raw = {**_raw, "directed": True}
         try:
             G = json_graph.node_link_graph(_raw, edges="links")
         except TypeError:
@@ -1549,7 +1552,7 @@ def main() -> None:
                         file=sys.stderr,
                     )
         try:
-            path_nodes = _nx.shortest_path(G, src_nid, tgt_nid)
+            path_nodes = _nx.shortest_path(G.to_undirected(as_view=True), src_nid, tgt_nid)
         except (_nx.NetworkXNoPath, _nx.NodeNotFound):
             print(f"No path found between '{source_label}' and '{target_label}'.")
             sys.exit(0)
@@ -1558,13 +1561,22 @@ def main() -> None:
         from graphify.build import edge_data
         for i in range(len(path_nodes) - 1):
             u, v = path_nodes[i], path_nodes[i + 1]
-            edata = edge_data(G, u, v)
+            # Check which direction the stored edge points.
+            if G.has_edge(u, v):
+                edata = edge_data(G, u, v)
+                forward = True
+            else:
+                edata = edge_data(G, v, u)
+                forward = False
             rel = edata.get("relation", "")
             conf = edata.get("confidence", "")
             conf_str = f" [{conf}]" if conf else ""
             if i == 0:
                 segments.append(G.nodes[u].get("label", u))
-            segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            if forward:
+                segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            else:
+                segments.append(f"<--{rel}{conf_str}-- {G.nodes[v].get('label', v)}")
         print(f"Shortest path ({hops} hops):\n  " + " ".join(segments))
 
     elif cmd == "explain":
@@ -1586,6 +1598,8 @@ def main() -> None:
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
+        # Force directed so the renderer can recover stored caller→callee direction.
+        _raw = {**_raw, "directed": True}
         try:
             G = json_graph.node_link_graph(_raw, edges="links")
         except TypeError:
@@ -1602,17 +1616,22 @@ def main() -> None:
         print(f"  Type:      {d.get('file_type', '')}")
         print(f"  Community: {d.get('community', '')}")
         print(f"  Degree:    {G.degree(nid)}")
-        neighbors = list(G.neighbors(nid))
-        if neighbors:
-            from graphify.build import edge_data
-            print(f"\nConnections ({len(neighbors)}):")
-            for nb in sorted(neighbors, key=lambda n: G.degree(n), reverse=True)[:20]:
-                edata = edge_data(G, nid, nb)
+        from graphify.build import edge_data
+        connections: list[tuple[str, str, dict]] = []  # (direction, neighbor_id, edge_data)
+        for nb in G.successors(nid):
+            connections.append(("out", nb, edge_data(G, nid, nb)))
+        for nb in G.predecessors(nid):
+            connections.append(("in", nb, edge_data(G, nb, nid)))
+        if connections:
+            print(f"\nConnections ({len(connections)}):")
+            connections.sort(key=lambda c: G.degree(c[1]), reverse=True)
+            for direction, nb, edata in connections[:20]:
                 rel = edata.get("relation", "")
                 conf = edata.get("confidence", "")
-                print(f"  --> {G.nodes[nb].get('label', nb)} [{rel}] [{conf}]")
-            if len(neighbors) > 20:
-                print(f"  ... and {len(neighbors) - 20} more")
+                arrow = "-->" if direction == "out" else "<--"
+                print(f"  {arrow} {G.nodes[nb].get('label', nb)} [{rel}] [{conf}]")
+            if len(connections) > 20:
+                print(f"  ... and {len(connections) - 20} more")
 
     elif cmd == "add":
         if len(sys.argv) < 3:
@@ -1740,12 +1759,26 @@ def main() -> None:
 
     elif cmd == "update":
         force = os.environ.get("GRAPHIFY_FORCE", "").lower() in ("1", "true", "yes")
-        argv = list(sys.argv)
-        if "--force" in argv[2:]:
-            force = True
-            argv = [a for a in argv if a != "--force"]
-        if len(argv) > 2:
-            watch_path = Path(argv[2])
+        no_cluster = False
+        args = sys.argv[2:]
+        watch_arg: str | None = None
+        for a in args:
+            if a == "--force":
+                force = True
+                continue
+            if a == "--no-cluster":
+                no_cluster = True
+                continue
+            if a.startswith("-"):
+                print(f"error: unknown update option: {a}", file=sys.stderr)
+                sys.exit(2)
+            if watch_arg is not None:
+                print("error: update accepts at most one path argument", file=sys.stderr)
+                sys.exit(2)
+            watch_arg = a
+
+        if watch_arg is not None:
+            watch_path = Path(watch_arg)
         else:
             # Try to recover the scan root saved by the last full build
             saved = Path(_GRAPHIFY_OUT) / ".graphify_root"
@@ -1761,7 +1794,7 @@ def main() -> None:
         # Interactive CLI: block on the per-repo lock rather than skip, so the
         # user sees their explicit `graphify update` complete instead of
         # exiting silently when a hook-driven rebuild happens to be running.
-        ok = _rebuild_code(watch_path, force=force, block_on_lock=True)
+        ok = _rebuild_code(watch_path, force=force, no_cluster=no_cluster, block_on_lock=True)
         if ok:
             print("Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.")
             if not (
@@ -2455,6 +2488,23 @@ def main() -> None:
                     host in ("localhost", "127.0.0.1", "::1")
                     or host.startswith("127.")
                 )
+            elif backend == "bedrock":
+                allow_no_key = bool(
+                    os.environ.get("AWS_PROFILE")
+                    or os.environ.get("AWS_REGION")
+                    or os.environ.get("AWS_DEFAULT_REGION")
+                    or os.environ.get("AWS_ACCESS_KEY_ID")
+                )
+            elif backend == "claude-cli":
+                import shutil as _shutil
+                allow_no_key = _shutil.which("claude") is not None
+                if not allow_no_key:
+                    print(
+                        "error: backend 'claude-cli' requires the `claude` CLI on $PATH "
+                        "(install Claude Code and run `claude` once to authenticate).",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
             if not allow_no_key:
                 print(
                     f"error: backend '{backend}' requires {_format_backend_env_keys(backend)} to be set.",
