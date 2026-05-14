@@ -116,8 +116,9 @@ def test_missing_file_type_defaults_to_concept(capsys):
     assert G.nodes["n1"]["file_type"] == "concept"
 
 
-def test_real_invalid_file_type_still_warns(capsys):
-    """Truly invalid file_type values (not None, not empty) must still warn."""
+def test_real_invalid_file_type_coerced_to_concept():
+    """Unknown file_type values are coerced through the synonym mapper, falling
+    back to 'concept' for anything that isn't a known LLM synonym (#840)."""
     ext = {
         "nodes": [
             {"id": "n1", "label": "Bad", "file_type": "weird_type", "source_file": "a.py"},
@@ -126,10 +127,26 @@ def test_real_invalid_file_type_still_warns(capsys):
         "input_tokens": 0,
         "output_tokens": 0,
     }
-    build_from_json(ext)
-    err = capsys.readouterr().err
-    assert "invalid file_type" in err
-    assert "weird_type" in err
+    G = build_from_json(ext)
+    assert G.nodes["n1"]["file_type"] == "concept"
+
+
+def test_file_type_synonym_mapping():
+    """Known invalid file_type values map to their canonical equivalents."""
+    ext = {
+        "nodes": [
+            {"id": "n1", "label": "MD", "file_type": "markdown", "source_file": "a.md"},
+            {"id": "n2", "label": "Tool", "file_type": "tool", "source_file": "b.py"},
+            {"id": "n3", "label": "Pat", "file_type": "pattern", "source_file": "c.md"},
+        ],
+        "edges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    G = build_from_json(ext)
+    assert G.nodes["n1"]["file_type"] == "document"
+    assert G.nodes["n2"]["file_type"] == "code"
+    assert G.nodes["n3"]["file_type"] == "concept"
 
 
 def test_build_merge_preserves_call_edge_direction(tmp_path):

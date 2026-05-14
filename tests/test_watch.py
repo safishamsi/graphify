@@ -376,3 +376,59 @@ def test_merge_update_files_rewrites_extraction_sidecar(tmp_path, monkeypatch):
     assert merged["nodes"][0]["label"] == "App::Runner"
     assert merged["nodes"][0]["source_location"] == "L1"
     assert json.loads(extraction_path.read_text(encoding="utf-8")) == merged
+
+
+def test_rebuild_code_is_idempotent_when_cluster_ids_flap(tmp_path, monkeypatch):
+    from graphify import cluster as cluster_mod
+    from graphify.watch import _rebuild_code
+
+    src = tmp_path / "app.py"
+    src.write_text("def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n", encoding="utf-8")
+
+    calls = {"n": 0}
+
+    def flaky_cluster(G):
+        calls["n"] += 1
+        nodes = sorted(G.nodes())
+        if calls["n"] % 2 == 1:
+            return {100: nodes}
+        return {7: nodes}
+
+    monkeypatch.setattr(cluster_mod, "cluster", flaky_cluster)
+    monkeypatch.setattr(cluster_mod, "score_all", lambda _G, comm: {cid: 1.0 for cid in comm})
+
+    assert _rebuild_code(tmp_path)
+    graph_path = tmp_path / "graphify-out" / "graph.json"
+    report_path = tmp_path / "graphify-out" / "GRAPH_REPORT.md"
+    first_graph = graph_path.read_text(encoding="utf-8")
+    first_report = report_path.read_text(encoding="utf-8")
+
+    assert _rebuild_code(tmp_path)
+    second_graph = graph_path.read_text(encoding="utf-8")
+    second_report = report_path.read_text(encoding="utf-8")
+
+    assert first_graph == second_graph
+    assert first_report == second_report
+
+
+def test_rebuild_code_skips_cluster_when_topology_unchanged(tmp_path, monkeypatch):
+    from graphify import cluster as cluster_mod
+    from graphify.watch import _rebuild_code
+
+    src = tmp_path / "app.py"
+    src.write_text("def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n", encoding="utf-8")
+
+    calls = {"n": 0}
+
+    def cluster_once(G):
+        calls["n"] += 1
+        if calls["n"] > 1:
+            raise AssertionError("cluster() should be skipped when topology is unchanged")
+        return {0: sorted(G.nodes())}
+
+    monkeypatch.setattr(cluster_mod, "cluster", cluster_once)
+    monkeypatch.setattr(cluster_mod, "score_all", lambda _G, comm: {cid: 1.0 for cid in comm})
+
+    assert _rebuild_code(tmp_path)
+    assert _rebuild_code(tmp_path)
+    assert calls["n"] == 1

@@ -20,6 +20,7 @@ def _load_graph(graph_path: str) -> nx.Graph:
         data = json.loads(safe.read_text(encoding="utf-8"))
         if "links" not in data and "edges" in data:
             data = dict(data, links=data["edges"])
+        data = {**data, "directed": True}
         try:
             return json_graph.node_link_graph(data, edges="links")
         except TypeError:
@@ -141,12 +142,26 @@ def _filter_graph_by_context(G: nx.Graph, context_filters: list[str] | None) -> 
 
 
 def _bfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], list[tuple]]:
+    # Compute hub threshold: nodes above this degree are not expanded as transit.
+    # p99 of degree distribution, floored at 50 to avoid over-blocking small graphs.
+    degrees = [G.degree(n) for n in G.nodes()]
+    if degrees:
+        degrees_sorted = sorted(degrees)
+        p99_idx = int(len(degrees_sorted) * 0.99)
+        hub_threshold = max(50, degrees_sorted[p99_idx])
+    else:
+        hub_threshold = 50
+    seed_set = set(start_nodes)
     visited: set[str] = set(start_nodes)
     frontier = set(start_nodes)
     edges_seen: list[tuple] = []
     for _ in range(depth):
         next_frontier: set[str] = set()
         for n in frontier:
+            # Don't expand through high-degree hubs (except seeds - a hub that
+            # is the starting node should still be explored).
+            if n not in seed_set and G.degree(n) >= hub_threshold:
+                continue
             for neighbor in G.neighbors(n):
                 if neighbor not in visited:
                     next_frontier.add(neighbor)
@@ -157,6 +172,14 @@ def _bfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], lis
 
 
 def _dfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], list[tuple]]:
+    degrees = [G.degree(n) for n in G.nodes()]
+    if degrees:
+        degrees_sorted = sorted(degrees)
+        p99_idx = int(len(degrees_sorted) * 0.99)
+        hub_threshold = max(50, degrees_sorted[p99_idx])
+    else:
+        hub_threshold = 50
+    seed_set = set(start_nodes)
     visited: set[str] = set()
     edges_seen: list[tuple] = []
     stack = [(n, 0) for n in reversed(start_nodes)]
@@ -165,6 +188,8 @@ def _dfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], lis
         if node in visited or d > depth:
             continue
         visited.add(node)
+        if node not in seed_set and G.degree(node) >= hub_threshold:
+            continue
         for neighbor in G.neighbors(node):
             if neighbor not in visited:
                 stack.append((neighbor, d + 1))
@@ -430,13 +455,22 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             return f"No node matching '{label}' found."
         nid = matches[0]
         lines = [f"Neighbors of {sanitize_label(G.nodes[nid].get('label', nid))}:"]
-        for neighbor in G.neighbors(nid):
-            d = edge_data(G, nid, neighbor)
+        for nb in G.successors(nid):
+            d = edge_data(G, nid, nb)
             rel = d.get("relation", "")
             if rel_filter and rel_filter not in rel.lower():
                 continue
             lines.append(
-                f"  --> {sanitize_label(G.nodes[neighbor].get('label', neighbor))} "
+                f"  --> {sanitize_label(G.nodes[nb].get('label', nb))} "
+                f"[{sanitize_label(str(rel))}] [{sanitize_label(str(d.get('confidence', '')))}]"
+            )
+        for nb in G.predecessors(nid):
+            d = edge_data(G, nb, nid)
+            rel = d.get("relation", "")
+            if rel_filter and rel_filter not in rel.lower():
+                continue
+            lines.append(
+                f"  <-- {sanitize_label(G.nodes[nb].get('label', nb))} "
                 f"[{sanitize_label(str(rel))}] [{sanitize_label(str(d.get('confidence', '')))}]"
             )
         return "\n".join(lines)
@@ -502,7 +536,8 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                     )
         max_hops = int(arguments.get("max_hops", 8))
         try:
-            path_nodes = nx.shortest_path(G, src_nid, tgt_nid)
+            # Use undirected view for path-finding (works regardless of query src/tgt order)
+            path_nodes = nx.shortest_path(G.to_undirected(as_view=True), src_nid, tgt_nid)
         except (nx.NetworkXNoPath, nx.NodeNotFound):
             return f"No path found between '{G.nodes[src_nid].get('label', src_nid)}' and '{G.nodes[tgt_nid].get('label', tgt_nid)}'."
         hops = len(path_nodes) - 1
@@ -511,13 +546,21 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         segments = []
         for i in range(len(path_nodes) - 1):
             u, v = path_nodes[i], path_nodes[i + 1]
-            edata = edge_data(G, u, v)
+            if G.has_edge(u, v):
+                edata = edge_data(G, u, v)
+                forward = True
+            else:
+                edata = edge_data(G, v, u)
+                forward = False
             rel = edata.get("relation", "")
             conf = edata.get("confidence", "")
             conf_str = f" [{conf}]" if conf else ""
             if i == 0:
                 segments.append(G.nodes[u].get("label", u))
-            segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            if forward:
+                segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            else:
+                segments.append(f"<--{rel}{conf_str}-- {G.nodes[v].get('label', v)}")
         prefix = ("\n".join(warnings) + "\n") if warnings else ""
         return prefix + f"Shortest path ({hops} hops):\n  " + " ".join(segments)
 
