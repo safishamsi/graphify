@@ -490,20 +490,125 @@ def detect_incremental(root: Path, manifest_path: str = _MANIFEST_PATH) -> dict:
     return full
 
 
+def find_project_root(start: Path) -> Path | None:
+    """Walk up from *start* until a .git directory is found and return its parent.
+
+    Used by the import resolver to derive project-relative node IDs so that
+    multiple files sharing the same basename (e.g. ``test/data.ts``) don't
+    collapse onto a single graph node.
+    """
+    current = Path(start).resolve()
+    if current.is_file():
+        current = current.parent
+    while True:
+        if (current / ".git").exists():
+            return current
+        parent = current.parent
+        if parent == current:
+            return None
+        current = parent
+
+
+def _parse_jsonc(raw: str) -> dict | None:
+    out: list[str] = []
+    i, n = 0, len(raw)
+    while i < n:
+        c = raw[i]
+        if c == '"':
+            j = i + 1
+            while j < n:
+                if raw[j] == "\\" and j + 1 < n:
+                    j += 2
+                    continue
+                if raw[j] == '"':
+                    j += 1
+                    break
+                j += 1
+            out.append(raw[i:j])
+            i = j
+        elif c == "/" and i + 1 < n and raw[i + 1] == "/":
+            nl = raw.find("\n", i)
+            i = n if nl == -1 else nl
+        elif c == "/" and i + 1 < n and raw[i + 1] == "*":
+            end = raw.find("*/", i + 2)
+            i = n if end == -1 else end + 2
+        else:
+            out.append(c)
+            i += 1
+    stripped = re.sub(r",\s*([}\]])", r"\1", "".join(out))
+    try:
+        return json.loads(stripped)
+    except Exception:
+        return None
+
+
+def _resolve_extends_path(tsconfig_dir: Path, extends_value: str) -> Path | None:
+    candidate = (tsconfig_dir / extends_value).resolve()
+    if candidate.is_file():
+        return candidate
+    if not candidate.suffix:
+        with_json = candidate.with_suffix(".json")
+        if with_json.is_file():
+            return with_json
+    return None
+
+
+def _collect_tsconfig_paths(tsconfig_path: Path, visited: set[Path]) -> dict[str, str]:
+    if tsconfig_path in visited:
+        return {}
+    visited.add(tsconfig_path)
+
+    try:
+        raw = tsconfig_path.read_text(encoding="utf-8")
+    except Exception:
+        return {}
+    data = _parse_jsonc(raw)
+    if data is None:
+        return {}
+
+    inherited: dict[str, str] = {}
+    extends_value = data.get("extends")
+    if isinstance(extends_value, str):
+        ext_path = _resolve_extends_path(tsconfig_path.parent, extends_value)
+        if ext_path is not None:
+            inherited = _collect_tsconfig_paths(ext_path, visited)
+
+    compiler_options = data.get("compilerOptions", {})
+    paths = compiler_options.get("paths", {})
+    if not paths:
+        return inherited
+
+    base_url = compiler_options.get("baseUrl", ".")
+    base_dir = (tsconfig_path.parent / base_url).resolve()
+    own: dict[str, str] = {}
+    for alias, targets in paths.items():
+        if not targets:
+            continue
+        alias_prefix = alias.rstrip("*").rstrip("/")
+        target = targets[0].rstrip("*").rstrip("/")
+        resolved = (base_dir / target).resolve()
+        own[alias_prefix] = str(resolved)
+
+    return {**inherited, **own}
+
+
 def load_tsconfig_paths(root: Path) -> dict[str, str]:
     """Parse tsconfig.json compilerOptions.paths and return an alias→prefix map.
 
     Walks up from *root* until a tsconfig.json is found or the filesystem root
-    is reached.  Returns a dict mapping each alias prefix (e.g. ``"@/"`` or
-    ``"@components/"```) to its resolved filesystem prefix (e.g. ``"src/"``).
+    is reached.  Follows the ``extends`` chain so configs that only re-export
+    a base file (common in Nx/Angular monorepos where every project
+    tsconfig.json contains just ``"extends": "../../tsconfig.base.json"``)
+    still produce the inherited alias map.
 
-    Only the first glob pattern for each alias is used; ``*`` wildcards are
-    stripped to give a plain prefix that can be used with ``str.startswith``.
+    Returns a dict mapping each alias prefix (e.g. ``"@/"`` or
+    ``"@components/"```) to its resolved filesystem prefix.  Only the first
+    glob pattern for each alias is used; ``*`` wildcards are stripped to
+    give a plain prefix that can be used with ``str.startswith``.
 
-    Returns an empty dict when no tsconfig.json is found or when it contains
-    no ``paths`` mapping.
+    Returns an empty dict when no tsconfig.json is found or when no
+    ``paths`` mapping is reachable through the extends chain.
     """
-    # Walk up directory tree to find tsconfig.json
     current = Path(root).resolve()
     tsconfig_path: Path | None = None
     while True:
@@ -519,60 +624,7 @@ def load_tsconfig_paths(root: Path) -> dict[str, str]:
     if tsconfig_path is None:
         return {}
 
-    try:
-        raw = tsconfig_path.read_text(encoding="utf-8")
-        # tsconfig.json is JSONC: strip // and /* */ comments and trailing commas
-        out: list[str] = []
-        i, n = 0, len(raw)
-        while i < n:
-            c = raw[i]
-            if c == '"':
-                j = i + 1
-                while j < n:
-                    if raw[j] == "\\" and j + 1 < n:
-                        j += 2
-                        continue
-                    if raw[j] == '"':
-                        j += 1
-                        break
-                    j += 1
-                out.append(raw[i:j])
-                i = j
-            elif c == "/" and i + 1 < n and raw[i + 1] == "/":
-                nl = raw.find("\n", i)
-                i = n if nl == -1 else nl
-            elif c == "/" and i + 1 < n and raw[i + 1] == "*":
-                end = raw.find("*/", i + 2)
-                i = n if end == -1 else end + 2
-            else:
-                out.append(c)
-                i += 1
-        stripped = re.sub(r",\s*([}\]])", r"\1", "".join(out))
-        data = json.loads(stripped)
-    except Exception:
-        return {}
-
-    compiler_options = data.get("compilerOptions", {})
-    base_url = compiler_options.get("baseUrl", ".")
-    paths = compiler_options.get("paths", {})
-    if not paths:
-        return {}
-
-    alias_map: dict[str, str] = {}
-    tsconfig_dir = tsconfig_path.parent
-    base_dir = (tsconfig_dir / base_url).resolve()
-
-    for alias, targets in paths.items():
-        if not targets:
-            continue
-        # Strip trailing /* from alias to get the prefix used in import strings
-        alias_prefix = alias.rstrip("*").rstrip("/")
-        # Use first target, strip trailing /*
-        target = targets[0].rstrip("*").rstrip("/")
-        resolved = (base_dir / target).resolve()
-        alias_map[alias_prefix] = str(resolved)
-
-    return alias_map
+    return _collect_tsconfig_paths(tsconfig_path, set())
 
 
 def resolve_ts_alias(import_path: str, alias_map: dict[str, str]) -> str:
