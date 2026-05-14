@@ -1,11 +1,13 @@
 """Tests for watch.py - file watcher helpers (no watchdog required)."""
 import json
+import os
+import sys
 import time
 from pathlib import Path
 import pytest
 
 from graphify.pipeline import merge_update_files, merge_update_payload
-from graphify.watch import _notify_only, _WATCHED_EXTENSIONS
+from graphify.watch import _notify_only, _WATCHED_EXTENSIONS, _rebuild_lock
 
 
 # --- _notify_only ---
@@ -376,6 +378,60 @@ def test_merge_update_files_rewrites_extraction_sidecar(tmp_path, monkeypatch):
     assert merged["nodes"][0]["label"] == "App::Runner"
     assert merged["nodes"][0]["source_location"] == "L1"
     assert json.loads(extraction_path.read_text(encoding="utf-8")) == merged
+
+
+# --- _rebuild_lock (GH-858) ---
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="fcntl-only (POSIX)")
+def test_rebuild_lock_writes_pid_with_newline(tmp_path):
+    out = tmp_path / "graphify-out"
+    lock_path = out / ".rebuild.lock"
+    with _rebuild_lock(out) as got:
+        assert got is True
+        assert lock_path.exists()
+        contents = lock_path.read_text(encoding="utf-8")
+        assert contents == f"{os.getpid()}\n", contents
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="fcntl-only (POSIX)")
+def test_rebuild_lock_removed_after_release(tmp_path):
+    """GH-858: lock file must be unlinked once the rebuild completes so
+    downstream waiters that poll for its absence unblock promptly."""
+    out = tmp_path / "graphify-out"
+    lock_path = out / ".rebuild.lock"
+    with _rebuild_lock(out) as got:
+        assert got is True
+    assert not lock_path.exists(), "lock file should be unlinked after release"
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="fcntl-only (POSIX)")
+def test_rebuild_lock_does_not_accumulate_pids_across_runs(tmp_path):
+    """GH-858: each acquisition truncates and rewrites the PID line rather
+    than appending, so the file never grows into a digit-concatenation."""
+    out = tmp_path / "graphify-out"
+    lock_path = out / ".rebuild.lock"
+    expected = f"{os.getpid()}\n"
+    for _ in range(5):
+        with _rebuild_lock(out) as got:
+            assert got is True
+            assert lock_path.read_text(encoding="utf-8") == expected
+        assert not lock_path.exists()
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="fcntl-only (POSIX)")
+def test_rebuild_lock_non_blocking_does_not_clobber_holder(tmp_path):
+    """GH-858: a non-blocking caller that fails to acquire the lock must not
+    truncate the holder's PID payload."""
+    out = tmp_path / "graphify-out"
+    lock_path = out / ".rebuild.lock"
+    with _rebuild_lock(out) as outer:
+        assert outer is True
+        held_contents = lock_path.read_text(encoding="utf-8")
+        with _rebuild_lock(out, blocking=False) as inner:
+            assert inner is False
+            # Holder's PID line must still be intact.
+            assert lock_path.read_text(encoding="utf-8") == held_contents
 
 
 def test_rebuild_code_is_idempotent_when_cluster_ids_flap(tmp_path, monkeypatch):

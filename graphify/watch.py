@@ -19,6 +19,11 @@ def _rebuild_lock(out_dir: Path, *, blocking: bool = False):
     ``blocking`` is False. Uses fcntl.flock so the lock is released
     automatically if the process is killed (no stale-lock cleanup needed).
 
+    While the lock is held, ``.rebuild.lock`` contains the owning PID followed
+    by a newline so external pollers (publish scripts, etc.) can read it.
+    On successful release the file is unlinked so downstream tooling that
+    waits for the lock to clear by polling for its absence unblocks promptly.
+
     Falls back to a no-op yield(True) on platforms without fcntl (Windows).
     """
     try:
@@ -29,7 +34,11 @@ def _rebuild_lock(out_dir: Path, *, blocking: bool = False):
 
     out_dir.mkdir(parents=True, exist_ok=True)
     lock_path = out_dir / ".rebuild.lock"
-    fh = open(lock_path, "a", encoding="utf-8")
+    # "a+" creates the file if missing without truncating an existing holder's
+    # PID payload — important because another process may have already written
+    # its PID before we attempt the flock.
+    fh = open(lock_path, "a+", encoding="utf-8")
+    acquired = False
     try:
         flags = fcntl.LOCK_EX if blocking else (fcntl.LOCK_EX | fcntl.LOCK_NB)
         try:
@@ -37,13 +46,29 @@ def _rebuild_lock(out_dir: Path, *, blocking: bool = False):
         except BlockingIOError:
             yield False
             return
-        yield True
-    finally:
+        acquired = True
+        # Replace any prior owner's PID with ours so external readers see a
+        # single parseable line, not a digit-concatenation across rebuilds.
         try:
-            fcntl.flock(fh.fileno(), fcntl.LOCK_UN)
+            fh.seek(0)
+            fh.truncate()
+            fh.write(f"{os.getpid()}\n")
+            fh.flush()
         except OSError:
             pass
+        yield True
+    finally:
+        if acquired:
+            try:
+                fcntl.flock(fh.fileno(), fcntl.LOCK_UN)
+            except OSError:
+                pass
         fh.close()
+        # Signal "rebuild done" by removing the lock file. Only the holder
+        # unlinks; a non-acquiring caller leaves the existing lock in place.
+        if acquired:
+            with contextlib.suppress(OSError):
+                lock_path.unlink()
 
 
 def _apply_resource_limits() -> None:
