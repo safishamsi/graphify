@@ -2893,6 +2893,277 @@ def extract_swift(path: Path) -> dict:
     return _extract_generic(path, _SWIFT_CONFIG)
 
 
+# ── DM (BYOND DreamMaker) extractor (custom walk) ────────────────────────────
+# DM identity is path-based (`/datum/object/proc/New()`), not block-based, so
+# the generic class-body walker doesn't fit.
+
+def extract_dm(path: Path) -> dict:
+    """Extract types, procs, includes, and calls from a .dm/.dme file."""
+    try:
+        import tree_sitter_dm as tsdm
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree-sitter-dm not installed"}
+    try:
+        language = Language(tsdm.language())
+        parser = Parser(language)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    function_bodies: list[tuple[str, Any, "str | None"]] = []
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid and nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({"id": nid, "label": label, "file_type": "code",
+                          "source_file": str_path, "source_location": f"L{line}"})
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", weight: float = 1.0,
+                 context: str | None = None) -> None:
+        if not src or not tgt or src == tgt:
+            return
+        edge = {"source": src, "target": tgt, "relation": relation,
+                "confidence": confidence, "source_file": str_path,
+                "source_location": f"L{line}", "weight": weight}
+        if context:
+            edge["context"] = context
+        edges.append(edge)
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, 1)
+
+    def _type_path_text(node) -> str:
+        return _read_text(node, source).strip()
+
+    def _ensure_type(path_text: str, line: int) -> str:
+        nid = _make_id(stem, path_text)
+        add_node(nid, path_text, line)
+        return nid
+
+    def _find_child(node, type_name: str):
+        for c in node.children:
+            if c.type == type_name:
+                return c
+        return None
+
+    def _read_include_path(file_node) -> str:
+        """Pull the inner path out of a string_literal or file_literal."""
+        if file_node is None:
+            return ""
+        if file_node.type == "string_literal":
+            parts = []
+            for c in file_node.children:
+                if c.type == "string_content":
+                    parts.append(_read_text(c, source))
+            return "".join(parts)
+        return _read_text(file_node, source).strip("'\"")
+
+    def walk(node, parent_type_path: "str | None" = None,
+             parent_type_nid: "str | None" = None) -> None:
+        t = node.type
+        line = node.start_point[0] + 1
+
+        if t == "preproc_include":
+            file_node = node.child_by_field_name("file")
+            raw = _read_include_path(file_node)
+            if raw:
+                # BYOND projects on Windows author includes with backslashes.
+                norm = raw.replace("\\", "/").lstrip("./")
+                resolved = (path.parent / norm).resolve()
+                edge = {
+                    "source": file_nid,
+                    "target": _make_id(str(resolved)) if resolved.exists() else _make_id(norm),
+                    "relation": "imports_from" if resolved.exists() else "imports",
+                    "context": "import",
+                    "confidence": "EXTRACTED",
+                    "source_file": str_path,
+                    "source_location": f"L{line}",
+                    "weight": 1.0,
+                }
+                # If the include doesn't exist on disk it's a BYOND stdlib or
+                # external dep; mark it so downstream consumers reading raw
+                # extractions can skip without re-deriving that.
+                if not resolved.exists():
+                    edge["external"] = True
+                edges.append(edge)
+            return
+
+        if t == "type_definition":
+            tp_node = _find_child(node, "type_path")
+            if tp_node is None:
+                return
+            type_path_str = _type_path_text(tp_node)
+            type_nid = _ensure_type(type_path_str, line)
+            add_edge(file_nid, type_nid, "contains", line)
+            body = _find_child(node, "type_body")
+            if body is not None:
+                for c in body.children:
+                    walk(c, parent_type_path=type_path_str, parent_type_nid=type_nid)
+            return
+
+        if t in ("type_body_intended", "type_body_braced"):
+            for c in node.children:
+                walk(c, parent_type_path, parent_type_nid)
+            return
+
+        if t in ("type_proc_definition", "type_proc_override"):
+            if parent_type_nid is None or parent_type_path is None:
+                return
+            name_node = node.child_by_field_name("name")
+            if name_node is None:
+                return
+            proc_name = _read_text(name_node, source)
+            proc_nid = _make_id(stem, parent_type_path, proc_name)
+            add_node(proc_nid, f"{parent_type_path}/{proc_name}()", line)
+            add_edge(parent_type_nid, proc_nid, "method", line)
+            block = _find_child(node, "block")
+            if block is not None:
+                function_bodies.append((proc_nid, block, parent_type_path))
+            return
+
+        # `/proc/foo()`, `/datum/foo/proc/bar()`, or `/datum/foo/bar()` override.
+        if t in ("proc_definition", "proc_override"):
+            tp_node = _find_child(node, "type_path")
+            owner_path: "str | None" = None
+            owner_nid: "str | None" = None
+            if tp_node is not None:
+                owner_path = _type_path_text(tp_node)
+                owner_nid = _ensure_type(owner_path, line)
+                add_edge(file_nid, owner_nid, "contains", line)
+            name_node = node.child_by_field_name("name")
+            if name_node is None:
+                return
+            proc_name = _read_text(name_node, source)
+            if owner_path and owner_nid:
+                proc_nid = _make_id(stem, owner_path, proc_name)
+                add_node(proc_nid, f"{owner_path}/{proc_name}()", line)
+                add_edge(owner_nid, proc_nid, "method", line)
+            else:
+                proc_nid = _make_id(stem, proc_name)
+                add_node(proc_nid, f"{proc_name}()", line)
+                add_edge(file_nid, proc_nid, "contains", line)
+            block = _find_child(node, "block")
+            if block is not None:
+                function_bodies.append((proc_nid, block, owner_path))
+            return
+
+        # The grammar mis-parses operator overload names (`+`, `[]`, …), so skip
+        # rather than emit half-broken nodes.
+        if t in ("operator_override", "type_operator_override"):
+            return
+
+        for child in node.children:
+            walk(child, parent_type_path, parent_type_nid)
+
+    walk(root)
+
+    # ── Call-graph pass ───────────────────────────────────────────────────────
+    # Two indexes: last-segment for proc lookups, full-path for `new`. DM has
+    # heavy method overriding by path (e.g. 8 same-named overrides in one file),
+    # so on last-segment collision we resolve only when there's exactly one
+    # match — same rule the cross-file resolver uses.
+    label_to_nids: dict[str, list[str]] = {}
+    path_to_nids: dict[str, list[str]] = {}
+    for n in nodes:
+        label = n["label"].strip("()")
+        last = label.rsplit("/", 1)[-1] if "/" in label else label
+        if last:
+            label_to_nids.setdefault(last.lower(), []).append(n["id"])
+        if label.startswith("/"):
+            path_to_nids.setdefault(label.lower(), []).append(n["id"])
+
+    seen_call_pairs: set[tuple[str, str]] = set()
+    raw_calls: list[dict] = []
+
+    def _emit_call(caller_nid: str, callee: str, line: int, is_member: bool) -> None:
+        candidates = label_to_nids.get(callee.lower(), [])
+        tgt_nid = candidates[0] if len(candidates) == 1 else None
+        if tgt_nid and tgt_nid != caller_nid:
+            pair = (caller_nid, tgt_nid)
+            if pair in seen_call_pairs:
+                return
+            seen_call_pairs.add(pair)
+            edges.append({
+                "source": caller_nid,
+                "target": tgt_nid,
+                "relation": "calls",
+                "context": "call",
+                "confidence": "EXTRACTED",
+                "source_file": str_path,
+                "source_location": f"L{line}",
+                "weight": 1.0,
+            })
+        else:
+            raw_calls.append({
+                "caller_nid": caller_nid,
+                "callee": callee,
+                "is_member_call": is_member,
+                "source_file": str_path,
+                "source_location": f"L{line}",
+            })
+
+    def walk_calls(body_node, caller_nid: str) -> None:
+        if body_node is None:
+            return
+        t = body_node.type
+        if t in ("proc_definition", "proc_override", "type_proc_definition",
+                 "type_proc_override", "type_definition"):
+            return
+        if t == "call_expression":
+            name_node = body_node.child_by_field_name("name")
+            if name_node is not None:
+                callee = _read_text(name_node, source)
+                # `..` is a super-call; resolving it needs corpus-wide type
+                # hierarchy we don't have here, so skip rather than guess.
+                if callee and callee != "..":
+                    _emit_call(caller_nid, callee, body_node.start_point[0] + 1,
+                               is_member=False)
+        elif t == "field_proc_expression":
+            proc_field = body_node.child_by_field_name("proc")
+            if proc_field is not None:
+                callee = _read_text(proc_field, source)
+                if callee:
+                    _emit_call(caller_nid, callee, body_node.start_point[0] + 1,
+                               is_member=True)
+        elif t == "new_expression":
+            tp_node = _find_child(body_node, "type_path")
+            if tp_node is not None:
+                target_text = _type_path_text(tp_node)
+                candidates = path_to_nids.get(target_text.lower(), [])
+                tgt_nid = candidates[0] if len(candidates) == 1 else None
+                if tgt_nid and tgt_nid != caller_nid:
+                    pair = (caller_nid, tgt_nid)
+                    if pair not in seen_call_pairs:
+                        seen_call_pairs.add(pair)
+                        edges.append({
+                            "source": caller_nid,
+                            "target": tgt_nid,
+                            "relation": "instantiates",
+                            "context": "call",
+                            "confidence": "EXTRACTED",
+                            "source_file": str_path,
+                            "source_location": f"L{body_node.start_point[0] + 1}",
+                            "weight": 1.0,
+                        })
+
+        for child in body_node.children:
+            walk_calls(child, caller_nid)
+
+    for proc_nid, block, _owner_path in function_bodies:
+        walk_calls(block, proc_nid)
+
+    return {"nodes": nodes, "edges": edges, "raw_calls": raw_calls}
+
+
 # ── Julia extractor (custom walk) ────────────────────────────────────────────
 
 def extract_julia(path: Path) -> dict:
@@ -6062,6 +6333,8 @@ _DISPATCH: dict[str, Any] = {
     ".sh": extract_bash,
     ".bash": extract_bash,
     ".json": extract_json,
+    ".dm": extract_dm,
+    ".dme": extract_dm,
 }
 
 

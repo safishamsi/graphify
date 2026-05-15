@@ -6,7 +6,7 @@ from graphify.extract import (
     extract_java, extract_c, extract_cpp, extract_ruby,
     extract_csharp, extract_kotlin, extract_scala, extract_php,
     extract_swift, extract_go, extract_julia, extract_js, extract_fortran,
-    extract_groovy,
+    extract_groovy, extract_dm,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -964,3 +964,98 @@ def test_groovy_spock_no_dangling_edges():
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids
+
+
+# ── DM (BYOND DreamMaker) ────────────────────────────────────────────────────
+
+def test_dm_no_error():
+    r = extract_dm(FIXTURES / "sample.dm")
+    assert "error" not in r
+
+def test_dm_finds_global_proc():
+    r = extract_dm(FIXTURES / "sample.dm")
+    assert any(l == "log_event()" for l in _labels(r))
+    assert any(l == "RunTest()" for l in _labels(r))
+
+def test_dm_finds_type_definition():
+    r = extract_dm(FIXTURES / "sample.dm")
+    labels = _labels(r)
+    assert "/datum/weapon" in labels
+    assert "/datum/weapon/sword" in labels
+
+def test_dm_qualifies_proc_with_type_path():
+    # Procs nested under a type definition should carry the full type path
+    # in their label so subtype overrides don't collide with the parent.
+    r = extract_dm(FIXTURES / "sample.dm")
+    labels = _labels(r)
+    assert "/datum/weapon/attack()" in labels
+    assert "/datum/weapon/sword/attack()" in labels
+
+def test_dm_finds_path_form_proc_definition():
+    # `/datum/weapon/sword/proc/sharpen()` — top-level proc definition with
+    # type_path prefix, not a nested type_body member.
+    r = extract_dm(FIXTURES / "sample.dm")
+    assert "/datum/weapon/sword/sharpen()" in _labels(r)
+
+def test_dm_emits_include_edge():
+    r = extract_dm(FIXTURES / "sample.dm")
+    import_edges = _edges_with_relation(r, "imports", "imports_from")
+    assert import_edges
+    assert all(e.get("context") == "import" for e in import_edges)
+
+
+def test_dm_unresolved_include_flagged_external():
+    # `#include "helpers.dm"` doesn't resolve to any file in the fixtures dir,
+    # so the edge must be marked external — build.py drops dangling edges, but
+    # any consumer reading the raw extraction needs the explicit signal.
+    r = extract_dm(FIXTURES / "sample.dm")
+    import_edges = _edges_with_relation(r, "imports", "imports_from")
+    helpers = [e for e in import_edges if "helpers" in e["target"]]
+    assert helpers
+    assert all(e.get("external") is True for e in helpers)
+
+def test_dm_resolves_in_file_calls():
+    r = extract_dm(FIXTURES / "sample.dm")
+    calls = _calls(r)
+    # log_event is called from multiple sites
+    assert any(callee == "log_event()" for _, callee in calls)
+    # sword/attack -> sword/sharpen resolves unambiguously
+    assert ("/datum/weapon/sword/attack()", "/datum/weapon/sword/sharpen()") in calls
+
+def test_dm_ambiguous_member_call_left_unresolved():
+    # `s.attack(null)` is ambiguous between /datum/weapon/attack and
+    # /datum/weapon/sword/attack — must not pick one arbitrarily.
+    r = extract_dm(FIXTURES / "sample.dm")
+    calls = _calls(r)
+    runtest_to_attack = [c for s, c in calls
+                         if s == "RunTest()" and "attack" in c]
+    assert not runtest_to_attack
+    # It should land in raw_calls instead so cross-file resolution sees it.
+    assert any(rc["callee"] == "attack" for rc in r.get("raw_calls", []))
+
+def test_dm_emits_new_as_instantiates():
+    r = extract_dm(FIXTURES / "sample.dm")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    inst = [(node_by_id.get(e["source"]), node_by_id.get(e["target"]))
+            for e in r["edges"] if e["relation"] == "instantiates"]
+    assert ("RunTest()", "/datum/weapon/sword") in inst
+
+def test_dm_call_edges_have_call_context():
+    r = extract_dm(FIXTURES / "sample.dm")
+    call_edges = _edges_with_relation(r, "calls", "instantiates")
+    assert call_edges
+    assert all(e.get("context") == "call" for e in call_edges)
+
+def test_dm_no_dangling_edges():
+    r = extract_dm(FIXTURES / "sample.dm")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids
+
+def test_dm_super_call_not_emitted():
+    # `..()` is a super-call; resolving it needs the type hierarchy, so we
+    # explicitly skip it rather than emit a wrong edge.
+    r = extract_dm(FIXTURES / "sample.dm")
+    calls = _calls(r)
+    assert not any(callee.strip("()") == ".." for _, callee in calls)
+    assert not any(rc["callee"] == ".." for rc in r.get("raw_calls", []))

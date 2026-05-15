@@ -25,6 +25,10 @@ jobs:
       - name: Install dependencies
         run: |
           pip install -e ".[mcp,pdf,watch,sql]"
+          # tree-sitter-dm 0.25.0's PyPI artifact is broken (sdist missing
+          # scanner.c, no wheels). Install from git until 0.25.1 ships, then
+          # this line can be replaced with adding `dreammaker` to the extras.
+          pip install "tree-sitter-dm @ git+https://github.com/FeudeyTF/tree-sitter-dm.git"
           pip install pytest
 
       - name: Run tests
