@@ -1,6 +1,7 @@
 # monitor a folder and auto-trigger --update when files change
 from __future__ import annotations
 import json
+import sys
 import time
 from pathlib import Path
 
@@ -55,15 +56,30 @@ def _rebuild_code(watch_path: Path) -> bool:
         }
 
         G = build_from_json(result)
+
+        out = watch_path / "graphify-out"
+        out.mkdir(exist_ok=True)
+
+        # Node-count safety check: merged graph must not lose nodes vs the existing graph.json.
+        graph_json_path = out / "graph.json"
+        if graph_json_path.exists():
+            import json as _json
+            existing_data = _json.loads(graph_json_path.read_text())
+            nodes_list = existing_data.get("nodes")
+            existing_node_count = len(nodes_list) if nodes_list is not None else 0
+            if G.number_of_nodes() < existing_node_count:
+                raise ValueError(
+                    f"[graphify watch] node-count guard: new build has {G.number_of_nodes()} nodes "
+                    f"but existing graph.json has {existing_node_count}. "
+                    "Aborting rebuild to prevent data loss."
+                )
+
         communities = cluster(G)
         cohesion = score_all(G, communities)
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)
         labels = {cid: "Community " + str(cid) for cid in communities}
         questions = suggest_questions(G, communities, labels)
-
-        out = watch_path / "graphify-out"
-        out.mkdir(exist_ok=True)
 
         report = generate(G, communities, cohesion, labels, gods, surprises, detection,
                           {"input": 0, "output": 0}, str(watch_path), suggested_questions=questions)
@@ -80,6 +96,8 @@ def _rebuild_code(watch_path: Path) -> bool:
         print(f"[graphify watch] graph.json and GRAPH_REPORT.md updated in {out}")
         return True
 
+    except ValueError:
+        raise
     except Exception as exc:
         print(f"[graphify watch] Rebuild failed: {exc}")
         return False
@@ -159,7 +177,10 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
                 if _has_non_code(batch):
                     _notify_only(watch_path)
                 else:
-                    _rebuild_code(watch_path)
+                    try:
+                        _rebuild_code(watch_path)
+                    except ValueError as exc:
+                        print(f"[graphify watch] Rebuild aborted: {exc}", file=sys.stderr)
     except KeyboardInterrupt:
         print("\n[graphify watch] Stopped.")
     finally:
