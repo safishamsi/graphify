@@ -712,37 +712,91 @@ def to_obsidian(
     community_labels: dict[int, str] | None = None,
     cohesion: dict[int, float] | None = None,
 ) -> int:
-    """Export graph as an Obsidian vault - one .md file per node with [[wikilinks]],
-    plus one _COMMUNITY_name.md overview note per community (sorted to top by underscore prefix).
+    """Export graph as an Obsidian vault — one .md per node, grouped into per-community
+    subfolders, with a `_OVERVIEW.md` inside each folder and a top-level `_INDEX.md`.
 
-    Open the output directory as a vault in Obsidian to get an interactive
-    graph view with community colors and full-text search over node metadata.
+    Filenames are derived from the last 3 segments of the node's `source_file` plus a
+    label slug, so two functions named `__init__()` in different files get distinct,
+    meaningful filenames (`module-a-init-py--init`, `module-b-init-py--init`) instead
+    of `__init__()_1.md`, `__init__()_2.md`, …
 
-    Returns the number of node notes + community notes written.
+    Open the output directory as a vault in Obsidian to get an interactive graph view
+    with community colors and full-text search over node metadata.
+
+    Returns the number of node notes + community overview notes written.
     """
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
 
     node_community = _node_community_map(communities)
 
-    # Map node_id → safe filename so wikilinks stay consistent.
-    # Deduplicate: if two nodes produce the same filename, append a numeric suffix.
+    def _slug(s: str) -> str:
+        """Lowercase, collapse non-alphanumerics to hyphens."""
+        s = s.lower()
+        s = re.sub(r"[^a-z0-9]+", "-", s)
+        return s.strip("-")
+
+    # Pre-compute a unique folder name per community id. If two community labels
+    # slug to the same string (e.g. three communities labeled "main"), suffix
+    # with -2, -3, … so each community keeps its own subfolder.
+    _folder_for_cid: dict[int | None, str] = {}
+    _folder_taken: set[str] = set()
+    for _cid in sorted(communities.keys()):
+        base = (
+            _slug(community_labels[_cid]) if (community_labels and _cid in community_labels) else ""
+        ) or f"community-{_cid}"
+        candidate = base
+        i = 1
+        while candidate in _folder_taken:
+            i += 1
+            candidate = f"{base}-{i}"
+        _folder_taken.add(candidate)
+        _folder_for_cid[_cid] = candidate
+
+    def _community_folder(cid: int | None) -> str:
+        if cid is None:
+            return "uncommunified"
+        return _folder_for_cid.get(cid, f"community-{cid}")
+
     def safe_name(label: str) -> str:
+        """Sanitise an arbitrary label for use as a filename (Obsidian + macOS safe)."""
         cleaned = re.sub(r'[\\/*?:"<>|#^[\]]', "", label.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")).strip()
         # Strip trailing .md/.mdx/.markdown so "CLAUDE.md" doesn't become "CLAUDE.md.md"
         cleaned = re.sub(r"\.(md|mdx|qmd|markdown)$", "", cleaned, flags=re.IGNORECASE)
         return cleaned or "unnamed"
 
+    def _node_stem(data: dict) -> str:
+        """Path-aware stem: <last-3-path-segments-slug>--<label-slug>.
+        Falls back to plain label slug when source_file is missing."""
+        label_slug = _slug(data.get("label", "")) or "node"
+        src = (data.get("source_file") or "").strip()
+        if not src:
+            return label_slug
+        parts = [p for p in src.replace("\\", "/").split("/") if p]
+        tail = "/".join(parts[-3:])
+        tail_slug = _slug(tail)
+        if not tail_slug:
+            return label_slug
+        return f"{tail_slug}--{label_slug}"
+
+    # Map node_id → (folder, filename_stem) with per-folder uniqueness.
+    # Different folders cannot collide; within a folder we append -2, -3, …
     node_filename: dict[str, str] = {}
-    seen_names: dict[str, int] = {}
+    node_folder: dict[str, str] = {}
+    used_in_folder: dict[str, set[str]] = {}
     for node_id, data in G.nodes(data=True):
-        base = safe_name(data.get("label", node_id))
-        if base in seen_names:
-            seen_names[base] += 1
-            node_filename[node_id] = f"{base}_{seen_names[base]}"
-        else:
-            seen_names[base] = 0
-            node_filename[node_id] = base
+        cid = node_community.get(node_id)
+        folder = _community_folder(cid)
+        base = _node_stem(data)
+        used = used_in_folder.setdefault(folder, set())
+        candidate = base
+        i = 1
+        while candidate in used:
+            i += 1
+            candidate = f"{base}-{i}"
+        used.add(candidate)
+        node_filename[node_id] = candidate
+        node_folder[node_id] = folder
 
     # Helper: compute dominant confidence for a node across all its edges
     def _dominant_confidence(node_id: str) -> str:
@@ -815,9 +869,11 @@ def to_obsidian(
         lines.append(inline_tags)
 
         fname = node_filename[node_id] + ".md"
-        (out / fname).write_text("\n".join(lines), encoding="utf-8")  # nosec
+        node_dir = out / node_folder[node_id]
+        node_dir.mkdir(parents=True, exist_ok=True)
+        (node_dir / fname).write_text("\n".join(lines), encoding="utf-8")  # nosec
 
-    # Write one _COMMUNITY_name.md overview note per community
+    # Write one _OVERVIEW.md per community inside that community's folder
     # Build inter-community edge counts for "Connections to other communities"
     inter_community_edges: dict[int, dict[int, int]] = {}
     for cid in communities:
@@ -909,8 +965,11 @@ def to_obsidian(
                     if community_labels and other_cid is not None
                     else f"Community {other_cid}"
                 )
-                other_safe = safe_name(other_name)
-                lines.append(f"- {edge_count} edge{'s' if edge_count != 1 else ''} to [[_COMMUNITY_{other_safe}]]")
+                other_folder = _community_folder(other_cid)
+                lines.append(
+                    f"- {edge_count} edge{'s' if edge_count != 1 else ''} "
+                    f"to [[{other_folder}/_OVERVIEW|{other_name}]]"
+                )
             lines.append("")
 
         # Top bridge nodes - highest degree nodes that connect to other communities
@@ -930,10 +989,35 @@ def to_obsidian(
                     f"{'community' if reach == 1 else 'communities'}"
                 )
 
-        community_safe = safe_name(community_name)
-        fname = f"_COMMUNITY_{community_safe}.md"
-        (out / fname).write_text("\n".join(lines), encoding="utf-8")  # nosec
+        community_dir = out / _community_folder(cid)
+        community_dir.mkdir(parents=True, exist_ok=True)
+        (community_dir / "_OVERVIEW.md").write_text("\n".join(lines), encoding="utf-8")  # nosec
         community_notes_written += 1
+
+    # Top-level _INDEX.md listing every community by size
+    index_lines: list[str] = [
+        "---",
+        "id: graphify-index",
+        'label: "Graphify Index"',
+        "type: index",
+        "---",
+        "",
+        "# Graph Index",
+        "",
+        f"{G.number_of_nodes()} nodes across {len(communities)} communities.",
+        "",
+        "## Communities (by size)",
+        "",
+    ]
+    for cid, members in sorted(communities.items(), key=lambda kv: -len(kv[1])):
+        community_name = (
+            community_labels.get(cid, f"Community {cid}")
+            if community_labels and cid is not None
+            else f"Community {cid}"
+        )
+        folder = _community_folder(cid)
+        index_lines.append(f"- [[{folder}/_OVERVIEW|{community_name}]] — {len(members)} notes")
+    (out / "_INDEX.md").write_text("\n".join(index_lines) + "\n", encoding="utf-8")  # nosec
 
     # Improvement 4: write .obsidian/graph.json to color nodes by community in graph view
     obsidian_dir = out / ".obsidian"
@@ -968,23 +1052,59 @@ def to_canvas(
     # Obsidian canvas color codes (cycle through for communities)
     CANVAS_COLORS = ["1", "2", "3", "4", "5", "6"]  # red, orange, yellow, green, cyan, purple
 
-    def safe_name(label: str) -> str:
-        cleaned = re.sub(r'[\\/*?:"<>|#^[\]]', "", label.replace("\r\n", " ").replace("\r", " ").replace("\n", " ")).strip()
-        cleaned = re.sub(r"\.(md|mdx|qmd|markdown)$", "", cleaned, flags=re.IGNORECASE)
-        return cleaned or "unnamed"
+    def _slug(s: str) -> str:
+        s = s.lower()
+        s = re.sub(r"[^a-z0-9]+", "-", s)
+        return s.strip("-")
 
-    # Build node_filenames if not provided (same dedup logic as to_obsidian)
+    node_community_map = _node_community_map(communities)
+
+    # Pre-compute unique folder names (matches to_obsidian behaviour so canvas
+    # file refs land in the right per-community subfolder).
+    _folder_for_cid: dict[int | None, str] = {}
+    _folder_taken: set[str] = set()
+    for _cid in sorted(communities.keys()):
+        base = (
+            _slug(community_labels[_cid]) if (community_labels and _cid in community_labels) else ""
+        ) or f"community-{_cid}"
+        candidate = base
+        i = 1
+        while candidate in _folder_taken:
+            i += 1
+            candidate = f"{base}-{i}"
+        _folder_taken.add(candidate)
+        _folder_for_cid[_cid] = candidate
+
+    def _community_folder(cid: int | None) -> str:
+        if cid is None:
+            return "uncommunified"
+        return _folder_for_cid.get(cid, f"community-{cid}")
+
+    def _node_stem(data: dict) -> str:
+        label_slug = _slug(data.get("label", "")) or "node"
+        src = (data.get("source_file") or "").strip()
+        if not src:
+            return label_slug
+        parts = [p for p in src.replace("\\", "/").split("/") if p]
+        tail = "/".join(parts[-3:])
+        tail_slug = _slug(tail)
+        return f"{tail_slug}--{label_slug}" if tail_slug else label_slug
+
+    # Build node_filenames with path-aware + per-folder dedup matching to_obsidian
     if node_filenames is None:
         node_filenames = {}
-        seen_names: dict[str, int] = {}
+        used_in_folder: dict[str, set[str]] = {}
         for node_id, data in G.nodes(data=True):
-            base = safe_name(data.get("label", node_id))
-            if base in seen_names:
-                seen_names[base] += 1
-                node_filenames[node_id] = f"{base}_{seen_names[base]}"
-            else:
-                seen_names[base] = 0
-                node_filenames[node_id] = base
+            folder = _community_folder(node_community_map.get(node_id))
+            base = _node_stem(data)
+            used = used_in_folder.setdefault(folder, set())
+            candidate = base
+            i = 1
+            while candidate in used:
+                i += 1
+                candidate = f"{base}-{i}"
+            used.add(candidate)
+            node_filenames[node_id] = candidate
 
     num_communities = len(communities)
     cols = math.ceil(math.sqrt(num_communities)) if num_communities > 0 else 1
@@ -1077,11 +1197,12 @@ def to_canvas(
             row = m_idx // 3
             nx_x = gx + 20 + col * (180 + 20)
             nx_y = gy + 80 + row * (60 + 20)
-            fname = node_filenames.get(node_id, safe_name(G.nodes[node_id].get("label", node_id)))
+            fname = node_filenames.get(node_id) or _node_stem(G.nodes[node_id])
+            folder = _community_folder(node_community_map.get(node_id))
             canvas_nodes.append({
                 "id": f"n_{node_id}",
                 "type": "file",
-                "file": f"{fname}.md",
+                "file": f"{folder}/{fname}.md",
                 "x": nx_x,
                 "y": nx_y,
                 "width": 180,
