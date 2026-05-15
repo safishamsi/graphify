@@ -297,9 +297,14 @@ def build_merge(
 
     # Prune nodes from deleted source files
     if prune_sources:
+        # Detect incremental returns absolute paths (e.g. /repo/file.md) but
+        # nodes/edges store source_file as the relative path (e.g. file.md).
+        # Build a set of basenames to match against both forms.
+        _prune_set = set(prune_sources) | {Path(s).name for s in prune_sources}
+
         to_remove = [
             n for n, d in G.nodes(data=True)
-            if d.get("source_file") in prune_sources
+            if d.get("source_file", "") in _prune_set
         ]
         G.remove_nodes_from(to_remove)
         n_files = len(prune_sources)
@@ -309,10 +314,25 @@ def build_merge(
                 f"[graphify] Pruned {n_nodes} node(s) from {n_files} deleted source file(s).",
                 file=sys.stderr,
             )
-        else:
+
+        # Also prune edges whose source_file references a deleted source.
+        # Endpoint nodes may survive if they also exist in other (non-deleted)
+        # files, but the edge itself came from the deleted file and must go.
+        edges_to_remove = [
+            (u, v) for u, v, d in G.edges(data=True)
+            if d.get("source_file", "") in _prune_set
+        ]
+        if edges_to_remove:
+            G.remove_edges_from(edges_to_remove)
+            print(
+                f"[graphify] Pruned {len(edges_to_remove)} edge(s) from deleted source file(s).",
+                file=sys.stderr,
+            )
+
+        if not n_nodes and not edges_to_remove:
             print(
                 f"[graphify] {n_files} source file(s) deleted since last run — "
-                f"no matching nodes in graph, already clean.",
+                f"no matching nodes or edges in graph, already clean.",
                 file=sys.stderr,
             )
 

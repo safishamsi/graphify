@@ -383,6 +383,14 @@ def suggest_questions(
     questions = []
     node_community = _node_community_map(communities)
 
+    # Normalize community_labels keys to int — JSON deserialization produces
+    # string keys but the rest of the pipeline uses int community IDs.
+    if community_labels:
+        community_labels = {
+            int(k) if isinstance(k, str) else k: v
+            for k, v in community_labels.items()
+        }
+
     # 1. AMBIGUOUS edges → unresolved relationship questions
     for u, v, data in G.edges(data=True):
         if data.get("confidence") == "AMBIGUOUS":
