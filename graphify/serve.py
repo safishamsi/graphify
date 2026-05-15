@@ -324,6 +324,8 @@ def _filter_blank_stdin() -> None:
 
 def serve(graph_path: str = "graphify-out/graph.json") -> None:
     """Start the MCP server. Requires pip install mcp."""
+    import threading
+
     try:
         from mcp.server import Server
         from mcp.server.stdio import stdio_server
@@ -334,6 +336,41 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
     G = _load_graph(graph_path)
     communities = _communities_from_graph(G)
+
+    # Hot-reload state: mtime+size key lets us detect graph.json changes without
+    # polling. Initialised from the file stat at startup so the first tool call
+    # never triggers a redundant reload.
+    _reload_lock = threading.Lock()
+    try:
+        _s = Path(graph_path).stat()
+        _reload_state: dict = {"mtime_ns": _s.st_mtime_ns, "size": _s.st_size}
+    except FileNotFoundError:
+        _reload_state = {"mtime_ns": 0, "size": -1}
+
+    def _maybe_reload() -> None:
+        nonlocal G, communities
+        try:
+            s = Path(graph_path).stat()
+            key = (s.st_mtime_ns, s.st_size)
+        except FileNotFoundError:
+            return
+        if key == (_reload_state["mtime_ns"], _reload_state["size"]):
+            return
+        with _reload_lock:
+            try:
+                s = Path(graph_path).stat()
+                key = (s.st_mtime_ns, s.st_size)
+            except FileNotFoundError:
+                return
+            if key == (_reload_state["mtime_ns"], _reload_state["size"]):
+                return  # another thread already reloaded
+            try:
+                new_G = _load_graph(graph_path)
+            except SystemExit:
+                return  # keep serving stale graph on transient read error
+            G = new_G
+            communities = _communities_from_graph(new_G)
+            _reload_state["mtime_ns"], _reload_state["size"] = key
 
     server = Server("graphify")
 
@@ -596,6 +633,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
     @server.read_resource()
     async def read_resource(uri: AnyUrl) -> str:
+        _maybe_reload()
         uri_str = str(uri)
         if uri_str == "graphify://report":
             report_path = Path(graph_path).parent / "GRAPH_REPORT.md"
@@ -647,6 +685,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
     @server.call_tool()
     async def call_tool(name: str, arguments: dict) -> list[types.TextContent]:
+        _maybe_reload()
         handler = _handlers.get(name)
         if not handler:
             return [types.TextContent(type="text", text=f"Unknown tool: {name}")]

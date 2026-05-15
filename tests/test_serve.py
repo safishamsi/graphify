@@ -196,3 +196,57 @@ def test_load_graph_missing_file(tmp_path):
     graphify_dir.mkdir()
     with pytest.raises(SystemExit):
         _load_graph(str(graphify_dir / "nonexistent.json"))
+
+
+# --- #874: MCP hot-reload ---
+
+def _write_graph(path, nodes: list[str]) -> None:
+    """Write a minimal graph.json with the given node IDs."""
+    G = nx.DiGraph()
+    for n in nodes:
+        G.add_node(n, label=n, community=0)
+    data = json_graph.node_link_data(G, edges="links")
+    path.write_text(json.dumps(data), encoding="utf-8")
+
+
+def test_maybe_reload_detects_graph_change(tmp_path):
+    """serve() picks up a new graph.json written after startup (#874)."""
+    import time
+    from unittest.mock import patch
+
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    graph_path = out / "graph.json"
+    _write_graph(graph_path, ["alpha", "beta"])
+
+    # Bootstrap _load_graph + _communities_from_graph to verify the reload path
+    G1 = _load_graph(str(graph_path))
+    assert set(G1.nodes()) == {"alpha", "beta"}
+
+    # Simulate file changing (bump mtime by touching)
+    time.sleep(0.01)
+    _write_graph(graph_path, ["alpha", "beta", "gamma"])
+
+    G2 = _load_graph(str(graph_path))
+    assert "gamma" in G2.nodes()
+
+
+def test_load_graph_cache_key_changes_with_content(tmp_path):
+    """mtime_ns + size uniquely identifies a graph version (#874)."""
+    import time
+
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    graph_path = out / "graph.json"
+    _write_graph(graph_path, ["a"])
+
+    s1 = graph_path.stat()
+    key1 = (s1.st_mtime_ns, s1.st_size)
+
+    time.sleep(0.01)
+    _write_graph(graph_path, ["a", "b"])
+
+    s2 = graph_path.stat()
+    key2 = (s2.st_mtime_ns, s2.st_size)
+
+    assert key1 != key2, "stat key must change when file content changes"

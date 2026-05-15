@@ -376,6 +376,10 @@ _SKIP_DIRS = {
     "__snapshots__", "snapshots",           # Jest/Vitest snapshot dirs
     "storybook-static",                     # Storybook production build output
     "dist-protected",                       # Protected dist variants (same noise as dist)
+    # Framework cache/build dirs — generated, never architecturally meaningful (#873)
+    ".next", ".nuxt", ".turbo", ".angular",
+    ".idea", ".cache", ".parcel-cache", ".svelte-kit", ".terraform", ".serverless",
+    ".graphify",  # graphify's own extraction cache — never index self-generated data
 }
 
 # Large generated files that are never useful to extract
@@ -674,15 +678,14 @@ def detect(root: Path, *, follow_symlinks: bool = False, google_workspace: bool 
                     continue
             if not in_memory_tree:
                 # Prune noise dirs in-place so os.walk never descends into them.
-                # Hidden dirs are allowed through if they could contain an
-                # explicitly included path (.graphifyinclude allowlist).
+                # Dot dirs are allowed — users often want .github/, .claude/, etc.
+                # Framework caches (.next, .nuxt, …) are caught by _is_noise_dir.
                 # When negation patterns (!) exist, skip directory-level ignore
                 # pruning so negated files inside can still be reached.
                 has_negation = any(p.startswith("!") for _, p in ignore_patterns)
                 dirnames[:] = [
                     d for d in dirnames
-                    if (not d.startswith(".") or _could_contain_included_path(dp / d, root, include_patterns))
-                    and not _is_noise_dir(d)
+                    if not _is_noise_dir(d)
                     and (has_negation or not _is_ignored(dp / d, root, ignore_patterns))
                 ]
             for fname in filenames:
@@ -699,11 +702,6 @@ def detect(root: Path, *, follow_symlinks: bool = False, google_workspace: bool 
         # For memory dir files, skip hidden/noise filtering
         in_memory = memory_dir.exists() and str(p).startswith(str(memory_dir))
         if not in_memory:
-            # Hidden files are already excluded via dir pruning above,
-            # but catch hidden files at the root level. A .graphifyinclude
-            # entry can opt a specific hidden file back in.
-            if p.name.startswith(".") and not _is_included(p, root, include_patterns):
-                continue
             # Skip files inside our own converted/ dir (avoid re-processing sidecars)
             if str(p).startswith(str(converted_dir)):
                 continue
