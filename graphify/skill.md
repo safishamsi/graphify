@@ -767,12 +767,16 @@ from pathlib import Path
 
 result = detect_incremental(Path('INPUT_PATH'))
 new_total = result.get('new_total', 0)
+deleted = list(result.get('deleted_files', []))
 print(json.dumps(result, indent=2, ensure_ascii=False))
 Path('graphify-out/.graphify_incremental.json').write_text(json.dumps(result, ensure_ascii=False), encoding=\"utf-8\")
-if new_total == 0:
+if new_total == 0 and not deleted:
     print('No files changed since last run. Nothing to update.')
     raise SystemExit(0)
-print(f'{new_total} new/changed file(s) to re-extract.')
+if deleted:
+    print(f'{len(deleted)} deleted file(s) to prune.')
+if new_total > 0:
+    print(f'{new_total} new/changed file(s) to re-extract.')
 "
 ```
 
@@ -813,6 +817,19 @@ print('code_only:', code_only)
 If `code_only` is True: print `[graphify update] Code-only changes detected - skipping semantic extraction (no LLM needed)`, run only Step 3A (AST) on the changed files, skip Step 3B entirely (no subagents), then go straight to merge and Steps 4–8.
 
 If `code_only` is False (any changed file is a doc/paper/image): run the full Steps 3A–3C pipeline as normal.
+
+If no new files exist (only deletions), create an empty extraction so the merge step can prune:
+
+```bash
+if [ ! -f graphify-out/.graphify_extract.json ]; then
+    echo '[graphify update] Only deletions — creating empty extraction for merge.'
+    $(cat graphify-out/.graphify_python) -c "
+import json
+from pathlib import Path
+Path('graphify-out/.graphify_extract.json').write_text(json.dumps({'nodes':[],'edges':[],'hyperedges':[],'input_tokens':0,'output_tokens':0}), encoding='utf-8')
+"
+fi
+```
 
 Then:
 
