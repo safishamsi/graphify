@@ -197,8 +197,22 @@ def _hooks_dir(root: Path) -> Path:
             f"{root / '.git' / 'config'}: {exc}",
             file=sys.stderr,
         )
+    # In a linked worktree .git is a file not a directory, so constructing
+    # root/.git/hooks directly fails. Ask git for the real hooks path instead.
+    import subprocess as _sp
+    try:
+        res = _sp.run(
+            ["git", "-C", str(root), "rev-parse", "--path-format=absolute", "--git-path", "hooks"],
+            capture_output=True, text=True,
+        )
+        if res.returncode == 0:
+            d = Path(res.stdout.strip())
+            d.mkdir(parents=True, exist_ok=True)
+            return d
+    except (OSError, FileNotFoundError):
+        pass
     d = root / ".git" / "hooks"
-    d.mkdir(exist_ok=True)
+    d.mkdir(parents=True, exist_ok=True)
     return d
 
 
