@@ -85,3 +85,74 @@ def test_assert_valid_raises_on_errors():
 
 def test_assert_valid_passes_silently():
     assert_valid(VALID)  # should not raise
+
+
+# ---------------------------------------------------------------------------
+# source_file contract: <external> sentinel + None/empty still flagged
+# ---------------------------------------------------------------------------
+
+def test_external_sentinel_source_file_accepted():
+    """
+    source_file="<external>" is a contract-level sentinel meaning "this
+    symbol lives outside the parsed corpus" (e.g. a framework base class).
+    The validator must accept it as a valid value — otherwise every
+    framework type shows up as a false-positive extraction issue.
+    """
+    data = {
+        "nodes": [
+            {"id": "n1", "label": "MyClass", "file_type": "code", "source_file": "my.py"},
+            {"id": "n2", "label": "FrameworkBase", "file_type": "code", "source_file": "<external>"},
+        ],
+        "edges": [
+            {"source": "n1", "target": "n2", "relation": "inherits",
+             "confidence": "EXTRACTED", "source_file": "my.py", "weight": 1.0},
+        ],
+    }
+    assert validate_extraction(data) == []
+
+
+def test_empty_source_file_flagged_as_missing():
+    """
+    Empty-string source_file is still a real bug (likely an LLM omitting
+    a required field). The validator must keep flagging it — the
+    <external> sentinel is the ONLY non-path string that's allowed.
+    """
+    data = {
+        "nodes": [
+            {"id": "n1", "label": "Doc", "file_type": "document", "source_file": ""},
+        ],
+        "edges": [],
+    }
+    errors = validate_extraction(data)
+    assert any("source_file" in e and "n1" in e for e in errors), (
+        f"Expected empty source_file to be flagged, got errors: {errors}"
+    )
+
+
+def test_none_source_file_flagged_as_missing():
+    """None source_file is still flagged as missing (same reason as empty string)."""
+    data = {
+        "nodes": [
+            {"id": "n1", "label": "Doc", "file_type": "document", "source_file": None},
+        ],
+        "edges": [],
+    }
+    errors = validate_extraction(data)
+    assert any("source_file" in e and "n1" in e for e in errors), (
+        f"Expected None source_file to be flagged, got errors: {errors}"
+    )
+
+
+def test_edge_external_sentinel_source_file_accepted():
+    """Same contract for edges: <external> is valid."""
+    data = {
+        "nodes": [
+            {"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"},
+            {"id": "n2", "label": "B", "file_type": "code", "source_file": "b.py"},
+        ],
+        "edges": [
+            {"source": "n1", "target": "n2", "relation": "calls",
+             "confidence": "INFERRED", "source_file": "<external>", "weight": 1.0},
+        ],
+    }
+    assert validate_extraction(data) == []
