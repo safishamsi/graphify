@@ -6,6 +6,18 @@ VALID_CONFIDENCES = {"EXTRACTED", "INFERRED", "AMBIGUOUS"}
 REQUIRED_NODE_FIELDS = {"id", "label", "file_type", "source_file"}
 REQUIRED_EDGE_FIELDS = {"source", "target", "relation", "confidence", "source_file"}
 
+# Sentinel value for `source_file` meaning "this symbol lives outside the parsed
+# corpus" (e.g. a framework base class referenced via inheritance but never
+# defined locally). See graphify/extract.py module docstring for the full
+# contract. The validator accepts this sentinel as a valid source_file so the
+# real LLM-omission bug (empty / None) stays visible.
+EXTERNAL_SENTINEL = "<external>"
+
+
+def _is_valid_source_file(value: object) -> bool:
+    """A valid source_file is a non-empty string (a path or the <external> sentinel)."""
+    return isinstance(value, str) and value != ""
+
 
 def validate_extraction(data: dict) -> list[str]:
     """
@@ -30,6 +42,15 @@ def validate_extraction(data: dict) -> list[str]:
             for field in REQUIRED_NODE_FIELDS:
                 if field not in node:
                     errors.append(f"Node {i} (id={node.get('id', '?')!r}) missing required field '{field}'")
+                elif field == "source_file" and not _is_valid_source_file(node[field]):
+                    # Empty string or None still counts as missing — distinguishes
+                    # "outside the corpus" (use the "<external>" sentinel) from
+                    # "extractor bug / LLM forgot the field".
+                    errors.append(
+                        f"Node {i} (id={node.get('id', '?')!r}) missing required field "
+                        f"'source_file' (got {node[field]!r}; use '{EXTERNAL_SENTINEL}' "
+                        f"for cross-corpus symbols)"
+                    )
             if "file_type" in node and node["file_type"] not in VALID_FILE_TYPES:
                 errors.append(
                     f"Node {i} (id={node.get('id', '?')!r}) has invalid file_type "
@@ -50,6 +71,12 @@ def validate_extraction(data: dict) -> list[str]:
             for field in REQUIRED_EDGE_FIELDS:
                 if field not in edge:
                     errors.append(f"Edge {i} missing required field '{field}'")
+                elif field == "source_file" and not _is_valid_source_file(edge[field]):
+                    errors.append(
+                        f"Edge {i} missing required field 'source_file' "
+                        f"(got {edge[field]!r}; use '{EXTERNAL_SENTINEL}' "
+                        f"for cross-corpus symbols)"
+                    )
             if "confidence" in edge and edge["confidence"] not in VALID_CONFIDENCES:
                 errors.append(
                     f"Edge {i} has invalid confidence '{edge['confidence']}' "

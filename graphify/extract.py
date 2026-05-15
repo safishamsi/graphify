@@ -1,4 +1,20 @@
-"""Deterministic structural extraction from Python code using tree-sitter. Outputs nodes+edges dicts."""
+"""Deterministic structural extraction from source code using tree-sitter. Outputs nodes+edges dicts.
+
+source_file contract
+--------------------
+Every emitted node and edge carries a ``source_file`` field. The value is one of:
+
+* a relative or absolute path string pointing at the file that produced the node/edge, or
+* the literal string ``"<external>"`` — a sentinel meaning "this symbol lives outside the
+  parsed corpus" (e.g. a framework base class referenced via inheritance but never defined
+  in any input file). Stub nodes for cross-corpus symbols use this sentinel so the
+  ``inherits`` / ``references`` edge survives without misleading downstream validators
+  into thinking the extractor lost the source.
+
+``""`` and ``None`` are NOT valid values. The validator treats them as missing fields so
+the LLM-extraction path can be caught when it omits the field. See
+``graphify/validate.py``.
+"""
 from __future__ import annotations
 import json
 import re
@@ -103,14 +119,17 @@ def extract_python(path: Path) -> dict:
                         # Try same-file base first; fall back to a bare stub
                         base_nid = _make_id(stem, base)
                         if base_nid not in seen_ids:
-                            # External or forward-declared base - add a stub so edge survives
+                            # External or forward-declared base - add a stub so edge survives.
+                            # The stub uses source_file="<external>" (see module docstring)
+                            # so downstream validators can tell "lives outside the corpus"
+                            # apart from "extractor dropped the field".
                             base_nid = _make_id(base)
                             if base_nid not in seen_ids:
                                 nodes.append({
                                     "id": base_nid,
                                     "label": base,
                                     "file_type": "code",
-                                    "source_file": "",
+                                    "source_file": "<external>",
                                     "source_location": "",
                                 })
                                 seen_ids.add(base_nid)

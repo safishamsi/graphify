@@ -232,6 +232,16 @@ confidence_score rules:
   Reasonable but not certain: 0.6-0.7. Weak inference: 0.4-0.5.
 - AMBIGUOUS edges: score 0.1-0.3
 
+source_file is REQUIRED on every node and every edge. Never omit it, never emit
+  an empty string, never emit null. Two valid forms:
+- A relative path to the file the node/edge came from (the normal case).
+- The literal string "<external>" — use this when a node represents a symbol
+  that lives outside the parsed corpus (e.g. a framework base class referenced
+  from local code but never defined locally). This sentinel keeps cross-corpus
+  references visible without making them look like extraction bugs.
+This applies to every file_type, including `document` rationale-style nodes —
+  if the rationale comes from a doc, source_file is that doc's path.
+
 Output exactly this JSON (no other text):
 {"nodes":[{"id":"filestem_entityname","label":"Human Readable Name","file_type":"code|document|paper|image","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
 ```

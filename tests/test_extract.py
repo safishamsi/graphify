@@ -142,3 +142,43 @@ def test_calls_deduplication():
     result = extract_python(FIXTURES / "sample_calls.py")
     call_pairs = [(e["source"], e["target"]) for e in result["edges"] if e["relation"] == "calls"]
     assert len(call_pairs) == len(set(call_pairs)), "Duplicate calls edges found"
+
+
+# ---------------------------------------------------------------------------
+# source_file contract: stub nodes for cross-corpus symbols
+# ---------------------------------------------------------------------------
+
+def test_external_base_emits_sentinel_source_file():
+    """
+    When a class inherits from a symbol not defined in the parsed corpus
+    (e.g. a framework base class), the extractor adds a stub node so the
+    `inherits` edge survives. That stub MUST carry source_file="<external>"
+    rather than an empty string or None, so downstream validators can
+    distinguish "outside the corpus" from "extraction bug".
+    """
+    result = extract_python(FIXTURES / "sample_external_base.py")
+    stubs = [n for n in result["nodes"] if n["label"] == "ExternalBase"]
+    assert len(stubs) == 1, f"Expected exactly one stub for ExternalBase, got {len(stubs)}"
+    assert stubs[0]["source_file"] == "<external>", (
+        f"External-symbol stub must use the '<external>' sentinel, "
+        f"got {stubs[0]['source_file']!r}"
+    )
+
+
+def test_external_base_stub_is_never_empty_string():
+    """Regression: no node may emit source_file as an empty string."""
+    result = extract_python(FIXTURES / "sample_external_base.py")
+    for n in result["nodes"]:
+        assert n["source_file"] != "", f"Node {n['id']} has empty source_file"
+        assert n["source_file"] is not None, f"Node {n['id']} has None source_file"
+
+
+def test_inherits_edge_survives_for_external_base():
+    """The whole point of the stub: the `inherits` edge must still be emitted."""
+    result = extract_python(FIXTURES / "sample_external_base.py")
+    inherits = [e for e in result["edges"] if e["relation"] == "inherits"]
+    assert any(
+        result_node["label"] == "ExternalBase" and result_node["id"] == edge["target"]
+        for edge in inherits
+        for result_node in result["nodes"]
+    ), "Expected an inherits edge whose target is the ExternalBase stub"
