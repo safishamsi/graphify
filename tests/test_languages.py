@@ -6,7 +6,7 @@ from graphify.extract import (
     extract_java, extract_c, extract_cpp, extract_ruby,
     extract_csharp, extract_kotlin, extract_scala, extract_php,
     extract_swift, extract_go, extract_julia, extract_js, extract_fortran,
-    extract_groovy, extract_dm,
+    extract_groovy, extract_dm, extract_dmi, extract_dmm, extract_dmf,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -1059,3 +1059,89 @@ def test_dm_super_call_not_emitted():
     calls = _calls(r)
     assert not any(callee.strip("()") == ".." for _, callee in calls)
     assert not any(rc["callee"] == ".." for rc in r.get("raw_calls", []))
+
+
+# ── DMI (BYOND icon sheets) ──────────────────────────────────────────────────
+
+def test_dmi_no_error():
+    r = extract_dmi(FIXTURES / "sample.dmi")
+    assert "error" not in r
+
+def test_dmi_emits_state_nodes():
+    r = extract_dmi(FIXTURES / "sample.dmi")
+    labels = _labels(r)
+    assert any(l == '"mob"' for l in labels)
+
+def test_dmi_state_contained_by_file():
+    r = extract_dmi(FIXTURES / "sample.dmi")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    contains = [(node_by_id.get(e["source"]), node_by_id.get(e["target"]))
+                for e in r["edges"] if e["relation"] == "contains"]
+    assert ("sample.dmi", '"mob"') in contains
+
+
+# ── DMM (BYOND map files) ────────────────────────────────────────────────────
+
+def test_dmm_no_error():
+    r = extract_dmm(FIXTURES / "sample.dmm")
+    assert "error" not in r
+
+def test_dmm_extracts_type_paths_as_uses_edges():
+    r = extract_dmm(FIXTURES / "sample.dmm")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "uses"}
+    # Type paths get _make_id'd: leading slash stripped, slashes → underscores.
+    assert "turf_closed_wall" in targets
+    assert "obj_structure_table" in targets
+    assert "obj_item_weapon_sword" in targets
+
+def test_dmm_strips_var_overrides():
+    # `/obj/item/weapon/sword{name = "longsword"}` must resolve to the bare type.
+    r = extract_dmm(FIXTURES / "sample.dmm")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "uses"}
+    assert not any("{" in t for t in targets)
+    assert "obj_item_weapon_sword" in targets
+
+def test_dmm_handles_multiline_tile_definition():
+    # Entry "d" spans multiple lines; the parser must still pick up all 4 types.
+    r = extract_dmm(FIXTURES / "sample.dmm")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "uses"}
+    assert "area_station_maintenance" in targets
+
+def test_dmm_skips_grid_section():
+    # The grid `(1,1,1) = {"aabb..."}` has no type paths — no spurious edges.
+    r = extract_dmm(FIXTURES / "sample.dmm")
+    targets = {e["target"] for e in r["edges"] if e["relation"] == "uses"}
+    assert len(targets) == 5
+
+
+# ── DMF (BYOND interface forms) ──────────────────────────────────────────────
+
+def test_dmf_no_error():
+    r = extract_dmf(FIXTURES / "sample.dmf")
+    assert "error" not in r
+
+def test_dmf_extracts_windows():
+    r = extract_dmf(FIXTURES / "sample.dmf")
+    labels = _labels(r)
+    assert 'window "mapwindow"' in labels
+    assert 'window "infowindow"' in labels
+
+def test_dmf_elem_labels_carry_control_type():
+    # `type = MAP` should land in the elem's label.
+    r = extract_dmf(FIXTURES / "sample.dmf")
+    labels = _labels(r)
+    assert 'elem "map" [MAP]' in labels
+
+def test_dmf_elem_under_window():
+    r = extract_dmf(FIXTURES / "sample.dmf")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    contains = [(node_by_id.get(e["source"]), node_by_id.get(e["target"]))
+                for e in r["edges"] if e["relation"] == "contains"]
+    assert ('window "mapwindow"', 'elem "map" [MAP]') in contains
+
+def test_dmf_no_dangling_edges():
+    r = extract_dmf(FIXTURES / "sample.dmf")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids
+        assert e["target"] in node_ids

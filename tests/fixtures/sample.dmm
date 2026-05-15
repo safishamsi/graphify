@@ -1,0 +1,14 @@
+"a" = (/turf/closed/wall)
+"b" = (/obj/structure/table,/area/station/maintenance)
+"c" = (/obj/item/weapon/sword{name = "longsword"; damage = 25},/turf/open/floor/plating)
+"d" = (
+/obj/structure/table,
+/obj/item/weapon/sword,
+/turf/open/floor/plating,
+/area/station/maintenance)
+
+(1,1,1) = {"
+aabb
+acdb
+aaaa
+"}

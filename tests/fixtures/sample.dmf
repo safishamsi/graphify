@@ -1,0 +1,72 @@
+window "mapwindow"
+	elem "mapwindow"
+		type = MAIN
+		pos = 0,0
+		size = 640x480
+		is-pane = true
+	elem "map"
+		type = MAP
+		pos = 0,0
+		size = 640x480
+		anchor1 = 0,0
+		anchor2 = 100,100
+		is-default = true
+
+window "infowindow"
+	elem "infowindow"
+		type = MAIN
+		pos = 0,0
+		size = 640x480
+		is-pane = true
+	elem "info"
+		type = CHILD
+		pos = 0,30
+		size = 640x445
+		anchor1 = 0,0
+		anchor2 = 100,100
+		left = "statwindow"
+		right = "outputwindow"
+		is-vert = false
+
+window "outputwindow"
+	elem "outputwindow"
+		type = MAIN
+		pos = 0,0
+		size = 640x480
+		is-pane = true
+	elem "output"
+		type = OUTPUT
+		pos = 0,0
+		size = 640x480
+		anchor1 = 0,0
+		anchor2 = 100,100
+		is-default = true
+
+window "statwindow"
+	elem "statwindow"
+		type = MAIN
+		pos = 0,0
+		size = 640x480
+		is-pane = true
+	elem "stat"
+		type = INFO
+		pos = 0,0
+		size = 640x480
+		anchor1 = 0,0
+		anchor2 = 100,100
+		is-default = true
+
+window "mainwindow"
+	elem "mainwindow"
+		type = MAIN
+		size = 640x440
+		is-default = true
+	elem "split"
+		type = CHILD
+		pos = 3,0
+		size = 634x417
+		anchor1 = 0,0
+		anchor2 = 100,100
+		left = "mapwindow"
+		right = "infowindow"
+		is-vert = true

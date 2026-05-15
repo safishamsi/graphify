@@ -3164,6 +3164,310 @@ def extract_dm(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges, "raw_calls": raw_calls}
 
 
+# ── DMI (BYOND icon files) ────────────────────────────────────────────────────
+# .dmi is a PNG with a `zTXt`/`tEXt` "Description" chunk containing BYOND state
+# metadata. We don't care about pixels — we want the icon state names, because
+# `icon_state = "X"` in DM code references them.
+
+def _read_dmi_description(data: bytes) -> str:
+    """Pull the BYOND metadata text out of a .dmi PNG, or empty string on failure."""
+    import struct
+    import zlib
+    if not data.startswith(b"\x89PNG\r\n\x1a\n"):
+        return ""
+    i = 8
+    while i + 8 <= len(data):
+        length = struct.unpack(">I", data[i:i+4])[0]
+        chunk_type = data[i+4:i+8]
+        payload = data[i+8:i+8+length]
+        if chunk_type in (b"tEXt", b"zTXt"):
+            try:
+                null = payload.index(b"\x00")
+            except ValueError:
+                return ""
+            keyword = payload[:null]
+            if keyword == b"Description":
+                if chunk_type == b"zTXt":
+                    # zTXt: keyword \0 method(1 byte) compressed-data
+                    return zlib.decompress(payload[null+2:]).decode("utf-8", errors="replace")
+                return payload[null+1:].decode("utf-8", errors="replace")
+        i += 8 + length + 4  # length + type + payload + crc
+    return ""
+
+
+def extract_dmi(path: Path) -> dict:
+    """Extract icon state names from a .dmi (BYOND PNG icon sheet)."""
+    try:
+        data = path.read_bytes()
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    str_path = str(path)
+    stem = _file_stem(path)
+    file_nid = _make_id(str(path))
+    nodes: list[dict] = [{
+        "id": file_nid, "label": path.name, "file_type": "code",
+        "source_file": str_path, "source_location": "L1",
+    }]
+    edges: list[dict] = []
+
+    description = _read_dmi_description(data)
+    if not description:
+        return {"nodes": nodes, "edges": edges}
+
+    seen: set[str] = {file_nid}
+    line_no = 0
+    for raw_line in description.splitlines():
+        line_no += 1
+        stripped = raw_line.strip()
+        if not stripped.startswith("state ="):
+            continue
+        # state = "name"
+        value = stripped.split("=", 1)[1].strip()
+        if value.startswith('"') and value.endswith('"') and len(value) >= 2:
+            state_name = value[1:-1]
+        else:
+            state_name = value
+        if not state_name:
+            continue
+        nid = _make_id(stem, "state", state_name)
+        if nid in seen:
+            continue
+        seen.add(nid)
+        label = f'"{state_name}"'
+        nodes.append({
+            "id": nid, "label": label, "file_type": "code",
+            "source_file": str_path, "source_location": f"L{line_no}",
+        })
+        edges.append({
+            "source": file_nid, "target": nid, "relation": "contains",
+            "confidence": "EXTRACTED", "source_file": str_path,
+            "source_location": f"L{line_no}", "weight": 1.0,
+        })
+
+    return {"nodes": nodes, "edges": edges}
+
+
+# ── DMM (BYOND map files) ─────────────────────────────────────────────────────
+# A .dmm starts with a tile dictionary — each `"key" = (type, type{var=val}, ...)`
+# names one or more types that compose a tile — then a grid laying tile keys in
+# a 3D coordinate space. We only need the dictionary section: every type path
+# referenced from a map is a `uses` edge from the map file to that type, which
+# lets queries answer "where is /obj/foo placed?". Format reference:
+# https://github.com/SpaceManiac/SpacemanDMM/blob/master/crates/dmm-tools/src/dmm/read.rs
+
+# Grid-section header: "(x,y,z) = {" or TGM variant. The dictionary is everything
+# before the first match.
+_DMM_GRID_RE = re.compile(r"^\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*\)\s*=", re.MULTILINE)
+
+
+def _split_dmm_tile(body: str) -> list[str]:
+    """Split a tile's `(type1, type2{...}, type3)` body into raw entries at top-level commas."""
+    out: list[str] = []
+    buf: list[str] = []
+    depth = 0
+    in_string = False
+    escape = False
+    for ch in body:
+        if escape:
+            buf.append(ch)
+            escape = False
+            continue
+        if in_string:
+            buf.append(ch)
+            if ch == "\\":
+                escape = True
+            elif ch == '"':
+                in_string = False
+            continue
+        if ch == '"':
+            in_string = True
+            buf.append(ch)
+        elif ch in "({[":
+            depth += 1
+            buf.append(ch)
+        elif ch in ")}]":
+            depth -= 1
+            buf.append(ch)
+        elif ch == "," and depth == 0:
+            out.append("".join(buf).strip())
+            buf = []
+        else:
+            buf.append(ch)
+    tail = "".join(buf).strip()
+    if tail:
+        out.append(tail)
+    return out
+
+
+def _dmm_type_path(entry: str) -> str:
+    """Strip var overrides and trailing whitespace, leaving just `/foo/bar/baz`."""
+    brace = entry.find("{")
+    if brace != -1:
+        entry = entry[:brace]
+    return entry.strip()
+
+
+def extract_dmm(path: Path) -> dict:
+    """Extract type-path references from a .dmm map file's tile dictionary."""
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    str_path = str(path)
+    stem = _file_stem(path)
+    file_nid = _make_id(str(path))
+    nodes: list[dict] = [{
+        "id": file_nid, "label": path.name, "file_type": "code",
+        "source_file": str_path, "source_location": "L1",
+    }]
+    edges: list[dict] = []
+
+    # Trim to the dictionary section (everything before the first grid header).
+    grid_match = _DMM_GRID_RE.search(text)
+    dict_text = text[:grid_match.start()] if grid_match else text
+
+    # Parse line-by-line, accumulating until we close the parens of each tile.
+    seen_targets: set[str] = set()
+    buf: list[str] = []
+    open_line = 0
+    depth = 0
+    in_string = False
+    escape = False
+    for line_idx, line in enumerate(dict_text.splitlines(), start=1):
+        for ch in line:
+            if escape:
+                escape = False
+            elif in_string:
+                if ch == "\\":
+                    escape = True
+                elif ch == '"':
+                    in_string = False
+            elif ch == '"':
+                in_string = True
+            elif ch == "(":
+                if depth == 0:
+                    open_line = line_idx
+                depth += 1
+            elif ch == ")":
+                depth -= 1
+            buf.append(ch)
+        buf.append("\n")
+        if depth == 0 and buf:
+            chunk = "".join(buf)
+            buf = []
+            # Find the outermost (...) span in this completed chunk.
+            lp = chunk.find("(")
+            rp = chunk.rfind(")")
+            if lp == -1 or rp == -1 or rp <= lp:
+                continue
+            inner = chunk[lp+1:rp]
+            for entry in _split_dmm_tile(inner):
+                tpath = _dmm_type_path(entry)
+                if not tpath.startswith("/"):
+                    continue
+                tgt = _make_id(tpath)
+                if tgt in seen_targets:
+                    continue
+                seen_targets.add(tgt)
+                edges.append({
+                    "source": file_nid, "target": tgt, "relation": "uses",
+                    "context": "map", "confidence": "EXTRACTED",
+                    "source_file": str_path,
+                    "source_location": f"L{open_line}", "weight": 1.0,
+                })
+
+    return {"nodes": nodes, "edges": edges}
+
+
+# ── DMF (BYOND interface forms) ───────────────────────────────────────────────
+# Hierarchical key-value text:
+#     window "main"
+#         elem "map"
+#             type = MAP
+# Indented blocks; control names live under `elem "X"`; the most useful thing
+# to surface is the window/elem hierarchy because `winset()`/`winget()` calls
+# in DM code reference these by name.
+
+_DMF_WINDOW_RE = re.compile(r'^\s*window\s+"([^"]+)"\s*$')
+_DMF_ELEM_RE = re.compile(r'^\s*elem\s+"([^"]+)"\s*$')
+_DMF_TYPE_RE = re.compile(r'^\s*type\s*=\s*(\S+)\s*$')
+
+
+def extract_dmf(path: Path) -> dict:
+    """Extract windows and controls from a .dmf interface file."""
+    try:
+        text = path.read_text(encoding="utf-8", errors="replace")
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    str_path = str(path)
+    stem = _file_stem(path)
+    file_nid = _make_id(str(path))
+    nodes: list[dict] = [{
+        "id": file_nid, "label": path.name, "file_type": "code",
+        "source_file": str_path, "source_location": "L1",
+    }]
+    edges: list[dict] = []
+    seen: set[str] = {file_nid}
+
+    current_window_nid: str | None = None
+    current_elem_nid: str | None = None
+    current_elem_name: str | None = None
+
+    for line_idx, line in enumerate(text.splitlines(), start=1):
+        m = _DMF_WINDOW_RE.match(line)
+        if m:
+            name = m.group(1)
+            nid = _make_id(stem, "window", name)
+            if nid not in seen:
+                seen.add(nid)
+                nodes.append({
+                    "id": nid, "label": f'window "{name}"', "file_type": "code",
+                    "source_file": str_path, "source_location": f"L{line_idx}",
+                })
+                edges.append({
+                    "source": file_nid, "target": nid, "relation": "contains",
+                    "confidence": "EXTRACTED", "source_file": str_path,
+                    "source_location": f"L{line_idx}", "weight": 1.0,
+                })
+            current_window_nid = nid
+            current_elem_nid = None
+            current_elem_name = None
+            continue
+        m = _DMF_ELEM_RE.match(line)
+        if m and current_window_nid is not None:
+            name = m.group(1)
+            nid = _make_id(stem, "elem", current_window_nid, name)
+            if nid not in seen:
+                seen.add(nid)
+                nodes.append({
+                    "id": nid, "label": f'elem "{name}"', "file_type": "code",
+                    "source_file": str_path, "source_location": f"L{line_idx}",
+                })
+                edges.append({
+                    "source": current_window_nid, "target": nid,
+                    "relation": "contains", "confidence": "EXTRACTED",
+                    "source_file": str_path, "source_location": f"L{line_idx}",
+                    "weight": 1.0,
+                })
+            current_elem_nid = nid
+            current_elem_name = name
+            continue
+        m = _DMF_TYPE_RE.match(line)
+        if m and current_elem_nid is not None and current_elem_name is not None:
+            # Encode the BYOND control type into the elem's label so it shows
+            # up in the graph (MAP, BUTTON, INPUT, …).
+            ctype = m.group(1)
+            for n in nodes:
+                if n["id"] == current_elem_nid and " [" not in n["label"]:
+                    n["label"] = f'elem "{current_elem_name}" [{ctype}]'
+                    break
+
+    return {"nodes": nodes, "edges": edges}
+
+
 # ── Julia extractor (custom walk) ────────────────────────────────────────────
 
 def extract_julia(path: Path) -> dict:
@@ -6335,6 +6639,9 @@ _DISPATCH: dict[str, Any] = {
     ".json": extract_json,
     ".dm": extract_dm,
     ".dme": extract_dm,
+    ".dmi": extract_dmi,
+    ".dmm": extract_dmm,
+    ".dmf": extract_dmf,
 }
 
 
