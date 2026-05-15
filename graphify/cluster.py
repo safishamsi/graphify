@@ -3,6 +3,7 @@ from __future__ import annotations
 import contextlib
 import inspect
 import io
+import json
 import sys
 import networkx as nx
 
@@ -27,15 +28,34 @@ def _partition(G: nx.Graph) -> dict[str, int]:
     Output from graspologic is suppressed to prevent ANSI escape codes
     from corrupting terminal scroll buffers on Windows PowerShell 5.1.
     """
+    stable = nx.Graph()
+    stable.add_nodes_from(sorted(G.nodes(), key=str))
+    edge_rows = sorted(
+        G.edges(data=True),
+        key=lambda row: (
+            str(row[0]),
+            str(row[1]),
+            json.dumps(row[2], sort_keys=True, ensure_ascii=False, default=str),
+        ),
+    )
+    for src, tgt, attrs in edge_rows:
+        stable.add_edge(src, tgt, **attrs)
+
     try:
         from graspologic.partition import leiden
+        lsig = inspect.signature(leiden).parameters
+        kwargs: dict = {}
+        if "random_seed" in lsig:
+            kwargs["random_seed"] = 42
+        if "trials" in lsig:
+            kwargs["trials"] = 1
         # Suppress graspologic output to prevent ANSI escape codes from
         # corrupting PowerShell 5.1 scroll buffer (issue #19)
         old_stderr = sys.stderr
         try:
             sys.stderr = io.StringIO()
             with _suppress_output():
-                result = leiden(G)
+                result = leiden(stable, **kwargs)
         finally:
             sys.stderr = old_stderr
         return result
@@ -48,7 +68,7 @@ def _partition(G: nx.Graph) -> dict[str, int]:
     kwargs: dict = {"seed": 42, "threshold": 1e-4}
     if "max_level" in inspect.signature(nx.community.louvain_communities).parameters:
         kwargs["max_level"] = 10
-    communities = nx.community.louvain_communities(G, **kwargs)
+    communities = nx.community.louvain_communities(stable, **kwargs)
     return {node: cid for cid, nodes in enumerate(communities) for node in nodes}
 
 
@@ -148,3 +168,54 @@ def cohesion_score(G: nx.Graph, community_nodes: list[str]) -> float:
 
 def score_all(G: nx.Graph, communities: dict[int, list[str]]) -> dict[int, float]:
     return {cid: cohesion_score(G, nodes) for cid, nodes in communities.items()}
+
+
+def remap_communities_to_previous(
+    communities: dict[int, list[str]],
+    previous_node_community: dict[str, int],
+) -> dict[int, list[str]]:
+    """Remap community IDs to maximize overlap with a previous assignment.
+
+    Uses greedy one-to-one matching by intersection size, then assigns fresh IDs
+    to unmatched communities in deterministic order (size desc, lexical tie-break).
+    """
+    if not communities:
+        return {}
+
+    new_sets = {cid: set(nodes) for cid, nodes in communities.items()}
+    old_sets: dict[int, set[str]] = {}
+    for node, old_cid in previous_node_community.items():
+        old_sets.setdefault(old_cid, set()).add(node)
+
+    overlaps: list[tuple[int, int, int]] = []
+    for old_cid, old_nodes in old_sets.items():
+        for new_cid, new_nodes in new_sets.items():
+            overlap = len(old_nodes & new_nodes)
+            if overlap > 0:
+                overlaps.append((overlap, old_cid, new_cid))
+    overlaps.sort(key=lambda x: (-x[0], x[1], x[2]))
+
+    new_to_final: dict[int, int] = {}
+    used_old_ids: set[int] = set()
+    matched_new_ids: set[int] = set()
+    for _overlap, old_cid, new_cid in overlaps:
+        if old_cid in used_old_ids or new_cid in matched_new_ids:
+            continue
+        new_to_final[new_cid] = old_cid
+        used_old_ids.add(old_cid)
+        matched_new_ids.add(new_cid)
+
+    unmatched = [cid for cid in communities if cid not in matched_new_ids]
+    unmatched.sort(key=lambda cid: (-len(communities[cid]), tuple(sorted(communities[cid]))))
+    next_id = 0
+    for new_cid in unmatched:
+        while next_id in used_old_ids:
+            next_id += 1
+        new_to_final[new_cid] = next_id
+        used_old_ids.add(next_id)
+        next_id += 1
+
+    remapped: dict[int, list[str]] = {}
+    for new_cid, nodes in communities.items():
+        remapped[new_to_final[new_cid]] = sorted(nodes)
+    return dict(sorted(remapped.items(), key=lambda kv: kv[0]))

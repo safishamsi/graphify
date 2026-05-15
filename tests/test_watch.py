@@ -1,9 +1,11 @@
 """Tests for watch.py - file watcher helpers (no watchdog required)."""
+import os
+import sys
 import time
 from pathlib import Path
 import pytest
 
-from graphify.watch import _notify_only, _WATCHED_EXTENSIONS
+from graphify.watch import _notify_only, _WATCHED_EXTENSIONS, _rebuild_lock
 
 
 # --- _notify_only ---
@@ -94,3 +96,113 @@ def test_watch_raises_without_watchdog(tmp_path, monkeypatch):
     from graphify.watch import watch
     with pytest.raises(ImportError, match="watchdog not installed"):
         watch(tmp_path)
+
+
+# --- _rebuild_lock (GH-858) ---
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="fcntl-only (POSIX)")
+def test_rebuild_lock_writes_pid_with_newline(tmp_path):
+    out = tmp_path / "graphify-out"
+    lock_path = out / ".rebuild.lock"
+    with _rebuild_lock(out) as got:
+        assert got is True
+        assert lock_path.exists()
+        contents = lock_path.read_text(encoding="utf-8")
+        assert contents == f"{os.getpid()}\n", contents
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="fcntl-only (POSIX)")
+def test_rebuild_lock_removed_after_release(tmp_path):
+    """GH-858: lock file must be unlinked once the rebuild completes so
+    downstream waiters that poll for its absence unblock promptly."""
+    out = tmp_path / "graphify-out"
+    lock_path = out / ".rebuild.lock"
+    with _rebuild_lock(out) as got:
+        assert got is True
+    assert not lock_path.exists(), "lock file should be unlinked after release"
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="fcntl-only (POSIX)")
+def test_rebuild_lock_does_not_accumulate_pids_across_runs(tmp_path):
+    """GH-858: each acquisition truncates and rewrites the PID line rather
+    than appending, so the file never grows into a digit-concatenation."""
+    out = tmp_path / "graphify-out"
+    lock_path = out / ".rebuild.lock"
+    expected = f"{os.getpid()}\n"
+    for _ in range(5):
+        with _rebuild_lock(out) as got:
+            assert got is True
+            assert lock_path.read_text(encoding="utf-8") == expected
+        assert not lock_path.exists()
+
+
+@pytest.mark.skipif(sys.platform == "win32", reason="fcntl-only (POSIX)")
+def test_rebuild_lock_non_blocking_does_not_clobber_holder(tmp_path):
+    """GH-858: a non-blocking caller that fails to acquire the lock must not
+    truncate the holder's PID payload."""
+    out = tmp_path / "graphify-out"
+    lock_path = out / ".rebuild.lock"
+    with _rebuild_lock(out) as outer:
+        assert outer is True
+        held_contents = lock_path.read_text(encoding="utf-8")
+        with _rebuild_lock(out, blocking=False) as inner:
+            assert inner is False
+            # Holder's PID line must still be intact.
+            assert lock_path.read_text(encoding="utf-8") == held_contents
+
+
+def test_rebuild_code_is_idempotent_when_cluster_ids_flap(tmp_path, monkeypatch):
+    from graphify import cluster as cluster_mod
+    from graphify.watch import _rebuild_code
+
+    src = tmp_path / "app.py"
+    src.write_text("def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n", encoding="utf-8")
+
+    calls = {"n": 0}
+
+    def flaky_cluster(G):
+        calls["n"] += 1
+        nodes = sorted(G.nodes())
+        if calls["n"] % 2 == 1:
+            return {100: nodes}
+        return {7: nodes}
+
+    monkeypatch.setattr(cluster_mod, "cluster", flaky_cluster)
+    monkeypatch.setattr(cluster_mod, "score_all", lambda _G, comm: {cid: 1.0 for cid in comm})
+
+    assert _rebuild_code(tmp_path)
+    graph_path = tmp_path / "graphify-out" / "graph.json"
+    report_path = tmp_path / "graphify-out" / "GRAPH_REPORT.md"
+    first_graph = graph_path.read_text(encoding="utf-8")
+    first_report = report_path.read_text(encoding="utf-8")
+
+    assert _rebuild_code(tmp_path)
+    second_graph = graph_path.read_text(encoding="utf-8")
+    second_report = report_path.read_text(encoding="utf-8")
+
+    assert first_graph == second_graph
+    assert first_report == second_report
+
+
+def test_rebuild_code_skips_cluster_when_topology_unchanged(tmp_path, monkeypatch):
+    from graphify import cluster as cluster_mod
+    from graphify.watch import _rebuild_code
+
+    src = tmp_path / "app.py"
+    src.write_text("def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n", encoding="utf-8")
+
+    calls = {"n": 0}
+
+    def cluster_once(G):
+        calls["n"] += 1
+        if calls["n"] > 1:
+            raise AssertionError("cluster() should be skipped when topology is unchanged")
+        return {0: sorted(G.nodes())}
+
+    monkeypatch.setattr(cluster_mod, "cluster", cluster_once)
+    monkeypatch.setattr(cluster_mod, "score_all", lambda _G, comm: {cid: 1.0 for cid in comm})
+
+    assert _rebuild_code(tmp_path)
+    assert _rebuild_code(tmp_path)
+    assert calls["n"] == 1

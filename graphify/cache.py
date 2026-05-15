@@ -55,9 +55,9 @@ def file_hash(path: Path, root: Path = Path(".")) -> str:
     h.update(b"\x00")
     try:
         rel = p.resolve().relative_to(Path(root).resolve())
-        h.update(str(rel).encode())
+        h.update(rel.as_posix().lower().encode())
     except ValueError:
-        h.update(str(p.resolve()).encode())
+        h.update(p.resolve().as_posix().lower().encode())
     return h.hexdigest()
 
 
@@ -190,7 +190,10 @@ def check_semantic_cache(
     uncached: list[str] = []
 
     for fpath in files:
-        result = load_cached(Path(fpath), root, kind="semantic")
+        p = Path(fpath)
+        if not p.is_absolute():
+            p = Path(root) / p
+        result = load_cached(p, root, kind="semantic")
         if result is not None:
             cached_nodes.extend(result.get("nodes", []))
             cached_edges.extend(result.get("edges", []))

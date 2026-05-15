@@ -233,8 +233,20 @@ def deduplicate_entities(
     deduped_edges = []
     for edge in edges:
         e = dict(edge)
-        e["source"] = remap.get(e["source"], e["source"])
-        e["target"] = remap.get(e["target"], e["target"])
+        # Tolerate "from"/"to" keys from LLM backends that don't follow the
+        # schema exactly — build_from_json normalises later but dedup runs
+        # first so bracket access would KeyError here (#803).
+        # Use explicit key presence check (not `or`) so empty-string src/tgt
+        # aren't silently replaced by the fallback key.
+        src = e["source"] if "source" in e else e.get("from")
+        tgt = e["target"] if "target" in e else e.get("to")
+        if src is None or tgt is None:
+            continue
+        e["source"] = remap.get(src, src)
+        e["target"] = remap.get(tgt, tgt)
+        # Remove legacy keys so they don't leak into edge attrs in graph.json.
+        e.pop("from", None)
+        e.pop("to", None)
         if e["source"] != e["target"]:
             deduped_edges.append(e)
 

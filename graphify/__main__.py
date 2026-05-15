@@ -33,7 +33,7 @@ def _check_skill_version(skill_dst: Path) -> None:
         return
     installed = version_file.read_text(encoding="utf-8").strip()
     if installed != __version__:
-        print(f"  warning: skill is from graphify {installed}, package is {__version__}. Run 'graphify install' to update.")
+        print(f"  warning: skill is from graphify {installed}, package is {__version__}. Run 'graphify install' to update.", file=sys.stderr)
 
 
 def _refresh_all_version_stamps() -> None:
@@ -253,6 +253,8 @@ _AGENTS_MD_SECTION = """\
 ## graphify
 
 This project has a knowledge graph at graphify-out/ with god nodes, community structure, and cross-file relationships.
+
+When the user types `/graphify`, invoke the `skill` tool with `skill: "graphify"` before doing anything else.
 
 Rules:
 - ALWAYS read graphify-out/GRAPH_REPORT.md before reading any source files, running grep/glob searches, or answering codebase questions. The graph is your primary map of the codebase.
@@ -1115,12 +1117,18 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
 def main() -> None:
     # Check all known skill install locations for a stale version stamp.
     # Skip during install/uninstall (hook writes trigger a fresh check anyway).
+    # Skip during hook-check — it runs on every editor tool use and must be silent.
     # Deduplicate paths so platforms sharing the same install dir don't warn twice.
-    if not any(arg in ("install", "uninstall") for arg in sys.argv):
+    _silent_cmds = {"install", "uninstall", "hook-check"}
+    if not any(arg in _silent_cmds for arg in sys.argv):
         for skill_dst in {Path.home() / cfg["skill_dst"] for cfg in _PLATFORM_CONFIG.values()}:
             _check_skill_version(skill_dst)
 
-    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
+    if len(sys.argv) >= 2 and sys.argv[1] in ("-v", "--version", "version"):
+        print(f"graphify {__version__}")
+        return
+
+    if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help", "-?"):
         print("Usage: graphify <command>")
         print()
         print("Commands:")
@@ -1145,6 +1153,7 @@ def main() -> None:
         print("  update <path>           re-extract code files and update the graph (no LLM needed)")
         print("    --force                 overwrite graph.json even if the rebuild has fewer nodes")
         print("                            (also: GRAPHIFY_FORCE=1 env var; use after refactors that delete code)")
+        print("    --no-cluster            skip clustering, write raw extraction only")
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("    --no-viz                skip graph.html generation (useful for >5000 node graphs / CI)")
         print("    --graph <path>          path to graph.json (default <path>/graphify-out/graph.json)")
@@ -1225,6 +1234,17 @@ def main() -> None:
         return
 
     cmd = sys.argv[1]
+
+    # Universal help guard: -h/--help/-? anywhere after the command shows help
+    # and stops — prevents flags from silently triggering destructive subcommands
+    # (e.g. "cursor install --help" was silently installing into Cursor, #821).
+    # Exempt: free-text commands (user string may contain these tokens), and
+    # "install"/"uninstall" which have their own per-subcommand help handlers.
+    _FREE_TEXT_CMDS = {"query", "explain", "path", "save-result", "install", "uninstall"}
+    if cmd not in _FREE_TEXT_CMDS and any(a in {"-h", "--help", "-?"} for a in sys.argv[2:]):
+        print(f"Run 'graphify --help' for full usage.")
+        return
+
     if cmd == "install":
         # Default to windows platform on Windows, claude elsewhere
         default_platform = "windows" if platform.system() == "Windows" else "claude"
@@ -1495,6 +1515,8 @@ def main() -> None:
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
+        # Force directed so the renderer can recover stored caller→callee direction.
+        _raw = {**_raw, "directed": True}
         try:
             G = json_graph.node_link_graph(_raw, edges="links")
         except TypeError:
@@ -1508,8 +1530,27 @@ def main() -> None:
             print(f"No node matching '{target_label}' found.", file=sys.stderr)
             sys.exit(1)
         src_nid, tgt_nid = src_scored[0][1], tgt_scored[0][1]
+        # Ambiguity guard: when both queries resolve to the same node, the
+        # shortest path is trivially zero hops, which is almost never what the
+        # caller wanted (see bug #828).
+        if src_nid == tgt_nid:
+            print(
+                f"'{source_label}' and '{target_label}' both resolved to the same "
+                f"node '{src_nid}'. Use a more specific label or the exact node ID.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+        for _name, _scored in (("source", src_scored), ("target", tgt_scored)):
+            if len(_scored) >= 2:
+                _top, _runner = _scored[0][0], _scored[1][0]
+                if _top > 0 and (_top - _runner) / _top < 0.10:
+                    print(
+                        f"warning: {_name} match was ambiguous "
+                        f"(top score {_top:g}, runner-up {_runner:g})",
+                        file=sys.stderr,
+                    )
         try:
-            path_nodes = _nx.shortest_path(G, src_nid, tgt_nid)
+            path_nodes = _nx.shortest_path(G.to_undirected(as_view=True), src_nid, tgt_nid)
         except (_nx.NetworkXNoPath, _nx.NodeNotFound):
             print(f"No path found between '{source_label}' and '{target_label}'.")
             sys.exit(0)
@@ -1518,13 +1559,22 @@ def main() -> None:
         from graphify.build import edge_data
         for i in range(len(path_nodes) - 1):
             u, v = path_nodes[i], path_nodes[i + 1]
-            edata = edge_data(G, u, v)
+            # Check which direction the stored edge points.
+            if G.has_edge(u, v):
+                edata = edge_data(G, u, v)
+                forward = True
+            else:
+                edata = edge_data(G, v, u)
+                forward = False
             rel = edata.get("relation", "")
             conf = edata.get("confidence", "")
             conf_str = f" [{conf}]" if conf else ""
             if i == 0:
                 segments.append(G.nodes[u].get("label", u))
-            segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            if forward:
+                segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            else:
+                segments.append(f"<--{rel}{conf_str}-- {G.nodes[v].get('label', v)}")
         print(f"Shortest path ({hops} hops):\n  " + " ".join(segments))
 
     elif cmd == "explain":
@@ -1546,6 +1596,8 @@ def main() -> None:
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
+        # Force directed so the renderer can recover stored caller→callee direction.
+        _raw = {**_raw, "directed": True}
         try:
             G = json_graph.node_link_graph(_raw, edges="links")
         except TypeError:
@@ -1562,17 +1614,22 @@ def main() -> None:
         print(f"  Type:      {d.get('file_type', '')}")
         print(f"  Community: {d.get('community', '')}")
         print(f"  Degree:    {G.degree(nid)}")
-        neighbors = list(G.neighbors(nid))
-        if neighbors:
-            from graphify.build import edge_data
-            print(f"\nConnections ({len(neighbors)}):")
-            for nb in sorted(neighbors, key=lambda n: G.degree(n), reverse=True)[:20]:
-                edata = edge_data(G, nid, nb)
+        from graphify.build import edge_data
+        connections: list[tuple[str, str, dict]] = []  # (direction, neighbor_id, edge_data)
+        for nb in G.successors(nid):
+            connections.append(("out", nb, edge_data(G, nid, nb)))
+        for nb in G.predecessors(nid):
+            connections.append(("in", nb, edge_data(G, nb, nid)))
+        if connections:
+            print(f"\nConnections ({len(connections)}):")
+            connections.sort(key=lambda c: G.degree(c[1]), reverse=True)
+            for direction, nb, edata in connections[:20]:
                 rel = edata.get("relation", "")
                 conf = edata.get("confidence", "")
-                print(f"  --> {G.nodes[nb].get('label', nb)} [{rel}] [{conf}]")
-            if len(neighbors) > 20:
-                print(f"  ... and {len(neighbors) - 20} more")
+                arrow = "-->" if direction == "out" else "<--"
+                print(f"  {arrow} {G.nodes[nb].get('label', nb)} [{rel}] [{conf}]")
+            if len(connections) > 20:
+                print(f"  ... and {len(connections) - 20} more")
 
     elif cmd == "add":
         if len(sys.argv) < 3:
@@ -1700,12 +1757,26 @@ def main() -> None:
 
     elif cmd == "update":
         force = os.environ.get("GRAPHIFY_FORCE", "").lower() in ("1", "true", "yes")
-        argv = list(sys.argv)
-        if "--force" in argv[2:]:
-            force = True
-            argv = [a for a in argv if a != "--force"]
-        if len(argv) > 2:
-            watch_path = Path(argv[2])
+        no_cluster = False
+        args = sys.argv[2:]
+        watch_arg: str | None = None
+        for a in args:
+            if a == "--force":
+                force = True
+                continue
+            if a == "--no-cluster":
+                no_cluster = True
+                continue
+            if a.startswith("-"):
+                print(f"error: unknown update option: {a}", file=sys.stderr)
+                sys.exit(2)
+            if watch_arg is not None:
+                print("error: update accepts at most one path argument", file=sys.stderr)
+                sys.exit(2)
+            watch_arg = a
+
+        if watch_arg is not None:
+            watch_path = Path(watch_arg)
         else:
             # Try to recover the scan root saved by the last full build
             saved = Path(_GRAPHIFY_OUT) / ".graphify_root"
@@ -1721,7 +1792,7 @@ def main() -> None:
         # Interactive CLI: block on the per-repo lock rather than skip, so the
         # user sees their explicit `graphify update` complete instead of
         # exiting silently when a hook-driven rebuild happens to be running.
-        ok = _rebuild_code(watch_path, force=force, block_on_lock=True)
+        ok = _rebuild_code(watch_path, force=force, no_cluster=no_cluster, block_on_lock=True)
         if ok:
             print("Code graph updated. For doc/paper/image changes run /graphify --update in your AI assistant.")
             if not (
@@ -2384,6 +2455,23 @@ def main() -> None:
                     host in ("localhost", "127.0.0.1", "::1")
                     or host.startswith("127.")
                 )
+            elif backend == "bedrock":
+                allow_no_key = bool(
+                    os.environ.get("AWS_PROFILE")
+                    or os.environ.get("AWS_REGION")
+                    or os.environ.get("AWS_DEFAULT_REGION")
+                    or os.environ.get("AWS_ACCESS_KEY_ID")
+                )
+            elif backend == "claude-cli":
+                import shutil as _shutil
+                allow_no_key = _shutil.which("claude") is not None
+                if not allow_no_key:
+                    print(
+                        "error: backend 'claude-cli' requires the `claude` CLI on $PATH "
+                        "(install Claude Code and run `claude` once to authenticate).",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
             if not allow_no_key:
                 print(
                     f"error: backend '{backend}' requires {_format_backend_env_keys(backend)} to be set.",
@@ -2577,7 +2665,7 @@ def main() -> None:
                     f"est. cost: ${cost:.4f}"
                 )
             try:
-                _save_manifest(files_by_type, manifest_path=str(manifest_path))
+                _save_manifest(files_by_type, manifest_path=str(manifest_path), kind="both")
             except Exception as exc:
                 print(f"[graphify extract] warning: could not write manifest: {exc}", file=sys.stderr)
             if global_merge:
@@ -2659,7 +2747,7 @@ def main() -> None:
         }
         analysis_path.write_text(json.dumps(analysis, indent=2), encoding="utf-8")
         try:
-            _save_manifest(files_by_type, manifest_path=str(manifest_path))
+            _save_manifest(files_by_type, manifest_path=str(manifest_path), kind="both")
         except Exception as exc:
             print(f"[graphify extract] warning: could not write manifest: {exc}", file=sys.stderr)
 

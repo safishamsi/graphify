@@ -47,19 +47,57 @@ graphify export callflow-html
 
 ---
 
-## Install
+## Prerequisites
 
-**Requires Python 3.10+**
+| Requirement | Minimum | Check | Install |
+|---|---|---|---|
+| Python | 3.10+ | `python --version` | [python.org](https://www.python.org/downloads/) |
+| uv *(recommended)* | any | `uv --version` | `curl -LsSf https://astral.sh/uv/install.sh \| sh` |
+| pipx *(alternative)* | any | `pipx --version` | `pip install pipx` |
 
+**macOS quick install (Homebrew):**
 ```bash
-uv tool install graphifyy && graphify install
-# or: pipx install graphifyy && graphify install
-# or: pip install graphifyy && graphify install
+brew install python@3.12 uv
 ```
+
+**Windows quick install:**
+```powershell
+winget install astral-sh.uv
+```
+
+**Ubuntu/Debian:**
+```bash
+sudo apt install python3.12 python3-pip pipx
+# or install uv:
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+---
+
+## Install
 
 > **Official package:** The PyPI package is `graphifyy` (double-y). Other `graphify*` packages on PyPI are not affiliated. The CLI command is still `graphify`.
 
-> **PowerShell note:** Use `graphify .` not `/graphify .` — the leading slash is a path separator in PowerShell and will cause a "not recognized" error.
+**Step 1 — install the package:**
+
+```bash
+# Recommended (uv puts graphify on PATH automatically):
+uv tool install graphifyy
+
+# Alternatives:
+pipx install graphifyy
+pip install graphifyy
+```
+
+**Step 2 — register the skill with your AI assistant:**
+
+```bash
+graphify install
+```
+
+That's it. Open your AI assistant and type `/graphify .`
+
+> **PowerShell note:** Use `graphify .` not `/graphify .` — the leading slash is a path separator in PowerShell.
 
 > **`graphify: command not found`?** Use `uv tool install graphifyy` or `pipx install graphifyy` — both put the CLI on PATH automatically. With plain `pip`, add `~/.local/bin` (Linux) or `~/Library/Python/3.x/bin` (Mac) to your PATH, or run `python -m graphify`.
 
@@ -88,6 +126,27 @@ uv tool install graphifyy && graphify install
 
 > Codex users: also add `multi_agent = true` under `[features]` in `~/.codex/config.toml`.
 > Codex uses `$graphify` instead of `/graphify`.
+
+### Optional extras
+
+Install only what you need:
+
+| Extra | What it adds | Install |
+|---|---|---|
+| `pdf` | PDF extraction | `pip install "graphifyy[pdf]"` |
+| `office` | `.docx` and `.xlsx` support | `pip install "graphifyy[office]"` |
+| `google` | Google Sheets rendering | `pip install "graphifyy[google]"` |
+| `video` | Video/audio transcription (faster-whisper + yt-dlp) | `pip install "graphifyy[video]"` |
+| `mcp` | MCP stdio server | `pip install "graphifyy[mcp]"` |
+| `neo4j` | Neo4j push support | `pip install "graphifyy[neo4j]"` |
+| `svg` | SVG graph export | `pip install "graphifyy[svg]"` |
+| `leiden` | Leiden community detection (Python < 3.13 only) | `pip install "graphifyy[leiden]"` |
+| `ollama` | Ollama local inference | `pip install "graphifyy[ollama]"` |
+| `openai` | OpenAI / OpenAI-compatible APIs | `pip install "graphifyy[openai]"` |
+| `gemini` | Google Gemini API | `pip install "graphifyy[gemini]"` |
+| `bedrock` | AWS Bedrock (uses IAM, no API key) | `pip install "graphifyy[bedrock]"` |
+| `sql` | SQL schema extraction | `pip install "graphifyy[sql]"` |
+| `all` | Everything above | `pip install "graphifyy[all]"` |
 
 ---
 
@@ -135,7 +194,7 @@ To remove graphify from all platforms at once: `graphify uninstall` (add `--purg
 
 | Type | Extensions |
 |------|-----------|
-| Code (29 languages) | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .h .hpp .rb .cs .kt .scala .php .swift .lua .luau .zig .ps1 .ex .exs .m .mm .jl .vue .svelte .groovy .gradle .dart .v .sv .sql .f .f90 .f95 .f03 .f08 .pas .pp .dpr .dpk .lpr .inc .dfm .lfm .lpk` |
+| Code (29 languages) | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .h .hpp .rb .cs .kt .scala .php .swift .lua .luau .zig .ps1 .ex .exs .m .mm .jl .vue .svelte .astro .groovy .gradle .dart .v .sv .sql .f .f90 .f95 .f03 .f08 .pas .pp .dpr .dpk .lpr .inc .dfm .lfm .lpk` |
 | Docs | `.md .mdx .qmd .html .txt .rst .yaml .yml` |
 | Office | `.docx .xlsx` (requires `pip install graphifyy[office]`) |
 | Google Workspace | `.gdoc .gsheet .gslides` (opt-in; requires `gws` auth and `--google-workspace`; Sheets need `pip install graphifyy[google]`) |
@@ -247,12 +306,89 @@ The MCP server gives your assistant structured access: `query_graph`, `get_node`
 
 ---
 
+## Environment variables
+
+These are only needed for **headless / CI extraction** (`graphify extract`). When running via the `/graphify` skill inside your IDE, the model API is provided by your IDE session — no extra keys needed.
+
+| Variable | Used for | When required |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | Claude (Anthropic) backend | `--backend claude` |
+| `GEMINI_API_KEY` or `GOOGLE_API_KEY` | Google Gemini backend | `--backend gemini` |
+| `OPENAI_API_KEY` | OpenAI or OpenAI-compatible APIs | `--backend openai` |
+| `MOONSHOT_API_KEY` | Kimi Code backend | `--backend kimi` |
+| `OLLAMA_BASE_URL` | Ollama local inference URL | `--backend ollama` (default: `http://localhost:11434`) |
+| `OLLAMA_MODEL` | Ollama model name | `--backend ollama` (default: auto-detect) |
+| `GRAPHIFY_OLLAMA_NUM_CTX` | Override Ollama KV-cache window size | optional — auto-sized by default |
+| `GRAPHIFY_OLLAMA_KEEP_ALIVE` | Minutes to keep Ollama model loaded | optional — set `0` to unload after each chunk |
+| `AWS_*` / `~/.aws/credentials` | AWS Bedrock — standard credential chain | `--backend bedrock` (no API key, uses IAM) |
+| `GRAPHIFY_MAX_WORKERS` | AST parallelism thread count | optional — also `--max-workers` flag |
+| `GRAPHIFY_MAX_OUTPUT_TOKENS` | Raise output cap for dense corpora | optional — e.g. `32768` for large files |
+| `GRAPHIFY_API_TIMEOUT` | HTTP timeout in seconds (default: 600) | optional — also `--api-timeout` flag |
+| `GRAPHIFY_FORCE` | Force graph rebuild even with fewer nodes | optional — also `--force` flag |
+| `GRAPHIFY_GOOGLE_WORKSPACE` | Auto-enable Google Workspace export | optional — set to `1` |
+
+---
+
 ## Privacy
 
 - **Code files** — processed locally via tree-sitter. Nothing leaves your machine.
 - **Video / audio** — transcribed locally with faster-whisper. Nothing leaves your machine.
-- **Docs, PDFs, images** — sent to your AI assistant for semantic extraction (via the `/graphify` skill, using whatever model your IDE session runs). Headless `graphify extract` requires `GEMINI_API_KEY` / `GOOGLE_API_KEY` (Gemini), `MOONSHOT_API_KEY` (Kimi), `ANTHROPIC_API_KEY` (Claude), `OPENAI_API_KEY` (OpenAI), a running Ollama instance (`OLLAMA_BASE_URL`), or AWS credentials via the standard provider chain (Bedrock - no API key needed, uses IAM). The `--dedup-llm` flag uses the same key.
+- **Docs, PDFs, images** — sent to your AI assistant for semantic extraction (via the `/graphify` skill, using whatever model your IDE session runs). Headless `graphify extract` requires `GEMINI_API_KEY` / `GOOGLE_API_KEY` (Gemini), `MOONSHOT_API_KEY` (Kimi), `ANTHROPIC_API_KEY` (Claude), `OPENAI_API_KEY` (OpenAI), a running Ollama instance (`OLLAMA_BASE_URL`), AWS credentials via the standard provider chain (Bedrock - no API key needed, uses IAM), or the `claude` CLI binary (Claude Code - no API key needed, uses your Claude subscription). The `--dedup-llm` flag uses the same key.
 - No telemetry, no usage tracking, no analytics.
+
+---
+
+## Troubleshooting
+
+**`graphify: command not found` after `pip install graphifyy`**
+pip installs scripts to a user bin directory that may not be on your PATH. Fix:
+- macOS: add `~/Library/Python/3.x/bin` to your PATH in `~/.zshrc`
+- Linux: add `~/.local/bin` to your PATH in `~/.bashrc`
+- Or use `uv tool install graphifyy` / `pipx install graphifyy` — both manage PATH automatically.
+
+**`python -m graphify` works but `graphify` command doesn't**
+Your shell's PATH doesn't include the Python scripts directory. Use `uv` or `pipx` instead of plain `pip`.
+
+**`/graphify .` causes "path not recognized" in PowerShell**
+PowerShell treats a leading `/` as a path separator. Use `graphify .` (no slash) on Windows.
+
+**Graph has fewer nodes after `--update` or rebuild**
+If a refactor deleted files, the old nodes linger. Pass `--force` (or set `GRAPHIFY_FORCE=1`) to overwrite even when the rebuild has fewer nodes.
+
+**Graph has duplicate nodes for the same entity (ghost duplicates)**
+This happens when semantic and AST extraction disagreed on the node ID format. Run a full re-extract to clean up:
+```bash
+graphify extract . --force
+```
+
+**Ollama runs out of VRAM / context window exceeded**
+The KV-cache window is auto-sized but may be too large for your GPU. Reduce it:
+```bash
+GRAPHIFY_OLLAMA_NUM_CTX=8192 graphify extract ./docs --backend ollama --token-budget 4000
+```
+
+**Graph HTML is too large to open in a browser (>5000 nodes)**
+Skip HTML generation and use the JSON directly:
+```bash
+graphify cluster-only ./my-project --no-viz
+graphify query "..."
+```
+
+**`graph.json` has conflict markers after two devs commit at once**
+Run `graphify hook install` — it sets up a git merge driver that union-merges `graph.json` automatically so conflicts never happen.
+
+**Extraction returns empty nodes/edges for docs or PDFs**
+Docs and PDFs require an LLM call. Check that your API key is set and the backend is correct:
+```bash
+ANTHROPIC_API_KEY=sk-... graphify extract ./docs --backend claude
+```
+
+**Skill version mismatch warning in your IDE**
+Your installed graphify version is different from the skill file. Update:
+```bash
+uv tool upgrade graphifyy
+graphify install  # overwrites the skill file
+```
 
 ---
 
@@ -307,18 +443,20 @@ graphify kiro install / uninstall
 graphify antigravity install / uninstall
 
 graphify extract ./docs                        # headless LLM extraction for CI (no IDE needed)
-graphify extract ./docs --backend gemini       # explicit backend: gemini, kimi, claude, openai, ollama, or bedrock
+graphify extract ./docs --backend gemini       # explicit backend: gemini, kimi, claude, openai, ollama, bedrock, or claude-cli
 graphify extract ./docs --backend gemini --model gemini-3.1-pro-preview
 graphify extract ./docs --backend ollama       # local Ollama (set OLLAMA_BASE_URL / OLLAMA_MODEL) - no API key needed for loopback
 GRAPHIFY_OLLAMA_NUM_CTX=32768 graphify extract ./docs --backend ollama   # override KV-cache window (auto-sized by default)
 GRAPHIFY_OLLAMA_KEEP_ALIVE=0 graphify extract ./docs --backend ollama    # unload model after each chunk (saves VRAM on small GPUs)
 graphify extract ./docs --backend bedrock      # AWS Bedrock via IAM - no API key, uses AWS credential chain
+graphify extract ./docs --backend claude-cli   # route through Claude Code CLI - no API key, uses your Claude subscription
 graphify extract ./docs --max-workers 16       # AST parallelism (also GRAPHIFY_MAX_WORKERS)
 graphify extract ./docs --token-budget 30000   # smaller semantic chunks for local/small models
 graphify extract ./docs --max-concurrency 2    # fewer parallel LLM calls (useful for local inference)
 graphify extract ./docs --api-timeout 900      # longer HTTP timeout for slow local models (default 600s)
 graphify extract ./docs --google-workspace     # export .gdoc/.gsheet/.gslides via gws before extraction
 graphify extract ./docs --no-cluster           # raw extraction only, skip clustering
+graphify extract ./docs --force                # overwrite graph.json even if new graph has fewer nodes (use after refactors or to clear ghost duplicates)
 graphify extract ./docs --dedup-llm            # LLM tiebreaker for ambiguous entity pairs (uses same API key)
 graphify extract ./docs --global --as myrepo   # extract and register into the cross-project global graph
 GRAPHIFY_MAX_OUTPUT_TOKENS=32768 graphify extract ./docs --backend claude  # raise output cap for dense corpora
@@ -335,9 +473,12 @@ graphify global path                                  # print path to the global
 
 graphify clone https://github.com/karpathy/nanoGPT
 graphify merge-graphs a.json b.json --out merged.json
+graphify --version                                    # print installed version
 graphify watch ./src
 graphify check-update ./src
 graphify update ./src
+graphify update ./src --no-cluster  # skip reclustering, write raw AST graph only
+graphify update ./src --force       # overwrite even if new graph has fewer nodes
 graphify cluster-only ./my-project
 graphify cluster-only ./my-project --graph path/to/graph.json  # custom graph location
 ```
@@ -364,6 +505,49 @@ Built for people whose work lives across hundreds of conversations and documents
 
 <details>
 <summary>Contributing</summary>
+
+### Development setup
+
+Clone the repo and install in editable mode:
+
+```bash
+git clone https://github.com/safishamsi/graphify.git
+cd graphify
+git checkout v7                        # active development branch
+
+# Create a virtual environment (Python 3.10+ required):
+python3 -m venv .venv
+source .venv/bin/activate              # Windows: .venv\Scripts\activate
+
+# Install in editable mode with all optional extras:
+pip install -e ".[all]"
+```
+
+Verify the editable install:
+```bash
+graphify --version
+python -c "import graphify; print(graphify.__file__)"
+```
+
+### Running tests
+
+```bash
+pip install pytest
+pytest tests/ -q                       # run the full suite
+pytest tests/test_extract.py -q        # one module
+pytest tests/ -q -k "python"           # filter by name
+```
+
+> macOS note: the test suite includes both `sample.f90` and `sample.F90` fixtures. These collide on case-insensitive HFS+ / APFS file systems. Run on Linux or in a Docker container if you need to test both Fortran variants simultaneously.
+
+### Git workflow
+
+- Active development happens on the `v7` branch.
+- Commit style: `fix: <description>` / `feat: <description>` / `docs: <description>`
+- Before opening a PR, run `pytest tests/ -q` and confirm it passes.
+- Add a fixture file to `tests/fixtures/` and tests to `tests/test_languages.py` for any new language extractor.
+
+### What to contribute
 
 **Worked examples** are the most useful contribution. Run `/graphify` on a real corpus, save the output to `worked/{slug}/`, write an honest `review.md` covering what the graph got right and wrong, and open a PR.
 

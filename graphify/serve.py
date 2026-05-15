@@ -20,6 +20,7 @@ def _load_graph(graph_path: str) -> nx.Graph:
         data = json.loads(safe.read_text(encoding="utf-8"))
         if "links" not in data and "edges" in data:
             data = dict(data, links=data["edges"])
+        data = {**data, "directed": True}
         try:
             return json_graph.node_link_graph(data, edges="links")
         except TypeError:
@@ -48,7 +49,10 @@ def _strip_diacritics(text: str) -> str:
     return "".join(c for c in nfkd if not unicodedata.combining(c))
 
 
-_EXACT_MATCH_BONUS = 100.0
+_EXACT_MATCH_BONUS = 1000.0
+_PREFIX_MATCH_BONUS = 100.0
+_SUBSTRING_MATCH_BONUS = 1.0
+_SOURCE_MATCH_BONUS = 0.5
 
 
 def _score_nodes(G: nx.Graph, terms: list[str]) -> list[tuple[float, str]]:
@@ -56,11 +60,20 @@ def _score_nodes(G: nx.Graph, terms: list[str]) -> list[tuple[float, str]]:
     norm_terms = [_strip_diacritics(t).lower() for t in terms]
     for nid, data in G.nodes(data=True):
         norm_label = data.get("norm_label") or _strip_diacritics(data.get("label") or "").lower()
+        bare_label = norm_label.rstrip("()")
         source = (data.get("source_file") or "").lower()
-        score = sum(1 for t in norm_terms if t in norm_label) + sum(0.5 for t in norm_terms if t in source)
-        # Exact match: single term equals the full label (strip trailing () for functions)
-        if any(t == norm_label or t == norm_label.rstrip("()") for t in norm_terms):
-            score += _EXACT_MATCH_BONUS
+        score = 0.0
+        for t in norm_terms:
+            # Three-tier precedence: exact > prefix > substring (take the
+            # strongest tier per term so a single term cannot double-count).
+            if t == norm_label or t == bare_label:
+                score += _EXACT_MATCH_BONUS
+            elif norm_label.startswith(t) or bare_label.startswith(t):
+                score += _PREFIX_MATCH_BONUS
+            elif t in norm_label:
+                score += _SUBSTRING_MATCH_BONUS
+            if t in source:
+                score += _SOURCE_MATCH_BONUS
         if score > 0:
             scored.append((score, nid))
     return sorted(scored, reverse=True)
@@ -129,12 +142,26 @@ def _filter_graph_by_context(G: nx.Graph, context_filters: list[str] | None) -> 
 
 
 def _bfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], list[tuple]]:
+    # Compute hub threshold: nodes above this degree are not expanded as transit.
+    # p99 of degree distribution, floored at 50 to avoid over-blocking small graphs.
+    degrees = [G.degree(n) for n in G.nodes()]
+    if degrees:
+        degrees_sorted = sorted(degrees)
+        p99_idx = int(len(degrees_sorted) * 0.99)
+        hub_threshold = max(50, degrees_sorted[p99_idx])
+    else:
+        hub_threshold = 50
+    seed_set = set(start_nodes)
     visited: set[str] = set(start_nodes)
     frontier = set(start_nodes)
     edges_seen: list[tuple] = []
     for _ in range(depth):
         next_frontier: set[str] = set()
         for n in frontier:
+            # Don't expand through high-degree hubs (except seeds - a hub that
+            # is the starting node should still be explored).
+            if n not in seed_set and G.degree(n) >= hub_threshold:
+                continue
             for neighbor in G.neighbors(n):
                 if neighbor not in visited:
                     next_frontier.add(neighbor)
@@ -145,6 +172,14 @@ def _bfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], lis
 
 
 def _dfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], list[tuple]]:
+    degrees = [G.degree(n) for n in G.nodes()]
+    if degrees:
+        degrees_sorted = sorted(degrees)
+        p99_idx = int(len(degrees_sorted) * 0.99)
+        hub_threshold = max(50, degrees_sorted[p99_idx])
+    else:
+        hub_threshold = 50
+    seed_set = set(start_nodes)
     visited: set[str] = set()
     edges_seen: list[tuple] = []
     stack = [(n, 0) for n in reversed(start_nodes)]
@@ -153,6 +188,8 @@ def _dfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], lis
         if node in visited or d > depth:
             continue
         visited.add(node)
+        if node not in seed_set and G.degree(node) >= hub_threshold:
+            continue
         for neighbor in G.neighbors(node):
             if neighbor not in visited:
                 stack.append((neighbor, d + 1))
@@ -233,11 +270,26 @@ def _query_graph_text(
 
 
 def _find_node(G: nx.Graph, label: str) -> list[str]:
-    """Return node IDs whose label or ID matches the search term (diacritic-insensitive)."""
+    """Return node IDs whose label or ID matches the search term (diacritic-insensitive).
+
+    Results are ordered by three-tier precedence: exact match, then prefix match,
+    then substring match. Node-ID exact matches are grouped with label exact matches.
+    """
     term = _strip_diacritics(label).lower()
-    return [nid for nid, d in G.nodes(data=True)
-            if term in (d.get("norm_label") or _strip_diacritics(d.get("label") or "").lower())
-            or term == nid.lower()]
+    exact: list[str] = []
+    prefix: list[str] = []
+    substring: list[str] = []
+    for nid, d in G.nodes(data=True):
+        norm_label = d.get("norm_label") or _strip_diacritics(d.get("label") or "").lower()
+        bare_label = norm_label.rstrip("()")
+        nid_lower = nid.lower()
+        if term == norm_label or term == bare_label or term == nid_lower:
+            exact.append(nid)
+        elif norm_label.startswith(term) or bare_label.startswith(term) or nid_lower.startswith(term):
+            prefix.append(nid)
+        elif term in norm_label:
+            substring.append(nid)
+    return exact + prefix + substring
 
 
 def _filter_blank_stdin() -> None:
@@ -403,13 +455,22 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             return f"No node matching '{label}' found."
         nid = matches[0]
         lines = [f"Neighbors of {sanitize_label(G.nodes[nid].get('label', nid))}:"]
-        for neighbor in G.neighbors(nid):
-            d = edge_data(G, nid, neighbor)
+        for nb in G.successors(nid):
+            d = edge_data(G, nid, nb)
             rel = d.get("relation", "")
             if rel_filter and rel_filter not in rel.lower():
                 continue
             lines.append(
-                f"  --> {sanitize_label(G.nodes[neighbor].get('label', neighbor))} "
+                f"  --> {sanitize_label(G.nodes[nb].get('label', nb))} "
+                f"[{sanitize_label(str(rel))}] [{sanitize_label(str(d.get('confidence', '')))}]"
+            )
+        for nb in G.predecessors(nid):
+            d = edge_data(G, nb, nid)
+            rel = d.get("relation", "")
+            if rel_filter and rel_filter not in rel.lower():
+                continue
+            lines.append(
+                f"  <-- {sanitize_label(G.nodes[nb].get('label', nb))} "
                 f"[{sanitize_label(str(rel))}] [{sanitize_label(str(d.get('confidence', '')))}]"
             )
         return "\n".join(lines)
@@ -456,9 +517,27 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         if not tgt_scored:
             return f"No node matching target '{arguments['target']}' found."
         src_nid, tgt_nid = src_scored[0][1], tgt_scored[0][1]
+        # Ambiguity guard: when both queries resolve to the same node, the
+        # shortest path is trivially zero hops, which is almost never what the
+        # caller wanted (see bug #828).
+        if src_nid == tgt_nid:
+            return (
+                f"'{arguments['source']}' and '{arguments['target']}' both resolved to "
+                f"the same node '{src_nid}'. Use a more specific label or the exact node ID."
+            )
+        warnings: list[str] = []
+        for name, scored in (("source", src_scored), ("target", tgt_scored)):
+            if len(scored) >= 2:
+                top, runner = scored[0][0], scored[1][0]
+                if top > 0 and (top - runner) / top < 0.10:
+                    warnings.append(
+                        f"warning: {name} match was ambiguous "
+                        f"(top score {top:g}, runner-up {runner:g})"
+                    )
         max_hops = int(arguments.get("max_hops", 8))
         try:
-            path_nodes = nx.shortest_path(G, src_nid, tgt_nid)
+            # Use undirected view for path-finding (works regardless of query src/tgt order)
+            path_nodes = nx.shortest_path(G.to_undirected(as_view=True), src_nid, tgt_nid)
         except (nx.NetworkXNoPath, nx.NodeNotFound):
             return f"No path found between '{G.nodes[src_nid].get('label', src_nid)}' and '{G.nodes[tgt_nid].get('label', tgt_nid)}'."
         hops = len(path_nodes) - 1
@@ -467,14 +546,23 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         segments = []
         for i in range(len(path_nodes) - 1):
             u, v = path_nodes[i], path_nodes[i + 1]
-            edata = edge_data(G, u, v)
+            if G.has_edge(u, v):
+                edata = edge_data(G, u, v)
+                forward = True
+            else:
+                edata = edge_data(G, v, u)
+                forward = False
             rel = edata.get("relation", "")
             conf = edata.get("confidence", "")
             conf_str = f" [{conf}]" if conf else ""
             if i == 0:
                 segments.append(G.nodes[u].get("label", u))
-            segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
-        return f"Shortest path ({hops} hops):\n  " + " ".join(segments)
+            if forward:
+                segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+            else:
+                segments.append(f"<--{rel}{conf_str}-- {G.nodes[v].get('label', v)}")
+        prefix = ("\n".join(warnings) + "\n") if warnings else ""
+        return prefix + f"Shortest path ({hops} hops):\n  " + " ".join(segments)
 
     _handlers = {
         "query_graph": _tool_query_graph,
