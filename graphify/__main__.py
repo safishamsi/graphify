@@ -152,6 +152,30 @@ def claude_uninstall(project_dir: Path | None = None) -> None:
     print(f"graphify section removed from {target.resolve()}")
 
 
+def cline_install(project_dir: Path | None = None) -> None:
+    """Copy skill-cline.md to .cline/skills/graphify.md in the project directory."""
+    skill_src = Path(__file__).parent / "skill-cline.md"
+    if not skill_src.exists():
+        print("error: skill-cline.md not found in package - reinstall graphify", file=sys.stderr)
+        sys.exit(1)
+    skill_dst = (project_dir or Path(".")) / ".cline" / "skills" / "graphify.md"
+    skill_dst.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy(skill_src, skill_dst)
+    print(f"  skill installed  →  {skill_dst}")
+    print()
+    print("Done. Cline will load the skill from .cline/skills/graphify.md.")
+
+
+def cline_uninstall(project_dir: Path | None = None) -> None:
+    """Remove .cline/skills/graphify.md from the project directory."""
+    skill_dst = (project_dir or Path(".")) / ".cline" / "skills" / "graphify.md"
+    if skill_dst.exists():
+        skill_dst.unlink()
+        print(f"  skill removed    →  {skill_dst}")
+    else:
+        print("graphify Cline skill not found - nothing to do")
+
+
 def main() -> None:
     if len(sys.argv) < 2 or sys.argv[1] in ("-h", "--help"):
         print("Usage: graphify <command>")
@@ -165,6 +189,8 @@ def main() -> None:
         print("  hook status             check if hook is installed")
         print("  claude install          write graphify section to local CLAUDE.md")
         print("  claude uninstall        remove graphify section from local CLAUDE.md")
+        print("  cline install           copy skill to .cline/skills/graphify.md")
+        print("  cline uninstall         remove .cline/skills/graphify.md")
         print()
         return
 
@@ -198,6 +224,15 @@ def main() -> None:
             print(hook_status(Path(".")))
         else:
             print("Usage: graphify hook [install|uninstall|status]", file=sys.stderr)
+            sys.exit(1)
+    elif cmd == "cline":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            cline_install()
+        elif subcmd == "uninstall":
+            cline_uninstall()
+        else:
+            print("Usage: graphify cline [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
