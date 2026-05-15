@@ -31,12 +31,24 @@ def _communities_from_graph(G: nx.Graph) -> dict[int, list[str]]:
     return communities
 
 
+# Exact-match bonus is much larger than the substring/source-file weights so
+# a literal label match always outranks any number of substring overlaps. This
+# prevents the silent-substring failure mode where `shortest_path('audit', X)`
+# coerces the source to `audit()` (a high-degree function node) instead of the
+# literal `audit` document node the caller asked for.
+_EXACT_MATCH_BONUS = 10.0
+
+
 def _score_nodes(G: nx.Graph, terms: list[str]) -> list[tuple[float, str]]:
     scored = []
     for nid, data in G.nodes(data=True):
         label = data.get("label", "").lower()
         source = data.get("source_file", "").lower()
         score = sum(1 for t in terms if t in label) + sum(0.5 for t in terms if t in source)
+        # Bonus for exact label match (strip trailing "()" so function-style
+        # labels like "audit()" still register as an exact hit for "audit").
+        if any(t == label or t == label.rstrip("()") for t in terms):
+            score += _EXACT_MATCH_BONUS
         if score > 0:
             scored.append((score, nid))
     return sorted(scored, reverse=True)
@@ -94,10 +106,87 @@ def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_bu
 
 
 def _find_node(G: nx.Graph, label: str) -> list[str]:
-    """Return node IDs whose label or ID matches the search term (case-insensitive)."""
+    """Return node IDs whose label or ID matches the search term (case-insensitive).
+
+    Exact matches (label == term, or label == term stripped of trailing "()")
+    are returned first, followed by substring matches. This mirrors how
+    `_tool_get_node` already resolves its first match and prevents the
+    silent-substring failure mode where querying for `audit` resolves to
+    `audit_log` / `audit()` simply because they happened to appear earlier
+    in the node iteration order.
+    """
     term = label.lower()
-    return [nid for nid, d in G.nodes(data=True)
-            if term in d.get("label", "").lower() or term == nid.lower()]
+    exact: list[str] = []
+    substring: list[str] = []
+    for nid, d in G.nodes(data=True):
+        node_label = (d.get("label") or "").lower()
+        if term == node_label or term == node_label.rstrip("()") or term == nid.lower():
+            exact.append(nid)
+        elif term in node_label:
+            substring.append(nid)
+    return exact + substring
+
+
+def _resolve_label(G: nx.Graph, nid: str) -> str:
+    """Return the display label for a node ID, falling back to the ID itself."""
+    if nid not in G.nodes:
+        return nid
+    return G.nodes[nid].get("label") or nid
+
+
+def _build_shortest_path_handler(G: nx.Graph):
+    """Factory that returns the `shortest_path` handler closure.
+
+    Extracted so the closure can be unit-tested without spinning up an MCP
+    stdio server. `serve()` uses this same factory at runtime; behaviour is
+    identical to the previous inline implementation, with the addition of a
+    "Resolving 'X' -> node 'Y'" echo for each endpoint so silent substring
+    coercion becomes visible to the caller.
+    """
+
+    def _handler(arguments: dict) -> str:
+        src_query = arguments["source"]
+        tgt_query = arguments["target"]
+        src_scored = _score_nodes(G, [t.lower() for t in src_query.split()])
+        tgt_scored = _score_nodes(G, [t.lower() for t in tgt_query.split()])
+        if not src_scored:
+            return f"No node matching source '{src_query}' found."
+        if not tgt_scored:
+            return f"No node matching target '{tgt_query}' found."
+        src_nid, tgt_nid = src_scored[0][1], tgt_scored[0][1]
+        src_label = _resolve_label(G, src_nid)
+        tgt_label = _resolve_label(G, tgt_nid)
+        # Always echo the resolved endpoints before the path summary so the
+        # caller can spot silent substring coercion (e.g. 'Repo content audit'
+        # silently resolving to the 'audit()' function node).
+        resolution = (
+            f"Resolving '{src_query}' -> node '{src_label}'\n"
+            f"Resolving '{tgt_query}' -> node '{tgt_label}'\n"
+        )
+        max_hops = int(arguments.get("max_hops", 8))
+        try:
+            path_nodes = nx.shortest_path(G, src_nid, tgt_nid)
+        except (nx.NetworkXNoPath, nx.NodeNotFound):
+            return (
+                resolution
+                + f"No path found between '{src_label}' and '{tgt_label}'."
+            )
+        hops = len(path_nodes) - 1
+        if hops > max_hops:
+            return resolution + f"Path exceeds max_hops={max_hops} ({hops} hops found)."
+        segments = []
+        for i in range(len(path_nodes) - 1):
+            u, v = path_nodes[i], path_nodes[i + 1]
+            edata = G.edges[u, v]
+            rel = edata.get("relation", "")
+            conf = edata.get("confidence", "")
+            conf_str = f" [{conf}]" if conf else ""
+            if i == 0:
+                segments.append(G.nodes[u].get("label", u))
+            segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
+        return resolution + f"Shortest path ({hops} hops):\n  " + " ".join(segments)
+
+    return _handler
 
 
 def serve(graph_path: str = "graphify-out/graph.json") -> None:
@@ -263,33 +352,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             f"AMBIGUOUS: {round(confs.count('AMBIGUOUS')/total*100)}%\n"
         )
 
-    def _tool_shortest_path(arguments: dict) -> str:
-        src_scored = _score_nodes(G, [t.lower() for t in arguments["source"].split()])
-        tgt_scored = _score_nodes(G, [t.lower() for t in arguments["target"].split()])
-        if not src_scored:
-            return f"No node matching source '{arguments['source']}' found."
-        if not tgt_scored:
-            return f"No node matching target '{arguments['target']}' found."
-        src_nid, tgt_nid = src_scored[0][1], tgt_scored[0][1]
-        max_hops = int(arguments.get("max_hops", 8))
-        try:
-            path_nodes = nx.shortest_path(G, src_nid, tgt_nid)
-        except (nx.NetworkXNoPath, nx.NodeNotFound):
-            return f"No path found between '{G.nodes[src_nid].get('label', src_nid)}' and '{G.nodes[tgt_nid].get('label', tgt_nid)}'."
-        hops = len(path_nodes) - 1
-        if hops > max_hops:
-            return f"Path exceeds max_hops={max_hops} ({hops} hops found)."
-        segments = []
-        for i in range(len(path_nodes) - 1):
-            u, v = path_nodes[i], path_nodes[i + 1]
-            edata = G.edges[u, v]
-            rel = edata.get("relation", "")
-            conf = edata.get("confidence", "")
-            conf_str = f" [{conf}]" if conf else ""
-            if i == 0:
-                segments.append(G.nodes[u].get("label", u))
-            segments.append(f"--{rel}{conf_str}--> {G.nodes[v].get('label', v)}")
-        return f"Shortest path ({hops} hops):\n  " + " ".join(segments)
+    _tool_shortest_path = _build_shortest_path_handler(G)
 
     _handlers = {
         "query_graph": _tool_query_graph,

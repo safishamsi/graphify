@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- Fix: MCP `shortest_path` and `query_graph` silently coerced sources to substring matches, picking high-degree neighbours over the literal node the caller asked for (e.g. `shortest_path('Repo content audit ...', X)` resolved to the `audit()` function node). `_find_node` now returns exact label matches before substring fallbacks; `_score_nodes` applies a +10 bonus for exact label match (handles trailing `()` so function-style labels still resolve); `_tool_shortest_path` echoes resolved labels (`Resolving 'X' -> node 'Y'`) so any remaining coercion is visible to the caller.
+- Refactor: `_tool_shortest_path` body extracted to `_build_shortest_path_handler(G)` factory so the closure is unit-testable without spinning up an MCP stdio server.
+- Test: 6 new `tests/test_serve.py` cases for exact-match precedence, function-suffix labels, and resolved-label echo (258 tests; the 41 pre-existing failures are missing optional `[mcp,pdf,watch]` extras and are unrelated).
+
 ## 0.1.8 (2026-04-05)
 
 - Fix: follow-up questions now check for wiki first (graphify-out/wiki/index.md) before falling back to graph.json

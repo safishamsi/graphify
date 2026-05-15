@@ -11,6 +11,8 @@ from graphify.serve import (
     _dfs,
     _subgraph_to_text,
     _load_graph,
+    _find_node,
+    _resolve_label,
 )
 
 
@@ -154,3 +156,121 @@ def test_load_graph_missing_file(tmp_path):
     graphify_dir.mkdir()
     with pytest.raises(SystemExit):
         _load_graph(str(graphify_dir / "nonexistent.json"))
+
+
+# --- exact-label-match precedence ---
+
+def _make_ambiguous_graph() -> nx.Graph:
+    """Graph with a literal 'audit' node alongside several substring matches.
+
+    Models the silent-substring failure mode: querying for 'audit' under the
+    pure-substring strategy can promote 'audit_log', 'audit_trail', or even
+    'audit()' (a function node) ahead of the literal 'audit' document node.
+    """
+    G = nx.Graph()
+    G.add_node("doc_audit", label="audit", source_file="docs/audit.md", community=0)
+    G.add_node("fn_audit", label="audit()", source_file="src/runner.py", community=0)
+    G.add_node("doc_log", label="audit_log", source_file="docs/audit_log.md", community=0)
+    G.add_node("doc_trail", label="audit_trail", source_file="docs/audit_trail.md", community=0)
+    G.add_node("doc_runner", label="audit_runner", source_file="docs/audit_runner.md", community=0)
+    G.add_edge("doc_audit", "fn_audit", relation="documents", confidence="EXTRACTED")
+    G.add_edge("doc_log", "doc_audit", relation="related", confidence="INFERRED")
+    return G
+
+
+def test_find_node_prefers_exact_match_over_substring():
+    """`_find_node('audit')` must return the literal 'audit' node before any
+    substring match like 'audit_log' / 'audit()'. Today pure-substring picks
+    whichever scan order finds first - silently wrong."""
+    G = _make_ambiguous_graph()
+    matches = _find_node(G, "audit")
+    assert matches, "expected at least one match"
+    assert matches[0] == "doc_audit", (
+        f"exact match should rank first; got {matches[0]!r} (full list: {matches})"
+    )
+
+
+def test_find_node_falls_back_to_substring_when_no_exact_match():
+    """If nothing matches exactly, substring fallback still works."""
+    G = _make_ambiguous_graph()
+    matches = _find_node(G, "log")
+    assert "doc_log" in matches  # 'audit_log' contains 'log'
+
+
+def test_score_nodes_exact_match_outranks_substring():
+    """The literal 'audit' node must score higher than 'audit_log' etc.
+    Without an exact-match bonus, substring count alone can tie or invert."""
+    G = _make_ambiguous_graph()
+    scored = _score_nodes(G, ["audit"])
+    assert scored, "expected at least one scored node"
+    top_score, top_nid = scored[0]
+    assert top_nid == "doc_audit", (
+        f"exact-match node should rank first; got {top_nid!r} "
+        f"(scored: {scored})"
+    )
+    # And it should be a strict lead, not a tie.
+    if len(scored) > 1:
+        assert top_score > scored[1][0], (
+            f"exact match should strictly outrank substring; "
+            f"top={scored[0]} runner_up={scored[1]}"
+        )
+
+
+def test_score_nodes_exact_match_handles_function_suffix():
+    """A label like 'audit()' (function-style) should still register as an
+    exact match for the bare query 'audit' once the trailing () is stripped."""
+    G = nx.Graph()
+    G.add_node("fn", label="audit()", source_file="src/runner.py")
+    G.add_node("other", label="audit_log", source_file="docs/audit_log.md")
+    scored = _score_nodes(G, ["audit"])
+    assert scored[0][1] == "fn", f"expected 'fn' to win on exact match; got {scored}"
+
+
+def test_resolve_label_returns_label_for_resolved_node():
+    """`_resolve_label` is the small helper used by `_tool_shortest_path` to
+    echo resolved labels back. It must return the display label for a known
+    node ID, falling back to the ID when no label is set."""
+    G = _make_ambiguous_graph()
+    assert _resolve_label(G, "doc_audit") == "audit"
+    G.add_node("unlabeled")  # no label attribute
+    assert _resolve_label(G, "unlabeled") == "unlabeled"
+
+
+# --- _tool_shortest_path resolved-label echo ---
+# Exercise the inner function directly: we don't need a live MCP server for
+# this. We re-import the closure via a small harness that mirrors serve()'s
+# definition order. To keep the test hermetic we redefine the function body
+# from the module by extracting it via getattr on a fake server build.
+# Simpler: patch serve() to expose its closure for testing.
+
+def test_tool_shortest_path_echoes_resolved_labels(monkeypatch):
+    """`shortest_path('audit', 'cluster')` should prefix its output with
+    'Resolving ...' lines so callers can see which nodes the substring/exact
+    resolver actually picked. Today the resolution is silent, which masked
+    a 1-hour audit misdiagnosis (substring coerced 'Repo content audit'
+    to the 'audit()' function node)."""
+    from graphify.serve import _build_shortest_path_handler
+
+    G = _make_ambiguous_graph()
+    # Link doc_audit to a 'cluster' node so a path exists.
+    G.add_node("doc_cluster", label="cluster", source_file="docs/cluster.md")
+    G.add_edge("doc_audit", "doc_cluster", relation="links", confidence="EXTRACTED")
+
+    handler = _build_shortest_path_handler(G)
+    out = handler({"source": "audit", "target": "cluster"})
+
+    assert "Resolving 'audit'" in out, (
+        f"missing source resolution echo in output:\n{out}"
+    )
+    assert "Resolving 'cluster'" in out, (
+        f"missing target resolution echo in output:\n{out}"
+    )
+    assert "-> node 'audit'" in out, (
+        f"source should resolve to literal 'audit' node, not a substring; "
+        f"output:\n{out}"
+    )
+    assert "-> node 'cluster'" in out, (
+        f"target should resolve to literal 'cluster' node; output:\n{out}"
+    )
+    # The original path summary line must still be present.
+    assert "Shortest path" in out, f"missing path summary; output:\n{out}"
