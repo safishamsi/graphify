@@ -6,6 +6,7 @@ Full release notes with details on each version: [GitHub Releases](https://githu
 
 - Fix: `.graphifyignore` parent-exclusion rule now correctly blocks files under an excluded directory even when a `!` negation exists elsewhere in the file — previously any negation pattern disabled directory pruning entirely (#882)
 - Fix: dedup no longer false-merges chip/model SKU variants like `ASR1603`/`ASR1605` or `M1`/`M1 Pro` — Jaro-Winkler prefix bonus is now gated by `_is_variant_pair` and `_short_label_blocked` guards; real typos on short labels still merge (#878)
+- Docs: added `worked/rsl-siege-manager/` — case study on a real-world Python + TypeScript monorepo (FastAPI backend, React/Vite frontend, Discord bot); covers god node behaviour with tests included, cross-language INFERRED edges, community cohesion, and Alembic migration noise (#881)
 
 ## 0.8.4 (2026-05-15)
 
