@@ -15,27 +15,20 @@ jobs:
         python-version: ["3.10", "3.12"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+      - name: Install uv
+        uses: astral-sh/setup-uv@v8.1.0
         with:
           python-version: ${{ matrix.python-version }}
 
       - name: Install dependencies
-        run: |
-          pip install -e ".[mcp,pdf,watch,sql]"
-          # tree-sitter-dm 0.25.0's PyPI artifact is broken (sdist missing
-          # scanner.c, no wheels). Install from git until 0.25.1 ships, then
-          # this line can be replaced with adding `dreammaker` to the extras.
-          pip install "tree-sitter-dm @ git+https://github.com/FeudeyTF/tree-sitter-dm.git"
-          pip install pytest
+        run: uv sync --extra mcp --extra pdf --extra watch --extra sql
 
       - name: Run tests
-        run: |
-          python -m pytest tests/ -q --tb=short
+        run: uv run pytest tests/ -q --tb=short
 
       - name: Verify install works end-to-end
         run: |
-          graphify --help
-          graphify install
+          uv run graphify --help
+          uv run graphify install

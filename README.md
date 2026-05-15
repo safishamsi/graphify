@@ -511,34 +511,31 @@ Built for people whose work lives across hundreds of conversations and documents
 
 ### Development setup
 
-Clone the repo and install in editable mode:
+The project uses [uv](https://docs.astral.sh/uv/) for dev workflow. Install it once, then:
 
 ```bash
 git clone https://github.com/safishamsi/graphify.git
 cd graphify
 git checkout v8                        # active development branch
 
-# Create a virtual environment (Python 3.10+ required):
-python3 -m venv .venv
-source .venv/bin/activate              # Windows: .venv\Scripts\activate
-
-# Install in editable mode with all optional extras:
-pip install -e ".[all]"
+# Create the project venv and install graphify + all extras + the dev group
+# (pytest). uv installs the dev dependency group by default; pass --no-dev to
+# skip it.
+uv sync --all-extras
 ```
 
 Verify the editable install:
 ```bash
-graphify --version
-python -c "import graphify; print(graphify.__file__)"
+uv run graphify --version
+uv run python -c "import graphify; print(graphify.__file__)"
 ```
 
 ### Running tests
 
 ```bash
-pip install pytest
-pytest tests/ -q                       # run the full suite
-pytest tests/test_extract.py -q        # one module
-pytest tests/ -q -k "python"           # filter by name
+uv run pytest tests/ -q                # run the full suite
+uv run pytest tests/test_extract.py -q # one module
+uv run pytest tests/ -q -k "python"    # filter by name
 ```
 
 > macOS note: the test suite includes both `sample.f90` and `sample.F90` fixtures. These collide on case-insensitive HFS+ / APFS file systems. Run on Linux or in a Docker container if you need to test both Fortran variants simultaneously.
@@ -547,7 +544,7 @@ pytest tests/ -q -k "python"           # filter by name
 
 - Active development happens on the `v8` branch.
 - Commit style: `fix: <description>` / `feat: <description>` / `docs: <description>`
-- Before opening a PR, run `pytest tests/ -q` and confirm it passes.
+- Before opening a PR, run `uv run pytest tests/ -q` and confirm it passes.
 - Add a fixture file to `tests/fixtures/` and tests to `tests/test_languages.py` for any new language extractor.
 
 ### What to contribute

@@ -74,6 +74,9 @@ all = ["mcp", "neo4j", "pypdf", "markdownify", "watchdog", "graspologic; python_
 [project.scripts]
 graphify = "graphify.__main__:main"
 
+[dependency-groups]
+dev = ["pytest"]
+
 [tool.uv]
 # Install via: uv tool install graphifyy
 # Run without installing: uvx graphifyy install
