@@ -2698,7 +2698,7 @@ def main() -> None:
                     f"est. cost: ${cost:.4f}"
                 )
             try:
-                _save_manifest(files_by_type, manifest_path=str(manifest_path))
+                _save_manifest(files_by_type, manifest_path=str(manifest_path), kind="both")
             except Exception as exc:
                 print(f"[graphify extract] warning: could not write manifest: {exc}", file=sys.stderr)
             if global_merge:
@@ -2780,7 +2780,7 @@ def main() -> None:
         }
         analysis_path.write_text(json.dumps(analysis, indent=2), encoding="utf-8")
         try:
-            _save_manifest(files_by_type, manifest_path=str(manifest_path))
+            _save_manifest(files_by_type, manifest_path=str(manifest_path), kind="both")
         except Exception as exc:
             print(f"[graphify extract] warning: could not write manifest: {exc}", file=sys.stderr)
 

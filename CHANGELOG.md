@@ -2,6 +2,24 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/safishamsi/graphify/releases)
 
+## 0.8.1 (2026-05-15)
+
+- Feat: Bash extractor — `.sh` and `.bash` files now indexed via tree-sitter; extracts functions, cross-function calls, `source`/`.` imports resolved to real file paths, and `export`/`declare` variable declarations (#866)
+- Feat: JSON extractor — `.json` files now indexed via tree-sitter; extracts key/value `contains` tree, `dependencies`/`devDependencies` blocks as `imports` edges, `extends` edges (tsconfig, eslintrc), and `$ref` references (#866)
+- Feat: `.sh`, `.bash`, `.json` added to `CODE_EXTENSIONS` in `detect.py` so files are picked up during corpus scan (#866)
+- Feat: Mermaid callflow HTML auto-regenerates on every graph rebuild when `*-callflow.html` exists in `graphify-out/` — works with `--watch` and `graphify hook install`
+- Fix: `coverage/`, `lcov-report/`, `visual-tests/`, `visual-test/`, `__snapshots__/`, `snapshots/`, `storybook-static/`, `dist-protected/` added to `_SKIP_DIRS` — generated artefact dirs no longer appear in the corpus (#869, #870)
+- Fix: `graphify hook install` now works in git linked worktrees — uses `git rev-parse --git-path hooks` instead of constructing `.git/hooks/` directly (#865)
+- Fix: office sidecar files in `graphify-out/converted/` are now checked against `.graphifyignore` before being added to the file list (#861)
+- Fix: `save_manifest()` accepts a `kind` parameter (`ast`, `semantic`, `both`) — incremental AST-only `graphify update` no longer overwrites `semantic_hash` entries, preventing spurious full re-extracts on the next run (#857)
+- Fix: five paths in `skill-windows.md` Step B3 were missing the `graphify-out/` prefix, causing chunk files to be written to the wrong directory (#862)
+
+## 0.7.19 (2026-05-14)
+
+- Feat: `.astro` files now extracted as code — frontmatter static imports, dynamic imports, and `<script>` block imports all produce edges; tsconfig path aliases resolved (#850, PR #852)
+- Fix: `.rebuild.lock` no longer accumulates PIDs across rebuilds — now contains a single owning PID while running and is unlinked on release so downstream tooling polling for its absence unblocks promptly (#858, PR #859)
+- Docs: skill.md now clarifies that graphify does not read `ANTHROPIC_API_KEY` or other provider keys during `/graphify` skill runs — the host IDE session provides the LLM (PR #864)
+
 ## 0.7.18 (2026-05-14)
 
 - Fix: `graphify update` is now idempotent — graph.json and GRAPH_REPORT.md are only rewritten when content actually changes; topology comparison short-circuits clustering entirely on unchanged graphs, eliminating residual community-count drift (#824)

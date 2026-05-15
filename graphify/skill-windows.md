@@ -241,8 +241,8 @@ all_files = [f for files in detect['files'].values() for f in files]
 cached_nodes, cached_edges, cached_hyperedges, uncached = check_semantic_cache(all_files)
 
 if cached_nodes or cached_edges or cached_hyperedges:
-    Path('.graphify_cached.json').write_text(json.dumps({'nodes': cached_nodes, 'edges': cached_edges, 'hyperedges': cached_hyperedges}, ensure_ascii=False), encoding="utf-8")
-Path('.graphify_uncached.txt').write_text('\n'.join(uncached), encoding="utf-8")
+    Path('graphify-out/.graphify_cached.json').write_text(json.dumps({'nodes': cached_nodes, 'edges': cached_edges, 'hyperedges': cached_hyperedges}, ensure_ascii=False), encoding="utf-8")
+Path('graphify-out/.graphify_uncached.txt').write_text('\n'.join(uncached), encoding="utf-8")
 print(f'Cache: {len(all_files)-len(uncached)} files hit, {len(uncached)} files need extraction')
 '@ | Out-File -FilePath .graphify_step_3_extract_entities_and_relations_5.py -Encoding utf8
 python .graphify_step_3_extract_entities_and_relations_5.py
@@ -370,7 +370,7 @@ import json
 from graphify.cache import save_semantic_cache
 from pathlib import Path
 
-new = json.loads(Path('.graphify_semantic_new.json').read_text(encoding="utf-8")) if Path('.graphify_semantic_new.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
+new = json.loads(Path('graphify-out/.graphify_semantic_new.json').read_text(encoding="utf-8")) if Path('graphify-out/.graphify_semantic_new.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
 saved = save_semantic_cache(new.get('nodes', []), new.get('edges', []), new.get('hyperedges', []))
 print(f'Cached {saved} files')
 '@ | Out-File -FilePath .graphify_step_3_extract_entities_and_relations_6.py -Encoding utf8
@@ -384,8 +384,8 @@ Merge cached + new results into `.graphify_semantic.json`:
 import json
 from pathlib import Path
 
-cached = json.loads(Path('.graphify_cached.json').read_text(encoding="utf-8")) if Path('.graphify_cached.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
-new = json.loads(Path('.graphify_semantic_new.json').read_text(encoding="utf-8")) if Path('.graphify_semantic_new.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
+cached = json.loads(Path('graphify-out/.graphify_cached.json').read_text(encoding="utf-8")) if Path('graphify-out/.graphify_cached.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
+new = json.loads(Path('graphify-out/.graphify_semantic_new.json').read_text(encoding="utf-8")) if Path('graphify-out/.graphify_semantic_new.json').exists() else {'nodes':[],'edges':[],'hyperedges':[]}
 
 all_nodes = cached['nodes'] + new.get('nodes', [])
 all_edges = cached['edges'] + new.get('edges', [])
@@ -404,13 +404,13 @@ merged = {
     'input_tokens': new.get('input_tokens', 0),
     'output_tokens': new.get('output_tokens', 0),
 }
-Path('.graphify_semantic.json').write_text(json.dumps(merged, indent=2, ensure_ascii=False), encoding="utf-8")
+Path('graphify-out/.graphify_semantic.json').write_text(json.dumps(merged, indent=2, ensure_ascii=False), encoding="utf-8")
 print(f'Extraction complete - {len(deduped)} nodes, {len(all_edges)} edges ({len(cached["nodes"])} from cache, {len(new.get("nodes",[]))} new)')
 '@ | Out-File -FilePath .graphify_step_3_extract_entities_and_relations_7.py -Encoding utf8
 python .graphify_step_3_extract_entities_and_relations_7.py
 Remove-Item -ErrorAction SilentlyContinue .graphify_step_3_extract_entities_and_relations_7.py
 ```
-Clean up temp files: `Remove-Item -ErrorAction SilentlyContinue .graphify_cached.json, .graphify_uncached.txt, .graphify_semantic_new.json`
+Clean up temp files: `Remove-Item -ErrorAction SilentlyContinue graphify-out\.graphify_cached.json, graphify-out\.graphify_uncached.txt, graphify-out\.graphify_semantic_new.json`
 
 #### Part C - Merge AST + semantic into final extraction
 

@@ -24,7 +24,7 @@ class FileType(str, Enum):
 
 _MANIFEST_PATH = "graphify-out/manifest.json"
 
-CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.mjs', '.ejs', '.go', '.rs', '.java', '.groovy', '.gradle', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.luau', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.dart', '.v', '.sv', '.sql', '.r', '.f', '.F', '.f90', '.F90', '.f95', '.F95', '.f03', '.F03', '.f08', '.F08', '.pas', '.pp', '.dpr', '.dpk', '.lpr', '.inc', '.dfm', '.lfm', '.lpk'}
+CODE_EXTENSIONS = {'.py', '.ts', '.js', '.jsx', '.tsx', '.mjs', '.ejs', '.go', '.rs', '.java', '.groovy', '.gradle', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.luau', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.astro', '.dart', '.v', '.sv', '.sql', '.r', '.f', '.F', '.f90', '.F90', '.f95', '.F95', '.f03', '.F03', '.f08', '.F08', '.pas', '.pp', '.dpr', '.dpk', '.lpr', '.inc', '.dfm', '.lfm', '.lpk', '.sh', '.bash', '.json'}
 DOC_EXTENSIONS = {'.md', '.mdx', '.qmd', '.txt', '.rst', '.html', '.yaml', '.yml'}
 PAPER_EXTENSIONS = {'.pdf'}
 IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'}
@@ -370,6 +370,12 @@ _SKIP_DIRS = {
     ".pytest_cache", ".mypy_cache", ".ruff_cache",
     ".tox", ".eggs", "*.egg-info",
     "graphify-out",  # never treat own output as source input (#524)
+    # Coverage/test-artefact dirs — generated, never architecturally meaningful
+    "coverage", "lcov-report",              # Vitest/Istanbul/nyc HTML reports (#870)
+    "visual-tests", "visual-test",          # Playwright/visual-regression bundles (#869)
+    "__snapshots__", "snapshots",           # Jest/Vitest snapshot dirs
+    "storybook-static",                     # Storybook production build output
+    "dist-protected",                       # Protected dist variants (same noise as dist)
 }
 
 # Large generated files that are never useful to extract
@@ -722,6 +728,8 @@ def detect(root: Path, *, follow_symlinks: bool = False, google_workspace: bool 
                     skipped_sensitive.append(str(p) + f" [Google Workspace export failed: {exc}]")
                     continue
                 if md_path:
+                    if _is_ignored(md_path, root, ignore_patterns):
+                        continue
                     files[ftype].append(str(md_path))
                     total_words += count_words(md_path)
                 else:
@@ -731,6 +739,8 @@ def detect(root: Path, *, follow_symlinks: bool = False, google_workspace: bool 
             if p.suffix.lower() in OFFICE_EXTENSIONS:
                 md_path = convert_office_file(p, converted_dir)
                 if md_path:
+                    if _is_ignored(md_path, root, ignore_patterns):
+                        continue
                     files[ftype].append(str(md_path))
                     total_words += count_words(md_path)
                 else:
@@ -790,16 +800,48 @@ def load_manifest(manifest_path: str = _MANIFEST_PATH) -> dict:
         return {}
 
 
-def save_manifest(files: dict[str, list[str]], manifest_path: str = _MANIFEST_PATH) -> None:
-    """Save current file mtimes + content hashes for change detection on --update."""
+def save_manifest(
+    files: dict[str, list[str]],
+    manifest_path: str = _MANIFEST_PATH,
+    *,
+    kind: str = "both",
+) -> None:
+    """Save current file mtimes + content hashes for change detection.
+
+    kind="ast"      — written by `graphify update` (AST-only rebuild). Stamps
+                      ast_hash; preserves an existing semantic_hash only when
+                      the file content is unchanged (mtime + hash match).
+    kind="semantic" — written by `graphify extract` after semantic extraction.
+                      Stamps semantic_hash; preserves existing ast_hash.
+    kind="both"     — full pipeline: stamps both hashes (default).
+    """
+    existing = load_manifest(manifest_path)
     manifest: dict[str, dict] = {}
     for file_list in files.values():
         for f in file_list:
             try:
                 p = Path(f)
-                manifest[f] = {"mtime": p.stat().st_mtime, "hash": _md5_file(p)}
+                mtime = p.stat().st_mtime
+                h = _md5_file(p)
             except OSError:
-                pass  # file deleted between detect() and manifest write - skip it
+                continue  # file deleted between detect() and manifest write
+            prev = existing.get(f, {})
+            # Normalise legacy {mtime, hash} entries to new schema
+            if isinstance(prev, (int, float)):
+                prev = {"mtime": prev, "ast_hash": "", "semantic_hash": ""}
+            elif isinstance(prev, dict) and "hash" in prev and "ast_hash" not in prev:
+                prev = {"mtime": prev.get("mtime", 0), "ast_hash": prev["hash"], "semantic_hash": ""}
+            entry: dict = {"mtime": mtime}
+            if kind in ("ast", "both"):
+                entry["ast_hash"] = h
+            else:
+                entry["ast_hash"] = prev.get("ast_hash", "")
+            if kind in ("semantic", "both"):
+                entry["semantic_hash"] = h
+            else:
+                # Preserve semantic_hash only when content is unchanged
+                entry["semantic_hash"] = prev.get("semantic_hash", "") if h == prev.get("ast_hash", "") else ""
+            manifest[f] = entry
     Path(manifest_path).parent.mkdir(parents=True, exist_ok=True)
     Path(manifest_path).write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
@@ -810,14 +852,24 @@ def detect_incremental(
     *,
     follow_symlinks: bool = False,
     google_workspace: bool | None = None,
+    kind: str = "semantic",
 ) -> dict:
     """Like detect(), but returns only new or modified files since the last run.
 
-    Fast path: mtime unchanged → unchanged (free, no hash).
-    Slow path: mtime bumped → compare MD5. Same hash = sync tool touched mtime,
-    treat as unchanged. Different hash = actually changed, re-extract.
+    kind="semantic" (default for extract): a file is "changed" when its
+        semantic_hash is missing or its content has changed since the last
+        semantic extraction pass. Use this for `graphify extract` so that
+        files touched by `graphify update` (AST-only) are re-extracted
+        semantically.
+    kind="ast": a file is "changed" when its ast_hash is missing or its
+        content has changed. Use this for `graphify update`.
 
-    Backwards compatible with legacy manifests storing plain float mtime values.
+    Fast path: mtime unchanged + hash matches → unchanged (free, no disk IO
+    beyond stat). Slow path: mtime bumped → compare MD5 against the relevant
+    hash field before re-extracting.
+
+    Backwards compatible with legacy manifests storing plain float mtime values
+    or {mtime, hash} dicts (treated as ast_hash only; semantic_hash = miss).
 
     The ``follow_symlinks`` flag is forwarded to :func:`detect` so corpora that
     rely on symlinked sub-trees (e.g. a ``state_of_truth/`` symlink pointing to a
@@ -846,16 +898,25 @@ def detect_incremental(
             except Exception:
                 current_mtime = 0
 
-            # Legacy manifest: plain float value
+            # Legacy manifest: plain float value — treat as ast_hash only
             if isinstance(stored, (int, float)):
                 changed = stored is None or current_mtime > stored
             elif isinstance(stored, dict):
-                stored_mtime = stored.get("mtime")
-                if stored_mtime is None or current_mtime != stored_mtime:
-                    # mtime bumped — verify with content hash before re-extracting
-                    changed = _md5_file(Path(f)) != stored.get("hash", "")
+                # Normalise legacy {mtime, hash} to new schema
+                if "hash" in stored and "ast_hash" not in stored:
+                    stored = {"mtime": stored.get("mtime", 0), "ast_hash": stored["hash"], "semantic_hash": ""}
+                hash_key = "semantic_hash" if kind == "semantic" else "ast_hash"
+                stored_hash = stored.get(hash_key, "")
+                # Missing semantic_hash means update ran but extract hasn't — always re-extract
+                if not stored_hash:
+                    changed = True
                 else:
-                    changed = False
+                    stored_mtime = stored.get("mtime")
+                    if stored_mtime is None or current_mtime != stored_mtime:
+                        # mtime bumped — verify with content hash before re-extracting
+                        changed = _md5_file(Path(f)) != stored_hash
+                    else:
+                        changed = False
             else:
                 changed = True  # unknown format, re-extract to be safe
 

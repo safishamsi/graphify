@@ -2123,6 +2123,142 @@ def extract_svelte(path: Path) -> dict:
     return result
 
 
+def extract_astro(path: Path) -> dict:
+    """Extract imports from .astro files: frontmatter (TS) + template regex fallback.
+
+    Astro files start with a ``---\\n...\\n---`` frontmatter block of TypeScript
+    setup code (where almost all imports live), followed by an HTML-with-expressions
+    template body, and optionally ``<script>`` blocks for client-side JS. Tree-sitter
+    only sees the file usefully through the frontmatter — feeding the whole file to
+    the JS parser produces a top-level ERROR node because the template is not valid
+    JS, so ``import_statement`` nodes are never reached and static imports are
+    silently dropped (#850). Mirrors :func:`extract_svelte` — same regex-rescue
+    approach, scanning the frontmatter block and any client-side ``<script>`` blocks
+    for static and dynamic imports.
+    """
+    result = _extract_generic(path, _JS_CONFIG)
+    try:
+        import re as _re
+        src = path.read_text(encoding="utf-8", errors="replace")
+        existing_ids = {n["id"] for n in result.get("nodes", [])}
+        file_node_id = _make_id(str(path))
+        aliases = _load_tsconfig_aliases(path.parent)
+        # Dynamic imports anywhere in the file: `import('./X.astro')` is legal in
+        # frontmatter setup code and inside expression slots.
+        for m in _re.finditer(r"""import\(\s*['"]([^'"]+)['"]\s*\)""", src):
+            raw = m.group(1)
+            if not raw:
+                continue
+            if raw.startswith("."):
+                resolved = Path(os.path.normpath(path.parent / raw))
+                resolved = _resolve_js_module_path(resolved)
+                node_id = _make_id(str(resolved))
+                stub_source_file = str(resolved)
+            else:
+                resolved_alias = None
+                for alias_prefix, alias_base in aliases.items():
+                    if raw == alias_prefix or raw.startswith(alias_prefix + "/"):
+                        rest = raw[len(alias_prefix):].lstrip("/")
+                        resolved_alias = Path(os.path.normpath(Path(alias_base) / rest))
+                        break
+                if resolved_alias is not None:
+                    resolved_alias = _resolve_js_module_path(resolved_alias)
+                    node_id = _make_id(str(resolved_alias))
+                    stub_source_file = str(resolved_alias)
+                else:
+                    module_name = raw.split("/")[-1]
+                    if not module_name:
+                        continue
+                    node_id = _make_id(module_name)
+                    stub_source_file = raw
+            if node_id in existing_ids:
+                result.setdefault("edges", []).append({
+                    "source": file_node_id, "target": node_id,
+                    "relation": "dynamic_import", "confidence": "EXTRACTED",
+                    "source_file": str(path),
+                })
+                continue
+            result.setdefault("nodes", []).append({
+                "id": node_id, "label": raw,
+                "file_type": "code", "source_file": stub_source_file,
+                "confidence": "EXTRACTED",
+            })
+            result.setdefault("edges", []).append({
+                "source": file_node_id, "target": node_id,
+                "relation": "dynamic_import", "confidence": "EXTRACTED",
+                "source_file": str(path),
+            })
+            existing_ids.add(node_id)
+        # Static imports: scan the `---...---` frontmatter at the file head plus any
+        # client-side <script> blocks. Both are TS/JS regions but live inside a file
+        # the JS tree-sitter parser cannot validate as a whole.
+        frontmatter_re = _re.compile(
+            r"\A\s*---\s*\r?\n([\s\S]*?)\r?\n---\s*(?:\r?\n|\Z)"
+        )
+        script_re = _re.compile(
+            r"<script\b[^>]*>([\s\S]*?)</script\s*>", _re.IGNORECASE
+        )
+        static_import_re = _re.compile(
+            r"""import\s+(?:[^'"`;]+?\s+from\s+)?['"]([^'"]+)['"]"""
+        )
+        regions: list[str] = []
+        fm = frontmatter_re.search(src)
+        if fm:
+            regions.append(fm.group(1))
+        for script_match in script_re.finditer(src):
+            regions.append(script_match.group(1))
+        for region in regions:
+            for m in static_import_re.finditer(region):
+                raw = m.group(1)
+                if not raw:
+                    continue
+                if raw.startswith("."):
+                    resolved = Path(os.path.normpath(path.parent / raw))
+                    if resolved.suffix == ".js":
+                        resolved = resolved.with_suffix(".ts")
+                    elif resolved.suffix == ".jsx":
+                        resolved = resolved.with_suffix(".tsx")
+                    node_id = _make_id(str(resolved))
+                    stub_source_file = str(resolved)
+                else:
+                    resolved_alias = None
+                    for alias_prefix, alias_base in aliases.items():
+                        if raw == alias_prefix or raw.startswith(alias_prefix + "/"):
+                            rest = raw[len(alias_prefix):].lstrip("/")
+                            resolved_alias = Path(os.path.normpath(Path(alias_base) / rest))
+                            break
+                    if resolved_alias is not None:
+                        node_id = _make_id(str(resolved_alias))
+                        stub_source_file = str(resolved_alias)
+                    else:
+                        module_name = raw.split("/")[-1]
+                        if not module_name:
+                            continue
+                        node_id = _make_id(module_name)
+                        stub_source_file = raw
+                if node_id in existing_ids:
+                    result.setdefault("edges", []).append({
+                        "source": file_node_id, "target": node_id,
+                        "relation": "imports_from", "confidence": "EXTRACTED",
+                        "source_file": str(path),
+                    })
+                    continue
+                result.setdefault("nodes", []).append({
+                    "id": node_id, "label": raw,
+                    "file_type": "code", "source_file": stub_source_file,
+                    "confidence": "EXTRACTED",
+                })
+                result.setdefault("edges", []).append({
+                    "source": file_node_id, "target": node_id,
+                    "relation": "imports_from", "confidence": "EXTRACTED",
+                    "source_file": str(path),
+                })
+                existing_ids.add(node_id)
+    except Exception:
+        pass
+    return result
+
+
 def extract_java(path: Path) -> dict:
     """Extract classes, interfaces, methods, constructors, and imports from a .java file."""
     return _extract_generic(path, _JAVA_CONFIG)
@@ -5443,6 +5579,310 @@ def _check_tree_sitter_version() -> None:
         )
 
 
+def extract_bash(path: Path) -> dict:
+    """Extract functions, source imports, and cross-function calls from a .sh file."""
+    try:
+        import tree_sitter_bash as tsbash
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree-sitter-bash not installed"}
+
+    try:
+        language = Language(tsbash.language())
+        parser = Parser(language)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    function_bodies: list[tuple[str, Any]] = []
+    defined_functions: set[str] = set()
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid and nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({"id": nid, "label": label, "file_type": "code",
+                          "source_file": str_path, "source_location": f"L{line}"})
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", weight: float = 1.0,
+                 context: str | None = None) -> None:
+        if not src or not tgt or src == tgt:
+            return
+        edge = {"source": src, "target": tgt, "relation": relation,
+                "confidence": confidence, "source_file": str_path,
+                "source_location": f"L{line}", "weight": weight}
+        if context:
+            edge["context"] = context
+        edges.append(edge)
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, 1)
+
+    _BASH_SKIP = frozenset({
+        "if", "then", "else", "elif", "fi", "for", "while", "until", "do",
+        "done", "case", "esac", "in", "return", "exit", "break", "continue",
+        "echo", "printf", "cd", "set", "local", "export", "readonly",
+        "declare", "unset", "shift", "read", "test", "[", "[[", ":", "true",
+        "false", "source", ".", "trap", "wait", "exec", "eval",
+    })
+
+    def _bash_func_name(node) -> str | None:
+        """Get the name from a function_definition node."""
+        # bash grammar: function_definition has a word child (the name)
+        for child in node.children:
+            if child.type == "word":
+                return _read_text(child, source)
+        return None
+
+    def walk_calls(body_node, func_nid: str, seen_calls: set) -> None:
+        if body_node is None:
+            return
+        for child in body_node.children:
+            if child.type == "command":
+                cmd_name_node = child.child_by_field_name("name")
+                if cmd_name_node is None and child.children:
+                    cmd_name_node = child.children[0]
+                if cmd_name_node:
+                    name = _read_text(cmd_name_node, source).strip()
+                    if name and name not in _BASH_SKIP and name in defined_functions:
+                        tgt = _make_id(stem, name)
+                        key = (func_nid, tgt)
+                        if tgt and key not in seen_calls:
+                            seen_calls.add(key)
+                            add_edge(func_nid, tgt, "calls",
+                                     child.start_point[0] + 1,
+                                     confidence="EXTRACTED", context="call")
+            walk_calls(child, func_nid, seen_calls)
+
+    def walk(node, parent_nid: str) -> None:
+        t = node.type
+        if t == "function_definition":
+            name = _bash_func_name(node)
+            if name:
+                fn_nid = _make_id(stem, name)
+                line = node.start_point[0] + 1
+                add_node(fn_nid, f"{name}()", line)
+                add_edge(parent_nid, fn_nid, "defines", line)
+                defined_functions.add(name)
+                # find the compound_statement body
+                body = None
+                for child in node.children:
+                    if child.type == "compound_statement":
+                        body = child
+                        break
+                function_bodies.append((fn_nid, body))
+            return  # don't recurse into function body during structural pass
+
+        if t == "command":
+            cmd_name_node = node.child_by_field_name("name")
+            if cmd_name_node is None and node.children:
+                cmd_name_node = node.children[0]
+            if cmd_name_node:
+                cmd = _read_text(cmd_name_node, source).strip()
+                if cmd in ("source", "."):
+                    # find the path argument (first word after command name)
+                    args = [c for c in node.children
+                            if c.type in ("word", "string", "concatenation")
+                            and c != cmd_name_node]
+                    if args:
+                        raw = _read_text(args[0], source).strip().strip("'\"")
+                        line = node.start_point[0] + 1
+                        if raw.startswith((".", "/")):
+                            resolved = (path.parent / raw).resolve()
+                            # Only emit the edge if the target actually exists on
+                            # disk — prevents graph pollution from crafted paths
+                            # like `source ../../etc/passwd` that traverse outside
+                            # the project tree (B-1).
+                            if resolved.exists():
+                                tgt_nid = _make_id(str(resolved))
+                                add_edge(file_nid, tgt_nid, "imports_from", line,
+                                         context="import")
+                        else:
+                            tgt_nid = _make_id(raw)
+                            if tgt_nid:
+                                add_edge(file_nid, tgt_nid, "imports", line,
+                                         context="import")
+            return
+
+        if t == "declaration_command":
+            # export/declare/readonly VAR=value at program level
+            if node.parent and node.parent.type == "program":
+                for child in node.children:
+                    if child.type == "variable_assignment":
+                        var_node = child.child_by_field_name("name")
+                        if var_node:
+                            var = _read_text(var_node, source).strip()
+                            if var:
+                                var_nid = _make_id(stem, var)
+                                line = child.start_point[0] + 1
+                                add_node(var_nid, var, line)
+                                add_edge(file_nid, var_nid, "defines", line)
+            return
+
+        for child in node.children:
+            walk(child, parent_nid)
+
+    walk(root, file_nid)
+
+    # Second pass: cross-function calls
+    for fn_nid, body in function_bodies:
+        walk_calls(body, fn_nid, set())
+
+    return {"nodes": nodes, "edges": edges}
+
+
+def extract_json(path: Path) -> dict:
+    """Extract top-level keys, nested structure, and dependency edges from a .json file."""
+    _JSON_MAX_BYTES = 1_048_576  # 1 MiB — skip large fixture dumps / GeoJSON blobs
+
+    try:
+        import tree_sitter_json as tsjson
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree-sitter-json not installed"}
+
+    try:
+        # Bounded read instead of stat()+read() to eliminate TOCTOU (J-1):
+        # read one byte beyond the limit so we can detect oversized files even
+        # if the file grows between stat and read.
+        with path.open("rb") as _f:
+            source = _f.read(_JSON_MAX_BYTES + 1)
+        if len(source) > _JSON_MAX_BYTES:
+            return {"nodes": [], "edges": [], "error": "json file too large to index"}
+        language = Language(tsjson.language())
+        parser = Parser(language)
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+
+    # Keys whose string values become imports (package.json dep blocks)
+    _DEP_KEYS = frozenset({
+        "dependencies", "devDependencies", "peerDependencies",
+        "optionalDependencies", "bundleDependencies", "bundledDependencies",
+    })
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid and nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({"id": nid, "label": label, "file_type": "code",
+                          "source_file": str_path, "source_location": f"L{line}"})
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 context: str | None = None) -> None:
+        if not src or not tgt or src == tgt:
+            return
+        edge = {"source": src, "target": tgt, "relation": relation,
+                "confidence": "EXTRACTED", "source_file": str_path,
+                "source_location": f"L{line}", "weight": 1.0}
+        if context:
+            edge["context"] = context
+        edges.append(edge)
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, 1)
+
+    def _key_text(pair_node) -> str | None:
+        """Extract the string content of a pair's key."""
+        key_node = pair_node.child_by_field_name("key")
+        if key_node is None:
+            return None
+        if key_node.type == "string":
+            content = key_node.child_by_field_name("string_content")
+            if content:
+                return _read_text(content, source)
+            # fallback: strip surrounding quotes
+            raw = _read_text(key_node, source)
+            return raw.strip('"\'')
+        return _read_text(key_node, source)
+
+    def _val_node(pair_node):
+        return pair_node.child_by_field_name("value")
+
+    def walk_object(obj_node, parent_nid: str, parent_key: str | None,
+                    depth: int, pair_count: list) -> None:
+        if depth > 6:
+            return
+        for child in obj_node.children:
+            if child.type != "pair":
+                continue
+            if pair_count[0] >= 500:  # check per-pair so the cap is honoured exactly (J-3)
+                return
+            pair_count[0] += 1
+            key = _key_text(child)
+            if not key:
+                continue
+            key_nid = _make_id(stem, *(([parent_key] if parent_key else []) + [key]))
+            if not key_nid:
+                continue
+            line = child.start_point[0] + 1
+            add_node(key_nid, key, line)
+            add_edge(parent_nid, key_nid, "contains", line)
+
+            val = _val_node(child)
+            if val is None:
+                continue
+
+            if val.type == "object":
+                walk_object(val, key_nid, key, depth + 1, pair_count)
+
+            elif val.type == "array":
+                # For "extends" arrays (tsconfig, eslint): each string element.
+                # Prefix with "ref_" so external refs don't collide with real
+                # code/file node IDs that share the same collapsed _make_id (J-4).
+                for item in val.children:
+                    if item.type == "string":
+                        content = item.child_by_field_name("string_content")
+                        ref = _read_text(content, source) if content else _read_text(item, source).strip('"\'')
+                        if ref:
+                            ref_nid = _make_id("ref", ref)
+                            if ref_nid:
+                                add_edge(key_nid, ref_nid, "extends", line, context="import")
+
+            elif val.type == "string":
+                content = val.child_by_field_name("string_content")
+                val_text = _read_text(content, source) if content else _read_text(val, source).strip('"\'')
+
+                if key == "extends" and val_text:
+                    # Namespace external refs to avoid ID collision with file nodes (J-4)
+                    ref_nid = _make_id("ref", val_text)
+                    if ref_nid:
+                        add_edge(file_nid, ref_nid, "extends", line, context="import")
+
+                elif key == "$ref" and val_text:
+                    # Namespace $ref values to prevent edge hijacking into code nodes (J-4)
+                    ref_nid = _make_id("ref", val_text)
+                    if ref_nid:
+                        add_edge(parent_nid, ref_nid, "references", line)
+
+                elif parent_key in _DEP_KEYS and val_text:
+                    dep_nid = _make_id(key)
+                    if dep_nid:
+                        add_edge(key_nid, dep_nid, "imports", line, context="import")
+
+    # Entry: find root document → object
+    doc = root
+    if doc.type == "document" and doc.child_count > 0:
+        doc = doc.children[0]
+    if doc.type == "object":
+        walk_object(doc, file_nid, None, 0, [0])
+
+    return {"nodes": nodes, "edges": edges}
+
+
 _DISPATCH: dict[str, Any] = {
     ".py": extract_python,
     ".js": extract_js,
@@ -5490,6 +5930,7 @@ _DISPATCH: dict[str, Any] = {
     ".F08": extract_fortran,
     ".vue": extract_js,
     ".svelte": extract_svelte,
+    ".astro": extract_astro,
     ".dart": extract_dart,
     ".v": extract_verilog,
     ".sv": extract_verilog,
@@ -5506,6 +5947,9 @@ _DISPATCH: dict[str, Any] = {
     ".dfm": extract_delphi_form,
     ".lfm": extract_lazarus_form,
     ".lpk": extract_lazarus_package,
+    ".sh": extract_bash,
+    ".bash": extract_bash,
+    ".json": extract_json,
 }
 
 

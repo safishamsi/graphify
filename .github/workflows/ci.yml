@@ -2,9 +2,9 @@ name: CI
 
 on:
   push:
-    branches: ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "main"]
+    branches: ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "main"]
   pull_request:
-    branches: ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "main"]
+    branches: ["v1", "v2", "v3", "v4", "v5", "v6", "v7", "v8", "main"]
   workflow_dispatch:
 
 jobs:

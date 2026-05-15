@@ -1,5 +1,5 @@
 from pathlib import Path
-from graphify.extract import extract_python, extract, collect_files, _make_id
+from graphify.extract import extract_python, extract, collect_files, _make_id, extract_bash, extract_json, _DISPATCH
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -425,3 +425,170 @@ def test_extract_parallel_returns_false_on_broken_pool(tmp_path, monkeypatch, ca
     out = capsys.readouterr().out
     assert "BrokenProcessPool" in out, "user-facing warning must mention the failure"
     assert "__main__" in out, "warning must hint at the Windows __main__ guard idiom"
+
+
+# ---------------------------------------------------------------------------
+# Bash extractor tests (#866)
+# ---------------------------------------------------------------------------
+
+def test_dispatch_includes_sh_and_json():
+    assert ".sh" in _DISPATCH
+    assert ".bash" in _DISPATCH
+    assert ".json" in _DISPATCH
+
+
+def test_extract_bash_finds_functions():
+    result = extract_bash(FIXTURES / "sample.sh")
+    assert "error" not in result
+    labels = {n["label"] for n in result["nodes"]}
+    assert "build()" in labels
+    assert "test_suite()" in labels
+    assert "deploy()" in labels
+
+
+def test_extract_bash_emits_defines_edges():
+    result = extract_bash(FIXTURES / "sample.sh")
+    relations = {e["relation"] for e in result["edges"]}
+    assert "defines" in relations
+
+
+def test_extract_bash_emits_calls_edges():
+    result = extract_bash(FIXTURES / "sample.sh")
+    calls = [(e["source"], e["target"]) for e in result["edges"] if e["relation"] == "calls"]
+    # deploy() calls build() and test_suite(); test_suite() calls build()
+    assert any("deploy" in s and "build" in t for s, t in calls)
+    assert any("deploy" in s and "test_suite" in t for s, t in calls)
+    assert any("test_suite" in s and "build" in t for s, t in calls)
+
+
+def test_extract_bash_calls_have_extracted_confidence():
+    result = extract_bash(FIXTURES / "sample.sh")
+    for e in result["edges"]:
+        if e["relation"] == "calls":
+            assert e["confidence"] == "EXTRACTED"
+            assert e.get("context") == "call"
+
+
+def test_extract_bash_emits_source_imports_from(tmp_path):
+    helpers = tmp_path / "helpers.sh"
+    helpers.write_text("# helper\n")
+    script = tmp_path / "deploy.sh"
+    script.write_text(f"#!/bin/bash\nsource ./helpers.sh\nfoo() {{ echo hi; }}\n")
+    result = extract_bash(script)
+    import_edges = [e for e in result["edges"] if e["relation"] == "imports_from"]
+    assert len(import_edges) >= 1
+    assert import_edges[0].get("context") == "import"
+
+
+def test_extract_bash_no_self_loops():
+    result = extract_bash(FIXTURES / "sample.sh")
+    for e in result["edges"]:
+        assert e["source"] != e["target"], f"Self-loop: {e}"
+
+
+def test_extract_bash_no_dangling_edges():
+    result = extract_bash(FIXTURES / "sample.sh")
+    node_ids = {n["id"] for n in result["nodes"]}
+    for e in result["edges"]:
+        assert e["source"] in node_ids, f"Dangling source: {e['source']}"
+        # targets may reference external files (imports_from) — only check non-import edges
+        if e["relation"] not in ("imports_from", "imports"):
+            assert e["target"] in node_ids, f"Dangling target: {e['target']}"
+
+
+def test_extract_bash_skip_builtins_in_calls():
+    result = extract_bash(FIXTURES / "sample.sh")
+    builtins = {"echo", "cd", "set", "export", "local", "mkdir", "if", "then"}
+    call_targets = {e["target"] for e in result["edges"] if e["relation"] == "calls"}
+    for b in builtins:
+        assert not any(b in t for t in call_targets), f"Builtin '{b}' appeared as calls target"
+
+
+def test_extract_bash_missing_grammar_returns_error():
+    """extract_bash returns error dict when tree-sitter-bash not installed (mocked)."""
+    import unittest.mock as mock
+    import builtins
+    real_import = builtins.__import__
+
+    def patched(name, *args, **kwargs):
+        if name == "tree_sitter_bash":
+            raise ImportError("mocked")
+        return real_import(name, *args, **kwargs)
+
+    with mock.patch("builtins.__import__", side_effect=patched):
+        result = extract_bash(FIXTURES / "sample.sh")
+    assert "error" in result
+    assert result["nodes"] == []
+
+
+# ---------------------------------------------------------------------------
+# JSON extractor tests (#866)
+# ---------------------------------------------------------------------------
+
+def test_extract_json_top_level_keys():
+    result = extract_json(FIXTURES / "sample.json")
+    assert "error" not in result
+    labels = {n["label"] for n in result["nodes"]}
+    assert "name" in labels
+    assert "version" in labels
+    assert "scripts" in labels
+    assert "dependencies" in labels
+
+
+def test_extract_json_nested_contains():
+    result = extract_json(FIXTURES / "sample.json")
+    contains = [(e["source"], e["target"]) for e in result["edges"] if e["relation"] == "contains"]
+    assert any("scripts" in s and "build" in t for s, t in contains)
+    assert any("scripts" in s and "test" in t for s, t in contains)
+    assert any("dependencies" in s and "react" in t for s, t in contains)
+
+
+def test_extract_json_dependencies_become_imports():
+    result = extract_json(FIXTURES / "sample.json")
+    import_edges = [e for e in result["edges"] if e["relation"] == "imports"]
+    targets = {e["target"] for e in import_edges}
+    assert any("react" in t for t in targets)
+    assert any("axios" in t for t in targets)
+    assert any("typescript" in t for t in targets)
+
+
+def test_extract_json_extends_resolved():
+    result = extract_json(FIXTURES / "sample_tsconfig.json")
+    extends_edges = [e for e in result["edges"] if e["relation"] == "extends"]
+    assert len(extends_edges) >= 1
+    assert extends_edges[0].get("context") == "import"
+
+
+def test_extract_json_large_file_skipped(tmp_path):
+    big = tmp_path / "big.json"
+    # Write a JSON file just over 1 MiB
+    big.write_bytes(b'{"x": "' + b"a" * (1_048_576) + b'"}')
+    result = extract_json(big)
+    assert "error" in result
+    assert result["nodes"] == []
+
+
+def test_extract_json_handles_invalid_json(tmp_path):
+    bad = tmp_path / "broken.json"
+    bad.write_text("{this is not: valid json!!!")
+    result = extract_json(bad)
+    # Should not crash — returns empty or error result
+    assert isinstance(result, dict)
+    assert "nodes" in result
+
+
+def test_extract_json_no_self_loops():
+    result = extract_json(FIXTURES / "sample.json")
+    for e in result["edges"]:
+        assert e["source"] != e["target"], f"Self-loop: {e}"
+
+
+def test_extract_bash_via_dispatch():
+    from graphify.extract import _get_extractor
+    assert _get_extractor(Path("foo.sh")) is extract_bash
+    assert _get_extractor(Path("foo.bash")) is extract_bash
+
+
+def test_extract_json_via_dispatch():
+    from graphify.extract import _get_extractor
+    assert _get_extractor(Path("foo.json")) is extract_json
