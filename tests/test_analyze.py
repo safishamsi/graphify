@@ -458,7 +458,7 @@ def test_is_json_key_node_non_json_file():
     assert _is_json_key_node(G, "n1") is False
 
 
-# --- npm dep-block key god-node filtering tests (issue #2) ---
+# --- npm dep-block key god-node filtering tests ---
 
 @pytest.mark.parametrize("dep_key", [
     "dependencies",
