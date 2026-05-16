@@ -68,6 +68,10 @@ def _is_file_node(G: nx.Graph, node_id: str) -> bool:
 _JSON_NOISE_LABELS: frozenset[str] = frozenset({
     "start", "end", "name", "id", "type", "properties",
     "value", "key", "data", "items", "title", "description", "version",
+    # npm package.json dependency-block keys — issue #2
+    # Lowercased to match the .strip().lower() comparison in _is_json_key_node.
+    "dependencies", "devdependencies", "peerdependencies",
+    "optionaldependencies", "bundleddependencies", "bundledependencies",
 })
 
 

@@ -1,6 +1,7 @@
 """Tests for analyze.py."""
 import json
 import networkx as nx
+import pytest
 from pathlib import Path
 from graphify.build import build_from_json
 from graphify.cluster import cluster
@@ -455,6 +456,85 @@ def test_is_json_key_node_non_json_file():
     G = nx.Graph()
     G.add_node("n1", label="name", source_file="model.py")
     assert _is_json_key_node(G, "n1") is False
+
+
+# --- npm dep-block key god-node filtering tests (issue #2) ---
+
+@pytest.mark.parametrize("dep_key", [
+    "dependencies",
+    "devDependencies",
+    "peerDependencies",
+    "optionalDependencies",
+    "bundledDependencies",
+])
+def test_god_nodes_excludes_npm_dep_block_keys(dep_key: str) -> None:
+    """npm package.json dep-block keys must be filtered from god_nodes output.
+
+    Constructs a small graph with one node labelled with an npm dep-block key
+    (sourced from a .json file) and one real-domain node that has high degree.
+    Asserts that god_nodes() excludes the dep-block node even when it has the
+    highest degree, while the real-domain node is included.
+
+    Args:
+        dep_key: The npm dependency-block key label to test (parametrized).
+    """
+    G = nx.Graph()
+    # Real-domain node with a realistic source file.
+    G.add_node(
+        "real_node",
+        label="AuthService",
+        source_file="src/auth.py",
+        file_type="code",
+        source_location="L1",
+    )
+    # npm dep-block key node — sourced from a JSON file so _is_json_key_node fires.
+    G.add_node(
+        "dep_node",
+        label=dep_key,
+        source_file="frontend/package.json",
+        file_type="code",
+        source_location="L1",
+    )
+    # Wire up enough edges so dep_node has high degree — it would be a god-node
+    # without the filter.
+    for i in range(20):
+        peer = f"pkg_{i}"
+        G.add_node(
+            peer,
+            label=f"package-{i}",
+            source_file="frontend/package.json",
+            file_type="code",
+            source_location=f"L{i + 2}",
+        )
+        G.add_edge(
+            "dep_node",
+            peer,
+            relation="contains",
+            confidence="EXTRACTED",
+            source_file="frontend/package.json",
+            weight=1.0,
+        )
+    # Give real_node a couple of edges too.
+    G.add_edge(
+        "real_node",
+        "dep_node",
+        relation="imports",
+        confidence="EXTRACTED",
+        source_file="src/auth.py",
+        weight=1.0,
+    )
+
+    result = god_nodes(G, top_n=10)
+    result_ids = [r["id"] for r in result]
+
+    assert "dep_node" not in result_ids, (
+        f"god_nodes() should filter npm dep-block key '{dep_key}' "
+        f"but it appeared in the result: {result}"
+    )
+    assert "real_node" in result_ids, (
+        f"god_nodes() should include real-domain node 'AuthService' "
+        f"but it was absent: {result}"
+    )
 
 
 def test_is_json_key_node_real_label():
