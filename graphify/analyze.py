@@ -65,17 +65,43 @@ def _is_file_node(G: nx.Graph, node_id: str) -> bool:
     return False
 
 
+# JSON key noise: the JSON extractor emits one node per key, so common
+# keys (start/end/name/properties/...) that recur across sibling records
+# in one file accumulate positional degree rather than architectural
+# meaning. Filter them out of god_nodes. Set is intentionally narrow.
+_JSON_NOISE_LABELS = frozenset({
+    "start", "end", "name", "id", "type", "properties", "value", "key",
+    "data", "items", "title", "description", "version",
+})
+
+
+def _is_json_key_node(G: nx.Graph, node_id: str) -> bool:
+    """True if this node is a common JSON key whose degree is positional noise."""
+    attrs = G.nodes[node_id]
+    src = (attrs.get("source_file") or "").lower()
+    if not src.endswith(".json"):
+        return False
+    label = (attrs.get("label") or "").strip().lower()
+    return label in _JSON_NOISE_LABELS
+
+
 def god_nodes(G: nx.Graph, top_n: int = 10) -> list[dict]:
     """Return the top_n most-connected real entities - the core abstractions.
 
     File-level hub nodes are excluded: they accumulate import/contains edges
     mechanically and don't represent meaningful architectural abstractions.
+
+    Common JSON keys (start, end, name, id, type, ...) extracted from .json
+    files are also excluded: their degree comes from being referenced by every
+    sibling record in the same file, not from being architecturally central.
     """
     degree = dict(G.degree())
     sorted_nodes = sorted(degree.items(), key=lambda x: x[1], reverse=True)
     result = []
     for node_id, deg in sorted_nodes:
         if _is_file_node(G, node_id) or _is_concept_node(G, node_id):
+            continue
+        if _is_json_key_node(G, node_id):
             continue
         result.append({
             "id": node_id,
@@ -182,10 +208,23 @@ def _surprise_score(
     # cross-dir + cross-community and dominate "Surprising Connections".
     # Excludes `semantically_similar_to` (LLM-emitted, explicitly cross-language
     # insight) and all AMBIGUOUS/EXTRACTED edges (not from the resolver path).
+    #
+    # Same logic applies to code <-> doc INFERRED calls/uses: a README that
+    # mentions a symbol's name produces an INFERRED `calls` or `uses` edge from
+    # the README's prose to the code symbol, which is documentation cross-
+    # reference, not a structural surprise. _cross_language() misses these
+    # because .md isn't in _LANG_FAMILY. Treat them the same way.
+    cat_u = _file_category(u_source)
+    cat_v = _file_category(v_source)
+    _code_doc_inferred = (
+        conf == "INFERRED"
+        and relation in ("calls", "uses")
+        and {cat_u, cat_v} == {"code", "doc"}
+    )
     _suppress_structural = (
         conf == "INFERRED"
         and relation in ("calls", "uses")
-        and _cross_language(u_source, v_source)
+        and (_cross_language(u_source, v_source) or _code_doc_inferred)
     )
     if _suppress_structural:
         conf_bonus = 0
@@ -194,10 +233,9 @@ def _surprise_score(
     if conf in ("AMBIGUOUS", "INFERRED"):
         reasons.append(f"{conf.lower()} connection - not explicitly stated in source")
 
-    # 2. Cross file-type bonus - code↔paper or code↔image is non-obvious
-    cat_u = _file_category(u_source)
-    cat_v = _file_category(v_source)
-    if cat_u != cat_v:
+    # 2. Cross file-type bonus - code↔paper or code↔image is non-obvious.
+    # (cat_u / cat_v already computed above for _code_doc_inferred check.)
+    if cat_u != cat_v and not _suppress_structural:
         score += 2
         reasons.append(f"crosses file types ({cat_u} ↔ {cat_v})")
 

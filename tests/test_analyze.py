@@ -215,6 +215,260 @@ def test_cross_language_extracted_calls_not_suppressed():
     assert score >= 1
 
 
+def _make_code_doc_graph():
+    """Helper: Go code + Markdown README referencing it (real artella-backend pattern)."""
+    G = nx.Graph()
+    G.add_node("go_proc", label="VideoProcessor",
+               source_file="libs/transcoder/worker.go", file_type="code")
+    G.add_node("md_ref", label="NewVideoProcessor",
+               source_file="services/artella-videosplitter/Readme.md", file_type="document")
+    G.add_node("go_a", label="ServiceA",
+               source_file="libs/a.go", file_type="code")
+    G.add_node("go_b", label="ServiceB",
+               source_file="libs/b.go", file_type="code")
+    return G
+
+
+def test_code_doc_inferred_calls_suppressed():
+    """A README mentioning a code symbol via INFERRED `calls` edge is a doc
+    cross-reference, not a structural surprise — should be suppressed like
+    cross-language INFERRED calls were in d14e8a7. This is the artella-backend
+    pattern: libs/transcoder/worker.go -> services/.../Readme.md."""
+    G = _make_code_doc_graph()
+    G.add_edge("go_proc", "md_ref", relation="calls", confidence="INFERRED",
+               weight=0.8, source_file="libs/transcoder/worker.go")
+    G.add_edge("go_a", "go_b", relation="calls", confidence="EXTRACTED",
+               weight=1.0, source_file="libs/a.go")
+    nc = {"go_proc": 0, "md_ref": 1, "go_a": 0, "go_b": 0}
+    score_cross, _ = _surprise_score(G, "go_proc", "md_ref",
+                                      G.edges["go_proc", "md_ref"], nc,
+                                      "libs/transcoder/worker.go",
+                                      "services/artella-videosplitter/Readme.md")
+    score_same, _ = _surprise_score(G, "go_a", "go_b",
+                                     G.edges["go_a", "go_b"], nc,
+                                     "libs/a.go", "libs/b.go")
+    assert score_cross <= score_same, (
+        f"code<->doc INFERRED calls should be suppressed, got cross={score_cross}, same={score_same}"
+    )
+
+
+def test_code_doc_inferred_uses_suppressed():
+    """Same as above for `uses` relation — covers the resolver-pollution case
+    where a README's prose creates an INFERRED `uses` edge against a code symbol."""
+    G = _make_code_doc_graph()
+    G.add_edge("go_proc", "md_ref", relation="uses", confidence="INFERRED",
+               weight=0.8, source_file="libs/transcoder/worker.go")
+    G.add_edge("go_a", "go_b", relation="calls", confidence="EXTRACTED",
+               weight=1.0, source_file="libs/a.go")
+    nc = {"go_proc": 0, "md_ref": 1, "go_a": 0, "go_b": 0}
+    score_cross, _ = _surprise_score(G, "go_proc", "md_ref",
+                                      G.edges["go_proc", "md_ref"], nc,
+                                      "libs/transcoder/worker.go",
+                                      "services/artella-videosplitter/Readme.md")
+    score_same, _ = _surprise_score(G, "go_a", "go_b",
+                                     G.edges["go_a", "go_b"], nc,
+                                     "libs/a.go", "libs/b.go")
+    assert score_cross <= score_same
+
+
+def test_code_doc_extracted_not_suppressed():
+    """EXTRACTED code<->doc edges are explicit references (e.g. doc literally
+    contains a code-pattern match) — these are real structural facts and must
+    not be suppressed."""
+    G = _make_code_doc_graph()
+    G.add_edge("go_proc", "md_ref", relation="references",
+               confidence="EXTRACTED", weight=1.0,
+               source_file="services/artella-videosplitter/Readme.md")
+    nc = {"go_proc": 0, "md_ref": 1}
+    score, _ = _surprise_score(G, "go_proc", "md_ref",
+                                G.edges["go_proc", "md_ref"], nc,
+                                "libs/transcoder/worker.go",
+                                "services/artella-videosplitter/Readme.md")
+    # Should still get conf_bonus (1) plus cross-file-type bonus (2) plus
+    # other applicable bonuses — at minimum >= 3.
+    assert score >= 3, f"EXTRACTED code<->doc must keep its bonuses, got {score}"
+
+
+def test_code_doc_inferred_semantically_similar_not_suppressed():
+    """The `semantically_similar_to` relation is preserved by d14e8a7 doctrine —
+    a code↔doc INFERRED similarity edge represents an explicit LLM insight
+    (the doc and the code share a concept) and must NOT be suppressed even
+    though it crosses categories. Protects the relation gate."""
+    G = _make_code_doc_graph()
+    G.add_edge("go_proc", "md_ref", relation="semantically_similar_to",
+               confidence="INFERRED", weight=0.8,
+               source_file="libs/transcoder/worker.go")
+    G.add_edge("go_a", "go_b", relation="calls", confidence="EXTRACTED",
+               weight=1.0, source_file="libs/a.go")
+    nc = {"go_proc": 0, "md_ref": 1, "go_a": 0, "go_b": 0}
+    score_sem, _ = _surprise_score(G, "go_proc", "md_ref",
+                                    G.edges["go_proc", "md_ref"], nc,
+                                    "libs/transcoder/worker.go",
+                                    "services/artella-videosplitter/Readme.md")
+    score_same, _ = _surprise_score(G, "go_a", "go_b",
+                                     G.edges["go_a", "go_b"], nc,
+                                     "libs/a.go", "libs/b.go")
+    assert score_sem > score_same, (
+        f"semantically_similar_to across code<->doc must NOT be suppressed, "
+        f"got sem={score_sem}, same={score_same}"
+    )
+
+
+def test_code_unknown_extension_inferred_calls_suppressed():
+    """Document the `_file_category` fallback: any unknown file extension is
+    classified as "doc" (the function returns "doc" when not code/paper/image).
+    This means INFERRED calls/uses between code and an unknown-extension file
+    are also suppressed by the doc-category gate. Intentional — these edges
+    are almost always resolver pollution of the same shape as code↔README."""
+    assert _file_category("notes/random.xyz") == "doc"  # confirms fallback
+    G = nx.Graph()
+    G.add_node("go_a", label="Handler", source_file="libs/a.go", file_type="code")
+    G.add_node("unk", label="Handler", source_file="vendor/unknown.xyz", file_type="document")
+    G.add_node("c", label="C", source_file="libs/c.go", file_type="code")
+    G.add_node("d", label="D", source_file="libs/d.go", file_type="code")
+    G.add_edge("go_a", "unk", relation="calls", confidence="INFERRED",
+               weight=0.8, source_file="libs/a.go")
+    G.add_edge("c", "d", relation="calls", confidence="EXTRACTED",
+               weight=1.0, source_file="libs/c.go")
+    nc = {"go_a": 0, "unk": 1, "c": 0, "d": 0}
+    score_unknown, _ = _surprise_score(G, "go_a", "unk",
+                                        G.edges["go_a", "unk"], nc,
+                                        "libs/a.go", "vendor/unknown.xyz")
+    score_same, _ = _surprise_score(G, "c", "d",
+                                     G.edges["c", "d"], nc,
+                                     "libs/c.go", "libs/d.go")
+    assert score_unknown <= score_same, (
+        f"code<->unknown-extension INFERRED calls fall under the doc-category "
+        f"suppression by design, got unknown={score_unknown}, same={score_same}"
+    )
+
+
+def test_code_paper_inferred_calls_not_suppressed():
+    """code<->paper INFERRED edges (.go <-> .pdf) are NOT the README-mention case
+    and remain genuinely surprising — must not be caught by the code<->doc rule.
+    Verifies the suppression is narrowly scoped to file_category=='doc'."""
+    G = nx.Graph()
+    G.add_node("go_attn", label="Attention", source_file="libs/ml/attention.go", file_type="code")
+    G.add_node("pdf_attn", label="Attention", source_file="papers/attention-is-all-you-need.pdf", file_type="paper")
+    G.add_node("go_a", label="A", source_file="libs/a.go", file_type="code")
+    G.add_node("go_b", label="B", source_file="libs/b.go", file_type="code")
+    G.add_edge("go_attn", "pdf_attn", relation="calls", confidence="INFERRED",
+               weight=0.8, source_file="libs/ml/attention.go")
+    G.add_edge("go_a", "go_b", relation="calls", confidence="EXTRACTED",
+               weight=1.0, source_file="libs/a.go")
+    nc = {"go_attn": 0, "pdf_attn": 1, "go_a": 0, "go_b": 0}
+    score_paper, _ = _surprise_score(G, "go_attn", "pdf_attn",
+                                      G.edges["go_attn", "pdf_attn"], nc,
+                                      "libs/ml/attention.go",
+                                      "papers/attention-is-all-you-need.pdf")
+    score_same, _ = _surprise_score(G, "go_a", "go_b",
+                                     G.edges["go_a", "go_b"], nc,
+                                     "libs/a.go", "libs/b.go")
+    assert score_paper > score_same, (
+        f"code<->paper INFERRED is a real cross-format surprise, "
+        f"got paper={score_paper}, same={score_same}"
+    )
+
+
+def test_god_nodes_filters_json_noise_keys():
+    """Common JSON keys (start/end/name/properties/id/...) appearing in .json
+    sources should be excluded from god_nodes — their degree is positional,
+    not architectural. Real Go method abstractions must outrank them even
+    when the JSON-key degree is higher."""
+    G = nx.Graph()
+    # Single legitimate code abstraction with modest degree.
+    G.add_node("db_conn", label="DB()",
+               source_file="database/connection.go", file_type="code")
+    for i in range(20):
+        n = f"caller_{i}"
+        G.add_node(n, label=f"Caller{i}", source_file=f"libs/caller_{i}.go",
+                   file_type="code")
+        G.add_edge(n, "db_conn", relation="calls", confidence="EXTRACTED")
+    # Massive-degree JSON-key noise that should be filtered.
+    G.add_node("dates_start", label="start",
+               source_file="testhelpers/dates.json", file_type="code")
+    for i in range(50):
+        n = f"term_{i}"
+        G.add_node(n, label=f"T{i}", source_file="testhelpers/dates.json",
+                   file_type="code")
+        G.add_edge(n, "dates_start", relation="references",
+                   confidence="EXTRACTED")
+    gods = god_nodes(G, top_n=3)
+    labels = [g["label"] for g in gods]
+    assert "start" not in labels, (
+        f"common JSON-key 'start' should be filtered out, got {labels}"
+    )
+    assert "DB()" in labels, (
+        f"real code abstraction 'DB()' must surface, got {labels}"
+    )
+
+
+def test_god_nodes_keeps_noise_label_when_source_is_code():
+    """`start` is only filtered when its source is .json — a real function or
+    variable named `start` defined in a .go/.ts file must NOT be filtered."""
+    G = nx.Graph()
+    G.add_node("go_start", label="start",
+               source_file="libs/scheduler/runner.go", file_type="code")
+    G.add_node("low_deg", label="OtherThing",
+               source_file="libs/other.go", file_type="code")
+    for i in range(5):
+        n = f"caller_{i}"
+        G.add_node(n, label=f"C{i}", source_file=f"libs/c_{i}.go",
+                   file_type="code")
+        G.add_edge(n, "go_start", relation="calls", confidence="EXTRACTED")
+    G.add_edge("low_deg", "caller_0", relation="calls", confidence="EXTRACTED")
+    gods = god_nodes(G, top_n=2)
+    labels = [g["label"] for g in gods]
+    assert "start" in labels, (
+        f"`start` defined in Go source must NOT be filtered, got {labels}"
+    )
+
+
+def test_god_nodes_keeps_real_label_in_json_source():
+    """A JSON-sourced node with a non-common label (e.g. domain entity name)
+    should NOT be filtered — only the small set of generic JSON keys are
+    excluded."""
+    G = nx.Graph()
+    G.add_node("config_node", label="ProductionEsConfig",
+               source_file="config/elasticsearch.json", file_type="code")
+    for i in range(10):
+        n = f"ref_{i}"
+        G.add_node(n, label=f"R{i}", source_file=f"libs/r_{i}.go",
+                   file_type="code")
+        G.add_edge(n, "config_node", relation="references",
+                   confidence="EXTRACTED")
+    gods = god_nodes(G, top_n=1)
+    labels = [g["label"] for g in gods]
+    assert "ProductionEsConfig" in labels, (
+        f"domain entity in JSON source must NOT be filtered, got {labels}"
+    )
+
+
+def test_god_nodes_filter_is_case_insensitive():
+    """JSON-key filter must match regardless of label casing — `Start`, `START`,
+    and `start` should all be treated as the same generic key."""
+    G = nx.Graph()
+    G.add_node("real", label="RealAbstraction",
+               source_file="libs/real.go", file_type="code")
+    G.add_edge("real", "real", relation="self")  # nominal edge so it exists
+    for variant in ("Start", "START", "Name", "ID"):
+        nid = f"json_{variant.lower()}"
+        G.add_node(nid, label=variant,
+                   source_file="testhelpers/data.json", file_type="code")
+        # Give each high degree to make them outrank `real` if not filtered.
+        for i in range(15):
+            target = f"{nid}_ref_{i}"
+            G.add_node(target, label=f"X{i}",
+                       source_file="testhelpers/data.json", file_type="code")
+            G.add_edge(target, nid, relation="references")
+    gods = god_nodes(G, top_n=5)
+    labels = [g["label"] for g in gods]
+    for variant in ("Start", "START", "Name", "ID"):
+        assert variant not in labels, (
+            f"`{variant}` (case variant of JSON-noise key) must be filtered, got {labels}"
+        )
+
+
 def test_surprising_connections_have_why_field():
     G = make_graph()
     communities = cluster(G)
