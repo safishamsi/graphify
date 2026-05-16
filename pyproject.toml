@@ -68,6 +68,24 @@ all = ["mcp", "neo4j", "pypdf", "markdownify", "watchdog", "graspologic; python_
 [project.scripts]
 graphify = "graphify.__main__:main"
 
+[dependency-groups]
+dev = [
+    "bandit>=1.9.4",
+    "build>=1.5.0",
+    "hypothesis>=6.152.7",
+    "nuitka>=4.1",
+    "patchelf>=0.17.2.4 ; sys_platform != 'win32'",
+    "pip-audit>=2.10.0",
+    "pre-commit>=4.6.0",
+    "pyright>=1.1.409",
+    "pytest>=9.0.3",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.15.13",
+    "safety>=3.7.0",
+    "setuptools>=82.0.1",
+    "wheel>=0.47.0",
+]
+
 [tool.uv]
 # Install via: uv tool install graphifyy
 # Run without installing: uvx graphifyy install
@@ -91,11 +109,15 @@ norecursedirs = [
 [tool.bandit]
 skips = ["B404"]
 
-[dependency-groups]
-dev = [
-    "build>=1.5.0",
-    "nuitka>=4.1",
-    "patchelf>=0.17.2.4 ; sys_platform != 'win32'",
-    "setuptools>=82.0.1",
-    "wheel>=0.47.0",
-]
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+# Keep the committed baseline conservative until upstream adopts a broader lint policy.
+select = ["E9", "F63", "F7", "F82"]
+
+[tool.pyright]
+include = ["graphify", "tests"]
+pythonVersion = "3.10"
+typeCheckingMode = "basic"

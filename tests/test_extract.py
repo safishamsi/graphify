@@ -521,6 +521,105 @@ def test_extract_bash_missing_grammar_returns_error():
     assert result["nodes"] == []
 
 
+def test_extract_bash_rejects_command_substitution_as_call(tmp_path):
+    """`$(build)` must not be recorded as a call edge to build()."""
+    script = tmp_path / "command_substitution.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "build() { echo build; }\n"
+        "$(build)\n"
+    )
+    result = extract_bash(script)
+    labels = {n["id"]: n["label"] for n in result["nodes"]}
+    call_pairs = [
+        (labels.get(e["source"], e["source"]), labels.get(e["target"], e["target"]))
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    ]
+    assert call_pairs == [], f"Command substitution erroneously emitted call edges: {call_pairs}"
+
+
+def test_extract_bash_process_substitution_not_recorded(tmp_path):
+    """`<(helper)` (process substitution) must not be recorded as a call edge."""
+    script = tmp_path / "process_substitution.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "helper() { echo h; }\n"
+        "diff <(helper) <(helper)\n"
+    )
+    result = extract_bash(script)
+    labels = {n["id"]: n["label"] for n in result["nodes"]}
+    call_pairs = [
+        (labels.get(e["source"], e["source"]), labels.get(e["target"], e["target"]))
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    ]
+    assert call_pairs == [], f"Process substitution erroneously emitted call edges: {call_pairs}"
+
+
+def test_extract_bash_shadowing_function_is_recorded(tmp_path):
+    """User-defined function shadowing an external command (install/find/etc.) must still produce a call edge."""
+    script = tmp_path / "shadowing.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "install() { echo install; }\n"
+        "deploy() { install; }\n"
+    )
+    result = extract_bash(script)
+    labels = {n["id"]: n["label"] for n in result["nodes"]}
+    call_pairs = [
+        (labels.get(e["source"], e["source"]), labels.get(e["target"], e["target"]))
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    ]
+    assert ("deploy()", "install()") in call_pairs, (
+        f"Shadowing function call not recorded; got: {call_pairs}"
+    )
+
+
+def test_extract_bash_creates_entrypoint_node(tmp_path):
+    """Every bash file produces a `bash_entrypoint` node distinct from the file node, joined by a `contains` edge."""
+    script = tmp_path / "with_entrypoint.sh"
+    script.write_text("#!/usr/bin/env bash\nfoo() { :; }\n")
+    result = extract_bash(script)
+    kinds = [n.get("metadata", {}).get("kind") for n in result["nodes"]]
+    assert "bash_entrypoint" in kinds, f"No bash_entrypoint node; kinds={kinds}"
+    assert "file" in kinds, f"No file node; kinds={kinds}"
+    file_node = next(n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "file")
+    entry_node = next(n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint")
+    contains_edges = [
+        e for e in result["edges"]
+        if e["relation"] == "contains" and e["source"] == file_node["id"] and e["target"] == entry_node["id"]
+    ]
+    assert contains_edges, "Missing contains edge from file → bash_entrypoint"
+
+
+def test_extract_bash_top_level_call_attributes_to_entrypoint(tmp_path):
+    """Top-level function call attaches to the entrypoint node, not orphaned."""
+    script = tmp_path / "top_level_call.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "build() { echo build; }\n"
+        "build\n"
+    )
+    result = extract_bash(script)
+    entry_node = next(
+        (n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint"),
+        None,
+    )
+    assert entry_node is not None, "No entrypoint node created"
+    call_pairs = [
+        (e["source"], e["target"])
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    ]
+    target_ids = {tgt for _, tgt in call_pairs if any(n["id"] == tgt and n["label"] == "build()" for n in result["nodes"])}
+    source_ids_to_build = {src for src, tgt in call_pairs if tgt in target_ids}
+    assert entry_node["id"] in source_ids_to_build, (
+        f"Top-level call to build not attributed to entrypoint; calls={call_pairs}"
+    )
+
+
 # ---------------------------------------------------------------------------
 # JSON extractor tests (#866)
 # ---------------------------------------------------------------------------
