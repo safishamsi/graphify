@@ -2598,9 +2598,12 @@ def main() -> None:
 
                 # Minimal progress callback so the CLI is no longer silent
                 # during long local-inference runs (issue #792 addendum).
-                _total_chunks = {"n": 0}
+                # Also track per-chunk success so we can fail loudly when
+                # every chunk errors (e.g. missing backend SDK package).
+                _chunk_stats = {"total": 0, "succeeded": 0}
                 def _progress(idx: int, total: int, _result: dict) -> None:
-                    _total_chunks["n"] = total
+                    _chunk_stats["total"] = total
+                    _chunk_stats["succeeded"] += 1
                     print(
                         f"[graphify extract] chunk {idx + 1}/{total} done",
                         flush=True,
@@ -2621,6 +2624,19 @@ def main() -> None:
                         file=sys.stderr,
                     )
                     fresh = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+
+                # on_chunk_done only fires after a chunk succeeds. If fresh
+                # semantic extraction was requested and no chunks completed,
+                # fail instead of writing an AST-only graph with exit 0.
+                if uncached_paths and _chunk_stats["succeeded"] == 0:
+                    print(
+                        f"[graphify extract] error: all semantic chunks failed "
+                        f"for backend '{backend}' ({len(uncached_paths)} uncached files) - "
+                        f"see per-chunk errors above. If you see 'requires the X package', "
+                        f"run `pip install X` and retry.",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
                 try:
                     _save_semantic_cache(
                         fresh.get("nodes", []),
