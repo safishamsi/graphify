@@ -82,3 +82,12 @@ graphify = ["skill.md", "skill-codex.md", "skill-opencode.md", "skill-aider.md",
 
 [tool.bandit]
 skips = ["B404"]
+
+[dependency-groups]
+dev = [
+    "build>=1.5.0",
+    "nuitka>=4.1",
+    "patchelf>=0.17.2.4 ; sys_platform != 'win32'",
+    "setuptools>=82.0.1",
+    "wheel>=0.47.0",
+]
