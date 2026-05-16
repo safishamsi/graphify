@@ -433,6 +433,7 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192) -> dict:
         input=user_message,
         capture_output=True,
         text=True,
+        encoding="utf-8",  # Force UTF-8 — prevents UnicodeEncodeError on Windows cp1252 (#3)
         timeout=600,
         check=False,
     )
@@ -847,7 +848,11 @@ def extract_corpus_parallel(
     else:
         chunks = [files[i:i + chunk_size] for i in range(0, len(files), chunk_size)]
 
-    merged: dict = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+    merged: dict = {
+        "nodes": [], "edges": [], "hyperedges": [],
+        "input_tokens": 0, "output_tokens": 0,
+        "failed_chunks": 0,  # count of chunks that raised (#3 — loud failure on chunk errors)
+    }
     total = len(chunks)
 
     def _run_one(idx: int, chunk: list[Path]) -> tuple[int, dict | None, Exception | None]:
@@ -883,24 +888,38 @@ def extract_corpus_parallel(
             _, result, exc = _run_one(idx, chunk)
             if exc is not None:
                 print(f"[graphify] chunk {idx + 1}/{total} failed: {exc}", file=sys.stderr)
+                merged["failed_chunks"] += 1
                 continue
             assert result is not None
             _merge_into(merged, result)
             if callable(on_chunk_done):
                 on_chunk_done(idx, total, result)
-        return merged
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = [pool.submit(_run_one, idx, chunk) for idx, chunk in enumerate(chunks)]
+            for future in as_completed(futures):
+                idx, result, exc = future.result()
+                if exc is not None:
+                    print(
+                        f"[graphify] chunk {idx + 1}/{total} failed: {exc}",
+                        file=sys.stderr,
+                    )
+                    merged["failed_chunks"] += 1
+                    continue
+                assert result is not None
+                _merge_into(merged, result)
+                if callable(on_chunk_done):
+                    on_chunk_done(idx, total, result)
 
-    with ThreadPoolExecutor(max_workers=workers) as pool:
-        futures = [pool.submit(_run_one, idx, chunk) for idx, chunk in enumerate(chunks)]
-        for future in as_completed(futures):
-            idx, result, exc = future.result()
-            if exc is not None:
-                print(f"[graphify] chunk {idx + 1}/{total} failed: {exc}", file=sys.stderr)
-                continue
-            assert result is not None
-            _merge_into(merged, result)
-            if callable(on_chunk_done):
-                on_chunk_done(idx, total, result)
+    # Loud failure summary — surface chunk failures at end so they're never
+    # buried mid-log. Exit 0 preserved for caller compatibility; the
+    # summary block makes the problem visible (#3).
+    if merged["failed_chunks"] > 0:
+        print(
+            f"[graphify] WARNING: {merged['failed_chunks']}/{total} semantic chunk(s) failed"
+            " — see errors above. Partial results returned.",
+            file=sys.stderr,
+        )
     return merged
 
 
@@ -961,6 +980,7 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
             input=prompt,
             capture_output=True,
             text=True,
+            encoding="utf-8",  # Force UTF-8 — prevents UnicodeEncodeError on Windows cp1252 (#3)
             timeout=600,
             check=False,
         )
