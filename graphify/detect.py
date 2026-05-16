@@ -662,8 +662,29 @@ def _could_contain_included_path(path: Path, root: Path, patterns: list[tuple[Pa
     return False
 
 
-def detect(root: Path, *, follow_symlinks: bool = False, google_workspace: bool | None = None) -> dict:
+def _auto_follow_symlinks(root: Path) -> bool:
+    """Auto-detect: ``True`` if ``root`` has any direct symlinked child.
+
+    Allows "fake working dir" patterns (e.g. a folder full of symlinks pointing
+    at scattered source dirs across the user's machine) to work transparently
+    without the caller having to know to pass ``follow_symlinks=True``.
+
+    Override is always possible by passing an explicit ``follow_symlinks=True``
+    or ``follow_symlinks=False`` to :func:`detect` / :func:`detect_incremental`.
+    """
+    try:
+        for p in root.iterdir():
+            if p.is_symlink():
+                return True
+    except (OSError, PermissionError):
+        pass
+    return False
+
+
+def detect(root: Path, *, follow_symlinks: bool | None = None, google_workspace: bool | None = None) -> dict:
     root = root.resolve()
+    if follow_symlinks is None:
+        follow_symlinks = _auto_follow_symlinks(root)
     google_workspace = google_workspace_enabled() if google_workspace is None else google_workspace
     files: dict[FileType, list[str]] = {
         FileType.CODE: [],
@@ -869,7 +890,7 @@ def detect_incremental(
     root: Path,
     manifest_path: str = _MANIFEST_PATH,
     *,
-    follow_symlinks: bool = False,
+    follow_symlinks: bool | None = None,
     google_workspace: bool | None = None,
     kind: str = "semantic",
 ) -> dict:
@@ -893,7 +914,8 @@ def detect_incremental(
     The ``follow_symlinks`` flag is forwarded to :func:`detect` so corpora that
     rely on symlinked sub-trees (e.g. a ``state_of_truth/`` symlink pointing to a
     directory outside the scan root) are scanned consistently between full and
-    incremental runs.
+    incremental runs. ``None`` (default) means auto-detect: ``True`` when ``root``
+    contains at least one direct symlinked child, ``False`` otherwise.
     """
     full = detect(root, follow_symlinks=follow_symlinks, google_workspace=google_workspace)
     manifest = load_manifest(manifest_path)
