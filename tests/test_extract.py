@@ -323,6 +323,105 @@ def test_cross_file_call_remains_inferred_without_import_evidence(tmp_path):
     assert call_edges[0]["confidence"] == "INFERRED"
 
 
+def test_ruby_receiver_call_is_unresolved_not_bare_inferred(tmp_path):
+    """A Ruby receiver call like klass.first must not resolve to bare first()."""
+    caller = tmp_path / "caller.rb"
+    callee = tmp_path / "helpers.rb"
+    caller.write_text(
+        "def something(klass, conditions)\n"
+        "  klass.first(**conditions)\n"
+        "end\n"
+    )
+    callee.write_text(
+        "def first\n"
+        "  :not_the_receiver\n"
+        "end\n"
+    )
+
+    result = extract([caller, callee], cache_root=tmp_path)
+    nodes = {n["id"]: n for n in result["nodes"]}
+    call_edges = [
+        e for e in result["edges"]
+        if e["relation"] == "calls"
+        and nodes[e["source"]]["label"] == "something()"
+        and nodes[e["target"]]["label"] == "first()"
+    ]
+
+    assert call_edges == []
+    unresolved = [
+        c for c in result["unresolved_calls"]
+        if c["callee"] == "first" and c.get("receiver") == "klass"
+    ]
+    assert len(unresolved) == 1
+    assert unresolved[0]["is_member_call"] is True
+    assert unresolved[0]["call_shape"] == "klass.first"
+    assert unresolved[0]["resolution_status"] == "member_call"
+
+
+def test_ruby_bare_call_is_implicit_self_not_bare_inferred(tmp_path):
+    """A bare Ruby call in a method body is an implicit self call."""
+    caller = tmp_path / "caller.rb"
+    callee = tmp_path / "helpers.rb"
+    caller.write_text(
+        "def something(conditions)\n"
+        "  first(**conditions)\n"
+        "end\n"
+    )
+    callee.write_text(
+        "def first\n"
+        "  :not_the_receiver\n"
+        "end\n"
+    )
+
+    result = extract([caller, callee], cache_root=tmp_path)
+    nodes = {n["id"]: n for n in result["nodes"]}
+    call_edges = [
+        e for e in result["edges"]
+        if e["relation"] == "calls"
+        and nodes[e["source"]]["label"] == "something()"
+        and nodes[e["target"]]["label"] == "first()"
+    ]
+
+    assert call_edges == []
+    unresolved = [
+        c for c in result["unresolved_calls"]
+        if c["callee"] == "first" and c.get("receiver") == "self"
+    ]
+    assert len(unresolved) == 1
+    assert unresolved[0]["is_member_call"] is True
+    assert unresolved[0]["receiver_node_type"] == "implicit_receiver"
+    assert unresolved[0]["call_shape"] == "self.first"
+    assert unresolved[0]["resolution_status"] == "member_call"
+
+
+def test_ruby_bare_call_resolves_same_file_implicit_self(tmp_path):
+    """A bare Ruby call can still resolve to a same-file method."""
+    path = tmp_path / "caller.rb"
+    path.write_text(
+        "def something\n"
+        "  first()\n"
+        "end\n"
+        "\n"
+        "def first\n"
+        "  :ok\n"
+        "end\n"
+    )
+
+    result = extract([path], cache_root=tmp_path)
+    nodes = {n["id"]: n for n in result["nodes"]}
+    call_edges = [
+        e for e in result["edges"]
+        if e["relation"] == "calls"
+        and nodes[e["source"]]["label"] == "something()"
+        and nodes[e["target"]]["label"] == "first()"
+    ]
+
+    assert len(call_edges) == 1
+    assert call_edges[0]["receiver"] == "self"
+    assert call_edges[0]["receiver_node_type"] == "implicit_receiver"
+    assert call_edges[0]["call_shape"] == "self.first"
+
+
 # ── TSX (JSX-aware) parsing ──────────────────────────────────────────────────
 # .tsx files require tree-sitter-typescript's `language_tsx`, not the plain
 # `language_typescript` grammar. Parsing JSX with the wrong grammar produces

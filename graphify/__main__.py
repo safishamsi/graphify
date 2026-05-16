@@ -23,6 +23,17 @@ def _default_graph_path() -> str:
     return str(Path(_GRAPHIFY_OUT) / "graph.json")
 
 
+def _print_lsp_opt_in_tip(root: Path) -> None:
+    if os.environ.get("GRAPHIFY_NO_TIPS"):
+        return
+    try:
+        from graphify.pipeline_hooks import has_disabled_lsp_hooks
+        if has_disabled_lsp_hooks(root.resolve()):
+            print("Tip: set GRAPHIFY_ENABLE_HOOKS=1 to run configured LSP enrichment hooks for trusted repos.")
+    except Exception:
+        pass
+
+
 def _check_skill_version(skill_dst: Path) -> None:
     """Warn if the installed skill is from an older graphify version."""
     version_file = skill_dst.parent / ".graphify_version"
@@ -1802,6 +1813,7 @@ def main() -> None:
                 or os.environ.get("GRAPHIFY_NO_TIPS")
             ):
                 print("Tip: set GEMINI_API_KEY or GOOGLE_API_KEY to use Gemini for semantic extraction.")
+            _print_lsp_opt_in_tip(watch_path)
         else:
             print("Nothing to update or rebuild failed — check output above.", file=sys.stderr)
             sys.exit(1)
@@ -2523,6 +2535,29 @@ def main() -> None:
             deleted_files = []
             unchanged_total = 0
 
+        target_resolved = target.resolve()
+
+        def _graph_source_keys(value: str | Path) -> set[str]:
+            raw = str(value).replace(os.sep, "/")
+            keys = {raw}
+            path = Path(value)
+            try:
+                resolved = path.resolve()
+                keys.add(str(resolved.relative_to(target_resolved)).replace(os.sep, "/"))
+            except (OSError, ValueError):
+                if not path.is_absolute():
+                    keys.add(raw)
+            return keys
+
+        deleted_source_keys: set[str] = set()
+        lsp_evict_sources: set[str] = set()
+        if incremental_mode:
+            for path in deleted_files:
+                deleted_source_keys.update(_graph_source_keys(path))
+            for path in code_files:
+                lsp_evict_sources.update(_graph_source_keys(path))
+            lsp_evict_sources.update(deleted_source_keys)
+
         semantic_files = doc_files + paper_files + image_files
         if incremental_mode:
             print(
@@ -2628,17 +2663,27 @@ def main() -> None:
                 sem_result["input_tokens"] += fresh.get("input_tokens", 0)
                 sem_result["output_tokens"] += fresh.get("output_tokens", 0)
 
-        # Merge AST + semantic. Order matters for deduplication: passing AST
-        # first means semantic node attributes win on collision (richer labels
-        # for symbols also referenced in docs). Hyperedges only come from the
-        # semantic side.
-        merged: dict = {
-            "nodes": list(ast_result.get("nodes", [])) + list(sem_result.get("nodes", [])),
-            "edges": list(ast_result.get("edges", [])) + list(sem_result.get("edges", [])),
-            "hyperedges": list(sem_result.get("hyperedges", [])),
-            "input_tokens": ast_result.get("input_tokens", 0) + sem_result.get("input_tokens", 0),
-            "output_tokens": ast_result.get("output_tokens", 0) + sem_result.get("output_tokens", 0),
-        }
+        # Merge AST + semantic, then apply configured post-AST enrichments.
+        from graphify.pipeline import (
+            finalize_extraction_for_build as _finalize_extraction_for_build,
+            merge_ast_semantic as _merge_ast_semantic,
+            merge_update_payload as _merge_update_payload,
+            source_keys_from_payload as _source_keys_from_payload,
+        )
+        merged = _merge_ast_semantic(ast_result, sem_result)
+        try:
+            merged, lsp_summary = _finalize_extraction_for_build(
+                merged,
+                root=target,
+                graphify_out=graphify_out,
+                source_files=code_files,
+                evict_sources=lsp_evict_sources or None,
+            )
+        except Exception as exc:
+            print(f"[graphify extract] LSP enrichment failed: {exc}", file=sys.stderr)
+            sys.exit(2)
+        for line in lsp_summary.log_lines("[graphify extract]"):
+            print(line)
 
         graph_json_path = graphify_out / "graph.json"
         analysis_path = graphify_out / ".graphify_analysis.json"
@@ -2683,25 +2728,23 @@ def main() -> None:
             sys.exit(0)
 
         # Build graph + cluster + score + write.
-        from graphify.build import (
-            build as _build,
-            build_from_json as _build_from_json,
-            build_merge as _build_merge,
-        )
+        from graphify.build import build as _build
         from graphify.cluster import cluster as _cluster, score_all as _score_all
         from graphify.export import to_json as _to_json
         from graphify.analyze import god_nodes as _god_nodes, surprising_connections as _surprising
         dedup_backend = backend if dedup_llm else None
         if incremental_mode:
-            G = _build_merge(
-                [merged],
-                graph_path=existing_graph_path,
-                prune_sources=deleted_files or None,
-                dedup=True,
-                dedup_llm_backend=dedup_backend,
+            existing_graph = json.loads(existing_graph_path.read_text(encoding="utf-8"))
+            rebuilt_sources = set(lsp_evict_sources)
+            rebuilt_sources.update(_source_keys_from_payload(merged, target))
+            merged = _merge_update_payload(
+                existing_graph,
+                merged,
+                evict_sources=deleted_source_keys,
+                rebuilt_sources=rebuilt_sources,
+                root=target,
             )
-        else:
-            G = _build([merged], dedup=True, dedup_llm_backend=dedup_backend)
+        G = _build([merged], dedup=True, dedup_llm_backend=dedup_backend)
         if G.number_of_nodes() == 0:
             print(
                 "[graphify extract] graph is empty — extraction produced no nodes. "
