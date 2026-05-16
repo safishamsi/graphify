@@ -1472,6 +1472,9 @@ def main() -> None:
         else:
             print("Usage: graphify antigravity [install|uninstall]", file=sys.stderr)
             sys.exit(1)
+    elif cmd == "prs":
+        from graphify.prs import cmd_prs
+        cmd_prs(sys.argv[2:])
     elif cmd == "hook":
         from graphify.hooks import install as hook_install, uninstall as hook_uninstall, status as hook_status
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
