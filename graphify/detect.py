@@ -4,6 +4,7 @@ import fnmatch
 import json
 import os
 import re
+import shlex
 from enum import Enum
 from pathlib import Path
 
@@ -112,24 +113,176 @@ _SHEBANG_CODE_INTERPRETERS = {
 }
 
 
-def _shebang_file_type(path: Path) -> FileType | None:
-    """Peek at the first line of an extensionless file for a shebang."""
+def _split_env_s(value: str, rest: list[str]) -> list[str]:
+    """Re-tokenize an `env -S`/`--split-string` packed command, prepending the
+    operand to any trailing args. Returns the unpacked argv."""
+    packed = " ".join([value, *rest]).strip()
+    return shlex.split(packed)
+
+
+def _env_command_args(args: list[str], *, allow_split: bool = True) -> list[str]:
+    """Strip leading env(1) options and var assignments, return the trailing
+    command argv. Covers macOS/BSD and GNU coreutils env documented spellings.
+
+    POSIX/macOS short forms:
+        env [-0iv] [-C workdir] [-P utilpath] [-S string]
+            [-u name] [name=value ...] [utility [argument ...]]
+
+    GNU coreutils long/compact forms additionally supported:
+        --argv0=ARG / -a ARG / -aARG
+        --unset=NAME / --unset NAME / -u NAME / -uNAME
+        --chdir=DIR / --chdir DIR / -C DIR / -CDIR
+        --split-string=STRING / --split-string STRING
+        -S STRING / -SSTRING / -vS STRING / -vSSTRING
+        --ignore-environment / --null / --debug / --list-signal-handling
+        --default-signal[=SIG] / --ignore-signal[=SIG] / --block-signal[=SIG]
+
+    `-S` / `--split-string` payloads are themselves env-style argument lists
+    per the GNU shebang synopsis:
+        #!/usr/bin/env -[v]S[option]... [name=value]... command [args]...
+    so after splitting the payload we recursively re-parse it with
+    `allow_split=False` (a nested -S inside a split payload is rejected to
+    bound recursion).
+
+    Unknown hyphen-prefixed args yield [] (we refuse to guess whether
+    their next token is an interpreter or an operand).
+    """
+    i = 0
+    while i < len(args):
+        arg = args[i]
+
+        if arg == "--":
+            return args[i + 1:]
+
+        # Split-string forms: tokenize the packed payload, then re-parse it
+        # as env args (so leading assignments/flags inside the payload are
+        # skipped before the interpreter is identified).
+        if allow_split:
+            if arg == "-S":
+                if i + 1 >= len(args):
+                    return []
+                return _env_command_args(
+                    _split_env_s(" ".join(args[i + 1:]), []),
+                    allow_split=False,
+                )
+            if arg.startswith("-S") and len(arg) > 2:
+                return _env_command_args(
+                    _split_env_s(arg[2:], args[i + 1:]),
+                    allow_split=False,
+                )
+            if arg == "-vS":
+                if i + 1 >= len(args):
+                    return []
+                return _env_command_args(
+                    _split_env_s(" ".join(args[i + 1:]), []),
+                    allow_split=False,
+                )
+            if arg.startswith("-vS") and len(arg) > 3:
+                return _env_command_args(
+                    _split_env_s(arg[3:], args[i + 1:]),
+                    allow_split=False,
+                )
+            if arg.startswith("--split-string="):
+                return _env_command_args(
+                    _split_env_s(arg.split("=", 1)[1], args[i + 1:]),
+                    allow_split=False,
+                )
+            if arg == "--split-string":
+                if i + 1 >= len(args):
+                    return []
+                return _env_command_args(
+                    _split_env_s(args[i + 1], args[i + 2:]),
+                    allow_split=False,
+                )
+
+        # Options with separate required operand
+        if arg in {"-u", "-C", "-P", "-a", "--unset", "--chdir", "--argv0"}:
+            if i + 2 > len(args):
+                return []
+            i += 2
+            continue
+
+        # Clumped short option + operand
+        if (
+            arg.startswith(("-u", "-C", "-P", "-a"))
+            and len(arg) > 2
+            and not arg.startswith("--")
+        ):
+            i += 1
+            continue
+
+        # Long option with `=` operand
+        if arg.startswith(("--unset=", "--chdir=", "--argv0=")):
+            i += 1
+            continue
+
+        # No-operand flags
+        if arg in {"-", "-i", "-0", "-v", "--ignore-environment", "--null",
+                   "--debug", "--list-signal-handling"}:
+            i += 1
+            continue
+
+        # Signal-handling long flags (with or without =SIG operand — we treat
+        # them as no-effect for interpreter-resolution purposes)
+        if arg.startswith(("--default-signal", "--ignore-signal", "--block-signal")):
+            i += 1
+            continue
+
+        # Unknown hyphen-prefixed: refuse to guess
+        if arg.startswith("-"):
+            return []
+
+        # Inline NAME=value assignment
+        if "=" in arg:
+            i += 1
+            continue
+
+        # First non-option, non-assignment token starts the command argv
+        return args[i:]
+
+    return []
+
+
+def _shebang_interpreter(path: Path) -> str | None:
+    """Return the interpreter name from a shebang line.
+
+    Handles forms that a naive parser misses:
+      - `#!/usr/bin/env -S python3 -u`     (env -S split-args form, anywhere)
+      - `#!/usr/bin/env -i bash`           (no-operand env flags)
+      - `#!/usr/bin/env -u VAR python3`    (env options with operands)
+      - `#!/usr/bin/env -C /tmp python3`   (env -C workdir)
+      - `#!/usr/bin/env -P /bin python3`   (env -P utilpath)
+      - `#!/usr/bin/env DEBUG=1 python3`   (inline var assignment)
+      - `#!"/usr/local/bin/python with spaces"`  (shlex handles quotes)
+
+    Returns the basename of the resolved interpreter, or None if there is
+    no shebang / the file is unreadable / parsing fails.
+    """
     try:
         with path.open("rb") as f:
-            first = f.read(128)
+            first = f.read(256)
         if not first.startswith(b"#!"):
             return None
-        line = first.split(b"\n")[0].decode(errors="replace")
-        parts = line[2:].strip().split()
+        line = first.split(b"\n")[0].decode(errors="replace")[2:].strip()
+        parts = shlex.split(line)
         if not parts:
             return None
-        interp = parts[0].split("/")[-1]  # /usr/bin/env → env
-        if interp == "env" and len(parts) > 1:
-            interp = parts[1].split("/")[-1]
-        if interp in _SHEBANG_CODE_INTERPRETERS:
-            return FileType.CODE
-    except OSError:
-        pass
+        interp = Path(parts[0]).name
+        if interp == "env":
+            env_args = _env_command_args(parts[1:])
+            if not env_args:
+                return None
+            interp = Path(env_args[0]).name
+        return interp
+    except (OSError, ValueError):
+        return None
+
+
+def _shebang_file_type(path: Path) -> FileType | None:
+    """Peek at the first line of an extensionless file for a shebang."""
+    interp = _shebang_interpreter(path)
+    if interp in _SHEBANG_CODE_INTERPRETERS:
+        return FileType.CODE
     return None
 
 
