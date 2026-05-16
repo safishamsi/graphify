@@ -1,5 +1,7 @@
 """Deterministic structural extraction from source code using tree-sitter. Outputs nodes+edges dicts."""
 from __future__ import annotations
+import hashlib
+import hmac
 import importlib
 import json
 import os
@@ -9,6 +11,7 @@ import unicodedata
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Any
+from urllib.parse import urlparse, parse_qs, urlencode
 from .cache import load_cached, save_cached
 
 _RECURSION_LIMIT = 10_000
@@ -3948,6 +3951,1089 @@ def extract_powershell(path: Path) -> dict:
 
 # ── Cross-file import resolution ──────────────────────────────────────────────
 
+_HCL_SECRET_PATTERNS = [
+    re.compile(r'(?i)(token|secret|password|api_key|private_key|credential|auth_token|client_secret|access_key)[=:]\s*\S+'),
+    re.compile(r'(?i)(AKIA|ASIA)[A-Z0-9]{16}'),  # AWS access key ID
+    re.compile(r'ghp_[A-Za-z0-9]{36}'),  # GitHub PAT
+    re.compile(r'-----BEGIN\s+(RSA\s+)?PRIVATE\s+KEY-----'),
+]
+
+_HCL_DIAGNOSTIC_CODES = {
+    "hcl_parse_error": "error",
+    "hcl_partial_parse": "warning",
+    "hcl_unsupported_expression": "info",
+    "hcl_unresolved_module_source": "warning",
+    "hcl_unresolved_variable": "info",
+    "hcl_unresolved_output": "info",
+    "hcl_ineligible_module": "info",
+    "hcl_source_outside_repo": "warning",
+    "hcl_resource_limit_exceeded": "warning",
+    "hcl_migration_apply_required": "error",
+    "hcl_target_identity_collision": "warning",
+    "hcl_invalid_deferred_ref": "warning",
+    "hcl_edge_dedup_conflict": "info",
+}
+
+_HCL_MAX_DIAGNOSTICS_PER_FILE = 200
+
+
+def _hcl_scrub_secrets(text: str) -> str:
+    """Remove secret-like patterns from text before persistence."""
+    result = text
+    for pattern in _HCL_SECRET_PATTERNS:
+        result = pattern.sub("[REDACTED]", result)
+    return result
+
+
+def hcl_make_diagnostic(
+    code: str,
+    message: str,
+    *,
+    reason: str | None = None,
+    file_path: str | None = None,
+    source_span: dict | None = None,
+    related_entity_id: str | None = None,
+) -> dict:
+    """Create a structured diagnostic entry with secret scrubbing."""
+    severity = _HCL_DIAGNOSTIC_CODES.get(code, "info")
+    return {
+        "code": code,
+        "reason": reason,
+        "message": _hcl_scrub_secrets(message),
+        "severity": severity,
+        "file_path": file_path,
+        "source_span": source_span,
+        "related_entity_id": related_entity_id,
+    }
+
+
+def hcl_cap_diagnostics(diagnostics: list[dict], max_per_file: int = _HCL_MAX_DIAGNOSTICS_PER_FILE) -> list[dict]:
+    """Enforce per-file diagnostic cap with deterministic truncation.
+
+    Keeps the first max_per_file entries (deterministic by insertion order).
+    """
+    if len(diagnostics) <= max_per_file:
+        return diagnostics
+    return diagnostics[:max_per_file]
+
+
+def hcl_make_node(
+    nid: str, label: str, source_file: str, line: int,
+    *, confidence_score: float = 1.0,
+) -> dict:
+    """Create a node dict in Graphify extraction format."""
+    return {
+        "id": nid,
+        "label": label,
+        "file_type": "code",
+        "source_file": source_file,
+        "source_location": f"L{line}",
+        "confidence_score": confidence_score,
+    }
+
+
+def hcl_make_edge(
+    source: str, target: str, relation: str,
+    source_file: str, line: int,
+    *, resolved: bool = True,
+    resolution_reason: str = "",
+    unresolved_target_key: str | None = None,
+) -> dict:
+    """Create an edge dict with confidence mapping.
+
+    resolved=True  -> EXTRACTED/1.0
+    resolved=False -> INFERRED/0.8 (declared-only)
+    """
+    confidence = "EXTRACTED" if resolved else "INFERRED"
+    confidence_score = 1.0 if resolved else 0.8
+    return {
+        "source": source,
+        "target": target,
+        "relation": relation,
+        "confidence": confidence,
+        "confidence_score": confidence_score,
+        "source_file": source_file,
+        "source_location": f"L{line}",
+        "weight": 1.0,
+        "resolution_status": "resolved" if resolved else "declared_only",
+        "resolution_reason": resolution_reason,
+        "unresolved_target_key": unresolved_target_key,
+    }
+
+
+def hcl_make_result(
+    nodes: list[dict], edges: list[dict],
+    diagnostics: list[dict], deferred_refs: list[dict],
+    *, error: str | None = None,
+) -> dict:
+    """Assemble the full extract_hcl return dict."""
+    return {
+        "nodes": nodes,
+        "edges": edges,
+        "raw_calls": [],
+        "diagnostics": diagnostics,
+        "hcl_deferred_refs": deferred_refs,
+        "input_tokens": 0,
+        "output_tokens": 0,
+        "error": error,
+    }
+
+
+def hcl_resolve_control_surface(
+    name: str,
+    allowed: set[str],
+    *,
+    cli_value: str | None = None,
+    env_var: str | None = None,
+    config_value: str | None = None,
+    default: str,
+    config_available: bool = False,
+) -> dict:
+    """Resolve a control surface value with CLI > env > config > default precedence.
+
+    Returns dict with effective value and source provenance.
+    Raises SystemExit on invalid values (fail-fast before extraction).
+    """
+    env_value = os.environ.get(env_var) if env_var else None
+
+    for value, source in [
+        (cli_value, "cli"),
+        (env_value, "env"),
+        (config_value if config_available else None, "config"),
+    ]:
+        if value is not None:
+            if value not in allowed:
+                print(f"error: invalid {name} '{value}' (allowed: {sorted(allowed)})",
+                      file=sys.stderr)
+                sys.exit(2)
+            return {f"effective_{name}": value, f"{name}_source": source}
+
+    source = "default" if config_available else "config_unavailable"
+    return {f"effective_{name}": default, f"{name}_source": source}
+
+
+def hcl_resolve_all_surfaces(
+    *,
+    cli_phase: str | None = None,
+    cli_migration_mode: str | None = None,
+    cli_decision_scope: str | None = None,
+    cli_output_scope: str | None = None,
+    config_available: bool = False,
+) -> dict:
+    """Resolve all four HCL control surfaces and return merged metadata."""
+    meta: dict = {}
+    meta.update(hcl_resolve_control_surface(
+        "hcl_phase", {"phase1", "phase2", "phase3"},
+        cli_value=cli_phase, env_var="GRAPHIFY_HCL_PHASE",
+        default="phase1", config_available=config_available,
+    ))
+    meta.update(hcl_resolve_control_surface(
+        "hcl_migration_mode", {"detect", "apply"},
+        cli_value=cli_migration_mode, env_var="GRAPHIFY_HCL_MIGRATION_MODE",
+        default="detect", config_available=config_available,
+    ))
+    meta.update(hcl_resolve_control_surface(
+        "decision_scope", {"phase_progression", "default_on"},
+        cli_value=cli_decision_scope, env_var="GRAPHIFY_DECISION_SCOPE",
+        default="phase_progression", config_available=config_available,
+    ))
+    meta.update(hcl_resolve_control_surface(
+        "output_scope", {"external", "internal"},
+        cli_value=cli_output_scope, env_var="GRAPHIFY_OUTPUT_SCOPE",
+        default="external", config_available=config_available,
+    ))
+    return meta
+
+
+def _hcl_hash_redact(value: str) -> str:
+    """Hash a string for external-scope redaction. Returns sha256[:16]."""
+    return hashlib.sha256(value.encode()).hexdigest()[:16]
+
+
+def hcl_redact_for_external(result: dict) -> dict:
+    """Apply external-scope redaction to an extraction result.
+
+    Hashes source_file, host-bearing labels/IDs, and unresolved_target_key
+    to prevent leaking sensitive path/host information in external reports.
+    """
+    redacted_nodes = []
+    for node in result.get("nodes", []):
+        n = dict(node)
+        if n.get("source_file"):
+            n["source_file"] = _hcl_hash_redact(n["source_file"])
+        if n.get("label") and (":" in n["label"]):
+            parts = n["label"].split(":", 1)
+            n["label"] = f"{parts[0]}:{_hcl_hash_redact(parts[1])}"
+        if n.get("id") and n["id"].startswith("hcl_target:"):
+            prefix, rest = n["id"].split(":", 1)
+            n["id"] = f"{prefix}:{_hcl_hash_redact(rest)}"
+        redacted_nodes.append(n)
+
+    redacted_edges = []
+    for edge in result.get("edges", []):
+        e = dict(edge)
+        if e.get("source_file"):
+            e["source_file"] = _hcl_hash_redact(e["source_file"])
+        if e.get("unresolved_target_key"):
+            e["unresolved_target_key"] = _hcl_hash_redact(e["unresolved_target_key"])
+        redacted_edges.append(e)
+
+    out = dict(result)
+    out["nodes"] = redacted_nodes
+    out["edges"] = redacted_edges
+    return out
+
+
+# --- Module source resolver ---
+
+_HCL_SENSITIVE_QUERY_KEYS = re.compile(
+    r'^(token|sig|signature|private_token|client_secret|auth|key|x-amz-.*|x-goog-.*)$',
+    re.IGNORECASE,
+)
+_HCL_REGISTRY_PATTERN = re.compile(r'^[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+/[a-zA-Z0-9_-]+$')
+_HCL_MUTABLE_REFS = {"main", "master", "develop", "dev", "HEAD"}
+_HCL_CONTROL_CHARS = re.compile(r'[\x00-\x1f\x7f]')
+_HCL_ALLOWED_QUERY_KEYS = {"ref", "version"}
+_HCL_HMAC_KEY_ENV = "GRAPHIFY_HCL_FINGERPRINT_KEY"
+
+
+def _hcl_get_hmac_key() -> bytes | None:
+    """Load HMAC key from environment. Returns None if absent."""
+    raw = os.environ.get(_HCL_HMAC_KEY_ENV)
+    if raw:
+        return raw.encode()
+    return None
+
+
+def _hcl_hmac_fingerprint(raw_source: str, key: bytes | None) -> str:
+    """Compute HMAC-SHA256 fingerprint for telemetry. Falls back to empty string."""
+    if key is None:
+        return ""
+    return hmac.new(key, raw_source.encode(), hashlib.sha256).hexdigest()
+
+
+def _hcl_classify_source(source: str) -> str:
+    """Classify a module source string into a category."""
+    if source.startswith("./") or source.startswith("../"):
+        return "local_relative"
+    if source.startswith("/") or (len(source) >= 2 and source[1] == ":"):
+        return "local_absolute"
+    if "://" in source or source.startswith("git::"):
+        return "remote_url"
+    if _HCL_REGISTRY_PATTERN.match(source):
+        return "registry"
+    return "opaque"
+
+
+def _hcl_canonicalize_remote_uri(uri: str) -> tuple[str, str, dict]:
+    """Canonicalize a remote URI for stable identity.
+
+    Returns: (canonical_identity, path_sha256, qualifier_metadata)
+    """
+    # Strip git:: prefix for parsing
+    raw = uri
+    prefix = ""
+    if uri.startswith("git::"):
+        prefix = "git::"
+        uri = uri[5:]
+
+    # Handle double-slash subdirectory (Terraform convention: repo_url//subdir)
+    # Must not match the :// in scheme
+    subdir = ""
+    scheme_end = uri.find("://")
+    search_start = scheme_end + 3 if scheme_end >= 0 else 0
+    dslash_pos = uri.find("//", search_start)
+    if dslash_pos >= 0:
+        base = uri[:dslash_pos]
+        rest = uri[dslash_pos + 2:]
+        if "?" in rest:
+            subdir, query_part = rest.split("?", 1)
+            base = base + "?" + query_part
+        else:
+            subdir = rest
+        uri = base
+
+    parsed = urlparse(uri)
+
+    # Lowercase scheme and host
+    scheme = parsed.scheme.lower()
+    host = parsed.hostname or ""
+    try:
+        host = host.encode("idna").decode("ascii").lower()
+    except (UnicodeError, UnicodeDecodeError):
+        host = host.lower()
+
+    # Remove default ports
+    port = parsed.port
+    if (scheme == "http" and port == 80) or (scheme == "https" and port == 443):
+        port = None
+    host_part = f"{host}:{port}" if port else host
+
+    # Strip userinfo
+    # Hash the path
+    path_sha = hashlib.sha256(parsed.path.encode()).hexdigest()[:16]
+
+    # Process query params
+    params = parse_qs(parsed.query, keep_blank_values=True)
+    allowed_params = {}
+    hashed_params = {}
+    for k, vals in sorted(params.items()):
+        if k in _HCL_ALLOWED_QUERY_KEYS:
+            allowed_params[k] = vals[0] if vals else ""
+        elif not _HCL_SENSITIVE_QUERY_KEYS.match(k):
+            hashed_params[k] = hashlib.sha256(",".join(vals).encode()).hexdigest()[:8]
+
+    # Build canonical identity
+    parts = [f"{scheme}://{host_part}", f"path_sha256={path_sha}"]
+    if subdir:
+        parts.append(f"subdir={subdir}")
+    for k, v in sorted(allowed_params.items()):
+        parts.append(f"{k}={v}")
+
+    canonical = ":".join(parts)
+
+    qualifier_meta = {
+        "prefix": prefix,
+        "hashed_params": hashed_params,
+        "subdir": subdir,
+    }
+    return canonical, path_sha, qualifier_meta
+
+
+def resolve_module_source(
+    source_value: str | None,
+    declaring_file_dir: Path,
+    repo_root: Path,
+    resolvable_module_directories: set[str],
+    dependency_discovery_dirs: set[str] | None = None,
+) -> dict:
+    """Resolve a module source string to a target node ID and metadata.
+
+    Returns dict with keys: target_nid, target_label, resolution_status,
+    resolution_reason, unresolved_target_key, collision_suffix_sha256,
+    source_fingerprint_hmac_sha256, diagnostics.
+    """
+    if dependency_discovery_dirs is None:
+        dependency_discovery_dirs = set()
+
+    diagnostics: list[dict] = []
+    hmac_key = _hcl_get_hmac_key()
+
+    # Missing or empty source
+    if source_value is None:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module", "Module has no source attribute",
+            reason="missing_source_attr",
+        ))
+        return {
+            "target_nid": "",
+            "target_label": "",
+            "resolution_status": "declared_only",
+            "resolution_reason": "missing_source_attr",
+            "unresolved_target_key": None,
+            "collision_suffix_sha256": None,
+            "source_fingerprint_hmac_sha256": "",
+            "diagnostics": diagnostics,
+        }
+
+    source_value = source_value.strip()
+    if not source_value:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module", "Module source is empty string",
+            reason="empty_source_literal",
+        ))
+        return {
+            "target_nid": "",
+            "target_label": "",
+            "resolution_status": "declared_only",
+            "resolution_reason": "empty_source_literal",
+            "unresolved_target_key": None,
+            "collision_suffix_sha256": None,
+            "source_fingerprint_hmac_sha256": "",
+            "diagnostics": diagnostics,
+        }
+
+    # Reject control characters
+    if _HCL_CONTROL_CHARS.search(source_value):
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module",
+            "Module source contains control characters",
+            reason="non_literal_source",
+        ))
+        return {
+            "target_nid": "",
+            "target_label": "",
+            "resolution_status": "declared_only",
+            "resolution_reason": "non_literal_source",
+            "unresolved_target_key": None,
+            "collision_suffix_sha256": None,
+            "source_fingerprint_hmac_sha256": "",
+            "diagnostics": diagnostics,
+        }
+
+    # Normalize unicode
+    source_value = unicodedata.normalize("NFC", source_value)
+    fingerprint = _hcl_hmac_fingerprint(source_value, hmac_key)
+
+    classification = _hcl_classify_source(source_value)
+
+    if classification == "local_absolute":
+        hashed_path = _hcl_hash_redact(source_value)
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module",
+            f"Absolute source path (redacted: {hashed_path})",
+            reason="absolute_source_path",
+        ))
+        target_nid = hcl_make_target_id("module_source_local", hashed_path)
+        return {
+            "target_nid": target_nid,
+            "target_label": f"module_source_local:{hashed_path}",
+            "resolution_status": "declared_only",
+            "resolution_reason": "absolute_source_path",
+            "unresolved_target_key": f"hcl:module_source_local:{hashed_path}",
+            "collision_suffix_sha256": None,
+            "source_fingerprint_hmac_sha256": fingerprint,
+            "diagnostics": diagnostics,
+        }
+
+    if classification == "local_relative":
+        resolved_path = (declaring_file_dir / source_value).resolve()
+        repo_root_real = repo_root.resolve()
+        try:
+            rel = resolved_path.relative_to(repo_root_real)
+            canonical = str(rel).replace("\\", "/")
+        except ValueError:
+            # Outside repo root
+            hashed = _hcl_hash_redact(str(resolved_path))
+            diagnostics.append(hcl_make_diagnostic(
+                "hcl_source_outside_repo",
+                f"Local source resolves outside repo root (redacted: {hashed})",
+            ))
+            target_nid = hcl_make_target_id("module_source_local", hashed)
+            return {
+                "target_nid": target_nid,
+                "target_label": f"module_source_local:{hashed}",
+                "resolution_status": "declared_only",
+                "resolution_reason": "outside_repo",
+                "unresolved_target_key": f"hcl:module_source_local:{hashed}",
+                "collision_suffix_sha256": None,
+                "source_fingerprint_hmac_sha256": fingerprint,
+                "diagnostics": diagnostics,
+            }
+
+        target_nid = hcl_make_target_id("module_source_local", canonical)
+        target_label = f"module_source_local:{canonical}"
+        ukey = f"hcl:module_source_local:{canonical}"
+
+        if canonical in resolvable_module_directories:
+            return {
+                "target_nid": target_nid,
+                "target_label": target_label,
+                "resolution_status": "resolved",
+                "resolution_reason": "",
+                "unresolved_target_key": None,
+                "collision_suffix_sha256": None,
+                "source_fingerprint_hmac_sha256": fingerprint,
+                "diagnostics": diagnostics,
+            }
+        elif canonical in dependency_discovery_dirs:
+            return {
+                "target_nid": target_nid,
+                "target_label": target_label,
+                "resolution_status": "declared_only",
+                "resolution_reason": "excluded_by_scope",
+                "unresolved_target_key": ukey,
+                "collision_suffix_sha256": None,
+                "source_fingerprint_hmac_sha256": fingerprint,
+                "diagnostics": diagnostics,
+            }
+        else:
+            diagnostics.append(hcl_make_diagnostic(
+                "hcl_unresolved_module_source",
+                f"Local source '{canonical}' not in extraction scope",
+            ))
+            return {
+                "target_nid": target_nid,
+                "target_label": target_label,
+                "resolution_status": "declared_only",
+                "resolution_reason": "not_in_scope",
+                "unresolved_target_key": ukey,
+                "collision_suffix_sha256": None,
+                "source_fingerprint_hmac_sha256": fingerprint,
+                "diagnostics": diagnostics,
+            }
+
+    if classification == "remote_url":
+        canonical, path_sha, _ = _hcl_canonicalize_remote_uri(source_value)
+        collision_suffix = hashlib.sha256(
+            _hcl_scrub_secrets(source_value).encode()
+        ).hexdigest()[:12]
+
+        # Check for mutable ref
+        reason = "remote_source"
+        parsed_qs = parse_qs(urlparse(source_value.split("::", 1)[-1]).query)
+        ref_val = parsed_qs.get("ref", [""])[0]
+        if ref_val in _HCL_MUTABLE_REFS:
+            reason = "temporal_instability"
+
+        target_nid = hcl_make_target_id("module_source_remote", canonical)
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module",
+            f"Remote module source",
+            reason="remote_source",
+        ))
+        return {
+            "target_nid": target_nid,
+            "target_label": f"module_source_remote:{canonical}",
+            "resolution_status": "declared_only",
+            "resolution_reason": reason,
+            "unresolved_target_key": f"hcl:module_source_remote:{canonical}",
+            "collision_suffix_sha256": collision_suffix,
+            "source_fingerprint_hmac_sha256": fingerprint,
+            "diagnostics": diagnostics,
+        }
+
+    if classification == "registry":
+        canonical = source_value.lower()
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_ineligible_module",
+            f"Registry module source: {canonical}",
+            reason="registry_source",
+        ))
+        target_nid = hcl_make_target_id("module_source_remote", canonical)
+        return {
+            "target_nid": target_nid,
+            "target_label": f"module_source_remote:{canonical}",
+            "resolution_status": "declared_only",
+            "resolution_reason": "registry_source",
+            "unresolved_target_key": f"hcl:module_source_remote:{canonical}",
+            "collision_suffix_sha256": None,
+            "source_fingerprint_hmac_sha256": fingerprint,
+            "diagnostics": diagnostics,
+        }
+
+    # Opaque
+    hashed = _hcl_hash_redact(source_value)
+    diagnostics.append(hcl_make_diagnostic(
+        "hcl_ineligible_module",
+        f"Opaque module source (redacted: {hashed})",
+        reason="remote_source",
+    ))
+    target_nid = hcl_make_target_id("module_source_remote", hashed)
+    return {
+        "target_nid": target_nid,
+        "target_label": f"module_source_remote:{hashed}",
+        "resolution_status": "declared_only",
+        "resolution_reason": "remote_source",
+        "unresolved_target_key": f"hcl:module_source_remote:{hashed}",
+        "collision_suffix_sha256": None,
+        "source_fingerprint_hmac_sha256": fingerprint,
+        "diagnostics": diagnostics,
+    }
+
+
+def _hcl_canonical_path(repo_root: Path, file_path: Path) -> str:
+    """Return repo-root-relative path with forward slashes."""
+    try:
+        rel = file_path.resolve().relative_to(repo_root.resolve())
+    except ValueError:
+        rel = file_path
+    return str(rel).replace("\\", "/")
+
+
+def hcl_make_file_id(repo_root: Path, file_path: Path) -> str:
+    """Generate node ID for a file node.
+    Returns: 'hcl_file:<repo-relative-path>'
+    """
+    return f"hcl_file:{_hcl_canonical_path(repo_root, file_path)}"
+
+
+def hcl_make_block_id(file_id: str, block_kind: str, logical_identity: str) -> str:
+    """Generate node ID for a block node.
+    Returns: '<file_id>::<block_kind>:<logical_identity>'
+    """
+    return f"{file_id}::{block_kind}:{logical_identity}"
+
+
+def hcl_make_target_id(target_kind: str, canonical_identity: str) -> str:
+    """Generate node ID for a non-repository-backed target node.
+    Returns: 'hcl_target:<target_kind>:<canonical_identity>'
+    """
+    return f"hcl_target:{target_kind}:{canonical_identity}"
+
+
+def _hcl_string_lit_value(node) -> str:
+    """Extract the text content from a tree-sitter string_lit node."""
+    if node.child_count >= 2:
+        return node.children[1].text.decode("utf-8", errors="replace")
+    return node.text.decode("utf-8", errors="replace").strip('"')
+
+
+def _hcl_block_labels(block_node) -> list[str]:
+    """Extract string_lit label values from a block node."""
+    return [
+        _hcl_string_lit_value(child)
+        for child in block_node.children
+        if child.type == "string_lit"
+    ]
+
+
+def _hcl_body_hash8(block_node) -> str:
+    """Compute a short hash of a block's body for locals identity."""
+    for child in block_node.children:
+        if child.type == "body":
+            return hashlib.sha256(child.text).hexdigest()[:8]
+    return hashlib.sha256(block_node.text).hexdigest()[:8]
+
+
+_HCL_BLOCK_TYPES = {"resource", "data", "module", "variable", "output", "locals", "provider"}
+_HCL_META_ARGUMENTS = {"providers", "depends_on", "count", "for_each", "source", "version"}
+
+# Resource limits for parser safety
+_HCL_MAX_FILE_BYTES = 5_000_000      # 5 MB
+_HCL_MAX_AST_NODES = 200_000
+_HCL_PARSE_TIMEOUT_MS = 10_000       # 10 seconds
+
+
+def _hcl_count_ast_nodes(node) -> int:
+    """Count total nodes in AST tree."""
+    count = 1
+    for child in node.children:
+        count += _hcl_count_ast_nodes(child)
+    return count
+
+
+def extract_hcl(path: Path, repo_root: Path, resolvable_module_directories: set[str] | None = None) -> dict:
+    """Extract HCL structural blocks from a single .tf or .tfvars file.
+
+    Parses the file using tree-sitter-hcl and produces block-level nodes
+    (resource, data, module, variable, output, locals, provider),
+    containment edges, and module source edges.
+
+    Unlike other extractors, takes repo_root for stable namespaced IDs.
+    """
+    try:
+        import tree_sitter_hcl as tshcl
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return hcl_make_result([], [], [
+            hcl_make_diagnostic("hcl_parse_error", "tree-sitter-hcl not installed",
+                                reason="missing_dependency"),
+        ], [], error="tree-sitter-hcl not installed")
+
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    diagnostics: list[dict] = []
+    deferred_refs: list[dict] = []
+    rel_path = _hcl_canonical_path(repo_root, path)
+
+    # Create file node
+    file_id = hcl_make_file_id(repo_root, path)
+    nodes.append(hcl_make_node(file_id, path.name, rel_path, 1))
+
+    # .tfvars: file node + diagnostics only, no block extraction
+    if path.suffix == ".tfvars":
+        return hcl_make_result(nodes, edges, diagnostics, deferred_refs)
+
+    # Resource limit: file size
+    try:
+        file_size = path.stat().st_size
+    except OSError as e:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_parse_error", f"Cannot stat file: {e}",
+            reason="unusable_ast", file_path=rel_path,
+        ))
+        return hcl_make_result(nodes, edges, diagnostics, deferred_refs,
+                               error=str(e))
+
+    if file_size > _HCL_MAX_FILE_BYTES:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_resource_limit_exceeded",
+            f"File size {file_size} exceeds limit {_HCL_MAX_FILE_BYTES}",
+            file_path=rel_path,
+        ))
+        return hcl_make_result(nodes, edges, diagnostics, deferred_refs,
+                               error=f"file too large: {file_size} bytes")
+
+    # Parse
+    try:
+        language = Language(tshcl.language())
+        parser = Parser(language)
+        source_bytes = path.read_bytes()
+        tree = parser.parse(source_bytes)
+    except Exception as e:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_parse_error", str(e), reason="unusable_ast",
+            file_path=rel_path,
+        ))
+        return hcl_make_result(nodes, edges, diagnostics, deferred_refs,
+                               error=str(e))
+
+    root = tree.root_node
+
+    # Resource limit: AST node count
+    node_count = _hcl_count_ast_nodes(root)
+    if node_count > _HCL_MAX_AST_NODES:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_resource_limit_exceeded",
+            f"AST node count {node_count} exceeds limit {_HCL_MAX_AST_NODES}",
+            file_path=rel_path,
+        ))
+        return hcl_make_result(nodes, edges, diagnostics, deferred_refs,
+                               error=f"AST too large: {node_count} nodes")
+
+    # Check for parse errors (partial parse)
+    has_errors = False
+    def _check_errors(node):
+        nonlocal has_errors
+        if node.type == "ERROR":
+            has_errors = True
+            return
+        for child in node.children:
+            _check_errors(child)
+    _check_errors(root)
+    if has_errors:
+        diagnostics.append(hcl_make_diagnostic(
+            "hcl_partial_parse",
+            "File contains parse errors; extracting from valid portions",
+            file_path=rel_path,
+        ))
+
+    # Walk body for blocks
+    body_node = root.children[0] if root.children and root.children[0].type == "body" else root
+    locals_hashes_seen: dict[str, int] = {}
+
+    for child in body_node.children:
+        if child.type != "block":
+            continue
+
+        # First identifier child is the block type
+        block_type_node = None
+        for gc in child.children:
+            if gc.type == "identifier":
+                block_type_node = gc
+                break
+
+        if block_type_node is None:
+            continue
+
+        block_kind = block_type_node.text.decode("utf-8", errors="replace")
+        if block_kind not in _HCL_BLOCK_TYPES:
+            continue
+
+        labels = _hcl_block_labels(child)
+        line = child.start_point[0] + 1  # 1-based
+
+        # Build logical_identity per dispatch table
+        if block_kind in ("resource", "data"):
+            if len(labels) >= 2:
+                logical_id = f"{labels[0]}.{labels[1]}"
+            elif labels:
+                logical_id = labels[0]
+            else:
+                continue
+        elif block_kind in ("module", "variable", "output", "provider"):
+            if labels:
+                logical_id = labels[0]
+            else:
+                continue
+        elif block_kind == "locals":
+            body_hash = _hcl_body_hash8(child)
+            count = locals_hashes_seen.get(body_hash, 0)
+            locals_hashes_seen[body_hash] = count + 1
+            logical_id = f"locals_{body_hash}" if count == 0 else f"locals_{body_hash}:dup{count}"
+        else:
+            continue
+
+        label = f"{block_kind}:{logical_id}"
+        block_id = hcl_make_block_id(file_id, block_kind, logical_id)
+        nodes.append(hcl_make_node(block_id, label, rel_path, line))
+        edges.append(hcl_make_edge(file_id, block_id, "contains", rel_path, line))
+
+        # Module-specific: extract source and record deferred refs
+        if block_kind == "module":
+            source_value = None
+            source_is_literal = False
+            arg_keys: list[str] = []
+
+            # Find body node and scan attributes
+            for bc in child.children:
+                if bc.type != "body":
+                    continue
+                for attr in bc.children:
+                    if attr.type != "attribute":
+                        continue
+                    attr_name_node = None
+                    attr_expr_node = None
+                    for ac in attr.children:
+                        if ac.type == "identifier":
+                            attr_name_node = ac
+                        elif ac.type == "expression":
+                            attr_expr_node = ac
+
+                    if attr_name_node is None:
+                        continue
+                    attr_name = attr_name_node.text.decode("utf-8", errors="replace")
+
+                    if attr_name == "source" and attr_expr_node is not None:
+                        # Check if literal or interpolation
+                        first_child = attr_expr_node.children[0] if attr_expr_node.children else None
+                        if first_child and first_child.type == "literal_value":
+                            sl = first_child.children[0] if first_child.children else first_child
+                            source_value = sl.text.decode("utf-8", errors="replace").strip('"')
+                            source_is_literal = True
+                        else:
+                            # Non-literal source (interpolation, function, etc.)
+                            diagnostics.append(hcl_make_diagnostic(
+                                "hcl_ineligible_module",
+                                "Module source is not a string literal",
+                                reason="non_literal_source",
+                                file_path=rel_path,
+                                source_span={
+                                    "start_line": attr.start_point[0] + 1,
+                                    "start_column": attr.start_point[1] + 1,
+                                    "end_line": attr.end_point[0] + 1,
+                                    "end_column": attr.end_point[1] + 1,
+                                },
+                                related_entity_id=block_id,
+                            ))
+                    elif attr_name not in _HCL_META_ARGUMENTS:
+                        arg_keys.append(attr_name)
+
+            # Emit module_source edge + target node, and deferred refs
+            if source_is_literal and source_value:
+                source_result = resolve_module_source(
+                    source_value,
+                    path.parent,
+                    repo_root,
+                    resolvable_module_directories or set(),
+                )
+                diagnostics.extend(source_result.get("diagnostics", []))
+
+                # Create target node and module_source edge
+                target_nid = source_result["target_nid"]
+                if target_nid:
+                    is_resolved = source_result["resolution_status"] == "resolved"
+                    target_label = source_result["target_label"]
+                    target_source_file = rel_path if is_resolved else ""
+                    nodes.append(hcl_make_node(
+                        target_nid, target_label, target_source_file, line,
+                    ))
+                    edges.append(hcl_make_edge(
+                        block_id, target_nid, "module_source", rel_path, line,
+                        resolved=is_resolved,
+                        resolution_reason=source_result["resolution_reason"],
+                        unresolved_target_key=source_result["unresolved_target_key"],
+                    ))
+
+                # Extract source_dir for deferred refs
+                source_dir = None
+                if source_result["resolution_status"] == "resolved":
+                    nid = source_result["target_nid"]
+                    source_dir = nid.split(":", 2)[-1] if "module_source_local" in nid else None
+
+                for key in arg_keys:
+                    deferred_refs.append({
+                        "kind": "module_input",
+                        "caller_nid": block_id,
+                        "module_name": logical_id,
+                        "source_dir": source_dir,
+                        "argument_key": key,
+                        "source_file": rel_path,
+                        "source_location": f"L{line}",
+                    })
+            elif source_value is None and source_is_literal is False:
+                # No source attribute found at all
+                has_source_attr = any(
+                    ac.text == b"source"
+                    for bc in child.children if bc.type == "body"
+                    for attr in bc.children if attr.type == "attribute"
+                    for ac in attr.children if ac.type == "identifier"
+                )
+                if not has_source_attr:
+                    diagnostics.append(hcl_make_diagnostic(
+                        "hcl_ineligible_module",
+                        "Module has no source attribute",
+                        reason="missing_source_attr",
+                        file_path=rel_path,
+                        related_entity_id=block_id,
+                    ))
+
+    return hcl_make_result(nodes, edges,
+                           hcl_cap_diagnostics(diagnostics), deferred_refs)
+
+
+_HCL_OUT_OF_SCOPE_EXPR_TYPES = {"index", "splat", "function_call", "conditional", "for_expr"}
+
+
+def _hcl_detect_module_output_refs(block_node, block_nid: str, file_path: str) -> tuple[list[dict], list[dict]]:
+    """Scan a block's body for module.x.y expressions and emit deferred output refs.
+
+    Returns (deferred_refs, diagnostics).
+    """
+    refs: list[dict] = []
+    diags: list[dict] = []
+
+    def _scan_expressions(node):
+        if node.type == "expression":
+            children = node.children
+            named = [c for c in children if c.type not in {".", ",", "(", ")", "[", "]", "{", "}"}]
+            # Check for module.x.y pattern: variable_expr("module"), get_attr, get_attr
+            if (len(named) >= 3
+                and named[0].type == "variable_expr"
+                and named[0].children
+                and named[0].children[0].text == b"module"
+                and named[1].type == "get_attr"
+                and named[2].type == "get_attr"):
+                # Check for out-of-scope nodes
+                out_of_scope = [c for c in named[3:] if c.type in _HCL_OUT_OF_SCOPE_EXPR_TYPES]
+                if out_of_scope or any(c.type in _HCL_OUT_OF_SCOPE_EXPR_TYPES for c in named):
+                    diags.append(hcl_make_diagnostic(
+                        "hcl_unsupported_expression",
+                        f"Complex module expression skipped",
+                        file_path=file_path,
+                        source_span={
+                            "start_line": node.start_point[0] + 1,
+                            "start_column": node.start_point[1] + 1,
+                            "end_line": node.end_point[0] + 1,
+                            "end_column": node.end_point[1] + 1,
+                        },
+                        related_entity_id=block_nid,
+                    ))
+                    return
+                # Check if inside template_interpolation (parent chain)
+                p = node.parent
+                while p:
+                    if p.type == "template_interpolation":
+                        diags.append(hcl_make_diagnostic(
+                            "hcl_unsupported_expression",
+                            "Module expression inside interpolation skipped",
+                            file_path=file_path,
+                            related_entity_id=block_nid,
+                        ))
+                        return
+                    p = p.parent
+
+                module_name_node = named[1].children[-1] if named[1].children else named[1]
+                output_name_node = named[2].children[-1] if named[2].children else named[2]
+                module_name = module_name_node.text.decode("utf-8", errors="replace")
+                output_name = output_name_node.text.decode("utf-8", errors="replace")
+
+                refs.append({
+                    "kind": "module_output",
+                    "enclosing_block_nid": block_nid,
+                    "module_name": module_name,
+                    "output_name": output_name,
+                    "source_dir": None,  # filled by resolver
+                    "source_file": file_path,
+                    "source_location": f"L{node.start_point[0] + 1}",
+                })
+                return  # Don't descend into this expression further
+
+        for child in node.children:
+            _scan_expressions(child)
+
+    _scan_expressions(block_node)
+    return refs, diags
+
+
+def resolve_hcl_cross_file(
+    per_file: list[dict],
+    all_nodes: list[dict],
+    all_edges: list[dict],
+    existing_pairs: set[tuple[str, str, str, str]],
+) -> tuple[list[dict], list[dict]]:
+    """Resolve HCL cross-file variable and output references.
+
+    Builds a child module index from per-file results, then resolves
+    deferred module-input and module-output refs into edges.
+
+    Returns (new_edges, new_diagnostics).
+    """
+    new_edges: list[dict] = []
+    new_diagnostics: list[dict] = []
+
+    # Build child module index: dir_path -> {variable_name -> nid, output_name -> nid}
+    var_index: dict[str, dict[str, str]] = {}   # dir -> {var_name -> nid}
+    out_index: dict[str, dict[str, str]] = {}   # dir -> {out_name -> nid}
+
+    for result in per_file:
+        for node in result.get("nodes", []):
+            nid = node["id"]
+            if "::" not in nid:
+                continue
+            # Parse: hcl_file:<path>::<kind>:<identity>
+            parts = nid.split("::", 1)
+            if len(parts) != 2:
+                continue
+            file_prefix = parts[0]  # hcl_file:<path>
+            kind_id = parts[1]      # <kind>:<identity>
+            if ":" not in kind_id:
+                continue
+            kind, identity = kind_id.split(":", 1)
+
+            # Get directory from file path
+            # hcl_file:<path> -> <path> -> parent dir
+            file_path = file_prefix.replace("hcl_file:", "", 1)
+            dir_path = str(Path(file_path).parent).replace("\\", "/")
+            if dir_path == ".":
+                dir_path = ""
+
+            if kind == "variable":
+                var_index.setdefault(dir_path, {})[identity] = nid
+            elif kind == "output":
+                out_index.setdefault(dir_path, {})[identity] = nid
+
+    # Resolve deferred refs
+    for result in per_file:
+        for ref in result.get("hcl_deferred_refs", []):
+            source_dir = ref.get("source_dir")
+            if source_dir is None:
+                continue
+
+            if ref["kind"] == "module_input":
+                child_vars = var_index.get(source_dir, {})
+                arg_key = ref["argument_key"]
+                target_nid = child_vars.get(arg_key)
+                if target_nid:
+                    pair = (ref["caller_nid"], target_nid, "module_input", "resolved")
+                    if pair not in existing_pairs:
+                        existing_pairs.add(pair)
+                        new_edges.append(hcl_make_edge(
+                            ref["caller_nid"], target_nid, "module_input",
+                            ref["source_file"], int(ref["source_location"].lstrip("L")),
+                        ))
+                else:
+                    new_diagnostics.append(hcl_make_diagnostic(
+                        "hcl_unresolved_variable",
+                        f"No variable '{arg_key}' in child module at {source_dir}",
+                        file_path=ref["source_file"],
+                        related_entity_id=ref["caller_nid"],
+                    ))
+
+            elif ref["kind"] == "module_output":
+                child_outs = out_index.get(source_dir, {})
+                output_name = ref["output_name"]
+                target_nid = child_outs.get(output_name)
+                if target_nid:
+                    pair = (ref["enclosing_block_nid"], target_nid, "module_output_ref", "resolved")
+                    if pair not in existing_pairs:
+                        existing_pairs.add(pair)
+                        new_edges.append(hcl_make_edge(
+                            ref["enclosing_block_nid"], target_nid, "module_output_ref",
+                            ref["source_file"], int(ref["source_location"].lstrip("L")),
+                        ))
+                else:
+                    new_diagnostics.append(hcl_make_diagnostic(
+                        "hcl_unresolved_output",
+                        f"No output '{output_name}' in child module at {source_dir}",
+                        file_path=ref["source_file"],
+                        related_entity_id=ref.get("enclosing_block_nid"),
+                    ))
+
+    return new_edges, new_diagnostics
+
+
 def _resolve_cross_file_imports(
     per_file: list[dict],
     paths: list[Path],
@@ -5844,6 +6930,19 @@ def extract(
     root = root.resolve()
 
     effective_root = cache_root or root
+
+    # Build resolvable module directories from HCL file paths
+    _hcl_resolvable_dirs: set[str] = set()
+    for p in paths:
+        if p.suffix in {".tf", ".tfvars"}:
+            try:
+                rel_dir = str(p.resolve().relative_to(root.resolve()).parent).replace("\\", "/")
+                if rel_dir == ".":
+                    rel_dir = ""
+                _hcl_resolvable_dirs.add(rel_dir)
+            except ValueError:
+                pass
+
     total = len(paths)
 
     # Phase 1: separate cached hits from uncached work
@@ -5851,6 +6950,17 @@ def extract(
     uncached_work: list[tuple[int, Path]] = []
 
     for i, path in enumerate(paths):
+        # HCL files need special handling (extra repo_root + resolvable_dirs args)
+        if path.suffix in {".tf", ".tfvars"}:
+            cached = load_cached(path, effective_root)
+            if cached is not None:
+                per_file[i] = cached
+                continue
+            result = extract_hcl(path, root, _hcl_resolvable_dirs)
+            if "error" not in result:
+                save_cached(path, result, effective_root)
+            per_file[i] = result
+            continue
         if _get_extractor(path) is None:
             per_file[i] = {"nodes": [], "edges": []}
             continue
@@ -5877,9 +6987,11 @@ def extract(
 
     all_nodes: list[dict] = []
     all_edges: list[dict] = []
+    all_diagnostics: list[dict] = []
     for result in per_file:
         all_nodes.extend(result.get("nodes", []))
         all_edges.extend(result.get("edges", []))
+        all_diagnostics.extend(result.get("diagnostics", []))
 
     # Remap file node IDs from absolute-path-derived to project-relative so
     # graph.json edge endpoints are stable across machines (#502)
@@ -6020,6 +7132,19 @@ def extract(
                     "weight": 1.0,
                 })
 
+    # HCL cross-file resolution (module-input and module-output edges)
+    hcl_results = [r for r, p in zip(per_file, paths) if p.suffix in {".tf", ".tfvars"}]
+    if hcl_results:
+        existing_pairs = {
+            (e["source"], e["target"], e["relation"], e.get("resolution_status", "resolved"))
+            for e in all_edges
+        }
+        hcl_cross_edges, hcl_cross_diags = resolve_hcl_cross_file(
+            hcl_results, all_nodes, all_edges, existing_pairs,
+        )
+        all_edges.extend(hcl_cross_edges)
+        all_diagnostics.extend(hcl_cross_diags)
+
     # Relativize source_file fields so paths are portable across machines (#555)
     for item in all_nodes + all_edges:
         sf = item.get("source_file")
@@ -6033,18 +7158,21 @@ def extract(
         except ValueError:
             pass
 
-    return {
+    output = {
         "nodes": all_nodes,
         "edges": all_edges,
         "input_tokens": 0,
         "output_tokens": 0,
     }
+    if all_diagnostics:
+        output["diagnostics"] = all_diagnostics
+    return output
 
 
 def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | None = None) -> list[Path]:
     if target.is_file():
         return [target]
-    _EXTENSIONS = set(_DISPATCH.keys())
+    _EXTENSIONS = set(_DISPATCH.keys()) | {".tf", ".tfvars"}
     from graphify.detect import _load_graphifyignore, _is_ignored
     ignore_root = root if root is not None else target
     patterns = _load_graphifyignore(ignore_root)
@@ -6082,13 +7210,26 @@ def collect_files(target: Path, *, follow_symlinks: bool = False, root: Path | N
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python -m graphify.extract <file_or_dir> ...", file=sys.stderr)
-        sys.exit(1)
+    import argparse
+    ap = argparse.ArgumentParser(description="Graphify structural extraction")
+    ap.add_argument("paths", nargs="+", help="Files or directories to extract")
+    ap.add_argument("--hcl-phase", choices=["phase1", "phase2", "phase3"])
+    ap.add_argument("--hcl-migration-mode", choices=["detect", "apply"])
+    ap.add_argument("--decision-scope", choices=["phase_progression", "default_on"])
+    ap.add_argument("--output-scope", choices=["external", "internal"])
+    args = ap.parse_args()
+
+    meta = hcl_resolve_all_surfaces(
+        cli_phase=args.hcl_phase,
+        cli_migration_mode=args.hcl_migration_mode,
+        cli_decision_scope=args.decision_scope,
+        cli_output_scope=args.output_scope,
+    )
 
     paths: list[Path] = []
-    for arg in sys.argv[1:]:
-        paths.extend(collect_files(Path(arg)))
+    for p in args.paths:
+        paths.extend(collect_files(Path(p)))
 
     result = extract(paths)
+    result["hcl_metadata"] = meta
     print(json.dumps(result, indent=2))

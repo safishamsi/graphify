@@ -1,5 +1,17 @@
 from pathlib import Path
-from graphify.extract import extract_python, extract, collect_files, _make_id
+from graphify.extract import (
+    extract_python, extract, collect_files, _make_id,
+    hcl_make_file_id, hcl_make_block_id, hcl_make_target_id,
+    hcl_make_diagnostic, hcl_cap_diagnostics, _hcl_scrub_secrets,
+    _HCL_DIAGNOSTIC_CODES, _HCL_MAX_DIAGNOSTICS_PER_FILE,
+    hcl_make_node, hcl_make_edge, hcl_make_result,
+    hcl_redact_for_external, _hcl_hash_redact,
+    resolve_module_source, _hcl_classify_source, _hcl_canonicalize_remote_uri,
+    extract_hcl,
+    _HCL_MAX_FILE_BYTES, _HCL_MAX_AST_NODES,
+    hcl_resolve_control_surface, hcl_resolve_all_surfaces,
+    resolve_hcl_cross_file,
+)
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -59,7 +71,7 @@ def test_extract_merges_multiple_files():
 def test_collect_files_from_dir():
     from graphify.extract import _DISPATCH
     files = collect_files(FIXTURES)
-    supported = set(_DISPATCH.keys())
+    supported = set(_DISPATCH.keys()) | {".tf", ".tfvars"}
     assert all(f.suffix in supported for f in files)
     assert len(files) > 0
 
@@ -425,3 +437,818 @@ def test_extract_parallel_returns_false_on_broken_pool(tmp_path, monkeypatch, ca
     out = capsys.readouterr().out
     assert "BrokenProcessPool" in out, "user-facing warning must mention the failure"
     assert "__main__" in out, "warning must hint at the Windows __main__ guard idiom"
+
+
+# --- HCL node ID tests ---
+
+def test_hcl_make_file_id_basic():
+    repo = Path("/repo")
+    fid = hcl_make_file_id(repo, Path("/repo/terraform/main.tf"))
+    assert fid == "hcl_file:terraform/main.tf"
+
+
+def test_hcl_make_file_id_forward_slashes():
+    repo = Path("/repo")
+    fid = hcl_make_file_id(repo, Path("/repo/terraform/modules/vpc/main.tf"))
+    assert "/" in fid
+    assert "\\" not in fid
+
+
+def test_hcl_make_file_id_deterministic():
+    repo = Path("/repo")
+    p = Path("/repo/modules/main.tf")
+    assert hcl_make_file_id(repo, p) == hcl_make_file_id(repo, p)
+
+
+def test_hcl_make_file_id_prefix():
+    fid = hcl_make_file_id(Path("/r"), Path("/r/a.tf"))
+    assert fid.startswith("hcl_file:")
+
+
+def test_hcl_make_block_id_resource():
+    fid = "hcl_file:modules/vpc/main.tf"
+    bid = hcl_make_block_id(fid, "resource", "aws_vpc.main")
+    assert bid == "hcl_file:modules/vpc/main.tf::resource:aws_vpc.main"
+
+
+def test_hcl_make_block_id_module():
+    fid = "hcl_file:clusters/main.tf"
+    bid = hcl_make_block_id(fid, "module", "network")
+    assert bid == "hcl_file:clusters/main.tf::module:network"
+
+
+def test_hcl_make_block_id_locals():
+    fid = "hcl_file:main.tf"
+    bid = hcl_make_block_id(fid, "locals", "locals_ab12cd34")
+    assert bid == "hcl_file:main.tf::locals:locals_ab12cd34"
+
+
+def test_hcl_make_block_id_preserves_colons():
+    """Block IDs must preserve colon namespace prefixes (not use _make_id)."""
+    fid = "hcl_file:main.tf"
+    bid = hcl_make_block_id(fid, "resource", "aws_s3_bucket.my_bucket")
+    assert "hcl_file:" in bid
+    assert "::resource:" in bid
+
+
+def test_hcl_make_target_id_local():
+    tid = hcl_make_target_id("module_source_local", "modules/vpc")
+    assert tid == "hcl_target:module_source_local:modules/vpc"
+
+
+def test_hcl_make_target_id_remote():
+    tid = hcl_make_target_id("module_source_remote", "github.com:path_sha256=abc123:ref=v1.0")
+    assert tid.startswith("hcl_target:")
+    assert "module_source_remote" in tid
+
+
+def test_hcl_make_target_id_deterministic():
+    a = hcl_make_target_id("module_source_local", "modules/vpc")
+    b = hcl_make_target_id("module_source_local", "modules/vpc")
+    assert a == b
+
+
+def test_hcl_ids_different_kinds_distinct():
+    """Identically named blocks of different kinds produce different IDs."""
+    fid = "hcl_file:main.tf"
+    resource_id = hcl_make_block_id(fid, "resource", "foo")
+    data_id = hcl_make_block_id(fid, "data", "foo")
+    module_id = hcl_make_block_id(fid, "module", "foo")
+    assert resource_id != data_id != module_id
+
+
+# --- HCL diagnostic collector tests ---
+
+def test_hcl_diagnostic_schema_file_scoped():
+    d = hcl_make_diagnostic(
+        "hcl_partial_parse", "Partial parse in main.tf",
+        file_path="terraform/main.tf",
+        source_span={"start_line": 1, "start_column": 1, "end_line": 5, "end_column": 2},
+    )
+    assert d["code"] == "hcl_partial_parse"
+    assert d["severity"] == "warning"
+    assert d["file_path"] == "terraform/main.tf"
+    assert d["source_span"]["start_line"] == 1
+    assert d["reason"] is None
+    assert d["related_entity_id"] is None
+
+
+def test_hcl_diagnostic_schema_run_scoped():
+    d = hcl_make_diagnostic("hcl_parse_error", "tree-sitter-hcl not installed", reason="missing_dependency")
+    assert d["file_path"] is None
+    assert d["source_span"] is None
+    assert d["reason"] == "missing_dependency"
+    assert d["severity"] == "error"
+
+
+def test_hcl_diagnostic_all_codes_have_severity():
+    for code, expected_severity in _HCL_DIAGNOSTIC_CODES.items():
+        d = hcl_make_diagnostic(code, f"test {code}")
+        assert d["severity"] == expected_severity
+
+
+def test_hcl_diagnostic_cap_under_limit():
+    diags = [hcl_make_diagnostic("hcl_partial_parse", f"msg {i}") for i in range(10)]
+    capped = hcl_cap_diagnostics(diags)
+    assert len(capped) == 10
+
+
+def test_hcl_diagnostic_cap_over_limit():
+    diags = [hcl_make_diagnostic("hcl_partial_parse", f"msg {i}") for i in range(250)]
+    capped = hcl_cap_diagnostics(diags)
+    assert len(capped) == _HCL_MAX_DIAGNOSTICS_PER_FILE
+    assert capped[0]["message"] == "msg 0"  # deterministic: keeps first entries
+
+
+def test_hcl_scrub_secrets_token():
+    text = "source = https://github.com?token=abc123secret"
+    scrubbed = _hcl_scrub_secrets(text)
+    assert "abc123secret" not in scrubbed
+    assert "[REDACTED]" in scrubbed
+
+
+def test_hcl_scrub_secrets_aws_key():
+    text = "Found key AKIAIOSFODNN7EXAMPLE in config"
+    scrubbed = _hcl_scrub_secrets(text)
+    assert "AKIAIOSFODNN7EXAMPLE" not in scrubbed
+
+
+def test_hcl_scrub_secrets_clean_text():
+    text = "Normal diagnostic message about module vpc"
+    assert _hcl_scrub_secrets(text) == text
+
+
+def test_hcl_diagnostic_scrubs_message():
+    d = hcl_make_diagnostic("hcl_parse_error", "Failed with token=supersecret123")
+    assert "supersecret123" not in d["message"]
+
+
+# --- HCL output builder tests ---
+
+def test_hcl_make_node_required_fields():
+    n = hcl_make_node("hcl_file:main.tf", "main.tf", "main.tf", 1)
+    assert n["id"] == "hcl_file:main.tf"
+    assert n["label"] == "main.tf"
+    assert n["file_type"] == "code"
+    assert n["source_file"] == "main.tf"
+    assert n["source_location"] == "L1"
+    assert n["confidence_score"] == 1.0
+
+
+def test_hcl_make_node_empty_source_file():
+    """Non-repo-backed target nodes use empty string for source_file."""
+    n = hcl_make_node("hcl_target:module_source_remote:x", "remote:x", "", 5)
+    assert n["source_file"] == ""
+    assert n["source_location"] == "L5"
+
+
+def test_hcl_make_edge_resolved():
+    e = hcl_make_edge("src", "tgt", "contains", "main.tf", 3)
+    assert e["confidence"] == "EXTRACTED"
+    assert e["confidence_score"] == 1.0
+    assert e["resolution_status"] == "resolved"
+    assert e["unresolved_target_key"] is None
+
+
+def test_hcl_make_edge_declared_only():
+    e = hcl_make_edge(
+        "src", "tgt", "module_source", "main.tf", 10,
+        resolved=False, resolution_reason="remote_source",
+        unresolved_target_key="hcl:module_source_remote:example.com",
+    )
+    assert e["confidence"] == "INFERRED"
+    assert e["confidence_score"] == 0.8
+    assert e["resolution_status"] == "declared_only"
+    assert e["resolution_reason"] == "remote_source"
+    assert e["unresolved_target_key"] == "hcl:module_source_remote:example.com"
+
+
+def test_hcl_make_edge_has_weight():
+    e = hcl_make_edge("s", "t", "contains", "a.tf", 1)
+    assert e["weight"] == 1.0
+
+
+def test_hcl_make_result_shape():
+    r = hcl_make_result([], [], [], [])
+    assert set(r.keys()) == {
+        "nodes", "edges", "raw_calls", "diagnostics",
+        "hcl_deferred_refs", "input_tokens", "output_tokens", "error",
+    }
+    assert r["raw_calls"] == []
+    assert r["input_tokens"] == 0
+    assert r["output_tokens"] == 0
+    assert r["error"] is None
+
+
+def test_hcl_make_result_with_error():
+    r = hcl_make_result([], [], [], [], error="parse failed")
+    assert r["error"] == "parse failed"
+
+
+def test_hcl_make_result_passes_validate():
+    """Output must pass Graphify's validate.py checks."""
+    from graphify.validate import validate_extraction
+    node = hcl_make_node("hcl_file:main.tf", "main.tf", "main.tf", 1)
+    block = hcl_make_node("hcl_file:main.tf::resource:aws_vpc.main", "resource:aws_vpc.main", "main.tf", 3)
+    edge = hcl_make_edge("hcl_file:main.tf", block["id"], "contains", "main.tf", 1)
+    r = hcl_make_result([node, block], [edge], [], [])
+    errors = validate_extraction(r)
+    assert errors == [], f"validate_extraction errors: {errors}"
+
+
+# --- HCL redaction tests ---
+
+def test_hcl_scrub_deterministic():
+    """Same input always produces same scrubbed output."""
+    text = "error with token=abc123 in module"
+    assert _hcl_scrub_secrets(text) == _hcl_scrub_secrets(text)
+
+
+def test_hcl_hash_redact_deterministic():
+    assert _hcl_hash_redact("modules/vpc") == _hcl_hash_redact("modules/vpc")
+
+
+def test_hcl_hash_redact_different_inputs():
+    assert _hcl_hash_redact("a") != _hcl_hash_redact("b")
+
+
+def test_hcl_redact_external_source_file():
+    node = hcl_make_node("hcl_file:main.tf", "resource:aws_vpc.main", "terraform/main.tf", 1)
+    r = hcl_redact_for_external(hcl_make_result([node], [], [], []))
+    assert r["nodes"][0]["source_file"] != "terraform/main.tf"
+    assert len(r["nodes"][0]["source_file"]) == 16  # sha256[:16]
+
+
+def test_hcl_redact_external_unresolved_key():
+    edge = hcl_make_edge(
+        "s", "t", "module_source", "main.tf", 1,
+        resolved=False, unresolved_target_key="hcl:module_source_remote:github.com/org/repo",
+    )
+    r = hcl_redact_for_external(hcl_make_result([], [edge], [], []))
+    assert "github.com" not in r["edges"][0]["unresolved_target_key"]
+
+
+def test_hcl_redact_external_target_id():
+    node = hcl_make_node("hcl_target:module_source_remote:github.com/org/repo", "remote:x", "", 1)
+    r = hcl_redact_for_external(hcl_make_result([node], [], [], []))
+    assert "github.com" not in r["nodes"][0]["id"]
+    assert r["nodes"][0]["id"].startswith("hcl_target:")
+
+
+def test_hcl_redact_preserves_file_node_ids():
+    """File node IDs (hcl_file:) are not target nodes and keep their IDs."""
+    node = hcl_make_node("hcl_file:main.tf", "main.tf", "main.tf", 1)
+    r = hcl_redact_for_external(hcl_make_result([node], [], [], []))
+    assert r["nodes"][0]["id"] == "hcl_file:main.tf"
+
+
+# --- Module source resolver tests ---
+
+def test_classify_local_relative():
+    assert _hcl_classify_source("./modules/vpc") == "local_relative"
+    assert _hcl_classify_source("../modules/vpc") == "local_relative"
+
+
+def test_classify_local_absolute():
+    assert _hcl_classify_source("/opt/modules/vpc") == "local_absolute"
+    assert _hcl_classify_source("C:/modules/vpc") == "local_absolute"
+
+
+def test_classify_remote_url():
+    assert _hcl_classify_source("https://github.com/org/repo") == "remote_url"
+    assert _hcl_classify_source("git::https://github.com/org/repo") == "remote_url"
+
+
+def test_classify_registry():
+    assert _hcl_classify_source("hashicorp/consul/aws") == "registry"
+
+
+def test_classify_opaque():
+    assert _hcl_classify_source("s3::https://bucket/key") == "remote_url"
+    assert _hcl_classify_source("some-unknown-source") == "opaque"
+
+
+def test_resolve_missing_source():
+    r = resolve_module_source(None, Path("/repo"), Path("/repo"), set())
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "missing_source_attr"
+    assert len(r["diagnostics"]) == 1
+    assert r["diagnostics"][0]["code"] == "hcl_ineligible_module"
+
+
+def test_resolve_empty_source():
+    r = resolve_module_source("", Path("/repo"), Path("/repo"), set())
+    assert r["resolution_reason"] == "empty_source_literal"
+
+
+def test_resolve_local_relative_resolved(tmp_path):
+    (tmp_path / "modules" / "vpc").mkdir(parents=True)
+    (tmp_path / "clusters").mkdir()
+    r = resolve_module_source(
+        "../modules/vpc",
+        tmp_path / "clusters",
+        tmp_path,
+        {"modules/vpc"},
+    )
+    assert r["resolution_status"] == "resolved"
+    assert r["target_nid"] == "hcl_target:module_source_local:modules/vpc"
+    assert r["unresolved_target_key"] is None
+
+
+def test_resolve_local_relative_excluded_by_scope(tmp_path):
+    (tmp_path / "other" / "mod").mkdir(parents=True)
+    r = resolve_module_source(
+        "./other/mod",
+        tmp_path,
+        tmp_path,
+        set(),
+        dependency_discovery_dirs={"other/mod"},
+    )
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "excluded_by_scope"
+
+
+def test_resolve_local_relative_not_in_scope(tmp_path):
+    (tmp_path / "somewhere").mkdir()
+    r = resolve_module_source("./somewhere", tmp_path, tmp_path, set())
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "not_in_scope"
+    assert r["unresolved_target_key"] is not None
+
+
+def test_resolve_local_absolute_never_resolved():
+    r = resolve_module_source("/etc/terraform/modules", Path("/repo"), Path("/repo"), set())
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "absolute_source_path"
+    assert "/etc" not in r["target_nid"]  # raw path must not leak
+
+
+def test_resolve_outside_repo(tmp_path):
+    (tmp_path / "repo").mkdir()
+    r = resolve_module_source(
+        "../../outside",
+        tmp_path / "repo",
+        tmp_path / "repo",
+        set(),
+    )
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "outside_repo"
+
+
+def test_resolve_remote_url():
+    r = resolve_module_source(
+        "git::https://GitHub.com/org/repo//subdir?ref=v1.0",
+        Path("/repo"), Path("/repo"), set(),
+    )
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "remote_source"
+    assert "github.com" in r["target_nid"].lower()
+    assert r["collision_suffix_sha256"] is not None
+
+
+def test_resolve_remote_mutable_ref():
+    r = resolve_module_source(
+        "git::https://github.com/org/repo?ref=main",
+        Path("/repo"), Path("/repo"), set(),
+    )
+    assert r["resolution_reason"] == "temporal_instability"
+
+
+def test_resolve_registry():
+    r = resolve_module_source("hashicorp/consul/aws", Path("/repo"), Path("/repo"), set())
+    assert r["resolution_status"] == "declared_only"
+    assert r["resolution_reason"] == "registry_source"
+
+
+def test_resolve_control_chars_rejected():
+    r = resolve_module_source("./modules/\x00evil", Path("/repo"), Path("/repo"), set())
+    assert r["resolution_reason"] == "non_literal_source"
+
+
+def test_canonical_uri_lowercase_host():
+    canonical, _, _ = _hcl_canonicalize_remote_uri("https://GitHub.COM/org/repo")
+    assert "github.com" in canonical
+
+
+def test_canonical_uri_sorted_params():
+    c1, _, _ = _hcl_canonicalize_remote_uri("https://host/p?b=2&a=1")
+    c2, _, _ = _hcl_canonicalize_remote_uri("https://host/p?a=1&b=2")
+    assert c1 == c2
+
+
+def test_canonical_uri_strips_default_port():
+    c, _, _ = _hcl_canonicalize_remote_uri("https://host:443/path")
+    assert ":443" not in c
+
+
+def test_canonical_uri_preserves_ref():
+    c, _, _ = _hcl_canonicalize_remote_uri("https://host/p?ref=v1.0")
+    assert "ref=v1.0" in c
+
+
+def test_canonical_uri_strips_sensitive_keys():
+    c, _, _ = _hcl_canonicalize_remote_uri("https://host/p?token=secret&ref=v1")
+    assert "secret" not in c
+    assert "ref=v1" in c
+
+
+def test_canonical_uri_deterministic():
+    a, _, _ = _hcl_canonicalize_remote_uri("git::https://github.com/org/repo//sub?ref=v1")
+    b, _, _ = _hcl_canonicalize_remote_uri("git::https://github.com/org/repo//sub?ref=v1")
+    assert a == b
+
+
+def test_resolve_hmac_absent():
+    """Missing HMAC key produces empty fingerprint, extraction still works."""
+    r = resolve_module_source("./modules/vpc", Path("/repo"), Path("/repo"), set())
+    assert r["source_fingerprint_hmac_sha256"] == ""
+    assert r["resolution_status"] in ("resolved", "declared_only")
+
+
+# --- AST walker / extract_hcl tests ---
+
+def test_extract_hcl_all_7_block_types():
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    labels = [n["label"] for n in result["nodes"]]
+    assert any("resource:aws_vpc.main" in l for l in labels)
+    assert any("data:aws_ami.ubuntu" in l for l in labels)
+    assert any("module:network" in l for l in labels)
+    assert any("variable:region" in l for l in labels)
+    assert any("output:vpc_id" in l for l in labels)
+    assert any("locals:" in l for l in labels)
+    assert any("provider:aws" in l for l in labels)
+
+
+def test_extract_hcl_file_node():
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    file_nodes = [n for n in result["nodes"] if n["id"].startswith("hcl_file:") and "::" not in n["id"]]
+    assert len(file_nodes) == 1
+    assert file_nodes[0]["label"] == "sample.tf"
+
+
+def test_extract_hcl_containment_edges():
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    block_nodes = [n for n in result["nodes"] if "::" in n["id"]]
+    contains_edges = [e for e in result["edges"] if e["relation"] == "contains"]
+    assert len(contains_edges) == len(block_nodes)
+    block_ids = {n["id"] for n in block_nodes}
+    for edge in contains_edges:
+        assert edge["target"] in block_ids
+
+
+def test_extract_hcl_no_attribute_nodes():
+    """No nodes for individual attributes within blocks."""
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    for node in result["nodes"]:
+        assert "cidr_block" not in node["label"]
+        assert "most_recent" not in node["label"]
+        assert "default" not in node["label"]
+
+
+def test_extract_hcl_node_count():
+    """1 file + 7 blocks + 1 module source target = 9 nodes."""
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    assert len(result["nodes"]) == 9
+
+
+def test_extract_hcl_deterministic():
+    r1 = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    r2 = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    assert r1["nodes"] == r2["nodes"]
+    assert r1["edges"] == r2["edges"]
+
+
+def test_extract_hcl_tfvars_file_node_only():
+    result = extract_hcl(FIXTURES / "sample.tfvars", FIXTURES)
+    assert len(result["nodes"]) == 1
+    assert result["nodes"][0]["id"].startswith("hcl_file:")
+    assert len(result["edges"]) == 0
+
+
+def test_extract_hcl_result_shape():
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    assert "nodes" in result
+    assert "edges" in result
+    assert "raw_calls" in result
+    assert "diagnostics" in result
+    assert "hcl_deferred_refs" in result
+    assert result["input_tokens"] == 0
+    assert result["output_tokens"] == 0
+    assert result["error"] is None
+
+
+def test_extract_hcl_block_ids_use_namespaces():
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    for node in result["nodes"]:
+        assert node["id"].startswith("hcl_file:") or node["id"].startswith("hcl_target:")
+
+
+def test_extract_hcl_passes_validate():
+    from graphify.validate import validate_extraction
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    errors = validate_extraction(result)
+    assert errors == [], f"validate_extraction errors: {errors}"
+
+
+def test_extract_hcl_module_source_edge():
+    """Module blocks with string literal source emit module_source edges."""
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    source_edges = [e for e in result["edges"] if e["relation"] == "module_source"]
+    assert len(source_edges) == 1
+    assert source_edges[0]["source"].endswith("::module:network")
+
+
+def test_extract_hcl_module_source_target_node():
+    """Module source edges point to a target node that exists in the result."""
+    result = extract_hcl(FIXTURES / "sample.tf", FIXTURES)
+    source_edges = [e for e in result["edges"] if e["relation"] == "module_source"]
+    node_ids = {n["id"] for n in result["nodes"]}
+    for edge in source_edges:
+        assert edge["target"] in node_ids
+
+
+# --- Module source detection and deferred refs tests ---
+
+def test_extract_hcl_module_deferred_refs():
+    """Module blocks emit deferred refs for non-meta argument keys."""
+    result = extract_hcl(FIXTURES / "sample_modules.tf", FIXTURES)
+    refs = result["hcl_deferred_refs"]
+    input_refs = [r for r in refs if r["kind"] == "module_input"]
+    # "network" module has cidr and name as non-meta args
+    network_refs = [r for r in input_refs if r["module_name"] == "network"]
+    keys = {r["argument_key"] for r in network_refs}
+    assert "cidr" in keys
+    assert "name" in keys
+    # Meta-arguments must be excluded
+    assert "providers" not in keys
+    assert "depends_on" not in keys
+    assert "source" not in keys
+
+
+def test_extract_hcl_module_no_refs_for_remote():
+    """Remote/registry modules don't produce deferred refs (no resolvable source_dir)."""
+    result = extract_hcl(FIXTURES / "sample_modules.tf", FIXTURES)
+    refs = result["hcl_deferred_refs"]
+    remote_refs = [r for r in refs if r["module_name"] == "remote"]
+    assert len(remote_refs) == 0
+
+
+def test_extract_hcl_interpolated_source_diagnostic():
+    """Non-literal source expression emits hcl_ineligible_module diagnostic."""
+    result = extract_hcl(FIXTURES / "sample_modules.tf", FIXTURES)
+    diags = [d for d in result["diagnostics"] if d["code"] == "hcl_ineligible_module"
+             and d.get("reason") == "non_literal_source"]
+    assert len(diags) >= 1
+
+
+def test_extract_hcl_missing_source_diagnostic():
+    """Module with no source attribute emits hcl_ineligible_module diagnostic."""
+    result = extract_hcl(FIXTURES / "sample_modules.tf", FIXTURES)
+    diags = [d for d in result["diagnostics"] if d["code"] == "hcl_ineligible_module"
+             and d.get("reason") == "missing_source_attr"]
+    assert len(diags) >= 1
+
+
+def test_extract_hcl_deferred_ref_schema():
+    """Deferred refs have all required fields."""
+    result = extract_hcl(FIXTURES / "sample_modules.tf", FIXTURES)
+    for ref in result["hcl_deferred_refs"]:
+        assert "kind" in ref
+        assert "caller_nid" in ref
+        assert "module_name" in ref
+        assert "argument_key" in ref
+        assert "source_file" in ref
+        assert "source_location" in ref
+
+
+# --- Error resilience and resource limits tests ---
+
+def test_extract_hcl_complete_parse_failure(tmp_path):
+    """Unparseable file returns valid result shape with error and diagnostic."""
+    bad_file = tmp_path / "bad.tf"
+    bad_file.write_bytes(b'\x00\x01\x02\x03')  # binary garbage
+    result = extract_hcl(bad_file, tmp_path)
+    # Must still return valid shape
+    assert "nodes" in result
+    assert "edges" in result
+    assert "diagnostics" in result
+    # File node should exist
+    assert len(result["nodes"]) >= 1
+
+
+def test_extract_hcl_partial_parse(tmp_path):
+    """File with ERROR nodes emits hcl_partial_parse and still returns valid shape."""
+    mixed = tmp_path / "mixed.tf"
+    # A block followed by a malformed attribute — tree-sitter recovers the block
+    mixed.write_text('resource "aws_vpc" "main" {\n  cidr = "10.0.0.0/16"\n}\n\nthis is not valid hcl at all\n')
+    result = extract_hcl(mixed, tmp_path)
+    # Must always return valid result shape
+    assert "nodes" in result and "diagnostics" in result
+    # File node always present
+    assert len(result["nodes"]) >= 1
+    # Should emit partial parse warning if ERROR nodes detected
+    partial_diags = [d for d in result["diagnostics"] if d["code"] == "hcl_partial_parse"]
+    assert len(partial_diags) >= 1
+
+
+def test_extract_hcl_file_too_large(tmp_path):
+    """File exceeding size limit returns diagnostic without parsing."""
+    big_file = tmp_path / "huge.tf"
+    big_file.write_bytes(b'x' * (_HCL_MAX_FILE_BYTES + 1))
+    result = extract_hcl(big_file, tmp_path)
+    assert result["error"] is not None
+    assert "too large" in result["error"]
+    diags = [d for d in result["diagnostics"] if d["code"] == "hcl_resource_limit_exceeded"]
+    assert len(diags) == 1
+
+
+def test_extract_hcl_missing_file(tmp_path):
+    """Non-existent file returns error result."""
+    result = extract_hcl(tmp_path / "nonexistent.tf", tmp_path)
+    assert result["error"] is not None
+
+
+def test_extract_hcl_error_result_shape(tmp_path):
+    """Error results still have all required keys."""
+    big_file = tmp_path / "huge.tf"
+    big_file.write_bytes(b'x' * (_HCL_MAX_FILE_BYTES + 1))
+    result = extract_hcl(big_file, tmp_path)
+    assert set(result.keys()) == {
+        "nodes", "edges", "raw_calls", "diagnostics",
+        "hcl_deferred_refs", "input_tokens", "output_tokens", "error",
+    }
+
+
+# --- Pipeline dispatch and discovery tests ---
+
+def test_collect_files_includes_tf():
+    """collect_files() discovers .tf and .tfvars files."""
+    files = collect_files(FIXTURES)
+    tf_files = [f for f in files if f.suffix in (".tf", ".tfvars")]
+    assert len(tf_files) >= 2  # sample.tf + sample.tfvars + sample_modules.tf
+
+
+def test_extract_dispatches_tf():
+    """extract() processes .tf files through the HCL extractor."""
+    tf_files = [FIXTURES / "sample.tf"]
+    result = extract(tf_files)
+    labels = [n["label"] for n in result["nodes"]]
+    assert any("resource:" in l for l in labels)
+
+
+def test_extract_dispatches_tfvars():
+    """extract() processes .tfvars files."""
+    result = extract([FIXTURES / "sample.tfvars"])
+    assert len(result["nodes"]) >= 1
+
+
+def test_detect_classifies_tf_as_code():
+    from graphify.detect import classify_file, FileType
+    assert classify_file(Path("main.tf")) == FileType.CODE
+    assert classify_file(Path("terraform.tfvars")) == FileType.CODE
+
+
+# --- Control surface resolution tests ---
+
+def test_resolve_control_surface_cli_wins():
+    r = hcl_resolve_control_surface(
+        "hcl_phase", {"phase1", "phase2", "phase3"},
+        cli_value="phase2", env_var="GRAPHIFY_HCL_PHASE",
+        default="phase1",
+    )
+    assert r["effective_hcl_phase"] == "phase2"
+    assert r["hcl_phase_source"] == "cli"
+
+
+def test_resolve_control_surface_env_fallback(monkeypatch):
+    monkeypatch.setenv("GRAPHIFY_HCL_PHASE", "phase3")
+    r = hcl_resolve_control_surface(
+        "hcl_phase", {"phase1", "phase2", "phase3"},
+        env_var="GRAPHIFY_HCL_PHASE", default="phase1",
+    )
+    assert r["effective_hcl_phase"] == "phase3"
+    assert r["hcl_phase_source"] == "env"
+
+
+def test_resolve_control_surface_default():
+    r = hcl_resolve_control_surface(
+        "hcl_phase", {"phase1", "phase2", "phase3"},
+        env_var="GRAPHIFY_HCL_PHASE_NONEXISTENT", default="phase1",
+    )
+    assert r["effective_hcl_phase"] == "phase1"
+    assert r["hcl_phase_source"] == "config_unavailable"
+
+
+def test_resolve_control_surface_config_unavailable_source():
+    """When config is not available and value falls to default, source is config_unavailable."""
+    r = hcl_resolve_control_surface(
+        "hcl_phase", {"phase1"}, default="phase1", config_available=False,
+    )
+    assert r["hcl_phase_source"] == "config_unavailable"
+
+
+def test_resolve_control_surface_config_available_default():
+    r = hcl_resolve_control_surface(
+        "hcl_phase", {"phase1"}, default="phase1", config_available=True,
+    )
+    assert r["hcl_phase_source"] == "default"
+
+
+def test_resolve_control_surface_invalid_exits():
+    """Invalid value should cause SystemExit(2)."""
+    import pytest
+    with pytest.raises(SystemExit) as exc:
+        hcl_resolve_control_surface(
+            "hcl_phase", {"phase1", "phase2", "phase3"},
+            cli_value="phase99", default="phase1",
+        )
+    assert exc.value.code == 2
+
+
+def test_resolve_all_surfaces_defaults():
+    meta = hcl_resolve_all_surfaces()
+    assert meta["effective_hcl_phase"] == "phase1"
+    assert meta["effective_hcl_migration_mode"] == "detect"
+    assert meta["effective_decision_scope"] == "phase_progression"
+    assert meta["effective_output_scope"] == "external"
+
+
+def test_resolve_all_surfaces_cli_overrides():
+    meta = hcl_resolve_all_surfaces(
+        cli_phase="phase2",
+        cli_decision_scope="default_on",
+    )
+    assert meta["effective_hcl_phase"] == "phase2"
+    assert meta["hcl_phase_source"] == "cli"
+    assert meta["effective_decision_scope"] == "default_on"
+    assert meta["decision_scope_source"] == "cli"
+
+
+# --- Diagnostic aggregation tests ---
+
+def test_extract_aggregates_hcl_diagnostics():
+    """extract() includes HCL diagnostics in top-level output when present."""
+    result = extract([FIXTURES / "sample_modules.tf"])
+    # sample_modules.tf has interpolated source and missing source -> diagnostics
+    assert "diagnostics" in result
+    assert len(result["diagnostics"]) >= 1
+
+
+def test_extract_no_diagnostics_for_python():
+    """Python-only extraction should not produce diagnostics key (or empty)."""
+    files = list(FIXTURES.glob("*.py"))[:1]
+    if files:
+        result = extract(files)
+        diags = result.get("diagnostics", [])
+        assert len(diags) == 0
+
+
+# --- Cross-file resolution tests ---
+
+TF_CROSSFILE = FIXTURES / "tf_crossfile"
+
+
+def test_cross_file_module_input_resolution():
+    """Parent module argument 'cidr' resolves to child variable 'cidr'."""
+    tf_files = sorted(TF_CROSSFILE.rglob("*.tf"))
+    result = extract(tf_files)
+    input_edges = [e for e in result["edges"] if e["relation"] == "module_input"]
+    # cidr and name should resolve
+    target_ids = {e["target"] for e in input_edges}
+    target_labels = {n["label"] for n in result["nodes"] if n["id"] in target_ids}
+    assert "variable:cidr" in target_labels
+    assert "variable:name" in target_labels
+
+
+def test_cross_file_module_input_edge_count():
+    """Two arguments (cidr, name) should produce two module_input edges."""
+    tf_files = sorted(TF_CROSSFILE.rglob("*.tf"))
+    result = extract(tf_files)
+    input_edges = [e for e in result["edges"] if e["relation"] == "module_input"]
+    assert len(input_edges) == 2
+
+
+def test_cross_file_unresolved_variable():
+    """Argument with no matching child variable emits diagnostic."""
+    # Create a module with an arg that doesn't match any child variable
+    from graphify.extract import extract_hcl, hcl_make_edge
+    parent = extract_hcl(TF_CROSSFILE / "main.tf", TF_CROSSFILE)
+    child = extract_hcl(TF_CROSSFILE / "modules" / "vpc" / "variables.tf", TF_CROSSFILE)
+
+    # Add a fake deferred ref for a non-existent variable
+    parent["hcl_deferred_refs"].append({
+        "kind": "module_input",
+        "caller_nid": "fake_caller",
+        "module_name": "vpc",
+        "source_dir": "modules/vpc",
+        "argument_key": "nonexistent_var",
+        "source_file": "main.tf",
+        "source_location": "L1",
+    })
+
+    per_file = [parent, child]
+    all_nodes = parent["nodes"] + child["nodes"]
+    all_edges = parent["edges"] + child["edges"]
+    new_edges, new_diags = resolve_hcl_cross_file(per_file, all_nodes, all_edges, set())
+    unresolved = [d for d in new_diags if d["code"] == "hcl_unresolved_variable"]
+    assert len(unresolved) >= 1
