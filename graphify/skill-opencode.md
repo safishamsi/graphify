@@ -110,7 +110,7 @@ Omit any category with 0 files from the summary.
 Then act on it:
 - If `total_files` is 0: stop with "No supported files found in [path]."
 - If `skipped_sensitive` is non-empty: mention file count skipped, not the file names.
-- If `total_words` > 2,000,000 OR `total_files` > 200: show the warning and the top 5 subdirectories by file count, then ask which subfolder to run on. Wait for the user's answer before proceeding.
+- If `total_words` > 2,000,000 OR `total_files` > 200: do not stop for an interactive subfolder choice. Show the warning and choose a bounded extraction plan deterministically: prefer the largest supported subdirectories that fit the budget, or reduce semantic chunk size and continue. Tell the user which policy was applied.
 - Otherwise: proceed directly to Step 2.5 if video files were detected, or Step 3 if not.
 
 ### Step 2.5 - Transcribe video / audio files (only if video files detected)
@@ -308,10 +308,10 @@ Output exactly this JSON (no other text):
 Wait for all subagents. For each result:
 - Check that `graphify-out/.graphify_chunk_NN.json` exists on disk — this is the success signal
 - If the file exists and contains valid JSON with `nodes` and `edges`, include it and save to cache
-- If the file is missing, the subagent was likely dispatched as read-only (Explore type) — print a warning: "chunk N missing from disk — subagent may have been read-only. Re-run with general-purpose agent." Do not silently skip.
+- If the file is missing, the OpenCode @agent dispatch did not produce a writable chunk output — print a warning: "chunk N missing from disk — OpenCode @agent dispatch did not produce a writable chunk output. Retry @agent dispatch, reduce chunk size, or use the serial fallback." Do not silently skip.
 - If a subagent failed or returned invalid JSON, print a warning and skip that chunk - do not abort
 
-If more than half the chunks failed or are missing, stop and tell the user to re-run and ensure `subagent_type="general-purpose"` is used.
+If more than half the chunks failed or are missing, stop and tell the user to retry OpenCode @agent dispatch with smaller chunks or use the serial fallback, which writes `graphify-out/.graphify_chunk_NN.json` before merge.
 
 Merge all chunk files into `.graphify_semantic_new.json`. **After each Agent call completes, read the real token counts from the Agent tool result's `usage` field and write them back into the chunk JSON before merging** — the chunk JSON itself always has placeholder zeros. Then run:
 ```bash

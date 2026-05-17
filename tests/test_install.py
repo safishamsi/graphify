@@ -111,6 +111,17 @@ def test_opencode_skill_contains_mention():
     assert "@mention" in skill
 
 
+def test_opencode_skill_uses_opencode_agent_guidance():
+    """OpenCode skill must not reference Codex/Claude agent type names."""
+    import graphify
+    skill = (Path(graphify.__file__).parent / "skill-opencode.md").read_text()
+    assert "general-purpose" not in skill
+    assert 'subagent_type="general-purpose"' not in skill
+    assert "@agent" in skill
+    assert "serial fallback" in skill
+    assert "Wait for the user's answer before proceeding" not in skill
+
+
 def test_claw_skill_is_sequential():
     """OpenClaw skill file must describe sequential extraction."""
     import graphify
