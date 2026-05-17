@@ -104,6 +104,27 @@ def test_surprising_connections_ambiguous_scores_higher_than_extracted():
     assert score_amb > score_ext
 
 
+def test_surprise_score_accepts_precomputed_degrees():
+    G = nx.Graph()
+    for nid, label, src in [
+        ("hub", "Hub", "repo1/hub.py"),
+        ("leaf", "Leaf", "repo2/leaf.py"),
+        ("n1", "N1", "repo1/n1.py"),
+        ("n2", "N2", "repo1/n2.py"),
+        ("n3", "N3", "repo1/n3.py"),
+        ("n4", "N4", "repo1/n4.py"),
+    ]:
+        G.add_node(nid, label=label, source_file=src, file_type="code")
+    for node in ("leaf", "n1", "n2", "n3", "n4"):
+        G.add_edge("hub", node, relation="calls", confidence="EXTRACTED", weight=1.0)
+
+    nc = {"hub": 0, "leaf": 1}
+    edge = G.edges["hub", "leaf"]
+    args = (G, "hub", "leaf", edge, nc, "repo1/hub.py", "repo2/leaf.py")
+
+    assert _surprise_score(*args) == _surprise_score(*args, dict(G.degree()))
+
+
 def test_surprising_connections_cross_type_scores_higher():
     """Code↔paper edge should score higher than code↔code edge."""
     G = nx.Graph()

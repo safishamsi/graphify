@@ -180,6 +180,7 @@ def _surprise_score(
     node_community: dict[str, int],
     u_source: str,
     v_source: str,
+    degrees: dict[str, int] | None = None,
 ) -> tuple[int, list[str]]:
     """Score how surprising a cross-file edge is. Returns (score, reasons)."""
     score = 0
@@ -234,8 +235,8 @@ def _surprise_score(
         reasons.append("semantically similar concepts with no structural link")
 
     # 5. Peripheral→hub: a low-degree node connecting to a high-degree one
-    deg_u = G.degree(u)
-    deg_v = G.degree(v)
+    deg_u = degrees[u] if degrees is not None else G.degree(u)
+    deg_v = degrees[v] if degrees is not None else G.degree(v)
     if min(deg_u, deg_v) <= 2 and max(deg_u, deg_v) >= 5:
         score += 1
         peripheral = G.nodes[u].get("label", u) if deg_u <= 2 else G.nodes[v].get("label", v)
@@ -260,6 +261,7 @@ def _cross_file_surprises(G: nx.Graph, communities: dict[int, list[str]], top_n:
     Each result includes a 'why' field explaining what makes it non-obvious.
     """
     node_community = _node_community_map(communities)
+    degrees = dict(G.degree())
     candidates = []
 
     for u, v, data in G.edges(data=True):
@@ -277,7 +279,7 @@ def _cross_file_surprises(G: nx.Graph, communities: dict[int, list[str]], top_n:
         if not u_source or not v_source or u_source == v_source:
             continue
 
-        score, reasons = _surprise_score(G, u, v, data, node_community, u_source, v_source)
+        score, reasons = _surprise_score(G, u, v, data, node_community, u_source, v_source, degrees)
         src_id = data.get("_src", u)
         if src_id not in G.nodes:
             src_id = u
