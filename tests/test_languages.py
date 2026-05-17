@@ -2,6 +2,7 @@
 from __future__ import annotations
 from pathlib import Path
 import pytest
+from graphify.build import build
 from graphify.extract import (
     extract_java, extract_c, extract_cpp, extract_ruby,
     extract_csharp, extract_kotlin, extract_scala, extract_php,
@@ -903,6 +904,38 @@ def test_clojure_emits_same_file_calls():
     assert any("enrich-user" in src and "normalize-name" in tgt for src, tgt in calls)
     assert any("render" in src and "enrich-user" in tgt for src, tgt in calls)
     assert any("handle-request" in src and "normalize-name" in tgt for src, tgt in calls)
+
+
+def test_clojure_preserves_case_sensitive_symbols(tmp_path):
+    sample = tmp_path / "case_sensitive.clj"
+    sample.write_text(
+        """(ns sample.case)
+(defn Foo [] :upper)
+(defn foo [] :lower)
+(defn call-upper [] (Foo))
+(defn call-lower [] (foo))
+""",
+        encoding="utf-8",
+    )
+
+    r = extract_clojure(sample)
+
+    assert "error" not in r
+    ids_by_label = {n["label"]: n["id"] for n in r["nodes"]}
+    assert "Foo()" in ids_by_label
+    assert "foo()" in ids_by_label
+    assert ids_by_label["Foo()"] != ids_by_label["foo()"]
+
+    calls = _calls(r)
+    assert ("call-upper()", "Foo()") in calls
+    assert ("call-lower()", "foo()") in calls
+    assert ("call-upper()", "foo()") not in calls
+    assert ("call-lower()", "Foo()") not in calls
+
+    G = build([r])
+    built_labels = [data.get("label") for _, data in G.nodes(data=True)]
+    assert "Foo()" in built_labels
+    assert "foo()" in built_labels
 
 
 def test_clojure_call_edges_have_call_context():

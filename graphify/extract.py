@@ -6131,6 +6131,13 @@ def extract_clojure(path: Path) -> dict:
     def named_children(node) -> list[object]:
         return [child for child in node.children if getattr(child, "is_named", False)]
 
+    def make_clojure_id(*parts: str) -> str:
+        combined = "_".join(p.strip("_.") for p in parts if p)
+        combined = unicodedata.normalize("NFKC", combined)
+        cleaned = re.sub(r"[^\w]+", "_", combined, flags=re.UNICODE)
+        cleaned = re.sub(r"_+", "_", cleaned)
+        return cleaned.strip("_")
+
     def form_head(node) -> str | None:
         if node.type != "list_lit":
             return None
@@ -6199,7 +6206,7 @@ def extract_clojure(path: Path) -> dict:
                     else:
                         continue
                     if module_name:
-                        add_edge(src_nid, _make_id(module_name), "imports_from",
+                        add_edge(src_nid, make_clojure_id(module_name), "imports_from",
                                  module_node.start_point[0] + 1, context="import")
             elif clause_head == ":import":
                 for import_form in clause_children[1:]:
@@ -6214,7 +6221,7 @@ def extract_clojure(path: Path) -> dict:
                     imported = import_symbols[1:] or [package]
                     for name in imported:
                         target = f"{package}.{name}" if name != package else package
-                        add_edge(src_nid, _make_id(target), "imports",
+                        add_edge(src_nid, make_clojure_id(target), "imports",
                                  import_form.start_point[0] + 1, context="import")
 
     def add_protocol_methods(protocol_nid: str, protocol_form) -> None:
@@ -6225,7 +6232,7 @@ def extract_clojure(path: Path) -> dict:
             if not method_name:
                 continue
             line = child.start_point[0] + 1
-            method_nid = _make_id(protocol_nid, method_name)
+            method_nid = make_clojure_id(protocol_nid, method_name)
             add_node(method_nid, f".{method_name}()", line)
             add_edge(protocol_nid, method_nid, "method", line)
 
@@ -6257,16 +6264,16 @@ def extract_clojure(path: Path) -> dict:
         if head == "defmethod":
             dispatch = node_text(children[2]) if len(children) > 2 else ""
             label = f"{name} {dispatch}".strip()
-            nid = _make_id(stem, name, dispatch)
+            nid = make_clojure_id(stem, name, dispatch)
         elif head in type_heads:
             label = name
-            nid = _make_id(stem, name)
+            nid = make_clojure_id(stem, name)
         elif head in callable_heads or head == "defmulti":
             label = f"{name}()"
-            nid = _make_id(stem, name)
+            nid = make_clojure_id(stem, name)
         else:
             label = name
-            nid = _make_id(stem, name)
+            nid = make_clojure_id(stem, name)
 
         add_node(nid, label, line)
         add_edge(parent_nid(), nid, "contains", line)
@@ -6284,7 +6291,7 @@ def extract_clojure(path: Path) -> dict:
             ns_children = named_children(child)
             if len(ns_children) > 1 and ns_children[1].type == "sym_lit":
                 namespace_name = node_text(ns_children[1])
-                namespace_nid = _make_id(stem, namespace_name)
+                namespace_nid = make_clojure_id(stem, namespace_name)
                 add_node(namespace_nid, namespace_name, ns_children[1].start_point[0] + 1)
                 add_edge(file_nid, namespace_nid, "contains", ns_children[1].start_point[0] + 1)
                 add_import_edges(child)
@@ -6295,7 +6302,7 @@ def extract_clojure(path: Path) -> dict:
     for n in nodes:
         raw = n["label"]
         normalised = raw.strip("()").lstrip(".").split(" ", 1)[0]
-        label_to_nid[normalised.casefold()] = n["id"]
+        label_to_nid[normalised] = n["id"]
 
     seen_call_pairs: set[tuple[str, str]] = set()
 
@@ -6319,7 +6326,7 @@ def extract_clojure(path: Path) -> dict:
             if raw_head:
                 callee_name = callee_from_symbol(raw_head)
                 if callee_name:
-                    tgt_nid = label_to_nid.get(callee_name.casefold())
+                    tgt_nid = label_to_nid.get(callee_name)
                     if tgt_nid and tgt_nid != caller_nid:
                         pair = (caller_nid, tgt_nid)
                         if pair not in seen_call_pairs:
