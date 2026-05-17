@@ -120,6 +120,7 @@ def test_opencode_skill_uses_opencode_agent_guidance():
     assert "@agent" in skill
     assert "serial fallback" in skill
     assert "reduce semantic chunks to 10-12 files each" in skill
+    assert "10-12 files each if the smaller-chunk large-corpus policy was applied" in skill
     assert "process chunks one at a time" in skill
     assert "Wait for the user's answer before proceeding" not in skill
 
