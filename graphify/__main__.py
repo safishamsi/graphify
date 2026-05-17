@@ -2218,6 +2218,8 @@ def main() -> None:
         from graphify.build import build_from_json as _bfj
 
         _raw = json.loads(graph_path.read_text(encoding="utf-8"))
+        if "links" not in _raw and "edges" in _raw:
+            _raw = dict(_raw, links=_raw["edges"])
         try:
             G = _jg.node_link_graph(_raw, edges="links")
         except TypeError:

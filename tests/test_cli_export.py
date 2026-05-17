@@ -115,6 +115,19 @@ def test_export_wiki_creates_articles(tmp_path):
     assert (wiki / "index.md").exists()
 
 
+def test_export_wiki_accepts_edges_only_graph_json(tmp_path):
+    out = _make_graph(tmp_path)
+    graph_path = out / "graph.json"
+    data = json.loads(graph_path.read_text())
+    data["edges"] = data.pop("links")
+    graph_path.write_text(json.dumps(data))
+
+    r = _run(["export", "wiki"], tmp_path)
+
+    assert r.returncode == 0, r.stderr
+    assert (out / "wiki" / "index.md").exists()
+
+
 # ── graphify export graphml ──────────────────────────────────────────────────
 
 def test_export_graphml_creates_file(tmp_path):
