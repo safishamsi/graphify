@@ -10,6 +10,7 @@ or partial change is caught by CI.
 """
 from __future__ import annotations
 import json
+from pathlib import Path
 
 from graphify.__main__ import (
     _SETTINGS_HOOK,
@@ -115,3 +116,10 @@ def test_report_is_still_referenced_as_fallback():
         f"The fix should demote the report, not delete the reference — users need to know "
         f"it's available for broad-architecture queries."
     )
+
+
+def test_how_it_works_clarifies_code_only_semantic_extraction():
+    doc = Path("docs/how-it-works.md").read_text(encoding="utf-8")
+    assert "Code files are not sent to the LLM semantic extractor" in doc
+    assert "code files, Pass 3 is skipped entirely" in doc
+    assert "docs, papers, images, and transcripts" in doc
