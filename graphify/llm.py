@@ -433,7 +433,7 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192) -> dict:
         input=user_message,
         capture_output=True,
         text=True,
-        encoding="utf-8",  # Force UTF-8 — prevents UnicodeEncodeError on Windows cp1252 (#3)
+        encoding="utf-8",  # Force UTF-8 — prevents UnicodeEncodeError on Windows cp1252
         timeout=600,
         check=False,
     )
@@ -851,7 +851,7 @@ def extract_corpus_parallel(
     merged: dict = {
         "nodes": [], "edges": [], "hyperedges": [],
         "input_tokens": 0, "output_tokens": 0,
-        "failed_chunks": 0,  # count of chunks that raised (#3 — loud failure on chunk errors)
+        "failed_chunks": 0,  # count of chunks that raised — loud failure on chunk errors
     }
     total = len(chunks)
 
@@ -913,7 +913,7 @@ def extract_corpus_parallel(
 
     # Loud failure summary — surface chunk failures at end so they're never
     # buried mid-log. Exit 0 preserved for caller compatibility; the
-    # summary block makes the problem visible (#3).
+    # summary block makes the problem visible.
     if merged["failed_chunks"] > 0:
         print(
             f"[graphify] WARNING: {merged['failed_chunks']}/{total} semantic chunk(s) failed"
@@ -980,7 +980,7 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
             input=prompt,
             capture_output=True,
             text=True,
-            encoding="utf-8",  # Force UTF-8 — prevents UnicodeEncodeError on Windows cp1252 (#3)
+            encoding="utf-8",  # Force UTF-8 — prevents UnicodeEncodeError on Windows cp1252
             timeout=600,
             check=False,
         )

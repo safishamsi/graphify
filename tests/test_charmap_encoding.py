@@ -1,4 +1,4 @@
-"""Regression tests for issue #3: UnicodeEncodeError on Windows cp1252 console.
+"""Regression tests for UnicodeEncodeError on Windows cp1252 console.
 
 On Windows with the default cp1252 codepage, subprocess.run(..., text=True)
 without an explicit encoding= defaults to cp1252, causing UnicodeEncodeError
@@ -218,7 +218,7 @@ class TestLoudChunkFailure:
 # ── Substitution validation (rsl-siege-manager path via Python) ────────────────
 
 class TestSubstitutionValidation:
-    """Exercises the same code path as the rsl-siege-manager reproduction (#3)
+    """Exercises the same code path as the rsl-siege-manager reproduction
     without requiring the `claude` CLI or its auth.
 
     The reproduction scenario: a file containing → ✅ ≥ is read via _read_files
