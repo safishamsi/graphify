@@ -115,6 +115,13 @@ def test_codex_skill_uses_graphify_with_dirty_graph_output():
     assert "graphify path" in skill
 
 
+def test_codex_agents_install_mentions_dirty_graph_output(tmp_path):
+    _agents_install(tmp_path, "codex")
+    content = (tmp_path / "AGENTS.md").read_text()
+    assert "Dirty graphify-out/ files are expected" in content
+    assert "not a reason to skip graphify" in content
+
+
 def test_opencode_skill_contains_mention():
     """OpenCode skill file must reference @mention."""
     import graphify
