@@ -104,6 +104,17 @@ def test_codex_skill_contains_spawn_agent():
     assert "spawn_agent" in skill
 
 
+def test_codex_skill_uses_graphify_with_dirty_graph_output():
+    """Codex skill must keep graph-first orientation even when graph output is dirty."""
+    import graphify
+    skill = (Path(graphify.__file__).parent / "skill-codex.md").read_text()
+    assert "Dirty `graphify-out/` artifacts are expected" in skill
+    assert "not a reason to skip Graphify" in skill
+    assert "graphify query" in skill
+    assert "graphify explain" in skill
+    assert "graphify path" in skill
+
+
 def test_opencode_skill_contains_mention():
     """OpenCode skill file must reference @mention."""
     import graphify
