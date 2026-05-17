@@ -854,9 +854,18 @@ def save_manifest(
     kind="semantic" — written by `graphify extract` after semantic extraction.
                       Stamps semantic_hash; preserves existing ast_hash.
     kind="both"     — full pipeline: stamps both hashes (default).
+
+    The manifest is seeded from the existing on-disk manifest (pruned to files
+    that still exist) before stamping the files in this run. Without this, an
+    incremental run that only processed a handful of files would drop every
+    other file out of the manifest, so the next detect_incremental() would flag
+    the whole corpus as "new". Entries for deleted files are pruned, so
+    deletions still self-heal.
     """
     existing = load_manifest(manifest_path)
-    manifest: dict[str, dict] = {}
+    manifest: dict[str, dict] = {
+        f: e for f, e in existing.items() if Path(f).exists()
+    }
     for file_list in files.values():
         for f in file_list:
             try:
