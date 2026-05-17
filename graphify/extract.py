@@ -14,6 +14,36 @@ from .cache import load_cached, save_cached
 _RECURSION_LIMIT = 10_000
 
 
+
+# Language built-in globals that AST may classify as call targets when used as
+# constructors or coercion functions (e.g. String(x), Number(x), Boolean(x)).
+# Without this filter they become god-nodes accumulating spurious edges from
+# every call site across the codebase, polluting "God Nodes", "Surprising
+# Connections", and "Suggested Questions" sections of the report.
+#
+# Filter applied at BOTH same-file resolution and cross-file resolution.
+# See issue #726 and related discussion.
+_LANGUAGE_BUILTIN_GLOBALS = frozenset({
+    # JavaScript / TypeScript ECMAScript built-ins
+    "String", "Number", "Boolean", "Object", "Array", "Symbol", "BigInt",
+    "Date", "RegExp", "Error", "TypeError", "RangeError", "SyntaxError",
+    "ReferenceError", "EvalError", "URIError",
+    "Promise", "Map", "Set", "WeakMap", "WeakSet", "JSON", "Math",
+    "Reflect", "Proxy", "Intl",
+    "parseInt", "parseFloat", "isNaN", "isFinite",
+    "encodeURIComponent", "decodeURIComponent", "encodeURI", "decodeURI",
+    # Browser / Node common globals
+    "fetch", "URL", "URLSearchParams", "FormData", "Blob", "File",
+    "Headers", "Request", "Response", "AbortController", "AbortSignal",
+    "TextEncoder", "TextDecoder", "console",
+    # Python built-in callables that get confused with user code
+    "str", "int", "float", "bool", "list", "dict", "set", "tuple", "bytes",
+    "len", "range", "enumerate", "zip", "map", "filter", "sum", "min", "max",
+    "print", "open", "isinstance", "type", "super", "sorted", "reversed",
+    "any", "all", "abs", "round", "next", "iter", "hash", "id", "repr",
+    "callable", "getattr", "setattr", "hasattr", "delattr", "vars", "dir",
+})
+
 def _raise_recursion_limit() -> None:
     if sys.getrecursionlimit() < _RECURSION_LIMIT:
         sys.setrecursionlimit(_RECURSION_LIMIT)
@@ -1721,7 +1751,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                         # Try reading the node directly (e.g. Java name field is the callee)
                         callee_name = _read_text(func_node, source)
 
-            if callee_name:
+            if callee_name and callee_name not in _LANGUAGE_BUILTIN_GLOBALS:
                 tgt_nid = label_to_nid.get(callee_name.lower())
                 if tgt_nid and tgt_nid != caller_nid:
                     pair = (caller_nid, tgt_nid)
@@ -3567,7 +3597,7 @@ def extract_go(path: Path) -> dict:
                     is_member_call = receiver_name not in go_imported_pkgs
                     if field:
                         callee_name = _read_text(field, source)
-            if callee_name:
+            if callee_name and callee_name not in _LANGUAGE_BUILTIN_GLOBALS:
                 tgt_nid = label_to_nid.get(callee_name.lower())
                 if tgt_nid and tgt_nid != caller_nid:
                     pair = (caller_nid, tgt_nid)
@@ -3768,7 +3798,7 @@ def extract_rust(path: Path) -> dict:
                     name = func_node.child_by_field_name("name")
                     if name:
                         callee_name = _read_text(name, source)
-            if callee_name:
+            if callee_name and callee_name not in _LANGUAGE_BUILTIN_GLOBALS:
                 tgt_nid = label_to_nid.get(callee_name.lower())
                 if tgt_nid and tgt_nid != caller_nid:
                     pair = (caller_nid, tgt_nid)
@@ -4747,7 +4777,7 @@ def extract_elixir(path: Path) -> dict:
             if child.type == "identifier":
                 callee_name = source[child.start_byte:child.end_byte].decode("utf-8", errors="replace")
                 break
-        if callee_name:
+        if callee_name and callee_name not in _LANGUAGE_BUILTIN_GLOBALS:
             tgt_nid = label_to_nid.get(callee_name.lower())
             if tgt_nid and tgt_nid != caller_nid:
                 pair = (caller_nid, tgt_nid)
@@ -6485,6 +6515,11 @@ def extract(
         for rc in result.get("raw_calls", []):
             callee = rc.get("callee", "")
             if not callee:
+                continue
+            # Skip language built-in globals (String, Number, Boolean, etc.) —
+            # they accumulate spurious edges from every call site, creating
+            # god-nodes and cross-language false positives in the report.
+            if callee in _LANGUAGE_BUILTIN_GLOBALS:
                 continue
             # Skip member-call callees: obj.log() → "log" has no import evidence
             # and collides with any top-level function named "log" in the corpus.
