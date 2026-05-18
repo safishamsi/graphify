@@ -23,6 +23,25 @@ def _default_graph_path() -> str:
     return str(Path(_GRAPHIFY_OUT) / "graph.json")
 
 
+def _enforce_graph_size_cap_or_exit(gp: Path) -> None:
+    """Reject oversized graph files before parsing (CLI exit-on-fail flavor).
+
+    Delegates to ``graphify.security.check_graph_file_size_cap`` and turns the
+    raised ``ValueError`` into a CLI-style ``error: ...`` message + exit 1.
+    Use this from ``__main__.py`` subcommands that already use the ``print +
+    sys.exit(1)`` idiom. Library/MCP/loader callers (``serve._load_graph``,
+    ``build``, ``benchmark``, ``tree_html``, ``callflow_html``, ``prs``,
+    ``global_graph``, ``watch``, ``export``) call the security helper directly
+    and let the ``ValueError`` propagate.
+    """
+    from graphify.security import check_graph_file_size_cap
+    try:
+        check_graph_file_size_cap(gp)
+    except ValueError as exc:
+        print(f"error: {exc}", file=sys.stderr)
+        sys.exit(1)
+
+
 def _check_skill_version(skill_dst: Path) -> None:
     """Warn if the installed skill is from an older graphify version."""
     version_file = skill_dst.parent / ".graphify_version"
@@ -1534,6 +1553,7 @@ def main() -> None:
         if not gp.suffix == ".json":
             print(f"error: graph file must be a .json file", file=sys.stderr)
             sys.exit(1)
+        _enforce_graph_size_cap_or_exit(gp)
         try:
             import json as _json
             import networkx as _nx
@@ -1594,6 +1614,7 @@ def main() -> None:
         if not gp.exists():
             print(f"error: graph file not found: {gp}", file=sys.stderr)
             sys.exit(1)
+        _enforce_graph_size_cap_or_exit(gp)
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
@@ -1675,6 +1696,7 @@ def main() -> None:
         if not gp.exists():
             print(f"error: graph file not found: {gp}", file=sys.stderr)
             sys.exit(1)
+        _enforce_graph_size_cap_or_exit(gp)
         _raw = json.loads(gp.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
@@ -1798,6 +1820,7 @@ def main() -> None:
         from graphify.report import generate
         from graphify.export import to_json, to_html
         print("Loading existing graph...")
+        _enforce_graph_size_cap_or_exit(graph_json)
         _raw = json.loads(graph_json.read_text(encoding="utf-8"))
         _directed = bool(_raw.get("directed", False))
         G = build_from_json(_raw, directed=_directed)
@@ -1958,6 +1981,7 @@ def main() -> None:
         if not graph_path.is_file():
             print(f"error: graph.json not found at {graph_path}", file=sys.stderr)
             sys.exit(1)
+        _enforce_graph_size_cap_or_exit(graph_path)
         if output_path is None:
             output_path = graph_path.parent / "GRAPH_TREE.html"
         out = write_tree_html(
@@ -2046,6 +2070,7 @@ def main() -> None:
             if not gp.exists():
                 print(f"error: not found: {gp}", file=sys.stderr)
                 sys.exit(1)
+            _enforce_graph_size_cap_or_exit(gp)
             data = json.loads(gp.read_text(encoding="utf-8"))
             # Normalize edges/links key before loading — graphify writes "links"
             # via node_link_data but older runs may have used "edges" (#738).
@@ -2232,6 +2257,7 @@ def main() -> None:
         from networkx.readwrite import json_graph as _jg
         from graphify.build import build_from_json as _bfj
 
+        _enforce_graph_size_cap_or_exit(graph_path)
         _raw = json.loads(graph_path.read_text(encoding="utf-8"))
         if "links" not in _raw and "edges" in _raw:
             _raw = dict(_raw, links=_raw["edges"])
@@ -2326,6 +2352,7 @@ def main() -> None:
     elif cmd == "benchmark":
         from graphify.benchmark import run_benchmark, print_benchmark
         graph_path = sys.argv[2] if len(sys.argv) > 2 else "graphify-out/graph.json"
+        _enforce_graph_size_cap_or_exit(Path(graph_path))
         # Try to load corpus_words from detect output
         corpus_words = None
         detect_path = Path(".graphify_detect.json")

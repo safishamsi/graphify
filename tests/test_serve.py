@@ -200,6 +200,32 @@ def test_load_graph_missing_file(tmp_path):
         _load_graph(str(graphify_dir / "nonexistent.json"))
 
 
+def test_load_graph_rejects_oversized_file(monkeypatch, tmp_path, capsys):
+    # #F4: oversized graph.json must fail fast (SystemExit) with a clear error.
+    G = _make_graph()
+    data = json_graph.node_link_data(G, edges="links")
+    p = tmp_path / "graph.json"
+    p.write_text(json.dumps(data))
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 16)
+    with pytest.raises(SystemExit):
+        _load_graph(str(p))
+    err = capsys.readouterr().err
+    assert "exceeds" in err
+    assert "byte cap" in err
+
+
+def test_load_graph_accepts_under_cap(monkeypatch, tmp_path):
+    # Verifies the cap path does not regress the normal load.
+    G = _make_graph()
+    data = json_graph.node_link_data(G, edges="links")
+    p = tmp_path / "graph.json"
+    p.write_text(json.dumps(data))
+    # Cap well above the actual file size — load proceeds.
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 10 * 1024 * 1024)
+    G2 = _load_graph(str(p))
+    assert G2.number_of_nodes() == G.number_of_nodes()
+
+
 # --- #874: MCP hot-reload ---
 
 def _write_graph(path, nodes: list[str]) -> None:

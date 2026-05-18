@@ -318,9 +318,11 @@ def fetch_worktrees() -> dict[str, str]:
 def _load_graph_json(graph_path: Path) -> dict | None:
     if not graph_path.exists():
         return None
+    from graphify.security import check_graph_file_size_cap
     try:
+        check_graph_file_size_cap(graph_path)
         return json.loads(graph_path.read_text(encoding="utf-8"))
-    except (json.JSONDecodeError, OSError):
+    except (json.JSONDecodeError, OSError, ValueError):
         return None
 
 

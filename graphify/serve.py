@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 import networkx as nx
 from networkx.readwrite import json_graph
-from graphify.security import sanitize_label
+from graphify.security import sanitize_label, check_graph_file_size_cap
 from graphify.build import edge_data
 
 
@@ -17,6 +17,7 @@ def _load_graph(graph_path: str) -> nx.Graph:
             raise ValueError(f"Graph path must be a .json file, got: {graph_path!r}")
         if not resolved.exists():
             raise FileNotFoundError(f"Graph file not found: {resolved}")
+        check_graph_file_size_cap(resolved)
         safe = resolved
         data = json.loads(safe.read_text(encoding="utf-8"))
         if "links" not in data and "edges" in data:

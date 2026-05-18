@@ -344,3 +344,15 @@ def test_build_from_json_relative_source_file_unchanged(tmp_path):
     }
     G = build_from_json(extraction, root=tmp_path)
     assert G.nodes["foo_bar"]["source_file"] == "src/foo.py"
+
+
+def test_build_merge_rejects_oversized_existing_graph(monkeypatch, tmp_path):
+    """#F4: build_merge must refuse to read an existing graph.json that
+    exceeds the size cap, rather than json.loads-ing it into memory."""
+    import pytest
+
+    graph_path = tmp_path / "graph.json"
+    graph_path.write_text(json.dumps({"nodes": [], "links": []}), encoding="utf-8")
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 8)
+    with pytest.raises(ValueError, match="exceeds"):
+        build_merge([], graph_path, dedup=False)

@@ -389,6 +389,8 @@ def _rebuild_code(
         existing_graph_data: dict = {}
         if existing_graph.exists():
             try:
+                from graphify.security import check_graph_file_size_cap
+                check_graph_file_size_cap(existing_graph)
                 existing = json.loads(existing_graph.read_text(encoding="utf-8"))
                 existing_graph_data = existing
                 new_ast_ids = {n["id"] for n in result["nodes"]}
@@ -433,6 +435,8 @@ def _rebuild_code(
             same_graph = False
             if existing_graph.exists():
                 try:
+                    from graphify.security import check_graph_file_size_cap
+                    check_graph_file_size_cap(existing_graph)
                     existing_payload = json.loads(existing_graph.read_text(encoding="utf-8"))
                     same_graph = (
                         json.dumps(_canonical_graph_for_compare(existing_payload), sort_keys=True, ensure_ascii=False)
@@ -526,6 +530,8 @@ def _rebuild_code(
         same_report = False
         if existing_graph.exists():
             try:
+                from graphify.security import check_graph_file_size_cap
+                check_graph_file_size_cap(existing_graph)
                 existing_payload = json.loads(existing_graph.read_text(encoding="utf-8"))
                 same_graph = (
                     json.dumps(_canonical_graph_for_compare(existing_payload), sort_keys=True, ensure_ascii=False)

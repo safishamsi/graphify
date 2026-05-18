@@ -9,12 +9,14 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from graphify.security import (
+    check_graph_file_size_cap,
     sanitize_label,
     safe_fetch,
     safe_fetch_text,
     validate_graph_path,
     validate_url,
     _MAX_FETCH_BYTES,
+    _MAX_GRAPH_FILE_BYTES,
     _MAX_TEXT_BYTES,
 )
 
@@ -187,3 +189,68 @@ def test_sanitize_label_caps_at_256():
 def test_sanitize_label_safe_passthrough():
     assert sanitize_label("MyClass") == "MyClass"
     assert sanitize_label("extract_python") == "extract_python"
+
+
+# ---------------------------------------------------------------------------
+# check_graph_file_size_cap (#F4 — graph-load memory bomb protection)
+# ---------------------------------------------------------------------------
+
+def test_graph_size_cap_default_is_512_mib():
+    assert _MAX_GRAPH_FILE_BYTES == 512 * 1024 * 1024
+
+
+def test_graph_size_cap_under_limit_returns_none(tmp_path):
+    p = tmp_path / "graph.json"
+    p.write_text('{"nodes": [], "links": []}', encoding="utf-8")
+    assert check_graph_file_size_cap(p) is None
+
+
+def test_graph_size_cap_over_limit_raises(monkeypatch, tmp_path):
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 16)
+    p = tmp_path / "graph.json"
+    p.write_text('{"nodes": [], "links": [], "padding": "x" * 50}', encoding="utf-8")
+    with pytest.raises(ValueError, match="exceeds"):
+        check_graph_file_size_cap(p)
+
+
+def test_graph_size_cap_error_message_includes_size_and_cap(monkeypatch, tmp_path):
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 8)
+    p = tmp_path / "graph.json"
+    p.write_text("AAAAAAAAAAAAAAAA", encoding="utf-8")  # 16 bytes
+    with pytest.raises(ValueError) as excinfo:
+        check_graph_file_size_cap(p)
+    msg = str(excinfo.value)
+    assert "16" in msg  # observed size
+    assert "8" in msg   # cap
+    assert "byte" in msg.lower()
+
+
+def test_graph_size_cap_at_boundary_passes(monkeypatch, tmp_path):
+    # Boundary: equal to cap is allowed; strictly greater is rejected.
+    p = tmp_path / "graph.json"
+    payload = "A" * 32
+    p.write_text(payload, encoding="utf-8")
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 32)
+    assert check_graph_file_size_cap(p) is None
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 31)
+    with pytest.raises(ValueError):
+        check_graph_file_size_cap(p)
+
+
+def test_graph_size_cap_missing_file_silently_returns(tmp_path):
+    # When stat() fails (FileNotFoundError → OSError), the helper returns None
+    # so the caller's own existence check can surface a clearer error.
+    missing = tmp_path / "does_not_exist.json"
+    assert check_graph_file_size_cap(missing) is None
+
+
+def test_graph_size_cap_unreadable_directory_silently_returns(monkeypatch, tmp_path):
+    # Force stat() to raise PermissionError → still OSError → silent return.
+    p = tmp_path / "graph.json"
+    p.write_text("{}", encoding="utf-8")
+
+    def _boom(self):
+        raise PermissionError("denied")
+
+    monkeypatch.setattr(Path, "stat", _boom)
+    assert check_graph_file_size_cap(p) is None

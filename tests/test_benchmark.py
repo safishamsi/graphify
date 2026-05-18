@@ -163,3 +163,14 @@ def test_print_benchmark_survives_cp1252_stdout(tmp_path, monkeypatch, capsys):
     # ASCII fallbacks must be present, fancy glyphs must not.
     assert "─" not in written
     assert "→" not in written
+
+
+def test_run_benchmark_rejects_oversized_graph(monkeypatch, tmp_path):
+    """#F4: run_benchmark must refuse to read a graph.json that exceeds
+    the size cap before parsing it into memory."""
+    G = _make_graph()
+    graph_file = tmp_path / "graph.json"
+    _write_graph(G, graph_file)
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 8)
+    with pytest.raises(ValueError, match="exceeds"):
+        run_benchmark(str(graph_file))

@@ -16,6 +16,12 @@ _ALLOWED_SCHEMES = {"http", "https"}
 _MAX_FETCH_BYTES = 52_428_800   # 50 MB hard cap for binary downloads
 _MAX_TEXT_BYTES  = 10_485_760   # 10 MB hard cap for HTML / text
 
+# Graph-load memory-bomb cap: reject .json files larger than this before
+# JSON-parsing them into a dict. Without this, a multi-gigabyte (or
+# specifically crafted) graph.json can exhaust process memory during
+# json.loads + node_link_graph rehydration.
+_MAX_GRAPH_FILE_BYTES = 512 * 1024 * 1024   # 512 MiB
+
 # AWS metadata, link-local, and common cloud metadata endpoints
 _BLOCKED_HOSTS = {"metadata.google.internal", "metadata.google.com"}
 
@@ -226,6 +232,29 @@ def validate_graph_path(path: str | Path, base: Path | None = None) -> Path:
         raise FileNotFoundError(f"Graph file not found: {resolved}")
 
     return resolved
+
+
+def check_graph_file_size_cap(path: Path) -> None:
+    """Reject *path* if its size exceeds ``_MAX_GRAPH_FILE_BYTES``.
+
+    Protects callers from memory bombs by failing fast before a multi-GiB
+    graph.json is read into memory and JSON-parsed. Silently returns when
+    ``path.stat()`` cannot be read — the caller's own existence/path check
+    is expected to surface a clearer error in that case.
+
+    Raises:
+        ValueError - file size exceeds the cap. The message includes the
+        observed size and the cap so callers can show a usable error.
+    """
+    try:
+        size = path.stat().st_size
+    except OSError:
+        return
+    if size > _MAX_GRAPH_FILE_BYTES:
+        raise ValueError(
+            f"graph file {path} is {size:_d} bytes, "
+            f"exceeds {_MAX_GRAPH_FILE_BYTES:_d}-byte cap"
+        )
 
 
 # ---------------------------------------------------------------------------

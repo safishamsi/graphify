@@ -97,6 +97,8 @@ def run_benchmark(
 
     Returns dict with: corpus_tokens, avg_query_tokens, reduction_ratio, per_question
     """
+    from graphify.security import check_graph_file_size_cap
+    check_graph_file_size_cap(Path(graph_path))
     data = json.loads(Path(graph_path).read_text(encoding="utf-8"))
     try:
         G = json_graph.node_link_graph(data, edges="links")
