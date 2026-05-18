@@ -174,13 +174,14 @@ _SETTINGS_HOOK = {
     ],
 }
 
-_SKILL_REGISTRATION = (
-    "\n# graphify\n"
-    "- **graphify** (`~/.claude/skills/graphify/SKILL.md`) "
-    "- any input to knowledge graph. Trigger: `/graphify`\n"
-    "When the user types `/graphify`, invoke the Skill tool "
-    "with `skill: \"graphify\"` before doing anything else.\n"
-)
+def _skill_registration(skill_path: str = "~/.claude/skills/graphify/SKILL.md") -> str:
+    return (
+        "\n# graphify\n"
+        f"- **graphify** (`{skill_path}`) "
+        "- any input to knowledge graph. Trigger: `/graphify`\n"
+        "When the user types `/graphify`, invoke the Skill tool "
+        "with `skill: \"graphify\"` before doing anything else.\n"
+    )
 
 
 _PLATFORM_CONFIG: dict[str, dict] = {
@@ -336,16 +337,17 @@ def install(platform: str = "claude", *, project: bool = False, project_dir: Pat
     if cfg["claude_md"]:
         # Register in the matching Claude Code scope.
         claude_md = (project_dir / ".claude" / "CLAUDE.md") if project else Path.home() / ".claude" / "CLAUDE.md"
+        registration = _skill_registration(".claude/skills/graphify/SKILL.md" if project else "~/.claude/skills/graphify/SKILL.md")
         if claude_md.exists():
             content = claude_md.read_text(encoding="utf-8")
             if "graphify" in content:
                 print(f"  CLAUDE.md        ->  already registered (no change)")
             else:
-                claude_md.write_text(content.rstrip() + _SKILL_REGISTRATION, encoding="utf-8")
+                claude_md.write_text(content.rstrip() + registration, encoding="utf-8")
                 print(f"  CLAUDE.md        ->  skill registered in {claude_md}")
         else:
             claude_md.parent.mkdir(parents=True, exist_ok=True)
-            claude_md.write_text(_SKILL_REGISTRATION.lstrip(), encoding="utf-8")
+            claude_md.write_text(registration.lstrip(), encoding="utf-8")
             print(f"  CLAUDE.md        ->  created at {claude_md}")
 
     if platform == "opencode":
@@ -1638,9 +1640,15 @@ def main() -> None:
     elif cmd == "antigravity":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
-            _antigravity_install(Path("."))
+            if "--project" in sys.argv[3:]:
+                _project_install("antigravity", Path("."))
+            else:
+                _antigravity_install(Path("."))
         elif subcmd == "uninstall":
-            _antigravity_uninstall(Path("."))
+            if "--project" in sys.argv[3:]:
+                _project_uninstall("antigravity", Path("."))
+            else:
+                _antigravity_uninstall(Path("."))
         else:
             print("Usage: graphify antigravity [install|uninstall]", file=sys.stderr)
             sys.exit(1)
