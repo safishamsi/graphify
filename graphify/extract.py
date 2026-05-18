@@ -37,16 +37,21 @@ def extract_python(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge(src: str, tgt: str, relation: str, line: int) -> None:
         # Only add edge if both endpoints exist or src is the file node
@@ -91,7 +96,7 @@ def extract_python(path: Path) -> dict:
             class_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
             class_nid = _make_id(stem, class_name)
             line = node.start_point[0] + 1
-            add_node(class_nid, class_name, line)
+            add_node(class_nid, class_name, line, node_type="class")
             add_edge(file_nid, class_nid, "contains", line)
 
             # Inheritance - create stub node for external bases so the edge is never dropped
@@ -131,11 +136,11 @@ def extract_python(path: Path) -> dict:
             line = node.start_point[0] + 1
             if parent_class_nid:
                 func_nid = _make_id(parent_class_nid, func_name)
-                add_node(func_nid, f".{func_name}()", line)
+                add_node(func_nid, f".{func_name}()", line, node_type="method")
                 add_edge(parent_class_nid, func_nid, "method", line)
             else:
                 func_nid = _make_id(stem, func_name)
-                add_node(func_nid, f"{func_name}()", line)
+                add_node(func_nid, f"{func_name}()", line, node_type="function")
                 add_edge(file_nid, func_nid, "contains", line)
             # Collect body for the call-graph pass below
             body = node.child_by_field_name("body")
@@ -240,16 +245,21 @@ def extract_js(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
@@ -287,12 +297,28 @@ def extract_js(path: Path) -> dict:
             class_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
             class_nid = _make_id(stem, class_name)
             line = node.start_point[0] + 1
-            add_node(class_nid, class_name, line)
+            _js_mods: list[str] = ["export"] if node.parent and node.parent.type == "export_statement" else []
+            for _c in node.children:
+                if _c.type == "abstract":
+                    _js_mods.append("abstract")
+            add_node(class_nid, class_name, line, node_type="class", modifiers=_js_mods or None)
             add_edge(file_nid, class_nid, "contains", line)
             body = node.child_by_field_name("body")
             if body:
                 for child in body.children:
                     walk(child, parent_class_nid=class_nid)
+            return
+
+        if t == "interface_declaration":
+            name_node = node.child_by_field_name("name")
+            if not name_node:
+                return
+            iface_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
+            iface_nid = _make_id(stem, iface_name)
+            line = node.start_point[0] + 1
+            _js_mods = ["export"] if node.parent and node.parent.type == "export_statement" else []
+            add_node(iface_nid, iface_name, line, node_type="interface", modifiers=_js_mods or None)
+            add_edge(file_nid, iface_nid, "contains", line)
             return
 
         if t == "function_declaration":
@@ -302,7 +328,11 @@ def extract_js(path: Path) -> dict:
             func_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
             line = node.start_point[0] + 1
             func_nid = _make_id(stem, func_name)
-            add_node(func_nid, f"{func_name}()", line)
+            _js_mods = ["export"] if node.parent and node.parent.type == "export_statement" else []
+            for _c in node.children:
+                if _c.type == "async":
+                    _js_mods.append("async")
+            add_node(func_nid, f"{func_name}()", line, node_type="function", modifiers=_js_mods or None)
             add_edge(file_nid, func_nid, "contains", line)
             body = node.child_by_field_name("body")
             if body:
@@ -316,7 +346,13 @@ def extract_js(path: Path) -> dict:
             method_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
             line = node.start_point[0] + 1
             method_nid = _make_id(parent_class_nid, method_name)
-            add_node(method_nid, f".{method_name}()", line)
+            _js_mods = []
+            for _c in node.children:
+                if _c.type in ("static", "async", "abstract"):
+                    _js_mods.append(_c.type)
+                elif _c.type == "accessibility_modifier":
+                    _js_mods.append(source[_c.start_byte:_c.end_byte].decode("utf-8", errors="replace"))
+            add_node(method_nid, f".{method_name}()", line, node_type="method", modifiers=_js_mods or None)
             add_edge(parent_class_nid, method_nid, "method", line)
             body = node.child_by_field_name("body")
             if body:
@@ -334,7 +370,8 @@ def extract_js(path: Path) -> dict:
                             func_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
                             line = child.start_point[0] + 1
                             func_nid = _make_id(stem, func_name)
-                            add_node(func_nid, f"{func_name}()", line)
+                            _js_arrow_mods = ["export"] if node.parent and node.parent.type == "export_statement" else []
+                            add_node(func_nid, f"{func_name}()", line, node_type="function", modifiers=_js_arrow_mods or None)
                             add_edge(file_nid, func_nid, "contains", line)
                             body = value.child_by_field_name("body")
                             if body:
@@ -422,16 +459,21 @@ def extract_go(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge_raw(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
@@ -458,7 +500,8 @@ def extract_go(path: Path) -> dict:
                 func_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
                 line = node.start_point[0] + 1
                 func_nid = _make_id(stem, func_name)
-                add_node(func_nid, f"{func_name}()", line)
+                _go_mods = ["export"] if func_name and func_name[0].isupper() else []
+                add_node(func_nid, f"{func_name}()", line, node_type="function", modifiers=_go_mods or None)
                 add_edge_raw(file_nid, func_nid, "contains", line)
                 body = node.child_by_field_name("body")
                 if body:
@@ -480,15 +523,17 @@ def extract_go(path: Path) -> dict:
             if name_node:
                 method_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
                 line = node.start_point[0] + 1
+                _go_method_mods = ["export"] if method_name and method_name[0].isupper() else []
                 if receiver_type:
                     parent_nid = _make_id(stem, receiver_type)
-                    add_node(parent_nid, receiver_type, line)
+                    _go_recv_mods = ["export"] if receiver_type and receiver_type[0].isupper() else []
+                    add_node(parent_nid, receiver_type, line, node_type="class", modifiers=_go_recv_mods or None)
                     method_nid = _make_id(parent_nid, method_name)
-                    add_node(method_nid, f".{method_name}()", line)
+                    add_node(method_nid, f".{method_name}()", line, node_type="method", modifiers=_go_method_mods or None)
                     add_edge_raw(parent_nid, method_nid, "method", line)
                 else:
                     method_nid = _make_id(stem, method_name)
-                    add_node(method_nid, f"{method_name}()", line)
+                    add_node(method_nid, f"{method_name}()", line, node_type="method", modifiers=_go_method_mods or None)
                     add_edge_raw(file_nid, method_nid, "contains", line)
                 body = node.child_by_field_name("body")
                 if body:
@@ -503,7 +548,15 @@ def extract_go(path: Path) -> dict:
                         type_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
                         line = child.start_point[0] + 1
                         type_nid = _make_id(stem, type_name)
-                        add_node(type_nid, type_name, line)
+                        _go_type_mods = ["export"] if type_name and type_name[0].isupper() else []
+                        _go_body = child.child_by_field_name("type")
+                        if _go_body and _go_body.type == "interface_type":
+                            _go_node_type = "interface"
+                        elif _go_body and _go_body.type == "struct_type":
+                            _go_node_type = "class"
+                        else:
+                            _go_node_type = "type"
+                        add_node(type_nid, type_name, line, node_type=_go_node_type, modifiers=_go_type_mods or None)
                         add_edge_raw(file_nid, type_nid, "contains", line)
             return
 
@@ -608,16 +661,21 @@ def extract_rust(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
@@ -643,13 +701,19 @@ def extract_rust(path: Path) -> dict:
             if name_node:
                 func_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
                 line = node.start_point[0] + 1
+                _rs_mods: list[str] = []
+                for _c in node.children:
+                    if _c.type == "visibility_modifier":
+                        _rs_mods.append("export")
+                    elif _c.type == "async":
+                        _rs_mods.append("async")
                 if parent_impl_nid:
                     func_nid = _make_id(parent_impl_nid, func_name)
-                    add_node(func_nid, f".{func_name}()", line)
+                    add_node(func_nid, f".{func_name}()", line, node_type="method", modifiers=_rs_mods or None)
                     add_edge(parent_impl_nid, func_nid, "method", line)
                 else:
                     func_nid = _make_id(stem, func_name)
-                    add_node(func_nid, f"{func_name}()", line)
+                    add_node(func_nid, f"{func_name}()", line, node_type="function", modifiers=_rs_mods or None)
                     add_edge(file_nid, func_nid, "contains", line)
                 body = node.child_by_field_name("body")
                 if body:
@@ -662,7 +726,12 @@ def extract_rust(path: Path) -> dict:
                 item_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
                 line = node.start_point[0] + 1
                 item_nid = _make_id(stem, item_name)
-                add_node(item_nid, item_name, line)
+                _rs_mods: list[str] = []
+                for _c in node.children:
+                    if _c.type == "visibility_modifier":
+                        _rs_mods.append("export")
+                _rs_node_type = "enum" if t == "enum_item" else ("interface" if t == "trait_item" else "class")
+                add_node(item_nid, item_name, line, node_type=_rs_node_type, modifiers=_rs_mods or None)
                 add_edge(file_nid, item_nid, "contains", line)
             return
 
@@ -775,16 +844,21 @@ def extract_java(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge_raw(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
@@ -842,7 +916,14 @@ def extract_java(path: Path) -> dict:
             class_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
             class_nid = _make_id(stem, class_name)
             line = node.start_point[0] + 1
-            add_node(class_nid, class_name, line)
+            _java_mods: list[str] = []
+            for _c in node.children:
+                if _c.type == "modifiers":
+                    for _m in _c.children:
+                        if _m.type in ("public", "private", "protected", "abstract", "static", "final"):
+                            _java_mods.append(_m.type)
+            _java_node_type = "interface" if t == "interface_declaration" else "class"
+            add_node(class_nid, class_name, line, node_type=_java_node_type, modifiers=_java_mods or None)
             add_edge_raw(file_nid, class_nid, "contains", line)
             body = node.child_by_field_name("body")
             if body:
@@ -856,13 +937,19 @@ def extract_java(path: Path) -> dict:
                 return
             method_name = source[name_node.start_byte:name_node.end_byte].decode("utf-8", errors="replace")
             line = node.start_point[0] + 1
+            _java_mods: list[str] = []
+            for _c in node.children:
+                if _c.type == "modifiers":
+                    for _m in _c.children:
+                        if _m.type in ("public", "private", "protected", "abstract", "static", "final"):
+                            _java_mods.append(_m.type)
             if parent_class_nid:
                 method_nid = _make_id(parent_class_nid, method_name)
-                add_node(method_nid, f".{method_name}()", line)
+                add_node(method_nid, f".{method_name}()", line, node_type="method", modifiers=_java_mods or None)
                 add_edge_raw(parent_class_nid, method_nid, "method", line)
             else:
                 method_nid = _make_id(stem, method_name)
-                add_node(method_nid, f"{method_name}()", line)
+                add_node(method_nid, f"{method_name}()", line, node_type="method", modifiers=_java_mods or None)
                 add_edge_raw(file_nid, method_nid, "contains", line)
             body = node.child_by_field_name("body")
             if body:
@@ -945,16 +1032,21 @@ def extract_c(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge_raw(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
@@ -1096,16 +1188,21 @@ def extract_cpp(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge_raw(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
@@ -1269,16 +1366,21 @@ def extract_ruby(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge_raw(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
@@ -1431,16 +1533,21 @@ def extract_csharp(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge_raw(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
@@ -1608,16 +1715,21 @@ def extract_kotlin(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge_raw(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
@@ -1785,16 +1897,21 @@ def extract_scala(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge_raw(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
@@ -1966,16 +2083,21 @@ def extract_php(path: Path) -> dict:
     edges: list[dict] = []
     seen_ids: set[str] = set()
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, node_type: str | None = None, modifiers: list | None = None) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            entry: dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if node_type is not None:
+                entry["node_type"] = node_type
+            if modifiers:
+                entry["modifiers"] = modifiers
+            nodes.append(entry)
 
     def add_edge_raw(src: str, tgt: str, relation: str, line: int, confidence: str = "EXTRACTED", weight: float = 1.0) -> None:
         edges.append({
