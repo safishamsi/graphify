@@ -97,6 +97,33 @@ def test_to_html_contains_visjs():
         content = out.read_text()
         assert "vis-network" in content
 
+
+def test_to_html_pins_visjs_version_with_sri():
+    """vis-network script tag must use a pinned versioned URL with a sha384
+    Subresource Integrity hash and crossorigin=anonymous. Without this,
+    a compromised CDN could ship arbitrary JavaScript into every rendered
+    graph viewer. The hash was verified against the upstream file at
+    https://unpkg.com/vis-network@9.1.6/standalone/umd/vis-network.min.js
+    (sha384-Ux6phic9PEHJ38YtrijhkzyJ8yQlH8i/+buBR8s3mAZOJrP1gwyvAcIYl3GWtpX1).
+    Bumping the vis-network version MUST update both the URL and the hash.
+    """
+    G = make_graph()
+    communities = cluster(G)
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "graph.html"
+        to_html(G, communities, str(out))
+        content = out.read_text()
+
+    # Versioned URL — unversioned `vis-network/standalone/...` is rejected.
+    assert "vis-network@9.1.6/standalone/umd/vis-network.min.js" in content
+    assert "https://unpkg.com/vis-network/standalone" not in content
+
+    # SRI integrity attribute pinning the known-good hash.
+    assert 'integrity="sha384-Ux6phic9PEHJ38YtrijhkzyJ8yQlH8i/+buBR8s3mAZOJrP1gwyvAcIYl3GWtpX1"' in content
+
+    # crossorigin="anonymous" is required for SRI on cross-origin scripts.
+    assert 'crossorigin="anonymous"' in content
+
 def test_to_html_contains_search():
     G = make_graph()
     communities = cluster(G)
