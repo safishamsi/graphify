@@ -109,7 +109,14 @@ def _git_head() -> str | None:
         return None
 
 
-from graphify.detect import CODE_EXTENSIONS, DOC_EXTENSIONS, PAPER_EXTENSIONS, IMAGE_EXTENSIONS
+from graphify.detect import (
+    CODE_EXTENSIONS,
+    DOC_EXTENSIONS,
+    PAPER_EXTENSIONS,
+    IMAGE_EXTENSIONS,
+    _is_ignored,
+    _load_graphifyignore,
+)
 
 _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAGE_EXTENSIONS
 _CODE_EXTENSIONS = CODE_EXTENSIONS
@@ -119,6 +126,18 @@ def _report_root_label(watch_path: Path) -> str:
     if watch_path.is_absolute():
         return watch_path.name or str(watch_path)
     return Path.cwd().name if watch_path == Path(".") else str(watch_path)
+
+
+def _should_watch_path(path: Path, watch_path: Path, ignore_patterns: list[tuple[Path, str]]) -> bool:
+    if path.suffix.lower() not in _WATCHED_EXTENSIONS:
+        return False
+    if any(part.startswith(".") for part in path.parts):
+        return False
+    if _GRAPHIFY_OUT in path.parts:
+        return False
+    if _is_ignored(path.resolve(), watch_path.resolve(), ignore_patterns):
+        return False
+    return True
 
 
 def _relativize_source_files(payload: dict, root: Path) -> None:
@@ -646,6 +665,7 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
     last_trigger: float = 0.0
     pending: bool = False
     changed: set[Path] = set()
+    ignore_patterns = _load_graphifyignore(watch_path)
 
     class Handler(FileSystemEventHandler):
         def on_any_event(self, event):
@@ -653,11 +673,7 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
             if event.is_directory:
                 return
             path = Path(event.src_path)
-            if path.suffix.lower() not in _WATCHED_EXTENSIONS:
-                return
-            if any(part.startswith(".") for part in path.parts):
-                return
-            if _GRAPHIFY_OUT in path.parts:
+            if not _should_watch_path(path, watch_path, ignore_patterns):
                 return
             last_trigger = time.monotonic()
             pending = True

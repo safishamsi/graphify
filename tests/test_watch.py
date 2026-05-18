@@ -5,7 +5,7 @@ import time
 from pathlib import Path
 import pytest
 
-from graphify.watch import _notify_only, _WATCHED_EXTENSIONS, _rebuild_lock
+from graphify.watch import _notify_only, _WATCHED_EXTENSIONS, _rebuild_lock, _should_watch_path
 
 
 # --- _notify_only ---
@@ -52,6 +52,32 @@ def test_watched_extensions_excludes_noise():
     assert ".sh" in _WATCHED_EXTENSIONS
     assert ".pyc" not in _WATCHED_EXTENSIONS
     assert ".log" not in _WATCHED_EXTENSIONS
+
+
+def test_should_watch_path_honors_graphifyignore(tmp_path):
+    from graphify.detect import _load_graphifyignore
+
+    ignored = tmp_path / "vendor" / "generated.py"
+    ignored.parent.mkdir()
+    ignored.write_text("print('generated')\n")
+    (tmp_path / ".graphifyignore").write_text("vendor/\n")
+
+    patterns = _load_graphifyignore(tmp_path)
+
+    assert not _should_watch_path(ignored, tmp_path, patterns)
+
+
+def test_should_watch_path_allows_unignored_watched_file(tmp_path):
+    from graphify.detect import _load_graphifyignore
+
+    src = tmp_path / "src" / "app.py"
+    src.parent.mkdir()
+    src.write_text("print('ok')\n")
+    (tmp_path / ".graphifyignore").write_text("vendor/\n")
+
+    patterns = _load_graphifyignore(tmp_path)
+
+    assert _should_watch_path(src, tmp_path, patterns)
 
 
 # --- watch() import error without watchdog ---
