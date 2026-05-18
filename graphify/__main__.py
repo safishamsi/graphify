@@ -48,6 +48,110 @@ def _refresh_all_version_stamps() -> None:
         if skill_dst.exists():
             vf.write_text(__version__, encoding="utf-8")
 
+
+def _platform_skill_destination(platform_name: str, *, project: bool = False, project_dir: Path | None = None) -> Path:
+    """Return the skill destination for a platform and scope."""
+    if platform_name == "gemini":
+        if project:
+            return (project_dir or Path(".")) / ".gemini" / "skills" / "graphify" / "SKILL.md"
+        if platform.system() == "Windows":
+            return Path.home() / ".agents" / "skills" / "graphify" / "SKILL.md"
+        return Path.home() / ".gemini" / "skills" / "graphify" / "SKILL.md"
+
+    cfg = _PLATFORM_CONFIG[platform_name]
+    if project:
+        return (project_dir or Path(".")) / cfg["skill_dst"]
+
+    if platform_name in ("claude", "windows") and os.environ.get("CLAUDE_CONFIG_DIR"):
+        return Path(os.environ["CLAUDE_CONFIG_DIR"]) / "skills" / "graphify" / "SKILL.md"
+    return Path.home() / cfg["skill_dst"]
+
+
+def _copy_skill_file(platform_name: str, *, project: bool = False, project_dir: Path | None = None) -> Path:
+    """Copy a packaged skill file and write its version stamp."""
+    skill_file = "skill.md" if platform_name == "gemini" else _PLATFORM_CONFIG[platform_name]["skill_file"]
+    skill_src = Path(__file__).parent / skill_file
+    if not skill_src.exists():
+        print(f"error: {skill_file} not found in package - reinstall graphify", file=sys.stderr)
+        sys.exit(1)
+
+    skill_dst = _platform_skill_destination(platform_name, project=project, project_dir=project_dir)
+    skill_dst.parent.mkdir(parents=True, exist_ok=True)
+    tmp_dst = skill_dst.with_suffix(skill_dst.suffix + ".tmp")
+    try:
+        shutil.copy(skill_src, tmp_dst)
+        os.replace(tmp_dst, skill_dst)
+    except Exception:
+        try:
+            tmp_dst.unlink(missing_ok=True)
+        except OSError:
+            pass
+        raise
+    (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
+    print(f"  skill installed  ->  {skill_dst}")
+    return skill_dst
+
+
+def _remove_skill_file(platform_name: str, *, project: bool = False, project_dir: Path | None = None) -> bool:
+    """Remove a platform skill file and its version stamp without touching other scopes."""
+    skill_dst = _platform_skill_destination(platform_name, project=project, project_dir=project_dir)
+    removed = False
+    if skill_dst.exists():
+        skill_dst.unlink()
+        print(f"  skill removed    ->  {skill_dst}")
+        removed = True
+    version_file = skill_dst.parent / ".graphify_version"
+    if version_file.exists():
+        version_file.unlink()
+        removed = True
+    for d in (skill_dst.parent, skill_dst.parent.parent, skill_dst.parent.parent.parent):
+        try:
+            d.rmdir()
+        except OSError:
+            break
+    return removed
+
+
+def _project_scope_root(path: Path, project_dir: Path) -> Path:
+    """Return the top-level project artifact for a project-scoped skill path."""
+    try:
+        rel = path.relative_to(project_dir)
+    except ValueError:
+        return path
+    return project_dir / rel.parts[0] if rel.parts else path
+
+
+def _remove_claude_skill_registration(project_dir: Path) -> None:
+    """Remove the project-scoped Claude skill registration file/section."""
+    claude_md = project_dir / ".claude" / "CLAUDE.md"
+    if not claude_md.exists():
+        return
+    content = claude_md.read_text(encoding="utf-8")
+    if "# graphify" not in content:
+        return
+    cleaned = re.sub(r"\n*# graphify\n.*?(?=\n# |\Z)", "", content, flags=re.DOTALL).rstrip()
+    if cleaned:
+        claude_md.write_text(cleaned + "\n", encoding="utf-8")
+        print(f"  CLAUDE.md        ->  graphify skill registration removed from {claude_md}")
+    else:
+        claude_md.unlink()
+        print(f"  CLAUDE.md        ->  deleted {claude_md}")
+
+
+def _print_project_git_add_hint(paths: list[Path]) -> None:
+    unique: list[str] = []
+    for path in paths:
+        text = path.as_posix().rstrip("/")
+        if path.exists() and path.is_dir():
+            text += "/"
+        if text not in unique:
+            unique.append(text)
+    if not unique:
+        return
+    print()
+    print("Project-scoped install. Add to version control:")
+    print(f"  git add {' '.join(unique)}")
+
 _SETTINGS_HOOK = {
     # Claude Code v2.1.117+ removed dedicated Grep/Glob tools; searches now go through Bash.
     # We match on Bash and inspect the command string to avoid firing on every shell call.
@@ -208,9 +312,9 @@ def _replace_or_append_section(content: str, marker: str, new_section: str) -> s
     return out
 
 
-def install(platform: str = "claude") -> None:
+def install(platform: str = "claude", *, project: bool = False, project_dir: Path | None = None) -> None:
     if platform == "gemini":
-        gemini_install()
+        gemini_install(project_dir=project_dir, project=project)
         return
     if platform == "cursor":
         _cursor_install(Path("."))
@@ -226,34 +330,12 @@ def install(platform: str = "claude") -> None:
         sys.exit(1)
 
     cfg = _PLATFORM_CONFIG[platform]
-    skill_src = Path(__file__).parent / cfg["skill_file"]
-    if not skill_src.exists():
-        print(f"error: {cfg['skill_file']} not found in package - reinstall graphify", file=sys.stderr)
-        sys.exit(1)
-
-    import os as _os
-    if platform in ("claude", "windows") and _os.environ.get("CLAUDE_CONFIG_DIR"):
-        _claude_base = Path(_os.environ["CLAUDE_CONFIG_DIR"])
-        skill_dst = _claude_base / "skills" / "graphify" / "SKILL.md"
-    else:
-        skill_dst = Path.home() / cfg["skill_dst"]
-    skill_dst.parent.mkdir(parents=True, exist_ok=True)
-    tmp_dst = skill_dst.with_suffix(skill_dst.suffix + ".tmp")
-    try:
-        shutil.copy(skill_src, tmp_dst)
-        os.replace(tmp_dst, skill_dst)
-    except Exception:
-        try:
-            tmp_dst.unlink(missing_ok=True)
-        except OSError:
-            pass
-        raise
-    (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
-    print(f"  skill installed  ->  {skill_dst}")
+    project_dir = project_dir or Path(".")
+    skill_dst = _copy_skill_file(platform, project=project, project_dir=project_dir)
 
     if cfg["claude_md"]:
-        # Register in ~/.claude/CLAUDE.md (Claude Code only)
-        claude_md = Path.home() / ".claude" / "CLAUDE.md"
+        # Register in the matching Claude Code scope.
+        claude_md = (project_dir / ".claude" / "CLAUDE.md") if project else Path.home() / ".claude" / "CLAUDE.md"
         if claude_md.exists():
             content = claude_md.read_text(encoding="utf-8")
             if "graphify" in content:
@@ -267,11 +349,14 @@ def install(platform: str = "claude") -> None:
             print(f"  CLAUDE.md        ->  created at {claude_md}")
 
     if platform == "opencode":
-        _install_opencode_plugin(Path("."))
+        _install_opencode_plugin(project_dir if project else Path("."))
 
     # Refresh version stamps in all other previously-installed skill dirs so
     # stale-version warnings don't fire for platforms not explicitly re-installed.
-    _refresh_all_version_stamps()
+    if project:
+        _print_project_git_add_hint([_project_scope_root(skill_dst, project_dir)])
+    else:
+        _refresh_all_version_stamps()
 
     print()
     print("Done. Open your AI coding assistant and type:")
@@ -282,7 +367,7 @@ def install(platform: str = "claude") -> None:
 
 def _print_install_usage() -> None:
     platforms = ", ".join([*_PLATFORM_CONFIG, "gemini", "cursor"])
-    print("Usage: graphify install [--platform P|P]")
+    print("Usage: graphify install [--project] [--platform P|P]")
     print(f"Platforms: {platforms}")
 
 
@@ -352,21 +437,12 @@ _GEMINI_HOOK = {
 }
 
 
-def gemini_install(project_dir: Path | None = None) -> None:
-    """Copy skill file to ~/.gemini/skills/graphify/, write GEMINI.md section, and install BeforeTool hook."""
-    # Copy skill file to ~/.gemini/skills/graphify/SKILL.md
-    # On Windows, Gemini CLI prioritises ~/.agents/skills/ over ~/.gemini/skills/
-    skill_src = Path(__file__).parent / "skill.md"
-    if platform.system() == "Windows":
-        skill_dst = Path.home() / ".agents" / "skills" / "graphify" / "SKILL.md"
-    else:
-        skill_dst = Path.home() / ".gemini" / "skills" / "graphify" / "SKILL.md"
-    skill_dst.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy(skill_src, skill_dst)
-    (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
-    print(f"  skill installed  ->  {skill_dst}")
+def gemini_install(project_dir: Path | None = None, *, project: bool = False) -> None:
+    """Copy skill file, write GEMINI.md section, and install BeforeTool hook."""
+    project_dir = project_dir or Path(".")
+    skill_dst = _copy_skill_file("gemini", project=project, project_dir=project_dir)
 
-    target = (project_dir or Path(".")) / "GEMINI.md"
+    target = project_dir / "GEMINI.md"
 
     if target.exists():
         content = target.read_text(encoding="utf-8")
@@ -384,7 +460,9 @@ def gemini_install(project_dir: Path | None = None) -> None:
 
     # Always re-install the Gemini hook so an older payload (e.g. pre-issue-#580
     # wording) is replaced on upgrade.
-    _install_gemini_hook(project_dir or Path("."))
+    _install_gemini_hook(project_dir)
+    if project:
+        _print_project_git_add_hint([_project_scope_root(skill_dst, project_dir), project_dir / "GEMINI.md", project_dir / ".gemini"])
     print()
     print("Gemini CLI will now check the knowledge graph before answering")
     print("codebase questions and rebuild it after code changes.")
@@ -421,26 +499,12 @@ def _uninstall_gemini_hook(project_dir: Path) -> None:
     print("  .gemini/settings.json  ->  BeforeTool hook removed")
 
 
-def gemini_uninstall(project_dir: Path | None = None) -> None:
+def gemini_uninstall(project_dir: Path | None = None, *, project: bool = False) -> None:
     """Remove the graphify section from GEMINI.md, uninstall hook, and remove skill file."""
-    # Remove skill file (mirror the install path detection)
-    if platform.system() == "Windows":
-        skill_dst = Path.home() / ".agents" / "skills" / "graphify" / "SKILL.md"
-    else:
-        skill_dst = Path.home() / ".gemini" / "skills" / "graphify" / "SKILL.md"
-    if skill_dst.exists():
-        skill_dst.unlink()
-        print(f"  skill removed    ->  {skill_dst}")
-    version_file = skill_dst.parent / ".graphify_version"
-    if version_file.exists():
-        version_file.unlink()
-    for d in (skill_dst.parent, skill_dst.parent.parent):
-        try:
-            d.rmdir()
-        except OSError:
-            break
+    project_dir = project_dir or Path(".")
+    _remove_skill_file("gemini", project=project, project_dir=project_dir)
 
-    target = (project_dir or Path(".")) / "GEMINI.md"
+    target = project_dir / "GEMINI.md"
     if not target.exists():
         print("No GEMINI.md found in current directory - nothing to do")
         return
@@ -455,7 +519,7 @@ def gemini_uninstall(project_dir: Path | None = None) -> None:
     else:
         target.unlink()
         print(f"GEMINI.md was empty after removal - deleted {target.resolve()}")
-    _uninstall_gemini_hook(project_dir or Path("."))
+    _uninstall_gemini_hook(project_dir)
 
 
 _VSCODE_INSTRUCTIONS_MARKER = "## graphify"
@@ -971,6 +1035,76 @@ def _agents_install(project_dir: Path, platform: str) -> None:
         print(f"{platform.capitalize()} — the AGENTS.md rules are the always-on mechanism.")
 
 
+def _project_install(platform_name: str, project_dir: Path | None = None) -> None:
+    """Install platform skill/config files in the current project."""
+    project_dir = project_dir or Path(".")
+    if platform_name in ("claude", "windows"):
+        install(platform=platform_name, project=True, project_dir=project_dir)
+        claude_install(project_dir)
+        _print_project_git_add_hint([project_dir / ".claude", project_dir / "CLAUDE.md"])
+    elif platform_name == "gemini":
+        gemini_install(project_dir, project=True)
+    elif platform_name == "cursor":
+        _cursor_install(project_dir)
+        _print_project_git_add_hint([project_dir / ".cursor"])
+    elif platform_name == "kiro":
+        _kiro_install(project_dir)
+        _print_project_git_add_hint([project_dir / ".kiro"])
+    elif platform_name in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
+        skill_dst = _copy_skill_file(platform_name, project=True, project_dir=project_dir)
+        _agents_install(project_dir, platform_name)
+        hint_paths = [_project_scope_root(skill_dst, project_dir), project_dir / "AGENTS.md"]
+        if platform_name == "opencode":
+            hint_paths.append(project_dir / ".opencode")
+        elif platform_name == "codex":
+            hint_paths.append(project_dir / ".codex")
+        _print_project_git_add_hint(hint_paths)
+    elif platform_name in ("copilot", "pi", "antigravity", "kimi"):
+        skill_dst = _copy_skill_file(platform_name, project=True, project_dir=project_dir)
+        _print_project_git_add_hint([_project_scope_root(skill_dst, project_dir)])
+    else:
+        install(platform=platform_name, project=True, project_dir=project_dir)
+
+
+def _project_uninstall(platform_name: str, project_dir: Path | None = None) -> None:
+    """Remove project-scoped platform skill/config files only."""
+    project_dir = project_dir or Path(".")
+    if platform_name in ("claude", "windows"):
+        _remove_skill_file(platform_name, project=True, project_dir=project_dir)
+        _remove_claude_skill_registration(project_dir)
+        claude_uninstall(project_dir)
+    elif platform_name == "gemini":
+        gemini_uninstall(project_dir, project=True)
+    elif platform_name == "cursor":
+        _cursor_uninstall(project_dir)
+    elif platform_name == "kiro":
+        _kiro_uninstall(project_dir)
+    elif platform_name in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
+        _remove_skill_file(platform_name, project=True, project_dir=project_dir)
+        _agents_uninstall(project_dir, platform=platform_name)
+        if platform_name == "codex":
+            _uninstall_codex_hook(project_dir)
+    elif platform_name == "antigravity":
+        _antigravity_uninstall(project_dir)
+    elif platform_name in ("copilot", "pi", "kimi"):
+        removed = _remove_skill_file(platform_name, project=True, project_dir=project_dir)
+        if not removed:
+            print("nothing to remove")
+    else:
+        _remove_skill_file(platform_name, project=True, project_dir=project_dir)
+
+
+def _project_uninstall_all(project_dir: Path | None = None) -> None:
+    """Remove project-scoped install files without touching user-scope installs."""
+    project_dir = project_dir or Path(".")
+    print("Uninstalling project-scoped graphify files...\n")
+    for platform_name in _PLATFORM_CONFIG:
+        _project_uninstall(platform_name, project_dir)
+    for platform_name in ("gemini", "cursor"):
+        _project_uninstall(platform_name, project_dir)
+    print("\nDone.")
+
+
 def _agents_uninstall(project_dir: Path, platform: str = "") -> None:
     """Remove the graphify section from the local AGENTS.md."""
     target = (project_dir or Path(".")) / "AGENTS.md"
@@ -1328,6 +1462,7 @@ def main() -> None:
         # Default to windows platform on Windows, claude elsewhere
         default_platform = "windows" if platform.system() == "Windows" else "claude"
         selected_platform: str | None = None
+        project_scope = False
         args = sys.argv[2:]
         i = 0
         while i < len(args):
@@ -1335,7 +1470,10 @@ def main() -> None:
             if arg in ("-h", "--help"):
                 _print_install_usage()
                 return
-            if arg.startswith("--platform="):
+            if arg == "--project":
+                project_scope = True
+                i += 1
+            elif arg.startswith("--platform="):
                 candidate = arg.split("=", 1)[1]
                 if selected_platform and selected_platform != candidate:
                     print("error: specify install platform only once", file=sys.stderr)
@@ -1362,25 +1500,63 @@ def main() -> None:
                 selected_platform = arg
                 i += 1
         chosen_platform = selected_platform or default_platform
-        install(platform=chosen_platform)
+        if project_scope:
+            _project_install(chosen_platform, Path("."))
+        else:
+            install(platform=chosen_platform)
     elif cmd == "uninstall":
-        purge = "--purge" in sys.argv[2:]
-        uninstall_all(purge=purge)
+        args = sys.argv[2:]
+        purge = "--purge" in args
+        project_scope = "--project" in args
+        selected_platform = None
+        i = 0
+        while i < len(args):
+            arg = args[i]
+            if arg in ("--purge", "--project"):
+                i += 1
+            elif arg.startswith("--platform="):
+                selected_platform = arg.split("=", 1)[1]
+                i += 1
+            elif arg == "--platform":
+                if i + 1 >= len(args):
+                    print("error: --platform requires a value", file=sys.stderr)
+                    sys.exit(1)
+                selected_platform = args[i + 1]
+                i += 2
+            elif arg.startswith("-"):
+                print(f"error: unknown uninstall option '{arg}'", file=sys.stderr)
+                sys.exit(1)
+            else:
+                selected_platform = arg
+                i += 1
+        if project_scope:
+            if selected_platform:
+                _project_uninstall(selected_platform, Path("."))
+            else:
+                _project_uninstall_all(Path("."))
+        else:
+            uninstall_all(purge=purge)
     elif cmd == "claude":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
-            claude_install()
+            if "--project" in sys.argv[3:]:
+                _project_install("claude", Path("."))
+            else:
+                claude_install()
         elif subcmd == "uninstall":
-            claude_uninstall()
+            if "--project" in sys.argv[3:]:
+                _project_uninstall("claude", Path("."))
+            else:
+                claude_uninstall()
         else:
             print("Usage: graphify claude [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd == "gemini":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
-            gemini_install()
+            gemini_install(project=("--project" in sys.argv[3:]))
         elif subcmd == "uninstall":
-            gemini_uninstall()
+            gemini_uninstall(project=("--project" in sys.argv[3:]))
         else:
             print("Usage: graphify gemini [install|uninstall]", file=sys.stderr)
             sys.exit(1)
@@ -1405,22 +1581,16 @@ def main() -> None:
     elif cmd == "copilot":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
-            install(platform="copilot")
+            if "--project" in sys.argv[3:]:
+                _project_install("copilot", Path("."))
+            else:
+                install(platform="copilot")
         elif subcmd == "uninstall":
-            skill_dst = Path.home() / _PLATFORM_CONFIG["copilot"]["skill_dst"]
-            removed = []
-            if skill_dst.exists():
-                skill_dst.unlink()
-                removed.append(f"skill removed: {skill_dst}")
-            version_file = skill_dst.parent / ".graphify_version"
-            if version_file.exists():
-                version_file.unlink()
-            for d in (skill_dst.parent, skill_dst.parent.parent, skill_dst.parent.parent.parent):
-                try:
-                    d.rmdir()
-                except OSError:
-                    break
-            print("; ".join(removed) if removed else "nothing to remove")
+            if "--project" in sys.argv[3:]:
+                _project_uninstall("copilot", Path("."))
+            else:
+                removed = _remove_skill_file("copilot")
+                print("skill removed" if removed else "nothing to remove")
         else:
             print("Usage: graphify copilot [install|uninstall]", file=sys.stderr)
             sys.exit(1)
@@ -1436,31 +1606,32 @@ def main() -> None:
     elif cmd == "pi":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
-            install("pi")
+            if "--project" in sys.argv[3:]:
+                _project_install("pi", Path("."))
+            else:
+                install("pi")
         elif subcmd == "uninstall":
-            skill_dst = Path.home() / ".pi" / "agent" / "skills" / "graphify" / "SKILL.md"
-            if skill_dst.exists():
-                skill_dst.unlink()
-                print(f"  skill removed    ->  {skill_dst}")
-            version_file = skill_dst.parent / ".graphify_version"
-            if version_file.exists():
-                version_file.unlink()
-            for d in (skill_dst.parent, skill_dst.parent.parent, skill_dst.parent.parent.parent):
-                try:
-                    d.rmdir()
-                except OSError:
-                    break
+            if "--project" in sys.argv[3:]:
+                _project_uninstall("pi", Path("."))
+            else:
+                _remove_skill_file("pi")
         else:
             print("Usage: graphify pi [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
         if subcmd == "install":
-            _agents_install(Path("."), cmd)
+            if "--project" in sys.argv[3:]:
+                _project_install(cmd, Path("."))
+            else:
+                _agents_install(Path("."), cmd)
         elif subcmd == "uninstall":
-            _agents_uninstall(Path("."), platform=cmd)
-            if cmd == "codex":
-                _uninstall_codex_hook(Path("."))
+            if "--project" in sys.argv[3:]:
+                _project_uninstall(cmd, Path("."))
+            else:
+                _agents_uninstall(Path("."), platform=cmd)
+                if cmd == "codex":
+                    _uninstall_codex_hook(Path("."))
         else:
             print(f"Usage: graphify {cmd} [install|uninstall]", file=sys.stderr)
             sys.exit(1)

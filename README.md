@@ -97,6 +97,18 @@ graphify install
 
 That's it. Open your AI assistant and type `/graphify .`
 
+To install the assistant skill into the current repository instead of your user
+profile, add `--project`:
+
+```bash
+graphify install --project
+graphify install --project --platform codex
+```
+
+Project-scoped installs write under the current directory, for example
+`.claude/skills/graphify/SKILL.md` or `.agents/skills/graphify/SKILL.md`, and
+print a `git add` hint for files that can be committed.
+
 > **PowerShell note:** Use `graphify .` not `/graphify .` — the leading slash is a path separator in PowerShell.
 
 > **`graphify: command not found`?** Use `uv tool install graphifyy` or `pipx install graphifyy` — both put the CLI on PATH automatically. With plain `pip`, add `~/.local/bin` (Linux) or `~/Library/Python/3.x/bin` (Mac) to your PATH, or run `python -m graphify`.
@@ -432,6 +444,7 @@ graphify install  # overwrites the skill file
 
 graphify uninstall                 # remove from all platforms in one shot
 graphify uninstall --purge         # also delete graphify-out/
+graphify uninstall --project --platform codex  # remove project-scoped install files only
 
 graphify hook install              # post-commit + post-checkout hooks
 graphify hook uninstall
