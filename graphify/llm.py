@@ -345,6 +345,8 @@ def _call_openai_compat(
         keep_alive = os.environ.get("GRAPHIFY_OLLAMA_KEEP_ALIVE", "30m")
         kwargs["extra_body"] = {"options": {"num_ctx": num_ctx}, "keep_alive": keep_alive}
     resp = client.chat.completions.create(**kwargs)
+    if not resp.choices or resp.choices[0].message is None:
+        raise ValueError("LLM returned empty or filtered response")
     raw_content = resp.choices[0].message.content
     result = _parse_llm_json(raw_content or "{}")
     result["input_tokens"] = resp.usage.prompt_tokens if resp.usage else 0
@@ -1038,6 +1040,8 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
     if "moonshot" in cfg["base_url"]:
         kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
     resp = client.chat.completions.create(**kwargs)
+    if not resp.choices or resp.choices[0].message is None:
+        raise ValueError("LLM returned empty or filtered response")
     return resp.choices[0].message.content or ""
 
 
