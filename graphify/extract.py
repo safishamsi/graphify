@@ -126,9 +126,15 @@ def _read_tsconfig_aliases(tsconfig: Path, base_dir: Path, seen: set) -> dict[st
     for alias, targets in paths.items():
         if not targets:
             continue
-        alias_prefix = alias.rstrip("/*")
-        target_base = targets[0].rstrip("/*")
-        aliases[alias_prefix] = str(base_dir / target_base)
+        target = targets[0]
+        # Preserve the wildcard in both alias and target so the resolver can
+        # substitute the captured segment back in.  TypeScript's path mapping
+        # spec uses '*' as a single capture group; keeping it lets us tell
+        # 'wildcard alias' from 'exact alias' at resolve time.
+        if "*" in alias or "*" in target:
+            aliases[alias] = str(base_dir / target) if target else str(base_dir)
+        else:
+            aliases[alias.rstrip("/")] = str(base_dir / target.rstrip("/"))
 
     return aliases
 
@@ -343,25 +349,71 @@ def _import_python(node, source: bytes, file_nid: str, stem: str, edges: list, s
             })
 
 
+def _resolved_path_to_nid(resolved: Path) -> str:
+    """Compute a node id from a resolved import target.
+
+    The file extractor uses ``_make_id(str(path))`` against whatever Path
+    representation it was handed (usually project-relative).  Alias resolution
+    builds an absolute path against the tsconfig's location, so we relativize
+    to cwd before computing the id — otherwise the edge target id never
+    matches the file node id and every alias-resolved import becomes a
+    phantom.
+    """
+    try:
+        rel = resolved.relative_to(Path.cwd())
+        return _make_id(str(rel))
+    except ValueError:
+        return _make_id(str(resolved))
+
+
+def _alias_specificity(alias: str) -> "tuple[int, int]":
+    """Sort key so the most specific alias matches first.
+
+    TypeScript's path-mapping spec is "longest matching prefix wins", with
+    exact (non-wildcard) entries winning over wildcard entries when both
+    would match.  Returning a tuple lets us pass this straight to ``sorted``:
+    exact aliases get 0, wildcards 1, then negative-length so longer prefixes
+    sort first.
+    """
+    if "*" in alias:
+        return (1, -len(alias.split("*", 1)[0]))
+    return (0, -len(alias))
+
+
 def _resolve_js_import_target(raw: str, str_path: str) -> "tuple[str, Path | None] | None":
     """Resolve a JS/TS import path string to (target_nid, resolved_path).
 
-    Handles relative paths, tsconfig path aliases, and bare/scoped imports.
-    Returns None if `raw` is empty.
+    Handles relative paths, tsconfig path aliases (exact and wildcard), and
+    bare/scoped imports.  Returns None if `raw` is empty.
     """
     if not raw:
         return None
     if raw.startswith("."):
         resolved = Path(os.path.normpath(Path(str_path).parent / raw))
         resolved = _resolve_js_module_path(resolved)
-        return _make_id(str(resolved)), resolved
+        return _resolved_path_to_nid(resolved), resolved
     aliases = _load_tsconfig_aliases(Path(str_path).parent)
-    for alias_prefix, alias_base in aliases.items():
-        if raw == alias_prefix or raw.startswith(alias_prefix + "/"):
-            rest = raw[len(alias_prefix):].lstrip("/")
-            resolved_alias = Path(os.path.normpath(Path(alias_base) / rest))
-            resolved_alias = _resolve_js_module_path(resolved_alias)
-            return _make_id(str(resolved_alias)), resolved_alias
+    for alias_pattern, target_pattern in sorted(aliases.items(), key=lambda kv: _alias_specificity(kv[0])):
+        if "*" in alias_pattern:
+            star_idx = alias_pattern.index("*")
+            prefix = alias_pattern[:star_idx]
+            suffix = alias_pattern[star_idx + 1:]
+            if (
+                raw.startswith(prefix)
+                and raw.endswith(suffix)
+                and len(raw) > len(prefix) + len(suffix)
+            ):
+                captured = raw[len(prefix): len(raw) - len(suffix)] if suffix else raw[len(prefix):]
+                resolved_str = target_pattern.replace("*", captured)
+                resolved_alias = Path(os.path.normpath(resolved_str))
+                resolved_alias = _resolve_js_module_path(resolved_alias)
+                return _resolved_path_to_nid(resolved_alias), resolved_alias
+        else:
+            if raw == alias_pattern or raw.startswith(alias_pattern + "/"):
+                rest = raw[len(alias_pattern):].lstrip("/")
+                resolved_alias = Path(os.path.normpath(Path(target_pattern) / rest))
+                resolved_alias = _resolve_js_module_path(resolved_alias)
+                return _resolved_path_to_nid(resolved_alias), resolved_alias
     module_name = raw.split("/")[-1]
     if not module_name:
         return None
