@@ -3,6 +3,94 @@ from __future__ import annotations
 import networkx as nx
 
 
+# ---------------------------------------------------------------------------
+# Fast betweenness centrality: igraph (C) → NetworkX sampled approximation
+# ---------------------------------------------------------------------------
+_SAMPLE_THRESHOLD = 5_000   # use exact below this; sampled above
+_MAX_SAMPLE_K = 500         # cap on sampled source nodes
+
+
+def _nx_to_igraph(G: nx.Graph):
+    """Convert a NetworkX graph to an igraph Graph, returning (ig, node_list).
+
+    node_list maps igraph integer vertex ids back to NetworkX node ids.
+    """
+    import igraph as ig
+    node_list = list(G.nodes())
+    node_index = {n: i for i, n in enumerate(node_list)}
+    edges = [(node_index[u], node_index[v]) for u, v in G.edges()]
+    g = ig.Graph(n=len(node_list), edges=edges, directed=G.is_directed())
+    return g, node_list
+
+
+def _fast_betweenness_centrality(G: nx.Graph) -> dict[str, float]:
+    """Compute node betweenness centrality using the fastest available backend.
+
+    Priority:
+    1. igraph (C implementation) — exact, ~100x faster than pure-Python NX.
+    2. NetworkX with sampled approximation (k source nodes) for large graphs.
+    3. NetworkX exact for small graphs.
+    """
+    n = G.number_of_nodes()
+    if n == 0:
+        return {}
+
+    # --- igraph path (preferred) -------------------------------------------
+    try:
+        ig_graph, node_list = _nx_to_igraph(G)
+        raw = ig_graph.betweenness(directed=G.is_directed())
+        # igraph returns un-normalized values; normalize like NetworkX:
+        # BC_norm = BC_raw / ((n-1)*(n-2))  for undirected
+        # BC_norm = BC_raw / ((n-1)*(n-2)/2) — but NX uses (n-1)(n-2) for both
+        scale = (n - 1) * (n - 2) if n > 2 else 1
+        if not G.is_directed():
+            scale /= 2  # igraph counts each path once; NX normalizes by (n-1)(n-2)
+        return {node_list[i]: (raw[i] / scale if scale else 0.0) for i in range(n)}
+    except Exception:
+        pass  # igraph not installed or conversion error — fall back
+
+    # --- NetworkX path (fallback) ------------------------------------------
+    if n <= _SAMPLE_THRESHOLD:
+        return nx.betweenness_centrality(G)
+
+    k = min(_MAX_SAMPLE_K, n)
+    return nx.betweenness_centrality(G, k=k)
+
+
+def _fast_edge_betweenness_centrality(G: nx.Graph) -> dict[tuple, float]:
+    """Compute edge betweenness centrality using the fastest available backend.
+
+    Same tiered strategy as _fast_betweenness_centrality.
+    """
+    n = G.number_of_nodes()
+    if n == 0 or G.number_of_edges() == 0:
+        return {}
+
+    # --- igraph path -------------------------------------------------------
+    try:
+        ig_graph, node_list = _nx_to_igraph(G)
+        raw = ig_graph.edge_betweenness(directed=G.is_directed())
+        scale = (n - 1) * (n - 2) if n > 2 else 1
+        if not G.is_directed():
+            scale /= 2
+        result = {}
+        for idx, eb in enumerate(raw):
+            edge = ig_graph.es[idx]
+            u = node_list[edge.source]
+            v = node_list[edge.target]
+            result[(u, v)] = eb / scale if scale else 0.0
+        return result
+    except Exception:
+        pass
+
+    # --- NetworkX path -----------------------------------------------------
+    if n <= _SAMPLE_THRESHOLD:
+        return nx.edge_betweenness_centrality(G)
+
+    k = min(_MAX_SAMPLE_K, n)
+    return nx.edge_betweenness_centrality(G, k=k)
+
+
 def _node_community_map(communities: dict[int, list[str]]) -> dict[str, int]:
     """Invert communities dict: node_id -> community_id."""
     return {n: cid for cid, nodes in communities.items() for n in nodes}
@@ -16,12 +104,16 @@ def _is_file_node(G: nx.Graph, node_id: str) -> bool:
     These are synthetic nodes created by the AST extractor and should be excluded
     from god nodes, surprising connections, and knowledge gap reporting.
     """
-    label = G.nodes[node_id].get("label", "")
+    attrs = G.nodes[node_id]
+    label = attrs.get("label", "")
     if not label:
         return False
-    # File-level hub: label is a filename with a code extension
-    if label.split(".")[-1] in ("py", "ts", "js", "go", "rs", "java", "rb", "cpp", "c", "h"):
-        return True
+    # File-level hub: label matches the actual source filename (not just any label ending in .py)
+    source_file = attrs.get("source_file", "")
+    if source_file:
+        from pathlib import Path as _Path
+        if label == _Path(source_file).name:
+            return True
     # Method stub: AST extractor labels methods as '.method_name()'
     if label.startswith(".") and label.endswith("()"):
         return True
@@ -105,19 +197,16 @@ def _is_concept_node(G: nx.Graph, node_id: str) -> bool:
     return False
 
 
-_CODE_EXTENSIONS = {"py", "ts", "tsx", "js", "go", "rs", "java", "rb", "cpp", "c", "h", "cs", "kt", "scala", "php"}
-_DOC_EXTENSIONS = {"md", "txt", "rst"}
-_PAPER_EXTENSIONS = {"pdf"}
-_IMAGE_EXTENSIONS = {"png", "jpg", "jpeg", "webp", "gif", "svg"}
+from graphify.detect import CODE_EXTENSIONS, DOC_EXTENSIONS, PAPER_EXTENSIONS, IMAGE_EXTENSIONS
 
 
 def _file_category(path: str) -> str:
-    ext = path.rsplit(".", 1)[-1].lower() if "." in path else ""
-    if ext in _CODE_EXTENSIONS:
+    ext = ("." + path.rsplit(".", 1)[-1].lower()) if "." in path else ""
+    if ext in CODE_EXTENSIONS:
         return "code"
-    if ext in _PAPER_EXTENSIONS:
+    if ext in PAPER_EXTENSIONS:
         return "paper"
-    if ext in _IMAGE_EXTENSIONS:
+    if ext in IMAGE_EXTENSIONS:
         return "image"
     return "doc"
 
@@ -217,7 +306,11 @@ def _cross_file_surprises(G: nx.Graph, communities: dict[int, list[str]], top_n:
 
         score, reasons = _surprise_score(G, u, v, data, node_community, u_source, v_source)
         src_id = data.get("_src", u)
+        if src_id not in G.nodes:
+            src_id = u
         tgt_id = data.get("_tgt", v)
+        if tgt_id not in G.nodes:
+            tgt_id = v
         candidates.append({
             "_score": score,
             "source": G.nodes[src_id].get("label", src_id),
@@ -257,7 +350,7 @@ def _cross_community_surprises(
         # No community info - use edge betweenness centrality
         if G.number_of_edges() == 0:
             return []
-        betweenness = nx.edge_betweenness_centrality(G)
+        betweenness = _fast_edge_betweenness_centrality(G)
         top_edges = sorted(betweenness.items(), key=lambda x: x[1], reverse=True)[:top_n]
         result = []
         for (u, v), score in top_edges:
@@ -293,7 +386,11 @@ def _cross_community_surprises(
         # This edge crosses community boundaries - interesting
         confidence = data.get("confidence", "EXTRACTED")
         src_id = data.get("_src", u)
+        if src_id not in G.nodes:
+            src_id = u
         tgt_id = data.get("_tgt", v)
+        if tgt_id not in G.nodes:
+            tgt_id = v
         surprises.append({
             "source": G.nodes[src_id].get("label", src_id),
             "target": G.nodes[tgt_id].get("label", tgt_id),
@@ -351,7 +448,7 @@ def suggest_questions(
 
     # 2. Bridge nodes (high betweenness) → cross-cutting concern questions
     if G.number_of_edges() > 0:
-        betweenness = nx.betweenness_centrality(G)
+        betweenness = _fast_betweenness_centrality(G)
         # Top bridge nodes that are NOT file-level hubs
         bridges = sorted(
             [(n, s) for n, s in betweenness.items()
@@ -391,7 +488,11 @@ def suggest_questions(
             others = []
             for u, v, d in inferred[:2]:
                 src_id = d.get("_src", u)
+                if src_id not in G.nodes:
+                    src_id = u
                 tgt_id = d.get("_tgt", v)
+                if tgt_id not in G.nodes:
+                    tgt_id = v
                 other_id = tgt_id if src_id == node_id else src_id
                 others.append(G.nodes[other_id].get("label", other_id))
             questions.append({
@@ -468,7 +569,9 @@ def graph_diff(G_old: nx.Graph, G_new: nx.Graph) -> dict:
     ]
 
     def edge_key(G: nx.Graph, u: str, v: str, data: dict) -> tuple:
-        return (u, v, data.get("relation", ""))
+        if G.is_directed():
+            return (u, v, data.get("relation", ""))
+        return (min(u, v), max(u, v), data.get("relation", ""))
 
     old_edge_keys = {
         edge_key(G_old, u, v, d)
