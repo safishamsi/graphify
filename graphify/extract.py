@@ -192,6 +192,12 @@ class LanguageConfig:
     # Import handler: called for import nodes instead of generic handling
     import_handler: Callable | None = None
 
+    # Re-export handler: called for `export ... from '...'` nodes to record
+    # barrel re-export relationships. Used post-extraction to redirect
+    # symbol-level imports through barrels to the symbol's defining file.
+    export_types: frozenset = frozenset()
+    export_handler: Callable | None = None
+
     # Optional custom name resolver for functions (C, C++ declarator unwrapping)
     resolve_function_name_fn: Callable | None = None
 
@@ -420,6 +426,80 @@ def _resolve_js_import_target(raw: str, str_path: str) -> "tuple[str, Path | Non
     return _make_id(module_name), None
 
 
+def _export_js(node, source: bytes, file_nid: str, stem: str, str_path: str, reexports: list) -> None:
+    """Record `export ... from '...'` re-exports for post-extraction barrel resolution.
+
+    Handles three forms:
+        export { X, Y as Z } from './mod'  -> named re-exports
+        export * from './mod'              -> star re-export
+        export * as ns from './mod'        -> namespace re-export (treated like star)
+
+    Plain local exports (without a `from` clause) are not re-exports — they
+    just declare what this file exposes — so they're skipped.
+    """
+    from_string_node = None
+    export_clause_node = None
+    namespace_export = False
+    star_export = False
+
+    for child in node.children:
+        ct = child.type
+        if ct == "string":
+            from_string_node = child
+        elif ct == "export_clause":
+            export_clause_node = child
+        elif ct == "namespace_export":
+            namespace_export = True
+        elif ct in ("*", "asterisk"):
+            star_export = True
+
+    if from_string_node is None:
+        return
+
+    raw_source = _read_text(from_string_node, source).strip("'\"` ")
+    if not raw_source:
+        return
+
+    resolved = _resolve_js_import_target(raw_source, str_path)
+    if resolved is None:
+        return
+    _, resolved_path = resolved
+    if resolved_path is None:
+        return
+
+    if star_export or namespace_export:
+        reexports.append({
+            "from_path": str_path,
+            "to_path": str(resolved_path),
+            "kind": "star",
+            "exposed": None,
+            "original": None,
+        })
+        return
+
+    if export_clause_node is None:
+        return
+
+    for spec in export_clause_node.children:
+        if spec.type != "export_specifier":
+            continue
+        name_node = spec.child_by_field_name("name")
+        alias_node = spec.child_by_field_name("alias")
+        if name_node is None:
+            continue
+        original = _read_text(name_node, source).strip()
+        exposed = _read_text(alias_node, source).strip() if alias_node else original
+        if not original or not exposed:
+            continue
+        reexports.append({
+            "from_path": str_path,
+            "to_path": str(resolved_path),
+            "kind": "named",
+            "exposed": exposed,
+            "original": original,
+        })
+
+
 def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
     resolved_path: "Path | None" = None
     for child in node.children:
@@ -447,6 +527,7 @@ def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_p
     # defining the symbol, so these edges wire importers directly to existing symbol nodes.
     if resolved_path is not None:
         target_stem = _file_stem(resolved_path)
+        target_path_str = str(resolved_path)
         line = node.start_point[0] + 1
         for child in node.children:
             if child.type == "import_clause":
@@ -466,6 +547,13 @@ def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_p
                                         "source_file": str_path,
                                         "source_location": f"L{line}",
                                         "weight": 1.0,
+                                        # Metadata for post-extraction re-export resolution.
+                                        # If `target_path_str` is a barrel re-exporting `sym`,
+                                        # the post-process pass follows the chain to find the
+                                        # symbol's actual defining file and rewrites the
+                                        # target id. Stripped before graph.json is written.
+                                        "_reexport_target_path": target_path_str,
+                                        "_reexport_symbol": sym,
                                     })
 
 
@@ -952,6 +1040,8 @@ _JS_CONFIG = LanguageConfig(
     call_accessor_field="property",
     function_boundary_types=frozenset({"function_declaration", "arrow_function", "method_definition"}),
     import_handler=_import_js,
+    export_types=frozenset({"export_statement"}),
+    export_handler=_export_js,
 )
 
 _TS_CONFIG = LanguageConfig(
@@ -971,6 +1061,8 @@ _TS_CONFIG = LanguageConfig(
     call_accessor_field="property",
     function_boundary_types=frozenset({"function_declaration", "arrow_function", "method_definition"}),
     import_handler=_import_js,
+    export_types=frozenset({"export_statement"}),
+    export_handler=_export_js,
 )
 
 # .tsx files must use the TSX grammar (JSX-aware), not the plain TypeScript grammar.
@@ -1309,6 +1401,15 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                 config.import_handler(node, source, file_nid, stem, edges, str_path)
             return
 
+        # Re-export types (`export ... from '...'`). Recorded for the
+        # post-extraction barrel resolution pass in extract().
+        if t in config.export_types:
+            if config.export_handler:
+                config.export_handler(node, source, file_nid, stem, str_path, reexports)
+            # Don't `return` here — children of export_statement may include
+            # class/function declarations (e.g. `export class Foo {}`) that
+            # we still want to walk normally.
+
         # Class types
         if t in config.class_types:
             # Resolve class name
@@ -1573,6 +1674,13 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
         # Default: recurse
         for child in node.children:
             walk(child, parent_class_nid=None)
+
+    # `reexports` is filled by config.export_handler during walk, so it must
+    # exist in the enclosing scope before walk runs. Other accumulators
+    # (raw_calls, etc.) are referenced only on conditional paths and survive
+    # being initialised later, but the export handler fires for every file
+    # with any `export ... from '...'` statement.
+    reexports: list[dict] = []
 
     walk(root)
 
@@ -1910,7 +2018,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
         if src in valid_ids and (tgt in valid_ids or edge["relation"] in ("imports", "imports_from")):
             clean_edges.append(edge)
 
-    return {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls}
+    return {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls, "reexports": reexports}
 
 
 # ── Python rationale extraction ───────────────────────────────────────────────
@@ -5953,6 +6061,88 @@ def extract(
                 e["source"] = id_remap[e["source"]]
             if e.get("target") in id_remap:
                 e["target"] = id_remap[e["target"]]
+
+    # ── Barrel re-export resolution for JS/TS symbol-level imports ────────────
+    # `import { Foo } from '@pillar/topic'` resolves the file-level edge to the
+    # topic's barrel index.ts, but the symbol-level edge ends up targeting a
+    # synthetic id like `<barrel_stem>_<symbol>` that nothing actually defines —
+    # build_from_json drops it and the consumer ↔ definer coupling is lost.
+    # Follow the `export { Foo } from './foo'` / `export * from './foo'` chain
+    # collected per-file at extract time, then rewrite each symbol-level edge
+    # to point at the symbol's defining file.
+    named_reexports: dict[tuple[str, str], tuple[str, str]] = {}
+    star_reexports: dict[str, list[str]] = {}
+    for result in per_file:
+        if not result:
+            continue
+        for rx in result.get("reexports", ()):
+            kind = rx.get("kind")
+            frm = rx.get("from_path")
+            to = rx.get("to_path")
+            if not frm or not to:
+                continue
+            if kind == "named":
+                exposed = rx.get("exposed")
+                original = rx.get("original")
+                if exposed and original:
+                    named_reexports[(frm, exposed)] = (to, original)
+            elif kind == "star":
+                star_reexports.setdefault(frm, []).append(to)
+
+    def _resolve_reexport_chain(initial_path: str, initial_symbol: str, max_depth: int = 16) -> "tuple[str, str]":
+        visited: set[tuple[str, str]] = set()
+        cur_path, cur_symbol = initial_path, initial_symbol
+        for _ in range(max_depth):
+            key = (cur_path, cur_symbol)
+            if key in visited:
+                break
+            visited.add(key)
+            nxt = named_reexports.get(key)
+            if nxt is not None:
+                cur_path, cur_symbol = nxt
+                continue
+            stars = star_reexports.get(cur_path)
+            if stars:
+                advanced = False
+                for st in stars:
+                    if (st, cur_symbol) in named_reexports or st in star_reexports:
+                        cur_path = st
+                        advanced = True
+                        break
+                if advanced:
+                    continue
+            break
+        return cur_path, cur_symbol
+
+    if named_reexports or star_reexports:
+        existing_ids = {n["id"] for n in all_nodes}
+        reexport_rewrites = 0
+        for e in all_edges:
+            tp = e.pop("_reexport_target_path", None)
+            sym = e.pop("_reexport_symbol", None)
+            if tp is None or sym is None:
+                continue
+            final_path, final_symbol = _resolve_reexport_chain(tp, sym)
+            if (final_path, final_symbol) == (tp, sym):
+                continue
+            new_target = _make_id(_file_stem(Path(final_path)), final_symbol)
+            if new_target in existing_ids:
+                e["target"] = new_target
+                reexport_rewrites += 1
+        # Strip metadata from any remaining edges (e.g. when no chain applied).
+        for e in all_edges:
+            e.pop("_reexport_target_path", None)
+            e.pop("_reexport_symbol", None)
+        if reexport_rewrites:
+            import logging
+            logging.getLogger(__name__).info(
+                "Resolved %d symbol-level imports through barrel re-exports",
+                reexport_rewrites,
+            )
+    else:
+        for e in all_edges:
+            e.pop("_reexport_target_path", None)
+            e.pop("_reexport_symbol", None)
 
     # Add cross-file class-level edges (Python only - uses Python parser internally)
     py_paths = [p for p in paths if p.suffix == ".py"]
