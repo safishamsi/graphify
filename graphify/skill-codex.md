@@ -55,6 +55,8 @@ If the user invoked `/graphify --help` or `/graphify -h` (with no other argument
 
 If no path was given, use `.` (current directory). Do not ask the user for a path.
 
+If `graphify-out/` exists, use `graphify query`, `graphify explain`, or `graphify path` for orientation before broad grep, rg, or multi-file reads. Dirty `graphify-out/` artifacts are expected after hooks or incremental updates; dirty graph files are not a reason to skip Graphify. Only skip Graphify if the task is specifically about stale or incorrect graph output, or the user explicitly says not to use it.
+
 Follow these steps in order. Do not skip steps.
 
 ### Step 1 - Ensure graphify is installed

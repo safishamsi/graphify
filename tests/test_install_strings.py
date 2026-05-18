@@ -115,3 +115,8 @@ def test_report_is_still_referenced_as_fallback():
         f"The fix should demote the report, not delete the reference — users need to know "
         f"it's available for broad-architecture queries."
     )
+
+
+def test_agents_section_does_not_skip_dirty_graph_output():
+    assert "Dirty graphify-out/ files are expected" in _AGENTS_MD_SECTION
+    assert "not a reason to skip graphify" in _AGENTS_MD_SECTION
