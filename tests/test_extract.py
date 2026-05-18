@@ -691,3 +691,19 @@ def test_extract_bash_via_dispatch():
 def test_extract_json_via_dispatch():
     from graphify.extract import _get_extractor
     assert _get_extractor(Path("foo.json")) is extract_json
+
+
+def test_extract_bash_node_metadata_is_sanitized():
+    """Bash extractor must route node metadata through sanitize_metadata so
+    HTML-sensitive characters cannot reach downstream graph viewers raw."""
+    result = extract_bash(FIXTURES / "sample.sh")
+    assert "error" not in result
+    for node in result["nodes"]:
+        meta = node.get("metadata", {})
+        # Static bash metadata is currently {"language": "bash", "kind": "code"};
+        # both pass through sanitisation unchanged, but the values must be the
+        # post-sanitisation strings (not raw objects).
+        for value in meta.values():
+            if isinstance(value, str):
+                assert "<" not in value
+                assert "\x00" not in value

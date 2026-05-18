@@ -7,7 +7,9 @@ import re
 import urllib.error
 import urllib.parse
 import urllib.request
+from collections.abc import Mapping
 from pathlib import Path
+from typing import Any
 
 import ipaddress
 import socket
@@ -277,3 +279,58 @@ def sanitize_label(text: str | None) -> str:
     if len(text) > _MAX_LABEL_LEN:
         text = text[:_MAX_LABEL_LEN]
     return text
+
+
+# ---------------------------------------------------------------------------
+# Metadata sanitisation (recursive, bounded, HTML-safe)
+# ---------------------------------------------------------------------------
+
+_METADATA_MAX_VALUE_LEN = 512
+_METADATA_MAX_LIST_ITEMS = 50
+
+
+def _sanitize_metadata_string(value: object) -> str:
+    """Return a control-character-free, HTML-escaped, bounded string."""
+    text = _CONTROL_CHAR_RE.sub("", str(value))
+    text = html.escape(text, quote=True)
+    if len(text) > _METADATA_MAX_VALUE_LEN:
+        text = text[:_METADATA_MAX_VALUE_LEN]
+    return text
+
+
+def _sanitize_metadata_value(value: object) -> object:
+    """Sanitize a metadata value while preserving simple JSON-compatible types."""
+    if isinstance(value, bool):
+        # bool is a subclass of int — must be checked first to avoid coercion.
+        return value
+    if isinstance(value, str):
+        return _sanitize_metadata_string(value)
+    if isinstance(value, dict):
+        return sanitize_metadata(value)
+    if isinstance(value, (list, tuple)):
+        return [_sanitize_metadata_value(item) for item in value[:_METADATA_MAX_LIST_ITEMS]]
+    if isinstance(value, (int, float)) or value is None:
+        return value
+    return _sanitize_metadata_string(value)
+
+
+def sanitize_metadata(metadata: Mapping[str, Any] | None) -> dict[str, object]:
+    """Sanitize metadata keys and values before graph export.
+
+    Metadata is less constrained than node labels: it can contain nested
+    dicts, lists, source snippets, external index symbols, and docstring
+    text. This helper keeps the data JSON-compatible, strips control
+    characters, escapes HTML-sensitive characters in strings, caps long
+    strings/lists, and drops entries whose key becomes empty after
+    sanitization.
+    """
+    if metadata is None:
+        return {}
+
+    result: dict[str, object] = {}
+    for key, value in metadata.items():
+        clean_key = _sanitize_metadata_string(key)
+        if not clean_key:
+            continue
+        result[clean_key] = _sanitize_metadata_value(value)
+    return result

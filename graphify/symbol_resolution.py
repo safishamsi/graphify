@@ -9,6 +9,8 @@ from pathlib import Path
 from collections.abc import Sequence
 from typing import Any
 
+from graphify.security import sanitize_metadata
+
 
 _EXCLUDED_FILE_TYPES = {"rationale", "doc_tag"}
 
@@ -290,13 +292,13 @@ def resolve_python_import_guided_calls(
                     "source_file": raw_call.get("source_file", source_file),
                     "source_location": raw_call.get("source_location") or imported.source_location,
                     "weight": 1.0,
-                    "metadata": {
+                    "metadata": sanitize_metadata({
                         "resolver": "python_import_guided",
                         "local_name": imported.local_name,
                         "imported_name": imported.imported_name,
                         "module_stem": imported.module_stem,
                         "import_source_location": imported.source_location,
-                    },
+                    }),
                 }
             )
 

@@ -1545,3 +1545,96 @@ def test_duplicate_same_document_definition_does_not_create_false_ambiguity():
     # Edge from b.py's Caller# routes to a.py's real Helper# (NOT a stub)
     edge = result["edges"][0]
     assert edge["target"] == helper_nodes[0]["id"]
+
+
+# ---------------------------------------------------------------------------
+# sanitize_metadata wiring — SCIP descriptions / relationship payloads
+# ---------------------------------------------------------------------------
+
+
+def test_ingest_node_metadata_html_escaped() -> None:
+    """SCIP-supplied description must be HTML-escaped before reaching node
+    metadata; a malicious indexer cannot inject markup into HTML viewers."""
+    doc = {
+        "documents": [
+            {
+                "relative_path": "src/x.py",
+                "language": "python",
+                "symbols": [
+                    {
+                        "symbol": "python/x.py:Evil#",
+                        "kind": "class",
+                        "display_name": "Evil",
+                        "documentation": ["<script>alert('xss')</script>"],
+                        "occurrences": [{"range": [1, 0, 1, 5]}],
+                    }
+                ],
+            }
+        ]
+    }
+    result = ingest_scip_json(doc)
+    node = result["nodes"][0]
+    desc = node["metadata"]["scip_description"]
+    assert "<script>" not in desc
+    assert "&lt;script&gt;" in desc
+
+
+def test_ingest_node_metadata_control_chars_stripped() -> None:
+    """Control characters in SCIP description must not survive into the graph."""
+    doc = {
+        "documents": [
+            {
+                "relative_path": "src/x.py",
+                "language": "python",
+                "symbols": [
+                    {
+                        "symbol": "python/x.py:Func#",
+                        "kind": "function",
+                        "display_name": "Func",
+                        "documentation": ["before\x00mid\x1fafter"],
+                        "occurrences": [{"range": [1, 0, 1, 5]}],
+                    }
+                ],
+            }
+        ]
+    }
+    result = ingest_scip_json(doc)
+    desc = result["nodes"][0]["metadata"]["scip_description"]
+    assert "\x00" not in desc
+    assert "\x1f" not in desc
+    assert "beforemidafter" in desc
+
+
+def test_ingest_relationship_metadata_sanitized() -> None:
+    """SCIP relationship payloads embedded in edge metadata must be sanitized."""
+    doc = {
+        "documents": [
+            {
+                "relative_path": "src/a.py",
+                "language": "python",
+                "symbols": [
+                    {
+                        "symbol": "python/a.py:Caller#",
+                        "kind": "function",
+                        "display_name": "Caller",
+                        "occurrences": [{"range": [1, 0, 1, 5]}],
+                        "relationships": [
+                            {
+                                "symbol": "python/a.py:Helper#",
+                                "is_reference": True,
+                                "label": "<img src=x onerror=alert(1)>",
+                            }
+                        ],
+                    }
+                ],
+            }
+        ]
+    }
+    result = ingest_scip_json(doc)
+    assert result["edges"], "expected at least one edge"
+    edge_metadata = result["edges"][0]["metadata"]
+    rel = edge_metadata["scip_relationship"]
+    assert isinstance(rel, dict)
+    label = rel.get("label", "")
+    assert "<img" not in label
+    assert "&lt;img" in label

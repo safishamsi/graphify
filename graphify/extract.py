@@ -5868,9 +5868,10 @@ def extract_bash(path: Path) -> dict:
     def add_node(nid: str, label: str, line: int, kind: str = "code") -> None:
         if nid and nid not in seen_ids:
             seen_ids.add(nid)
+            from graphify.security import sanitize_metadata
             nodes.append({"id": nid, "label": label, "file_type": "code",
                           "source_file": str_path, "source_location": f"L{line}",
-                          "metadata": {"language": "bash", "kind": kind}})
+                          "metadata": sanitize_metadata({"language": "bash", "kind": kind})})
 
     def add_edge(src: str, tgt: str, relation: str, line: int,
                  confidence: str = "EXTRACTED", weight: float = 1.0,

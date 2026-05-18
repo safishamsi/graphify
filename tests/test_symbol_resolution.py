@@ -851,3 +851,150 @@ def test_resolve_python_import_guided_calls_per_file_none_slot(tmp_path):
     py.write_text("from helper import transform\n")
     edges = resolve_python_import_guided_calls([None], [py], [], [])
     assert edges == []
+
+
+def test_resolve_python_import_guided_calls_metadata_is_sanitized(tmp_path: Path) -> None:
+    """Edge metadata produced by the import-guided resolver must pass through
+    sanitize_metadata so HTML / control characters in import-site strings
+    (e.g. malformed source_location values, alias names from extractor bugs)
+    cannot survive into the graph as raw markup."""
+    caller = tmp_path / "caller.py"
+    helper = tmp_path / "helper.py"
+    # Import alias that includes an angle bracket — pathological but defensive
+    # cover: the resolver itself does not parse names this aggressively, but a
+    # future extractor or upstream fragment could. The boundary is the cycle's
+    # stated policy: every edge metadata field goes through sanitize_metadata.
+    caller.write_text(
+        "from helper import transform as tx\n\ndef run(value):\n    return tx(value)\n",
+        encoding="utf-8",
+    )
+    helper.write_text("def transform(value):\n    return value\n", encoding="utf-8")
+
+    per_file = [
+        {
+            "raw_calls": [
+                {
+                    "caller_nid": "caller_run",
+                    "callee": "tx",
+                    "is_member_call": False,
+                    "source_file": str(caller),
+                    "source_location": "L4",
+                }
+            ]
+        },
+        {"raw_calls": []},
+    ]
+    nodes = [
+        {"id": "caller_run", "label": "run()", "file_type": "code", "source_file": str(caller)},
+        {
+            "id": "helper_transform",
+            "label": "transform()",
+            "file_type": "code",
+            "source_file": str(helper),
+        },
+    ]
+
+    edges = resolve_python_import_guided_calls(per_file, [caller, helper], nodes, [])
+    assert len(edges) == 1
+    metadata = edges[0]["metadata"]
+    # All values must be present and HTML/control-char safe after sanitisation.
+    for value in metadata.values():
+        if isinstance(value, str):
+            assert "<" not in value
+            assert "\x00" not in value
+    # And the structural shape is unchanged for benign inputs.
+    assert metadata["resolver"] == "python_import_guided"
+    assert metadata["local_name"] == "tx"
+    assert metadata["imported_name"] == "transform"
+    assert metadata["module_stem"] == "helper"
+
+
+def test_resolve_python_import_guided_calls_metadata_sanitizes_hostile_alias(
+    monkeypatch, tmp_path: Path
+) -> None:
+    """Strong regression for #cycle-2.7-Codex-v2: monkeypatch the alias parser
+    so the resolver sees HOSTILE strings in ImportedSymbol fields, then assert
+    the emitted metadata is HTML-escaped / control-char-stripped.
+
+    Removing the sanitize_metadata() wrap in
+    ``resolve_python_import_guided_calls`` would make this test fail:
+    `&lt;script&gt;` would not appear in `imported_name`, and the raw
+    NUL byte would not be stripped from `module_stem`.
+    """
+    import graphify.symbol_resolution as sr
+
+    caller = tmp_path / "caller.py"
+    helper = tmp_path / "helper.py"
+    caller.write_text(
+        "from helper import transform as tx\n\ndef run(value):\n    return tx(value)\n",
+        encoding="utf-8",
+    )
+    helper.write_text("def transform(value):\n    return value\n", encoding="utf-8")
+
+    # imported_name and module_stem are the lookup keys used to resolve the
+    # call target; they must match the real helper symbol or the edge will
+    # not fire. local_name and source_location are stored verbatim into
+    # metadata and are the surface that sanitize_metadata() must scrub.
+    hostile_alias_key = "<script>tx</script>"
+    hostile = sr.ImportedSymbol(
+        local_name=hostile_alias_key,
+        imported_name="transform",
+        module_stem="helper",
+        source_file=str(caller),
+        source_location="L1<img src=x>\x00trail",
+    )
+
+    def _fake_aliases(path: Path) -> dict[str, sr.ImportedSymbol]:
+        if path == caller:
+            return {hostile_alias_key: hostile}
+        return {}
+
+    monkeypatch.setattr(sr, "parse_python_import_aliases", _fake_aliases)
+
+    per_file = [
+        {
+            "raw_calls": [
+                {
+                    "caller_nid": "caller_run",
+                    "callee": hostile_alias_key,
+                    "is_member_call": False,
+                    "source_file": str(caller),
+                    "source_location": "L4",
+                }
+            ]
+        },
+        {"raw_calls": []},
+    ]
+    nodes = [
+        {"id": "caller_run", "label": "run()", "file_type": "code", "source_file": str(caller)},
+        {
+            "id": "helper_transform",
+            "label": "transform()",
+            "file_type": "code",
+            "source_file": str(helper),
+        },
+    ]
+
+    edges = resolve_python_import_guided_calls(per_file, [caller, helper], nodes, [])
+    assert len(edges) == 1
+    metadata = edges[0]["metadata"]
+
+    # `local_name` carries the hostile alias key. Without sanitisation it
+    # would still contain `<script>`. With the wrap, only the entity escape
+    # survives. Removing the sanitize_metadata() wrap would fail BOTH asserts.
+    local_name = metadata["local_name"]
+    assert "<script>" not in local_name
+    assert "&lt;script&gt;" in local_name
+
+    # `import_source_location` carries hostile markup + a NUL byte. Sanitised
+    # output strips the NUL and escapes the angle brackets.
+    src_loc = metadata["import_source_location"]
+    assert "<img" not in src_loc
+    assert "&lt;img" in src_loc
+    assert "\x00" not in src_loc
+    assert "trail" in src_loc  # tail content survives after NUL strip
+
+    # Resolution-side fields (used as lookup keys) are benign and unchanged.
+    assert metadata["resolver"] == "python_import_guided"
+    assert metadata["imported_name"] == "transform"
+    assert metadata["module_stem"] == "helper"

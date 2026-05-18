@@ -36,6 +36,8 @@ import hashlib
 import re
 from typing import Any
 
+from graphify.security import sanitize_metadata
+
 
 def ingest_scip_json(
     doc: object,
@@ -159,7 +161,7 @@ def _emit_symbol_node(
             "file_type": _scip_kind_to_file_type(kind),
             "source_file": doc_path,
             "source_location": f"L{sourceline}" if sourceline else "",
-            "metadata": _build_scip_metadata(symbol_id, kind, description),
+            "metadata": sanitize_metadata(_build_scip_metadata(symbol_id, kind, description)),
         }
     )
 
@@ -219,7 +221,9 @@ def _emit_relationships(
                         "file_type": "code",
                         "source_file": doc_path,
                         "source_location": "",
-                        "metadata": _build_scip_metadata(target_symbol, "external", ""),
+                        "metadata": sanitize_metadata(
+                            _build_scip_metadata(target_symbol, "external", "")
+                        ),
                     }
                 )
         relation = _scip_relation_for(rel)
@@ -239,7 +243,7 @@ def _emit_relationships(
                 "source_location": source_location,
                 "weight": 1.0,
                 "context": "scip",
-                "metadata": {"scip_relationship": rel},
+                "metadata": sanitize_metadata({"scip_relationship": rel}),
             }
         )
 
