@@ -14,6 +14,13 @@ from pathlib import Path
 _GRAPHIFY_OUT = os.environ.get("GRAPHIFY_OUT", "graphify-out")
 
 
+def _dict_items(value: object) -> list[dict]:
+    """Return only dict entries from a cached/extracted graph list."""
+    if not isinstance(value, list):
+        return []
+    return [item for item in value if isinstance(item, dict)]
+
+
 def _body_content(content: bytes) -> bytes:
     """Strip YAML frontmatter from Markdown content, returning only the body."""
     text = content.decode(errors="replace")
@@ -280,9 +287,9 @@ def check_semantic_cache(
             p = Path(root) / p
         result = load_cached(p, root, kind="semantic")
         if result is not None:
-            cached_nodes.extend(result.get("nodes", []))
-            cached_edges.extend(result.get("edges", []))
-            cached_hyperedges.extend(result.get("hyperedges", []))
+            cached_nodes.extend(_dict_items(result.get("nodes", [])))
+            cached_edges.extend(_dict_items(result.get("edges", [])))
+            cached_hyperedges.extend(_dict_items(result.get("hyperedges", [])))
         else:
             uncached.append(fpath)
 
@@ -306,14 +313,20 @@ def save_semantic_cache(
 
     by_file: dict[str, dict] = defaultdict(lambda: {"nodes": [], "edges": [], "hyperedges": []})
     for n in nodes:
+        if not isinstance(n, dict):
+            continue
         src = n.get("source_file", "")
         if src:
             by_file[src]["nodes"].append(n)
     for e in edges:
+        if not isinstance(e, dict):
+            continue
         src = e.get("source_file", "")
         if src:
             by_file[src]["edges"].append(e)
     for h in (hyperedges or []):
+        if not isinstance(h, dict):
+            continue
         src = h.get("source_file", "")
         if src:
             by_file[src]["hyperedges"].append(h)

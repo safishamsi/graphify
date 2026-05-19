@@ -38,6 +38,39 @@ def test_to_json_nodes_have_community():
         for node in data["nodes"]:
             assert "community" in node
 
+
+def test_to_json_canonicalizes_salvageable_schema_fields():
+    G = build_from_json({
+        "nodes": [
+            {"id": "memory_control_plane", "file_type": "document", "source_file": "a.md"},
+            {"id": "dex_system", "label": "Dex System", "file_type": "document", "source_file": "b.md"},
+        ],
+        "edges": [
+            {
+                "source": "memory_control_plane",
+                "target": "dex_system",
+                "confidence": "INFERRED",
+                "confidence_score": 0.9,
+                "confience_score": 0.8,
+                "source_file": "",
+            }
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    })
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "graph.json"
+        to_json(G, {0: list(G.nodes)}, str(out), force=True)
+        data = json.loads(out.read_text())
+        node = next(n for n in data["nodes"] if n["id"] == "memory_control_plane")
+        link = data["links"][0]
+        assert node["label"] == "Memory Control Plane"
+        assert link["relation"] == "conceptually_related_to"
+        assert link["source_file"] == "unknown"
+        assert link["confidence_score"] == 0.9
+        assert "confience_score" not in link
+
+
 def test_to_cypher_creates_file():
     G = make_graph()
     with tempfile.TemporaryDirectory() as tmp:

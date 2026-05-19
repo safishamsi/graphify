@@ -472,6 +472,11 @@ def _git_head() -> str | None:
         return None
 
 
+def _label_from_id(node_id: str) -> str:
+    """Derive a readable fallback label from a node id."""
+    return " ".join(part for part in str(node_id).replace("-", "_").split("_") if part).title()
+
+
 def to_json(G: nx.Graph, communities: dict[int, list[str]], output_path: str, *, force: bool = False, built_at_commit: str | None = None) -> bool:
     # Safety check: refuse to silently shrink an existing graph (#479)
     existing_path = Path(output_path)
@@ -499,9 +504,21 @@ def to_json(G: nx.Graph, communities: dict[int, list[str]], output_path: str, *,
     except TypeError:
         data = json_graph.node_link_data(G)
     for node in data["nodes"]:
+        if not node.get("label"):
+            node["label"] = _label_from_id(node.get("id", ""))
+        if not node.get("source_file"):
+            node["source_file"] = "unknown"
         node["community"] = node_community.get(node["id"])
         node["norm_label"] = _strip_diacritics(node.get("label", "")).lower()
     for link in data["links"]:
+        if "confience_score" in link:
+            typo_score = link.pop("confience_score")
+            if "confidence_score" not in link:
+                link["confidence_score"] = typo_score
+        if not link.get("relation"):
+            link["relation"] = "conceptually_related_to"
+        if not link.get("source_file"):
+            link["source_file"] = "unknown"
         if "confidence_score" not in link:
             conf = link.get("confidence", "EXTRACTED")
             link["confidence_score"] = _CONFIDENCE_SCORE_DEFAULTS.get(conf, 1.0)

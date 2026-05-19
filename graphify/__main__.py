@@ -1241,6 +1241,8 @@ def main() -> None:
         print("    --context C             explicit edge-context filter (repeatable)")
         print("    --budget N              cap output at N tokens (default 2000)")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("  quality [graph.json]     inspect graph.json schema quality")
+        print("    --json                  emit machine-readable quality report")
         print("  save-result             save a Q&A result to graphify-out/memory/ for graph feedback loop")
         print("    --question Q            the question asked")
         print("    --answer A              the answer to save")
@@ -1256,7 +1258,7 @@ def main() -> None:
         print("    --top-k-edges N         per-symbol outbound edges in inspector (default 12)")
         print("    --label NAME            project label in header")
         print("  extract <path>          headless full extraction (AST + semantic LLM) for CI/scripts")
-        print("    --backend B             gemini|kimi|claude|openai|deepseek|ollama (default: whichever API key is set)")
+        print("    --backend B             openrouter-deepseek|openrouter-kimi|deepseek|gemini|kimi|claude|openai|ollama (default: OpenRouter DeepSeek when OPENROUTER_API_KEY is set)")
         print("    --model M               override backend default model")
         print("    --max-workers N         AST extraction subprocess count (default: cpu_count)")
         print("    --token-budget N        per-chunk token cap for semantic extraction (default: 60000)")
@@ -1576,6 +1578,26 @@ def main() -> None:
             source_nodes=opts.nodes or None,
         )
         print(f"Saved to {out}")
+    elif cmd == "quality":
+        from graphify.quality import format_report, inspect_graph
+        graph_path = Path(_default_graph_path())
+        emit_json = False
+        for arg in sys.argv[2:]:
+            if arg == "--json":
+                emit_json = True
+            else:
+                graph_path = Path(arg)
+        try:
+            report = inspect_graph(graph_path)
+        except Exception as exc:
+            print(f"error: could not inspect graph quality: {exc}", file=sys.stderr)
+            sys.exit(1)
+        if emit_json:
+            print(json.dumps(report, indent=2))
+        else:
+            print(format_report(report))
+        if report["status"] != "pass":
+            sys.exit(1)
     elif cmd == "path":
         if len(sys.argv) < 4:
             print("Usage: graphify path \"<source>\" \"<target>\" [--graph path]", file=sys.stderr)
@@ -2402,7 +2424,7 @@ def main() -> None:
         # has an API key set.
         if len(sys.argv) < 3:
             print(
-                "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai|deepseek|ollama] "
+                "Usage: graphify extract <path> [--backend openrouter-deepseek|openrouter-kimi|deepseek|gemini|kimi|claude|openai|ollama] "
                 "[--model M] [--out DIR] [--google-workspace] [--no-cluster] "
                 "[--max-workers N] [--token-budget N] [--max-concurrency N] "
                 "[--api-timeout S]",
@@ -2525,14 +2547,16 @@ def main() -> None:
             extract_corpus_parallel as _extract_corpus_parallel,
             _format_backend_env_keys,
             _get_backend_api_key,
+            _sanitize_extraction_result,
         )
         if backend is None:
             backend = _detect_backend()
             if backend is None:
                 print(
-                    "error: no LLM API key found. Set GEMINI_API_KEY or GOOGLE_API_KEY "
-                    "(gemini), MOONSHOT_API_KEY (kimi), ANTHROPIC_API_KEY (claude), "
-                    "OPENAI_API_KEY (openai), DEEPSEEK_API_KEY (deepseek), "
+                    "error: no LLM API key found. Set OPENROUTER_API_KEY "
+                    "(default openrouter-deepseek), DEEPSEEK_API_KEY (deepseek), "
+                    "GEMINI_API_KEY or GOOGLE_API_KEY (gemini), MOONSHOT_API_KEY (kimi), "
+                    "ANTHROPIC_API_KEY (claude), OPENAI_API_KEY (openai), "
                     "or pass --backend.",
                     file=sys.stderr,
                 )
@@ -2677,11 +2701,16 @@ def main() -> None:
             cached_nodes, cached_edges, cached_hyperedges, uncached_paths = (
                 _check_semantic_cache(sem_paths_str, root=target)
             )
+            cached_fragment = _sanitize_extraction_result({
+                "nodes": cached_nodes,
+                "edges": cached_edges,
+                "hyperedges": cached_hyperedges,
+            })
             sem_cache_hits = len(semantic_files) - len(uncached_paths)
             sem_cache_misses = len(uncached_paths)
-            sem_result["nodes"].extend(cached_nodes)
-            sem_result["edges"].extend(cached_edges)
-            sem_result["hyperedges"].extend(cached_hyperedges)
+            sem_result["nodes"].extend(cached_fragment["nodes"])
+            sem_result["edges"].extend(cached_fragment["edges"])
+            sem_result["hyperedges"].extend(cached_fragment["hyperedges"])
             if sem_cache_hits:
                 print(f"[graphify extract] semantic cache: {sem_cache_hits} hit / {sem_cache_misses} miss")
 
@@ -2722,6 +2751,7 @@ def main() -> None:
                         file=sys.stderr,
                     )
                     fresh = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+                fresh = _sanitize_extraction_result(fresh)
                 try:
                     _save_semantic_cache(
                         fresh.get("nodes", []),
@@ -2748,6 +2778,7 @@ def main() -> None:
             "input_tokens": ast_result.get("input_tokens", 0) + sem_result.get("input_tokens", 0),
             "output_tokens": ast_result.get("output_tokens", 0) + sem_result.get("output_tokens", 0),
         }
+        merged = _sanitize_extraction_result(merged)
 
         graph_json_path = graphify_out / "graph.json"
         analysis_path = graphify_out / ".graphify_analysis.json"

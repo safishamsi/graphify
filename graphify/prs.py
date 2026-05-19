@@ -541,8 +541,11 @@ def render_pr_detail(pr: PRInfo, repo: str | None = None) -> None:
 
 # Best model per backend for reasoning tasks (different from extraction defaults)
 _TRIAGE_MODEL_DEFAULTS: dict[str, str] = {
+    "openrouter-deepseek": "deepseek/deepseek-v4-flash",
+    "deepseek": "deepseek-v4-flash",
     "claude": "claude-opus-4-7",
     "kimi":   "kimi-k2.6",
+    "openrouter-kimi": "moonshotai/kimi-k2.6",
     "openai": "gpt-4.1-mini",
     "gemini": "gemini-3-flash-preview",
 }
@@ -559,7 +562,7 @@ def _resolve_triage_backend() -> tuple[str, str]:
                  or _default_model_for_backend(explicit))
         return explicit, model
 
-    for b in ("claude", "kimi", "openai", "gemini"):
+    for b in ("openrouter-deepseek", "openrouter-kimi", "deepseek", "claude", "kimi", "openai", "gemini"):
         if _get_backend_api_key(b):
             model = (os.environ.get("GRAPHIFY_TRIAGE_MODEL")
                      or _TRIAGE_MODEL_DEFAULTS.get(b)
@@ -570,7 +573,7 @@ def _resolve_triage_backend() -> tuple[str, str]:
     if shutil.which("claude"):
         return "claude-cli", "claude-code-plan"
 
-    return "ollama", _default_model_for_backend("ollama")
+    raise RuntimeError("No triage backend configured. Set OPENROUTER_API_KEY (preferred) or GRAPHIFY_TRIAGE_BACKEND; refusing to fall back to a local Ollama model by default.")
 
 
 def triage_with_opus(prs: list[PRInfo], base: str) -> None:
@@ -624,7 +627,7 @@ def triage_with_opus(prs: list[PRInfo], base: str) -> None:
                     print(text.replace("\n", "\n  "), end="", flush=True)
             print("\n")
 
-        elif backend in ("kimi", "openai", "gemini", "ollama"):
+        elif backend in ("openrouter-deepseek", "deepseek", "kimi", "openrouter-kimi", "openai", "gemini", "ollama"):
             from openai import OpenAI
             cfg = BACKENDS[backend]
             api_key = _get_backend_api_key(backend) or "ollama"

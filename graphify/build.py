@@ -83,6 +83,18 @@ def _norm_source_file(p: str | None, root: str | None = None) -> str | None:
     return p
 
 
+def _dict_items(value: object) -> list[dict]:
+    """Return only dict entries from a graph list."""
+    if not isinstance(value, list):
+        return []
+    return [item for item in value if isinstance(item, dict)]
+
+
+def _label_from_id(node_id: str) -> str:
+    """Derive a readable fallback label from a node id."""
+    return " ".join(part for part in str(node_id).replace("-", "_").split("_") if part).title()
+
+
 def edge_data(G: nx.Graph, u: str, v: str) -> dict:
     """Return one edge attribute dict for (u, v), tolerating MultiGraph.
 
@@ -112,15 +124,17 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
     root: if given, absolute source_file paths from semantic subagents are made
         relative to root so all nodes share a consistent path key (#932).
     """
+    extraction = dict(extraction)
     _root = str(Path(root).resolve()) if root else None
     # NetworkX <= 3.1 serialised edges as "links"; remap to "edges" for compatibility.
     if "edges" not in extraction and "links" in extraction:
-        extraction = dict(extraction, edges=extraction["links"])
+        extraction["edges"] = extraction["links"]
+
+    for key in ("nodes", "edges", "hyperedges"):
+        extraction[key] = _dict_items(extraction.get(key))
 
     # Canonicalize legacy node/edge schema before validation.
     for node in extraction.get("nodes", []):
-        if not isinstance(node, dict):
-            continue
         if "source" in node and "source_file" not in node:
             # Count edges that reference this node so the warning is actionable (#479)
             node_id = node.get("id", "?")
@@ -135,6 +149,8 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
                 file=sys.stderr,
             )
             node["source_file"] = node.pop("source")
+        if not node.get("label"):
+            node["label"] = _label_from_id(node.get("id", ""))
         # Default missing/None file_type to "concept" so legacy graph.json
         # entries (and stub nodes preserved by `_rebuild_code` from older
         # graphify versions that didn't always populate file_type) don't
@@ -144,6 +160,20 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
         ft = node.get("file_type", "")
         if ft and ft not in {"code", "document", "paper", "image", "rationale", "concept"}:
             node["file_type"] = _FILE_TYPE_SYNONYMS.get(ft, "concept")
+
+    for edge in extraction.get("edges", []):
+        if "confience_score" in edge:
+            typo_score = edge.pop("confience_score")
+            if "confidence_score" not in edge:
+                edge["confidence_score"] = typo_score
+        if "source" not in edge and "from" in edge:
+            edge["source"] = edge["from"]
+        if "target" not in edge and "to" in edge:
+            edge["target"] = edge["to"]
+        if not edge.get("relation"):
+            edge["relation"] = "conceptually_related_to"
+        if not edge.get("source_file"):
+            edge["source_file"] = "unknown"
 
     errors = validate_extraction(extraction)
     # Dangling edges (stdlib/external imports) are expected - only warn about real schema errors.
@@ -161,10 +191,6 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
     # e.g. "Session_ValidateToken" maps to "session_validatetoken".
     norm_to_id: dict[str, str] = {_normalize_id(nid): nid for nid in node_set}
     for edge in extraction.get("edges", []):
-        if "source" not in edge and "from" in edge:
-            edge["source"] = edge["from"]
-        if "target" not in edge and "to" in edge:
-            edge["target"] = edge["to"]
         if "source" not in edge or "target" not in edge:
             continue
         src, tgt = edge["source"], edge["target"]
@@ -214,9 +240,9 @@ def build(
     from graphify.dedup import deduplicate_entities
     combined: dict = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
     for ext in extractions:
-        combined["nodes"].extend(ext.get("nodes", []))
-        combined["edges"].extend(ext.get("edges", []))
-        combined["hyperedges"].extend(ext.get("hyperedges", []))
+        combined["nodes"].extend(_dict_items(ext.get("nodes", [])))
+        combined["edges"].extend(_dict_items(ext.get("edges", [])))
+        combined["hyperedges"].extend(_dict_items(ext.get("hyperedges", [])))
         combined["input_tokens"] += ext.get("input_tokens", 0)
         combined["output_tokens"] += ext.get("output_tokens", 0)
     if dedup and combined["nodes"]:
