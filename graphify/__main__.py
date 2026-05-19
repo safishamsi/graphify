@@ -1824,6 +1824,7 @@ def main() -> None:
                           {"warning": "cluster-only mode — file stats not available"},
                           tokens, str(watch_path), suggested_questions=questions,
                           min_community_size=min_community_size, built_at_commit=_commit)
+        out.mkdir(parents=True, exist_ok=True)
         (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
         from graphify.export import backup_if_protected as _backup
         _backup(out)
