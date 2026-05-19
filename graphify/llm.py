@@ -69,6 +69,14 @@ BACKENDS: dict[str, dict] = {
         "temperature": 0,
         "max_tokens": 16384,
     },
+    "lmstudio": {
+        "base_url": os.environ.get("LMSTUDIO_BASE_URL", "http://localhost:1234/v1"),
+        "default_model": os.environ.get("LMSTUDIO_MODEL", "local-model"),
+        "env_key": "LMSTUDIO_API_KEY",
+        "pricing": {"input": 0.0, "output": 0.0},
+        "temperature": 0,
+        "max_tokens": 16384,
+    },
     "gemini": {
         "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
         "default_model": "gemini-3-flash-preview",
@@ -560,6 +568,9 @@ def extract_files_direct(
             file=sys.stderr,
         )
         key = "ollama"
+    if not key and backend == "lmstudio":
+        # LM Studio does not validate API keys; use the placeholder from lmstudio_client.
+        key = "lm-studio"
     if not key and backend not in ("bedrock", "claude-cli"):
         raise ValueError(
             f"No API key for backend '{backend}'. "

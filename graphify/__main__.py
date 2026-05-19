@@ -1256,7 +1256,8 @@ def main() -> None:
         print("    --top-k-edges N         per-symbol outbound edges in inspector (default 12)")
         print("    --label NAME            project label in header")
         print("  extract <path>          headless full extraction (AST + semantic LLM) for CI/scripts")
-        print("    --backend B             gemini|kimi|claude|openai|deepseek|ollama (default: whichever API key is set)")
+        print("    --backend B             gemini|kimi|claude|openai|deepseek|ollama|lmstudio (default: whichever API key is set)")
+        print("    --lmstudio              shorthand for --backend lmstudio (use LM Studio as the backend LLM)")
         print("    --model M               override backend default model")
         print("    --max-workers N         AST extraction subprocess count (default: cpu_count)")
         print("    --token-budget N        per-chunk token cap for semantic extraction (default: 60000)")
@@ -2402,8 +2403,8 @@ def main() -> None:
         # has an API key set.
         if len(sys.argv) < 3:
             print(
-                "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai|deepseek|ollama] "
-                "[--model M] [--out DIR] [--google-workspace] [--no-cluster] "
+                "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai|deepseek|ollama|lmstudio] "
+                "[--lmstudio] [--model M] [--out DIR] [--google-workspace] [--no-cluster] "
                 "[--max-workers N] [--token-budget N] [--max-concurrency N] "
                 "[--api-timeout S]",
                 file=sys.stderr,
@@ -2504,6 +2505,8 @@ def main() -> None:
                 cli_exclude_hubs = float(args[i + 1]); i += 2
             elif a.startswith("--exclude-hubs="):
                 cli_exclude_hubs = float(a.split("=", 1)[1]); i += 1
+            elif a == "--lmstudio":
+                backend = "lmstudio"; i += 1
             else:
                 i += 1
 
@@ -2581,6 +2584,8 @@ def main() -> None:
                         file=sys.stderr,
                     )
                     sys.exit(1)
+            elif backend == "lmstudio":
+                allow_no_key = True  # LM Studio does not validate API keys
             if not allow_no_key:
                 print(
                     f"error: backend '{backend}' requires {_format_backend_env_keys(backend)} to be set.",
