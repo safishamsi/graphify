@@ -85,3 +85,12 @@ def test_assert_valid_raises_on_errors():
 
 def test_assert_valid_passes_silently():
     assert_valid(VALID)  # should not raise
+
+
+def test_doc_file_type_valid():
+    data = {
+        "nodes": [{"id": "n1", "label": "X", "file_type": "doc", "source_file": "x.md"}],
+        "edges": [],
+    }
+    errors = validate_extraction(data)
+    assert errors == []

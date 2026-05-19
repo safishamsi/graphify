@@ -4944,6 +4944,178 @@ def extract_markdown(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
 
 
+# ── Doc anchor extraction ─────────────────────────────────────────────────────
+
+def _extract_yaml_anchors(text: str, stem: str, str_path: str,
+                          nodes: list, edges: list) -> None:
+    """Extract anchors from YAML frontmatter: graphify_id: or anchors: [...]."""
+    m = re.match(r"^---\s*\n(.*?)\n---", text, re.DOTALL)
+    if not m:
+        return
+    frontmatter = m.group(1)
+
+    gid = re.search(r"^graphify_id:\s*(\S+)", frontmatter, re.MULTILINE)
+    if gid:
+        anchor_id = gid.group(1).strip().strip("\"'")
+        nid = _make_id("doc", stem, anchor_id)
+        nodes.append({
+            "id": nid,
+            "label": f"{stem} / {anchor_id}",
+            "file_type": "doc",
+            "source_file": str_path,
+            "source_location": "L1",
+            "section": anchor_id,
+            "content": None,
+        })
+
+    anchors_m = re.search(r"^anchors:\s*\[(.*?)\]", frontmatter, re.MULTILINE)
+    if anchors_m:
+        for item in anchors_m.group(1).split(","):
+            anchor = item.strip().strip("\"'")
+            if anchor:
+                nid = _make_id("doc", stem, anchor)
+                nodes.append({
+                    "id": nid,
+                    "label": f"{stem} / {anchor}",
+                    "file_type": "doc",
+                    "source_file": str_path,
+                    "source_location": "L1",
+                    "section": anchor,
+                    "content": None,
+                })
+
+
+def _extract_html_comment_anchors(text: str, stem: str, str_path: str,
+                                   nodes: list, edges: list) -> None:
+    """Extract anchors from HTML comments: <!-- GRAPH: symbol -->, <!-- SEE: symbol -->."""
+    seen: set[str] = set()
+    for m in re.finditer(r"<!--\s*(GRAPH|SEE|ANCHOR)\s*:\s*([^>]+?)\s*-->", text):
+        directive = m.group(1).upper()
+        target = m.group(2).strip()
+        if not target or target in seen:
+            continue
+        seen.add(target)
+
+        line = text[:m.start()].count("\n") + 1
+        nid = _make_id("doc", stem, target)
+
+        if nid not in {n["id"] for n in nodes}:
+            nodes.append({
+                "id": nid,
+                "label": f"{stem} / {target}",
+                "file_type": "doc",
+                "source_file": str_path,
+                "source_location": f"L{line}",
+                "section": target,
+                "content": None,
+            })
+
+        relation = "explains" if directive == "GRAPH" else "references"
+        edges.append({
+            "source": nid,
+            "target": _make_id(target),
+            "relation": relation,
+            "confidence": "EXTRACTED",
+            "source_file": str_path,
+            "source_location": f"L{line}",
+            "weight": 1.0,
+        })
+
+
+def _extract_fenced_anchors(text: str, stem: str, str_path: str,
+                             nodes: list, edges: list) -> None:
+    """Extract anchors from fenced directives: ```graphify id=foo ... ```."""
+    seen: set[str] = set()
+    for m in re.finditer(r"```graphify\s+(.*?)```", text, re.DOTALL):
+        attrs = m.group(1).strip()
+        id_m = re.search(r"id=(\S+)", attrs)
+        if not id_m:
+            continue
+        anchor_id = id_m.group(1).strip()
+        if anchor_id in seen:
+            continue
+        seen.add(anchor_id)
+
+        line = text[:m.start()].count("\n") + 1
+        nid = _make_id("doc", stem, anchor_id)
+        content = attrs.replace(f"id={anchor_id}", "").strip() or None
+
+        if nid not in {n["id"] for n in nodes}:
+            nodes.append({
+                "id": nid,
+                "label": f"{stem} / {anchor_id}",
+                "file_type": "doc",
+                "source_file": str_path,
+                "source_location": f"L{line}",
+                "section": anchor_id,
+                "content": content,
+            })
+
+
+def _extract_header_anchors(text: str, stem: str, str_path: str,
+                             nodes: list, edges: list) -> None:
+    """Extract anchors from section headers with explicit IDs: ## Title {#anchor}."""
+    seen: set[str] = set()
+    for m in re.finditer(r"^(#{1,6})\s+(.+?)\s*\{#([^}]+)\}", text, re.MULTILINE):
+        title = m.group(2).strip()
+        anchor_id = m.group(3).strip()
+        if anchor_id in seen:
+            continue
+        seen.add(anchor_id)
+
+        line = text[:m.start()].count("\n") + 1
+        nid = _make_id("doc", stem, anchor_id)
+
+        next_header = re.search(r"^#{1,6}\s+", text[m.end():], re.MULTILINE)
+        if next_header:
+            content = text[m.end():m.end() + next_header.start()].strip()[:300]
+        else:
+            content = text[m.end():].strip()[:300]
+
+        if nid not in {n["id"] for n in nodes}:
+            nodes.append({
+                "id": nid,
+                "label": f"{title} ({stem})",
+                "file_type": "doc",
+                "source_file": str_path,
+                "source_location": f"L{line}",
+                "section": title,
+                "content": content if content else None,
+            })
+
+
+def extract_doc_anchors(doc_files: list[Path]) -> dict:
+    """Extract section anchors from markdown documentation files.
+
+    Detects four anchor patterns:
+    1. YAML frontmatter: graphify_id: auth_flow  or  anchors: [setup, teardown]
+    2. HTML comments: <!-- GRAPH: symbol_name --> or <!-- SEE: symbol_name -->
+    3. Fenced directives: ```graphify id=foo
+    4. Section headers with explicit IDs: ## Title {#anchor}
+
+    Returns nodes+edges with file_type="doc". Edges use relation="explains"
+    (EXTRACTED) when an anchor explicitly names a code symbol.
+    """
+    nodes: list[dict] = []
+    edges: list[dict] = []
+
+    for path in doc_files:
+        try:
+            text = path.read_text(encoding="utf-8", errors="replace")
+        except OSError:
+            continue
+
+        stem = _file_stem(path)
+        str_path = str(path)
+
+        _extract_yaml_anchors(text, stem, str_path, nodes, edges)
+        _extract_html_comment_anchors(text, stem, str_path, nodes, edges)
+        _extract_fenced_anchors(text, stem, str_path, nodes, edges)
+        _extract_header_anchors(text, stem, str_path, nodes, edges)
+
+    return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
+
+
 # ── Pascal / Delphi extractor ─────────────────────────────────────────────────
 
 _pascal_unit_cache: dict[str, dict[str, str]] = {}
@@ -6469,6 +6641,17 @@ def extract(
                 e["source"] = id_remap[e["source"]]
             if e.get("target") in id_remap:
                 e["target"] = id_remap[e["target"]]
+
+    # Doc anchor extraction: merge explicit doc anchors into the graph
+    doc_paths = [p for p in paths if p.suffix in (".md", ".mdx", ".qmd")]
+    if doc_paths:
+        try:
+            doc_result = extract_doc_anchors(doc_paths)
+            all_nodes.extend(doc_result.get("nodes", []))
+            all_edges.extend(doc_result.get("edges", []))
+        except Exception as exc:
+            import logging
+            logging.getLogger(__name__).warning("Doc anchor extraction failed, skipping: %s", exc)
 
     # Add cross-file class-level edges (Python only - uses Python parser internally)
     py_paths = [p for p in paths if p.suffix == ".py"]
