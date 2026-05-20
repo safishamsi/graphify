@@ -1237,6 +1237,16 @@ def main() -> None:
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
         print("  explain \"X\"             plain-language explanation of a node and its neighbors")
         print("    --graph <path>          path to graph.json (default graphify-out/graph.json)")
+        print("  diagnose multigraph    report same-endpoint edge collapse risk in graph.json")
+        print("    --graph <path>          path to graph/extraction JSON")
+        print("                            (default graphify-out/graph.json)")
+        print("    --json                  emit machine-readable JSON")
+        print("    --max-examples N        max same-endpoint examples to print (default 5)")
+        print("    --directed              force directed post-build simulation")
+        print("    --undirected            force undirected post-build simulation")
+        print("                            (default follows JSON directed flag;")
+        print("                             raw extraction with no flag defaults directed)")
+        print("    --extract-path PATH     extractor source for suppression scan")
         print("  clone <github-url>      clone a GitHub repo locally and print its path for /graphify")
         print("  merge-driver <base> <current> <other>  git merge driver: union-merge two graph.json files (set up via hook install)")
         print("  merge-graphs <g1> <g2>  merge two or more graph.json files into one cross-repo graph")
@@ -1734,6 +1744,100 @@ def main() -> None:
                 print(f"  {arrow} {G.nodes[nb].get('label', nb)} [{rel}] [{conf}]")
             if len(connections) > 20:
                 print(f"  ... and {len(connections) - 20} more")
+
+    elif cmd == "diagnose":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd != "multigraph":
+            print(
+                "Usage: graphify diagnose multigraph "
+                "[--graph path] [--json] [--max-examples N] "
+                "[--directed] [--undirected] [--extract-path path]",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+        graph_path = Path(_default_graph_path())
+        max_examples = 5
+        directed: bool | None = None
+        direction_flag: str | None = None
+        json_output = False
+        extract_path: Path | None = None
+
+        i = 3
+        while i < len(sys.argv):
+            arg = sys.argv[i]
+            if arg == "--graph":
+                i += 1
+                if i >= len(sys.argv):
+                    print("error: --graph requires a path", file=sys.stderr)
+                    sys.exit(1)
+                graph_path = Path(sys.argv[i])
+            elif arg == "--json":
+                json_output = True
+            elif arg == "--max-examples":
+                i += 1
+                if i >= len(sys.argv):
+                    print("error: --max-examples requires an integer", file=sys.stderr)
+                    sys.exit(1)
+                try:
+                    max_examples = int(sys.argv[i])
+                except ValueError:
+                    print("error: --max-examples requires an integer", file=sys.stderr)
+                    sys.exit(1)
+                if max_examples < 0:
+                    print("error: --max-examples must be >= 0", file=sys.stderr)
+                    sys.exit(1)
+            elif arg == "--directed":
+                if direction_flag == "undirected":
+                    print(
+                        "error: --directed and --undirected are mutually exclusive",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
+                direction_flag = "directed"
+                directed = True
+            elif arg == "--undirected":
+                if direction_flag == "directed":
+                    print(
+                        "error: --directed and --undirected are mutually exclusive",
+                        file=sys.stderr,
+                    )
+                    sys.exit(1)
+                direction_flag = "undirected"
+                directed = False
+            elif arg == "--extract-path":
+                i += 1
+                if i >= len(sys.argv):
+                    print("error: --extract-path requires a path", file=sys.stderr)
+                    sys.exit(1)
+                extract_path = Path(sys.argv[i])
+            else:
+                print(f"error: unknown diagnose option {arg}", file=sys.stderr)
+                sys.exit(1)
+            i += 1
+
+        from graphify.diagnostics import (
+            diagnose_file,
+            format_diagnostic_json,
+            format_diagnostic_report,
+        )
+
+        try:
+            summary = diagnose_file(
+                graph_path,
+                directed=directed,
+                root=Path(".").resolve(),
+                max_examples=max_examples,
+                extract_path=extract_path,
+            )
+        except Exception as exc:
+            print(f"error: {exc}", file=sys.stderr)
+            sys.exit(1)
+
+        if json_output:
+            print(json.dumps(format_diagnostic_json(summary), indent=2))
+        else:
+            print(format_diagnostic_report(summary))
 
     elif cmd == "add":
         if len(sys.argv) < 3:
