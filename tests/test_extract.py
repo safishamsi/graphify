@@ -56,6 +56,159 @@ def test_extract_merges_multiple_files():
     assert result["input_tokens"] == 0
 
 
+def test_extract_disambiguates_duplicate_symbol_ids_by_source_path(tmp_path):
+    first = tmp_path / "apps/api/Program.cs"
+    second = tmp_path / "tools/api/Program.cs"
+    first.parent.mkdir(parents=True)
+    second.parent.mkdir(parents=True)
+    first.write_text("class Program { void Run() {} }\n", encoding="utf-8")
+    second.write_text("class Program { void Run() {} }\n", encoding="utf-8")
+
+    result = extract([first, second], cache_root=tmp_path)
+    program_nodes = [
+        node for node in result["nodes"]
+        if node["label"] == "Program" and node.get("source_file", "").endswith("Program.cs")
+    ]
+
+    assert len(program_nodes) == 2
+    assert len({node["id"] for node in program_nodes}) == 2
+
+    node_ids = {node["id"] for node in result["nodes"]}
+    program_by_source = {node["source_file"]: node["id"] for node in program_nodes}
+    file_nodes_by_source = {
+        node["source_file"]: node["id"]
+        for node in result["nodes"]
+        if node["label"] == "Program.cs"
+    }
+
+    assert set(program_by_source) == set(file_nodes_by_source)
+    contains_edges = [
+        edge for edge in result["edges"]
+        if edge["relation"] == "contains" and edge["source_file"] in program_by_source
+    ]
+    assert len(contains_edges) == 2
+    for edge in contains_edges:
+        assert edge["source"] == file_nodes_by_source[edge["source_file"]]
+        assert edge["target"] == program_by_source[edge["source_file"]]
+
+    for edge in result["edges"]:
+        if edge["relation"] in {"contains", "method"}:
+            assert edge["source"] in node_ids, f"Dangling structural source: {edge}"
+            assert edge["target"] in node_ids, f"Dangling structural target: {edge}"
+
+
+def test_extract_updates_raw_call_callers_after_duplicate_id_disambiguation(tmp_path):
+    first = tmp_path / "apps/api/Program.cs"
+    second = tmp_path / "tools/api/Program.cs"
+    target = tmp_path / "shared/Helper.cs"
+    first.parent.mkdir(parents=True)
+    second.parent.mkdir(parents=True)
+    target.parent.mkdir(parents=True)
+    first.write_text("class Program { void Run() { SharedHelper(); } }\n", encoding="utf-8")
+    second.write_text("class Program { void Run() {} }\n", encoding="utf-8")
+    target.write_text("class Helper { void SharedHelper() {} }\n", encoding="utf-8")
+
+    result = extract([first, second, target], cache_root=tmp_path)
+    node_ids = {node["id"] for node in result["nodes"]}
+
+    for edge in result["edges"]:
+        if edge["relation"] == "calls":
+            assert edge["source"] in node_ids
+            assert edge["target"] in node_ids
+
+
+def test_extract_rewires_unique_inheritance_stub_to_real_definition(tmp_path):
+    definition = tmp_path / "interfaces.py"
+    implementation = tmp_path / "services/BookStore.cs"
+    definition.write_text("class BookStore:\n    pass\n", encoding="utf-8")
+    implementation.parent.mkdir(parents=True)
+    implementation.write_text("class SqliteBookStore : BookStore { }\n", encoding="utf-8")
+
+    result = extract([definition, implementation], cache_root=tmp_path)
+    node_by_id = {node["id"]: node for node in result["nodes"]}
+    inherits_edges = [edge for edge in result["edges"] if edge["relation"] == "inherits"]
+
+    matching = [
+        edge for edge in inherits_edges
+        if node_by_id[edge["source"]]["label"] == "SqliteBookStore"
+        and node_by_id[edge["target"]]["label"] == "BookStore"
+    ]
+
+    assert matching
+    assert matching[0]["target"] == next(
+        node["id"] for node in result["nodes"]
+        if node["label"] == "BookStore" and node.get("source_file") == "interfaces.py"
+    )
+    assert all(
+        not (node["label"] == "BookStore" and not node.get("source_file"))
+        for node in result["nodes"]
+    )
+
+
+def test_extract_keeps_stub_when_multiple_real_definitions_match(tmp_path):
+    first = tmp_path / "a/interfaces.py"
+    second = tmp_path / "b/interfaces.py"
+    implementation = tmp_path / "services/BookStore.cs"
+    first.parent.mkdir(parents=True)
+    second.parent.mkdir(parents=True)
+    implementation.parent.mkdir(parents=True)
+    first.write_text("class BookStore:\n    pass\n", encoding="utf-8")
+    second.write_text("class BookStore:\n    pass\n", encoding="utf-8")
+    implementation.write_text("class SqliteBookStore : BookStore { }\n", encoding="utf-8")
+
+    result = extract([first, second, implementation], cache_root=tmp_path)
+    stubs = [
+        node for node in result["nodes"]
+        if node["label"] == "BookStore" and not node.get("source_file")
+    ]
+
+    assert stubs
+
+
+def test_extract_does_not_rewire_inheritance_stub_to_same_named_function(tmp_path):
+    definition = tmp_path / "factory.py"
+    implementation = tmp_path / "services/BookStore.cs"
+    definition.write_text("def BookStore():\n    return object()\n", encoding="utf-8")
+    implementation.parent.mkdir(parents=True)
+    implementation.write_text("class SqliteBookStore : BookStore { }\n", encoding="utf-8")
+
+    result = extract([definition, implementation], cache_root=tmp_path)
+    node_by_id = {node["id"]: node for node in result["nodes"]}
+    inherits_edges = [edge for edge in result["edges"] if edge["relation"] == "inherits"]
+
+    assert any(
+        node["label"] == "BookStore" and not node.get("source_file")
+        for node in result["nodes"]
+    )
+    assert not any(
+        node_by_id[edge["source"]]["label"] == "SqliteBookStore"
+        and node_by_id[edge["target"]]["label"] == "BookStore()"
+        for edge in inherits_edges
+    )
+
+
+def test_extract_does_not_rewire_constructor_method_to_same_named_class(tmp_path):
+    source = tmp_path / "Sample.java"
+    source.write_text(
+        "class DataProcessor {\n"
+        "    public DataProcessor() {}\n"
+        "}\n",
+        encoding="utf-8",
+    )
+
+    result = extract([source], cache_root=tmp_path)
+
+    constructor_nodes = [
+        node for node in result["nodes"]
+        if node["label"] == ".DataProcessor()"
+    ]
+    assert constructor_nodes
+    assert not any(
+        edge["source"] == edge["target"]
+        for edge in result["edges"]
+    )
+
+
 def test_collect_files_from_dir():
     from graphify.extract import _DISPATCH
     files = collect_files(FIXTURES)
