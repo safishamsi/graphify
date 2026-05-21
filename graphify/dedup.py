@@ -6,6 +6,7 @@ Jaro-Winkler verification → same-community boost → union-find merge.
 from __future__ import annotations
 import math
 import re
+import unicodedata
 from collections import defaultdict
 
 from datasketch import MinHash, MinHashLSH
@@ -16,7 +17,8 @@ from rapidfuzz.distance import JaroWinkler
 
 def _norm(label: str) -> str:
     """Lowercase + collapse non-alphanumeric runs to space (Unicode-aware)."""
-    return re.sub(r"[^\w]+", " ", label.casefold(), flags=re.UNICODE).strip()
+    label = unicodedata.normalize("NFKC", label)
+    return re.sub(r"[\W_]+", " ", label.casefold(), flags=re.UNICODE).strip()
 
 
 def _entropy(label: str) -> float:
