@@ -5865,10 +5865,11 @@ def extract_bash(path: Path) -> dict:
     function_bodies: list[tuple[str, Any]] = []
     defined_functions: set[str] = set()
 
+    from graphify.security import sanitize_metadata  # module-level cached import
+
     def add_node(nid: str, label: str, line: int, kind: str = "code") -> None:
         if nid and nid not in seen_ids:
             seen_ids.add(nid)
-            from graphify.security import sanitize_metadata
             nodes.append({"id": nid, "label": label, "file_type": "code",
                           "source_file": str_path, "source_location": f"L{line}",
                           "metadata": sanitize_metadata({"language": "bash", "kind": kind})})
@@ -5886,7 +5887,9 @@ def extract_bash(path: Path) -> dict:
         edges.append(edge)
 
     file_nid = _make_id(str(path))
-    entry_nid = _make_id(stem, "__script__")
+    # file_nid is fully path-derived and never produced by _make_id(stem, func_name),
+    # so appending "__entry" guarantees a distinct ID from any function node.
+    entry_nid = file_nid + "__entry"
     add_node(file_nid, path.name, 1, kind="file")
     add_node(entry_nid, f"{path.name} script", 1, kind="bash_entrypoint")
     add_edge(file_nid, entry_nid, "contains", 1)
@@ -5977,7 +5980,11 @@ def extract_bash(path: Path) -> dict:
                         body = child
                         break
                 function_bodies.append((fn_nid, body))
-            return  # don't recurse into function body during structural pass
+                # Recurse into the body so nested function definitions are discovered
+                # and added to function_bodies for the second-pass walk_calls.
+                if body is not None:
+                    walk(body, fn_nid)
+            return
 
         if t == "command":
             if is_inside_expansion(node):
@@ -5987,7 +5994,7 @@ def extract_bash(path: Path) -> dict:
                 cmd_name_node = node.children[0]
             if cmd_name_node:
                 cmd = literal(cmd_name_node)
-                if cmd in _BASH_SOURCE_COMMANDS:
+                if cmd in _BASH_SOURCE_COMMANDS and cmd not in defined_functions:
                     # find the path argument (first word after command name)
                     args = [c for c in node.children
                             if c.type in ("word", "string", "concatenation")
@@ -6030,6 +6037,21 @@ def extract_bash(path: Path) -> dict:
         for child in node.children:
             walk(child, parent_nid)
 
+    # Pre-pass: collect all defined function names so the source-command handler
+    # in walk() can detect user-defined functions that shadow 'source' / '.'
+    # regardless of definition order in the file.
+    def _prescan_functions(node) -> None:
+        if node.type == "function_definition":
+            name = _bash_func_name(node)
+            if name:
+                defined_functions.add(name)
+            for child in node.children:
+                _prescan_functions(child)
+        else:
+            for child in node.children:
+                _prescan_functions(child)
+
+    _prescan_functions(root)
     walk(root, file_nid)
 
     # Second pass: cross-function calls

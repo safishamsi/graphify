@@ -58,6 +58,27 @@ def test_validate_semantic_fragment_rejects_invalid_file_type():
     assert any("file_type" in e for e in errors)
 
 
+def test_validate_semantic_fragment_accepts_rationale_file_type():
+    """LLM output with file_type='rationale' must pass validation so the cleanup
+    pass can convert or remove it.  Validation must not reject it before cleanup runs."""
+    fragment = _valid_fragment()
+    fragment["nodes"][0]["file_type"] = "rationale"
+    errors = sc.validate_semantic_fragment(fragment)
+    assert not any("file_type" in e for e in errors), (
+        f"'rationale' must be accepted by validate_semantic_fragment; got errors: {errors}"
+    )
+
+
+def test_validate_semantic_fragment_accepts_concept_file_type():
+    """LLM output with file_type='concept' must pass validation for the same reason."""
+    fragment = _valid_fragment()
+    fragment["nodes"][0]["file_type"] = "concept"
+    errors = sc.validate_semantic_fragment(fragment)
+    assert not any("file_type" in e for e in errors), (
+        f"'concept' must be accepted by validate_semantic_fragment; got errors: {errors}"
+    )
+
+
 def test_load_validated_semantic_fragment_accepts_valid(tmp_path):
     chunk = tmp_path / ".graphify_chunk_00.json"
     chunk.write_text(json.dumps(_valid_fragment()))

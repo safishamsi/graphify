@@ -621,6 +621,76 @@ def test_extract_bash_top_level_call_attributes_to_entrypoint(tmp_path):
 
 
 # ---------------------------------------------------------------------------
+# PR #893 regression tests — bash extractor Copilot review findings
+# ---------------------------------------------------------------------------
+
+
+def test_extract_bash_entrypoint_no_collision_with_function_named_script(tmp_path):
+    """Entrypoint node must have a distinct ID from a function also named 'script'.
+
+    _make_id strips leading/trailing '_.' from each part, so
+    _make_id(stem, "__script__") strips to _make_id(stem, "script"), which is
+    identical to _make_id(stem, "script") for a function named 'script'.
+    """
+    script = tmp_path / "deploy.sh"
+    script.write_text("#!/usr/bin/env bash\nfunction script() { echo hi; }\n")
+    result = extract_bash(script)
+    entry_nodes = [n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint"]
+    func_nodes = [n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_function"]
+    assert entry_nodes, "Must have a bash_entrypoint node"
+    assert func_nodes, "Must have a bash_function node for 'script'"
+    entry_id = entry_nodes[0]["id"]
+    func_id = func_nodes[0]["id"]
+    assert entry_id != func_id, (
+        f"Entrypoint ID must not collide with function 'script' ID; both are '{entry_id}'"
+    )
+
+
+def test_extract_bash_nested_function_calls_recorded(tmp_path):
+    """Calls made inside a nested (inner) function body must be collected."""
+    script = tmp_path / "nested.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "function do_work() { :; }\n"
+        "function outer() {\n"
+        "    function inner() {\n"
+        "        do_work\n"
+        "    }\n"
+        "    inner\n"
+        "}\n"
+    )
+    result = extract_bash(script)
+    node_id_by_label = {n["label"].rstrip("()"): n["id"] for n in result["nodes"]}
+    assert "inner" in node_id_by_label, f"inner function must be discovered; labels={list(node_id_by_label)}"
+    assert "do_work" in node_id_by_label, f"do_work function must be discovered; labels={list(node_id_by_label)}"
+    calls = {(e["source"], e["target"]) for e in result["edges"] if e.get("relation") == "calls"}
+    inner_id = node_id_by_label["inner"]
+    do_work_id = node_id_by_label["do_work"]
+    assert (inner_id, do_work_id) in calls, (
+        f"inner→do_work call edge must be recorded; got calls={calls}"
+    )
+
+
+def test_extract_bash_source_user_defined_emits_calls_not_imports_from(tmp_path):
+    """When 'source' is a user-defined function, 'source ./file.sh' must emit a
+    calls edge, not an imports_from edge.  The user-defined function shadows the
+    built-in source command."""
+    helpers = tmp_path / "helpers.sh"
+    helpers.write_text("#!/bin/bash\n")
+    script = tmp_path / "run.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "function source() { echo 'custom source'; }\n"
+        "source ./helpers.sh\n"
+    )
+    result = extract_bash(script)
+    import_edges = [e for e in result["edges"] if e.get("relation") == "imports_from"]
+    assert not import_edges, (
+        f"'source' is a user-defined function; 'source ./helpers.sh' must not emit imports_from; got: {import_edges}"
+    )
+
+
+# ---------------------------------------------------------------------------
 # JSON extractor tests (#866)
 # ---------------------------------------------------------------------------
 

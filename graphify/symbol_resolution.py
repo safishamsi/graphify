@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import ast
 import re
+import unicodedata
 from dataclasses import dataclass
 from pathlib import Path
 from collections.abc import Sequence
@@ -11,8 +12,6 @@ from typing import Any
 
 from graphify.security import sanitize_metadata
 
-
-_EXCLUDED_FILE_TYPES = {"rationale", "doc_tag"}
 
 
 @dataclass(frozen=True)
@@ -44,8 +43,6 @@ def node_is_resolvable_symbol(node: dict[str, Any]) -> bool:
     """
 
     if node.get("file_type") != "code":
-        return False
-    if node.get("file_type") in _EXCLUDED_FILE_TYPES:
         return False
     label = str(node.get("label", "")).strip()
     if not label:
@@ -360,10 +357,12 @@ def resolve_cross_file_raw_calls(
 
 
 def _bash_make_id(*parts: str) -> str:
-    """Local copy of Graphify's node-id normalization to avoid an import cycle."""
-    combined = "_".join(p.strip("._") for p in parts if p)
-    cleaned = re.sub(r"[^a-zA-Z0-9]+", "_", combined)
-    return cleaned.strip("_").lower()
+    """Exact copy of extract._make_id — kept here to avoid an import cycle."""
+    combined = "_".join(p.strip("_.") for p in parts if p)
+    combined = unicodedata.normalize("NFKC", combined)
+    cleaned = re.sub(r"[^\w]+", "_", combined, flags=re.UNICODE)
+    cleaned = re.sub(r"_+", "_", cleaned)
+    return cleaned.strip("_").casefold()
 
 
 def _file_node_id_for_path(path: Path, root: Path) -> str:

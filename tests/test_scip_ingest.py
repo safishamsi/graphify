@@ -98,6 +98,36 @@ def test_ingest_symbol_without_display_name_uses_suffix() -> None:
     assert result["nodes"][0]["label"] == "run()"
 
 
+def test_ingest_symbol_trailing_hash_no_display_name_has_non_empty_label() -> None:
+    """Symbol ending with '#' and no display_name must produce a non-empty label.
+
+    symbol.split('#')[-1] is '' when the symbol ends with '#', so
+    label = display_name or suffix evaluates to '' when display_name is also
+    absent.  The fix must fall back to the full symbol_id.
+    """
+    doc = {
+        "documents": [
+            {
+                "relative_path": "src/Foo.java",
+                "symbols": [
+                    {
+                        "symbol": "java/src/Foo.java:Foo#",
+                        "kind": "class",
+                        "occurrences": [],
+                        "relationships": [],
+                        # no display_name
+                    }
+                ],
+            }
+        ]
+    }
+    result = ingest_scip_json(doc)
+    assert len(result["nodes"]) == 1
+    assert result["nodes"][0]["label"], (
+        "label must not be empty when symbol ends with '#' and display_name is absent"
+    )
+
+
 def test_ingest_symbol_without_hash_uses_full_symbol_as_label() -> None:
     """When symbol has no #, the label is the full symbol id."""
     doc = {

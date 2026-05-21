@@ -524,6 +524,25 @@ def test_bash_make_id_identical_to_make_id() -> None:
     assert _bash_make_id("my-script", "main") == _make_id("my-script", "main")
 
 
+def test_bash_make_id_unicode_matches_make_id() -> None:
+    """_bash_make_id must produce identical output to _make_id for Unicode inputs.
+
+    The two functions must remain in sync so resolve_bash_source_edges
+    produces node IDs that match those from extract_bash.  The original local
+    copy lacked NFKC normalisation, Unicode-aware regex, and casefold().
+    """
+    from graphify.extract import _make_id
+
+    # Accented letter: é is a Unicode word char that _make_id preserves
+    assert _bash_make_id("café", "run") == _make_id("café", "run"), (
+        "_bash_make_id must preserve Unicode word characters like _make_id"
+    )
+    # German sharp s: casefold maps ß→ss, lower does not
+    assert _bash_make_id("straße") == _make_id("straße"), (
+        "_bash_make_id must use casefold not lower to match _make_id"
+    )
+
+
 # ---------------------------------------------------------------------------
 # Cycle 2.5 v2 — Codex blocker fixes
 # ---------------------------------------------------------------------------
