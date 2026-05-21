@@ -86,6 +86,60 @@ def test_install_project_codex_writes_skill_and_agents(tmp_path, monkeypatch):
     assert not (home / ".agents" / "skills" / "graphify" / "SKILL.md").exists()
 
 
+def test_claude_subcommand_project_install_and_uninstall_are_project_scoped(tmp_path, monkeypatch):
+    from graphify.__main__ import main
+    home = tmp_path / "home"
+    project = tmp_path / "project"
+    project.mkdir()
+    user_skill = home / ".claude" / "skills" / "graphify" / "SKILL.md"
+    user_skill.parent.mkdir(parents=True)
+    user_skill.write_text("user skill")
+    monkeypatch.chdir(project)
+    with patch("graphify.__main__.Path.home", return_value=home):
+        monkeypatch.setattr(sys, "argv", ["graphify", "claude", "install", "--project"])
+        main()
+        assert (project / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
+        assert (project / ".claude" / "CLAUDE.md").exists()
+        assert (project / "CLAUDE.md").exists()
+        assert user_skill.exists()
+
+        monkeypatch.setattr(sys, "argv", ["graphify", "claude", "uninstall", "--project"])
+        main()
+
+    assert user_skill.exists()
+    assert not (project / ".claude" / "skills" / "graphify" / "SKILL.md").exists()
+    assert not (project / ".claude" / "CLAUDE.md").exists()
+    assert not (project / "CLAUDE.md").exists()
+
+
+def test_codex_subcommand_project_install_and_uninstall_are_project_scoped(tmp_path, monkeypatch):
+    from graphify.__main__ import main
+    home = tmp_path / "home"
+    project = tmp_path / "project"
+    project.mkdir()
+    user_skill = home / ".agents" / "skills" / "graphify" / "SKILL.md"
+    user_skill.parent.mkdir(parents=True)
+    user_skill.write_text("user skill")
+    monkeypatch.chdir(project)
+    with patch("graphify.__main__.Path.home", return_value=home):
+        monkeypatch.setattr(sys, "argv", ["graphify", "codex", "install", "--project"])
+        main()
+        assert (project / ".agents" / "skills" / "graphify" / "SKILL.md").exists()
+        assert (project / "AGENTS.md").exists()
+        assert (project / ".codex" / "hooks.json").exists()
+        assert user_skill.exists()
+
+        monkeypatch.setattr(sys, "argv", ["graphify", "codex", "uninstall", "--project"])
+        main()
+
+    assert user_skill.exists()
+    assert not (project / ".agents" / "skills" / "graphify" / "SKILL.md").exists()
+    assert not (project / "AGENTS.md").exists()
+    hooks_path = project / ".codex" / "hooks.json"
+    assert hooks_path.exists()
+    assert "graphify" not in hooks_path.read_text()
+
+
 def test_antigravity_install_project_writes_project_skill(tmp_path, monkeypatch):
     from graphify.__main__ import main
     home = tmp_path / "home"
