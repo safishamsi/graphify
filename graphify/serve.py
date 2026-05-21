@@ -50,6 +50,19 @@ def _strip_diacritics(text: str) -> str:
     return "".join(c for c in nfkd if not unicodedata.combining(c))
 
 
+def _query_terms(question: str) -> list[str]:
+    """Split a query into searchable terms, filtering only short English terms."""
+    terms: list[str] = []
+    for raw in question.split():
+        term = raw.lower().strip()
+        if not term:
+            continue
+        is_english_only = all("a" <= ch <= "z" for ch in term)
+        if not is_english_only or len(term) > 2:
+            terms.append(term)
+    return terms
+
+
 _EXACT_MATCH_BONUS = 1000.0
 _PREFIX_MATCH_BONUS = 100.0
 _SUBSTRING_MATCH_BONUS = 1.0
@@ -306,7 +319,7 @@ def _query_graph_text(
     token_budget: int = 2000,
     context_filters: list[str] | None = None,
 ) -> str:
-    terms = [t.lower() for t in question.split() if len(t) > 2]
+    terms = _query_terms(question)
     scored = _score_nodes(G, terms)
     start_nodes = _pick_seeds(scored)
     if not start_nodes:

@@ -47,6 +47,13 @@ def test_query_bfs_expands_neighbors():
     assert tokens_deep >= tokens_shallow
 
 
+def test_query_keeps_short_non_english_terms():
+    G = nx.Graph()
+    G.add_node("frontend", label="前端", source_file="docs/前端.md", source_location="L1", community=0)
+    tokens = _query_subgraph_tokens(G, "前端", depth=1)
+    assert tokens > 0
+
+
 # --- run_benchmark ---
 
 def test_run_benchmark_returns_reduction(tmp_path):

@@ -13,6 +13,7 @@ from graphify.serve import (
     _dfs,
     _filter_graph_by_context,
     _infer_context_filters,
+    _query_terms,
     _query_graph_text,
     _resolve_context_filters,
     _subgraph_to_text,
@@ -77,6 +78,19 @@ def test_score_nodes_source_file_partial():
     scored = _score_nodes(G, ["cluster"])
     nids = [nid for _, nid in scored]
     assert "n2" in nids
+
+
+def test_query_terms_filters_only_short_english_terms():
+    terms = _query_terms("前端 dependency 依赖 install 安装 to of 包管理器 项目约定 a前")
+    assert terms == ["前端", "dependency", "依赖", "install", "安装", "包管理器", "项目约定", "a前"]
+
+
+def test_query_graph_text_keeps_short_non_english_terms():
+    G = nx.Graph()
+    G.add_node("frontend", label="前端", source_file="docs/前端.md", source_location="L1", community=0)
+    text = _query_graph_text(G, "前端", mode="bfs", depth=1)
+    assert "No matching nodes found." not in text
+    assert "NODE 前端" in text
 
 
 def test_infer_context_filters_for_calls_question():
