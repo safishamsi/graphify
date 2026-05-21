@@ -28,6 +28,7 @@ import sys
 import unicodedata
 from pathlib import Path
 import networkx as nx
+from .edge_identity import SCHEMA_KEY_FIELD
 from .validate import validate_extraction
 
 
@@ -104,7 +105,9 @@ def edge_datas(G: nx.Graph, u: str, v: str) -> list[dict]:
     return [raw]
 
 
-def build_from_json(extraction: dict, *, directed: bool = False, root: str | Path | None = None) -> nx.Graph:
+def build_from_json(
+    extraction: dict, *, directed: bool = False, root: str | Path | None = None
+) -> nx.Graph:
     """Build a NetworkX graph from an extraction dict.
 
     directed=True produces a DiGraph that preserves edge direction (source→target).
@@ -125,7 +128,8 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
             # Count edges that reference this node so the warning is actionable (#479)
             node_id = node.get("id", "?")
             affected_edges = sum(
-                1 for e in extraction.get("edges", [])
+                1
+                for e in extraction.get("edges", [])
                 if e.get("source") == node_id or e.get("target") == node_id
             )
             print(
@@ -149,7 +153,10 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
     # Dangling edges (stdlib/external imports) are expected - only warn about real schema errors.
     real_errors = [e for e in errors if "does not match any node id" not in e]
     if real_errors:
-        print(f"[graphify] Extraction warning ({len(real_errors)} issues): {real_errors[0]}", file=sys.stderr)
+        print(
+            f"[graphify] Extraction warning ({len(real_errors)} issues): {real_errors[0]}",
+            file=sys.stderr,
+        )
     G: nx.Graph = nx.DiGraph() if directed else nx.Graph()
     for node in extraction.get("nodes", []):
         if "source_file" in node:
@@ -175,7 +182,7 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
             tgt = norm_to_id.get(_normalize_id(tgt), tgt)
         if src not in node_set or tgt not in node_set:
             continue  # skip edges to external/stdlib nodes - expected, not an error
-        attrs = {k: v for k, v in edge.items() if k not in ("source", "target")}
+        attrs = {k: v for k, v in edge.items() if k not in ("source", "target", SCHEMA_KEY_FIELD)}
         if "source_file" in attrs:
             attrs["source_file"] = _norm_source_file(attrs["source_file"], _root)
         # Preserve original edge direction - undirected graphs lose it otherwise,
@@ -212,7 +219,14 @@ def build(
     reverse the order if you prefer AST source_location precision to win.
     """
     from graphify.dedup import deduplicate_entities
-    combined: dict = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+
+    combined: dict = {
+        "nodes": [],
+        "edges": [],
+        "hyperedges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
     for ext in extractions:
         combined["nodes"].extend(ext.get("nodes", []))
         combined["edges"].extend(ext.get("edges", []))
@@ -221,7 +235,9 @@ def build(
         combined["output_tokens"] += ext.get("output_tokens", 0)
     if dedup and combined["nodes"]:
         combined["nodes"], combined["edges"] = deduplicate_entities(
-            combined["nodes"], combined["edges"], communities={},
+            combined["nodes"],
+            combined["edges"],
+            communities={},
             dedup_llm_backend=dedup_llm_backend,
         )
     return build_from_json(combined, directed=directed, root=root)
@@ -240,7 +256,7 @@ def deduplicate_by_label(nodes: list[dict], edges: list[dict]) -> tuple[list[dic
     """
     _CHUNK_SUFFIX = re.compile(r"_c\d+$")
     canonical: dict[str, dict] = {}  # norm_label -> surviving node
-    remap: dict[str, str] = {}       # old_id -> surviving_id
+    remap: dict[str, str] = {}  # old_id -> surviving_id
 
     for node in nodes:
         key = _norm_label(node.get("label", node.get("id", "")))
@@ -304,6 +320,7 @@ def build_merge(
         # attrs are popped before saving in export.py, so going through the
         # NetworkX round-trip loses direction permanently (#760).
         from graphify.security import check_graph_file_size_cap
+
         check_graph_file_size_cap(graph_path)
         data = json.loads(graph_path.read_text(encoding="utf-8"))
         links_key = "links" if "links" in data else "edges"
@@ -315,15 +332,14 @@ def build_merge(
         base = []
 
     all_chunks = base + list(new_chunks)
-    G = build(all_chunks, directed=directed, dedup=dedup, dedup_llm_backend=dedup_llm_backend, root=root)
+    G = build(
+        all_chunks, directed=directed, dedup=dedup, dedup_llm_backend=dedup_llm_backend, root=root
+    )
 
     # Prune nodes and edges from deleted source files
     if prune_sources:
         prune_set = set(prune_sources)
-        to_remove = [
-            n for n, d in G.nodes(data=True)
-            if d.get("source_file") in prune_set
-        ]
+        to_remove = [n for n, d in G.nodes(data=True) if d.get("source_file") in prune_set]
         G.remove_nodes_from(to_remove)
         n_files = len(prune_sources)
         n_nodes = len(to_remove)
@@ -334,8 +350,7 @@ def build_merge(
             )
 
         edges_to_remove = [
-            (u, v) for u, v, d in G.edges(data=True)
-            if d.get("source_file") in prune_set
+            (u, v) for u, v, d in G.edges(data=True) if d.get("source_file") in prune_set
         ]
         if edges_to_remove:
             G.remove_edges_from(edges_to_remove)
