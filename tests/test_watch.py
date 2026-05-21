@@ -1,4 +1,5 @@
 """Tests for watch.py - file watcher helpers (no watchdog required)."""
+import json
 import os
 import sys
 import time
@@ -36,6 +37,7 @@ def test_watched_extensions_includes_code():
     assert ".ts" in _WATCHED_EXTENSIONS
     assert ".go" in _WATCHED_EXTENSIONS
     assert ".rs" in _WATCHED_EXTENSIONS
+    assert ".tab" in _WATCHED_EXTENSIONS
 
 def test_watched_extensions_includes_docs():
     assert ".md" in _WATCHED_EXTENSIONS
@@ -208,6 +210,46 @@ def test_rebuild_code_skips_cluster_when_topology_unchanged(tmp_path, monkeypatc
     assert _rebuild_code(tmp_path)
     assert _rebuild_code(tmp_path)
     assert calls["n"] == 1
+
+
+def test_rebuild_code_changed_tab_keeps_reference_connected_to_preserved_file(tmp_path):
+    from graphify.watch import _rebuild_code
+
+    (tmp_path / ".git").mkdir()
+    scripts = tmp_path / "scripts" / "ai"
+    scripts.mkdir(parents=True)
+    target = scripts / "StandardAI.lua"
+    target.write_text("function tick() end\n", encoding="utf-8")
+    config_dir = tmp_path / "data" / "config"
+    config_dir.mkdir(parents=True)
+    tab = config_dir / "ai.tab"
+    tab.write_text("ID\tScript\n1\tscripts/ai/StandardAI.lua\n", encoding="utf-8")
+
+    assert _rebuild_code(tmp_path, no_cluster=True, force=True)
+
+    tab.write_text(
+        "ID\tScript\n"
+        "1\tscripts/ai/StandardAI.lua\n"
+        "2\tscripts/ai/StandardAI.lua\n",
+        encoding="utf-8",
+    )
+    assert _rebuild_code(tmp_path, changed_paths=[tab], no_cluster=True, force=True)
+
+    graph = json.loads((tmp_path / "graphify-out" / "graph.json").read_text(encoding="utf-8"))
+    target_ids = {
+        n["id"]
+        for n in graph["nodes"]
+        if n["label"] == "StandardAI.lua" and n["source_file"] == "scripts/ai/StandardAI.lua"
+    }
+    assert target_ids
+    reference_edges = [e for e in graph["links"] if e["relation"] == "references"]
+    assert reference_edges
+    assert all(e["target"] in target_ids for e in reference_edges)
+    assert not any(e.get("target_ref") for e in graph["links"])
+    assert not any(
+        n["label"] == "StandardAI.lua" and n["source_file"].endswith("ai.tab")
+        for n in graph["nodes"]
+    )
 
 
 # --- .graphifyignore honored in watch handler (gh-928) ---

@@ -9,6 +9,12 @@ def test_classify_python():
 def test_classify_typescript():
     assert classify_file(Path("bar.ts")) == FileType.CODE
 
+def test_classify_tab_as_code():
+    assert classify_file(Path("config.tab")) == FileType.CODE
+
+def test_classify_uppercase_tab_as_code():
+    assert classify_file(Path("CONFIG.TAB")) == FileType.CODE
+
 def test_classify_markdown():
     assert classify_file(Path("README.md")) == FileType.DOCUMENT
 

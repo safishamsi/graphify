@@ -324,7 +324,7 @@ def _rebuild_code(
     project_root = Path.cwd().resolve() if not watch_path.is_absolute() else watch_root
     report_root = _report_root_label(watch_path)
     try:
-        from graphify.extract import extract, _get_extractor
+        from graphify.extract import extract, _get_extractor, _redirect_tab_reference_edges
         from graphify.detect import detect
         from graphify.build import build_from_json
         from graphify.cluster import cluster, remap_communities_to_previous, score_all
@@ -373,7 +373,11 @@ def _rebuild_code(
             extract_targets = code_files
 
         commit = _git_head()
-        result = extract(extract_targets, cache_root=watch_root) if extract_targets else {
+        result = extract(
+            extract_targets,
+            cache_root=watch_root,
+            preserve_tab_target_refs=changed_paths is not None,
+        ) if extract_targets else {
             "nodes": [], "edges": [], "hyperedges": [],
             "input_tokens": 0, "output_tokens": 0,
         }
@@ -420,6 +424,18 @@ def _rebuild_code(
                 }
             except Exception:
                 pass  # corrupt graph.json - proceed with AST-only
+
+        redirected_tab_stub_ids = _redirect_tab_reference_edges(
+            result["nodes"],
+            result["edges"],
+            root=project_root,
+            remove_unresolved=True,
+        )
+        if redirected_tab_stub_ids:
+            result["nodes"] = [
+                n for n in result["nodes"]
+                if n.get("id") not in redirected_tab_stub_ids
+            ]
 
         _relativize_source_files(result, project_root)
         out.mkdir(exist_ok=True)

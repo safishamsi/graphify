@@ -1,5 +1,6 @@
 """Deterministic structural extraction from source code using tree-sitter. Outputs nodes+edges dicts."""
 from __future__ import annotations
+import csv
 import importlib
 import json
 import os
@@ -7,9 +8,11 @@ import re
 import sys
 import unicodedata
 from dataclasses import dataclass, field
+from io import StringIO
 from pathlib import Path
 from typing import Callable, Any
 from .cache import load_cached, save_cached
+from graphify.detect import CODE_EXTENSIONS
 
 _RECURSION_LIMIT = 10_000
 
@@ -7278,6 +7281,397 @@ def extract_json(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges}
 
 
+_TAB_MAX_BYTES = 5 * 1024 * 1024
+_TAB_MAX_ROWS = 10_000
+_TAB_MAX_COLUMNS = 200
+_TAB_MAX_VALUE_NODES = 500
+_TAB_MAX_PATH_REFS = 10_000
+
+
+def _decode_tab_bytes(raw: bytes) -> tuple[str, str]:
+    for enc in ("utf-8-sig", "utf-8", "gb18030"):
+        try:
+            return raw.decode(enc), enc
+        except UnicodeDecodeError:
+            continue
+    return raw.decode("utf-8", errors="replace"), "utf-8-replace"
+
+
+def _read_tab_text(path: Path) -> tuple[str, list[str], bool]:
+    warnings: list[str] = []
+    truncated = False
+    with path.open("rb") as f:
+        raw = f.read(_TAB_MAX_BYTES + 1)
+    if len(raw) > _TAB_MAX_BYTES:
+        truncated = True
+        warnings.append(f"truncated to {_TAB_MAX_BYTES} bytes")
+        raw = raw[:_TAB_MAX_BYTES]
+        last_newline = max(raw.rfind(b"\n"), raw.rfind(b"\r"))
+        if last_newline >= 0:
+            raw = raw[:last_newline + 1]
+        else:
+            warnings.append("no complete tab-delimited record inside byte limit")
+            raw = b""
+    text, encoding = _decode_tab_bytes(raw)
+    if encoding == "utf-8-replace":
+        warnings.append("decoded with replacement after utf-8/gb18030 failed")
+    return text, warnings, truncated
+
+
+def _normalise_tab_headers(raw_headers: list[str]) -> list[tuple[str, str]]:
+    seen: dict[str, int] = {}
+    out: list[tuple[str, str]] = []
+    for idx, raw in enumerate(raw_headers, start=1):
+        label = raw.strip().strip("\r")
+        if not label:
+            label = f"column_{idx}"
+        base = label
+        count = seen.get(base, 0) + 1
+        seen[base] = count
+        key = base if count == 1 else f"{base}_{count}"
+        out.append((key, label))
+    return out
+
+
+def _pad_tab_row(row: list[str], width: int) -> list[str]:
+    if len(row) < width:
+        return row + [""] * (width - len(row))
+    return row
+
+
+def _choose_tab_identity(headers: list[tuple[str, str]], rows: list[list[str]]) -> int | None:
+    if not rows or not headers:
+        return None
+    best_idx: int | None = None
+    best_score = -1.0
+    for idx in range(len(headers)):
+        values = [r[idx].strip() for r in rows if idx < len(r) and r[idx].strip()]
+        if not values:
+            continue
+        unique = len(set(values))
+        if idx == 0 and unique == len(values):
+            return 0
+        uniqueness = unique / max(len(values), 1)
+        coverage = len(values) / max(len(rows), 1)
+        score = uniqueness * 0.7 + coverage * 0.3
+        if uniqueness >= 0.8 and coverage >= 0.8 and score > best_score:
+            best_idx = idx
+            best_score = score
+    return best_idx
+
+
+_TAB_PATH_EXTENSIONS = {
+    *CODE_EXTENSIONS,
+    ".txt", ".md", ".xml", ".yaml", ".yml",
+}
+
+
+_TAB_PROJECT_ROOT_MARKERS = {
+    ".git", "pyproject.toml", "package.json", "go.mod", "Cargo.toml", "graphify-out",
+}
+
+
+def _normalise_tab_path_value(value: str) -> str:
+    return value.strip().strip('"\'').replace("\\", "/")
+
+
+def _is_tab_url_value(value: str) -> bool:
+    return re.match(r"^[a-zA-Z][a-zA-Z0-9+.-]*://", value) is not None
+
+
+def _looks_like_tab_path(value: str) -> bool:
+    cleaned = _normalise_tab_path_value(value)
+    if not cleaned or len(cleaned) > 512:
+        return False
+    if _is_tab_url_value(cleaned):
+        return False
+    suffix = Path(cleaned).suffix.lower()
+    if suffix in _TAB_PATH_EXTENSIONS:
+        return True
+    if "/" in cleaned:
+        parts = [p for p in cleaned.split("/") if p and p not in (".", "..")]
+        return len(parts) >= 2 and any("." in p for p in parts[-1:])
+    return False
+
+
+def _find_tab_project_root(tab_path: Path) -> Path | None:
+    for parent in tab_path.resolve().parents:
+        if any((parent / marker).exists() for marker in _TAB_PROJECT_ROOT_MARKERS):
+            return parent
+    return None
+
+
+def _is_safe_relative_tab_path(normalised: str) -> bool:
+    path = Path(normalised)
+    if path.is_absolute() or re.match(r"^[A-Za-z]:/", normalised):
+        return False
+    return ".." not in path.parts
+
+
+def _tab_path_candidates(tab_path: Path, normalised: str) -> list[Path]:
+    if not _is_safe_relative_tab_path(normalised):
+        return []
+    candidates = [(tab_path.parent / normalised).resolve()]
+    project_root = _find_tab_project_root(tab_path)
+    if project_root is not None:
+        root_candidate = (project_root / normalised).resolve()
+        if root_candidate not in candidates:
+            candidates.append(root_candidate)
+    return candidates
+
+
+def _tab_reference_node(raw_value: str, tab_path: Path) -> tuple[str, str, str, str]:
+    normalised = _normalise_tab_path_value(raw_value)
+    for candidate in _tab_path_candidates(tab_path, normalised):
+        if candidate.exists():
+            return _make_id(str(tab_path), "ref", normalised), candidate.name, str(tab_path), normalised
+    return _make_id(str(tab_path), "ref", normalised), normalised, str(tab_path), normalised
+
+
+def _tab_source_path(source_file: str, root: Path | None) -> Path:
+    path = Path(source_file)
+    if path.is_absolute():
+        return path.resolve()
+    if root is not None:
+        return (root / path).resolve()
+    return path.resolve()
+
+
+def _tab_file_node_index(nodes: list[dict], root: Path | None) -> dict[str, str]:
+    index: dict[str, str] = {}
+    for node in nodes:
+        if node.get("file_type") != "code":
+            continue
+        source_file = node.get("source_file")
+        if not source_file:
+            continue
+        source_path = _tab_source_path(source_file, root)
+        if node.get("label") != source_path.name:
+            continue
+        index[str(source_path)] = node["id"]
+    return index
+
+
+def _redirect_tab_reference_edges(
+    nodes: list[dict],
+    edges: list[dict],
+    *,
+    root: Path | None,
+    remove_unresolved: bool,
+) -> set[str]:
+    path_to_file_nid = _tab_file_node_index(nodes, root)
+    redirected_stub_ids: set[str] = set()
+    for edge in edges:
+        target_ref = edge.get("target_ref")
+        if not target_ref or edge.get("relation") != "references":
+            continue
+        source_file = edge.get("source_file")
+        if not source_file:
+            if remove_unresolved:
+                edge.pop("target_ref", None)
+            continue
+        tab_path = _tab_source_path(source_file, root)
+        for candidate in _tab_path_candidates(tab_path, target_ref):
+            target_nid = path_to_file_nid.get(str(candidate.resolve()))
+            if target_nid:
+                redirected_stub_ids.add(edge["target"])
+                edge["target"] = target_nid
+                edge.pop("target_ref", None)
+                break
+        else:
+            if remove_unresolved:
+                edge.pop("target_ref", None)
+    return redirected_stub_ids
+
+
+def _tab_value_columns(
+    headers: list[tuple[str, str]],
+    rows: list[list[str]],
+    identity_idx: int | None,
+) -> set[int]:
+    selected: set[int] = set()
+    row_count = max(len(rows), 1)
+    max_unique = min(20, max(2, int(row_count * 0.2)))
+    for idx, _ in enumerate(headers):
+        if idx == identity_idx:
+            continue
+        values = [r[idx].strip() for r in rows if idx < len(r) and r[idx].strip()]
+        if not values:
+            continue
+        unique_values = set(values)
+        if len(unique_values) <= 1:
+            continue
+        if len(unique_values) > max_unique:
+            continue
+        if any(len(v) > 80 for v in unique_values):
+            continue
+        if any(_looks_like_tab_path(v) for v in unique_values):
+            continue
+        selected.add(idx)
+    return selected
+
+
+def extract_tab(path: Path) -> dict:
+    """Extract structural nodes and edges from a generic tab-delimited file."""
+    try:
+        text, warnings, truncated = _read_tab_text(path)
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": f"{type(e).__name__}: {e}"}
+
+    str_path = str(path)
+    stem = _file_stem(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+
+    def add_node(
+        nid: str,
+        label: str,
+        file_type: str,
+        line: int,
+        extra: dict | None = None,
+    ) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            node = {
+                "id": nid,
+                "label": label,
+                "file_type": file_type,
+                "source_file": str_path,
+                "source_location": f"L{line}",
+            }
+            if extra:
+                node.update(extra)
+            nodes.append(node)
+
+    def add_edge(
+        src: str,
+        tgt: str,
+        relation: str,
+        line: int,
+        context: str,
+        extra: dict | None = None,
+    ) -> None:
+        edge = {
+            "source": src,
+            "target": tgt,
+            "relation": relation,
+            "context": context,
+            "confidence": "EXTRACTED",
+            "source_file": str_path,
+            "source_location": f"L{line}",
+            "weight": 1.0,
+        }
+        if extra:
+            edge.update(extra)
+        edges.append(edge)
+
+    def finish_result() -> dict:
+        result = {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
+        if warnings:
+            print(
+                f"  warning: {path} indexed with limits: {'; '.join(warnings)}",
+                file=sys.stderr,
+                flush=True,
+            )
+            result["warnings"] = warnings
+        if truncated:
+            result["truncated"] = True
+        return result
+
+    file_nid = _make_id(str(path))
+    add_node(file_nid, path.name, "code", 1)
+
+    reader = csv.reader(StringIO(text), delimiter="\t")
+    parsed = list(reader)
+    if not parsed:
+        return finish_result()
+
+    raw_headers = parsed[0][:_TAB_MAX_COLUMNS]
+    headers = _normalise_tab_headers(raw_headers)
+    rows = parsed[1:_TAB_MAX_ROWS + 1]
+    max_width = min(_TAB_MAX_COLUMNS, max([len(raw_headers), *(len(r) for r in rows)] or [0]))
+    if max_width == 0:
+        return finish_result()
+    while len(headers) < max_width:
+        idx = len(headers) + 1
+        extra_idx = idx - len(raw_headers)
+        headers.append((f"extra_{extra_idx}", f"extra_{extra_idx}"))
+    rows = [_pad_tab_row(r[:max_width], max_width) for r in rows]
+
+    if len(parsed) - 1 > _TAB_MAX_ROWS:
+        warnings.append(f"indexed first {_TAB_MAX_ROWS} rows")
+        truncated = True
+    if max((len(r) for r in parsed if r), default=0) > _TAB_MAX_COLUMNS:
+        warnings.append(f"indexed first {_TAB_MAX_COLUMNS} columns")
+        truncated = True
+
+    for _idx, (key, label) in enumerate(headers, start=1):
+        col_nid = _make_id(stem, "column", key)
+        add_node(col_nid, f"{label} (column)", "code", 1)
+        add_edge(file_nid, col_nid, "contains", 1, "table")
+
+    identity_idx = _choose_tab_identity(headers, rows)
+    value_columns = _tab_value_columns(headers, rows, identity_idx)
+    value_node_count = 0
+    value_node_skipped = False
+    path_ref_count = 0
+    path_ref_skipped = False
+    for row_offset, row in enumerate(rows, start=2):
+        row_label = f"row {row_offset}"
+        if identity_idx is not None and identity_idx < len(row):
+            value = row[identity_idx].strip()
+            if value:
+                identity_label = headers[identity_idx][1]
+                row_label = f"{identity_label} {value}"
+        row_nid = _make_id(stem, "row", str(row_offset), row_label)
+        add_node(row_nid, row_label, "code", row_offset)
+        add_edge(file_nid, row_nid, "contains", row_offset, "table")
+        for cell in row:
+            if not _looks_like_tab_path(cell):
+                continue
+            if path_ref_count >= _TAB_MAX_PATH_REFS:
+                path_ref_skipped = True
+                continue
+            ref_nid, ref_label, ref_source, target_ref = _tab_reference_node(cell, path)
+            if ref_nid not in seen_ids:
+                seen_ids.add(ref_nid)
+                nodes.append({
+                    "id": ref_nid,
+                    "label": ref_label,
+                    "file_type": "code",
+                    "source_file": ref_source,
+                    "source_location": f"L{row_offset}",
+                })
+            add_edge(row_nid, ref_nid, "references", row_offset, "path", {"target_ref": target_ref})
+            path_ref_count += 1
+        for idx in value_columns:
+            if idx >= len(row):
+                continue
+            value = row[idx].strip()
+            if not value:
+                continue
+            header_label = headers[idx][1]
+            value_label = f"{header_label}={value}"
+            value_nid = _make_id(stem, "value", header_label, value)
+            if value_nid not in seen_ids:
+                if value_node_count >= _TAB_MAX_VALUE_NODES:
+                    value_node_skipped = True
+                    continue
+                add_node(value_nid, value_label, "concept", row_offset, {"context": "table_value"})
+                value_node_count += 1
+            add_edge(row_nid, value_nid, "sets", row_offset, "value")
+
+    if path_ref_skipped:
+        warnings.append(f"indexed first {_TAB_MAX_PATH_REFS} path references")
+        truncated = True
+    if value_node_skipped:
+        warnings.append(f"indexed first {_TAB_MAX_VALUE_NODES} value nodes")
+        truncated = True
+
+    return finish_result()
+
+
 _DISPATCH: dict[str, Any] = {
     ".py": extract_python,
     ".js": extract_js,
@@ -7345,14 +7739,16 @@ _DISPATCH: dict[str, Any] = {
     ".sh": extract_bash,
     ".bash": extract_bash,
     ".json": extract_json,
+    ".tab": extract_tab,
+    ".TAB": extract_tab,
 }
 
 
 def _get_extractor(path: Path) -> Any | None:
     """Return the correct extractor function for a file, or None if unsupported."""
-    if path.name.endswith(".blade.php"):
+    if path.name.lower().endswith(".blade.php"):
         return extract_blade
-    return _DISPATCH.get(path.suffix)
+    return _DISPATCH.get(path.suffix.lower())
 
 
 def _extract_single_file(args: tuple) -> tuple[int, dict]:
@@ -7508,6 +7904,7 @@ def extract(
     *,
     parallel: bool = True,
     max_workers: int | None = None,
+    preserve_tab_target_refs: bool = False,
 ) -> dict:
     """Extract AST nodes and edges from a list of code files.
 
@@ -7548,11 +7945,11 @@ def extract(
             root = Path(*paths[0].parts[:common_len]) if common_len else Path(".")
     except Exception:
         root = Path(".")
-    if cache_root is not None:
-        root = cache_root
     root = root.resolve()
 
-    effective_root = cache_root or root
+    effective_root = (cache_root or root).resolve()
+    if cache_root is not None:
+        root = effective_root
     total = len(paths)
 
     # Phase 1: separate cached hits from uncached work
@@ -7620,6 +8017,21 @@ def extract(
     _merge_swift_extensions(per_file, all_nodes, all_edges)
     _disambiguate_colliding_node_ids(all_nodes, all_edges, all_raw_calls, root)
     _rewire_unique_stub_nodes(all_nodes, all_edges)
+
+    # .tab extraction emits path references as tab-owned stubs so incremental
+    # rebuilds cannot overwrite richer scanned file nodes. When the referenced
+    # file is part of this aggregate extraction, redirect the edge to the real
+    # file node and drop the transient stub before later graph analysis. Watch
+    # changed-file rebuilds keep unresolved target_ref metadata until preserved
+    # nodes have been merged.
+    redirected_tab_stub_ids = _redirect_tab_reference_edges(
+        all_nodes,
+        all_edges,
+        root=root,
+        remove_unresolved=not preserve_tab_target_refs,
+    )
+    if redirected_tab_stub_ids:
+        all_nodes = [n for n in all_nodes if n.get("id") not in redirected_tab_stub_ids]
 
     # Add cross-file class-level edges (Python only - uses Python parser internally)
     py_paths = [p for p in paths if p.suffix == ".py"]
