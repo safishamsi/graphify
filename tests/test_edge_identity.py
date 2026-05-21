@@ -74,3 +74,12 @@ def test_make_stable_key_no_delimiter_collision():
 def test_make_stable_key_format_is_versioned():
     k = make_stable_key("calls", "a.py", "L1")
     assert k.startswith("edge:v1:")
+
+
+def test_make_stable_key_none_differs_from_empty_and_unknown():
+    # make_stable_key(None, None, None) must not collide with
+    # make_stable_key("unknown", "", "") — None must serialize as JSON null,
+    # not be normalised to "unknown"/"" before hashing.
+    k_none = make_stable_key(None, None, None)
+    k_defaults = make_stable_key("unknown", "", "")
+    assert k_none != k_defaults

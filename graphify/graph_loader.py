@@ -42,7 +42,8 @@ def load_graph(
 
     ``require_capabilities`` (default ``True``) gates multigraph loading behind
     :func:`~graphify.multigraph_compat.require_multigraph_capabilities`.  Pass
-    ``False`` only in tests that explicitly mock the probe.
+    ``False`` to skip the probe entirely — used in unit tests and when the
+    caller has already verified capabilities externally.
     """
     if data.get("multigraph", False):
         if data.get("directed", None) is False:
@@ -117,8 +118,8 @@ def _load_simple(data: dict) -> nx.Graph:
     for edge in _get_edges(data):
         if not isinstance(edge, dict):
             continue
-        src = edge.get("source") or edge.get("from")
-        tgt = edge.get("target") or edge.get("to")
+        src = edge["source"] if "source" in edge else edge.get("from")
+        tgt = edge["target"] if "target" in edge else edge.get("to")
         if not src or not tgt or src not in node_set or tgt not in node_set:
             continue
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target", "from", "to")}
@@ -135,8 +136,8 @@ def _load_directed_simple(data: dict) -> nx.DiGraph:
     for edge in _get_edges(data):
         if not isinstance(edge, dict):
             continue
-        src = edge.get("source") or edge.get("from")
-        tgt = edge.get("target") or edge.get("to")
+        src = edge["source"] if "source" in edge else edge.get("from")
+        tgt = edge["target"] if "target" in edge else edge.get("to")
         if not src or not tgt or src not in node_set or tgt not in node_set:
             continue
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target", "from", "to")}
@@ -160,8 +161,8 @@ def _load_multigraph(data: dict) -> nx.MultiDiGraph:
     for edge in _get_edges(data):
         if not isinstance(edge, dict):
             continue
-        src = edge.get("source") or edge.get("from")
-        tgt = edge.get("target") or edge.get("to")
+        src = edge["source"] if "source" in edge else edge.get("from")
+        tgt = edge["target"] if "target" in edge else edge.get("to")
         if not src or not tgt or src not in node_set or tgt not in node_set:
             continue
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target", "from", "to")}

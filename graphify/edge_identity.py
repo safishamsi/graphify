@@ -30,9 +30,9 @@ def make_stable_key(
     """
     payload = _json.dumps(
         {
-            "relation": relation if relation is not None else "unknown",
-            "source_file": source_file if source_file is not None else "",
-            "source_location": source_location if source_location is not None else "",
+            "relation": relation,
+            "source_file": source_file,
+            "source_location": source_location,
         },
         sort_keys=True,
     )

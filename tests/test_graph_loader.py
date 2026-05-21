@@ -331,3 +331,25 @@ def test_multigraph_dict_key_raises():
 def test_multigraph_int_key_raises():
     with pytest.raises((TypeError, ValueError)):
         load_graph(_multigraph_with_key(123))
+
+
+def test_load_simple_edge_with_empty_string_source_not_shadowed_by_from():
+    # An edge with source="" AND from="a" must not silently use "from" as the
+    # source — an explicitly-set empty source means the edge is invalid.
+    data = {
+        "nodes": _NODES,
+        "links": [{"source": "", "from": "a", "target": "b", "relation": "calls"}],
+    }
+    G = load_graph(data)
+    assert G.number_of_edges() == 0
+
+
+def test_load_simple_edge_with_from_key_loaded():
+    # Edges using legacy "from"/"to" keys should load correctly as long as
+    # the IDs are non-empty and present in the node set.
+    data = {
+        "nodes": _NODES,
+        "links": [{"from": "a", "to": "b", "relation": "calls"}],
+    }
+    G = load_graph(data)
+    assert G.number_of_edges() == 1
