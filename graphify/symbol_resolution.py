@@ -366,6 +366,9 @@ def _bash_make_id(*parts: str) -> str:
 
 
 def _file_node_id_for_path(path: Path, root: Path) -> str:
+    # Resolve both sides so callers that pass relative or non-canonical roots
+    # get the same canonical relative path that extract()'s id_remap produces.
+    # _bash_make_id is an exact copy of extract._make_id, so IDs match.
     try:
         return _bash_make_id(str(path.resolve().relative_to(root.resolve())))
     except ValueError:
