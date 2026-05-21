@@ -592,3 +592,72 @@ def test_extract_bash_via_dispatch():
 def test_extract_json_via_dispatch():
     from graphify.extract import _get_extractor
     assert _get_extractor(Path("foo.json")) is extract_json
+
+
+# ── Barrel re-export tests ────────────────────────────────────────────────────
+
+
+def test_barrel_reexport_emits_re_exports_edges():
+    """export { X } from './mod' must emit re_exports edges for each named specifier."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "barrel_reexport.ts")
+    reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
+    targets = [e["target"] for e in reexports]
+    # Should find re_exports for readCookie, writeCookie, getFullUrl, basePathRewrite
+    assert len(reexports) >= 4, f"Expected >=4 re_exports, got {len(reexports)}: {targets}"
+    assert any("readcookie" in t for t in targets)
+    assert any("writecookie" in t for t in targets)
+    assert any("getfullurl" in t for t in targets)
+    assert any("basepathrewrite" in t for t in targets)
+
+
+def test_barrel_reexport_emits_imports_from():
+    """Barrel file must emit file-level imports_from edges to source modules."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "barrel_reexport.ts")
+    imports_from = [e for e in result["edges"] if e["relation"] == "imports_from"]
+    targets = [e["target"] for e in imports_from]
+    assert any("cookiehelpers" in t for t in targets)
+    assert any("urlhelpers" in t for t in targets)
+    assert any("storagehelpers" in t for t in targets)
+
+
+def test_barrel_reexport_context_tagged():
+    """re_exports edges should have context='re-export'."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "barrel_reexport.ts")
+    reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
+    for e in reexports:
+        assert e.get("context") == "re-export"
+
+
+def test_barrel_local_exports_still_extracted():
+    """export function/const in a barrel file must still create nodes."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "barrel_reexport.ts")
+    labels = [n["label"] for n in result["nodes"]]
+    assert "localHelper()" in labels or "localHelper" in labels
+    # File node should also exist
+    assert any("barrel_reexport" in n["label"] for n in result["nodes"])
+
+
+def test_barrel_reexport_confidence_extracted():
+    """All re_exports edges should have confidence=EXTRACTED."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "barrel_reexport.ts")
+    reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
+    for e in reexports:
+        assert e["confidence"] == "EXTRACTED"
+
+
+def test_pure_export_no_from_not_treated_as_reexport():
+    """export { localVar } without 'from' should NOT create re_exports edges."""
+    from graphify.extract import extract_js
+    import tempfile
+    code = b"const x = 1;\nexport { x };\n"
+    with tempfile.NamedTemporaryFile(suffix=".ts", delete=False) as f:
+        f.write(code)
+        f.flush()
+        result = extract_js(Path(f.name))
+    reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
+    assert reexports == [], f"Pure export should not create re_exports: {reexports}"

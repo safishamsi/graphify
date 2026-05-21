@@ -369,6 +369,17 @@ def _resolve_js_import_target(raw: str, str_path: str) -> "tuple[str, Path | Non
 
 
 def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_path: str) -> None:
+    is_reexport = node.type == "export_statement"
+    # Only handle export_statement if it has a `from` clause (re-export).
+    # Pure exports like `export const x = 1` or `export { localVar }` have no source module.
+    if is_reexport:
+        has_from = any(child.type == "from" or (_read_text(child, source) == "from") for child in node.children if child.type in ("from", "identifier"))
+        if not has_from:
+            # Check for string child (source path) as a more reliable indicator
+            has_from = any(child.type == "string" for child in node.children)
+            if not has_from:
+                return
+
     resolved_path: "Path | None" = None
     for child in node.children:
         if child.type == "string":
@@ -381,7 +392,7 @@ def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_p
                 "source": file_nid,
                 "target": tgt_nid,
                 "relation": "imports_from",
-                "context": "import",
+                "context": "re-export" if is_reexport else "import",
                 "confidence": "EXTRACTED",
                 "source_file": str_path,
                 "source_location": f"L{node.start_point[0] + 1}",
@@ -389,32 +400,59 @@ def _import_js(node, source: bytes, file_nid: str, stem: str, edges: list, str_p
             })
             break
 
-    # Emit symbol-level edges for named imports from local/aliased files.
+    # Emit symbol-level edges for named imports/re-exports from local/aliased files.
     # e.g. `import { Foo, type Bar } from './bar'` → file → Foo, file → Bar (EXTRACTED)
+    # e.g. `export { Foo } from './bar'` → file → Foo (re_exports edge)
     # Uses the same _make_id(target_stem, name) key that _extract_generic emits when
     # defining the symbol, so these edges wire importers directly to existing symbol nodes.
     if resolved_path is not None:
         target_stem = _file_stem(resolved_path)
         line = node.start_point[0] + 1
-        for child in node.children:
-            if child.type == "import_clause":
-                for sub in child.children:
-                    if sub.type == "named_imports":
-                        for spec in sub.children:
-                            if spec.type == "import_specifier":
-                                name_node = spec.child_by_field_name("name")
-                                if name_node:
-                                    sym = _read_text(name_node, source)
-                                    edges.append({
-                                        "source": file_nid,
-                                        "target": _make_id(target_stem, sym),
-                                        "relation": "imports",
-                                        "context": "import",
-                                        "confidence": "EXTRACTED",
-                                        "source_file": str_path,
-                                        "source_location": f"L{line}",
-                                        "weight": 1.0,
-                                    })
+
+        if is_reexport:
+            # Handle: export { foo, bar } from './module'
+            #         export { default as baz } from './module'
+            for child in node.children:
+                if child.type == "export_clause":
+                    for spec in child.children:
+                        if spec.type == "export_specifier":
+                            # The exported name is the local name from the source module
+                            name_node = spec.child_by_field_name("name")
+                            if name_node:
+                                sym = _read_text(name_node, source)
+                                if sym == "default":
+                                    continue  # skip default re-exports for ID matching
+                                edges.append({
+                                    "source": file_nid,
+                                    "target": _make_id(target_stem, sym),
+                                    "relation": "re_exports",
+                                    "context": "re-export",
+                                    "confidence": "EXTRACTED",
+                                    "source_file": str_path,
+                                    "source_location": f"L{line}",
+                                    "weight": 1.0,
+                                })
+        else:
+            # Handle: import { Foo, type Bar } from './bar'
+            for child in node.children:
+                if child.type == "import_clause":
+                    for sub in child.children:
+                        if sub.type == "named_imports":
+                            for spec in sub.children:
+                                if spec.type == "import_specifier":
+                                    name_node = spec.child_by_field_name("name")
+                                    if name_node:
+                                        sym = _read_text(name_node, source)
+                                        edges.append({
+                                            "source": file_nid,
+                                            "target": _make_id(target_stem, sym),
+                                            "relation": "imports",
+                                            "context": "import",
+                                            "confidence": "EXTRACTED",
+                                            "source_file": str_path,
+                                            "source_location": f"L{line}",
+                                            "weight": 1.0,
+                                        })
 
 
 def _dynamic_import_js(node, source: bytes, caller_nid: str, str_path: str, edges: list,
@@ -926,7 +964,7 @@ _JS_CONFIG = LanguageConfig(
     ts_module="tree_sitter_javascript",
     class_types=frozenset({"class_declaration"}),
     function_types=frozenset({"function_declaration", "method_definition"}),
-    import_types=frozenset({"import_statement"}),
+    import_types=frozenset({"import_statement", "export_statement"}),
     call_types=frozenset({"call_expression", "new_expression"}),
     call_function_field="function",
     call_accessor_node_types=frozenset({"member_expression"}),
@@ -945,7 +983,7 @@ _TS_CONFIG = LanguageConfig(
         "type_alias_declaration",  # named type aliases
     }),
     function_types=frozenset({"function_declaration", "method_definition"}),
-    import_types=frozenset({"import_statement"}),
+    import_types=frozenset({"import_statement", "export_statement"}),
     call_types=frozenset({"call_expression", "new_expression"}),
     call_function_field="function",
     call_accessor_node_types=frozenset({"member_expression"}),
@@ -1288,6 +1326,14 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
         if t in config.import_types:
             if config.import_handler:
                 config.import_handler(node, source, file_nid, stem, edges, str_path)
+            # For export_statement: only return (skip children) if it's a re-export
+            # (has a `from` source). Otherwise fall through to walk children which may
+            # contain function_declaration, class_declaration, etc.
+            if t == "export_statement":
+                has_source = any(c.type == "string" for c in node.children)
+                if not has_source:
+                    for child in node.children:
+                        walk(child, parent_class_nid)
             return
 
         # Class types
@@ -1950,7 +1996,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
     clean_edges = []
     for edge in edges:
         src, tgt = edge["source"], edge["target"]
-        if src in valid_ids and (tgt in valid_ids or edge["relation"] in ("imports", "imports_from")):
+        if src in valid_ids and (tgt in valid_ids or edge["relation"] in ("imports", "imports_from", "re_exports")):
             clean_edges.append(edge)
 
     return {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls}
