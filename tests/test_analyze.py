@@ -600,3 +600,86 @@ def test_god_nodes_filter_is_case_insensitive():
     labels = [r["label"] for r in result]
     for variant in ("Start", "START", "Name", "ID"):
         assert variant not in labels, f"`{variant}` should be filtered as JSON-key noise"
+
+
+# ── find_import_cycles tests ──────────────────────────────────────────────────
+
+from graphify.analyze import find_import_cycles
+
+
+def _make_cycle_graph():
+    """Build a directed graph with known circular imports."""
+    G = nx.DiGraph()
+    # Files
+    for f in ("a.ts", "b.ts", "c.ts", "d.ts", "standalone.ts"):
+        G.add_node(f"node_{f}", label=f, source_file=f, file_type="code")
+    # a imports b, b imports a (2-cycle)
+    G.add_edge("node_a.ts", "node_b.ts", relation="imports_from", source_file="a.ts", confidence="EXTRACTED")
+    G.add_edge("node_b.ts", "node_a.ts", relation="imports_from", source_file="b.ts", confidence="EXTRACTED")
+    # b imports c, c imports d, d imports b (3-cycle)
+    G.add_edge("node_b.ts", "node_c.ts", relation="imports_from", source_file="b.ts", confidence="EXTRACTED")
+    G.add_edge("node_c.ts", "node_d.ts", relation="imports_from", source_file="c.ts", confidence="EXTRACTED")
+    G.add_edge("node_d.ts", "node_b.ts", relation="imports_from", source_file="d.ts", confidence="EXTRACTED")
+    # standalone imports a but nobody imports standalone (no cycle)
+    G.add_edge("node_standalone.ts", "node_a.ts", relation="imports_from", source_file="standalone.ts", confidence="EXTRACTED")
+    return G
+
+
+def test_find_import_cycles_detects_2_cycle():
+    G = _make_cycle_graph()
+    cycles = find_import_cycles(G)
+    # Should find the a↔b cycle
+    flat = [" ".join(c) for c in cycles]
+    assert any("a.ts" in s and "b.ts" in s for s in flat)
+
+
+def test_find_import_cycles_detects_3_cycle():
+    G = _make_cycle_graph()
+    cycles = find_import_cycles(G)
+    # Should find b→c→d→b
+    flat = [" ".join(c) for c in cycles]
+    assert any("b.ts" in s and "c.ts" in s and "d.ts" in s for s in flat)
+
+
+def test_find_import_cycles_no_false_positives():
+    G = _make_cycle_graph()
+    cycles = find_import_cycles(G)
+    # standalone.ts should NOT appear in any cycle
+    for cycle in cycles:
+        assert not any("standalone" in node for node in cycle)
+
+
+def test_find_import_cycles_empty_graph():
+    G = nx.DiGraph()
+    cycles = find_import_cycles(G)
+    assert cycles == []
+
+
+def test_find_import_cycles_no_cycles():
+    G = nx.DiGraph()
+    G.add_node("x", label="x.ts", source_file="x.ts", file_type="code")
+    G.add_node("y", label="y.ts", source_file="y.ts", file_type="code")
+    G.add_edge("x", "y", relation="imports_from", source_file="x.ts", confidence="EXTRACTED")
+    cycles = find_import_cycles(G)
+    assert cycles == []
+
+
+def test_find_import_cycles_respects_max_length():
+    G = _make_cycle_graph()
+    # With max_cycle_length=2, should only find the 2-node cycle
+    cycles = find_import_cycles(G, max_cycle_length=2)
+    for cycle in cycles:
+        assert len(cycle) - 1 <= 2  # cycle includes repeated first node
+
+
+def test_find_import_cycles_deduplicates_rotations():
+    G = _make_cycle_graph()
+    cycles = find_import_cycles(G)
+    # No two cycles should be rotations of each other
+    normalized = set()
+    for cycle in cycles:
+        core = tuple(cycle[:-1])
+        min_idx = core.index(min(core))
+        norm = core[min_idx:] + core[:min_idx]
+        assert norm not in normalized, f"Duplicate rotation found: {cycle}"
+        normalized.add(norm)

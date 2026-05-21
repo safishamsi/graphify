@@ -606,3 +606,88 @@ def graph_diff(G_old: nx.Graph, G_new: nx.Graph) -> dict:
         "removed_edges": removed_edges_list,
         "summary": summary,
     }
+
+
+def find_import_cycles(
+    G: nx.Graph,
+    max_cycle_length: int = 5,
+    top_n: int = 20,
+) -> list[list[str]]:
+    """Detect circular import dependencies at the file level.
+
+    Collapses symbol-level nodes to their parent file (using source_file attr
+    or 'contains' edges), builds a directed file-level graph from imports_from
+    edges, then finds simple cycles.
+
+    Args:
+        G: The full knowledge graph (may be undirected or directed).
+        max_cycle_length: Only report cycles with at most this many files.
+        top_n: Maximum number of cycles to return (shortest first).
+
+    Returns:
+        List of cycles, each cycle being a list of file paths forming the loop.
+        Example: [["a.ts", "b.ts", "a.ts"]] means a imports b and b imports a.
+    """
+    # Step 1: Build a directed file-level graph from imports_from edges.
+    file_graph = nx.DiGraph()
+
+    for u, v, data in G.edges(data=True):
+        rel = data.get("relation", "")
+        if rel not in ("imports_from", "re_exports"):
+            continue
+        # Get source files for the edge endpoints
+        src_file = data.get("source_file", "")
+        # Target: resolve from node attributes (the imported file)
+        tgt_attrs = G.nodes.get(v, {})
+        tgt_file = tgt_attrs.get("source_file", "")
+
+        # For imports_from, the target node IS the file node (its label is the filename).
+        # If no source_file attr, use the node label as the file identity.
+        if not tgt_file:
+            tgt_label = tgt_attrs.get("label", v)
+            # If label looks like a filename, use it
+            if "." in tgt_label:
+                tgt_file = tgt_label
+            else:
+                tgt_file = v
+
+        if src_file and tgt_file and src_file != tgt_file:
+            file_graph.add_edge(src_file, tgt_file)
+
+    if not file_graph.edges():
+        return []
+
+    # Step 2: Find simple cycles, bounded by length.
+    cycles: list[list[str]] = []
+    try:
+        for cycle in nx.simple_cycles(file_graph):
+            if len(cycle) <= max_cycle_length:
+                # Append the first node at the end to show the loop
+                cycles.append(cycle + [cycle[0]])
+            if len(cycles) >= top_n * 10:
+                # Stop early to avoid combinatorial explosion
+                break
+    except Exception:
+        return []
+
+    # Step 3: Sort by length (shortest = tightest coupling), then deduplicate.
+    cycles.sort(key=len)
+
+    # Deduplicate rotations: normalize each cycle by starting from the
+    # lexicographically smallest element.
+    seen: set[tuple[str, ...]] = set()
+    unique_cycles: list[list[str]] = []
+    for cycle in cycles:
+        # Remove trailing repeated element for normalization
+        core = cycle[:-1]
+        if not core:
+            continue
+        min_idx = core.index(min(core))
+        normalized = tuple(core[min_idx:] + core[:min_idx])
+        if normalized not in seen:
+            seen.add(normalized)
+            unique_cycles.append(list(normalized) + [normalized[0]])
+            if len(unique_cycles) >= top_n:
+                break
+
+    return unique_cycles
