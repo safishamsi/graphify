@@ -1241,6 +1241,11 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
     seen_ids: set[str] = set()
     function_bodies: list[tuple[str, object]] = []
     pending_listen_edges: list[tuple[str, str, int]] = []
+    # tree-sitter-swift parses both `class Foo` and `extension Foo` as
+    # `class_declaration`. Same-file pairs collapse via seen_ids, but cross-file
+    # extensions don't (file stem is part of the id), so they're collected here
+    # for a corpus-level merge after every file has been parsed.
+    swift_extensions: list[dict] = []
 
     def add_node(nid: str, label: str, line: int) -> None:
         if nid not in seen_ids:
@@ -1306,6 +1311,11 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
             line = node.start_point[0] + 1
             add_node(class_nid, class_name, line)
             add_edge(file_nid, class_nid, "contains", line)
+
+            if config.ts_module == "tree_sitter_swift" and any(
+                c.type == "extension" for c in node.children
+            ):
+                swift_extensions.append({"nid": class_nid, "label": class_name})
 
             # Python-specific: inheritance
             if config.ts_module == "tree_sitter_python":
@@ -1953,7 +1963,10 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
         if src in valid_ids and (tgt in valid_ids or edge["relation"] in ("imports", "imports_from")):
             clean_edges.append(edge)
 
-    return {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls}
+    result = {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls}
+    if swift_extensions:
+        result["swift_extensions"] = swift_extensions
+    return result
 
 
 # ── Python rationale extraction ───────────────────────────────────────────────
@@ -4354,6 +4367,76 @@ def _resolve_cross_file_imports(
     return new_edges
 
 
+def _merge_swift_extensions(
+    per_file: list[dict],
+    all_nodes: list[dict],
+    all_edges: list[dict],
+) -> None:
+    """Collapse cross-file Swift `extension Foo` nodes into the canonical `Foo`.
+
+    tree-sitter-swift reuses `class_declaration` for both `class Foo` and
+    `extension Foo`, and node ids carry the file stem, so each file that
+    extends `Foo` produces its own `Foo` node. The match is done by label:
+    when exactly one non-extension declaration shares the label, extension
+    nodes redirect onto it. Extensions of types outside the corpus (no match)
+    and ambiguous labels (more than one match) are left untouched — picking
+    arbitrarily would invent edges.
+    """
+    extension_nids: set[str] = set()
+    extension_labels: dict[str, str] = {}
+    for result in per_file:
+        for ext in result.get("swift_extensions", []) or []:
+            extension_nids.add(ext["nid"])
+            extension_labels[ext["nid"]] = ext["label"]
+
+    if not extension_nids:
+        return
+
+    label_to_canonical: dict[str, list[str]] = {}
+    for n in all_nodes:
+        if n.get("id") in extension_nids:
+            continue
+        label = n.get("label")
+        if not label:
+            continue
+        label_to_canonical.setdefault(label, []).append(n["id"])
+
+    remap: dict[str, str] = {}
+    for ext_nid in extension_nids:
+        candidates = label_to_canonical.get(extension_labels[ext_nid], [])
+        if len(candidates) != 1:
+            continue
+        canonical_nid = candidates[0]
+        if canonical_nid != ext_nid:
+            remap[ext_nid] = canonical_nid
+
+    if not remap:
+        return
+
+    all_nodes[:] = [n for n in all_nodes if n.get("id") not in remap]
+
+    # Each extension file's `contains` edge ends up pointing at the canonical
+    # type — multiple files containing the same node is the intended shape:
+    # the type owns the methods, the files own their slice. Self-loops are
+    # dropped (e.g. an in-file extension method whose call already pointed at
+    # the canonical type).
+    rewritten: list[dict] = []
+    seen_keys: set[tuple] = set()
+    for e in all_edges:
+        src = remap.get(e.get("source"), e.get("source"))
+        tgt = remap.get(e.get("target"), e.get("target"))
+        if src == tgt:
+            continue
+        e["source"] = src
+        e["target"] = tgt
+        key = (src, tgt, e.get("relation"), e.get("source_file"), e.get("source_location"))
+        if key in seen_keys:
+            continue
+        seen_keys.add(key)
+        rewritten.append(e)
+    all_edges[:] = rewritten
+
+
 def _resolve_cross_file_java_imports(
     per_file: list[dict],
     paths: list[Path],
@@ -6469,6 +6552,8 @@ def extract(
                 e["source"] = id_remap[e["source"]]
             if e.get("target") in id_remap:
                 e["target"] = id_remap[e["target"]]
+
+    _merge_swift_extensions(per_file, all_nodes, all_edges)
 
     # Add cross-file class-level edges (Python only - uses Python parser internally)
     py_paths = [p for p in paths if p.suffix == ".py"]

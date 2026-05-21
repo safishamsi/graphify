@@ -555,6 +555,26 @@ def test_swift_call_edges_have_call_context():
     assert all(e.get("context") == "call" for e in call_edges)
 
 
+def test_swift_extension_across_files_merges_into_canonical_type():
+    """`extension Foo` in a separate file from `class Foo` must resolve to a
+    single Foo node. tree-sitter-swift parses both as `class_declaration` and
+    node ids carry the file stem, so without a corpus-level merge each file
+    would emit its own Foo."""
+    from graphify.extract import extract
+    paths = sorted((FIXTURES / "swift_cross_file").glob("*.swift"))
+    r = extract(paths, cache_root=Path("/tmp/graphify-test-no-cache"))
+    foo_nodes = [n for n in r["nodes"] if n["label"] == "Foo"]
+    assert len(foo_nodes) == 1, f"Foo should appear once, got {len(foo_nodes)}: {[n['id'] for n in foo_nodes]}"
+    foo_id = foo_nodes[0]["id"]
+    method_targets = {
+        e["target"] for e in r["edges"]
+        if e["relation"] == "method" and e["source"] == foo_id
+    }
+    method_labels = {n["label"] for n in r["nodes"] if n["id"] in method_targets}
+    assert any("one" in l for l in method_labels), f"one() should attach to Foo, got {method_labels}"
+    assert any("two" in l for l in method_labels), f"extension method two() should attach to Foo, got {method_labels}"
+
+
 # ── Elixir ────────────────────────────────────────────────────────────────────
 
 from graphify.extract import extract_elixir
