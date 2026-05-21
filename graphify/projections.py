@@ -18,7 +18,7 @@ _CONFIDENCE_SCORE = {
 
 def _confidence_score(data: dict[str, Any]) -> float:
     raw_score = data.get("confidence_score")
-    if isinstance(raw_score, int | float) and not isinstance(raw_score, bool):
+    if isinstance(raw_score, int | float) and not isinstance(raw_score, bool):  # Python 3.10+
         return float(raw_score)
     raw_confidence = data.get("confidence")
     if isinstance(raw_confidence, str):
@@ -38,7 +38,7 @@ def _edge_sort_key(data: dict[str, Any]) -> tuple:
 
 
 def _iter_edge_data(G: nx.Graph) -> Iterable[tuple[Any, Any, Any, dict[str, Any]]]:
-    if isinstance(G, nx.MultiGraph | nx.MultiDiGraph):
+    if isinstance(G, nx.MultiGraph | nx.MultiDiGraph):  # Python 3.10+
         yield from G.edges(keys=True, data=True)
         return
     for u, v, data in G.edges(data=True):
@@ -142,7 +142,7 @@ def project_for_context(G: nx.Graph, *, contexts: Iterable[str] | str | None = N
     for u, v, key, data in _iter_edge_data(G):
         if filters is not None and str(data.get("context", "")).strip().lower() not in filters:
             continue
-        if isinstance(H, nx.MultiGraph | nx.MultiDiGraph):
+        if isinstance(H, nx.MultiGraph | nx.MultiDiGraph):  # Python 3.10+
             H.add_edge(u, v, key=key, **data)
         else:
             H.add_edge(u, v, **data)
@@ -159,7 +159,7 @@ def edge_records_between(G: nx.Graph, u: str, v: str) -> list[dict[str, Any]]:
         raw = G.get_edge_data(src, tgt)
         if not isinstance(raw, dict):
             return
-        if isinstance(G, nx.MultiGraph | nx.MultiDiGraph):
+        if isinstance(G, nx.MultiGraph | nx.MultiDiGraph):  # Python 3.10+
             records.extend(dict(data) for data in raw.values() if isinstance(data, dict))
         else:
             records.append(dict(raw))
@@ -201,7 +201,7 @@ def normalize_to_multidigraph(G: nx.Graph) -> nx.MultiDiGraph:
     H = nx.MultiDiGraph()
     H.graph.update(G.graph)
     H.add_nodes_from((node, attrs.copy()) for node, attrs in G.nodes(data=True))
-    if isinstance(G, nx.MultiGraph | nx.MultiDiGraph):
+    if isinstance(G, nx.MultiGraph | nx.MultiDiGraph):  # Python 3.10+
         for u, v, key, data in G.edges(keys=True, data=True):
             H.add_edge(u, v, key=key, **data)
     else:

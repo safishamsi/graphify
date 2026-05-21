@@ -243,7 +243,7 @@ def resolve_python_import_guided_calls(
         if path.suffix != ".py":
             continue
         slot: Any = per_file[index] if index < len(per_file) else None
-        result_by_file[str(path)] = slot if isinstance(slot, dict) else {"nodes": [], "edges": []}
+        result_by_file[str(path)] = slot if isinstance(slot, dict) else {"nodes": [], "edges": []}  # empty fragment for missing/non-dict slots
     resolved_edges: list[dict[str, Any]] = []
 
     for path in paths:
@@ -256,7 +256,7 @@ def resolve_python_import_guided_calls(
         file_result = result_by_file.get(source_file, {"raw_calls": []})
         raw_calls = file_result.get("raw_calls", [])
         if not isinstance(raw_calls, list):
-            continue
+            continue  # raw_calls must be a list; skip malformed fragments
         for raw_call in raw_calls:
             if not isinstance(raw_call, dict):
                 continue
