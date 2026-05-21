@@ -5872,7 +5872,7 @@ def extract_bash(path: Path) -> dict:
             seen_ids.add(nid)
             nodes.append({"id": nid, "label": label, "file_type": "code",
                           "source_file": str_path, "source_location": f"L{line}",
-                          "metadata": sanitize_metadata({"language": "bash", "kind": kind})})
+                          "metadata": sanitize_metadata({"language": "bash", "kind": kind})})  # noqa: E501
 
     def add_edge(src: str, tgt: str, relation: str, line: int,
                  confidence: str = "EXTRACTED", weight: float = 1.0,

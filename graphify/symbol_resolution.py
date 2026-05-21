@@ -372,7 +372,7 @@ def _file_node_id_for_path(path: Path, root: Path) -> str:
     try:
         return _bash_make_id(str(path.resolve().relative_to(root.resolve())))
     except ValueError:
-        return _bash_make_id(str(path))
+        return _bash_make_id(str(path))  # path outside root: hash absolute path as fallback
 
 
 def resolve_bash_source_edges(
@@ -402,7 +402,7 @@ def resolve_bash_source_edges(
           Anything else is silently skipped.
     """
     path_by_index = [Path(p).resolve() for p in paths]
-    file_nid_by_path = {p: _file_node_id_for_path(p, root) for p in path_by_index}
+    file_nid_by_path = {p: _file_node_id_for_path(p, root) for p in path_by_index}  # resolved paths only
 
     functions_by_file: dict[str, dict[str, str]] = {}
     for result, path in zip(per_file, path_by_index):

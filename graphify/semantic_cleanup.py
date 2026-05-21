@@ -77,7 +77,7 @@ def validate_semantic_fragment(fragment: object) -> list[str]:
             errors.append(
                 f"nodes[{i}].file_type {file_type!r} is not one of "
                 f"{sorted(VALID_SEMANTIC_FILE_TYPES)}"
-            )
+            )  # validate file_type before any sanitize path can run
 
     for i, edge in enumerate(edges):
         if not isinstance(edge, dict):

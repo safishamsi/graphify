@@ -295,7 +295,7 @@ def _sanitize_metadata_string(value: object) -> str:
     text = html.escape(text, quote=True)
     if len(text) > _METADATA_MAX_VALUE_LEN:
         text = text[:_METADATA_MAX_VALUE_LEN]
-    return text
+    return text  # html is imported at module level (line 5)
 
 
 def _sanitize_metadata_value(value: object) -> object:

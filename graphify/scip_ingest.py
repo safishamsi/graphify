@@ -153,7 +153,7 @@ def _emit_symbol_node(
     sourceline = _first_occurrence_line(occurrences)
     suffix = symbol_id.split("#")[-1] if "#" in symbol_id else symbol_id
     label = display_name or suffix or symbol_id
-    seen_node_ids.add(node_id)
+    seen_node_ids.add(node_id)  # label uses display_name or suffix (never empty for valid symbols)
     nodes.append(
         {
             "id": node_id,
