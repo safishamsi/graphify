@@ -89,7 +89,7 @@ def _get_edges(data: dict) -> list[dict]:
             val = data[key]
             if not isinstance(val, list):
                 raise TypeError(f"'{key}' must be a list, got {type(val).__name__}")
-            return list(val)
+            return [e for e in val if isinstance(e, dict)]
     return []
 
 
@@ -101,12 +101,13 @@ def _set_graph_profile(G: nx.Graph, data: dict, *, graph_type: str) -> None:
     G.graph[GRAPHIFY_PROFILE_KEY] = profile
 
 
-def _add_nodes(G: nx.Graph, data: dict) -> set[str]:
+def _add_nodes(G: nx.Graph, data: dict) -> set:
     """Add valid nodes from *data* to *G*; return the resulting node ID set."""
     for node in data.get("nodes", []):
         if not isinstance(node, dict) or "id" not in node:
             continue
-        G.add_node(node["id"], **{k: v for k, v in node.items() if k != "id"})
+        node_id = node["id"]
+        G.add_node(node_id, **{k: v for k, v in node.items() if k != "id"})
     return set(G.nodes())
 
 
