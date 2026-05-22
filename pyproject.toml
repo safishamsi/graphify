@@ -29,6 +29,7 @@ dependencies = [
     "tree-sitter-kotlin",
     "tree-sitter-scala",
     "tree-sitter-php",
+    "tree-sitter-clojure-orchard",
     "tree-sitter-swift",
     "tree-sitter-lua",
     "tree-sitter-zig",

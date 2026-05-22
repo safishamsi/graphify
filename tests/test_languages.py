@@ -2,11 +2,12 @@
 from __future__ import annotations
 from pathlib import Path
 import pytest
+from graphify.build import build
 from graphify.extract import (
     extract_java, extract_c, extract_cpp, extract_ruby,
     extract_csharp, extract_kotlin, extract_scala, extract_php,
     extract_swift, extract_go, extract_julia, extract_js, extract_fortran,
-    extract_groovy,
+    extract_groovy, extract_clojure,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -17,6 +18,9 @@ def _labels(r):
 
 def _relations(r):
     return {e["relation"] for e in r["edges"]}
+
+def _target_ids(r, relation):
+    return {e["target"] for e in r["edges"] if e["relation"] == relation}
 
 def _calls(r):
     node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
@@ -898,6 +902,114 @@ def test_ts_static_template_literal_resolved():
     targets = {e["target"] for e in r["edges"] if e["relation"] == "imports_from"}
     assert any("statichelper" in t.lower() for t in targets), \
         f"Static template literal import not resolved: {targets}"
+
+
+# ── Clojure ──────────────────────────────────────────────────────────────────
+
+def test_clojure_no_error():
+    r = extract_clojure(FIXTURES / "sample.clj")
+    assert "error" not in r
+
+
+def test_clojure_finds_namespace():
+    r = extract_clojure(FIXTURES / "sample.clj")
+    assert "sample.core" in _labels(r)
+
+
+def test_clojure_finds_common_definitions():
+    r = extract_clojure(FIXTURES / "sample.clj")
+    labels = _labels(r)
+    assert any("User" in l for l in labels)
+    assert any("Store" in l for l in labels)
+    assert any("normalize-name" in l for l in labels)
+    assert any("enrich-user" in l for l in labels)
+    assert any("with-user" in l for l in labels)
+    assert any("render" in l for l in labels)
+    assert any("handle-request" in l for l in labels)
+
+
+def test_clojure_finds_requires_and_imports():
+    r = extract_clojure(FIXTURES / "sample.clj")
+    assert "imports" in _relations(r)
+    assert "imports_from" in _relations(r)
+    assert "sample_audit" in _target_ids(r, "imports_from")
+
+
+def test_clojure_import_edges_have_import_context():
+    r = extract_clojure(FIXTURES / "sample.clj")
+    import_edges = _edges_with_relation(r, "imports", "imports_from")
+    assert import_edges
+    assert all(e.get("context") == "import" for e in import_edges)
+
+
+def test_clojure_emits_same_file_calls():
+    r = extract_clojure(FIXTURES / "sample.clj")
+    calls = _calls(r)
+    assert any("enrich-user" in src and "normalize-name" in tgt for src, tgt in calls)
+    assert any("render" in src and "enrich-user" in tgt for src, tgt in calls)
+    assert any("handle-request" in src and "normalize-name" in tgt for src, tgt in calls)
+
+
+def test_clojure_preserves_case_sensitive_symbols(tmp_path):
+    sample = tmp_path / "case_sensitive.clj"
+    sample.write_text(
+        """(ns sample.case)
+(defn Foo [] :upper)
+(defn foo [] :lower)
+(defn call-upper [] (Foo))
+(defn call-lower [] (foo))
+""",
+        encoding="utf-8",
+    )
+
+    r = extract_clojure(sample)
+
+    assert "error" not in r
+    ids_by_label = {n["label"]: n["id"] for n in r["nodes"]}
+    assert "Foo()" in ids_by_label
+    assert "foo()" in ids_by_label
+    assert ids_by_label["Foo()"] != ids_by_label["foo()"]
+
+    calls = _calls(r)
+    assert ("call-upper()", "Foo()") in calls
+    assert ("call-lower()", "foo()") in calls
+    assert ("call-upper()", "foo()") not in calls
+    assert ("call-lower()", "Foo()") not in calls
+
+    G = build([r])
+    built_labels = [data.get("label") for _, data in G.nodes(data=True)]
+    assert "Foo()" in built_labels
+    assert "foo()" in built_labels
+
+
+def test_clojure_call_edges_have_call_context():
+    r = extract_clojure(FIXTURES / "sample.clj")
+    call_edges = _edges_with_relation(r, "calls")
+    assert call_edges
+    assert all(e.get("context") == "call" for e in call_edges)
+
+
+def test_clojure_calls_are_extracted():
+    r = extract_clojure(FIXTURES / "sample.clj")
+    for e in r["edges"]:
+        if e["relation"] == "calls":
+            assert e["confidence"] == "EXTRACTED"
+
+
+def test_clojure_skips_calls_inside_quoted_or_commented_forms():
+    r = extract_clojure(FIXTURES / "sample.clj")
+    calls = _calls(r)
+    assert not any("quoted-example" in src for src, _ in calls)
+    assert not any("comment-example" in src for src, _ in calls)
+
+
+def test_clojure_no_dangling_internal_edges():
+    r = extract_clojure(FIXTURES / "sample.clj")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        if e["relation"] in ("contains", "method", "calls"):
+            assert e["source"] in node_ids
+            assert e["target"] in node_ids
 
 
 # ── Markdown ─────────────────────────────────────────────────────────────────

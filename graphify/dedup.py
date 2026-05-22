@@ -19,6 +19,18 @@ def _norm(label: str) -> str:
     return re.sub(r"[^a-z0-9]+", " ", label.lower()).strip()
 
 
+def _exact_label_groups(nodes: list[dict]) -> list[list[dict]]:
+    """Avoid exact-deduping same-file symbols that differ only by case."""
+    labels = [str(node.get("label", node.get("id", ""))) for node in nodes]
+    if len(set(labels)) <= 1 or len({label.lower() for label in labels}) != 1:
+        return [nodes]
+
+    by_label: dict[str, list[dict]] = defaultdict(list)
+    for node, label in zip(nodes, labels, strict=True):
+        by_label[label].append(node)
+    return [group for group in by_label.values() if len(group) > 1]
+
+
 def _entropy(label: str) -> float:
     """Shannon entropy in bits/char of the normalised label."""
     s = _norm(label)
@@ -185,11 +197,13 @@ def deduplicate_entities(
             sf = node.get("source_file") or ""
             by_file[sf].append(node)
         for file_group in by_file.values():
-            if len(file_group) > 1:
-                winner = _pick_winner(file_group)
-                for node in file_group:
+            if len(file_group) <= 1:
+                continue
+            for exact_group in _exact_label_groups(file_group):
+                winner = _pick_winner(exact_group)
+                for node in exact_group:
                     uf.union(winner["id"], node["id"])
-                exact_merges += len(file_group) - 1
+                exact_merges += len(exact_group) - 1
 
     # ── pass 2: MinHash/LSH + Jaro-Winkler (high-entropy nodes only) ─────────
     candidates: list[dict] = []

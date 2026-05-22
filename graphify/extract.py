@@ -7278,6 +7278,271 @@ def extract_json(path: Path) -> dict:
     return {"nodes": nodes, "edges": edges}
 
 
+def extract_clojure(path: Path) -> dict:
+    """Extract namespaces, definitions, requires/imports, protocol methods, and calls from .clj."""
+    try:
+        import tree_sitter_clojure_orchard as tsclojure
+        from tree_sitter import Language, Parser
+    except ImportError:
+        return {"nodes": [], "edges": [], "error": "tree-sitter-clojure-orchard not installed"}
+
+    try:
+        language = Language(tsclojure.language())
+        parser = Parser(language)
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        root = tree.root_node
+    except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    stem = _file_stem(path)
+    str_path = str(path)
+    nodes: list[dict] = []
+    edges: list[dict] = []
+    seen_ids: set[str] = set()
+    function_bodies: list[tuple[str, list[object]]] = []
+    namespace_name: str | None = None
+    namespace_nid: str | None = None
+
+    definition_heads = {
+        "def", "defonce", "defn", "defn-", "defmacro",
+        "defmulti", "defmethod", "defprotocol", "defrecord", "deftype",
+    }
+    callable_heads = {"defn", "defn-", "defmacro", "defmethod"}
+    type_heads = {"defprotocol", "defrecord", "deftype"}
+    skipped_call_heads = {
+        ".", "..", "and", "case", "catch", "comment", "cond", "cond->", "cond->>",
+        "def", "defmacro", "defmethod", "defmulti", "defn", "defn-", "defonce",
+        "defprotocol", "defrecord", "deftype", "do", "doseq", "fn", "for", "if",
+        "import", "let", "loop", "ns", "or", "quote", "recur", "require", "try",
+        "when", "when-let", "when-not",
+    }
+
+    def node_text(node) -> str:
+        return source[node.start_byte:node.end_byte].decode("utf-8", errors="replace")
+
+    def named_children(node) -> list[object]:
+        return [child for child in node.children if getattr(child, "is_named", False)]
+
+    def make_clojure_id(*parts: str) -> str:
+        combined = "_".join(p.strip("_.") for p in parts if p)
+        combined = unicodedata.normalize("NFKC", combined)
+        cleaned = re.sub(r"[^\w]+", "_", combined, flags=re.UNICODE)
+        cleaned = re.sub(r"_+", "_", cleaned)
+        return cleaned.strip("_")
+
+    def form_head(node) -> str | None:
+        if node.type != "list_lit":
+            return None
+        children = named_children(node)
+        if not children:
+            return None
+        first = children[0]
+        if first.type in ("sym_lit", "kwd_lit"):
+            return node_text(first)
+        return None
+
+    def first_symbol(children: list[object], start: int = 0) -> tuple[str, object] | tuple[None, None]:
+        for child in children[start:]:
+            if child.type == "sym_lit":
+                return node_text(child), child
+        return None, None
+
+    def add_node(nid: str, label: str, line: int) -> None:
+        if nid not in seen_ids:
+            seen_ids.add(nid)
+            nodes.append({
+                "id": nid,
+                "label": label,
+                "file_type": "code",
+                "source_file": str_path,
+                "source_location": f"L{line}",
+            })
+
+    def add_edge(src: str, tgt: str, relation: str, line: int,
+                 confidence: str = "EXTRACTED", weight: float = 1.0,
+                 context: str | None = None) -> None:
+        edge = {
+            "source": src,
+            "target": tgt,
+            "relation": relation,
+            "confidence": confidence,
+            "source_file": str_path,
+            "source_location": f"L{line}",
+            "weight": weight,
+        }
+        if context:
+            edge["context"] = context
+        edges.append(edge)
+
+    file_nid = _make_id(str_path)
+    add_node(file_nid, path.name, 1)
+
+    def parent_nid() -> str:
+        return namespace_nid or file_nid
+
+    def add_import_edges(ns_form) -> None:
+        src_nid = parent_nid()
+        for clause in named_children(ns_form)[2:]:
+            if clause.type != "list_lit":
+                continue
+            clause_children = named_children(clause)
+            if not clause_children:
+                continue
+            clause_head = node_text(clause_children[0])
+            if clause_head == ":require":
+                for require_vec in clause_children[1:]:
+                    if require_vec.type == "sym_lit":
+                        module_name, module_node = node_text(require_vec), require_vec
+                    elif require_vec.type == "vec_lit":
+                        module_name, module_node = first_symbol(named_children(require_vec))
+                    else:
+                        continue
+                    if module_name:
+                        add_edge(src_nid, make_clojure_id(module_name), "imports_from",
+                                 module_node.start_point[0] + 1, context="import")
+            elif clause_head == ":import":
+                for import_form in clause_children[1:]:
+                    import_symbols = [
+                        node_text(child)
+                        for child in named_children(import_form)
+                        if child.type == "sym_lit"
+                    ]
+                    if not import_symbols:
+                        continue
+                    package = import_symbols[0]
+                    imported = import_symbols[1:] or [package]
+                    for name in imported:
+                        target = f"{package}.{name}" if name != package else package
+                        add_edge(src_nid, make_clojure_id(target), "imports",
+                                 import_form.start_point[0] + 1, context="import")
+
+    def add_protocol_methods(protocol_nid: str, protocol_form) -> None:
+        for child in named_children(protocol_form)[2:]:
+            if child.type != "list_lit":
+                continue
+            method_name = form_head(child)
+            if not method_name:
+                continue
+            line = child.start_point[0] + 1
+            method_nid = make_clojure_id(protocol_nid, method_name)
+            add_node(method_nid, f".{method_name}()", line)
+            add_edge(protocol_nid, method_nid, "method", line)
+
+    def body_nodes(head: str, children: list[object]) -> list[object]:
+        if head == "defmethod":
+            for index, child in enumerate(children[2:], start=2):
+                if child.type == "vec_lit":
+                    return children[index + 1:]
+            return []
+        if head in callable_heads:
+            for index, child in enumerate(children[2:], start=2):
+                if child.type == "vec_lit":
+                    return children[index + 1:]
+            return children[2:]
+        return []
+
+    def add_definition(form) -> None:
+        children = named_children(form)
+        if len(children) < 2:
+            return
+        head = node_text(children[0])
+        if head not in definition_heads:
+            return
+        name, name_node = first_symbol(children, 1)
+        if not name:
+            return
+
+        line = name_node.start_point[0] + 1
+        if head == "defmethod":
+            dispatch = node_text(children[2]) if len(children) > 2 else ""
+            label = f"{name} {dispatch}".strip()
+            nid = make_clojure_id(stem, name, dispatch)
+        elif head in type_heads:
+            label = name
+            nid = make_clojure_id(stem, name)
+        elif head in callable_heads or head == "defmulti":
+            label = f"{name}()"
+            nid = make_clojure_id(stem, name)
+        else:
+            label = name
+            nid = make_clojure_id(stem, name)
+
+        add_node(nid, label, line)
+        add_edge(parent_nid(), nid, "contains", line)
+
+        if head == "defprotocol":
+            add_protocol_methods(nid, form)
+
+        if head in callable_heads:
+            function_bodies.append((nid, body_nodes(head, children)))
+
+    for child in named_children(root):
+        if child.type != "list_lit":
+            continue
+        if form_head(child) == "ns":
+            ns_children = named_children(child)
+            if len(ns_children) > 1 and ns_children[1].type == "sym_lit":
+                namespace_name = node_text(ns_children[1])
+                namespace_nid = make_clojure_id(stem, namespace_name)
+                add_node(namespace_nid, namespace_name, ns_children[1].start_point[0] + 1)
+                add_edge(file_nid, namespace_nid, "contains", ns_children[1].start_point[0] + 1)
+                add_import_edges(child)
+            continue
+        add_definition(child)
+
+    label_to_nid: dict[str, str] = {}
+    for n in nodes:
+        raw = n["label"]
+        normalised = raw.strip("()").lstrip(".").split(" ", 1)[0]
+        label_to_nid[normalised] = n["id"]
+
+    seen_call_pairs: set[tuple[str, str]] = set()
+
+    def callee_from_symbol(raw: str) -> str | None:
+        if raw in skipped_call_heads or raw.startswith(":"):
+            return None
+        if "/" in raw:
+            qualifier, name = raw.rsplit("/", 1)
+            if namespace_name and qualifier == namespace_name:
+                return name
+            return None
+        return raw
+
+    def walk_calls(node, caller_nid: str) -> None:
+        if node.type in ("quoting_lit", "syn_quoting_lit", "var_quoting_lit", "comment"):
+            return
+        if node.type == "list_lit":
+            raw_head = form_head(node)
+            if raw_head in definition_heads or raw_head in {"comment", "quote"}:
+                return
+            if raw_head:
+                callee_name = callee_from_symbol(raw_head)
+                if callee_name:
+                    tgt_nid = label_to_nid.get(callee_name)
+                    if tgt_nid and tgt_nid != caller_nid:
+                        pair = (caller_nid, tgt_nid)
+                        if pair not in seen_call_pairs:
+                            seen_call_pairs.add(pair)
+                            add_edge(caller_nid, tgt_nid, "calls",
+                                     node.start_point[0] + 1, context="call")
+        for child in named_children(node):
+            walk_calls(child, caller_nid)
+
+    for caller_nid, bodies in function_bodies:
+        for body in bodies:
+            walk_calls(body, caller_nid)
+
+    valid_ids = seen_ids
+    clean_edges = []
+    for edge in edges:
+        src, tgt = edge["source"], edge["target"]
+        if src in valid_ids and (tgt in valid_ids or edge["relation"] in ("imports", "imports_from")):
+            clean_edges.append(edge)
+
+    return {"nodes": nodes, "edges": clean_edges}
+
+
 _DISPATCH: dict[str, Any] = {
     ".py": extract_python,
     ".js": extract_js,
@@ -7302,6 +7567,7 @@ _DISPATCH: dict[str, Any] = {
     ".kts": extract_kotlin,
     ".scala": extract_scala,
     ".php": extract_php,
+    ".clj": extract_clojure,
     ".swift": extract_swift,
     ".lua": extract_lua,
     ".luau": extract_lua,
