@@ -9,7 +9,7 @@ def tmp_py(tmp_path):
     """Helper to write a Python file and return its path."""
     def _write(content):
         p = tmp_path / "sample.py"
-        p.write_text(dedent(content))
+        p.write_text(dedent(content), encoding="utf-8")
         return p
     return _write
 
