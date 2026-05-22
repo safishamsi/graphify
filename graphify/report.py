@@ -15,17 +15,23 @@ def _safe_community_name(label: str) -> str:
 def generate(
     G: nx.Graph,
     communities: dict[int, list[str]],
-    cohesion_scores: dict[int, float],
     community_labels: dict[int, str],
     god_node_list: list[dict],
     surprise_list: list[dict],
     detection_result: dict,
     token_cost: dict,
-    root: str,
+    root: str | "Path",
+    *,
+    cohesion_scores: dict[int, float] | None = None,
     suggested_questions: list[dict] | None = None,
+    synthesized_narratives: list[dict] | None = None,
     min_community_size: int = 3,
     built_at_commit: str | None = None,
 ) -> str:
+    root = str(root)
+    if cohesion_scores is None:
+        from .cluster import score_all
+        cohesion_scores = score_all(G, communities)
     today = date.today().isoformat()
 
     confidences = [d.get("confidence", "EXTRACTED") for _, _, d in G.edges(data=True)]
@@ -114,6 +120,20 @@ def generate(
             ]
     else:
         lines.append("- None detected - all connections are within the same source files.")
+
+    if synthesized_narratives:
+        lines += ["", "## Synthesized Risk Narratives"]
+        lines += ["", "> LLM-generated analysis of how multiple red flags combine into systemic risks."]
+        for i, n in enumerate(synthesized_narratives, 1):
+            lines += [
+                "",
+                f"### [{i}] {n.get('label', 'Untitled')}",
+                f"**Center entity:** {n.get('center_entity', 'unknown')} | **Findings:** {n.get('finding_count', 0)}",
+                "",
+                n.get("narrative", ""),
+                "",
+                "---",
+            ]
 
     hyperedges = G.graph.get("hyperedges", [])
     if hyperedges:

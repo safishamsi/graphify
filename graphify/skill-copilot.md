@@ -296,7 +296,7 @@ confidence_score is REQUIRED on every edge - never omit it, never use 0.5 as a d
 - AMBIGUOUS edges: 0.1-0.3
 
 Output exactly this JSON (no other text):
-{"nodes":[{"id":"filestem_entityname","label":"Human Readable Name","file_type":"code|document|paper|image|rationale","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to|rationale_for","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
+{"nodes":[{"id":"filestem_entityname","label":"Human Readable Name","description":"One sentence explaining what this entity does or represents","file_type":"code|document|paper|image|rationale","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to|rationale_for","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
 ```
 
 **Step B3 - Collect, cache, and merge**
@@ -438,7 +438,7 @@ labels = {cid: 'Community ' + str(cid) for cid in communities}
 # Placeholder questions - regenerated with real labels in Step 5
 questions = suggest_questions(G, communities, labels)
 
-report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, 'INPUT_PATH', suggested_questions=questions)
+report = generate(G, communities, labels, gods, surprises, detection, tokens, 'INPUT_PATH', cohesion_scores=cohesion, suggested_questions=questions)
 Path('graphify-out/GRAPH_REPORT.md').write_text(report)
 to_json(G, communities, 'graphify-out/graph.json')
 
@@ -492,7 +492,7 @@ labels = LABELS_DICT
 # Regenerate questions with real community labels (labels affect question phrasing)
 questions = suggest_questions(G, communities, labels)
 
-report = generate(G, communities, cohesion, labels, analysis['gods'], analysis['surprises'], detection, tokens, 'INPUT_PATH', suggested_questions=questions)
+report = generate(G, communities, labels, analysis['gods'], analysis['surprises'], detection, tokens, 'INPUT_PATH', cohesion_scores=cohesion, suggested_questions=questions)
 Path('graphify-out/GRAPH_REPORT.md').write_text(report)
 Path('graphify-out/.graphify_labels.json').write_text(json.dumps({str(k): v for k, v in labels.items()}))
 print('Report updated with community labels')
@@ -916,7 +916,7 @@ gods = god_nodes(G)
 surprises = surprising_connections(G, communities)
 labels = {cid: 'Community ' + str(cid) for cid in communities}
 
-report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, '.')
+report = generate(G, communities, labels, gods, surprises, detection, tokens, '.', cohesion_scores=cohesion)
 Path('graphify-out/GRAPH_REPORT.md').write_text(report)
 to_json(G, communities, 'graphify-out/graph.json')
 

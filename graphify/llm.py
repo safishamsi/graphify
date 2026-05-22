@@ -70,7 +70,7 @@ BACKENDS: dict[str, dict] = {
         "max_tokens": 16384,
     },
     "gemini": {
-        "base_url": "https://generativelanguage.googleapis.com/v1beta/openai/",
+        "base_url": os.environ.get("GOOGLE_GEMINI_BASE_URL", "https://generativelanguage.googleapis.com/v1beta/openai/"),
         "default_model": "gemini-3-flash-preview",
         "env_keys": ["GEMINI_API_KEY", "GOOGLE_API_KEY"],
         "model_env_key": "GRAPHIFY_GEMINI_MODEL",
@@ -218,6 +218,7 @@ def _call_openai_compat(
     max_completion_tokens: int = 8192,
     *,
     backend: str = "",
+    system: str | None = None,
 ) -> dict:
     """Call any OpenAI-compatible API (Kimi, OpenAI, etc.) and return parsed JSON."""
     try:
@@ -229,11 +230,12 @@ def _call_openai_compat(
             f"Run: pip install {pkg_hint}"
         ) from exc
 
+    sys_prompt = system if system is not None else _EXTRACTION_SYSTEM
     client = OpenAI(api_key=api_key, base_url=base_url)
     kwargs: dict = {
         "model": model,
         "messages": [
-            {"role": "system", "content": _EXTRACTION_SYSTEM},
+            {"role": "system", "content": sys_prompt},
             {"role": "user", "content": user_message},
         ],
         "max_completion_tokens": max_completion_tokens,
@@ -265,7 +267,7 @@ def _call_openai_compat(
     return result
 
 
-def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 8192) -> dict:
+def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 8192, system: str | None = None) -> dict:
     """Call Anthropic Claude directly (not via OpenAI compat layer)."""
     try:
         import anthropic
@@ -275,11 +277,12 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
             "Run: pip install anthropic"
         ) from exc
 
+    sys_prompt = system if system is not None else _EXTRACTION_SYSTEM
     client = anthropic.Anthropic(api_key=api_key)
     resp = client.messages.create(
         model=model,
         max_tokens=max_tokens,
-        system=_EXTRACTION_SYSTEM,
+        system=sys_prompt,
         messages=[{"role": "user", "content": user_message}],
     )
     result = _parse_llm_json(resp.content[0].text if resp.content else "{}")
@@ -293,7 +296,7 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
     return result
 
 
-def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192) -> dict:
+def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192, system: str | None = None) -> dict:
     """Call AWS Bedrock via boto3 Converse API using the standard AWS credential chain."""
     try:
         import boto3
@@ -303,6 +306,7 @@ def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192) -> dict
             "AWS Bedrock extraction requires boto3. Run: pip install graphifyy[bedrock]"
         ) from exc
 
+    sys_prompt = system if system is not None else _EXTRACTION_SYSTEM
     region = os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION") or "us-east-1"
     profile = os.environ.get("AWS_PROFILE")
     session = boto3.Session(profile_name=profile, region_name=region)
@@ -311,7 +315,7 @@ def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192) -> dict
     try:
         resp = client.converse(
             modelId=model,
-            system=[{"text": _EXTRACTION_SYSTEM}],
+            system=[{"text": sys_prompt}],
             messages=[{"role": "user", "content": [{"text": user_message}]}],
             inferenceConfig={"maxTokens": max_tokens, "temperature": 0},
         )
@@ -336,11 +340,15 @@ def extract_files_direct(
     api_key: str | None = None,
     model: str | None = None,
     root: Path = Path("."),
+    extra_prompt: str | None = None,
 ) -> dict:
     """Extract semantic nodes/edges from a list of files using the given backend.
 
     Returns dict with nodes, edges, hyperedges, input_tokens, output_tokens.
     Raises ValueError for unknown backends. Raises ImportError if SDK missing.
+
+    If extra_prompt is provided, it is appended to the system prompt (used by
+    domain plugins to inject domain-specific extraction instructions).
     """
     if backend not in BACKENDS:
         raise ValueError(f"Unknown backend {backend!r}. Available: {sorted(BACKENDS)}")
@@ -369,10 +377,14 @@ def extract_files_direct(
     user_msg = _read_files(files, root)
     max_out = _resolve_max_tokens(cfg.get("max_tokens", 8192))
 
+    system = _EXTRACTION_SYSTEM
+    if extra_prompt:
+        system = system + "\n\n" + extra_prompt
+
     if backend == "claude":
-        return _call_claude(key, mdl, user_msg, max_tokens=max_out)
+        return _call_claude(key, mdl, user_msg, max_tokens=max_out, system=system)
     if backend == "bedrock":
-        return _call_bedrock(mdl, user_msg, max_tokens=max_out)
+        return _call_bedrock(mdl, user_msg, max_tokens=max_out, system=system)
     return _call_openai_compat(
         cfg["base_url"],
         key,
@@ -382,6 +394,7 @@ def extract_files_direct(
         reasoning_effort=cfg.get("reasoning_effort"),
         max_completion_tokens=cfg.get("max_completion_tokens", max_out),
         backend=backend,
+        system=system,
     )
 
 
@@ -486,6 +499,7 @@ def _extract_with_adaptive_retry(
     root: Path,
     max_depth: int,
     _depth: int = 0,
+    extra_prompt: str | None = None,
 ) -> dict:
     """Extract a chunk; if the response is truncated (`finish_reason="length"`)
     or the API rejects the prompt as too large for the model's context window,
@@ -514,7 +528,8 @@ def _extract_with_adaptive_retry(
     """
     try:
         result = extract_files_direct(
-            chunk, backend=backend, api_key=api_key, model=model, root=root
+            chunk, backend=backend, api_key=api_key, model=model, root=root,
+            extra_prompt=extra_prompt,
         )
     except Exception as exc:  # noqa: BLE001 — re-raise unless it's a known context overflow
         if not _looks_like_context_exceeded(exc):
@@ -540,10 +555,10 @@ def _extract_with_adaptive_retry(
         )
         mid = len(chunk) // 2
         left = _extract_with_adaptive_retry(
-            chunk[:mid], backend, api_key, model, root, max_depth, _depth + 1
+            chunk[:mid], backend, api_key, model, root, max_depth, _depth + 1, extra_prompt
         )
         right = _extract_with_adaptive_retry(
-            chunk[mid:], backend, api_key, model, root, max_depth, _depth + 1
+            chunk[mid:], backend, api_key, model, root, max_depth, _depth + 1, extra_prompt
         )
         return {
             "nodes": left.get("nodes", []) + right.get("nodes", []),
@@ -582,10 +597,10 @@ def _extract_with_adaptive_retry(
     )
     mid = len(chunk) // 2
     left = _extract_with_adaptive_retry(
-        chunk[:mid], backend, api_key, model, root, max_depth, _depth + 1
+        chunk[:mid], backend, api_key, model, root, max_depth, _depth + 1, extra_prompt
     )
     right = _extract_with_adaptive_retry(
-        chunk[mid:], backend, api_key, model, root, max_depth, _depth + 1
+        chunk[mid:], backend, api_key, model, root, max_depth, _depth + 1, extra_prompt
     )
 
     return {
@@ -613,6 +628,7 @@ def extract_corpus_parallel(
     token_budget: int | None = 60_000,
     max_concurrency: int = 4,
     max_retry_depth: int = 3,
+    extra_prompt: str | None = None,
 ) -> dict:
     """Extract a corpus in chunks, merging results.
 
@@ -666,6 +682,7 @@ def extract_corpus_parallel(
                 model=model,
                 root=root,
                 max_depth=max_retry_depth,
+                extra_prompt=extra_prompt,
             )
             result["elapsed_seconds"] = round(time.time() - t0, 2)
             return idx, result, None

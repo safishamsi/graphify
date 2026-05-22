@@ -63,7 +63,7 @@ def _is_file_node(G: nx.Graph, node_id: str) -> bool:
     return False
 
 
-def god_nodes(G: nx.Graph, top_n: int = 10) -> list[dict]:
+def god_nodes(G: nx.Graph, communities: dict[int, list[str]] | None = None, top_n: int = 10) -> list[dict]:
     """Return the top_n most-connected real entities - the core abstractions.
 
     File-level hub nodes are excluded: they accumulate import/contains edges

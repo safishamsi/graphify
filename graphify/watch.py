@@ -157,8 +157,9 @@ def _rebuild_code(watch_path: Path, *, follow_symlinks: bool = False, force: boo
         except Exception:
             pass
 
-        report = generate(G, communities, cohesion, labels, gods, surprises, detection,
-                          {"input": 0, "output": 0}, report_root, suggested_questions=questions,
+        report = generate(G, communities, labels, gods, surprises, detection,
+                          {"input": 0, "output": 0}, report_root,
+                          cohesion_scores=cohesion, suggested_questions=questions,
                           built_at_commit=commit)
         (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
 

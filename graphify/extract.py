@@ -1155,6 +1155,64 @@ _SWIFT_CONFIG = LanguageConfig(
     import_handler=_import_swift,
 )
 
+# ── Description extraction ────────────────────────────────────────────────────
+
+
+def _extract_description(node, source: bytes, config: "LanguageConfig") -> str:
+    """Extract a description from docstring or leading comment for a function/class node."""
+    desc = ""
+
+    # Strategy 1: docstring inside body
+    body = None
+    for child in node.children:
+        if child.type in ("block", "statement_block", "class_body", "function_body",
+                          "compound_statement", "declaration_list"):
+            body = child
+            break
+    if body is None:
+        body = node.child_by_field_name("body")
+
+    if body:
+        for child in body.children:
+            if child.type == "expression_statement":
+                for sub in child.children:
+                    if sub.type in ("string", "concatenated_string"):
+                        text = source[sub.start_byte:sub.end_byte].decode("utf-8", errors="replace")
+                        text = text.strip("\"'").strip('"""').strip("'''").strip()
+                        if len(text) > 10:
+                            desc = text
+                        break
+                break
+            elif child.type == "comment":
+                text = source[child.start_byte:child.end_byte].decode("utf-8", errors="replace")
+                text = text.lstrip("/*").rstrip("*/").strip()
+                if len(text) > 10:
+                    desc = text
+                break
+            elif child.type not in ("newline", "\n"):
+                break
+
+    # Strategy 2: leading comment block
+    if not desc:
+        prev_sibling = node.prev_named_sibling
+        if prev_sibling and prev_sibling.type == "comment":
+            text = source[prev_sibling.start_byte:prev_sibling.end_byte].decode("utf-8", errors="replace")
+            for prefix in ("///", "//!", "//", "#", "/*", "/**"):
+                text = text.lstrip(prefix)
+            text = text.rstrip("*/").strip()
+            stripped = text.strip("-\u2500=_#* /")
+            if len(text) > 10 and len(stripped) > 5:
+                desc = text
+
+    # Post-process
+    if desc:
+        desc = desc.replace("\n", " ").replace("\r", " ")
+        desc = " ".join(desc.split())
+        if len(desc) > 200:
+            desc = desc[:197] + "..."
+    return desc
+
+
 # ── Generic extractor ─────────────────────────────────────────────────────────
 
 def _extract_generic(path: Path, config: LanguageConfig) -> dict:
@@ -1199,16 +1257,19 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
     function_bodies: list[tuple[str, object]] = []
     pending_listen_edges: list[tuple[str, str, int]] = []
 
-    def add_node(nid: str, label: str, line: int) -> None:
+    def add_node(nid: str, label: str, line: int, description: str = "") -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
-            nodes.append({
+            node_dict = {
                 "id": nid,
                 "label": label,
                 "file_type": "code",
                 "source_file": str_path,
                 "source_location": f"L{line}",
-            })
+            }
+            if description:
+                node_dict["description"] = description
+            nodes.append(node_dict)
 
     def add_edge(src: str, tgt: str, relation: str, line: int,
                  confidence: str = "EXTRACTED", weight: float = 1.0,
@@ -1261,7 +1322,8 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
             class_name = _read_text(name_node, source)
             class_nid = _make_id(stem, class_name)
             line = node.start_point[0] + 1
-            add_node(class_nid, class_name, line)
+            desc = _extract_description(node, source, config)
+            add_node(class_nid, class_name, line, description=desc)
             add_edge(file_nid, class_nid, "contains", line)
 
             # Python-specific: inheritance
@@ -1475,13 +1537,14 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                 return
 
             line = node.start_point[0] + 1
+            desc = _extract_description(node, source, config)
             if parent_class_nid:
                 func_nid = _make_id(parent_class_nid, func_name)
-                add_node(func_nid, f".{func_name}()", line)
+                add_node(func_nid, f".{func_name}()", line, description=desc)
                 add_edge(parent_class_nid, func_nid, "method", line)
             else:
                 func_nid = _make_id(stem, func_name)
-                add_node(func_nid, f"{func_name}()", line)
+                add_node(func_nid, f"{func_name}()", line, description=desc)
                 add_edge(file_nid, func_nid, "contains", line)
 
             body = _find_body(node, config)

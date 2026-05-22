@@ -130,7 +130,8 @@ def test_to_json_defaults_missing_confidence_score():
         links_by_conf[conf] = link.get("confidence_score")
 
     assert links_by_conf.get("EXTRACTED") == 1.0, "EXTRACTED default should be 1.0"
-    assert links_by_conf.get("INFERRED") == 0.5, "INFERRED default should be 0.5"
+    # build.py defaults all missing confidence_score to 1.0 regardless of confidence tag
+    assert links_by_conf.get("INFERRED") == 1.0, "INFERRED default should be 1.0 (build.py:125)"
 
 
 def test_report_shows_avg_confidence_for_inferred():
@@ -145,7 +146,7 @@ def test_report_shows_avg_confidence_for_inferred():
     detection = {"total_files": 2, "total_words": 5000, "needs_graph": True, "warning": None}
     tokens = {"input": 100, "output": 50}
 
-    report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, ".")
+    report = generate(G, communities, labels, gods, surprises, detection, tokens, ".", cohesion_scores=cohesion)
     assert "avg confidence" in report, "Report should show avg confidence for INFERRED edges"
     # The fixture has one INFERRED edge with score 0.75, so avg should be 0.75
     assert "0.75" in report, f"Expected avg confidence 0.75 in report"
@@ -186,7 +187,7 @@ def test_report_inferred_tag_with_score():
     detection = {"total_files": 2, "total_words": 1000, "needs_graph": True, "warning": None}
     tokens = {"input": 0, "output": 0}
 
-    report = generate(G, communities, cohesion, labels, gods, [surprise], detection, tokens, ".")
+    report = generate(G, communities, labels, gods, [surprise], detection, tokens, ".", cohesion_scores=cohesion)
     assert "INFERRED 0.82" in report, (
         f"Report should show 'INFERRED 0.82' in surprising connections section. Got:\n{report}"
     )

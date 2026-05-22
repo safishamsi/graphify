@@ -168,7 +168,7 @@ def _make_report(G):
     labels = {0: "All"}
     gods = [{"label": "BasicAuth", "degree": 2}]
     surprises = []
-    return generate(G, communities, cohesion, labels, gods, surprises, SAMPLE_DETECTION, {"input": 10, "output": 5}, ".")
+    return generate(G, communities, labels, gods, surprises, SAMPLE_DETECTION, {"input": 10, "output": 5}, ".", cohesion_scores=cohesion)
 
 
 def test_report_includes_hyperedges_section():

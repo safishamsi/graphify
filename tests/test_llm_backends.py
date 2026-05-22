@@ -64,7 +64,7 @@ def test_extract_files_direct_routes_gemini_through_openai_compat(tmp_path, monk
         assert llm.extract_files_direct([source], backend="gemini", root=tmp_path) is result
 
     assert call.call_args.args[:4] == (
-        "https://generativelanguage.googleapis.com/v1beta/openai/",
+        llm.BACKENDS["gemini"]["base_url"],
         "google-key",
         "gemini-3-flash-preview",
         "=== note.md ===\n# Architecture\n\nThe runner emits a snapshot.\n",
