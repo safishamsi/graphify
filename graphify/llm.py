@@ -1,5 +1,5 @@
 # Direct LLM backend for semantic extraction — supports Claude, Kimi K2.6,
-# Gemini, and OpenAI.
+# Gemini, OpenAI, DeepSeek, and OpenRouter.
 # Used by `graphify extract . --backend gemini` and the benchmark scripts.
 # The default graphify pipeline uses Claude Code subagents via skill.md;
 # this module provides a direct API path for non-Claude-Code environments.
@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import json
 import os
+import shutil
 import sys
 import time
 from collections.abc import Callable
@@ -98,6 +99,24 @@ BACKENDS: dict[str, dict] = {
         "temperature": 0,
         "max_tokens": 16384,
     },
+    "openrouter-deepseek": {
+        "base_url": "https://openrouter.ai/api/v1",
+        "default_model": "deepseek/deepseek-v4-flash",
+        "env_key": "OPENROUTER_API_KEY",
+        "model_env_key": "GRAPHIFY_OPENROUTER_DEEPSEEK_MODEL",
+        "pricing": {"input": 0.14, "output": 0.28},  # placeholder; OpenRouter billing is authoritative
+        "temperature": 0,
+        "max_tokens": 16384,
+    },
+    "openrouter-kimi": {
+        "base_url": "https://openrouter.ai/api/v1",
+        "default_model": "moonshotai/kimi-k2.6",
+        "env_key": "OPENROUTER_API_KEY",
+        "model_env_key": "GRAPHIFY_OPENROUTER_KIMI_MODEL",
+        "pricing": {"input": 0.74, "output": 4.66},  # placeholder; OpenRouter billing is authoritative
+        "temperature": 0,
+        "max_tokens": 8192,
+    },
     "bedrock": {
         "default_model": "anthropic.claude-3-5-sonnet-20241022-v2:0",
         "model_env_key": "GRAPHIFY_BEDROCK_MODEL",
@@ -138,6 +157,13 @@ Rules:
 - EXTRACTED: relationship explicit in source (import, call, citation, reference)
 - INFERRED: reasonable inference (shared data structure, implied dependency)
 - AMBIGUOUS: uncertain — flag for review, do not omit
+- Prefer fewer, better nodes over exhaustive extraction.
+- Extract at most 12 nodes per input file and at most 24 edges per input file.
+- Omit generic low-value concepts unless they connect two specific source artifacts.
+- Keep labels short. Keep relation values from the schema list only.
+- Every item inside nodes, edges, and hyperedges must be a JSON object. Never emit strings in those arrays.
+- Use the field name source_file for provenance. Do not use source except as an edge endpoint.
+- Use confidence_score exactly. Do not misspell it.
 
 Node ID format: lowercase, only [a-z0-9_], no dots or slashes.
 Format: {stem}_{entity} where stem = filename without extension, entity = symbol name (both normalised).
@@ -166,6 +192,42 @@ def _read_files(paths: list[Path], root: Path) -> str:
 _LLM_JSON_MAX_BYTES = 10 * 1024 * 1024  # 10 MB hard cap before json.loads (F-016)
 
 
+def _merge_extra_body(kwargs: dict, extra_body: dict) -> None:
+    """Merge provider-specific OpenAI SDK extra_body values."""
+    current = kwargs.get("extra_body")
+    if isinstance(current, dict):
+        merged = dict(current)
+        merged.update(extra_body)
+        kwargs["extra_body"] = merged
+    else:
+        kwargs["extra_body"] = extra_body
+
+
+def _strip_json_fences(raw: str) -> str:
+    """Remove common markdown/code-fence wrapping around a JSON object."""
+    raw = raw.strip()
+    if raw.startswith("```"):
+        raw = raw.split("```", 2)[1]
+        if raw.lstrip().startswith("json"):
+            raw = raw.lstrip()[4:]
+        raw = raw.rsplit("```", 1)[0]
+    return raw.strip()
+
+
+def _remove_json_control_chars(raw: str) -> str:
+    """Drop ASCII control characters that make otherwise-valid JSON fail."""
+    return "".join(ch for ch in raw if ch in "\t\n\r" or ord(ch) >= 32)
+
+
+def _extract_json_object(raw: str) -> str:
+    """Return the outermost JSON object substring if prose leaked around it."""
+    start = raw.find("{")
+    end = raw.rfind("}")
+    if start != -1 and end != -1 and end > start:
+        return raw[start:end + 1]
+    return raw
+
+
 def _parse_llm_json(raw: str) -> dict:
     """Strip optional markdown fences and parse JSON. Returns empty fragment on failure.
 
@@ -179,16 +241,49 @@ def _parse_llm_json(raw: str) -> dict:
             file=sys.stderr,
         )
         return {"nodes": [], "edges": [], "hyperedges": []}
-    if raw.startswith("```"):
-        raw = raw.split("```", 2)[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.rsplit("```", 1)[0]
-    try:
-        return json.loads(raw.strip())
-    except json.JSONDecodeError as exc:
-        print(f"[graphify] LLM returned invalid JSON, skipping chunk: {exc}", file=sys.stderr)
+    candidates = [
+        raw,
+        _strip_json_fences(raw),
+        _extract_json_object(_strip_json_fences(raw)),
+        _remove_json_control_chars(_extract_json_object(_strip_json_fences(raw))),
+    ]
+    last_exc: json.JSONDecodeError | None = None
+    for candidate in candidates:
+        try:
+            return json.loads(candidate.strip())
+        except json.JSONDecodeError as exc:
+            last_exc = exc
+    if last_exc is not None:
+        print(f"[graphify] LLM returned invalid JSON, skipping chunk: {last_exc}", file=sys.stderr)
+    else:
+        print("[graphify] LLM returned invalid JSON, skipping chunk", file=sys.stderr)
+    return {"nodes": [], "edges": [], "hyperedges": []}
+
+
+def _sanitize_extraction_result(result: dict) -> dict:
+    """Normalize parsed LLM output to lists of dicts expected downstream."""
+    if not isinstance(result, dict):
         return {"nodes": [], "edges": [], "hyperedges": []}
+
+    cleaned = dict(result)
+    dropped = 0
+    for key in ("nodes", "edges", "hyperedges"):
+        value = cleaned.get(key)
+        if not isinstance(value, list):
+            if value is not None:
+                dropped += 1
+            cleaned[key] = []
+            continue
+        good = [item for item in value if isinstance(item, dict)]
+        dropped += len(value) - len(good)
+        cleaned[key] = good
+
+    if dropped:
+        print(
+            f"[graphify] dropped {dropped} malformed LLM graph item(s)",
+            file=sys.stderr,
+        )
+    return cleaned
 
 
 def _response_is_hollow(raw_content: str | None, parsed: dict) -> bool:
@@ -230,6 +325,18 @@ def _get_backend_api_key(backend: str) -> str:
         if value:
             return value
     return ""
+
+
+def _backend_is_configured(backend: str) -> bool:
+    """Return whether a backend has the credentials or local runtime needed."""
+    if backend == "ollama":
+        _validate_ollama_base_url(os.environ.get("OLLAMA_BASE_URL", BACKENDS[backend]["base_url"]))
+        return True
+    if backend == "bedrock":
+        return bool(os.environ.get("AWS_PROFILE") or os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION"))
+    if backend == "claude-cli":
+        return bool(shutil.which("claude"))
+    return bool(_get_backend_api_key(backend))
 
 
 def _format_backend_env_keys(backend: str) -> str:
@@ -291,15 +398,22 @@ def _call_openai_compat(
             {"role": "system", "content": _EXTRACTION_SYSTEM},
             {"role": "user", "content": user_message},
         ],
-        "max_completion_tokens": max_completion_tokens,
     }
+    if "openrouter.ai" in base_url:
+        # OpenRouter's OpenAI-compatible surface is happiest with max_tokens;
+        # some upstream providers reject max_completion_tokens.
+        kwargs["max_tokens"] = max_completion_tokens
+        kwargs["response_format"] = {"type": "json_object"}
+        _merge_extra_body(kwargs, {"provider": {"require_parameters": True}})
+    else:
+        kwargs["max_completion_tokens"] = max_completion_tokens
     if temperature is not None:
         kwargs["temperature"] = temperature
     if reasoning_effort is not None:
         kwargs["reasoning_effort"] = reasoning_effort
     # Kimi-k2.6 is a reasoning model — disable thinking so content isn't empty
     if "moonshot" in base_url:
-        kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
+        _merge_extra_body(kwargs, {"thinking": {"type": "disabled"}})
     # Ollama defaults num_ctx to 2048 and silently truncates prompts larger
     # than that — the symptom is hollow 200 OK responses after the first few
     # chunks (#798). We derive num_ctx from the actual prompt size so we don't
@@ -348,7 +462,7 @@ def _call_openai_compat(
     if not resp.choices or resp.choices[0].message is None:
         raise ValueError("LLM returned empty or filtered response")
     raw_content = resp.choices[0].message.content
-    result = _parse_llm_json(raw_content or "{}")
+    result = _sanitize_extraction_result(_parse_llm_json(raw_content or "{}"))
     result["input_tokens"] = resp.usage.prompt_tokens if resp.usage else 0
     result["output_tokens"] = resp.usage.completion_tokens if resp.usage else 0
     result["model"] = model
@@ -402,7 +516,7 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
         messages=[{"role": "user", "content": user_message}],
     )
     raw_content = resp.content[0].text if resp.content else None
-    result = _parse_llm_json(raw_content or "{}")
+    result = _sanitize_extraction_result(_parse_llm_json(raw_content or "{}"))
     result["input_tokens"] = resp.usage.input_tokens if resp.usage else 0
     result["output_tokens"] = resp.usage.output_tokens if resp.usage else 0
     result["model"] = model
@@ -427,7 +541,6 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192) -> dict:
     ANTHROPIC_API_KEY. Useful for Pro/Max subscribers who don't want to provision
     a pay-as-you-go API key just to run graphify's semantic pass.
     """
-    import shutil
     import subprocess
 
     if shutil.which("claude") is None:
@@ -464,7 +577,7 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192) -> dict:
         ) from exc
 
     raw_content = envelope.get("result", "")
-    result = _parse_llm_json(raw_content or "{}")
+    result = _sanitize_extraction_result(_parse_llm_json(raw_content or "{}"))
     usage = envelope.get("usage") or {}
     result["input_tokens"] = (
         int(usage.get("input_tokens", 0) or 0)
@@ -514,7 +627,7 @@ def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192) -> dict
         raise RuntimeError(f"Bedrock API error ({code}): {msg}") from exc
 
     text = resp.get("output", {}).get("message", {}).get("content", [{}])[0].get("text", "{}")
-    result = _parse_llm_json(text)
+    result = _sanitize_extraction_result(_parse_llm_json(text))
     usage = resp.get("usage", {})
     result["input_tokens"] = usage.get("inputTokens", 0)
     result["output_tokens"] = usage.get("outputTokens", 0)
@@ -985,7 +1098,7 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
         return resp.content[0].text if resp.content else ""
 
     if backend == "claude-cli":
-        import shutil, subprocess
+        import subprocess
         if shutil.which("claude") is None:
             raise RuntimeError("Claude Code CLI not found on $PATH")
         proc = subprocess.run(
@@ -1021,7 +1134,7 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
         )
         return resp.get("output", {}).get("message", {}).get("content", [{}])[0].get("text", "")
 
-    # OpenAI-compatible (kimi, openai, gemini, ollama)
+    # OpenAI-compatible (Kimi, OpenAI, Gemini, Ollama, OpenRouter)
     try:
         from openai import OpenAI
     except ImportError as exc:
@@ -1030,8 +1143,11 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
     kwargs: dict = {
         "model": mdl,
         "messages": [{"role": "user", "content": prompt}],
-        "max_completion_tokens": max_tokens,
     }
+    if "openrouter.ai" in cfg["base_url"]:
+        kwargs["max_tokens"] = max_tokens
+    else:
+        kwargs["max_completion_tokens"] = max_tokens
     temperature = cfg.get("temperature", 0)
     if temperature is not None:
         kwargs["temperature"] = temperature
@@ -1091,7 +1207,9 @@ def _validate_ollama_base_url(url: str) -> None:
 def detect_backend() -> str | None:
     """Return the name of whichever backend has an API key set, or None.
 
-    Priority: gemini → kimi → claude → openai → bedrock → ollama (last, opt-in).
+    Priority: GRAPHIFY_DEFAULT_BACKEND if valid and configured, then
+    OpenRouter DeepSeek → OpenRouter Kimi → direct DeepSeek → Gemini → Kimi →
+    Claude → OpenAI → Bedrock → Ollama (last, opt-in).
 
     Ollama is intentionally checked LAST so a paid API key (Anthropic/OpenAI/etc.)
     is never silently shadowed by an incidental OLLAMA_BASE_URL in the environment
@@ -1099,7 +1217,11 @@ def detect_backend() -> str | None:
     key now keeps you on the paid backend; remove the paid key (or pass
     --backend ollama explicitly) to route to the local model.
     """
-    for backend in ("gemini", "kimi", "claude", "openai", "deepseek"):
+    explicit = os.environ.get("GRAPHIFY_DEFAULT_BACKEND", "").strip()
+    if explicit in BACKENDS and _backend_is_configured(explicit):
+        return explicit
+
+    for backend in ("openrouter-deepseek", "openrouter-kimi", "deepseek", "gemini", "kimi", "claude", "openai"):
         if _get_backend_api_key(backend):
             return backend
     if os.environ.get("AWS_PROFILE") or os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION"):

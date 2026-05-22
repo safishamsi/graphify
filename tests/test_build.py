@@ -52,6 +52,34 @@ def test_legacy_edge_from_to_canonicalized():
     assert G.number_of_edges() == 1
 
 
+def test_malformed_llm_fields_are_canonicalized():
+    ext = {
+        "nodes": [
+            {"id": "memory_control_plane", "file_type": "document", "source_file": "a.md"},
+            {"id": "dex_system", "label": "Dex System", "file_type": "document", "source_file": "b.md"},
+        ],
+        "edges": [
+            {
+                "source": "memory_control_plane",
+                "target": "dex_system",
+                "confidence": "INFERRED",
+                "confidence_score": 0.9,
+                "confience_score": 0.8,
+                "source_file": "",
+            }
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    G = build_from_json(ext)
+    assert G.nodes["memory_control_plane"]["label"] == "Memory Control Plane"
+    edge = G.edges["memory_control_plane", "dex_system"]
+    assert edge["relation"] == "conceptually_related_to"
+    assert edge["source_file"] == "unknown"
+    assert edge["confidence_score"] == 0.9
+    assert "confience_score" not in edge
+
+
 def test_source_file_backslash_normalized():
     """Windows backslash paths and POSIX paths for the same file must produce one node."""
     extraction = {
