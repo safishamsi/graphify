@@ -582,7 +582,7 @@ def extract_files_direct(
         user_msg,
         temperature=cfg.get("temperature", 0),
         reasoning_effort=cfg.get("reasoning_effort"),
-        max_completion_tokens=cfg.get("max_completion_tokens", max_out),
+        max_completion_tokens=_resolve_max_tokens(cfg.get("max_completion_tokens", 8192)),
         backend=backend,
     )
 
