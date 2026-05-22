@@ -1,40 +1,61 @@
 import json
 from pathlib import Path
+from typing import cast
 import networkx as nx
+import pytest
 from networkx.readwrite import json_graph
-from graphify.build import build_from_json, build, build_merge, edge_data, edge_datas
+from graphify.build import (
+    _make_collision_key,
+    build_from_json,
+    build,
+    build_merge,
+    edge_data,
+    edge_datas,
+)
+from graphify.edge_identity import make_stable_key
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
+
 def load_extraction():
     return json.loads((FIXTURES / "extraction.json").read_text())
+
 
 def test_build_from_json_node_count():
     G = build_from_json(load_extraction())
     assert G.number_of_nodes() == 4
 
+
 def test_build_from_json_edge_count():
     G = build_from_json(load_extraction())
     assert G.number_of_edges() == 4
+
 
 def test_nodes_have_label():
     G = build_from_json(load_extraction())
     assert G.nodes["n_transformer"]["label"] == "Transformer"
 
+
 def test_edges_have_confidence():
-    G = build_from_json(load_extraction())
+    G = cast(nx.Graph, build_from_json(load_extraction()))
     data = G.edges["n_attention", "n_concept_attn"]
     assert data["confidence"] == "INFERRED"
 
+
 def test_ambiguous_edge_preserved():
-    G = build_from_json(load_extraction())
+    G = cast(nx.Graph, build_from_json(load_extraction()))
     data = G.edges["n_layernorm", "n_concept_attn"]
     assert data["confidence"] == "AMBIGUOUS"
 
+
 def test_legacy_node_source_canonicalized():
     """Legacy 'source' key on nodes is renamed to 'source_file' before graph build."""
-    ext = {"nodes": [{"id": "n1", "label": "A", "file_type": "code", "source": "a.py"}],
-           "edges": [], "input_tokens": 0, "output_tokens": 0}
+    ext = {
+        "nodes": [{"id": "n1", "label": "A", "file_type": "code", "source": "a.py"}],
+        "edges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
     G = build_from_json(ext)
     assert "source_file" in G.nodes["n1"]
     assert G.nodes["n1"]["source_file"] == "a.py"
@@ -43,11 +64,24 @@ def test_legacy_node_source_canonicalized():
 
 def test_legacy_edge_from_to_canonicalized():
     """Legacy 'from'/'to' keys on edges are accepted alongside 'source'/'target'."""
-    ext = {"nodes": [{"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"},
-                     {"id": "n2", "label": "B", "file_type": "code", "source_file": "b.py"}],
-           "edges": [{"from": "n1", "to": "n2", "relation": "calls",
-                      "confidence": "EXTRACTED", "source_file": "a.py", "weight": 1.0}],
-           "input_tokens": 0, "output_tokens": 0}
+    ext = {
+        "nodes": [
+            {"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"},
+            {"id": "n2", "label": "B", "file_type": "code", "source_file": "b.py"},
+        ],
+        "edges": [
+            {
+                "from": "n1",
+                "to": "n2",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "a.py",
+                "weight": 1.0,
+            }
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
     G = build_from_json(ext)
     assert G.number_of_edges() == 1
 
@@ -56,11 +90,22 @@ def test_source_file_backslash_normalized():
     """Windows backslash paths and POSIX paths for the same file must produce one node."""
     extraction = {
         "nodes": [
-            {"id": "n1", "label": "A", "file_type": "code", "source_file": "src\\middleware\\auth.py"},
-            {"id": "n2", "label": "B", "file_type": "code", "source_file": "src/middleware/auth.py"},
+            {
+                "id": "n1",
+                "label": "A",
+                "file_type": "code",
+                "source_file": "src\\middleware\\auth.py",
+            },
+            {
+                "id": "n2",
+                "label": "B",
+                "file_type": "code",
+                "source_file": "src/middleware/auth.py",
+            },
         ],
         "edges": [],
-        "input_tokens": 0, "output_tokens": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
     }
     G = build_from_json(extraction)
     sources = {G.nodes[n]["source_file"] for n in G.nodes()}
@@ -68,12 +113,27 @@ def test_source_file_backslash_normalized():
 
 
 def test_build_merges_multiple_extractions():
-    ext1 = {"nodes": [{"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"}],
-            "edges": [], "input_tokens": 0, "output_tokens": 0}
-    ext2 = {"nodes": [{"id": "n2", "label": "B", "file_type": "document", "source_file": "b.md"}],
-            "edges": [{"source": "n1", "target": "n2", "relation": "references",
-                       "confidence": "INFERRED", "source_file": "b.md", "weight": 1.0}],
-            "input_tokens": 0, "output_tokens": 0}
+    ext1 = {
+        "nodes": [{"id": "n1", "label": "A", "file_type": "code", "source_file": "a.py"}],
+        "edges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    ext2 = {
+        "nodes": [{"id": "n2", "label": "B", "file_type": "document", "source_file": "b.md"}],
+        "edges": [
+            {
+                "source": "n1",
+                "target": "n2",
+                "relation": "references",
+                "confidence": "INFERRED",
+                "source_file": "b.md",
+                "weight": 1.0,
+            }
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
     G = build([ext1, ext2])
     assert G.number_of_nodes() == 2
     assert G.number_of_edges() == 1
@@ -191,8 +251,9 @@ def test_build_merge_preserves_call_edge_direction(tmp_path):
 
     # Verify direction is correct in the freshly written JSON.
     saved = json.loads(graph_path.read_text())
-    saved_calls = [e for e in saved.get("links", saved.get("edges", []))
-                   if e.get("relation") == "calls"]
+    saved_calls = [
+        e for e in saved.get("links", saved.get("edges", [])) if e.get("relation") == "calls"
+    ]
     assert len(saved_calls) == 1
     assert saved_calls[0]["source"] == truth_src
     assert saved_calls[0]["target"] == truth_tgt
@@ -203,8 +264,9 @@ def test_build_merge_preserves_call_edge_direction(tmp_path):
 
     # The calls edge must still go a -> b, not b -> a.
     reloaded = json.loads(graph_path.read_text())
-    reloaded_calls = [e for e in reloaded.get("links", reloaded.get("edges", []))
-                      if e.get("relation") == "calls"]
+    reloaded_calls = [
+        e for e in reloaded.get("links", reloaded.get("edges", [])) if e.get("relation") == "calls"
+    ]
     assert len(reloaded_calls) == 1
     assert reloaded_calls[0]["source"] == truth_src, (
         f"calls edge source flipped after build_merge round-trip: "
@@ -279,6 +341,7 @@ def test_build_from_json_preserves_first_direction_on_bidirectional_pair(tmp_pat
 # MultiGraph and MultiDiGraph, which networkx's node_link_graph() produces
 # whenever the loaded JSON has multigraph: true. Plain G.edges[u, v] crashes
 # on those with `ValueError: not enough values to unpack (expected 3, got 2)`.
+
 
 def test_edge_data_simple_graph():
     G = nx.Graph()
@@ -367,12 +430,22 @@ def test_build_from_json_relativizes_absolute_source_file(tmp_path):
     abs_path = str(root / "docs" / "overview.md")
     extraction = {
         "nodes": [
-            {"id": "overview_intro", "label": "Intro", "source_file": abs_path, "file_type": "document"},
+            {
+                "id": "overview_intro",
+                "label": "Intro",
+                "source_file": abs_path,
+                "file_type": "document",
+            },
         ],
         "edges": [
-            {"source": "overview_intro", "target": "overview_intro",
-             "relation": "self", "confidence": "EXTRACTED", "confidence_score": 1.0,
-             "source_file": abs_path},
+            {
+                "source": "overview_intro",
+                "target": "overview_intro",
+                "relation": "self",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": abs_path,
+            },
         ],
     }
     G = build_from_json(extraction, root=root)
@@ -398,7 +471,9 @@ def test_build_relativizes_absolute_source_file(tmp_path):
 def test_build_from_json_relative_source_file_unchanged(tmp_path):
     """Already-relative source_file paths must not be modified."""
     extraction = {
-        "nodes": [{"id": "foo_bar", "label": "bar", "source_file": "src/foo.py", "file_type": "code"}],
+        "nodes": [
+            {"id": "foo_bar", "label": "bar", "source_file": "src/foo.py", "file_type": "code"}
+        ],
         "edges": [],
     }
     G = build_from_json(extraction, root=tmp_path)
@@ -468,3 +543,710 @@ def test_build_merge_rejects_oversized_existing_graph(monkeypatch, tmp_path):
     monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 8)
     with pytest.raises(ValueError, match="exceeds"):
         build_merge([], graph_path, dedup=False)
+
+
+def _parallel_edge_extraction() -> dict:
+    return {
+        "nodes": [
+            {"id": "a", "label": "A", "file_type": "code", "source_file": "src/a.py"},
+            {"id": "b", "label": "B", "file_type": "code", "source_file": "src/b.py"},
+        ],
+        "edges": [
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L10",
+            },
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "imports",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L2",
+            },
+        ],
+    }
+
+
+def test_default_build_stays_simple_when_parallel_edges_exist():
+    G = build_from_json(_parallel_edge_extraction())
+
+    assert type(G) is nx.Graph
+    assert not G.is_multigraph()
+    assert G.number_of_edges("a", "b") == 1
+
+
+def test_multigraph_build_preserves_same_endpoint_different_relations():
+    G = build_from_json(_parallel_edge_extraction(), multigraph=True)
+
+    assert type(G) is nx.MultiDiGraph
+    assert G.number_of_edges("a", "b") == 2
+    edge_records = list(G["a"]["b"].items())
+    assert {data["relation"] for _key, data in edge_records} == {"calls", "imports"}
+    assert all(str(key).startswith("edge:v1:") for key, _data in edge_records)
+    assert all("key" not in data for _key, data in edge_records)
+
+
+def test_multigraph_build_preserves_same_identity_except_source_location():
+    extraction = _parallel_edge_extraction()
+    extraction["edges"][1].update(
+        {
+            "relation": "calls",
+            "source_location": "L20",
+        }
+    )
+
+    G = build_from_json(extraction, multigraph=True)
+
+    assert G.number_of_edges("a", "b") == 2
+    assert {data["source_location"] for data in G["a"]["b"].values()} == {"L10", "L20"}
+
+
+def test_multigraph_build_collapses_exact_duplicates_with_diagnostic():
+    extraction = _parallel_edge_extraction()
+    extraction["edges"].append(dict(extraction["edges"][0]))
+
+    G = build_from_json(extraction, multigraph=True)
+
+    assert G.number_of_edges("a", "b") == 2
+    assert G.graph["graphify_multigraph_diagnostics"]["exact_duplicate_edges"] == 1
+
+
+def test_multigraph_build_preserves_non_exact_key_collisions_with_diagnostic():
+    extraction = {
+        "nodes": [
+            {"id": "a", "label": "A", "file_type": "code", "source_file": "src/a.py"},
+            {"id": "b", "label": "B", "file_type": "code", "source_file": "src/b.py"},
+        ],
+        "edges": [
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L10",
+                "context": "static",
+            },
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L10",
+                "context": "runtime",
+            },
+        ],
+    }
+
+    G = build_from_json(extraction, multigraph=True)
+
+    assert G.number_of_edges("a", "b") == 2
+    assert {data["context"] for data in G["a"]["b"].values()} == {
+        "static",
+        "runtime",
+    }
+    assert G.graph["graphify_multigraph_diagnostics"]["key_collision_edges"] == 1
+
+
+def test_multigraph_build_collapses_duplicates_after_collision_repair():
+    extraction = {
+        "nodes": [
+            {"id": "a", "label": "A", "file_type": "code", "source_file": "src/a.py"},
+            {"id": "b", "label": "B", "file_type": "code", "source_file": "src/b.py"},
+        ],
+        "edges": [
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L10",
+                "context": "static",
+            },
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L10",
+                "context": "runtime",
+            },
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L10",
+                "context": "runtime",
+            },
+        ],
+    }
+
+    G = build_from_json(extraction, multigraph=True)
+
+    assert G.number_of_edges("a", "b") == 2
+    assert {data["context"] for data in G["a"]["b"].values()} == {
+        "static",
+        "runtime",
+    }
+    assert G.graph["graphify_multigraph_diagnostics"] == {
+        "exact_duplicate_edges": 1,
+        "key_collision_edges": 1,
+    }
+
+
+def test_multigraph_build_preserves_empty_string_schema_key():
+    extraction = _parallel_edge_extraction()
+    extraction["edges"] = [dict(extraction["edges"][0], key="")]
+
+    G = build_from_json(extraction, multigraph=True)
+
+    assert list(G["a"]["b"].keys()) == [""]
+
+
+def test_multigraph_build_normalizes_path_identity_fields_for_stable_key(tmp_path):
+    """Path objects survive coercion via the JSON 'default=str' path of json.dumps."""
+    extraction = _parallel_edge_extraction()
+    absolute_source = tmp_path / "src" / "a.py"
+    extraction["edges"] = [
+        {
+            **extraction["edges"][0],
+            "source_file": absolute_source,
+            "source_location": {"line": 10},
+        }
+    ]
+
+    G = build_from_json(extraction, root=tmp_path, multigraph=True)
+
+    assert G.number_of_edges("a", "b") == 1
+    assert next(iter(G["a"]["b"].keys())).startswith("edge:v1:")
+    assert next(iter(G["a"]["b"].values()))["source_file"] == "src/a.py"
+
+
+def test_multigraph_build_skips_edge_with_non_json_serializable_attrs(capsys):
+    """Edges whose attrs cannot round-trip through JSON are skipped with a warning.
+
+    Mutating attrs in place would silently change the user's stored value;
+    skipping with a warning preserves data integrity for surviving edges and
+    prevents later json.dump crashes during export.
+    """
+    extraction = _parallel_edge_extraction()
+    extraction["edges"] = [
+        {
+            **extraction["edges"][0],
+            "relation": {"calls", "uses"},
+        }
+    ]
+
+    G = build_from_json(extraction, multigraph=True)
+
+    assert G.number_of_edges("a", "b") == 0
+    captured = capsys.readouterr()
+    assert "non-JSON-serializable" in captured.err
+
+
+@pytest.mark.parametrize("field", ["nodes", "edges"])
+def test_build_from_json_treats_non_list_node_or_edge_field_as_empty(field, capsys):
+    extraction = _parallel_edge_extraction()
+    extraction[field] = 123
+
+    G = build_from_json(extraction, multigraph=True)
+
+    assert G.number_of_edges() == 0
+    captured = capsys.readouterr()
+    assert f"extraction field '{field}' must be a list" in captured.err
+
+
+def test_multigraph_collision_repair_keys_do_not_depend_on_edge_order():
+    base_edges = [
+        {
+            "source": "a",
+            "target": "b",
+            "relation": "calls",
+            "confidence": "EXTRACTED",
+            "confidence_score": 1.0,
+            "source_file": "src/a.py",
+            "source_location": "L10",
+            "context": "static",
+        },
+        {
+            "source": "a",
+            "target": "b",
+            "relation": "calls",
+            "confidence": "EXTRACTED",
+            "confidence_score": 1.0,
+            "source_file": "src/a.py",
+            "source_location": "L10",
+            "context": "runtime",
+        },
+    ]
+
+    def keys_by_context(edges: list[dict]) -> dict[str, str]:
+        extraction = {
+            "nodes": [
+                {"id": "a", "label": "A", "file_type": "code", "source_file": "src/a.py"},
+                {"id": "b", "label": "B", "file_type": "code", "source_file": "src/b.py"},
+            ],
+            "edges": edges,
+        }
+        G = build_from_json(extraction, multigraph=True)
+        return {data["context"]: key for key, data in G["a"]["b"].items()}
+
+    forward = keys_by_context(base_edges)
+    reverse = keys_by_context(list(reversed(base_edges)))
+
+    assert forward == reverse
+    assert all(":alt:" in key for key in forward.values())
+
+
+def test_multigraph_collision_repair_does_not_overwrite_explicit_key():
+    runtime_attrs = {
+        "relation": "calls",
+        "confidence": "EXTRACTED",
+        "confidence_score": 1.0,
+        "source_file": "src/a.py",
+        "source_location": "L10",
+        "context": "runtime",
+        "_src": "a",
+        "_tgt": "b",
+    }
+    base_key = make_stable_key("calls", "src/a.py", "L10")
+    explicit_conflict_key = _make_collision_key(base_key, runtime_attrs)
+    edges = [
+        {
+            "source": "a",
+            "target": "b",
+            "key": explicit_conflict_key,
+            "relation": "imports",
+            "confidence": "EXTRACTED",
+            "confidence_score": 1.0,
+            "source_file": "src/a.py",
+            "source_location": "L2",
+            "context": "explicit",
+        },
+        {
+            "source": "a",
+            "target": "b",
+            "relation": "calls",
+            "confidence": "EXTRACTED",
+            "confidence_score": 1.0,
+            "source_file": "src/a.py",
+            "source_location": "L10",
+            "context": "static",
+        },
+        {
+            "source": "a",
+            "target": "b",
+            "relation": "calls",
+            "confidence": "EXTRACTED",
+            "confidence_score": 1.0,
+            "source_file": "src/a.py",
+            "source_location": "L10",
+            "context": "runtime",
+        },
+    ]
+
+    def contexts_by_key(edge_order: list[dict]) -> dict[str, str]:
+        extraction = {
+            "nodes": [
+                {"id": "a", "label": "A", "file_type": "code", "source_file": "src/a.py"},
+                {"id": "b", "label": "B", "file_type": "code", "source_file": "src/b.py"},
+            ],
+            "edges": edge_order,
+        }
+        G = build_from_json(extraction, multigraph=True)
+        assert G.number_of_edges("a", "b") == 3
+        return {key: data["context"] for key, data in G["a"]["b"].items()}
+
+    forward = contexts_by_key(edges)
+    reverse = contexts_by_key(list(reversed(edges)))
+
+    assert forward == reverse
+    assert forward[explicit_conflict_key] == "explicit"
+    runtime_keys = [key for key, context in forward.items() if context == "runtime"]
+    assert len(runtime_keys) == 1
+    assert runtime_keys[0] != explicit_conflict_key
+
+
+def test_multigraph_build_roundtrips_through_json_loader(tmp_path):
+    from graphify.export import to_json
+    from graphify.graph_loader import load_graph_file
+
+    G = build_from_json(_parallel_edge_extraction(), multigraph=True)
+    graph_path = tmp_path / "graph.json"
+
+    assert to_json(G, {}, str(graph_path), force=True)
+    data = json.loads(graph_path.read_text())
+    loaded = load_graph_file(graph_path)
+
+    assert data["multigraph"] is True
+    assert data["directed"] is True
+    assert len(data["links"]) == 2
+    assert all("key" in link for link in data["links"])
+    assert type(loaded) is nx.MultiDiGraph
+    assert loaded.number_of_edges("a", "b") == 2
+    assert set(loaded["a"]["b"]) == {link["key"] for link in data["links"]}
+
+
+def test_build_multigraph_merges_extractions_without_collapsing_parallel_edges():
+    extraction = _parallel_edge_extraction()
+
+    G = build(
+        [
+            {"nodes": extraction["nodes"], "edges": [extraction["edges"][0]]},
+            {"nodes": [], "edges": [extraction["edges"][1]]},
+        ],
+        dedup=False,
+        multigraph=True,
+    )
+
+    assert type(G) is nx.MultiDiGraph
+    assert G.number_of_edges("a", "b") == 2
+
+
+def test_build_preserves_hashable_non_string_edge_endpoints():
+    extraction = {
+        "nodes": [
+            {"id": 1, "label": "A", "file_type": "code", "source_file": "src/a.py"},
+            {"id": 2, "label": "B", "file_type": "code", "source_file": "src/b.py"},
+        ],
+        "edges": [
+            {
+                "source": 1,
+                "target": 2,
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L10",
+            },
+        ],
+    }
+
+    G = build_from_json(extraction)
+
+    assert G.has_edge(1, 2)
+
+
+def test_build_skips_unhashable_edge_endpoints_without_crashing(capsys):
+    extraction = {
+        "nodes": [
+            {"id": "a", "label": "A", "file_type": "code", "source_file": "src/a.py"},
+            {"id": "b", "label": "B", "file_type": "code", "source_file": "src/b.py"},
+        ],
+        "edges": [
+            {
+                "source": "a",
+                "target": {"bad": "target"},
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L10",
+            },
+        ],
+    }
+
+    G = build_from_json(extraction)
+    captured = capsys.readouterr()
+
+    assert G.number_of_edges() == 0
+    assert "unhashable" in captured.err
+
+
+def test_build_skips_unhashable_node_ids_without_crashing(capsys):
+    extraction = {
+        "nodes": [
+            {"id": ["bad"], "label": "Bad", "file_type": "code", "source_file": "src/bad.py"},
+            {"id": "ok", "label": "OK", "file_type": "code", "source_file": "src/ok.py"},
+        ],
+        "edges": [],
+    }
+
+    G = build_from_json(extraction)
+    captured = capsys.readouterr()
+
+    assert list(G.nodes()) == ["ok"]
+    assert "Node 0 id is unhashable" in captured.err
+
+
+def test_build_skips_malformed_nodes_without_crashing(capsys):
+    extraction = {
+        "nodes": [
+            "bad-node",
+            {"label": "Missing ID", "file_type": "code", "source_file": "src/missing.py"},
+            {"id": "ok", "label": "OK", "file_type": "code", "source_file": "src/ok.py"},
+        ],
+        "edges": [],
+    }
+
+    G = build_from_json(extraction)
+    captured = capsys.readouterr()
+
+    assert list(G.nodes()) == ["ok"]
+    assert "Node 0 must be an object" in captured.err
+
+
+def test_build_warns_when_skipping_unhashable_endpoint_without_node_ids(capsys):
+    extraction = {
+        "nodes": [],
+        "edges": [
+            {
+                "source": ["bad"],
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L10",
+            },
+        ],
+    }
+
+    G = build_from_json(extraction)
+    captured = capsys.readouterr()
+
+    assert G.number_of_edges() == 0
+    assert "skipped edge with unhashable source endpoint" in captured.err
+
+
+def test_build_skips_malformed_edges_without_crashing(capsys):
+    extraction = {
+        "nodes": [
+            {"id": "a", "label": "A", "file_type": "code", "source_file": "src/a.py"},
+            {"id": "b", "label": "B", "file_type": "code", "source_file": "src/b.py"},
+        ],
+        "edges": [
+            7,
+            {
+                "source": "a",
+                "target": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "src/a.py",
+                "source_location": "L10",
+            },
+        ],
+    }
+
+    G = build_from_json(extraction)
+    captured = capsys.readouterr()
+
+    assert G.number_of_edges() == 1
+    assert "Edge 0 must be an object" in captured.err
+
+
+def test_build_merge_rejects_multigraph_graph_json(tmp_path):
+    """build_merge must refuse a multigraph input rather than silently collapse parallel edges."""
+    import json as _json
+
+    graph_path = tmp_path / "graph.json"
+    graph_path.write_text(
+        _json.dumps(
+            {
+                "directed": True,
+                "multigraph": True,
+                "nodes": [{"id": "a"}, {"id": "b"}],
+                "links": [
+                    {"source": "a", "target": "b", "key": "k1", "relation": "calls"},
+                    {"source": "a", "target": "b", "key": "k2", "relation": "imports"},
+                ],
+            }
+        )
+    )
+
+    with pytest.raises(NotImplementedError, match="multigraph"):
+        build_merge([], graph_path=graph_path)
+
+
+def test_build_merge_inherits_directed_from_saved_graph_json(tmp_path):
+    """build_merge with default args must preserve direction of a directed saved graph."""
+    import json as _json
+
+    graph_path = tmp_path / "graph.json"
+    graph_path.write_text(
+        _json.dumps(
+            {
+                "directed": True,
+                "multigraph": False,
+                "nodes": [
+                    {"id": "caller", "file_type": "code", "source_file": "a.py"},
+                    {"id": "callee", "file_type": "code", "source_file": "b.py"},
+                ],
+                "links": [
+                    {
+                        "source": "caller",
+                        "target": "callee",
+                        "relation": "calls",
+                        "source_file": "a.py",
+                        "_src": "caller",
+                        "_tgt": "callee",
+                    }
+                ],
+            }
+        )
+    )
+
+    # No `directed=` arg passed — must inherit True from the saved file.
+    G = build_merge([], graph_path=graph_path)
+    assert G.is_directed(), "build_merge default-args must inherit directed=True from saved graph"
+    assert G.has_edge("caller", "callee")
+    assert not G.has_edge("callee", "caller")
+
+
+def test_build_merge_directed_override_warns(tmp_path, capsys):
+    """Explicit directed=False against a directed saved graph emits a warning."""
+    import json as _json
+
+    graph_path = tmp_path / "graph.json"
+    graph_path.write_text(
+        _json.dumps(
+            {
+                "directed": True,
+                "multigraph": False,
+                "nodes": [{"id": "a"}, {"id": "b"}],
+                "links": [{"source": "a", "target": "b", "relation": "calls"}],
+            }
+        )
+    )
+
+    G = build_merge([], graph_path=graph_path, directed=False)
+    captured = capsys.readouterr()
+    assert "overrides saved" in captured.err.lower()
+    assert not G.is_directed()
+
+
+def test_build_merge_rejects_non_bool_multigraph_in_saved_graph(tmp_path):
+    """A saved graph.json with a non-bool 'multigraph' value must be rejected."""
+    import json as _json
+    graph_path = tmp_path / "graph.json"
+    graph_path.write_text(_json.dumps({
+        "directed": True, "multigraph": "false",
+        "nodes": [{"id": "a"}, {"id": "b"}],
+        "links": [{"source": "a", "target": "b", "relation": "calls"}],
+    }))
+    with pytest.raises(TypeError, match="'multigraph' in .* must be a boolean"):
+        build_merge([], graph_path=graph_path)
+
+
+def test_build_merge_rejects_non_bool_directed_in_saved_graph(tmp_path):
+    import json as _json
+    graph_path = tmp_path / "graph.json"
+    graph_path.write_text(_json.dumps({
+        "directed": "true", "multigraph": False,
+        "nodes": [{"id": "a"}, {"id": "b"}],
+        "links": [{"source": "a", "target": "b", "relation": "calls"}],
+    }))
+    with pytest.raises(TypeError, match="'directed' in .* must be a boolean"):
+        build_merge([], graph_path=graph_path)
+
+
+def test_simple_build_skips_edge_with_non_json_serializable_attrs(capsys):
+    """Same skip-and-warn policy applies to simple-graph builds."""
+    extraction = _parallel_edge_extraction()
+    extraction["edges"] = [
+        {
+            **extraction["edges"][0],
+            "relation": {"calls", "uses"},
+        }
+    ]
+    G = build_from_json(extraction, multigraph=False)
+    assert G.number_of_edges("a", "b") == 0
+    captured = capsys.readouterr()
+    assert "non-JSON-serializable" in captured.err
+
+
+def test_build_skips_node_with_non_json_serializable_attrs(capsys):
+    """Nodes with non-JSON-serializable attrs are skipped with a warning."""
+    extraction = {
+        "nodes": [
+            {"id": "ok", "label": "OK", "file_type": "code", "source_file": "a.py"},
+            {
+                "id": "bad",
+                "label": "Bad",
+                "file_type": "code",
+                "source_file": "b.py",
+                "tags": {"unhashable", "set"},
+            },
+        ],
+        "edges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    G = build_from_json(extraction)
+    assert "ok" in G.nodes
+    assert "bad" not in G.nodes
+    captured = capsys.readouterr()
+    assert "non-JSON-serializable" in captured.err
+
+
+def test_build_strips_legacy_from_to_from_edge_attrs():
+    """Legacy from/to keys must not survive into stored edge attrs after remap."""
+    ext = {
+        "nodes": [
+            {"id": "a", "label": "A", "file_type": "code", "source_file": "a.py"},
+            {"id": "b", "label": "B", "file_type": "code", "source_file": "b.py"},
+        ],
+        "edges": [
+            {
+                "from": "a",
+                "to": "b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "a.py",
+                "weight": 1.0,
+            }
+        ],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
+    G = cast(nx.Graph, build_from_json(ext))
+    data = G.edges["a", "b"]
+    assert "from" not in data
+    assert "to" not in data
+
+
+def test_multigraph_preserves_first_explicit_key_in_collision_group():
+    """When multiple edges share an explicit user key, the first one preserves it."""
+    extraction = {
+        "nodes": [
+            {"id": "a", "label": "A", "file_type": "code", "source_file": "a.py"},
+            {"id": "b", "label": "B", "file_type": "code", "source_file": "b.py"},
+        ],
+        "edges": [
+            {
+                "source": "a", "target": "b",
+                "key": "user-key",
+                "relation": "calls", "confidence": "EXTRACTED",
+                "source_file": "a.py", "context": "first",
+            },
+            {
+                "source": "a", "target": "b",
+                "key": "user-key",
+                "relation": "calls", "confidence": "EXTRACTED",
+                "source_file": "a.py", "context": "second",
+            },
+        ],
+        "input_tokens": 0, "output_tokens": 0,
+    }
+    G = build_from_json(extraction, multigraph=True)
+    keys = set(G["a"]["b"].keys())
+    assert "user-key" in keys, "First edge must retain the explicit user-supplied key"
+    assert len(keys) == 2, "Both edges must survive; second gets a repair key"

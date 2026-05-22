@@ -147,7 +147,10 @@ def test_diagnose_extraction_handles_malformed_shapes_without_crashing() -> None
     assert summary["missing_endpoint_edges"] == 1
     assert summary["dangling_endpoint_edges"] == 2
     assert summary["valid_candidate_edges"] == 1
-    assert summary["post_build_error"].startswith("TypeError:")
+    assert summary["post_build_graph_type"] == "DiGraph"
+    assert summary["post_build_node_count"] == 2
+    assert summary["post_build_edge_count"] == 1
+    assert summary["post_build_error"] == ""
 
 
 def test_diagnose_extraction_handles_non_list_nodes_and_edges() -> None:
@@ -228,7 +231,8 @@ def test_format_diagnostic_report_includes_build_and_suppression_errors(
 
     report = format_diagnostic_report(summary)
 
-    assert "post_build_error: TypeError:" in report
+    assert "post_build_error:" not in report
+    assert "post_build_graph_type: DiGraph" in report
     assert "producer_suppression_error: file not found" in report
 
 

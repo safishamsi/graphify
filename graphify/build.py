@@ -22,18 +22,32 @@
 #
 from __future__ import annotations
 import json
+import hashlib
 import os
 import re
 import sys
 import unicodedata
+from collections.abc import Hashable
 from pathlib import Path
 import networkx as nx
-from .validate import validate_extraction
+from .edge_identity import make_stable_key, strip_schema_key
+from .validate import is_hashable, validate_extraction
 
 
 # Synonym mapper for known invalid file_type values that LLM subagents commonly
 # emit. Keeps semantic intent close (markdown→document, tool→code) and falls
 # back to "concept" for any other invalid value (see #840).
+_LANG_FAMILY: dict[str, str] = {
+    ".py": "py", ".pyi": "py",
+    ".js": "js", ".mjs": "js", ".cjs": "js", ".jsx": "js",
+    ".ts": "js", ".tsx": "js",
+    ".go": "go", ".rs": "rs",
+    ".java": "jvm", ".kt": "jvm", ".scala": "jvm", ".groovy": "jvm",
+    ".c": "c", ".h": "c", ".cc": "cpp", ".cpp": "cpp", ".hpp": "cpp",
+    ".rb": "rb", ".php": "php", ".cs": "cs", ".swift": "swift", ".lua": "lua",
+}
+
+
 _FILE_TYPE_SYNONYMS = {
     "markdown": "document",
     "text": "document",
@@ -83,7 +97,56 @@ def _norm_source_file(p: str | None, root: str | None = None) -> str | None:
     return p
 
 
-def edge_data(G: nx.Graph, u: str, v: str) -> dict:
+def _stable_identity_component(value: object) -> str | None:
+    """Normalize malformed edge identity values before stable-key hashing."""
+    if value is None:
+        return None
+    if isinstance(value, str):
+        return value
+    if isinstance(value, os.PathLike):
+        # os.fspath can return bytes for bytes-flavored PathLike; coerce to str
+        # so downstream json.dumps / hashing always sees text.
+        fs_value = os.fspath(value)
+        return fs_value.decode("utf-8", errors="replace") if isinstance(fs_value, bytes) else fs_value
+    if isinstance(value, (set, frozenset)):
+        return json.dumps(sorted(str(item) for item in value), ensure_ascii=False)
+    try:
+        return json.dumps(value, sort_keys=True, ensure_ascii=False, default=str)
+    except (TypeError, ValueError):
+        return str(value)
+
+
+def _make_collision_key(base_key: str, attrs: dict, *, salt: int = 0) -> str:
+    payload = {
+        "base_key": base_key,
+        "attrs": attrs,
+    }
+    if salt:
+        payload["salt"] = salt
+    repair_payload = json.dumps(payload, sort_keys=True, ensure_ascii=False, default=str)
+    repair_digest = hashlib.sha256(repair_payload.encode()).hexdigest()
+    return f"{base_key}:alt:{repair_digest}"
+
+
+def _list_field(data: dict, key: str) -> list:
+    """Return ``data[key]`` if it is a list; otherwise warn to stderr and return ``[]``.
+
+    Extraction dicts come from LLM subagents and can contain malformed shapes;
+    matching the rest of build_from_json's skip+warn policy keeps a single bad
+    field from crashing the whole build.
+    """
+    value = data.get(key, [])
+    if isinstance(value, list):
+        return value
+    print(
+        f"[graphify] WARNING: extraction field '{key}' must be a list, "
+        f"got {type(value).__name__}; treating as empty.",
+        file=sys.stderr,
+    )
+    return []
+
+
+def edge_data(G: nx.Graph, u: Hashable, v: Hashable) -> dict:
     """Return one edge attribute dict for (u, v), tolerating MultiGraph.
 
     For MultiGraph/MultiDiGraph there can be multiple parallel edges;
@@ -96,7 +159,7 @@ def edge_data(G: nx.Graph, u: str, v: str) -> dict:
     return raw
 
 
-def edge_datas(G: nx.Graph, u: str, v: str) -> list[dict]:
+def edge_datas(G: nx.Graph, u: Hashable, v: Hashable) -> list[dict]:
     """Return every edge attribute dict for (u, v); always a list."""
     raw = G[u][v]
     if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)):
@@ -104,29 +167,47 @@ def edge_datas(G: nx.Graph, u: str, v: str) -> list[dict]:
     return [raw]
 
 
-def build_from_json(extraction: dict, *, directed: bool = False, root: str | Path | None = None) -> nx.Graph:
+def build_from_json(
+    extraction: dict,
+    *,
+    directed: bool = False,
+    root: str | Path | None = None,
+    multigraph: bool = False,
+) -> nx.Graph | nx.DiGraph | nx.MultiDiGraph:
     """Build a NetworkX graph from an extraction dict.
 
     directed=True produces a DiGraph that preserves edge direction (source→target).
     directed=False (default) produces an undirected Graph for backward compatibility.
+    multigraph=True produces a directed MultiDiGraph with keyed parallel edges for
+        internal tests/callers; public CLI exposure is intentionally deferred.
+        In this mode, directed is ignored because MultiDiGraph is always directed.
     root: if given, absolute source_file paths from semantic subagents are made
         relative to root so all nodes share a consistent path key (#932).
     """
+    if not isinstance(extraction, dict):
+        raise TypeError("extraction must be a JSON object")
+
     _root = str(Path(root).resolve()) if root else None
     # NetworkX <= 3.1 serialised edges as "links"; remap to "edges" for compatibility.
     if "edges" not in extraction and "links" in extraction:
         extraction = dict(extraction, edges=extraction["links"])
 
+    nodes = _list_field(extraction, "nodes")
+    edges = _list_field(extraction, "edges")
+    extraction = dict(extraction, nodes=nodes, edges=edges)
+
     # Canonicalize legacy node/edge schema before validation.
-    for node in extraction.get("nodes", []):
+    for node in nodes:
         if not isinstance(node, dict):
             continue
         if "source" in node and "source_file" not in node:
             # Count edges that reference this node so the warning is actionable (#479)
             node_id = node.get("id", "?")
             affected_edges = sum(
-                1 for e in extraction.get("edges", [])
-                if e.get("source") == node_id or e.get("target") == node_id
+                1
+                for e in edges
+                if isinstance(e, dict)
+                and (e.get("source") == node_id or e.get("target") == node_id)
             )
             print(
                 f"[graphify] WARNING: node '{node_id}' uses field 'source' instead of "
@@ -149,29 +230,78 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
     # Dangling edges (stdlib/external imports) are expected - only warn about real schema errors.
     real_errors = [e for e in errors if "does not match any node id" not in e]
     if real_errors:
-        print(f"[graphify] Extraction warning ({len(real_errors)} issues): {real_errors[0]}", file=sys.stderr)
-    G: nx.Graph = nx.DiGraph() if directed else nx.Graph()
-    for node in extraction.get("nodes", []):
+        print(
+            f"[graphify] Extraction warning ({len(real_errors)} issues): {real_errors[0]}",
+            file=sys.stderr,
+        )
+    if multigraph:
+        from .multigraph_compat import require_multigraph_capabilities
+
+        require_multigraph_capabilities()
+    G: nx.Graph = nx.MultiDiGraph() if multigraph else nx.DiGraph() if directed else nx.Graph()
+    for node in nodes:
+        if not isinstance(node, dict) or "id" not in node:
+            continue
+        node_id = node["id"]
+        if not is_hashable(node_id):
+            continue
         if "source_file" in node:
-            node["source_file"] = _norm_source_file(node["source_file"], _root)
-        G.add_node(node["id"], **{k: v for k, v in node.items() if k != "id"})
+            node["source_file"] = _norm_source_file(
+                _stable_identity_component(node["source_file"]), _root
+            )
+        node_attrs = {k: v for k, v in node.items() if k != "id"}
+        # Reject node ids that JSON-serialize but won't round-trip to the same
+        # hashable type. Tuples serialize as JSON arrays and come back as lists
+        # (unhashable), so they cannot be used as NetworkX node ids after a
+        # save/load cycle even though json.dumps would accept them.
+        if isinstance(node_id, (list, tuple, set, frozenset, dict)):
+            print(
+                f"[graphify] WARNING: node id {node_id!r} ({type(node_id).__name__}) "
+                f"would not round-trip through JSON as the same hashable type; skipping.",
+                file=sys.stderr,
+            )
+            continue
+        # Check id AND attrs are JSON-serializable. NetworkX allows hashable but
+        # non-JSON-safe ids (e.g., custom objects); accepting them here would
+        # break later node_link_data + json.dump.
+        try:
+            json.dumps({"id": node_id, **node_attrs}, ensure_ascii=False)
+        except (TypeError, ValueError) as exc:
+            print(
+                f"[graphify] WARNING: node {node_id!r} has non-JSON-serializable "
+                f"id or attrs ({exc}); skipping.",
+                file=sys.stderr,
+            )
+            continue
+        G.add_node(node_id, **node_attrs)
     node_set = set(G.nodes())
     # Normalized ID map: lets edges survive when the LLM generates IDs with
     # slightly different casing or punctuation than the AST extractor.
     # e.g. "Session_ValidateToken" maps to "session_validatetoken".
-    norm_to_id: dict[str, str] = {_normalize_id(nid): nid for nid in node_set}
+    norm_to_id: dict[str, Hashable] = {
+        _normalize_id(nid): nid for nid in node_set if isinstance(nid, str)
+    }
+    multigraph_groups: dict[tuple[Hashable, Hashable, str], list[dict]] = {}
+    multigraph_explicit_keys: set[tuple[Hashable, Hashable, str]] = set()
+    multigraph_diagnostics = {"exact_duplicate_edges": 0, "key_collision_edges": 0}
     # Iterate edges in a deterministic order. The graph is undirected and stores
     # direction in _src/_tgt; when two edges collapse onto the same node pair the
     # last write wins, so an unstable iteration order flips _src/_tgt run-to-run
-    # and makes the serialized graph churn. Sorting fixes the last-write outcome.
-    for edge in sorted(
-        extraction.get("edges", []),
-        key=lambda e: (
-            str(e.get("source", e.get("from", ""))),
-            str(e.get("target", e.get("to", ""))),
-            str(e.get("relation", "")),
-        ),
-    ):
+    # and makes the serialized graph churn. Sorting also stabilizes multigraph
+    # key-collision grouping before keyed emission.
+    def _edge_sort_key(edge: object) -> tuple[str, str, str, str]:
+        if not isinstance(edge, dict):
+            return ("", "", "", repr(edge))
+        return (
+            str(edge.get("source", edge.get("from", ""))),
+            str(edge.get("target", edge.get("to", ""))),
+            str(edge.get("relation", "")),
+            json.dumps(edge, sort_keys=True, ensure_ascii=False, default=str),
+        )
+
+    for edge in sorted(edges, key=_edge_sort_key):
+        if not isinstance(edge, dict):
+            continue
         if "source" not in edge and "from" in edge:
             edge["source"] = edge["from"]
         if "target" not in edge and "to" in edge:
@@ -179,29 +309,38 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
         if "source" not in edge or "target" not in edge:
             continue
         src, tgt = edge["source"], edge["target"]
+        srcis_hashable = is_hashable(src)
+        tgtis_hashable = is_hashable(tgt)
+        if not srcis_hashable or not tgtis_hashable:
+            endpoint = "source" if not srcis_hashable else "target"
+            endpoint_value = src if not srcis_hashable else tgt
+            print(
+                "[graphify] WARNING: skipped edge with unhashable "
+                f"{endpoint} endpoint ({type(endpoint_value).__name__})",
+                file=sys.stderr,
+            )
+            continue
         # Remap mismatched IDs via normalization before dropping the edge.
-        if src not in node_set:
+        if isinstance(src, str) and src not in node_set:
             src = norm_to_id.get(_normalize_id(src), src)
-        if tgt not in node_set:
+        if isinstance(tgt, str) and tgt not in node_set:
             tgt = norm_to_id.get(_normalize_id(tgt), tgt)
         if src not in node_set or tgt not in node_set:
             continue  # skip edges to external/stdlib nodes - expected, not an error
-        attrs = {k: v for k, v in edge.items() if k not in ("source", "target")}
+        # Exclude legacy from/to alongside source/target so they don't survive
+        # as ordinary edge attrs after legacy-shape remap above.
+        base_attrs = {
+            k: v for k, v in edge.items() if k not in ("source", "target", "from", "to")
+        }
+        raw_key, attrs = strip_schema_key(base_attrs)
         if "source_file" in attrs:
-            attrs["source_file"] = _norm_source_file(attrs["source_file"], _root)
+            attrs["source_file"] = _norm_source_file(
+                _stable_identity_component(attrs["source_file"]), _root
+            )
         # Drop cross-language INFERRED `calls` edges — same short names (render,
         # parse, etc.) appear across language boundaries in multi-language chunks,
         # producing phantom edges that don't represent real call relationships.
         if attrs.get("relation") == "calls" and attrs.get("confidence") == "INFERRED":
-            _LANG_FAMILY: dict[str, str] = {
-                ".py": "py", ".pyi": "py",
-                ".js": "js", ".mjs": "js", ".cjs": "js", ".jsx": "js",
-                ".ts": "js", ".tsx": "js",
-                ".go": "go", ".rs": "rs",
-                ".java": "jvm", ".kt": "jvm", ".scala": "jvm", ".groovy": "jvm",
-                ".c": "c", ".h": "c", ".cc": "cpp", ".cpp": "cpp", ".hpp": "cpp",
-                ".rb": "rb", ".php": "php", ".cs": "cs", ".swift": "swift", ".lua": "lua",
-            }
             src_ext = Path(G.nodes[src].get("source_file") or "").suffix.lower()
             tgt_ext = Path(G.nodes[tgt].get("source_file") or "").suffix.lower()
             if src_ext and tgt_ext and _LANG_FAMILY.get(src_ext) != _LANG_FAMILY.get(tgt_ext):
@@ -210,23 +349,131 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
         # causing display functions to show edges backwards.
         attrs["_src"] = src
         attrs["_tgt"] = tgt
-        # When the graph is undirected and the same node pair appears twice with
-        # the same relation but opposite directions (e.g. a `calls` b and b `calls` a),
-        # nx.Graph collapses them into one edge. The deterministic sort above means
-        # the lexicographically-later direction would systematically overwrite the
-        # earlier one's _src/_tgt, silently flipping the surviving edge's caller
-        # and callee. First-seen direction wins instead — drop the redundant
-        # reverse-direction duplicate so the original direction is preserved (#1061).
-        if not G.is_directed() and G.has_edge(src, tgt):
-            existing = edge_data(G, src, tgt)
-            if existing.get("relation") == attrs.get("relation") and (
-                existing.get("_src") == tgt and existing.get("_tgt") == src
-            ):
-                continue
-        G.add_edge(src, tgt, **attrs)
+        # Refuse to store any edge whose attrs cannot round-trip through JSON.
+        # Mutating attrs in place would silently change the user's stored value;
+        # skipping with a warning matches the rest of the build's defensive policy
+        # and prevents later json.dump crashes during export, identically in
+        # simple-graph and multigraph modes.
+        try:
+            json.dumps(attrs, ensure_ascii=False)
+        except (TypeError, ValueError) as exc:
+            print(
+                f"[graphify] WARNING: edge ({src}->{tgt}) has non-JSON-serializable "
+                f"attrs ({exc}); skipping.",
+                file=sys.stderr,
+            )
+            continue
+        if multigraph:
+            if raw_key is not None and not isinstance(raw_key, str):
+                raise TypeError(
+                    f"multigraph edge 'key' must be a string, got "
+                    f"{type(raw_key).__name__} ({raw_key!r})"
+                )
+            base_key = (
+                raw_key
+                if raw_key is not None
+                else make_stable_key(
+                    _stable_identity_component(attrs.get("relation")),
+                    _stable_identity_component(attrs.get("source_file")),
+                    _stable_identity_component(attrs.get("source_location")),
+                )
+            )
+            if raw_key is not None:
+                multigraph_explicit_keys.add((src, tgt, base_key))
+            multigraph_groups.setdefault((src, tgt, base_key), []).append(dict(attrs))
+        else:
+            # When the graph is undirected and the same node pair appears twice with
+            # the same relation but opposite directions (e.g. a `calls` b and b `calls` a),
+            # nx.Graph collapses them into one edge. The deterministic sort above means
+            # the lexicographically-later direction would systematically overwrite the
+            # earlier one's _src/_tgt, silently flipping the surviving edge's caller
+            # and callee. First-seen direction wins instead — drop the redundant
+            # reverse-direction duplicate so the original direction is preserved (#1061).
+            if not G.is_directed() and G.has_edge(src, tgt):
+                existing = edge_data(G, src, tgt)
+                if existing.get("relation") == attrs.get("relation") and (
+                    existing.get("_src") == tgt and existing.get("_tgt") == src
+                ):
+                    continue
+            G.add_edge(src, tgt, **attrs)
+    if multigraph:
+        singleton_groups: list[tuple[Hashable, Hashable, str, dict]] = []
+        multi_groups: list[tuple[Hashable, Hashable, str, list[dict]]] = []
+        used_keys_by_pair: dict[tuple[Hashable, Hashable], set[str]] = {}
+        for (src, tgt, base_key), group_attrs in multigraph_groups.items():
+            unique_attrs: list[dict] = []
+            seen_attr_fingerprints: set[str] = set()
+            for attrs in group_attrs:
+                attr_fingerprint = json.dumps(
+                    attrs, sort_keys=True, ensure_ascii=False, default=str
+                )
+                if attr_fingerprint in seen_attr_fingerprints:
+                    multigraph_diagnostics["exact_duplicate_edges"] += 1
+                else:
+                    seen_attr_fingerprints.add(attr_fingerprint)
+                    unique_attrs.append(attrs)
+            if len(unique_attrs) > 1:
+                multigraph_diagnostics["key_collision_edges"] += 1
+                unique_attrs.sort(
+                    key=lambda attrs: json.dumps(
+                        attrs, sort_keys=True, ensure_ascii=False, default=str
+                    )
+                )
+                multi_groups.append((src, tgt, base_key, unique_attrs))
+            elif unique_attrs:
+                # Reserve the singleton's base_key so any later multi-attr
+                # collision-repair on the same (src, tgt) avoids it.
+                used_keys_by_pair.setdefault((src, tgt), set()).add(base_key)
+                singleton_groups.append((src, tgt, base_key, unique_attrs[0]))
+        # Sort both lists deterministically.
+        singleton_groups.sort(
+            key=lambda item: (
+                repr(item[0]),
+                repr(item[1]),
+                item[2],
+                json.dumps(item[3], sort_keys=True, ensure_ascii=False, default=str),
+            )
+        )
+        multi_groups.sort(
+            key=lambda item: (
+                repr(item[0]),
+                repr(item[1]),
+                item[2],
+                json.dumps(item[3], sort_keys=True, ensure_ascii=False, default=str),
+            )
+        )
+        # Emit singletons first: they use base_key directly and were reserved
+        # in the pre-loop above, so collision-repair from multi groups will
+        # see those reservations and salt around them.
+        for src, tgt, base_key, attrs in singleton_groups:
+            G.add_edge(src, tgt, key=base_key, **attrs)
+        # Then emit multi-attr groups with collision-repair salting against
+        # both reserved singleton base_keys and earlier multi-group repair
+        # keys on the same (src, tgt) pair.
+        for src, tgt, base_key, unique_attrs in multi_groups:
+            used_keys = used_keys_by_pair.setdefault((src, tgt), set())
+            preserve_explicit = (src, tgt, base_key) in multigraph_explicit_keys
+            for index, attrs in enumerate(unique_attrs):
+                # When the user passed an explicit `key` shared across multiple
+                # distinct edges, preserve it on the first emit so at least one
+                # edge per group keeps the canonical user-supplied key.
+                # Derived base_keys (from make_stable_key) always go through
+                # collision-repair so emission stays order-independent.
+                if preserve_explicit and index == 0 and base_key not in used_keys:
+                    key = base_key
+                else:
+                    key = _make_collision_key(base_key, attrs)
+                    salt = 0
+                    while key in used_keys:
+                        salt += 1
+                        key = _make_collision_key(base_key, attrs, salt=salt)
+                used_keys.add(key)
+                G.add_edge(src, tgt, key=key, **attrs)
     hyperedges = extraction.get("hyperedges", [])
     if hyperedges:
         G.graph["hyperedges"] = hyperedges
+    if multigraph:
+        G.graph["graphify_multigraph_diagnostics"] = multigraph_diagnostics
     return G
 
 
@@ -237,7 +484,8 @@ def build(
     dedup: bool = True,
     dedup_llm_backend: str | None = None,
     root: str | Path | None = None,
-) -> nx.Graph:
+    multigraph: bool = False,
+) -> nx.Graph | nx.DiGraph | nx.MultiDiGraph:
     """Merge multiple extraction results into one graph.
 
     directed=True produces a DiGraph that preserves edge direction (source→target).
@@ -253,7 +501,14 @@ def build(
     reverse the order if you prefer AST source_location precision to win.
     """
     from graphify.dedup import deduplicate_entities
-    combined: dict = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+
+    combined: dict = {
+        "nodes": [],
+        "edges": [],
+        "hyperedges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
+    }
     for ext in extractions:
         combined["nodes"].extend(ext.get("nodes", []))
         combined["edges"].extend(ext.get("edges", []))
@@ -262,10 +517,12 @@ def build(
         combined["output_tokens"] += ext.get("output_tokens", 0)
     if dedup and combined["nodes"]:
         combined["nodes"], combined["edges"] = deduplicate_entities(
-            combined["nodes"], combined["edges"], communities={},
+            combined["nodes"],
+            combined["edges"],
+            communities={},
             dedup_llm_backend=dedup_llm_backend,
         )
-    return build_from_json(combined, directed=directed, root=root)
+    return build_from_json(combined, directed=directed, root=root, multigraph=multigraph)
 
 
 def _norm_label(label: str) -> str:
@@ -282,7 +539,7 @@ def deduplicate_by_label(nodes: list[dict], edges: list[dict]) -> tuple[list[dic
     """
     _CHUNK_SUFFIX = re.compile(r"_c\d+$")
     canonical: dict[str, dict] = {}  # norm_label -> surviving node
-    remap: dict[str, str] = {}       # old_id -> surviving_id
+    remap: dict[str, str] = {}  # old_id -> surviving_id
 
     for node in nodes:
         key = _norm_label(node.get("label", node.get("id", "")))
@@ -325,16 +582,23 @@ def build_merge(
     graph_path: str | Path = "graphify-out/graph.json",
     prune_sources: list[str] | None = None,
     *,
-    directed: bool = False,
+    directed: bool | None = None,
     dedup: bool = True,
     dedup_llm_backend: str | None = None,
     root: str | Path | None = None,
-) -> nx.Graph:
-    """Load existing graph.json, merge new chunks into it, and save back.
+) -> nx.Graph | nx.DiGraph:
+    """Load existing graph.json, merge new chunks into it, and return the merged graph.
+
+    Persistence is the caller's responsibility (e.g., via ``export.to_json``);
+    this function does not write back to disk.
 
     Never replaces - only grows (or prunes deleted-file nodes via prune_sources).
     Safe to call repeatedly: existing nodes and edges are preserved.
     root: if given, absolute source_file paths in new_chunks are made relative (#932).
+
+    ``directed`` defaults to inheriting the saved graph's flag when an
+    existing graph.json is present, so updating a directed simple graph with
+    default args no longer silently downgrades it to undirected.
     """
     graph_path = Path(graph_path)
     if graph_path.exists():
@@ -346,18 +610,62 @@ def build_merge(
         # attrs are popped before saving in export.py, so going through the
         # NetworkX round-trip loses direction permanently (#760).
         from graphify.security import check_graph_file_size_cap
+
         check_graph_file_size_cap(graph_path)
         data = json.loads(graph_path.read_text(encoding="utf-8"))
+        if not isinstance(data, dict):
+            raise TypeError(
+                f"saved graph.json at {graph_path} must be a JSON object, "
+                f"got {type(data).__name__}"
+            )
+        # Refuse to silently collapse a saved multigraph. build() runs in
+        # simple mode here, which would drop parallel edges; stateful
+        # multigraph update paths are out of scope for the internal keyed
+        # build path (watch/cache/global-graph land in later slices).
+        saved_multigraph = data.get("multigraph", False)
+        if saved_multigraph is True:
+            raise NotImplementedError(
+                f"build_merge cannot update a multigraph graph.json. "
+                f"Found multigraph=true in {graph_path}. Rebuild from extraction "
+                f"or use a simple-graph build target."
+            )
+        if saved_multigraph is not False:
+            raise TypeError(
+                f"'multigraph' in {graph_path} must be a boolean, "
+                f"got {type(saved_multigraph).__name__} ({saved_multigraph!r})"
+            )
+        # Honor the saved graph's `directed` flag unless the caller explicitly
+        # overrides. Without this, an update with default args on a directed
+        # graph silently downgrades it and loses edge direction on next export.
+        saved_directed_raw = data.get("directed", False)
+        if saved_directed_raw is not True and saved_directed_raw is not False:
+            raise TypeError(
+                f"'directed' in {graph_path} must be a boolean, "
+                f"got {type(saved_directed_raw).__name__} ({saved_directed_raw!r})"
+            )
+        saved_directed = saved_directed_raw
+        if directed is None:
+            directed = saved_directed
+        elif directed != saved_directed:
+            print(
+                f"[graphify] WARNING: build_merge directed={directed} overrides "
+                f"saved graph.json directed={saved_directed}",
+                file=sys.stderr,
+            )
         links_key = "links" if "links" in data else "edges"
         existing_nodes = list(data.get("nodes", []))
         existing_edges = list(data.get(links_key, []))
         base = [{"nodes": existing_nodes, "edges": existing_edges}]
     else:
+        if directed is None:
+            directed = False
         existing_nodes = []
         base = []
 
     all_chunks = base + list(new_chunks)
-    G = build(all_chunks, directed=directed, dedup=dedup, dedup_llm_backend=dedup_llm_backend, root=root)
+    G = build(
+        all_chunks, directed=directed, dedup=dedup, dedup_llm_backend=dedup_llm_backend, root=root
+    )
 
     # Prune nodes and edges from deleted source files
     if prune_sources:
@@ -390,8 +698,7 @@ def build_merge(
             )
 
         edges_to_remove = [
-            (u, v) for u, v, d in G.edges(data=True)
-            if d.get("source_file") in prune_set
+            (u, v) for u, v, d in G.edges(data=True) if d.get("source_file") in prune_set
         ]
         if edges_to_remove:
             G.remove_edges_from(edges_to_remove)
@@ -418,6 +725,7 @@ def build_merge(
                 f"Pass prune_sources explicitly if you intend to remove nodes."
             )
 
+    # No write to graph_path here; persistence is the caller's responsibility.
     return G
 
 

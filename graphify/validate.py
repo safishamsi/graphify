@@ -7,6 +7,14 @@ REQUIRED_NODE_FIELDS = {"id", "label", "file_type", "source_file"}
 REQUIRED_EDGE_FIELDS = {"source", "target", "relation", "confidence", "source_file"}
 
 
+def is_hashable(value: object) -> bool:
+    try:
+        hash(value)
+    except TypeError:
+        return False
+    return True
+
+
 def validate_extraction(data: dict) -> list[str]:
     """
     Validate an extraction JSON dict against the graphify schema.
@@ -29,7 +37,11 @@ def validate_extraction(data: dict) -> list[str]:
                 continue
             for field in REQUIRED_NODE_FIELDS:
                 if field not in node:
-                    errors.append(f"Node {i} (id={node.get('id', '?')!r}) missing required field '{field}'")
+                    errors.append(
+                        f"Node {i} (id={node.get('id', '?')!r}) missing required field '{field}'"
+                    )
+            if "id" in node and not is_hashable(node["id"]):
+                errors.append(f"Node {i} id is unhashable and cannot be used as a node id")
             if "file_type" in node and node["file_type"] not in VALID_FILE_TYPES:
                 errors.append(
                     f"Node {i} (id={node.get('id', '?')!r}) has invalid file_type "
@@ -43,7 +55,17 @@ def validate_extraction(data: dict) -> list[str]:
     elif not isinstance(edge_list, list):
         errors.append("'edges' must be a list")
     else:
-        node_ids = {n["id"] for n in data.get("nodes", []) if isinstance(n, dict) and "id" in n}
+        # Guard against non-list `nodes` (the earlier branch only records the
+        # error and falls through to here); iterating a non-list would otherwise
+        # raise an incidental TypeError instead of yielding a clean validation
+        # message.
+        raw_nodes = data.get("nodes", [])
+        nodes_iter = raw_nodes if isinstance(raw_nodes, list) else []
+        node_ids = {
+            n["id"]
+            for n in nodes_iter
+            if isinstance(n, dict) and "id" in n and is_hashable(n["id"])
+        }
         for i, edge in enumerate(edge_list):
             if not isinstance(edge, dict):
                 errors.append(f"Edge {i} must be an object")
@@ -56,10 +78,16 @@ def validate_extraction(data: dict) -> list[str]:
                     f"Edge {i} has invalid confidence '{edge['confidence']}' "
                     f"- must be one of {sorted(VALID_CONFIDENCES)}"
                 )
-            if "source" in edge and node_ids and edge["source"] not in node_ids:
-                errors.append(f"Edge {i} source '{edge['source']}' does not match any node id")
-            if "target" in edge and node_ids and edge["target"] not in node_ids:
-                errors.append(f"Edge {i} target '{edge['target']}' does not match any node id")
+            if "source" in edge:
+                if not is_hashable(edge["source"]):
+                    errors.append(f"Edge {i} source is unhashable and cannot match any node id")
+                elif node_ids and edge["source"] not in node_ids:
+                    errors.append(f"Edge {i} source '{edge['source']}' does not match any node id")
+            if "target" in edge:
+                if not is_hashable(edge["target"]):
+                    errors.append(f"Edge {i} target is unhashable and cannot match any node id")
+                elif node_ids and edge["target"] not in node_ids:
+                    errors.append(f"Edge {i} target '{edge['target']}' does not match any node id")
 
     return errors
 
@@ -68,5 +96,7 @@ def assert_valid(data: dict) -> None:
     """Raise ValueError with all errors if extraction is invalid."""
     errors = validate_extraction(data)
     if errors:
-        msg = f"Extraction JSON has {len(errors)} error(s):\n" + "\n".join(f"  • {e}" for e in errors)
+        msg = f"Extraction JSON has {len(errors)} error(s):\n" + "\n".join(
+            f"  • {e}" for e in errors
+        )
         raise ValueError(msg)
