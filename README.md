@@ -83,6 +83,18 @@ uv tool install graphifyy && graphify install
 > Codex users: also add `multi_agent = true` under `[features]` in `~/.codex/config.toml`.
 > Codex uses `$graphify` instead of `/graphify`.
 
+### Development install (pyinstall)
+
+For development/testing without building the standalone binary:
+
+```bash
+cd aa-graphify
+uv pip install -e ".[all]"
+uv run python -m graphify pyinstall
+```
+
+This installs a `pyaag` skill that uses `python3` directly. Use `/pyaag .` in Claude Code to invoke it.
+
 ---
 
 ## Make your assistant always use the graph
@@ -308,6 +320,9 @@ graphify extract ./docs --google-workspace     # export .gdoc/.gsheet/.gslides v
 graphify extract ./docs --no-cluster           # raw extraction only, skip clustering
 graphify extract ./docs --dedup-llm            # LLM tiebreaker for ambiguous entity pairs (uses same API key)
 graphify extract ./docs --global --as myrepo   # extract and register into the cross-project global graph
+graphify extract ./filings --domain finance    # activate finance domain plugin
+graphify extract ./dataroom --domain diligence # activate due diligence domain plugin
+graphify extract ./corpus --domain finance,diligence  # compose multiple domains
 GRAPHIFY_MAX_OUTPUT_TOKENS=32768 graphify extract ./docs --backend claude  # raise output cap for dense corpora
 
 graphify global add graphify-out/graph.json myrepo   # register a project graph into ~/.graphify/global.json
@@ -323,6 +338,98 @@ graphify update ./src
 graphify cluster-only ./my-project
 graphify cluster-only ./my-project --graph path/to/graph.json  # custom graph location
 ```
+
+---
+
+## Domain plugins
+
+Graphify ships with built-in domain plugins that extend the knowledge graph for specialized use cases beyond code:
+
+| Domain | Install | Use case |
+|--------|---------|----------|
+| `finance` | included | SEC filings, financial statements, term sheets, covenant analysis |
+| `diligence` | included | Due diligence, governance conflicts, red-flag detection, key-person risk |
+
+### Usage
+
+```bash
+# In your AI coding assistant (Claude Code, Codex, etc.)
+/graphify ./filings --domain finance
+/graphify ./dataroom --domain diligence
+/graphify ./corpus --domain finance,diligence
+
+# Headless CLI — runs from any terminal, no IDE needed
+graphify extract ./filings --backend gemini --domain finance
+graphify extract ./dataroom --backend gemini --domain finance,diligence
+
+# Install optional dependencies for full table extraction
+pip install "graphifyy[domains]"     # pdfplumber + openpyxl for tables
+pip install "graphifyy[pdf-tables]"  # pdfplumber only
+```
+
+Both paths produce the same graph (`graph.json` or `graph.db`), report (`GRAPH_REPORT.md`), and analysis (`.graphify_analysis.json`). The skill path (`/graphify`) additionally generates `graph.html` with interactive visualization and human-readable community labels.
+
+### What domains add
+
+Domains inject additional extraction logic into the standard pipeline:
+
+1. **Domain-specific LLM prompts** — the finance domain tells the LLM to look for covenants, counterparties, and non-GAAP metrics; the diligence domain looks for governance conflicts and related-party transactions.
+
+2. **Structured table extraction** — HTML tables, Excel spreadsheets, and PDF tables are extracted with structure preserved (headers, rows, columns), not flattened to text. Layout tables are automatically filtered out.
+
+3. **Post-extraction inference** — synthetic edges are created from patterns (e.g., a person holding both officer and landlord roles triggers a `conflict_of_interest` edge).
+
+4. **Graph-level reasoning** — after the full graph is built, domains can add cross-community edges (e.g., connecting aspirational mission statements to contradicting financial obligations).
+
+5. **Domain-specific analyzers** — concentration risk, orphan liabilities, key-person risk, red-flag detection.
+
+### Domain output
+
+Domain nodes and edges are namespaced (e.g., `finance__jpmorgan`, `diligence__clause_4_2`) and merged into the same graph. Domain analysis results are written to `.graphify_analysis.json` under `domain_analysis`:
+
+```json
+{
+  "domain_analysis": {
+    "finance.concentration_risk_analyzer": [...],
+    "diligence.red_flag_analyzer": [...]
+  }
+}
+```
+
+### Writing a custom domain
+
+Create a Python file that defines a `DomainSpec` and registers it:
+
+```python
+# my_domain.py
+from graphify.domain import DomainSpec, register
+
+def my_prompt():
+    return "Extract entities of type widget and edges of type connects_to..."
+
+def my_post_extract(extraction):
+    # Add/fix/remove nodes and edges before graph build
+    return extraction
+
+spec = DomainSpec(
+    name="my_domain",
+    extractors=[],           # structural extractors (tables, etc.)
+    relations={"core": ["connects_to", "depends_on"]},
+    node_types=["widget", "gadget"],
+    prompt_fragments=my_prompt,
+    post_extract=my_post_extract,
+)
+register(spec)
+```
+
+To make it auto-discoverable, add an entry point in your package's `pyproject.toml`:
+
+```toml
+[project.entry-points."graphify.plugins"]
+my_domain = "my_package.my_domain:spec"
+```
+
+Then `graphify extract ./data --domain my_domain` activates it.
 
 ---
 

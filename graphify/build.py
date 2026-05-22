@@ -26,6 +26,7 @@ import re
 import sys
 from pathlib import Path
 import networkx as nx
+from .grounding import validate_grounding
 from .validate import validate_extraction
 
 
@@ -45,7 +46,7 @@ def _norm_source_file(p: str | None) -> str | None:
     return p.replace("\\", "/") if p else p
 
 
-def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
+def build_from_json(extraction: dict, *, directed: bool = False, source_root: Path | None = None) -> nx.Graph:
     """Build a NetworkX graph from an extraction dict.
 
     directed=True produces a DiGraph that preserves edge direction (source→target).
@@ -80,6 +81,15 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
         if node.get("file_type") in (None, ""):
             node["file_type"] = "concept"
 
+    # Grounding pass: verify EXTRACTED nodes are anchored in source text
+    if source_root is None:
+        # Try to infer source root from .aag_root if available
+        aag_root = Path("graphify-out/.aag_root")
+        if aag_root.exists():
+            source_root = Path(aag_root.read_text().strip())
+    if source_root:
+        extraction = validate_grounding(extraction, source_root=source_root)
+
     errors = validate_extraction(extraction)
     # Dangling edges (stdlib/external imports) are expected - only warn about real schema errors.
     real_errors = [e for e in errors if "does not match any node id" not in e]
@@ -111,6 +121,8 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
         if src not in node_set or tgt not in node_set:
             continue  # skip edges to external/stdlib nodes - expected, not an error
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target")}
+        attrs.setdefault("confidence", "EXTRACTED")
+        attrs.setdefault("confidence_score", 1.0)
         if "source_file" in attrs:
             attrs["source_file"] = _norm_source_file(attrs["source_file"])
         # Preserve original edge direction - undirected graphs lose it otherwise,

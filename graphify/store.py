@@ -63,6 +63,17 @@ def load(out_dir: str | Path) -> nx.Graph:
     return _load_json(out / _JSON_NAME)
 
 
+def load_with_communities(out_dir: str | Path) -> tuple[nx.Graph, dict[int, list[str]]]:
+    """Load graph and reconstruct communities dict from node attributes."""
+    G = load(out_dir)
+    communities: dict[int, list[str]] = {}
+    for nid, attrs in G.nodes(data=True):
+        cid = attrs.get("community")
+        if cid is not None:
+            communities.setdefault(int(cid), []).append(nid)
+    return G, communities
+
+
 def load_path(path: str | Path) -> nx.Graph:
     """Load from a directory (auto-dispatch) or an explicit file path.
 
@@ -316,6 +327,41 @@ def search_label(out_dir: str | Path, query: str, limit: int = 100) -> list[dict
             if len(results) >= limit:
                 break
     return results
+
+
+def search(out_dir: str | Path, query: str, limit: int = 20) -> list[dict]:
+    """FTS5 ranked search. Falls back to scored substring matching for JSON backend."""
+    out = Path(out_dir)
+    backend = _resolve(out)
+    if backend == "db":
+        return _db.search(out / _DB_NAME, query, limit=limit)
+    # JSON fallback: score against label + description + source_file
+    terms = query.lower().split()
+    if not terms:
+        return []
+    G = _load_json(out / _JSON_NAME)
+    scored: list[tuple[float, str, dict]] = []
+    for n, attrs in G.nodes(data=True):
+        label = (attrs.get("label") or "").lower()
+        desc = (attrs.get("description") or "").lower()
+        sf = (attrs.get("source_file") or "").lower()
+        score = (sum(1.0 for t in terms if t in label)
+                 + sum(1.5 for t in terms if t in desc)
+                 + sum(0.5 for t in terms if t in sf))
+        if score > 0:
+            scored.append((score, n, attrs))
+    scored.sort(key=lambda x: x[0], reverse=True)
+    return [
+        {
+            "id": nid,
+            "label": attrs.get("label", ""),
+            "description": attrs.get("description", ""),
+            "source_file": attrs.get("source_file", ""),
+            "community": attrs.get("community"),
+            "score": round(s, 4),
+        }
+        for s, nid, attrs in scored[:limit]
+    ]
 
 
 # ---- JSON backend internals (no edits to export.py / build.py required) ----

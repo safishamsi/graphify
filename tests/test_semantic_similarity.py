@@ -145,7 +145,7 @@ def _make_report_with_semantic_surprise():
     ]
     detection = {"total_files": 2, "total_words": 500, "needs_graph": True, "warning": None}
     tokens = {"input": 100, "output": 50}
-    return generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, "./project")
+    return generate(G, communities, labels, gods, surprises, detection, tokens, "./project", cohesion_scores=cohesion)
 
 
 def test_report_renders_semantically_similar_tag():
@@ -190,5 +190,5 @@ def test_report_no_semantic_tag_for_other_relations():
     ]
     detection = {"total_files": 2, "total_words": 200, "needs_graph": True, "warning": None}
     tokens = {"input": 50, "output": 25}
-    report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, "./project")
+    report = generate(G, communities, labels, gods, surprises, detection, tokens, "./project", cohesion_scores=cohesion)
     assert "[semantically similar]" not in report

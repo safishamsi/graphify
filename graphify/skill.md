@@ -32,6 +32,9 @@ Turn any folder of files into a navigable knowledge graph with community detecti
 /aag <path> --wiki                               # build agent-crawlable wiki (index.md + one article per community)
 /aag <path> --obsidian --obsidian-dir ~/vaults/my-project  # write vault to custom path (e.g. existing vault)
 /aag <path> --db                                 # persist as graph.db (SQLite) instead of graph.json — opt-in on fresh KBs
+/aag <path> --domain finance                     # activate finance domain plugin (tables, covenants, counterparties)
+/aag <path> --domain diligence                   # activate due diligence domain plugin (conflicts, red flags)
+/aag <path> --domain finance,diligence           # compose multiple domains
 /aag migrate-store --to db                       # convert an existing graph.json knowledge base to graph.db
 /aag migrate-store --to json                     # convert an existing graph.db knowledge base to graph.json
 /aag add <url>                                   # fetch URL, save to ./raw, update graph
@@ -55,6 +58,22 @@ If no path was given, use `.` (current directory). Do not ask the user for a pat
 If the path argument starts with `https://github.com/` or `http://github.com/`, treat it as a GitHub URL — run Step 0 before anything else, then continue with the resolved local path.
 
 **Backend selection.** A knowledge base persists as either `graphify-out/graph.json` (default) or `graphify-out/graph.db` (SQLite, opt-in). Only one may exist per KB; the dispatcher errors if both are present. Track whether the user passed `--db`: if so, set `USE_DB = True` for Step 4's save; otherwise `USE_DB = False`. Subsequent `--update` / `--cluster-only` runs auto-detect the existing backend and write back to it without needing the flag again.
+
+**Domain plugins.** If the user passed `--domain <names>` (comma-separated), set `DOMAIN_NAMES` to a Python list of those names (e.g., `['finance', 'diligence']`). Replace every `DOMAIN_NAMES_PLACEHOLDER` in the code blocks below with this list. If no `--domain` flag, replace with `[]`. Available built-in domains: `finance` (SEC filings, covenants, counterparties), `diligence` (governance conflicts, red flags, key-person risk).
+
+**Source HTML preservation.** Domain plugins (finance, diligence) extract structured data from HTML tables, PDFs, and spreadsheets. If the corpus contains markdown conversions of HTML documents (e.g., SEC filings converted to `.md`), the domain extractors cannot parse tables from markdown — they need the original `.htm`/`.html`/`.pdf` source. When `--domain` is active and the input path has no HTML/PDF/XLSX files, check for a `source/` subdirectory or sibling directory containing originals. If found, include those files in the detect scan so domain extractors can reach them. Do NOT send HTML source files to semantic subagents (they are too large and the markdown versions already cover the narrative content) — only make them available to domain extractors in Step 3C.
+
+## Coding discipline
+
+These rules apply whenever you write or modify graphify code during a pipeline run:
+
+1. **Read before writing.** Before calling any graphify module function, run `grep ^def <module>.py` to confirm function names and signatures. Do this BEFORE the first attempt, not after the first ImportError.
+
+2. **Store module API reference:**
+   - `load(out_dir)` → NetworkX Graph
+   - `load_with_communities(out_dir)` → (Graph, dict[int, list[str]])
+   - `save(out_dir, G, communities, *, backend=None, force=False, built_at_commit=None)`
+   - `to_extraction(out_dir)` → dict with nodes/edges lists
 
 Follow these steps in order. Do not skip steps.
 
@@ -85,35 +104,46 @@ Graphify clones into `~/.aag/repos/<owner>/<repo>` and reuses existing clones on
 ### Step 1 - Ensure aag is installed
 
 ```bash
-# Detect the correct Python interpreter (handles uv tool, pipx, venv, system installs)
+# Find a Python that can import graphify (or aag)
 PYTHON=""
-GRAPHIFY_BIN=$(which aag 2>/dev/null)
-# 1. uv tool installs — most reliable on modern Mac/Linux
+# 1. Try python3 directly
+if python3 -c "import graphify" 2>/dev/null || python3 -c "import aag" 2>/dev/null; then
+    PYTHON="python3"
+fi
+# 2. Try uv tool installs
 if [ -z "$PYTHON" ] && command -v uv >/dev/null 2>&1; then
     _UV_PY=$(uv tool run aagy python -c "import sys; print(sys.executable)" 2>/dev/null)
     if [ -n "$_UV_PY" ]; then PYTHON="$_UV_PY"; fi
 fi
-# 2. Read shebang from aag binary (pipx and direct pip installs)
-if [ -z "$PYTHON" ] && [ -n "$GRAPHIFY_BIN" ]; then
-    _SHEBANG=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
-    case "$_SHEBANG" in
-        *[!a-zA-Z0-9/_.-]*) ;;
-        *) "$_SHEBANG" -c "import aag" 2>/dev/null && PYTHON="$_SHEBANG" ;;
-    esac
+# 3. Try the graphify source repo (dev mode — set PYTHONPATH)
+if [ -z "$PYTHON" ]; then
+    for _candidate in /local-nvme/hfeng/aa/aa-graphify ~/.local/share/graphify-src; do
+        if [ -f "$_candidate/graphify/__init__.py" ]; then
+            export PYTHONPATH="$_candidate${PYTHONPATH:+:$PYTHONPATH}"
+            if python3 -c "import graphify" 2>/dev/null; then
+                PYTHON="python3"
+                break
+            fi
+        fi
+    done
 fi
-# 3. Fall back to python3
-if [ -z "$PYTHON" ]; then PYTHON="python3"; fi
-"$PYTHON" -c "import aag" 2>/dev/null || "$PYTHON" -m pip install aagy -q 2>/dev/null || "$PYTHON" -m pip install aagy -q --break-system-packages 2>&1 | tail -3
-# Write interpreter path for all subsequent steps (persists across invocations)
+# 4. Last resort: pip install
+if [ -z "$PYTHON" ]; then
+    PYTHON="python3"
+    "$PYTHON" -m pip install aagy -q 2>/dev/null || "$PYTHON" -m pip install aagy -q --break-system-packages 2>&1 | tail -3
+fi
+# Write interpreter path for all subsequent steps
 mkdir -p graphify-out
-"$PYTHON" -c "import sys; open('graphify-out/.aag_python', 'w').write(sys.executable)"
+echo "$PYTHON" > graphify-out/.aag_python
+# Save PYTHONPATH if we set one
+[ -n "$PYTHONPATH" ] && echo "$PYTHONPATH" > graphify-out/.aag_pythonpath
 # Save scan root so `aag update` (no args) knows where to look next time
 echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
 ```
 
 If the import succeeds, print nothing and move straight to Step 2.
 
-**In every subsequent bash block, replace `python3` with `$(cat graphify-out/.aag_python)` to use the correct interpreter.**
+**In every subsequent bash block:** use `$(cat graphify-out/.aag_python)` as the interpreter; if `graphify-out/.aag_pythonpath` exists, prepend `PYTHONPATH=$(cat graphify-out/.aag_pythonpath)` to the command.
 
 ### Step 2 - Detect files
 
@@ -196,11 +226,6 @@ After transcription:
 **Before starting:** note whether `--mode deep` was given. You must pass `DEEP_MODE=true` to every subagent in Step B2 if it was. Track this from the original invocation - do not lose it.
 
 This step has two parts: **structural extraction** (deterministic, free) and **semantic extraction** (LLM, costs tokens).
-
-**Before dispatching subagents:** check whether `GEMINI_API_KEY` or `GOOGLE_API_KEY` is set. If neither is set, print this one-liner to the user:
-> Tip: set `GEMINI_API_KEY` or `GOOGLE_API_KEY` to use Gemini for semantic extraction (`pip install 'aagy[gemini]'`).
-
-Print it once, then continue. If `GEMINI_API_KEY` or `GOOGLE_API_KEY` IS set, use `aag.llm.extract_corpus_parallel(files, backend="gemini")` for semantic extraction instead of dispatching Claude subagents. The default Gemini model is `gemini-3-flash-preview`; set `GRAPHIFY_GEMINI_MODEL` or pass `--model` in headless CLI flows to override it.
 
 **Run Part A (AST) and Part B (semantic) in parallel. Dispatch all semantic subagents AND start AST extraction in the same message. Both can run simultaneously since they operate on different file types. Merge results in Part C as before.**
 
@@ -296,9 +321,20 @@ Files (chunk CHUNK_NUM of TOTAL_CHUNKS):
 FILE_LIST
 
 Rules:
-- EXTRACTED: relationship explicit in source (import, call, citation, "see §3.2")
+- EXTRACTED: relationship explicit in source (import, call, citation, "see §3.2").
+  The relation type itself (or a direct synonym) MUST appear in the text. If you are
+  labeling a relationship with an interpretive/judgmental term the document does NOT
+  use (e.g. "nepotism", "self_dealing", "contradicts", "valuation_inflated_by"), it
+  MUST be INFERRED, never EXTRACTED. EXTRACTED + confidence 1.0 means "a reader can
+  point to the exact sentence."
 - INFERRED: reasonable inference (shared data structure, implied dependency)
 - AMBIGUOUS: uncertain - flag for review, do not omit
+
+GROUNDING: Every node you create MUST correspond to a named entity, concept, metric,
+or clause that actually appears in the source file(s) you were given. Do NOT inject
+entities from your training data that are not present in the provided text. If you know
+from external knowledge that a related concept exists but it is not mentioned in these
+files, do NOT create a node for it. The graph must be grounded solely in the corpus.
 
 Code files: focus on semantic edges AST cannot find (call relationships, shared data, arch patterns).
   Do not re-extract imports - AST already has those.
@@ -314,6 +350,8 @@ Image files: use vision to understand what the image IS - do not just OCR.
 
 DEEP_MODE (if --mode deep was given): be aggressive with INFERRED edges - indirect deps,
   shared assumptions, latent couplings. Mark uncertain ones AMBIGUOUS instead of omitting.
+
+DOMAIN_PROMPT_FRAGMENTS
 
 Semantic similarity: if two concepts in this chunk solve the same problem or represent the same idea without any structural link (no import, no call, no citation), add a `semantically_similar_to` edge marked INFERRED with a confidence_score reflecting how similar they are (0.6-0.95). Examples:
 - Two functions that both validate user input but never call each other
@@ -347,8 +385,20 @@ confidence_score is REQUIRED on every edge - never omit it, never use 0.5 as a d
 Node ID format: lowercase, only `[a-z0-9_]`, no dots or slashes. Format: `{stem}_{entity}` where stem is the filename without extension and entity is the symbol name, both normalized (lowercase, non-alphanumeric chars replaced with `_`). Example: `src/auth/session.py` + `ValidateToken` → `session_validatetoken`. This must match the ID the AST extractor generates so cross-references between code and semantic nodes connect correctly. CRITICAL: never append chunk numbers, sequence numbers, or any suffix to an ID (no `_c1`, `_c2`, `_chunk2`, etc.). IDs must be deterministic from the label alone — the same entity must always produce the same ID regardless of which chunk processes it.
 
 Output exactly this JSON (no other text):
-{"nodes":[{"id":"session_validatetoken","label":"Human Readable Name","file_type":"code|document|paper|image|rationale","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to|rationale_for","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
+{"nodes":[{"id":"session_validatetoken","label":"Human Readable Name","description":"One sentence explaining what this entity does or represents","file_type":"code|document|paper|image|rationale","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to|rationale_for","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[{"id":"snake_case_id","label":"Human Readable Label","nodes":["node_id1","node_id2","node_id3"],"relation":"participate_in|implement|form","confidence":"EXTRACTED|INFERRED","confidence_score":0.75,"source_file":"relative/path"}],"input_tokens":0,"output_tokens":0}
 ```
+
+**Hook 1 — Domain prompt fragments:** If `DOMAIN_NAMES` is non-empty, replace `DOMAIN_PROMPT_FRAGMENTS` in the subagent prompt above with the output of each domain's `prompt_fragments()` hook (concatenated). Generate it like this:
+
+```python
+from aag.domain import active_domains
+fragments = ""
+for dom in active_domains({"domains": DOMAIN_NAMES}):
+    if dom.prompt_fragments:
+        fragments += dom.prompt_fragments() + "\n"
+```
+
+Substitute the result into the prompt template. If `DOMAIN_NAMES` is empty, replace `DOMAIN_PROMPT_FRAGMENTS` with an empty string (remove the line).
 
 **Step B3 - Collect, cache, and merge**
 
@@ -456,12 +506,132 @@ merged = {
     'input_tokens': sem.get('input_tokens', 0),
     'output_tokens': sem.get('output_tokens', 0),
 }
+
+# Domain plugin hooks (only if --domain was passed)
+DOMAIN_NAMES = DOMAIN_NAMES_PLACEHOLDER  # replaced by skill runner with e.g. ['finance'] or []
+if DOMAIN_NAMES:
+    from aag.domain import active_domains
+    domain_config = {'domains': DOMAIN_NAMES}
+    domains = active_domains(domain_config)
+    detect = json.loads(Path('graphify-out/.aag_detect.json').read_text())
+    all_files = []
+    for ftype in detect.get('files', {}).values():
+        all_files.extend(ftype)
+    # Source HTML preservation: domain extractors need original HTML/PDF/XLSX
+    # for table parsing. If none found in detect, look for source/ subdirectory.
+    source_exts = {'.html', '.htm', '.xhtml', '.pdf', '.xlsx', '.xls', '.csv'}
+    has_source = any(Path(f).suffix.lower() in source_exts for f in all_files)
+    if not has_source:
+        scan_root = Path(Path('graphify-out/.aag_root').read_text().strip())
+        for source_dir in [scan_root / 'source', scan_root.parent / 'source']:
+            if source_dir.is_dir():
+                source_files = [str(p) for p in source_dir.rglob('*') if p.suffix.lower() in source_exts]
+                if source_files:
+                    all_files.extend(source_files)
+                    print(f'  domains: found {len(source_files)} source file(s) in {source_dir}')
+                    break
+    # Hook 2: domain structural extractors (tables, spreadsheets, PDFs)
+    for dom in domains:
+        for ext in dom.extractors:
+            for fp in all_files:
+                p = Path(fp)
+                if any(p.match(pat) for pat in ext.file_patterns):
+                    try:
+                        content = p.read_text(encoding='utf-8', errors='replace')
+                        extra = ext.extract(p, content)
+                        for n in extra.get('nodes', []):
+                            n['id'] = f\"{dom.name}__{n['id']}\"
+                            n['domain'] = dom.name
+                        for e in extra.get('edges', []):
+                            e['source'] = f\"{dom.name}__{e['source']}\"
+                            e['target'] = f\"{dom.name}__{e['target']}\"
+                        merged['nodes'].extend(extra.get('nodes', []))
+                        merged['edges'].extend(extra.get('edges', []))
+                    except Exception as exc:
+                        print(f'  domain {dom.name} skipped {p.name}: {exc}', file=sys.stderr)
+    # Hook 3: post_extract inference
+    for dom in domains:
+        if dom.post_extract:
+            merged = dom.post_extract(merged)
+    print(f'  domains: +{len(merged[\"nodes\"]) - total} nodes, +{len(merged[\"edges\"]) - len(merged_edges)} edges from {[d.name for d in domains]}')
+
 Path('graphify-out/.aag_extract.json').write_text(json.dumps(merged, indent=2))
-total = len(merged_nodes)
-edges = len(merged_edges)
+total = len(merged['nodes'])
+edges = len(merged['edges'])
 print(f'Merged: {total} nodes, {edges} edges ({len(ast[\"nodes\"])} AST + {len(sem[\"nodes\"])} semantic)')
 "
 ```
+
+**Domain flag:** If the user passed `--domain <names>`, replace `DOMAIN_NAMES_PLACEHOLDER` with the list of domain names (e.g., `['finance', 'diligence']`). If no `--domain` flag, replace with `[]`.
+
+### Step 3D - Resolve diligence candidates (only if `--domain diligence` AND candidates exist)
+
+Skip this step if `graphify-out/.aag_diligence_candidates.json` does not exist or is empty.
+
+The diligence domain extractor identifies candidate windows where an officer loan or IP transfer MAY exist (based on co-occurrence of dollar amounts, loan keywords, and related-party context), but cannot determine WHO the person/entity is without semantic understanding. Dispatch a single subagent to resolve these.
+
+**Dispatch one Agent** with this prompt (substitute CANDIDATES_JSON with the file contents):
+
+```
+You are resolving entity disambiguation for due diligence red flag detection.
+
+Below are candidate text windows where a governance red flag may exist. For each candidate:
+1. Read the window text carefully
+2. Determine if this is actually an insider/officer transaction (not a regular business loan or third-party deal)
+3. If YES: identify the person or insider entity involved (the officer, director, or their controlled entity — NOT the company itself, NOT a bank)
+4. If NO: set person_or_entity to null
+
+Return ONLY a JSON array. Each element:
+{"index": 0, "person_or_entity": "Adam Neumann" or null, "is_insider_transaction": true/false}
+
+Candidates:
+CANDIDATES_JSON
+```
+
+After the agent returns, run:
+
+```bash
+$(cat graphify-out/.aag_python) -c "
+import json
+from pathlib import Path
+from graphify.domains.diligence import DiligenceExtractor
+
+candidates = json.loads(Path('graphify-out/.aag_diligence_candidates.json').read_text())
+# RESOLVED is the JSON array returned by the agent — paste it here
+resolved = RESOLVED_JSON
+
+# Merge resolved items back into candidates
+for r in resolved:
+    idx = r.get('index', -1)
+    if 0 <= idx < len(candidates):
+        candidates[idx]['person_or_entity'] = r.get('person_or_entity')
+
+# Convert to nodes/edges grouped by source file
+from collections import defaultdict
+by_file = defaultdict(list)
+for c in candidates:
+    if c.get('person_or_entity'):
+        by_file[c['source_file']].append(c)
+
+extraction = json.loads(Path('graphify-out/.aag_extract.json').read_text())
+for src_file, items in by_file.items():
+    result = DiligenceExtractor.resolve_candidates(items, src_file)
+    for n in result['nodes']:
+        n['id'] = f\"diligence__{n['id']}\"
+        n['domain'] = 'diligence'
+    for e in result['edges']:
+        e['source'] = f\"diligence__{e['source']}\"
+        e['target'] = f\"diligence__{e['target']}\"
+    extraction['nodes'].extend(result['nodes'])
+    extraction['edges'].extend(result['edges'])
+
+Path('graphify-out/.aag_extract.json').write_text(json.dumps(extraction, indent=2))
+added = sum(len(items) for items in by_file.values())
+print(f'Resolved {added} diligence candidates into graph nodes')
+"
+```
+
+Replace `RESOLVED_JSON` with the actual JSON array the agent returned.
 
 ### Step 4 - Build graph, cluster, analyze, generate outputs
 
@@ -484,6 +654,19 @@ detection  = json.loads(Path('graphify-out/.aag_detect.json').read_text())
 G = build_from_json(extraction)
 communities = cluster(G)
 cohesion = score_all(G, communities)
+
+# Hook 4: domain post_build (adds edges to G after clustering)
+DOMAIN_NAMES = DOMAIN_NAMES_PLACEHOLDER  # same replacement as Step 3C
+if DOMAIN_NAMES:
+    from aag.domain import active_domains
+    domains = active_domains({'domains': DOMAIN_NAMES})
+    for dom in domains:
+        if dom.post_build:
+            try:
+                dom.post_build(G)
+            except Exception as exc:
+                print(f'  domain {dom.name} post_build: {exc}', file=sys.stderr)
+
 tokens = {'input': extraction.get('input_tokens', 0), 'output': extraction.get('output_tokens', 0)}
 gods = god_nodes(G)
 surprises = surprising_connections(G, communities)
@@ -491,7 +674,39 @@ labels = {cid: 'Community ' + str(cid) for cid in communities}
 # Placeholder questions - regenerated with real labels in Step 5
 questions = suggest_questions(G, communities, labels)
 
-report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, 'INPUT_PATH', suggested_questions=questions)
+# Hook 5: domain analyzers (read-only reporting)
+domain_analysis = {}
+if DOMAIN_NAMES:
+    from aag.domain import active_domains as _ad
+    for dom in _ad({'domains': DOMAIN_NAMES}):
+        for analyzer in dom.analyzers:
+            try:
+                domain_analysis[f'{dom.name}.{analyzer.__name__}'] = analyzer(G)
+            except Exception as exc:
+                print(f'  domain analyzer {dom.name}.{analyzer.__name__}: {exc}', file=sys.stderr)
+
+report = generate(G, communities, labels, gods, surprises, detection, tokens, 'INPUT_PATH', cohesion_scores=cohesion, suggested_questions=questions)
+
+# Append domain analysis to report
+if domain_analysis:
+    report += '\n\n## Domain Analysis\n'
+    for key, findings in domain_analysis.items():
+        dom_name, analyzer_name = key.split('.', 1)
+        title = analyzer_name.replace('_', ' ').title()
+        report += f'\n### {title} ({dom_name})\n\n'
+        if not findings:
+            report += '_No findings._\n'
+        else:
+            for f in findings:
+                severity = f.get('severity', '')
+                label = f.get('label', f.get('node', ''))
+                detail = f.get('detail', f.get('reason', '')
+                    or f.get('type', '').replace('_', ' ')
+                    + (f' (roles: {", ".join(f["roles"])})' if 'roles' in f else '')
+                    + (f' — concentration: {f["concentration"]:.0%}' if 'concentration' in f else ''))
+                sev_icon = {'high': '🔴', 'medium': '🟡', 'low': '🟢'}.get(severity, '⚪')
+                report += f'- {sev_icon} **{label}** — {detail}\n'
+
 Path('graphify-out/GRAPH_REPORT.md').write_text(report)
 # Backend-aware save: respects existing graph.json or graph.db; pass backend='db' for fresh --db builds.
 _gx_save('graphify-out', G, communities, backend=('db' if USE_DB else None))
@@ -503,7 +718,18 @@ analysis = {
     'surprises': surprises,
     'questions': questions,
 }
+if domain_analysis:
+    analysis['domain_analysis'] = domain_analysis
 Path('graphify-out/.aag_analysis.json').write_text(json.dumps(analysis, indent=2))
+# Generate dashboard.html when domain analysis is present
+if domain_analysis:
+    try:
+        from graphify.dashboard import render_dashboard as _render_dash
+        _dash_meta = {'nodes': len(G), 'edges': G.size()}
+        _dash_path = _render_dash(analysis, _dash_meta, Path('graphify-out/dashboard.html'), G=G)
+        print(f'Dashboard: {_dash_path}')
+    except Exception as _dash_exc:
+        print(f'Warning: could not generate dashboard: {_dash_exc}', file=sys.stderr)
 if G.number_of_nodes() == 0:
     print('ERROR: Graph is empty - extraction produced no nodes.')
     print('Possible causes: all files were skipped, binary-only corpus, or extraction failed.')
@@ -546,7 +772,7 @@ labels = LABELS_DICT
 # Regenerate questions with real community labels (labels affect question phrasing)
 questions = suggest_questions(G, communities, labels)
 
-report = generate(G, communities, cohesion, labels, analysis['gods'], analysis['surprises'], detection, tokens, 'INPUT_PATH', suggested_questions=questions)
+report = generate(G, communities, labels, analysis['gods'], analysis['surprises'], detection, tokens, 'INPUT_PATH', cohesion_scores=cohesion, suggested_questions=questions)
 Path('graphify-out/GRAPH_REPORT.md').write_text(report)
 Path('graphify-out/.aag_labels.json').write_text(json.dumps({str(k): v for k, v in labels.items()}))
 print('Report updated with community labels')
@@ -685,7 +911,7 @@ cost_path.write_text(json.dumps(cost, indent=2))
 print(f'This run: {input_tok:,} input tokens, {output_tok:,} output tokens')
 print(f'All time: {cost[\"total_input_tokens\"]:,} input, {cost[\"total_output_tokens\"]:,} output ({len(cost[\"runs\"])} runs)')
 "
-rm -f graphify-out/.aag_detect.json graphify-out/.aag_extract.json graphify-out/.aag_ast.json graphify-out/.aag_semantic.json graphify-out/.aag_analysis.json graphify-out/.aag_chunk_*.json
+rm -f graphify-out/.aag_detect.json graphify-out/.aag_extract.json graphify-out/.aag_ast.json graphify-out/.aag_semantic.json graphify-out/.aag_chunk_*.json
 rm -f graphify-out/.needs_update 2>/dev/null || true
 ```
 

@@ -62,7 +62,7 @@ def run_pipeline(tmp_path: Path) -> dict:
 
     # Step 6: report
     tokens = {"input": 0, "output": 0}
-    report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, str(FIXTURES), suggested_questions=questions)
+    report = generate(G, communities, labels, gods, surprises, detection, tokens, str(FIXTURES), cohesion_scores=cohesion, suggested_questions=questions)
     assert "God Nodes" in report
     assert "Communities" in report
     assert len(report) > 100

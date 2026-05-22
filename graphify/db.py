@@ -17,7 +17,7 @@ from graphify.analyze import _node_community_map
 from graphify.export import _strip_diacritics
 
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 _SCHEMA = """
@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS nodes (
     captured_at     TEXT,
     author          TEXT,
     contributor     TEXT,
+    description     TEXT DEFAULT '',
     community       INTEGER,
     norm_label      TEXT,
     attrs           TEXT
@@ -81,10 +82,18 @@ CREATE INDEX IF NOT EXISTS hyperedge_members_hid ON hyperedge_members(hid);
 """
 
 
+_FTS_SCHEMA = """
+CREATE VIRTUAL TABLE IF NOT EXISTS nodes_fts USING fts5(
+    label, description, source_file,
+    content='nodes', content_rowid='rowid'
+);
+"""
+
 # Columns with their own typed slots — anything else spills into the JSON `attrs` blob.
 _NODE_TYPED = {
     "id", "label", "file_type", "source_file", "source_location",
     "source_url", "captured_at", "author", "contributor", "community", "norm_label",
+    "description",
 }
 _EDGE_TYPED = {
     "source", "target", "relation", "confidence", "confidence_score",
@@ -105,6 +114,24 @@ def _connect(path: Path) -> sqlite3.Connection:
         "INSERT OR IGNORE INTO meta(key, value) VALUES (?, ?)",
         ("schema_version", str(SCHEMA_VERSION)),
     )
+    # Migrate v1 → v2: add description column + FTS
+    cur = conn.execute("SELECT value FROM meta WHERE key='schema_version'")
+    row = cur.fetchone()
+    if row and row[0] == "1":
+        try:
+            conn.execute("ALTER TABLE nodes ADD COLUMN description TEXT DEFAULT ''")
+        except Exception:
+            pass  # column may already exist
+        conn.executescript(_FTS_SCHEMA)
+        try:
+            conn.execute(
+                "INSERT INTO nodes_fts(rowid, label, description, source_file) "
+                "SELECT rowid, COALESCE(label,''), COALESCE(description,''), COALESCE(source_file,'') FROM nodes"
+            )
+        except Exception:
+            pass  # FTS may already be populated
+        conn.execute("UPDATE meta SET value='2' WHERE key='schema_version'")
+        conn.commit()
     return conn
 
 
@@ -161,6 +188,13 @@ def save_db(
             for he in G.graph.get("hyperedges", []) or []:
                 _insert_hyperedge(conn, he)
 
+            # Build FTS5 index
+            conn.executescript(_FTS_SCHEMA)
+            conn.execute(
+                "INSERT INTO nodes_fts(rowid, label, description, source_file) "
+                "SELECT rowid, COALESCE(label,''), COALESCE(description,''), COALESCE(source_file,'') FROM nodes"
+            )
+
             conn.execute(
                 "INSERT OR REPLACE INTO meta(key, value) VALUES ('directed', ?)",
                 ("1" if G.is_directed() else "0",),
@@ -186,8 +220,8 @@ def _insert_node(conn, node_id, attrs, community):
         """INSERT INTO nodes(
             id, label, file_type, source_file, source_location,
             source_url, captured_at, author, contributor,
-            community, norm_label, attrs)
-           VALUES (?,?,?,?,?,?,?,?,?,?,?,?)""",
+            community, norm_label, description, attrs)
+           VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)""",
         (
             node_id,
             attrs.get("label"),
@@ -200,6 +234,7 @@ def _insert_node(conn, node_id, attrs, community):
             attrs.get("contributor"),
             community if community is not None else attrs.get("community"),
             norm,
+            attrs.get("description", ""),
             json.dumps(extra) if extra else None,
         ),
     )
@@ -274,9 +309,9 @@ def load_db(path: str | Path) -> nx.Graph:
         for row in conn.execute(
             """SELECT id, label, file_type, source_file, source_location,
                       source_url, captured_at, author, contributor,
-                      community, norm_label, attrs FROM nodes"""
+                      community, norm_label, description, attrs FROM nodes"""
         ):
-            (id_, label, ft, sf, sl, su, ca, au, co, com, norm, attrs_json) = row
+            (id_, label, ft, sf, sl, su, ca, au, co, com, norm, desc, attrs_json) = row
             attrs = {
                 "label": label,
                 "file_type": ft,
@@ -288,6 +323,7 @@ def load_db(path: str | Path) -> nx.Graph:
                 "contributor": co,
                 "community": com,
                 "norm_label": norm,
+                "description": desc,
             }
             attrs = {k: v for k, v in attrs.items() if v is not None}
             if attrs_json:
@@ -381,14 +417,14 @@ def get_node(path: str | Path, node_id: str) -> dict | None:
         row = conn.execute(
             """SELECT id, label, file_type, source_file, source_location,
                       source_url, captured_at, author, contributor,
-                      community, norm_label, attrs FROM nodes WHERE id = ?""",
+                      community, norm_label, description, attrs FROM nodes WHERE id = ?""",
             (node_id,),
         ).fetchone()
     finally:
         conn.close()
     if not row:
         return None
-    (id_, label, ft, sf, sl, su, ca, au, co, com, norm, attrs_json) = row
+    (id_, label, ft, sf, sl, su, ca, au, co, com, norm, desc, attrs_json) = row
     out = {
         "id": id_,
         "label": label,
@@ -401,6 +437,7 @@ def get_node(path: str | Path, node_id: str) -> dict | None:
         "contributor": co,
         "community": com,
         "norm_label": norm,
+        "description": desc,
     }
     out = {k: v for k, v in out.items() if v is not None}
     if attrs_json:
@@ -433,3 +470,46 @@ def search_label(path: str | Path, query: str, limit: int = 100) -> list[dict]:
         }
         for r in rows
     ]
+
+
+def search(path: str | Path, query: str, limit: int = 20) -> list[dict]:
+    """FTS5 ranked search with BM25. Falls back to search_label if no FTS table."""
+    path = Path(path)
+    conn = _connect(path)
+    try:
+        # Check if FTS table exists
+        has_fts = conn.execute(
+            "SELECT 1 FROM sqlite_master WHERE type='table' AND name='nodes_fts'"
+        ).fetchone()
+        if not has_fts:
+            conn.close()
+            return search_label(path, query, limit)
+
+        terms = query.strip().split()
+        if not terms:
+            return []
+        fts_query = " OR ".join(f"{t}*" for t in terms)
+        try:
+            rows = conn.execute(
+                "SELECT n.id, n.label, n.description, n.source_file, n.community, "
+                "bm25(nodes_fts, 5.0, 10.0, 1.0) AS rank "
+                "FROM nodes_fts f JOIN nodes n ON f.rowid = n.rowid "
+                "WHERE nodes_fts MATCH ? ORDER BY rank LIMIT ?",
+                (fts_query, limit),
+            ).fetchall()
+            return [
+                {
+                    "id": r[0],
+                    "label": r[1],
+                    "description": r[2] or "",
+                    "source_file": r[3],
+                    "community": r[4],
+                    "score": round(-r[5], 4),
+                }
+                for r in rows
+            ]
+        except Exception:
+            conn.close()
+            return search_label(path, query, limit)
+    finally:
+        conn.close()
