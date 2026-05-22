@@ -1469,6 +1469,8 @@ def main() -> None:
         print("  cluster-only <path>     rerun clustering on an existing graph.json and regenerate report")
         print("    --no-viz                skip graph.html generation (useful for >5000 node graphs / CI)")
         print("    --graph <path>          path to graph.json (default <path>/graphify-out/graph.json)")
+        print("  cypher \"MATCH ...\"       execute a Cypher query against graph.db (requires neug)")
+        print("    --db <path>             path to graph.db (default graphify-out/graph.db)")
         print("  query \"<question>\"       BFS traversal of graph.json for a question")
         print("    --dfs                   use depth-first instead of breadth-first")
         print("    --context C             explicit edge-context filter (repeatable)")
@@ -1787,6 +1789,31 @@ def main() -> None:
         else:
             print("Usage: graphify hook [install|uninstall|status]", file=sys.stderr)
             sys.exit(1)
+    elif cmd == "cypher":
+        if len(sys.argv) < 3:
+            print('Usage: graphify cypher "MATCH ..." [--db path]', file=sys.stderr)
+            sys.exit(1)
+        query_str = sys.argv[2]
+        db_path = str(Path(_GRAPHIFY_OUT) / "graph.db")
+        args = sys.argv[3:]
+        for i, a in enumerate(args):
+            if a == "--db" and i + 1 < len(args):
+                db_path = args[i + 1]
+        try:
+            from graphify.storage import init_db, execute_cypher, close_db
+        except ImportError:
+            print("error: neug is not installed. Run: pip install neug", file=sys.stderr)
+            sys.exit(1)
+        if not Path(db_path).exists():
+            print(f"error: database not found: {db_path}", file=sys.stderr)
+            sys.exit(1)
+        db, conn = init_db(db_path)
+        try:
+            results = execute_cypher(conn, query_str)
+            for row in results:
+                print("\t".join(str(v) for v in row))
+        finally:
+            close_db(db, conn)
     elif cmd == "query":
         if len(sys.argv) < 3:
             print("Usage: graphify query \"<question>\" [--dfs] [--context C] [--budget N] [--graph path]", file=sys.stderr)
@@ -3314,6 +3341,19 @@ def main() -> None:
             graph_json_path.write_text(
                 json.dumps(merged, indent=2), encoding="utf-8"
             )
+            try:
+                from graphify.storage import init_db as _init_db, ingest_extraction as _ingest, close_db as _close_db
+                _db_path = str(graphify_out / "graph.db")
+                _is_inc = Path(_db_path).exists()
+                _db, _conn = _init_db(_db_path)
+                _ingest(_conn, merged, incremental=_is_inc,
+                        prune_sources=deleted_files or None, root=target)
+                _close_db(_db, _conn)
+                print("[graphify extract] graph.db written (powered by NeuG)")
+            except ImportError:
+                pass
+            except Exception as _exc:
+                print(f"[graphify extract] warning: NeuG write failed: {_exc}", file=sys.stderr)
             cost = _estimate_cost(
                 backend, merged["input_tokens"], merged["output_tokens"]
             )
@@ -3391,6 +3431,20 @@ def main() -> None:
         from graphify.export import backup_if_protected as _backup
         _backup(graphify_out)
         _to_json(G, communities, str(graph_json_path), force=True)
+        try:
+            from graphify.storage import init_db as _init_db, ingest_extraction as _ingest, ingest_communities as _ingest_comm, close_db as _close_db
+            _db_path = str(graphify_out / "graph.db")
+            _is_inc = Path(_db_path).exists()
+            _db, _conn = _init_db(_db_path)
+            _ingest(_conn, merged, incremental=_is_inc,
+                    prune_sources=deleted_files or None, root=target)
+            _ingest_comm(_conn, communities)
+            _close_db(_db, _conn)
+            print("[graphify extract] graph.db written (powered by NeuG)")
+        except ImportError:
+            pass
+        except Exception as _exc:
+            print(f"[graphify extract] warning: NeuG write failed: {_exc}", file=sys.stderr)
         if merged.get("output_tokens", 0) > 0:
             (graphify_out / ".graphify_semantic_marker").write_text(
                 json.dumps({"output_tokens": merged["output_tokens"]}), encoding="utf-8"
