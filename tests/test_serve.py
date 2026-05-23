@@ -11,6 +11,7 @@ from graphify.serve import (
     _pick_seeds,
     _bfs,
     _dfs,
+    _find_node,
     _filter_graph_by_context,
     _infer_context_filters,
     _query_terms,
@@ -80,9 +81,24 @@ def test_score_nodes_source_file_partial():
     assert "n2" in nids
 
 
+def test_score_nodes_ignores_trailing_punctuation():
+    G = _make_graph()
+    scored = _score_nodes(G, ["extract?"])
+    assert scored[0][1] == "n1"
+
+
+def test_find_node_ignores_trailing_punctuation():
+    G = _make_graph()
+    assert _find_node(G, "extract?") == ["n1"]
+
+
 def test_query_terms_filters_only_short_english_terms():
     terms = _query_terms("前端 dependency 依赖 install 安装 to of 包管理器 项目约定 a前")
     assert terms == ["前端", "dependency", "依赖", "install", "安装", "包管理器", "项目约定", "a前"]
+
+
+def test_query_terms_strips_search_punctuation():
+    assert _query_terms("what calls extract?") == ["what", "calls", "extract"]
 
 
 def test_query_graph_text_keeps_short_non_english_terms():
@@ -194,6 +210,12 @@ def test_query_graph_text_heuristic_context_filter_changes_traversal():
     assert "Context: call (heuristic)" in text
     assert "cluster" in text
     assert "build" not in text
+
+
+def test_query_graph_text_ignores_question_punctuation():
+    G = _make_graph()
+    text = _query_graph_text(G, "what calls extract?", mode="bfs", depth=2, token_budget=2000)
+    assert "Start: ['extract']" in text
 
 
 # --- _load_graph ---

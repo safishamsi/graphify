@@ -2,6 +2,7 @@
 from __future__ import annotations
 import json
 import math
+import re
 import sys
 from pathlib import Path
 import networkx as nx
@@ -51,16 +52,18 @@ def _strip_diacritics(text: str) -> str:
     return "".join(c for c in nfkd if not unicodedata.combining(c))
 
 
+def _search_tokens(text: str) -> list[str]:
+    return re.findall(r"\w+", _strip_diacritics(str(text)).lower())
+
+
 def _query_terms(question: str) -> list[str]:
     """Split a query into searchable terms, filtering only short English terms."""
     terms: list[str] = []
     for raw in question.split():
-        term = raw.lower().strip()
-        if not term:
-            continue
-        is_english_only = all("a" <= ch <= "z" for ch in term)
-        if not is_english_only or len(term) > 2:
-            terms.append(term)
+        for term in _search_tokens(raw):
+            is_english_only = all("a" <= ch <= "z" for ch in term)
+            if not is_english_only or len(term) > 2:
+                terms.append(term)
     return terms
 
 
@@ -97,7 +100,7 @@ def _compute_idf(G: nx.Graph, terms: list[str]) -> dict[str, float]:
 
 def _score_nodes(G: nx.Graph, terms: list[str]) -> list[tuple[float, str]]:
     scored = []
-    norm_terms = [_strip_diacritics(t).lower() for t in terms]
+    norm_terms = [term for value in terms for term in _search_tokens(value)]
     idf = _compute_idf(G, norm_terms)
     for nid, data in G.nodes(data=True):
         norm_label = data.get("norm_label") or _strip_diacritics(data.get("label") or "").lower()
@@ -386,7 +389,9 @@ def _find_node(G: nx.Graph, label: str) -> list[str]:
     Results are ordered by three-tier precedence: exact match, then prefix match,
     then substring match. Node-ID exact matches are grouped with label exact matches.
     """
-    term = _strip_diacritics(label).lower()
+    term = " ".join(_search_tokens(label))
+    if not term:
+        return []
     exact: list[str] = []
     prefix: list[str] = []
     substring: list[str] = []

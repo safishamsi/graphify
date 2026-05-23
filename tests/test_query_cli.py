@@ -51,6 +51,20 @@ def test_query_cli_heuristic_context_filter(monkeypatch, tmp_path, capsys):
     assert "build" not in out
 
 
+def test_query_cli_ignores_search_punctuation(monkeypatch, tmp_path, capsys):
+    graph_path = _write_graph(tmp_path)
+    monkeypatch.setattr(mainmod, "_check_skill_version", lambda _: None)
+    monkeypatch.setattr(
+        mainmod.sys,
+        "argv",
+        ["graphify", "query", "what calls extract?", "--graph", str(graph_path)],
+    )
+    mainmod.main()
+    out = capsys.readouterr().out
+    assert "Start: ['extract']" in out
+    assert "cluster" in out
+
+
 def test_query_cli_rejects_oversized_graph(monkeypatch, tmp_path, capsys):
     """#F4: query CLI must refuse to parse a graph.json that exceeds the cap."""
     import pytest
