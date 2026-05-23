@@ -7526,6 +7526,7 @@ def extract(
         max_workers: max subprocess count. Defaults to cpu_count (or the
             value of GRAPHIFY_MAX_WORKERS if set), bounded by len(uncached_work).
     """
+    paths = [Path(p) for p in paths]
     _check_tree_sitter_version()
     _raise_recursion_limit()
     # Workspace package manifests/globs can change during watch or repeated extraction.

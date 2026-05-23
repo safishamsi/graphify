@@ -1334,7 +1334,7 @@ def _clone_repo(url: str, branch: str | None = None, out_dir: Path | None = None
             print(f"warning: git pull failed:\n{result.stderr}", file=sys.stderr)
     else:
         dest.parent.mkdir(parents=True, exist_ok=True)
-        print(f"Cloning {url} → {dest} ...", flush=True)
+        print(f"Cloning {url} -> {dest} ...", flush=True)
         cmd = ["git", "clone", "--depth", "1"]
         if branch:
             cmd += ["--branch", branch]
@@ -2439,7 +2439,7 @@ def main() -> None:
             out_data = _jg.node_link_data(merged)
         out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(json.dumps(out_data, indent=2), encoding="utf-8")
-        print(f"Merged {len(graphs)} graphs → {merged.number_of_nodes()} nodes, {merged.number_of_edges()} edges")
+        print(f"Merged {len(graphs)} graphs -> {merged.number_of_nodes()} nodes, {merged.number_of_edges()} edges")
         print(f"Written to: {out_path}")
 
     elif cmd == "clone":
