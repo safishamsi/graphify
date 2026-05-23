@@ -90,10 +90,10 @@ For development/testing without building the standalone binary:
 ```bash
 cd aa-graphify
 uv pip install -e ".[all]"
-uv run python -m graphify pyinstall
+uv run python -m graphify pyinstall [platform]
 ```
 
-This installs a `pyaag` skill that uses `python3` directly. Use `/pyaag .` in Claude Code to invoke it.
+This installs a `pyaag` skill that uses `python3` directly. Platform defaults to `windows` on Windows and `claude` elsewhere. Specify `gemini` for Gemini CLI. Use `/pyaag .` in the assistant to invoke it.
 
 ### Running Tests
 

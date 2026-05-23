@@ -349,11 +349,23 @@ def install(platform: str = "claude") -> None:
     print()
 
 
-def pyinstall() -> None:
+def pyinstall(platform: str = "claude") -> None:
     """Install the 'pyaag' skill that uses python3 directly (no binary needed)."""
-    skill_src = _resource_path("skill.md")
+    if platform == "gemini":
+        _pyinstall_gemini()
+        return
+
+    if platform not in _PLATFORM_CONFIG:
+        print(
+            f"error: unknown platform '{platform}'. Choose from: {', '.join(_PLATFORM_CONFIG)}, gemini",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    cfg = _PLATFORM_CONFIG[platform]
+    skill_src = _resource_path(cfg["skill_file"])
     if not skill_src.exists():
-        print("error: skill.md not found in package - reinstall graphify", file=sys.stderr)
+        print(f"error: {cfg['skill_file']} not found in package - reinstall graphify", file=sys.stderr)
         sys.exit(1)
 
     content = skill_src.read_text(encoding="utf-8")
@@ -400,7 +412,6 @@ echo "$PYTHON" > graphify-out/.aag_python
     content = content.replace("/aag", "/pyaag")
 
     # 7. CLI subcommands: aag <cmd> -> python3 -m graphify <cmd>
-    # Use regex to only match `aag` preceded by whitespace or start-of-line (not inside /pyaag)
     content = content.replace("python3 -m aag.serve", "python3 -m graphify serve")
     content = content.replace("python3 -m aag.watch", "python3 -m graphify watch")
     cli_cmds = [
@@ -410,12 +421,12 @@ echo "$PYTHON" > graphify-out/.aag_python
     for cmd in cli_cmds:
         content = re.sub(rf"(?<![/a-z])aag {cmd}", f"python3 -m graphify {cmd}", content)
 
-    # 8. Write to ~/.claude/skills/pyaag/SKILL.md
-    import os as _os
-    if _os.environ.get("CLAUDE_CONFIG_DIR"):
-        skill_dst = Path(_os.environ["CLAUDE_CONFIG_DIR"]) / "skills" / "pyaag" / "SKILL.md"
-    else:
+    # 8. Write to platform-specific skill destination (with 'pyaag' subdirectory)
+    skill_dst = Path.home() / cfg["skill_dst"].parent.parent / "pyaag" / "SKILL.md"
+    # Special case for Claude Code on Windows
+    if platform == "windows" and "claude" in str(cfg["skill_dst"]):
         skill_dst = Path.home() / ".claude" / "skills" / "pyaag" / "SKILL.md"
+
     skill_dst.parent.mkdir(parents=True, exist_ok=True)
 
     if skill_dst.exists():
@@ -438,22 +449,92 @@ echo "$PYTHON" > graphify-out/.aag_python
     (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
     print(f"  skill installed  ->  {skill_dst}")
 
-    # 9. Register in ~/.claude/CLAUDE.md
-    claude_md = Path.home() / ".claude" / "CLAUDE.md"
-    if claude_md.exists():
-        md_content = claude_md.read_text(encoding="utf-8")
-        if "pyaag" in md_content:
-            print(f"  CLAUDE.md        ->  already registered (no change)")
-        else:
-            claude_md.write_text(md_content.rstrip() + _PYAAG_SKILL_REGISTRATION, encoding="utf-8")
-            print(f"  CLAUDE.md        ->  skill registered in {claude_md}")
-    else:
-        claude_md.parent.mkdir(parents=True, exist_ok=True)
-        claude_md.write_text(_PYAAG_SKILL_REGISTRATION.lstrip(), encoding="utf-8")
-        print(f"  CLAUDE.md        ->  created at {claude_md}")
-
+    # 9. Register in platform-specific config (like CLAUDE.md)
+    if cfg["claude_md"]:
+        claude_md = Path.home() / ".claude" / "CLAUDE.md"
+        if claude_md.exists():
+            md_content = claude_md.read_text(encoding="utf-8")
+            if "pyaag" in md_content:
+                print(f"  CLAUDE.md        ->  already registered (no change)")
+            else:
+                claude_md.write_text(md_content.rstrip() + _PYAAG_SKILL_REGISTRATION, encoding="utf-8")
+                print(f"  CLAUDE.md        ->  skill registered in {claude_md}")
+    
     print()
-    print("Done. Open Claude Code and type:")
+    print("Done. Open your AI coding assistant and type:")
+    print()
+    print("  /pyaag .")
+    print()
+
+
+def _pyinstall_gemini(project_dir: Path | None = None) -> None:
+    """Install the 'pyaag' skill for Gemini CLI using python3 directamente."""
+    skill_src = _resource_path("skill.md")
+    if platform.system() == "Windows":
+        skill_dst = Path.home() / ".agents" / "skills" / "pyaag" / "SKILL.md"
+    else:
+        skill_dst = Path.home() / ".gemini" / "skills" / "pyaag" / "SKILL.md"
+    skill_dst.parent.mkdir(parents=True, exist_ok=True)
+
+    content = skill_src.read_text(encoding="utf-8")
+    content = content.replace("name: aag", "name: pyaag", 1)
+    content = content.replace("trigger: /aag", "trigger: /pyaag", 1)
+    content = content.replace("from aag.", "from graphify.")
+    content = content.replace("import aag", "import graphify")
+    
+    # Python path logic
+    step1_pattern = r"### Step 1 - Ensure aag is installed\n\n```bash\n# Detect the correct Python interpreter.*?\n```"
+    step1_replacement = """### Step 1 - Ensure aag is installed
+
+```bash
+# Using python3 directly (pyinstall mode)
+PYTHON=python3
+mkdir -p graphify-out
+echo "$PYTHON" > graphify-out/.aag_python
+# Save scan root so `aag update` (no args) knows where to look next time
+echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
+```"""
+    content = re.sub(step1_pattern, step1_replacement, content, flags=re.DOTALL)
+    content = content.replace("$(cat graphify-out/.aag_python) -c \"", "python3 -c \"")
+    content = content.replace("\"$PYTHON\" -c \"", "python3 -c \"")
+    
+    guard_pattern = r"## Interpreter guard for subcommands\n\nBefore running any subcommand.*?```bash\nif \[ ! -f graphify-out/\.aag_python \]; then.*?fi\n```"
+    guard_replacement = """## Ensure python3 is available
+
+```bash
+# Using python3 directly (pyinstall mode)
+PYTHON=python3
+mkdir -p graphify-out
+echo "$PYTHON" > graphify-out/.aag_python
+```"""
+    content = re.sub(guard_pattern, guard_replacement, content, flags=re.DOTALL)
+    content = content.replace("/aag", "/pyaag")
+    
+    cli_cmds = ["export", "clone", "watch", "query", "path", "explain", "hook", "claude", "serve", "benchmark", "cluster-only", "update"]
+    for cmd in cli_cmds:
+        content = re.sub(rf"(?<![/a-z])aag {cmd}", f"python3 -m graphify {cmd}", content)
+
+    skill_dst.write_text(content, encoding="utf-8")
+    (skill_dst.parent / ".graphify_version").write_text(__version__, encoding="utf-8")
+    print(f"  skill installed  ->  {skill_dst}")
+
+    target = (project_dir or Path(".")) / "GEMINI.md"
+    pyaag_gemini_section = _GEMINI_MD_SECTION.replace("## aag", "## pyaag").replace("aag query", "pyaag query").replace("aag path", "pyaag path").replace("aag explain", "pyaag explain").replace("aag update", "pyaag update")
+
+    if target.exists():
+        existing = target.read_text(encoding="utf-8")
+        if "## pyaag" in existing:
+            print("graphify (pyaag) already configured in GEMINI.md")
+        else:
+            target.write_text(existing.rstrip() + "\n\n" + pyaag_gemini_section, encoding="utf-8")
+            print(f"pyaag section written to {target.resolve()}")
+    else:
+        target.write_text(pyaag_gemini_section, encoding="utf-8")
+        print(f"pyaag section written to {target.resolve()}")
+
+    _install_gemini_hook(project_dir or Path("."))
+    print()
+    print("Done. Open Gemini CLI and type:")
     print()
     print("  /pyaag .")
     print()
@@ -1519,7 +1600,29 @@ def main() -> None:
         chosen_platform = selected_platform or default_platform
         install(platform=chosen_platform)
     elif cmd == "pyinstall":
-        pyinstall()
+        # Default to windows platform on Windows, claude elsewhere
+        default_platform = "windows" if platform.system() == "Windows" else "claude"
+        selected_platform: str | None = None
+        args = sys.argv[2:]
+        i = 0
+        while i < len(args):
+            arg = args[i]
+            if arg.startswith("--platform="):
+                selected_platform = arg.split("=", 1)[1]
+                i += 1
+            elif arg == "--platform":
+                if i + 1 < len(args):
+                    selected_platform = args[i + 1]
+                    i += 2
+                else:
+                    i += 1
+            elif not arg.startswith("-"):
+                selected_platform = arg
+                i += 1
+            else:
+                i += 1
+        chosen_platform = selected_platform or default_platform
+        pyinstall(platform=chosen_platform)
     elif cmd == "uninstall":
         purge = "--purge" in sys.argv[2:]
         uninstall_all(purge=purge)
