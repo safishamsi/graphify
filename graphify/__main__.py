@@ -459,6 +459,10 @@ echo "$PYTHON" > graphify-out/.aag_python
             else:
                 claude_md.write_text(md_content.rstrip() + _PYAAG_SKILL_REGISTRATION, encoding="utf-8")
                 print(f"  CLAUDE.md        ->  skill registered in {claude_md}")
+        else:
+            claude_md.parent.mkdir(parents=True, exist_ok=True)
+            claude_md.write_text(_PYAAG_SKILL_REGISTRATION.lstrip(), encoding="utf-8")
+            print(f"  CLAUDE.md        ->  created at {claude_md}")
     
     print()
     print("Done. Open your AI coding assistant and type:")
