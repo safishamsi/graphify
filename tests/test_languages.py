@@ -42,6 +42,29 @@ def _edges_with_relation(r, *relations):
     return [e for e in r["edges"] if e["relation"] in relations]
 
 
+def _normalize_symbol_label(label: str) -> str:
+    return label.strip("()").lstrip(".")
+
+
+def _node_by_label(result: dict, label: str) -> dict:
+    for node in result["nodes"]:
+        if node.get("label") == label or _normalize_symbol_label(node.get("label", "")) == label:
+            return node
+    raise AssertionError(f"missing node label {label!r}")
+
+
+def _edge_labels(result: dict, relation: str, context: str | None = None) -> set[tuple[str, str]]:
+    labels = {node["id"]: _normalize_symbol_label(node["label"]) for node in result["nodes"]}
+    pairs = set()
+    for edge in result["edges"]:
+        if edge.get("relation") != relation:
+            continue
+        if context is not None and edge.get("context") != context:
+            continue
+        pairs.add((labels.get(edge["source"], edge["source"]), labels.get(edge["target"], edge["target"])))
+    return pairs
+
+
 # ── Java ──────────────────────────────────────────────────────────────────────
 
 def test_java_no_error():
@@ -222,15 +245,42 @@ def test_csharp_inherits_edge():
     inherits = [e for e in r["edges"] if e["relation"] == "inherits"]
     assert len(inherits) >= 1
 
-def test_csharp_inherits_iprocessor():
+def test_csharp_implements_iprocessor():
     r = extract_csharp(FIXTURES / "sample.cs")
     node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
     found = any(
         "DataProcessor" in node_by_id.get(e["source"], "") and
         "IProcessor" in node_by_id.get(e["target"], "")
-        for e in r["edges"] if e["relation"] == "inherits"
+        for e in r["edges"] if e["relation"] == "implements"
     )
-    assert found, "DataProcessor should have inherits edge to IProcessor"
+    assert found, "DataProcessor should have implements edge to IProcessor"
+
+
+def test_csharp_splits_inherits_and_implements_edges():
+    result = extract_csharp(FIXTURES / "sample.cs")
+    assert ("DataProcessor", "Processor") in _edge_labels(result, "inherits")
+    assert ("DataProcessor", "IProcessor") in _edge_labels(result, "implements")
+
+
+def test_csharp_parameter_return_and_generic_contexts():
+    result = extract_csharp(FIXTURES / "sample.cs")
+    assert ("Build", "HttpClient") in _edge_labels(result, "references", "parameter_type")
+    assert ("Build", "Result") in _edge_labels(result, "references", "return_type")
+    assert ("Build", "DataProcessor") in _edge_labels(result, "references", "generic_arg")
+
+
+def test_java_normalizes_inherits_and_implements():
+    result = extract_java(FIXTURES / "sample.java")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(result, "inherits")
+    assert ("DataProcessor", "Processor") in _edge_labels(result, "implements")
+
+
+def test_java_parameter_return_generic_and_attribute_contexts():
+    result = extract_java(FIXTURES / "sample.java")
+    assert ("build", "HttpClient") in _edge_labels(result, "references", "parameter_type")
+    assert ("build", "Result") in _edge_labels(result, "references", "return_type")
+    assert ("build", "DataProcessor") in _edge_labels(result, "references", "generic_arg")
+    assert ("build", "Override") in _edge_labels(result, "references", "attribute")
 
 
 def test_csharp_field_type_references_have_field_context():

@@ -150,6 +150,44 @@ _CONTEXT_HINTS: tuple[tuple[str, tuple[str, ...]], ...] = (
 )
 
 
+_CONTEXT_FILTER_ALIASES: dict[str, str] = {
+    "param": "parameter_type",
+    "params": "parameter_type",
+    "parameter": "parameter_type",
+    "parameters": "parameter_type",
+    "argument": "parameter_type",
+    "arguments": "parameter_type",
+    "arg": "parameter_type",
+    "args": "parameter_type",
+    "return": "return_type",
+    "returns": "return_type",
+    "returned": "return_type",
+    "generic": "generic_arg",
+    "generics": "generic_arg",
+    "template": "generic_arg",
+    "templates": "generic_arg",
+    "annotation": "attribute",
+    "annotations": "attribute",
+    "decorator": "attribute",
+    "decorators": "attribute",
+    "calls": "call",
+    "called": "call",
+    "invoke": "call",
+    "invocation": "call",
+    "fields": "field",
+    "property": "field",
+    "properties": "field",
+    "member": "field",
+    "members": "field",
+    "imports": "import",
+    "imported": "import",
+    "module": "import",
+    "modules": "import",
+    "exports": "export",
+    "exported": "export",
+}
+
+
 def _normalize_context_filters(filters: list[str] | None) -> list[str]:
     if not filters:
         return []
@@ -157,7 +195,10 @@ def _normalize_context_filters(filters: list[str] | None) -> list[str]:
     seen: set[str] = set()
     for value in filters:
         key = _strip_diacritics(str(value)).strip().lower()
-        if key and key not in seen:
+        if not key:
+            continue
+        key = _CONTEXT_FILTER_ALIASES.get(key, key)
+        if key not in seen:
             seen.add(key)
             normalized.append(key)
     return normalized

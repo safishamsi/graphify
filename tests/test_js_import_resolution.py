@@ -397,3 +397,43 @@ def test_workspace_package_cache_refreshes_between_extract_calls(tmp_path: Path)
     second = _extract_for([target, importer], tmp_path)
 
     assert _has_edge(second, "apps/web/src/page.ts", "packages/types/src/index.ts")
+
+
+def test_ts_type_relationships_and_contexts(tmp_path: Path):
+    base = _write(
+        tmp_path / "src/lib/base.ts",
+        "export interface IProcessor<T> { run(input: T): Result<T> }\n"
+        "export abstract class BaseProcessor {}\n"
+        "export type Result<T> = { value: T }\n"
+        "export class Payload {}\n",
+    )
+    impl = _write(
+        tmp_path / "src/lib/impl.ts",
+        "import type { IProcessor, BaseProcessor, Result, Payload } from './base'\n"
+        "export abstract class DataProcessor extends BaseProcessor implements IProcessor<Payload> {\n"
+        "  current!: Result<Payload>\n"
+        "  run(input: Payload): Result<Payload> { return this.current }\n"
+        "}\n",
+    )
+
+    result = _extract_for([base, impl], tmp_path)
+    labels = {node["id"]: node["label"] for node in result["nodes"]}
+
+    def _norm(label: str) -> str:
+        return label.strip("()").lstrip(".")
+
+    reference_contexts = {
+        (
+            _norm(labels.get(edge["source"], edge["source"])),
+            _norm(labels.get(edge["target"], edge["target"])),
+            edge.get("context"),
+        )
+        for edge in result["edges"]
+        if edge.get("relation") == "references"
+    }
+
+    assert _has_symbol_to_symbol_edge(result, "src/lib/impl.ts", "DataProcessor", "src/lib/base.ts", "BaseProcessor", "inherits")
+    assert _has_symbol_to_symbol_edge(result, "src/lib/impl.ts", "DataProcessor", "src/lib/base.ts", "IProcessor", "implements")
+    assert ("run", "Payload", "parameter_type") in reference_contexts
+    assert ("run", "Result", "return_type") in reference_contexts
+    assert ("run", "Payload", "generic_arg") in reference_contexts

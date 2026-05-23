@@ -406,3 +406,38 @@ def test_query_seeds_from_identifier_not_noise():
     text = _query_graph_text(G, "FooBarService error handling", mode="bfs", depth=2)
     assert "FooBarService" in text
     assert "ServiceClient" in text
+
+
+def test_query_graph_text_parameter_type_context_filter_changes_traversal():
+    import networkx as nx
+    from graphify.serve import _query_graph_text
+
+    graph = nx.Graph()
+    graph.add_node("process", label="process", source_file="sample.cs", source_location="L20")
+    graph.add_node("payload", label="Payload", source_file="sample.cs", source_location="L5")
+    graph.add_node("other", label="PayloadFactory", source_file="sample.cs", source_location="L40")
+    graph.add_edge("process", "payload", relation="references", context="parameter_type", confidence="EXTRACTED")
+    graph.add_edge("process", "other", relation="calls", context="call", confidence="EXTRACTED")
+
+    text = _query_graph_text(graph, "who accepts Payload", context_filters=["parameter_type"])
+
+    assert "parameter_type" in text
+    assert "Payload" in text
+    assert "PayloadFactory" not in text
+
+
+def test_query_graph_text_context_filter_aliases_resolve():
+    import networkx as nx
+    from graphify.serve import _normalize_context_filters
+
+    assert _normalize_context_filters(["param"]) == ["parameter_type"]
+    assert _normalize_context_filters(["parameter"]) == ["parameter_type"]
+    assert _normalize_context_filters(["return"]) == ["return_type"]
+    assert _normalize_context_filters(["returns"]) == ["return_type"]
+    assert _normalize_context_filters(["generic"]) == ["generic_arg"]
+    assert _normalize_context_filters(["generics"]) == ["generic_arg"]
+    assert _normalize_context_filters(["annotation"]) == ["attribute"]
+    assert _normalize_context_filters(["decorator"]) == ["attribute"]
+    # Pass-through for already-canonical values
+    assert _normalize_context_filters(["parameter_type"]) == ["parameter_type"]
+    assert _normalize_context_filters(["field"]) == ["field"]

@@ -51,3 +51,36 @@ def test_python_package_reexport_resolves_import_and_call_to_origin_symbol(tmp_p
     assert _has_edge(result, barrel_file, origin_file, "re_exports")
     assert _has_edge(result, consumer_file, origin_symbol, "imports")
     assert _has_edge(result, consumer_symbol, origin_symbol, "calls")
+
+
+def test_python_parameter_return_and_generic_contexts(tmp_path: Path):
+    model = tmp_path / "pkg" / "model.py"
+    model.parent.mkdir(parents=True)
+    model.write_text(
+        "class Payload:\n"
+        "    pass\n\n"
+        "class Result:\n"
+        "    pass\n",
+        encoding="utf-8",
+    )
+    service = tmp_path / "pkg" / "service.py"
+    service.write_text(
+        "from .model import Payload, Result\n\n"
+        "def process(item: Payload) -> Result:\n"
+        "    return Result()\n\n"
+        "def process_many(items: list[Payload]) -> Result:\n"
+        "    return Result()\n",
+        encoding="utf-8",
+    )
+
+    result = extract([model, service], cache_root=tmp_path)
+    labels = {node["id"]: node["label"] for node in result["nodes"]}
+    edges = [edge for edge in result["edges"] if edge.get("relation") == "references"]
+    pairs = {
+        (labels.get(e["source"], e["source"]), labels.get(e["target"], e["target"]), e.get("context"))
+        for e in edges
+    }
+
+    assert ("process()", "Payload", "parameter_type") in pairs
+    assert ("process()", "Result", "return_type") in pairs
+    assert ("process_many()", "Payload", "generic_arg") in pairs

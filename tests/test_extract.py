@@ -988,6 +988,29 @@ def test_barrel_reexport_confidence_extracted():
         assert e["confidence"] == "EXTRACTED"
 
 
+def test_semantic_reference_edges_carry_context_and_source():
+    from graphify.extract import _semantic_reference_edge
+
+    edge = _semantic_reference_edge(
+        "source_node",
+        "target_node",
+        "parameter_type",
+        "/repo/src/Foo.cs",
+        12,
+    )
+
+    assert edge == {
+        "source": "source_node",
+        "target": "target_node",
+        "relation": "references",
+        "context": "parameter_type",
+        "confidence": "EXTRACTED",
+        "source_file": "/repo/src/Foo.cs",
+        "source_location": "L12",
+        "weight": 1.0,
+    }
+
+
 def test_pure_export_no_from_not_treated_as_reexport():
     """export { localVar } without 'from' should NOT create re_exports edges."""
     from graphify.extract import extract_js

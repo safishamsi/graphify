@@ -62,6 +62,45 @@ _JS_RESOLVE_EXTS = (".ts", ".tsx", ".svelte", ".js", ".jsx", ".mjs")
 _JS_INDEX_FILES = ("index.ts", "index.tsx", "index.svelte", "index.js", "index.jsx", "index.mjs")
 
 
+SEMANTIC_RELATIONS = frozenset({
+    "inherits", "implements", "mixes_in", "embeds", "references",
+    "calls", "imports", "imports_from", "re_exports", "contains", "method",
+})
+
+REFERENCE_CONTEXTS = frozenset({
+    "field", "parameter_type", "return_type", "generic_arg", "attribute", "value", "type",
+})
+
+
+def _source_location(line: int | str | None) -> str | None:
+    if line is None:
+        return None
+    if isinstance(line, str):
+        return line if line.startswith("L") else f"L{line}"
+    return f"L{line}"
+
+
+def _semantic_reference_edge(
+    source: str,
+    target: str,
+    context: str,
+    source_file: str,
+    line: int | str | None,
+) -> dict:
+    if context not in REFERENCE_CONTEXTS:
+        raise ValueError(f"unknown reference context: {context}")
+    return {
+        "source": source,
+        "target": target,
+        "relation": "references",
+        "context": context,
+        "confidence": "EXTRACTED",
+        "source_file": source_file,
+        "source_location": _source_location(line),
+        "weight": 1.0,
+    }
+
+
 def _resolve_js_import_path(candidate: Path) -> Path:
     """Resolve a JS/TS/Svelte import target to a local file when it exists."""
     candidate = Path(os.path.normpath(candidate))
@@ -364,6 +403,238 @@ class LanguageConfig:
 
 def _read_text(node, source: bytes) -> str:
     return source[node.start_byte:node.end_byte].decode("utf-8", errors="replace")
+
+
+_PYTHON_TYPE_CONTAINERS = frozenset({
+    "list", "dict", "set", "tuple", "frozenset", "type",
+    "List", "Dict", "Set", "Tuple", "FrozenSet", "Type",
+    "Optional", "Union", "Sequence", "Iterable", "Mapping", "MutableMapping",
+    "Iterator", "Callable", "Awaitable", "AsyncIterable", "AsyncIterator", "Coroutine",
+    "Generator", "AsyncGenerator", "ContextManager", "AsyncContextManager",
+    "Annotated", "ClassVar", "Final", "Literal", "Concatenate", "ParamSpec", "TypeVar",
+    "None", "Ellipsis",
+})
+
+
+def _python_collect_type_refs(node, source: bytes, generic: bool, out: list[tuple[str, str]]) -> None:
+    """Walk a Python type annotation; append (name, role) where role is 'type' or 'generic_arg'.
+
+    Builtin/typing containers (list, dict, Optional, Union, …) are not emitted as refs themselves,
+    but their nested type arguments still count as generic_arg.
+    """
+    if node is None:
+        return
+    t = node.type
+    if t == "type":
+        for c in node.children:
+            if c.is_named:
+                _python_collect_type_refs(c, source, generic, out)
+        return
+    if t == "identifier":
+        name = _read_text(node, source)
+        if name and name not in _PYTHON_TYPE_CONTAINERS:
+            out.append((name, "generic_arg" if generic else "type"))
+        return
+    if t == "attribute":
+        tail = _read_text(node, source).rsplit(".", 1)[-1]
+        if tail and tail not in _PYTHON_TYPE_CONTAINERS:
+            out.append((tail, "generic_arg" if generic else "type"))
+        return
+    if t == "generic_type":
+        for c in node.children:
+            if c.type == "identifier":
+                container = _read_text(c, source)
+                if container and container not in _PYTHON_TYPE_CONTAINERS:
+                    out.append((container, "generic_arg" if generic else "type"))
+            elif c.type == "type_parameter":
+                for sub in c.children:
+                    if sub.is_named:
+                        _python_collect_type_refs(sub, source, True, out)
+        return
+    if t == "subscript":
+        value = node.child_by_field_name("value")
+        if value is not None:
+            _python_collect_type_refs(value, source, generic, out)
+        for c in node.children:
+            if c is value or not c.is_named:
+                continue
+            _python_collect_type_refs(c, source, True, out)
+        return
+    if node.is_named:
+        for c in node.children:
+            if c.is_named:
+                _python_collect_type_refs(c, source, generic, out)
+
+
+def _csharp_pre_scan_interfaces(root_node, source: bytes) -> set[str]:
+    """Return names declared as `interface` in this C# compilation unit."""
+    out: set[str] = set()
+    stack = [root_node]
+    while stack:
+        n = stack.pop()
+        if n.type == "interface_declaration":
+            name_node = n.child_by_field_name("name")
+            if name_node is not None:
+                text = _read_text(name_node, source)
+                if text:
+                    out.add(text)
+        stack.extend(n.children)
+    return out
+
+
+def _csharp_classify_base(name: str, interface_names: set[str]) -> str:
+    """`implements` if the base name is an interface (declared or by I-prefix convention), else `inherits`."""
+    if name in interface_names:
+        return "implements"
+    if len(name) >= 2 and name[0] == "I" and name[1].isupper():
+        return "implements"
+    return "inherits"
+
+
+def _csharp_collect_type_refs(node, source: bytes, generic: bool, out: list[tuple[str, str]]) -> None:
+    """Walk a C# type expression; append (name, role) tuples (role is 'type' or 'generic_arg')."""
+    if node is None:
+        return
+    t = node.type
+    if t == "predefined_type":
+        return
+    if t == "identifier":
+        name = _read_text(node, source)
+        if name:
+            out.append((name, "generic_arg" if generic else "type"))
+        return
+    if t == "qualified_name":
+        text = _read_text(node, source).rsplit(".", 1)[-1]
+        if text:
+            out.append((text, "generic_arg" if generic else "type"))
+        return
+    if t == "generic_name":
+        name_child = node.child_by_field_name("name")
+        if name_child is None:
+            for sub in node.children:
+                if sub.type == "identifier":
+                    name_child = sub
+                    break
+        if name_child is not None:
+            name = _read_text(name_child, source)
+            if name:
+                out.append((name, "generic_arg" if generic else "type"))
+        for sub in node.children:
+            if sub.type == "type_argument_list":
+                for arg in sub.children:
+                    if arg.is_named:
+                        _csharp_collect_type_refs(arg, source, True, out)
+        return
+    if t in ("nullable_type", "array_type", "pointer_type", "ref_type"):
+        for c in node.children:
+            if c.is_named:
+                _csharp_collect_type_refs(c, source, generic, out)
+        return
+    if node.is_named:
+        for c in node.children:
+            if c.is_named:
+                _csharp_collect_type_refs(c, source, generic, out)
+
+
+def _csharp_attribute_names(method_node, source: bytes) -> list[str]:
+    """Collect attribute names from a C# method/declaration's attribute_list children."""
+    names: list[str] = []
+    for child in method_node.children:
+        if child.type != "attribute_list":
+            continue
+        for attr in child.children:
+            if attr.type != "attribute":
+                continue
+            name_node = attr.child_by_field_name("name")
+            if name_node is None:
+                for sub in attr.children:
+                    if sub.type in ("identifier", "qualified_name"):
+                        name_node = sub
+                        break
+            if name_node is not None:
+                text = _read_text(name_node, source).rsplit(".", 1)[-1]
+                if text:
+                    names.append(text)
+    return names
+
+
+def _java_collect_type_refs(node, source: bytes, generic: bool, out: list[tuple[str, str]]) -> None:
+    """Walk a Java type expression; append (name, role) tuples."""
+    if node is None:
+        return
+    t = node.type
+    if t in ("integral_type", "floating_point_type", "boolean_type", "void_type"):
+        return
+    if t == "type_identifier":
+        name = _read_text(node, source)
+        if name:
+            out.append((name, "generic_arg" if generic else "type"))
+        return
+    if t == "scoped_type_identifier":
+        text = _read_text(node, source).rsplit(".", 1)[-1]
+        if text:
+            out.append((text, "generic_arg" if generic else "type"))
+        return
+    if t == "generic_type":
+        for c in node.children:
+            if c.type in ("type_identifier", "scoped_type_identifier"):
+                text = _read_text(c, source).rsplit(".", 1)[-1]
+                if text:
+                    out.append((text, "generic_arg" if generic else "type"))
+                break
+        for c in node.children:
+            if c.type == "type_arguments":
+                for arg in c.children:
+                    if arg.is_named:
+                        _java_collect_type_refs(arg, source, True, out)
+        return
+    if t == "array_type":
+        for c in node.children:
+            if c.is_named:
+                _java_collect_type_refs(c, source, generic, out)
+        return
+    if node.is_named:
+        for c in node.children:
+            if c.is_named:
+                _java_collect_type_refs(c, source, generic, out)
+
+
+def _java_method_annotation_names(method_node, source: bytes) -> list[str]:
+    """Collect annotation names from a Java method's `modifiers` child."""
+    names: list[str] = []
+    modifiers = None
+    for child in method_node.children:
+        if child.type == "modifiers":
+            modifiers = child
+            break
+    if modifiers is None:
+        return names
+    for anno in modifiers.children:
+        if anno.type not in ("marker_annotation", "annotation"):
+            continue
+        name_node = anno.child_by_field_name("name")
+        if name_node is None:
+            for sub in anno.children:
+                if sub.type in ("identifier", "scoped_identifier", "type_identifier"):
+                    name_node = sub
+                    break
+        if name_node is not None:
+            text = _read_text(name_node, source).rsplit(".", 1)[-1]
+            if text:
+                names.append(text)
+    return names
+
+
+def _python_collect_param_refs(params_node, source: bytes) -> list[tuple[str, str]]:
+    """Collect type refs from each typed parameter under a `parameters` node."""
+    out: list[tuple[str, str]] = []
+    if params_node is None:
+        return out
+    for child in params_node.children:
+        if child.type in ("typed_parameter", "typed_default_parameter"):
+            type_node = child.child_by_field_name("type")
+            _python_collect_type_refs(type_node, source, False, out)
+    return out
 
 
 def _resolve_name(node, source: bytes, config: LanguageConfig) -> str | None:
@@ -1047,6 +1318,7 @@ _TS_CONFIG = LanguageConfig(
     ts_language_fn="language_typescript",
     class_types=frozenset({
         "class_declaration",
+        "abstract_class_declaration",  # TS abstract class
         "interface_declaration",   # parity with Java/C#
         "enum_declaration",        # named enums
         "type_alias_declaration",  # named type aliases
@@ -1354,6 +1626,10 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
     # for a corpus-level merge after every file has been parsed.
     swift_extensions: list[dict] = []
 
+    csharp_interface_names: set[str] = set()
+    if config.ts_module == "tree_sitter_c_sharp":
+        csharp_interface_names = _csharp_pre_scan_interfaces(root, source)
+
     def add_node(nid: str, label: str, line: int) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
@@ -1477,27 +1753,50 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
             # C#-specific: inheritance / interface implementation via base_list
             if config.ts_module == "tree_sitter_c_sharp":
                 for child in node.children:
-                    if child.type == "base_list":
-                        for sub in child.children:
-                            if sub.type in ("identifier", "generic_name"):
-                                if sub.type == "generic_name":
-                                    name_child = sub.child_by_field_name("name")
-                                    base = _read_text(name_child, source) if name_child else _read_text(sub.children[0], source)
-                                else:
-                                    base = _read_text(sub, source)
-                                base_nid = _make_id(stem, base)
-                                if base_nid not in seen_ids:
-                                    base_nid = _make_id(base)
-                                    if base_nid not in seen_ids:
-                                        nodes.append({
-                                            "id": base_nid,
-                                            "label": base,
-                                            "file_type": "code",
-                                            "source_file": "",
-                                            "source_location": "",
-                                        })
-                                        seen_ids.add(base_nid)
-                                add_edge(class_nid, base_nid, "inherits", line)
+                    if child.type != "base_list":
+                        continue
+                    for sub in child.children:
+                        if sub.type not in ("identifier", "generic_name", "qualified_name"):
+                            continue
+                        if sub.type == "generic_name":
+                            name_child = sub.child_by_field_name("name")
+                            base = (
+                                _read_text(name_child, source) if name_child
+                                else _read_text(sub.children[0], source)
+                            )
+                        elif sub.type == "qualified_name":
+                            base = _read_text(sub, source).rsplit(".", 1)[-1]
+                        else:
+                            base = _read_text(sub, source)
+                        if not base:
+                            continue
+                        base_nid = _make_id(stem, base)
+                        if base_nid not in seen_ids:
+                            base_nid = _make_id(base)
+                            if base_nid not in seen_ids:
+                                nodes.append({
+                                    "id": base_nid,
+                                    "label": base,
+                                    "file_type": "code",
+                                    "source_file": "",
+                                    "source_location": "",
+                                })
+                                seen_ids.add(base_nid)
+                        relation = _csharp_classify_base(base, csharp_interface_names)
+                        add_edge(class_nid, base_nid, relation, line)
+                        if sub.type == "generic_name":
+                            for tal in sub.children:
+                                if tal.type != "type_argument_list":
+                                    continue
+                                for arg in tal.children:
+                                    if not arg.is_named:
+                                        continue
+                                    refs: list[tuple[str, str]] = []
+                                    _csharp_collect_type_refs(arg, source, True, refs)
+                                    for ref_name, _role in refs:
+                                        target = ensure_named_node(ref_name, line)
+                                        add_edge(class_nid, target, "references", line,
+                                                 context="generic_arg")
 
             # Java-specific: extends (superclass) / implements (interfaces) / interface-extends
             if config.ts_module == "tree_sitter_java":
@@ -1522,7 +1821,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                 if sup is not None:
                     for sub in sup.children:
                         if sub.type == "type_identifier":
-                            _emit_java_parent(_read_text(sub, source), "extends", line)
+                            _emit_java_parent(_read_text(sub, source), "inherits", line)
                             break
 
                 ifs = node.child_by_field_name("interfaces")
@@ -1540,7 +1839,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                                 if sub.type == "type_list":
                                     for tid in sub.children:
                                         if tid.type == "type_identifier":
-                                            _emit_java_parent(_read_text(tid, source), "extends", line)
+                                            _emit_java_parent(_read_text(tid, source), "inherits", line)
 
             # C++-specific: inheritance via base_class_clause (class and struct).
             # tree-sitter-cpp shape:
@@ -1713,6 +2012,83 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                 func_nid = _make_id(stem, func_name)
                 add_node(func_nid, f"{func_name}()", line)
                 add_edge(file_nid, func_nid, "contains", line)
+
+            if config.ts_module == "tree_sitter_python":
+                params_node = node.child_by_field_name("parameters")
+                for ref_name, role in _python_collect_param_refs(params_node, source):
+                    ctx = "generic_arg" if role == "generic_arg" else "parameter_type"
+                    target_nid = ensure_named_node(ref_name, line)
+                    if target_nid != func_nid:
+                        edges.append(
+                            _semantic_reference_edge(func_nid, target_nid, ctx, str_path, line)
+                        )
+                return_type_node = node.child_by_field_name("return_type")
+                if return_type_node is not None:
+                    return_refs: list[tuple[str, str]] = []
+                    _python_collect_type_refs(return_type_node, source, False, return_refs)
+                    for ref_name, role in return_refs:
+                        ctx = "generic_arg" if role == "generic_arg" else "return_type"
+                        target_nid = ensure_named_node(ref_name, line)
+                        if target_nid != func_nid:
+                            edges.append(
+                                _semantic_reference_edge(func_nid, target_nid, ctx, str_path, line)
+                            )
+
+            if config.ts_module == "tree_sitter_c_sharp":
+                params_node = node.child_by_field_name("parameters")
+                if params_node is not None:
+                    for p in params_node.children:
+                        if p.type != "parameter":
+                            continue
+                        type_node = p.child_by_field_name("type")
+                        refs: list[tuple[str, str]] = []
+                        _csharp_collect_type_refs(type_node, source, False, refs)
+                        for ref_name, role in refs:
+                            ctx = "generic_arg" if role == "generic_arg" else "parameter_type"
+                            target_nid = ensure_named_node(ref_name, line)
+                            if target_nid != func_nid:
+                                add_edge(func_nid, target_nid, "references", line, context=ctx)
+                return_node = node.child_by_field_name("returns")
+                if return_node is not None:
+                    refs = []
+                    _csharp_collect_type_refs(return_node, source, False, refs)
+                    for ref_name, role in refs:
+                        ctx = "generic_arg" if role == "generic_arg" else "return_type"
+                        target_nid = ensure_named_node(ref_name, line)
+                        if target_nid != func_nid:
+                            add_edge(func_nid, target_nid, "references", line, context=ctx)
+                for attr_name in _csharp_attribute_names(node, source):
+                    target_nid = ensure_named_node(attr_name, line)
+                    if target_nid != func_nid:
+                        add_edge(func_nid, target_nid, "references", line, context="attribute")
+
+            if config.ts_module == "tree_sitter_java":
+                params_node = node.child_by_field_name("parameters")
+                if params_node is not None:
+                    for p in params_node.children:
+                        if p.type != "formal_parameter":
+                            continue
+                        type_node = p.child_by_field_name("type")
+                        refs = []
+                        _java_collect_type_refs(type_node, source, False, refs)
+                        for ref_name, role in refs:
+                            ctx = "generic_arg" if role == "generic_arg" else "parameter_type"
+                            target_nid = ensure_named_node(ref_name, line)
+                            if target_nid != func_nid:
+                                add_edge(func_nid, target_nid, "references", line, context=ctx)
+                return_node = node.child_by_field_name("type")
+                if return_node is not None:
+                    refs = []
+                    _java_collect_type_refs(return_node, source, False, refs)
+                    for ref_name, role in refs:
+                        ctx = "generic_arg" if role == "generic_arg" else "return_type"
+                        target_nid = ensure_named_node(ref_name, line)
+                        if target_nid != func_nid:
+                            add_edge(func_nid, target_nid, "references", line, context=ctx)
+                for anno_name in _java_method_annotation_names(node, source):
+                    target_nid = ensure_named_node(anno_name, line)
+                    if target_nid != func_nid:
+                        add_edge(func_nid, target_nid, "references", line, context="attribute")
 
             body = _find_body(node, config)
             if body:
@@ -4574,12 +4950,17 @@ def _apply_symbol_resolution_facts(
         return node_id
 
     existing_edges = {
-        (str(edge.get("source")), str(edge.get("target")), str(edge.get("relation")))
+        (
+            str(edge.get("source")),
+            str(edge.get("target")),
+            str(edge.get("relation")),
+            str(edge.get("context") or ""),
+        )
         for edge in edges
     }
 
     def add_edge(source: str, target: str, relation: str, context: str, line: int, source_path: Path) -> None:
-        key = (source, target, relation)
+        key = (source, target, relation, context or "")
         if key in existing_edges:
             return
         existing_edges.add(key)
@@ -4866,6 +5247,162 @@ def _js_call_identifier(node, source: bytes) -> str | None:
     return None
 
 
+_JS_PRIMITIVE_TYPES = frozenset({
+    "string", "number", "boolean", "any", "unknown", "void", "never",
+    "object", "null", "undefined", "bigint", "symbol", "this",
+})
+
+
+def _ts_heritage_clause_entries(clause_node, source: bytes) -> list[str]:
+    """Return base/interface type names from an extends_clause or implements_clause."""
+    out: list[str] = []
+    for child in clause_node.children:
+        if not child.is_named:
+            continue
+        if child.type in ("identifier", "type_identifier"):
+            name = _read_text(child, source)
+            if name:
+                out.append(name)
+        elif child.type == "generic_type":
+            name_node = child.child_by_field_name("name")
+            if name_node is None:
+                for sub in child.children:
+                    if sub.type in ("type_identifier", "nested_type_identifier", "identifier"):
+                        name_node = sub
+                        break
+            if name_node is not None:
+                text = _read_text(name_node, source).rsplit(".", 1)[-1]
+                if text:
+                    out.append(text)
+        elif child.type == "nested_type_identifier":
+            text = _read_text(child, source).rsplit(".", 1)[-1]
+            if text:
+                out.append(text)
+    return out
+
+
+def _ts_collect_type_refs(node, source: bytes, generic: bool, out: list[tuple[str, str]]) -> None:
+    """Walk a TS type annotation tree; append (name, role) tuples.
+
+    role is 'type' for the outermost type position and 'generic_arg' for entries
+    that appear inside `type_arguments`.
+    """
+    if node is None:
+        return
+    t = node.type
+    if t == "type_annotation":
+        for c in node.children:
+            if c.is_named:
+                _ts_collect_type_refs(c, source, generic, out)
+        return
+    if t in ("type_identifier", "identifier"):
+        name = _read_text(node, source)
+        if name and name not in _JS_PRIMITIVE_TYPES:
+            out.append((name, "generic_arg" if generic else "type"))
+        return
+    if t == "nested_type_identifier":
+        tail = _read_text(node, source).rsplit(".", 1)[-1]
+        if tail and tail not in _JS_PRIMITIVE_TYPES:
+            out.append((tail, "generic_arg" if generic else "type"))
+        return
+    if t == "generic_type":
+        name_node = node.child_by_field_name("name")
+        if name_node is not None:
+            text = _read_text(name_node, source).rsplit(".", 1)[-1]
+            if text and text not in _JS_PRIMITIVE_TYPES:
+                out.append((text, "generic_arg" if generic else "type"))
+        else:
+            for c in node.children:
+                if c.type in ("type_identifier", "nested_type_identifier"):
+                    text = _read_text(c, source).rsplit(".", 1)[-1]
+                    if text and text not in _JS_PRIMITIVE_TYPES:
+                        out.append((text, "generic_arg" if generic else "type"))
+                    break
+        for c in node.children:
+            if c.type == "type_arguments":
+                for sub in c.children:
+                    if sub.is_named:
+                        _ts_collect_type_refs(sub, source, True, out)
+        return
+    if node.is_named:
+        for c in node.children:
+            if c.is_named:
+                _ts_collect_type_refs(c, source, generic, out)
+
+
+def _ts_walk_class_members(class_node, source: bytes, path: Path, class_nid: str,
+                            facts: _SymbolResolutionFacts) -> None:
+    """Emit type-relation and type-reference use facts for a class declaration node."""
+    line = class_node.start_point[0] + 1
+    for child in class_node.children:
+        if child.type == "class_heritage":
+            for clause in child.children:
+                if clause.type == "extends_clause":
+                    for name in _ts_heritage_clause_entries(clause, source):
+                        facts.uses.append(
+                            _SymbolUseFact(path, class_nid, name, "inherits", "type",
+                                           clause.start_point[0] + 1)
+                        )
+                elif clause.type == "implements_clause":
+                    for name in _ts_heritage_clause_entries(clause, source):
+                        facts.uses.append(
+                            _SymbolUseFact(path, class_nid, name, "implements", "type",
+                                           clause.start_point[0] + 1)
+                        )
+
+    body = class_node.child_by_field_name("body")
+    if body is None:
+        return
+
+    for member in body.children:
+        m_line = member.start_point[0] + 1
+        if member.type in ("method_definition", "method_signature", "abstract_method_signature"):
+            name_node = member.child_by_field_name("name")
+            if name_node is None:
+                continue
+            method_name = _read_text(name_node, source)
+            method_nid = _make_id(class_nid, method_name)
+            params = member.child_by_field_name("parameters")
+            if params is not None:
+                for p in params.children:
+                    if p.type not in ("required_parameter", "optional_parameter"):
+                        continue
+                    type_anno = p.child_by_field_name("type")
+                    if type_anno is None:
+                        continue
+                    refs: list[tuple[str, str]] = []
+                    _ts_collect_type_refs(type_anno, source, False, refs)
+                    for name, role in refs:
+                        ctx = "generic_arg" if role == "generic_arg" else "parameter_type"
+                        facts.uses.append(
+                            _SymbolUseFact(path, method_nid, name, "references", ctx, m_line)
+                        )
+            return_type = member.child_by_field_name("return_type")
+            if return_type is not None:
+                refs = []
+                _ts_collect_type_refs(return_type, source, False, refs)
+                for name, role in refs:
+                    ctx = "generic_arg" if role == "generic_arg" else "return_type"
+                    facts.uses.append(
+                        _SymbolUseFact(path, method_nid, name, "references", ctx, m_line)
+                    )
+        elif member.type in ("public_field_definition", "property_signature"):
+            type_anno = None
+            for c in member.children:
+                if c.type == "type_annotation":
+                    type_anno = c
+                    break
+            if type_anno is None:
+                continue
+            refs = []
+            _ts_collect_type_refs(type_anno, source, False, refs)
+            for name, role in refs:
+                ctx = "generic_arg" if role == "generic_arg" else "field"
+                facts.uses.append(
+                    _SymbolUseFact(path, class_nid, name, "references", ctx, m_line)
+                )
+
+
 def _collect_js_symbol_resolution_facts(paths: list[Path], facts: _SymbolResolutionFacts) -> None:
     js_paths = [
         path for path in paths
@@ -4999,6 +5536,29 @@ def _collect_js_symbol_resolution_facts(paths: list[Path], facts: _SymbolResolut
                         node.start_point[0] + 1,
                     )
                 )
+
+    for path in js_paths:
+        resolved_path = path.resolve()
+        parsed = trees.get(resolved_path)
+        if parsed is None:
+            continue
+        source, root_node = parsed
+        stem = _file_stem(path)
+        for node in _walk_js_tree(root_node):
+            if node.type not in (
+                "class_declaration",
+                "abstract_class_declaration",
+                "interface_declaration",
+            ):
+                continue
+            name_node = node.child_by_field_name("name")
+            if name_node is None:
+                continue
+            class_name = _read_text(name_node, source)
+            if not class_name:
+                continue
+            class_nid = _make_id(stem, class_name)
+            _ts_walk_class_members(node, source, path, class_nid, facts)
 
 
 def _parse_python_tree(path: Path):
