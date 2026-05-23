@@ -423,3 +423,30 @@ def test_pyinstall_idempotent(tmp_path):
     claude_md = tmp_path / ".claude" / "CLAUDE.md"
     content = claude_md.read_text()
     assert content.count("# pyaag") == 1  # only one registration block
+
+
+def test_pyinstall_gemini(tmp_path):
+    """pyinstall --platform gemini installs to .gemini (or .agents on Windows) and writes GEMINI.md."""
+    from graphify.__main__ import pyinstall
+    import os
+    import platform
+    old_cwd = os.getcwd()
+    os.chdir(tmp_path)
+    try:
+        with patch("graphify.__main__.Path.home", return_value=tmp_path):
+            pyinstall(platform="gemini")
+    finally:
+        os.chdir(old_cwd)
+    
+    dot_dir = ".agents" if platform.system() == "Windows" else ".gemini"
+    skill = tmp_path / dot_dir / "skills" / "pyaag" / "SKILL.md"
+    assert skill.exists()
+    content = skill.read_text()
+    assert "name: pyaag" in content
+    assert "trigger: /pyaag" in content
+    
+    gemini_md = tmp_path / "GEMINI.md"
+    assert gemini_md.exists()
+    md_content = gemini_md.read_text()
+    assert "## pyaag" in md_content
+    assert "pyaag query" in md_content

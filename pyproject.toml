@@ -89,6 +89,13 @@ graphify = ["skill.md", "skill-codex.md", "skill-opencode.md", "skill-aider.md",
 
 [tool.pytest.ini_options]
 markers = ["integration: end-to-end tests requiring external data (WeWork S-1)"]
+filterwarnings = [
+    "ignore:Please import `random` from the `scipy.sparse` namespace:DeprecationWarning",
+    "ignore:The keyword argument 'nopython=False' was supplied:UserWarning",
+    "ignore:The keyword argument 'nopython=False' was supplied:DeprecationWarning",
+    "ignore:invalid escape sequence:DeprecationWarning",
+]
+
 
 [tool.bandit]
 skips = ["B404"]

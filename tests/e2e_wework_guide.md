@@ -24,19 +24,26 @@ ls -lh /tmp/wework-s1/raw/d781982ds1.htm
 # Expected: ~24M
 ```
 
-## Step 2: Build the Graph
+## Step 2: Install Skill and Build Graph (from Agent)
+
+First, install the `pyaag` skill for your AI assistant. This uses your local Python environment directly, which is ideal for development:
 
 ```bash
-cd /tmp/wework-s1
-python -m graphify extract raw/ --domain finance,diligence --db
+# Using the local source
+uv run python -m graphify pyinstall gemini
 ```
 
-This creates `graphify-out/` with `graph.db`, analysis JSON, and dashboard HTML.
+Now, **from within your AI assistant (e.g., Gemini CLI)**, run the extraction. This activates the specialized `finance` and `diligence` domains, performs clustering, and generates the audit report:
+
+```bash
+# Type this into your agent prompt:
+/pyaag /tmp/wework-s1/raw --domain finance,diligence --db
+```
 
 Verify output exists:
 
 ```bash
-ls graphify-out/graph.db graphify-out/graphify_analysis.json
+ls /tmp/wework-s1/graphify-out/graph.db /tmp/wework-s1/graphify-out/.graphify_analysis.json
 ```
 
 ## Step 3: Verify Graph Structure
