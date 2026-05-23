@@ -2,6 +2,28 @@
 
 Full release notes with details on each version: [GitHub Releases](https://github.com/hhfeng/aa-graphify/releases)
 
+## 0.8.2 (2026-05-22)
+
+- Feat: Grounding pipeline -- automates the extraction of factual claims from documents and verifies them against the generated knowledge graph (#850)
+- Feat: Domain modeling (Finance & Diligence) -- specialized extractors for SEC filings, financial spreadsheets, and legal due diligence documents; extracts structured tables and financial entities with zero LLM overhead (#851)
+- Feat: Interactive Dashboard -- `graphify dashboard` launches a local web interface for visual exploration, grounding verification, and domain-specific analysis (#852)
+- Refactor: HTML table scoring -- table quality scoring now works without BeautifulSoup dependency, reducing install size (#853)
+- Fix: PDF table extraction -- added `FileNotFoundError` handling and improved robustness for malformed PDFs (#854)
+- Fix: test suite stability -- unified UTF-8 encoding across all tests for better Windows CI compatibility (#855)
+
+## 0.8.1 (2026-05-21)
+
+- Chore: Version bump to 0.8.1
+- Fix: `.graphify_*` vs `.aag_*` read-site mismatches in skill files and CLI hooks
+
+## 0.8.0 (2026-05-20)
+
+- Feat: Binary and skill command renamed to `aag` -- `graphify` command preserved as an alias; all internal references updated to `aag` for brevity and standalone binary parity (#800)
+- Feat: Dual-version skills -- skill files now detect if they are running inside a frozen binary or a Python environment and optimize tool calls accordingly (#801)
+- Feat: Standalone binary build (Alpha) -- `pyinstaller` support for Linux, Windows, and macOS; `aag` binary bundles all dependencies including tree-sitter grammars (#802)
+- Fix: Universal help guard -- `--help` now works even when dependencies are missing (#803)
+- Fix: Ollama `num_ctx` fallback -- automatically reduces context window when Ollama returns OOM errors (#804)
+
 ## 0.7.11 (2026-05-09)
 
 - Fix: context-window-exceeded API errors now trigger automatic retry with bisected file chunks -- exponential bisection up to 6 levels deep; covers `"context_length_exceeded"`, `"maximum context length"`, and `"too_large"` across OpenAI-compat backends (#789)
