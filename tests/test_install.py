@@ -426,9 +426,10 @@ def test_pyinstall_idempotent(tmp_path):
 
 
 def test_pyinstall_gemini(tmp_path):
-    """pyinstall --platform gemini installs to .gemini and writes GEMINI.md."""
+    """pyinstall --platform gemini installs to .gemini (or .agents on Windows) and writes GEMINI.md."""
     from graphify.__main__ import pyinstall
     import os
+    import platform
     old_cwd = os.getcwd()
     os.chdir(tmp_path)
     try:
@@ -437,7 +438,8 @@ def test_pyinstall_gemini(tmp_path):
     finally:
         os.chdir(old_cwd)
     
-    skill = tmp_path / ".gemini" / "skills" / "pyaag" / "SKILL.md"
+    dot_dir = ".agents" if platform.system() == "Windows" else ".gemini"
+    skill = tmp_path / dot_dir / "skills" / "pyaag" / "SKILL.md"
     assert skill.exists()
     content = skill.read_text()
     assert "name: pyaag" in content
