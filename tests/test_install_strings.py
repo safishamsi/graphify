@@ -22,6 +22,7 @@ from graphify.__main__ import (
     _KIRO_STEERING,
     _CURSOR_RULE,
     _OPENCODE_PLUGIN_JS,
+    _DEVIN_RULES,
 )
 
 
@@ -39,6 +40,7 @@ _INSTALL_TEXTS: dict[str, str] = {
     "_KIRO_STEERING": _KIRO_STEERING,
     "_CURSOR_RULE": _CURSOR_RULE,
     "_OPENCODE_PLUGIN_JS": _OPENCODE_PLUGIN_JS,
+    "_DEVIN_RULES": _DEVIN_RULES,
 }
 
 
@@ -105,6 +107,7 @@ def test_report_is_still_referenced_as_fallback():
         "_ANTIGRAVITY_RULES": _ANTIGRAVITY_RULES,
         "_KIRO_STEERING": _KIRO_STEERING,
         "_CURSOR_RULE": _CURSOR_RULE,
+        "_DEVIN_RULES": _DEVIN_RULES,
     }
     missing: list[str] = []
     for name, text in md_section_texts.items():
