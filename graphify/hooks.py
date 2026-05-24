@@ -48,6 +48,11 @@ _HOOK_SCRIPT = """\
 # Auto-rebuilds the knowledge graph after each commit (code files only, no LLM needed).
 # Installed by: graphify hook install
 
+# Deterministic clustering: networkx louvain iterates string-keyed sets whose
+# order is randomized per-process by PYTHONHASHSEED, so community assignments
+# churn run-to-run. Pinning it makes graphify-out reproducible.
+export PYTHONHASHSEED=0
+
 # Skip during rebase/merge/cherry-pick to avoid blocking --continue with unstaged changes
 GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
 [ -d "$GIT_DIR/rebase-merge" ] && exit 0
@@ -105,6 +110,11 @@ _CHECKOUT_SCRIPT = """\
 # graphify-checkout-hook-start
 # Auto-rebuilds the knowledge graph (code only) when switching branches.
 # Installed by: graphify hook install
+
+# Deterministic clustering: networkx louvain iterates string-keyed sets whose
+# order is randomized per-process by PYTHONHASHSEED, so community assignments
+# churn run-to-run. Pinning it makes graphify-out reproducible.
+export PYTHONHASHSEED=0
 
 PREV_HEAD=$1
 NEW_HEAD=$2

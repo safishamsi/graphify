@@ -160,7 +160,18 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
     # slightly different casing or punctuation than the AST extractor.
     # e.g. "Session_ValidateToken" maps to "session_validatetoken".
     norm_to_id: dict[str, str] = {_normalize_id(nid): nid for nid in node_set}
-    for edge in extraction.get("edges", []):
+    # Iterate edges in a deterministic order. The graph is undirected and stores
+    # direction in _src/_tgt; when two edges collapse onto the same node pair the
+    # last write wins, so an unstable iteration order flips _src/_tgt run-to-run
+    # and makes the serialized graph churn. Sorting fixes the last-write outcome.
+    for edge in sorted(
+        extraction.get("edges", []),
+        key=lambda e: (
+            str(e.get("source", e.get("from", ""))),
+            str(e.get("target", e.get("to", ""))),
+            str(e.get("relation", "")),
+        ),
+    ):
         if "source" not in edge and "from" in edge:
             edge["source"] = edge["from"]
         if "target" not in edge and "to" in edge:
