@@ -62,20 +62,27 @@ Follow these steps in order. Do not skip steps.
 ### Step 1 - Ensure graphify is installed
 
 ```bash
-# Detect the correct Python interpreter (handles pipx, venv, system installs)
-GRAPHIFY_BIN=$(which graphify 2>/dev/null)
-if [ -n "$GRAPHIFY_BIN" ]; then
-    PYTHON=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
-    case "$PYTHON" in
-        *[!a-zA-Z0-9/_.-]*) PYTHON="python3" ;;
-    esac
+# Detect the correct Python interpreter (handles uv, pipx, venv, system installs)
+if command -v uv &>/dev/null; then
+    if ! uv tool list | grep -q "^graphifyy "; then
+        uv tool install -q graphifyy
+    fi
+    PYTHON="uv tool run --from graphifyy python"
 else
-    PYTHON="python3"
+    GRAPHIFY_BIN=$(which graphify 2>/dev/null)
+    if [ -n "$GRAPHIFY_BIN" ]; then
+        PYTHON=$(head -1 "$GRAPHIFY_BIN" | tr -d '#!')
+        case "$PYTHON" in
+            *[!a-zA-Z0-9/_.-]*) PYTHON="python3" ;;
+        esac
+    else
+        PYTHON="python3"
+    fi
+    "$PYTHON" -c "import graphify" 2>/dev/null || "$PYTHON" -m pip install graphifyy -q 2>/dev/null || "$PYTHON" -m pip install graphifyy -q --break-system-packages 2>&1 | tail -3
 fi
-"$PYTHON" -c "import graphify" 2>/dev/null || "$PYTHON" -m pip install graphifyy -q 2>/dev/null || "$PYTHON" -m pip install graphifyy -q --break-system-packages 2>&1 | tail -3
-# Write interpreter path for all subsequent steps (persists across invocations)
 mkdir -p graphify-out
-"$PYTHON" -c "import sys; open('graphify-out/.graphify_python', 'w').write(sys.executable)"
+# Write interpreter path for all subsequent steps
+$PYTHON -c "import sys; open('graphify-out/.graphify_python', 'w').write(sys.executable)"
 ```
 
 If the import succeeds, print nothing and move straight to Step 2.
