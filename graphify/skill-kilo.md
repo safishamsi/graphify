@@ -136,7 +136,7 @@ for f in detect.get('files', {}).get('code', []):
 if code_files:
     result = extract(code_files, cache_root=Path('.'))
     Path('graphify-out/.graphify_ast.json').write_text(json.dumps(result, indent=2))
-    print(f'AST: {len(result["nodes"])} nodes, {len(result["edges"])} edges')
+    print('AST: {} nodes, {} edges'.format(len(result['nodes']), len(result['edges'])))
 else:
     Path('graphify-out/.graphify_ast.json').write_text(json.dumps({'nodes': [], 'edges': [], 'input_tokens': 0, 'output_tokens': 0}))
     print('No code files - skipping AST extraction')
@@ -228,7 +228,7 @@ for chunk_file in chunk_files:
     combined['output_tokens'] += data.get('output_tokens', 0)
 
 Path('graphify-out/.graphify_semantic_new.json').write_text(json.dumps(combined, indent=2))
-print(f'Semantic extraction: {len(combined["nodes"])} nodes, {len(combined["edges"])} edges, {failures} failed chunk(s)')
+print('Semantic extraction: {} nodes, {} edges, {} failed chunk(s)'.format(len(combined['nodes']), len(combined['edges']), failures))
 "
 ```
 
@@ -296,7 +296,7 @@ merged = {
     'output_tokens': sem.get('output_tokens', 0),
 }
 Path('graphify-out/.graphify_extract.json').write_text(json.dumps(merged, indent=2))
-print(f'Merged extraction: {len(merged_nodes)} nodes, {len(merged["edges"])} edges')
+print('Merged extraction: {} nodes, {} edges'.format(len(merged_nodes), len(merged['edges'])))
 "
 ```
 

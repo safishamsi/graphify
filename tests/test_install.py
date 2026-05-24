@@ -260,6 +260,15 @@ def test_kilo_skill_mentions_task_tool():
     assert "Task" in skill
 
 
+def test_kilo_skill_avoids_double_quoted_python_c_fstring_dict_keys():
+    """Kilo runs snippets through double-quoted python -c strings."""
+    import re
+    import graphify
+
+    skill = (Path(graphify.__file__).parent / "skill-kilo.md").read_text()
+    assert not re.search(r"print\(f'.*\[[\"'][^\"']+[\"']\]", skill)
+
+
 def test_claw_skill_is_sequential():
     """OpenClaw skill file must describe sequential extraction."""
     import graphify
