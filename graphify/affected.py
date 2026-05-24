@@ -145,6 +145,11 @@ def load_graph(path: Path) -> nx.Graph:
     from networkx.readwrite import json_graph
 
     raw = json.loads(path.read_text(encoding="utf-8"))
+    # Normalize schema: graphs written by `extract --no-cluster` store edges
+    # under the key "edges"; networkx node-link format uses "links". Accept
+    # either. Mirrors the idiom in graphify/global_graph.py.
+    if "links" not in raw and "edges" in raw:
+        raw = dict(raw, links=raw["edges"])
     try:
         return json_graph.node_link_graph(raw, edges="links")
     except TypeError:

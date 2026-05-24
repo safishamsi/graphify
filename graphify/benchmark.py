@@ -101,6 +101,11 @@ def run_benchmark(
     from graphify.security import check_graph_file_size_cap
     check_graph_file_size_cap(Path(graph_path))
     data = json.loads(Path(graph_path).read_text(encoding="utf-8"))
+    # Normalize schema: graphs written by `extract --no-cluster` store edges
+    # under the key "edges"; networkx node-link format uses "links". Accept
+    # either. Mirrors the idiom in graphify/global_graph.py.
+    if "links" not in data and "edges" in data:
+        data = dict(data, links=data["edges"])
     try:
         G = json_graph.node_link_graph(data, edges="links")
     except TypeError:

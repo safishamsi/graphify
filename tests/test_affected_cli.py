@@ -58,3 +58,38 @@ def test_affected_cli_relation_filter_limits_reverse_traversal(monkeypatch, tmp_
     assert "Relations: calls" in out
     assert "X()" in out
     assert "__init__.py" not in out
+
+
+def _write_graph_edges_schema(tmp_path):
+    """Write a graph using the "edges" top-level key (what `extract --no-cluster`
+    produces) rather than the networkx node-link "links" key.
+    """
+    graph = nx.DiGraph()
+    graph.add_node("target", label="Foo", source_file="pkg/foo.py", source_location="L1")
+    graph.add_node("caller", label="X()", source_file="app.py", source_location="L4")
+    graph.add_edge("caller", "target", relation="calls", context="call", confidence="EXTRACTED")
+    raw = json_graph.node_link_data(graph, edges="links")
+    raw["edges"] = raw.pop("links")
+    graph_path = tmp_path / "graph.json"
+    graph_path.write_text(json.dumps(raw), encoding="utf-8")
+    return graph_path
+
+
+def test_affected_cli_handles_edges_schema(monkeypatch, tmp_path, capsys):
+    """Regression: graphs written by `extract --no-cluster` use the "edges"
+    key, not "links". affected previously crashed loading those graphs with
+    `could not load graph: 'links'`.
+    """
+    graph_path = _write_graph_edges_schema(tmp_path)
+    monkeypatch.setattr(mainmod, "_check_skill_version", lambda _: None)
+    monkeypatch.setattr(
+        mainmod.sys,
+        "argv",
+        ["graphify", "affected", "Foo", "--graph", str(graph_path)],
+    )
+
+    mainmod.main()
+
+    out = capsys.readouterr().out
+    assert "Affected nodes for Foo" in out
+    assert "X()" in out

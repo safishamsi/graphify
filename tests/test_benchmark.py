@@ -85,6 +85,22 @@ def test_run_benchmark_per_question_list(tmp_path):
         assert "query_tokens" in p
         assert "reduction" in p
 
+
+def test_run_benchmark_handles_edges_schema(tmp_path):
+    """Regression: graphs written by `extract --no-cluster` use the key "edges"
+    (not "links"). benchmark previously crashed loading those graphs.
+    """
+    G = _make_graph()
+    # Build a raw payload that mirrors what `extract --no-cluster` writes:
+    # top-level "edges" key, no "links" key.
+    raw = json_graph.node_link_data(G, edges="links")
+    raw["edges"] = raw.pop("links")
+    graph_file = tmp_path / "graph.json"
+    graph_file.write_text(json.dumps(raw))
+    result = run_benchmark(str(graph_file), corpus_words=5_000)
+    assert "reduction_ratio" in result
+    assert result["reduction_ratio"] > 1.0
+
 def test_run_benchmark_estimates_corpus_if_no_words(tmp_path):
     G = _make_graph()
     graph_file = tmp_path / "graph.json"
