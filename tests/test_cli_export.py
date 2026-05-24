@@ -286,3 +286,56 @@ def test_cluster_only_creates_output_dir_when_missing(tmp_path):
     r = _run(["cluster-only", ".", "--graph", str(graph_src), "--no-viz"], tmp_path)
     assert r.returncode == 0, r.stderr
     assert (tmp_path / "graphify-out" / "GRAPH_REPORT.md").exists()
+
+
+# Regression: cluster-only previously printed "graph.json updated" while the
+# underlying to_json() refused to overwrite due to a node-count drop, leaving
+# users with a stale graph.json and zero indication of failure.
+
+def _inflate_node_count(graph_path: Path) -> None:
+    """Inflate the on-disk JSON node count by appending duplicates of an
+    existing node. NetworkX deduplicates by id during build_from_json, so
+    the rebuilt graph ends up with fewer nodes than the on-disk JSON shows
+    — exactly the shape that triggers to_json's node-count safety guard
+    (the real-world trigger from `extract --no-cluster` graphs is the same:
+    a few nodes get normalized out of existence during the cluster-only
+    rebuild).
+    """
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    template = data["nodes"][0]
+    duplicates = [dict(template) for _ in range(3)]  # same id, ignored on rebuild
+    data["nodes"] = list(data["nodes"]) + duplicates
+    graph_path.write_text(json.dumps(data), encoding="utf-8")
+
+
+def test_cluster_only_refuses_overwrite_on_node_drift_and_exits_nonzero(tmp_path):
+    """cluster-only must (a) NOT modify graph.json when to_json refuses to
+    overwrite and (b) surface that refusal as a non-zero exit code so that
+    callers / CI can react.
+    """
+    out_dir = _make_graph(tmp_path)
+    graph_path = out_dir / "graph.json"
+    _inflate_node_count(graph_path)
+    pre_bytes = graph_path.read_bytes()
+
+    r = _run(["cluster-only", ".", "--no-viz"], tmp_path)
+    assert r.returncode == 2, (r.returncode, r.stderr)
+    assert "NOT updated" in r.stderr
+    # File untouched.
+    assert graph_path.read_bytes() == pre_bytes
+
+
+def test_cluster_only_force_flag_overrides_node_drift_guard(tmp_path):
+    """With --force, cluster-only must overwrite even when the rebuilt graph
+    is smaller than the existing one. The on-disk graph is the new one.
+    """
+    out_dir = _make_graph(tmp_path)
+    graph_path = out_dir / "graph.json"
+    _inflate_node_count(graph_path)
+
+    r = _run(["cluster-only", ".", "--no-viz", "--force"], tmp_path)
+    assert r.returncode == 0, r.stderr
+    new_data = json.loads(graph_path.read_text(encoding="utf-8"))
+    # The phantom isolates from the inflated graph must be gone after the
+    # forced rewrite — only the original (clustered) nodes remain.
+    assert not any(n.get("id", "").startswith("__phantom_") for n in new_data["nodes"])
