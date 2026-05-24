@@ -1935,16 +1935,35 @@ def main() -> None:
 
     elif cmd == "explain":
         if len(sys.argv) < 3:
-            print("Usage: graphify explain \"<node>\" [--graph path]", file=sys.stderr)
+            print("Usage: graphify explain \"<node>\" [--graph path] [--limit N | --full]", file=sys.stderr)
             sys.exit(1)
         from graphify.serve import _find_node
         from networkx.readwrite import json_graph
         label = sys.argv[2]
         graph_path = _default_graph_path()
+        # Connection-list cap. 20 keeps default output compact; --limit N
+        # raises (or lowers) it; --limit 0 / --full prints all connections so
+        # callers don't have to inspect graph.json directly to recover the
+        # truncated tail.
+        explain_limit = 20
         args = sys.argv[3:]
         for i, a in enumerate(args):
             if a == "--graph" and i + 1 < len(args):
                 graph_path = args[i + 1]
+            elif a == "--limit" and i + 1 < len(args):
+                try:
+                    explain_limit = int(args[i + 1])
+                except ValueError:
+                    print(f"error: --limit expects an integer, got: {args[i + 1]!r}", file=sys.stderr)
+                    sys.exit(2)
+            elif a.startswith("--limit="):
+                try:
+                    explain_limit = int(a.split("=", 1)[1])
+                except ValueError:
+                    print(f"error: --limit expects an integer, got: {a.split('=', 1)[1]!r}", file=sys.stderr)
+                    sys.exit(2)
+            elif a == "--full":
+                explain_limit = 0
         gp = Path(graph_path).resolve()
         if not gp.exists():
             print(f"error: graph file not found: {gp}", file=sys.stderr)
@@ -1980,13 +1999,15 @@ def main() -> None:
         if connections:
             print(f"\nConnections ({len(connections)}):")
             connections.sort(key=lambda c: G.degree(c[1]), reverse=True)
-            for direction, nb, edata in connections[:20]:
+            shown = connections if explain_limit <= 0 else connections[:explain_limit]
+            for direction, nb, edata in shown:
                 rel = edata.get("relation", "")
                 conf = edata.get("confidence", "")
                 arrow = "-->" if direction == "out" else "<--"
                 print(f"  {arrow} {G.nodes[nb].get('label', nb)} [{rel}] [{conf}]")
-            if len(connections) > 20:
-                print(f"  ... and {len(connections) - 20} more")
+            if explain_limit > 0 and len(connections) > explain_limit:
+                print(f"  ... and {len(connections) - explain_limit} more "
+                      f"(pass --limit N or --full to expand)")
 
     elif cmd == "diagnose":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
@@ -2126,6 +2147,8 @@ def main() -> None:
         # Mirror the tree/export arg-parsing pattern: walk argv so flags and
         # the optional positional path can appear in any order (#724).
         no_viz = "--no-viz" in sys.argv
+        force = ("--force" in sys.argv
+                 or os.environ.get("GRAPHIFY_FORCE", "").lower() in ("1", "true", "yes"))
         _min_cs_arg = next((a for a in sys.argv if a.startswith("--min-community-size=")), None)
         min_community_size = int(_min_cs_arg.split("=")[1]) if _min_cs_arg else 3
         args = sys.argv[2:]
@@ -2146,7 +2169,7 @@ def main() -> None:
                 co_exclude_hubs = float(args[i_arg + 1]); i_arg += 2
             elif a.startswith("--exclude-hubs="):
                 co_exclude_hubs = float(a.split("=", 1)[1]); i_arg += 1
-            elif a == "--no-viz" or a.startswith("--min-community-size="):
+            elif a == "--no-viz" or a == "--force" or a.startswith("--min-community-size="):
                 i_arg += 1
             elif a.startswith("--"):
                 i_arg += 1
@@ -2198,7 +2221,16 @@ def main() -> None:
         (out / "GRAPH_REPORT.md").write_text(report, encoding="utf-8")
         from graphify.export import backup_if_protected as _backup
         _backup(out)
-        to_json(G, communities, str(out / "graph.json"))
+        wrote = to_json(G, communities, str(out / "graph.json"), force=force)
+        if not wrote:
+            # to_json refused to overwrite because the rebuilt graph has fewer
+            # nodes than the on-disk one. Previously cluster-only ignored the
+            # return value and printed a misleading "graph.json updated"
+            # message. Surface the refusal as a non-zero exit instead.
+            print("[graphify] cluster-only: graph.json NOT updated (node-count safety guard). "
+                  "Re-run with --force (or set GRAPHIFY_FORCE=1) to override, or "
+                  "re-extract from scratch.", file=sys.stderr)
+            sys.exit(2)
         labels_path.write_text(json.dumps({str(k): v for k, v in labels.items()}, ensure_ascii=False), encoding="utf-8")
 
         # Mirror watch.py pattern: gate to_html so core outputs (graph.json +
