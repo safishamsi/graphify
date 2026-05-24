@@ -394,13 +394,22 @@ def _rebuild_code(
                 existing = json.loads(existing_graph.read_text(encoding="utf-8"))
                 existing_graph_data = existing
                 new_ast_ids = {n["id"] for n in result["nodes"]}
+                # Evict preserved nodes whose source_file was just re-extracted.
+                # Without this, a rename like `def foo → def bar` leaves the
+                # old `foo` node in the graph forever: its old node-id no
+                # longer appears in new_ast_ids, so the ID-only filter keeps
+                # it. The same applies to deleted symbols.
+                #
+                # Done unconditionally — both incremental (changed_paths
+                # supplied) and full-corpus (changed_paths is None) rebuilds
+                # need it. Previously the full-corpus path (used by `graphify
+                # update .`) left stale nodes behind on every rename/deletion.
                 evict_sources: set[str] = set(deleted_paths)
-                if changed_paths is not None:
-                    for p in extract_targets:
-                        try:
-                            evict_sources.add(str(p.relative_to(project_root)))
-                        except ValueError:
-                            evict_sources.add(str(p))
+                for p in extract_targets:
+                    try:
+                        evict_sources.add(str(p.relative_to(project_root)))
+                    except ValueError:
+                        evict_sources.add(str(p))
                 preserved_nodes = [
                     n for n in existing.get("nodes", [])
                     if n["id"] not in new_ast_ids

@@ -1,4 +1,5 @@
 """Tests for watch.py - file watcher helpers (no watchdog required)."""
+import json
 import os
 import sys
 import time
@@ -294,3 +295,67 @@ def test_watch_loads_graphifyignore_once(tmp_path, monkeypatch):
         (tmp_path / "ignored" / f"f{i}.py").write_text("x\n", encoding="utf-8")
     time.sleep(0.7)
     assert calls["n"] == 1, f"_load_graphifyignore called {calls['n']} times; expected 1"
+
+
+def test_rebuild_code_full_corpus_evicts_renamed_symbols(tmp_path):
+    """Regression: after `graphify update .` (full-corpus rebuild path,
+    changed_paths is None), nodes for symbols that no longer exist in the
+    source must be dropped — not preserved alongside the new nodes.
+
+    Before the fix, the preserve filter only evicted by source_file when an
+    explicit changed_paths list was supplied. The CLI path passes None, so
+    every rename/deletion accreted ghost nodes forever.
+    """
+    from graphify.watch import _rebuild_code
+
+    src = tmp_path / "app.py"
+    src.write_text("def read_page():\n    return 1\n", encoding="utf-8")
+    assert _rebuild_code(tmp_path)
+
+    graph_path = tmp_path / "graphify-out" / "graph.json"
+    before = json.loads(graph_path.read_text(encoding="utf-8"))
+    labels_before = {n.get("label", "") for n in before["nodes"]}
+    assert any("read_page" in lab for lab in labels_before), (
+        f"baseline failed: read_page not in initial graph: {labels_before}"
+    )
+
+    # Rename the function in-place. No explicit changed_paths — same code
+    # path the CLI takes for `graphify update .`.
+    src.write_text("def read_page_RENAMED():\n    return 1\n", encoding="utf-8")
+    assert _rebuild_code(tmp_path, force=True)
+
+    after = json.loads(graph_path.read_text(encoding="utf-8"))
+    labels_after = {n.get("label", "") for n in after["nodes"]}
+    assert any("read_page_RENAMED" in lab for lab in labels_after), (
+        f"renamed symbol missing from rebuilt graph: {labels_after}"
+    )
+    # The old symbol must be gone — the bug this regression locks down.
+    stale = [lab for lab in labels_after if "read_page" in lab and "RENAMED" not in lab]
+    assert not stale, f"stale nodes for renamed symbol survived rebuild: {stale}"
+
+
+def test_rebuild_code_full_corpus_evicts_deleted_symbols(tmp_path):
+    """Counterpart to the rename test: a deletion (not rename) must also
+    drop the node. Otherwise `graphify explain <deleted_symbol>` keeps
+    serving a non-existent symbol indefinitely.
+    """
+    from graphify.watch import _rebuild_code
+
+    src = tmp_path / "app.py"
+    src.write_text(
+        "def kept():\n    return kept()\n\n"
+        "def doomed():\n    return 1\n",
+        encoding="utf-8",
+    )
+    assert _rebuild_code(tmp_path)
+
+    src.write_text("def kept():\n    return kept()\n", encoding="utf-8")
+    assert _rebuild_code(tmp_path, force=True)
+
+    graph_path = tmp_path / "graphify-out" / "graph.json"
+    after = json.loads(graph_path.read_text(encoding="utf-8"))
+    labels_after = {n.get("label", "") for n in after["nodes"]}
+    assert any("kept" in lab for lab in labels_after)
+    assert not any("doomed" in lab for lab in labels_after), (
+        f"deleted symbol survived rebuild: {labels_after}"
+    )
