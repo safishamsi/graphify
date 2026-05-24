@@ -240,12 +240,26 @@ def _topology_from_graph(G) -> dict:
     return data
 
 
-def _check_shrink(force: bool, existing_data: dict, new_data: dict, tmp: "Path | None" = None) -> bool:
+def _check_shrink(
+    force: bool,
+    existing_data: dict,
+    new_data: dict,
+    tmp: "Path | None" = None,
+    *,
+    had_explicit_deletions: bool = False,
+) -> bool:
     """Return True (ok to proceed) or False (shrink refused).
 
     When False, cleans up *tmp* if provided and prints a warning to stderr.
+
+    The shrink-guard exists to catch SILENT shrinkage from failed extraction
+    chunks (a half-written semantic pass leaving thousands of nodes
+    unaccounted for). When ``had_explicit_deletions`` is True, the caller
+    has declared which files were removed (e.g. the post-commit hook saw
+    a ``D`` in ``git diff --name-only``) and a smaller graph is the expected
+    outcome — skip the guard so legitimate refactors don't require ``--force``.
     """
-    if force or not existing_data:
+    if force or not existing_data or had_explicit_deletions:
         return True
     existing_n = len(existing_data.get("nodes", []))
     new_n = len(new_data.get("nodes", []))
@@ -444,7 +458,10 @@ def _rebuild_code(
                 except Exception:
                     same_graph = False
             if not same_graph:
-                if not _check_shrink(force, existing_graph_data, candidate_graph_data):
+                if not _check_shrink(
+                    force, existing_graph_data, candidate_graph_data,
+                    had_explicit_deletions=bool(deleted_paths),
+                ):
                     return False
                 existing_graph.write_text(candidate_graph_text, encoding="utf-8")
 
@@ -545,7 +562,11 @@ def _rebuild_code(
             graph_tmp.unlink(missing_ok=True)
             print("[graphify watch] No code-graph changes detected; graph.json/GRAPH_REPORT.md left untouched.")
         else:
-            if not _check_shrink(force, existing_graph_data, candidate_graph_data, tmp=graph_tmp):
+            if not _check_shrink(
+                force, existing_graph_data, candidate_graph_data,
+                tmp=graph_tmp,
+                had_explicit_deletions=bool(deleted_paths),
+            ):
                 return False
             from graphify.export import backup_if_protected as _backup
             _backup(out)

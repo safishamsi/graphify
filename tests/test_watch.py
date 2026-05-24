@@ -1,11 +1,13 @@
 """Tests for watch.py - file watcher helpers (no watchdog required)."""
+import json
 import os
+import subprocess
 import sys
 import time
 from pathlib import Path
 import pytest
 
-from graphify.watch import _notify_only, _WATCHED_EXTENSIONS, _rebuild_lock
+from graphify.watch import _notify_only, _WATCHED_EXTENSIONS, _rebuild_lock, _check_shrink
 
 
 # --- _notify_only ---
@@ -294,3 +296,160 @@ def test_watch_loads_graphifyignore_once(tmp_path, monkeypatch):
         (tmp_path / "ignored" / f"f{i}.py").write_text("x\n", encoding="utf-8")
     time.sleep(0.7)
     assert calls["n"] == 1, f"_load_graphifyignore called {calls['n']} times; expected 1"
+
+
+# --- _check_shrink: silent-corruption guard with explicit-deletion bypass ---
+
+def _shrink_payload(n: int) -> dict:
+    """Build a minimal graph-data dict with *n* placeholder nodes."""
+    return {"nodes": [{"id": f"n{i}"} for i in range(n)], "links": []}
+
+
+def test_check_shrink_blocks_silent_shrink(capsys):
+    """Default case: smaller new graph + no force + no declared deletions = refuse."""
+    ok = _check_shrink(
+        force=False,
+        existing_data=_shrink_payload(100),
+        new_data=_shrink_payload(80),
+    )
+    assert ok is False
+    captured = capsys.readouterr()
+    assert "Refusing to overwrite" in captured.err
+    assert "80 nodes" in captured.err and "100" in captured.err
+
+
+def test_check_shrink_allows_force_override():
+    """force=True bypasses the guard regardless of node delta."""
+    ok = _check_shrink(
+        force=True,
+        existing_data=_shrink_payload(100),
+        new_data=_shrink_payload(1),
+    )
+    assert ok is True
+
+
+def test_check_shrink_allows_explicit_deletions(capsys):
+    """Caller declared deletions → shrink is expected → guard skipped silently."""
+    ok = _check_shrink(
+        force=False,
+        existing_data=_shrink_payload(100),
+        new_data=_shrink_payload(80),
+        had_explicit_deletions=True,
+    )
+    assert ok is True
+    # And critically, no scary warning is printed when the shrink is intentional.
+    assert "Refusing to overwrite" not in capsys.readouterr().err
+
+
+def test_check_shrink_allows_no_existing_data():
+    """First-run case: no existing graph → guard inert."""
+    ok = _check_shrink(
+        force=False,
+        existing_data={},
+        new_data=_shrink_payload(50),
+    )
+    assert ok is True
+
+
+def test_check_shrink_allows_growth():
+    """new > existing is always fine."""
+    ok = _check_shrink(
+        force=False,
+        existing_data=_shrink_payload(50),
+        new_data=_shrink_payload(60),
+    )
+    assert ok is True
+
+
+def test_check_shrink_unlinks_tmp_on_refuse(tmp_path):
+    """When refusing, the temp graph file gets cleaned up so it can't leak across runs."""
+    tmp = tmp_path / "graph.tmp.json"
+    tmp.write_text("{}", encoding="utf-8")
+    ok = _check_shrink(
+        force=False,
+        existing_data=_shrink_payload(100),
+        new_data=_shrink_payload(80),
+        tmp=tmp,
+    )
+    assert ok is False
+    assert not tmp.exists()
+
+
+def test_check_shrink_keeps_tmp_when_deletions_declared(tmp_path):
+    """Mirror of the above: if the caller declared deletions, the tmp file is NOT unlinked
+    because the caller is going to swap it into place. Regression guard against a future
+    bug where the tmp cleanup leaks out of the refuse branch.
+    """
+    tmp = tmp_path / "graph.tmp.json"
+    tmp.write_text("{}", encoding="utf-8")
+    ok = _check_shrink(
+        force=False,
+        existing_data=_shrink_payload(100),
+        new_data=_shrink_payload(80),
+        tmp=tmp,
+        had_explicit_deletions=True,
+    )
+    assert ok is True
+    assert tmp.exists()
+
+
+# --- _rebuild_code integration: post-commit delete scenario ---
+
+@pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
+def test_rebuild_code_prunes_deleted_file_nodes(tmp_path):
+    """End-to-end probe of the post-commit-delete bug fix.
+
+    Build a tiny graph, delete one of its source files, then call _rebuild_code
+    with the deleted path in changed_paths. Without the fix this raises the
+    shrink guard and refuses to write; with the fix the deleted file's nodes
+    are pruned and graph.json is rewritten.
+    """
+    from graphify.watch import _rebuild_code
+
+    # Set up a minimal "project" with two Python files in a git repo so detect
+    # treats it as a real corpus.
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    subprocess.run(
+        ["git", "-C", str(tmp_path), "config", "user.email", "test@example.com"],
+        check=True,
+    )
+    subprocess.run(
+        ["git", "-C", str(tmp_path), "config", "user.name", "Test"],
+        check=True,
+    )
+
+    keep = tmp_path / "keep.py"
+    drop = tmp_path / "drop.py"
+    keep.write_text("def keep_fn():\n    return 1\n", encoding="utf-8")
+    drop.write_text("def drop_fn():\n    return 2\n", encoding="utf-8")
+
+    # Initial build covers both files.
+    cwd = os.getcwd()
+    try:
+        os.chdir(tmp_path)
+        ok = _rebuild_code(tmp_path, no_cluster=True)
+        assert ok is True
+        graph_path = tmp_path / "graphify-out" / "graph.json"
+        assert graph_path.exists()
+        before = json.loads(graph_path.read_text(encoding="utf-8"))
+        before_sources = {n.get("source_file") for n in before.get("nodes", [])}
+        assert "drop.py" in before_sources
+
+        # Now delete drop.py and re-run with it in the change list. This is what
+        # the post-commit hook does when git diff --name-only HEAD~1 HEAD includes
+        # a deletion: the path is passed to _rebuild_code even though it no
+        # longer exists on disk.
+        drop.unlink()
+        ok = _rebuild_code(
+            tmp_path,
+            changed_paths=[Path("drop.py")],
+            no_cluster=True,
+        )
+        assert ok is True, "rebuild should succeed even though the graph shrinks"
+
+        after = json.loads(graph_path.read_text(encoding="utf-8"))
+        after_sources = {n.get("source_file") for n in after.get("nodes", [])}
+        assert "drop.py" not in after_sources, "deleted file's nodes should be pruned"
+        assert "keep.py" in after_sources, "untouched file's nodes should survive"
+    finally:
+        os.chdir(cwd)
