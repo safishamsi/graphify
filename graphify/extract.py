@@ -190,9 +190,24 @@ def _read_tsconfig_aliases(tsconfig: Path, base_dir: Path, seen: set) -> dict[st
         return {}
 
     aliases: dict[str, str] = {}
+    # `extends` may be a string or, since TypeScript 5.0, an array of paths.
+    # For an array, parents are processed in order with later entries
+    # overriding earlier ones; the extending config (paths below) overrides
+    # all parents. Without the list branch, an array `extends` raised
+    # `AttributeError: 'list' object has no attribute 'startswith'`, which
+    # _safe_extract turned into a skip of the whole file.
     extends = data.get("extends")
-    if extends and not extends.startswith("@"):
-        extended_path = (base_dir / extends).resolve()
+    if isinstance(extends, str):
+        extends_list = [extends]
+    elif isinstance(extends, list):
+        extends_list = [e for e in extends if isinstance(e, str)]
+    else:
+        extends_list = []
+    for ext in extends_list:
+        # Skip scoped npm package configs (e.g. @tsconfig/svelte) — not on disk.
+        if not ext or ext.startswith("@"):
+            continue
+        extended_path = (base_dir / ext).resolve()
         if not extended_path.suffix:
             extended_path = extended_path.with_suffix(".json")
         if extended_path.exists():
