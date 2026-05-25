@@ -10,6 +10,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Callable, Any
 from .cache import load_cached, save_cached
+from .mcp_ingest import extract_mcp_config, is_mcp_config_path
 
 _RECURSION_LIMIT = 10_000
 
@@ -7914,6 +7915,11 @@ def _get_extractor(path: Path) -> Any | None:
     """Return the correct extractor function for a file, or None if unsupported."""
     if path.name.endswith(".blade.php"):
         return extract_blade
+    # MCP config files (.mcp.json, claude_desktop_config.json, ...) are routed
+    # by filename before generic .json dispatch so they get MCP-aware nodes
+    # (servers, commands, packages, env vars) instead of opaque JSON keys.
+    if is_mcp_config_path(path):
+        return extract_mcp_config
     return _DISPATCH.get(path.suffix)
 
 
