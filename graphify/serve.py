@@ -9,6 +9,11 @@ from networkx.readwrite import json_graph
 from graphify.security import sanitize_label, check_graph_file_size_cap
 from graphify.build import edge_data
 
+try:
+    import jieba as _jieba  # type: ignore[import-untyped]
+except ImportError:
+    _jieba = None
+
 
 def _load_graph(graph_path: str) -> nx.Graph:
     try:
@@ -51,16 +56,40 @@ def _strip_diacritics(text: str) -> str:
     return "".join(c for c in nfkd if not unicodedata.combining(c))
 
 
+def _has_chinese(text: str) -> bool:
+    return any("一" <= ch <= "鿿" for ch in text)
+
+
+def _segment_chinese(text: str) -> list[str]:
+    """Segment Chinese text and keep the original term for exact matching."""
+    if _jieba is not None:
+        segments = [w for w in _jieba.cut(text) if len(w.strip()) > 0]
+    else:
+        segments = [text[i:i + 2] for i in range(len(text) - 1)] or [text]
+    if len(text) > 1 and text not in segments:
+        segments.append(text)
+    return segments
+
+
+def _is_searchable(term: str) -> bool:
+    """True if term is Chinese, non-English, or an English word longer than 2 chars."""
+    if all("a" <= ch <= "z" for ch in term):
+        return len(term) > 2
+    return True
+
+
 def _query_terms(question: str) -> list[str]:
-    """Split a query into searchable terms, filtering only short English terms."""
+    """Split a query into searchable terms, segmenting Chinese text."""
     terms: list[str] = []
     for raw in question.split():
         term = raw.lower().strip()
         if not term:
             continue
-        is_english_only = all("a" <= ch <= "z" for ch in term)
-        if not is_english_only or len(term) > 2:
-            terms.append(term)
+        candidates = _segment_chinese(term) if _has_chinese(term) else [term]
+        for seg in candidates:
+            seg = seg.strip()
+            if seg and _is_searchable(seg):
+                terms.append(seg)
     return terms
 
 
