@@ -82,7 +82,17 @@ def test_score_nodes_source_file_partial():
 
 def test_query_terms_filters_only_short_english_terms():
     terms = _query_terms("前端 dependency 依赖 install 安装 to of 包管理器 项目约定 a前")
-    assert terms == ["前端", "dependency", "依赖", "install", "安装", "包管理器", "项目约定", "a前"]
+
+    assert "to" not in terms
+    assert "of" not in terms
+    assert "dependency" in terms
+    assert "install" in terms
+    assert "前端" in terms
+    assert "依赖" in terms
+    assert "安装" in terms
+    assert "包管理器" in terms
+    assert "项目约定" in terms
+    assert "a前" in terms
 
 
 def test_query_graph_text_keeps_short_non_english_terms():
@@ -441,3 +451,60 @@ def test_query_graph_text_context_filter_aliases_resolve():
     # Pass-through for already-canonical values
     assert _normalize_context_filters(["parameter_type"]) == ["parameter_type"]
     assert _normalize_context_filters(["field"]) == ["field"]
+
+
+# --- Chinese segmentation ---
+
+def test_query_terms_chinese_segments_with_jieba():
+    """Chinese text should use jieba segmentation and keep the original term."""
+    pytest.importorskip("jieba")
+
+    terms = _query_terms("页面路由")
+    assert terms == ["页面", "路由", "页面路由"]
+
+
+def test_query_terms_chinese_mixed():
+    """Mixed Chinese and English text should be handled correctly when jieba is available."""
+    pytest.importorskip("jieba")
+
+    terms = _query_terms("前端 router 路由配置")
+    assert terms == ["前端", "router", "路由", "配置", "路由配置"]
+
+
+def test_query_terms_non_chinese_scripts_are_not_segmented():
+    """Japanese kana and Hangul are kept as terms but not segmented as Chinese."""
+    import graphify.serve as serve_mod
+
+    assert not serve_mod._has_chinese("かなカナ한글")
+    assert serve_mod._query_terms("かなカナ한글") == ["かなカナ한글"]
+
+
+def test_query_terms_chinese_without_jieba_keeps_original_only():
+    """When jieba is not installed, Chinese text is not segmented."""
+    import graphify.serve as serve_mod
+
+    if serve_mod._jieba is not None:
+        pytest.skip("jieba is installed")
+    assert _query_terms("页面路由") == ["页面路由"]
+
+
+def test_score_nodes_chinese_substring_match():
+    """Searching for '路由' should match a node with label containing '路由'."""
+    G = nx.Graph()
+    G.add_node("n1", label="路由桥接核对表", source_file="doc.md", community=0)
+    G.add_node("n2", label="其他内容", source_file="doc.md", community=0)
+    scored = _score_nodes(G, ["路由"])
+    nids = [nid for _, nid in scored]
+    assert "n1" in nids
+    assert "n2" not in nids
+
+
+def test_query_text_chinese_finds_routing_nodes():
+    """Full pipeline: '页面路由' should find nodes with '路由' in label."""
+    G = nx.Graph()
+    G.add_node("parent", label="页面路由规范", source_file="doc.md", source_location="L1", community=0)
+    G.add_node("child", label="路由桥接核对表", source_file="doc.md", source_location="L10", community=0)
+    G.add_edge("parent", "child", relation="contains", confidence="EXTRACTED")
+    text = _query_graph_text(G, "页面路由", mode="bfs", depth=2)
+    assert "No matching nodes found." not in text
+    assert "路由" in text
