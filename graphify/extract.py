@@ -625,6 +625,356 @@ def _java_method_annotation_names(method_node, source: bytes) -> list[str]:
     return names
 
 
+_GO_PREDECLARED_TYPES = frozenset({
+    "bool", "byte", "complex64", "complex128", "error", "float32", "float64",
+    "int", "int8", "int16", "int32", "int64", "rune", "string",
+    "uint", "uint8", "uint16", "uint32", "uint64", "uintptr", "any", "comparable",
+})
+
+
+def _go_collect_type_refs(node, source: bytes, generic: bool, out: list[tuple[str, str]]) -> None:
+    """Walk a Go type expression; append (name, role) tuples."""
+    if node is None:
+        return
+    t = node.type
+    if t == "type_identifier":
+        text = _read_text(node, source)
+        if text and text not in _GO_PREDECLARED_TYPES:
+            out.append((text, "generic_arg" if generic else "type"))
+        return
+    if t == "qualified_type":
+        text = _read_text(node, source).rsplit(".", 1)[-1]
+        if text and text not in _GO_PREDECLARED_TYPES:
+            out.append((text, "generic_arg" if generic else "type"))
+        return
+    if t == "generic_type":
+        type_field = node.child_by_field_name("type")
+        if type_field is not None:
+            sub: list[tuple[str, str]] = []
+            _go_collect_type_refs(type_field, source, generic, sub)
+            out.extend(sub)
+        for c in node.children:
+            if c.type == "type_arguments":
+                for arg in c.children:
+                    if arg.is_named:
+                        _go_collect_type_refs(arg, source, True, out)
+        return
+    if t in ("pointer_type", "slice_type", "array_type", "map_type",
+             "channel_type", "parenthesized_type"):
+        for c in node.children:
+            if c.is_named:
+                _go_collect_type_refs(c, source, generic, out)
+        return
+    if node.is_named:
+        for c in node.children:
+            if c.is_named:
+                _go_collect_type_refs(c, source, generic, out)
+
+
+def _rust_collect_type_refs(node, source: bytes, generic: bool, out: list[tuple[str, str]]) -> None:
+    """Walk a Rust type expression; append (name, role) tuples."""
+    if node is None:
+        return
+    t = node.type
+    if t == "primitive_type":
+        return
+    if t == "type_identifier":
+        text = _read_text(node, source)
+        if text:
+            out.append((text, "generic_arg" if generic else "type"))
+        return
+    if t == "scoped_type_identifier":
+        text = _read_text(node, source).rsplit("::", 1)[-1]
+        if text:
+            out.append((text, "generic_arg" if generic else "type"))
+        return
+    if t == "generic_type":
+        name_node = node.child_by_field_name("type")
+        if name_node is None:
+            for c in node.children:
+                if c.type in ("type_identifier", "scoped_type_identifier"):
+                    name_node = c
+                    break
+        if name_node is not None:
+            text = _read_text(name_node, source).rsplit("::", 1)[-1]
+            if text:
+                out.append((text, "generic_arg" if generic else "type"))
+        for c in node.children:
+            if c.type == "type_arguments":
+                for arg in c.children:
+                    if arg.is_named:
+                        _rust_collect_type_refs(arg, source, True, out)
+        return
+    if t in ("reference_type", "pointer_type", "array_type", "tuple_type", "slice_type"):
+        for c in node.children:
+            if c.is_named:
+                _rust_collect_type_refs(c, source, generic, out)
+        return
+    if node.is_named:
+        for c in node.children:
+            if c.is_named:
+                _rust_collect_type_refs(c, source, generic, out)
+
+
+def _php_name_text(node, source: bytes) -> str | None:
+    """Return the unqualified name text from a PHP `name`/`qualified_name` node."""
+    if node is None:
+        return None
+    return _read_text(node, source).rsplit("\\", 1)[-1] or None
+
+
+def _php_collect_type_refs(node, source: bytes, generic: bool, out: list[tuple[str, str]]) -> None:
+    """Walk a PHP type expression; append (name, role) tuples."""
+    if node is None:
+        return
+    t = node.type
+    if t == "primitive_type":
+        return
+    if t == "named_type":
+        for c in node.children:
+            if c.type in ("name", "qualified_name"):
+                text = _php_name_text(c, source)
+                if text:
+                    out.append((text, "generic_arg" if generic else "type"))
+                return
+        return
+    if t in ("name", "qualified_name"):
+        text = _php_name_text(node, source)
+        if text:
+            out.append((text, "generic_arg" if generic else "type"))
+        return
+    if t in ("nullable_type", "union_type", "intersection_type", "optional_type"):
+        for c in node.children:
+            if c.is_named:
+                _php_collect_type_refs(c, source, generic, out)
+        return
+    if node.is_named:
+        for c in node.children:
+            if c.is_named:
+                _php_collect_type_refs(c, source, generic, out)
+
+
+def _php_method_return_type_node(method_node):
+    """Return the named_type/primitive_type node sitting after formal_parameters."""
+    saw_params = False
+    for c in method_node.children:
+        if c.type == "formal_parameters":
+            saw_params = True
+            continue
+        if saw_params and c.is_named and c.type not in ("compound_statement",):
+            if c.type in ("named_type", "primitive_type", "nullable_type",
+                          "union_type", "intersection_type", "optional_type"):
+                return c
+    return None
+
+
+def _kotlin_user_type_name(user_type_node, source: bytes) -> str | None:
+    """Return the head identifier text from a Kotlin user_type node (without generics)."""
+    if user_type_node is None:
+        return None
+    for c in user_type_node.children:
+        if c.type == "type_identifier":
+            text = _read_text(c, source)
+            return text or None
+        if c.type == "identifier":
+            text = _read_text(c, source)
+            return text or None
+        if c.type == "simple_user_type":
+            for sub in c.children:
+                if sub.type in ("identifier", "type_identifier"):
+                    text = _read_text(sub, source)
+                    return text or None
+    return None
+
+
+def _kotlin_collect_type_refs(node, source: bytes, generic: bool, out: list[tuple[str, str]]) -> None:
+    """Walk a Kotlin type expression; append (name, role) tuples."""
+    if node is None:
+        return
+    t = node.type
+    if t in ("integral_literal", "boolean_literal"):
+        return
+    if t == "user_type":
+        for c in node.children:
+            if c.type in ("identifier", "type_identifier"):
+                text = _read_text(c, source)
+                if text:
+                    out.append((text, "generic_arg" if generic else "type"))
+                break
+            if c.type == "simple_user_type":
+                for sub in c.children:
+                    if sub.type in ("identifier", "type_identifier"):
+                        text = _read_text(sub, source)
+                        if text:
+                            out.append((text, "generic_arg" if generic else "type"))
+                        break
+                break
+        for c in node.children:
+            if c.type == "type_arguments":
+                for arg in c.children:
+                    if arg.type == "type_projection":
+                        for sub in arg.children:
+                            if sub.is_named:
+                                _kotlin_collect_type_refs(sub, source, True, out)
+                    elif arg.is_named:
+                        _kotlin_collect_type_refs(arg, source, True, out)
+        return
+    if t in ("identifier", "type_identifier"):
+        text = _read_text(node, source)
+        if text:
+            out.append((text, "generic_arg" if generic else "type"))
+        return
+    if t in ("nullable_type", "parenthesized_type", "type_reference"):
+        for c in node.children:
+            if c.is_named:
+                _kotlin_collect_type_refs(c, source, generic, out)
+        return
+    if node.is_named:
+        for c in node.children:
+            if c.is_named:
+                _kotlin_collect_type_refs(c, source, generic, out)
+
+
+def _kotlin_property_type_node(property_node):
+    """Find the user_type node within a Kotlin property_declaration."""
+    for c in property_node.children:
+        if c.type == "variable_declaration":
+            for sub in c.children:
+                if sub.type in ("user_type", "nullable_type", "type_reference"):
+                    return sub
+        if c.type in ("user_type", "nullable_type", "type_reference"):
+            return c
+    return None
+
+
+def _kotlin_function_return_type_node(func_node):
+    """Find the return-type node of a Kotlin function_declaration (the type after `: ` post-params)."""
+    saw_params = False
+    saw_colon = False
+    for c in func_node.children:
+        if c.type == "function_value_parameters":
+            saw_params = True
+            continue
+        if saw_params and c.type == ":":
+            saw_colon = True
+            continue
+        if saw_colon:
+            if c.is_named:
+                return c
+    return None
+
+
+def _swift_declaration_keyword(node) -> str | None:
+    """Return the leading kind token for a Swift class_declaration: class/struct/enum/extension/actor."""
+    for c in node.children:
+        if not c.is_named and c.type in ("class", "struct", "enum", "extension", "actor"):
+            return c.type
+    return None
+
+
+def _swift_pre_scan(root_node, source: bytes) -> tuple[set[str], set[str]]:
+    """Pre-scan a Swift compilation unit and return (protocol_names, class_like_names)."""
+    protocols: set[str] = set()
+    classes: set[str] = set()
+    stack = [root_node]
+    while stack:
+        n = stack.pop()
+        if n.type == "protocol_declaration":
+            name_node = n.child_by_field_name("name")
+            if name_node is None:
+                for c in n.children:
+                    if c.type == "type_identifier":
+                        name_node = c
+                        break
+            if name_node is not None:
+                text = _read_text(name_node, source)
+                if text:
+                    protocols.add(text)
+        elif n.type == "class_declaration":
+            kw = _swift_declaration_keyword(n)
+            if kw in ("class", "struct", "enum", "actor"):
+                name_node = n.child_by_field_name("name")
+                if name_node is not None:
+                    text = _read_text(name_node, source)
+                    if text:
+                        classes.add(text)
+        stack.extend(n.children)
+    return protocols, classes
+
+
+def _swift_classify_base(name: str, kind: str | None, is_first: bool,
+                          protocols: set[str], classes: set[str]) -> str:
+    """Classify a Swift inheritance_specifier entry as `inherits` or `implements`."""
+    if name in protocols:
+        return "implements"
+    if name in classes:
+        return "inherits"
+    # struct/enum/extension/actor cannot inherit a class — all conformances are protocols.
+    if kind in ("struct", "enum", "extension", "actor"):
+        return "implements"
+    # `class`: first entry is conventionally the base class; subsequent are protocols.
+    return "inherits" if is_first else "implements"
+
+
+def _swift_user_type_name(user_type_node, source: bytes) -> str | None:
+    """Return the head type_identifier text from a Swift user_type node (without generics)."""
+    if user_type_node is None:
+        return None
+    for c in user_type_node.children:
+        if c.type == "type_identifier":
+            text = _read_text(c, source)
+            return text or None
+    return None
+
+
+def _swift_collect_type_refs(node, source: bytes, generic: bool, out: list[tuple[str, str]]) -> None:
+    """Walk a Swift type expression; append (name, role) tuples (role 'type' or 'generic_arg')."""
+    if node is None:
+        return
+    t = node.type
+    if t == "type_annotation":
+        for c in node.children:
+            if c.is_named:
+                _swift_collect_type_refs(c, source, generic, out)
+        return
+    if t == "user_type":
+        for c in node.children:
+            if c.type == "type_identifier":
+                text = _read_text(c, source)
+                if text:
+                    out.append((text, "generic_arg" if generic else "type"))
+                break
+        for c in node.children:
+            if c.type == "type_arguments":
+                for arg in c.children:
+                    if arg.is_named:
+                        _swift_collect_type_refs(arg, source, True, out)
+        return
+    if t == "type_identifier":
+        text = _read_text(node, source)
+        if text:
+            out.append((text, "generic_arg" if generic else "type"))
+        return
+    if t in ("optional_type", "implicitly_unwrapped_optional_type", "array_type",
+             "dictionary_type", "tuple_type"):
+        for c in node.children:
+            if c.is_named:
+                _swift_collect_type_refs(c, source, generic, out)
+        return
+    if node.is_named:
+        for c in node.children:
+            if c.is_named:
+                _swift_collect_type_refs(c, source, generic, out)
+
+
+def _swift_property_type_node(property_node):
+    """Return the type_annotation child of a Swift property_declaration, if any."""
+    for c in property_node.children:
+        if c.type == "type_annotation":
+            return c
+    return None
+
+
 def _python_collect_param_refs(params_node, source: bytes) -> list[tuple[str, str]]:
     """Collect type refs from each typed parameter under a `parameters` node."""
     out: list[tuple[str, str]] = []
@@ -1630,6 +1980,11 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
     if config.ts_module == "tree_sitter_c_sharp":
         csharp_interface_names = _csharp_pre_scan_interfaces(root, source)
 
+    swift_protocol_names: set[str] = set()
+    swift_class_names: set[str] = set()
+    if config.ts_module == "tree_sitter_swift":
+        swift_protocol_names, swift_class_names = _swift_pre_scan(root, source)
+
     def add_node(nid: str, label: str, line: int) -> None:
         if nid not in seen_ids:
             seen_ids.add(nid)
@@ -1731,24 +2086,156 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
 
             # Swift-specific: conformance / inheritance
             if config.ts_module == "tree_sitter_swift":
+                swift_kind = _swift_declaration_keyword(node) if t == "class_declaration" else "protocol"
+                seen_swift_base = False
                 for child in node.children:
-                    if child.type == "inheritance_specifier":
+                    if child.type != "inheritance_specifier":
+                        continue
+                    base_name: str | None = None
+                    user_type_node = None
+                    for sub in child.children:
+                        if sub.type == "user_type":
+                            user_type_node = sub
+                            base_name = _swift_user_type_name(sub, source)
+                            break
+                        if sub.type == "type_identifier":
+                            base_name = _read_text(sub, source) or None
+                            break
+                    if not base_name:
+                        continue
+                    base_nid = _make_id(stem, base_name)
+                    if base_nid not in seen_ids:
+                        base_nid = _make_id(base_name)
+                        if base_nid not in seen_ids:
+                            nodes.append({
+                                "id": base_nid,
+                                "label": base_name,
+                                "file_type": "code",
+                                "source_file": "",
+                                "source_location": "",
+                            })
+                            seen_ids.add(base_nid)
+                    if t == "protocol_declaration":
+                        relation = "inherits"
+                    else:
+                        relation = _swift_classify_base(
+                            base_name, swift_kind, not seen_swift_base,
+                            swift_protocol_names, swift_class_names,
+                        )
+                    seen_swift_base = True
+                    add_edge(class_nid, base_nid, relation, line)
+                    if user_type_node is not None:
+                        for arg_child in user_type_node.children:
+                            if arg_child.type != "type_arguments":
+                                continue
+                            for arg in arg_child.children:
+                                if not arg.is_named:
+                                    continue
+                                refs: list[tuple[str, str]] = []
+                                _swift_collect_type_refs(arg, source, True, refs)
+                                for ref_name, _role in refs:
+                                    target = ensure_named_node(ref_name, line)
+                                    add_edge(class_nid, target, "references", line,
+                                             context="generic_arg")
+
+            # PHP-specific: extends → inherits, implements → implements, use → mixes_in
+            if config.ts_module == "tree_sitter_php":
+                def _php_emit_base(base_name: str, rel: str, at_line: int) -> None:
+                    if not base_name:
+                        return
+                    base_nid = _make_id(stem, base_name)
+                    if base_nid not in seen_ids:
+                        base_nid = _make_id(base_name)
+                        if base_nid not in seen_ids:
+                            nodes.append({
+                                "id": base_nid,
+                                "label": base_name,
+                                "file_type": "code",
+                                "source_file": "",
+                                "source_location": "",
+                            })
+                            seen_ids.add(base_nid)
+                    add_edge(class_nid, base_nid, rel, at_line)
+
+                for child in node.children:
+                    if child.type == "base_clause":
                         for sub in child.children:
-                            if sub.type in ("user_type", "type_identifier"):
-                                base = _read_text(sub, source)
-                                base_nid = _make_id(stem, base)
-                                if base_nid not in seen_ids:
-                                    base_nid = _make_id(base)
-                                    if base_nid not in seen_ids:
-                                        nodes.append({
-                                            "id": base_nid,
-                                            "label": base,
-                                            "file_type": "code",
-                                            "source_file": "",
-                                            "source_location": "",
-                                        })
-                                        seen_ids.add(base_nid)
-                                add_edge(class_nid, base_nid, "inherits", line)
+                            if sub.type in ("name", "qualified_name"):
+                                _php_emit_base(_php_name_text(sub, source) or "",
+                                                "inherits", child.start_point[0] + 1)
+                    elif child.type == "class_interface_clause":
+                        for sub in child.children:
+                            if sub.type in ("name", "qualified_name"):
+                                _php_emit_base(_php_name_text(sub, source) or "",
+                                                "implements", child.start_point[0] + 1)
+                body = node.child_by_field_name("body")
+                if body is None:
+                    for c in node.children:
+                        if c.type == "declaration_list":
+                            body = c
+                            break
+                if body is not None:
+                    for member in body.children:
+                        if member.type != "use_declaration":
+                            continue
+                        for sub in member.children:
+                            if sub.type in ("name", "qualified_name"):
+                                _php_emit_base(_php_name_text(sub, source) or "",
+                                                "mixes_in", member.start_point[0] + 1)
+
+            # Kotlin-specific: delegation_specifiers → inherits (constructor_invocation) / implements (user_type)
+            if config.ts_module == "tree_sitter_kotlin":
+                for child in node.children:
+                    if child.type != "delegation_specifiers":
+                        continue
+                    for spec in child.children:
+                        if spec.type != "delegation_specifier":
+                            continue
+                        relation = "implements"
+                        user_type_node = None
+                        for sub in spec.children:
+                            if sub.type == "constructor_invocation":
+                                relation = "inherits"
+                                for inner in sub.children:
+                                    if inner.type == "user_type":
+                                        user_type_node = inner
+                                        break
+                                break
+                            if sub.type == "user_type":
+                                user_type_node = sub
+                                break
+                        if user_type_node is None:
+                            continue
+                        base = _kotlin_user_type_name(user_type_node, source)
+                        if not base:
+                            continue
+                        base_nid = _make_id(stem, base)
+                        if base_nid not in seen_ids:
+                            base_nid = _make_id(base)
+                            if base_nid not in seen_ids:
+                                nodes.append({
+                                    "id": base_nid,
+                                    "label": base,
+                                    "file_type": "code",
+                                    "source_file": "",
+                                    "source_location": "",
+                                })
+                                seen_ids.add(base_nid)
+                        add_edge(class_nid, base_nid, relation, line)
+                        for arg_child in user_type_node.children:
+                            if arg_child.type != "type_arguments":
+                                continue
+                            for arg in arg_child.children:
+                                if arg.type == "type_projection":
+                                    for inner in arg.children:
+                                        if not inner.is_named:
+                                            continue
+                                        refs: list[tuple[str, str]] = []
+                                        _kotlin_collect_type_refs(inner, source, True, refs)
+                                        for ref_name, _role in refs:
+                                            target = ensure_named_node(ref_name, line)
+                                            add_edge(class_nid, target, "references", line,
+                                                     context="generic_arg")
 
             # C#-specific: inheritance / interface implementation via base_list
             if config.ts_module == "tree_sitter_c_sharp":
@@ -1897,6 +2384,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
         if (t == "property_declaration"
                 and parent_class_nid
                 and config.event_listener_properties):
+            handled_event_listener = False
             for element in node.children:
                 if element.type != "property_element":
                     continue
@@ -1914,6 +2402,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                         or prop_name not in config.event_listener_properties
                         or array_node is None):
                     continue
+                handled_event_listener = True
                 for entry in array_node.children:
                     if entry.type != "array_element_initializer":
                         continue
@@ -1942,7 +2431,8 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                                     pending_listen_edges.append((event_cls, listener_cls, line_no))
                                     break
                             break
-            return
+            if handled_event_listener:
+                return
 
         if (config.ts_module == "tree_sitter_c_sharp"
                 and t == "field_declaration"
@@ -1959,6 +2449,54 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                 line = node.start_point[0] + 1
                 add_edge(parent_class_nid, ensure_named_node(type_name, line),
                          "references", line, context="field")
+            return
+
+        if (config.ts_module == "tree_sitter_php"
+                and t == "property_declaration"
+                and parent_class_nid):
+            for c in node.children:
+                if c.type not in ("named_type", "primitive_type", "nullable_type",
+                                   "union_type", "intersection_type", "optional_type"):
+                    continue
+                line = node.start_point[0] + 1
+                refs: list[tuple[str, str]] = []
+                _php_collect_type_refs(c, source, False, refs)
+                for ref_name, role in refs:
+                    ctx = "generic_arg" if role == "generic_arg" else "field"
+                    target_nid = ensure_named_node(ref_name, line)
+                    if target_nid != parent_class_nid:
+                        add_edge(parent_class_nid, target_nid, "references", line, context=ctx)
+                break
+            return
+
+        if (config.ts_module == "tree_sitter_kotlin"
+                and t == "property_declaration"
+                and parent_class_nid):
+            type_node = _kotlin_property_type_node(node)
+            if type_node is not None:
+                line = node.start_point[0] + 1
+                refs: list[tuple[str, str]] = []
+                _kotlin_collect_type_refs(type_node, source, False, refs)
+                for ref_name, role in refs:
+                    ctx = "generic_arg" if role == "generic_arg" else "field"
+                    target_nid = ensure_named_node(ref_name, line)
+                    if target_nid != parent_class_nid:
+                        add_edge(parent_class_nid, target_nid, "references", line, context=ctx)
+            return
+
+        if (config.ts_module == "tree_sitter_swift"
+                and t == "property_declaration"
+                and parent_class_nid):
+            type_anno = _swift_property_type_node(node)
+            if type_anno is not None:
+                line = node.start_point[0] + 1
+                refs: list[tuple[str, str]] = []
+                _swift_collect_type_refs(type_anno, source, False, refs)
+                for ref_name, role in refs:
+                    ctx = "generic_arg" if role == "generic_arg" else "field"
+                    target_nid = ensure_named_node(ref_name, line)
+                    if target_nid != parent_class_nid:
+                        add_edge(parent_class_nid, target_nid, "references", line, context=ctx)
             return
 
         if (config.ts_module == "tree_sitter_cpp"
@@ -2089,6 +2627,93 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
                     target_nid = ensure_named_node(anno_name, line)
                     if target_nid != func_nid:
                         add_edge(func_nid, target_nid, "references", line, context="attribute")
+
+            if config.ts_module == "tree_sitter_php":
+                params_container = None
+                for c in node.children:
+                    if c.type == "formal_parameters":
+                        params_container = c
+                        break
+                if params_container is not None:
+                    for p in params_container.children:
+                        if p.type != "simple_parameter":
+                            continue
+                        type_node = None
+                        for sub in p.children:
+                            if sub.type in ("named_type", "primitive_type", "nullable_type",
+                                             "union_type", "intersection_type", "optional_type"):
+                                type_node = sub
+                                break
+                        refs: list[tuple[str, str]] = []
+                        _php_collect_type_refs(type_node, source, False, refs)
+                        for ref_name, role in refs:
+                            ctx = "generic_arg" if role == "generic_arg" else "parameter_type"
+                            target_nid = ensure_named_node(ref_name, line)
+                            if target_nid != func_nid:
+                                add_edge(func_nid, target_nid, "references", line, context=ctx)
+                return_node = _php_method_return_type_node(node)
+                if return_node is not None:
+                    refs = []
+                    _php_collect_type_refs(return_node, source, False, refs)
+                    for ref_name, role in refs:
+                        ctx = "generic_arg" if role == "generic_arg" else "return_type"
+                        target_nid = ensure_named_node(ref_name, line)
+                        if target_nid != func_nid:
+                            add_edge(func_nid, target_nid, "references", line, context=ctx)
+
+            if config.ts_module == "tree_sitter_kotlin":
+                params_container = None
+                for c in node.children:
+                    if c.type == "function_value_parameters":
+                        params_container = c
+                        break
+                if params_container is not None:
+                    for p in params_container.children:
+                        if p.type != "parameter":
+                            continue
+                        param_type_node = None
+                        for sub in p.children:
+                            if sub.type in ("user_type", "nullable_type", "type_reference"):
+                                param_type_node = sub
+                                break
+                        refs: list[tuple[str, str]] = []
+                        _kotlin_collect_type_refs(param_type_node, source, False, refs)
+                        for ref_name, role in refs:
+                            ctx = "generic_arg" if role == "generic_arg" else "parameter_type"
+                            target_nid = ensure_named_node(ref_name, line)
+                            if target_nid != func_nid:
+                                add_edge(func_nid, target_nid, "references", line, context=ctx)
+                return_type_node = _kotlin_function_return_type_node(node)
+                if return_type_node is not None:
+                    refs = []
+                    _kotlin_collect_type_refs(return_type_node, source, False, refs)
+                    for ref_name, role in refs:
+                        ctx = "generic_arg" if role == "generic_arg" else "return_type"
+                        target_nid = ensure_named_node(ref_name, line)
+                        if target_nid != func_nid:
+                            add_edge(func_nid, target_nid, "references", line, context=ctx)
+
+            if config.ts_module == "tree_sitter_swift":
+                for p in node.children:
+                    if p.type != "parameter":
+                        continue
+                    type_node = p.child_by_field_name("type")
+                    refs: list[tuple[str, str]] = []
+                    _swift_collect_type_refs(type_node, source, False, refs)
+                    for ref_name, role in refs:
+                        ctx = "generic_arg" if role == "generic_arg" else "parameter_type"
+                        target_nid = ensure_named_node(ref_name, line)
+                        if target_nid != func_nid:
+                            add_edge(func_nid, target_nid, "references", line, context=ctx)
+                return_node = node.child_by_field_name("return_type")
+                if return_node is not None:
+                    refs = []
+                    _swift_collect_type_refs(return_node, source, False, refs)
+                    for ref_name, role in refs:
+                        ctx = "generic_arg" if role == "generic_arg" else "return_type"
+                        target_nid = ensure_named_node(ref_name, line)
+                        if target_nid != func_nid:
+                            add_edge(func_nid, target_nid, "references", line, context=ctx)
 
             body = _find_body(node, config)
             if body:
@@ -3998,6 +4623,57 @@ def extract_go(path: Path) -> dict:
     file_nid = _make_id(str(path))
     add_node(file_nid, path.name, 1)
 
+    def ensure_named_node(name: str, line: int) -> str:
+        nid = _make_id(pkg_scope, name)
+        if nid in seen_ids:
+            return nid
+        nid = _make_id(name)
+        if nid not in seen_ids:
+            add_node(nid, name, line)
+        return nid
+
+    def emit_go_method_refs(func_node, func_nid: str, line: int) -> None:
+        params = func_node.child_by_field_name("parameters")
+        if params is not None:
+            for p in params.children:
+                if p.type != "parameter_declaration":
+                    continue
+                type_node = p.child_by_field_name("type")
+                refs: list[tuple[str, str]] = []
+                _go_collect_type_refs(type_node, source, False, refs)
+                for ref_name, role in refs:
+                    ctx = "generic_arg" if role == "generic_arg" else "parameter_type"
+                    tgt = ensure_named_node(ref_name, line)
+                    if tgt != func_nid:
+                        add_edge(func_nid, tgt, "references", line, context=ctx)
+        result = func_node.child_by_field_name("result")
+        if result is not None:
+            if result.type == "parameter_list":
+                for p in result.children:
+                    if p.type != "parameter_declaration":
+                        continue
+                    type_node = p.child_by_field_name("type")
+                    if type_node is None:
+                        for c in p.children:
+                            if c.is_named:
+                                type_node = c
+                                break
+                    refs = []
+                    _go_collect_type_refs(type_node, source, False, refs)
+                    for ref_name, role in refs:
+                        ctx = "generic_arg" if role == "generic_arg" else "return_type"
+                        tgt = ensure_named_node(ref_name, line)
+                        if tgt != func_nid:
+                            add_edge(func_nid, tgt, "references", line, context=ctx)
+            else:
+                refs = []
+                _go_collect_type_refs(result, source, False, refs)
+                for ref_name, role in refs:
+                    ctx = "generic_arg" if role == "generic_arg" else "return_type"
+                    tgt = ensure_named_node(ref_name, line)
+                    if tgt != func_nid:
+                        add_edge(func_nid, tgt, "references", line, context=ctx)
+
     def walk(node) -> None:
         t = node.type
 
@@ -4009,6 +4685,7 @@ def extract_go(path: Path) -> dict:
                 func_nid = _make_id(stem, func_name)
                 add_node(func_nid, f"{func_name}()", line)
                 add_edge(file_nid, func_nid, "contains", line)
+                emit_go_method_refs(node, func_nid, line)
                 body = node.child_by_field_name("body")
                 if body:
                     function_bodies.append((func_nid, body))
@@ -4022,38 +4699,98 @@ def extract_go(path: Path) -> dict:
                     if param.type == "parameter_declaration":
                         type_node = param.child_by_field_name("type")
                         if type_node:
-                            raw = _read_text(type_node, source).lstrip("*").strip()
-                            receiver_type = raw
+                            receiver_type = _read_text(type_node, source).lstrip("*").strip()
                         break
             name_node = node.child_by_field_name("name")
-            if name_node:
-                method_name = _read_text(name_node, source)
-                line = node.start_point[0] + 1
-                if receiver_type:
-                    parent_nid = _make_id(pkg_scope, receiver_type)
-                    add_node(parent_nid, receiver_type, line)
-                    method_nid = _make_id(parent_nid, method_name)
-                    add_node(method_nid, f".{method_name}()", line)
-                    add_edge(parent_nid, method_nid, "method", line)
-                else:
-                    method_nid = _make_id(stem, method_name)
-                    add_node(method_nid, f"{method_name}()", line)
-                    add_edge(file_nid, method_nid, "contains", line)
-                body = node.child_by_field_name("body")
-                if body:
-                    function_bodies.append((method_nid, body))
+            if not name_node:
+                return
+            method_name = _read_text(name_node, source)
+            line = node.start_point[0] + 1
+
+            if receiver_type:
+                parent_nid = _make_id(pkg_scope, receiver_type)
+                add_node(parent_nid, receiver_type, line)
+                method_nid = _make_id(parent_nid, method_name)
+                add_node(method_nid, f".{method_name}()", line)
+                add_edge(parent_nid, method_nid, "method", line)
+            else:
+                method_nid = _make_id(stem, method_name)
+                add_node(method_nid, f"{method_name}()", line)
+                add_edge(file_nid, method_nid, "contains", line)
+
+            emit_go_method_refs(node, method_nid, line)
+            body = node.child_by_field_name("body")
+            if body:
+                function_bodies.append((method_nid, body))
             return
 
         if t == "type_declaration":
             for child in node.children:
-                if child.type == "type_spec":
-                    name_node = child.child_by_field_name("name")
-                    if name_node:
-                        type_name = _read_text(name_node, source)
-                        line = child.start_point[0] + 1
-                        type_nid = _make_id(pkg_scope, type_name)
-                        add_node(type_nid, type_name, line)
-                        add_edge(file_nid, type_nid, "contains", line)
+                if child.type != "type_spec":
+                    continue
+                name_node = child.child_by_field_name("name")
+                if not name_node:
+                    continue
+                type_name = _read_text(name_node, source)
+                line = child.start_point[0] + 1
+                type_nid = _make_id(pkg_scope, type_name)
+                add_node(type_nid, type_name, line)
+                add_edge(file_nid, type_nid, "contains", line)
+                # Type body: struct fields (with embeds) or interface embedding.
+                type_body = None
+                for tc in child.children:
+                    if tc.type in ("struct_type", "interface_type"):
+                        type_body = tc
+                        break
+                if type_body is None:
+                    continue
+                if type_body.type == "struct_type":
+                    for fdl in type_body.children:
+                        if fdl.type != "field_declaration_list":
+                            continue
+                        for field in fdl.children:
+                            if field.type != "field_declaration":
+                                continue
+                            has_name = any(
+                                fc.type == "field_identifier" for fc in field.children
+                            )
+                            type_node = field.child_by_field_name("type")
+                            if type_node is None:
+                                for fc in field.children:
+                                    if fc.is_named and fc.type != "field_identifier":
+                                        type_node = fc
+                                        break
+                            refs: list[tuple[str, str]] = []
+                            _go_collect_type_refs(type_node, source, False, refs)
+                            for ref_name, role in refs:
+                                tgt = ensure_named_node(ref_name, field.start_point[0] + 1)
+                                if tgt == type_nid:
+                                    continue
+                                if not has_name and role == "type":
+                                    add_edge(type_nid, tgt, "embeds",
+                                             field.start_point[0] + 1)
+                                else:
+                                    ctx = "generic_arg" if role == "generic_arg" else "field"
+                                    add_edge(type_nid, tgt, "references",
+                                             field.start_point[0] + 1, context=ctx)
+                elif type_body.type == "interface_type":
+                    for elem in type_body.children:
+                        if elem.type != "type_elem":
+                            continue
+                        refs = []
+                        for sub in elem.children:
+                            if sub.is_named:
+                                _go_collect_type_refs(sub, source, False, refs)
+                        for ref_name, role in refs:
+                            tgt = ensure_named_node(ref_name, elem.start_point[0] + 1)
+                            if tgt == type_nid:
+                                continue
+                            if role == "type":
+                                add_edge(type_nid, tgt, "embeds",
+                                         elem.start_point[0] + 1)
+                            else:
+                                add_edge(type_nid, tgt, "references",
+                                         elem.start_point[0] + 1, context="generic_arg")
             return
 
         if t == "import_declaration":
@@ -4226,6 +4963,39 @@ def extract_rust(path: Path) -> dict:
     file_nid = _make_id(str(path))
     add_node(file_nid, path.name, 1)
 
+    def ensure_named_node(name: str, line: int) -> str:
+        nid = _make_id(stem, name)
+        if nid in seen_ids:
+            return nid
+        nid = _make_id(name)
+        if nid not in seen_ids:
+            add_node(nid, name, line)
+        return nid
+
+    def emit_param_return_refs(func_node, func_nid: str, line: int) -> None:
+        params = func_node.child_by_field_name("parameters")
+        if params is not None:
+            for p in params.children:
+                if p.type != "parameter":
+                    continue
+                type_node = p.child_by_field_name("type")
+                refs: list[tuple[str, str]] = []
+                _rust_collect_type_refs(type_node, source, False, refs)
+                for ref_name, role in refs:
+                    ctx = "generic_arg" if role == "generic_arg" else "parameter_type"
+                    tgt = ensure_named_node(ref_name, line)
+                    if tgt != func_nid:
+                        add_edge(func_nid, tgt, "references", line, context=ctx)
+        return_type = func_node.child_by_field_name("return_type")
+        if return_type is not None:
+            refs = []
+            _rust_collect_type_refs(return_type, source, False, refs)
+            for ref_name, role in refs:
+                ctx = "generic_arg" if role == "generic_arg" else "return_type"
+                tgt = ensure_named_node(ref_name, line)
+                if tgt != func_nid:
+                    add_edge(func_nid, tgt, "references", line, context=ctx)
+
     def walk(node, parent_impl_nid: str | None = None) -> None:
         t = node.type
 
@@ -4242,6 +5012,7 @@ def extract_rust(path: Path) -> dict:
                     func_nid = _make_id(stem, func_name)
                     add_node(func_nid, f"{func_name}()", line)
                     add_edge(file_nid, func_nid, "contains", line)
+                emit_param_return_refs(node, func_nid, line)
                 body = node.child_by_field_name("body")
                 if body:
                     function_bodies.append((func_nid, body))
@@ -4255,15 +5026,70 @@ def extract_rust(path: Path) -> dict:
                 item_nid = _make_id(stem, item_name)
                 add_node(item_nid, item_name, line)
                 add_edge(file_nid, item_nid, "contains", line)
+                if t == "trait_item":
+                    for c in node.children:
+                        if c.type != "trait_bounds":
+                            continue
+                        for sub in c.children:
+                            if not sub.is_named:
+                                continue
+                            refs: list[tuple[str, str]] = []
+                            _rust_collect_type_refs(sub, source, False, refs)
+                            for idx, (ref_name, _role) in enumerate(refs):
+                                tgt = ensure_named_node(ref_name, line)
+                                if tgt == item_nid:
+                                    continue
+                                rel = "inherits" if idx == 0 else "references"
+                                if rel == "inherits":
+                                    add_edge(item_nid, tgt, "inherits", line)
+                                else:
+                                    add_edge(item_nid, tgt, "references", line,
+                                             context="generic_arg")
+                if t == "struct_item":
+                    for c in node.children:
+                        if c.type != "field_declaration_list":
+                            continue
+                        for field in c.children:
+                            if field.type != "field_declaration":
+                                continue
+                            type_node = field.child_by_field_name("type")
+                            if type_node is None:
+                                for fc in field.children:
+                                    if fc.type in ("type_identifier", "generic_type",
+                                                    "scoped_type_identifier",
+                                                    "reference_type", "primitive_type"):
+                                        type_node = fc
+                                        break
+                            refs = []
+                            _rust_collect_type_refs(type_node, source, False, refs)
+                            for ref_name, role in refs:
+                                ctx = "generic_arg" if role == "generic_arg" else "field"
+                                tgt = ensure_named_node(ref_name, field.start_point[0] + 1)
+                                if tgt != item_nid:
+                                    add_edge(item_nid, tgt, "references",
+                                             field.start_point[0] + 1, context=ctx)
             return
 
         if t == "impl_item":
             type_node = node.child_by_field_name("type")
+            trait_node = node.child_by_field_name("trait")
             impl_nid: str | None = None
             if type_node:
                 type_name = _read_text(type_node, source).strip()
                 impl_nid = _make_id(stem, type_name)
                 add_node(impl_nid, type_name, node.start_point[0] + 1)
+            if trait_node is not None and impl_nid is not None:
+                refs: list[tuple[str, str]] = []
+                _rust_collect_type_refs(trait_node, source, False, refs)
+                for idx, (ref_name, _role) in enumerate(refs):
+                    tgt = ensure_named_node(ref_name, node.start_point[0] + 1)
+                    if tgt == impl_nid:
+                        continue
+                    if idx == 0:
+                        add_edge(impl_nid, tgt, "implements", node.start_point[0] + 1)
+                    else:
+                        add_edge(impl_nid, tgt, "references", node.start_point[0] + 1,
+                                 context="generic_arg")
             body = node.child_by_field_name("body")
             if body:
                 for child in body.children:

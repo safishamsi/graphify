@@ -347,6 +347,20 @@ def test_kotlin_emits_in_file_calls():
     assert ("createClient()", "HttpClient") in calls
 
 
+def test_kotlin_splits_inherits_and_implements():
+    r = extract_kotlin(FIXTURES / "sample.kt")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(r, "inherits")
+    assert ("DataProcessor", "Loggable") in _edge_labels(r, "implements")
+
+
+def test_kotlin_parameter_return_generic_and_field_contexts():
+    r = extract_kotlin(FIXTURES / "sample.kt")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "parameter_type")
+    assert ("run", "Result") in _edge_labels(r, "references", "return_type")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "generic_arg")
+    assert ("DataProcessor", "Result") in _edge_labels(r, "references", "field")
+
+
 # ── Scala ─────────────────────────────────────────────────────────────────────
 
 def test_scala_no_error():
@@ -473,6 +487,20 @@ def test_php_event_listener_links_event_to_listener():
     assert any("UserRegistered" in src and "SendWelcomeEmail" in tgt for src, tgt in listened)
 
 
+def test_php_splits_inherits_implements_mixes_in():
+    r = extract_php(FIXTURES / "sample.php")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(r, "inherits")
+    assert ("DataProcessor", "Loggable") in _edge_labels(r, "implements")
+    assert ("DataProcessor", "HasName") in _edge_labels(r, "mixes_in")
+
+
+def test_php_property_parameter_and_return_contexts():
+    r = extract_php(FIXTURES / "sample.php")
+    assert ("DataProcessor", "Result") in _edge_labels(r, "references", "field")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "parameter_type")
+    assert ("run", "Result") in _edge_labels(r, "references", "return_type")
+
+
 # ── Swift ────────────────────────────────────────────────────────────────────
 
 def test_swift_no_error():
@@ -567,31 +595,28 @@ def test_swift_extension_does_not_duplicate_type_node():
     config_nodes = [n for n in r["nodes"] if n["label"] == "Config"]
     assert len(config_nodes) == 1, f"Config should appear once, got {len(config_nodes)}"
 
-def test_swift_conformance_edge():
+def test_swift_protocol_conformance_emits_implements():
     r = extract_swift(FIXTURES / "sample.swift")
-    inherits_edges = [e for e in r["edges"] if e["relation"] == "inherits"]
-    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
-    found = False
-    for e in inherits_edges:
-        src_label = node_by_id.get(e["source"], "")
-        tgt_label = node_by_id.get(e["target"], "")
-        if "DataProcessor" in src_label and "Processor" in tgt_label:
-            found = True
-            break
-    assert found, "DataProcessor should have inherits edge to Processor"
+    assert ("DataProcessor", "Processor") in _edge_labels(r, "implements")
 
-def test_swift_extension_conformance_edge():
+
+def test_swift_extension_conformance_emits_implements():
     r = extract_swift(FIXTURES / "sample.swift")
-    inherits_edges = [e for e in r["edges"] if e["relation"] == "inherits"]
-    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
-    found = False
-    for e in inherits_edges:
-        src_label = node_by_id.get(e["source"], "")
-        tgt_label = node_by_id.get(e["target"], "")
-        if "DataProcessor" in src_label and "Loggable" in tgt_label:
-            found = True
-            break
-    assert found, "extension should add conformance edge DataProcessor -> Loggable"
+    assert ("DataProcessor", "Loggable") in _edge_labels(r, "implements")
+
+
+def test_swift_splits_inherits_and_implements():
+    r = extract_swift(FIXTURES / "sample.swift")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(r, "inherits")
+    assert ("DataProcessor", "Processor") in _edge_labels(r, "implements")
+
+
+def test_swift_parameter_return_generic_and_field_contexts():
+    r = extract_swift(FIXTURES / "sample.swift")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "parameter_type")
+    assert ("run", "Result") in _edge_labels(r, "references", "return_type")
+    assert ("run", "DataProcessor") in _edge_labels(r, "references", "generic_arg")
+    assert ("DataProcessor", "Result") in _edge_labels(r, "references", "field")
 
 def test_swift_emits_calls():
     r = extract_swift(FIXTURES / "sample.swift")
