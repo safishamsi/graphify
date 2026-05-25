@@ -22,6 +22,19 @@ private:
     }
 };
 
+class AuthedHttpClient : public HttpClient {
+public:
+    AuthedHttpClient(const std::string& baseUrl, const std::string& token)
+        : HttpClient(baseUrl), token_(token) {}
+
+private:
+    std::string token_;
+};
+
+struct RetryingHttpClient : HttpClient {
+    int maxRetries;
+};
+
 int main() {
     HttpClient client("https://api.example.com");
     std::string response = client.get("/users");

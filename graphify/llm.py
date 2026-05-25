@@ -87,6 +87,17 @@ BACKENDS: dict[str, dict] = {
         "pricing": {"input": 0.40, "output": 1.60},  # USD per 1M tokens
         "temperature": 0,
     },
+    "deepseek": {
+        "base_url": "https://api.deepseek.com",
+        "default_model": "deepseek-v4-flash",
+        "env_key": "DEEPSEEK_API_KEY",
+        "model_env_key": "GRAPHIFY_DEEPSEEK_MODEL",
+        "pricing": {"input": 0.14, "output": 0.28},  # USD per 1M tokens (v4-flash)
+        # deepseek-reasoner / thinking-mode models silently ignore temperature;
+        # deepseek-chat / v4-flash (non-thinking) accept 0-2. Safe to send 0.
+        "temperature": 0,
+        "max_tokens": 16384,
+    },
     "bedrock": {
         "default_model": "anthropic.claude-3-5-sonnet-20241022-v2:0",
         "model_env_key": "GRAPHIFY_BEDROCK_MODEL",
@@ -334,6 +345,8 @@ def _call_openai_compat(
         keep_alive = os.environ.get("GRAPHIFY_OLLAMA_KEEP_ALIVE", "30m")
         kwargs["extra_body"] = {"options": {"num_ctx": num_ctx}, "keep_alive": keep_alive}
     resp = client.chat.completions.create(**kwargs)
+    if not resp.choices or resp.choices[0].message is None:
+        raise ValueError("LLM returned empty or filtered response")
     raw_content = resp.choices[0].message.content
     result = _parse_llm_json(raw_content or "{}")
     result["input_tokens"] = resp.usage.prompt_tokens if resp.usage else 0
@@ -433,6 +446,7 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192) -> dict:
         input=user_message,
         capture_output=True,
         text=True,
+        encoding="utf-8",  # Force UTF-8 — prevents UnicodeEncodeError on Windows cp1252
         timeout=600,
         check=False,
     )
@@ -568,7 +582,7 @@ def extract_files_direct(
         user_msg,
         temperature=cfg.get("temperature", 0),
         reasoning_effort=cfg.get("reasoning_effort"),
-        max_completion_tokens=cfg.get("max_completion_tokens", max_out),
+        max_completion_tokens=_resolve_max_tokens(cfg.get("max_completion_tokens", 8192)),
         backend=backend,
     )
 
@@ -847,7 +861,11 @@ def extract_corpus_parallel(
     else:
         chunks = [files[i:i + chunk_size] for i in range(0, len(files), chunk_size)]
 
-    merged: dict = {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0}
+    merged: dict = {
+        "nodes": [], "edges": [], "hyperedges": [],
+        "input_tokens": 0, "output_tokens": 0,
+        "failed_chunks": 0,  # count of chunks that raised — loud failure on chunk errors
+    }
     total = len(chunks)
 
     def _run_one(idx: int, chunk: list[Path]) -> tuple[int, dict | None, Exception | None]:
@@ -883,24 +901,38 @@ def extract_corpus_parallel(
             _, result, exc = _run_one(idx, chunk)
             if exc is not None:
                 print(f"[graphify] chunk {idx + 1}/{total} failed: {exc}", file=sys.stderr)
+                merged["failed_chunks"] += 1
                 continue
             assert result is not None
             _merge_into(merged, result)
             if callable(on_chunk_done):
                 on_chunk_done(idx, total, result)
-        return merged
+    else:
+        with ThreadPoolExecutor(max_workers=workers) as pool:
+            futures = [pool.submit(_run_one, idx, chunk) for idx, chunk in enumerate(chunks)]
+            for future in as_completed(futures):
+                idx, result, exc = future.result()
+                if exc is not None:
+                    print(
+                        f"[graphify] chunk {idx + 1}/{total} failed: {exc}",
+                        file=sys.stderr,
+                    )
+                    merged["failed_chunks"] += 1
+                    continue
+                assert result is not None
+                _merge_into(merged, result)
+                if callable(on_chunk_done):
+                    on_chunk_done(idx, total, result)
 
-    with ThreadPoolExecutor(max_workers=workers) as pool:
-        futures = [pool.submit(_run_one, idx, chunk) for idx, chunk in enumerate(chunks)]
-        for future in as_completed(futures):
-            idx, result, exc = future.result()
-            if exc is not None:
-                print(f"[graphify] chunk {idx + 1}/{total} failed: {exc}", file=sys.stderr)
-                continue
-            assert result is not None
-            _merge_into(merged, result)
-            if callable(on_chunk_done):
-                on_chunk_done(idx, total, result)
+    # Loud failure summary — surface chunk failures at end so they're never
+    # buried mid-log. Exit 0 preserved for caller compatibility; the
+    # summary block makes the problem visible.
+    if merged["failed_chunks"] > 0:
+        print(
+            f"[graphify] WARNING: {merged['failed_chunks']}/{total} semantic chunk(s) failed"
+            " — see errors above. Partial results returned.",
+            file=sys.stderr,
+        )
     return merged
 
 
@@ -961,6 +993,7 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
             input=prompt,
             capture_output=True,
             text=True,
+            encoding="utf-8",  # Force UTF-8 — prevents UnicodeEncodeError on Windows cp1252
             timeout=600,
             check=False,
         )
@@ -1007,6 +1040,8 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
     if "moonshot" in cfg["base_url"]:
         kwargs["extra_body"] = {"thinking": {"type": "disabled"}}
     resp = client.chat.completions.create(**kwargs)
+    if not resp.choices or resp.choices[0].message is None:
+        raise ValueError("LLM returned empty or filtered response")
     return resp.choices[0].message.content or ""
 
 
@@ -1064,7 +1099,7 @@ def detect_backend() -> str | None:
     key now keeps you on the paid backend; remove the paid key (or pass
     --backend ollama explicitly) to route to the local model.
     """
-    for backend in ("gemini", "kimi", "claude", "openai"):
+    for backend in ("gemini", "kimi", "claude", "openai", "deepseek"):
         if _get_backend_api_key(backend):
             return backend
     if os.environ.get("AWS_PROFILE") or os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION"):

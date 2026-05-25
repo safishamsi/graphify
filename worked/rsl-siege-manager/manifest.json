@@ -1,0 +1,1174 @@
+{
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\env.py": {
+    "mtime": 1778710280.615952,
+    "hash": "731374a0c60b7a3d7ab4fe969af77cdc"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0001_initial_schema.py": {
+    "mtime": 1778710280.6174564,
+    "hash": "89da22558cc25f69a85fdb95c5226094"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0002_add_preview_columns.py": {
+    "mtime": 1778710280.6174564,
+    "hash": "7272088a42b67a8e4808eb3c9b7dd696"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0003_make_siege_date_nullable.py": {
+    "mtime": 1778710280.6174564,
+    "hash": "2e9c3427061e4be701fe13af654dff62"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0004_add_post_priority_config.py": {
+    "mtime": 1778710280.6174564,
+    "hash": "6dfb516e649bc98b4af75c6d72217b55"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0005_add_description_to_post_priority_config.py": {
+    "mtime": 1778710280.6184616,
+    "hash": "610068cb10304ae4dbcc7bc71a32e78c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0006_power_level_and_drop_sort_value.py": {
+    "mtime": 1778710280.6184616,
+    "hash": "8182ba42f31e35ef28f5c4d9dabfde1c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0007_fix_group_number_max.py": {
+    "mtime": 1778710280.6184616,
+    "hash": "4b47bdeebb46156e514a5b067df94235"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0008_add_matched_condition_id_to_position.py": {
+    "mtime": 1778710280.6184616,
+    "hash": "c954ca95fdadd4a7ef20ffa633d12fed"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0009_add_discord_id_to_member.py": {
+    "mtime": 1778710280.6194618,
+    "hash": "dcf300cf8ed80c1b8b3825bcca67e245"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0010_add_last_seen_changelog_at_to_member.py": {
+    "mtime": 1778710280.6194618,
+    "hash": "611bcc51cacb45fa38a397483251978e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\alembic\\versions\\0011_add_post_suggest_preview.py": {
+    "mtime": 1778710280.6194618,
+    "hash": "c2911c522068032d232ebdda418ae402"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\config.py": {
+    "mtime": 1778710280.6260061,
+    "hash": "af7166f36bc6603c51a31821b4169166"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\main.py": {
+    "mtime": 1778710280.6275196,
+    "hash": "ef3a111d022f595379cdfc5e4949daf0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\middleware.py": {
+    "mtime": 1778710280.6275196,
+    "hash": "4f8742627daa35dd41d30076e24f6215"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\rate_limit.py": {
+    "mtime": 1778710280.631044,
+    "hash": "d19e5a629177df85c43e3c14f4dc0d46"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\telemetry.py": {
+    "mtime": 1778710280.639125,
+    "hash": "0c58ed46b46a65c553da095108b27bfd"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\__init__.py": {
+    "mtime": 1778710280.6194618,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\attack_day.py": {
+    "mtime": 1778710280.6204622,
+    "hash": "03d01cbf514354d406ed91fbc65b35a1"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\auth.py": {
+    "mtime": 1778710280.6204622,
+    "hash": "a5f33d846d98152318daec3a46d0d248"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\autofill.py": {
+    "mtime": 1778710280.6204622,
+    "hash": "a09d58b4a1d3c5af8f5c8a3ba6a7029e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\board.py": {
+    "mtime": 1778710280.621461,
+    "hash": "aaeb8712e563ba3dec103df4a3fc04ac"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\buildings.py": {
+    "mtime": 1778710280.621461,
+    "hash": "ffdd155eb162bceae062773746e4a736"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\changelog.py": {
+    "mtime": 1778710280.621461,
+    "hash": "46c813936a455f15a7b9c81d21193278"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\comparison.py": {
+    "mtime": 1778710280.621461,
+    "hash": "ddca1ab6be65dc3372ad48159b99f019"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\config.py": {
+    "mtime": 1778710280.6224627,
+    "hash": "4cfef35cbf17cda161b15128a218884a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\discord_sync.py": {
+    "mtime": 1778710280.6224627,
+    "hash": "4af25fe7f78cdd7ed0a19b43a6c0d944"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\health.py": {
+    "mtime": 1778710280.6224627,
+    "hash": "7e3eb64485f05fe2e50e5681ca1f0932"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\images.py": {
+    "mtime": 1778710280.6224627,
+    "hash": "bdbf492718a5d11dd6b98c1d639931ac"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\lifecycle.py": {
+    "mtime": 1778710280.6234608,
+    "hash": "224fbb28b68c1d85ac358d96f4d8d307"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\members.py": {
+    "mtime": 1778710280.6234608,
+    "hash": "fade885c4c9b9ac20cccbc9b1022ea02"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\notifications.py": {
+    "mtime": 1778710280.6234608,
+    "hash": "ff2badd250e6e4abd60f76c17bf197a9"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\posts.py": {
+    "mtime": 1778710280.6234608,
+    "hash": "8f342e23f193f2ba528ee0f2ea924710"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\post_priority_config.py": {
+    "mtime": 1778710280.6234608,
+    "hash": "6cbb8addbb8fbbf729b2938cd64e4077"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\post_suggestions.py": {
+    "mtime": 1778710280.6234608,
+    "hash": "57ba4074cf0d1413e5604e6c20c458ba"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\reference.py": {
+    "mtime": 1778710280.6249774,
+    "hash": "e723050f84384dc9adcdb7796fd5a105"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\sieges.py": {
+    "mtime": 1778710280.6249774,
+    "hash": "e2f544c55968478ef4b80943fcda6ccc"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\siege_members.py": {
+    "mtime": 1778710280.6249774,
+    "hash": "f2eb1fd29b959b826008f6a627da9c0d"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\validation.py": {
+    "mtime": 1778710280.6249774,
+    "hash": "05d95e278dfb5f2da15598253b2ec32e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\version.py": {
+    "mtime": 1778710280.6249774,
+    "hash": "72b877fef624fbab48f6170475e4482b"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\api\\__init__.py": {
+    "mtime": 1778710280.6204622,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\base.py": {
+    "mtime": 1778710280.6260061,
+    "hash": "16deb2759f7de2cf86f328dce6b2d38b"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\seeds.py": {
+    "mtime": 1778710280.6260061,
+    "hash": "c1238d95afe54852c9f8e4946bcd1184"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\session.py": {
+    "mtime": 1778710280.6260061,
+    "hash": "d83e8d560833942da095e4e77ef715a0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\db\\__init__.py": {
+    "mtime": 1778710280.6260061,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\dependencies\\auth.py": {
+    "mtime": 1778710280.6260061,
+    "hash": "1e13ad83f41440240858e379bc350e32"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\dependencies\\__init__.py": {
+    "mtime": 1778710280.6260061,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\building.py": {
+    "mtime": 1778710280.6275196,
+    "hash": "264dd9c1b5b9af8261e39ef40bb56d0d"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\building_group.py": {
+    "mtime": 1778710280.6285377,
+    "hash": "9e4fe949454ac06e8919c54d17cd053f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\building_type_config.py": {
+    "mtime": 1778710280.6285377,
+    "hash": "8d46f6dce4eefc61342e1a5084563f76"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\enums.py": {
+    "mtime": 1778710280.6285377,
+    "hash": "bbcd730b23b6ae966f00a7b209dfa1ba"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\member.py": {
+    "mtime": 1778710280.6285377,
+    "hash": "00c8c2af6e5087bcdf9b485d8f32afab"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\member_post_preference.py": {
+    "mtime": 1778710280.6295295,
+    "hash": "9b9b1f5de349977ad8897398d6698ef8"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\notification_batch.py": {
+    "mtime": 1778710280.6295295,
+    "hash": "3ad5726f0ca19a456eb02ac12dbb4f89"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\notification_batch_result.py": {
+    "mtime": 1778710280.6295295,
+    "hash": "c4fd788d9d88b1b994a35cf770b7d875"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\position.py": {
+    "mtime": 1778710280.6300344,
+    "hash": "d1bafc8772229db93351d7e179c15ea3"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post.py": {
+    "mtime": 1778710280.6300344,
+    "hash": "6d62df6899ba21737f61bb917210dad0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post_active_condition.py": {
+    "mtime": 1778710280.6300344,
+    "hash": "ab9b5ba959ad8c87635a5565cc7a6857"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post_condition.py": {
+    "mtime": 1778710280.6300344,
+    "hash": "9fc05e2a8819db37bc7bd224f8c2db67"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\post_priority_config.py": {
+    "mtime": 1778710280.6300344,
+    "hash": "21b1c5860d8e42fef07463b5bf52ceab"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\siege.py": {
+    "mtime": 1778710280.631044,
+    "hash": "ac548c74c451dca2c84d9d039de46b6a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\siege_member.py": {
+    "mtime": 1778710280.631044,
+    "hash": "24f74c67df2a8375175a818e2ef592be"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\models\\__init__.py": {
+    "mtime": 1778710280.6275196,
+    "hash": "002c14a2213747661b77b5a30b8d3110"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\attack_day.py": {
+    "mtime": 1778710280.631044,
+    "hash": "6636af44aa1f3f3079f864b3c8bb9cac"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\autofill.py": {
+    "mtime": 1778710280.6320436,
+    "hash": "261012c1a7cdae9c401576016a1e0535"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\board.py": {
+    "mtime": 1778710280.6320436,
+    "hash": "c69579e0609dceba1fafa087eda2405e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\building.py": {
+    "mtime": 1778710280.6320436,
+    "hash": "17a76e00a22acfa311063cf3bf0aceb1"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\changelog.py": {
+    "mtime": 1778710280.6320436,
+    "hash": "f86a9e09fe755643a15a7f7b06a4f7e7"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\common.py": {
+    "mtime": 1778710280.6320436,
+    "hash": "011d46dc2203c3ed97184cec370ac179"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\comparison.py": {
+    "mtime": 1778710280.6320436,
+    "hash": "48ffa2ab0f4f95040236b6611ed375d0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\member.py": {
+    "mtime": 1778710280.6320436,
+    "hash": "726dad9ff8c7a8bffd365ddcfd543645"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\post.py": {
+    "mtime": 1778710280.6335557,
+    "hash": "ff0149eb24572e4ba21fa191a73c762f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\post_condition.py": {
+    "mtime": 1778710280.6335557,
+    "hash": "6fec8cfb3b2eea536953026b0116b4af"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\post_suggestions.py": {
+    "mtime": 1778710280.6335557,
+    "hash": "7db30a2f2f5a9232d8a783a85ee2df6a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\siege.py": {
+    "mtime": 1778710280.6335557,
+    "hash": "1178a2cb1bc13ec3defa148e36991683"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\siege_member.py": {
+    "mtime": 1778710280.6335557,
+    "hash": "45b79b07f1d489b2daef9b719a0a0929"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\validation.py": {
+    "mtime": 1778710280.6335557,
+    "hash": "0221b358c7f777442cde715c227ac6ca"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\version.py": {
+    "mtime": 1778710280.6335557,
+    "hash": "b2fbcf0d416ddb9f1997acd6cb62bcf3"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\schemas\\__init__.py": {
+    "mtime": 1778710280.631044,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\attack_day.py": {
+    "mtime": 1778710280.6350994,
+    "hash": "997ffc05e8c23b0a544979ae0ed8dc7a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\autofill.py": {
+    "mtime": 1778710280.6350994,
+    "hash": "e9ce9ddf48273c0d9932f75ea8e8b0be"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\board.py": {
+    "mtime": 1778710280.6350994,
+    "hash": "7222c72b83f1091828c689f490ebcfe6"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\bot_client.py": {
+    "mtime": 1778710280.6350994,
+    "hash": "b699c8adf0b08521c02f3e6a4072c1ef"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\buildings.py": {
+    "mtime": 1778710280.6361103,
+    "hash": "22d3b48b747d63585084db712f7526ff"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\building_capacity.py": {
+    "mtime": 1778710280.6361103,
+    "hash": "5b463b5af305f54cd34e75e568756db9"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\comparison.py": {
+    "mtime": 1778710280.6361103,
+    "hash": "17d8b0f29ef13d8a469dcbe79e5e0b18"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\discord_sync.py": {
+    "mtime": 1778710280.6361103,
+    "hash": "0fdbe1441877c11241501e6f37e6874a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\image_gen.py": {
+    "mtime": 1778710280.6361103,
+    "hash": "42d66ff5cc72422b6cffdce18e7b88e9"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\lifecycle.py": {
+    "mtime": 1778710280.6376143,
+    "hash": "c6850f4b0ee921550d23553aa50db9ac"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\members.py": {
+    "mtime": 1778710280.6376143,
+    "hash": "1586e16427694996d81ce4d54812c5f0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\notification_message.py": {
+    "mtime": 1778710280.6376143,
+    "hash": "514ad0558f51c114a96e8316cd4392bf"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\posts.py": {
+    "mtime": 1778710280.63862,
+    "hash": "56792826d430eaa6cdd86796ddb43c10"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\post_suggestions.py": {
+    "mtime": 1778710280.63862,
+    "hash": "4a62a36d881bf55a4f73b623b95738bf"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\reference.py": {
+    "mtime": 1778710280.639125,
+    "hash": "e86f9864edb3e0eaa1a5e00cd2b903a9"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\sieges.py": {
+    "mtime": 1778710280.639125,
+    "hash": "4f43c0760d92d03cc1062ba4b7610dba"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\siege_members.py": {
+    "mtime": 1778710280.639125,
+    "hash": "444d8aba42f567d23a8b1a5a12e51200"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\validation.py": {
+    "mtime": 1778710280.639125,
+    "hash": "bf8431f5d8b0c8dc793ed927f6de075f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\app\\services\\__init__.py": {
+    "mtime": 1778710280.6335557,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\scripts\\seed.py": {
+    "mtime": 1778710280.640529,
+    "hash": "08609621e397256df55a763eb98530c3"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\scripts\\seed_demo.py": {
+    "mtime": 1778710280.6415303,
+    "hash": "ef5c21e671c3184b5cbb2240979c0690"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\conftest.py": {
+    "mtime": 1778710280.6415303,
+    "hash": "f554d4679bb3e3dfb254292c14208f95"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_attack_day.py": {
+    "mtime": 1778710280.6415303,
+    "hash": "0977e2c92215d438097727789b5fcabe"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_auth.py": {
+    "mtime": 1778710280.642529,
+    "hash": "e7977b5f5003d94228fde1a79f93f538"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_auth_rate_limit.py": {
+    "mtime": 1778710280.642529,
+    "hash": "fc3c01fc3933c4256bd2766086c14b77"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_autofill.py": {
+    "mtime": 1778710280.642529,
+    "hash": "b3d820ab0a12548a132248c15dfed9fd"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_board.py": {
+    "mtime": 1778710280.6435287,
+    "hash": "9f22d0b8e9e80221bde4732c7ffa6d9c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_bot_client.py": {
+    "mtime": 1778710280.6435287,
+    "hash": "c488817462a865f424d203c5763303c4"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_buildings.py": {
+    "mtime": 1778710280.6435287,
+    "hash": "0c3b166757efe22f6c6d1cdc6ca49b3f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_changelog.py": {
+    "mtime": 1778710280.6435287,
+    "hash": "3312abb2cde111c3f7213c915d7d599d"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_comparison.py": {
+    "mtime": 1778710280.6435287,
+    "hash": "afd7a89a6c4be122e1872bddacfd9109"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_config.py": {
+    "mtime": 1778710280.6435287,
+    "hash": "507a31b2e18b33afd0765a1ad402cfdb"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_config_endpoint.py": {
+    "mtime": 1778710280.6435287,
+    "hash": "ac1338657f7dde5172a8175cceb1fa7b"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_cors.py": {
+    "mtime": 1778710280.6450343,
+    "hash": "daf9c3edb71d1b6ad13bd0f8db04be01"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_discord_sync.py": {
+    "mtime": 1778710280.6450343,
+    "hash": "ce0682700593adee9ed2ed864da5e013"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_enums.py": {
+    "mtime": 1778710280.6450343,
+    "hash": "20c403a02992b2d378fb4ae18f721e9c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_health.py": {
+    "mtime": 1778710280.6450343,
+    "hash": "4ed39ff6a50be298eef1a9802d977439"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_image_gen.py": {
+    "mtime": 1778710280.6460407,
+    "hash": "9791fcb55b4af13cc334389a61559a99"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_lifecycle.py": {
+    "mtime": 1778710280.6460407,
+    "hash": "fd05826746be292aed3292dbe90445ab"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_lifecycle_integration.py": {
+    "mtime": 1778710280.6460407,
+    "hash": "2e1b940b00e9f311b97a22efb99f4122"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_members.py": {
+    "mtime": 1778710280.6460407,
+    "hash": "b20dc80db77e6525f5a29be8b11f7a59"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_member_changelog_column.py": {
+    "mtime": 1778710280.6460407,
+    "hash": "f954c9533daeea082379c61835f892ab"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_notifications.py": {
+    "mtime": 1778710280.6470416,
+    "hash": "7fe4ae6c6aa8507660739b2a6b310e4f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_notification_message.py": {
+    "mtime": 1778710280.6470416,
+    "hash": "6a5503b79277ae98d36178ff8e708e15"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_posts.py": {
+    "mtime": 1778710280.6470416,
+    "hash": "81d1e413b611bc937cd7543cdc4b800d"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_post_suggestions.py": {
+    "mtime": 1778710280.6470416,
+    "hash": "e376b0c4f37573431cb0e9d8280f949a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_post_suggestions_integration.py": {
+    "mtime": 1778710280.6470416,
+    "hash": "04b488d8def3668e0014304c1b8f147e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_reference.py": {
+    "mtime": 1778710280.6470416,
+    "hash": "940e02363b5ff046de3153a797f4faf5"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_schema.py": {
+    "mtime": 1778710280.6485467,
+    "hash": "636ad7d430b456534e8ac7289d42db20"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_seed_canonical.py": {
+    "mtime": 1778710280.6485467,
+    "hash": "8ed890f220e06153703da2aec3c9cece"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_seed_demo.py": {
+    "mtime": 1778710280.6491084,
+    "hash": "8c2e7a81046b0216979f21daac69b17c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_sieges.py": {
+    "mtime": 1778710280.6491084,
+    "hash": "05b7fe8eba119695e8d8b2ad51299642"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_telemetry.py": {
+    "mtime": 1778710280.6491084,
+    "hash": "24e9bdc43f3b5a2bf63cad36a2671295"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_validation.py": {
+    "mtime": 1778710280.649632,
+    "hash": "d6e213c1e29301b6adc8a129295c4c17"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\test_version.py": {
+    "mtime": 1778710280.650155,
+    "hash": "ec29042c155d2dfe090ae87d79d9f54e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\tests\\__init__.py": {
+    "mtime": 1778710280.6415303,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\config.py": {
+    "mtime": 1778710280.65144,
+    "hash": "b80130299a391da986cfd02386e5dea7"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\discord_client.py": {
+    "mtime": 1778710280.65144,
+    "hash": "99db4ab6cf0ecc3d30602e2b8db66a70"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\http_api.py": {
+    "mtime": 1778710280.65144,
+    "hash": "936ed9c6f1e4443f5035d0de3340329e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\main.py": {
+    "mtime": 1778710280.6519608,
+    "hash": "e05678b35f14c576d1cd2ee7f0ee86b0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\telemetry.py": {
+    "mtime": 1778710280.6519608,
+    "hash": "a42e02bf2fddd81cca77baa570cdc1ac"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\app\\__init__.py": {
+    "mtime": 1778710280.650921,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\conftest.py": {
+    "mtime": 1778710280.6535122,
+    "hash": "53970b9a543ea0e4b170b7e31f5e022c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_discord_client.py": {
+    "mtime": 1778710280.6535122,
+    "hash": "9e6d6a163d5dc0dbca534bd14269b408"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_get_guild_member.py": {
+    "mtime": 1778710280.6540315,
+    "hash": "44b5b3bb1ad92953f9d39972a779ddb7"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_http_api.py": {
+    "mtime": 1778710280.6540315,
+    "hash": "6f5d0c7f52ce8e017dc50b4bab6b3d62"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\test_telemetry.py": {
+    "mtime": 1778710280.6545522,
+    "hash": "938f4338b7342c0d1c39f468c3c31e0a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\tests\\__init__.py": {
+    "mtime": 1778710280.6530018,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\eslint.config.js": {
+    "mtime": 1778710280.6638145,
+    "hash": "820d67ddf4af94ab7a60b247ef568493"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\playwright.config.ts": {
+    "mtime": 1778710280.6663249,
+    "hash": "c0c6f46da1f83e4dad062bf96a1645ce"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\postcss.config.js": {
+    "mtime": 1778710280.6663249,
+    "hash": "33fad9c02cb0ec6d6030369ef6347d57"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\tailwind.config.ts": {
+    "mtime": 1778710280.6950474,
+    "hash": "ab2458852a94f3918fc4dc8eec8ee34a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\vite.config.ts": {
+    "mtime": 1778710280.6955535,
+    "hash": "f0b8bf87fac76c40d6423f702e2a122d"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\vitest.config.ts": {
+    "mtime": 1778710280.6955535,
+    "hash": "e102be79d7bf6fd8b83320963d3d4d00"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\e2e\\board.spec.ts": {
+    "mtime": 1778710280.6618135,
+    "hash": "2e1ab122df18ca111301f5244c1b4903"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\e2e\\members.spec.ts": {
+    "mtime": 1778710280.6618135,
+    "hash": "012b10ee19afe7952752bdb34d947596"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\e2e\\siege-lifecycle.spec.ts": {
+    "mtime": 1778710280.6638145,
+    "hash": "d3c27ac7e90b3bb5f190694f8d692f6c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\e2e\\smoke.spec.ts": {
+    "mtime": 1778710280.6638145,
+    "hash": "7ffc073a7b7ce29603e7b1dda85b101b"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\App.tsx": {
+    "mtime": 1778710280.6731784,
+    "hash": "dc94be0210c5307affde3c5e0e5412b7"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\main.tsx": {
+    "mtime": 1778710280.6834679,
+    "hash": "5310a6bf9e3bdf98dc615af3ceff1537"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\vite-env.d.ts": {
+    "mtime": 1778710280.6950474,
+    "hash": "0352474ba2918efe13895edbc3780d94"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\board.ts": {
+    "mtime": 1778710280.6731784,
+    "hash": "997fae78645cd70b5c2fc3476313e4c1"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\changelog.ts": {
+    "mtime": 1778710280.6731784,
+    "hash": "9baa9e3d2be3e4bb566ba86923829a17"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\client.ts": {
+    "mtime": 1778710280.6746829,
+    "hash": "10a76391bc7690246d448e867cf7af57"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\config.ts": {
+    "mtime": 1778710280.6746829,
+    "hash": "3715d4f6dd51e505949f4b0f7ec9b309"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\members.ts": {
+    "mtime": 1778710280.6752062,
+    "hash": "385a652bab3624eb1a556666b369c7be"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\notifications.ts": {
+    "mtime": 1778710280.6752062,
+    "hash": "b202ca64e4f5445d309fa8cede22ff0c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\posts.ts": {
+    "mtime": 1778710280.6752062,
+    "hash": "42847a5a2b91ef16e25b1be64c9c5955"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\sieges.ts": {
+    "mtime": 1778710280.6752062,
+    "hash": "f1014577b76ed9125141f290e8fb7578"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\types.ts": {
+    "mtime": 1778710280.6752062,
+    "hash": "f83637e41fcfc597e14c140b81e74a63"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\api\\version.ts": {
+    "mtime": 1778710280.6762116,
+    "hash": "3c320e1ae650ccfaf0fcc58db6f0ad8c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\Carousel.tsx": {
+    "mtime": 1778710280.6772118,
+    "hash": "9c1e5964f8b5e400f963606ee0cd4eb9"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ChangelogDropdown.tsx": {
+    "mtime": 1778710280.6772118,
+    "hash": "32af80944e867e66ec8cf25f6391e233"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\DiscordSyncModal.tsx": {
+    "mtime": 1778710280.6772118,
+    "hash": "52ea2cf5bf019ad4e9c376a447e87eaa"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\GroupByToggle.tsx": {
+    "mtime": 1778710280.6772118,
+    "hash": "78856592b8aaeb706087c4ef1e6c843b"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\Layout.tsx": {
+    "mtime": 1778710280.6772118,
+    "hash": "e813042f31449a0de61f906090164004"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\PostsTab.tsx": {
+    "mtime": 1778710280.678212,
+    "hash": "3f11fa6d290cff08dffcc9262a092b3a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\PostSuggestionsModal.tsx": {
+    "mtime": 1778710280.678212,
+    "hash": "9c16b7f40b7352b2f423f7ce46a68b11"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\RequireAuth.tsx": {
+    "mtime": 1778710280.678212,
+    "hash": "cd2b2e1cd2d319fc3f3977f7589f291e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\SiegeLayout.tsx": {
+    "mtime": 1778710280.679212,
+    "hash": "5dc89034188b6823763f9c6852f5f03a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ui\\badge.tsx": {
+    "mtime": 1778710280.679212,
+    "hash": "639942830535b4f2bb8e21e8d3a674e4"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ui\\button.tsx": {
+    "mtime": 1778710280.679212,
+    "hash": "99376e90207bb72645519879a6ad87aa"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ui\\checkbox.tsx": {
+    "mtime": 1778710280.679212,
+    "hash": "596afb4c85e5b432c24e2606e9623bf8"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ui\\dialog.tsx": {
+    "mtime": 1778710280.679212,
+    "hash": "b917e9be88d5dc6b1b6d2660df3be9a0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ui\\dropdown-menu.tsx": {
+    "mtime": 1778710280.6804683,
+    "hash": "8f8f3621f203e9d7d566ed3827ddb95c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ui\\input.tsx": {
+    "mtime": 1778710280.6804683,
+    "hash": "4f418a1677a7fa837b7a5f16b05eabea"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ui\\label.tsx": {
+    "mtime": 1778710280.6804683,
+    "hash": "ede7445a0bd4c9380bff1fb664d21763"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ui\\select.tsx": {
+    "mtime": 1778710280.6804683,
+    "hash": "594f45397eb2ac6bd77df7b7e37d5644"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ui\\table.tsx": {
+    "mtime": 1778710280.681468,
+    "hash": "0e1676ab2a771ea388b5fa63036cd502"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\components\\ui\\textarea.tsx": {
+    "mtime": 1778710280.681468,
+    "hash": "4118508b3f819ceaee3b0d5f16bbb649"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\context\\AuthContext.tsx": {
+    "mtime": 1778710280.681468,
+    "hash": "44ab8c9079dffb96a8f0826540377cb3"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\lib\\buildingColors.ts": {
+    "mtime": 1778710280.6824672,
+    "hash": "b348eff15681381b572787a373b909ce"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\lib\\groupPostConditions.ts": {
+    "mtime": 1778710280.6824672,
+    "hash": "788b0f8427b263370cdab41d8850cf41"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\lib\\post-priority.ts": {
+    "mtime": 1778710280.6824672,
+    "hash": "94e7a97549b23802f43bb3f6ac6c28cc"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\lib\\postConditionTypes.ts": {
+    "mtime": 1778710280.6834679,
+    "hash": "3b06353374f1df46ea8de1cfd4afd788"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\lib\\useGroupByPreference.ts": {
+    "mtime": 1778710280.6834679,
+    "hash": "bb6b5032d31d41e56bfa0c1462240482"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\lib\\utils.ts": {
+    "mtime": 1778710280.6834679,
+    "hash": "d9837f38cc05303254571985e3164050"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\BoardPage.tsx": {
+    "mtime": 1778710280.6834679,
+    "hash": "ca60bdc402bf7fc73d45bf4a9786efa2"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\ComparisonPage.tsx": {
+    "mtime": 1778710280.6849875,
+    "hash": "5f40cf11f1c285fcc713c66f6b70cc7e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\LandingPage.tsx": {
+    "mtime": 1778710280.6849875,
+    "hash": "0592d360b4d150e643f2ed7d853cec37"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\LoginPage.tsx": {
+    "mtime": 1778710280.6849875,
+    "hash": "a7f86666a5e860fa06370cd44d5b2009"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\MemberDetailPage.tsx": {
+    "mtime": 1778710280.6849875,
+    "hash": "91d2961273fc9f2065dd82b95a4dd2e6"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\MembersPage.tsx": {
+    "mtime": 1778710280.6860092,
+    "hash": "0e20169e021eddba33936ff03cb09ed6"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\PostPrioritiesPage.tsx": {
+    "mtime": 1778710280.6860092,
+    "hash": "44ba6c946c49e4491f401a05ada7b0ce"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\PostsPage.tsx": {
+    "mtime": 1778710280.6860092,
+    "hash": "6299292c6d99e49321c62ebd458b5a3f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\SiegeCreatePage.tsx": {
+    "mtime": 1778710280.6860092,
+    "hash": "2889e8903df72e1ab56a1a1a13ef0519"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\SiegeMembersPage.tsx": {
+    "mtime": 1778710280.687007,
+    "hash": "864268a2bc137e9b39782eb85260adff"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\SiegeSettingsPage.tsx": {
+    "mtime": 1778710280.687007,
+    "hash": "f594078ade4735208a55056c7cf4dd5f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\SiegesPage.tsx": {
+    "mtime": 1778710280.687007,
+    "hash": "f93156052c5124138148122147b74acb"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\pages\\SystemPage.tsx": {
+    "mtime": 1778710280.687007,
+    "hash": "9332c96da0f1502dbb14d6f1d7164aaa"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\handlers.ts": {
+    "mtime": 1778710280.691031,
+    "hash": "d0c5acbf5a8354801f75ff4caac5c5da"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\server.ts": {
+    "mtime": 1778710280.6940484,
+    "hash": "3feed449d732643517e6a64bdf673434"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\setup.ts": {
+    "mtime": 1778710280.6940484,
+    "hash": "3709e3aa95abf0544678f0f2d9b46702"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\utils.tsx": {
+    "mtime": 1778710280.6940484,
+    "hash": "e25ee1f900621ffc9bf8dfd2fb6b406f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\components\\Carousel.test.tsx": {
+    "mtime": 1778710280.6880064,
+    "hash": "ed7af8eb32a9c3f4917d488280458771"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\components\\ChangelogDropdown.test.tsx": {
+    "mtime": 1778710280.6890073,
+    "hash": "ca8589dc33b4a76b60f5734ce2c9912a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\components\\GroupByConditions.test.tsx": {
+    "mtime": 1778710280.6890073,
+    "hash": "59ef06186d9d5c373c145cb620480dc6"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\components\\GroupByToggle.test.tsx": {
+    "mtime": 1778710280.6895123,
+    "hash": "8076603b108a6a9556290d3ca12842d0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\components\\LandingPage.test.tsx": {
+    "mtime": 1778710280.6895123,
+    "hash": "6443aef7d8d30a4bae294ee781cd54f2"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\components\\Layout.test.tsx": {
+    "mtime": 1778710280.6895123,
+    "hash": "24143f8703e668987d9ffd297905e133"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\components\\PostsTab.test.tsx": {
+    "mtime": 1778710280.6895123,
+    "hash": "a7924bc94e83d9e2d39cee817ee29eee"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\components\\PostSuggestionsModal.test.tsx": {
+    "mtime": 1778710280.6895123,
+    "hash": "5fb779e8a5fc671e8998e4fd6d17300d"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\components\\SiegeLayout.test.tsx": {
+    "mtime": 1778710280.6895123,
+    "hash": "132fbee1c6d3922eaf395460a7088214"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\context\\AuthContext.test.tsx": {
+    "mtime": 1778710280.691031,
+    "hash": "41be23493241923ee1e7bc2611f91e5f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\lib\\groupPostConditions.test.ts": {
+    "mtime": 1778710280.691031,
+    "hash": "8ee1bcf272b560a8bcbdcddfc70ffb10"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\lib\\postConditionTypes.test.ts": {
+    "mtime": 1778710280.691031,
+    "hash": "652ab758a5a1f6ff8f6a578446a2b9f7"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\pages\\BoardPage.test.tsx": {
+    "mtime": 1778710280.692048,
+    "hash": "507ead176edb84f62dc6e010dbe2bec0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\pages\\LoginPage.test.tsx": {
+    "mtime": 1778710280.692048,
+    "hash": "9bef6b0eba107f34e9ad52539c2efe46"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\pages\\MembersPage.test.tsx": {
+    "mtime": 1778710280.692048,
+    "hash": "3f2ee2ccb6b854f90800deb228e7e151"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\pages\\PostsPage.groupBy.test.tsx": {
+    "mtime": 1778710280.692048,
+    "hash": "97bd6fcb6db233af92d7f3d033030a20"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\pages\\PostsPage.test.tsx": {
+    "mtime": 1778710280.6930473,
+    "hash": "21430b2fd1e9da0ed69bf51ecb38ca8a"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\pages\\SiegeMembersPage.test.tsx": {
+    "mtime": 1778710280.6930473,
+    "hash": "2c9b39064fdfb13508b2a837e7f65831"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\pages\\SiegeSettingsPage.test.tsx": {
+    "mtime": 1778710280.6930473,
+    "hash": "8c34c10c18ff7a32ffeccd9630ed451b"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\test\\pages\\SiegesPage.test.tsx": {
+    "mtime": 1778710280.6930473,
+    "hash": "f07ff3cf0ed4bb0696ecd6e2d5b5b821"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\src\\types\\changelog.d.ts": {
+    "mtime": 1778710280.6940484,
+    "hash": "29f6e6e4d1a48ca3686c20d21c03dc3c"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\bootstrap-db.ps1": {
+    "mtime": 1778710280.7000616,
+    "hash": "2963ef492dbaa1e8aed3c7d0b42cb2bf"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\bootstrap-excel-import.ps1": {
+    "mtime": 1778710280.7010694,
+    "hash": "833c292e832a70a4d642e969418cec01"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\bootstrap-images.ps1": {
+    "mtime": 1778710280.701412,
+    "hash": "770e3450dec21a6498dd9380f2070049"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\bootstrap-keyvault.ps1": {
+    "mtime": 1778710280.701412,
+    "hash": "571c851084af0db873bdc82226b59797"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\bootstrap-reimport.ps1": {
+    "mtime": 1778710280.701412,
+    "hash": "39d7a16633e94d6cefeb8aca40862cff"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\generate-origin-pfx.ps1": {
+    "mtime": 1778710280.7034204,
+    "hash": "b0900217644486cdf9adf852befa4fde"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\rebuild.ps1": {
+    "mtime": 1778710280.7034204,
+    "hash": "1b5123763516e1ee3dbc308f2638eb4f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\excel-import\\import_excel.py": {
+    "mtime": 1778710280.70243,
+    "hash": "4151fee1079d2b495340976e008542dd"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\excel-import\\tests\\test_import_excel.py": {
+    "mtime": 1778710280.70243,
+    "hash": "8fe8befd8dbcdc09c53f053fbb57ffc2"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\excel-import\\tests\\__init__.py": {
+    "mtime": 1778710280.70243,
+    "hash": "d41d8cd98f00b204e9800998ecf8427e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\experiments\\run-graphify-dry-run.ps1": {
+    "mtime": 1778715097.451517,
+    "hash": "8a66f56768d8c9b2b04c9d03452a8285"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\CHANGELOG.md": {
+    "mtime": 1778710280.6144302,
+    "hash": "0c5a48d5f48933acad20d931797847b0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\CLAUDE.md": {
+    "mtime": 1778710280.614946,
+    "hash": "efb936d1d3711ed3ca65b394f9d6b9b2"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\CODE_OF_CONDUCT.md": {
+    "mtime": 1778710280.614946,
+    "hash": "9b2d51a163a531cb2f62e72697b0ccc1"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\CONTRIBUTING.md": {
+    "mtime": 1778710280.614946,
+    "hash": "f1099f1c0582333df2fabef4dccad223"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docker-compose.prod.yml": {
+    "mtime": 1778710280.6545522,
+    "hash": "e55ffd8443f4dd9cf1acb386a7956bfb"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docker-compose.yml": {
+    "mtime": 1778710280.6550682,
+    "hash": "376b6eb4a3cfab39144103477cea42cf"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\README.md": {
+    "mtime": 1778710280.615952,
+    "hash": "8b4ba27465aa3d5dfd16ed64c6cbf45f"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\SUPPORT.md": {
+    "mtime": 1778710280.615952,
+    "hash": "64c8848cde6a11b59d25bcc9b621e546"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\requirements-dev.txt": {
+    "mtime": 1778710280.640529,
+    "hash": "61ce4838a8959c3c183db9bab83b737d"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\backend\\requirements.txt": {
+    "mtime": 1778710280.640529,
+    "hash": "b06051b552c2ea4732940c0dbc2b9db0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\requirements-dev.txt": {
+    "mtime": 1778710280.6524813,
+    "hash": "cf6fc69a9af8b95f5758cac0a94bb9e6"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\bot\\requirements.txt": {
+    "mtime": 1778710280.6524813,
+    "hash": "fbf3dc8cb3581931efa8dc526f44f7ef"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\IMPLEMENTATION_PLAN.md": {
+    "mtime": 1778710280.6550682,
+    "hash": "5e4f9f914ca2ce9d67d6705a5933b7ba"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\RUNBOOK.md": {
+    "mtime": 1778710280.6555874,
+    "hash": "50fc656921246e9004108c9b114a09e5"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\siege_levels.md": {
+    "mtime": 1778710280.6587057,
+    "hash": "07d9f028f42a8b94ce3365a6f72bafc4"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\WEB_DESIGN_DOCUMENT.md": {
+    "mtime": 1778710280.656117,
+    "hash": "83b709cc8ac4aa14b027eda0a0c562b8"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\design-refs\\post-suggestions\\README.md": {
+    "mtime": 1778710280.6566384,
+    "hash": "de10b175d0df9256e5daeca315f7b252"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\experiments\\graphify-dry-run.md": {
+    "mtime": 1778711028.4433894,
+    "hash": "496df0deb7da1e88640f0a8bcdcb7e3b"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\mockups\\mockup-landing.html": {
+    "mtime": 1778710280.6571586,
+    "hash": "0548e8204463ddf92a09c5ce6f97fe34"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\mockups\\mockup-login.html": {
+    "mtime": 1778710280.6571586,
+    "hash": "7e1759c2d6a5fa6a3c4e5ed58777c289"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\mockups\\README.md": {
+    "mtime": 1778710280.6566384,
+    "hash": "fe28480a5cc9c486f4dc5d6be6c5f368"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\plans\\public-launch-self-hostable-and-landing-page.md": {
+    "mtime": 1778710280.657677,
+    "hash": "afed648bab4d1590d9b833607a4f7502"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\self-host\\anywhere.md": {
+    "mtime": 1778710280.6581955,
+    "hash": "2efab5a64706d9964b8fa13de3037449"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\self-host\\azure.md": {
+    "mtime": 1778710280.6587057,
+    "hash": "c9ee5c5fc8721e7c0ca2bb54da0782c9"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\superpowers\\plans\\2026-04-08-discord-auth-implementation.md": {
+    "mtime": 1778710280.6592517,
+    "hash": "01ee8f99120035b952a2699b8a01eb6b"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\superpowers\\plans\\2026-05-08-component-versioning.md": {
+    "mtime": 1778710280.6597755,
+    "hash": "4eea9e7828ef6f2c88737f1f2feb1ee2"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\superpowers\\plans\\2026-05-09-post-suggestions.md": {
+    "mtime": 1778710280.6597755,
+    "hash": "3c89d2df41aebf5c5bc5add19cbd6281"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\superpowers\\plans\\discord-auth-plan.md": {
+    "mtime": 1778710280.6597755,
+    "hash": "bab1c00cda76f8ccaf26079a049ecf40"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\docs\\superpowers\\plans\\v1-release-plan.md": {
+    "mtime": 1778710280.6607814,
+    "hash": "f7ebc80091b9fc6eb0a5bf8661c0300e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\index.html": {
+    "mtime": 1778710280.6638145,
+    "hash": "dde055b245027a69a68049238ed823b3"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\infra\\README.md": {
+    "mtime": 1778710280.696556,
+    "hash": "3e76fbd727bcceeb02eb75d416c64aff"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\excel-import\\README.md": {
+    "mtime": 1778710280.701412,
+    "hash": "4a0e8a05091bd257fe417671858923a2"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\scripts\\excel-import\\requirements.txt": {
+    "mtime": 1778710280.70243,
+    "hash": "5e740ca3e2b112ec37fea64eae859ae0"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\wiki\\FAQ.md": {
+    "mtime": 1778710280.7034204,
+    "hash": "5e52ba23a226df064a14d75b1fd0d715"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\wiki\\Getting-Started.md": {
+    "mtime": 1778710280.7034204,
+    "hash": "f9dea57e10cfeada6f10255144249741"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\wiki\\Home.md": {
+    "mtime": 1778710280.7034204,
+    "hash": "32652bdc5aadfc11288cc5a4df5fe4a3"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\wiki\\Self-Host-on-Any-VPS.md": {
+    "mtime": 1778710280.7034204,
+    "hash": "178c7e9323276c57b1ce23786431f634"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\wiki\\Self-Host-on-Azure.md": {
+    "mtime": 1778710280.7049341,
+    "hash": "170d3ef1fbc3b5d52c18a8b6470951f5"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\wiki\\_Sidebar.md": {
+    "mtime": 1778710280.7049341,
+    "hash": "d92afc34965b5e470b581ce61e53b6ca"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\public\\favicon.svg": {
+    "mtime": 1778710280.6663249,
+    "hash": "1544a9686a82728b10dd2d54a4c539b4"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\public\\landing\\carousel-assignment-board.png": {
+    "mtime": 1778710280.6673253,
+    "hash": "138b785969e45c8eeec46b97c86dbfec"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\public\\landing\\carousel-discord-image.png": {
+    "mtime": 1778710280.6673253,
+    "hash": "490ecc84ff80e40ca12651e2626bc424"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\public\\landing\\carousel-member-management.png": {
+    "mtime": 1778710280.6688316,
+    "hash": "e87aa520a2aaecf3e9a1eea306182d0d"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\public\\landing\\carousel-post-assignments.png": {
+    "mtime": 1778710280.6698372,
+    "hash": "79bdc954a2b7803d178cc4b3f2d7fbd8"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\public\\landing\\carousel-siege-comparison.png": {
+    "mtime": 1778710280.6711512,
+    "hash": "913d494ae2e7465514441dec70f864c9"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\public\\landing\\carousel-validation-errors.png": {
+    "mtime": 1778710280.6721778,
+    "hash": "a6f43ec1ae7d66d5580b8b8d9d8c154e"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\public\\landing\\hero-board.png": {
+    "mtime": 1778710280.6721778,
+    "hash": "4640413678efc867d27bceed64b60ea9"
+  },
+  "I:\\games\\raid\\siege-web\\.worktrees\\experiment-graphify-dry-run-doc\\frontend\\public\\landing\\og-image.png": {
+    "mtime": 1778710280.6731784,
+    "hash": "4640413678efc867d27bceed64b60ea9"
+  }
+}

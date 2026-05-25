@@ -109,7 +109,14 @@ def _git_head() -> str | None:
         return None
 
 
-from graphify.detect import CODE_EXTENSIONS, DOC_EXTENSIONS, PAPER_EXTENSIONS, IMAGE_EXTENSIONS
+from graphify.detect import (
+    CODE_EXTENSIONS,
+    DOC_EXTENSIONS,
+    PAPER_EXTENSIONS,
+    IMAGE_EXTENSIONS,
+    _load_graphifyignore,
+    _is_ignored,
+)
 
 _WATCHED_EXTENSIONS = CODE_EXTENSIONS | DOC_EXTENSIONS | PAPER_EXTENSIONS | IMAGE_EXTENSIONS
 _CODE_EXTENSIONS = CODE_EXTENSIONS
@@ -233,12 +240,26 @@ def _topology_from_graph(G) -> dict:
     return data
 
 
-def _check_shrink(force: bool, existing_data: dict, new_data: dict, tmp: "Path | None" = None) -> bool:
+def _check_shrink(
+    force: bool,
+    existing_data: dict,
+    new_data: dict,
+    tmp: "Path | None" = None,
+    *,
+    had_explicit_deletions: bool = False,
+) -> bool:
     """Return True (ok to proceed) or False (shrink refused).
 
     When False, cleans up *tmp* if provided and prints a warning to stderr.
+
+    The shrink-guard exists to catch SILENT shrinkage from failed extraction
+    chunks (a half-written semantic pass leaving thousands of nodes
+    unaccounted for). When ``had_explicit_deletions`` is True, the caller
+    has declared which files were removed (e.g. the post-commit hook saw
+    a ``D`` in ``git diff --name-only``) and a smaller graph is the expected
+    outcome — skip the guard so legitimate refactors don't require ``--force``.
     """
-    if force or not existing_data:
+    if force or not existing_data or had_explicit_deletions:
         return True
     existing_n = len(existing_data.get("nodes", []))
     new_n = len(new_data.get("nodes", []))
@@ -324,6 +345,7 @@ def _rebuild_code(
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
         from graphify.report import generate
         from graphify.export import to_json, to_html
+        from graphify.security import check_graph_file_size_cap
 
         detected = detect(watch_path, follow_symlinks=follow_symlinks)
         code_files = [Path(f) for f in detected['files']['code']]
@@ -382,6 +404,7 @@ def _rebuild_code(
         existing_graph_data: dict = {}
         if existing_graph.exists():
             try:
+                check_graph_file_size_cap(existing_graph)
                 existing = json.loads(existing_graph.read_text(encoding="utf-8"))
                 existing_graph_data = existing
                 new_ast_ids = {n["id"] for n in result["nodes"]}
@@ -426,6 +449,7 @@ def _rebuild_code(
             same_graph = False
             if existing_graph.exists():
                 try:
+                    check_graph_file_size_cap(existing_graph)
                     existing_payload = json.loads(existing_graph.read_text(encoding="utf-8"))
                     same_graph = (
                         json.dumps(_canonical_graph_for_compare(existing_payload), sort_keys=True, ensure_ascii=False)
@@ -434,7 +458,10 @@ def _rebuild_code(
                 except Exception:
                     same_graph = False
             if not same_graph:
-                if not _check_shrink(force, existing_graph_data, candidate_graph_data):
+                if not _check_shrink(
+                    force, existing_graph_data, candidate_graph_data,
+                    had_explicit_deletions=bool(deleted_paths),
+                ):
                     return False
                 existing_graph.write_text(candidate_graph_text, encoding="utf-8")
 
@@ -519,6 +546,7 @@ def _rebuild_code(
         same_report = False
         if existing_graph.exists():
             try:
+                check_graph_file_size_cap(existing_graph)
                 existing_payload = json.loads(existing_graph.read_text(encoding="utf-8"))
                 same_graph = (
                     json.dumps(_canonical_graph_for_compare(existing_payload), sort_keys=True, ensure_ascii=False)
@@ -534,8 +562,14 @@ def _rebuild_code(
             graph_tmp.unlink(missing_ok=True)
             print("[graphify watch] No code-graph changes detected; graph.json/GRAPH_REPORT.md left untouched.")
         else:
-            if not _check_shrink(force, existing_graph_data, candidate_graph_data, tmp=graph_tmp):
+            if not _check_shrink(
+                force, existing_graph_data, candidate_graph_data,
+                tmp=graph_tmp,
+                had_explicit_deletions=bool(deleted_paths),
+            ):
                 return False
+            from graphify.export import backup_if_protected as _backup
+            _backup(out)
             graph_tmp.replace(existing_graph)
             report_path.write_text(report, encoding="utf-8")
             labels_file.write_text(labels_json, encoding="utf-8")
@@ -647,12 +681,28 @@ def watch(watch_path: Path, debounce: float = 3.0) -> None:
     pending: bool = False
     changed: set[Path] = set()
 
+    # Load .graphifyignore patterns ONCE at startup so the handler does not
+    # re-parse the file on every filesystem event. Watchdog's handler runs on
+    # the observer thread and is invoked for every event the OS delivers
+    # (Time Machine writes, Docker/Colima VM I/O, Spotlight indexing, …) —
+    # without this short-circuit a busy volume can saturate a CPU core
+    # discarding events one extension at a time. (gh-928)
+    watch_root_for_ignore = watch_path.resolve()
+    ignore_patterns = _load_graphifyignore(watch_root_for_ignore)
+
     class Handler(FileSystemEventHandler):
         def on_any_event(self, event):
             nonlocal last_trigger, pending
             if event.is_directory:
                 return
             path = Path(event.src_path)
+            # Check .graphifyignore BEFORE the extension/dotfile/out filters so
+            # the cheapest short-circuit for users with broad ignore patterns
+            # (node_modules/, .venv/, build/, …) fires first. _is_ignored
+            # tolerates absolute paths outside watch_root via its internal
+            # relative_to guard, so a stray symlinked event won't raise.
+            if ignore_patterns and _is_ignored(path, watch_root_for_ignore, ignore_patterns):
+                return
             if path.suffix.lower() not in _WATCHED_EXTENSIONS:
                 return
             if any(part.startswith(".") for part in path.parts):

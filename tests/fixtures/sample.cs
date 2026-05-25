@@ -9,7 +9,15 @@ namespace GraphifyDemo
         List<string> Process(List<string> items);
     }
 
-    public class DataProcessor : IProcessor
+    public class Processor
+    {
+    }
+
+    public class Result<T>
+    {
+    }
+
+    public class DataProcessor : Processor, IProcessor
     {
         private readonly HttpClient _client;
 
@@ -21,6 +29,11 @@ namespace GraphifyDemo
         public List<string> Process(List<string> items)
         {
             return Validate(items);
+        }
+
+        public Result<DataProcessor> Build(HttpClient client)
+        {
+            return null;
         }
 
         private List<string> Validate(List<string> items)

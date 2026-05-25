@@ -957,7 +957,7 @@ from graphify.detect import save_manifest
 save_manifest(incremental['files'])
 print('[graphify update] Manifest saved.')
 '@ | Out-File -FilePath graphify-out\.graphify_step_for_update_incremental_re_extracti_21.py -Encoding utf8
-& (Get-Content graphify-out\.graphify_python) graphify-out\.graphify_step_for_update_incremental_re_extracti_21.py 
+& (Get-Content graphify-out\.graphify_python) graphify-out\.graphify_step_for_update_incremental_re_extracti_21.py
 Remove-Item -ErrorAction SilentlyContinue graphify-out\.graphify_step_for_update_incremental_re_extracti_21.py
 ```
 

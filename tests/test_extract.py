@@ -56,6 +56,159 @@ def test_extract_merges_multiple_files():
     assert result["input_tokens"] == 0
 
 
+def test_extract_disambiguates_duplicate_symbol_ids_by_source_path(tmp_path):
+    first = tmp_path / "apps/api/Program.cs"
+    second = tmp_path / "tools/api/Program.cs"
+    first.parent.mkdir(parents=True)
+    second.parent.mkdir(parents=True)
+    first.write_text("class Program { void Run() {} }\n", encoding="utf-8")
+    second.write_text("class Program { void Run() {} }\n", encoding="utf-8")
+
+    result = extract([first, second], cache_root=tmp_path)
+    program_nodes = [
+        node for node in result["nodes"]
+        if node["label"] == "Program" and node.get("source_file", "").endswith("Program.cs")
+    ]
+
+    assert len(program_nodes) == 2
+    assert len({node["id"] for node in program_nodes}) == 2
+
+    node_ids = {node["id"] for node in result["nodes"]}
+    program_by_source = {node["source_file"]: node["id"] for node in program_nodes}
+    file_nodes_by_source = {
+        node["source_file"]: node["id"]
+        for node in result["nodes"]
+        if node["label"] == "Program.cs"
+    }
+
+    assert set(program_by_source) == set(file_nodes_by_source)
+    contains_edges = [
+        edge for edge in result["edges"]
+        if edge["relation"] == "contains" and edge["source_file"] in program_by_source
+    ]
+    assert len(contains_edges) == 2
+    for edge in contains_edges:
+        assert edge["source"] == file_nodes_by_source[edge["source_file"]]
+        assert edge["target"] == program_by_source[edge["source_file"]]
+
+    for edge in result["edges"]:
+        if edge["relation"] in {"contains", "method"}:
+            assert edge["source"] in node_ids, f"Dangling structural source: {edge}"
+            assert edge["target"] in node_ids, f"Dangling structural target: {edge}"
+
+
+def test_extract_updates_raw_call_callers_after_duplicate_id_disambiguation(tmp_path):
+    first = tmp_path / "apps/api/Program.cs"
+    second = tmp_path / "tools/api/Program.cs"
+    target = tmp_path / "shared/Helper.cs"
+    first.parent.mkdir(parents=True)
+    second.parent.mkdir(parents=True)
+    target.parent.mkdir(parents=True)
+    first.write_text("class Program { void Run() { SharedHelper(); } }\n", encoding="utf-8")
+    second.write_text("class Program { void Run() {} }\n", encoding="utf-8")
+    target.write_text("class Helper { void SharedHelper() {} }\n", encoding="utf-8")
+
+    result = extract([first, second, target], cache_root=tmp_path)
+    node_ids = {node["id"] for node in result["nodes"]}
+
+    for edge in result["edges"]:
+        if edge["relation"] == "calls":
+            assert edge["source"] in node_ids
+            assert edge["target"] in node_ids
+
+
+def test_extract_rewires_unique_inheritance_stub_to_real_definition(tmp_path):
+    definition = tmp_path / "interfaces.py"
+    implementation = tmp_path / "services/BookStore.cs"
+    definition.write_text("class BookStore:\n    pass\n", encoding="utf-8")
+    implementation.parent.mkdir(parents=True)
+    implementation.write_text("class SqliteBookStore : BookStore { }\n", encoding="utf-8")
+
+    result = extract([definition, implementation], cache_root=tmp_path)
+    node_by_id = {node["id"]: node for node in result["nodes"]}
+    inherits_edges = [edge for edge in result["edges"] if edge["relation"] == "inherits"]
+
+    matching = [
+        edge for edge in inherits_edges
+        if node_by_id[edge["source"]]["label"] == "SqliteBookStore"
+        and node_by_id[edge["target"]]["label"] == "BookStore"
+    ]
+
+    assert matching
+    assert matching[0]["target"] == next(
+        node["id"] for node in result["nodes"]
+        if node["label"] == "BookStore" and node.get("source_file") == "interfaces.py"
+    )
+    assert all(
+        not (node["label"] == "BookStore" and not node.get("source_file"))
+        for node in result["nodes"]
+    )
+
+
+def test_extract_keeps_stub_when_multiple_real_definitions_match(tmp_path):
+    first = tmp_path / "a/interfaces.py"
+    second = tmp_path / "b/interfaces.py"
+    implementation = tmp_path / "services/BookStore.cs"
+    first.parent.mkdir(parents=True)
+    second.parent.mkdir(parents=True)
+    implementation.parent.mkdir(parents=True)
+    first.write_text("class BookStore:\n    pass\n", encoding="utf-8")
+    second.write_text("class BookStore:\n    pass\n", encoding="utf-8")
+    implementation.write_text("class SqliteBookStore : BookStore { }\n", encoding="utf-8")
+
+    result = extract([first, second, implementation], cache_root=tmp_path)
+    stubs = [
+        node for node in result["nodes"]
+        if node["label"] == "BookStore" and not node.get("source_file")
+    ]
+
+    assert stubs
+
+
+def test_extract_does_not_rewire_inheritance_stub_to_same_named_function(tmp_path):
+    definition = tmp_path / "factory.py"
+    implementation = tmp_path / "services/BookStore.cs"
+    definition.write_text("def BookStore():\n    return object()\n", encoding="utf-8")
+    implementation.parent.mkdir(parents=True)
+    implementation.write_text("class SqliteBookStore : BookStore { }\n", encoding="utf-8")
+
+    result = extract([definition, implementation], cache_root=tmp_path)
+    node_by_id = {node["id"]: node for node in result["nodes"]}
+    inherits_edges = [edge for edge in result["edges"] if edge["relation"] == "inherits"]
+
+    assert any(
+        node["label"] == "BookStore" and not node.get("source_file")
+        for node in result["nodes"]
+    )
+    assert not any(
+        node_by_id[edge["source"]]["label"] == "SqliteBookStore"
+        and node_by_id[edge["target"]]["label"] == "BookStore()"
+        for edge in inherits_edges
+    )
+
+
+def test_extract_does_not_rewire_constructor_method_to_same_named_class(tmp_path):
+    source = tmp_path / "Sample.java"
+    source.write_text(
+        "class DataProcessor {\n"
+        "    public DataProcessor() {}\n"
+        "}\n",
+        encoding="utf-8",
+    )
+
+    result = extract([source], cache_root=tmp_path)
+
+    constructor_nodes = [
+        node for node in result["nodes"]
+        if node["label"] == ".DataProcessor()"
+    ]
+    assert constructor_nodes
+    assert not any(
+        edge["source"] == edge["target"]
+        for edge in result["edges"]
+    )
+
+
 def test_collect_files_from_dir():
     from graphify.extract import _DISPATCH
     files = collect_files(FIXTURES)
@@ -521,6 +674,175 @@ def test_extract_bash_missing_grammar_returns_error():
     assert result["nodes"] == []
 
 
+def test_extract_bash_rejects_command_substitution_as_call(tmp_path):
+    """`$(build)` must not be recorded as a call edge to build()."""
+    script = tmp_path / "command_substitution.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "build() { echo build; }\n"
+        "$(build)\n"
+    )
+    result = extract_bash(script)
+    labels = {n["id"]: n["label"] for n in result["nodes"]}
+    call_pairs = [
+        (labels.get(e["source"], e["source"]), labels.get(e["target"], e["target"]))
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    ]
+    assert call_pairs == [], f"Command substitution erroneously emitted call edges: {call_pairs}"
+
+
+def test_extract_bash_process_substitution_not_recorded(tmp_path):
+    """`<(helper)` (process substitution) must not be recorded as a call edge."""
+    script = tmp_path / "process_substitution.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "helper() { echo h; }\n"
+        "diff <(helper) <(helper)\n"
+    )
+    result = extract_bash(script)
+    labels = {n["id"]: n["label"] for n in result["nodes"]}
+    call_pairs = [
+        (labels.get(e["source"], e["source"]), labels.get(e["target"], e["target"]))
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    ]
+    assert call_pairs == [], f"Process substitution erroneously emitted call edges: {call_pairs}"
+
+
+def test_extract_bash_shadowing_function_is_recorded(tmp_path):
+    """User-defined function shadowing an external command (install/find/etc.) must still produce a call edge."""
+    script = tmp_path / "shadowing.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "install() { echo install; }\n"
+        "deploy() { install; }\n"
+    )
+    result = extract_bash(script)
+    labels = {n["id"]: n["label"] for n in result["nodes"]}
+    call_pairs = [
+        (labels.get(e["source"], e["source"]), labels.get(e["target"], e["target"]))
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    ]
+    assert ("deploy()", "install()") in call_pairs, (
+        f"Shadowing function call not recorded; got: {call_pairs}"
+    )
+
+
+def test_extract_bash_creates_entrypoint_node(tmp_path):
+    """Every bash file produces a `bash_entrypoint` node distinct from the file node, joined by a `contains` edge."""
+    script = tmp_path / "with_entrypoint.sh"
+    script.write_text("#!/usr/bin/env bash\nfoo() { :; }\n")
+    result = extract_bash(script)
+    kinds = [n.get("metadata", {}).get("kind") for n in result["nodes"]]
+    assert "bash_entrypoint" in kinds, f"No bash_entrypoint node; kinds={kinds}"
+    assert "file" in kinds, f"No file node; kinds={kinds}"
+    file_node = next(n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "file")
+    entry_node = next(n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint")
+    contains_edges = [
+        e for e in result["edges"]
+        if e["relation"] == "contains" and e["source"] == file_node["id"] and e["target"] == entry_node["id"]
+    ]
+    assert contains_edges, "Missing contains edge from file → bash_entrypoint"
+
+
+def test_extract_bash_top_level_call_attributes_to_entrypoint(tmp_path):
+    """Top-level function call attaches to the entrypoint node, not orphaned."""
+    script = tmp_path / "top_level_call.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "build() { echo build; }\n"
+        "build\n"
+    )
+    result = extract_bash(script)
+    entry_node = next(
+        (n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint"),
+        None,
+    )
+    assert entry_node is not None, "No entrypoint node created"
+    call_pairs = [
+        (e["source"], e["target"])
+        for e in result["edges"]
+        if e["relation"] == "calls"
+    ]
+    target_ids = {tgt for _, tgt in call_pairs if any(n["id"] == tgt and n["label"] == "build()" for n in result["nodes"])}
+    source_ids_to_build = {src for src, tgt in call_pairs if tgt in target_ids}
+    assert entry_node["id"] in source_ids_to_build, (
+        f"Top-level call to build not attributed to entrypoint; calls={call_pairs}"
+    )
+
+
+# ---------------------------------------------------------------------------
+# PR #893 regression tests — bash extractor Copilot review findings
+# ---------------------------------------------------------------------------
+
+
+def test_extract_bash_entrypoint_no_collision_with_function_named_script(tmp_path):
+    """Entrypoint node must have a distinct ID from a function also named 'script'.
+
+    _make_id strips leading/trailing '_.' from each part, so
+    _make_id(stem, "__script__") strips to _make_id(stem, "script"), which is
+    identical to _make_id(stem, "script") for a function named 'script'.
+    """
+    script = tmp_path / "deploy.sh"
+    script.write_text("#!/usr/bin/env bash\nfunction script() { echo hi; }\n")
+    result = extract_bash(script)
+    entry_nodes = [n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint"]
+    func_nodes = [n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_function"]
+    assert entry_nodes, "Must have a bash_entrypoint node"
+    assert func_nodes, "Must have a bash_function node for 'script'"
+    entry_id = entry_nodes[0]["id"]
+    func_id = func_nodes[0]["id"]
+    assert entry_id != func_id, (
+        f"Entrypoint ID must not collide with function 'script' ID; both are '{entry_id}'"
+    )
+
+
+def test_extract_bash_nested_function_calls_recorded(tmp_path):
+    """Calls made inside a nested (inner) function body must be collected."""
+    script = tmp_path / "nested.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "function do_work() { :; }\n"
+        "function outer() {\n"
+        "    function inner() {\n"
+        "        do_work\n"
+        "    }\n"
+        "    inner\n"
+        "}\n"
+    )
+    result = extract_bash(script)
+    node_id_by_label = {n["label"].rstrip("()"): n["id"] for n in result["nodes"]}
+    assert "inner" in node_id_by_label, f"inner function must be discovered; labels={list(node_id_by_label)}"
+    assert "do_work" in node_id_by_label, f"do_work function must be discovered; labels={list(node_id_by_label)}"
+    calls = {(e["source"], e["target"]) for e in result["edges"] if e.get("relation") == "calls"}
+    inner_id = node_id_by_label["inner"]
+    do_work_id = node_id_by_label["do_work"]
+    assert (inner_id, do_work_id) in calls, (
+        f"inner→do_work call edge must be recorded; got calls={calls}"
+    )
+
+
+def test_extract_bash_source_user_defined_emits_calls_not_imports_from(tmp_path):
+    """When 'source' is a user-defined function, 'source ./file.sh' must emit a
+    calls edge, not an imports_from edge.  The user-defined function shadows the
+    built-in source command."""
+    helpers = tmp_path / "helpers.sh"
+    helpers.write_text("#!/bin/bash\n")
+    script = tmp_path / "run.sh"
+    script.write_text(
+        "#!/usr/bin/env bash\n"
+        "function source() { echo 'custom source'; }\n"
+        "source ./helpers.sh\n"
+    )
+    result = extract_bash(script)
+    import_edges = [e for e in result["edges"] if e.get("relation") == "imports_from"]
+    assert not import_edges, (
+        f"'source' is a user-defined function; 'source ./helpers.sh' must not emit imports_from; got: {import_edges}"
+    )
+
+
 # ---------------------------------------------------------------------------
 # JSON extractor tests (#866)
 # ---------------------------------------------------------------------------
@@ -592,3 +914,111 @@ def test_extract_bash_via_dispatch():
 def test_extract_json_via_dispatch():
     from graphify.extract import _get_extractor
     assert _get_extractor(Path("foo.json")) is extract_json
+
+
+def test_extract_bash_node_metadata_is_sanitized():
+    """Bash extractor must route node metadata through sanitize_metadata so
+    HTML-sensitive characters cannot reach downstream graph viewers raw."""
+    result = extract_bash(FIXTURES / "sample.sh")
+    assert "error" not in result
+    for node in result["nodes"]:
+        meta = node.get("metadata", {})
+        # Static bash metadata is currently {"language": "bash", "kind": "code"};
+        # both pass through sanitisation unchanged, but the values must be the
+        # post-sanitisation strings (not raw objects).
+        for value in meta.values():
+            if isinstance(value, str):
+                assert "<" not in value
+                assert "\x00" not in value
+
+
+# ── Barrel re-export tests ────────────────────────────────────────────────────
+
+
+def test_barrel_reexport_emits_re_exports_edges():
+    """export { X } from './mod' must emit re_exports edges for each named specifier."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "barrel_reexport.ts")
+    reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
+    targets = [e["target"] for e in reexports]
+    # Should find re_exports for readCookie, writeCookie, getFullUrl, basePathRewrite
+    assert len(reexports) >= 4, f"Expected >=4 re_exports, got {len(reexports)}: {targets}"
+    assert any("readcookie" in t for t in targets)
+    assert any("writecookie" in t for t in targets)
+    assert any("getfullurl" in t for t in targets)
+    assert any("basepathrewrite" in t for t in targets)
+
+
+def test_barrel_reexport_emits_imports_from():
+    """Barrel file must emit file-level imports_from edges to source modules."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "barrel_reexport.ts")
+    imports_from = [e for e in result["edges"] if e["relation"] == "imports_from"]
+    targets = [e["target"] for e in imports_from]
+    assert any("cookiehelpers" in t for t in targets)
+    assert any("urlhelpers" in t for t in targets)
+    assert any("storagehelpers" in t for t in targets)
+
+
+def test_barrel_reexport_context_tagged():
+    """re_exports edges should have context='re-export'."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "barrel_reexport.ts")
+    reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
+    for e in reexports:
+        assert e.get("context") == "re-export"
+
+
+def test_barrel_local_exports_still_extracted():
+    """export function/const in a barrel file must still create nodes."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "barrel_reexport.ts")
+    labels = [n["label"] for n in result["nodes"]]
+    assert "localHelper()" in labels or "localHelper" in labels
+    # File node should also exist
+    assert any("barrel_reexport" in n["label"] for n in result["nodes"])
+
+
+def test_barrel_reexport_confidence_extracted():
+    """All re_exports edges should have confidence=EXTRACTED."""
+    from graphify.extract import extract_js
+    result = extract_js(FIXTURES / "barrel_reexport.ts")
+    reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
+    for e in reexports:
+        assert e["confidence"] == "EXTRACTED"
+
+
+def test_semantic_reference_edges_carry_context_and_source():
+    from graphify.extract import _semantic_reference_edge
+
+    edge = _semantic_reference_edge(
+        "source_node",
+        "target_node",
+        "parameter_type",
+        "/repo/src/Foo.cs",
+        12,
+    )
+
+    assert edge == {
+        "source": "source_node",
+        "target": "target_node",
+        "relation": "references",
+        "context": "parameter_type",
+        "confidence": "EXTRACTED",
+        "source_file": "/repo/src/Foo.cs",
+        "source_location": "L12",
+        "weight": 1.0,
+    }
+
+
+def test_pure_export_no_from_not_treated_as_reexport():
+    """export { localVar } without 'from' should NOT create re_exports edges."""
+    from graphify.extract import extract_js
+    import tempfile
+    code = b"const x = 1;\nexport { x };\n"
+    with tempfile.NamedTemporaryFile(suffix=".ts", delete=False) as f:
+        f.write(code)
+        f.flush()
+        result = extract_js(Path(f.name))
+    reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
+    assert reexports == [], f"Pure export should not create re_exports: {reexports}"

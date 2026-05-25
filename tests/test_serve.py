@@ -7,10 +7,13 @@ from networkx.readwrite import json_graph
 from graphify.serve import (
     _communities_from_graph,
     _score_nodes,
+    _compute_idf,
+    _pick_seeds,
     _bfs,
     _dfs,
     _filter_graph_by_context,
     _infer_context_filters,
+    _query_terms,
     _query_graph_text,
     _resolve_context_filters,
     _subgraph_to_text,
@@ -75,6 +78,19 @@ def test_score_nodes_source_file_partial():
     scored = _score_nodes(G, ["cluster"])
     nids = [nid for _, nid in scored]
     assert "n2" in nids
+
+
+def test_query_terms_filters_only_short_english_terms():
+    terms = _query_terms("前端 dependency 依赖 install 安装 to of 包管理器 项目约定 a前")
+    assert terms == ["前端", "dependency", "依赖", "install", "安装", "包管理器", "项目约定", "a前"]
+
+
+def test_query_graph_text_keeps_short_non_english_terms():
+    G = nx.Graph()
+    G.add_node("frontend", label="前端", source_file="docs/前端.md", source_location="L1", community=0)
+    text = _query_graph_text(G, "前端", mode="bfs", depth=1)
+    assert "No matching nodes found." not in text
+    assert "NODE 前端" in text
 
 
 def test_infer_context_filters_for_calls_question():
@@ -198,6 +214,32 @@ def test_load_graph_missing_file(tmp_path):
         _load_graph(str(graphify_dir / "nonexistent.json"))
 
 
+def test_load_graph_rejects_oversized_file(monkeypatch, tmp_path, capsys):
+    # #F4: oversized graph.json must fail fast (SystemExit) with a clear error.
+    G = _make_graph()
+    data = json_graph.node_link_data(G, edges="links")
+    p = tmp_path / "graph.json"
+    p.write_text(json.dumps(data))
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 16)
+    with pytest.raises(SystemExit):
+        _load_graph(str(p))
+    err = capsys.readouterr().err
+    assert "exceeds" in err
+    assert "byte cap" in err
+
+
+def test_load_graph_accepts_under_cap(monkeypatch, tmp_path):
+    # Verifies the cap path does not regress the normal load.
+    G = _make_graph()
+    data = json_graph.node_link_data(G, edges="links")
+    p = tmp_path / "graph.json"
+    p.write_text(json.dumps(data))
+    # Cap well above the actual file size — load proceeds.
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 10 * 1024 * 1024)
+    G2 = _load_graph(str(p))
+    assert G2.number_of_nodes() == G.number_of_nodes()
+
+
 # --- #874: MCP hot-reload ---
 
 def _write_graph(path, nodes: list[str]) -> None:
@@ -250,3 +292,152 @@ def test_load_graph_cache_key_changes_with_content(tmp_path):
     key2 = (s2.st_mtime_ns, s2.st_size)
 
     assert key1 != key2, "stat key must change when file content changes"
+
+
+# --- IDF weighting tests (#897) ---
+
+def _make_noisy_graph() -> nx.Graph:
+    """20 error-handler nodes + 1 rare identifier: FooBarService."""
+    G = nx.Graph()
+    for i in range(20):
+        G.add_node(f"err{i}", label=f"error_handler_{i}", source_file=f"err{i}.py", community=0)
+        if i > 0:
+            G.add_edge(f"err{i-1}", f"err{i}", relation="calls", confidence="EXTRACTED")
+    G.add_node("fbs", label="FooBarService", source_file="service.py", community=1)
+    G.add_node("fbs_dep", label="ServiceClient", source_file="client.py", community=1)
+    G.add_edge("fbs", "fbs_dep", relation="uses", confidence="EXTRACTED")
+    return G
+
+
+def test_idf_downweights_common_terms():
+    """'error' matches 20 nodes, 'foobarservice' matches 1 — IDF should make
+    FooBarService rank first despite error's higher raw frequency."""
+    G = _make_noisy_graph()
+    scored = _score_nodes(G, ["foobarservice", "error"])
+    assert scored, "should have results"
+    assert scored[0][1] == "fbs", (
+        f"FooBarService should rank first, got {scored[0][1]}"
+    )
+
+
+def test_idf_cached_on_graph():
+    """IDF results are stored in G.graph so repeated queries don't recompute."""
+    G = _make_graph()
+    _score_nodes(G, ["extract"])
+    assert "_idf_cache" in G.graph
+    assert "extract" in G.graph["_idf_cache"]
+
+
+def test_idf_new_graph_starts_fresh():
+    """Two separate graph instances must not share an IDF cache."""
+    G1 = _make_graph()
+    G2 = _make_graph()
+    _score_nodes(G1, ["extract"])
+    assert "_idf_cache" not in G2.graph
+
+
+def test_idf_rare_term_gets_high_weight():
+    """A term matching only 1 of N nodes should get IDF > 1."""
+    import math
+    G = _make_graph()  # 5 nodes
+    idf = _compute_idf(G, ["extract"])
+    # extract matches only n1: IDF = log(1 + 5/2) ≈ 1.25
+    assert idf["extract"] > 1.0
+
+
+def test_idf_common_term_gets_low_weight():
+    """A term matching most nodes should get IDF < 1."""
+    import math
+    G = nx.Graph()
+    # 'handle' in every node label
+    for i in range(20):
+        G.add_node(f"n{i}", label=f"handle_{i}", source_file=f"f{i}.py")
+    idf = _compute_idf(G, ["handle"])
+    assert idf["handle"] < 1.0
+
+
+# --- _pick_seeds tests (#897) ---
+
+def test_pick_seeds_dominant_identifier_gives_one_seed():
+    """FooBarService at 1000 vs error nodes at 1.0 → only 1 seed chosen."""
+    scored = [(1000.0, "fbs"), (1.0, "err1"), (0.9, "err2")]
+    seeds = _pick_seeds(scored)
+    assert seeds == ["fbs"]
+
+
+def test_pick_seeds_close_scores_keeps_multiple():
+    """When all scores are within 20% of the top, keep up to 3 seeds."""
+    scored = [(10.0, "a"), (9.0, "b"), (8.5, "c")]
+    seeds = _pick_seeds(scored)
+    assert len(seeds) == 3
+
+
+def test_pick_seeds_empty():
+    assert _pick_seeds([]) == []
+
+
+def test_pick_seeds_single():
+    assert _pick_seeds([(5.0, "x")]) == ["x"]
+
+
+def test_pick_seeds_respects_max_k():
+    """Never return more than max_k seeds even when all scores are close."""
+    scored = [(10.0, f"n{i}") for i in range(10)]
+    seeds = _pick_seeds(scored, max_k=3)
+    assert len(seeds) == 3
+
+
+# --- actionable truncation hint (#897) ---
+
+def test_subgraph_to_text_truncation_hint_is_actionable():
+    """Truncation message must tell Claude what to do, not just say truncated."""
+    G = _make_graph()
+    text = _subgraph_to_text(G, {"n1", "n2", "n3", "n4"}, [("n1", "n2")], token_budget=1)
+    assert "truncated" in text
+    assert "get_node" in text or "context_filter" in text
+
+
+# --- integration: identifier + noise query seeds from identifier (#897) ---
+
+def test_query_seeds_from_identifier_not_noise():
+    """'FooBarService error handling' should expand from FooBarService,
+    not from error-handler nodes, so ServiceClient appears in results."""
+    G = _make_noisy_graph()
+    text = _query_graph_text(G, "FooBarService error handling", mode="bfs", depth=2)
+    assert "FooBarService" in text
+    assert "ServiceClient" in text
+
+
+def test_query_graph_text_parameter_type_context_filter_changes_traversal():
+    import networkx as nx
+    from graphify.serve import _query_graph_text
+
+    graph = nx.Graph()
+    graph.add_node("process", label="process", source_file="sample.cs", source_location="L20")
+    graph.add_node("payload", label="Payload", source_file="sample.cs", source_location="L5")
+    graph.add_node("other", label="PayloadFactory", source_file="sample.cs", source_location="L40")
+    graph.add_edge("process", "payload", relation="references", context="parameter_type", confidence="EXTRACTED")
+    graph.add_edge("process", "other", relation="calls", context="call", confidence="EXTRACTED")
+
+    text = _query_graph_text(graph, "who accepts Payload", context_filters=["parameter_type"])
+
+    assert "parameter_type" in text
+    assert "Payload" in text
+    assert "PayloadFactory" not in text
+
+
+def test_query_graph_text_context_filter_aliases_resolve():
+    import networkx as nx
+    from graphify.serve import _normalize_context_filters
+
+    assert _normalize_context_filters(["param"]) == ["parameter_type"]
+    assert _normalize_context_filters(["parameter"]) == ["parameter_type"]
+    assert _normalize_context_filters(["return"]) == ["return_type"]
+    assert _normalize_context_filters(["returns"]) == ["return_type"]
+    assert _normalize_context_filters(["generic"]) == ["generic_arg"]
+    assert _normalize_context_filters(["generics"]) == ["generic_arg"]
+    assert _normalize_context_filters(["annotation"]) == ["attribute"]
+    assert _normalize_context_filters(["decorator"]) == ["attribute"]
+    # Pass-through for already-canonical values
+    assert _normalize_context_filters(["parameter_type"]) == ["parameter_type"]
+    assert _normalize_context_filters(["field"]) == ["field"]

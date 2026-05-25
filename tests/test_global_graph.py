@@ -277,3 +277,22 @@ def test_merge_graphs_prefixes_ids(tmp_path):
     assert "repo1::userservice" in merged.nodes
     assert "repo2::userservice" in merged.nodes
     assert merged.number_of_nodes() == 2  # no silent collapse
+
+
+def test_global_add_rejects_oversized_source_graph(monkeypatch, tmp_path):
+    """#F4: global_add must refuse to read a source graph.json that
+    exceeds the size cap, rather than json.loads-ing it into memory."""
+    import pytest
+
+    src_graph = tmp_path / "graph.json"
+    G = _make_graph([{"id": "x", "label": "X", "source_file": "src/x.py"}])
+    _graph_to_json(G, src_graph)
+
+    global_dir = tmp_path / ".graphify"
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 8)
+    with patch("graphify.global_graph._GLOBAL_DIR", global_dir), \
+         patch("graphify.global_graph._GLOBAL_GRAPH", global_dir / "global-graph.json"), \
+         patch("graphify.global_graph._GLOBAL_MANIFEST", global_dir / "global-manifest.json"):
+        from graphify.global_graph import global_add
+        with pytest.raises(ValueError, match="exceeds"):
+            global_add(src_graph, "repoA")

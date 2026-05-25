@@ -298,3 +298,61 @@ def test_edge_data_node_link_multigraph_roundtrip():
     assert d.get("relation") in ("calls", "references")
     ds = edge_datas(G, "a", "b")
     assert len(ds) == 2
+
+
+def test_build_from_json_relativizes_absolute_source_file(tmp_path):
+    """Semantic subagents emit absolute source_file paths; build_from_json must
+    relativize them to root so MCP traversal works correctly (#932)."""
+    root = tmp_path / "myproject"
+    root.mkdir()
+    abs_path = str(root / "docs" / "overview.md")
+    extraction = {
+        "nodes": [
+            {"id": "overview_intro", "label": "Intro", "source_file": abs_path, "file_type": "document"},
+        ],
+        "edges": [
+            {"source": "overview_intro", "target": "overview_intro",
+             "relation": "self", "confidence": "EXTRACTED", "confidence_score": 1.0,
+             "source_file": abs_path},
+        ],
+    }
+    G = build_from_json(extraction, root=root)
+    sf = G.nodes["overview_intro"]["source_file"]
+    assert not sf.startswith("/"), f"source_file still absolute: {sf}"
+    assert sf == "docs/overview.md"
+
+
+def test_build_relativizes_absolute_source_file(tmp_path):
+    """build() passes root through to build_from_json (#932)."""
+    root = tmp_path / "proj"
+    root.mkdir()
+    abs_path = str(root / "src" / "main.py")
+    extraction = {
+        "nodes": [{"id": "main_fn", "label": "main", "source_file": abs_path, "file_type": "code"}],
+        "edges": [],
+    }
+    G = build([extraction], root=root)
+    sf = G.nodes["main_fn"]["source_file"]
+    assert sf == "src/main.py"
+
+
+def test_build_from_json_relative_source_file_unchanged(tmp_path):
+    """Already-relative source_file paths must not be modified."""
+    extraction = {
+        "nodes": [{"id": "foo_bar", "label": "bar", "source_file": "src/foo.py", "file_type": "code"}],
+        "edges": [],
+    }
+    G = build_from_json(extraction, root=tmp_path)
+    assert G.nodes["foo_bar"]["source_file"] == "src/foo.py"
+
+
+def test_build_merge_rejects_oversized_existing_graph(monkeypatch, tmp_path):
+    """#F4: build_merge must refuse to read an existing graph.json that
+    exceeds the size cap, rather than json.loads-ing it into memory."""
+    import pytest
+
+    graph_path = tmp_path / "graph.json"
+    graph_path.write_text(json.dumps({"nodes": [], "links": []}), encoding="utf-8")
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 8)
+    with pytest.raises(ValueError, match="exceeds"):
+        build_merge([], graph_path, dedup=False)
