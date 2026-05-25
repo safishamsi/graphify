@@ -237,10 +237,18 @@ def test_devin_skill_file_exists_in_package():
 
 
 def test_devin_skill_file_uses_python_c_syntax():
-    """Devin skill must use python -c syntax (cross-platform, no bash heredocs)."""
+    """Devin skill must use inline python -c syntax (cross-platform, no bash heredocs).
+
+    All mature graphify skills use the interpreter-detection pattern
+    ``$(cat graphify-out/.graphify_python) -c "..."`` rather than bare
+    ``python -c "..."`` so they work in pipx / venv environments.
+    """
     import graphify
     skill = (Path(graphify.__file__).parent / "skill-devin.md").read_text()
-    assert 'python -c "' in skill
+    assert '.graphify_python) -c "' in skill, (
+        "skill-devin.md must use the interpreter-detection pattern "
+        "'$(cat graphify-out/.graphify_python) -c \"...\"'"
+    )
     assert "#!/bin/bash" not in skill
 
 
@@ -270,6 +278,28 @@ def test_devin_platform_skill_destination_user_scope(tmp_path):
     with patch("graphify.__main__.Path.home", return_value=tmp_path):
         dst = _platform_skill_destination("devin", project=False)
     assert dst == tmp_path / ".config" / "devin" / "skills" / "graphify" / "SKILL.md"
+
+
+def test_devin_in_main_help_text(capsys, monkeypatch):
+    """`graphify --help` must list devin in the platform list and in the per-platform section."""
+    from graphify.__main__ import main
+    monkeypatch.setattr(sys, "argv", ["graphify", "--help"])
+    main()
+    captured = capsys.readouterr().out
+    # devin should appear in the top-level platform list
+    assert "|devin)" in captured or "|devin |" in captured or "|devin" in captured, (
+        "devin missing from `graphify --help` platform list"
+    )
+    # devin install / uninstall should appear in the per-platform section
+    assert "devin install" in captured, "`devin install` line missing from help text"
+    assert "devin uninstall" in captured, "`devin uninstall` line missing from help text"
+    assert "~/.config/devin" in captured, "devin user-scope path missing from help text"
+    # Convention: `--project` is supported by all platforms but documented by none.
+    # devin should not be the lone outlier that documents it.
+    devin_section = captured.split("devin install", 1)[1].split("\n\n", 1)[0]
+    assert "--project" not in devin_section, (
+        "devin help should NOT document --project — no other platform does"
+    )
 
 
 def test_devin_platform_skill_destination_project_scope(tmp_path):
