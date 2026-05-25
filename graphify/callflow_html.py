@@ -252,6 +252,12 @@ def _node_link_payload(data: dict) -> tuple[list, list] | None:
 
 def load_graph(path: str | Path) -> tuple:
     """Load graph.json. Returns normalized (nodes, edges, hyperedges, metadata)."""
+    if path:
+        from graphify.security import check_graph_file_size_cap
+        try:
+            check_graph_file_size_cap(Path(path))
+        except ValueError as exc:
+            raise SystemExit(f"ERROR: {exc}") from exc
     data = read_json(path)
     if not isinstance(data, dict):
         raise SystemExit(f"ERROR: graph file must contain a JSON object: {path}")

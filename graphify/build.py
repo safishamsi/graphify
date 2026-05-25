@@ -22,6 +22,7 @@
 #
 from __future__ import annotations
 import json
+import os
 import re
 import sys
 import unicodedata
@@ -64,10 +65,22 @@ def _normalize_id(s: str) -> str:
     return cleaned.strip("_").casefold()
 
 
-def _norm_source_file(p: str | None) -> str | None:
-    """Normalize path separators to forward slashes so Windows backslash paths
-    and POSIX paths from semantic subagents resolve to the same node identity."""
-    return p.replace("\\", "/") if p else p
+def _norm_source_file(p: str | None, root: str | None = None) -> str | None:
+    """Normalize path separators and relativize absolute paths.
+
+    Converts backslashes to forward slashes (Windows compatibility) and, when
+    root is provided, strips the absolute prefix from paths produced by semantic
+    subagents so source_file is always repo-relative (fixes #932).
+    """
+    if not p:
+        return p
+    p = p.replace("\\", "/")
+    if root and os.path.isabs(p):
+        try:
+            p = Path(p).relative_to(root).as_posix()
+        except ValueError:
+            pass
+    return p
 
 
 def edge_data(G: nx.Graph, u: str, v: str) -> dict:
@@ -91,12 +104,15 @@ def edge_datas(G: nx.Graph, u: str, v: str) -> list[dict]:
     return [raw]
 
 
-def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
+def build_from_json(extraction: dict, *, directed: bool = False, root: str | Path | None = None) -> nx.Graph:
     """Build a NetworkX graph from an extraction dict.
 
     directed=True produces a DiGraph that preserves edge direction (source→target).
     directed=False (default) produces an undirected Graph for backward compatibility.
+    root: if given, absolute source_file paths from semantic subagents are made
+        relative to root so all nodes share a consistent path key (#932).
     """
+    _root = str(Path(root).resolve()) if root else None
     # NetworkX <= 3.1 serialised edges as "links"; remap to "edges" for compatibility.
     if "edges" not in extraction and "links" in extraction:
         extraction = dict(extraction, edges=extraction["links"])
@@ -137,7 +153,7 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
     G: nx.Graph = nx.DiGraph() if directed else nx.Graph()
     for node in extraction.get("nodes", []):
         if "source_file" in node:
-            node["source_file"] = _norm_source_file(node["source_file"])
+            node["source_file"] = _norm_source_file(node["source_file"], _root)
         G.add_node(node["id"], **{k: v for k, v in node.items() if k != "id"})
     node_set = set(G.nodes())
     # Normalized ID map: lets edges survive when the LLM generates IDs with
@@ -161,7 +177,24 @@ def build_from_json(extraction: dict, *, directed: bool = False) -> nx.Graph:
             continue  # skip edges to external/stdlib nodes - expected, not an error
         attrs = {k: v for k, v in edge.items() if k not in ("source", "target")}
         if "source_file" in attrs:
-            attrs["source_file"] = _norm_source_file(attrs["source_file"])
+            attrs["source_file"] = _norm_source_file(attrs["source_file"], _root)
+        # Drop cross-language INFERRED `calls` edges — same short names (render,
+        # parse, etc.) appear across language boundaries in multi-language chunks,
+        # producing phantom edges that don't represent real call relationships.
+        if attrs.get("relation") == "calls" and attrs.get("confidence") == "INFERRED":
+            _LANG_FAMILY: dict[str, str] = {
+                ".py": "py", ".pyi": "py",
+                ".js": "js", ".mjs": "js", ".cjs": "js", ".jsx": "js",
+                ".ts": "js", ".tsx": "js",
+                ".go": "go", ".rs": "rs",
+                ".java": "jvm", ".kt": "jvm", ".scala": "jvm", ".groovy": "jvm",
+                ".c": "c", ".h": "c", ".cc": "cpp", ".cpp": "cpp", ".hpp": "cpp",
+                ".rb": "rb", ".php": "php", ".cs": "cs", ".swift": "swift", ".lua": "lua",
+            }
+            src_ext = Path(G.nodes[src].get("source_file") or "").suffix.lower()
+            tgt_ext = Path(G.nodes[tgt].get("source_file") or "").suffix.lower()
+            if src_ext and tgt_ext and _LANG_FAMILY.get(src_ext) != _LANG_FAMILY.get(tgt_ext):
+                continue
         # Preserve original edge direction - undirected graphs lose it otherwise,
         # causing display functions to show edges backwards.
         attrs["_src"] = src
@@ -179,6 +212,7 @@ def build(
     directed: bool = False,
     dedup: bool = True,
     dedup_llm_backend: str | None = None,
+    root: str | Path | None = None,
 ) -> nx.Graph:
     """Merge multiple extraction results into one graph.
 
@@ -187,6 +221,7 @@ def build(
     dedup=True (default) runs entity deduplication before building the graph.
     dedup_llm_backend: if set (e.g. "gemini", "claude", or "kimi"), uses LLM to resolve
         ambiguous pairs in the 75–92 Jaro-Winkler score zone.
+    root: if given, absolute source_file paths are made relative to root (#932).
 
     Extractions are merged in order. For nodes with the same ID, the last
     extraction's attributes win (NetworkX add_node overwrites). Pass AST
@@ -206,12 +241,13 @@ def build(
             combined["nodes"], combined["edges"], communities={},
             dedup_llm_backend=dedup_llm_backend,
         )
-    return build_from_json(combined, directed=directed)
+    return build_from_json(combined, directed=directed, root=root)
 
 
 def _norm_label(label: str) -> str:
-    """Canonical dedup key — lowercase, alphanumeric only."""
-    return re.sub(r"[^a-z0-9 ]", "", label.lower()).strip()
+    """Canonical dedup key — Unicode-aware, preserves CJK/word characters."""
+    label = unicodedata.normalize("NFKC", label)
+    return re.sub(r"[\W_ ]+", " ", label.casefold(), flags=re.UNICODE).strip()
 
 
 def deduplicate_by_label(nodes: list[dict], edges: list[dict]) -> tuple[list[dict], list[dict]]:
@@ -268,11 +304,13 @@ def build_merge(
     directed: bool = False,
     dedup: bool = True,
     dedup_llm_backend: str | None = None,
+    root: str | Path | None = None,
 ) -> nx.Graph:
     """Load existing graph.json, merge new chunks into it, and save back.
 
     Never replaces - only grows (or prunes deleted-file nodes via prune_sources).
     Safe to call repeatedly: existing nodes and edges are preserved.
+    root: if given, absolute source_file paths in new_chunks are made relative (#932).
     """
     graph_path = Path(graph_path)
     if graph_path.exists():
@@ -283,6 +321,8 @@ def build_merge(
         # was inserted before the caller. The _src/_tgt direction-preserving
         # attrs are popped before saving in export.py, so going through the
         # NetworkX round-trip loses direction permanently (#760).
+        from graphify.security import check_graph_file_size_cap
+        check_graph_file_size_cap(graph_path)
         data = json.loads(graph_path.read_text(encoding="utf-8"))
         links_key = "links" if "links" in data else "edges"
         existing_nodes = list(data.get("nodes", []))
@@ -293,7 +333,7 @@ def build_merge(
         base = []
 
     all_chunks = base + list(new_chunks)
-    G = build(all_chunks, directed=directed, dedup=dedup, dedup_llm_backend=dedup_llm_backend)
+    G = build(all_chunks, directed=directed, dedup=dedup, dedup_llm_backend=dedup_llm_backend, root=root)
 
     # Prune nodes and edges from deleted source files
     if prune_sources:

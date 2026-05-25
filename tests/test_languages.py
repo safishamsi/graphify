@@ -42,6 +42,29 @@ def _edges_with_relation(r, *relations):
     return [e for e in r["edges"] if e["relation"] in relations]
 
 
+def _normalize_symbol_label(label: str) -> str:
+    return label.strip("()").lstrip(".")
+
+
+def _node_by_label(result: dict, label: str) -> dict:
+    for node in result["nodes"]:
+        if node.get("label") == label or _normalize_symbol_label(node.get("label", "")) == label:
+            return node
+    raise AssertionError(f"missing node label {label!r}")
+
+
+def _edge_labels(result: dict, relation: str, context: str | None = None) -> set[tuple[str, str]]:
+    labels = {node["id"]: _normalize_symbol_label(node["label"]) for node in result["nodes"]}
+    pairs = set()
+    for edge in result["edges"]:
+        if edge.get("relation") != relation:
+            continue
+        if context is not None and edge.get("context") != context:
+            continue
+        pairs.add((labels.get(edge["source"], edge["source"]), labels.get(edge["target"], edge["target"])))
+    return pairs
+
+
 # ── Java ──────────────────────────────────────────────────────────────────────
 
 def test_java_no_error():
@@ -149,6 +172,30 @@ def test_cpp_import_edges_have_import_context():
     assert all(e.get("context") == "import" for e in import_edges)
 
 
+def test_cpp_class_inherits_edge():
+    """Regression for #915: `class Derived : public Base {}` should emit an inherits edge."""
+    r = extract_cpp(FIXTURES / "sample.cpp")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    found = any(
+        "AuthedHttpClient" in node_by_id.get(e["source"], "")
+        and "HttpClient" in node_by_id.get(e["target"], "")
+        for e in r["edges"] if e["relation"] == "inherits"
+    )
+    assert found, "AuthedHttpClient should have inherits edge to HttpClient"
+
+
+def test_cpp_struct_inherits_edge():
+    """Structs use the same `: Base` syntax as classes and must also emit inherits."""
+    r = extract_cpp(FIXTURES / "sample.cpp")
+    node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
+    found = any(
+        "RetryingHttpClient" in node_by_id.get(e["source"], "")
+        and "HttpClient" in node_by_id.get(e["target"], "")
+        for e in r["edges"] if e["relation"] == "inherits"
+    )
+    assert found, "RetryingHttpClient (struct) should have inherits edge to HttpClient"
+
+
 # ── Ruby ─────────────────────────────────────────────────────────────────────
 
 def test_ruby_no_error():
@@ -198,15 +245,42 @@ def test_csharp_inherits_edge():
     inherits = [e for e in r["edges"] if e["relation"] == "inherits"]
     assert len(inherits) >= 1
 
-def test_csharp_inherits_iprocessor():
+def test_csharp_implements_iprocessor():
     r = extract_csharp(FIXTURES / "sample.cs")
     node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
     found = any(
         "DataProcessor" in node_by_id.get(e["source"], "") and
         "IProcessor" in node_by_id.get(e["target"], "")
-        for e in r["edges"] if e["relation"] == "inherits"
+        for e in r["edges"] if e["relation"] == "implements"
     )
-    assert found, "DataProcessor should have inherits edge to IProcessor"
+    assert found, "DataProcessor should have implements edge to IProcessor"
+
+
+def test_csharp_splits_inherits_and_implements_edges():
+    result = extract_csharp(FIXTURES / "sample.cs")
+    assert ("DataProcessor", "Processor") in _edge_labels(result, "inherits")
+    assert ("DataProcessor", "IProcessor") in _edge_labels(result, "implements")
+
+
+def test_csharp_parameter_return_and_generic_contexts():
+    result = extract_csharp(FIXTURES / "sample.cs")
+    assert ("Build", "HttpClient") in _edge_labels(result, "references", "parameter_type")
+    assert ("Build", "Result") in _edge_labels(result, "references", "return_type")
+    assert ("Build", "DataProcessor") in _edge_labels(result, "references", "generic_arg")
+
+
+def test_java_normalizes_inherits_and_implements():
+    result = extract_java(FIXTURES / "sample.java")
+    assert ("DataProcessor", "BaseProcessor") in _edge_labels(result, "inherits")
+    assert ("DataProcessor", "Processor") in _edge_labels(result, "implements")
+
+
+def test_java_parameter_return_generic_and_attribute_contexts():
+    result = extract_java(FIXTURES / "sample.java")
+    assert ("build", "HttpClient") in _edge_labels(result, "references", "parameter_type")
+    assert ("build", "Result") in _edge_labels(result, "references", "return_type")
+    assert ("build", "DataProcessor") in _edge_labels(result, "references", "generic_arg")
+    assert ("build", "Override") in _edge_labels(result, "references", "attribute")
 
 
 def test_csharp_field_type_references_have_field_context():
@@ -529,6 +603,26 @@ def test_swift_call_edges_have_call_context():
     call_edges = _edges_with_relation(r, "calls")
     assert call_edges
     assert all(e.get("context") == "call" for e in call_edges)
+
+
+def test_swift_extension_across_files_merges_into_canonical_type():
+    """`extension Foo` in a separate file from `class Foo` must resolve to a
+    single Foo node. tree-sitter-swift parses both as `class_declaration` and
+    node ids carry the file stem, so without a corpus-level merge each file
+    would emit its own Foo."""
+    from graphify.extract import extract
+    paths = sorted((FIXTURES / "swift_cross_file").glob("*.swift"))
+    r = extract(paths, cache_root=Path("/tmp/graphify-test-no-cache"))
+    foo_nodes = [n for n in r["nodes"] if n["label"] == "Foo"]
+    assert len(foo_nodes) == 1, f"Foo should appear once, got {len(foo_nodes)}: {[n['id'] for n in foo_nodes]}"
+    foo_id = foo_nodes[0]["id"]
+    method_targets = {
+        e["target"] for e in r["edges"]
+        if e["relation"] == "method" and e["source"] == foo_id
+    }
+    method_labels = {n["label"] for n in r["nodes"] if n["id"] in method_targets}
+    assert any("one" in l for l in method_labels), f"one() should attach to Foo, got {method_labels}"
+    assert any("two" in l for l in method_labels), f"extension method two() should attach to Foo, got {method_labels}"
 
 
 # ── Elixir ────────────────────────────────────────────────────────────────────

@@ -7,6 +7,7 @@ import networkx as nx
 from networkx.readwrite import json_graph
 
 from graphify.build import edge_data
+from graphify.serve import _query_terms
 
 
 _CHARS_PER_TOKEN = 4  # standard approximation
@@ -37,7 +38,7 @@ def _estimate_tokens(text: str) -> int:
 
 def _query_subgraph_tokens(G: nx.Graph, question: str, depth: int = 3) -> int:
     """Run BFS from best-matching nodes and return estimated tokens in the subgraph context."""
-    terms = [t.lower() for t in question.split() if len(t) > 2]
+    terms = _query_terms(question)
     scored = []
     for nid, data in G.nodes(data=True):
         label = data.get("label", "").lower()
@@ -97,6 +98,8 @@ def run_benchmark(
 
     Returns dict with: corpus_tokens, avg_query_tokens, reduction_ratio, per_question
     """
+    from graphify.security import check_graph_file_size_cap
+    check_graph_file_size_cap(Path(graph_path))
     data = json.loads(Path(graph_path).read_text(encoding="utf-8"))
     try:
         G = json_graph.node_link_graph(data, edges="links")

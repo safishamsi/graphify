@@ -135,3 +135,45 @@ def test_build_calls_dedup():
     }
     G = build([chunk1, chunk2])
     assert G.number_of_nodes() == 1
+
+
+# --- #878: fuzzy dedup false merges on short/variant labels ---
+
+def test_dedup_does_not_merge_numeric_variants(tmp_path):
+    """Chip SKU variants (ASR1603 vs ASR1605) must not be merged (#878)."""
+    nodes = _make_nodes("ASR1603", "ASR1605")
+    result_nodes, _ = deduplicate_entities(nodes, [], communities={})
+    assert len(result_nodes) == 2, "ASR1603 and ASR1605 are distinct chip models, not duplicates"
+
+
+def test_dedup_does_not_merge_short_insertion_variants(tmp_path):
+    """Short labels differing by an insertion (cranel vs cranelr) must not merge (#878)."""
+    nodes = _make_nodes("cranel", "cranelr")
+    result_nodes, _ = deduplicate_entities(nodes, [], communities={})
+    assert len(result_nodes) == 2, "cranel and cranelr are distinct, not a typo"
+
+
+def test_dedup_does_not_merge_model_with_suffix(tmp_path):
+    """M1 vs M1 Pro must not merge (#878)."""
+    nodes = _make_nodes("M1", "M1 Pro")
+    result_nodes, _ = deduplicate_entities(nodes, [], communities={})
+    assert len(result_nodes) == 2, "M1 and M1 Pro are distinct Apple chip variants"
+
+
+def test_dedup_still_merges_real_typos():
+    """Genuine same-length single-char typos should still merge (#878 non-regression)."""
+    from graphify.dedup import _is_variant_pair, _short_label_blocked
+    from rapidfuzz.distance import JaroWinkler
+    a, b = "graphextractor", "graphextractar"
+    score = JaroWinkler.normalized_similarity(a, b) * 100
+    assert not _is_variant_pair(a, b), "not a variant pair"
+    assert not _short_label_blocked(a, b, score), "long-enough label, should not be blocked"
+
+
+def test_variant_pair_helper():
+    """_is_variant_pair correctly identifies chip-model variant pairs (#878)."""
+    from graphify.dedup import _is_variant_pair
+    assert _is_variant_pair("asr1603", "asr1605")
+    assert _is_variant_pair("cortex a55", "cortex a55x")
+    assert not _is_variant_pair("graphextractor", "graphextracter")
+    assert not _is_variant_pair("foo", "foo")

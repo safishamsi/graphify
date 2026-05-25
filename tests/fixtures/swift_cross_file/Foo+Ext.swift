@@ -1,0 +1,3 @@
+extension Foo {
+    func two() {}
+}

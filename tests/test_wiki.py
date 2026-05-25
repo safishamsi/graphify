@@ -137,3 +137,63 @@ def test_community_article_truncation_notice(tmp_path):
     to_wiki(G, communities, tmp_path, community_labels={0: "Big Community"})
     article = (tmp_path / "Big_Community.md").read_text()
     assert "and 5 more nodes" in article
+
+
+# Regression tests for #925 - cross-community links always empty when node attrs lack community
+def test_cross_community_links_without_node_community_attrs(tmp_path):
+    """Cross-community links must work even when nodes have no 'community' attribute (#925)."""
+    G = nx.Graph()
+    G.add_node("n1", label="parse", file_type="code", source_file="parser.py")
+    G.add_node("n2", label="render", file_type="code", source_file="renderer.py")
+    G.add_edge("n1", "n2", relation="references", confidence="INFERRED", weight=1.0)
+    communities = {0: ["n1"], 1: ["n2"]}
+    labels = {0: "Parsing", 1: "Rendering"}
+    to_wiki(G, communities, tmp_path, community_labels=labels)
+    article = (tmp_path / "Parsing.md").read_text()
+    assert "[[Rendering]]" in article
+
+
+def test_god_node_article_community_without_node_attr(tmp_path):
+    """God node article must show community name even when node has no 'community' attr (#925)."""
+    G = nx.Graph()
+    G.add_node("n1", label="parse", file_type="code", source_file="parser.py")
+    G.add_node("n2", label="validate", file_type="code", source_file="parser.py")
+    G.add_edge("n1", "n2", relation="calls", confidence="EXTRACTED", weight=1.0)
+    communities = {0: ["n1", "n2"]}
+    labels = {0: "Core Logic"}
+    god_nodes = [{"id": "n1", "label": "parse", "degree": 1}]
+    to_wiki(G, communities, tmp_path, community_labels=labels, god_nodes_data=god_nodes)
+    article = (tmp_path / "parse.md").read_text()
+    assert "[[Core Logic]]" in article
+
+
+# Regression tests for #936 - stale community node IDs crash to_wiki after dedup/re-extract
+
+def test_to_wiki_drops_stale_community_nodes(tmp_path):
+    """Stale node IDs in communities dict are silently dropped without crash (#936)."""
+    G = _make_graph()
+    # Add a stale ID that exists in communities but not in G
+    communities = {0: ["n1", "n2", "stale_ghost"], 1: ["n3", "n4"]}
+    n = to_wiki(G, communities, tmp_path, community_labels=LABELS)
+    assert n == 2  # both community articles still written
+    article = (tmp_path / "Parsing_Layer.md").read_text()
+    assert "parse" in article
+    assert "stale_ghost" not in article
+
+
+def test_to_wiki_all_stale_raises(tmp_path):
+    """If every community node is stale, raise ValueError with a helpful message (#936)."""
+    G = _make_graph()
+    all_stale = {0: ["ghost1", "ghost2"], 1: ["ghost3"]}
+    with pytest.raises(ValueError, match="stale"):
+        to_wiki(G, all_stale, tmp_path, community_labels=LABELS)
+
+
+def test_to_wiki_stale_nodes_prints_warning(tmp_path, capsys):
+    """Stale node IDs trigger a stderr warning showing the drop count (#936)."""
+    G = _make_graph()
+    communities = {0: ["n1", "stale1", "stale2"], 1: ["n3", "n4"]}
+    to_wiki(G, communities, tmp_path, community_labels=LABELS)
+    err = capsys.readouterr().err
+    assert "2" in err  # dropped count
+    assert "stale" in err.lower()

@@ -168,3 +168,20 @@ def test_derive_sections_groups_by_architecture_keywords():
     assert "extract-pipeline" in ids
     assert "outputs-docs" in ids
     assert "tests-fixtures" in ids
+
+
+def test_load_graph_rejects_oversized_file(monkeypatch, tmp_path):
+    """#F4: callflow_html.load_graph must refuse to read a graph.json that
+    exceeds the size cap (SystemExit via translated ValueError)."""
+    import pytest
+    from graphify.callflow_html import load_graph
+
+    graph_path = tmp_path / "graph.json"
+    graph_path.write_text(
+        json.dumps({"nodes": [], "links": []}),
+        encoding="utf-8",
+    )
+    monkeypatch.setattr("graphify.security._MAX_GRAPH_FILE_BYTES", 8)
+    with pytest.raises(SystemExit) as excinfo:
+        load_graph(graph_path)
+    assert "exceeds" in str(excinfo.value)
