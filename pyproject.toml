@@ -38,7 +38,6 @@ dependencies = [
     "tree-sitter-julia",
     "tree-sitter-verilog",
     "tree-sitter-fortran",
-    "beautifulsoup4",
 ]
 
 [project.urls]
@@ -53,7 +52,7 @@ pdf = ["pypdf", "markdownify"]
 watch = ["watchdog"]
 svg = ["matplotlib"]
 leiden = ["graspologic; python_version < '3.13'"]
-tables = ["beautifulsoup4"]
+tables = []
 office = ["python-docx", "openpyxl"]
 google = ["openpyxl"]
 video = ["faster-whisper", "yt-dlp"]

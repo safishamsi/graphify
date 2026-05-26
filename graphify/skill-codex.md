@@ -506,6 +506,65 @@ print('Report updated with community labels')
 Replace `LABELS_DICT` with the actual dict you constructed (e.g. `{0: "Attention Mechanism", 1: "Training Pipeline"}`).
 Replace INPUT_PATH with the actual path.
 
+### Step 5B - Narrative Synthesis (Agent-Led)
+
+If domain analysis is present but `synthesized_narratives` is empty, perform synthesis using your own reasoning. This provides the "Deep Dive" stories for the dashboard without requiring an external API key.
+
+**1. Generate Synthesis Prompts:**
+Run this script to extract the risk contexts and ego subgraphs into a temporary file.
+
+```bash
+$(cat .graphify_python) -c "
+import json
+from graphify.synthesize import synthesize_risks_offline
+from graphify.store import load
+from pathlib import Path
+
+out_dir = Path('graphify-out')
+analysis = json.loads(Path('.graphify_analysis.json').read_text())
+da = analysis.get('domain_analysis', {})
+rf = da.get('diligence.red_flag_analyzer', [])
+kp = da.get('diligence.key_person_risk_analyzer', [])
+
+if not rf and not kp:
+    print('No high-risk findings to synthesize.')
+    exit(0)
+
+G = load(out_dir)
+prompts = synthesize_risks_offline(G, rf, kp, max_entities=4)
+Path('.graphify_synth_prompts.json').write_text(json.dumps(prompts, indent=2))
+print(f'Generated {len(prompts)} synthesis prompts.')
+"
+```
+
+**2. Perform Synthesis (Agent Reasoning):**
+If prompts were generated, read `.graphify_synth_prompts.json`. For each prompt, use your internal LLM reasoning to write a blunt, investigative narrative following the structure requested in the prompt.
+
+**3. Inject Narratives back into Analysis:**
+Once you have written the narratives, run this script to save them so they appear in the `dashboard.html`.
+
+```bash
+$(cat .graphify_python) -c "
+import json
+from pathlib import Path
+
+analysis = json.loads(Path('.graphify_analysis.json').read_text())
+prompts = json.loads(Path('.graphify_synth_prompts.json').read_text())
+
+# NARRATIVES_JSON is the array of results you generated
+narratives = NARRATIVES_JSON
+
+analysis['synthesized_narratives'] = narratives
+Path('.graphify_analysis.json').write_text(json.dumps(analysis, indent=2))
+
+# Regenerate dashboard with the new narratives
+from graphify.dashboard import render_dashboard_from_file
+render_dashboard_from_file(Path('.graphify_analysis.json'))
+print('Narratives injected and dashboard.html updated.')
+"
+```
+*Replace `NARRATIVES_JSON` with a JSON array where each element matches the prompt metadata but contains your generated `narrative` text.*
+
 ### Step 6 - Generate Obsidian vault (opt-in) + HTML
 
 **Generate HTML always** (unless `--no-viz`). **Obsidian vault only if `--obsidian` was explicitly given** — skip it otherwise, it generates one file per node.
