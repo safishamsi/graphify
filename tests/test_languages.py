@@ -1140,42 +1140,73 @@ def test_rescript_no_error():
 
 
 def test_rescript_finds_type():
-    r = extract_rescript(FIXTURES / "sample.res")
-    assert any(l == "flag" for l in _labels(r))
-
-
-def test_rescript_finds_variable():
-    r = extract_rescript(FIXTURES / "sample.res")
-    # Plain `let allFlags = [...]` — bare label, no parens.
-    assert any(l == "allFlags" for l in _labels(r))
-
-
-def test_rescript_finds_functions():
+    """Polyvariant, variant, alias, and record types all emit Type nodes."""
     r = extract_rescript(FIXTURES / "sample.res")
     labels = _labels(r)
-    assert "flagToString()" in labels
-    assert "isEnabled()" in labels
-    assert "isEnabledForUser()" in labels
+    assert "theme" in labels       # polyvariant
+    assert "direction" in labels   # variant
+    assert "label" in labels       # alias
+    assert "entry" in labels       # record
+
+
+def test_rescript_finds_value_let():
+    """Plain value lets are bare labels (no parens). Covers number, array,
+    record, tuple-destructure, record-destructure, and annotated value lets."""
+    r = extract_rescript(FIXTURES / "sample.res")
+    labels = _labels(r)
+    assert "allThemes" in labels      # array literal
+    assert "origin" in labels         # record literal
+    assert "width" in labels          # tuple destructure
+    assert "height" in labels         # tuple destructure
+    assert "name" in labels           # record destructure
+    assert "position" in labels       # record destructure
+    assert "defaultEntry" in labels   # type-annotated value
+
+
+def test_rescript_finds_function_let():
+    """Function lets carry the `name()` label shape. Covers simple, typed,
+    intra-file-call-bearing, qualified-call-bearing, and pipe-bearing fns."""
+    r = extract_rescript(FIXTURES / "sample.res")
+    labels = _labels(r)
+    assert "identity()" in labels
+    assert "move()" in labels          # typed params + return
+    assert "pair()" in labels          # intra-file call
+    assert "firstTheme()" in labels    # qualified call
+    assert "counts()" in labels        # pipe expression
+
+
+def test_rescript_finds_externals():
+    """`external f: T => U = "js"` → Function node `f()`; `external v: T = "js"`
+    → Variable node `v` (callable discrimination on annotation type)."""
+    r = extract_rescript(FIXTURES / "sample.res")
+    labels = _labels(r)
+    assert "alert()" in labels   # function_type annotation
+    assert "pi" in labels        # plain type annotation
+    assert "pi()" not in labels
 
 
 def test_rescript_finds_module():
     r = extract_rescript(FIXTURES / "sample.res")
-    assert any(l == "Internal" for l in _labels(r))
+    assert "Internal" in _labels(r)
 
 
-def test_rescript_finds_module_method():
+def test_rescript_finds_module_members():
+    """Members of `module Internal` attach to Internal with the right
+    label shapes: types and value lets are bare, function lets are
+    `.name()` (method shape)."""
     r = extract_rescript(FIXTURES / "sample.res")
-    # Methods inside modules use the ".name()" label shape.
-    assert any(l == ".parse()" for l in _labels(r))
+    labels = _labels(r)
+    assert "cached" in labels           # nested type
+    assert "defaultCache" in labels     # nested value
+    assert ".parse()" in labels         # nested function
 
 
 def test_rescript_intra_file_call_edge():
+    """`let pair = (a, b) => identity(b)` produces a `calls` edge from
+    `pair()` to the local `identity()` function."""
     r = extract_rescript(FIXTURES / "sample.res")
     calls = _calls(r)
-    assert any(
-        "isEnabledForUser" in src and "isEnabled" in tgt
-        for src, tgt in calls
-    )
+    assert ("pair()", "identity()") in calls
 
 
 def test_rescript_call_edges_have_call_context():
@@ -1183,6 +1214,135 @@ def test_rescript_call_edges_have_call_context():
     call_edges = _edges_with_relation(r, "calls")
     assert call_edges
     assert all(e.get("context") == "call" for e in call_edges)
+
+
+def test_rescript_call_edges_have_extracted_confidence():
+    """Intra-file calls (caller and callee both in this file) are
+    EXTRACTED, not INFERRED. INFERRED is reserved for cross-file
+    resolution in the multi-file `extract()` pass."""
+    r = extract_rescript(FIXTURES / "sample.res")
+    call_edges = _edges_with_relation(r, "calls")
+    assert call_edges
+    assert all(e.get("confidence") == "EXTRACTED" for e in call_edges), \
+        f"single-file call edges should be EXTRACTED, got: {[e.get('confidence') for e in call_edges]}"
+
+
+def test_rescript_sample_no_bare_type_references():
+    """`int`, `string`, `float`, `unit` in the fixture annotations are
+    bare `type_identifier`s, not `type_identifier_path`s, so they emit
+    no `references_type` edges. The only references_type targets should
+    be qualified module paths."""
+    r = extract_rescript(FIXTURES / "sample.res")
+    type_ref_targets = {
+        e["target"] for e in r["edges"]
+        if e["relation"] == "references_type"
+    }
+    for bare in ("int", "string", "float", "unit", "bool"):
+        assert bare not in type_ref_targets, \
+            f"bare local type {bare!r} should not emit references_type edge"
+
+
+def test_rescript_sample_references_type_multiplicity():
+    """`let move = (a: Animal.point, ...): Animal.point => ...` references
+    `Animal.point` twice — once in the parameter annotation, once in the
+    return type annotation. The extractor preserves both emissions
+    (downstream build-step dedup is a separate concern)."""
+    r = extract_rescript(FIXTURES / "sample.res")
+    nb = {n["id"]: n["label"] for n in r["nodes"]}
+    move_to_point = [
+        e for e in r["edges"]
+        if e["relation"] == "references_type"
+        and nb.get(e["source"]) == "move()"
+        and e["target"] == "animal_point"
+    ]
+    assert len(move_to_point) == 2, (
+        f"expected 2 move()→animal_point references_type edges, "
+        f"got {len(move_to_point)}"
+    )
+
+
+def test_rescript_sample_node_labels_complete():
+    """Snapshot test — asserts the EXACT set of node labels emitted by
+    the canonical fixture. A drift (extractor adds or drops a node) will
+    surface here as a test failure, forcing an explicit review of the
+    behaviour change. Pair with `test_rescript_sample_edge_summary_complete`."""
+    r = extract_rescript(FIXTURES / "sample.res")
+    actual = {n["label"] for n in r["nodes"]}
+    expected = {
+        "sample.res",
+        # Type nodes
+        "theme", "direction", "label", "entry",
+        # Externals
+        "alert()", "pi",
+        # Value lets (incl. destructure outputs and annotated value)
+        "allThemes", "origin", "width", "height", "name", "position", "defaultEntry",
+        # Function lets
+        "identity()", "move()", "pair()", "firstTheme()", "counts()",
+        # Module + its members
+        "Internal", "cached", "defaultCache", ".parse()",
+    }
+    assert actual == expected, (
+        f"node-label drift on sample.res\n"
+        f"  missing: {sorted(expected - actual)}\n"
+        f"  extra:   {sorted(actual - expected)}"
+    )
+
+
+def test_rescript_sample_edge_summary_complete():
+    """Snapshot test — asserts the EXACT set of
+    (relation, source_label, target_label_or_phantom_id) edge triples
+    produced by the canonical fixture. Duplicate emissions (e.g. param
+    and return type both naming `Animal.point` on `move()`) collapse
+    here; the multiplicity is checked by
+    `test_rescript_sample_references_type_multiplicity`."""
+    r = extract_rescript(FIXTURES / "sample.res")
+    nb = {n["id"]: n["label"] for n in r["nodes"]}
+    actual = {
+        (e["relation"], nb.get(e["source"], e["source"]),
+         nb.get(e["target"], e["target"]))
+        for e in r["edges"]
+    }
+    expected = {
+        # file → child (`contains`)
+        ("contains", "sample.res", "theme"),
+        ("contains", "sample.res", "direction"),
+        ("contains", "sample.res", "label"),
+        ("contains", "sample.res", "entry"),
+        ("contains", "sample.res", "alert()"),
+        ("contains", "sample.res", "pi"),
+        ("contains", "sample.res", "allThemes"),
+        ("contains", "sample.res", "origin"),
+        ("contains", "sample.res", "width"),
+        ("contains", "sample.res", "height"),
+        ("contains", "sample.res", "name"),
+        ("contains", "sample.res", "position"),
+        ("contains", "sample.res", "defaultEntry"),
+        ("contains", "sample.res", "identity()"),
+        ("contains", "sample.res", "move()"),
+        ("contains", "sample.res", "pair()"),
+        ("contains", "sample.res", "firstTheme()"),
+        ("contains", "sample.res", "counts()"),
+        ("contains", "sample.res", "Internal"),
+        # module → member
+        ("contains", "Internal", "cached"),
+        ("contains", "Internal", "defaultCache"),
+        ("method", "Internal", ".parse()"),
+        # intra-file call
+        ("calls", "pair()", "identity()"),
+        # `references_type` edges keep phantom targets for cross-module
+        # types; the multi-file resolver rewrites them in `extract()`
+        # when both endpoints are in scan (see
+        # `test_rescript_cross_file_type_ref_resolves_to_real_node`).
+        ("references_type", "entry", "animal_point"),
+        ("references_type", "defaultEntry", "animal_point"),
+        ("references_type", "move()", "animal_point"),
+        ("references_type", "cached", "animal_species"),
+    }
+    assert actual == expected, (
+        f"edge drift on sample.res\n"
+        f"  missing: {sorted(expected - actual)}\n"
+        f"  extra:   {sorted(actual - expected)}"
+    )
 
 
 def test_rescript_open_emits_import_edge(tmp_path):
@@ -1219,14 +1379,22 @@ def test_rescript_caller_finds_local_functions(tmp_path):
 
 
 def test_rescript_no_dangling_source_edges():
+    """Every edge's `source` must be a real node id. Targets are allowed
+    to be phantom (unresolved) for relations that survive the per-file
+    cleanup with the expectation that the multi-file resolver will
+    rewrite them later: `imports`, `imports_from`, `re_exports`, and
+    `references_type`."""
     r = extract_rescript(FIXTURES / "sample.res")
     node_ids = {n["id"] for n in r["nodes"]}
+    phantom_target_allowed = {
+        "imports", "imports_from", "re_exports", "references_type",
+    }
     for e in r["edges"]:
-        # Imports may point at unresolved module IDs (resolved cross-file
-        # in extract()), so allow phantom targets only for "imports".
         assert e["source"] in node_ids
-        if e["relation"] not in ("imports", "imports_from"):
-            assert e["target"] in node_ids
+        if e["relation"] not in phantom_target_allowed:
+            assert e["target"] in node_ids, (
+                f"non-phantom-allowed relation has unresolved target: {e}"
+            )
 
 
 # Helper: write a small .res snippet to a tmp file, extract, return result.
