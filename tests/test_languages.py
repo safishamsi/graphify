@@ -1,4 +1,4 @@
-"""Tests for language extractors: Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift, Go, Julia, Fortran, JS/TS."""
+"""Tests for language extractors: Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift, Go, Julia, Fortran, JS/TS, .NET project files."""
 from __future__ import annotations
 from pathlib import Path
 import pytest
@@ -6,7 +6,7 @@ from graphify.extract import (
     extract_java, extract_c, extract_cpp, extract_ruby,
     extract_csharp, extract_kotlin, extract_scala, extract_php,
     extract_swift, extract_go, extract_julia, extract_js, extract_fortran,
-    extract_groovy,
+    extract_groovy, extract_sln, extract_csproj, extract_razor,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -1055,6 +1055,78 @@ def test_groovy_spock_preserves_import_edges():
 
 def test_groovy_spock_no_dangling_edges():
     r = extract_groovy(FIXTURES / "sample_spock.groovy")
+    node_ids = {n["id"] for n in r["nodes"]}
+    for e in r["edges"]:
+        assert e["source"] in node_ids
+
+
+# -- .NET project files (.sln, .csproj, .razor) -------------------------------
+
+def test_sln_no_error():
+    r = extract_sln(FIXTURES / "sample.sln")
+    assert "error" not in r
+
+def test_sln_finds_projects():
+    r = extract_sln(FIXTURES / "sample.sln")
+    labels = _labels(r)
+    assert any("WebApi" in l for l in labels)
+    assert any("Domain" in l for l in labels)
+
+def test_sln_contains_edges():
+    r = extract_sln(FIXTURES / "sample.sln")
+    assert "contains" in _relations(r)
+
+def test_sln_project_dependency_edges():
+    r = extract_sln(FIXTURES / "sample.sln")
+    assert "imports" in _relations(r)
+
+def test_csproj_no_error():
+    r = extract_csproj(FIXTURES / "sample.csproj")
+    assert "error" not in r
+
+def test_csproj_finds_packages():
+    r = extract_csproj(FIXTURES / "sample.csproj")
+    labels = _labels(r)
+    assert any("MediatR" in l for l in labels)
+    assert any("FluentValidation" in l for l in labels)
+
+def test_csproj_finds_project_references():
+    r = extract_csproj(FIXTURES / "sample.csproj")
+    labels = _labels(r)
+    assert any("Domain.csproj" in l for l in labels)
+
+def test_csproj_finds_target_framework():
+    r = extract_csproj(FIXTURES / "sample.csproj")
+    assert any("net8.0" in l for l in _labels(r))
+
+def test_csproj_finds_sdk():
+    r = extract_csproj(FIXTURES / "sample.csproj")
+    assert any("Microsoft.NET.Sdk.Web" in l for l in _labels(r))
+
+def test_razor_no_error():
+    r = extract_razor(FIXTURES / "sample.razor")
+    assert "error" not in r
+
+def test_razor_finds_using_directives():
+    r = extract_razor(FIXTURES / "sample.razor")
+    assert "imports" in _relations(r)
+
+def test_razor_finds_component_references():
+    r = extract_razor(FIXTURES / "sample.razor")
+    assert "calls" in _relations(r)
+
+def test_razor_finds_inherits():
+    r = extract_razor(FIXTURES / "sample.razor")
+    assert "inherits" in _relations(r)
+
+def test_razor_finds_code_block_methods():
+    r = extract_razor(FIXTURES / "sample.razor")
+    labels = _labels(r)
+    assert any("IncrementCount" in l for l in labels)
+    assert any("LoadData" in l for l in labels)
+
+def test_razor_no_dangling_edges():
+    r = extract_razor(FIXTURES / "sample.razor")
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids
