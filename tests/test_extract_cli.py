@@ -121,3 +121,66 @@ def test_extract_succeeds_when_at_least_one_chunk_completes(
     assert (out_dir / "graphify-out" / "graph.json").exists(), (
         "graph.json must be written on the happy path"
     )
+
+
+def test_extract_passes_deep_mode_to_extract_corpus_parallel(monkeypatch, tmp_path):
+    """graphify extract --mode deep must enable deep_mode in the LLM pipeline."""
+    corpus = _make_corpus(tmp_path)
+    out_dir = tmp_path / "out"
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test-fake-key")
+    captured: dict = {}
+
+    def _stub(paths, **kwargs):
+        captured.update(kwargs)
+        on_chunk = kwargs.get("on_chunk_done")
+        if on_chunk:
+            on_chunk(0, 1, {"nodes": [], "edges": [], "hyperedges": []})
+        return {
+            "nodes": [],
+            "edges": [],
+            "hyperedges": [],
+            "input_tokens": 0,
+            "output_tokens": 0,
+        }
+
+    monkeypatch.setattr("graphify.llm.extract_corpus_parallel", _stub)
+    monkeypatch.setattr(mainmod, "_check_skill_version", lambda _: None)
+    monkeypatch.setattr(
+        mainmod.sys,
+        "argv",
+        [
+            "graphify",
+            "extract",
+            str(corpus),
+            "--backend",
+            "claude",
+            "--mode",
+            "deep",
+            "--out",
+            str(out_dir),
+        ],
+    )
+
+    try:
+        mainmod.main()
+    except SystemExit as exc:
+        assert exc.code in (None, 0), f"unexpected exit code {exc.code}"
+
+    assert captured.get("deep_mode") is True
+
+
+def test_extract_rejects_unknown_mode(monkeypatch, tmp_path, capsys):
+    corpus = _make_corpus(tmp_path)
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test-fake-key")
+    monkeypatch.setattr(mainmod, "_check_skill_version", lambda _: None)
+    monkeypatch.setattr(
+        mainmod.sys,
+        "argv",
+        ["graphify", "extract", str(corpus), "--mode", "fast"],
+    )
+
+    with pytest.raises(SystemExit) as exc_info:
+        mainmod.main()
+
+    assert exc_info.value.code == 2
+    assert "unknown --mode" in capsys.readouterr().err
