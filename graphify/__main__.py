@@ -2238,7 +2238,7 @@ def main() -> None:
             sys.exit(1)
         from networkx.readwrite import json_graph as _jg
         from graphify.build import build_from_json
-        from graphify.cluster import cluster, score_all
+        from graphify.cluster import cluster, score_all, remap_communities_to_previous
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
         from graphify.report import generate
         from graphify.export import to_json, to_html
@@ -2250,6 +2250,18 @@ def main() -> None:
         print(f"Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
         print("Re-clustering...")
         communities = cluster(G, resolution=co_resolution, exclude_hubs_percentile=co_exclude_hubs)
+        # Mirror the watch/update path (#822): map new cids to prior ones by
+        # node-overlap so the existing .graphify_labels.json keeps attaching
+        # to the same conceptual community after re-clustering. Without this,
+        # labels follow raw cid index and become misaligned whenever the
+        # graph has changed between labeling and cluster-only (#1027).
+        previous_node_community = {
+            n["id"]: n["community"]
+            for n in _raw.get("nodes", [])
+            if n.get("community") is not None and n.get("id") is not None
+        }
+        if previous_node_community:
+            communities = remap_communities_to_previous(communities, previous_node_community)
         cohesion = score_all(G, communities)
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)

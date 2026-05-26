@@ -288,6 +288,58 @@ def test_cluster_only_creates_output_dir_when_missing(tmp_path):
     assert (tmp_path / "graphify-out" / "GRAPH_REPORT.md").exists()
 
 
+# Regression test for #1027 - cluster-only must remap labels via node overlap
+
+def test_cluster_only_remaps_labels_to_previous_cids(tmp_path):
+    """cluster-only must invoke remap_communities_to_previous so the existing
+    .graphify_labels.json keeps tracking the same conceptual communities after
+    re-clustering. Without the remap call, Leiden's size-descending cid order
+    re-applies labels by raw index and they silently misalign with cluster
+    contents (#1027). Mirror of the watch/update fix from #822.
+    """
+    out = _make_graph(tmp_path)
+    graph_json = out / "graph.json"
+    labels_json = out / ".graphify_labels.json"
+
+    # Tag every node with an out-of-band community id and write a labels file
+    # keyed on those ids. After cluster-only, at least one of those sentinel
+    # ids must survive in the labels file (= remap succeeded by node overlap).
+    # If the cluster-only branch skips remap, Leiden returns small ints
+    # (0, 1, ...) and the sentinel keys disappear entirely.
+    g = json.loads(graph_json.read_text(encoding="utf-8"))
+    nodes = g.get("nodes", [])
+    assert len(nodes) >= 4, "fixture must have enough nodes to form 2+ communities"
+    sentinel_a, sentinel_b = 4242, 9999
+    half = len(nodes) // 2
+    for i, n in enumerate(nodes):
+        n["community"] = sentinel_a if i < half else sentinel_b
+    graph_json.write_text(json.dumps(g), encoding="utf-8")
+    labels_json.write_text(
+        json.dumps({str(sentinel_a): "First Group", str(sentinel_b): "Second Group"}),
+        encoding="utf-8",
+    )
+
+    r = _run(["cluster-only", ".", "--no-viz"], tmp_path)
+    assert r.returncode == 0, r.stderr
+
+    # Real signal: labels.json keys must align with the community ids actually
+    # written to graph.json's per-node community attribute. Without remap,
+    # Leiden returns small cids (0, 1, ...) but labels.json still carries the
+    # old sentinel keys, so the intersection is empty and labels are orphaned.
+    final_graph = json.loads(graph_json.read_text(encoding="utf-8"))
+    final_labels = json.loads(labels_json.read_text(encoding="utf-8"))
+    actual_cids = {n.get("community") for n in final_graph.get("nodes", [])}
+    label_cids = {int(k) for k in final_labels.keys()}
+    overlap = actual_cids & label_cids
+    assert overlap, (
+        f"After cluster-only with prior labels keyed on cids {label_cids}, at "
+        f"least one of those cids must still appear in graph.json's community "
+        f"attribute ({actual_cids}). Without remap_communities_to_previous "
+        f"(#1027) Leiden renumbers communities to 0,1,... and the prior labels "
+        f"become orphaned. Final labels: {final_labels}"
+    )
+
+
 # ── communities-fallback when .graphify_analysis.json is absent ──────────────
 # The watch / post-commit rebuild path only writes graph.json + GRAPH_REPORT.md;
 # it does NOT regenerate .graphify_analysis.json. The full `graphify extract`
