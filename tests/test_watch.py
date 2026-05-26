@@ -141,6 +141,41 @@ def test_rebuild_lock_does_not_accumulate_pids_across_runs(tmp_path):
         assert not lock_path.exists()
 
 
+def test_rebuild_code_evicts_nodes_from_deleted_files(tmp_path):
+    """#1007: graphify update (_rebuild_code with no changed_paths) must remove
+    nodes and edges from files deleted since the last run."""
+    import json
+    from graphify.watch import _rebuild_code
+
+    corpus = tmp_path / "corpus"
+    corpus.mkdir()
+
+    # Two Python files
+    (corpus / "auth.py").write_text(
+        "def login(): pass\ndef logout(): pass\n", encoding="utf-8"
+    )
+    (corpus / "utils.py").write_text(
+        "def format_date(): pass\n", encoding="utf-8"
+    )
+
+    # Build initial graph with both files
+    assert _rebuild_code(corpus, acquire_lock=False) is True
+    graph_path = corpus / "graphify-out" / "graph.json"
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    node_labels_before = {n["label"] for n in data.get("nodes", [])}
+    assert "format_date()" in node_labels_before
+
+    # Delete utils.py
+    (corpus / "utils.py").unlink()
+
+    # Full re-extraction via update — must evict stale nodes
+    assert _rebuild_code(corpus, acquire_lock=False, force=True) is True
+    data = json.loads(graph_path.read_text(encoding="utf-8"))
+    node_labels_after = {n["label"] for n in data.get("nodes", [])}
+    assert "format_date()" not in node_labels_after, "stale node from deleted file must be evicted"
+    assert "login()" in node_labels_after, "nodes from surviving file must be kept"
+
+
 @pytest.mark.skipif(sys.platform == "win32", reason="fcntl-only (POSIX)")
 def test_rebuild_lock_non_blocking_does_not_clobber_holder(tmp_path):
     """GH-858: a non-blocking caller that fails to acquire the lock must not
