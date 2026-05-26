@@ -42,32 +42,38 @@ _NODE_TABLES = {
 }
 
 # ---------------------------------------------------------------------------
-# Pre-built edge tables (based on actual graphify data model)
+# Edge tables — split by (src_type, tgt_type, relation).
+# Keeps each table under NeuG 0.1.0's 4096-row limit.
 # ---------------------------------------------------------------------------
 
-_EDGE_PAIRS: list[tuple[str, str]] = [
-    ("code", "code"),
-    ("code", "rationale"),
-    ("code", "concept"),
-    ("code", "document"),
-    ("document", "document"),
-    ("document", "concept"),
-    ("paper", "concept"),
-    ("paper", "paper"),
-    ("concept", "concept"),
-    ("image", "concept"),
-]
-
-_EDGE_DDL_TEMPLATE = """CREATE REL TABLE IF NOT EXISTS edge_{src}_{tgt}(
+_EDGE_DDL_TEMPLATE = """CREATE REL TABLE IF NOT EXISTS {tbl}(
     FROM {src} TO {tgt},
     relation STRING, confidence STRING,
     confidence_score DOUBLE, source_file STRING, weight DOUBLE)"""
 
-_created_rel_tables: set[tuple[str, str]] = set()
+# Known relation types per (src, tgt) pair — pre-built at init time.
+_KNOWN_RELATIONS: dict[tuple[str, str], list[str]] = {
+    ("code", "code"): [
+        "calls", "contains", "method", "uses", "inherits", "defines",
+        "references", "imports", "imports_from", "listened_by", "case_of",
+        "references_constant", "bound_to", "uses_static_prop", "uses_config",
+    ],
+    ("rationale", "code"): ["rationale_for"],
+}
+
+_created_rel_tables: set[str] = set()
 
 
-def _edge_table_name(src_type: str, tgt_type: str) -> str:
-    return f"edge_{src_type}_{tgt_type}"
+def _sanitize_rel_name(relation: str) -> str:
+    """Normalize a relation string into a safe table-name suffix."""
+    r = relation.lower().strip()
+    r = re.sub(r"[^a-z0-9_]", "_", r)
+    r = re.sub(r"_+", "_", r).strip("_")
+    return r or "rel"
+
+
+def _edge_table_name(src_type: str, tgt_type: str, relation: str) -> str:
+    return f"edge_{src_type}_{tgt_type}_{_sanitize_rel_name(relation)}"
 
 
 # ---------------------------------------------------------------------------
@@ -100,20 +106,24 @@ def init_db(db_path: str) -> tuple[neug.Database, object]:
         conn.execute(ddl)
 
     _created_rel_tables.clear()
-    for src, tgt in _EDGE_PAIRS:
-        conn.execute(_EDGE_DDL_TEMPLATE.format(src=src, tgt=tgt))
-        _created_rel_tables.add((src, tgt))
+
+    for (src, tgt), rels in _KNOWN_RELATIONS.items():
+        for rel in rels:
+            tbl = _edge_table_name(src, tgt, rel)
+            conn.execute(_EDGE_DDL_TEMPLATE.format(tbl=tbl, src=src, tgt=tgt))
+            _created_rel_tables.add(tbl)
 
     return db, conn
 
 
-def _ensure_rel_table(conn: object, src_type: str, tgt_type: str) -> None:
-    """Create an edge table on-the-fly if not already pre-built."""
-    pair = (src_type, tgt_type)
-    if pair in _created_rel_tables:
-        return
-    conn.execute(_EDGE_DDL_TEMPLATE.format(src=src_type, tgt=tgt_type))
-    _created_rel_tables.add(pair)
+def _ensure_rel_table(conn: object, src_type: str, tgt_type: str, relation: str) -> str:
+    """Resolve edge table name, creating on-the-fly if needed. Returns table name."""
+    tbl = _edge_table_name(src_type, tgt_type, relation)
+    if tbl in _created_rel_tables:
+        return tbl
+    conn.execute(_EDGE_DDL_TEMPLATE.format(tbl=tbl, src=src_type, tgt=tgt_type))
+    _created_rel_tables.add(tbl)
+    return tbl
 
 
 def _fix_file_type(ft: str | None) -> str:
@@ -227,31 +237,23 @@ def ingest_extraction(
         if not src_ft or not tgt_ft:
             continue
 
-        _ensure_rel_table(conn, src_ft, tgt_ft)
-        tbl = _edge_table_name(src_ft, tgt_ft)
-        rel = _cesc(edge.get("relation", ""))
-        conf = _cesc(edge.get("confidence", ""))
+        rel_raw = edge.get("relation", "")
+        conf_raw = edge.get("confidence", "")
+        tbl = _ensure_rel_table(conn, src_ft, tgt_ft, rel_raw)
+        rel = _cesc(rel_raw)
+        conf = _cesc(conf_raw)
         conf_score = float(edge.get("confidence_score", 0.0))
         e_sf = _cesc(_norm_source_file(edge.get("source_file"), _root) or "")
         weight = float(edge.get("weight", 1.0))
 
         try:
-            if incremental:
-                conn.execute(
-                    f"MATCH (a:{src_ft} {{id: '{_cesc(src_id)}'}}), "
-                    f"(b:{tgt_ft} {{id: '{_cesc(tgt_id)}'}}) "
-                    f"CREATE (a)-[:{tbl} {{relation: '{rel}', confidence: '{conf}', "
-                    f"confidence_score: {conf_score}, source_file: '{e_sf}', "
-                    f"weight: {weight}}}]->(b)"
-                )
-            else:
-                conn.execute(
-                    f"MATCH (a:{src_ft} {{id: '{_cesc(src_id)}'}}), "
-                    f"(b:{tgt_ft} {{id: '{_cesc(tgt_id)}'}}) "
-                    f"CREATE (a)-[:{tbl} {{relation: '{rel}', confidence: '{conf}', "
-                    f"confidence_score: {conf_score}, source_file: '{e_sf}', "
-                    f"weight: {weight}}}]->(b)"
-                )
+            conn.execute(
+                f"MATCH (a:{src_ft} {{id: '{_cesc(src_id)}'}}), "
+                f"(b:{tgt_ft} {{id: '{_cesc(tgt_id)}'}}) "
+                f"CREATE (a)-[:{tbl} {{relation: '{rel}', confidence: '{conf}', "
+                f"confidence_score: {conf_score}, source_file: '{e_sf}', "
+                f"weight: {weight}}}]->(b)"
+            )
         except RuntimeError:
             _e_errors += 1
 

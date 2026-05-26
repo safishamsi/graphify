@@ -204,7 +204,7 @@ else
     fi
 
     # Query edges
-    CYPHER_EDGES=$(python3 -m graphify cypher "MATCH (a:code)-[e:edge_code_code]->(b:code) RETURN a.label, e.relation, b.label LIMIT 5" --db "$DB_PATH" 2>/dev/null | grep -v "^INFO\|^E20")
+    CYPHER_EDGES=$(python3 -m graphify cypher "MATCH (a:code)-[e]->(b:code) RETURN a.label, e.relation, b.label LIMIT 5" --db "$DB_PATH" 2>/dev/null | grep -v "^INFO\|^E20")
     if [ -n "$CYPHER_EDGES" ]; then
         pass "cypher edge query returned results"
     else
@@ -298,8 +298,8 @@ ingest_extraction(conn, extraction, incremental=False)
 nodes = execute_cypher(conn, "MATCH (n:code) RETURN count(n)")
 assert nodes[0][0] == 2, f"Expected 2 code nodes, got {nodes[0][0]}"
 
-edges = execute_cypher(conn, "MATCH ()-[e:edge_code_code]->() RETURN count(e)")
-assert edges[0][0] == 1, f"Expected 1 code-code edge, got {edges[0][0]}"
+edges = execute_cypher(conn, "MATCH ()-[e:edge_code_code_calls]->() RETURN count(e)")
+assert edges[0][0] == 1, f"Expected 1 code-code-calls edge, got {edges[0][0]}"
 
 # Communities
 ingest_communities(conn, {0: ["fn_main", "fn_helper"], 1: ["concept_arch"]})

@@ -65,7 +65,7 @@ def test_ingest_extraction_create_mode(tmp_db):
     assert "n_attention" in ids
     assert "n_transformer" in ids
     assert "n_layernorm" in ids
-    edge_rows = _query(conn, "MATCH (a:code)-[e:edge_code_code]->(b:code) RETURN count(e)")
+    edge_rows = _query(conn, "MATCH (a:code)-[e:edge_code_code_contains]->(b:code) RETURN count(e)")
     assert edge_rows[0][0] == 2
     _close(db, conn)
 
@@ -117,11 +117,11 @@ def test_ingest_extraction_prune(tmp_db):
 # --- fallback rel table ---
 
 def test_fallback_rel_table(tmp_db):
-    from graphify.storage import ingest_extraction, _ensure_rel_table, _created_rel_tables
+    from graphify.storage import _ensure_rel_table, _created_rel_tables
     db, conn = _init(tmp_db)
-    assert ("paper", "document") not in _created_rel_tables
-    _ensure_rel_table(conn, "paper", "document")
-    assert ("paper", "document") in _created_rel_tables
+    tbl = _ensure_rel_table(conn, "paper", "document", "cites")
+    assert tbl == "edge_paper_document_cites"
+    assert tbl in _created_rel_tables
     _close(db, conn)
 
 
