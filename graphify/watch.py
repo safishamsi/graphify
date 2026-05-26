@@ -418,10 +418,12 @@ def _rebuild_code(
                 else:
                     # Full re-extraction: reconcile against current code files to
                     # evict nodes from files deleted since the last run (#1007).
+                    # Use _norm_source_file on both sides so prune keys and node
+                    # source_file attrs are normalised identically (mirrors build_merge).
                     from graphify.build import _norm_source_file as _nsf
                     _root_str = str(project_root)
                     current_sources = {
-                        p.relative_to(project_root).as_posix()
+                        _nsf(str(p.relative_to(project_root)), _root_str)
                         for p in code_files
                         if p.is_relative_to(project_root)
                     }
