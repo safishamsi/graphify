@@ -168,11 +168,13 @@ def test_rebuild_code_evicts_nodes_from_deleted_files(tmp_path):
     # Delete utils.py
     (corpus / "utils.py").unlink()
 
-    # Full re-extraction via update — must evict stale nodes
-    assert _rebuild_code(corpus, acquire_lock=False, force=True) is True
+    # Full re-extraction via update — must evict stale nodes without --force
+    # (deleted_paths must be populated so shrink-guard passes on its own)
+    assert _rebuild_code(corpus, acquire_lock=False) is True
     data = json.loads(graph_path.read_text(encoding="utf-8"))
     node_labels_after = {n["label"] for n in data.get("nodes", [])}
-    assert "format_date()" not in node_labels_after, "stale node from deleted file must be evicted"
+    assert "format_date()" not in node_labels_after, "stale function node from deleted file must be evicted"
+    assert "utils.py" not in node_labels_after, "stale file node from deleted file must be evicted"
     assert "login()" in node_labels_after, "nodes from surviving file must be kept"
 
 
