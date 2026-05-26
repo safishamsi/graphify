@@ -196,7 +196,6 @@ print(f'Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges, {len(co
 print(f'God nodes: {[g[\"label\"] for g in gods[:5]]}')
 "
 ```
-
 ### Step 5 - Generate report and visualization
 
 ```python
@@ -222,9 +221,67 @@ print('GRAPH_REPORT.md written')
 "
 ```
 
+### Step 5B - Narrative Synthesis (Agent-Led)
+
+If domain analysis is present but `synthesized_narratives` is empty, perform synthesis using your own reasoning. This provides the "Deep Dive" stories for the dashboard without requiring an external API key.
+
+**1. Generate Synthesis Prompts:**
+
 ```python
 python -c "
 import json
+from graphify.synthesize import synthesize_risks_offline
+from graphify.store import load
+from pathlib import Path
+
+out_dir = Path('graphify-out')
+analysis = json.loads((out_dir / '.graphify_analysis.json').read_text())
+da = analysis.get('domain_analysis', {})
+rf = da.get('diligence.red_flag_analyzer', [])
+kp = da.get('diligence.key_person_risk_analyzer', [])
+
+if not rf and not kp:
+    print('No high-risk findings to synthesize.')
+    exit(0)
+
+G = load(out_dir)
+prompts = synthesize_risks_offline(G, rf, kp, max_entities=4)
+(out_dir / '.graphify_synth_prompts.json').write_text(json.dumps(prompts, indent=2))
+print(f'Generated {len(prompts)} synthesis prompts.')
+"
+```
+
+**2. Perform Synthesis (Agent Reasoning):**
+Read `graphify-out/.graphify_synth_prompts.json`. For each prompt, use your internal LLM reasoning to write a blunt, investigative narrative following the structure requested in the prompt.
+
+**3. Inject Narratives back into Analysis:**
+
+```python
+python -c "
+import json
+from pathlib import Path
+
+out_dir = Path('graphify-out')
+analysis = json.loads((out_dir / '.graphify_analysis.json').read_text())
+prompts = json.loads((out_dir / '.graphify_synth_prompts.json').read_text())
+
+# PASTE NARRATIVES AS A JSON ARRAY HERE
+narratives = []
+
+analysis['synthesized_narratives'] = narratives
+(out_dir / '.graphify_analysis.json').write_text(json.dumps(analysis, indent=2))
+
+# Regenerate dashboard with the new narratives
+from graphify.dashboard import render_dashboard_from_file
+render_dashboard_from_file(out_dir / '.graphify_analysis.json')
+print('Narratives injected and dashboard.html updated.')
+"
+```
+
+```python
+python -c "
+import json
+...
 from graphify.build import build_from_json
 from graphify.cluster import cluster
 from graphify.export import to_html
