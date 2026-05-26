@@ -138,7 +138,7 @@ def _relativize_source_files(payload: dict, root: Path) -> None:
             if not source_path.is_absolute():
                 continue
             try:
-                item["source_file"] = str(source_path.resolve().relative_to(root))
+                item["source_file"] = source_path.resolve().relative_to(root).as_posix()
             except ValueError:
                 continue
 
@@ -376,7 +376,7 @@ def _rebuild_code(
                     # (e.g. .gitignore, vendored). Either way, evict any
                     # preserved nodes that still claim this source path.
                     try:
-                        deleted_paths.add(str(cand.relative_to(project_root)))
+                        deleted_paths.add(cand.relative_to(project_root).as_posix())
                     except ValueError:
                         deleted_paths.add(str(cand))
             if not wanted and not deleted_paths:
@@ -412,9 +412,29 @@ def _rebuild_code(
                 if changed_paths is not None:
                     for p in extract_targets:
                         try:
-                            evict_sources.add(str(p.relative_to(project_root)))
+                            evict_sources.add(p.relative_to(project_root).as_posix())
                         except ValueError:
                             evict_sources.add(str(p))
+                else:
+                    # Full re-extraction: reconcile against current code files to
+                    # evict nodes from files deleted since the last run (#1007).
+                    from graphify.build import _norm_source_file as _nsf
+                    _root_str = str(project_root)
+                    current_sources = {
+                        p.relative_to(project_root).as_posix()
+                        for p in code_files
+                        if p.is_relative_to(project_root)
+                    }
+                    for n in existing.get("nodes", []):
+                        sf = n.get("source_file")
+                        if not sf:
+                            continue
+                        if Path(sf).suffix.lower() not in _CODE_EXTENSIONS:
+                            continue
+                        norm = _nsf(sf, _root_str)
+                        if norm not in current_sources:
+                            evict_sources.add(sf)
+                            evict_sources.add(norm)
                 preserved_nodes = [
                     n for n in existing.get("nodes", [])
                     if n["id"] not in new_ast_ids
