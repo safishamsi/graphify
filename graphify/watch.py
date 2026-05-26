@@ -435,6 +435,7 @@ def _rebuild_code(
                         if norm not in current_sources:
                             evict_sources.add(sf)
                             evict_sources.add(norm)
+                            deleted_paths.add(norm)  # allow shrink-guard to pass
                 preserved_nodes = [
                     n for n in existing.get("nodes", [])
                     if n["id"] not in new_ast_ids
