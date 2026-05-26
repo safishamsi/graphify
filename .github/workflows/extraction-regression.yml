@@ -1,0 +1,47 @@
+name: Extraction Regression
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  extraction-regression:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Graphify
+        run: |
+          pip install -e ".[mcp,pdf,watch,sql]"
+
+      - name: Create tiny fixture corpus
+        run: |
+          mkdir fixture
+          echo "def hello(): return 'world'" > fixture/app.py
+          echo "# Demo Project" > fixture/README.md
+
+      - name: Run graph extraction
+        run: |
+          graphify fixture --no-viz
+
+      - name: Verify graph outputs exist
+        run: |
+          test -f graphify-out/graph.json
+          test -f graphify-out/GRAPH_REPORT.md
+
+      - name: Verify graph contains nodes
+        run: |
+          python -c "
+          import json
+          with open('graphify-out/graph.json') as f:
+              data = json.load(f)
+          assert len(data.get('nodes', [])) > 0
+          print('Graph contains nodes')
+          "
