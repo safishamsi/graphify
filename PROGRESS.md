@@ -5,8 +5,8 @@ Status: all 7 acceptance gates from the original task spec are green.
 
 ## What works
 
-End-to-end on `tests/fixtures/sample.res` and on a real ~200-file
-ReScript codebase used as the smoke-test corpus:
+End-to-end on `tests/fixtures/sample.res` and on a working ReScript
+codebase with over 100 files used as the smoke-test corpus:
 
 | Surface | Behaviour |
 |---|---|
@@ -26,13 +26,14 @@ ReScript codebase used as the smoke-test corpus:
 | Pipe expression `arr->Belt.Array.some(...)` | `pipe_expression` wraps the inner `call_expression`; generic recursion picks it up — no special handling needed. |
 | Module-qualified type references | `references_type` edge from the enclosing entity (type / let / external) to `<module>.<type>`. Covers record field types (`{x: Animal.species}`), variant and polyvariant arm payloads (`Eat(Animal.food)`, `#Walk(Animal.speed)`), function signatures (`(a: Animal.species): Animal.food`), let-binding annotations (`let helper: Animal.eventId = ...`), and `external` type annotations. Nested paths (`Animal.Habitat.species`) target the leftmost module. Bare local types (`option`, `int`) parse as `type_identifier` not `type_identifier_path`, so they emit no edges. Same-file self-references are EXTRACTED; cross-file are INFERRED at extraction and rewritten to real type-node ids by the multi-file resolver in `extract()`. ReScript is currently the only graphify language emitting type-reference edges — Java/TS/Scala could follow as separate PRs. |
 
-Numbers from the smoke run on a ~200-file ReScript codebase:
-
-- ~2.8k nodes total (before this branch, on the same corpus: 15 — all from `README.md`).
-- ~3.2k edges.
-- ~180 `.res` / `.resi` file nodes; ~2.6k ReScript symbol nodes.
-- ~10 import edges between ReScript files (cross-file `open`/`include`).
-- ~500 `calls` edges involving `.res` symbols.
+Smoke-tested on a working ReScript codebase with over 100 files: before
+this branch, that corpus extracted 15 nodes total (all from `README.md`).
+After this branch, every `.res` / `.resi` file produces a file node plus
+a node per top-level entity (types, modules, values, functions, externals,
+including their nested-module members), with `imports` / `calls` /
+`references_type` edges resolving cross-file when both endpoints are in
+scan. Specific node / edge counts aren't published because they're
+corpus-dependent.
 
 ## What's flaky
 
@@ -68,8 +69,9 @@ Numbers from the smoke run on a ~200-file ReScript codebase:
   function is invisible to the architecture view. If a `--mode deep`
   flag is added later that opts back into per-function-body recursion,
   reinstate the recursion at the let_declaration handler. Without
-  that flag, the noise floor was 1,400+ spurious nodes per ~200-file
-  ReScript corpus — `let url = ...`, `let now = Date.now()` etc.
+  that flag, function-locals (`let url = ...`, `let now = Date.now()`,
+  `let response = ...` etc.) inflated the graph with hundreds of
+  spurious nodes per file.
 - **Cross-language `open` resolution.** When a ReScript file does
   `open Belt`, point the import edge at a synthetic `belt` node tagged
   as a third-party module rather than dropping it at build time. Would
@@ -164,7 +166,7 @@ the Scala block. 19 tests, all passing.
 |---|---|---|---|
 | 1 | per-language extractor tests pass | ✓ | `pytest tests/test_languages.py -k rescript` → 19/19 pass |
 | 2 | `graphify update` on the canonical fixture produces nontrivial node/edge output | ✓ | 8 nodes / 8 edges from `tests/fixtures/sample.res` (type, value let, 3 function lets, module, method, intra-file call). Cross-file scenarios are covered by the `tmp_path` tests, not the on-disk fixture — matches the rest of the repo (other languages keep their fixture single-file and use `tmp_path` for cross-file behaviour). |
-| 3 | nonzero `.res` symbols on real corpus | ✓ | ~2.8k nodes / ~3.2k edges on ~200-file corpus (vs 15 baseline) |
+| 3 | nonzero `.res` symbols on real corpus | ✓ | Also tested on a working ReScript codebase with over 100 files; every `.res` / `.resi` file produced a file node plus symbol nodes, with cross-file edges resolving as expected. Before this branch the same corpus extracted 15 nodes total, all from `README.md`. |
 | 4 | `graphify path` / `graphify query` returns the cross-file callers | ✓ | `graphify query "who calls isEnabled"` returns `darkModeOn()` and `isEnabledForUser()` |
 | 5 | existing tests still pass | ✓ | full suite passes (one unrelated pre-existing fixture mod) |
 | 6 | README updated | ✓ | row count 28 → 29, `.res .resi` listed |
