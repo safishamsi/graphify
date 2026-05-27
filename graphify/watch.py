@@ -340,7 +340,7 @@ def _rebuild_code(
     try:
         from graphify.extract import extract, _get_extractor
         from graphify.detect import detect
-        from graphify.build import build_from_json
+        from graphify.build import build_from_json, _norm_source_file as _nsf
         from graphify.cluster import cluster, remap_communities_to_previous, score_all
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
         from graphify.report import generate
@@ -375,10 +375,7 @@ def _rebuild_code(
                     # File was deleted, renamed away, or filtered out by detect
                     # (e.g. .gitignore, vendored). Either way, evict any
                     # preserved nodes that still claim this source path.
-                    try:
-                        deleted_paths.add(cand.relative_to(project_root).as_posix())
-                    except ValueError:
-                        deleted_paths.add(cand.as_posix())
+                    deleted_paths.add(_nsf(str(cand), str(project_root)) or str(cand))
             if not wanted and not deleted_paths:
                 print("[graphify watch] No tracked code files in change set - skipping rebuild.")
                 return True
@@ -412,10 +409,27 @@ def _rebuild_code(
                 evict_sources: set[str] = set(deleted_paths)
                 if changed_paths is not None:
                     for p in extract_targets:
-                        try:
-                            evict_sources.add(p.relative_to(project_root).as_posix())
-                        except ValueError:
-                            evict_sources.add(p.as_posix())
+                        evict_sources.add(_nsf(str(p), str(project_root)) or str(p))
+                else:
+                    # Full re-extraction: reconcile against current code files to
+                    # evict nodes from files deleted since the last run (#1007).
+                    _root_str = str(project_root)
+                    current_sources = {
+                        _nsf(str(p.relative_to(project_root)), _root_str)
+                        for p in code_files
+                        if p.is_relative_to(project_root)
+                    }
+                    for n in existing.get("nodes", []):
+                        sf = n.get("source_file")
+                        if not sf:
+                            continue
+                        if Path(sf).suffix.lower() not in _CODE_EXTENSIONS:
+                            continue
+                        norm = _nsf(sf, _root_str)
+                        if norm not in current_sources:
+                            evict_sources.add(sf)
+                            evict_sources.add(norm)
+                            deleted_paths.add(norm)
                 preserved_nodes = [
                     n for n in existing.get("nodes", [])
                     if n["id"] not in new_ast_ids
