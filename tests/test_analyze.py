@@ -812,8 +812,6 @@ def test_god_nodes_filter_is_case_insensitive():
     labels = [r["label"] for r in result]
     for variant in ("Start", "START", "Name", "ID"):
         assert variant not in labels, f"`{variant}` should be filtered as JSON-key noise"
-
-
 # ── find_import_cycles tests ──────────────────────────────────────────────────
 
 
@@ -932,3 +930,140 @@ def test_find_import_cycles_no_cycles():
     G.add_node(y_id, **y)
     G.add_edge(x_id, y_id, relation="imports_from", source_file="x.ts", confidence="EXTRACTED")
     assert find_import_cycles(G) == []
+
+
+# --- MultiDiGraph safety tests (PR 4B) ---
+
+
+def _make_multigraph_with_parallel_edges():
+    """Helper: build a MultiDiGraph with parallel edges for testing."""
+    G = nx.MultiDiGraph()
+    # Node A has 1 neighbor (B) but 5 parallel edges to it
+    G.add_node("a", label="Alpha", source_file="src/alpha.py", file_type="code")
+    G.add_node("b", label="Beta", source_file="src/beta.py", file_type="code")
+    for i in range(5):
+        G.add_edge(
+            "a",
+            "b",
+            key=f"edge_{i}",
+            relation="calls",
+            confidence="EXTRACTED",
+            source_file="src/alpha.py",
+            weight=1.0,
+        )
+    return G
+
+
+def test_god_nodes_multigraph_not_inflated():
+    """Node with 1 neighbor but 5 parallel edges must NOT be flagged as high-degree."""
+    G = _make_multigraph_with_parallel_edges()
+    # Add a genuine low-degree node so the graph isn't trivial
+    G.add_node("c", label="Gamma", source_file="src/gamma.py", file_type="code")
+    G.add_edge("b", "c", relation="calls", confidence="EXTRACTED", source_file="src/beta.py")
+
+    result = god_nodes(G, top_n=10)
+    for entry in result:
+        if entry["id"] == "a":
+            # Alpha has only 1 distinct neighbor (Beta), not 5
+            assert entry["degree"] == 1, (
+                f"god_nodes reported degree {entry['degree']} for node 'a' "
+                f"but it has only 1 distinct neighbor"
+            )
+            break
+
+
+def test_god_nodes_multigraph_real_hub_detected():
+    """Node genuinely connected to 20 different neighbors must be detected as god node."""
+    G = nx.MultiDiGraph()
+    G.add_node("hub", label="HubNode", source_file="src/hub.py", file_type="code")
+    for i in range(20):
+        nid = f"n{i}"
+        G.add_node(nid, label=f"Node{i}", source_file=f"src/n{i}.py", file_type="code")
+        G.add_edge(
+            "hub", nid, relation="calls", confidence="EXTRACTED",
+            source_file="src/hub.py", weight=1.0,
+        )
+
+    result = god_nodes(G, top_n=5)
+    result_ids = [r["id"] for r in result]
+    assert "hub" in result_ids, (
+        f"god_nodes should detect 'hub' with 20 distinct neighbors, got: {result}"
+    )
+    hub_entry = next(r for r in result if r["id"] == "hub")
+    assert hub_entry["degree"] == 20
+
+
+def test_edge_betweenness_multigraph_does_not_crash():
+    """surprising_connections on a MultiDiGraph with parallel edges must not crash."""
+    G = nx.MultiDiGraph()
+    # Two communities with intra-community edges + one bridge
+    for i in range(5):
+        G.add_node(
+            f"a{i}", label=f"A{i}", source_file="single.py",
+            file_type="code", source_location=f"L{i}",
+        )
+    for i in range(5):
+        G.add_node(
+            f"b{i}", label=f"B{i}", source_file="single.py",
+            file_type="code", source_location=f"L{i + 10}",
+        )
+    # Dense intra-community edges (some parallel)
+    for i in range(4):
+        G.add_edge(f"a{i}", f"a{i+1}", relation="calls", confidence="EXTRACTED",
+                   source_file="single.py", weight=1.0)
+        G.add_edge(f"a{i}", f"a{i+1}", relation="uses", confidence="EXTRACTED",
+                   source_file="single.py", weight=1.0)
+    for i in range(4):
+        G.add_edge(f"b{i}", f"b{i+1}", relation="calls", confidence="EXTRACTED",
+                   source_file="single.py", weight=1.0)
+    # Bridge edge
+    G.add_edge("a4", "b0", relation="references", confidence="INFERRED",
+               source_file="single.py", weight=0.5)
+
+    # Should not crash -- this is the core regression test
+    result = surprising_connections(G, communities=None)
+    assert isinstance(result, list)
+    # Every result should have 2-tuple source_files, not 3-tuple
+    for entry in result:
+        assert "source" in entry
+        assert "target" in entry
+
+
+def test_surprising_connections_multigraph_results_valid():
+    """Full integration: MultiDiGraph with communities and parallel edges."""
+    G = nx.MultiDiGraph()
+    # Community 1: nodes in file1.py
+    for i in range(5):
+        G.add_node(
+            f"c1_{i}", label=f"C1_{i}", source_file="repo/file1.py",
+            file_type="code", source_location=f"L{i}",
+        )
+    # Community 2: nodes in file2.py
+    for i in range(5):
+        G.add_node(
+            f"c2_{i}", label=f"C2_{i}", source_file="repo/file2.py",
+            file_type="code", source_location=f"L{i}",
+        )
+    # Intra-community edges with parallel edges
+    for i in range(4):
+        G.add_edge(f"c1_{i}", f"c1_{i+1}", relation="calls", confidence="EXTRACTED",
+                   source_file="repo/file1.py", weight=1.0)
+        G.add_edge(f"c1_{i}", f"c1_{i+1}", relation="uses", confidence="INFERRED",
+                   source_file="repo/file1.py", weight=0.5)
+    for i in range(4):
+        G.add_edge(f"c2_{i}", f"c2_{i+1}", relation="calls", confidence="EXTRACTED",
+                   source_file="repo/file2.py", weight=1.0)
+    # Cross-community bridge with parallel edges
+    G.add_edge("c1_4", "c2_0", relation="references", confidence="AMBIGUOUS",
+               source_file="repo/file1.py", weight=0.3)
+    G.add_edge("c1_4", "c2_0", relation="calls", confidence="INFERRED",
+               source_file="repo/file1.py", weight=0.5)
+
+    communities = cluster(G)
+    result = surprising_connections(G, communities)
+    assert isinstance(result, list)
+    # Should detect cross-community or cross-file edges without crashing
+    for entry in result:
+        assert "source" in entry
+        assert "target" in entry
+        assert "confidence" in entry

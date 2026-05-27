@@ -5,6 +5,16 @@ from datetime import date
 import networkx as nx
 
 
+def _edge_count_str(G: nx.Graph) -> str:
+    """Format edge count, distinguishing total records from unique pairs on multigraphs."""
+    total = G.number_of_edges()
+    if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)):
+        unique_pairs = len(set((u, v) for u, v, *_ in G.edges(keys=False)))
+        if unique_pairs < total:
+            return f"{total} edges ({unique_pairs} unique pairs)"
+    return f"{total} edges"
+
+
 def _safe_community_name(label: str) -> str:
     """Mirrors export.safe_name so community hub filenames and report wikilinks always agree."""
     cleaned = re.sub(
@@ -74,7 +84,7 @@ def generate(
     lines += [
         "",
         "## Summary",
-        f"- {G.number_of_nodes()} nodes · {G.number_of_edges()} edges · {len(communities)} communities"
+        f"- {G.number_of_nodes()} nodes · {_edge_count_str(G)} · {len(communities)} communities"
         + (
             f" ({shown_count} shown, {thin_count_summary} thin omitted)"
             if thin_count_summary

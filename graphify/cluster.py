@@ -8,6 +8,8 @@ import json
 import sys
 import networkx as nx
 
+from graphify.projections import project_for_community
+
 
 def _suppress_output():
     """Context manager to suppress stdout/stderr during library calls.
@@ -108,7 +110,11 @@ def cluster(
     """
     if G.number_of_nodes() == 0:
         return {}
-    if G.is_directed():
+    # Project multigraphs to simple undirected graph so parallel edges
+    # don't inflate Louvain/Leiden community detection.
+    if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)):
+        G = project_for_community(G)
+    elif G.is_directed():
         G = G.to_undirected()
     if G.number_of_edges() == 0:
         return {i: [n] for i, n in enumerate(sorted(G.nodes))}
@@ -212,6 +218,9 @@ def cohesion_score(G: nx.Graph, community_nodes: list[str]) -> float:
     if n <= 1:
         return 1.0
     subgraph = G.subgraph(community_nodes)
+    # Project multigraphs to simple graph so parallel edges don't inflate cohesion
+    if isinstance(subgraph, (nx.MultiGraph, nx.MultiDiGraph)):
+        subgraph = project_for_community(subgraph)
     actual = subgraph.number_of_edges()
     possible = n * (n - 1) / 2
     return actual / possible if possible > 0 else 0.0
