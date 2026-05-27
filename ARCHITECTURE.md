@@ -19,7 +19,7 @@ Following a major modularization effort, the codebase is structured into feature
 | `cli/` | Entry point & argument parsing (`main.py`) | argv → CLI commands |
 | `detect/` | File discovery and filtering (`collect_files`) | directory → `[Path]` filtered list |
 | `extract/` | Orchestration of the AST/semantic extraction | file path → `{nodes, edges}` dict |
-| `extractors/` | Language-specific AST parsers (Python, TS, etc.) | source code → extraction dict |
+| `extractors/` | Language-specific AST parsers (Python, TS, .NET, MCP, etc.) | source code/JSON → extraction dict |
 | `build/` | Graph construction from extraction dicts | list of extraction dicts → `nx.Graph` |
 | `cluster.py` | Community detection and clustering | graph → graph with `community` attr on each node |
 | `analyze/` | Graph metrics, god nodes, and surprise analysis | graph → analysis dict (god nodes, surprises, questions) |
@@ -29,6 +29,7 @@ Following a major modularization effort, the codebase is structured into feature
 | `serve/` | MCP stdio server and graph query endpoints | graph file path → MCP stdio server |
 | `watch/` | Filesystem watcher for automatic graph rebuilding | directory → writes flag file on change |
 | `installers/` | Integrations for Claude Code, Cursor, Windsurf, etc. | setup commands → modified tool configs |
+| `skills/` | Markdown files for AI assistant prompt injection | none → static files |
 | `ingest.py` | Fetching remote URLs or markdown | URL → file saved to corpus dir |
 | `cache.py` | Semantic chunk caching logic | files → (cached, uncached) split |
 | `security.py` | Input validation and SSRF protections | URL / path / label → validated or raises |
