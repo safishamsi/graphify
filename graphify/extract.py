@@ -9087,11 +9087,12 @@ def extract(
 
     # Remap file node IDs from absolute-path-derived to project-relative so
     # graph.json edge endpoints are stable across machines (#502)
+    remap_root = (cache_root or root).resolve() if cache_root else root
     id_remap: dict[str, str] = {}
     for path in paths:
         old_id = _make_id(str(path))
         try:
-            new_id = _make_id(str(path.relative_to(root)))
+            new_id = _make_id(str(path.resolve().relative_to(remap_root)))
         except ValueError:
             continue
         if old_id != new_id:
