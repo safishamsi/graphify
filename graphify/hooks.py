@@ -81,7 +81,7 @@ if not changed:
 print(f'[graphify hook] {len(changed)} file(s) changed - rebuilding graph...')
 
 try:
-    from graphify.watch import _rebuild_code, _apply_resource_limits
+    from graphify.watch.core import _rebuild_code, _apply_resource_limits
     _apply_resource_limits()
     _timeout = int(os.environ.get('GRAPHIFY_REBUILD_TIMEOUT', '600'))
     if _timeout > 0 and hasattr(signal, 'SIGALRM'):
@@ -132,7 +132,7 @@ _GRAPHIFY_LOG="${HOME}/.cache/graphify-rebuild.log"
 mkdir -p "$(dirname "$_GRAPHIFY_LOG")"
 echo "[graphify] Branch switched - launching background rebuild (log: $_GRAPHIFY_LOG)"
 nohup $GRAPHIFY_PYTHON -c "
-from graphify.watch import _rebuild_code, _apply_resource_limits
+from graphify.watch.core import _rebuild_code, _apply_resource_limits
 from pathlib import Path
 import os, signal, sys
 try:

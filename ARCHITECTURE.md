@@ -5,30 +5,35 @@ graphify is a Claude Code skill backed by a Python library. The skill orchestrat
 ## Pipeline
 
 ```
-detect()  →  extract()  →  build_graph()  →  cluster()  →  analyze()  →  report()  →  export()
+detect  →  extract  →  build  →  cluster  →  analyze  →  report  →  export
 ```
 
-Each stage is a single function in its own module. They communicate through plain Python dicts and NetworkX graphs - no shared state, no side effects outside `graphify-out/`.
+Each stage is implemented as a dedicated sub-package or module. They communicate through plain Python dicts and NetworkX graphs - no shared state, no side effects outside `graphify-out/`.
 
-## Module responsibilities
+## Package structure
 
-| Module | Function | Input → Output |
-|--------|----------|----------------|
-| `detect.py` | `collect_files(root)` | directory → `[Path]` filtered list |
-| `extract.py` | `extract(path)` | file path → `{nodes, edges}` dict |
-| `build.py` | `build_graph(extractions)` | list of extraction dicts → `nx.Graph` |
-| `cluster.py` | `cluster(G)` | graph → graph with `community` attr on each node |
-| `analyze.py` | `analyze(G)` | graph → analysis dict (god nodes, surprises, questions) |
-| `report.py` | `render_report(G, analysis)` | graph + analysis → GRAPH_REPORT.md string |
-| `export.py` | `export(G, out_dir, ...)` | graph → Obsidian vault, graph.json, graph.html, graph.svg |
-| `callflow_html.py` | `write_callflow_html(...)` | graphify-out files → Mermaid architecture/call-flow HTML |
-| `ingest.py` | `ingest(url, ...)` | URL → file saved to corpus dir |
-| `cache.py` | `check_semantic_cache / save_semantic_cache` | files → (cached, uncached) split |
-| `security.py` | validation helpers | URL / path / label → validated or raises |
-| `validate.py` | `validate_extraction(data)` | extraction dict → raises on schema errors |
-| `serve.py` | `start_server(graph_path)` | graph file path → MCP stdio server |
-| `watch.py` | `watch(root, flag_path)` | directory → writes flag file on change |
-| `benchmark.py` | `run_benchmark(graph_path)` | graph file → corpus vs subgraph token comparison |
+Following a major modularization effort, the codebase is structured into feature-specific packages rather than flat files:
+
+| Package / Module | Responsibility | Input → Output |
+|------------------|----------------|----------------|
+| `cli/` | Entry point & argument parsing (`main.py`) | argv → CLI commands |
+| `detect/` | File discovery and filtering (`collect_files`) | directory → `[Path]` filtered list |
+| `extract/` | Orchestration of the AST/semantic extraction | file path → `{nodes, edges}` dict |
+| `extractors/` | Language-specific AST parsers (Python, TS, etc.) | source code → extraction dict |
+| `build/` | Graph construction from extraction dicts | list of extraction dicts → `nx.Graph` |
+| `cluster.py` | Community detection and clustering | graph → graph with `community` attr on each node |
+| `analyze/` | Graph metrics, god nodes, and surprise analysis | graph → analysis dict (god nodes, surprises, questions) |
+| `report.py` | Generation of `GRAPH_REPORT.md` | graph + analysis → markdown string |
+| `export/` | Format conversion (HTML, JSON, SVG, Obsidian) | graph → graphify-out files |
+| `llm/` | Parallel semantic chunk extraction and backend integration | uncached files → semantic nodes/edges |
+| `serve/` | MCP stdio server and graph query endpoints | graph file path → MCP stdio server |
+| `watch/` | Filesystem watcher for automatic graph rebuilding | directory → writes flag file on change |
+| `installers/` | Integrations for Claude Code, Cursor, Windsurf, etc. | setup commands → modified tool configs |
+| `ingest.py` | Fetching remote URLs or markdown | URL → file saved to corpus dir |
+| `cache.py` | Semantic chunk caching logic | files → (cached, uncached) split |
+| `security.py` | Input validation and SSRF protections | URL / path / label → validated or raises |
+| `validate.py` | Schema enforcement for extraction output | extraction dict → raises on schema errors |
+| `benchmark.py` | Benchmarking subgraph vs corpus extraction | graph file → corpus vs subgraph token comparison |
 
 ## Extraction output schema
 
@@ -45,7 +50,7 @@ Every extractor returns:
 }
 ```
 
-`validate.py` enforces this schema before `build_graph()` consumes it.
+`validate.py` enforces this schema before graph construction consumes it.
 
 ## Confidence labels
 
@@ -57,11 +62,11 @@ Every extractor returns:
 
 ## Adding a new language extractor
 
-1. Add a `extract_<lang>(path: Path) -> dict` function in `extract.py` following the existing pattern (tree-sitter parse → walk nodes → collect `nodes` and `edges` → call-graph second pass for INFERRED `calls` edges).
-2. Register the file suffix in `extract()` dispatch and `collect_files()`.
-3. Add the suffix to `CODE_EXTENSIONS` in `detect.py` and `_WATCHED_EXTENSIONS` in `watch.py`.
+1. Add a new `<lang>_extractor.py` module in `graphify/extractors/` following the existing pattern (tree-sitter parse → walk nodes → collect `nodes` and `edges` → call-graph second pass for INFERRED `calls` edges).
+2. Register the file suffix in `graphify/extract/core.py` dispatch.
+3. Add the suffix to `CODE_EXTENSIONS` in `graphify/detect/core.py` and `_WATCHED_EXTENSIONS` in `graphify/watch/core.py`.
 4. Add the tree-sitter package to `pyproject.toml` dependencies.
-5. Add a fixture file to `tests/fixtures/` and tests to `tests/test_languages.py`.
+5. Add a fixture file to `tests/fixtures/` and tests to `tests/extractors/`.
 
 ## Security
 
@@ -76,7 +81,8 @@ See `SECURITY.md` for the full threat model.
 
 ## Testing
 
-One test file per module under `tests/`. Run with:
+Tests are modularized under `tests/` mirroring the package layout (`tests/cli/`, `tests/detect/`, `tests/extract/`, etc.).
+Run with:
 
 ```bash
 pytest tests/ -q
