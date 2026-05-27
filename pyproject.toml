@@ -40,6 +40,7 @@ dependencies = [
     "tree-sitter-fortran",
     "tree-sitter-bash",
     "tree-sitter-json",
+    "tree-sitter-dm>=0.25.1",
 ]
 
 [project.urls]
@@ -63,13 +64,7 @@ bedrock = ["boto3"]
 gemini = ["openai", "tiktoken"]
 openai = ["openai", "tiktoken"]
 sql = ["tree-sitter-sql"]
-# BYOND DreamMaker grammar. tree-sitter-dm 0.25.0's PyPI sdist is missing
-# scanner.c and ships no wheels, so the published artifact is uninstallable;
-# the fix is already on master. Until 0.25.1 cuts, uv users get the working
-# git build via [tool.uv.sources] below. pip users will need to install from
-# git manually for now.
-dreammaker = ["tree-sitter-dm"]
-all = ["mcp", "neo4j", "pypdf", "markdownify", "watchdog", "graspologic; python_version < '3.13'", "python-docx", "openpyxl", "faster-whisper", "yt-dlp", "matplotlib", "openai", "tiktoken", "boto3", "tree-sitter-sql", "tree-sitter-dm"]
+all = ["mcp", "neo4j", "pypdf", "markdownify", "watchdog", "graspologic; python_version < '3.13'", "python-docx", "openpyxl", "faster-whisper", "yt-dlp", "matplotlib", "openai", "tiktoken", "boto3", "tree-sitter-sql"]
 
 [project.scripts]
 graphify = "graphify.__main__:main"
@@ -96,11 +91,6 @@ dev = [
 # Install via: uv tool install graphifyy
 # Run without installing: uvx graphifyy install
 package = true
-
-[tool.uv.sources]
-# Override the broken PyPI sdist with the git source. Drop this block once
-# tree-sitter-dm 0.25.1 ships with the scanner.c fix.
-tree-sitter-dm = { git = "https://github.com/FeudeyTF/tree-sitter-dm.git" }
 
 [tool.setuptools]
 packages = ["graphify"]

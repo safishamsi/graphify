@@ -161,10 +161,7 @@ Install only what you need:
 | `gemini` | Google Gemini API | `pip install "graphifyy[gemini]"` |
 | `bedrock` | AWS Bedrock (uses IAM, no API key) | `pip install "graphifyy[bedrock]"` |
 | `sql` | SQL schema extraction | `pip install "graphifyy[sql]"` |
-| `dreammaker` | BYOND DreamMaker `.dm/.dme` source extraction (`.dmi/.dmm/.dmf` need no extra) | `pip install "graphifyy[dreammaker]"` |
 | `all` | Everything above | `pip install "graphifyy[all]"` |
-
-> **`dreammaker` install caveat:** `tree-sitter-dm` 0.25.0's PyPI artifact is broken (sdist missing `scanner.c`, no wheels). Until 0.25.1 ships, `uv` users get a working build automatically via `[tool.uv.sources]`. `pip` users currently need: `pip install "graphifyy[dreammaker]" "tree-sitter-dm @ git+https://github.com/FeudeyTF/tree-sitter-dm.git"`.
 
 ---
 
