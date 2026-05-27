@@ -148,8 +148,10 @@ Output exactly this schema:
 
 _DEEP_EXTRACTION_SUFFIX = """\
 
-DEEP_MODE: be aggressive with INFERRED edges — indirect deps, shared assumptions,
-latent couplings. Mark uncertain ones AMBIGUOUS instead of omitting.
+DEEP_MODE: include additional INFERRED edges only for concrete architectural
+signals (shared data contracts, explicit lifecycle coupling, or multi-step flow
+dependencies visible in the sources). Avoid broad conceptual similarity edges.
+Mark uncertain ones AMBIGUOUS instead of omitting.
 """
 
 

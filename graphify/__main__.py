@@ -3167,6 +3167,11 @@ def main() -> None:
         sem_cache_hits = 0
         sem_cache_misses = 0
         if semantic_files:
+            if deep_mode:
+                print(
+                    "[graphify extract] mode: deep (aggressive INFERRED edges; may increase token/cost)",
+                    flush=True,
+                )
             sem_paths_str = [str(p) for p in semantic_files]
             cached_nodes, cached_edges, cached_hyperedges, uncached_paths = (
                 _check_semantic_cache(sem_paths_str, root=target)
@@ -3192,10 +3197,6 @@ def main() -> None:
                     corpus_kwargs["max_concurrency"] = cli_max_concurrency
                 if deep_mode:
                     corpus_kwargs["deep_mode"] = True
-                    print(
-                        "[graphify extract] mode: deep (aggressive INFERRED edges)",
-                        flush=True,
-                    )
 
                 # Minimal progress callback so the CLI is no longer silent
                 # during long local-inference runs (issue #792 addendum).

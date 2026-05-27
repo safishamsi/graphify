@@ -11,6 +11,7 @@ Full release notes with details on each version: [GitHub Releases](https://githu
 - Fix: `backup_if_protected` no longer accumulates one folder per run — uses content-hash comparison to skip identical backups and overwrite in-place when content changes; one folder per day maximum
 - Feat: Devin CLI support — `graphify devin install/uninstall` installs the skill into Devin's `.devin/rules/` directory (#1020)
 - Fix: TypeScript 5.0 array-form `extends` in `tsconfig.json` now handled — `_read_tsconfig_aliases` normalizes `extends` to a list before iteration (#1017)
+- Feat: `graphify extract --mode deep` now threads `deep_mode` through all semantic backends (Gemini/OpenAI-compat, Claude API, Claude CLI, Bedrock) and recognizes the mode even on fully cached runs; deep mode intentionally emits more INFERRED edges, which can increase token usage/cost and adaptive bisection retries on large corpora
 
 ## 0.8.18 (2026-05-24)
 
