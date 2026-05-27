@@ -201,6 +201,7 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
                 ".java": "jvm", ".kt": "jvm", ".scala": "jvm", ".groovy": "jvm",
                 ".c": "c", ".h": "c", ".cc": "cpp", ".cpp": "cpp", ".hpp": "cpp",
                 ".rb": "rb", ".php": "php", ".cs": "cs", ".swift": "swift", ".lua": "lua",
+                ".nix": "nix",
             }
             src_ext = Path(G.nodes[src].get("source_file") or "").suffix.lower()
             tgt_ext = Path(G.nodes[tgt].get("source_file") or "").suffix.lower()

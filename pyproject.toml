@@ -40,6 +40,7 @@ dependencies = [
     "tree-sitter-fortran",
     "tree-sitter-bash",
     "tree-sitter-json",
+    "tree-sitter-nix",
 ]
 
 [project.urls]

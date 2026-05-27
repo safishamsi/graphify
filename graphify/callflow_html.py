@@ -473,7 +473,7 @@ def humanize_label(label: str, source_file: str = "") -> str:
         return Path(source_file).name if source_file else "Unknown"
     if label.startswith(".") and label.endswith("()"):
         return label[1:]
-    if label.endswith((".py", ".ts", ".tsx", ".js", ".jsx", ".go", ".rs", ".java", ".rb")):
+    if label.endswith((".py", ".ts", ".tsx", ".js", ".jsx", ".go", ".rs", ".java", ".rb", ".nix")):
         return Path(label).name
     if "_" in label and " " not in label and len(label) > 28:
         parts = [p for p in label.split("_") if p]
@@ -515,7 +515,7 @@ def node_kind(node: dict) -> str:
     raw = raw_label
     if raw[:1].isupper() and not raw.endswith("()"):
         return "klass"
-    if raw.endswith((".py", ".ts", ".tsx", ".js", ".jsx", ".go", ".rs", ".java", ".kt", ".rb", ".php", ".cs", ".swift", ".vue", ".svelte")):
+    if raw.endswith((".py", ".ts", ".tsx", ".js", ".jsx", ".go", ".rs", ".java", ".kt", ".rb", ".php", ".cs", ".swift", ".vue", ".svelte", ".nix")):
         return "module"
     return "function"
 
@@ -1298,7 +1298,7 @@ def _describe_node(label: str, source_file: str, file_type: str, lang: str) -> s
         return pick_text(lang, f"设计说明：{label}", f"Design note for {label}.")
     if file_type == "document":
         return pick_text(lang, f"文档入口，描述 {label} 相关能力。", f"Documentation node describing {label}.")
-    if label.endswith(".py") or label.endswith(".tsx") or label.endswith(".ts"):
+    if label.endswith(".py") or label.endswith(".tsx") or label.endswith(".ts") or label.endswith(".nix"):
         return pick_text(lang, f"{source} 中的模块文件，承载该层主要实现。", f"Module file in {source}.")
     if "config" in lower:
         return pick_text(lang, "读取、解析或持久化项目配置。", "Reads, resolves, or persists project configuration.")

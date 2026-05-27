@@ -47,7 +47,7 @@ def node_is_resolvable_symbol(node: dict[str, Any]) -> bool:
     label = str(node.get("label", "")).strip()
     if not label:
         return False
-    if label.endswith((".py", ".js", ".ts", ".tsx", ".java", ".go", ".rs")):
+    if label.endswith((".py", ".js", ".ts", ".tsx", ".java", ".go", ".rs", ".nix")):
         return False
     return bool(normalise_callable_label(label))
 
