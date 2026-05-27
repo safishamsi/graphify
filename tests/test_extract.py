@@ -1022,3 +1022,41 @@ def test_pure_export_no_from_not_treated_as_reexport():
         result = extract_js(Path(f.name))
     reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
     assert reexports == [], f"Pure export should not create re_exports: {reexports}"
+
+
+def test_dart_child_node_ids_are_stem_based(tmp_path):
+    """Dart child node IDs must be built from _file_stem rather than absolute path."""
+    from graphify.extract import extract_dart, _file_stem, _make_id
+
+    src_file = tmp_path / "mydir" / "sample.dart"
+    src_file.parent.mkdir(parents=True, exist_ok=True)
+    src_file.write_bytes(b"class MyClass {}\nvoid myFunc() {}\n")
+
+    result = extract_dart(src_file)
+
+    stem = _file_stem(src_file)  # -> "mydir.sample"
+    expected_class_nid = _make_id(stem, "MyClass")   # -> "mydir_sample_myclass"
+    expected_func_nid  = _make_id(stem, "myFunc")    # -> "mydir_sample_myfunc"
+
+    node_ids = {n["id"] for n in result["nodes"]}
+
+    assert expected_class_nid in node_ids, (
+        f"Class node ID '{expected_class_nid}' not found in {node_ids}. "
+        "extract_dart may still be using str(path) instead of _file_stem(path)."
+    )
+    assert expected_func_nid in node_ids, (
+        f"Function node ID '{expected_func_nid}' not found in {node_ids}. "
+        "extract_dart may still be using str(path) instead of _file_stem(path)."
+    )
+
+    # Sanity-check: no child node ID should contain any path separator fragment.
+    file_nid = next(n["id"] for n in result["nodes"] if n.get("label") == src_file.name)
+    for node in result["nodes"]:
+        if node["id"] == file_nid:
+            continue
+        assert "_" + stem.replace(".", "_") in node["id"] or node["id"].startswith(stem.replace(".", "_")), (
+            f"Child node ID '{node['id']}' does not start with the expected stem prefix '{stem}'. "
+            "This suggests an absolute path is still leaking into the ID."
+        )
+
+

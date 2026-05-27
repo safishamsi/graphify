@@ -137,6 +137,7 @@ for example `graphify claude install --project` or `graphify codex install --pro
 | Kiro IDE/CLI | `graphify kiro install` |
 | Pi coding agent | `graphify install --platform pi` |
 | Cursor | `graphify cursor install` |
+| Devin CLI | `graphify devin install` |
 | Google Antigravity | `graphify antigravity install` |
 
 > Codex users: also add `multi_agent = true` under `[features]` in `~/.codex/config.toml`.
@@ -161,6 +162,7 @@ Install only what you need:
 | `gemini` | Google Gemini API | `pip install "graphifyy[gemini]"` |
 | `bedrock` | AWS Bedrock (uses IAM, no API key) | `pip install "graphifyy[bedrock]"` |
 | `sql` | SQL schema extraction | `pip install "graphifyy[sql]"` |
+| `chinese` | Chinese query segmentation (jieba) | `pip install "graphifyy[chinese]"` |
 | `all` | Everything above | `pip install "graphifyy[all]"` |
 
 ---
@@ -187,6 +189,7 @@ Run this once in your project after building a graph:
 | Kimi Code | `graphify install --platform kimi` |
 | Kiro IDE/CLI | `graphify kiro install` |
 | Pi coding agent | `graphify pi install` |
+| Devin CLI | `graphify devin install` |
 | Google Antigravity | `graphify antigravity install` |
 
 This writes a small config file that tells your assistant to consult the knowledge graph for codebase questions — preferring scoped queries like `graphify query "<question>"` over reading the full report or grepping raw files. On platforms that support payload-bearing hooks (Claude Code, Gemini CLI), a hook fires automatically before search-style tool calls and nudges your assistant toward the graph path. On the others (Codex, OpenCode, Cursor, etc.), the persistent instruction files (`AGENTS.md`, `.cursor/rules/`, etc.) provide the same query-first guidance. `GRAPH_REPORT.md` is still available for broad architecture review.
@@ -209,7 +212,8 @@ To remove graphify from all platforms at once: `graphify uninstall` (add `--purg
 
 | Type | Extensions |
 |------|-----------|
-| Code (31 languages) | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .h .hpp .rb .cs .kt .scala .php .swift .lua .luau .zig .ps1 .ex .exs .m .mm .jl .vue .svelte .astro .groovy .gradle .dart .v .sv .sql .f .f90 .f95 .f03 .f08 .pas .pp .dpr .dpk .lpr .inc .dfm .lfm .lpk .sh .bash .json` |
+| Code (32 languages) | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .h .hpp .rb .cs .kt .scala .php .swift .lua .luau .zig .ps1 .ex .exs .m .mm .jl .vue .svelte .astro .groovy .gradle .dart .v .sv .sql .f .f90 .f95 .f03 .f08 .pas .pp .dpr .dpk .lpr .inc .dfm .lfm .lpk .sh .bash .json .sln .csproj .fsproj .vbproj .razor .cshtml` |
+| MCP configs | `.mcp.json` `mcp.json` `mcp_servers.json` `claude_desktop_config.json` — extracts server nodes, package refs, env var requirements |
 | Docs | `.md .mdx .qmd .html .txt .rst .yaml .yml` |
 | Office | `.docx .xlsx` (requires `pip install graphifyy[office]`) |
 | Google Workspace | `.gdoc .gsheet .gslides` (opt-in; requires `gws` auth and `--google-workspace`; Sheets need `pip install graphifyy[google]`) |
@@ -466,6 +470,7 @@ graphify trae install / uninstall
 graphify trae-cn install / uninstall
 graphify hermes install / uninstall
 graphify kiro install / uninstall
+graphify devin install / uninstall
 graphify antigravity install / uninstall
 
 graphify extract ./docs                        # headless LLM extraction for CI (no IDE needed)

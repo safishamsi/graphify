@@ -80,9 +80,23 @@ def test_score_nodes_source_file_partial():
     assert "n2" in nids
 
 
-def test_query_terms_filters_only_short_english_terms():
+def test_query_terms_filters_only_short_english_terms(monkeypatch):
+    import graphify.serve as serve_mod
+
+    class FakeJieba:
+        def cut(self, text):
+            return {
+                "前端": ["前端"],
+                "依赖": ["依赖"],
+                "安装": ["安装"],
+                "包管理器": ["包", "管理器"],
+                "项目约定": ["项目", "约定"],
+                "a前": ["a", "前"],
+            }[text]
+
+    monkeypatch.setattr(serve_mod, "_jieba", FakeJieba())
     terms = _query_terms("前端 dependency 依赖 install 安装 to of 包管理器 项目约定 a前")
-    assert terms == ["前端", "dependency", "依赖", "install", "安装", "包管理器", "项目约定", "a前"]
+    assert terms == ["前端", "dependency", "依赖", "install", "安装", "包", "管理器", "包管理器", "项目", "约定", "项目约定", "前", "a前"]
 
 
 def test_query_graph_text_keeps_short_non_english_terms():
@@ -441,3 +455,71 @@ def test_query_graph_text_context_filter_aliases_resolve():
     # Pass-through for already-canonical values
     assert _normalize_context_filters(["parameter_type"]) == ["parameter_type"]
     assert _normalize_context_filters(["field"]) == ["field"]
+
+
+# --- Chinese segmentation ---
+
+def test_query_terms_chinese_segments_with_cached_jieba(monkeypatch):
+    """Chinese text should use the cached jieba module and keep the original term."""
+    import graphify.serve as serve_mod
+
+    class FakeJieba:
+        def cut(self, text):
+            assert text == "页面路由"
+            return ["页面", "路由"]
+
+    monkeypatch.setattr(serve_mod, "_jieba", FakeJieba())
+    terms = _query_terms("页面路由")
+    assert terms == ["页面", "路由", "页面路由"]
+
+
+def test_query_terms_chinese_mixed():
+    """Mixed Chinese and English text should be handled correctly."""
+    terms = _query_terms("前端 router 路由配置")
+    assert "前端" in terms
+    assert "router" in terms
+    assert "路由" in terms
+    assert "配置" in terms
+
+
+def test_query_terms_non_chinese_scripts_are_not_segmented():
+    """Japanese kana and Hangul are kept as terms but not segmented as Chinese."""
+    import graphify.serve as serve_mod
+
+    assert not serve_mod._has_chinese("かなカナ한글")
+    assert serve_mod._query_terms("かなカナ한글") == ["かなカナ한글"]
+
+
+def test_query_terms_chinese_no_jieba_fallback(monkeypatch):
+    """When jieba is not installed, fallback to character bigrams."""
+    import graphify.serve as serve_mod
+
+    monkeypatch.setattr(serve_mod, "_jieba", None)
+    terms = serve_mod._query_terms("页面路由")
+    # bigram fallback: ["页面", "面路", "路由"] + original "页面路由"
+    assert "页面" in terms
+    assert "路由" in terms
+    assert "页面路由" in terms
+    assert len(terms) == 4
+
+
+def test_score_nodes_chinese_substring_match():
+    """Searching for '路由' should match a node with label containing '路由'."""
+    G = nx.Graph()
+    G.add_node("n1", label="路由桥接核对表", source_file="doc.md", community=0)
+    G.add_node("n2", label="其他内容", source_file="doc.md", community=0)
+    scored = _score_nodes(G, ["路由"])
+    nids = [nid for _, nid in scored]
+    assert "n1" in nids
+    assert "n2" not in nids
+
+
+def test_query_text_chinese_finds_routing_nodes():
+    """Full pipeline: '页面路由' should find nodes with '路由' in label."""
+    G = nx.Graph()
+    G.add_node("parent", label="页面路由规范", source_file="doc.md", source_location="L1", community=0)
+    G.add_node("child", label="路由桥接核对表", source_file="doc.md", source_location="L10", community=0)
+    G.add_edge("parent", "child", relation="contains", confidence="EXTRACTED")
+    text = _query_graph_text(G, "页面路由", mode="bfs", depth=2)
+    assert "No matching nodes found." not in text
+    assert "路由" in text

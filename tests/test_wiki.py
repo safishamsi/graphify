@@ -197,3 +197,16 @@ def test_to_wiki_stale_nodes_prints_warning(tmp_path, capsys):
     err = capsys.readouterr().err
     assert "2" in err  # dropped count
     assert "stale" in err.lower()
+
+
+def test_community_article_handles_null_source_file(tmp_path):
+    """source_file=None on a node must not crash sorted() with TypeError (#1016)."""
+    G = nx.Graph()
+    G.add_node("n1", label="parse", file_type="code", source_file=None, community=0)
+    G.add_node("n2", label="validate", file_type="code", source_file="parser.py", community=0)
+    G.add_edge("n1", "n2", relation="calls", confidence="EXTRACTED", weight=1.0)
+    communities = {0: ["n1", "n2"]}
+    labels = {0: "Parsing Layer"}
+    # Must not raise TypeError
+    to_wiki(G, communities, tmp_path, community_labels=labels)
+    assert (tmp_path / "index.md").exists()

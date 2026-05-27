@@ -77,6 +77,11 @@ def _platform_skill_destination(platform_name: str, *, project: bool = False, pr
             return Path.home() / ".agents" / "skills" / "graphify" / "SKILL.md"
         return Path.home() / ".gemini" / "skills" / "graphify" / "SKILL.md"
 
+    if platform_name == "devin":
+        if project:
+            return (project_dir or Path(".")) / ".devin" / "skills" / "graphify" / "SKILL.md"
+        return Path.home() / ".config" / "devin" / "skills" / "graphify" / "SKILL.md"
+
     cfg = _PLATFORM_CONFIG[platform_name]
     if project:
         return (project_dir or Path(".")) / cfg["skill_dst"]
@@ -282,6 +287,13 @@ _PLATFORM_CONFIG: dict[str, dict] = {
     "kimi": {
         "skill_file": "skill.md",
         "skill_dst": Path(".kimi") / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
+    "devin": {
+        "skill_file": "skill-devin.md",
+        # User scope: ~/.config/devin/skills/graphify/SKILL.md
+        # Project scope: .devin/skills/graphify/SKILL.md (overridden in _platform_skill_destination)
+        "skill_dst": Path(".config") / "devin" / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
 }
@@ -854,6 +866,43 @@ def _cursor_uninstall(project_dir: Path) -> None:
     print(f"graphify Cursor rule removed from {rule_path.resolve()}")
 
 
+# Devin CLI — .windsurf/rules/graphify.md (always-on context)
+# Devin reads .windsurf/rules/*.md files the same way Windsurf IDE does.
+_DEVIN_RULES_PATH = Path(".windsurf") / "rules" / "graphify.md"
+_DEVIN_RULES = """\
+## graphify
+
+This project has a graphify knowledge graph at graphify-out/.
+
+Rules:
+- For codebase or architecture questions, when `graphify-out/graph.json` exists, first run `graphify query "<question>"` (or `graphify path "<A>" "<B>"` / `graphify explain "<concept>"`). These return a scoped subgraph, usually much smaller than `GRAPH_REPORT.md` or raw grep output.
+- If graphify-out/wiki/index.md exists, navigate it instead of reading raw files
+- Read graphify-out/GRAPH_REPORT.md only for broad architecture review or when query/path/explain do not surface enough context
+- After modifying code files in this session, run `graphify update .` to keep the graph current (AST-only, no API cost)
+"""
+
+
+def _devin_rules_install(project_dir: Path) -> None:
+    """Write .windsurf/rules/graphify.md for always-on Devin context."""
+    rules_path = (project_dir or Path(".")) / _DEVIN_RULES_PATH
+    rules_path.parent.mkdir(parents=True, exist_ok=True)
+    if rules_path.exists() and rules_path.read_text(encoding="utf-8") == _DEVIN_RULES:
+        print(f"  {rules_path}  ->  already configured (no change)")
+        return
+    action = "updated" if rules_path.exists() else "written"
+    rules_path.write_text(_DEVIN_RULES, encoding="utf-8")
+    print(f"  rules {action}  ->  {rules_path}")
+
+
+def _devin_rules_uninstall(project_dir: Path) -> None:
+    """Remove .windsurf/rules/graphify.md."""
+    rules_path = (project_dir or Path(".")) / _DEVIN_RULES_PATH
+    if not rules_path.exists():
+        return
+    rules_path.unlink()
+    print(f"  rules removed  ->  {rules_path}")
+
+
 # OpenCode tool.execute.before plugin — fires before every tool call.
 # Injects a graph reminder into bash command output when graph.json exists.
 _OPENCODE_PLUGIN_JS = """\
@@ -1080,6 +1129,10 @@ def _project_install(platform_name: str, project_dir: Path | None = None) -> Non
         elif platform_name == "codex":
             hint_paths.append(project_dir / ".codex")
         _print_project_git_add_hint(hint_paths)
+    elif platform_name == "devin":
+        skill_dst = _copy_skill_file("devin", project=True, project_dir=project_dir)
+        _devin_rules_install(project_dir)
+        _print_project_git_add_hint([_project_scope_root(skill_dst, project_dir), project_dir / ".windsurf"])
     elif platform_name in ("copilot", "pi", "antigravity", "kimi"):
         skill_dst = _copy_skill_file(platform_name, project=True, project_dir=project_dir)
         _print_project_git_add_hint([_project_scope_root(skill_dst, project_dir)])
@@ -1107,6 +1160,11 @@ def _project_uninstall(platform_name: str, project_dir: Path | None = None) -> N
             _uninstall_codex_hook(project_dir)
     elif platform_name == "antigravity":
         _antigravity_uninstall(project_dir)
+    elif platform_name == "devin":
+        removed = _remove_skill_file("devin", project=True, project_dir=project_dir)
+        _devin_rules_uninstall(project_dir)
+        if not removed:
+            print("nothing to remove")
     elif platform_name in ("copilot", "pi", "kimi"):
         removed = _remove_skill_file(platform_name, project=True, project_dir=project_dir)
         if not removed:
@@ -1366,7 +1424,7 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
-        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi|devin)")
         print("  uninstall               remove graphify from all detected platforms in one shot")
         print("    --purge                 also delete graphify-out/ directory")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
@@ -1478,6 +1536,8 @@ def main() -> None:
         print("  kiro uninstall          remove skill + steering file")
         print("  pi install              write skill to ~/.pi/agent/skills/graphify/ (Pi coding agent)")
         print("  pi uninstall            remove skill from ~/.pi/agent/skills/graphify/")
+        print("  devin install           write skill to ~/.config/devin/skills/graphify/ (Devin CLI)")
+        print("  devin uninstall         remove skill from ~/.config/devin/skills/graphify/")
         print()
         return
 
@@ -1637,6 +1697,22 @@ def main() -> None:
             _kiro_uninstall(Path("."))
         else:
             print("Usage: graphify kiro [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
+    elif cmd == "devin":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        if subcmd == "install":
+            if "--project" in sys.argv[3:]:
+                _project_install("devin", Path("."))
+            else:
+                install(platform="devin")
+        elif subcmd == "uninstall":
+            if "--project" in sys.argv[3:]:
+                _project_uninstall("devin", Path("."))
+            else:
+                removed = _remove_skill_file("devin")
+                print("skill removed" if removed else "nothing to remove")
+        else:
+            print("Usage: graphify devin [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd == "pi":
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
@@ -2162,7 +2238,7 @@ def main() -> None:
             sys.exit(1)
         from networkx.readwrite import json_graph as _jg
         from graphify.build import build_from_json
-        from graphify.cluster import cluster, score_all
+        from graphify.cluster import cluster, score_all, remap_communities_to_previous
         from graphify.analyze import god_nodes, surprising_connections, suggest_questions
         from graphify.report import generate
         from graphify.export import to_json, to_html
@@ -2174,6 +2250,18 @@ def main() -> None:
         print(f"Graph: {G.number_of_nodes()} nodes, {G.number_of_edges()} edges")
         print("Re-clustering...")
         communities = cluster(G, resolution=co_resolution, exclude_hubs_percentile=co_exclude_hubs)
+        # Mirror the watch/update path (#822): map new cids to prior ones by
+        # node-overlap so the existing .graphify_labels.json keeps attaching
+        # to the same conceptual community after re-clustering. Without this,
+        # labels follow raw cid index and become misaligned whenever the
+        # graph has changed between labeling and cluster-only (#1027).
+        previous_node_community = {
+            n["id"]: n["community"]
+            for n in _raw.get("nodes", [])
+            if n.get("community") is not None and n.get("id") is not None
+        }
+        if previous_node_community:
+            communities = remap_communities_to_previous(communities, previous_node_community)
         cohesion = score_all(G, communities)
         gods = god_nodes(G)
         surprises = surprising_connections(G, communities)

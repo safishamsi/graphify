@@ -337,7 +337,21 @@ def build_merge(
 
     # Prune nodes and edges from deleted source files
     if prune_sources:
-        prune_set = set(prune_sources)
+        # Build a set containing both the raw form (matches nodes that kept
+        # absolute source_file) and the normalised relative form (matches nodes
+        # that were relativised by _norm_source_file at build time).
+        # .resolve() handles symlinked roots and redundant ".." / "./" segments
+        # so Path.relative_to() succeeds even when the scan root is a symlink.
+        # (#1007: manifest absolute paths vs graph relative source_file mismatch)
+        _root_str = str(Path(root).resolve()) if root is not None else None
+        prune_set: set[str] = set()
+        for p in prune_sources:
+            if not p:
+                continue
+            prune_set.add(p)
+            norm = _norm_source_file(p, _root_str)
+            if norm:
+                prune_set.add(norm)
         to_remove = [
             n for n, d in G.nodes(data=True)
             if d.get("source_file") in prune_set

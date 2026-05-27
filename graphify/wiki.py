@@ -54,7 +54,7 @@ def _community_article(
             conf_counts[ed.get("confidence", "EXTRACTED")] += 1
     total_edges = sum(conf_counts.values()) or 1
 
-    sources = sorted({G.nodes[n].get("source_file", "") for n in nodes} - {""})
+    sources = sorted({G.nodes[n].get("source_file") or "" for n in nodes} - {""})
 
     lines: list[str] = []
     lines += [f"# {label}", ""]

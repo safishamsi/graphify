@@ -334,6 +334,32 @@ def test_tsconfig_alias_import_resolves_existing_ts_file(tmp_path: Path):
     assert _has_edge(result, "src/routes/page.ts", "src/lib/types/type-helpers.ts")
 
 
+def test_tsconfig_array_extends_alias_resolves_existing_ts_file(tmp_path: Path):
+    # TypeScript 5.0 allows `extends` as an array; later entries override
+    # earlier ones. The `paths` alias is inherited from the second parent.
+    # Regression: an array `extends` previously raised
+    # `AttributeError: 'list' object has no attribute 'startswith'`, which
+    # _safe_extract turned into a skip of every file using the alias.
+    _write(tmp_path / "tsconfig.base.json", json.dumps({"compilerOptions": {"strict": True}}))
+    _write(
+        tmp_path / "tsconfig.paths.json",
+        json.dumps({"compilerOptions": {"baseUrl": ".", "paths": {"$lib/*": ["src/lib/*"]}}}),
+    )
+    _write(
+        tmp_path / "tsconfig.json",
+        json.dumps({"extends": ["./tsconfig.base.json", "./tsconfig.paths.json"]}),
+    )
+    target = _write(tmp_path / "src/lib/types/type-helpers.ts", "export type Helper = string\n")
+    importer = _write(
+        tmp_path / "src/routes/page.ts",
+        "import type { Helper } from '$lib/types/type-helpers'\nconst value: Helper = 'x'\n",
+    )
+
+    result = _extract_for([target, importer], tmp_path)
+
+    assert _has_edge(result, "src/routes/page.ts", "src/lib/types/type-helpers.ts")
+
+
 def test_pnpm_workspace_package_import_resolves_package_entry(tmp_path: Path):
     _write(
         tmp_path / "pnpm-workspace.yaml",

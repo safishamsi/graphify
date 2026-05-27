@@ -657,6 +657,19 @@ def test_detect_skips_worktrees_dir(tmp_path):
     assert not any(".worktrees" in f for f in code)
 
 
+def test_detect_skips_nested_worktrees_dir(tmp_path):
+    """Files inside .claude/worktrees/ (nested placement) are never indexed (#1023)."""
+    wt = tmp_path / ".claude" / "worktrees" / "feature-branch"
+    wt.mkdir(parents=True)
+    (wt / "main.py").write_text("x = 1")
+    (tmp_path / "app.py").write_text("y = 2")
+
+    result = detect(tmp_path)
+    code = result["files"]["code"]
+    assert any("app.py" in f for f in code)
+    assert not any("worktrees" in f for f in code)
+
+
 def test_detect_extra_excludes_pattern(tmp_path):
     """extra_excludes patterns exclude matching files from detect() (#947)."""
     (tmp_path / "main.py").write_text("x = 1")

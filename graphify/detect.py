@@ -25,7 +25,7 @@ class FileType(str, Enum):
 
 _MANIFEST_PATH = "graphify-out/manifest.json"
 
-CODE_EXTENSIONS = {'.py', '.ts', '.tsx', '.js', '.jsx', '.mjs', '.ejs', '.ets', '.go', '.rs', '.java', '.groovy', '.gradle', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.luau', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.astro', '.dart', '.v', '.sv', '.sql', '.r', '.f', '.F', '.f90', '.F90', '.f95', '.F95', '.f03', '.F03', '.f08', '.F08', '.pas', '.pp', '.dpr', '.dpk', '.lpr', '.inc', '.dfm', '.lfm', '.lpk', '.sh', '.bash', '.json', '.dm', '.dme', '.dmi', '.dmm', '.dmf'}
+CODE_EXTENSIONS = {'.py', '.ts', '.tsx', '.js', '.jsx', '.mjs', '.ejs', '.ets', '.go', '.rs', '.java', '.groovy', '.gradle', '.cpp', '.cc', '.cxx', '.c', '.h', '.hpp', '.rb', '.swift', '.kt', '.kts', '.cs', '.scala', '.php', '.lua', '.luau', '.toc', '.zig', '.ps1', '.ex', '.exs', '.m', '.mm', '.jl', '.vue', '.svelte', '.astro', '.dart', '.v', '.sv', '.sql', '.r', '.f', '.F', '.f90', '.F90', '.f95', '.F95', '.f03', '.F03', '.f08', '.F08', '.pas', '.pp', '.dpr', '.dpk', '.lpr', '.inc', '.dfm', '.lfm', '.lpk', '.sh', '.bash', '.json', '.dm', '.dme', '.dmi', '.dmm', '.dmf', '.sln', '.csproj', '.fsproj', '.vbproj', '.razor', '.cshtml'}
 DOC_EXTENSIONS = {'.md', '.mdx', '.qmd', '.txt', '.rst', '.html', '.yaml', '.yml'}
 PAPER_EXTENSIONS = {'.pdf'}
 IMAGE_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg'}
@@ -563,7 +563,7 @@ _SKIP_FILES = {
     "composer.lock", "go.sum", "go.work.sum",
 }
 
-def _is_noise_dir(part: str) -> bool:
+def _is_noise_dir(part: str, parent: "Path | None" = None) -> bool:
     """Return True if this directory name looks like a venv, cache, or dep dir."""
     if part in _SKIP_DIRS:
         return True
@@ -571,6 +571,9 @@ def _is_noise_dir(part: str) -> bool:
     if part.endswith("_venv") or part.endswith("_env"):
         return True
     if part.endswith(".egg-info"):
+        return True
+    # worktrees/ nested inside a dotted dir (e.g. .claude/worktrees/, .git/worktrees/)
+    if part == "worktrees" and parent is not None and parent.name.startswith("."):
         return True
     return False
 
@@ -912,7 +915,7 @@ def detect(root: Path, *, follow_symlinks: bool | None = None, google_workspace:
                 has_negation = any(p.startswith("!") for _, p in ignore_patterns)
                 dirnames[:] = [
                     d for d in dirnames
-                    if not _is_noise_dir(d)
+                    if not _is_noise_dir(d, dp)
                     and (has_negation or not _is_ignored(dp / d, root, ignore_patterns))
                 ]
             for fname in filenames:
