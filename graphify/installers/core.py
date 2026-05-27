@@ -74,6 +74,11 @@ _PLATFORM_CONFIG: dict[str, dict] = {
         "skill_dst": Path(".pi") / "agent" / "skills" / "graphify" / "SKILL.md",
         "claude_md": False,
     },
+    "devin": {
+        "skill_file": "skill-devin.md",
+        "skill_dst": Path(".config") / "devin" / "skills" / "graphify" / "SKILL.md",
+        "claude_md": False,
+    },
     "antigravity": {
         "skill_file": "skill.md",
         "skill_dst": Path(".agents") / "skills" / "graphify" / "SKILL.md",
@@ -126,6 +131,8 @@ def _refresh_all_version_stamps() -> None:
             vf.write_text(__version__, encoding="utf-8")
 
 def _platform_skill_destination(platform_name: str, *, project: bool = False, project_dir: Path | None = None) -> Path:
+    if platform_name == "devin" and project:
+        return (project_dir or Path(".")) / ".devin" / "skills" / "graphify" / "SKILL.md"
     if platform_name == "gemini":
         if project:
             return (project_dir or Path(".")) / ".gemini" / "skills" / "graphify" / "SKILL.md"
@@ -141,8 +148,8 @@ def _platform_skill_destination(platform_name: str, *, project: bool = False, pr
 
 def _copy_skill_file(platform_name: str, *, project: bool = False, project_dir: Path | None = None) -> Path:
     skill_file = "skill.md" if platform_name == "gemini" else _PLATFORM_CONFIG[platform_name]["skill_file"]
-    # Skill markdown files live at the graphify package root (graphify/skill.md etc.)
-    skill_src = Path(__file__).parent.parent / skill_file
+    # Skill markdown files live at the graphify/skills package directory
+    skill_src = Path(__file__).parent.parent / "skills" / skill_file
     if not skill_src.exists():
         print(f"error: {skill_file} not found in package - reinstall graphify", file=sys.stderr)
         sys.exit(1)

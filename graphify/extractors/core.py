@@ -2462,3 +2462,12 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
 
 def _hack_export(): pass
 __all__ = ['_RECURSION_LIMIT', '_raise_recursion_limit', '_safe_extract', '_make_id', '_file_stem', '_JS_CACHE_BYPASS_SUFFIXES', '_JS_RESOLVE_EXTS', '_JS_INDEX_FILES', 'SEMANTIC_RELATIONS', 'REFERENCE_CONTEXTS', '_source_location', '_semantic_reference_edge', '_resolve_js_import_path', '_strip_jsonc', '_read_tsconfig_aliases', '_load_tsconfig_aliases', '_find_workspace_root', '_workspace_globs', '_load_workspace_packages', '_package_entry_candidates', '_resolve_workspace_import', '_resolve_js_module_path', 'LanguageConfig', '_read_text', '_PYTHON_TYPE_CONTAINERS', '_python_collect_type_refs', '_csharp_pre_scan_interfaces', '_csharp_classify_base', '_csharp_collect_type_refs', '_csharp_attribute_names', '_java_collect_type_refs', '_java_method_annotation_names', '_python_collect_param_refs', '_resolve_name', '_find_body', '_import_python', '_resolve_js_import_target', '_import_js', '_dynamic_import_js', '_import_java', '_resolve_c_include_path', '_import_c', '_import_csharp', '_import_kotlin', '_import_scala', '_import_php', '_get_c_func_name', '_get_cpp_func_name', '_find_require_call', '_require_imports_js', '_js_extra_walk', '_csharp_extra_walk', '_swift_extra_walk', '_PYTHON_CONFIG', '_JS_CONFIG', '_TS_CONFIG', '_TSX_CONFIG', '_JAVA_CONFIG', '_GROOVY_CONFIG', '_C_CONFIG', '_CPP_CONFIG', '_RUBY_CONFIG', '_CSHARP_CONFIG', '_KOTLIN_CONFIG', '_SCALA_CONFIG', '_PHP_CONFIG', '_import_lua', '_LUA_CONFIG', '_import_swift', '_read_csharp_type_name', '_SWIFT_CONFIG', '_extract_generic']
+
+# Real .csproj/.fsproj/.vbproj/.lpk files are well under 2 MiB; anything
+# larger is either malformed or hostile.
+_PROJECT_XML_MAX_BYTES = 2 * 1024 * 1024
+
+def _project_xml_is_safe(src: bytes) -> bool:
+    """Reject XML that declares DTDs or entities."""
+    lowered = src.lower()
+    return b"<!doctype" not in lowered and b"<!entity" not in lowered

@@ -817,10 +817,26 @@ def extract_lazarus_package(path: Path) -> dict:
     - package --contains--> listed unit
     """
     try:
-        import xml.etree.ElementTree as ET
-        text = path.read_text(encoding="utf-8", errors="replace")
-        xml_root = ET.fromstring(text)
+        from defusedxml.ElementTree import fromstring as _xml_fromstring
+        from defusedxml.ElementTree import ParseError as _xml_ParseError
+    except ImportError:
+        from xml.etree.ElementTree import fromstring as _xml_fromstring
+        from xml.etree.ElementTree import ParseError as _xml_ParseError
+
+    try:
+        src = path.read_bytes()
     except Exception as e:
+        return {"nodes": [], "edges": [], "error": str(e)}
+
+    from graphify.extractors.core import _PROJECT_XML_MAX_BYTES, _project_xml_is_safe
+    if len(src) > _PROJECT_XML_MAX_BYTES:
+        return {"nodes": [], "edges": [], "error": "package file too large"}
+    if not _project_xml_is_safe(src):
+        return {"nodes": [], "edges": [], "error": "refusing XML with DOCTYPE/ENTITY declaration"}
+
+    try:
+        xml_root = _xml_fromstring(src)
+    except _xml_ParseError as e:
         return {"nodes": [], "edges": [], "error": str(e)}
 
     str_path = str(path)

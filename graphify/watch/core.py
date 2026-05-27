@@ -140,7 +140,7 @@ def _relativize_source_files(payload: dict, root: Path) -> None:
             if not source_path.is_absolute():
                 continue
             try:
-                item["source_file"] = str(source_path.resolve().relative_to(root))
+                item["source_file"] = source_path.resolve().relative_to(root).as_posix()
             except ValueError:
                 continue
 
@@ -378,9 +378,9 @@ def _rebuild_code(
                     # (e.g. .gitignore, vendored). Either way, evict any
                     # preserved nodes that still claim this source path.
                     try:
-                        deleted_paths.add(str(cand.relative_to(project_root)))
+                        deleted_paths.add(cand.relative_to(project_root).as_posix())
                     except ValueError:
-                        deleted_paths.add(str(cand))
+                        deleted_paths.add(cand.as_posix())
             if not wanted and not deleted_paths:
                 print("[graphify watch] No tracked code files in change set - skipping rebuild.")
                 return True
@@ -410,13 +410,14 @@ def _rebuild_code(
                 existing = json.loads(existing_graph.read_text(encoding="utf-8"))
                 existing_graph_data = existing
                 new_ast_ids = {n["id"] for n in result["nodes"]}
+                _relativize_source_files(existing, project_root)
                 evict_sources: set[str] = set(deleted_paths)
                 if changed_paths is not None:
                     for p in extract_targets:
                         try:
-                            evict_sources.add(str(p.relative_to(project_root)))
+                            evict_sources.add(p.relative_to(project_root).as_posix())
                         except ValueError:
-                            evict_sources.add(str(p))
+                            evict_sources.add(p.as_posix())
                 preserved_nodes = [
                     n for n in existing.get("nodes", [])
                     if n["id"] not in new_ast_ids

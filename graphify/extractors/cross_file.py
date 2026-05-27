@@ -643,7 +643,13 @@ def _ts_walk_class_members(class_node, source: bytes, path: Path, class_nid: str
     """Emit type-relation and type-reference use facts for a class declaration node."""
     class_node.start_point[0] + 1
     for child in class_node.children:
-        if child.type == "class_heritage":
+        if child.type == "extends_type_clause":
+            for name in _ts_heritage_clause_entries(child, source):
+                facts.uses.append(
+                    _SymbolUseFact(path, class_nid, name, "inherits", "type",
+                                   child.start_point[0] + 1)
+                )
+        elif child.type == "class_heritage":
             for clause in child.children:
                 if clause.type == "extends_clause":
                     for name in _ts_heritage_clause_entries(clause, source):

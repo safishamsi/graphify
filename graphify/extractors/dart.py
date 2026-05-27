@@ -10,6 +10,8 @@ def extract_dart(path: Path) -> dict:
     except OSError:
         return {"error": f"cannot read {path}"}
 
+    # Use stem (not str(path)) for child IDs to keep them machine-independent.
+    stem = _file_stem(path)
     file_nid = _make_id(str(path))
     nodes = [{"id": file_nid, "label": path.name, "file_type": "code",
               "source_file": str(path), "source_location": None}]
@@ -18,7 +20,7 @@ def extract_dart(path: Path) -> dict:
 
     # Classes and mixins
     for m in re.finditer(r"^\s*(?:abstract\s+)?(?:class|mixin)\s+(\w+)", src, re.MULTILINE):
-        nid = _make_id(str(path), m.group(1))
+        nid = _make_id(stem, m.group(1))
         if nid not in defined:
             nodes.append({"id": nid, "label": m.group(1), "file_type": "code",
                           "source_file": str(path), "source_location": None})
@@ -32,7 +34,7 @@ def extract_dart(path: Path) -> dict:
         name = m.group(1)
         if name in {"if", "for", "while", "switch", "catch", "return"}:
             continue
-        nid = _make_id(str(path), name)
+        nid = _make_id(stem, name)
         if nid not in defined:
             nodes.append({"id": nid, "label": name, "file_type": "code",
                           "source_file": str(path), "source_location": None})

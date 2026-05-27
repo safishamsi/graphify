@@ -95,14 +95,23 @@ _DISPATCH: dict[str, Any] = {
     ".lpk": extract_lazarus_package,
     ".sh": extract_bash,
     ".bash": extract_bash,
+    ".sln": extract_sln,
+    ".csproj": extract_csproj,
+    ".fsproj": extract_csproj,
+    ".vbproj": extract_csproj,
+    ".razor": extract_razor,
+    ".cshtml": extract_razor,
     ".json": extract_json,
 }
 
 
 def _get_extractor(path: Path) -> Any | None:
     """Return the correct extractor function for a file, or None if unsupported."""
+    from graphify.extractors.mcp import is_mcp_config_path, extract_mcp_config
     if path.name.endswith(".blade.php"):
         return extract_blade
+    if is_mcp_config_path(path):
+        return extract_mcp_config
     return _DISPATCH.get(path.suffix)
 
 

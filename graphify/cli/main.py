@@ -40,6 +40,8 @@ from graphify.installers import (
     _agents_uninstall,
     _antigravity_install,
     _antigravity_uninstall,
+    _devin_rules_install,
+    _devin_rules_uninstall,
 )
 from graphify.installers.core import _default_graph_path, _enforce_graph_size_cap_or_exit, _check_skill_version, _remove_skill_file
 
@@ -118,7 +120,7 @@ def main() -> None:
         print("Usage: graphify <command>")
         print()
         print("Commands:")
-        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi)")
+        print("  install [--platform P]  copy skill to platform config dir (claude|windows|codex|opencode|aider|claw|droid|trae|trae-cn|gemini|cursor|antigravity|hermes|kiro|pi|devin)")
         print("  uninstall               remove graphify from all detected platforms in one shot")
         print("    --purge                 also delete graphify-out/ directory")
         print("  path \"A\" \"B\"            shortest path between two nodes in graph.json")
@@ -228,6 +230,8 @@ def main() -> None:
         print("  hermes uninstall        remove skill from ~/.hermes/skills/graphify/")
         print("  kiro install            write skill to .kiro/skills/graphify/ + steering file (Kiro IDE/CLI)")
         print("  kiro uninstall          remove skill + steering file")
+        print("  devin install           write skill to ~/.config/devin/skills/graphify/ (Devin CLI)")
+        print("  devin uninstall         remove skill from ~/.config/devin/skills/graphify/")
         print("  pi install              write skill to ~/.pi/agent/skills/graphify/ (Pi coding agent)")
         print("  pi uninstall            remove skill from ~/.pi/agent/skills/graphify/")
         print()
@@ -404,6 +408,28 @@ def main() -> None:
                 _remove_skill_file("pi")
         else:
             print("Usage: graphify pi [install|uninstall]", file=sys.stderr)
+            sys.exit(1)
+    elif cmd == "devin":
+        subcmd = sys.argv[2] if len(sys.argv) > 2 else ""
+        project = "--project" in sys.argv
+        if subcmd == "install":
+            if project:
+                _project_install("devin", Path("."))
+                _devin_rules_install(Path("."))
+            else:
+                install(platform="devin")
+        elif subcmd == "uninstall":
+            if project:
+                _project_uninstall("devin", Path("."))
+                _devin_rules_uninstall(Path("."))
+            else:
+                removed = _remove_skill_file("devin")
+                if removed:
+                    print("  devin skill removed")
+                else:
+                    print("  devin skill not found")
+        else:
+            print("Usage: graphify devin [install|uninstall]", file=sys.stderr)
             sys.exit(1)
     elif cmd in ("aider", "codex", "opencode", "claw", "droid", "trae", "trae-cn", "hermes"):
         subcmd = sys.argv[2] if len(sys.argv) > 2 else ""

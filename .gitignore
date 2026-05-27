@@ -17,7 +17,7 @@ graphify-out/
 .graphify_*.json
 .graphify_python
 .claude/
-skills/
+/skills/
 docs/superpowers/
 .vscode/
 openspec/

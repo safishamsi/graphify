@@ -80,9 +80,25 @@ def test_score_nodes_source_file_partial():
     assert "n2" in nids
 
 
-def test_query_terms_filters_only_short_english_terms():
+def test_query_terms_filters_only_short_english_terms(monkeypatch):
+    from graphify.serve.search import _query_terms
+    import sys
+
+    class FakeJieba:
+        def cut(self, text):
+            return {
+                "前端": ["前端"],
+                "依赖": ["依赖"],
+                "安装": ["安装"],
+                "包管理器": ["包", "管理器"],
+                "项目约定": ["项目", "约定"],
+                "a前": ["a", "前"],
+            }[text]
+
+    sys.modules["graphify.serve.search"]._jieba = FakeJieba()
     terms = _query_terms("前端 dependency 依赖 install 安装 to of 包管理器 项目约定 a前")
-    assert terms == ["前端", "dependency", "依赖", "install", "安装", "包管理器", "项目约定", "a前"]
+    assert terms == ["前端", "dependency", "依赖", "install", "安装", "包", "管理器", "包管理器", "项目", "约定", "项目约定", "前", "a前"]
+    sys.modules["graphify.serve.search"]._jieba = None
 
 
 def test_query_graph_text_keeps_short_non_english_terms():
