@@ -10,6 +10,10 @@ from __future__ import annotations
 
 import hashlib
 import json as _json
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    import networkx as nx
 
 SCHEMA_KEY_FIELD = "key"
 
@@ -56,3 +60,32 @@ def strip_schema_key(attrs: dict) -> tuple[object | None, dict]:
     key_val = attrs.get(SCHEMA_KEY_FIELD)
     cleaned = {k: v for k, v in attrs.items() if k != SCHEMA_KEY_FIELD}
     return key_val, cleaned
+
+
+def remove_all_parallel_edges(
+    G: "nx.Graph",
+    u: object,
+    v: object,
+) -> int:
+    """Remove ALL edges between u and v, regardless of key count.
+
+    On MultiDiGraph, ``G.remove_edge(u, v)`` removes only one edge (first key).
+    This helper explicitly iterates keys to remove all parallel edges.
+
+    Returns the number of edges removed.  Does not raise if no edges exist
+    between u and v (returns 0).
+    """
+    import networkx as nx
+
+    if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)):
+        if not G.has_node(u) or not G.has_node(v):
+            return 0
+        keys = list(G[u][v].keys()) if G.has_edge(u, v) else []
+        for key in keys:
+            G.remove_edge(u, v, key=key)
+        return len(keys)
+    else:
+        if G.has_edge(u, v):
+            G.remove_edge(u, v)
+            return 1
+        return 0

@@ -38,13 +38,30 @@ from .validate import is_hashable, validate_extraction
 # emit. Keeps semantic intent close (markdown→document, tool→code) and falls
 # back to "concept" for any other invalid value (see #840).
 _LANG_FAMILY: dict[str, str] = {
-    ".py": "py", ".pyi": "py",
-    ".js": "js", ".mjs": "js", ".cjs": "js", ".jsx": "js",
-    ".ts": "js", ".tsx": "js",
-    ".go": "go", ".rs": "rs",
-    ".java": "jvm", ".kt": "jvm", ".scala": "jvm", ".groovy": "jvm",
-    ".c": "c", ".h": "c", ".cc": "cpp", ".cpp": "cpp", ".hpp": "cpp",
-    ".rb": "rb", ".php": "php", ".cs": "cs", ".swift": "swift", ".lua": "lua",
+    ".py": "py",
+    ".pyi": "py",
+    ".js": "js",
+    ".mjs": "js",
+    ".cjs": "js",
+    ".jsx": "js",
+    ".ts": "js",
+    ".tsx": "js",
+    ".go": "go",
+    ".rs": "rs",
+    ".java": "jvm",
+    ".kt": "jvm",
+    ".scala": "jvm",
+    ".groovy": "jvm",
+    ".c": "c",
+    ".h": "c",
+    ".cc": "cpp",
+    ".cpp": "cpp",
+    ".hpp": "cpp",
+    ".rb": "rb",
+    ".php": "php",
+    ".cs": "cs",
+    ".swift": "swift",
+    ".lua": "lua",
 }
 
 
@@ -107,7 +124,9 @@ def _stable_identity_component(value: object) -> str | None:
         # os.fspath can return bytes for bytes-flavored PathLike; coerce to str
         # so downstream json.dumps / hashing always sees text.
         fs_value = os.fspath(value)
-        return fs_value.decode("utf-8", errors="replace") if isinstance(fs_value, bytes) else fs_value
+        return (
+            fs_value.decode("utf-8", errors="replace") if isinstance(fs_value, bytes) else fs_value
+        )
     if isinstance(value, (set, frozenset)):
         return json.dumps(sorted(str(item) for item in value), ensure_ascii=False)
     try:
@@ -284,6 +303,7 @@ def build_from_json(
     multigraph_groups: dict[tuple[Hashable, Hashable, str], list[dict]] = {}
     multigraph_explicit_keys: set[tuple[Hashable, Hashable, str]] = set()
     multigraph_diagnostics = {"exact_duplicate_edges": 0, "key_collision_edges": 0}
+
     # Iterate edges in a deterministic order. The graph is undirected and stores
     # direction in _src/_tgt; when two edges collapse onto the same node pair the
     # last write wins, so an unstable iteration order flips _src/_tgt run-to-run
@@ -329,9 +349,7 @@ def build_from_json(
             continue  # skip edges to external/stdlib nodes - expected, not an error
         # Exclude legacy from/to alongside source/target so they don't survive
         # as ordinary edge attrs after legacy-shape remap above.
-        base_attrs = {
-            k: v for k, v in edge.items() if k not in ("source", "target", "from", "to")
-        }
+        base_attrs = {k: v for k, v in edge.items() if k not in ("source", "target", "from", "to")}
         raw_key, attrs = strip_schema_key(base_attrs)
         if "source_file" in attrs:
             attrs["source_file"] = _norm_source_file(
@@ -515,14 +533,21 @@ def build(
         combined["hyperedges"].extend(ext.get("hyperedges", []))
         combined["input_tokens"] += ext.get("input_tokens", 0)
         combined["output_tokens"] += ext.get("output_tokens", 0)
+    dedup_diagnostics: dict = {}
     if dedup and combined["nodes"]:
         combined["nodes"], combined["edges"] = deduplicate_entities(
             combined["nodes"],
             combined["edges"],
             communities={},
             dedup_llm_backend=dedup_llm_backend,
+            diagnostics=dedup_diagnostics,
         )
-    return build_from_json(combined, directed=directed, root=root, multigraph=multigraph)
+    G = build_from_json(combined, directed=directed, root=root, multigraph=multigraph)
+    if multigraph and dedup_diagnostics:
+        existing = G.graph.get("graphify_multigraph_diagnostics", {})
+        existing.update(dedup_diagnostics)
+        G.graph["graphify_multigraph_diagnostics"] = existing
+    return G
 
 
 def _norm_label(label: str) -> str:
@@ -615,8 +640,7 @@ def build_merge(
         data = json.loads(graph_path.read_text(encoding="utf-8"))
         if not isinstance(data, dict):
             raise TypeError(
-                f"saved graph.json at {graph_path} must be a JSON object, "
-                f"got {type(data).__name__}"
+                f"saved graph.json at {graph_path} must be a JSON object, got {type(data).__name__}"
             )
         # Refuse to silently collapse a saved multigraph. build() runs in
         # simple mode here, which would drop parallel edges; stateful
@@ -684,10 +708,7 @@ def build_merge(
             norm = _norm_source_file(p, _root_str)
             if norm:
                 prune_set.add(norm)
-        to_remove = [
-            n for n, d in G.nodes(data=True)
-            if d.get("source_file") in prune_set
-        ]
+        to_remove = [n for n, d in G.nodes(data=True) if d.get("source_file") in prune_set]
         G.remove_nodes_from(to_remove)
         n_files = len(prune_sources)
         n_nodes = len(to_remove)

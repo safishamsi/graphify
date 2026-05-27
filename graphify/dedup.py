@@ -3,17 +3,21 @@
 Pipeline: exact normalization → entropy gate → MinHash/LSH blocking →
 Jaro-Winkler verification → same-community boost → union-find merge.
 """
+
 from __future__ import annotations
+import json
 import math
 import re
 import unicodedata
 from collections import defaultdict
+from typing import Any
 
 from datasketch import MinHash, MinHashLSH
 from rapidfuzz.distance import JaroWinkler
 
 
 # ── helpers ───────────────────────────────────────────────────────────────────
+
 
 def _norm(label: str) -> str:
     """Lowercase + collapse non-alphanumeric runs to space (Unicode-aware)."""
@@ -80,6 +84,7 @@ def _short_label_blocked(a: str, b: str, jw_score: float) -> bool:
     if max(len(a), len(b)) >= 12:
         return False
     from rapidfuzz.distance import DamerauLevenshtein
+
     # Allow only same-length single-char substitutions (true typos like "Extractor"/"Extractar").
     # Block length-differing pairs regardless of score.
     if jw_score >= 97.0 and len(a) == len(b) and DamerauLevenshtein.distance(a, b) <= 1:
@@ -88,6 +93,7 @@ def _short_label_blocked(a: str, b: str, jw_score: float) -> bool:
 
 
 # ── union-find ────────────────────────────────────────────────────────────────
+
 
 class _UF:
     def __init__(self) -> None:
@@ -118,13 +124,14 @@ class _UF:
 
 _ENTROPY_THRESHOLD = 2.5
 _LSH_THRESHOLD = 0.7
-_MERGE_THRESHOLD = 92.0     # rapidfuzz normalized_similarity * 100
-_COMMUNITY_BOOST = 5.0      # score bonus when both nodes share community
+_MERGE_THRESHOLD = 92.0  # rapidfuzz normalized_similarity * 100
+_COMMUNITY_BOOST = 5.0  # score bonus when both nodes share community
 _NUM_PERM = 128
 _CHUNK_SUFFIX = re.compile(r"_c\d+$")
 
 
 # ── main entry point ──────────────────────────────────────────────────────────
+
 
 def deduplicate_entities(
     nodes: list[dict],
@@ -132,6 +139,7 @@ def deduplicate_entities(
     *,
     communities: dict[str, int],
     dedup_llm_backend: str | None = None,
+    diagnostics: dict | None = None,
 ) -> tuple[list[dict], list[dict]]:
     """Deduplicate near-identical entities in a knowledge graph.
 
@@ -147,7 +155,7 @@ def deduplicate_entities(
     # Guard: cross-project dedup is not supported — nodes from different repos
     # share label names by coincidence and must never be merged by string similarity.
     # If you need to dedup a global graph, run deduplicate_entities per-repo first.
-    repos_seen = {n.get("repo") for n in nodes if n.get("repo")}
+    repos_seen = {str(repo) for n in nodes if (repo := n.get("repo"))}
     if len(repos_seen) > 1:
         raise ValueError(
             f"deduplicate_entities: nodes span multiple repos {sorted(repos_seen)!r}. "
@@ -160,7 +168,7 @@ def deduplicate_entities(
     # Pre-deduplicate: keep first occurrence of each id
     seen_ids: dict[str, dict] = {}
     for node in nodes:
-        nid = node.get("id", "")
+        nid = str(node.get("id") or "")
         if nid and nid not in seen_ids:
             seen_ids[nid] = node
     unique_nodes = list(seen_ids.values())
@@ -190,7 +198,7 @@ def deduplicate_entities(
             if len(file_group) > 1:
                 winner = _pick_winner(file_group)
                 for node in file_group:
-                    uf.union(winner["id"], node["id"])
+                    uf.union(str(winner["id"]), str(node["id"]))
                 exact_merges += len(file_group) - 1
 
     # ── pass 2: MinHash/LSH + Jaro-Winkler (high-entropy nodes only) ─────────
@@ -211,18 +219,20 @@ def deduplicate_entities(
         for node in candidates:
             norm_label = _norm(node.get("label", node.get("id", "")))
             m = _make_minhash(norm_label)
-            minhashes[node["id"]] = m
+            node_id = str(node["id"])
+            minhashes[node_id] = m
             try:
-                lsh.insert(node["id"], m)
+                lsh.insert(node_id, m)
             except ValueError:
                 pass  # duplicate key in LSH — already inserted
 
         for node in candidates:
-            node_id = node["id"]
+            node_id = str(node["id"])
             norm_label = _norm(node.get("label", node.get("id", "")))
-            neighbors = lsh.query(minhashes[node_id])
+            neighbors: list[Any] = lsh.query(minhashes[node_id])
 
             for neighbor_id in neighbors:
+                neighbor_id = str(neighbor_id)
                 if neighbor_id == node_id:
                     continue
                 if uf.find(node_id) == uf.find(neighbor_id):
@@ -242,8 +252,12 @@ def deduplicate_entities(
 
                 c1 = communities.get(node_id)
                 c2 = communities.get(neighbor_id)
-                if (c1 is not None and c2 is not None and c1 == c2
-                        and min(len(norm_label), len(neighbor_norm)) >= 12):
+                if (
+                    c1 is not None
+                    and c2 is not None
+                    and c1 == c2
+                    and min(len(norm_label), len(neighbor_norm)) >= 12
+                ):
                     score += _COMMUNITY_BOOST
 
                 if score >= _MERGE_THRESHOLD:
@@ -256,11 +270,12 @@ def deduplicate_entities(
                         sf_b = neighbor.get("source_file") or ""
                         if sf_a != sf_b:
                             continue
-                    all_group = norm_to_nodes.get(norm_label, [node]) + \
-                                norm_to_nodes.get(neighbor_norm, [neighbor])
+                    all_group = norm_to_nodes.get(norm_label, [node]) + norm_to_nodes.get(
+                        neighbor_norm, [neighbor]
+                    )
                     winner = _pick_winner(all_group)
-                    uf.union(winner["id"], node_id)
-                    uf.union(winner["id"], neighbor_id)
+                    uf.union(str(winner["id"]), node_id)
+                    uf.union(str(winner["id"]), neighbor_id)
                     fuzzy_merges += 1
 
     # ── pass 3: LLM tiebreaker for ambiguous pairs (opt-in) ──────────────────
@@ -283,6 +298,12 @@ def deduplicate_entities(
 
     # ── apply remap ───────────────────────────────────────────────────────────
     if not remap:
+        if diagnostics is not None:
+            diagnostics["remap_self_loop_drops"] = 0
+            diagnostics["remap_self_loop_drops_by_relation"] = {}
+            diagnostics["remap_self_loop_drops_by_source"] = {}
+            diagnostics["remap_exact_duplicate_collapses"] = 0
+            diagnostics["remap_exact_duplicate_collapses_by_relation"] = {}
         return unique_nodes, edges
 
     total = len(remap)
@@ -295,25 +316,57 @@ def deduplicate_entities(
     print(msg + ".", flush=True)
 
     deduped_nodes = [n for n in unique_nodes if n["id"] not in remap]
-    deduped_edges = []
+    deduped_edges: list[dict] = []
+    seen_fingerprints: set[str] = set()
+    self_loop_drops = 0
+    self_loop_by_relation: dict[str, int] = defaultdict(int)
+    self_loop_by_source: dict[str, int] = defaultdict(int)
+    exact_dup_collapses = 0
+    exact_dup_by_relation: dict[str, int] = defaultdict(int)
+
     for edge in edges:
         e = dict(edge)
-        # Tolerate "from"/"to" keys from LLM backends that don't follow the
-        # schema exactly — build_from_json normalises later but dedup runs
-        # first so bracket access would KeyError here (#803).
-        # Use explicit key presence check (not `or`) so empty-string src/tgt
-        # aren't silently replaced by the fallback key.
         src = e["source"] if "source" in e else e.get("from")
         tgt = e["target"] if "target" in e else e.get("to")
         if src is None or tgt is None:
             continue
         e["source"] = remap.get(src, src)
         e["target"] = remap.get(tgt, tgt)
-        # Remove legacy keys so they don't leak into edge attrs in graph.json.
         e.pop("from", None)
         e.pop("to", None)
-        if e["source"] != e["target"]:
-            deduped_edges.append(e)
+
+        relation = e.get("relation", "")
+        source_file = e.get("source_file", "")
+
+        if e["source"] == e["target"] and src != tgt:
+            self_loop_drops += 1
+            self_loop_by_relation[relation] += 1
+            self_loop_by_source[source_file] += 1
+            continue
+
+        fingerprint = json.dumps(e, sort_keys=True, ensure_ascii=False, default=str)
+        if fingerprint in seen_fingerprints:
+            exact_dup_collapses += 1
+            exact_dup_by_relation[relation] += 1
+            continue
+        seen_fingerprints.add(fingerprint)
+
+        deduped_edges.append(e)
+
+    if diagnostics is not None:
+        diagnostics["remap_self_loop_drops"] = self_loop_drops
+        diagnostics["remap_self_loop_drops_by_relation"] = dict(self_loop_by_relation)
+        diagnostics["remap_self_loop_drops_by_source"] = dict(self_loop_by_source)
+        diagnostics["remap_exact_duplicate_collapses"] = exact_dup_collapses
+        diagnostics["remap_exact_duplicate_collapses_by_relation"] = dict(exact_dup_by_relation)
+
+    if self_loop_drops or exact_dup_collapses:
+        parts = []
+        if self_loop_drops:
+            parts.append(f"dropped {self_loop_drops} self-loop edge(s)")
+        if exact_dup_collapses:
+            parts.append(f"collapsed {exact_dup_collapses} exact-duplicate edge(s)")
+        print(f"[graphify] Remap: {'; '.join(parts)}.", flush=True)
 
     return deduped_nodes, deduped_edges
 
@@ -343,12 +396,18 @@ def _llm_tiebreak(
     """Batch-resolve ambiguous pairs (score in [low, high)) via LLM."""
     try:
         from graphify.llm import BACKENDS, _format_backend_env_keys, _get_backend_api_key
+
         if backend not in BACKENDS:
-            print(f"[graphify] --dedup-llm: unknown backend {backend!r}, skipping LLM tiebreaker.", flush=True)
+            print(
+                f"[graphify] --dedup-llm: unknown backend {backend!r}, skipping LLM tiebreaker.",
+                flush=True,
+            )
             return
         if not _get_backend_api_key(backend):
             env_keys = _format_backend_env_keys(backend)
-            print(f"[graphify] --dedup-llm: {env_keys} not set, skipping LLM tiebreaker.", flush=True)
+            print(
+                f"[graphify] --dedup-llm: {env_keys} not set, skipping LLM tiebreaker.", flush=True
+            )
             return
     except ImportError:
         return
@@ -368,8 +427,12 @@ def _llm_tiebreak(
                 continue
             c1 = communities.get(node["id"])
             c2 = communities.get(neighbor["id"])
-            if (c1 is not None and c2 is not None and c1 == c2
-                    and min(len(norm_i), len(norm_j)) >= 12):
+            if (
+                c1 is not None
+                and c2 is not None
+                and c1 == c2
+                and min(len(norm_i), len(norm_j)) >= 12
+            ):
                 score += _COMMUNITY_BOOST
             if low <= score < high:
                 ambiguous.append((node, neighbor, score))
@@ -392,8 +455,7 @@ def _llm_tiebreak(
     for batch_start in range(0, len(ambiguous), batch_size):
         batch = ambiguous[batch_start : batch_start + batch_size]
         pairs_text = "\n".join(
-            f"{i+1}. \"{a['label']}\" vs \"{b['label']}\""
-            for i, (a, b, _) in enumerate(batch)
+            f'{i + 1}. "{a["label"]}" vs "{b["label"]}"' for i, (a, b, _) in enumerate(batch)
         )
         prompt = (
             "For each pair below, answer only 'yes' or 'no': are they the same real-world concept?\n\n"
