@@ -6,10 +6,19 @@ from pathlib import Path
 
 import networkx as nx
 
-try:
-    import jieba as _jieba
-except ImportError:
-    _jieba = None
+def _get_jieba():
+    try:
+        import warnings
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            import jieba
+        return jieba
+    except ImportError:
+        return None
+
+_jieba = None
+_jieba_loaded = False
+
 from networkx.readwrite import json_graph
 
 from graphify.security import sanitize_label, check_graph_file_size_cap
@@ -58,6 +67,10 @@ def _has_chinese(text: str) -> bool:
 
 def _segment_chinese(text: str) -> list[str]:
     """Segment Chinese text and keep the original term for exact matching."""
+    global _jieba, _jieba_loaded
+    if not _jieba_loaded:
+        _jieba = _get_jieba()
+        _jieba_loaded = True
     if _jieba is not None:
         segments = [w for w in _jieba.cut(text) if len(w.strip()) > 0]
     else:
