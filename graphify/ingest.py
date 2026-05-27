@@ -92,6 +92,7 @@ def _html_to_markdown(html: str, url: str) -> str:
     html = re.sub(r"<style[^>]*>.*?</style>", "", html, flags=re.DOTALL | re.IGNORECASE)
     try:
         from markdownify import markdownify
+
         return markdownify(html, heading_style="ATX", bullets="-", strip=["img"])
     except ImportError:
         # Fallback: basic tag strip
@@ -104,7 +105,9 @@ def _fetch_tweet(url: str, author: str | None, contributor: str | None) -> tuple
     """Fetch a tweet URL. Returns (content, filename)."""
     # Normalize to twitter.com for oEmbed
     oembed_url = url.replace("x.com", "twitter.com")
-    oembed_api = f"https://publish.twitter.com/oembed?url={urllib.parse.quote(oembed_url)}&omit_script=true"
+    oembed_api = (
+        f"https://publish.twitter.com/oembed?url={urllib.parse.quote(oembed_url)}&omit_script=true"
+    )
     try:
         data = json.loads(safe_fetch_text(oembed_api))
         tweet_text = re.sub(r"<[^>]+>", "", data.get("html", "")).strip()
@@ -120,7 +123,7 @@ source_url: "{_yaml_str(url)}"
 type: tweet
 author: "{_yaml_str(tweet_author)}"
 captured_at: {now}
-contributor: "{_yaml_str(contributor or author or 'unknown')}"
+contributor: "{_yaml_str(contributor or author or "unknown")}"
 ---
 
 # Tweet by @{tweet_author}
@@ -147,7 +150,7 @@ source_url: "{_yaml_str(url)}"
 type: webpage
 title: "{_yaml_str(title)}"
 captured_at: {now}
-contributor: "{_yaml_str(contributor or author or 'unknown')}"
+contributor: "{_yaml_str(contributor or author or "unknown")}"
 ---
 
 # {title}
@@ -170,12 +173,26 @@ def _fetch_arxiv(url: str, author: str | None, contributor: str | None) -> tuple
         api_url = f"https://export.arxiv.org/abs/{arxiv_id.group(1)}"
         try:
             html = _fetch_html(api_url)
-            abstract_match = re.search(r'class="abstract[^"]*"[^>]*>(.*?)</blockquote>', html, re.DOTALL | re.IGNORECASE)
-            abstract = re.sub(r"<[^>]+>", "", abstract_match.group(1)).strip() if abstract_match else ""
-            title_match = re.search(r'class="title[^"]*"[^>]*>(.*?)</h1>', html, re.DOTALL | re.IGNORECASE)
-            title = re.sub(r"<[^>]+>", " ", title_match.group(1)).strip() if title_match else arxiv_id.group(1)
-            authors_match = re.search(r'class="authors"[^>]*>(.*?)</div>', html, re.DOTALL | re.IGNORECASE)
-            paper_authors = re.sub(r"<[^>]+>", "", authors_match.group(1)).strip() if authors_match else ""
+            abstract_match = re.search(
+                r'class="abstract[^"]*"[^>]*>(.*?)</blockquote>', html, re.DOTALL | re.IGNORECASE
+            )
+            abstract = (
+                re.sub(r"<[^>]+>", "", abstract_match.group(1)).strip() if abstract_match else ""
+            )
+            title_match = re.search(
+                r'class="title[^"]*"[^>]*>(.*?)</h1>', html, re.DOTALL | re.IGNORECASE
+            )
+            title = (
+                re.sub(r"<[^>]+>", " ", title_match.group(1)).strip()
+                if title_match
+                else arxiv_id.group(1)
+            )
+            authors_match = re.search(
+                r'class="authors"[^>]*>(.*?)</div>', html, re.DOTALL | re.IGNORECASE
+            )
+            paper_authors = (
+                re.sub(r"<[^>]+>", "", authors_match.group(1)).strip() if authors_match else ""
+            )
         except Exception:
             title, abstract, paper_authors = arxiv_id.group(1), "", ""
     else:
@@ -184,12 +201,12 @@ def _fetch_arxiv(url: str, author: str | None, contributor: str | None) -> tuple
     now = datetime.now(timezone.utc).isoformat()
     content = f"""---
 source_url: "{_yaml_str(url)}"
-arxiv_id: "{_yaml_str(arxiv_id.group(1) if arxiv_id else '')}"
+arxiv_id: "{_yaml_str(arxiv_id.group(1) if arxiv_id else "")}"
 type: paper
 title: "{_yaml_str(title)}"
 paper_authors: "{_yaml_str(paper_authors)}"
 captured_at: {now}
-contributor: "{_yaml_str(contributor or author or 'unknown')}"
+contributor: "{_yaml_str(contributor or author or "unknown")}"
 ---
 
 # {title}
@@ -203,7 +220,11 @@ contributor: "{_yaml_str(contributor or author or 'unknown')}"
 
 Source: {url}
 """
-    filename = f"arxiv_{arxiv_id.group(1).replace('.', '_')}.md" if arxiv_id else _safe_filename(url, ".md")
+    filename = (
+        f"arxiv_{arxiv_id.group(1).replace('.', '_')}.md"
+        if arxiv_id
+        else _safe_filename(url, ".md")
+    )
     return content, filename
 
 
@@ -215,7 +236,9 @@ def _download_binary(url: str, suffix: str, target_dir: Path) -> Path:
     return out_path
 
 
-def ingest(url: str, target_dir: Path, author: str | None = None, contributor: str | None = None) -> Path:
+def ingest(
+    url: str, target_dir: Path, author: str | None = None, contributor: str | None = None
+) -> Path:
     """
     Fetch a URL and save it into target_dir as a graphify-ready file.
 
@@ -243,6 +266,7 @@ def ingest(url: str, target_dir: Path, author: str | None = None, contributor: s
 
         if url_type == "youtube":
             from graphify.transcribe import download_audio
+
             out = download_audio(url, target_dir)
             print(f"Downloaded audio: {out.name}")
             return out
@@ -321,9 +345,12 @@ def save_query_result(
 
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser(description="Fetch a URL into a graphify /raw folder")
     parser.add_argument("url", help="URL to fetch")
-    parser.add_argument("target_dir", nargs="?", default="./raw", help="Target directory (default: ./raw)")
+    parser.add_argument(
+        "target_dir", nargs="?", default="./raw", help="Target directory (default: ./raw)"
+    )
     parser.add_argument("--author", help="Your name (stored as node metadata)")
     parser.add_argument("--contributor", help="Contributor name for team graphs")
     args = parser.parse_args()

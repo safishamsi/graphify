@@ -1,7 +1,7 @@
 """Tests for .NET project file extraction (.sln, .csproj, .razor)."""
+
 from pathlib import Path
 import tempfile
-import pytest
 from graphify.extract import extract_sln, extract_csproj, extract_razor
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -16,6 +16,7 @@ def _relations(r):
 
 
 # ── .sln ─────────────────────────────────────────────────────────────────────
+
 
 def test_sln_extracts_projects():
     r = extract_sln(FIXTURES / "sample.sln")
@@ -39,13 +40,14 @@ def test_sln_project_dependency():
 
 # ── .csproj ──────────────────────────────────────────────────────────────────
 
+
 def test_csproj_packages():
     r = extract_csproj(FIXTURES / "sample.csproj")
     assert "error" not in r
     labels = _labels(r)
-    assert any("MediatR" in l for l in labels)
-    assert any("FluentValidation" in l for l in labels)
-    assert any("Swashbuckle" in l for l in labels)
+    assert any("MediatR" in label for label in labels)
+    assert any("FluentValidation" in label for label in labels)
+    assert any("Swashbuckle" in label for label in labels)
 
 
 def test_csproj_project_references():
@@ -74,6 +76,7 @@ def test_csproj_invalid_xml():
 
 # ── .razor ───────────────────────────────────────────────────────────────────
 
+
 def test_razor_using_and_inject():
     r = extract_razor(FIXTURES / "sample.razor")
     assert "error" not in r
@@ -91,7 +94,7 @@ def test_razor_components():
 
 def test_razor_page_route():
     r = extract_razor(FIXTURES / "sample.razor")
-    assert any("/counter" in l for l in _labels(r))
+    assert any("/counter" in label for label in _labels(r))
 
 
 def test_razor_inherits():
@@ -113,13 +116,16 @@ def test_razor_missing_file():
 
 # ── dispatch & detect integration ────────────────────────────────────────────
 
+
 def test_dispatch_table():
     from graphify.extract import _get_extractor
+
     for ext in (".sln", ".csproj", ".fsproj", ".vbproj", ".razor", ".cshtml"):
         assert _get_extractor(Path(f"foo{ext}")) is not None, f"{ext} not in dispatch"
 
 
 def test_code_extensions():
     from graphify.detect import CODE_EXTENSIONS
+
     for ext in (".sln", ".csproj", ".fsproj", ".vbproj", ".razor", ".cshtml"):
         assert ext in CODE_EXTENSIONS, f"{ext} missing"

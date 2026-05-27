@@ -1,10 +1,10 @@
 """Tests for graphify.mcp_ingest — MCP config file extraction."""
+
 from __future__ import annotations
 
 import json
 from pathlib import Path
 
-import pytest
 
 from graphify.mcp_ingest import (
     MCP_CONFIG_FILENAMES,
@@ -29,11 +29,7 @@ def _relations(result):
 
 
 def _label_by_kind(result, kind):
-    return [
-        n["label"]
-        for n in result["nodes"]
-        if n.get("metadata", {}).get("mcp_kind") == kind
-    ]
+    return [n["label"] for n in result["nodes"] if n.get("metadata", {}).get("mcp_kind") == kind]
 
 
 def _write(tmp_path: Path, name: str, payload) -> Path:
@@ -167,13 +163,21 @@ def test_every_edge_has_confidence_score():
 
 def test_same_command_collapses_to_one_node_across_configs(tmp_path):
     # Two configs both use "npx". The mcp_command node should be shared.
-    config_a = _write(tmp_path, ".mcp.json", {
-        "mcpServers": {"a": {"command": "npx", "args": ["@scope/server-a"]}},
-    })
+    config_a = _write(
+        tmp_path,
+        ".mcp.json",
+        {
+            "mcpServers": {"a": {"command": "npx", "args": ["@scope/server-a"]}},
+        },
+    )
     (tmp_path / "subdir").mkdir()
-    config_b = _write(tmp_path / "subdir", "claude_desktop_config.json", {
-        "mcpServers": {"b": {"command": "npx", "args": ["@scope/server-b"]}},
-    })
+    config_b = _write(
+        tmp_path / "subdir",
+        "claude_desktop_config.json",
+        {
+            "mcpServers": {"b": {"command": "npx", "args": ["@scope/server-b"]}},
+        },
+    )
     r_a = extract_mcp_config(config_a)
     r_b = extract_mcp_config(config_b)
     cmd_id_a = next(n["id"] for n in r_a["nodes"] if n["metadata"]["mcp_kind"] == "mcp_command")
@@ -183,17 +187,25 @@ def test_same_command_collapses_to_one_node_across_configs(tmp_path):
 
 def test_same_env_var_collapses_to_one_node_across_configs(tmp_path):
     # Two configs both require OPENAI_API_KEY. The env_var node ID must be identical.
-    a = _write(tmp_path, ".mcp.json", {
-        "mcpServers": {
-            "x": {"command": "npx", "args": ["@scope/x"], "env": {"OPENAI_API_KEY": "v1"}},
+    a = _write(
+        tmp_path,
+        ".mcp.json",
+        {
+            "mcpServers": {
+                "x": {"command": "npx", "args": ["@scope/x"], "env": {"OPENAI_API_KEY": "v1"}},
+            },
         },
-    })
+    )
     (tmp_path / "sub").mkdir()
-    b = _write(tmp_path / "sub", "claude_desktop_config.json", {
-        "mcpServers": {
-            "y": {"command": "uvx", "args": ["mcp-server-y"], "env": {"OPENAI_API_KEY": "v2"}},
+    b = _write(
+        tmp_path / "sub",
+        "claude_desktop_config.json",
+        {
+            "mcpServers": {
+                "y": {"command": "uvx", "args": ["mcp-server-y"], "env": {"OPENAI_API_KEY": "v2"}},
+            },
         },
-    })
+    )
     r_a = extract_mcp_config(a)
     r_b = extract_mcp_config(b)
     env_id_a = next(n["id"] for n in r_a["nodes"] if n["metadata"]["mcp_kind"] == "env_var")
@@ -206,12 +218,20 @@ def test_same_server_name_in_different_dirs_does_not_collide(tmp_path):
     # The server nodes should NOT collide (stem-scoped via parent dir).
     (tmp_path / "proj_a").mkdir()
     (tmp_path / "proj_b").mkdir()
-    a = _write(tmp_path / "proj_a", ".mcp.json", {
-        "mcpServers": {"filesystem": {"command": "npx", "args": ["@scope/a"]}},
-    })
-    b = _write(tmp_path / "proj_b", ".mcp.json", {
-        "mcpServers": {"filesystem": {"command": "npx", "args": ["@scope/b"]}},
-    })
+    a = _write(
+        tmp_path / "proj_a",
+        ".mcp.json",
+        {
+            "mcpServers": {"filesystem": {"command": "npx", "args": ["@scope/a"]}},
+        },
+    )
+    b = _write(
+        tmp_path / "proj_b",
+        ".mcp.json",
+        {
+            "mcpServers": {"filesystem": {"command": "npx", "args": ["@scope/b"]}},
+        },
+    )
     r_a = extract_mcp_config(a)
     r_b = extract_mcp_config(b)
     srv_a = next(n["id"] for n in r_a["nodes"] if n["metadata"]["mcp_kind"] == "mcp_server")
@@ -232,9 +252,13 @@ def test_missing_mcp_servers_key(tmp_path):
 
 def test_nested_mcp_servers_shape(tmp_path):
     # Some tools wrap the map: {"mcp": {"servers": {...}}}
-    p = _write(tmp_path, ".mcp.json", {
-        "mcp": {"servers": {"x": {"command": "node", "args": ["dist/index.js"]}}},
-    })
+    p = _write(
+        tmp_path,
+        ".mcp.json",
+        {
+            "mcp": {"servers": {"x": {"command": "node", "args": ["dist/index.js"]}}},
+        },
+    )
     r = extract_mcp_config(p)
     assert "error" not in r
     assert "x" in _label_by_kind(r, "mcp_server")
@@ -266,12 +290,16 @@ def test_root_not_an_object(tmp_path):
 
 
 def test_non_dict_server_entry_skipped(tmp_path):
-    p = _write(tmp_path, ".mcp.json", {
-        "mcpServers": {
-            "valid": {"command": "npx", "args": ["@scope/pkg"]},
-            "broken": ["this", "is", "not", "an", "object"],
+    p = _write(
+        tmp_path,
+        ".mcp.json",
+        {
+            "mcpServers": {
+                "valid": {"command": "npx", "args": ["@scope/pkg"]},
+                "broken": ["this", "is", "not", "an", "object"],
+            },
         },
-    })
+    )
     r = extract_mcp_config(p)
     server_labels = _label_by_kind(r, "mcp_server")
     assert "valid" in server_labels
@@ -283,26 +311,38 @@ def test_non_dict_server_entry_skipped(tmp_path):
 
 def test_package_detection_skips_flags(tmp_path):
     # First arg is -y (flag); second is the package. Detection should skip the flag.
-    p = _write(tmp_path, ".mcp.json", {
-        "mcpServers": {"x": {"command": "npx", "args": ["-y", "@scope/server-x"]}},
-    })
+    p = _write(
+        tmp_path,
+        ".mcp.json",
+        {
+            "mcpServers": {"x": {"command": "npx", "args": ["-y", "@scope/server-x"]}},
+        },
+    )
     r = extract_mcp_config(p)
     assert "@scope/server-x" in _label_by_kind(r, "mcp_package")
 
 
 def test_no_package_detected_for_unknown_arg_shape(tmp_path):
     # Args don't look like any known package pattern => no package node.
-    p = _write(tmp_path, ".mcp.json", {
-        "mcpServers": {"x": {"command": "node", "args": ["./local-script.js", "--verbose"]}},
-    })
+    p = _write(
+        tmp_path,
+        ".mcp.json",
+        {
+            "mcpServers": {"x": {"command": "node", "args": ["./local-script.js", "--verbose"]}},
+        },
+    )
     r = extract_mcp_config(p)
     assert _label_by_kind(r, "mcp_package") == []
 
 
 def test_server_without_command_still_emits_server_node(tmp_path):
-    p = _write(tmp_path, ".mcp.json", {
-        "mcpServers": {"x": {"args": ["@scope/server-x"]}},
-    })
+    p = _write(
+        tmp_path,
+        ".mcp.json",
+        {
+            "mcpServers": {"x": {"args": ["@scope/server-x"]}},
+        },
+    )
     r = extract_mcp_config(p)
     assert "x" in _label_by_kind(r, "mcp_server")
     assert _label_by_kind(r, "mcp_command") == []
@@ -316,9 +356,13 @@ def test_dispatch_routes_mcp_filename_to_mcp_extractor(tmp_path):
     # extract_mcp_config, NOT extract_json.
     from graphify.extract import _get_extractor
 
-    p = _write(tmp_path, ".mcp.json", {
-        "mcpServers": {"x": {"command": "npx", "args": ["@scope/server-x"]}},
-    })
+    p = _write(
+        tmp_path,
+        ".mcp.json",
+        {
+            "mcpServers": {"x": {"command": "npx", "args": ["@scope/server-x"]}},
+        },
+    )
     extractor = _get_extractor(p)
     assert extractor is extract_mcp_config
 

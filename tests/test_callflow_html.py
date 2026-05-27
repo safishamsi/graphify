@@ -14,15 +14,57 @@ def _make_graphify_out(tmp_path: Path) -> Path:
         "multigraph": False,
         "graph": {},
         "nodes": [
-            {"id": "api", "label": "ApiClient", "source_file": "src/api.py", "file_type": "code", "community": 0},
-            {"id": "run", "label": "run()", "source_file": "src/main.py", "file_type": "code", "community": 0},
-            {"id": "export", "label": "write_html()", "source_file": "src/export.py", "file_type": "code", "community": 1},
-            {"id": "evil", "label": "<script>alert(1)</script>", "source_file": "src/evil.py", "file_type": "code", "community": 1},
+            {
+                "id": "api",
+                "label": "ApiClient",
+                "source_file": "src/api.py",
+                "file_type": "code",
+                "community": 0,
+            },
+            {
+                "id": "run",
+                "label": "run()",
+                "source_file": "src/main.py",
+                "file_type": "code",
+                "community": 0,
+            },
+            {
+                "id": "export",
+                "label": "write_html()",
+                "source_file": "src/export.py",
+                "file_type": "code",
+                "community": 1,
+            },
+            {
+                "id": "evil",
+                "label": "<script>alert(1)</script>",
+                "source_file": "src/evil.py",
+                "file_type": "code",
+                "community": 1,
+            },
         ],
         "links": [
-            {"source": "run", "target": "api", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0},
-            {"source": "api", "target": "export", "relation": "uses", "confidence": "EXTRACTED", "confidence_score": 1.0},
-            {"source": "export", "target": "evil", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0},
+            {
+                "source": "run",
+                "target": "api",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+            },
+            {
+                "source": "api",
+                "target": "export",
+                "relation": "uses",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+            },
+            {
+                "source": "export",
+                "target": "evil",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+            },
         ],
         "hyperedges": [],
         "built_at_commit": "abcdef123456",
@@ -103,16 +145,36 @@ def test_export_callflow_html_cli_accepts_positional_graph_path(tmp_path):
         "multigraph": False,
         "graph": {},
         "nodes": [
-            {"id": "external", "label": "ExternalOnly", "source_file": "src/external.py", "file_type": "code", "community": 0},
-            {"id": "writer", "label": "write_external()", "source_file": "src/writer.py", "file_type": "code", "community": 1},
+            {
+                "id": "external",
+                "label": "ExternalOnly",
+                "source_file": "src/external.py",
+                "file_type": "code",
+                "community": 0,
+            },
+            {
+                "id": "writer",
+                "label": "write_external()",
+                "source_file": "src/writer.py",
+                "file_type": "code",
+                "community": 1,
+            },
         ],
         "links": [
-            {"source": "external", "target": "writer", "relation": "calls", "confidence": "EXTRACTED", "confidence_score": 1.0},
+            {
+                "source": "external",
+                "target": "writer",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+            },
         ],
         "hyperedges": [],
     }
     (external_out / "graph.json").write_text(json.dumps(graph), encoding="utf-8")
-    (external_out / ".graphify_labels.json").write_text(json.dumps({"0": "External Runtime", "1": "External Export"}), encoding="utf-8")
+    (external_out / ".graphify_labels.json").write_text(
+        json.dumps({"0": "External Runtime", "1": "External Export"}), encoding="utf-8"
+    )
     (external_out / "GRAPH_REPORT.md").write_text(
         "\n".join(
             [
@@ -156,10 +218,25 @@ def test_export_callflow_html_cli_accepts_positional_graph_path(tmp_path):
 
 def test_derive_sections_groups_by_architecture_keywords():
     nodes = [
-        {"id": "extract_py", "label": "extract_python", "source_file": "graphify/extract.py", "community": 0},
-        {"id": "extract_js", "label": "extract_js", "source_file": "graphify/extract.py", "community": 0},
+        {
+            "id": "extract_py",
+            "label": "extract_python",
+            "source_file": "graphify/extract.py",
+            "community": 0,
+        },
+        {
+            "id": "extract_js",
+            "label": "extract_js",
+            "source_file": "graphify/extract.py",
+            "community": 0,
+        },
         {"id": "to_html", "label": "to_html", "source_file": "graphify/export.py", "community": 1},
-        {"id": "test_html", "label": "test_export_html", "source_file": "tests/test_export.py", "community": 2},
+        {
+            "id": "test_html",
+            "label": "test_export_html",
+            "source_file": "tests/test_export.py",
+            "community": 2,
+        },
     ]
 
     sections = derive_sections_from_communities(nodes, {}, "en", 6)

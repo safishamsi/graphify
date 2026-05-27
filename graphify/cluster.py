@@ -1,4 +1,5 @@
 """Community detection on NetworkX graphs. Uses Leiden (graspologic) if available, falls back to Louvain (networkx). Splits oversized communities. Returns cohesion scores."""
+
 from __future__ import annotations
 import contextlib
 import inspect
@@ -46,6 +47,7 @@ def _partition(G: nx.Graph, resolution: float = 1.0) -> dict[str, int]:
 
     try:
         from graspologic.partition import leiden
+
         lsig = inspect.signature(leiden).parameters
         kwargs: dict = {}
         if "random_seed" in lsig:
@@ -64,7 +66,7 @@ def _partition(G: nx.Graph, resolution: float = 1.0) -> dict[str, int]:
         finally:
             sys.stderr = old_stderr
         return result
-    except ImportError:
+    except (ImportError, SyntaxError, Warning):
         pass
 
     # Fallback: networkx louvain (available since networkx 2.7).
@@ -77,10 +79,10 @@ def _partition(G: nx.Graph, resolution: float = 1.0) -> dict[str, int]:
     return {node: cid for cid, nodes in enumerate(communities) for node in nodes}
 
 
-_MAX_COMMUNITY_FRACTION = 0.25   # communities larger than 25% of graph get split
-_MIN_SPLIT_SIZE = 10             # only split if community has at least this many nodes
-_COHESION_SPLIT_THRESHOLD = 0.05 # re-split communities with cohesion below this
-_COHESION_SPLIT_MIN_SIZE = 50    # only cohesion-split if community has at least this many nodes
+_MAX_COMMUNITY_FRACTION = 0.25  # communities larger than 25% of graph get split
+_MIN_SPLIT_SIZE = 10  # only split if community has at least this many nodes
+_COHESION_SPLIT_THRESHOLD = 0.05  # re-split communities with cohesion below this
+_COHESION_SPLIT_MIN_SIZE = 50  # only cohesion-split if community has at least this many nodes
 
 
 def cluster(
@@ -171,7 +173,10 @@ def cluster(
     # that bridge otherwise-unrelated subsystems (e.g. CLAUDE.md connected to everything).
     second_pass: list[list[str]] = []
     for nodes in final_communities:
-        if len(nodes) >= _COHESION_SPLIT_MIN_SIZE and cohesion_score(G, nodes) < _COHESION_SPLIT_THRESHOLD:
+        if (
+            len(nodes) >= _COHESION_SPLIT_MIN_SIZE
+            and cohesion_score(G, nodes) < _COHESION_SPLIT_THRESHOLD
+        ):
             splits = _split_community(G, nodes)
             second_pass.extend(splits if len(splits) > 1 else [nodes])
         else:

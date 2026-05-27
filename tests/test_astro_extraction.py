@@ -7,6 +7,7 @@ a top-level ERROR node because the template is not valid JS, so the JS AST pass
 recovers nothing. The :func:`extract_astro` regex pass salvages imports from the
 frontmatter and any `<script>` blocks — same strategy as :func:`extract_svelte`.
 """
+
 from __future__ import annotations
 
 from pathlib import Path

@@ -34,7 +34,7 @@ def test_missing_edges_key():
 
 
 def test_not_a_dict():
-    errors = validate_extraction([])
+    errors = validate_extraction([])  # type: ignore[reportArgumentType]
     assert len(errors) == 1
 
 
@@ -156,11 +156,13 @@ def test_assert_valid_passes_silently():
 def test_validate_extraction_does_not_typeerror_on_non_list_nodes():
     """validate_extraction must report 'nodes must be a list' without raising TypeError."""
     from graphify.validate import validate_extraction
+
     errors = validate_extraction({"nodes": 123, "edges": []})
     assert any("'nodes' must be a list" in e for e in errors)
 
 
 def test_validate_extraction_does_not_typeerror_on_non_list_edges():
     from graphify.validate import validate_extraction
+
     errors = validate_extraction({"nodes": [], "edges": 42})
     assert any("'edges' must be a list" in e for e in errors)

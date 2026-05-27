@@ -5,6 +5,7 @@ import math
 import re
 import sys
 from pathlib import Path
+from typing import Any, cast
 import networkx as nx
 from networkx.readwrite import json_graph
 from graphify.security import sanitize_label, check_graph_file_size_cap
@@ -12,7 +13,7 @@ from graphify.build import edge_data
 
 try:
     import jieba as _jieba  # type: ignore[import-untyped]
-except ImportError:
+except (ImportError, SyntaxError):
     _jieba = None
 
 
@@ -33,11 +34,13 @@ def _load_graph(graph_path: str) -> nx.Graph:
             return json_graph.node_link_graph(data, edges="links")
         except TypeError:
             return json_graph.node_link_graph(data)
+    except json.JSONDecodeError as exc:
+        print(
+            f"error: graph.json is corrupted ({exc}). Re-run /graphify to rebuild.", file=sys.stderr
+        )
+        sys.exit(1)
     except (ValueError, FileNotFoundError) as exc:
         print(f"error: {exc}", file=sys.stderr)
-        sys.exit(1)
-    except json.JSONDecodeError as exc:
-        print(f"error: graph.json is corrupted ({exc}). Re-run /graphify to rebuild.", file=sys.stderr)
         sys.exit(1)
 
 
@@ -53,6 +56,7 @@ def _communities_from_graph(G: nx.Graph) -> dict[int, list[str]]:
 
 def _strip_diacritics(text: str) -> str:
     import unicodedata
+
     nfkd = unicodedata.normalize("NFKD", text)
     return "".join(c for c in nfkd if not unicodedata.combining(c))
 
@@ -71,7 +75,7 @@ def _segment_chinese(text: str) -> list[str]:
     if _jieba is not None:
         segments = [w for w in _jieba.cut(text) if len(w.strip()) > 0]
     else:
-        segments = [text[i:i + 2] for i in range(len(text) - 1)] or [text]
+        segments = [text[i : i + 2] for i in range(len(text) - 1)] or [text]
     if len(text) > 1 and text not in segments:
         segments.append(text)
     return segments
@@ -158,7 +162,9 @@ def _score_nodes(G: nx.Graph, terms: list[str]) -> list[tuple[float, str]]:
     return sorted(scored, reverse=True)
 
 
-def _pick_seeds(scored: list[tuple[float, str]], max_k: int = 3, gap_ratio: float = 0.2) -> list[str]:
+def _pick_seeds(
+    scored: list[tuple[float, str]], max_k: int = 3, gap_ratio: float = 0.2
+) -> list[str]:
     """Select BFS seed nodes, stopping when score drops too far below the top.
 
     Prevents high-frequency noise terms (error, exception) from stealing seed
@@ -253,7 +259,9 @@ def _infer_context_filters(question: str) -> list[str]:
     return inferred
 
 
-def _resolve_context_filters(question: str, explicit_filters: list[str] | None = None) -> tuple[list[str], str | None]:
+def _resolve_context_filters(
+    question: str, explicit_filters: list[str] | None = None
+) -> tuple[list[str], str | None]:
     normalized = _normalize_context_filters(explicit_filters)
     if normalized:
         return normalized, "explicit"
@@ -336,7 +344,14 @@ def _dfs(G: nx.Graph, start_nodes: list[str], depth: int) -> tuple[set[str], lis
     return visited, edges_seen
 
 
-def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_budget: int = 2000, *, seeds: list[str] | None = None) -> str:
+def _subgraph_to_text(
+    G: nx.Graph,
+    nodes: set[str],
+    edges: list[tuple],
+    token_budget: int = 2000,
+    *,
+    seeds: list[str] | None = None,
+) -> str:
     """Render subgraph as text, cutting at token_budget (approx 3 chars/token).
 
     seeds: exact-match nodes rendered first before the degree-sorted expansion,
@@ -345,8 +360,9 @@ def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_bu
     char_budget = token_budget * 3
     lines = []
     seed_set = set(seeds or [])
-    ordered = [n for n in (seeds or []) if n in nodes] + \
-              sorted(nodes - seed_set, key=lambda n: G.degree(n), reverse=True)
+    ordered = [n for n in (seeds or []) if n in nodes] + sorted(
+        nodes - seed_set, key=lambda n: G.degree(n), reverse=True
+    )
     for nid in ordered:
         d = G.nodes[nid]
         # Every LLM-derived field passes through sanitize_label before being
@@ -364,7 +380,11 @@ def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_bu
     for u, v in edges:
         if u in nodes and v in nodes:
             raw = G[u][v]
-            d = next(iter(raw.values()), {}) if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph)) else raw
+            d = (
+                next(iter(raw.values()), {})
+                if isinstance(G, (nx.MultiGraph, nx.MultiDiGraph))
+                else raw
+            )
             context = d.get("context")
             context_suffix = f" context={sanitize_label(str(context))}" if context else ""
             line = (
@@ -378,7 +398,7 @@ def _subgraph_to_text(G: nx.Graph, nodes: set[str], edges: list[tuple], token_bu
     if len(output) > char_budget:
         cut_at = output[:char_budget].rfind("\n")
         cut_at = cut_at if cut_at > 0 else char_budget
-        total_nodes = sum(1 for l in lines if l.startswith("NODE "))
+        total_nodes = sum(1 for label in lines if label.startswith("NODE "))
         shown_nodes = output[:cut_at].count("\nNODE ") + (1 if output.startswith("NODE ") else 0)
         cut_count = total_nodes - shown_nodes
         output = (
@@ -405,7 +425,11 @@ def _query_graph_text(
         return "No matching nodes found."
     resolved_filters, filter_source = _resolve_context_filters(question, context_filters)
     traversal_graph = _filter_graph_by_context(G, resolved_filters)
-    nodes, edges = _dfs(traversal_graph, start_nodes, depth) if mode == "dfs" else _bfs(traversal_graph, start_nodes, depth)
+    nodes, edges = (
+        _dfs(traversal_graph, start_nodes, depth)
+        if mode == "dfs"
+        else _bfs(traversal_graph, start_nodes, depth)
+    )
     header_parts = [
         f"Traversal: {mode.upper()} depth={depth}",
         f"Start: {[G.nodes[n].get('label', n) for n in start_nodes]}",
@@ -435,7 +459,9 @@ def _find_node(G: nx.Graph, label: str) -> list[str]:
         nid_lower = nid.lower()
         if term == norm_label or term == bare_label or term == nid_lower:
             exact.append(nid)
-        elif norm_label.startswith(term) or bare_label.startswith(term) or nid_lower.startswith(term):
+        elif (
+            norm_label.startswith(term) or bare_label.startswith(term) or nid_lower.startswith(term)
+        ):
             prefix.append(nid)
         elif term in norm_label:
             substring.append(nid)
@@ -463,8 +489,8 @@ def _filter_blank_stdin() -> None:
                     if line.strip():
                         dst.write(line)
                         dst.flush()
-        except Exception:
-            pass
+        except Exception as exc:
+            print(f"[graphify] warning: stdin relay stopped: {exc}", file=sys.stderr)
 
     threading.Thread(target=_relay, daemon=True).start()
     os.dup2(r_fd, sys.stdin.fileno())
@@ -480,7 +506,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         from mcp.server import Server
         from mcp.server.stdio import stdio_server
         from mcp import types
-        from mcp.types import AnyUrl
+        from pydantic.networks import AnyUrl
     except ImportError as e:
         raise ImportError('mcp not installed. Run: pip install "graphifyy[mcp]"') from e
 
@@ -533,11 +559,26 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                 inputSchema={
                     "type": "object",
                     "properties": {
-                        "question": {"type": "string", "description": "Natural language question or keyword search"},
-                        "mode": {"type": "string", "enum": ["bfs", "dfs"], "default": "bfs",
-                                 "description": "bfs=broad context, dfs=trace a specific path"},
-                        "depth": {"type": "integer", "default": 3, "description": "Traversal depth (1-6)"},
-                        "token_budget": {"type": "integer", "default": 2000, "description": "Max output tokens"},
+                        "question": {
+                            "type": "string",
+                            "description": "Natural language question or keyword search",
+                        },
+                        "mode": {
+                            "type": "string",
+                            "enum": ["bfs", "dfs"],
+                            "default": "bfs",
+                            "description": "bfs=broad context, dfs=trace a specific path",
+                        },
+                        "depth": {
+                            "type": "integer",
+                            "default": 3,
+                            "description": "Traversal depth (1-6)",
+                        },
+                        "token_budget": {
+                            "type": "integer",
+                            "default": 2000,
+                            "description": "Max output tokens",
+                        },
                         "context_filter": {
                             "type": "array",
                             "items": {"type": "string"},
@@ -552,7 +593,9 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                 description="Get full details for a specific node by label or ID.",
                 inputSchema={
                     "type": "object",
-                    "properties": {"label": {"type": "string", "description": "Node label or ID to look up"}},
+                    "properties": {
+                        "label": {"type": "string", "description": "Node label or ID to look up"}
+                    },
                     "required": ["label"],
                 },
             ),
@@ -563,7 +606,10 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                     "type": "object",
                     "properties": {
                         "label": {"type": "string"},
-                        "relation_filter": {"type": "string", "description": "Optional: filter by relation type"},
+                        "relation_filter": {
+                            "type": "string",
+                            "description": "Optional: filter by relation type",
+                        },
                     },
                     "required": ["label"],
                 },
@@ -573,14 +619,22 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                 description="Get all nodes in a community by community ID.",
                 inputSchema={
                     "type": "object",
-                    "properties": {"community_id": {"type": "integer", "description": "Community ID (0-indexed by size)"}},
+                    "properties": {
+                        "community_id": {
+                            "type": "integer",
+                            "description": "Community ID (0-indexed by size)",
+                        }
+                    },
                     "required": ["community_id"],
                 },
             ),
             types.Tool(
                 name="god_nodes",
                 description="Return the most connected nodes - the core abstractions of the knowledge graph.",
-                inputSchema={"type": "object", "properties": {"top_n": {"type": "integer", "default": 10}}},
+                inputSchema={
+                    "type": "object",
+                    "properties": {"top_n": {"type": "integer", "default": 10}},
+                },
             ),
             types.Tool(
                 name="graph_stats",
@@ -593,9 +647,19 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                 inputSchema={
                     "type": "object",
                     "properties": {
-                        "source": {"type": "string", "description": "Source concept label or keyword"},
-                        "target": {"type": "string", "description": "Target concept label or keyword"},
-                        "max_hops": {"type": "integer", "default": 8, "description": "Maximum hops to consider"},
+                        "source": {
+                            "type": "string",
+                            "description": "Source concept label or keyword",
+                        },
+                        "target": {
+                            "type": "string",
+                            "description": "Target concept label or keyword",
+                        },
+                        "max_hops": {
+                            "type": "integer",
+                            "default": 8,
+                            "description": "Maximum hops to consider",
+                        },
                     },
                     "required": ["source", "target"],
                 },
@@ -610,8 +674,14 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                 inputSchema={
                     "type": "object",
                     "properties": {
-                        "base": {"type": "string", "description": "Base branch to filter PRs by (auto-detected if omitted)"},
-                        "repo": {"type": "string", "description": "GitHub repo (owner/repo). Defaults to current repo."},
+                        "base": {
+                            "type": "string",
+                            "description": "Base branch to filter PRs by (auto-detected if omitted)",
+                        },
+                        "repo": {
+                            "type": "string",
+                            "description": "GitHub repo (owner/repo). Defaults to current repo.",
+                        },
                     },
                 },
             ),
@@ -626,7 +696,10 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                     "type": "object",
                     "properties": {
                         "pr_number": {"type": "integer", "description": "PR number to analyse"},
-                        "repo": {"type": "string", "description": "GitHub repo (owner/repo). Defaults to current repo."},
+                        "repo": {
+                            "type": "string",
+                            "description": "GitHub repo (owner/repo). Defaults to current repo.",
+                        },
                     },
                     "required": ["pr_number"],
                 },
@@ -641,8 +714,14 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                 inputSchema={
                     "type": "object",
                     "properties": {
-                        "base": {"type": "string", "description": "Base branch to filter PRs by (auto-detected if omitted)"},
-                        "repo": {"type": "string", "description": "GitHub repo (owner/repo). Defaults to current repo."},
+                        "base": {
+                            "type": "string",
+                            "description": "Base branch to filter PRs by (auto-detected if omitted)",
+                        },
+                        "repo": {
+                            "type": "string",
+                            "description": "GitHub repo (owner/repo). Defaults to current repo.",
+                        },
                     },
                 },
             ),
@@ -665,20 +744,25 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
     def _tool_get_node(arguments: dict) -> str:
         label = arguments["label"].lower()
-        matches = [(nid, d) for nid, d in G.nodes(data=True)
-                   if label in (d.get("label") or "").lower() or label == nid.lower()]
+        matches = [
+            (nid, d)
+            for nid, d in G.nodes(data=True)
+            if label in (d.get("label") or "").lower() or label == nid.lower()
+        ]
         if not matches:
             return f"No node matching '{label}' found."
         nid, d = matches[0]
         # Sanitise every LLM-derived field before concatenation (F-010).
-        return "\n".join([
-            f"Node: {sanitize_label(d.get('label', nid))}",
-            f"  ID: {sanitize_label(nid)}",
-            f"  Source: {sanitize_label(str(d.get('source_file', '')))} {sanitize_label(str(d.get('source_location', '')))}",
-            f"  Type: {sanitize_label(str(d.get('file_type', '')))}",
-            f"  Community: {sanitize_label(str(d.get('community', '')))}",
-            f"  Degree: {G.degree(nid)}",
-        ])
+        return "\n".join(
+            [
+                f"Node: {sanitize_label(d.get('label', nid))}",
+                f"  ID: {sanitize_label(nid)}",
+                f"  Source: {sanitize_label(str(d.get('source_file', '')))} {sanitize_label(str(d.get('source_location', '')))}",
+                f"  Type: {sanitize_label(str(d.get('file_type', '')))}",
+                f"  Community: {sanitize_label(str(d.get('community', '')))}",
+                f"  Degree: {G.degree(nid)}",
+            ]
+        )
 
     def _tool_get_neighbors(arguments: dict) -> str:
         label = arguments["label"].lower()
@@ -688,7 +772,8 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             return f"No node matching '{label}' found."
         nid = matches[0]
         lines = [f"Neighbors of {sanitize_label(G.nodes[nid].get('label', nid))}:"]
-        for nb in G.successors(nid):
+        directed_graph = cast(Any, G)
+        for nb in directed_graph.successors(nid):
             d = edge_data(G, nid, nb)
             rel = d.get("relation", "")
             if rel_filter and rel_filter not in rel.lower():
@@ -697,7 +782,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
                 f"  --> {sanitize_label(G.nodes[nb].get('label', nb))} "
                 f"[{sanitize_label(str(rel))}] [{sanitize_label(str(d.get('confidence', '')))}]"
             )
-        for nb in G.predecessors(nid):
+        for nb in directed_graph.predecessors(nid):
             d = edge_data(G, nb, nid)
             rel = d.get("relation", "")
             if rel_filter and rel_filter not in rel.lower():
@@ -725,6 +810,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
     def _tool_god_nodes(arguments: dict) -> str:
         from graphify.analyze import god_nodes as _god_nodes
+
         nodes = _god_nodes(G, top_n=int(arguments.get("top_n", 10)))
         lines = ["God nodes (most connected):"]
         lines += [f"  {i}. {n['label']} - {n['degree']} edges" for i, n in enumerate(nodes, 1)]
@@ -737,9 +823,9 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             f"Nodes: {G.number_of_nodes()}\n"
             f"Edges: {G.number_of_edges()}\n"
             f"Communities: {len(communities)}\n"
-            f"EXTRACTED: {round(confs.count('EXTRACTED')/total*100)}%\n"
-            f"INFERRED: {round(confs.count('INFERRED')/total*100)}%\n"
-            f"AMBIGUOUS: {round(confs.count('AMBIGUOUS')/total*100)}%\n"
+            f"EXTRACTED: {round(confs.count('EXTRACTED') / total * 100)}%\n"
+            f"INFERRED: {round(confs.count('INFERRED') / total * 100)}%\n"
+            f"AMBIGUOUS: {round(confs.count('AMBIGUOUS') / total * 100)}%\n"
         )
 
     def _tool_shortest_path(arguments: dict) -> str:
@@ -799,6 +885,7 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
     def _tool_list_prs(arguments: dict) -> str:
         from graphify.prs import fetch_prs, fetch_worktrees, format_prs_text, _detect_default_branch
+
         repo = arguments.get("repo") or None
         base = arguments.get("base") or _detect_default_branch(repo)
         try:
@@ -812,15 +899,21 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
     def _tool_get_pr_impact(arguments: dict) -> str:
         from graphify.prs import fetch_pr_files, compute_pr_impact, _gh, _parse_ci
+
         number = int(arguments["pr_number"])
         repo = arguments.get("repo") or None
         # Use gh pr view directly — works for any base branch, not just the default
-        view_args = ["pr", "view", str(number), "--json",
-                     "title,headRefName,baseRefName,author,isDraft,reviewDecision,statusCheckRollup,updatedAt"]
+        view_args = [
+            "pr",
+            "view",
+            str(number),
+            "--json",
+            "title,headRefName,baseRefName,author,isDraft,reviewDecision,statusCheckRollup,updatedAt",
+        ]
         if repo:
             view_args += ["--repo", repo]
         pr_data = _gh(*view_args)
-        if pr_data is None:
+        if not isinstance(pr_data, dict):
             return f"PR #{number} not found or gh not authenticated."
         files = fetch_pr_files(number, repo)
         if not files:
@@ -842,7 +935,15 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
 
     def _tool_triage_prs(arguments: dict) -> str:
         from concurrent.futures import ThreadPoolExecutor, as_completed
-        from graphify.prs import fetch_prs, fetch_worktrees, fetch_pr_files, compute_pr_impact, _STATUS_ORDER, _detect_default_branch
+        from graphify.prs import (
+            fetch_prs,
+            fetch_worktrees,
+            fetch_pr_files,
+            compute_pr_impact,
+            _STATUS_ORDER,
+            _detect_default_branch,
+        )
+
         repo = arguments.get("repo") or None
         base = arguments.get("base") or _detect_default_branch(repo)
         try:
@@ -852,7 +953,9 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         worktrees = fetch_worktrees()
         for pr in prs:
             pr.worktree_path = worktrees.get(pr.branch)
-        actionable = [p for p in prs if p.base_branch == base and p.status not in ("WRONG-BASE", "STALE")]
+        actionable = [
+            p for p in prs if p.base_branch == base and p.status not in ("WRONG-BASE", "STALE")
+        ]
         if not actionable:
             return f"No actionable PRs targeting {base}."
         # Fetch diffs concurrently then compute graph impact using in-memory G
@@ -873,7 +976,10 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             "Rank these by review priority. Higher blast_radius = more graph communities affected = higher merge risk.\n"
         )
         lines = [header]
-        for p in sorted(actionable, key=lambda x: (_STATUS_ORDER.index(x.status) if x.status in _STATUS_ORDER else 99)):
+        for p in sorted(
+            actionable,
+            key=lambda x: _STATUS_ORDER.index(x.status) if x.status in _STATUS_ORDER else 99,
+        ):
             impact = f"  blast_radius={p.blast_radius}" if p.blast_radius else ""
             wt = f"  worktree={p.worktree_path}" if p.worktree_path else ""
             lines.append(
@@ -899,20 +1005,55 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         labels_path = Path(graph_path).parent / ".graphify_labels.json"
         if labels_path.exists():
             try:
-                return {int(k): v for k, v in json.loads(labels_path.read_text(encoding="utf-8")).items()}
-            except Exception:
-                pass
+                return {
+                    int(k): v
+                    for k, v in json.loads(labels_path.read_text(encoding="utf-8")).items()
+                }
+            except Exception as exc:
+                print(
+                    f"[graphify] warning: could not load community labels: {exc}", file=sys.stderr
+                )
         return {cid: f"Community {cid}" for cid in communities}
 
     @server.list_resources()
     async def list_resources() -> list[types.Resource]:
         return [
-            types.Resource(uri=AnyUrl("graphify://report"), name="Graph Report", description="Full GRAPH_REPORT.md", mimeType="text/markdown"),
-            types.Resource(uri=AnyUrl("graphify://stats"), name="Graph Stats", description="Node/edge/community counts and confidence breakdown", mimeType="text/plain"),
-            types.Resource(uri=AnyUrl("graphify://god-nodes"), name="God Nodes", description="Top 10 most-connected nodes", mimeType="text/plain"),
-            types.Resource(uri=AnyUrl("graphify://surprises"), name="Surprising Connections", description="Cross-community surprising connections", mimeType="text/plain"),
-            types.Resource(uri=AnyUrl("graphify://audit"), name="Confidence Audit", description="EXTRACTED/INFERRED/AMBIGUOUS edge breakdown", mimeType="text/plain"),
-            types.Resource(uri=AnyUrl("graphify://questions"), name="Suggested Questions", description="Suggested questions for this codebase", mimeType="text/plain"),
+            types.Resource(
+                uri=AnyUrl("graphify://report"),
+                name="Graph Report",
+                description="Full GRAPH_REPORT.md",
+                mimeType="text/markdown",
+            ),
+            types.Resource(
+                uri=AnyUrl("graphify://stats"),
+                name="Graph Stats",
+                description="Node/edge/community counts and confidence breakdown",
+                mimeType="text/plain",
+            ),
+            types.Resource(
+                uri=AnyUrl("graphify://god-nodes"),
+                name="God Nodes",
+                description="Top 10 most-connected nodes",
+                mimeType="text/plain",
+            ),
+            types.Resource(
+                uri=AnyUrl("graphify://surprises"),
+                name="Surprising Connections",
+                description="Cross-community surprising connections",
+                mimeType="text/plain",
+            ),
+            types.Resource(
+                uri=AnyUrl("graphify://audit"),
+                name="Confidence Audit",
+                description="EXTRACTED/INFERRED/AMBIGUOUS edge breakdown",
+                mimeType="text/plain",
+            ),
+            types.Resource(
+                uri=AnyUrl("graphify://questions"),
+                name="Suggested Questions",
+                description="Suggested questions for this codebase",
+                mimeType="text/plain",
+            ),
         ]
 
     @server.read_resource()
@@ -931,12 +1072,15 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
         if uri_str == "graphify://surprises":
             try:
                 from graphify.analyze import surprising_connections
+
                 surprises = surprising_connections(G, communities, top_n=10)
                 if not surprises:
                     return "No surprising connections found."
                 lines = ["Surprising cross-community connections:"]
                 for s in surprises:
-                    lines.append(f"  {s.get('source', '')} <-> {s.get('target', '')} [{s.get('relation', '')}]")
+                    lines.append(
+                        f"  {s.get('source', '')} <-> {s.get('target', '')} [{s.get('relation', '')}]"
+                    )
                 return "\n".join(lines)
             except Exception as exc:
                 return f"Could not compute surprising connections: {exc}"
@@ -945,13 +1089,14 @@ def serve(graph_path: str = "graphify-out/graph.json") -> None:
             total = len(confs) or 1
             return (
                 f"Total edges: {total}\n"
-                f"EXTRACTED: {confs.count('EXTRACTED')} ({round(confs.count('EXTRACTED')/total*100)}%)\n"
-                f"INFERRED: {confs.count('INFERRED')} ({round(confs.count('INFERRED')/total*100)}%)\n"
-                f"AMBIGUOUS: {confs.count('AMBIGUOUS')} ({round(confs.count('AMBIGUOUS')/total*100)}%)\n"
+                f"EXTRACTED: {confs.count('EXTRACTED')} ({round(confs.count('EXTRACTED') / total * 100)}%)\n"
+                f"INFERRED: {confs.count('INFERRED')} ({round(confs.count('INFERRED') / total * 100)}%)\n"
+                f"AMBIGUOUS: {confs.count('AMBIGUOUS')} ({round(confs.count('AMBIGUOUS') / total * 100)}%)\n"
             )
         if uri_str == "graphify://questions":
             try:
                 from graphify.analyze import suggest_questions
+
                 community_labels = _load_community_labels()
                 questions = suggest_questions(G, communities, community_labels, top_n=10)
                 if not questions:

@@ -3,6 +3,7 @@
 Mocks subprocess.run + shutil.which so the suite runs on CI without
 the `claude` binary or a live network call.
 """
+
 from __future__ import annotations
 
 import json
@@ -16,19 +17,31 @@ _ENVELOPE = {
     "type": "result",
     "subtype": "success",
     "is_error": False,
-    "result": json.dumps({
-        "nodes": [
-            {"id": "foo_module", "label": "Foo", "file_type": "document", "source_file": "foo.md"},
-            {"id": "foo_greet", "label": "greet", "file_type": "code", "source_file": "foo.md"},
-        ],
-        "edges": [
-            {"source": "foo_module", "target": "foo_greet",
-             "relation": "references", "confidence": "EXTRACTED", "confidence_score": 1.0},
-        ],
-        "hyperedges": [],
-        "input_tokens": 0,
-        "output_tokens": 0,
-    }),
+    "result": json.dumps(
+        {
+            "nodes": [
+                {
+                    "id": "foo_module",
+                    "label": "Foo",
+                    "file_type": "document",
+                    "source_file": "foo.md",
+                },
+                {"id": "foo_greet", "label": "greet", "file_type": "code", "source_file": "foo.md"},
+            ],
+            "edges": [
+                {
+                    "source": "foo_module",
+                    "target": "foo_greet",
+                    "relation": "references",
+                    "confidence": "EXTRACTED",
+                    "confidence_score": 1.0,
+                },
+            ],
+            "hyperedges": [],
+            "input_tokens": 0,
+            "output_tokens": 0,
+        }
+    ),
     "stop_reason": "end_turn",
     "usage": {
         "input_tokens": 6,
@@ -44,8 +57,10 @@ _ENVELOPE = {
 def fake_claude(monkeypatch):
     completed = MagicMock(returncode=0, stdout=json.dumps(_ENVELOPE), stderr="")
     monkeypatch.setattr(llm, "_response_is_hollow", lambda raw, parsed: False)
-    with patch("shutil.which", return_value="/fake/bin/claude"), \
-         patch("subprocess.run", return_value=completed) as run:
+    with (
+        patch("shutil.which", return_value="/fake/bin/claude"),
+        patch("subprocess.run", return_value=completed) as run,
+    ):
         yield run
 
 
@@ -67,8 +82,10 @@ def test_finish_reason_length_on_max_tokens(monkeypatch):
     envelope = dict(_ENVELOPE, stop_reason="max_tokens")
     completed = MagicMock(returncode=0, stdout=json.dumps(envelope), stderr="")
     monkeypatch.setattr(llm, "_response_is_hollow", lambda raw, parsed: False)
-    with patch("shutil.which", return_value="/fake/bin/claude"), \
-         patch("subprocess.run", return_value=completed):
+    with (
+        patch("shutil.which", return_value="/fake/bin/claude"),
+        patch("subprocess.run", return_value=completed),
+    ):
         result = llm._call_claude_cli("dummy", max_tokens=8192)
     assert result["finish_reason"] == "length"
 
@@ -81,16 +98,20 @@ def test_raises_when_cli_missing():
 
 def test_raises_on_nonzero_exit():
     completed = MagicMock(returncode=2, stdout="", stderr="auth failed")
-    with patch("shutil.which", return_value="/fake/bin/claude"), \
-         patch("subprocess.run", return_value=completed):
+    with (
+        patch("shutil.which", return_value="/fake/bin/claude"),
+        patch("subprocess.run", return_value=completed),
+    ):
         with pytest.raises(RuntimeError, match="exited 2"):
             llm._call_claude_cli("dummy", max_tokens=8192)
 
 
 def test_raises_on_garbage_envelope():
     completed = MagicMock(returncode=0, stdout="not json", stderr="")
-    with patch("shutil.which", return_value="/fake/bin/claude"), \
-         patch("subprocess.run", return_value=completed):
+    with (
+        patch("shutil.which", return_value="/fake/bin/claude"),
+        patch("subprocess.run", return_value=completed),
+    ):
         with pytest.raises(RuntimeError, match="unparseable JSON envelope"):
             llm._call_claude_cli("dummy", max_tokens=8192)
 

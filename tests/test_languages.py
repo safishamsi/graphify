@@ -1,14 +1,30 @@
 """Tests for language extractors: Java, C, C++, Ruby, C#, Kotlin, Scala, PHP, Swift, Go, Julia, Fortran, JS/TS, .NET project files."""
+
 from __future__ import annotations
 from pathlib import Path
-import pytest
 from graphify.extract import (
-    extract_java, extract_c, extract_cpp, extract_ruby,
-    extract_csharp, extract_kotlin, extract_scala, extract_php,
-    extract_swift, extract_go, extract_julia, extract_js, extract_fortran,
-    extract_groovy, extract_sln, extract_csproj, extract_razor,
-    extract_dm, extract_dmi, extract_dmm, extract_dmf,
+    extract_java,
+    extract_c,
+    extract_cpp,
+    extract_csproj,
+    extract_dm,
+    extract_dmf,
+    extract_dmi,
+    extract_dmm,
+    extract_fortran,
+    extract_go,
+    extract_groovy,
+    extract_js,
+    extract_julia,
+    extract_kotlin,
+    extract_php,
     extract_powershell,
+    extract_razor,
+    extract_ruby,
+    extract_csharp,
+    extract_scala,
+    extract_sln,
+    extract_swift,
 )
 
 FIXTURES = Path(__file__).parent / "fixtures"
@@ -17,14 +33,17 @@ FIXTURES = Path(__file__).parent / "fixtures"
 def _labels(r):
     return [n["label"] for n in r["nodes"]]
 
+
 def _relations(r):
     return {e["relation"] for e in r["edges"]}
+
 
 def _calls(r):
     node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
     return {
         (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
-        for e in r["edges"] if e["relation"] == "calls"
+        for e in r["edges"]
+        if e["relation"] == "calls"
     }
 
 
@@ -36,7 +55,8 @@ def _references(r):
             node_by_id.get(e["target"], e["target"]),
             e,
         )
-        for e in r["edges"] if e["relation"] == "references"
+        for e in r["edges"]
+        if e["relation"] == "references"
     ]
 
 
@@ -63,29 +83,36 @@ def _edge_labels(result: dict, relation: str, context: str | None = None) -> set
             continue
         if context is not None and edge.get("context") != context:
             continue
-        pairs.add((labels.get(edge["source"], edge["source"]), labels.get(edge["target"], edge["target"])))
+        pairs.add(
+            (labels.get(edge["source"], edge["source"]), labels.get(edge["target"], edge["target"]))
+        )
     return pairs
 
 
 # ── Java ──────────────────────────────────────────────────────────────────────
 
+
 def test_java_no_error():
     r = extract_java(FIXTURES / "sample.java")
     assert "error" not in r
 
+
 def test_java_finds_class():
     r = extract_java(FIXTURES / "sample.java")
-    assert any("DataProcessor" in l for l in _labels(r))
+    assert any("DataProcessor" in label for label in _labels(r))
+
 
 def test_java_finds_interface():
     r = extract_java(FIXTURES / "sample.java")
-    assert any("Processor" in l for l in _labels(r))
+    assert any("Processor" in label for label in _labels(r))
+
 
 def test_java_finds_methods():
     r = extract_java(FIXTURES / "sample.java")
     labels = _labels(r)
-    assert any("addItem" in l for l in labels)
-    assert any("process" in l for l in labels)
+    assert any("addItem" in label for label in labels)
+    assert any("process" in label for label in labels)
+
 
 def test_java_finds_imports():
     r = extract_java(FIXTURES / "sample.java")
@@ -98,6 +125,7 @@ def test_java_import_edges_have_import_context():
     assert import_edges
     assert all(e.get("context") == "import" for e in import_edges)
 
+
 def test_java_no_dangling_edges():
     r = extract_java(FIXTURES / "sample.java")
     node_ids = {n["id"] for n in r["nodes"]}
@@ -107,23 +135,28 @@ def test_java_no_dangling_edges():
 
 # ── C ────────────────────────────────────────────────────────────────────────
 
+
 def test_c_no_error():
     r = extract_c(FIXTURES / "sample.c")
     assert "error" not in r
 
+
 def test_c_finds_functions():
     r = extract_c(FIXTURES / "sample.c")
     labels = _labels(r)
-    assert any("process" in l for l in labels)
-    assert any("main" in l for l in labels)
+    assert any("process" in label for label in labels)
+    assert any("main" in label for label in labels)
+
 
 def test_c_finds_includes():
     r = extract_c(FIXTURES / "sample.c")
     assert "imports" in _relations(r)
 
+
 def test_c_emits_calls():
     r = extract_c(FIXTURES / "sample.c")
     assert any(e["relation"] == "calls" for e in r["edges"])
+
 
 def test_c_calls_are_extracted():
     r = extract_c(FIXTURES / "sample.c")
@@ -154,19 +187,23 @@ def test_c_call_edges_have_call_context():
 
 # ── C++ ───────────────────────────────────────────────────────────────────────
 
+
 def test_cpp_no_error():
     r = extract_cpp(FIXTURES / "sample.cpp")
     assert "error" not in r
 
+
 def test_cpp_finds_class():
     r = extract_cpp(FIXTURES / "sample.cpp")
-    assert any("HttpClient" in l for l in _labels(r))
+    assert any("HttpClient" in label for label in _labels(r))
+
 
 def test_cpp_finds_methods():
     r = extract_cpp(FIXTURES / "sample.cpp")
     labels = _labels(r)
     # C++ extractor captures the constructor and public-visible methods
-    assert any("HttpClient" in l for l in labels)
+    assert any("HttpClient" in label for label in labels)
+
 
 def test_cpp_finds_includes():
     r = extract_cpp(FIXTURES / "sample.cpp")
@@ -200,7 +237,8 @@ def test_cpp_class_inherits_edge():
     found = any(
         "AuthedHttpClient" in node_by_id.get(e["source"], "")
         and "HttpClient" in node_by_id.get(e["target"], "")
-        for e in r["edges"] if e["relation"] == "inherits"
+        for e in r["edges"]
+        if e["relation"] == "inherits"
     )
     assert found, "AuthedHttpClient should have inherits edge to HttpClient"
 
@@ -212,67 +250,80 @@ def test_cpp_struct_inherits_edge():
     found = any(
         "RetryingHttpClient" in node_by_id.get(e["source"], "")
         and "HttpClient" in node_by_id.get(e["target"], "")
-        for e in r["edges"] if e["relation"] == "inherits"
+        for e in r["edges"]
+        if e["relation"] == "inherits"
     )
     assert found, "RetryingHttpClient (struct) should have inherits edge to HttpClient"
 
 
 # ── Ruby ─────────────────────────────────────────────────────────────────────
 
+
 def test_ruby_no_error():
     r = extract_ruby(FIXTURES / "sample.rb")
     assert "error" not in r
 
+
 def test_ruby_finds_class():
     r = extract_ruby(FIXTURES / "sample.rb")
-    assert any("ApiClient" in l for l in _labels(r))
+    assert any("ApiClient" in label for label in _labels(r))
+
 
 def test_ruby_finds_methods():
     r = extract_ruby(FIXTURES / "sample.rb")
     labels = _labels(r)
-    assert any("get" in l for l in labels)
-    assert any("post" in l for l in labels)
+    assert any("get" in label for label in labels)
+    assert any("post" in label for label in labels)
+
 
 def test_ruby_finds_function():
     r = extract_ruby(FIXTURES / "sample.rb")
-    assert any("parse_response" in l for l in _labels(r))
+    assert any("parse_response" in label for label in _labels(r))
 
 
 # ── C# ───────────────────────────────────────────────────────────────────────
+
 
 def test_csharp_no_error():
     r = extract_csharp(FIXTURES / "sample.cs")
     assert "error" not in r
 
+
 def test_csharp_finds_class():
     r = extract_csharp(FIXTURES / "sample.cs")
-    assert any("DataProcessor" in l for l in _labels(r))
+    assert any("DataProcessor" in label for label in _labels(r))
+
 
 def test_csharp_finds_interface():
     r = extract_csharp(FIXTURES / "sample.cs")
-    assert any("IProcessor" in l for l in _labels(r))
+    assert any("IProcessor" in label for label in _labels(r))
+
 
 def test_csharp_finds_methods():
     r = extract_csharp(FIXTURES / "sample.cs")
     labels = _labels(r)
-    assert any("Process" in l for l in labels)
+    assert any("Process" in label for label in labels)
+
 
 def test_csharp_finds_usings():
     r = extract_csharp(FIXTURES / "sample.cs")
     assert "imports" in _relations(r)
+
 
 def test_csharp_inherits_edge():
     r = extract_csharp(FIXTURES / "sample.cs")
     inherits = [e for e in r["edges"] if e["relation"] == "inherits"]
     assert len(inherits) >= 1
 
+
 def test_csharp_implements_iprocessor():
     r = extract_csharp(FIXTURES / "sample.cs")
     node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
     found = any(
-        "DataProcessor" in node_by_id.get(e["source"], "") and
-        "IProcessor" in node_by_id.get(e["target"], "")
-        for e in r["edges"] if e["relation"] == "implements"
+        "DataProcessor" in node_by_id.get(e["source"], "")
+        and "IProcessor" in node_by_id.get(e["target"], "")
+        for e in r["edges"]
+        if e["relation"] == "implements"
     )
     assert found, "DataProcessor should have implements edge to IProcessor"
 
@@ -320,7 +371,8 @@ def test_csharp_call_edges_have_call_context():
         "Process" in node_by_id.get(e["source"], "")
         and "Validate" in node_by_id.get(e["target"], "")
         and e.get("context") == "call"
-        for e in r["edges"] if e["relation"] == "calls"
+        for e in r["edges"]
+        if e["relation"] == "calls"
     ), "C# call edges should retain call context"
 
 
@@ -333,27 +385,33 @@ def test_csharp_import_edges_have_import_context():
 
 # ── Kotlin ───────────────────────────────────────────────────────────────────
 
+
 def test_kotlin_no_error():
     r = extract_kotlin(FIXTURES / "sample.kt")
     assert "error" not in r
 
+
 def test_kotlin_finds_class():
     r = extract_kotlin(FIXTURES / "sample.kt")
-    assert any("HttpClient" in l for l in _labels(r))
+    assert any("HttpClient" in label for label in _labels(r))
+
 
 def test_kotlin_finds_data_class():
     r = extract_kotlin(FIXTURES / "sample.kt")
-    assert any("Config" in l for l in _labels(r))
+    assert any("Config" in label for label in _labels(r))
+
 
 def test_kotlin_finds_methods():
     r = extract_kotlin(FIXTURES / "sample.kt")
     labels = _labels(r)
-    assert any("get" in l for l in labels)
-    assert any("post" in l for l in labels)
+    assert any("get" in label for label in labels)
+    assert any("post" in label for label in labels)
+
 
 def test_kotlin_finds_function():
     r = extract_kotlin(FIXTURES / "sample.kt")
-    assert any("createClient" in l for l in _labels(r))
+    assert any("createClient" in label for label in _labels(r))
+
 
 def test_kotlin_emits_in_file_calls():
     """Regression test for the call-walker `simple_identifier` /
@@ -384,23 +442,27 @@ def test_kotlin_parameter_return_generic_and_field_contexts():
 
 # ── Scala ─────────────────────────────────────────────────────────────────────
 
+
 def test_scala_no_error():
     r = extract_scala(FIXTURES / "sample.scala")
     assert "error" not in r
 
+
 def test_scala_finds_class():
     r = extract_scala(FIXTURES / "sample.scala")
-    assert any("HttpClient" in l for l in _labels(r))
+    assert any("HttpClient" in label for label in _labels(r))
+
 
 def test_scala_finds_object():
     r = extract_scala(FIXTURES / "sample.scala")
-    assert any("HttpClientFactory" in l for l in _labels(r))
+    assert any("HttpClientFactory" in label for label in _labels(r))
+
 
 def test_scala_finds_methods():
     r = extract_scala(FIXTURES / "sample.scala")
     labels = _labels(r)
-    assert any("get" in l for l in labels)
-    assert any("post" in l for l in labels)
+    assert any("get" in label for label in labels)
+    assert any("post" in label for label in labels)
 
 
 def test_scala_import_edges_have_import_context():
@@ -440,23 +502,28 @@ def test_scala_call_edges_have_call_context():
 
 # ── PHP ───────────────────────────────────────────────────────────────────────
 
+
 def test_php_no_error():
     r = extract_php(FIXTURES / "sample.php")
     assert "error" not in r
 
+
 def test_php_finds_class():
     r = extract_php(FIXTURES / "sample.php")
-    assert any("ApiClient" in l for l in _labels(r))
+    assert any("ApiClient" in label for label in _labels(r))
+
 
 def test_php_finds_methods():
     r = extract_php(FIXTURES / "sample.php")
     labels = _labels(r)
-    assert any("get" in l for l in labels)
-    assert any("post" in l for l in labels)
+    assert any("get" in label for label in labels)
+    assert any("post" in label for label in labels)
+
 
 def test_php_finds_function():
     r = extract_php(FIXTURES / "sample.php")
-    assert any("parseResponse" in l for l in _labels(r))
+    assert any("parseResponse" in label for label in _labels(r))
+
 
 def test_php_finds_imports():
     r = extract_php(FIXTURES / "sample.php")
@@ -476,55 +543,67 @@ def test_php_call_edges_have_call_context():
     assert call_edges
     assert all(e.get("context") == "call" for e in call_edges)
 
+
 def test_php_finds_static_property_access():
     r = extract_php(FIXTURES / "sample_php_static_prop.php")
     assert "uses_static_prop" in _relations(r)
+
 
 def test_php_static_prop_target_is_holding_class():
     r = extract_php(FIXTURES / "sample_php_static_prop.php")
     node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
     uses_prop = [
         (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
-        for e in r["edges"] if e["relation"] == "uses_static_prop"
+        for e in r["edges"]
+        if e["relation"] == "uses_static_prop"
     ]
     assert any("DefaultPalette" in tgt for _, tgt in uses_prop)
+
 
 def test_php_finds_config_helper_call():
     r = extract_php(FIXTURES / "sample_php_config.php")
     assert "uses_config" in _relations(r)
+
 
 def test_php_config_helper_target_matches_first_segment():
     r = extract_php(FIXTURES / "sample_php_config.php")
     node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
     uses_cfg = [
         (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
-        for e in r["edges"] if e["relation"] == "uses_config"
+        for e in r["edges"]
+        if e["relation"] == "uses_config"
     ]
     assert any("Throttle" in tgt for _, tgt in uses_cfg)
+
 
 def test_php_finds_container_bind():
     r = extract_php(FIXTURES / "sample_php_container.php")
     assert "bound_to" in _relations(r)
+
 
 def test_php_container_bind_links_contract_to_implementation():
     r = extract_php(FIXTURES / "sample_php_container.php")
     node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
     bound = [
         (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
-        for e in r["edges"] if e["relation"] == "bound_to"
+        for e in r["edges"]
+        if e["relation"] == "bound_to"
     ]
     assert any("PaymentGateway" in src and "StripeGateway" in tgt for src, tgt in bound)
+
 
 def test_php_finds_event_listeners():
     r = extract_php(FIXTURES / "sample_php_listen.php")
     assert "listened_by" in _relations(r)
+
 
 def test_php_event_listener_links_event_to_listener():
     r = extract_php(FIXTURES / "sample_php_listen.php")
     node_by_id = {n["id"]: n["label"] for n in r["nodes"]}
     listened = [
         (node_by_id.get(e["source"], e["source"]), node_by_id.get(e["target"], e["target"]))
-        for e in r["edges"] if e["relation"] == "listened_by"
+        for e in r["edges"]
+        if e["relation"] == "listened_by"
     ]
     assert any("UserRegistered" in src and "SendWelcomeEmail" in tgt for src, tgt in listened)
 
@@ -545,31 +624,38 @@ def test_php_property_parameter_and_return_contexts():
 
 # ── Swift ────────────────────────────────────────────────────────────────────
 
+
 def test_swift_no_error():
     r = extract_swift(FIXTURES / "sample.swift")
     assert "error" not in r
 
+
 def test_swift_finds_class():
     r = extract_swift(FIXTURES / "sample.swift")
-    assert any("DataProcessor" in l for l in _labels(r))
+    assert any("DataProcessor" in label for label in _labels(r))
+
 
 def test_swift_finds_protocol():
     r = extract_swift(FIXTURES / "sample.swift")
-    assert any("Processor" in l for l in _labels(r))
+    assert any("Processor" in label for label in _labels(r))
+
 
 def test_swift_finds_struct():
     r = extract_swift(FIXTURES / "sample.swift")
-    assert any("Config" in l for l in _labels(r))
+    assert any("Config" in label for label in _labels(r))
+
 
 def test_swift_finds_methods():
     r = extract_swift(FIXTURES / "sample.swift")
     labels = _labels(r)
-    assert any("addItem" in l for l in labels)
-    assert any("process" in l for l in labels)
+    assert any("addItem" in label for label in labels)
+    assert any("process" in label for label in labels)
+
 
 def test_swift_finds_function():
     r = extract_swift(FIXTURES / "sample.swift")
-    assert any("createProcessor" in l for l in _labels(r))
+    assert any("createProcessor" in label for label in _labels(r))
+
 
 def test_swift_finds_imports():
     r = extract_swift(FIXTURES / "sample.swift")
@@ -582,42 +668,51 @@ def test_swift_import_edges_have_import_context():
     assert import_edges
     assert all(e.get("context") == "import" for e in import_edges)
 
+
 def test_swift_no_dangling_edges():
     r = extract_swift(FIXTURES / "sample.swift")
     node_ids = {n["id"] for n in r["nodes"]}
     for e in r["edges"]:
         assert e["source"] in node_ids
 
+
 def test_swift_finds_actor():
     r = extract_swift(FIXTURES / "sample.swift")
-    assert any("CacheManager" in l for l in _labels(r))
+    assert any("CacheManager" in label for label in _labels(r))
+
 
 def test_swift_finds_enum():
     r = extract_swift(FIXTURES / "sample.swift")
-    assert any("NetworkError" in l for l in _labels(r))
+    assert any("NetworkError" in label for label in _labels(r))
+
 
 def test_swift_finds_enum_methods():
     r = extract_swift(FIXTURES / "sample.swift")
-    assert any("describe" in l for l in _labels(r))
+    assert any("describe" in label for label in _labels(r))
+
 
 def test_swift_finds_enum_cases():
     r = extract_swift(FIXTURES / "sample.swift")
     labels = _labels(r)
-    assert any("timeout" in l for l in labels)
-    assert any("connectionFailed" in l for l in labels)
+    assert any("timeout" in label for label in labels)
+    assert any("connectionFailed" in label for label in labels)
+
 
 def test_swift_enum_cases_have_case_of_edge():
     r = extract_swift(FIXTURES / "sample.swift")
     case_edges = [e for e in r["edges"] if e["relation"] == "case_of"]
     assert len(case_edges) >= 2
 
+
 def test_swift_finds_deinit():
     r = extract_swift(FIXTURES / "sample.swift")
-    assert any("deinit" in l for l in _labels(r))
+    assert any("deinit" in label for label in _labels(r))
+
 
 def test_swift_finds_subscript():
     r = extract_swift(FIXTURES / "sample.swift")
-    assert any("subscript" in l for l in _labels(r))
+    assert any("subscript" in label for label in _labels(r))
+
 
 def test_swift_extension_methods_attach_to_type():
     r = extract_swift(FIXTURES / "sample.swift")
@@ -631,6 +726,7 @@ def test_swift_extension_methods_attach_to_type():
             found = True
             break
     assert found, "extension method isValid should attach to Config"
+
 
 def test_swift_extension_does_not_duplicate_type_node():
     r = extract_swift(FIXTURES / "sample.swift")
@@ -660,10 +756,12 @@ def test_swift_parameter_return_generic_and_field_contexts():
     assert ("run", "DataProcessor") in _edge_labels(r, "references", "generic_arg")
     assert ("DataProcessor", "Result") in _edge_labels(r, "references", "field")
 
+
 def test_swift_emits_calls():
     r = extract_swift(FIXTURES / "sample.swift")
     calls = _calls(r)
     assert any("process" in src and "validate" in tgt for src, tgt in calls)
+
 
 def test_swift_call_edges_have_call_context():
     r = extract_swift(FIXTURES / "sample.swift")
@@ -678,36 +776,45 @@ def test_swift_extension_across_files_merges_into_canonical_type():
     node ids carry the file stem, so without a corpus-level merge each file
     would emit its own Foo."""
     from graphify.extract import extract
+
     paths = sorted((FIXTURES / "swift_cross_file").glob("*.swift"))
     r = extract(paths, cache_root=Path("/tmp/graphify-test-no-cache"))
     foo_nodes = [n for n in r["nodes"] if n["label"] == "Foo"]
-    assert len(foo_nodes) == 1, f"Foo should appear once, got {len(foo_nodes)}: {[n['id'] for n in foo_nodes]}"
+    assert len(foo_nodes) == 1, (
+        f"Foo should appear once, got {len(foo_nodes)}: {[n['id'] for n in foo_nodes]}"
+    )
     foo_id = foo_nodes[0]["id"]
     method_targets = {
-        e["target"] for e in r["edges"]
-        if e["relation"] == "method" and e["source"] == foo_id
+        e["target"] for e in r["edges"] if e["relation"] == "method" and e["source"] == foo_id
     }
     method_labels = {n["label"] for n in r["nodes"] if n["id"] in method_targets}
-    assert any("one" in l for l in method_labels), f"one() should attach to Foo, got {method_labels}"
-    assert any("two" in l for l in method_labels), f"extension method two() should attach to Foo, got {method_labels}"
+    assert any("one" in label for label in method_labels), (
+        f"one() should attach to Foo, got {method_labels}"
+    )
+    assert any("two" in label for label in method_labels), (
+        f"extension method two() should attach to Foo, got {method_labels}"
+    )
 
 
 # ── Elixir ────────────────────────────────────────────────────────────────────
 
-from graphify.extract import extract_elixir
+from graphify.extract import extract_elixir  # noqa: E402
+
 
 def test_elixir_finds_module():
     r = extract_elixir(FIXTURES / "sample.ex")
     assert "error" not in r
     labels = [n["label"] for n in r["nodes"]]
-    assert any("MyApp.Accounts.User" in l for l in labels)
+    assert any("MyApp.Accounts.User" in label for label in labels)
+
 
 def test_elixir_finds_functions():
     r = extract_elixir(FIXTURES / "sample.ex")
     labels = [n["label"] for n in r["nodes"]]
-    assert any("create" in l for l in labels)
-    assert any("find" in l for l in labels)
-    assert any("validate" in l for l in labels)
+    assert any("create" in label for label in labels)
+    assert any("find" in label for label in labels)
+    assert any("validate" in label for label in labels)
+
 
 def test_elixir_finds_imports():
     r = extract_elixir(FIXTURES / "sample.ex")
@@ -721,11 +828,14 @@ def test_elixir_import_edges_have_import_context():
     assert import_edges
     assert all(e.get("context") == "import" for e in import_edges)
 
+
 def test_elixir_finds_calls():
     r = extract_elixir(FIXTURES / "sample.ex")
     calls = {(e["source"], e["target"]) for e in r["edges"] if e["relation"] == "calls"}
     labels = {n["id"]: n["label"] for n in r["nodes"]}
-    assert any("create" in labels.get(src, "") and "validate" in labels.get(tgt, "") for src, tgt in calls)
+    assert any(
+        "create" in labels.get(src, "") and "validate" in labels.get(tgt, "") for src, tgt in calls
+    )
 
 
 def test_elixir_call_edges_have_call_context():
@@ -734,6 +844,7 @@ def test_elixir_call_edges_have_call_context():
     assert call_edges
     assert all(e.get("context") == "call" for e in call_edges)
 
+
 def test_elixir_method_edges():
     r = extract_elixir(FIXTURES / "sample.ex")
     methods = [e for e in r["edges"] if e["relation"] == "method"]
@@ -741,7 +852,7 @@ def test_elixir_method_edges():
 
 
 # ── Objective-C ──────────────────────────────────────────────────────────────
-from graphify.extract import extract_objc
+from graphify.extract import extract_objc  # noqa: E402
 
 
 def test_objc_finds_interface():
@@ -759,7 +870,7 @@ def test_objc_finds_subclass():
 def test_objc_finds_methods():
     r = extract_objc(FIXTURES / "sample.m")
     labels = [n["label"] for n in r["nodes"]]
-    assert any("speak" in l or "fetch" in l or "initWithName" in l for l in labels)
+    assert any("speak" in label or "fetch" in label or "initWithName" in label for label in labels)
 
 
 def test_objc_finds_imports():
@@ -804,12 +915,14 @@ def test_objc_no_dangling_edges():
 # Go
 # ---------------------------------------------------------------------------
 
+
 def test_go_receiver_methods_share_type_node():
     """Methods on the same receiver type must share one canonical type node."""
     r = extract_go(FIXTURES / "sample.go")
     server_nodes = [n for n in r["nodes"] if n["label"] == "Server"]
     # Both Start() and Stop() are on *Server — should produce exactly one Server node
     assert len(server_nodes) == 1
+
 
 def test_go_receiver_uses_pkg_scope():
     """Type node id should be scoped to directory, not file stem."""
@@ -823,6 +936,7 @@ def test_go_receiver_uses_pkg_scope():
 # ---------------------------------------------------------------------------
 # Julia
 # ---------------------------------------------------------------------------
+
 
 def test_julia_finds_module():
     r = extract_julia(FIXTURES / "sample.jl")
@@ -846,14 +960,14 @@ def test_julia_finds_abstract_type():
 def test_julia_finds_functions():
     r = extract_julia(FIXTURES / "sample.jl")
     labels = [n["label"] for n in r["nodes"]]
-    assert any("area" in l for l in labels)
-    assert any("distance" in l for l in labels)
+    assert any("area" in label for label in labels)
+    assert any("distance" in label for label in labels)
 
 
 def test_julia_finds_short_function():
     r = extract_julia(FIXTURES / "sample.jl")
     labels = [n["label"] for n in r["nodes"]]
-    assert any("perimeter" in l for l in labels)
+    assert any("perimeter" in label for label in labels)
 
 
 def test_julia_finds_imports():
@@ -910,6 +1024,7 @@ def test_julia_no_dangling_edges():
 
 # ── Fortran extractor ────────────────────────────────────────────────────────
 
+
 def test_fortran_finds_module():
     r = extract_fortran(FIXTURES / "sample.f90")
     assert "error" not in r
@@ -920,14 +1035,14 @@ def test_fortran_finds_module():
 def test_fortran_finds_subroutines():
     r = extract_fortran(FIXTURES / "sample.f90")
     labels = [n["label"] for n in r["nodes"]]
-    assert any("circle_area" in l for l in labels)
-    assert any("print_area" in l for l in labels)
+    assert any("circle_area" in label for label in labels)
+    assert any("print_area" in label for label in labels)
 
 
 def test_fortran_finds_function():
     r = extract_fortran(FIXTURES / "sample.f90")
     labels = [n["label"] for n in r["nodes"]]
-    assert any("distance" in l for l in labels)
+    assert any("distance" in label for label in labels)
 
 
 def test_fortran_finds_program():
@@ -957,7 +1072,11 @@ def test_fortran_finds_calls():
 def test_fortran_case_insensitive_names():
     r = extract_fortran(FIXTURES / "sample.f90")
     labels = [n["label"] for n in r["nodes"]]
-    assert all(l == l.lower() or "(" in l for l in labels if l.endswith(("()", "")) and not "." in l)
+    assert all(
+        label == label.lower() or "(" in label
+        for label in labels
+        if label.endswith(("()", "")) and "." not in label
+    )
     assert "geometry" in labels
     assert "main" in labels
 
@@ -986,7 +1105,7 @@ def test_fortran_capital_F_parses_preprocessed():
     assert "error" not in r
     labels = [n["label"] for n in r["nodes"]]
     assert "shapes" in labels
-    assert any("compute_volume" in l for l in labels)
+    assert any("compute_volume" in label for label in labels)
 
 
 # ── PowerShell ───────────────────────────────────────────────────────────────
@@ -1000,7 +1119,7 @@ def test_powershell_finds_class_and_method():
     r = extract_powershell(FIXTURES / "sample.ps1")
     labels = [n["label"] for n in r["nodes"]]
     assert "DataProcessor" in labels
-    assert any("Transform" in l for l in labels)
+    assert any("Transform" in label for label in labels)
 
 
 def test_powershell_property_field_type_context():
@@ -1017,9 +1136,11 @@ def test_powershell_method_parameter_and_return_type_contexts():
 
 # ── TypeScript dynamic imports ───────────────────────────────────────────────
 
+
 def test_ts_dynamic_import_no_error():
     r = extract_js(FIXTURES / "dynamic_import.ts")
     assert "error" not in r
+
 
 def test_ts_dynamic_import_extracts_edges():
     """Dynamic import() calls inside functions should produce imports_from edges."""
@@ -1028,28 +1149,37 @@ def test_ts_dynamic_import_extracts_edges():
     targets = {e["target"] for e in dyn_edges}
     # Should find: static ./logger, dynamic ./mayaEngine.js, dynamic ./queue.js
     assert any("logger" in t for t in targets), f"Missing static import of logger: {targets}"
-    assert any("mayaengine" in t.lower() for t in targets), f"Missing dynamic import of mayaEngine: {targets}"
+    assert any("mayaengine" in t.lower() for t in targets), (
+        f"Missing dynamic import of mayaEngine: {targets}"
+    )
     assert any("queue" in t.lower() for t in targets), f"Missing dynamic import of queue: {targets}"
+
 
 def test_ts_dynamic_import_confidence():
     """Dynamic imports should have EXTRACTED confidence (they are deterministic string literals)."""
     r = extract_js(FIXTURES / "dynamic_import.ts")
-    dyn_edges = [e for e in r["edges"]
-                 if e["relation"] == "imports_from"
-                 and "mayaengine" in e["target"].lower()]
+    dyn_edges = [
+        e
+        for e in r["edges"]
+        if e["relation"] == "imports_from" and "mayaengine" in e["target"].lower()
+    ]
     assert len(dyn_edges) >= 1
     assert dyn_edges[0]["confidence"] == "EXTRACTED"
+
 
 def test_ts_dynamic_import_source_is_function():
     """Dynamic import edge source should be the enclosing function, not the file."""
     r = extract_js(FIXTURES / "dynamic_import.ts")
     node_labels = {n["id"]: n["label"] for n in r["nodes"]}
-    dyn_edges = [e for e in r["edges"]
-                 if e["relation"] == "imports_from"
-                 and "mayaengine" in e["target"].lower()]
+    dyn_edges = [
+        e
+        for e in r["edges"]
+        if e["relation"] == "imports_from" and "mayaengine" in e["target"].lower()
+    ]
     assert len(dyn_edges) >= 1
     src_label = node_labels.get(dyn_edges[0]["source"], "")
     assert "processInbound" in src_label, f"Expected processInbound as source, got {src_label}"
+
 
 def test_ts_no_dynamic_import_in_sync_fn():
     """Functions without dynamic imports should not get spurious imports_from edges."""
@@ -1057,27 +1187,33 @@ def test_ts_no_dynamic_import_in_sync_fn():
     node_ids = {n["label"]: n["id"] for n in r["nodes"]}
     sync_nid = node_ids.get("syncOnly()")
     if sync_nid:
-        sync_imports = [e for e in r["edges"]
-                        if e["source"] == sync_nid and e["relation"] == "imports_from"]
+        sync_imports = [
+            e for e in r["edges"] if e["source"] == sync_nid and e["relation"] == "imports_from"
+        ]
         assert len(sync_imports) == 0
+
 
 def test_ts_dynamic_template_literal_skipped():
     """Dynamic template literals (with ${}) must not produce an imports_from edge."""
     r = extract_js(FIXTURES / "dynamic_import.ts")
     targets = {e["target"] for e in r["edges"] if e["relation"] == "imports_from"}
     # loadHandler uses `./handlers/${handlerName}` — no static path, must be absent
-    assert not any("handler" in t.lower() and "$" in t for t in targets), \
+    assert not any("handler" in t.lower() and "$" in t for t in targets), (
         f"Garbage edge from dynamic template literal found: {targets}"
+    )
     # More robust: no target should contain a brace character
-    assert not any("{" in t or "}" in t for t in targets), \
+    assert not any("{" in t or "}" in t for t in targets), (
         f"Target contains unresolved template expression: {targets}"
+    )
+
 
 def test_ts_static_template_literal_resolved():
     """Static template literals (no ${}) should resolve the same as a plain string."""
     r = extract_js(FIXTURES / "dynamic_import.ts")
     targets = {e["target"] for e in r["edges"] if e["relation"] == "imports_from"}
-    assert any("statichelper" in t.lower() for t in targets), \
+    assert any("statichelper" in t.lower() for t in targets), (
         f"Static template literal import not resolved: {targets}"
+    )
 
 
 def test_js_local_const_does_not_emit_phantom_node(tmp_path):
@@ -1151,25 +1287,29 @@ def test_ts_local_const_does_not_emit_phantom_node(tmp_path):
 
 # ── Markdown ─────────────────────────────────────────────────────────────────
 
-from graphify.extract import extract_markdown
+from graphify.extract import extract_markdown  # noqa: E402
+
 
 def test_markdown_no_error():
     r = extract_markdown(FIXTURES / "deploy_guide.md")
     assert "error" not in r
 
+
 def test_markdown_finds_headings():
     r = extract_markdown(FIXTURES / "deploy_guide.md")
     labels = _labels(r)
-    assert any("Deploy Guide" in l for l in labels)
-    assert any("Prerequisites" in l for l in labels)
-    assert any("Full Deploy" in l for l in labels)
-    assert any("Rollback" in l for l in labels)
+    assert any("Deploy Guide" in label for label in labels)
+    assert any("Prerequisites" in label for label in labels)
+    assert any("Full Deploy" in label for label in labels)
+    assert any("Rollback" in label for label in labels)
+
 
 def test_markdown_finds_nested_heading():
     """### Database Migration is nested under ## Full Deploy."""
     r = extract_markdown(FIXTURES / "deploy_guide.md")
     labels = _labels(r)
-    assert any("Database Migration" in l for l in labels)
+    assert any("Database Migration" in label for label in labels)
+
 
 def test_markdown_skips_fenced_code_blocks():
     """Fenced code blocks should NOT emit nodes (#1077).
@@ -1225,6 +1365,7 @@ def test_markdown_fenced_heading_not_parsed():
     assert not any("Not A Heading" in l for l in labels), \
         f"fenced '## Not A Heading' was incorrectly parsed as a node: {labels}"
 
+
 def test_markdown_no_dangling_edges():
     r = extract_markdown(FIXTURES / "deploy_guide.md")
     node_ids = {n["id"] for n in r["nodes"]}
@@ -1242,14 +1383,14 @@ def test_groovy_no_error():
 
 def test_groovy_finds_class():
     r = extract_groovy(FIXTURES / "sample.groovy")
-    assert any("SampleService" in l for l in _labels(r))
+    assert any("SampleService" in label for label in _labels(r))
 
 
 def test_groovy_finds_methods():
     r = extract_groovy(FIXTURES / "sample.groovy")
     labels = _labels(r)
-    assert any("process" in l for l in labels)
-    assert any("reset" in l for l in labels)
+    assert any("process" in label for label in labels)
+    assert any("reset" in label for label in labels)
 
 
 def test_groovy_finds_imports():
@@ -1273,18 +1414,18 @@ def test_groovy_no_dangling_edges():
 
 def test_groovy_spock_finds_class():
     r = extract_groovy(FIXTURES / "sample_spock.groovy")
-    assert any("SampleSpec" in l for l in _labels(r))
+    assert any("SampleSpec" in label for label in _labels(r))
 
 
 def test_groovy_spock_finds_feature_methods():
     r = extract_groovy(FIXTURES / "sample_spock.groovy")
-    feature_labels = [l for l in _labels(r) if l.startswith('"')]
+    feature_labels = [label for label in _labels(r) if label.startswith('"')]
     assert len(feature_labels) >= 2
 
 
 def test_groovy_spock_finds_method_with_apostrophe():
     r = extract_groovy(FIXTURES / "sample_spock.groovy")
-    assert any("it's" in l for l in _labels(r))
+    assert any("it's" in label for label in _labels(r))
 
 
 def test_groovy_spock_preserves_import_edges():
@@ -1308,8 +1449,8 @@ def test_dm_no_error():
 def test_dm_finds_global_proc():
     r = extract_dm(FIXTURES / "sample.dm")
     labels = _labels(r)
-    assert any(l == "log_event()" for l in labels)
-    assert any(l == "RunTest()" for l in labels)
+    assert any(label == "log_event()" for label in labels)
+    assert any(label == "RunTest()" for label in labels)
 
 def test_dm_finds_type_definition():
     r = extract_dm(FIXTURES / "sample.dm")
@@ -1389,7 +1530,7 @@ def test_dmi_no_error():
 def test_dmi_emits_state_nodes():
     r = extract_dmi(FIXTURES / "sample.dmi")
     labels = _labels(r)
-    assert any(l == '"mob"' for l in labels)
+    assert any(label == '"mob"' for label in labels)
 
 def test_dmi_state_contained_by_file():
     r = extract_dmi(FIXTURES / "sample.dmi")
@@ -1463,68 +1604,83 @@ def test_dmf_no_dangling_edges():
 
 # -- .NET project files (.sln, .csproj, .razor) -------------------------------
 
+
 def test_sln_no_error():
     r = extract_sln(FIXTURES / "sample.sln")
     assert "error" not in r
 
+
 def test_sln_finds_projects():
     r = extract_sln(FIXTURES / "sample.sln")
     labels = _labels(r)
-    assert any("WebApi" in l for l in labels)
-    assert any("Domain" in l for l in labels)
+    assert any("WebApi" in label for label in labels)
+    assert any("Domain" in label for label in labels)
+
 
 def test_sln_contains_edges():
     r = extract_sln(FIXTURES / "sample.sln")
     assert "contains" in _relations(r)
 
+
 def test_sln_project_dependency_edges():
     r = extract_sln(FIXTURES / "sample.sln")
     assert "imports" in _relations(r)
+
 
 def test_csproj_no_error():
     r = extract_csproj(FIXTURES / "sample.csproj")
     assert "error" not in r
 
+
 def test_csproj_finds_packages():
     r = extract_csproj(FIXTURES / "sample.csproj")
     labels = _labels(r)
-    assert any("MediatR" in l for l in labels)
-    assert any("FluentValidation" in l for l in labels)
+    assert any("MediatR" in label for label in labels)
+    assert any("FluentValidation" in label for label in labels)
+
 
 def test_csproj_finds_project_references():
     r = extract_csproj(FIXTURES / "sample.csproj")
     labels = _labels(r)
-    assert any("Domain.csproj" in l for l in labels)
+    assert any("Domain.csproj" in label for label in labels)
+
 
 def test_csproj_finds_target_framework():
     r = extract_csproj(FIXTURES / "sample.csproj")
-    assert any("net8.0" in l for l in _labels(r))
+    assert any("net8.0" in label for label in _labels(r))
+
 
 def test_csproj_finds_sdk():
     r = extract_csproj(FIXTURES / "sample.csproj")
-    assert any("Microsoft.NET.Sdk.Web" in l for l in _labels(r))
+    assert any("Microsoft.NET.Sdk.Web" in label for label in _labels(r))
+
 
 def test_razor_no_error():
     r = extract_razor(FIXTURES / "sample.razor")
     assert "error" not in r
 
+
 def test_razor_finds_using_directives():
     r = extract_razor(FIXTURES / "sample.razor")
     assert "imports" in _relations(r)
+
 
 def test_razor_finds_component_references():
     r = extract_razor(FIXTURES / "sample.razor")
     assert "calls" in _relations(r)
 
+
 def test_razor_finds_inherits():
     r = extract_razor(FIXTURES / "sample.razor")
     assert "inherits" in _relations(r)
 
+
 def test_razor_finds_code_block_methods():
     r = extract_razor(FIXTURES / "sample.razor")
     labels = _labels(r)
-    assert any("IncrementCount" in l for l in labels)
-    assert any("LoadData" in l for l in labels)
+    assert any("IncrementCount" in label for label in labels)
+    assert any("LoadData" in label for label in labels)
+
 
 def test_razor_no_dangling_edges():
     r = extract_razor(FIXTURES / "sample.razor")

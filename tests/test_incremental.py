@@ -1,11 +1,11 @@
 """Integration tests for incremental graphify extract behavior."""
+
 from __future__ import annotations
 import json
 import subprocess
 import sys
 from pathlib import Path
 
-import pytest
 
 PYTHON = sys.executable
 

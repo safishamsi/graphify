@@ -1,4 +1,5 @@
 """Tests for watch.py - file watcher helpers (no watchdog required)."""
+
 import json
 import os
 import subprocess
@@ -12,17 +13,20 @@ from graphify.watch import _notify_only, _WATCHED_EXTENSIONS, _rebuild_lock, _ch
 
 # --- _notify_only ---
 
+
 def test_notify_only_creates_flag(tmp_path):
     _notify_only(tmp_path)
     flag = tmp_path / "graphify-out" / "needs_update"
     assert flag.exists()
     assert flag.read_text() == "1"
 
+
 def test_notify_only_creates_flag_dir(tmp_path):
     # graphify-out dir does not exist yet
     assert not (tmp_path / "graphify-out").exists()
     _notify_only(tmp_path)
     assert (tmp_path / "graphify-out").is_dir()
+
 
 def test_notify_only_idempotent(tmp_path):
     _notify_only(tmp_path)
@@ -33,20 +37,24 @@ def test_notify_only_idempotent(tmp_path):
 
 # --- _WATCHED_EXTENSIONS ---
 
+
 def test_watched_extensions_includes_code():
     assert ".py" in _WATCHED_EXTENSIONS
     assert ".ts" in _WATCHED_EXTENSIONS
     assert ".go" in _WATCHED_EXTENSIONS
     assert ".rs" in _WATCHED_EXTENSIONS
 
+
 def test_watched_extensions_includes_docs():
     assert ".md" in _WATCHED_EXTENSIONS
     assert ".txt" in _WATCHED_EXTENSIONS
     assert ".pdf" in _WATCHED_EXTENSIONS
 
+
 def test_watched_extensions_includes_images():
     assert ".png" in _WATCHED_EXTENSIONS
     assert ".jpg" in _WATCHED_EXTENSIONS
+
 
 def test_watched_extensions_excludes_noise():
     # .json is now indexed (bash/JSON extractors added in #866)
@@ -58,15 +66,18 @@ def test_watched_extensions_excludes_noise():
 
 # --- watch() import error without watchdog ---
 
+
 def test_check_update_no_flag_returns_true(tmp_path):
     """check_update returns True and is silent when needs_update flag is absent."""
     from graphify.watch import check_update
+
     assert check_update(tmp_path) is True
 
 
 def test_check_update_with_flag_returns_true_and_prints(tmp_path, capsys):
     """check_update returns True and prints notification when flag exists."""
     from graphify.watch import check_update
+
     flag = tmp_path / "graphify-out" / "needs_update"
     flag.parent.mkdir(parents=True, exist_ok=True)
     flag.write_text("1")
@@ -79,6 +90,7 @@ def test_check_update_with_flag_returns_true_and_prints(tmp_path, capsys):
 def test_check_update_does_not_clear_flag(tmp_path):
     """check_update never removes the needs_update flag (clearing is LLM's job)."""
     from graphify.watch import check_update
+
     flag = tmp_path / "graphify-out" / "needs_update"
     flag.parent.mkdir(parents=True, exist_ok=True)
     flag.write_text("1")
@@ -88,6 +100,7 @@ def test_check_update_does_not_clear_flag(tmp_path):
 
 def test_watch_raises_without_watchdog(tmp_path, monkeypatch):
     import builtins
+
     real_import = builtins.__import__
 
     def mock_import(name, *args, **kwargs):
@@ -98,6 +111,7 @@ def test_watch_raises_without_watchdog(tmp_path, monkeypatch):
     monkeypatch.setattr(builtins, "__import__", mock_import)
 
     from graphify.watch import watch
+
     with pytest.raises(ImportError, match="watchdog not installed"):
         watch(tmp_path)
 
@@ -150,12 +164,8 @@ def test_rebuild_code_evicts_nodes_from_deleted_files(tmp_path):
     corpus = tmp_path / "corpus"
     corpus.mkdir()
 
-    (corpus / "auth.py").write_text(
-        "def login(): pass\ndef logout(): pass\n", encoding="utf-8"
-    )
-    (corpus / "utils.py").write_text(
-        "def format_date(): pass\n", encoding="utf-8"
-    )
+    (corpus / "auth.py").write_text("def login(): pass\ndef logout(): pass\n", encoding="utf-8")
+    (corpus / "utils.py").write_text("def format_date(): pass\n", encoding="utf-8")
 
     assert _rebuild_code(corpus, acquire_lock=False) is True
     graph_path = corpus / "graphify-out" / "graph.json"
@@ -168,7 +178,9 @@ def test_rebuild_code_evicts_nodes_from_deleted_files(tmp_path):
     assert _rebuild_code(corpus, acquire_lock=False) is True
     data = json.loads(graph_path.read_text(encoding="utf-8"))
     node_labels_after = {n["label"] for n in data.get("nodes", [])}
-    assert "format_date()" not in node_labels_after, "stale function node from deleted file must be evicted"
+    assert "format_date()" not in node_labels_after, (
+        "stale function node from deleted file must be evicted"
+    )
     assert "login()" in node_labels_after, "nodes from surviving file must be kept"
 
 
@@ -192,7 +204,9 @@ def test_rebuild_code_is_idempotent_when_cluster_ids_flap(tmp_path, monkeypatch)
     from graphify.watch import _rebuild_code
 
     src = tmp_path / "app.py"
-    src.write_text("def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n", encoding="utf-8")
+    src.write_text(
+        "def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n", encoding="utf-8"
+    )
 
     calls = {"n": 0}
 
@@ -225,7 +239,9 @@ def test_rebuild_code_skips_cluster_when_topology_unchanged(tmp_path, monkeypatc
     from graphify.watch import _rebuild_code
 
     src = tmp_path / "app.py"
-    src.write_text("def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n", encoding="utf-8")
+    src.write_text(
+        "def alpha():\n    return 1\n\ndef beta():\n    return alpha()\n", encoding="utf-8"
+    )
 
     calls = {"n": 0}
 
@@ -243,12 +259,33 @@ def test_rebuild_code_skips_cluster_when_topology_unchanged(tmp_path, monkeypatc
     assert calls["n"] == 1
 
 
+def test_rebuild_code_no_viz_removes_stale_html_and_skips_export(tmp_path, monkeypatch, capsys):
+    from graphify import export as export_mod
+    from graphify.watch import _rebuild_code
+
+    (tmp_path / "app.py").write_text("def alpha():\n    return 1\n", encoding="utf-8")
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    stale_html = out / "graph.html"
+    stale_html.write_text("<html/>", encoding="utf-8")
+
+    def fail_to_html(*_args, **_kwargs):
+        raise AssertionError("to_html should not be called when no_viz=True")
+
+    monkeypatch.setattr(export_mod, "to_html", fail_to_html)
+
+    assert _rebuild_code(tmp_path, no_viz=True)
+    assert not stale_html.exists()
+    assert "Skipped graph.html" not in capsys.readouterr().out
+
+
 # --- .graphifyignore honored in watch handler (gh-928) ---
 
 
 def _watchdog_available() -> bool:
     try:
         import watchdog  # noqa: F401
+
         return True
     except ImportError:
         return False
@@ -274,7 +311,9 @@ def test_watch_handler_honors_graphifyignore(tmp_path, monkeypatch):
 
     # Run watch() in a thread with a short debounce so we can verify the
     # post-debounce dispatch path actually runs on real events.
-    t = threading.Thread(target=watch_mod.watch, args=(tmp_path,), kwargs={"debounce": 0.2}, daemon=True)
+    t = threading.Thread(
+        target=watch_mod.watch, args=(tmp_path,), kwargs={"debounce": 0.2}, daemon=True
+    )
     t.start()
     time.sleep(0.5)  # let observer.start() settle
 
@@ -318,7 +357,9 @@ def test_watch_loads_graphifyignore_once(tmp_path, monkeypatch):
     monkeypatch.setattr(watch_mod, "_rebuild_code", lambda p, **kw: True)
     monkeypatch.setattr(watch_mod, "_notify_only", lambda p: None)
 
-    t = threading.Thread(target=watch_mod.watch, args=(tmp_path,), kwargs={"debounce": 0.2}, daemon=True)
+    t = threading.Thread(
+        target=watch_mod.watch, args=(tmp_path,), kwargs={"debounce": 0.2}, daemon=True
+    )
     t.start()
     time.sleep(0.5)
 
@@ -330,6 +371,7 @@ def test_watch_loads_graphifyignore_once(tmp_path, monkeypatch):
 
 
 # --- _check_shrink: silent-corruption guard with explicit-deletion bypass ---
+
 
 def _shrink_payload(n: int) -> dict:
     """Build a minimal graph-data dict with *n* placeholder nodes."""
@@ -425,6 +467,7 @@ def test_check_shrink_keeps_tmp_when_deletions_declared(tmp_path):
 
 
 # --- _rebuild_code integration: post-commit delete scenario ---
+
 
 @pytest.mark.skipif(sys.platform == "win32", reason="git CLI behaviour varies on Windows runners")
 def test_rebuild_code_prunes_deleted_file_nodes(tmp_path):

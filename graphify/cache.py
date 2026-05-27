@@ -20,7 +20,7 @@ def _body_content(content: bytes) -> bytes:
     if text.startswith("---"):
         end = text.find("\n---", 3)
         if end != -1:
-            return text[end + 4:].encode()
+            return text[end + 4 :].encode()
     return content
 
 
@@ -86,6 +86,7 @@ def _flush_stat_index() -> None:
 def _normalize_path(path: Path) -> Path:
     """Normalize path for consistent cache keys across Windows path spellings."""
     import sys
+
     if sys.platform != "win32":
         return path
     s = str(path)
@@ -120,9 +121,7 @@ def file_hash(path: Path, root: Path = Path(".")) -> str:
     try:
         st = p.stat()
         entry = _stat_index.get(abs_key)
-        if (entry
-                and entry.get("size") == st.st_size
-                and entry.get("mtime_ns") == st.st_mtime_ns):
+        if entry and entry.get("size") == st.st_size and entry.get("mtime_ns") == st.st_mtime_ns:
             return entry["hash"]
     except OSError:
         pass
@@ -216,6 +215,7 @@ def save_cached(path: Path, result: dict, root: Path = Path("."), kind: str = "a
             # Windows: os.replace can fail with WinError 5 if the target is
             # briefly locked. Fall back to copy-then-delete.
             import shutil
+
             shutil.copy2(tmp_path, entry)
             os.unlink(tmp_path)
     except Exception:
@@ -313,7 +313,7 @@ def save_semantic_cache(
         src = e.get("source_file", "")
         if src:
             by_file[src]["edges"].append(e)
-    for h in (hyperedges or []):
+    for h in hyperedges or []:
         src = h.get("source_file", "")
         if src:
             by_file[src]["hyperedges"].append(h)

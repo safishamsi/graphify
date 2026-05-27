@@ -1,4 +1,5 @@
 """Tests for graphify/prs.py."""
+
 from __future__ import annotations
 
 import subprocess
@@ -6,7 +7,6 @@ from datetime import datetime, timedelta, timezone
 from unittest.mock import patch, MagicMock
 
 import networkx as nx
-import pytest
 
 from graphify.prs import (
     PRInfo,
@@ -22,6 +22,7 @@ from graphify.prs import (
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
+
 
 def make_pr(
     number: int = 1,
@@ -53,6 +54,7 @@ def make_pr(
 
 
 # ── _classify ─────────────────────────────────────────────────────────────────
+
 
 class TestClassify:
     def test_ready(self):
@@ -94,6 +96,7 @@ class TestClassify:
 
 # ── _parse_ci ─────────────────────────────────────────────────────────────────
 
+
 class TestParseCi:
     def test_empty_rollup_returns_none(self):
         assert _parse_ci([]) == "NONE"
@@ -128,6 +131,7 @@ class TestParseCi:
 
 # ── _path_match ───────────────────────────────────────────────────────────────
 
+
 class TestPathMatch:
     def test_exact_match(self):
         assert _path_match("src/auth/api.py", "src/auth/api.py") is True
@@ -150,6 +154,7 @@ class TestPathMatch:
 
 # ── compute_pr_impact ─────────────────────────────────────────────────────────
 
+
 class TestComputePrImpact:
     def _make_graph(self) -> nx.Graph:
         """3 nodes across 2 communities, 2 distinct source files."""
@@ -167,9 +172,7 @@ class TestComputePrImpact:
 
     def test_matching_both_files(self):
         G = self._make_graph()
-        comms, nodes = compute_pr_impact(
-            ["src/auth/api.py", "src/utils/helpers.py"], G
-        )
+        comms, nodes = compute_pr_impact(["src/auth/api.py", "src/utils/helpers.py"], G)
         assert comms == [0, 1]
         assert nodes == 3
 
@@ -207,6 +210,7 @@ class TestComputePrImpact:
 
 
 # ── fetch_worktrees ───────────────────────────────────────────────────────────
+
 
 class TestFetchWorktrees:
     def test_normal_case_maps_branch_to_path(self):
@@ -279,6 +283,7 @@ class TestFetchWorktrees:
 
 # ── format_prs_text ───────────────────────────────────────────────────────────
 
+
 class TestFormatPrsText:
     def test_contains_pr_metadata_and_count_header(self):
         prs = [
@@ -330,6 +335,7 @@ class TestFormatPrsText:
 
 # ── _detect_default_branch ────────────────────────────────────────────────────
 
+
 class TestDetectDefaultBranch:
     def test_gh_returns_main(self):
         with patch(
@@ -342,8 +348,9 @@ class TestDetectDefaultBranch:
         mock_result = MagicMock()
         mock_result.returncode = 0
         mock_result.stdout = "refs/remotes/origin/develop\n"
-        with patch("graphify.prs._gh", return_value=None), patch(
-            "graphify.prs.subprocess.run", return_value=mock_result
+        with (
+            patch("graphify.prs._gh", return_value=None),
+            patch("graphify.prs.subprocess.run", return_value=mock_result),
         ):
             assert _detect_default_branch() == "develop"
 
@@ -351,8 +358,9 @@ class TestDetectDefaultBranch:
         mock_result = MagicMock()
         mock_result.returncode = 1
         mock_result.stdout = ""
-        with patch("graphify.prs._gh", return_value=None), patch(
-            "graphify.prs.subprocess.run", return_value=mock_result
+        with (
+            patch("graphify.prs._gh", return_value=None),
+            patch("graphify.prs.subprocess.run", return_value=mock_result),
         ):
             assert _detect_default_branch() == "main"
 
@@ -361,27 +369,32 @@ class TestDetectDefaultBranch:
         mock_result = MagicMock()
         mock_result.returncode = 0
         mock_result.stdout = "refs/remotes/origin/trunk\n"
-        with patch("graphify.prs._gh", return_value={}), patch(
-            "graphify.prs.subprocess.run", return_value=mock_result
+        with (
+            patch("graphify.prs._gh", return_value={}),
+            patch("graphify.prs.subprocess.run", return_value=mock_result),
         ):
             assert _detect_default_branch() == "trunk"
 
     def test_git_timeout_returns_main(self):
-        with patch("graphify.prs._gh", return_value=None), patch(
-            "graphify.prs.subprocess.run",
-            side_effect=subprocess.TimeoutExpired("git", 5),
+        with (
+            patch("graphify.prs._gh", return_value=None),
+            patch(
+                "graphify.prs.subprocess.run",
+                side_effect=subprocess.TimeoutExpired("git", 5),
+            ),
         ):
             assert _detect_default_branch() == "main"
 
 
 # ── build_community_labels ─────────────────────────────────────────────────────
 
+
 class TestBuildCommunityLabels:
     def test_basic_grouping(self):
         data = {
             "nodes": [
                 {"id": "a", "label": "Alpha", "community": 0},
-                {"id": "b", "label": "Beta",  "community": 0},
+                {"id": "b", "label": "Beta", "community": 0},
                 {"id": "c", "label": "Gamma", "community": 1},
             ]
         }

@@ -12,13 +12,21 @@ def _write_graph(tmp_path):
     graph = nx.DiGraph()
     graph.add_node("target", label="Foo", source_file="pkg/foo.py", source_location="L1")
     graph.add_node("caller", label="X()", source_file="app.py", source_location="L4")
-    graph.add_node("barrel", label="__init__.py", source_file="pkg/__init__.py", source_location=None)
+    graph.add_node(
+        "barrel", label="__init__.py", source_file="pkg/__init__.py", source_location=None
+    )
     graph.add_node("consumer", label="app.py", source_file="app.py", source_location=None)
     graph.add_edge("caller", "target", relation="calls", context="call", confidence="EXTRACTED")
-    graph.add_edge("barrel", "target", relation="re_exports", context="export", confidence="EXTRACTED")
-    graph.add_edge("consumer", "target", relation="imports", context="import", confidence="EXTRACTED")
+    graph.add_edge(
+        "barrel", "target", relation="re_exports", context="export", confidence="EXTRACTED"
+    )
+    graph.add_edge(
+        "consumer", "target", relation="imports", context="import", confidence="EXTRACTED"
+    )
     graph_path = tmp_path / "graph.json"
-    graph_path.write_text(json.dumps(json_graph.node_link_data(graph, edges="links")), encoding="utf-8")
+    graph_path.write_text(
+        json.dumps(json_graph.node_link_data(graph, edges="links")), encoding="utf-8"
+    )
     return graph_path
 
 

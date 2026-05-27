@@ -1,4 +1,5 @@
 """Tests for hooks.py - git hook install/uninstall."""
+
 import os
 import subprocess
 from types import SimpleNamespace
@@ -120,7 +121,6 @@ def test_status_shows_both_hooks(tmp_path):
     assert result.count("installed") >= 2
 
 
-
 def test_hooks_dir_resolves_relative_git_hooks_path(tmp_path, monkeypatch):
     repo = _make_git_repo(tmp_path)
 
@@ -155,15 +155,18 @@ def test_hooks_dir_accepts_absolute_git_hooks_path(tmp_path, monkeypatch):
 
     assert _hooks_dir(repo) == hooks.resolve()
 
+
 def test_hook_skips_head_on_exe():
     """Hook script must skip shebang extraction for .exe binaries (Windows)."""
     from graphify.hooks import _PYTHON_DETECT
-    assert "*.exe) _SHEBANG=" in _PYTHON_DETECT or '*.exe)' in _PYTHON_DETECT
+
+    assert "*.exe) _SHEBANG=" in _PYTHON_DETECT or "*.exe)" in _PYTHON_DETECT
 
 
 def test_hook_check_no_additionalContext(tmp_path):
     """graphify hook-check must not emit additionalContext — Codex Desktop rejects it."""
     import sys
+
     out = tmp_path / "graphify-out"
     out.mkdir()
     (out / "graph.json").write_text("{}", encoding="utf-8")

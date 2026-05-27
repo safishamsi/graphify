@@ -8,6 +8,7 @@ import urllib.error
 import urllib.parse
 import urllib.request
 from collections.abc import Mapping
+from email.message import Message
 from pathlib import Path
 from typing import Any
 
@@ -15,14 +16,14 @@ import ipaddress
 import socket
 
 _ALLOWED_SCHEMES = {"http", "https"}
-_MAX_FETCH_BYTES = 52_428_800   # 50 MB hard cap for binary downloads
-_MAX_TEXT_BYTES  = 10_485_760   # 10 MB hard cap for HTML / text
+_MAX_FETCH_BYTES = 52_428_800  # 50 MB hard cap for binary downloads
+_MAX_TEXT_BYTES = 10_485_760  # 10 MB hard cap for HTML / text
 
 # Graph-load memory-bomb cap: reject .json files larger than this before
 # JSON-parsing them into a dict. Without this, a multi-gigabyte (or
 # specifically crafted) graph.json can exhaust process memory during
 # json.loads + node_link_graph rehydration.
-_MAX_GRAPH_FILE_BYTES = 512 * 1024 * 1024   # 512 MiB
+_MAX_GRAPH_FILE_BYTES = 512 * 1024 * 1024  # 512 MiB
 
 # AWS metadata, link-local, and common cloud metadata endpoints
 _BLOCKED_HOSTS = {"metadata.google.internal", "metadata.google.com"}
@@ -39,6 +40,7 @@ _NAT64_WKP = ipaddress.ip_network("64:ff9b::/96")
 # URL validation
 # ---------------------------------------------------------------------------
 
+
 def validate_url(url: str) -> str:
     """Raise ValueError if *url* is not http or https, or targets a private/internal IP.
 
@@ -50,18 +52,14 @@ def validate_url(url: str) -> str:
     parsed = urllib.parse.urlparse(url)
     if parsed.scheme.lower() not in _ALLOWED_SCHEMES:
         raise ValueError(
-            f"Blocked URL scheme '{parsed.scheme}' - only http and https are allowed. "
-            f"Got: {url!r}"
+            f"Blocked URL scheme '{parsed.scheme}' - only http and https are allowed. Got: {url!r}"
         )
 
     hostname = parsed.hostname
     if hostname:
         # Block known cloud metadata hostnames
         if hostname.lower() in _BLOCKED_HOSTS:
-            raise ValueError(
-                f"Blocked cloud metadata endpoint '{hostname}'. "
-                f"Got: {url!r}"
-            )
+            raise ValueError(f"Blocked cloud metadata endpoint '{hostname}'. Got: {url!r}")
 
         # Resolve hostname and block private/reserved IP ranges
         try:
@@ -73,7 +71,13 @@ def validate_url(url: str) -> str:
                 if isinstance(ip, ipaddress.IPv6Address) and ip in _NAT64_WKP:
                     embedded = ipaddress.ip_address(int(ip) & 0xFFFFFFFF)
                     ip = embedded
-                if ip.is_private or ip.is_reserved or ip.is_loopback or ip.is_link_local or ip in _CGN_NETWORK:
+                if (
+                    ip.is_private
+                    or ip.is_reserved
+                    or ip.is_loopback
+                    or ip.is_link_local
+                    or ip in _CGN_NETWORK
+                ):
                     raise ValueError(
                         f"Blocked private/internal IP {addr} (resolved from '{hostname}'). "
                         f"Got: {url!r}"
@@ -104,10 +108,14 @@ def _ssrf_guarded_socket():
                 ip = ipaddress.ip_address(addr)
             except ValueError:
                 continue
-            if ip.is_private or ip.is_reserved or ip.is_loopback or ip.is_link_local or ip in _CGN_NETWORK:
-                raise OSError(
-                    f"SSRF blocked: IP {addr} resolved from '{host}' is private/reserved"
-                )
+            if (
+                ip.is_private
+                or ip.is_reserved
+                or ip.is_loopback
+                or ip.is_link_local
+                or ip in _CGN_NETWORK
+            ):
+                raise OSError(f"SSRF blocked: IP {addr} resolved from '{host}' is private/reserved")
         return results
 
     socket.getaddrinfo = _guarded
@@ -125,7 +133,7 @@ class _NoFileRedirectHandler(urllib.request.HTTPRedirectHandler):
     """
 
     def redirect_request(self, req, fp, code, msg, headers, newurl):
-        validate_url(newurl)          # raises ValueError if scheme is wrong
+        validate_url(newurl)  # raises ValueError if scheme is wrong
         return super().redirect_request(req, fp, code, msg, headers, newurl)
 
 
@@ -136,6 +144,7 @@ def _build_opener() -> urllib.request.OpenerDirector:
 # ---------------------------------------------------------------------------
 # Safe fetch
 # ---------------------------------------------------------------------------
+
 
 def safe_fetch(url: str, max_bytes: int = _MAX_FETCH_BYTES, timeout: int = 30) -> bytes:
     """Fetch *url* and return raw bytes.
@@ -162,7 +171,7 @@ def safe_fetch(url: str, max_bytes: int = _MAX_FETCH_BYTES, timeout: int = 30) -
         # with a custom opener we check manually to be safe.
         status = getattr(resp, "status", None) or getattr(resp, "code", None)
         if status is not None and not (200 <= status < 300):
-            raise urllib.error.HTTPError(url, status, f"HTTP {status}", {}, None)
+            raise urllib.error.HTTPError(url, status, f"HTTP {status}", Message(), None)
 
         chunks: list[bytes] = []
         total = 0
@@ -194,6 +203,7 @@ def safe_fetch_text(url: str, max_bytes: int = _MAX_TEXT_BYTES, timeout: int = 1
 # Path validation
 # ---------------------------------------------------------------------------
 
+
 def validate_graph_path(path: str | Path, base: Path | None = None) -> Path:
     """Resolve *path* and verify it stays inside *base*.
 
@@ -217,8 +227,7 @@ def validate_graph_path(path: str | Path, base: Path | None = None) -> Path:
     base = base.resolve()
     if not base.exists():
         raise ValueError(
-            f"Graph base directory does not exist: {base}. "
-            "Run /graphify first to build the graph."
+            f"Graph base directory does not exist: {base}. Run /graphify first to build the graph."
         )
 
     resolved = Path(path).resolve()
@@ -254,8 +263,7 @@ def check_graph_file_size_cap(path: Path) -> None:
         return
     if size > _MAX_GRAPH_FILE_BYTES:
         raise ValueError(
-            f"graph file {path} is {size:_d} bytes, "
-            f"exceeds {_MAX_GRAPH_FILE_BYTES:_d}-byte cap"
+            f"graph file {path} is {size:_d} bytes, exceeds {_MAX_GRAPH_FILE_BYTES:_d}-byte cap"
         )
 
 

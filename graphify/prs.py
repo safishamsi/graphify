@@ -16,6 +16,7 @@ Usage:
 from __future__ import annotations
 
 import json
+import importlib
 import os
 import re
 import subprocess
@@ -25,26 +26,52 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
+from typing import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    import networkx as nx
 
 # ── ANSI colours ─────────────────────────────────────────────────────────────
 
 _NO_COLOR = not sys.stdout.isatty() or os.environ.get("NO_COLOR")
+
 
 def _c(code: str, text: str) -> str:
     if _NO_COLOR:
         return text
     return f"\033[{code}m{text}\033[0m"
 
-def green(t: str) -> str:   return _c("32", t)
-def red(t: str) -> str:     return _c("31", t)
-def yellow(t: str) -> str:  return _c("33", t)
-def cyan(t: str) -> str:    return _c("36", t)
-def bold(t: str) -> str:    return _c("1",  t)
-def dim(t: str) -> str:     return _c("2",  t)
-def magenta(t: str) -> str: return _c("35", t)
+
+def green(t: str) -> str:
+    return _c("32", t)
+
+
+def red(t: str) -> str:
+    return _c("31", t)
+
+
+def yellow(t: str) -> str:
+    return _c("33", t)
+
+
+def cyan(t: str) -> str:
+    return _c("36", t)
+
+
+def bold(t: str) -> str:
+    return _c("1", t)
+
+
+def dim(t: str) -> str:
+    return _c("2", t)
+
+
+def magenta(t: str) -> str:
+    return _c("35", t)
+
 
 _ANSI_RE = re.compile(r"\033\[[0-9;]*m")
+
 
 def _pad(s: str, width: int) -> str:
     """Pad an ANSI-colored string to visible width (strips escape codes for length calc)."""
@@ -54,6 +81,7 @@ def _pad(s: str, width: int) -> str:
 
 # ── Data model ────────────────────────────────────────────────────────────────
 
+
 @dataclass
 class PRInfo:
     number: int
@@ -62,8 +90,8 @@ class PRInfo:
     base_branch: str
     author: str
     is_draft: bool
-    review_decision: str        # APPROVED | CHANGES_REQUESTED | ""
-    ci_status: str              # SUCCESS | FAILURE | PENDING | NONE
+    review_decision: str  # APPROVED | CHANGES_REQUESTED | ""
+    ci_status: str  # SUCCESS | FAILURE | PENDING | NONE
     updated_at: datetime
     expected_base: str = "main"  # set by fetch_prs via _detect_default_branch
     worktree_path: str | None = None
@@ -91,7 +119,16 @@ class PRInfo:
 
 # ── Classification ────────────────────────────────────────────────────────────
 
-_STATUS_ORDER = ["WRONG-BASE", "CI-FAIL", "CHANGES-REQ", "DRAFT", "STALE", "PENDING", "APPROVED", "READY"]
+_STATUS_ORDER = [
+    "WRONG-BASE",
+    "CI-FAIL",
+    "CHANGES-REQ",
+    "DRAFT",
+    "STALE",
+    "PENDING",
+    "APPROVED",
+    "READY",
+]
 _STALE_DAYS = 14
 
 
@@ -115,29 +152,32 @@ def _classify(pr: "PRInfo", base: str = "v8") -> str:
 
 def _status_color(status: str) -> str:
     return {
-        "READY":       green(status),
-        "APPROVED":    bold(green(status)),
-        "CI-FAIL":     red(status),
+        "READY": green(status),
+        "APPROVED": bold(green(status)),
+        "CI-FAIL": red(status),
         "CHANGES-REQ": red(status),
-        "WRONG-BASE":  dim(status),
-        "STALE":       dim(status),
-        "DRAFT":       yellow(status),
-        "PENDING":     yellow(status),
+        "WRONG-BASE": dim(status),
+        "STALE": dim(status),
+        "DRAFT": yellow(status),
+        "PENDING": yellow(status),
     }.get(status, status)
 
 
 def _ci_icon(status: str) -> str:
-    return {"SUCCESS": green("✓"), "FAILURE": red("✗"), "PENDING": yellow("…"), "NONE": dim("–")}.get(status, "?")
+    return {
+        "SUCCESS": green("✓"),
+        "FAILURE": red("✗"),
+        "PENDING": yellow("…"),
+        "NONE": dim("–"),
+    }.get(status, "?")
 
 
 # ── GitHub data fetching ──────────────────────────────────────────────────────
 
+
 def _gh(*args: str) -> list | dict | None:
     try:
-        result = subprocess.run(
-            ["gh", *args],
-            capture_output=True, text=True, timeout=30
-        )
+        result = subprocess.run(["gh", *args], capture_output=True, text=True, timeout=30)  # nosec B603 B607
         if result.returncode != 0:
             return None
         return json.loads(result.stdout)
@@ -152,13 +192,16 @@ def _detect_default_branch(repo: str | None = None) -> str:
     if repo:
         args += ["--repo", repo]
     data = _gh(*args)
-    if data and data.get("defaultBranchRef", {}).get("name"):
-        return data["defaultBranchRef"]["name"]
+    default_branch_ref = data.get("defaultBranchRef") if isinstance(data, dict) else None
+    if isinstance(default_branch_ref, dict) and default_branch_ref.get("name"):
+        return str(default_branch_ref["name"])
     # Fall back to git symbolic-ref for the current repo
     try:
-        result = subprocess.run(
+        result = subprocess.run(  # nosec B603 B607
             ["git", "symbolic-ref", "refs/remotes/origin/HEAD"],
-            capture_output=True, text=True, timeout=5
+            capture_output=True,
+            text=True,
+            timeout=5,
         )
         if result.returncode == 0:
             # refs/remotes/origin/main → main
@@ -169,7 +212,9 @@ def _detect_default_branch(repo: str | None = None) -> str:
     return "main"
 
 
-_CI_FAILURE_CONCLUSIONS = frozenset({"FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"})
+_CI_FAILURE_CONCLUSIONS = frozenset(
+    {"FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE"}
+)
 
 
 def _parse_ci(rollup: list) -> str:
@@ -189,9 +234,15 @@ def _parse_ci(rollup: list) -> str:
 def fetch_prs(repo: str | None = None, base: str | None = None, limit: int = 50) -> list[PRInfo]:
     resolved_base = base or _detect_default_branch(repo)
     args = [
-        "pr", "list", "--state", "open", "--limit", str(limit),
-        "--json", "number,title,headRefName,baseRefName,author,isDraft,"
-                  "reviewDecision,statusCheckRollup,updatedAt",
+        "pr",
+        "list",
+        "--state",
+        "open",
+        "--limit",
+        str(limit),
+        "--json",
+        "number,title,headRefName,baseRefName,author,isDraft,"
+        "reviewDecision,statusCheckRollup,updatedAt",
     ]
     if repo:
         args += ["--repo", repo]
@@ -203,18 +254,20 @@ def fetch_prs(repo: str | None = None, base: str | None = None, limit: int = 50)
     prs = []
     for item in raw:
         updated = datetime.fromisoformat(item["updatedAt"].replace("Z", "+00:00"))
-        prs.append(PRInfo(
-            number=item["number"],
-            title=item["title"],
-            branch=item["headRefName"],
-            base_branch=item["baseRefName"],
-            author=item["author"]["login"] if item.get("author") else "?",
-            is_draft=item.get("isDraft", False),
-            review_decision=item.get("reviewDecision") or "",
-            ci_status=_parse_ci(item.get("statusCheckRollup") or []),
-            updated_at=updated,
-            expected_base=resolved_base,
-        ))
+        prs.append(
+            PRInfo(
+                number=item["number"],
+                title=item["title"],
+                branch=item["headRefName"],
+                base_branch=item["baseRefName"],
+                author=item["author"]["login"] if item.get("author") else "?",
+                is_draft=item.get("isDraft", False),
+                review_decision=item.get("reviewDecision") or "",
+                ci_status=_parse_ci(item.get("statusCheckRollup") or []),
+                updated_at=updated,
+                expected_base=resolved_base,
+            )
+        )
     return prs
 
 
@@ -223,15 +276,16 @@ def fetch_pr_files(number: int, repo: str | None = None) -> list[str]:
     if repo:
         args += ["--repo", repo]
     try:
-        result = subprocess.run(["gh", *args], capture_output=True, text=True, timeout=30)
+        result = subprocess.run(["gh", *args], capture_output=True, text=True, timeout=30)  # nosec B603 B607
         if result.returncode != 0:
             return []
-        return [l.strip() for l in result.stdout.splitlines() if l.strip()]
+        return [label.strip() for label in result.stdout.splitlines() if label.strip()]
     except (subprocess.TimeoutExpired, FileNotFoundError):
         return []
 
 
 # ── Graph-native impact (used by MCP tools — works on nx.Graph directly) ─────
+
 
 def _path_match(graph_src: str, pr_file: str) -> bool:
     """True if graph_src and pr_file refer to the same file (path-boundary safe)."""
@@ -278,7 +332,13 @@ def format_prs_text(prs: list["PRInfo"], base: str) -> str:
     actionable = [p for p in prs if p.base_branch == base]
     wrong = len(prs) - len(actionable)
     lines = [f"Open PRs targeting {base}: {len(actionable)}  ({wrong} on wrong base, not shown)\n"]
-    for p in sorted(actionable, key=lambda x: (_STATUS_ORDER.index(x.status) if x.status in _STATUS_ORDER else 99, x.days_old)):
+    for p in sorted(
+        actionable,
+        key=lambda x: (
+            _STATUS_ORDER.index(x.status) if x.status in _STATUS_ORDER else 99,
+            x.days_old,
+        ),
+    ):
         impact = f"  blast_radius={p.blast_radius}" if p.blast_radius else ""
         lines.append(
             f"#{p.number} [{p.status}] CI={p.ci_status} review={p.review_decision or 'none'} "
@@ -289,12 +349,12 @@ def format_prs_text(prs: list["PRInfo"], base: str) -> str:
 
 # ── Worktree mapping ──────────────────────────────────────────────────────────
 
+
 def fetch_worktrees() -> dict[str, str]:
     """Returns {branch: worktree_path}."""
     try:
-        result = subprocess.run(
-            ["git", "worktree", "list", "--porcelain"],
-            capture_output=True, text=True, timeout=10
+        result = subprocess.run(  # nosec B603 B607
+            ["git", "worktree", "list", "--porcelain"], capture_output=True, text=True, timeout=10
         )
         if result.returncode != 0:
             return {}
@@ -305,7 +365,9 @@ def fetch_worktrees() -> dict[str, str]:
     current_path = None
     for line in result.stdout.splitlines():
         if not line:
-            current_path = None  # blank line = record separator; reset to avoid leaking across detached HEADs
+            current_path = (
+                None  # blank line = record separator; reset to avoid leaking across detached HEADs
+            )
         elif line.startswith("worktree "):
             current_path = line[9:]
         elif line.startswith("branch refs/heads/") and current_path:
@@ -315,10 +377,12 @@ def fetch_worktrees() -> dict[str, str]:
 
 # ── Graph impact analysis ─────────────────────────────────────────────────────
 
+
 def _load_graph_json(graph_path: Path) -> dict | None:
     if not graph_path.exists():
         return None
     from graphify.security import check_graph_file_size_cap
+
     try:
         check_graph_file_size_cap(graph_path)
         return json.loads(graph_path.read_text(encoding="utf-8"))
@@ -366,10 +430,7 @@ def attach_graph_impact(
     actionable = [pr for pr in prs if pr.status != "WRONG-BASE"]
     workers = min(8, len(actionable)) if actionable else 1
     with ThreadPoolExecutor(max_workers=workers) as pool:
-        future_to_pr = {
-            pool.submit(fetch_pr_files, pr.number, repo): pr
-            for pr in actionable
-        }
+        future_to_pr = {pool.submit(fetch_pr_files, pr.number, repo): pr for pr in actionable}
         for fut in as_completed(future_to_pr):
             pr = future_to_pr[fut]
             try:
@@ -395,8 +456,9 @@ def attach_graph_impact(
 
 # ── Dashboard rendering ───────────────────────────────────────────────────────
 
+
 def _truncate(s: str, n: int) -> str:
-    return s if len(s) <= n else s[:n - 1] + "…"
+    return s if len(s) <= n else s[: n - 1] + "…"
 
 
 def render_dashboard(prs: list[PRInfo], base: str = "v8", show_wrong_base: bool = False) -> None:
@@ -404,7 +466,12 @@ def render_dashboard(prs: list[PRInfo], base: str = "v8", show_wrong_base: bool 
     wrong_base = [p for p in prs if p.base_branch != base]
 
     # Sort: READY first, then by status order, then by recency
-    actionable.sort(key=lambda p: (_STATUS_ORDER.index(p.status) if p.status in _STATUS_ORDER else 99, p.days_old))
+    actionable.sort(
+        key=lambda p: (
+            _STATUS_ORDER.index(p.status) if p.status in _STATUS_ORDER else 99,
+            p.days_old,
+        )
+    )
 
     print()
     print(bold(f"  graphify prs  ·  base: {base}  ·  {len(actionable)} PRs"))
@@ -415,13 +482,17 @@ def render_dashboard(prs: list[PRInfo], base: str = "v8", show_wrong_base: bool 
     else:
         # Header
         print(f"  {'#':>4}  {'CI':2}  {'STATUS':13}  {'UPDATED':8}  {'IMPACT':22}  TITLE")
-        print(f"  {'─'*4}  {'─'*2}  {'─'*13}  {'─'*8}  {'─'*22}  {'─'*40}")
+        print(f"  {'─' * 4}  {'─' * 2}  {'─' * 13}  {'─' * 8}  {'─' * 22}  {'─' * 40}")
 
         for pr in actionable:
             status_str = _pad(_status_color(pr.status), 13)
             ci_str = _ci_icon(pr.ci_status)
             age = f"{pr.days_old}d" if pr.days_old > 0 else "today"
-            impact = _pad(dim(_truncate(pr.blast_radius, 22)), 22) if pr.blast_radius else _pad(dim("–"), 22)
+            impact = (
+                _pad(dim(_truncate(pr.blast_radius, 22)), 22)
+                if pr.blast_radius
+                else _pad(dim("–"), 22)
+            )
             wt = f" {cyan('⬡')}" if pr.worktree_path else "  "
             draft = dim(" [draft]") if pr.is_draft else ""
             title = _truncate(pr.title, 52)
@@ -434,13 +505,20 @@ def render_dashboard(prs: list[PRInfo], base: str = "v8", show_wrong_base: bool 
         by_status[p.status] = by_status.get(p.status, 0) + 1
 
     parts = []
-    if by_status.get("READY"):      parts.append(green(f"{by_status['READY']} ready"))
-    if by_status.get("APPROVED"):   parts.append(bold(green(f"{by_status['APPROVED']} approved")))
-    if by_status.get("PENDING"):    parts.append(yellow(f"{by_status['PENDING']} pending CI"))
-    if by_status.get("CI-FAIL"):    parts.append(red(f"{by_status['CI-FAIL']} CI failing"))
-    if by_status.get("CHANGES-REQ"):parts.append(red(f"{by_status['CHANGES-REQ']} changes requested"))
-    if by_status.get("DRAFT"):      parts.append(yellow(f"{by_status['DRAFT']} draft"))
-    if by_status.get("STALE"):      parts.append(dim(f"{by_status['STALE']} stale"))
+    if by_status.get("READY"):
+        parts.append(green(f"{by_status['READY']} ready"))
+    if by_status.get("APPROVED"):
+        parts.append(bold(green(f"{by_status['APPROVED']} approved")))
+    if by_status.get("PENDING"):
+        parts.append(yellow(f"{by_status['PENDING']} pending CI"))
+    if by_status.get("CI-FAIL"):
+        parts.append(red(f"{by_status['CI-FAIL']} CI failing"))
+    if by_status.get("CHANGES-REQ"):
+        parts.append(red(f"{by_status['CHANGES-REQ']} changes requested"))
+    if by_status.get("DRAFT"):
+        parts.append(yellow(f"{by_status['DRAFT']} draft"))
+    if by_status.get("STALE"):
+        parts.append(dim(f"{by_status['STALE']} stale"))
 
     if wrong_base:
         parts.append(dim(f"{len(wrong_base)} wrong base"))
@@ -471,7 +549,9 @@ def render_worktrees(prs: list[PRInfo], worktrees: dict[str, str]) -> None:
         if pr:
             status = _status_color(pr.status)
             print(f"  {cyan(path)}")
-            print(f"    {dim('branch:')} {branch}  ->  PR {bold(f'#{pr.number}')}  [{status}]  {_truncate(pr.title, 50)}")
+            print(
+                f"    {dim('branch:')} {branch}  ->  PR {bold(f'#{pr.number}')}  [{status}]  {_truncate(pr.title, 50)}"
+            )
         else:
             print(f"  {cyan(path)}")
             print(f"    {dim('branch:')} {branch}  {dim('(no open PR)')}")
@@ -509,7 +589,9 @@ def render_conflicts(
             comm_label_str = dim("  — " + ", ".join(labels[comm]))
         print(f"  {yellow(f'Community {comm}')}{comm_label_str}  ({len(ps)} PRs overlap)")
         for pr in ps:
-            print(f"    #{pr.number:4}  {_pad(_status_color(pr.status), 13)}  {_truncate(pr.title, 55)}")
+            print(
+                f"    #{pr.number:4}  {_pad(_status_color(pr.status), 13)}  {_truncate(pr.title, 55)}"
+            )
         print()
 
 
@@ -544,7 +626,7 @@ def render_pr_detail(pr: PRInfo, repo: str | None = None) -> None:
 # Best model per backend for reasoning tasks (different from extraction defaults)
 _TRIAGE_MODEL_DEFAULTS: dict[str, str] = {
     "claude": "claude-opus-4-7",
-    "kimi":   "kimi-k2.6",
+    "kimi": "kimi-k2.6",
     "openai": "gpt-4.1-mini",
     "gemini": "gemini-3-flash-preview",
 }
@@ -556,19 +638,24 @@ def _resolve_triage_backend() -> tuple[str, str]:
 
     explicit = os.environ.get("GRAPHIFY_TRIAGE_BACKEND", "").strip()
     if explicit in BACKENDS:
-        model = (os.environ.get("GRAPHIFY_TRIAGE_MODEL")
-                 or _TRIAGE_MODEL_DEFAULTS.get(explicit)
-                 or _default_model_for_backend(explicit))
+        model = (
+            os.environ.get("GRAPHIFY_TRIAGE_MODEL")
+            or _TRIAGE_MODEL_DEFAULTS.get(explicit)
+            or _default_model_for_backend(explicit)
+        )
         return explicit, model
 
     for b in ("claude", "kimi", "openai", "gemini"):
         if _get_backend_api_key(b):
-            model = (os.environ.get("GRAPHIFY_TRIAGE_MODEL")
-                     or _TRIAGE_MODEL_DEFAULTS.get(b)
-                     or _default_model_for_backend(b))
+            model = (
+                os.environ.get("GRAPHIFY_TRIAGE_MODEL")
+                or _TRIAGE_MODEL_DEFAULTS.get(b)
+                or _default_model_for_backend(b)
+            )
             return b, model
 
     import shutil
+
     if shutil.which("claude"):
         return "claude-cli", "claude-code-plan"
 
@@ -582,7 +669,9 @@ def triage_with_opus(prs: list[PRInfo], base: str) -> None:
         print(red("  graphify.llm not available - cannot run triage."), file=sys.stderr)
         sys.exit(1)
 
-    candidates = [p for p in prs if p.base_branch == base and p.status not in ("WRONG-BASE", "STALE")]
+    candidates = [
+        p for p in prs if p.base_branch == base and p.status not in ("WRONG-BASE", "STALE")
+    ]
     if not candidates:
         print(dim("  No actionable PRs to triage."))
         return
@@ -599,8 +688,7 @@ def triage_with_opus(prs: list[PRInfo], base: str) -> None:
         "You are a senior engineer helping triage a PR review queue. "
         "Given these open PRs, rank them by review priority for the repo maintainer. "
         "For each PR give: priority number, one sentence on what action to take and why. "
-        "Be direct and specific. Format each as: #<number> — <action>.\n\n"
-        + "\n\n".join(lines)
+        "Be direct and specific. Format each as: #<number> — <action>.\n\n" + "\n\n".join(lines)
     )
 
     try:
@@ -615,10 +703,12 @@ def triage_with_opus(prs: list[PRInfo], base: str) -> None:
 
     try:
         if backend == "claude":
-            import anthropic
-            client = anthropic.Anthropic(api_key=_get_backend_api_key("claude"))
+            anthropic = importlib.import_module("anthropic")
+
+            client = getattr(anthropic, "Anthropic")(api_key=_get_backend_api_key("claude"))
             with client.messages.stream(
-                model=model, max_tokens=1024,
+                model=model,
+                max_tokens=1024,
                 messages=[{"role": "user", "content": prompt}],
             ) as stream:
                 print("  ", end="", flush=True)
@@ -628,11 +718,14 @@ def triage_with_opus(prs: list[PRInfo], base: str) -> None:
 
         elif backend in ("kimi", "openai", "gemini", "ollama"):
             from openai import OpenAI
+
             cfg = BACKENDS[backend]
             api_key = _get_backend_api_key(backend) or "ollama"
             client = OpenAI(api_key=api_key, base_url=cfg.get("base_url", ""))
             with client.chat.completions.create(
-                model=model, max_tokens=1024, stream=True,
+                model=model,
+                max_tokens=1024,
+                stream=True,
                 messages=[{"role": "user", "content": prompt}],
             ) as stream:
                 print("  ", end="", flush=True)
@@ -644,9 +737,13 @@ def triage_with_opus(prs: list[PRInfo], base: str) -> None:
 
         elif backend == "claude-cli":
             import subprocess as _sp
-            proc = _sp.run(
+
+            proc = _sp.run(  # nosec B603 B607
                 ["claude", "-p", "--no-session-persistence"],
-                input=prompt, capture_output=True, text=True, timeout=120,
+                input=prompt,
+                capture_output=True,
+                text=True,
+                timeout=120,
             )
             if proc.returncode != 0:
                 print(red(f"  claude -p failed: {proc.stderr.strip()[:300]}"), file=sys.stderr)
@@ -664,6 +761,7 @@ def triage_with_opus(prs: list[PRInfo], base: str) -> None:
 
 
 # ── Entry point ───────────────────────────────────────────────────────────────
+
 
 def cmd_prs(argv: list[str]) -> None:
     base: str | None = None  # auto-detected from repo if not given
@@ -687,15 +785,18 @@ def cmd_prs(argv: list[str]) -> None:
         elif arg == "--wrong-base":
             show_wrong_base = True
         elif arg in ("--base", "-b") and i + 1 < len(argv):
-            base = argv[i + 1]; i += 1
+            base = argv[i + 1]
+            i += 1
         elif arg.startswith("--base="):
             base = arg.split("=", 1)[1]
         elif arg in ("--repo", "-R") and i + 1 < len(argv):
-            repo = argv[i + 1]; i += 1
+            repo = argv[i + 1]
+            i += 1
         elif arg.startswith("--graph="):
             graph_path = Path(arg.split("=", 1)[1])
         elif arg == "--graph" and i + 1 < len(argv):
-            graph_path = Path(argv[i + 1]); i += 1
+            graph_path = Path(argv[i + 1])
+            i += 1
         elif arg.lstrip("#").isdigit():
             pr_number = int(arg.lstrip("#"))
         elif arg in ("-h", "--help"):

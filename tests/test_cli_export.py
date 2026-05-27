@@ -3,6 +3,7 @@
 Each test builds a minimal graph in a temp dir, runs the CLI command as a subprocess,
 and asserts the expected output file exists and is non-empty / valid.
 """
+
 from __future__ import annotations
 import json
 import os
@@ -10,13 +11,14 @@ import subprocess
 import sys
 from pathlib import Path
 
-import pytest
 
 PYTHON = sys.executable
 FIXTURES = Path(__file__).parent / "fixtures"
 
 
-def _run(args: list[str], cwd: Path, env: dict[str, str] | None = None) -> subprocess.CompletedProcess:
+def _run(
+    args: list[str], cwd: Path, env: dict[str, str] | None = None
+) -> subprocess.CompletedProcess:
     return subprocess.run(
         [PYTHON, "-m", "graphify"] + args,
         cwd=cwd,
@@ -53,13 +55,12 @@ def _make_graph(tmp_path: Path) -> Path:
         "surprises": surprises,
     }
     (out / ".graphify_analysis.json").write_text(json.dumps(analysis))
-    (out / ".graphify_labels.json").write_text(
-        json.dumps({str(k): v for k, v in labels.items()})
-    )
+    (out / ".graphify_labels.json").write_text(json.dumps({str(k): v for k, v in labels.items()}))
     return out
 
 
 # ── graphify export html ─────────────────────────────────────────────────────
+
 
 def test_export_html_creates_file(tmp_path):
     _make_graph(tmp_path)
@@ -83,7 +84,23 @@ def test_export_html_error_without_graph(tmp_path):
     assert r.returncode != 0
 
 
+def test_update_accepts_no_viz_and_removes_stale_html(tmp_path):
+    (tmp_path / "app.py").write_text("def alpha():\n    return 1\n", encoding="utf-8")
+    out = tmp_path / "graphify-out"
+    out.mkdir()
+    stale_html = out / "graph.html"
+    stale_html.write_text("<html/>", encoding="utf-8")
+
+    env = os.environ | {"GRAPHIFY_NO_TIPS": "1"}
+    r = _run(["update", ".", "--force", "--no-viz"], tmp_path, env=env)
+
+    assert r.returncode == 0, r.stderr
+    assert not stale_html.exists()
+    assert "Skipped graph.html" not in r.stdout
+
+
 # ── graphify export obsidian ─────────────────────────────────────────────────
+
 
 def test_export_obsidian_creates_vault(tmp_path):
     _make_graph(tmp_path)
@@ -105,6 +122,7 @@ def test_export_obsidian_custom_dir(tmp_path):
 
 
 # ── graphify export wiki ─────────────────────────────────────────────────────
+
 
 def test_export_wiki_creates_articles(tmp_path):
     _make_graph(tmp_path)
@@ -130,6 +148,7 @@ def test_export_wiki_accepts_edges_only_graph_json(tmp_path):
 
 # ── graphify export graphml ──────────────────────────────────────────────────
 
+
 def test_export_graphml_creates_file(tmp_path):
     _make_graph(tmp_path)
     r = _run(["export", "graphml"], tmp_path)
@@ -143,6 +162,7 @@ def test_export_graphml_creates_file(tmp_path):
 
 # ── graphify export neo4j (cypher) ───────────────────────────────────────────
 
+
 def test_export_neo4j_creates_cypher(tmp_path):
     _make_graph(tmp_path)
     r = _run(["export", "neo4j"], tmp_path)
@@ -155,6 +175,7 @@ def test_export_neo4j_creates_cypher(tmp_path):
 
 
 # ── graphify query ───────────────────────────────────────────────────────────
+
 
 def test_query_returns_output(tmp_path):
     _make_graph(tmp_path)
@@ -195,6 +216,7 @@ def test_query_uses_graphify_out_env(tmp_path):
 
 # ── graphify path ────────────────────────────────────────────────────────────
 
+
 def test_path_runs_without_error(tmp_path):
     _make_graph(tmp_path)
     r = _run(["path", "Transformer", "LayerNorm"], tmp_path)
@@ -221,6 +243,7 @@ def test_path_uses_graphify_out_env(tmp_path):
 
 # ── graphify explain ─────────────────────────────────────────────────────────
 
+
 def test_explain_runs_without_error(tmp_path):
     _make_graph(tmp_path)
     r = _run(["explain", "test"], tmp_path)
@@ -246,6 +269,7 @@ def test_explain_uses_graphify_out_env(tmp_path):
 
 # ── graphify export unknown format ───────────────────────────────────────────
 
+
 def test_export_unknown_format_fails(tmp_path):
     r = _run(["export", "pdf"], tmp_path)
     assert r.returncode != 0
@@ -267,6 +291,7 @@ def test_update_no_cluster_writes_raw_graph(tmp_path):
 
 # Regression test for #934 - cluster-only crashes when graphify-out/ doesn't exist
 
+
 def test_cluster_only_creates_output_dir_when_missing(tmp_path):
     """cluster-only must not crash with FileNotFoundError when graphify-out/ is absent (#934)."""
     # Build graph.json somewhere other than the default graphify-out/ location
@@ -278,6 +303,7 @@ def test_cluster_only_creates_output_dir_when_missing(tmp_path):
     graph_json = out_dir / "graph.json"
     # Simulate user archiving the output dir before re-clustering
     import shutil
+
     shutil.copy(graph_json, graph_src)
     shutil.rmtree(out_dir)
 
@@ -289,6 +315,7 @@ def test_cluster_only_creates_output_dir_when_missing(tmp_path):
 
 
 # Regression test for #1027 - cluster-only must remap labels via node overlap
+
 
 def test_cluster_only_remaps_labels_to_previous_cids(tmp_path):
     """cluster-only must invoke remap_communities_to_previous so the existing
@@ -350,6 +377,7 @@ def test_cluster_only_remaps_labels_to_previous_cids(tmp_path):
 # silently bails or generates a degraded artifact whenever the sidecar is
 # missing, even though the data is right there.
 
+
 def test_export_html_falls_back_to_node_community_attribute(tmp_path):
     """When .graphify_analysis.json is absent, export html should reconstruct
     communities from the per-node attribute in graph.json rather than bailing
@@ -385,8 +413,7 @@ def test_export_html_fallback_recovers_multiple_communities(tmp_path):
     # And the count we'd reconstruct from graph.json's node attributes
     graph = json.loads((out / "graph.json").read_text(encoding="utf-8"))
     reconstructed_cids = {
-        n["community"] for n in graph.get("nodes", [])
-        if n.get("community") is not None
+        n["community"] for n in graph.get("nodes", []) if n.get("community") is not None
     }
     assert len(reconstructed_cids) == expected_count, (
         f"reconstruction would lose communities: sidecar={expected_count} vs "

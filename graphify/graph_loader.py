@@ -85,9 +85,7 @@ def _require_bool_field(
         return value
     if allow_none and value is None:
         return None
-    raise TypeError(
-        f"'{field}' must be a boolean, got {type(value).__name__} ({value!r})"
-    )
+    raise TypeError(f"'{field}' must be a boolean, got {type(value).__name__} ({value!r})")
 
 
 def load_graph_file(
@@ -259,8 +257,7 @@ def _load_multigraph(data: dict) -> nx.MultiDiGraph:
         key, attrs = strip_schema_key(attrs)
         if key is not None and not isinstance(key, str):
             raise TypeError(
-                f"multigraph edge 'key' must be a string, got "
-                f"{type(key).__name__} ({key!r})"
+                f"multigraph edge 'key' must be a string, got {type(key).__name__} ({key!r})"
             )
         if key is None:
             missing_key_count += 1

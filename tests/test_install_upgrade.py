@@ -9,6 +9,7 @@ These tests seed each platform's instruction file with the old report-first
 section, run the installer, and assert that the on-disk file now contains
 the new query-first wording and does not contain the old report-first text.
 """
+
 from __future__ import annotations
 import json
 from pathlib import Path
@@ -85,9 +86,7 @@ def _assert_no_report_first(text: str, ctx: str) -> None:
 
 
 def _assert_query_first(text: str, ctx: str) -> None:
-    assert "graphify query" in text, (
-        f"{ctx}: new 'graphify query' guidance missing after upgrade"
-    )
+    assert "graphify query" in text, f"{ctx}: new 'graphify query' guidance missing after upgrade"
 
 
 def test_claude_install_upgrades_stale_section(tmp_path, monkeypatch):
@@ -95,7 +94,9 @@ def test_claude_install_upgrades_stale_section(tmp_path, monkeypatch):
     `graphify claude install` again after upgrading to a fixed package."""
     monkeypatch.chdir(tmp_path)
     claude_md = tmp_path / "CLAUDE.md"
-    claude_md.write_text("# My Project\n\nSome description.\n\n" + _OLD_CLAUDE_SECTION, encoding="utf-8")
+    claude_md.write_text(
+        "# My Project\n\nSome description.\n\n" + _OLD_CLAUDE_SECTION, encoding="utf-8"
+    )
     monkeypatch.setattr(mainmod, "_check_skill_version", lambda _: None)
 
     mainmod.claude_install(tmp_path)
@@ -125,11 +126,7 @@ def test_claude_install_upgrades_stale_hook_payload(tmp_path, monkeypatch):
                     "hooks": [
                         {
                             "type": "command",
-                            "command": (
-                                "case x in *) "
-                                + _OLD_HOOK_PAYLOAD_SNIPPET
-                                + " esac"
-                            ),
+                            "command": ("case x in *) " + _OLD_HOOK_PAYLOAD_SNIPPET + " esac"),
                         }
                     ],
                 }
@@ -142,9 +139,7 @@ def test_claude_install_upgrades_stale_hook_payload(tmp_path, monkeypatch):
     mainmod.claude_install(tmp_path)
 
     new_settings_text = settings.read_text(encoding="utf-8")
-    assert _OLD_HOOK_PAYLOAD_SNIPPET not in new_settings_text, (
-        "stale hook payload survived upgrade"
-    )
+    assert _OLD_HOOK_PAYLOAD_SNIPPET not in new_settings_text, "stale hook payload survived upgrade"
     assert "graphify query" in new_settings_text, (
         "new hook payload should route to `graphify query`"
     )

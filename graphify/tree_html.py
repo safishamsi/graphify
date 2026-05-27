@@ -95,7 +95,9 @@ def build_tree(
     dir_index: Dict[str, Dict[str, Any]] = {}
     label_root = project_label or root_path.name or root or "/"
     root_node: Dict[str, Any] = {
-        "name": label_root, "total_count": 0, "children": [],
+        "name": label_root,
+        "total_count": 0,
+        "children": [],
     }
     dir_index[str(root_path)] = root_node
 
@@ -105,8 +107,7 @@ def build_tree(
             return dir_index[key]
         if abs_path == abs_path.parent:
             return root_node
-        parent = (_ensure_dir(abs_path.parent)
-                  if abs_path.parent != abs_path else root_node)
+        parent = _ensure_dir(abs_path.parent) if abs_path.parent != abs_path else root_node
         node = {"name": abs_path.name, "total_count": 0, "children": []}
         dir_index[key] = node
         parent["children"].append(node)
@@ -128,16 +129,20 @@ def build_tree(
             # Skip the redundant file-name node graphify emits.
             if label == src_path.name and n.get("file_type") == "code":
                 continue
-            sym_children.append({
-                "name": label,
-                "total_count": 1,
-                "children": [],
-            })
+            sym_children.append(
+                {
+                    "name": label,
+                    "total_count": 1,
+                    "children": [],
+                }
+            )
         # Sort: code symbols first by name, then anything else.
-        sym_children.sort(key=lambda c: (
-            c["name"].startswith("_"),
-            c["name"].lower(),
-        ))
+        sym_children.sort(
+            key=lambda c: (
+                c["name"].startswith("_"),
+                c["name"].lower(),
+            )
+        )
         if len(sym_children) > max_children:
             extra = len(sym_children) - max_children
             sym_children = sym_children[:max_children] + [
@@ -153,10 +158,12 @@ def build_tree(
     # Sort each dir's children + propagate total_count up.
     def _finalise(d: Dict[str, Any]) -> int:
         kids = d.get("children") or []
-        kids.sort(key=lambda c: (
-            0 if (c.get("children") and len(c["children"]) > 0) else 1,
-            c["name"].lower(),
-        ))
+        kids.sort(
+            key=lambda c: (
+                0 if (c.get("children") and len(c["children"]) > 0) else 1,
+                c["name"].lower(),
+            )
+        )
         if not kids:
             return d.get("total_count") or 1
         n = 0
@@ -570,10 +577,10 @@ def write_tree_html(
     top_k_edges: int = 0,
 ) -> Path:
     from graphify.security import check_graph_file_size_cap
+
     check_graph_file_size_cap(graph_path)
     graph = json.loads(graph_path.read_text(encoding="utf-8"))
-    tree = build_tree(graph, root=root, max_children=max_children,
-                      project_label=project_label)
+    tree = build_tree(graph, root=root, max_children=max_children, project_label=project_label)
     title = f"{tree['name']} — graphify tree viewer"
     header = f"{tree['name']} — Knowledge Graph"
     html = emit_html(tree, title=title, header=header)

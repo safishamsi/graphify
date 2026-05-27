@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections import deque
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
+from typing import Any, Iterable, cast
 
 import networkx as nx
 
@@ -87,8 +87,9 @@ def affected_nodes(
         current, current_depth = queue.popleft()
         if current_depth >= depth:
             continue
-        if hasattr(graph, "in_edges"):
-            incoming = graph.in_edges(current, data=True)
+        graph_any = cast(Any, graph)
+        if hasattr(graph_any, "in_edges"):
+            incoming = graph_any.in_edges(current, data=True)
         else:
             incoming = (
                 (source, target, data)

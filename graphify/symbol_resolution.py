@@ -13,7 +13,6 @@ from typing import Any
 from graphify.security import sanitize_metadata
 
 
-
 @dataclass(frozen=True)
 class ImportedSymbol:
     """A Python imported name that can be used as deterministic resolution evidence."""
@@ -243,7 +242,9 @@ def resolve_python_import_guided_calls(
         if path.suffix != ".py":
             continue
         slot: Any = per_file[index] if index < len(per_file) else None
-        result_by_file[str(path)] = slot if isinstance(slot, dict) else {"nodes": [], "edges": []}  # empty fragment for missing/non-dict slots
+        result_by_file[str(path)] = (
+            slot if isinstance(slot, dict) else {"nodes": [], "edges": []}
+        )  # empty fragment for missing/non-dict slots
     resolved_edges: list[dict[str, Any]] = []
 
     for path in paths:
@@ -289,13 +290,15 @@ def resolve_python_import_guided_calls(
                     "source_file": raw_call.get("source_file", source_file),
                     "source_location": raw_call.get("source_location") or imported.source_location,
                     "weight": 1.0,
-                    "metadata": sanitize_metadata({
-                        "resolver": "python_import_guided",
-                        "local_name": imported.local_name,
-                        "imported_name": imported.imported_name,
-                        "module_stem": imported.module_stem,
-                        "import_source_location": imported.source_location,
-                    }),
+                    "metadata": sanitize_metadata(
+                        {
+                            "resolver": "python_import_guided",
+                            "local_name": imported.local_name,
+                            "imported_name": imported.imported_name,
+                            "module_stem": imported.module_stem,
+                            "import_source_location": imported.source_location,
+                        }
+                    ),
                 }
             )
 
@@ -402,7 +405,9 @@ def resolve_bash_source_edges(
           Anything else is silently skipped.
     """
     path_by_index = [Path(p).resolve() for p in paths]
-    file_nid_by_path = {p: _file_node_id_for_path(p, root) for p in path_by_index}  # resolved paths only
+    file_nid_by_path = {
+        p: _file_node_id_for_path(p, root) for p in path_by_index
+    }  # resolved paths only
 
     functions_by_file: dict[str, dict[str, str]] = {}
     for result, path in zip(per_file, path_by_index):

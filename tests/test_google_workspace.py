@@ -1,4 +1,3 @@
-from pathlib import Path
 import json
 
 import graphify.google_workspace as gw

@@ -1,6 +1,6 @@
 """Tests for token-aware chunking and parallel chunk execution in graphify.llm."""
+
 import time
-from pathlib import Path
 from unittest.mock import patch
 
 import pytest
@@ -13,11 +13,13 @@ def no_tokenizer():
     compresses repeated/synthetic content heavily, which would make pack-size
     assertions tied to specific input sizes flaky."""
     from graphify import llm
+
     with patch.object(llm, "_TOKENIZER", None):
         yield
 
 
 # ---- Token-aware packing -----------------------------------------------------
+
 
 def test_pack_chunks_packs_small_files_together(tmp_path):
     """Many small files should land in a single chunk, not one chunk per file."""
@@ -64,10 +66,14 @@ def test_pack_chunks_groups_by_directory(tmp_path):
     dir_a.mkdir()
     dir_b.mkdir()
 
-    a1 = dir_a / "x.py"; a1.write_text("a")
-    a2 = dir_a / "y.py"; a2.write_text("a")
-    b1 = dir_b / "x.py"; b1.write_text("b")
-    b2 = dir_b / "y.py"; b2.write_text("b")
+    a1 = dir_a / "x.py"
+    a1.write_text("a")
+    a2 = dir_a / "y.py"
+    a2.write_text("a")
+    b1 = dir_b / "x.py"
+    b1.write_text("b")
+    b2 = dir_b / "y.py"
+    b2.write_text("b")
 
     # Big budget — everything fits in one chunk in principle, but the order
     # within the chunk should keep dir_a's files contiguous and dir_b's
@@ -87,8 +93,10 @@ def test_pack_chunks_oversized_file_gets_its_own_chunk(tmp_path, no_tokenizer):
     """A file larger than the budget can't be split — it goes alone in a chunk."""
     from graphify.llm import _pack_chunks_by_tokens
 
-    big = tmp_path / "big.py"; big.write_text("x" * 200_000)  # ~50k tokens (cap-bound)
-    small = tmp_path / "small.py"; small.write_text("x")
+    big = tmp_path / "big.py"
+    big.write_text("x" * 200_000)  # ~50k tokens (cap-bound)
+    small = tmp_path / "small.py"
+    small.write_text("x")
 
     chunks = _pack_chunks_by_tokens([big, small], token_budget=1_000)
     sizes = [len(c) for c in chunks]
@@ -100,12 +108,14 @@ def test_pack_chunks_oversized_file_gets_its_own_chunk(tmp_path, no_tokenizer):
 def test_pack_chunks_rejects_non_positive_budget(tmp_path):
     from graphify.llm import _pack_chunks_by_tokens
 
-    f = tmp_path / "x.py"; f.write_text("a")
+    f = tmp_path / "x.py"
+    f.write_text("a")
     with pytest.raises(ValueError):
         _pack_chunks_by_tokens([f], token_budget=0)
 
 
 # ---- Tokenizer fallback ------------------------------------------------------
+
 
 def test_estimate_file_tokens_uses_tiktoken_when_available(tmp_path):
     """When tiktoken is installed, the estimator should call into it for
@@ -139,6 +149,7 @@ def test_estimate_file_tokens_falls_back_to_chars_when_no_tokenizer(tmp_path):
 
 # ---- Parallel execution ------------------------------------------------------
 
+
 def _stub_chunk_result(file_count: int, idx: int) -> dict:
     """Build a deterministic fake extraction result for a chunk."""
     return {
@@ -157,7 +168,8 @@ def test_corpus_parallel_runs_chunks_concurrently(tmp_path):
 
     files = []
     for i in range(8):
-        f = tmp_path / f"f{i}.py"; f.write_text("x")
+        f = tmp_path / f"f{i}.py"
+        f.write_text("x")
         files.append(f)
 
     def slow_extract(chunk, **kwargs):
@@ -183,7 +195,8 @@ def test_corpus_parallel_sequential_when_max_concurrency_is_one(tmp_path):
 
     files = []
     for i in range(3):
-        f = tmp_path / f"f{i}.py"; f.write_text("x")
+        f = tmp_path / f"f{i}.py"
+        f.write_text("x")
         files.append(f)
 
     call_order = []
@@ -208,7 +221,8 @@ def test_corpus_parallel_continues_after_chunk_failure(tmp_path, capsys):
 
     files = []
     for i in range(4):
-        f = tmp_path / f"f{i}.py"; f.write_text("x")
+        f = tmp_path / f"f{i}.py"
+        f.write_text("x")
         files.append(f)
 
     call_count = {"n": 0}
@@ -236,7 +250,8 @@ def test_corpus_parallel_legacy_mode_when_token_budget_is_none(tmp_path):
 
     files = []
     for i in range(45):
-        f = tmp_path / f"f{i}.py"; f.write_text("x")
+        f = tmp_path / f"f{i}.py"
+        f.write_text("x")
         files.append(f)
 
     chunks_seen = []
@@ -260,7 +275,8 @@ def test_corpus_parallel_token_budget_default_packs_files(tmp_path):
 
     files = []
     for i in range(50):
-        f = tmp_path / f"f{i}.py"; f.write_text("x = 1\n")
+        f = tmp_path / f"f{i}.py"
+        f.write_text("x = 1\n")
         files.append(f)
 
     chunks_seen = []
@@ -278,6 +294,7 @@ def test_corpus_parallel_token_budget_default_packs_files(tmp_path):
 
 
 # ---- Adaptive retry on truncation -------------------------------------------
+
 
 def _stub_with_finish(file_count: int, finish_reason: str = "stop") -> dict:
     """Build a stub extraction result with a controllable finish_reason."""
@@ -398,7 +415,8 @@ def test_adaptive_retry_single_file_truncation_does_not_recurse(tmp_path, capsys
     warning and return what we got. No infinite loop."""
     from graphify.llm import _extract_with_adaptive_retry
 
-    f = tmp_path / "huge.py"; f.write_text("x")
+    f = tmp_path / "huge.py"
+    f.write_text("x")
 
     calls = []
 

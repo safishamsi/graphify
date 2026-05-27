@@ -1,4 +1,5 @@
 """Tests for `graphify extract` CLI dispatch path in graphify.__main__."""
+
 from __future__ import annotations
 
 import pytest
@@ -17,9 +18,7 @@ def _make_corpus(tmp_path):
     return tmp_path
 
 
-def test_extract_exits_nonzero_when_all_semantic_chunks_fail(
-    monkeypatch, tmp_path, capsys
-):
+def test_extract_exits_nonzero_when_all_semantic_chunks_fail(monkeypatch, tmp_path, capsys):
     """When every semantic chunk errors (e.g. backend SDK not installed),
     the CLI must exit non-zero instead of silently writing an AST-only graph.
 
@@ -48,23 +47,19 @@ def test_extract_exits_nonzero_when_all_semantic_chunks_fail(
             "output_tokens": 0,
         }
 
-    monkeypatch.setattr(
-        "graphify.llm.extract_corpus_parallel", _all_chunks_failed
-    )
+    monkeypatch.setattr("graphify.llm.extract_corpus_parallel", _all_chunks_failed)
     monkeypatch.setattr(mainmod, "_check_skill_version", lambda _: None)
     monkeypatch.setattr(
         mainmod.sys,
         "argv",
-        ["graphify", "extract", str(corpus), "--backend", "claude",
-         "--out", str(out_dir)],
+        ["graphify", "extract", str(corpus), "--backend", "claude", "--out", str(out_dir)],
     )
 
     with pytest.raises(SystemExit) as exc_info:
         mainmod.main()
 
     assert exc_info.value.code == 1, (
-        f"expected exit code 1 when all semantic chunks fail, "
-        f"got {exc_info.value.code}"
+        f"expected exit code 1 when all semantic chunks fail, got {exc_info.value.code}"
     )
 
     stderr = capsys.readouterr().err
@@ -78,9 +73,7 @@ def test_extract_exits_nonzero_when_all_semantic_chunks_fail(
     )
 
 
-def test_extract_succeeds_when_at_least_one_chunk_completes(
-    monkeypatch, tmp_path
-):
+def test_extract_succeeds_when_at_least_one_chunk_completes(monkeypatch, tmp_path):
     """Sanity counter-test: a successful chunk run keeps exit 0. Confirms the
     new guard only fires on the all-failed path, not on every extract."""
     corpus = _make_corpus(tmp_path)
@@ -99,15 +92,12 @@ def test_extract_succeeds_when_at_least_one_chunk_completes(
             "output_tokens": 50,
         }
 
-    monkeypatch.setattr(
-        "graphify.llm.extract_corpus_parallel", _one_chunk_succeeded
-    )
+    monkeypatch.setattr("graphify.llm.extract_corpus_parallel", _one_chunk_succeeded)
     monkeypatch.setattr(mainmod, "_check_skill_version", lambda _: None)
     monkeypatch.setattr(
         mainmod.sys,
         "argv",
-        ["graphify", "extract", str(corpus), "--backend", "claude",
-         "--out", str(out_dir)],
+        ["graphify", "extract", str(corpus), "--backend", "claude", "--out", str(out_dir)],
     )
 
     # extract may still raise SystemExit at the end (clean exit code 0)

@@ -1,8 +1,8 @@
 """Tests for graphify.transcribe — video/audio transcription support."""
+
 from __future__ import annotations
 
 import os
-from pathlib import Path
 from unittest.mock import MagicMock, patch
 
 import pytest
@@ -19,6 +19,7 @@ from graphify.transcribe import (
 # VIDEO_EXTENSIONS
 # ---------------------------------------------------------------------------
 
+
 def test_video_extensions_set():
     assert ".mp4" in VIDEO_EXTENSIONS
     assert ".mp3" in VIDEO_EXTENSIONS
@@ -30,6 +31,7 @@ def test_video_extensions_set():
 # ---------------------------------------------------------------------------
 # build_whisper_prompt
 # ---------------------------------------------------------------------------
+
 
 def test_build_whisper_prompt_no_nodes():
     """Empty god_nodes returns fallback prompt."""
@@ -64,6 +66,7 @@ def test_build_whisper_prompt_nodes_without_labels():
 # ---------------------------------------------------------------------------
 # transcribe
 # ---------------------------------------------------------------------------
+
 
 def test_transcribe_uses_cache(tmp_path):
     """If transcript already exists, transcribe() returns cached path without running Whisper."""
@@ -105,7 +108,9 @@ def test_transcribe_missing_faster_whisper(tmp_path):
     video = tmp_path / "clip.mp4"
     video.write_bytes(b"fake")
 
-    with patch("graphify.transcribe._get_whisper", side_effect=ImportError("faster-whisper not installed")):
+    with patch(
+        "graphify.transcribe._get_whisper", side_effect=ImportError("faster-whisper not installed")
+    ):
         with pytest.raises(ImportError):
             transcribe(video, output_dir=tmp_path / "out")
 
@@ -113,6 +118,7 @@ def test_transcribe_missing_faster_whisper(tmp_path):
 # ---------------------------------------------------------------------------
 # transcribe_all
 # ---------------------------------------------------------------------------
+
 
 def test_transcribe_all_empty():
     """Empty input returns empty list without error."""

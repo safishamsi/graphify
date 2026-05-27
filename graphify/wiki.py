@@ -17,13 +17,20 @@ def _safe_filename(name: str) -> str:
     chars to stay well under common filesystem limits.
     """
     import re
+
     s = name.replace("/", "-").replace(" ", "_").replace(":", "-")
-    s = re.sub(r'[<>:"/\\|?*]', '_', s)
-    s = s.strip('. ')
-    return s[:200] if s else 'unnamed'
+    s = re.sub(r'[<>:"/\\|?*]', "_", s)
+    s = s.strip(". ")
+    return s[:200] if s else "unnamed"
 
 
-def _cross_community_links(G: nx.Graph, nodes: list[str], own_cid: int, labels: dict[int, str], node_community: dict[str, int]) -> list[tuple[str, int]]:
+def _cross_community_links(
+    G: nx.Graph,
+    nodes: list[str],
+    own_cid: int,
+    labels: dict[int, str],
+    node_community: dict[str, int],
+) -> list[tuple[str, int]]:
     """Return (community_label, edge_count) pairs for cross-community connections, sorted descending."""
     counts: dict[str, int] = Counter()
     for nid in nodes:
@@ -102,7 +109,9 @@ def _community_article(
     return "\n".join(lines)
 
 
-def _god_node_article(G: nx.Graph, nid: str, labels: dict[int, str], node_community: dict[str, int] | None = None) -> str:
+def _god_node_article(
+    G: nx.Graph, nid: str, labels: dict[int, str], node_community: dict[str, int] | None = None
+) -> str:
     d = G.nodes[nid]
     node_label = d.get("label", nid)
     src = d.get("source_file", "")
@@ -209,6 +218,7 @@ def to_wiki(
     # NetworkX 3.x returns DegreeView({}) for missing nodes instead of raising,
     # which crashes sorted() with TypeError; G.neighbors()/G.nodes[] also raise.
     import sys as _sys
+
     _g_nodes = set(G.nodes)
     _orig_total = sum(len(ns) for ns in communities.values())
     communities = {cid: [n for n in nodes if n in _g_nodes] for cid, nodes in communities.items()}
@@ -259,7 +269,9 @@ def to_wiki(
     # Community articles
     for cid, nodes in communities.items():
         label = labels.get(cid, f"Community {cid}")
-        article = _community_article(G, cid, nodes, label, labels, cohesion.get(cid), node_community)
+        article = _community_article(
+            G, cid, nodes, label, labels, cohesion.get(cid), node_community
+        )
         slug = _unique_slug(_safe_filename(label))
         (out / f"{slug}.md").write_text(article, encoding="utf-8")
         count += 1
@@ -269,7 +281,7 @@ def to_wiki(
         nid = node_data.get("id")
         if nid and nid in G:
             article = _god_node_article(G, nid, labels, node_community)
-            slug = _unique_slug(_safe_filename(node_data['label']))
+            slug = _unique_slug(_safe_filename(node_data["label"]))
             (out / f"{slug}.md").write_text(article, encoding="utf-8")
             count += 1
 

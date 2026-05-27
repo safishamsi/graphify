@@ -31,8 +31,8 @@ _project_root = Path(__file__).resolve().parent.parent
 if str(_project_root) not in sys.path:
     sys.path.insert(0, str(_project_root))
 
-from graphify.extract import extract, collect_files
-from graphify.cache import clear_cache
+from graphify.extract import extract, collect_files  # noqa: E402
+from graphify.cache import clear_cache  # noqa: E402
 
 
 def _count_by_ext(paths: list[Path]) -> dict[str, int]:
@@ -102,9 +102,7 @@ def _run_extraction(
     """Run extraction, return (elapsed_seconds, node_count, edge_count)."""
     clear_cache(cache_root)
     t0 = time.perf_counter()
-    result = extract(
-        paths, cache_root=cache_root, parallel=parallel, max_workers=max_workers
-    )
+    result = extract(paths, cache_root=cache_root, parallel=parallel, max_workers=max_workers)
     elapsed = time.perf_counter() - t0
     nodes = len(result.get("nodes", []))
     edges = len(result.get("edges", []))
@@ -149,9 +147,7 @@ def main() -> None:
     par_time, par_nodes, par_edges = _run_extraction(
         paths, cache_root, parallel=True, max_workers=workers
     )
-    print(
-        f"Parallel ({workers}): {par_time:.2f}s ({par_nodes:,} nodes, {par_edges:,} edges)"
-    )
+    print(f"Parallel ({workers}): {par_time:.2f}s ({par_nodes:,} nodes, {par_edges:,} edges)")
 
     # Results
     print()

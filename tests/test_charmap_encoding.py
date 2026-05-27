@@ -11,15 +11,12 @@ These tests mock subprocess.run to:
   b) Assert that extract_corpus_parallel reports loud failure (non-zero exit
      or summary block) when ≥1 chunk fails.
 """
+
 from __future__ import annotations
 
 import json
-import sys
-from io import StringIO
-from pathlib import Path
-from unittest.mock import MagicMock, call, patch
+from unittest.mock import MagicMock, patch
 
-import pytest
 
 from graphify import llm
 
@@ -31,14 +28,15 @@ _ENVELOPE = {
     "type": "result",
     "subtype": "success",
     "is_error": False,
-    "result": json.dumps({
-        "nodes": [{"id": "n1", "label": "N1", "file_type": "document",
-                   "source_file": "u.md"}],
-        "edges": [],
-        "hyperedges": [],
-        "input_tokens": 0,
-        "output_tokens": 0,
-    }),
+    "result": json.dumps(
+        {
+            "nodes": [{"id": "n1", "label": "N1", "file_type": "document", "source_file": "u.md"}],
+            "edges": [],
+            "hyperedges": [],
+            "input_tokens": 0,
+            "output_tokens": 0,
+        }
+    ),
     "stop_reason": "end_turn",
     "usage": {
         "input_tokens": 1,
@@ -54,6 +52,7 @@ _ENVELOPE = {
 
 # ── Test A: subprocess encoding ───────────────────────────────────────────────
 
+
 class TestSubprocessEncoding:
     """_call_claude_cli must pass encoding="utf-8" to subprocess.run so that
     non-ASCII content in chunk messages does not raise UnicodeEncodeError on
@@ -68,8 +67,10 @@ class TestSubprocessEncoding:
         """subprocess.run must be invoked with encoding='utf-8'."""
         completed = self._make_completed()
         monkeypatch.setattr(llm, "_response_is_hollow", lambda raw, parsed: False)
-        with patch("shutil.which", return_value="/fake/bin/claude"), \
-             patch("subprocess.run", return_value=completed) as mock_run:
+        with (
+            patch("shutil.which", return_value="/fake/bin/claude"),
+            patch("subprocess.run", return_value=completed) as mock_run,
+        ):
             llm._call_claude_cli(_UNICODE_CONTENT, max_tokens=8192)
         _args, kwargs = mock_run.call_args
         assert kwargs.get("encoding") == "utf-8", (
@@ -85,8 +86,10 @@ class TestSubprocessEncoding:
         """
         completed = self._make_completed()
         monkeypatch.setattr(llm, "_response_is_hollow", lambda raw, parsed: False)
-        with patch("shutil.which", return_value="/fake/bin/claude"), \
-             patch("subprocess.run", return_value=completed) as mock_run:
+        with (
+            patch("shutil.which", return_value="/fake/bin/claude"),
+            patch("subprocess.run", return_value=completed) as mock_run,
+        ):
             llm._call_claude_cli(_UNICODE_CONTENT, max_tokens=8192)
         _args, kwargs = mock_run.call_args
         # If text=True is present, encoding must also be set to 'utf-8'.
@@ -111,12 +114,12 @@ class TestSubprocessEncoding:
 
         completed = self._make_completed()
         monkeypatch.setattr(llm, "_response_is_hollow", lambda raw, parsed: False)
-        with patch("shutil.which", return_value="/fake/bin/claude"), \
-             patch("subprocess.run", return_value=completed):
+        with (
+            patch("shutil.which", return_value="/fake/bin/claude"),
+            patch("subprocess.run", return_value=completed),
+        ):
             # Should not raise
-            result = llm.extract_files_direct(
-                files=[f], backend="claude-cli", root=tmp_path
-            )
+            result = llm.extract_files_direct(files=[f], backend="claude-cli", root=tmp_path)
         assert len(result["nodes"]) >= 1
 
     def test_call_llm_claude_cli_subprocess_encoding(self, monkeypatch):
@@ -126,8 +129,10 @@ class TestSubprocessEncoding:
             stdout=json.dumps({"result": "ok", "stop_reason": "end_turn"}),
             stderr="",
         )
-        with patch("shutil.which", return_value="/fake/bin/claude"), \
-             patch("subprocess.run", return_value=completed) as mock_run:
+        with (
+            patch("shutil.which", return_value="/fake/bin/claude"),
+            patch("subprocess.run", return_value=completed) as mock_run,
+        ):
             llm._call_llm(_UNICODE_CONTENT, backend="claude-cli", max_tokens=200)
         _args, kwargs = mock_run.call_args
         assert kwargs.get("encoding") == "utf-8", (
@@ -137,6 +142,7 @@ class TestSubprocessEncoding:
 
 
 # ── Test B: loud failure on chunk error ────────────────────────────────────────
+
 
 class TestLoudChunkFailure:
     """extract_corpus_parallel must surface chunk failures loudly — either via
@@ -196,10 +202,11 @@ class TestLoudChunkFailure:
         f.write_text("z = 1\n", encoding="utf-8")
 
         good_result = {
-            "nodes": [{"id": "n1", "label": "N1", "file_type": "code",
-                       "source_file": str(f)}],
-            "edges": [], "hyperedges": [],
-            "input_tokens": 1, "output_tokens": 1,
+            "nodes": [{"id": "n1", "label": "N1", "file_type": "code", "source_file": str(f)}],
+            "edges": [],
+            "hyperedges": [],
+            "input_tokens": 1,
+            "output_tokens": 1,
             "elapsed_seconds": 0.1,
         }
         monkeypatch.setattr(
@@ -216,6 +223,7 @@ class TestLoudChunkFailure:
 
 
 # ── Substitution validation (rsl-siege-manager path via Python) ────────────────
+
 
 class TestSubstitutionValidation:
     """Exercises the same code path as the rsl-siege-manager reproduction
@@ -262,9 +270,7 @@ class TestSubstitutionValidation:
         try:
             prompt.encode("utf-8")
         except UnicodeEncodeError as e:
-            raise AssertionError(
-                f"UTF-8 encode must succeed but failed: {e}"
-            ) from e
+            raise AssertionError(f"UTF-8 encode must succeed but failed: {e}") from e
 
         # cp1252 must fail (confirming these chars are the failing surface)
         try:
@@ -279,9 +285,7 @@ class TestSubstitutionValidation:
         except UnicodeEncodeError:
             pass  # Expected — confirms these chars hit the pre-fix failure surface
 
-    def test_subprocess_encoding_kwarg_in_extract_files_direct(
-        self, monkeypatch, tmp_path
-    ):
+    def test_subprocess_encoding_kwarg_in_extract_files_direct(self, monkeypatch, tmp_path):
         """End-to-end path: write unicode file → extract_files_direct → subprocess.
 
         Subprocess must receive encoding='utf-8', not the locale default.
@@ -290,39 +294,49 @@ class TestSubstitutionValidation:
         f.write_text(self._UNICODE_CHARS, encoding="utf-8")
 
         _ENVELOPE_SIMPLE = {
-            "type": "result", "subtype": "success", "is_error": False,
-            "result": json.dumps({
-                "nodes": [{"id": "u_chunk", "label": "Unicode Chunk",
-                           "file_type": "document",
-                           "source_file": "unicode_chunk.md"}],
-                "edges": [], "hyperedges": [],
-                "input_tokens": 1, "output_tokens": 1,
-            }),
+            "type": "result",
+            "subtype": "success",
+            "is_error": False,
+            "result": json.dumps(
+                {
+                    "nodes": [
+                        {
+                            "id": "u_chunk",
+                            "label": "Unicode Chunk",
+                            "file_type": "document",
+                            "source_file": "unicode_chunk.md",
+                        }
+                    ],
+                    "edges": [],
+                    "hyperedges": [],
+                    "input_tokens": 1,
+                    "output_tokens": 1,
+                }
+            ),
             "stop_reason": "end_turn",
             "usage": {
-                "input_tokens": 1, "output_tokens": 1,
-                "cache_read_input_tokens": 0, "cache_creation_input_tokens": 0,
+                "input_tokens": 1,
+                "output_tokens": 1,
+                "cache_read_input_tokens": 0,
+                "cache_creation_input_tokens": 0,
             },
             "modelUsage": {
                 "claude-opus-4-7": {"inputTokens": 1, "outputTokens": 1},
             },
         }
-        completed = MagicMock(
-            returncode=0, stdout=json.dumps(_ENVELOPE_SIMPLE), stderr=""
-        )
+        completed = MagicMock(returncode=0, stdout=json.dumps(_ENVELOPE_SIMPLE), stderr="")
         monkeypatch.setattr(llm, "_response_is_hollow", lambda raw, parsed: False)
 
-        with patch("shutil.which", return_value="/fake/bin/claude"), \
-             patch("subprocess.run", return_value=completed) as mock_run:
-            result = llm.extract_files_direct(
-                files=[f], backend="claude-cli", root=tmp_path
-            )
+        with (
+            patch("shutil.which", return_value="/fake/bin/claude"),
+            patch("subprocess.run", return_value=completed) as mock_run,
+        ):
+            result = llm.extract_files_direct(files=[f], backend="claude-cli", root=tmp_path)
 
         assert mock_run.called
         _args, kwargs = mock_run.call_args
         assert kwargs.get("encoding") == "utf-8", (
-            "subprocess.run must be called with encoding='utf-8'; "
-            f"got {kwargs.get('encoding')!r}"
+            f"subprocess.run must be called with encoding='utf-8'; got {kwargs.get('encoding')!r}"
         )
         # Confirm the unicode content was in the input (not truncated/replaced)
         inp = kwargs.get("input", "")

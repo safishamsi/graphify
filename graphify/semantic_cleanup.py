@@ -28,7 +28,9 @@ MAX_SEMANTIC_FRAGMENT_EDGES = 100_000
 MAX_SEMANTIC_FRAGMENT_HYPEREDGES = 10_000
 MAX_SEMANTIC_HYPEREDGE_NODES = 256
 MAX_SEMANTIC_ID_LENGTH = 256
-VALID_SEMANTIC_FILE_TYPES = frozenset({"code", "document", "paper", "image", "rationale", "concept"})
+VALID_SEMANTIC_FILE_TYPES = frozenset(
+    {"code", "document", "paper", "image", "rationale", "concept"}
+)
 _SEMANTIC_ID_RE = re.compile(r"^[A-Za-z0-9._:-]+$")
 
 

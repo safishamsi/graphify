@@ -6,6 +6,7 @@
 from __future__ import annotations
 
 import json
+import importlib
 import os
 import sys
 import time
@@ -155,6 +156,7 @@ def _resolve_max_tokens(default: int) -> int:
         except ValueError:
             pass
     return default
+
 
 _EXTRACTION_SYSTEM = """\
 You are a graphify semantic extraction agent. Extract a knowledge graph fragment from the files provided.
@@ -476,14 +478,13 @@ def _call_openai_compat(
 def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False) -> dict:
     """Call Anthropic Claude directly (not via OpenAI compat layer)."""
     try:
-        import anthropic
+        anthropic = importlib.import_module("anthropic")
     except ImportError as exc:
         raise ImportError(
-            "Claude direct extraction requires the anthropic package. "
-            "Run: pip install anthropic"
+            "Claude direct extraction requires the anthropic package. Run: pip install anthropic"
         ) from exc
 
-    client = anthropic.Anthropic(api_key=api_key)
+    client = getattr(anthropic, "Anthropic")(api_key=api_key)
     resp = client.messages.create(
         model=model,
         max_tokens=max_tokens,
@@ -564,7 +565,7 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
     cli_model = os.environ.get("GRAPHIFY_CLAUDE_CLI_MODEL", "").strip()
     if cli_model:
         cli_args.extend(["--model", cli_model])
-    proc = subprocess.run(
+    proc = subprocess.run(  # nosec B603
         cli_args,
         input=user_message,
         capture_output=True,
@@ -574,9 +575,7 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
         check=False,
     )
     if proc.returncode != 0:
-        raise RuntimeError(
-            f"claude -p exited {proc.returncode}: {proc.stderr.strip()[:500]}"
-        )
+        raise RuntimeError(f"claude -p exited {proc.returncode}: {proc.stderr.strip()[:500]}")
 
     try:
         envelope = json.loads(proc.stdout)
@@ -685,7 +684,7 @@ def extract_files_direct(
         # Ollama ignores auth but the OpenAI client library requires a non-empty
         # string. Use a placeholder and surface a visible warning so this never
         # silently routes traffic without the user realising — see F-029.
-        ollama_url = os.environ.get("OLLAMA_BASE_URL", cfg.get("base_url", ""))
+        ollama_url = str(os.environ.get("OLLAMA_BASE_URL", cfg.get("base_url", "")))
         _validate_ollama_base_url(ollama_url)
         print(
             "[graphify] WARNING: ollama backend selected with no OLLAMA_API_KEY set; "
@@ -870,14 +869,30 @@ def _extract_with_adaptive_retry(
                 f"and cannot be split further: {exc}",
                 file=sys.stderr,
             )
-            return {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0, "model": model, "finish_reason": "stop"}
+            return {
+                "nodes": [],
+                "edges": [],
+                "hyperedges": [],
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "model": model,
+                "finish_reason": "stop",
+            }
         if _depth >= max_depth:
             print(
                 f"[graphify] chunk of {len(chunk)} still overflows context at "
                 f"recursion depth {_depth} (max {max_depth}) — dropping",
                 file=sys.stderr,
             )
-            return {"nodes": [], "edges": [], "hyperedges": [], "input_tokens": 0, "output_tokens": 0, "model": model, "finish_reason": "stop"}
+            return {
+                "nodes": [],
+                "edges": [],
+                "hyperedges": [],
+                "input_tokens": 0,
+                "output_tokens": 0,
+                "model": model,
+                "finish_reason": "stop",
+            }
         print(
             f"[graphify] chunk of {len(chunk)} exceeded context at depth "
             f"{_depth} ({type(exc).__name__}); splitting in half and retrying",
@@ -997,11 +1012,14 @@ def extract_corpus_parallel(
     if token_budget is not None:
         chunks = _pack_chunks_by_tokens(files, token_budget=token_budget)
     else:
-        chunks = [files[i:i + chunk_size] for i in range(0, len(files), chunk_size)]
+        chunks = [files[i : i + chunk_size] for i in range(0, len(files), chunk_size)]
 
     merged: dict = {
-        "nodes": [], "edges": [], "hyperedges": [],
-        "input_tokens": 0, "output_tokens": 0,
+        "nodes": [],
+        "edges": [],
+        "hyperedges": [],
+        "input_tokens": 0,
+        "output_tokens": 0,
         "failed_chunks": 0,  # count of chunks that raised — loud failure on chunk errors
     }
     total = len(chunks)
@@ -1030,7 +1048,10 @@ def extract_corpus_parallel(
         max_concurrency = 1
     # claude-cli shells out to a Claude Code session; parallel subprocesses conflict
     # over session state. Force serial unless the user explicitly opts in.
-    if backend == "claude-cli" and os.environ.get("GRAPHIFY_CLAUDE_CLI_PARALLEL", "").strip() != "1":
+    if (
+        backend == "claude-cli"
+        and os.environ.get("GRAPHIFY_CLAUDE_CLI_PARALLEL", "").strip() != "1"
+    ):
         max_concurrency = 1
     workers = max(1, min(max_concurrency, total))
     if workers == 1:
@@ -1042,7 +1063,8 @@ def extract_corpus_parallel(
                 print(f"[graphify] chunk {idx + 1}/{total} failed: {exc}", file=sys.stderr)
                 merged["failed_chunks"] += 1
                 continue
-            assert result is not None
+            if result is None:
+                raise RuntimeError("chunk worker completed without result or exception")
             _merge_into(merged, result)
             if callable(on_chunk_done):
                 on_chunk_done(idx, total, result)
@@ -1058,7 +1080,8 @@ def extract_corpus_parallel(
                     )
                     merged["failed_chunks"] += 1
                     continue
-                assert result is not None
+                if result is None:
+                    raise RuntimeError("chunk worker completed without result or exception")
                 _merge_into(merged, result)
                 if callable(on_chunk_done):
                     on_chunk_done(idx, total, result)
@@ -1101,7 +1124,7 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
     cfg = BACKENDS[backend]
     key = _get_backend_api_key(backend)
     if not key and backend == "ollama":
-        ollama_url = os.environ.get("OLLAMA_BASE_URL", cfg.get("base_url", ""))
+        ollama_url = str(os.environ.get("OLLAMA_BASE_URL", cfg.get("base_url", "")))
         _validate_ollama_base_url(ollama_url)
         key = "ollama"
     if not key and backend not in ("bedrock", "claude-cli"):
@@ -1112,10 +1135,10 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
 
     if backend == "claude":
         try:
-            import anthropic
+            anthropic = importlib.import_module("anthropic")
         except ImportError as exc:
             raise ImportError("anthropic package required for claude backend") from exc
-        client = anthropic.Anthropic(api_key=key)
+        client = getattr(anthropic, "Anthropic")(api_key=key)
         resp = client.messages.create(
             model=mdl,
             max_tokens=max_tokens,
@@ -1124,10 +1147,12 @@ def _call_llm(prompt: str, *, backend: str, max_tokens: int = 200) -> str:
         return resp.content[0].text if resp.content else ""
 
     if backend == "claude-cli":
-        import shutil, subprocess
+        import shutil
+        import subprocess
+
         if shutil.which("claude") is None:
             raise RuntimeError("Claude Code CLI not found on $PATH")
-        proc = subprocess.run(
+        proc = subprocess.run(  # nosec B603 B607
             ["claude", "-p", "--output-format", "json", "--no-session-persistence"],
             input=prompt,
             capture_output=True,
@@ -1201,6 +1226,7 @@ def _validate_ollama_base_url(url: str) -> None:
     """
     try:
         from urllib.parse import urlparse
+
         parsed = urlparse(url)
     except Exception:
         print(
@@ -1241,7 +1267,11 @@ def detect_backend() -> str | None:
     for backend in ("gemini", "kimi", "claude", "openai", "deepseek"):
         if _get_backend_api_key(backend):
             return backend
-    if os.environ.get("AWS_PROFILE") or os.environ.get("AWS_REGION") or os.environ.get("AWS_DEFAULT_REGION"):
+    if (
+        os.environ.get("AWS_PROFILE")
+        or os.environ.get("AWS_REGION")
+        or os.environ.get("AWS_DEFAULT_REGION")
+    ):
         return "bedrock"
     ollama_url = os.environ.get("OLLAMA_BASE_URL")
     if ollama_url:

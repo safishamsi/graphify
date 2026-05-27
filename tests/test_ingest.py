@@ -1,8 +1,6 @@
 """Tests for graphify.ingest.save_query_result"""
+
 from __future__ import annotations
-import re
-from pathlib import Path
-import pytest
 from graphify.ingest import save_query_result
 
 
@@ -49,7 +47,7 @@ def test_source_nodes_capped_at_10(tmp_path):
     out = save_query_result("q", "a", mem, source_nodes=nodes)
     content = out.read_text()
     # Only first 10 should appear in frontmatter source_nodes line
-    fm_line = [l for l in content.splitlines() if l.startswith("source_nodes:")][0]
+    fm_line = [label for label in content.splitlines() if label.startswith("source_nodes:")][0]
     assert fm_line.count('"Node') == 10
 
 

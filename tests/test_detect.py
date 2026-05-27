@@ -1,40 +1,60 @@
 from pathlib import Path
-from graphify.detect import classify_file, count_words, detect, detect_incremental, save_manifest, FileType, _looks_like_paper, _is_ignored, _load_graphifyignore, _is_sensitive
+from graphify.detect import (
+    classify_file,
+    count_words,
+    detect,
+    detect_incremental,
+    save_manifest,
+    FileType,
+    _is_ignored,
+    _load_graphifyignore,
+    _is_sensitive,
+)
 
 FIXTURES = Path(__file__).parent / "fixtures"
+
 
 def test_classify_python():
     assert classify_file(Path("foo.py")) == FileType.CODE
 
+
 def test_classify_typescript():
     assert classify_file(Path("bar.ts")) == FileType.CODE
+
 
 def test_classify_markdown():
     assert classify_file(Path("README.md")) == FileType.DOCUMENT
 
+
 def test_classify_pdf():
     assert classify_file(Path("paper.pdf")) == FileType.PAPER
+
 
 def test_classify_pdf_in_xcassets_skipped():
     # PDFs inside Xcode asset catalogs are vector icons, not papers
     asset_pdf = Path("MyApp/Images.xcassets/icon.imageset/icon.pdf")
     assert classify_file(asset_pdf) is None
 
+
 def test_classify_pdf_in_xcassets_root_skipped():
     asset_pdf = Path("Pods/HXPHPicker/Assets.xcassets/photo.pdf")
     assert classify_file(asset_pdf) is None
 
+
 def test_classify_unknown_returns_none():
     assert classify_file(Path("archive.zip")) is None
+
 
 def test_classify_image():
     assert classify_file(Path("screenshot.png")) == FileType.IMAGE
     assert classify_file(Path("design.jpg")) == FileType.IMAGE
     assert classify_file(Path("diagram.webp")) == FileType.IMAGE
 
+
 def test_count_words_sample_md():
     words = count_words(FIXTURES / "sample.md")
     assert words > 5
+
 
 def test_detect_finds_fixtures():
     result = detect(FIXTURES)
@@ -42,10 +62,12 @@ def test_detect_finds_fixtures():
     assert "code" in result["files"]
     assert "document" in result["files"]
 
+
 def test_detect_warns_small_corpus():
     result = detect(FIXTURES)
     assert result["needs_graph"] is False
     assert result["warning"] is not None
+
 
 def test_detect_skips_noise_dot_dirs():
     """Noise dot dirs (.next, .nuxt, .graphify cache, …) are skipped (#873).
@@ -301,6 +323,7 @@ def test_detect_incremental_propagates_follow_symlinks(tmp_path, monkeypatch):
 def test_classify_video_extensions():
     """Video and audio file extensions should classify as VIDEO."""
     from graphify.detect import FileType
+
     assert classify_file(Path("lecture.mp4")) == FileType.VIDEO
     assert classify_file(Path("podcast.mp3")) == FileType.VIDEO
     assert classify_file(Path("talk.mov")) == FileType.VIDEO
@@ -399,7 +422,9 @@ def test_detect_skips_visual_tests_dir(tmp_path):
 def test_detect_skips_snapshots_dir(tmp_path):
     """__snapshots__/ and snapshots/ are jest/vitest artefacts — must be excluded."""
     (tmp_path / "__snapshots__").mkdir()
-    (tmp_path / "__snapshots__" / "app.test.ts.snap").write_text("// Jest Snapshot\nexports[`test 1`] = `<div/>`")
+    (tmp_path / "__snapshots__" / "app.test.ts.snap").write_text(
+        "// Jest Snapshot\nexports[`test 1`] = `<div/>`"
+    )
     (tmp_path / "app.ts").write_text("export function greet() { return 'hi'; }")
     result = detect(tmp_path)
     all_files = [f for files in result["files"].values() for f in files]
@@ -422,6 +447,7 @@ def test_detect_skips_storybook_static_dir(tmp_path):
 
 # --- #873: dot dirs allowed, framework caches blocked ---
 
+
 def test_detect_allows_github_dir(tmp_path):
     """Files inside .github/ (workflows etc.) are now indexed (#873)."""
     gh = tmp_path / ".github" / "workflows"
@@ -430,7 +456,9 @@ def test_detect_allows_github_dir(tmp_path):
     (tmp_path / "main.py").write_text("def run(): pass")
     result = detect(tmp_path)
     all_files = [f for files in result["files"].values() for f in files]
-    assert any(".github" in f for f in all_files), "expected .github/workflows/ci.yml to be detected"
+    assert any(".github" in f for f in all_files), (
+        "expected .github/workflows/ci.yml to be detected"
+    )
 
 
 def test_detect_skips_next_cache(tmp_path):
@@ -461,9 +489,9 @@ def test_detect_skips_graphify_own_cache(tmp_path):
 
 # --- #882: gitignore parent-exclusion rule for ! re-includes ---
 
+
 def test_negation_cannot_rescue_file_under_excluded_dir(tmp_path):
     """A ! re-include cannot un-ignore a file whose parent dir is excluded (#882)."""
-    from graphify.detect import _is_ignored, _load_graphifyignore
     android = tmp_path / "android" / "app" / "src"
     android.mkdir(parents=True)
     victim = android / "Main.kt"
@@ -478,7 +506,6 @@ def test_negation_cannot_rescue_file_under_excluded_dir(tmp_path):
 
 def test_negation_works_when_no_ancestor_excluded(tmp_path):
     """A ! re-include must still un-ignore a file when no ancestor is excluded (#882)."""
-    from graphify.detect import _is_ignored, _load_graphifyignore
     src = tmp_path / "src"
     src.mkdir()
     keep = src / "keep.py"
@@ -492,7 +519,6 @@ def test_negation_works_when_no_ancestor_excluded(tmp_path):
 
 def test_negation_ancestor_itself_reincluded(tmp_path):
     """If the ancestor dir itself is re-included, its children should not be blocked (#882)."""
-    from graphify.detect import _is_ignored, _load_graphifyignore
     vendor = tmp_path / "vendor" / "lib"
     vendor.mkdir(parents=True)
     f = vendor / "utils.py"
@@ -588,33 +614,43 @@ def test_anchored_multi_segment_pattern(tmp_path):
 def test_sensitive_flags_api_token_txt():
     assert _is_sensitive(Path("api_token.txt"))
 
+
 def test_sensitive_flags_oauth_token_json():
     assert _is_sensitive(Path("oauth_token.json"))
+
 
 def test_sensitive_flags_underscore_secret():
     assert _is_sensitive(Path("app_secret.yaml"))
 
+
 def test_sensitive_does_not_flag_tokenizer_py():
     assert not _is_sensitive(Path("tokenizer.py"))
 
+
 def test_sensitive_does_not_flag_tokenize_py():
     assert not _is_sensitive(Path("tokenize.py"))
+
 
 def test_sensitive_flags_passwords_py():
     # passwords.py is just as likely a secret store as passwords.txt — code ext is no excuse
     assert _is_sensitive(Path("passwords.py"))
 
+
 def test_sensitive_flags_ssh_dir():
     assert _is_sensitive(Path("/home/user/.ssh/id_rsa"))
+
 
 def test_sensitive_flags_secrets_dir():
     assert _is_sensitive(Path("config/secrets/db.json"))
 
+
 def test_sensitive_flags_token_txt():
     assert _is_sensitive(Path("token.txt"))
 
+
 def test_sensitive_flags_credentials_json():
     assert _is_sensitive(Path("credentials.json"))
+
 
 def test_sensitive_does_not_flag_root_file_named_credentials():
     # A root-level file called "credentials" (no parent dir named credentials)
@@ -628,10 +664,12 @@ def test_sensitive_does_not_flag_root_file_named_credentials():
     # Verify the whole function still returns True (via name pattern, not dir check).
     assert _is_sensitive(p)
 
+
 def test_sensitive_secret_handler_txt():
     # Both patterns now use (?![a-zA-Z]) so underscore after keyword is allowed.
     # "secret_handler.txt": "secret" followed by "_" (not alpha) → flagged.
     assert _is_sensitive(Path("secret_handler.txt"))
+
 
 def test_sensitive_token_config_yaml():
     # "token_config.yaml": "token" followed by "_" (not alpha) → flagged.
@@ -639,6 +677,7 @@ def test_sensitive_token_config_yaml():
 
 
 # ── Issue #933: failed-chunk files must not be frozen in manifest ─────────────
+
 
 def test_save_manifest_skips_semantic_hash_for_files_without_cache(tmp_path):
     """Files in failed chunks have no semantic cache entry; save_manifest must
@@ -653,7 +692,12 @@ def test_save_manifest_skips_semantic_hash_for_files_without_cache(tmp_path):
     doc2.write_text("# B\n\ncontent b")
 
     # Simulate: doc1's chunk succeeded (has a cache entry), doc2's chunk failed (no entry).
-    save_cached(doc1, {"nodes": [{"id": "a", "source_file": str(doc1)}], "edges": [], "hyperedges": []}, root=tmp_path, kind="semantic")
+    save_cached(
+        doc1,
+        {"nodes": [{"id": "a", "source_file": str(doc1)}], "edges": [], "hyperedges": []},
+        root=tmp_path,
+        kind="semantic",
+    )
     # doc2: no cache entry written
 
     files = {"document": [str(doc1), str(doc2)]}
@@ -674,7 +718,6 @@ def test_save_manifest_skips_semantic_hash_for_files_without_cache(tmp_path):
     assert str(doc2) not in manifest, "failed-chunk file must be absent from manifest"
 
 
-
 def test_save_manifest_without_filter_unchanged_for_code(tmp_path):
     """Code files must be stamped in the manifest regardless of semantic cache."""
     import json
@@ -689,7 +732,10 @@ def test_save_manifest_without_filter_unchanged_for_code(tmp_path):
     manifest = json.loads(Path(manifest_path).read_text())
     assert str(py) in manifest
     assert manifest[str(py)]["ast_hash"] != ""
+
+
 # Regression tests for #945 - .gitignore fallback when no .graphifyignore exists
+
 
 def test_gitignore_fallback_when_no_graphifyignore(tmp_path):
     """When no .graphifyignore exists, .gitignore patterns are honored (#945)."""
@@ -719,11 +765,12 @@ def test_graphifyignore_takes_precedence_over_gitignore(tmp_path):
 
     result = detect(tmp_path)
     code = result["files"]["code"]
-    assert any("main.py" in f for f in code)       # gitignore NOT applied
+    assert any("main.py" in f for f in code)  # gitignore NOT applied
     assert not any("other.py" in f for f in code)  # graphifyignore IS applied
 
 
 # Regression tests for #947 - .worktrees/ skipped and --exclude flag
+
 
 def test_detect_skips_worktrees_dir(tmp_path):
     """Files inside .worktrees/ are never indexed (#947)."""
@@ -770,9 +817,11 @@ def test_detect_extra_excludes_pattern(tmp_path):
 # Shebang interpreter parsing
 # ---------------------------------------------------------------------------
 
+
 def test_shebang_interpreter_plain(tmp_path):
     """Plain shebang returns the interpreter basename."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "plain"
     script.write_bytes(b"#!/usr/bin/python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -781,6 +830,7 @@ def test_shebang_interpreter_plain(tmp_path):
 def test_shebang_interpreter_env_single_arg(tmp_path):
     """`#!/usr/bin/env python3` returns the interpreter, not 'env'."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_single"
     script.write_bytes(b"#!/usr/bin/env python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -789,6 +839,7 @@ def test_shebang_interpreter_env_single_arg(tmp_path):
 def test_shebang_interpreter_env_dash_s(tmp_path):
     """`#!/usr/bin/env -S python3 -u` (-S split-args form) recovers the interpreter."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_dashs"
     script.write_bytes(b"#!/usr/bin/env -S python3 -u\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -797,6 +848,7 @@ def test_shebang_interpreter_env_dash_s(tmp_path):
 def test_shebang_interpreter_env_with_flags(tmp_path):
     """`#!/usr/bin/env -i bash` skips env flags and resolves to the interpreter."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_flags"
     script.write_bytes(b"#!/usr/bin/env -i bash\necho hi\n")
     assert _shebang_interpreter(script) == "bash"
@@ -805,6 +857,7 @@ def test_shebang_interpreter_env_with_flags(tmp_path):
 def test_shebang_interpreter_env_with_assignment(tmp_path):
     """`#!/usr/bin/env DEBUG=1 python3` skips var=value assignments."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_assign"
     script.write_bytes(b"#!/usr/bin/env DEBUG=1 python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -813,6 +866,7 @@ def test_shebang_interpreter_env_with_assignment(tmp_path):
 def test_shebang_interpreter_no_shebang(tmp_path):
     """File without shebang returns None."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "no_shebang"
     script.write_bytes(b"print('x')\n")
     assert _shebang_interpreter(script) is None
@@ -821,6 +875,7 @@ def test_shebang_interpreter_no_shebang(tmp_path):
 def test_shebang_interpreter_quoted_path(tmp_path):
     """Quoted interpreter path with spaces parses correctly via shlex."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "quoted"
     # Note: actual `#!` on disk wouldn't permit a quoted path on most kernels,
     # but shlex must not crash and should produce a reasonable answer
@@ -839,6 +894,7 @@ def test_shebang_file_type_classifies_via_interpreter(tmp_path):
 def test_shebang_interpreter_unreadable_returns_none(tmp_path):
     """Unreadable / nonexistent files return None, never raise."""
     from graphify.detect import _shebang_interpreter
+
     missing = tmp_path / "does_not_exist"
     assert _shebang_interpreter(missing) is None
 
@@ -846,6 +902,7 @@ def test_shebang_interpreter_unreadable_returns_none(tmp_path):
 def test_shebang_interpreter_env_unset_with_operand(tmp_path):
     """`env -u VAR python3` skips both -u and its required operand."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_unset"
     script.write_bytes(b"#!/usr/bin/env -u PYTHONPATH python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -855,6 +912,7 @@ def test_shebang_interpreter_env_unset_with_operand(tmp_path):
 def test_shebang_interpreter_env_chdir_with_operand(tmp_path):
     """`env -C /tmp python3` skips both -C and its workdir operand."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_chdir"
     script.write_bytes(b"#!/usr/bin/env -C /tmp python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -864,6 +922,7 @@ def test_shebang_interpreter_env_chdir_with_operand(tmp_path):
 def test_shebang_interpreter_env_path_with_operand(tmp_path):
     """`env -P /bin python3` skips both -P and its utilpath operand."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_path"
     script.write_bytes(b"#!/usr/bin/env -P /bin python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -873,6 +932,7 @@ def test_shebang_interpreter_env_path_with_operand(tmp_path):
 def test_shebang_interpreter_env_dash_s_after_flag(tmp_path):
     """`env -i -S "python3 -u"` handles -S after another env flag."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_flag_dash_s"
     script.write_bytes(b'#!/usr/bin/env -i -S "python3 -u"\nprint("x")\n')
     assert _shebang_interpreter(script) == "python3"
@@ -882,6 +942,7 @@ def test_shebang_interpreter_env_dash_s_after_flag(tmp_path):
 def test_shebang_interpreter_env_clumped_u_operand(tmp_path):
     """Clumped `-uPYTHONPATH` form (no space between flag and operand) is one arg."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_clumped"
     script.write_bytes(b"#!/usr/bin/env -uPYTHONPATH python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -891,6 +952,7 @@ def test_shebang_interpreter_env_clumped_u_operand(tmp_path):
 def test_shebang_interpreter_env_missing_operand_returns_none(tmp_path):
     """`env -u` with no operand → not a valid command, return None."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_missing_op"
     script.write_bytes(b"#!/usr/bin/env -u\n")
     assert _shebang_interpreter(script) is None
@@ -899,6 +961,7 @@ def test_shebang_interpreter_env_missing_operand_returns_none(tmp_path):
 def test_shebang_interpreter_env_gnu_split_string_equals(tmp_path):
     """GNU `--split-string='python3 -u'` (with `=` operand) → python3."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_split_eq"
     script.write_bytes(b"#!/usr/bin/env --split-string='python3 -u'\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -908,6 +971,7 @@ def test_shebang_interpreter_env_gnu_split_string_equals(tmp_path):
 def test_shebang_interpreter_env_gnu_split_string_separate(tmp_path):
     """GNU `--split-string "python3 -u"` (separate operand) → python3."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_split_sep"
     script.write_bytes(b'#!/usr/bin/env --split-string "python3 -u"\nprint("x")\n')
     assert _shebang_interpreter(script) == "python3"
@@ -917,6 +981,7 @@ def test_shebang_interpreter_env_gnu_split_string_separate(tmp_path):
 def test_shebang_interpreter_env_gnu_argv0_operand(tmp_path):
     """GNU `-a alias python3` skips both -a and its argv0 operand."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_argv0"
     script.write_bytes(b"#!/usr/bin/env -a alias python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -926,6 +991,7 @@ def test_shebang_interpreter_env_gnu_argv0_operand(tmp_path):
 def test_shebang_interpreter_env_compact_dash_s(tmp_path):
     """Compact `-Spython3 -u` form (no space between -S and packed string)."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_compact_dash_s"
     script.write_bytes(b"#!/usr/bin/env -Spython3 -u\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -935,6 +1001,7 @@ def test_shebang_interpreter_env_compact_dash_s(tmp_path):
 def test_shebang_interpreter_env_compact_v_then_s(tmp_path):
     """Compact `-vSpython3` (-v plus compact -S)."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_compact_vs"
     script.write_bytes(b"#!/usr/bin/env -vSpython3 -u\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -944,6 +1011,7 @@ def test_shebang_interpreter_env_compact_v_then_s(tmp_path):
 def test_shebang_interpreter_env_long_unset_separate_operand(tmp_path):
     """GNU `--unset PYTHONPATH python3` (separate operand)."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_long_unset"
     script.write_bytes(b"#!/usr/bin/env --unset PYTHONPATH python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -953,6 +1021,7 @@ def test_shebang_interpreter_env_long_unset_separate_operand(tmp_path):
 def test_shebang_interpreter_env_long_unset_equals(tmp_path):
     """GNU `--unset=PYTHONPATH python3` (`=` operand form)."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_long_unset_eq"
     script.write_bytes(b"#!/usr/bin/env --unset=PYTHONPATH python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -962,6 +1031,7 @@ def test_shebang_interpreter_env_long_unset_equals(tmp_path):
 def test_shebang_interpreter_env_long_chdir_separate_operand(tmp_path):
     """GNU `--chdir /tmp python3` (separate operand)."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_long_chdir"
     script.write_bytes(b"#!/usr/bin/env --chdir /tmp python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -971,6 +1041,7 @@ def test_shebang_interpreter_env_long_chdir_separate_operand(tmp_path):
 def test_shebang_interpreter_env_long_chdir_equals(tmp_path):
     """GNU `--chdir=/tmp python3` (`=` operand form)."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_long_chdir_eq"
     script.write_bytes(b"#!/usr/bin/env --chdir=/tmp python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -980,6 +1051,7 @@ def test_shebang_interpreter_env_long_chdir_equals(tmp_path):
 def test_shebang_interpreter_env_signal_flags(tmp_path):
     """GNU signal-handling flags skip transparently."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_signal"
     script.write_bytes(b"#!/usr/bin/env --default-signal=TERM --ignore-signal=PIPE python3\n")
     assert _shebang_interpreter(script) == "python3"
@@ -989,6 +1061,7 @@ def test_shebang_interpreter_env_signal_flags(tmp_path):
 def test_shebang_interpreter_env_unknown_option_returns_none(tmp_path):
     """Unknown hyphen-prefixed env option → return None rather than guessing."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_unknown"
     script.write_bytes(b"#!/usr/bin/env --no-such-flag python3\n")
     # Must refuse to guess: if we can't classify the option, we can't trust
@@ -999,10 +1072,10 @@ def test_shebang_interpreter_env_unknown_option_returns_none(tmp_path):
 def test_shebang_interpreter_env_dash_s_assignment_before_interpreter(tmp_path):
     """`-S` payload may carry NAME=value assignments before the interpreter."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_s_assignment"
     script.write_bytes(
-        b"#!/usr/bin/env -S PYTHONPATH=/opt/custom:${PYTHONPATH} python3\n"
-        b"print('x')\n"
+        b"#!/usr/bin/env -S PYTHONPATH=/opt/custom:${PYTHONPATH} python3\nprint('x')\n"
     )
     assert _shebang_interpreter(script) == "python3"
     assert classify_file(script) == FileType.CODE
@@ -1011,6 +1084,7 @@ def test_shebang_interpreter_env_dash_s_assignment_before_interpreter(tmp_path):
 def test_shebang_interpreter_env_dash_s_flag_before_interpreter(tmp_path):
     """`-S` payload may carry env flags (e.g. -i) before the interpreter."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_s_flag"
     script.write_bytes(b"#!/usr/bin/env -S -i OLDUSER=${USER} python3\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -1020,6 +1094,7 @@ def test_shebang_interpreter_env_dash_s_flag_before_interpreter(tmp_path):
 def test_shebang_interpreter_env_long_split_assignment_before_interpreter(tmp_path):
     """`--split-string=` payload may carry assignments before the interpreter."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_long_split_assignment"
     script.write_bytes(
         b"#!/usr/bin/env --split-string='PYTHONPATH=/opt/custom:${PYTHONPATH} python3 -u'\n"
@@ -1032,6 +1107,7 @@ def test_shebang_interpreter_env_long_split_assignment_before_interpreter(tmp_pa
 def test_shebang_interpreter_env_long_split_flag_before_interpreter(tmp_path):
     """`--split-string=` payload may carry env flags before the interpreter."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_long_split_flag"
     script.write_bytes(b"#!/usr/bin/env --split-string='-i python3 -u'\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"
@@ -1043,6 +1119,7 @@ def test_shebang_interpreter_env_nested_split_string_rejected(tmp_path):
     on the recursive call bounds the recursion depth at one). Without this guard,
     a malicious or strange shebang could spin the parser indefinitely."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_nested_split"
     # Outer -S splits into ["-S", "python3", "-u"]; inner -S is treated as an
     # unknown option in the recursed pass, so we get None (refuse to guess).
@@ -1053,6 +1130,7 @@ def test_shebang_interpreter_env_nested_split_string_rejected(tmp_path):
 def test_shebang_interpreter_env_vs_assignment_before_interpreter(tmp_path):
     """`-vS` packed payload also re-parses for leading assignments."""
     from graphify.detect import _shebang_interpreter
+
     script = tmp_path / "env_vs_assignment"
     script.write_bytes(b"#!/usr/bin/env -vS DEBUG=1 python3 -u\nprint('x')\n")
     assert _shebang_interpreter(script) == "python3"

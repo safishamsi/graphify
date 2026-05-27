@@ -22,6 +22,7 @@ def __getattr__(name):
     }
     if name in _map:
         import importlib
+
         mod_name, attr = _map[name]
         mod = importlib.import_module(mod_name)
         return getattr(mod, attr)

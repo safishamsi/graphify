@@ -23,9 +23,7 @@ def _node_id(result: dict, label: str, source_file: str) -> str:
 
 def _has_edge(result: dict, source: str, target: str, relation: str) -> bool:
     return any(
-        edge["source"] == source
-        and edge["target"] == target
-        and edge["relation"] == relation
+        edge["source"] == source and edge["target"] == target and edge["relation"] == relation
         for edge in result["edges"]
     )
 
@@ -35,9 +33,7 @@ def test_python_package_reexport_resolves_import_and_call_to_origin_symbol(tmp_p
     barrel = _write(tmp_path / "pkg/__init__.py", "from .foo import Foo as PublicFoo\n")
     consumer = _write(
         tmp_path / "app.py",
-        "from pkg import PublicFoo\n\n"
-        "def X():\n"
-        "    return PublicFoo()\n",
+        "from pkg import PublicFoo\n\ndef X():\n    return PublicFoo()\n",
     )
 
     result = extract([origin, barrel, consumer], cache_root=tmp_path)
@@ -57,10 +53,7 @@ def test_python_parameter_return_and_generic_contexts(tmp_path: Path):
     model = tmp_path / "pkg" / "model.py"
     model.parent.mkdir(parents=True)
     model.write_text(
-        "class Payload:\n"
-        "    pass\n\n"
-        "class Result:\n"
-        "    pass\n",
+        "class Payload:\n    pass\n\nclass Result:\n    pass\n",
         encoding="utf-8",
     )
     service = tmp_path / "pkg" / "service.py"
@@ -77,7 +70,11 @@ def test_python_parameter_return_and_generic_contexts(tmp_path: Path):
     labels = {node["id"]: node["label"] for node in result["nodes"]}
     edges = [edge for edge in result["edges"] if edge.get("relation") == "references"]
     pairs = {
-        (labels.get(e["source"], e["source"]), labels.get(e["target"], e["target"]), e.get("context"))
+        (
+            labels.get(e["source"], e["source"]),
+            labels.get(e["target"], e["target"]),
+            e.get("context"),
+        )
         for e in edges
     }
 

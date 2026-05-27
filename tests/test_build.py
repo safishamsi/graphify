@@ -490,13 +490,27 @@ def test_build_merge_prune_absolute_paths_match_relative_nodes(tmp_path):
     graph_path = tmp_path / "graph.json"
 
     # Simulate a graph with relative source_file paths (as built normally)
-    chunk = {"nodes": [
-        {"id": "n1", "label": "login", "file_type": "code", "source_file": "module_a/auth.py"},
-        {"id": "n2", "label": "format_date", "file_type": "code", "source_file": "module_b/utils.py"},
-    ], "edges": [
-        {"source": "n1", "target": "n2", "relation": "calls", "confidence": "EXTRACTED",
-         "source_file": "module_b/utils.py", "weight": 1.0},
-    ]}
+    chunk = {
+        "nodes": [
+            {"id": "n1", "label": "login", "file_type": "code", "source_file": "module_a/auth.py"},
+            {
+                "id": "n2",
+                "label": "format_date",
+                "file_type": "code",
+                "source_file": "module_b/utils.py",
+            },
+        ],
+        "edges": [
+            {
+                "source": "n1",
+                "target": "n2",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "module_b/utils.py",
+                "weight": 1.0,
+            },
+        ],
+    }
     G0 = build([chunk], dedup=False)
     graph_path.write_text(json.dumps(nx.node_link_data(G0, edges="edges")), encoding="utf-8")
 
@@ -519,9 +533,17 @@ def test_build_merge_prune_windows_backslash_paths(tmp_path):
     root.mkdir()
     graph_path = tmp_path / "graph.json"
 
-    chunk = {"nodes": [
-        {"id": "n1", "label": "parse_date", "file_type": "code", "source_file": "module_b/utils.py"},
-    ], "edges": []}
+    chunk = {
+        "nodes": [
+            {
+                "id": "n1",
+                "label": "parse_date",
+                "file_type": "code",
+                "source_file": "module_b/utils.py",
+            },
+        ],
+        "edges": [],
+    }
     G0 = build([chunk], dedup=False)
     graph_path.write_text(json.dumps(nx.node_link_data(G0, edges="edges")), encoding="utf-8")
 
@@ -1136,24 +1158,36 @@ def test_build_merge_directed_override_warns(tmp_path, capsys):
 def test_build_merge_rejects_non_bool_multigraph_in_saved_graph(tmp_path):
     """A saved graph.json with a non-bool 'multigraph' value must be rejected."""
     import json as _json
+
     graph_path = tmp_path / "graph.json"
-    graph_path.write_text(_json.dumps({
-        "directed": True, "multigraph": "false",
-        "nodes": [{"id": "a"}, {"id": "b"}],
-        "links": [{"source": "a", "target": "b", "relation": "calls"}],
-    }))
+    graph_path.write_text(
+        _json.dumps(
+            {
+                "directed": True,
+                "multigraph": "false",
+                "nodes": [{"id": "a"}, {"id": "b"}],
+                "links": [{"source": "a", "target": "b", "relation": "calls"}],
+            }
+        )
+    )
     with pytest.raises(TypeError, match="'multigraph' in .* must be a boolean"):
         build_merge([], graph_path=graph_path)
 
 
 def test_build_merge_rejects_non_bool_directed_in_saved_graph(tmp_path):
     import json as _json
+
     graph_path = tmp_path / "graph.json"
-    graph_path.write_text(_json.dumps({
-        "directed": "true", "multigraph": False,
-        "nodes": [{"id": "a"}, {"id": "b"}],
-        "links": [{"source": "a", "target": "b", "relation": "calls"}],
-    }))
+    graph_path.write_text(
+        _json.dumps(
+            {
+                "directed": "true",
+                "multigraph": False,
+                "nodes": [{"id": "a"}, {"id": "b"}],
+                "links": [{"source": "a", "target": "b", "relation": "calls"}],
+            }
+        )
+    )
     with pytest.raises(TypeError, match="'directed' in .* must be a boolean"):
         build_merge([], graph_path=graph_path)
 
@@ -1232,19 +1266,26 @@ def test_multigraph_preserves_first_explicit_key_in_collision_group():
         ],
         "edges": [
             {
-                "source": "a", "target": "b",
+                "source": "a",
+                "target": "b",
                 "key": "user-key",
-                "relation": "calls", "confidence": "EXTRACTED",
-                "source_file": "a.py", "context": "first",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "a.py",
+                "context": "first",
             },
             {
-                "source": "a", "target": "b",
+                "source": "a",
+                "target": "b",
                 "key": "user-key",
-                "relation": "calls", "confidence": "EXTRACTED",
-                "source_file": "a.py", "context": "second",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "a.py",
+                "context": "second",
             },
         ],
-        "input_tokens": 0, "output_tokens": 0,
+        "input_tokens": 0,
+        "output_tokens": 0,
     }
     G = build_from_json(extraction, multigraph=True)
     keys = set(G["a"]["b"].keys())

@@ -8,6 +8,7 @@ which silently increased per-question token usage in Claude Code sessions
 (issue #580). This file locks in the query-first policy so a future revert
 or partial change is caught by CI.
 """
+
 from __future__ import annotations
 import json
 
@@ -73,6 +74,7 @@ def test_no_install_surface_demands_reading_the_full_report_first():
     are legitimate platform metadata, not the bug.
     """
     import re
+
     banned = [
         # "read ... GRAPH_REPORT.md ... before"
         re.compile(r"read[^.\n]{0,80}GRAPH_REPORT\.md[^.\n]{0,80}before", re.IGNORECASE),
@@ -87,10 +89,7 @@ def test_no_install_surface_demands_reading_the_full_report_first():
             m = pattern.search(text)
             if m:
                 hits.append((name, m.group(0)))
-    assert not hits, (
-        f"banned report-first phrasing reappeared: {hits}. "
-        f"This regresses issue #580."
-    )
+    assert not hits, f"banned report-first phrasing reappeared: {hits}. This regresses issue #580."
 
 
 def test_report_is_still_referenced_as_fallback():
@@ -127,6 +126,7 @@ def test_agents_section_does_not_skip_dirty_graph_output():
 
 def test_how_it_works_clarifies_code_only_semantic_extraction():
     from pathlib import Path
+
     doc = (Path(__file__).parent.parent / "docs" / "how-it-works.md").read_text(encoding="utf-8")
     assert "Code files are not sent to the LLM semantic extractor" in doc
     assert "code files, Pass 3 is skipped entirely" in doc

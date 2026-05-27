@@ -66,12 +66,14 @@ from typing import Any
 from graphify.security import sanitize_label
 
 
-MCP_CONFIG_FILENAMES: frozenset[str] = frozenset({
-    ".mcp.json",
-    "claude_desktop_config.json",
-    "mcp.json",
-    "mcp_servers.json",
-})
+MCP_CONFIG_FILENAMES: frozenset[str] = frozenset(
+    {
+        ".mcp.json",
+        "claude_desktop_config.json",
+        "mcp.json",
+        "mcp_servers.json",
+    }
+)
 
 _MAX_BYTES = 1_048_576  # 1 MiB — same cap as extract_json
 _MAX_SERVERS_PER_FILE = 200  # generous; flags pathological configs
@@ -130,7 +132,8 @@ def extract_mcp_config(path: Path) -> dict[str, Any]:
     seen_edge_keys: set[tuple[str, str, str]] = set()
 
     _add_node(
-        nodes, seen_node_ids,
+        nodes,
+        seen_node_ids,
         nid=file_nid,
         label=path.name,
         kind="mcp_config_file",
@@ -180,7 +183,8 @@ def _emit_server(
     """Emit nodes/edges for one entry under ``mcpServers``."""
     server_nid = _make_id(file_stem, "mcp_server", server_name)
     _add_node(
-        nodes, seen_node_ids,
+        nodes,
+        seen_node_ids,
         nid=server_nid,
         label=server_name,
         kind="mcp_server",
@@ -188,7 +192,8 @@ def _emit_server(
         line=1,  # JSON doesn't expose line numbers without a parser pass
     )
     _add_edge(
-        edges, seen_edge_keys,
+        edges,
+        seen_edge_keys,
         source=file_nid,
         target=server_nid,
         relation="contains",
@@ -201,7 +206,8 @@ def _emit_server(
         cmd_label = command.strip()
         cmd_nid = _make_id("mcp_command", cmd_label)
         _add_node(
-            nodes, seen_node_ids,
+            nodes,
+            seen_node_ids,
             nid=cmd_nid,
             label=cmd_label,
             kind="mcp_command",
@@ -209,7 +215,8 @@ def _emit_server(
             line=1,
         )
         _add_edge(
-            edges, seen_edge_keys,
+            edges,
+            seen_edge_keys,
             source=server_nid,
             target=cmd_nid,
             relation="references",
@@ -224,7 +231,8 @@ def _emit_server(
         if package:
             pkg_nid = _make_id("mcp_package", package)
             _add_node(
-                nodes, seen_node_ids,
+                nodes,
+                seen_node_ids,
                 nid=pkg_nid,
                 label=package,
                 kind="mcp_package",
@@ -232,7 +240,8 @@ def _emit_server(
                 line=1,
             )
             _add_edge(
-                edges, seen_edge_keys,
+                edges,
+                seen_edge_keys,
                 source=server_nid,
                 target=pkg_nid,
                 relation="references",
@@ -249,7 +258,8 @@ def _emit_server(
                 continue
             env_nid = _make_id("env_var", env_name)
             _add_node(
-                nodes, seen_node_ids,
+                nodes,
+                seen_node_ids,
                 nid=env_nid,
                 label=env_name,
                 kind="env_var",
@@ -257,7 +267,8 @@ def _emit_server(
                 line=1,
             )
             _add_edge(
-                edges, seen_edge_keys,
+                edges,
+                seen_edge_keys,
                 source=server_nid,
                 target=env_nid,
                 relation="requires_env",
@@ -276,7 +287,9 @@ def _emit_server(
 #   ["@scoped/some-mcp"]                                          (pnpx)
 #   ["mcp-server-fetch"]                                          (uvx direct)
 _NPM_PKG_RE = re.compile(r"^@[a-z0-9][a-z0-9._-]*/[a-z0-9][a-z0-9._-]*(?:@[\w.\-+]+)?$")
-_PY_MCP_PKG_RE = re.compile(r"^[a-z0-9][a-z0-9._-]*-mcp(?:-[a-z0-9._-]+)?$|^mcp-[a-z0-9][a-z0-9._-]*$")
+_PY_MCP_PKG_RE = re.compile(
+    r"^[a-z0-9][a-z0-9._-]*-mcp(?:-[a-z0-9._-]+)?$|^mcp-[a-z0-9][a-z0-9._-]*$"
+)
 _ARG_FLAG_RE = re.compile(r"^-{1,2}\w")
 
 
@@ -329,14 +342,16 @@ def _add_node(
     if not nid or nid in seen:
         return
     seen.add(nid)
-    nodes.append({
-        "id": nid,
-        "label": sanitize_label(label),
-        "file_type": "code",
-        "source_file": source_file,
-        "source_location": f"L{line}",
-        "metadata": {"mcp_kind": kind},
-    })
+    nodes.append(
+        {
+            "id": nid,
+            "label": sanitize_label(label),
+            "file_type": "code",
+            "source_file": source_file,
+            "source_location": f"L{line}",
+            "metadata": {"mcp_kind": kind},
+        }
+    )
 
 
 def _add_edge(

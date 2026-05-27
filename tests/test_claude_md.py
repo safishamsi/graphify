@@ -1,12 +1,12 @@
 """Tests for graphify claude install / uninstall commands."""
-from pathlib import Path
-import pytest
-from graphify.__main__ import claude_install, claude_uninstall, _CLAUDE_MD_MARKER, _CLAUDE_MD_SECTION
+
+from graphify.__main__ import claude_install, claude_uninstall, _CLAUDE_MD_MARKER
 
 
 # ---------------------------------------------------------------------------
 # install
 # ---------------------------------------------------------------------------
+
 
 def test_install_creates_claude_md(tmp_path):
     """Creates CLAUDE.md when none exists."""
@@ -58,6 +58,7 @@ def test_install_idempotent_message(tmp_path, capsys):
 # uninstall
 # ---------------------------------------------------------------------------
 
+
 def test_uninstall_removes_section(tmp_path):
     """Removes the graphify section after it was installed."""
     claude_install(tmp_path)
@@ -101,9 +102,11 @@ def test_uninstall_no_op_when_no_file(tmp_path, capsys):
 # settings.json PreToolUse hook
 # ---------------------------------------------------------------------------
 
+
 def test_install_creates_settings_json(tmp_path):
     """claude_install also writes .claude/settings.json with PreToolUse hook."""
     import json
+
     claude_install(tmp_path)
     settings_path = tmp_path / ".claude" / "settings.json"
     assert settings_path.exists()
@@ -115,6 +118,7 @@ def test_install_creates_settings_json(tmp_path):
 def test_install_settings_json_idempotent(tmp_path):
     """Running claude_install twice does not duplicate the PreToolUse hook."""
     import json
+
     claude_install(tmp_path)
     claude_install(tmp_path)
     settings_path = tmp_path / ".claude" / "settings.json"
@@ -127,6 +131,7 @@ def test_install_settings_json_idempotent(tmp_path):
 def test_uninstall_removes_settings_hook(tmp_path):
     """claude_uninstall removes the PreToolUse hook from settings.json."""
     import json
+
     claude_install(tmp_path)
     claude_uninstall(tmp_path)
     settings_path = tmp_path / ".claude" / "settings.json"

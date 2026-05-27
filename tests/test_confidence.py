@@ -1,9 +1,9 @@
 """Tests for confidence_score on edges."""
+
 import json
 import tempfile
 from pathlib import Path
 
-import networkx as nx
 
 from graphify.build import build_from_json
 from graphify.cluster import cluster, score_all
@@ -24,12 +24,33 @@ def _make_extraction(**edge_overrides):
             {"id": "n_d", "label": "D", "file_type": "document", "source_file": "d.md"},
         ],
         "edges": [
-            {"source": "n_a", "target": "n_b", "relation": "calls", "confidence": "EXTRACTED",
-             "confidence_score": 1.0, "source_file": "a.py", "weight": 1.0},
-            {"source": "n_b", "target": "n_c", "relation": "implements", "confidence": "INFERRED",
-             "confidence_score": 0.75, "source_file": "b.py", "weight": 0.8},
-            {"source": "n_c", "target": "n_d", "relation": "references", "confidence": "AMBIGUOUS",
-             "confidence_score": 0.2, "source_file": "c.md", "weight": 0.5},
+            {
+                "source": "n_a",
+                "target": "n_b",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "confidence_score": 1.0,
+                "source_file": "a.py",
+                "weight": 1.0,
+            },
+            {
+                "source": "n_b",
+                "target": "n_c",
+                "relation": "implements",
+                "confidence": "INFERRED",
+                "confidence_score": 0.75,
+                "source_file": "b.py",
+                "weight": 0.8,
+            },
+            {
+                "source": "n_c",
+                "target": "n_d",
+                "relation": "references",
+                "confidence": "AMBIGUOUS",
+                "confidence_score": 0.2,
+                "source_file": "c.md",
+                "weight": 0.5,
+            },
         ],
         "input_tokens": 100,
         "output_tokens": 50,
@@ -108,10 +129,22 @@ def test_to_json_defaults_missing_confidence_score():
         ],
         "edges": [
             # No confidence_score field on any of these
-            {"source": "n_x", "target": "n_y", "relation": "calls",
-             "confidence": "EXTRACTED", "source_file": "x.py", "weight": 1.0},
-            {"source": "n_y", "target": "n_z", "relation": "depends_on",
-             "confidence": "INFERRED", "source_file": "y.py", "weight": 1.0},
+            {
+                "source": "n_x",
+                "target": "n_y",
+                "relation": "calls",
+                "confidence": "EXTRACTED",
+                "source_file": "x.py",
+                "weight": 1.0,
+            },
+            {
+                "source": "n_y",
+                "target": "n_z",
+                "relation": "depends_on",
+                "confidence": "INFERRED",
+                "source_file": "y.py",
+                "weight": 1.0,
+            },
         ],
         "input_tokens": 0,
         "output_tokens": 0,
@@ -148,7 +181,7 @@ def test_report_shows_avg_confidence_for_inferred():
     report = generate(G, communities, cohesion, labels, gods, surprises, detection, tokens, ".")
     assert "avg confidence" in report, "Report should show avg confidence for INFERRED edges"
     # The fixture has one INFERRED edge with score 0.75, so avg should be 0.75
-    assert "0.75" in report, f"Expected avg confidence 0.75 in report"
+    assert "0.75" in report, "Expected avg confidence 0.75 in report"
 
 
 def test_report_inferred_tag_with_score():
@@ -160,9 +193,15 @@ def test_report_inferred_tag_with_score():
             {"id": "n_q", "label": "Renderer", "file_type": "code", "source_file": "renderer.py"},
         ],
         "edges": [
-            {"source": "n_p", "target": "n_q", "relation": "feeds",
-             "confidence": "INFERRED", "confidence_score": 0.82,
-             "source_file": "parser.py", "weight": 1.0},
+            {
+                "source": "n_p",
+                "target": "n_q",
+                "relation": "feeds",
+                "confidence": "INFERRED",
+                "confidence_score": 0.82,
+                "source_file": "parser.py",
+                "weight": 1.0,
+            },
         ],
         "input_tokens": 0,
         "output_tokens": 0,

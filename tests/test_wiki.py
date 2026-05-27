@@ -1,8 +1,8 @@
 """Tests for graphify.wiki — Wikipedia-style article generation."""
+
 import pytest
-from pathlib import Path
 import networkx as nx
-from graphify.wiki import to_wiki, _index_md, _community_article, _god_node_article
+from graphify.wiki import to_wiki
 
 
 def _make_graph():
@@ -25,14 +25,28 @@ GOD_NODES = [{"id": "n1", "label": "parse", "degree": 2}]
 
 def test_to_wiki_writes_index(tmp_path):
     G = _make_graph()
-    n = to_wiki(G, COMMUNITIES, tmp_path, community_labels=LABELS, cohesion=COHESION, god_nodes_data=GOD_NODES)
+    to_wiki(
+        G,
+        COMMUNITIES,
+        tmp_path,
+        community_labels=LABELS,
+        cohesion=COHESION,
+        god_nodes_data=GOD_NODES,
+    )
     assert (tmp_path / "index.md").exists()
 
 
 def test_to_wiki_returns_article_count(tmp_path):
     G = _make_graph()
     # 2 communities + 1 god node = 3
-    n = to_wiki(G, COMMUNITIES, tmp_path, community_labels=LABELS, cohesion=COHESION, god_nodes_data=GOD_NODES)
+    n = to_wiki(
+        G,
+        COMMUNITIES,
+        tmp_path,
+        community_labels=LABELS,
+        cohesion=COHESION,
+        god_nodes_data=GOD_NODES,
+    )
     assert n == 3
 
 
@@ -168,6 +182,7 @@ def test_god_node_article_community_without_node_attr(tmp_path):
 
 
 # Regression tests for #936 - stale community node IDs crash to_wiki after dedup/re-extract
+
 
 def test_to_wiki_drops_stale_community_nodes(tmp_path):
     """Stale node IDs in communities dict are silently dropped without crash (#936)."""

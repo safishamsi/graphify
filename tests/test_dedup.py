@@ -1,16 +1,19 @@
 """Tests for graphify/dedup.py entity deduplication pipeline."""
+
 from __future__ import annotations
-import pytest
 from graphify.dedup import deduplicate_entities, _entropy, _shingles
 
 
 # ── entropy gate ─────────────────────────────────────────────────────────────
 
+
 def test_entropy_short_label_low():
     assert _entropy("AI") < 2.5
 
+
 def test_entropy_normal_label_high():
     assert _entropy("AuthenticationManager") >= 2.5
+
 
 def test_entropy_empty_string():
     assert _entropy("") == 0.0
@@ -18,11 +21,13 @@ def test_entropy_empty_string():
 
 # ── shingles ─────────────────────────────────────────────────────────────────
 
+
 def test_shingles_produces_trigrams():
     s = _shingles("hello")
     assert "hel" in s
     assert "ell" in s
     assert "llo" in s
+
 
 def test_shingles_short_string():
     # strings shorter than 3 chars return single shingle of the string itself
@@ -31,8 +36,13 @@ def test_shingles_short_string():
 
 # ── full pipeline ─────────────────────────────────────────────────────────────
 
+
 def _make_nodes(*labels):
-    return [{"id": label.lower().replace(" ", "_"), "label": label, "source_file": "test.md"} for label in labels]
+    return [
+        {"id": label.lower().replace(" ", "_"), "label": label, "source_file": "test.md"}
+        for label in labels
+    ]
+
 
 def _make_edges(src, tgt, relation="relates_to"):
     return [{"source": src, "target": tgt, "relation": relation}]
@@ -122,9 +132,11 @@ def test_dedup_llm_flag_accepted():
 
 # ── build integration ─────────────────────────────────────────────────────────
 
+
 def test_build_calls_dedup():
     """build() should deduplicate near-identical nodes across extractions."""
     from graphify.build import build
+
     chunk1 = {
         "nodes": [{"id": "graphextractor", "label": "GraphExtractor", "source_file": "a.py"}],
         "edges": [],
@@ -138,6 +150,7 @@ def test_build_calls_dedup():
 
 
 # --- #878: fuzzy dedup false merges on short/variant labels ---
+
 
 def test_dedup_does_not_merge_numeric_variants(tmp_path):
     """Chip SKU variants (ASR1603 vs ASR1605) must not be merged (#878)."""
@@ -164,6 +177,7 @@ def test_dedup_still_merges_real_typos():
     """Genuine same-length single-char typos should still merge (#878 non-regression)."""
     from graphify.dedup import _is_variant_pair, _short_label_blocked
     from rapidfuzz.distance import JaroWinkler
+
     a, b = "graphextractor", "graphextractar"
     score = JaroWinkler.normalized_similarity(a, b) * 100
     assert not _is_variant_pair(a, b), "not a variant pair"
@@ -173,6 +187,7 @@ def test_dedup_still_merges_real_typos():
 def test_variant_pair_helper():
     """_is_variant_pair correctly identifies chip-model variant pairs (#878)."""
     from graphify.dedup import _is_variant_pair
+
     assert _is_variant_pair("asr1603", "asr1605")
     assert _is_variant_pair("cortex a55", "cortex a55x")
     assert not _is_variant_pair("graphextractor", "graphextracter")

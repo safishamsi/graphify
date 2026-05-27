@@ -1,5 +1,13 @@
 from pathlib import Path
-from graphify.extract import extract_python, extract, collect_files, _make_id, extract_bash, extract_json, _DISPATCH
+from graphify.extract import (
+    extract_python,
+    extract,
+    collect_files,
+    _make_id,
+    extract_bash,
+    extract_json,
+    _DISPATCH,
+)
 
 FIXTURES = Path(__file__).parent / "fixtures"
 
@@ -29,7 +37,7 @@ def test_extract_python_finds_class():
 def test_extract_python_finds_methods():
     result = extract_python(FIXTURES / "sample.py")
     labels = [n["label"] for n in result["nodes"]]
-    assert any("__init__" in l or "forward" in l for l in labels)
+    assert any("__init__" in label or "forward" in label for label in labels)
 
 
 def test_extract_python_no_dangling_edges():
@@ -66,7 +74,8 @@ def test_extract_disambiguates_duplicate_symbol_ids_by_source_path(tmp_path):
 
     result = extract([first, second], cache_root=tmp_path)
     program_nodes = [
-        node for node in result["nodes"]
+        node
+        for node in result["nodes"]
         if node["label"] == "Program" and node.get("source_file", "").endswith("Program.cs")
     ]
 
@@ -76,14 +85,13 @@ def test_extract_disambiguates_duplicate_symbol_ids_by_source_path(tmp_path):
     node_ids = {node["id"] for node in result["nodes"]}
     program_by_source = {node["source_file"]: node["id"] for node in program_nodes}
     file_nodes_by_source = {
-        node["source_file"]: node["id"]
-        for node in result["nodes"]
-        if node["label"] == "Program.cs"
+        node["source_file"]: node["id"] for node in result["nodes"] if node["label"] == "Program.cs"
     }
 
     assert set(program_by_source) == set(file_nodes_by_source)
     contains_edges = [
-        edge for edge in result["edges"]
+        edge
+        for edge in result["edges"]
         if edge["relation"] == "contains" and edge["source_file"] in program_by_source
     ]
     assert len(contains_edges) == 2
@@ -129,14 +137,16 @@ def test_extract_rewires_unique_inheritance_stub_to_real_definition(tmp_path):
     inherits_edges = [edge for edge in result["edges"] if edge["relation"] == "inherits"]
 
     matching = [
-        edge for edge in inherits_edges
+        edge
+        for edge in inherits_edges
         if node_by_id[edge["source"]]["label"] == "SqliteBookStore"
         and node_by_id[edge["target"]]["label"] == "BookStore"
     ]
 
     assert matching
     assert matching[0]["target"] == next(
-        node["id"] for node in result["nodes"]
+        node["id"]
+        for node in result["nodes"]
         if node["label"] == "BookStore" and node.get("source_file") == "interfaces.py"
     )
     assert all(
@@ -158,7 +168,8 @@ def test_extract_keeps_stub_when_multiple_real_definitions_match(tmp_path):
 
     result = extract([first, second, implementation], cache_root=tmp_path)
     stubs = [
-        node for node in result["nodes"]
+        node
+        for node in result["nodes"]
         if node["label"] == "BookStore" and not node.get("source_file")
     ]
 
@@ -177,8 +188,7 @@ def test_extract_does_not_rewire_inheritance_stub_to_same_named_function(tmp_pat
     inherits_edges = [edge for edge in result["edges"] if edge["relation"] == "inherits"]
 
     assert any(
-        node["label"] == "BookStore" and not node.get("source_file")
-        for node in result["nodes"]
+        node["label"] == "BookStore" and not node.get("source_file") for node in result["nodes"]
     )
     assert not any(
         node_by_id[edge["source"]]["label"] == "SqliteBookStore"
@@ -190,27 +200,20 @@ def test_extract_does_not_rewire_inheritance_stub_to_same_named_function(tmp_pat
 def test_extract_does_not_rewire_constructor_method_to_same_named_class(tmp_path):
     source = tmp_path / "Sample.java"
     source.write_text(
-        "class DataProcessor {\n"
-        "    public DataProcessor() {}\n"
-        "}\n",
+        "class DataProcessor {\n    public DataProcessor() {}\n}\n",
         encoding="utf-8",
     )
 
     result = extract([source], cache_root=tmp_path)
 
-    constructor_nodes = [
-        node for node in result["nodes"]
-        if node["label"] == ".DataProcessor()"
-    ]
+    constructor_nodes = [node for node in result["nodes"] if node["label"] == ".DataProcessor()"]
     assert constructor_nodes
-    assert not any(
-        edge["source"] == edge["target"]
-        for edge in result["edges"]
-    )
+    assert not any(edge["source"] == edge["target"] for edge in result["edges"])
 
 
 def test_collect_files_from_dir():
     from graphify.extract import _DISPATCH
+
     files = collect_files(FIXTURES)
     supported = set(_DISPATCH.keys())
     assert all(f.suffix in supported for f in files)
@@ -339,8 +342,7 @@ def test_cross_file_calls_skip_ambiguous_duplicate_labels(tmp_path):
     result = extract([caller, helper_a, helper_b], cache_root=tmp_path)
     nodes = {n["id"]: n for n in result["nodes"]}
     calls = [
-        e for e in result["edges"]
-        if e["relation"] == "calls" and e["confidence"] == "INFERRED"
+        e for e in result["edges"] if e["relation"] == "calls" and e["confidence"] == "INFERRED"
     ]
 
     assert not any(
@@ -362,15 +364,17 @@ def test_extract_generic_surfaces_tree_sitter_version_mismatch_hint(monkeypatch)
     # this is exactly what users see when an older tree-sitter is paired
     # with a newer language binding.
     fake_ts = types.ModuleType("tree_sitter")
+
     def _raise(*args, **kwargs):
         raise TypeError("missing 1 required positional argument: 'name'")
-    fake_ts.Language = _raise
-    fake_ts.Parser = None
+
+    setattr(fake_ts, "Language", _raise)
+    setattr(fake_ts, "Parser", None)
     monkeypatch.setitem(sys.modules, "tree_sitter", fake_ts)
 
     # Stub the language module so import_module returns something with .language
     fake_lang_mod = types.ModuleType("fake_ts_lang")
-    fake_lang_mod.language = lambda: object()
+    setattr(fake_lang_mod, "language", lambda: object())
     monkeypatch.setitem(sys.modules, "fake_ts_lang", fake_lang_mod)
 
     config = LanguageConfig(ts_module="fake_ts_lang", ts_language_fn="language")
@@ -384,6 +388,7 @@ def test_extract_generic_surfaces_tree_sitter_version_mismatch_hint(monkeypatch)
 def test_extract_js_destructured_require_imports_from():
     """`const { foo } = require('./mod')` must emit imports_from to the resolved module path."""
     from graphify.extract import extract_js
+
     result = extract_js(FIXTURES / "cjs_require.js")
     imports_from = [e for e in result["edges"] if e["relation"] == "imports_from"]
     targets = [e["target"] for e in imports_from]
@@ -398,6 +403,7 @@ def test_extract_js_destructured_require_imports_from():
 def test_extract_js_destructured_require_named_symbols():
     """Destructured CJS requires must emit symbol-level `imports` edges per binder."""
     from graphify.extract import extract_js, _make_id, _file_stem
+
     result = extract_js(FIXTURES / "cjs_require.js")
     sym_targets = [e["target"] for e in result["edges"] if e["relation"] == "imports"]
     foundation_stem = _file_stem(FIXTURES / "foundation.js")
@@ -408,6 +414,7 @@ def test_extract_js_destructured_require_named_symbols():
 def test_extract_js_member_require_emits_property_symbol():
     """`const x = require('./m').y` must emit symbol edge for `y`."""
     from graphify.extract import extract_js, _make_id, _file_stem
+
     result = extract_js(FIXTURES / "cjs_require.js")
     sym_targets = [e["target"] for e in result["edges"] if e["relation"] == "imports"]
     helpers_stem = _file_stem(FIXTURES / "helpers.js")
@@ -417,6 +424,7 @@ def test_extract_js_member_require_emits_property_symbol():
 def test_extract_js_arrow_function_still_extracted():
     """Regression: arrow functions in lexical_declaration must still produce nodes."""
     from graphify.extract import extract_js
+
     arrow_fixture = FIXTURES / "_arrow_only.js"
     arrow_fixture.write_text("const greet = () => console.log('hi');\n")
     try:
@@ -432,18 +440,13 @@ def test_cross_file_call_promoted_to_extracted_with_import_evidence(tmp_path):
     an `imports` or `imports_from` edge linking it to the callee."""
     caller = tmp_path / "caller.js"
     callee = tmp_path / "lib.js"
-    caller.write_text(
-        "const { doWork } = require('./lib');\n"
-        "function run() { doWork(); }\n"
-    )
-    callee.write_text(
-        "function doWork() { return 1; }\n"
-        "module.exports = { doWork };\n"
-    )
+    caller.write_text("const { doWork } = require('./lib');\nfunction run() { doWork(); }\n")
+    callee.write_text("function doWork() { return 1; }\nmodule.exports = { doWork };\n")
     result = extract([caller, callee], cache_root=tmp_path)
     nodes = {n["id"]: n for n in result["nodes"]}
     call_edges = [
-        e for e in result["edges"]
+        e
+        for e in result["edges"]
         if e["relation"] == "calls"
         and nodes[e["source"]]["label"] == "run()"
         and nodes[e["target"]]["label"] == "doWork()"
@@ -460,14 +463,12 @@ def test_cross_file_call_remains_inferred_without_import_evidence(tmp_path):
     callee = tmp_path / "lib.js"
     # Caller does NOT require lib — same-name function happens to exist elsewhere
     caller.write_text("function run() { doUnique(); }\n")
-    callee.write_text(
-        "function doUnique() { return 1; }\n"
-        "module.exports = { doUnique };\n"
-    )
+    callee.write_text("function doUnique() { return 1; }\nmodule.exports = { doUnique };\n")
     result = extract([caller, callee], cache_root=tmp_path)
     nodes = {n["id"]: n for n in result["nodes"]}
     call_edges = [
-        e for e in result["edges"]
+        e
+        for e in result["edges"]
         if e["relation"] == "calls"
         and nodes[e["source"]]["label"] == "run()"
         and nodes[e["target"]]["label"] == "doUnique()"
@@ -481,14 +482,16 @@ def test_cross_file_call_remains_inferred_without_import_evidence(tmp_path):
 # `language_typescript` grammar. Parsing JSX with the wrong grammar produces
 # silent ERROR nodes and drops every function/call inside JSX trees.
 
+
 def test_extract_tsx_finds_helpers_and_component():
     """Functions defined alongside a JSX-returning component must be captured."""
     from graphify.extract import extract_js
+
     result = extract_js(FIXTURES / "sample.tsx")
     labels = [n["label"] for n in result["nodes"]]
-    assert any("fmtDate" in l for l in labels), f"fmtDate missing from {labels}"
-    assert any("fmtCount" in l for l in labels), f"fmtCount missing from {labels}"
-    assert any("App" in l for l in labels), f"App missing from {labels}"
+    assert any("fmtDate" in label for label in labels), f"fmtDate missing from {labels}"
+    assert any("fmtCount" in label for label in labels), f"fmtCount missing from {labels}"
+    assert any("App" in label for label in labels), f"App missing from {labels}"
 
 
 def test_extract_tsx_jsx_expression_calls_resolve():
@@ -498,6 +501,7 @@ def test_extract_tsx_jsx_expression_calls_resolve():
     JSX is parsed as ERROR nodes and these call_expressions disappear.
     """
     from graphify.extract import extract_js
+
     result = extract_js(FIXTURES / "sample.tsx")
     nodes_by_id = {n["id"]: n for n in result["nodes"]}
     call_targets = {
@@ -516,6 +520,7 @@ def test_extract_tsx_jsx_expression_calls_resolve():
 def test_extract_tsx_uses_tsx_grammar():
     """Wiring check: the .tsx config must use tree-sitter's `language_tsx`."""
     from graphify.extract import _TSX_CONFIG, _TS_CONFIG
+
     assert _TSX_CONFIG.ts_language_fn == "language_tsx"
     assert _TS_CONFIG.ts_language_fn == "language_typescript"
 
@@ -525,6 +530,7 @@ def test_extract_tsx_uses_tsx_grammar():
 # on Windows raises BrokenProcessPool before any work completes. extract() must
 # detect this, warn, and fall back to sequential extraction rather than
 # propagating a 290-line traceback.
+
 
 def test_extract_falls_back_to_sequential_when_parallel_returns_false(tmp_path, monkeypatch):
     """extract() must run sequential when _extract_parallel signals failure (returns False)."""
@@ -561,15 +567,19 @@ def test_extract_parallel_returns_false_on_broken_pool(tmp_path, monkeypatch, ca
     from graphify import extract as extract_mod
 
     class FakePool:
-        def __init__(self, *a, **kw): pass
-        def __enter__(self): return self
-        def __exit__(self, *a): return False
+        def __init__(self, *a, **kw):
+            pass
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
         def submit(self, *a, **kw):
             raise BrokenProcessPool("simulated spawn failure")
 
-    monkeypatch.setattr(
-        concurrent.futures, "ProcessPoolExecutor", lambda *a, **kw: FakePool()
-    )
+    monkeypatch.setattr(concurrent.futures, "ProcessPoolExecutor", lambda *a, **kw: FakePool())
 
     uncached = [(0, FIXTURES / "sample.py")]
     per_file: list = [None]
@@ -580,9 +590,45 @@ def test_extract_parallel_returns_false_on_broken_pool(tmp_path, monkeypatch, ca
     assert "__main__" in out, "warning must hint at the Windows __main__ guard idiom"
 
 
+def test_extract_parallel_worker_warning_handles_sparse_file_indexes(tmp_path, monkeypatch, capsys):
+    """Worker-failure warnings must not index work_items by original file index."""
+    import concurrent.futures
+    from graphify import extract as extract_mod
+
+    class FakePool:
+        def __init__(self, *a, **kw):
+            pass
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, *a):
+            return False
+
+        def submit(self, fn, item):
+            future: concurrent.futures.Future = concurrent.futures.Future()
+            future.set_exception(RuntimeError("simulated worker failure"))
+            return future
+
+    monkeypatch.setattr(concurrent.futures, "ProcessPoolExecutor", lambda *a, **kw: FakePool())
+
+    source = tmp_path / "late.py"
+    source.write_text("x = 1\n", encoding="utf-8")
+    uncached = [(3, source)]
+    per_file: list = [None, None, None, None]
+
+    ok = extract_mod._extract_parallel(uncached, per_file, tmp_path, 2, 4)
+
+    assert ok is True
+    err = capsys.readouterr().err
+    assert "late.py" in err
+    assert "simulated worker failure" in err
+
+
 # ---------------------------------------------------------------------------
 # Bash extractor tests (#866)
 # ---------------------------------------------------------------------------
+
 
 def test_dispatch_includes_sh_and_json():
     assert ".sh" in _DISPATCH
@@ -626,7 +672,7 @@ def test_extract_bash_emits_source_imports_from(tmp_path):
     helpers = tmp_path / "helpers.sh"
     helpers.write_text("# helper\n")
     script = tmp_path / "deploy.sh"
-    script.write_text(f"#!/bin/bash\nsource ./helpers.sh\nfoo() {{ echo hi; }}\n")
+    script.write_text("#!/bin/bash\nsource ./helpers.sh\nfoo() { echo hi; }\n")
     result = extract_bash(script)
     import_edges = [e for e in result["edges"] if e["relation"] == "imports_from"]
     assert len(import_edges) >= 1
@@ -661,6 +707,7 @@ def test_extract_bash_missing_grammar_returns_error():
     """extract_bash returns error dict when tree-sitter-bash not installed (mocked)."""
     import unittest.mock as mock
     import builtins
+
     real_import = builtins.__import__
 
     def patched(name, *args, **kwargs):
@@ -677,11 +724,7 @@ def test_extract_bash_missing_grammar_returns_error():
 def test_extract_bash_rejects_command_substitution_as_call(tmp_path):
     """`$(build)` must not be recorded as a call edge to build()."""
     script = tmp_path / "command_substitution.sh"
-    script.write_text(
-        "#!/usr/bin/env bash\n"
-        "build() { echo build; }\n"
-        "$(build)\n"
-    )
+    script.write_text("#!/usr/bin/env bash\nbuild() { echo build; }\n$(build)\n")
     result = extract_bash(script)
     labels = {n["id"]: n["label"] for n in result["nodes"]}
     call_pairs = [
@@ -695,11 +738,7 @@ def test_extract_bash_rejects_command_substitution_as_call(tmp_path):
 def test_extract_bash_process_substitution_not_recorded(tmp_path):
     """`<(helper)` (process substitution) must not be recorded as a call edge."""
     script = tmp_path / "process_substitution.sh"
-    script.write_text(
-        "#!/usr/bin/env bash\n"
-        "helper() { echo h; }\n"
-        "diff <(helper) <(helper)\n"
-    )
+    script.write_text("#!/usr/bin/env bash\nhelper() { echo h; }\ndiff <(helper) <(helper)\n")
     result = extract_bash(script)
     labels = {n["id"]: n["label"] for n in result["nodes"]}
     call_pairs = [
@@ -713,11 +752,7 @@ def test_extract_bash_process_substitution_not_recorded(tmp_path):
 def test_extract_bash_shadowing_function_is_recorded(tmp_path):
     """User-defined function shadowing an external command (install/find/etc.) must still produce a call edge."""
     script = tmp_path / "shadowing.sh"
-    script.write_text(
-        "#!/usr/bin/env bash\n"
-        "install() { echo install; }\n"
-        "deploy() { install; }\n"
-    )
+    script.write_text("#!/usr/bin/env bash\ninstall() { echo install; }\ndeploy() { install; }\n")
     result = extract_bash(script)
     labels = {n["id"]: n["label"] for n in result["nodes"]}
     call_pairs = [
@@ -739,10 +774,15 @@ def test_extract_bash_creates_entrypoint_node(tmp_path):
     assert "bash_entrypoint" in kinds, f"No bash_entrypoint node; kinds={kinds}"
     assert "file" in kinds, f"No file node; kinds={kinds}"
     file_node = next(n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "file")
-    entry_node = next(n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint")
+    entry_node = next(
+        n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint"
+    )
     contains_edges = [
-        e for e in result["edges"]
-        if e["relation"] == "contains" and e["source"] == file_node["id"] and e["target"] == entry_node["id"]
+        e
+        for e in result["edges"]
+        if e["relation"] == "contains"
+        and e["source"] == file_node["id"]
+        and e["target"] == entry_node["id"]
     ]
     assert contains_edges, "Missing contains edge from file → bash_entrypoint"
 
@@ -750,23 +790,19 @@ def test_extract_bash_creates_entrypoint_node(tmp_path):
 def test_extract_bash_top_level_call_attributes_to_entrypoint(tmp_path):
     """Top-level function call attaches to the entrypoint node, not orphaned."""
     script = tmp_path / "top_level_call.sh"
-    script.write_text(
-        "#!/usr/bin/env bash\n"
-        "build() { echo build; }\n"
-        "build\n"
-    )
+    script.write_text("#!/usr/bin/env bash\nbuild() { echo build; }\nbuild\n")
     result = extract_bash(script)
     entry_node = next(
         (n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint"),
         None,
     )
     assert entry_node is not None, "No entrypoint node created"
-    call_pairs = [
-        (e["source"], e["target"])
-        for e in result["edges"]
-        if e["relation"] == "calls"
-    ]
-    target_ids = {tgt for _, tgt in call_pairs if any(n["id"] == tgt and n["label"] == "build()" for n in result["nodes"])}
+    call_pairs = [(e["source"], e["target"]) for e in result["edges"] if e["relation"] == "calls"]
+    target_ids = {
+        tgt
+        for _, tgt in call_pairs
+        if any(n["id"] == tgt and n["label"] == "build()" for n in result["nodes"])
+    }
     source_ids_to_build = {src for src, tgt in call_pairs if tgt in target_ids}
     assert entry_node["id"] in source_ids_to_build, (
         f"Top-level call to build not attributed to entrypoint; calls={call_pairs}"
@@ -788,8 +824,12 @@ def test_extract_bash_entrypoint_no_collision_with_function_named_script(tmp_pat
     script = tmp_path / "deploy.sh"
     script.write_text("#!/usr/bin/env bash\nfunction script() { echo hi; }\n")
     result = extract_bash(script)
-    entry_nodes = [n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint"]
-    func_nodes = [n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_function"]
+    entry_nodes = [
+        n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_entrypoint"
+    ]
+    func_nodes = [
+        n for n in result["nodes"] if n.get("metadata", {}).get("kind") == "bash_function"
+    ]
     assert entry_nodes, "Must have a bash_entrypoint node"
     assert func_nodes, "Must have a bash_function node for 'script'"
     entry_id = entry_nodes[0]["id"]
@@ -814,8 +854,12 @@ def test_extract_bash_nested_function_calls_recorded(tmp_path):
     )
     result = extract_bash(script)
     node_id_by_label = {n["label"].rstrip("()"): n["id"] for n in result["nodes"]}
-    assert "inner" in node_id_by_label, f"inner function must be discovered; labels={list(node_id_by_label)}"
-    assert "do_work" in node_id_by_label, f"do_work function must be discovered; labels={list(node_id_by_label)}"
+    assert "inner" in node_id_by_label, (
+        f"inner function must be discovered; labels={list(node_id_by_label)}"
+    )
+    assert "do_work" in node_id_by_label, (
+        f"do_work function must be discovered; labels={list(node_id_by_label)}"
+    )
     calls = {(e["source"], e["target"]) for e in result["edges"] if e.get("relation") == "calls"}
     inner_id = node_id_by_label["inner"]
     do_work_id = node_id_by_label["do_work"]
@@ -832,9 +876,7 @@ def test_extract_bash_source_user_defined_emits_calls_not_imports_from(tmp_path)
     helpers.write_text("#!/bin/bash\n")
     script = tmp_path / "run.sh"
     script.write_text(
-        "#!/usr/bin/env bash\n"
-        "function source() { echo 'custom source'; }\n"
-        "source ./helpers.sh\n"
+        "#!/usr/bin/env bash\nfunction source() { echo 'custom source'; }\nsource ./helpers.sh\n"
     )
     result = extract_bash(script)
     import_edges = [e for e in result["edges"] if e.get("relation") == "imports_from"]
@@ -846,6 +888,7 @@ def test_extract_bash_source_user_defined_emits_calls_not_imports_from(tmp_path)
 # ---------------------------------------------------------------------------
 # JSON extractor tests (#866)
 # ---------------------------------------------------------------------------
+
 
 def test_extract_json_top_level_keys():
     result = extract_json(FIXTURES / "sample.json")
@@ -907,12 +950,14 @@ def test_extract_json_no_self_loops():
 
 def test_extract_bash_via_dispatch():
     from graphify.extract import _get_extractor
+
     assert _get_extractor(Path("foo.sh")) is extract_bash
     assert _get_extractor(Path("foo.bash")) is extract_bash
 
 
 def test_extract_json_via_dispatch():
     from graphify.extract import _get_extractor
+
     assert _get_extractor(Path("foo.json")) is extract_json
 
 
@@ -938,6 +983,7 @@ def test_extract_bash_node_metadata_is_sanitized():
 def test_barrel_reexport_emits_re_exports_edges():
     """export { X } from './mod' must emit re_exports edges for each named specifier."""
     from graphify.extract import extract_js
+
     result = extract_js(FIXTURES / "barrel_reexport.ts")
     reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
     targets = [e["target"] for e in reexports]
@@ -952,6 +998,7 @@ def test_barrel_reexport_emits_re_exports_edges():
 def test_barrel_reexport_emits_imports_from():
     """Barrel file must emit file-level imports_from edges to source modules."""
     from graphify.extract import extract_js
+
     result = extract_js(FIXTURES / "barrel_reexport.ts")
     imports_from = [e for e in result["edges"] if e["relation"] == "imports_from"]
     targets = [e["target"] for e in imports_from]
@@ -963,6 +1010,7 @@ def test_barrel_reexport_emits_imports_from():
 def test_barrel_reexport_context_tagged():
     """re_exports edges should have context='re-export'."""
     from graphify.extract import extract_js
+
     result = extract_js(FIXTURES / "barrel_reexport.ts")
     reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
     for e in reexports:
@@ -972,6 +1020,7 @@ def test_barrel_reexport_context_tagged():
 def test_barrel_local_exports_still_extracted():
     """export function/const in a barrel file must still create nodes."""
     from graphify.extract import extract_js
+
     result = extract_js(FIXTURES / "barrel_reexport.ts")
     labels = [n["label"] for n in result["nodes"]]
     assert "localHelper()" in labels or "localHelper" in labels
@@ -982,6 +1031,7 @@ def test_barrel_local_exports_still_extracted():
 def test_barrel_reexport_confidence_extracted():
     """All re_exports edges should have confidence=EXTRACTED."""
     from graphify.extract import extract_js
+
     result = extract_js(FIXTURES / "barrel_reexport.ts")
     reexports = [e for e in result["edges"] if e["relation"] == "re_exports"]
     for e in reexports:
@@ -1015,6 +1065,7 @@ def test_pure_export_no_from_not_treated_as_reexport():
     """export { localVar } without 'from' should NOT create re_exports edges."""
     from graphify.extract import extract_js
     import tempfile
+
     code = b"const x = 1;\nexport { x };\n"
     with tempfile.NamedTemporaryFile(suffix=".ts", delete=False) as f:
         f.write(code)
@@ -1035,8 +1086,8 @@ def test_dart_child_node_ids_are_stem_based(tmp_path):
     result = extract_dart(src_file)
 
     stem = _file_stem(src_file)  # -> "mydir.sample"
-    expected_class_nid = _make_id(stem, "MyClass")   # -> "mydir_sample_myclass"
-    expected_func_nid  = _make_id(stem, "myFunc")    # -> "mydir_sample_myfunc"
+    expected_class_nid = _make_id(stem, "MyClass")  # -> "mydir_sample_myclass"
+    expected_func_nid = _make_id(stem, "myFunc")  # -> "mydir_sample_myfunc"
 
     node_ids = {n["id"] for n in result["nodes"]}
 
@@ -1054,9 +1105,9 @@ def test_dart_child_node_ids_are_stem_based(tmp_path):
     for node in result["nodes"]:
         if node["id"] == file_nid:
             continue
-        assert "_" + stem.replace(".", "_") in node["id"] or node["id"].startswith(stem.replace(".", "_")), (
+        assert "_" + stem.replace(".", "_") in node["id"] or node["id"].startswith(
+            stem.replace(".", "_")
+        ), (
             f"Child node ID '{node['id']}' does not start with the expected stem prefix '{stem}'. "
             "This suggests an absolute path is still leaking into the ID."
         )
-
-

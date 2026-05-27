@@ -2,6 +2,7 @@ from __future__ import annotations
 import json
 import hashlib
 import sys
+from contextlib import suppress
 from datetime import datetime, timezone
 from pathlib import Path
 import networkx as nx
@@ -14,10 +15,8 @@ _GLOBAL_MANIFEST = _GLOBAL_DIR / "global-manifest.json"
 
 def _load_manifest() -> dict:
     if _GLOBAL_MANIFEST.exists():
-        try:
+        with suppress(Exception):
             return json.loads(_GLOBAL_MANIFEST.read_text(encoding="utf-8"))
-        except Exception:
-            pass
     return {"version": 1, "repos": {}}
 
 
@@ -29,6 +28,7 @@ def _save_manifest(manifest: dict) -> None:
 def _load_global_graph() -> nx.Graph:
     if _GLOBAL_GRAPH.exists():
         from graphify.security import check_graph_file_size_cap
+
         check_graph_file_size_cap(_GLOBAL_GRAPH)
         data = json.loads(_GLOBAL_GRAPH.read_text(encoding="utf-8"))
         if "links" not in data and "edges" in data:
@@ -83,6 +83,7 @@ def global_add(source_path: Path, repo_tag: str) -> dict:
 
     # Load source graph
     from graphify.security import check_graph_file_size_cap
+
     check_graph_file_size_cap(source_path)
     data = json.loads(source_path.read_text(encoding="utf-8"))
     if "links" not in data and "edges" in data:
