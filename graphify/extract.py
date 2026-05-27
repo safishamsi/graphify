@@ -47,13 +47,29 @@ def _make_id(*parts: str) -> str:
     return cleaned.strip("_").casefold()
 
 
+# Inner extensions that appear in compound filenames (e.g. Button.svelte.ts).
+# Stripping them here ensures is-mobile.svelte.ts and is-mobile.svelte share
+# the same base ID, while leaving symbol names like format_c or test_py untouched.
+_COMPOUND_INNER_EXTS = frozenset({".svelte", ".vue", ".astro"})
+
+
 def _file_stem(path: Path) -> str:
-    """Return a stem qualified with the parent directory name to avoid ID collisions
-    when multiple files share the same filename in different directories (#550)."""
+    """Return a normalised stem qualified with the parent directory name.
+
+    Strips compound inner extensions (e.g. .svelte from Button.svelte.ts) so
+    that the runes/TypeScript variant of a component produces the same base ID
+    as the component file itself.  Avoids ID collisions for same-named files in
+    different directories (#550).
+    """
+    stem = path.stem
+    # Strip compound inner extension: "is-mobile.svelte" → "is-mobile"
+    inner = Path(stem).suffix
+    if inner in _COMPOUND_INNER_EXTS:
+        stem = Path(stem).stem
     parent = path.parent.name
     if parent and parent not in (".", ""):
-        return f"{parent}.{path.stem}"
-    return path.stem
+        return f"{parent}.{stem}"
+    return stem
 
 
 _TSCONFIG_ALIAS_CACHE: dict[str, dict[str, str]] = {}
@@ -736,7 +752,7 @@ def _resolve_js_import_target(raw: str, str_path: str) -> "tuple[str, Path | Non
         return None
     resolved_path = _resolve_js_module_path(raw, Path(str_path).parent)
     if resolved_path is not None:
-        return _make_id(str(resolved_path)), resolved_path
+        return _make_id(_file_stem(resolved_path)), resolved_path
     module_name = raw.split("/")[-1]
     if not module_name:
         return None
@@ -2627,23 +2643,23 @@ def extract_svelte(path: Path) -> dict:
         import re as _re
         src = path.read_text(encoding="utf-8", errors="replace")
         existing_ids = {n["id"] for n in result.get("nodes", [])}
-        # Source file node ID must match the one _extract_generic creates:
-        # _make_id(str(path)) - single arg, no stem prefix. Otherwise the source
-        # endpoint is a phantom node and build_from_json drops the edge (#701).
-        file_node_id = _make_id(str(path))
+        # Source file node ID must match the one _extract_generic creates via
+        # _make_id(_file_stem(path)).  Using _file_stem here (not str(path))
+        # keeps the source endpoint consistent and avoids phantom nodes (#701).
+        file_node_id = _make_id(_file_stem(path))
         aliases = _load_tsconfig_aliases(path.parent)
         for m in _re.finditer(r"""import\(\s*['"]([^'"]+)['"]\s*\)""", src):
             raw = m.group(1)
             if not raw:
                 continue
             if raw.startswith("."):
-                # Relative import - resolve to full path so IDs match file node IDs.
+                # Relative import - resolve via _file_stem so IDs match file node IDs.
                 resolved = Path(os.path.normpath(path.parent / raw))
                 # Apply same TS/Svelte resolver fixups as static imports so dynamic
                 # imports of bare paths and .svelte.ts rune files land on real
                 # file nodes instead of phantom ids (#716).
                 resolved = _resolve_js_module_path(resolved)
-                node_id = _make_id(str(resolved))
+                node_id = _make_id(_file_stem(resolved))
                 stub_source_file = str(resolved)
             else:
                 # Check tsconfig.json path aliases (e.g. "$lib/" -> "src/lib/", "@/" -> "src/")
@@ -2657,7 +2673,7 @@ def extract_svelte(path: Path) -> dict:
                         break
                 if resolved_alias is not None:
                     resolved_alias = _resolve_js_module_path(resolved_alias)
-                    node_id = _make_id(str(resolved_alias))
+                    node_id = _make_id(_file_stem(resolved_alias))
                     stub_source_file = str(resolved_alias)
                 else:
                     # Bare/scoped import (node_modules) - use last segment;
@@ -2709,7 +2725,7 @@ def extract_svelte(path: Path) -> dict:
                         resolved = resolved.with_suffix(".ts")
                     elif resolved.suffix == ".jsx":
                         resolved = resolved.with_suffix(".tsx")
-                    node_id = _make_id(str(resolved))
+                    node_id = _make_id(_file_stem(resolved))
                     stub_source_file = str(resolved)
                 else:
                     resolved_alias = None
@@ -2719,7 +2735,7 @@ def extract_svelte(path: Path) -> dict:
                             resolved_alias = Path(os.path.normpath(Path(alias_base) / rest))
                             break
                     if resolved_alias is not None:
-                        node_id = _make_id(str(resolved_alias))
+                        node_id = _make_id(_file_stem(resolved_alias))
                         stub_source_file = str(resolved_alias)
                     else:
                         module_name = raw.split("/")[-1]
@@ -2768,7 +2784,7 @@ def extract_astro(path: Path) -> dict:
         import re as _re
         src = path.read_text(encoding="utf-8", errors="replace")
         existing_ids = {n["id"] for n in result.get("nodes", [])}
-        file_node_id = _make_id(str(path))
+        file_node_id = _make_id(_file_stem(path))
         aliases = _load_tsconfig_aliases(path.parent)
         # Dynamic imports anywhere in the file: `import('./X.astro')` is legal in
         # frontmatter setup code and inside expression slots.
@@ -2779,7 +2795,7 @@ def extract_astro(path: Path) -> dict:
             if raw.startswith("."):
                 resolved = Path(os.path.normpath(path.parent / raw))
                 resolved = _resolve_js_module_path(resolved)
-                node_id = _make_id(str(resolved))
+                node_id = _make_id(_file_stem(resolved))
                 stub_source_file = str(resolved)
             else:
                 resolved_alias = None
@@ -2790,7 +2806,7 @@ def extract_astro(path: Path) -> dict:
                         break
                 if resolved_alias is not None:
                     resolved_alias = _resolve_js_module_path(resolved_alias)
-                    node_id = _make_id(str(resolved_alias))
+                    node_id = _make_id(_file_stem(resolved_alias))
                     stub_source_file = str(resolved_alias)
                 else:
                     module_name = raw.split("/")[-1]
@@ -2845,7 +2861,7 @@ def extract_astro(path: Path) -> dict:
                         resolved = resolved.with_suffix(".ts")
                     elif resolved.suffix == ".jsx":
                         resolved = resolved.with_suffix(".tsx")
-                    node_id = _make_id(str(resolved))
+                    node_id = _make_id(_file_stem(resolved))
                     stub_source_file = str(resolved)
                 else:
                     resolved_alias = None
@@ -2855,7 +2871,7 @@ def extract_astro(path: Path) -> dict:
                             resolved_alias = Path(os.path.normpath(Path(alias_base) / rest))
                             break
                     if resolved_alias is not None:
-                        node_id = _make_id(str(resolved_alias))
+                        node_id = _make_id(_file_stem(resolved_alias))
                         stub_source_file = str(resolved_alias)
                     else:
                         module_name = raw.split("/")[-1]
@@ -4929,7 +4945,7 @@ def _apply_symbol_resolution_facts(
         return
 
     path_by_resolved = {path.resolve(): path for path in paths}
-    source_file_id = {path.resolve(): _make_id(str(path)) for path in paths}
+    source_file_id = {path.resolve(): _make_id(_file_stem(path)) for path in paths}
     symbol_nodes: dict[tuple[Path, str], str] = {}
     for node in nodes:
         source_path = _js_source_path(str(node.get("source_file", "")), root)
@@ -8518,12 +8534,14 @@ def extract(
     _augment_symbol_resolution_edges(paths, all_nodes, all_edges, root)
 
     # Remap file node IDs from absolute-path-derived to project-relative so
-    # graph.json edge endpoints are stable across machines (#502)
+    # graph.json edge endpoints are stable across machines (#502).
+    # Both sides go through _file_stem so compound-extension nodes (e.g.
+    # .svelte.ts) map to the same normalised ID as their component counterpart.
     id_remap: dict[str, str] = {}
     for path in paths:
-        old_id = _make_id(str(path))
+        old_id = _make_id(_file_stem(path))
         try:
-            new_id = _make_id(str(path.relative_to(root)))
+            new_id = _make_id(_file_stem(path.relative_to(root)))
         except ValueError:
             continue
         if old_id != new_id:
