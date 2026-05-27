@@ -65,6 +65,21 @@ def _normalize_id(s: str) -> str:
     return cleaned.strip("_").casefold()
 
 
+_EXT_SUFFIXES = re.compile(r"_(py|ts|tsx|js|jsx|mjs|rb|go|java|cs|cpp|c|h|rs|kt|scala|php|swift|sql|r|lua|ex|exs|erl|hs|clj|cljs|ml|fs|fsx|vb|groovy|gradle|sh|bash|zsh|ps1|psm1|tf|hcl|yaml|yml|json|toml|xml|html|css|scss|sass|less|vue|svelte|md|rst|txt)$")
+
+
+def _strip_ext_suffix(nid: str) -> str:
+    """Strip a trailing language-extension suffix from a legacy node ID.
+
+    Old builds used _make_id(str(path)) which appended the file extension as an
+    underscore-separated token (e.g. script_pipeline_step_py). New builds use
+    _make_id(_file_stem(path)) which omits the extension. Stripping the suffix
+    here lets existing cached graph.json files merge correctly with new extractions
+    without requiring --force re-extraction.
+    """
+    return _EXT_SUFFIXES.sub("", nid)
+
+
 def _norm_source_file(p: str | None, root: str | None = None) -> str | None:
     """Normalize path separators and relativize absolute paths.
 
@@ -144,6 +159,18 @@ def build_from_json(extraction: dict, *, directed: bool = False, root: str | Pat
         ft = node.get("file_type", "")
         if ft and ft not in {"code", "document", "paper", "image", "rationale", "concept"}:
             node["file_type"] = _FILE_TYPE_SYNONYMS.get(ft, "concept")
+        # Strip legacy extension suffix from file-level node IDs (e.g. script_pipeline_step_py
+        # → script_pipeline_step) so old cached graphs merge with new AST extractions (#952).
+        if "id" in node:
+            node["id"] = _strip_ext_suffix(node["id"])
+
+    for edge in extraction.get("edges", []):
+        if not isinstance(edge, dict):
+            continue
+        if "source" in edge:
+            edge["source"] = _strip_ext_suffix(edge["source"])
+        if "target" in edge:
+            edge["target"] = _strip_ext_suffix(edge["target"])
 
     errors = validate_extraction(extraction)
     # Dangling edges (stdlib/external imports) are expected - only warn about real schema errors.

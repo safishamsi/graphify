@@ -1682,7 +1682,7 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
             add_node(nid, name, line)
         return nid
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     def walk(node, parent_class_nid: str | None = None) -> None:
@@ -2524,7 +2524,7 @@ def _extract_python_rationale(path: Path, result: dict) -> None:
     nodes = result["nodes"]
     edges = result["edges"]
     seen_ids = {n["id"] for n in nodes}
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
 
     def _get_docstring(body_node) -> tuple[str, int] | None:
         if not body_node:
@@ -2542,25 +2542,11 @@ def _extract_python_rationale(path: Path, result: dict) -> None:
 
     def _add_rationale(text: str, line: int, parent_nid: str) -> None:
         label = text[:80].replace("\r\n", " ").replace("\r", " ").replace("\n", " ").strip()
-        rid = _make_id(stem, "rationale", str(line))
-        if rid not in seen_ids:
-            seen_ids.add(rid)
-            nodes.append({
-                "id": rid,
-                "label": label,
-                "file_type": "rationale",
-                "source_file": str_path,
-                "source_location": f"L{line}",
-            })
-        edges.append({
-            "source": rid,
-            "target": parent_nid,
-            "relation": "rationale_for",
-            "confidence": "EXTRACTED",
-            "source_file": str_path,
-            "source_location": f"L{line}",
-            "weight": 1.0,
-        })
+        for n in nodes:
+            if n["id"] == parent_nid:
+                if "rationale" not in n:
+                    n["rationale"] = label
+                break
 
     # Module-level docstring — skip for auto-generated files (Alembic, Django
     # migrations, protobuf stubs, etc.) whose module docstrings are revision
@@ -2969,7 +2955,7 @@ def _extract_spock_fallback(path: Path, ts_result: dict) -> dict:
     plain_method_re = _re.compile(r"""^\s*def\s+(\w+)\s*\(""")
 
     current_class_nid: str | None = None
-    file_nid = _make_id(str_path)
+    file_nid = _make_id(_file_stem(path))
 
     # Ensure the file node exists (tree-sitter pass may have emitted it)
     if file_nid not in seen_ids:
@@ -3064,7 +3050,7 @@ def extract_blade(path: Path) -> dict:
     except OSError:
         return {"error": f"cannot read {path}"}
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     nodes = [{"id": file_nid, "label": path.name, "file_type": "code",
               "source_file": str(path), "source_location": None}]
     edges = []
@@ -3112,7 +3098,7 @@ def extract_dart(path: Path) -> dict:
 
     # Use stem (not str(path)) for child IDs to keep them machine-independent.
     stem = _file_stem(path)
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     nodes = [{"id": file_nid, "label": path.name, "file_type": "code",
               "source_file": str(path), "source_location": None}]
     edges = []
@@ -3194,7 +3180,7 @@ def extract_verilog(path: Path) -> dict:
                       "confidence": confidence, "confidence_score": score,
                       "source_file": str_path, "source_location": f"L{line}", "weight": 1.0})
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     def walk(node, module_nid: str | None = None) -> None:
@@ -3281,7 +3267,7 @@ def extract_sql(path: Path) -> dict:
 
     stem = _file_stem(path)
     str_path = str(path)
-    file_nid = _make_id(str_path)
+    file_nid = _make_id(_file_stem(path))
     nodes: list[dict] = [{"id": file_nid, "label": path.name, "file_type": "code",
                            "source_file": str_path, "source_location": None}]
     edges: list[dict] = []
@@ -3589,7 +3575,7 @@ def extract_julia(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     def _func_name_from_signature(sig_node) -> str | None:
@@ -3841,7 +3827,7 @@ def extract_fortran(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     def _fortran_name(stmt_node) -> str | None:
@@ -4013,7 +3999,7 @@ def extract_go(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     def walk(node) -> None:
@@ -4241,7 +4227,7 @@ def extract_rust(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     def walk(node, parent_impl_nid: str | None = None) -> None:
@@ -4420,7 +4406,7 @@ def extract_zig(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     def _extract_import(node) -> None:
@@ -4590,7 +4576,7 @@ def extract_powershell(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     _PS_SKIP = frozenset({
@@ -6042,7 +6028,7 @@ def _resolve_cross_file_java_imports(
     new_edges: list[dict] = []
     seen_pairs: set[tuple[str, str]] = set()
     for path in paths:
-        file_nid = _make_id(str(path))
+        file_nid = _make_id(_file_stem(path))
         try:
             source = path.read_bytes()
             tree = parser.parse(source)
@@ -6129,7 +6115,7 @@ def extract_objc(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     def _read(node) -> str:
@@ -6331,7 +6317,7 @@ def extract_elixir(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     _IMPORT_KEYWORDS = frozenset({"alias", "import", "require", "use"})
@@ -6523,7 +6509,7 @@ def extract_markdown(path: Path) -> dict:
                       "confidence": confidence, "source_file": str_path,
                       "source_location": f"L{line}", "weight": weight})
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     # Track heading stack for nesting: [(level, nid), ...]
@@ -6861,7 +6847,7 @@ def _extract_pascal_regex(path: Path) -> dict:
     def _lineno(text: str, offset: int) -> int:
         return text.count("\n", 0, offset) + 1
 
-    file_nid = _make_id(str_path)
+    file_nid = _make_id(_file_stem(path))
     _add_node(file_nid, path.name, 1)
 
     stripped = _pascal_strip_comments(raw)
@@ -7036,7 +7022,7 @@ def extract_pascal(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
     module_nid = file_nid
 
@@ -7259,7 +7245,7 @@ def extract_lazarus_form(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     obj_re = re.compile(r"^\s*object\s+\w+\s*:\s*(\w+)", re.IGNORECASE)
@@ -7359,7 +7345,7 @@ def extract_delphi_form(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     obj_re   = re.compile(r"^\s*object\s+\w+\s*:\s*(\w+)", re.IGNORECASE)
@@ -7471,7 +7457,7 @@ def extract_lazarus_package(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name)
 
     name_elem = xml_root.find(".//Package/Name")
@@ -7570,7 +7556,7 @@ def extract_bash(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     # file_nid is fully path-derived and never produced by _make_id(stem, func_name),
     # so appending "__entry" guarantees a distinct ID from any function node.
     entry_nid = file_nid + "__entry"
@@ -7756,7 +7742,7 @@ def extract_sln(path: Path) -> dict:
     except OSError:
         return {"nodes": [], "edges": [], "error": f"cannot read {path}"}
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     str_path = str(path)
     nodes: list[dict] = [{"id": file_nid, "label": path.name, "file_type": "code",
                           "source_file": str_path, "source_location": None}]
@@ -7843,7 +7829,7 @@ def extract_csproj(path: Path) -> dict:
     except ET.ParseError as e:
         return {"nodes": [], "edges": [], "error": f"XML parse error: {e}"}
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     str_path = str(path)
     nodes: list[dict] = [{"id": file_nid, "label": path.name, "file_type": "code",
                           "source_file": str_path, "source_location": None}]
@@ -7944,7 +7930,7 @@ def extract_razor(path: Path) -> dict:
     except OSError:
         return {"nodes": [], "edges": [], "error": f"cannot read {path}"}
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     str_path = str(path)
     nodes: list[dict] = [{"id": file_nid, "label": path.name, "file_type": "code",
                           "source_file": str_path, "source_location": None}]
@@ -8103,7 +8089,7 @@ def extract_json(path: Path) -> dict:
             edge["context"] = context
         edges.append(edge)
 
-    file_nid = _make_id(str(path))
+    file_nid = _make_id(_file_stem(path))
     add_node(file_nid, path.name, 1)
 
     def _key_text(pair_node) -> str | None:

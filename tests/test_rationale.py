@@ -1,4 +1,8 @@
-"""Tests for rationale/docstring extraction in extract.py."""
+"""Tests for rationale/docstring extraction in extract.py.
+
+Rationale is now stored as a 'rationale' attribute on the parent node
+rather than as separate rationale nodes with rationale_for edges.
+"""
 import textwrap
 from pathlib import Path
 import pytest
@@ -11,15 +15,19 @@ def _write_py(tmp_path: Path, code: str) -> Path:
     return p
 
 
+def _nodes_with_rationale(result):
+    return [n for n in result["nodes"] if n.get("rationale")]
+
+
 def test_module_docstring_extracted(tmp_path):
     path = _write_py(tmp_path, '''
         """This module handles authentication because legacy sessions were insecure."""
         def login(): pass
     ''')
     result = extract_python(path)
-    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    assert len(rationale) >= 1
-    assert any("authentication" in n["label"] for n in rationale)
+    nodes = _nodes_with_rationale(result)
+    assert len(nodes) >= 1
+    assert any("authentication" in n["rationale"] for n in nodes)
 
 
 def test_function_docstring_extracted(tmp_path):
@@ -29,8 +37,8 @@ def test_function_docstring_extracted(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    assert any("chunked" in n["label"] for n in rationale)
+    nodes = _nodes_with_rationale(result)
+    assert any("chunked" in n["rationale"] for n in nodes)
 
 
 def test_class_docstring_extracted(tmp_path):
@@ -40,8 +48,8 @@ def test_class_docstring_extracted(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    assert any("Redis" in n["label"] for n in rationale)
+    nodes = _nodes_with_rationale(result)
+    assert any("Redis" in n["rationale"] for n in nodes)
 
 
 def test_rationale_comment_extracted(tmp_path):
@@ -51,11 +59,12 @@ def test_rationale_comment_extracted(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    assert any("NOTE" in n["label"] for n in rationale)
+    nodes = _nodes_with_rationale(result)
+    assert any("NOTE" in n["rationale"] for n in nodes)
 
 
-def test_rationale_for_edges_present(tmp_path):
+def test_no_rationale_for_edges(tmp_path):
+    """Rationale is now an attribute, not a node+edge — no rationale_for edges."""
     path = _write_py(tmp_path, '''
         """Module docstring explaining the why."""
         def foo():
@@ -64,29 +73,31 @@ def test_rationale_for_edges_present(tmp_path):
     ''')
     result = extract_python(path)
     rationale_edges = [e for e in result["edges"] if e.get("relation") == "rationale_for"]
-    assert len(rationale_edges) >= 1
+    assert len(rationale_edges) == 0
+
+
+def test_no_rationale_nodes(tmp_path):
+    """No separate rationale nodes are emitted — rationale lives on parent nodes."""
+    path = _write_py(tmp_path, '''
+        """Module docstring explaining the why."""
+        def foo():
+            """Function docstring with rationale."""
+            pass
+    ''')
+    result = extract_python(path)
+    rationale_nodes = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
+    assert len(rationale_nodes) == 0
 
 
 def test_short_docstring_ignored(tmp_path):
-    """Trivial docstrings under 20 chars should not become rationale nodes."""
+    """Trivial docstrings under 20 chars should not set the rationale attribute."""
     path = _write_py(tmp_path, '''
         def foo():
             """Constructor."""
             pass
     ''')
     result = extract_python(path)
-    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    assert len(rationale) == 0
-
-
-def test_rationale_confidence_is_extracted(tmp_path):
-    path = _write_py(tmp_path, '''
-        """This module exists because we needed a standalone parser."""
-        def parse(): pass
-    ''')
-    result = extract_python(path)
-    rationale_edges = [e for e in result["edges"] if e.get("relation") == "rationale_for"]
-    assert all(e.get("confidence") == "EXTRACTED" for e in rationale_edges)
+    assert len(_nodes_with_rationale(result)) == 0
 
 
 def test_alembic_module_docstring_suppressed(tmp_path):
@@ -108,8 +119,8 @@ def test_alembic_module_docstring_suppressed(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    assert not any("Revision ID" in n["label"] for n in rationale)
+    nodes = _nodes_with_rationale(result)
+    assert not any("Revision ID" in n["rationale"] for n in nodes)
 
 
 def test_alembic_function_docstrings_still_extracted(tmp_path):
@@ -127,11 +138,9 @@ def test_alembic_function_docstrings_still_extracted(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    # module docstring suppressed
-    assert not any("Revision ID" in n["label"] for n in rationale)
-    # function docstring still captured
-    assert any("auth" in n["label"] for n in rationale)
+    nodes = _nodes_with_rationale(result)
+    assert not any("Revision ID" in n["rationale"] for n in nodes)
+    assert any("auth" in n["rationale"] for n in nodes)
 
 
 def test_non_migration_revision_var_not_suppressed(tmp_path):
@@ -143,8 +152,8 @@ def test_non_migration_revision_var_not_suppressed(tmp_path):
         def get_revision(): pass
     ''')
     result = extract_python(path)
-    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    assert any("audit history" in n["label"] for n in rationale)
+    nodes = _nodes_with_rationale(result)
+    assert any("audit history" in n["rationale"] for n in nodes)
 
 
 def test_django_migration_module_docstring_suppressed(tmp_path):
@@ -157,8 +166,8 @@ def test_django_migration_module_docstring_suppressed(tmp_path):
             operations = []
     ''')
     result = extract_python(path)
-    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    assert not any("post_priority" in n["label"] for n in rationale)
+    nodes = _nodes_with_rationale(result)
+    assert not any("post_priority" in n["rationale"] for n in nodes)
 
 
 def test_generated_file_module_docstring_suppressed(tmp_path):
@@ -170,5 +179,5 @@ def test_generated_file_module_docstring_suppressed(tmp_path):
             pass
     ''')
     result = extract_python(path)
-    rationale = [n for n in result["nodes"] if n.get("file_type") == "rationale"]
-    assert not any("protocol buffer" in n["label"].lower() for n in rationale)
+    nodes = _nodes_with_rationale(result)
+    assert not any("protocol buffer" in n["rationale"].lower() for n in nodes)
