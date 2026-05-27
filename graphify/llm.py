@@ -115,6 +115,20 @@ BACKENDS: dict[str, dict] = {
         "temperature": 0,
         "max_tokens": 16384,
     },
+    "openrouter": {
+        # Routes through OpenRouter's OpenAI-compatible API proxy, which can connect to various backends including Kimi and Gemini. 
+        # Honours the same env var overrides as the underlying backend (e.g. GRAPHIFY_OPENROUTER_MODEL) but 
+        # with a separate API key (e.g. OPENROUTER_API_KEY).
+        # Default model is set to qwen/qwen3.6-flash as it's a strong open-source model that performs well on code tasks and 
+        # is widely accessible via OpenRouter, but users can override with any model supported by their OpenRouter account.
+        "base_url": "https://openrouter.ai/api/v1",
+        "default_model": "qwen/qwen3.6-flash",
+        "env_keys": ["OPENROUTER_API_KEY"],
+        "model_env_key": "GRAPHIFY_OPENROUTER_MODEL",
+        "pricing": {"input": 0.0, "output": 0.0},
+        "temperature": 0,
+        "max_tokens": 16384,
+    },
 }
 
 
