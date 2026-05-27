@@ -25,7 +25,7 @@
 
 Type `/graphify` in your AI coding assistant and it maps your entire project — code, docs, PDFs, images, videos — into a knowledge graph you can query instead of grepping through files.
 
-Works in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, OpenClaw, Factory Droid, Trae, Hermes, Kimi Code, Kiro, Pi, and Google Antigravity.
+Works in Claude Code, Codex, OpenCode, Cursor, Gemini CLI, GitHub Copilot CLI, VS Code Copilot Chat, Aider, Amp, OpenClaw, Factory Droid, Trae, Hermes, Kimi Code, Kiro, Pi, and Google Antigravity.
 
 ```
 /graphify .
@@ -134,6 +134,7 @@ for example `graphify claude install --project` or `graphify codex install --pro
 | Gemini CLI | `graphify install --platform gemini` |
 | Hermes | `graphify install --platform hermes` |
 | Kimi Code | `graphify install --platform kimi` |
+| Amp | `graphify amp install` |
 | Kiro IDE/CLI | `graphify kiro install` |
 | Pi coding agent | `graphify install --platform pi` |
 | Cursor | `graphify cursor install` |
@@ -187,6 +188,7 @@ Run this once in your project after building a graph:
 | Gemini CLI | `graphify gemini install` |
 | Hermes | `graphify hermes install` |
 | Kimi Code | `graphify install --platform kimi` |
+| Amp | `graphify amp install` |
 | Kiro IDE/CLI | `graphify kiro install` |
 | Pi coding agent | `graphify pi install` |
 | Devin CLI | `graphify devin install` |
@@ -212,7 +214,7 @@ To remove graphify from all platforms at once: `graphify uninstall` (add `--purg
 
 | Type | Extensions |
 |------|-----------|
-| Code (32 languages) | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .h .hpp .rb .cs .kt .scala .php .swift .lua .luau .zig .ps1 .ex .exs .m .mm .jl .vue .svelte .astro .groovy .gradle .dart .v .sv .sql .f .f90 .f95 .f03 .f08 .pas .pp .dpr .dpk .lpr .inc .dfm .lfm .lpk .sh .bash .json .sln .csproj .fsproj .vbproj .razor .cshtml` |
+| Code (32 languages) | `.py .ts .js .jsx .tsx .mjs .go .rs .java .c .cpp .h .hpp .rb .cs .kt .scala .php .swift .lua .luau .zig .ps1 .ex .exs .m .mm .jl .vue .svelte .astro .groovy .gradle .dart .v .sv .svh .sql .f .f90 .f95 .f03 .f08 .pas .pp .dpr .dpk .lpr .inc .dfm .lfm .lpk .sh .bash .json .sln .csproj .fsproj .vbproj .razor .cshtml` |
 | MCP configs | `.mcp.json` `mcp.json` `mcp_servers.json` `claude_desktop_config.json` — extracts server nodes, package refs, env var requirements |
 | Docs | `.md .mdx .qmd .html .txt .rst .yaml .yml` |
 | Office | `.docx .xlsx` (requires `pip install graphifyy[office]`) |
@@ -459,7 +461,7 @@ graphify hook status
 
 graphify claude install / uninstall
 graphify codex install / uninstall
-graphify opencode install
+graphify opencode install / uninstall
 graphify cursor install / uninstall
 graphify gemini install / uninstall
 graphify copilot install / uninstall
@@ -469,6 +471,7 @@ graphify droid install / uninstall
 graphify trae install / uninstall
 graphify trae-cn install / uninstall
 graphify hermes install / uninstall
+graphify amp install / uninstall
 graphify kiro install / uninstall
 graphify devin install / uninstall
 graphify antigravity install / uninstall
