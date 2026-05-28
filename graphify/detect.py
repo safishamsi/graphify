@@ -1097,7 +1097,7 @@ def save_manifest(
         relativized: dict[str, dict] = {}
         for key, val in manifest.items():
             try:
-                rel = os.path.relpath(key, root)
+                rel = Path(key).relative_to(root).as_posix()
                 if rel.startswith(".."):
                     relativized[key] = val
                 else:
@@ -1151,7 +1151,7 @@ def detect_incremental(
         if Path(key).is_absolute():
             reanchored[key] = val
         else:
-            reanchored[os.path.normpath(os.path.join(root_str, key))] = val
+            reanchored[str(Path(root_str) / key)] = val
     manifest = reanchored
 
     if not manifest:

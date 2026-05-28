@@ -236,7 +236,7 @@ def save_cached(path: Path, result: dict, root: Path = Path("."), kind: str = "a
         sf = node.get("source_file")
         if sf:
             try:
-                rel = os.path.relpath(sf, root_resolved)
+                rel = Path(sf).relative_to(root_resolved).as_posix()
                 if not rel.startswith(".."):
                     node["source_file"] = rel
             except ValueError:
@@ -245,7 +245,7 @@ def save_cached(path: Path, result: dict, root: Path = Path("."), kind: str = "a
         sf = edge.get("source_file")
         if sf:
             try:
-                rel = os.path.relpath(sf, root_resolved)
+                rel = Path(sf).relative_to(root_resolved).as_posix()
                 if not rel.startswith(".."):
                     edge["source_file"] = rel
             except ValueError:
