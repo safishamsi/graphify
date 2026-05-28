@@ -48,7 +48,7 @@ Use it for:
 ## Modular Instructions
 To keep sessions efficient, this skill is modularized. Read the relevant file in this directory before performing a task:
 
-1.  **Build/Extract/Analyze:** Read `build.md` for Step 0 through Step 5B.
+1.  **Build/Extract/Analyze:** Read `build-claw.md` for Step 0 through Step 5B.
 2.  **Query/Navigate/Update:** Read `interact.md` for queries and updates.
 3.  **Export/Obsidian/HTML:** Read `export.md` for Step 6 through Step 9.
 4.  **Rules:** Read `rules.md` for global constraints and honesty rules.
@@ -73,7 +73,7 @@ mkdir -p graphify-out
 "$PYTHON" -c "import sys; open('graphify-out/.graphify_python', 'w').write(sys.executable)"
 ```
 
-Then read **`build.md`** to continue with file detection and extraction.
+Then read **`build-claw.md`** to continue with file detection and extraction.
 
 ## Global Rules
 - Always read `rules.md` before finalizing any report or answering queries.

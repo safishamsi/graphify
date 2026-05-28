@@ -7,16 +7,16 @@ trigger: /graphify
 # /graphify
 
 Turn any folder of files into a navigable knowledge graph with community detection, an honest audit trail, and three outputs: interactive HTML, GraphRAG-ready JSON, and a plain-language GRAPH_REPORT.md.
-
 ## Modular Instructions
 To keep sessions efficient, this skill is modularized. Read the relevant file in this directory before performing a task:
 
-1.  **Build/Extract/Analyze:** Read `build.md` for Step 0 through Step 5B.
+1.  **Build/Extract/Analyze:** Read `build-opencode.md` for Step 0 through Step 5B.
 2.  **Query/Navigate/Update:** Read `interact.md` for queries and updates.
 3.  **Export/Obsidian/HTML:** Read `export.md` for Step 6 through Step 9.
 4.  **Rules:** Read `rules.md` for global constraints and honesty rules.
 
 ## Quick Start: Build Pipeline
+If you are building a new graph or updating an existing one, first ensure the environment is set up:
 
 ```bash
 # Find a Python that can import graphify
@@ -36,7 +36,8 @@ mkdir -p graphify-out
 echo "$PYTHON" > graphify-out/.graphify_python
 ```
 
-Then read **`build.md`** to continue with file detection and extraction.
+Then read **`build-opencode.md`** to continue with file detection and extraction.
+
 
 ## Global Rules
 - Always read `rules.md` before finalizing any report or answering queries.

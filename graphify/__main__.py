@@ -388,8 +388,23 @@ def _pyinstall_transform_text(content: str) -> str:
     content = content.replace("from aag.", "from graphify.")
     content = content.replace("import aag", "import graphify")
 
-    # 3. Replace Step 1 interpreter detection block with simple python3
-    step1_pattern = r"### Step 1 - Ensure aag is installed\n\n```bash\n# Detect the correct Python interpreter.*?\n```"
+    # 3. Replace Quick Start interpreter detection block with simple python3
+    quick_start_pattern = r"## Quick Start: Build Pipeline.*?```bash\n# Ensure aag is installed and get python path.*?```"
+    quick_start_replacement = """## Quick Start: Build Pipeline
+If you are building a new graph or updating an existing one, first ensure the environment is set up:
+
+```bash
+# Using python3 directly (pyinstall mode)
+PYTHON=python3
+mkdir -p graphify-out
+echo "$PYTHON" > graphify-out/.aag_python
+# Save scan root so `aag update` (no args) knows where to look next time
+echo "$(cd INPUT_PATH && pwd)" > graphify-out/.aag_root
+```"""
+    content = re.sub(quick_start_pattern, quick_start_replacement, content, flags=re.DOTALL)
+
+    # 3b. Replace Step 1 interpreter detection block with simple python3 (for modular files)
+    step1_pattern = r"### Step 1 - Ensure (?:aag|graphify) is installed\n\n```bash\n# (?:Detect the correct Python interpreter|Find a Python).*?\n```"
     step1_replacement = """### Step 1 - Ensure aag is installed
 
 ```bash
