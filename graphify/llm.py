@@ -194,16 +194,63 @@ def _parse_llm_json(raw: str) -> dict:
             file=sys.stderr,
         )
         return {"nodes": [], "edges": [], "hyperedges": []}
-    if raw.startswith("```"):
-        raw = raw.split("```", 2)[1]
-        if raw.startswith("json"):
-            raw = raw[4:]
-        raw = raw.rsplit("```", 1)[0]
+    # Strategy 1: strip whitespace, then handle markdown fences anywhere in the
+    # text (not only at offset 0 — the original code only stripped fences when
+    # `raw.startswith("```")`, missing the common case where Claude prepends a
+    # preamble like "Here's the extracted entities:\n\n```json\n{...}\n```").
+    stripped = raw.strip()
+    fence_start = stripped.find("```")
+    if fence_start != -1:
+        after_fence = stripped[fence_start + 3 :]
+        # Optional language tag (json, JSON, javascript, etc.) up to newline.
+        nl = after_fence.find("\n")
+        if nl != -1 and after_fence[:nl].strip().lower() in {"json", "javascript", "js", ""}:
+            after_fence = after_fence[nl + 1 :]
+        fence_end = after_fence.rfind("```")
+        if fence_end != -1:
+            stripped = after_fence[:fence_end].strip()
+        else:
+            stripped = after_fence.strip()
     try:
-        return json.loads(raw.strip())
-    except json.JSONDecodeError as exc:
-        print(f"[graphify] LLM returned invalid JSON, skipping chunk: {exc}", file=sys.stderr)
-        return {"nodes": [], "edges": [], "hyperedges": []}
+        return json.loads(stripped)
+    except json.JSONDecodeError:
+        pass
+    # Strategy 2: extract the first balanced JSON object found anywhere in
+    # the text. Handles the case where Claude wraps the JSON in prose without
+    # any markdown fence ("The extracted graph is { ... }. Hope this helps!").
+    start = stripped.find("{")
+    if start != -1:
+        depth = 0
+        in_string = False
+        escape = False
+        for i in range(start, len(stripped)):
+            ch = stripped[i]
+            if escape:
+                escape = False
+                continue
+            if ch == "\\":
+                escape = True
+                continue
+            if ch == '"':
+                in_string = not in_string
+                continue
+            if in_string:
+                continue
+            if ch == "{":
+                depth += 1
+            elif ch == "}":
+                depth -= 1
+                if depth == 0:
+                    try:
+                        return json.loads(stripped[start : i + 1])
+                    except json.JSONDecodeError:
+                        break
+    print(
+        f"[graphify] LLM returned invalid JSON, skipping chunk "
+        f"(first 200 chars: {raw[:200]!r})",
+        file=sys.stderr,
+    )
+    return {"nodes": [], "edges": [], "hyperedges": []}
 
 
 def _response_is_hollow(raw_content: str | None, parsed: dict) -> bool:
@@ -457,7 +504,13 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bo
             "claude", "-p",
             "--output-format", "json",
             "--no-session-persistence",
-            "--append-system-prompt", _extraction_system(deep=deep_mode),
+            # Use --system-prompt (replaces) instead of --append-system-prompt
+            # (adds to Claude Code's default coding-agent prompt). The default
+            # prompt pushes the model towards markdown + prose explanations,
+            # which conflict with graphify's "raw JSON only" instruction and
+            # cause hollow-response retries. Replacing it eliminates the
+            # conflict and dramatically reduces output token usage.
+            "--system-prompt", _extraction_system(deep=deep_mode),
         ],
         input=user_message,
         capture_output=True,
