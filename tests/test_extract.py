@@ -220,7 +220,7 @@ def test_collect_files_from_dir():
 def test_collect_files_skips_hidden():
     files = collect_files(FIXTURES)
     for f in files:
-        assert not any(part.startswith(".") for part in f.parts)
+        assert not any(part.startswith(".") for part in f.relative_to(FIXTURES).parts)
 
 
 def test_collect_files_follows_symlinked_directory(tmp_path):
