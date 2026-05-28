@@ -663,6 +663,30 @@ def to_html(
                 return
             meta_communities = {cid: [str(cid)] for cid in communities}
             mc = {cid: len(members) for cid, members in communities.items()}
+            # Remap hyperedges from semantic node IDs to community IDs
+            raw_hyperedges = G.graph.get("hyperedges", [])
+            if raw_hyperedges:
+                remapped = []
+                for he in raw_hyperedges:
+                    he_members = he.get("nodes") or he.get("members") or []
+                    comm_ids, seen = [], set()
+                    for nid in he_members:
+                        c = node_to_community.get(nid)
+                        if c is None:
+                            continue
+                        s = str(c)
+                        if s in seen:
+                            continue
+                        seen.add(s)
+                        comm_ids.append(s)
+                    if len(comm_ids) < 2:
+                        continue
+                    remapped.append({
+                        "id": he.get("id", ""),
+                        "label": he.get("label") or he.get("relation", "").replace("_", " "),
+                        "nodes": comm_ids,
+                    })
+                meta.graph["hyperedges"] = remapped
             to_html(meta, meta_communities, output_path,
                     community_labels=community_labels, member_counts=mc)
             print(f"graph.html written (aggregated: {meta.number_of_nodes()} community nodes, {meta.number_of_edges()} cross-community edges)")

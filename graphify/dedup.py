@@ -247,6 +247,15 @@ def deduplicate_entities(
                     score += _COMMUNITY_BOOST
 
                 if score >= _MERGE_THRESHOLD:
+                    # Identical labels across different source files almost always
+                    # means same-named-but-different symbols (trait impls, wrapper
+                    # methods, common type names). Mirror Pass 1's source_file
+                    # partition for this sub-case. (#1046, leaks #895's fix)
+                    if norm_label == neighbor_norm:
+                        sf_a = node.get("source_file") or ""
+                        sf_b = neighbor.get("source_file") or ""
+                        if sf_a != sf_b:
+                            continue
                     all_group = norm_to_nodes.get(norm_label, [node]) + \
                                 norm_to_nodes.get(neighbor_norm, [neighbor])
                     winner = _pick_winner(all_group)

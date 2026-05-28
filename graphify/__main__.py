@@ -1495,6 +1495,7 @@ def main() -> None:
         print("  extract <path>          headless full extraction (AST + semantic LLM) for CI/scripts")
         print("    --backend B             gemini|kimi|claude|openai|deepseek|ollama (default: whichever API key is set)")
         print("    --model M               override backend default model")
+        print("    --mode deep             aggressive INFERRED-edge semantic extraction")
         print("    --max-workers N         AST extraction subprocess count (default: cpu_count)")
         print("    --token-budget N        per-chunk token cap for semantic extraction (default: 60000)")
         print("    --max-concurrency N     parallel semantic chunks in flight (default: 4; set 1 for local LLMs)")
@@ -2899,7 +2900,7 @@ def main() -> None:
         if len(sys.argv) < 3:
             print(
                 "Usage: graphify extract <path> [--backend gemini|kimi|claude|openai|deepseek|ollama] "
-                "[--model M] [--out DIR] [--google-workspace] [--no-cluster] "
+                "[--model M] [--mode deep] [--out DIR] [--google-workspace] [--no-cluster] "
                 "[--max-workers N] [--token-budget N] [--max-concurrency N] "
                 "[--api-timeout S]",
                 file=sys.stderr,
@@ -2913,6 +2914,7 @@ def main() -> None:
 
         backend: str | None = None
         model: str | None = None
+        extract_mode: str | None = None
         out_dir: Path | None = None
         no_cluster = False
         dedup_llm = False
@@ -2963,6 +2965,10 @@ def main() -> None:
                 model = args[i + 1]; i += 2
             elif a.startswith("--model="):
                 model = a.split("=", 1)[1]; i += 1
+            elif a == "--mode" and i + 1 < len(args):
+                extract_mode = args[i + 1]; i += 2
+            elif a.startswith("--mode="):
+                extract_mode = a.split("=", 1)[1]; i += 1
             elif a == "--out" and i + 1 < len(args):
                 out_dir = Path(args[i + 1]); i += 2
             elif a.startswith("--out="):
@@ -3007,6 +3013,18 @@ def main() -> None:
                 cli_excludes.append(a.split("=", 1)[1]); i += 1
             else:
                 i += 1
+
+        _VALID_MODES = {"deep"}
+        if extract_mode is not None and extract_mode not in _VALID_MODES:
+            print(
+                f"error: unknown --mode '{extract_mode}'. "
+                f"Available: {', '.join(sorted(_VALID_MODES))}",
+                file=sys.stderr,
+            )
+            sys.exit(2)
+        deep_mode = extract_mode == "deep"
+        if deep_mode:
+            print("[graphify extract] deep mode enabled: richer semantic extraction")
 
         # CLI flag wins over env var. Setting GRAPHIFY_API_TIMEOUT here so
         # _call_openai_compat picks it up without needing a new kwarg path.
@@ -3194,6 +3212,8 @@ def main() -> None:
                     "model": model,
                     "root": target,
                 }
+                if deep_mode:
+                    corpus_kwargs["deep_mode"] = True
                 if cli_token_budget is not None:
                     corpus_kwargs["token_budget"] = cli_token_budget
                 if cli_max_concurrency is not None:

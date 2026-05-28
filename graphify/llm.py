@@ -146,6 +146,21 @@ Output exactly this schema:
 {"nodes":[{"id":"stem_entity","label":"Human Readable Name","file_type":"code|document|paper|image|rationale|concept","source_file":"relative/path","source_location":null,"source_url":null,"captured_at":null,"author":null,"contributor":null}],"edges":[{"source":"node_id","target":"node_id","relation":"calls|implements|references|cites|conceptually_related_to|shares_data_with|semantically_similar_to","confidence":"EXTRACTED|INFERRED|AMBIGUOUS","confidence_score":1.0,"source_file":"relative/path","source_location":null,"weight":1.0}],"hyperedges":[],"input_tokens":0,"output_tokens":0}
 """
 
+_DEEP_EXTRACTION_SUFFIX = """\
+
+DEEP_MODE: include additional INFERRED edges only for concrete architectural
+signals (shared data contracts, explicit lifecycle coupling, or multi-step flow
+dependencies visible in the sources). Avoid broad conceptual similarity edges.
+Mark uncertain ones AMBIGUOUS instead of omitting.
+"""
+
+
+def _extraction_system(*, deep: bool = False) -> str:
+    """Return the semantic-extraction system prompt, optionally in deep mode."""
+    if not deep:
+        return _EXTRACTION_SYSTEM
+    return _EXTRACTION_SYSTEM + _DEEP_EXTRACTION_SUFFIX
+
 
 def _read_files(paths: list[Path], root: Path) -> str:
     """Return file contents formatted for the extraction prompt."""
@@ -259,6 +274,7 @@ def _call_openai_compat(
     max_completion_tokens: int = 8192,
     *,
     backend: str = "",
+    deep_mode: bool = False,
 ) -> dict:
     """Call any OpenAI-compatible API (Kimi, OpenAI, etc.) and return parsed JSON."""
     try:
@@ -288,7 +304,7 @@ def _call_openai_compat(
     kwargs: dict = {
         "model": model,
         "messages": [
-            {"role": "system", "content": _EXTRACTION_SYSTEM},
+            {"role": "system", "content": _extraction_system(deep=deep_mode)},
             {"role": "user", "content": user_message},
         ],
         "max_completion_tokens": max_completion_tokens,
@@ -384,7 +400,7 @@ def _call_openai_compat(
     return result
 
 
-def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 8192) -> dict:
+def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False) -> dict:
     """Call Anthropic Claude directly (not via OpenAI compat layer)."""
     try:
         import anthropic
@@ -398,7 +414,7 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
     resp = client.messages.create(
         model=model,
         max_tokens=max_tokens,
-        system=_EXTRACTION_SYSTEM,
+        system=_extraction_system(deep=deep_mode),
         messages=[{"role": "user", "content": user_message}],
     )
     raw_content = resp.content[0].text if resp.content else None
@@ -420,7 +436,7 @@ def _call_claude(api_key: str, model: str, user_message: str, max_tokens: int = 
     return result
 
 
-def _call_claude_cli(user_message: str, max_tokens: int = 8192) -> dict:
+def _call_claude_cli(user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False) -> dict:
     """Call Claude via the locally-installed Claude Code CLI (`claude -p`).
 
     Routes through the user's Claude Code subscription auth instead of a separate
@@ -441,7 +457,7 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192) -> dict:
             "claude", "-p",
             "--output-format", "json",
             "--no-session-persistence",
-            "--append-system-prompt", _EXTRACTION_SYSTEM,
+            "--append-system-prompt", _extraction_system(deep=deep_mode),
         ],
         input=user_message,
         capture_output=True,
@@ -486,7 +502,7 @@ def _call_claude_cli(user_message: str, max_tokens: int = 8192) -> dict:
     return result
 
 
-def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192) -> dict:
+def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192, *, deep_mode: bool = False) -> dict:
     """Call AWS Bedrock via boto3 Converse API using the standard AWS credential chain."""
     try:
         import boto3
@@ -504,7 +520,7 @@ def _call_bedrock(model: str, user_message: str, max_tokens: int = 8192) -> dict
     try:
         resp = client.converse(
             modelId=model,
-            system=[{"text": _EXTRACTION_SYSTEM}],
+            system=[{"text": _extraction_system(deep=deep_mode)}],
             messages=[{"role": "user", "content": [{"text": user_message}]}],
             inferenceConfig={"maxTokens": max_tokens, "temperature": 0},
         )
@@ -536,6 +552,8 @@ def extract_files_direct(
     api_key: str | None = None,
     model: str | None = None,
     root: Path = Path("."),
+    *,
+    deep_mode: bool = False,
 ) -> dict:
     """Extract semantic nodes/edges from a list of files using the given backend.
 
@@ -570,11 +588,11 @@ def extract_files_direct(
     max_out = _resolve_max_tokens(cfg.get("max_tokens", 8192))
 
     if backend == "claude":
-        return _call_claude(key, mdl, user_msg, max_tokens=max_out)
+        return _call_claude(key, mdl, user_msg, max_tokens=max_out, deep_mode=deep_mode)
     if backend == "claude-cli":
-        return _call_claude_cli(user_msg, max_tokens=max_out)
+        return _call_claude_cli(user_msg, max_tokens=max_out, deep_mode=deep_mode)
     if backend == "bedrock":
-        return _call_bedrock(mdl, user_msg, max_tokens=max_out)
+        return _call_bedrock(mdl, user_msg, max_tokens=max_out, deep_mode=deep_mode)
     return _call_openai_compat(
         cfg["base_url"],
         key,
@@ -584,6 +602,7 @@ def extract_files_direct(
         reasoning_effort=cfg.get("reasoning_effort"),
         max_completion_tokens=_resolve_max_tokens(cfg.get("max_completion_tokens", 8192)),
         backend=backend,
+        deep_mode=deep_mode,
     )
 
 
@@ -688,6 +707,8 @@ def _extract_with_adaptive_retry(
     root: Path,
     max_depth: int,
     _depth: int = 0,
+    *,
+    deep_mode: bool = False,
 ) -> dict:
     """Extract a chunk; if the response is truncated (`finish_reason="length"`)
     or the API rejects the prompt as too large for the model's context window,
@@ -722,7 +743,7 @@ def _extract_with_adaptive_retry(
     """
     try:
         result = extract_files_direct(
-            chunk, backend=backend, api_key=api_key, model=model, root=root
+            chunk, backend=backend, api_key=api_key, model=model, root=root, deep_mode=deep_mode
         )
     except Exception as exc:  # noqa: BLE001 — re-raise unless it's a known context overflow
         if not _looks_like_context_exceeded(exc):
@@ -748,10 +769,10 @@ def _extract_with_adaptive_retry(
         )
         mid = len(chunk) // 2
         left = _extract_with_adaptive_retry(
-            chunk[:mid], backend, api_key, model, root, max_depth, _depth + 1
+            chunk[:mid], backend, api_key, model, root, max_depth, _depth + 1, deep_mode=deep_mode
         )
         right = _extract_with_adaptive_retry(
-            chunk[mid:], backend, api_key, model, root, max_depth, _depth + 1
+            chunk[mid:], backend, api_key, model, root, max_depth, _depth + 1, deep_mode=deep_mode
         )
         return {
             "nodes": left.get("nodes", []) + right.get("nodes", []),
@@ -790,10 +811,10 @@ def _extract_with_adaptive_retry(
     )
     mid = len(chunk) // 2
     left = _extract_with_adaptive_retry(
-        chunk[:mid], backend, api_key, model, root, max_depth, _depth + 1
+        chunk[:mid], backend, api_key, model, root, max_depth, _depth + 1, deep_mode=deep_mode
     )
     right = _extract_with_adaptive_retry(
-        chunk[mid:], backend, api_key, model, root, max_depth, _depth + 1
+        chunk[mid:], backend, api_key, model, root, max_depth, _depth + 1, deep_mode=deep_mode
     )
 
     return {
@@ -821,6 +842,7 @@ def extract_corpus_parallel(
     token_budget: int | None = 60_000,
     max_concurrency: int = 4,
     max_retry_depth: int = 3,
+    deep_mode: bool = False,
 ) -> dict:
     """Extract a corpus in chunks, merging results.
 
@@ -878,6 +900,7 @@ def extract_corpus_parallel(
                 model=model,
                 root=root,
                 max_depth=max_retry_depth,
+                deep_mode=deep_mode,
             )
             result["elapsed_seconds"] = round(time.time() - t0, 2)
             return idx, result, None
