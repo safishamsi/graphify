@@ -7345,6 +7345,56 @@ def extract_elixir(path: Path) -> dict:
     return {"nodes": nodes, "edges": clean_edges, "raw_calls": raw_calls, "input_tokens": 0, "output_tokens": 0}
 
 
+def _resolve_markdown_link(raw_target: str, source_path: Path) -> Path | None:
+    """Resolve a markdown link target to an existing file path in the corpus.
+
+    Handles relative paths, anchors, and extensionless references.
+    Returns None for external URLs or unresolvable paths.
+    """
+    target = raw_target.strip()
+    if not target or target.startswith(("http://", "https://", "mailto:", "#", "ftp://")):
+        return None
+    anchor_idx = target.find("#")
+    if anchor_idx > 0:
+        target = target[:anchor_idx]
+    if not target:
+        return None
+    resolved = (source_path.parent / target).resolve()
+    if resolved.exists() and resolved.is_file():
+        return resolved
+    for ext in (".md", ".mdx", ".qmd", ".html", ".txt"):
+        candidate = resolved.with_suffix(ext)
+        if candidate.exists():
+            return candidate
+    if resolved.suffix:
+        return None
+    for ext in (".md", ".mdx", ".qmd", ".html", ".txt"):
+        candidate = (source_path.parent / (target + ext)).resolve()
+        if candidate.exists():
+            return candidate
+    return None
+
+
+def _resolve_markdown_wikilink(page_name: str, source_path: Path) -> Path | None:
+    """Resolve a [[wikilink]] to an existing .md file.
+
+    Wikilinks use the page name as the filename (e.g. [[API Reference]] →
+    ``API Reference.md``). Searches the source file's directory and
+    subdirectories.
+    """
+    name = page_name.strip()
+    if not name:
+        return None
+    for ext in (".md", ".mdx", ".qmd"):
+        candidate = (source_path.parent / f"{name}{ext}").resolve()
+        if candidate.exists():
+            return candidate
+    for ext in (".md", ".mdx", ".qmd"):
+        for candidate in sorted(source_path.parent.rglob(f"{name}{ext}")):
+            return candidate.resolve()
+    return None
+
+
 def extract_markdown(path: Path) -> dict:
     """Extract structural nodes and edges from a Markdown file.
 
@@ -7415,6 +7465,7 @@ def extract_markdown(path: Path) -> dict:
                 snippet = "\n".join(code_block_lines[:3])  # first 3 lines as preview
                 label = f"code:{code_block_lang}" if code_block_lang else f"code:block{code_block_count}"
                 if snippet:
+
                     # Use first meaningful line as label hint
                     first_line = code_block_lines[0].strip()[:60] if code_block_lines else ""
                     if first_line:
@@ -7451,6 +7502,26 @@ def extract_markdown(path: Path) -> dict:
 
             heading_stack.append((level, h_nid))
             continue
+
+    # Extract markdown links [text](path) and [[wikilinks]] as first-class edges
+    link_re = re.compile(r'\[([^\]]*)\]\(([^\)]+)\)')
+    wikilink_re = re.compile(r'\[\[([^\]]+)\]\]')
+    for line_num_0, line_text in enumerate(lines):
+        line_num = line_num_0 + 1
+        for match in link_re.finditer(line_text):
+            link_text, raw_target = match.groups()
+            target = _resolve_markdown_link(raw_target, path)
+            if target is not None:
+                target_nid = _file_node_id(target)
+                add_edge(file_nid, target_nid, "links_to", line_num, weight=1.0,
+                         context=link_text.strip()[:200])
+        for match in wikilink_re.finditer(line_text):
+            page_name = match.group(1)
+            target = _resolve_markdown_wikilink(page_name, path)
+            if target is not None:
+                target_nid = _file_node_id(target)
+                add_edge(file_nid, target_nid, "links_to", line_num, weight=1.0,
+                         context=page_name.strip()[:200])
 
     return {"nodes": nodes, "edges": edges, "input_tokens": 0, "output_tokens": 0}
 
