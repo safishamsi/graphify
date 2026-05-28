@@ -1969,7 +1969,13 @@ def _extract_generic(path: Path, config: LanguageConfig) -> dict:
             return {"nodes": [], "edges": [], "error": f"No language function in {config.ts_module}"}
         language = Language(lang_fn())
     except ImportError:
-        return {"nodes": [], "edges": [], "error": f"{config.ts_module} not installed"}
+        msg = f"{config.ts_module} not installed"
+        if config.ts_module == "tree_sitter_rescript":
+            msg += (
+                ". ReScript is opt-in (no PyPI release). "
+                'Install via: pip install "graphifyy[rescript]"'
+            )
+        return {"nodes": [], "edges": [], "error": msg}
     except TypeError as e:
         # tree-sitter version mismatch: old Language() expects (lib_path),
         # new Language() expects (language_capsule, name). Surface a hint

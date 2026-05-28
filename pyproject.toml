@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68", "wheel"]
+requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -64,6 +64,7 @@ gemini = ["openai", "tiktoken"]
 openai = ["openai", "tiktoken"]
 chinese = ["jieba"]
 sql = ["tree-sitter-sql"]
+rescript = ["tree-sitter-rescript @ git+https://github.com/rescript-lang/tree-sitter-rescript.git@v6.0.0"]
 all = ["mcp", "neo4j", "pypdf", "markdownify", "watchdog", "graspologic; python_version < '3.13'", "python-docx", "openpyxl", "faster-whisper", "yt-dlp", "matplotlib", "openai", "tiktoken", "boto3", "tree-sitter-sql", "jieba"]
 
 [project.scripts]
@@ -93,16 +94,11 @@ dev = [
 package = true
 
 [tool.setuptools]
-packages = [
-    "graphify",
-    "graphify._vendor",
-    "graphify._vendor.tree_sitter_rescript",
-]
+packages = ["graphify"]
 include-package-data = false
 
 [tool.setuptools.package-data]
 graphify = ["skill.md", "skill-codex.md", "skill-opencode.md", "skill-aider.md", "skill-copilot.md", "skill-claw.md", "skill-windows.md", "skill-droid.md", "skill-trae.md", "skill-kiro.md", "skill-vscode.md", "skill-pi.md", "skill-devin.md"]
-"graphify._vendor.tree_sitter_rescript" = ["LICENSE", "*.pyi", "py.typed", "src/*.json", "src/tree_sitter/*.h"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

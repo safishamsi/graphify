@@ -1135,13 +1135,13 @@ def test_razor_no_dangling_edges():
 
 
 def test_rescript_no_error():
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     assert "error" not in r
 
 
 def test_rescript_finds_type():
     """Polyvariant, variant, alias, and record types all emit Type nodes."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     labels = _labels(r)
     assert "theme" in labels       # polyvariant
     assert "direction" in labels   # variant
@@ -1152,7 +1152,7 @@ def test_rescript_finds_type():
 def test_rescript_finds_value_let():
     """Plain value lets are bare labels (no parens). Covers number, array,
     record, tuple-destructure, record-destructure, and annotated value lets."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     labels = _labels(r)
     assert "allThemes" in labels      # array literal
     assert "origin" in labels         # record literal
@@ -1166,7 +1166,7 @@ def test_rescript_finds_value_let():
 def test_rescript_finds_function_let():
     """Function lets carry the `name()` label shape. Covers simple, typed,
     intra-file-call-bearing, qualified-call-bearing, and pipe-bearing fns."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     labels = _labels(r)
     assert "identity()" in labels
     assert "move()" in labels          # typed params + return
@@ -1178,7 +1178,7 @@ def test_rescript_finds_function_let():
 def test_rescript_finds_externals():
     """`external f: T => U = "js"` → Function node `f()`; `external v: T = "js"`
     → Variable node `v` (callable discrimination on annotation type)."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     labels = _labels(r)
     assert "alert()" in labels   # function_type annotation
     assert "pi" in labels        # plain type annotation
@@ -1186,7 +1186,7 @@ def test_rescript_finds_externals():
 
 
 def test_rescript_finds_module():
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     assert "Internal" in _labels(r)
 
 
@@ -1194,7 +1194,7 @@ def test_rescript_finds_module_members():
     """Members of `module Internal` attach to Internal with the right
     label shapes: types and value lets are bare, function lets are
     `.name()` (method shape)."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     labels = _labels(r)
     assert "cached" in labels           # nested type
     assert "defaultCache" in labels     # nested value
@@ -1204,13 +1204,13 @@ def test_rescript_finds_module_members():
 def test_rescript_intra_file_call_edge():
     """`let pair = (a, b) => identity(b)` produces a `calls` edge from
     `pair()` to the local `identity()` function."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     calls = _calls(r)
     assert ("pair()", "identity()") in calls
 
 
 def test_rescript_call_edges_have_call_context():
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     call_edges = _edges_with_relation(r, "calls")
     assert call_edges
     assert all(e.get("context") == "call" for e in call_edges)
@@ -1220,7 +1220,7 @@ def test_rescript_call_edges_have_extracted_confidence():
     """Intra-file calls (caller and callee both in this file) are
     EXTRACTED, not INFERRED. INFERRED is reserved for cross-file
     resolution in the multi-file `extract()` pass."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     call_edges = _edges_with_relation(r, "calls")
     assert call_edges
     assert all(e.get("confidence") == "EXTRACTED" for e in call_edges), \
@@ -1232,7 +1232,7 @@ def test_rescript_sample_no_bare_type_references():
     bare `type_identifier`s, not `type_identifier_path`s, so they emit
     no `references_type` edges. The only references_type targets should
     be qualified module paths."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     type_ref_targets = {
         e["target"] for e in r["edges"]
         if e["relation"] == "references_type"
@@ -1247,7 +1247,7 @@ def test_rescript_sample_references_type_multiplicity():
     `Animal.point` twice — once in the parameter annotation, once in the
     return type annotation. The extractor preserves both emissions
     (downstream build-step dedup is a separate concern)."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     nb = {n["id"]: n["label"] for n in r["nodes"]}
     move_to_point = [
         e for e in r["edges"]
@@ -1266,7 +1266,7 @@ def test_rescript_sample_node_labels_complete():
     the canonical fixture. A drift (extractor adds or drops a node) will
     surface here as a test failure, forcing an explicit review of the
     behaviour change. Pair with `test_rescript_sample_edge_summary_complete`."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     actual = {n["label"] for n in r["nodes"]}
     expected = {
         "sample.res",
@@ -1295,7 +1295,7 @@ def test_rescript_sample_edge_summary_complete():
     and return type both naming `Animal.point` on `move()`) collapse
     here; the multiplicity is checked by
     `test_rescript_sample_references_type_multiplicity`."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     nb = {n["id"]: n["label"] for n in r["nodes"]}
     actual = {
         (e["relation"], nb.get(e["source"], e["source"]),
@@ -1349,6 +1349,7 @@ def test_rescript_open_emits_import_edge(tmp_path):
     """`open Foo` in one file produces an `imports` edge from the caller
     file to the `Foo` module. Cross-file scenario tested via `tmp_path`
     (matches the test_cross_file_call_* convention in test_extract.py)."""
+    _rescript_skip_if_unavailable()
     lib = tmp_path / "lib.res"
     lib.write_text("let helper = (x) => x + 1\n")
     caller = tmp_path / "caller.res"
@@ -1366,6 +1367,7 @@ def test_rescript_open_emits_import_edge(tmp_path):
 def test_rescript_caller_finds_local_functions(tmp_path):
     """A caller file with its own let-functions emits those as nodes
     regardless of whether the imported module is in scope."""
+    _rescript_skip_if_unavailable()
     caller = tmp_path / "caller.res"
     caller.write_text(
         "open Lib\n"
@@ -1384,7 +1386,7 @@ def test_rescript_no_dangling_source_edges():
     cleanup with the expectation that the multi-file resolver will
     rewrite them later: `imports`, `imports_from`, `re_exports`, and
     `references_type`."""
-    r = extract_rescript(FIXTURES / "sample.res")
+    r = _extract_rescript_or_skip(FIXTURES / "sample.res")
     node_ids = {n["id"] for n in r["nodes"]}
     phantom_target_allowed = {
         "imports", "imports_from", "re_exports", "references_type",
@@ -1397,8 +1399,22 @@ def test_rescript_no_dangling_source_edges():
             )
 
 
+# ReScript extraction is opt-in via the `[rescript]` extra (no PyPI release
+# of `tree-sitter-rescript`; the extra installs it from upstream's git).
+# When the extra isn't installed, skip the per-language tests — same
+# pattern as `_extract_sql_or_skip` in test_multilang.py.
+def _rescript_skip_if_unavailable():
+    pytest.importorskip("tree_sitter_rescript")
+
+
+def _extract_rescript_or_skip(path):
+    _rescript_skip_if_unavailable()
+    return extract_rescript(path)
+
+
 # Helper: write a small .res snippet to a tmp file, extract, return result.
 def _extract_rescript_snippet(tmp_path, src):
+    _rescript_skip_if_unavailable()
     p = tmp_path / "Sample.res"
     p.write_text(src)
     return extract_rescript(p)
@@ -1487,6 +1503,7 @@ def test_rescript_resi_signature_function_emits_function_node(tmp_path):
     # `.resi` interface files have signature-only let bindings (no body, just
     # a type annotation). Those whose annotated type is a function_type
     # should emit Function nodes; others should emit Variable nodes.
+    _rescript_skip_if_unavailable()
     p = tmp_path / "Sample.resi"
     p.write_text(
         "let getFoo: (~base: int) => int\n"
@@ -1608,6 +1625,7 @@ def test_rescript_self_reference_uses_extracted_confidence(tmp_path):
     bare stem (e.g. `Animal.species` from inside `Animal.res`) is a
     self-reference and gets EXTRACTED confidence; cross-file references
     stay INFERRED until the multi-file extract() resolver runs."""
+    _rescript_skip_if_unavailable()
     p = tmp_path / "Animal.res"
     p.write_text("type wrapper = Animal.species\n")
     r = extract_rescript(p)
@@ -1623,6 +1641,7 @@ def test_rescript_cross_file_type_ref_resolves_to_real_node():
     """End-to-end: a `references_type` edge whose target file is in the
     same scan should be rewritten by `extract()`'s cross-file resolver
     so it points at the real node id (not the bare-module phantom)."""
+    _rescript_skip_if_unavailable()
     import tempfile
     from graphify.extract import extract
     with tempfile.TemporaryDirectory() as tmp:
